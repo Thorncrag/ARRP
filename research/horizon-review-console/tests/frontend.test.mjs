@@ -397,8 +397,22 @@ test("independent cloud-health and host-status payloads validate", () => {
     chain_id: "arrp-20260726T064933Z",
     host_status: "failed",
     host_updated_at: "2026-07-26T08:43:00Z",
-    stage: "elim-isolated-checkout"
+    stage: "elim-isolated-checkout",
+    host_closeout: {
+      outcome: "completed",
+      commit: "a".repeat(40),
+      validated_at: "2026-07-26T08:42:00Z"
+    }
   }).valid, true);
+  assert.equal(api.validateLivePayload("host-status", {
+    schema_version: 1,
+    projection_kind: "host-run-status",
+    chain_id: "arrp-20260726T064933Z",
+    host_status: "completed",
+    host_updated_at: "2026-07-26T08:43:00Z",
+    stage: "elim-closeout",
+    host_closeout: { commit: "short" }
+  }).valid, false);
   assert.equal(api.validateLivePayload("host-status", {
     schema_version: 1,
     projection_kind: "host-run-status",

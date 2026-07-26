@@ -494,6 +494,13 @@
       if (payload.host_action_items !== undefined && !Array.isArray(payload.host_action_items)) {
         errors.push("Host-status action items must be an array.");
       }
+      if (payload.host_closeout !== undefined) {
+        if (!payload.host_closeout || typeof payload.host_closeout !== "object" || Array.isArray(payload.host_closeout)) {
+          errors.push("Host-status closeout must be an object.");
+        } else if (!/^[0-9a-f]{40}$/.test(String(payload.host_closeout.commit || ""))) {
+          errors.push("Host-status closeout commit is invalid.");
+        }
+      }
     } else if (kind === "automation-health") {
       if (payload.projection_kind !== "cloud-automation-health") errors.push("Automation-health projection kind is invalid.");
       if (!String(payload.chain_id || "")) errors.push("Automation-health chain identity is required.");

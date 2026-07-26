@@ -108,7 +108,8 @@ class AgentAutomationTechnicalSpecTests(unittest.TestCase):
             text,
         )
         self.assertIn(
-            "automatically commits and fast-forward pushes ordinary uncommitted paths",
+            "preserves ordinary uncommitted paths through an exact-base checked "
+            "pull request and squash merge",
             text,
         )
 
@@ -155,7 +156,8 @@ class AgentAutomationTechnicalSpecTests(unittest.TestCase):
                 content,
             )
             self.assertIn(
-                "automatically commits and fast-forward pushes ordinary uncommitted paths",
+                "preserves ordinary uncommitted paths through an exact-base checked "
+                "pull request and squash merge",
                 normalized_content,
             )
             self.assertIn(

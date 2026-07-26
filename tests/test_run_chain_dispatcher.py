@@ -237,6 +237,9 @@ class RunChainDispatcherTests(unittest.TestCase):
         self.assertIn("Do not run repository Git mutations", prompt)
         self.assertIn("Authorized GitHub Issue, Project", prompt)
         self.assertIn("Leave commit null", prompt)
+        for field in MODULE.ELIM_RUN_REPORT_FIELD_ORDER:
+            self.assertIn(field, prompt)
+        self.assertIn("synonyms and aliases do not satisfy", prompt)
 
     def test_prompt_confines_bot_failure_to_repair_only(self):
         payload = {
@@ -311,7 +314,13 @@ class RunChainDispatcherTests(unittest.TestCase):
         config = json.loads(
             (ROOT / ".github" / "run-coordinator-bot.json").read_text()
         )
-        for key in ("pythonPath", "gitPath", "githubCliPath", "codexPath"):
+        for key in (
+            "pythonPath",
+            "gitPath",
+            "xattrPath",
+            "githubCliPath",
+            "codexPath",
+        ):
             self.assertTrue(Path(config["hostDispatcher"][key]).is_absolute())
         profiles = config["llmRouting"]["profiles"]
         self.assertEqual(profiles["read-heavy-triage"]["model"], "gpt-5.6-terra")
@@ -320,6 +329,10 @@ class RunChainDispatcherTests(unittest.TestCase):
         self.assertEqual(config["usage"]["monitorIntervalSeconds"], 60)
         self.assertEqual(config["usage"]["snapshotMaxAgeSeconds"], 120)
         self.assertEqual(config["hostDispatcher"]["staleLockSeconds"], 900)
+        self.assertEqual(
+            config["hostDispatcher"]["repositoryPath"],
+            "/Users/benjaminsmith/Projects/ARRP",
+        )
         self.assertEqual(config["gapStewardship"], MODULE.GAP_STEWARDSHIP_POLICY)
         self.assertEqual(
             config["governanceDiscovery"]["ordinarySelectionPolicy"],
@@ -342,6 +355,46 @@ class RunChainDispatcherTests(unittest.TestCase):
             config["automationHealthProjection"],
             MODULE.AUTOMATION_HEALTH_PROJECTION_POLICY,
         )
+        for relative in (
+            ".github/launchd/com.thorncrag.arrp-run-coordinator.plist.example",
+            ".github/launchd/com.thorncrag.arrp-run-coordinator-control.plist.example",
+        ):
+            body = (ROOT / relative).read_text(encoding="utf-8")
+            self.assertIn("/Users/benjaminsmith/Projects/ARRP", body)
+            self.assertNotIn("/Users/benjaminsmith/Documents/ARRP", body)
+
+    def test_file_provider_workspace_is_rejected_before_git_preflight(self):
+        repo = Path("/Users/test/Documents/ARRP")
+
+        def domain(path):
+            return "domain-id" if path == repo.parent else None
+
+        with mock.patch.object(
+            MODULE,
+            "read_file_provider_domain",
+            side_effect=domain,
+        ):
+            self.assertEqual(
+                MODULE.file_provider_managed_ancestor(repo),
+                repo.parent,
+            )
+        with (
+            mock.patch.object(
+                MODULE,
+                "file_provider_managed_ancestor",
+                return_value=repo.parent,
+            ),
+            mock.patch.object(MODULE, "command") as command_mock,
+        ):
+            with self.assertRaisesRegex(
+                RuntimeError,
+                "inside a macOS File Provider domain",
+            ):
+                MODULE.verify_canonical_runtime_boundary(
+                    "/usr/bin/git",
+                    repo,
+                )
+        command_mock.assert_not_called()
 
     def test_git_metadata_hygiene_detects_finder_style_duplicate_refs_and_indexes(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -979,6 +1032,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                 MODULE.subprocess.CompletedProcess([], 0, stdout=original + "\n", stderr=""),
                 MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
                 MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
+                MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
                 MODULE.subprocess.CompletedProcess(
                     [], 0, stdout="areas/FACT/README.md\n", stderr=""
                 ),
@@ -987,7 +1041,6 @@ class RunChainDispatcherTests(unittest.TestCase):
                 MODULE.subprocess.CompletedProcess([], 0, stdout=committed + "\n", stderr=""),
                 MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
                 MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
-                MODULE.subprocess.CompletedProcess([], 0, stdout=committed + "\n", stderr=""),
                 MODULE.subprocess.CompletedProcess([], 0, stdout="", stderr=""),
             ]
             for _relative in MODULE.AUTOMATION_RUNTIME_PATHS:
@@ -1001,19 +1054,36 @@ class RunChainDispatcherTests(unittest.TestCase):
                         ),
                     ]
                 )
-            with mock.patch.object(
-                MODULE,
-                "command",
-                side_effect=responses,
-            ) as invoked:
+            with (
+                mock.patch.object(
+                    MODULE,
+                    "command",
+                    side_effect=responses,
+                ) as invoked,
+                mock.patch.object(
+                    MODULE,
+                    "publish_checked_pull_request",
+                    return_value=(
+                        committed,
+                        ["Checked pull request merged and read back."],
+                        "https://github.com/Thorncrag/ARRP/pull/1",
+                    ),
+                ) as published,
+            ):
                 revision, workspace_commit = (
                     MODULE.verify_canonical_runtime_boundary("/usr/bin/git", repo)
                 )
             self.assertEqual((revision, workspace_commit), (committed, committed))
             argument_vectors = [call.args[0] for call in invoked.mock_calls]
             self.assertIn(["/usr/bin/git", "add", "-A"], argument_vectors)
+            published.assert_called_once()
             self.assertIn(
-                ["/usr/bin/git", "push", "origin", "main:main"],
+                [
+                    "/usr/bin/git",
+                    "merge",
+                    "--ff-only",
+                    "refs/remotes/origin/main",
+                ],
                 argument_vectors,
             )
             self.assertTrue(
@@ -1070,10 +1140,27 @@ class RunChainDispatcherTests(unittest.TestCase):
             original = run(["rev-parse", "HEAD"], cwd=repo).stdout.strip()
             readme.write_text("preserved\n", encoding="utf-8")
 
-            with mock.patch.object(
-                MODULE,
-                "APPROVED_ORIGIN_URLS",
-                frozenset({str(remote)}),
+            def publish_locally(**kwargs):
+                commit = kwargs["commit"]
+                run(["push", "origin", f"{commit}:refs/heads/main"], cwd=repo)
+                run(["fetch", "--no-tags", "origin", "main"], cwd=repo)
+                return (
+                    commit,
+                    ["Test-only checked publication substitute."],
+                    "https://github.com/Thorncrag/ARRP/pull/1",
+                )
+
+            with (
+                mock.patch.object(
+                    MODULE,
+                    "APPROVED_ORIGIN_URLS",
+                    frozenset({str(remote)}),
+                ),
+                mock.patch.object(
+                    MODULE,
+                    "publish_checked_pull_request",
+                    side_effect=publish_locally,
+                ),
             ):
                 revision, workspace_commit = (
                     MODULE.verify_canonical_runtime_boundary("/usr/bin/git", repo)
@@ -1094,6 +1181,117 @@ class RunChainDispatcherTests(unittest.TestCase):
             self.assertIn(
                 "Preserve local ARRP changes before automated run",
                 run(["log", "-1", "--pretty=%s"], cwd=repo).stdout,
+            )
+
+    def test_runtime_preflight_resumes_a_prepared_workspace_commit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            remote = root / "origin.git"
+            repo = root / "repo"
+
+            def run(arguments, *, cwd):
+                return MODULE.subprocess.run(
+                    ["/usr/bin/git", *arguments],
+                    cwd=cwd,
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                )
+
+            run(["init", "--bare", str(remote)], cwd=root)
+            repo.mkdir()
+            run(["init", "-b", "main"], cwd=repo)
+            for relative in MODULE.AUTOMATION_RUNTIME_PATHS:
+                path = repo / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(relative + "\n", encoding="utf-8")
+            readme = repo / "README.md"
+            readme.write_text("baseline\n", encoding="utf-8")
+            run(["add", "-A"], cwd=repo)
+            run(
+                [
+                    "-c",
+                    "user.name=Test User",
+                    "-c",
+                    "user.email=test@example.com",
+                    "commit",
+                    "-m",
+                    "Baseline",
+                ],
+                cwd=repo,
+            )
+            run(["remote", "add", "origin", str(remote)], cwd=repo)
+            run(["push", "-u", "origin", "main"], cwd=repo)
+            baseline = run(["rev-parse", "HEAD"], cwd=repo).stdout.strip()
+            readme.write_text("preserved\n", encoding="utf-8")
+
+            def publish_locally(**kwargs):
+                commit = kwargs["commit"]
+                run(["push", "origin", f"{commit}:refs/heads/main"], cwd=repo)
+                run(["fetch", "--no-tags", "origin", "main"], cwd=repo)
+                return (
+                    commit,
+                    ["Test-only checked publication substitute."],
+                    "https://github.com/Thorncrag/ARRP/pull/1",
+                )
+
+            with mock.patch.object(
+                MODULE,
+                "APPROVED_ORIGIN_URLS",
+                frozenset({str(remote)}),
+            ):
+                with mock.patch.object(
+                    MODULE,
+                    "publish_checked_pull_request",
+                    side_effect=RuntimeError("transient publication failure"),
+                ):
+                    with self.assertRaisesRegex(
+                        RuntimeError,
+                        "transient publication failure",
+                    ):
+                        MODULE.verify_canonical_runtime_boundary(
+                            "/usr/bin/git",
+                            repo,
+                        )
+                prepared_branch = run(
+                    ["branch", "--show-current"],
+                    cwd=repo,
+                ).stdout.strip()
+                prepared_commit = run(
+                    ["rev-parse", "HEAD"],
+                    cwd=repo,
+                ).stdout.strip()
+                self.assertRegex(
+                    prepared_branch,
+                    r"^codex/host-workspace-\d{8}T\d{6}Z-[0-9a-f]{12}$",
+                )
+                self.assertEqual(
+                    run(["rev-parse", f"{prepared_commit}^"], cwd=repo)
+                    .stdout.strip(),
+                    baseline,
+                )
+                with mock.patch.object(
+                    MODULE,
+                    "publish_checked_pull_request",
+                    side_effect=publish_locally,
+                ):
+                    revision, workspace_commit = (
+                        MODULE.verify_canonical_runtime_boundary(
+                            "/usr/bin/git",
+                            repo,
+                        )
+                    )
+
+            self.assertEqual((revision, workspace_commit), (prepared_commit,) * 2)
+            self.assertEqual(
+                run(["branch", "--show-current"], cwd=repo).stdout.strip(),
+                "main",
+            )
+            self.assertEqual(run(["status", "--porcelain"], cwd=repo).stdout, "")
+            self.assertEqual(
+                run(["rev-parse", "refs/remotes/origin/main"], cwd=repo)
+                .stdout.strip(),
+                prepared_commit,
             )
 
     def test_runtime_preflight_blocks_automation_file_drift(self):
@@ -3030,7 +3228,17 @@ class RunChainDispatcherTests(unittest.TestCase):
             message="checkout baseline unavailable",
             next_action="Repair the verified checkout boundary.",
             exit_code=1,
+            payload={
+                "host_closeout": {
+                    "outcome": "completed",
+                    "commit": "c" * 40,
+                    "validated_at": "2026-07-26T11:29:48+00:00",
+                    "recovered": True,
+                }
+            },
         )
+        self.assertEqual(projection["result_revision"], "c" * 40)
+        self.assertTrue(projection["host_closeout"]["recovered"])
         completed = MODULE.subprocess.CompletedProcess(
             [], 0, stdout="", stderr=""
         )
@@ -3731,6 +3939,363 @@ class RunChainDispatcherTests(unittest.TestCase):
             self.assertNotIn("elim_thread_id", control)
             self.assertNotIn("elim_thread_checkout", control)
 
+    def test_checked_closeout_pull_request_requires_checks_and_exact_merge(self):
+        baseline = "a" * 40
+        commit = "b" * 40
+        merge_commit = "c" * 40
+        branch = "codex/elim-chain-1"
+        pull_request = "https://github.com/Thorncrag/ARRP/pull/999"
+        open_pr = {
+            "number": 999,
+            "state": "OPEN",
+            "url": pull_request,
+            "headRefName": branch,
+            "headRefOid": commit,
+            "baseRefName": "main",
+            "baseRefOid": baseline,
+            "mergeCommit": None,
+        }
+        merged_pr = {
+            **open_pr,
+            "state": "MERGED",
+            "mergeCommit": {"oid": merge_commit},
+        }
+        remote_readbacks = iter((baseline, merge_commit))
+
+        def run_command(argv, **_kwargs):
+            if argv[1:3] == ["pr", "create"]:
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout=pull_request + "\n", stderr=""
+                )
+            if argv[1:3] == ["pr", "merge"]:
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout="", stderr=""
+                )
+            if argv[1] == "fetch":
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout="", stderr=""
+                )
+            if argv[1:3] == ["rev-parse", "refs/remotes/origin/main"]:
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout=next(remote_readbacks) + "\n", stderr=""
+                )
+            self.fail(f"unexpected command: {argv}")
+
+        with (
+            mock.patch.object(
+                MODULE,
+                "matching_closeout_pull_request",
+                return_value=None,
+            ),
+            mock.patch.object(
+                MODULE,
+                "ensure_host_closeout_branch",
+                return_value=True,
+            ) as pushed,
+            mock.patch.object(
+                MODULE,
+                "read_closeout_pull_request",
+                side_effect=[open_pr, open_pr, merged_pr],
+            ),
+            mock.patch.object(
+                MODULE,
+                "wait_for_closeout_checks",
+                return_value=[
+                    {"name": "CodeQL", "bucket": "pass"},
+                    {"name": "Vercel", "bucket": "pass"},
+                ],
+            ) as waited,
+            mock.patch.object(
+                MODULE,
+                "command",
+                side_effect=run_command,
+            ) as invoked,
+        ):
+            observed_merge, synchronization, observed_pr = (
+                MODULE.publish_checked_pull_request(
+                    git="/usr/bin/git",
+                    gh=MODULE.EXECUTABLES["githubCliPath"],
+                    repo=Path("/tmp"),
+                    repository="Thorncrag/ARRP",
+                    branch=branch,
+                    commit=commit,
+                    baseline_commit=baseline,
+                    title="Checked closeout",
+                    body="Exact tested boundary.",
+                )
+            )
+
+        self.assertEqual(observed_merge, merge_commit)
+        self.assertEqual(observed_pr, pull_request)
+        self.assertTrue(any("2 checks" in row for row in synchronization))
+        pushed.assert_called_once()
+        waited.assert_called_once()
+        commands = [call.args[0] for call in invoked.mock_calls]
+        merge_commands = [
+            argv for argv in commands if argv[1:3] == ["pr", "merge"]
+        ]
+        self.assertEqual(len(merge_commands), 1)
+        self.assertIn("--match-head-commit", merge_commands[0])
+        self.assertNotIn("refs/heads/main", " ".join(" ".join(row) for row in commands))
+
+    def test_merged_closeout_pull_request_still_revalidates_checks(self):
+        baseline = "a" * 40
+        commit = "b" * 40
+        merge_commit = "c" * 40
+        branch = "codex/elim-chain-1"
+        pull_request = "https://github.com/Thorncrag/ARRP/pull/999"
+        merged_pr = {
+            "number": 999,
+            "state": "MERGED",
+            "url": pull_request,
+            "headRefName": branch,
+            "headRefOid": commit,
+            "baseRefName": "main",
+            "baseRefOid": baseline,
+            "mergeCommit": {"oid": merge_commit},
+        }
+
+        def run_command(argv, **_kwargs):
+            if argv[1] == "fetch":
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout="", stderr=""
+                )
+            if argv[1:3] == ["rev-parse", "refs/remotes/origin/main"]:
+                return MODULE.subprocess.CompletedProcess(
+                    argv, 0, stdout=merge_commit + "\n", stderr=""
+                )
+            self.fail(f"unexpected command: {argv}")
+
+        with (
+            mock.patch.object(
+                MODULE,
+                "matching_closeout_pull_request",
+                return_value=merged_pr,
+            ),
+            mock.patch.object(
+                MODULE,
+                "wait_for_closeout_checks",
+                return_value=[{"name": "CodeQL", "bucket": "pass"}],
+            ) as waited,
+            mock.patch.object(
+                MODULE,
+                "command",
+                side_effect=run_command,
+            ) as invoked,
+        ):
+            observed_merge, synchronization, observed_pr = (
+                MODULE.publish_checked_pull_request(
+                    git="/usr/bin/git",
+                    gh=MODULE.EXECUTABLES["githubCliPath"],
+                    repo=Path("/tmp"),
+                    repository="Thorncrag/ARRP",
+                    branch=branch,
+                    commit=commit,
+                    baseline_commit=baseline,
+                    title="Checked closeout",
+                    body="Exact tested boundary.",
+                )
+            )
+
+        self.assertEqual(observed_merge, merge_commit)
+        self.assertEqual(observed_pr, pull_request)
+        self.assertTrue(any("1 checks" in row for row in synchronization))
+        waited.assert_called_once()
+        self.assertFalse(
+            any(
+                call.args[0][1:3] == ["pr", "merge"]
+                for call in invoked.mock_calls
+            )
+        )
+
+    def test_closeout_check_failure_stops_before_merge(self):
+        failed = MODULE.subprocess.CompletedProcess(
+            [],
+            1,
+            stdout=json.dumps(
+                [
+                    {
+                        "bucket": "fail",
+                        "name": "CodeQL",
+                        "state": "FAILURE",
+                        "link": "https://example.invalid/check",
+                    }
+                ]
+            ),
+            stderr="",
+        )
+        with mock.patch.object(MODULE, "command", return_value=failed):
+            with self.assertRaisesRegex(
+                MODULE.ContextError,
+                "checks failed or were cancelled: CodeQL",
+            ):
+                MODULE.wait_for_closeout_checks(
+                    MODULE.EXECUTABLES["githubCliPath"],
+                    Path("/tmp"),
+                    repository="Thorncrag/ARRP",
+                    pull_request="https://github.com/Thorncrag/ARRP/pull/999",
+                )
+
+    def test_closeout_check_readback_rejects_unknown_bucket(self):
+        unknown = MODULE.subprocess.CompletedProcess(
+            [],
+            0,
+            stdout=json.dumps(
+                [
+                    {
+                        "bucket": "mystery",
+                        "name": "CodeQL",
+                        "state": "UNKNOWN",
+                    }
+                ]
+            ),
+            stderr="",
+        )
+        with mock.patch.object(MODULE, "command", return_value=unknown):
+            with self.assertRaisesRegex(
+                MODULE.ContextError,
+                "unsupported states: mystery",
+            ):
+                MODULE.wait_for_closeout_checks(
+                    MODULE.EXECUTABLES["githubCliPath"],
+                    Path("/tmp"),
+                    repository="Thorncrag/ARRP",
+                    pull_request="https://github.com/Thorncrag/ARRP/pull/999",
+                )
+
+    def test_closeout_waits_for_named_required_check_to_pass(self):
+        vercel_only = MODULE.subprocess.CompletedProcess(
+            [],
+            0,
+            stdout=json.dumps(
+                [
+                    {
+                        "bucket": "pass",
+                        "name": "Vercel",
+                        "state": "SUCCESS",
+                    }
+                ]
+            ),
+            stderr="",
+        )
+        complete = MODULE.subprocess.CompletedProcess(
+            [],
+            0,
+            stdout=json.dumps(
+                [
+                    {
+                        "bucket": "pass",
+                        "name": "Vercel",
+                        "state": "SUCCESS",
+                    },
+                    {
+                        "bucket": "pass",
+                        "name": "CodeQL",
+                        "state": "SUCCESS",
+                    },
+                ]
+            ),
+            stderr="",
+        )
+        with (
+            mock.patch.object(
+                MODULE,
+                "command",
+                side_effect=[vercel_only, complete],
+            ) as checked,
+            mock.patch.object(
+                MODULE.time,
+                "monotonic",
+                side_effect=[0.0, 0.0, 1.0],
+            ),
+            mock.patch.object(MODULE.time, "sleep") as slept,
+        ):
+            rows = MODULE.wait_for_closeout_checks(
+                MODULE.EXECUTABLES["githubCliPath"],
+                Path("/tmp"),
+                repository="Thorncrag/ARRP",
+                pull_request="https://github.com/Thorncrag/ARRP/pull/999",
+            )
+        self.assertEqual(len(rows), 2)
+        self.assertEqual(checked.call_count, 2)
+        slept.assert_called_once_with(
+            MODULE.HOST_CLOSEOUT_POLICY["checkPollSeconds"]
+        )
+
+    def test_verified_recovery_clears_only_its_exact_reconciliation_and_incident(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repo = Path(directory)
+            state_path = repo / MODULE.ELIM_RUN_LOG_RECONCILIATION_STATE
+            state_path.parent.mkdir(parents=True)
+            state_path.write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "items": [
+                            {
+                                "chain_id": "chain-1",
+                                "invocation_id": "invocation-1",
+                                "execution_checkout": "checkout-1",
+                            },
+                            {
+                                "chain_id": "chain-2",
+                                "invocation_id": "invocation-2",
+                                "execution_checkout": "checkout-2",
+                            },
+                        ],
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            result = self.elim_result(outcome="completed")
+            result["run_id"] = "chain-1"
+            result["commit"] = "c" * 40
+            MODULE.clear_verified_run_log_reconciliation(
+                repo,
+                state_path,
+                chain_id="chain-1",
+                result=result,
+            )
+            retained = json.loads(state_path.read_text(encoding="utf-8"))
+            self.assertEqual(
+                [row["chain_id"] for row in retained["items"]],
+                ["chain-2"],
+            )
+
+            control = {
+                "action_items": [
+                    {
+                        "id": "recover-me",
+                        "kind": "automation_failure",
+                        "chain_id": "chain-1",
+                        "stage": "elim-host-git-closeout",
+                        "resolved": False,
+                    },
+                    {
+                        "id": "retain-me",
+                        "kind": "automation_failure",
+                        "chain_id": "chain-2",
+                        "stage": "elim-host-git-closeout",
+                        "resolved": False,
+                    },
+                ]
+            }
+            self.assertEqual(
+                MODULE.resolve_verified_closeout_incident(
+                    control,
+                    chain_id="chain-1",
+                    result_commit="c" * 40,
+                ),
+                1,
+            )
+            self.assertTrue(control["action_items"][0]["resolved"])
+            self.assertFalse(control["action_items"][1]["resolved"])
+            self.assertEqual(
+                control["action_items"][0]["resolved_by"],
+                "verified-host-closeout-recovery",
+            )
+
     def test_trusted_host_preserves_declared_usage_stop_with_real_git(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -3807,19 +4372,56 @@ class RunChainDispatcherTests(unittest.TestCase):
             manifest = self.selected_manifest()
             manifest["final_revision"] = baseline
 
+            def publish_locally(**kwargs):
+                commit = kwargs["commit"]
+                git(repo, "push", "origin", f"{commit}:refs/heads/main")
+                git(repo, "fetch", "--no-tags", "origin", "main")
+                return (
+                    commit,
+                    ["Test-only checked publication substitute."],
+                    "https://github.com/Thorncrag/ARRP/pull/1",
+                )
+
             with mock.patch.object(
                 MODULE,
                 "APPROVED_ORIGIN_URLS",
                 frozenset({str(remote)}),
             ):
-                preserved = MODULE.host_preserve_elim_result(
-                    git="/usr/bin/git",
-                    gh=MODULE.EXECUTABLES["githubCliPath"],
-                    repo=repo,
-                    result_path=result_path,
-                    expected_manifest=manifest,
-                    repository="Thorncrag/ARRP",
+                with mock.patch.object(
+                    MODULE,
+                    "publish_checked_pull_request",
+                    side_effect=RuntimeError("transient publication failure"),
+                ):
+                    with self.assertRaisesRegex(
+                        RuntimeError,
+                        "transient publication failure",
+                    ):
+                        MODULE.host_preserve_elim_result(
+                            git="/usr/bin/git",
+                            gh=MODULE.EXECUTABLES["githubCliPath"],
+                            repo=repo,
+                            result_path=result_path,
+                            expected_manifest=manifest,
+                            repository="Thorncrag/ARRP",
+                        )
+                self.assertEqual(git(repo, "status", "--porcelain"), "")
+                self.assertEqual(
+                    git(repo, "branch", "--show-current"),
+                    MODULE.host_closeout_branch(result["run_id"]),
                 )
+                with mock.patch.object(
+                    MODULE,
+                    "publish_checked_pull_request",
+                    side_effect=publish_locally,
+                ):
+                    preserved = MODULE.host_preserve_elim_result(
+                        git="/usr/bin/git",
+                        gh=MODULE.EXECUTABLES["githubCliPath"],
+                        repo=repo,
+                        result_path=result_path,
+                        expected_manifest=manifest,
+                        repository="Thorncrag/ARRP",
+                    )
 
             self.assertRegex(preserved["commit"], r"^[0-9a-f]{40}$")
             self.assertNotEqual(preserved["commit"], baseline)

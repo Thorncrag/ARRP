@@ -7,17 +7,17 @@
   <key>ProgramArguments</key>
   <array>
     <string>/opt/homebrew/bin/python3</string>
-    <string>/Users/benjaminsmith/Documents/ARRP/scripts/run_coordinator_control.py</string>
+    <string>/Users/benjaminsmith/Projects/ARRP/scripts/run_coordinator_control.py</string>
   </array>
   <key>WorkingDirectory</key>
-  <string>/Users/benjaminsmith/Documents/ARRP</string>
+  <string>/Users/benjaminsmith/Projects/ARRP</string>
   <key>RunAtLoad</key>
   <true/>
   <key>KeepAlive</key>
   <true/>
   <key>StandardOutPath</key>
-  <string>/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/control.out.log</string>
+  <string>/Users/benjaminsmith/Projects/ARRP/.tmp/run-coordinator/control.out.log</string>
   <key>StandardErrorPath</key>
-  <string>/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/control.err.log</string>
+  <string>/Users/benjaminsmith/Projects/ARRP/.tmp/run-coordinator/control.err.log</string>
 </dict>
 </plist>

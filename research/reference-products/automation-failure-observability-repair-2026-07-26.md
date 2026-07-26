@@ -10,9 +10,31 @@ print_exclusion_reason: "Internal automation implementation report."
 
 ## Result
 
-The repair removes the Console's dependency on successful completion of the ordinary automation chain. Cloud-workflow failure, absence of the expected daily chain, and trusted-host or Elim failure now have separate publication paths. The same change repairs the isolated-checkout state transition that prevented the July 26 Elim launch, bounds repeated managerial incidents, preserves complete history, and adds a host preflight for noncanonical duplicate Git metadata.
+The repair removes the Console's dependency on successful completion of the ordinary automation chain. Cloud-workflow failure, absence of the expected daily chain, and trusted-host or Elim failure now have separate publication paths. The same change repairs the isolated-checkout state transition that prevented the July 26 Elim launch, bounds repeated managerial incidents, preserves complete history, adds a host preflight for noncanonical duplicate Git metadata, and removes the canonical host automation checkout from the File Provider domain that demonstrably deleted live Console files.
 
 No project issue, candidate, Project field, score, `Runs` value, source record, publication disposition, or human-reserved decision changed.
+
+## Production verification and connected repairs
+
+The primary observability repair passed all required checks in [pull request #431](https://github.com/Thorncrag/ARRP/pull/431) and squash-merged as `c4b1a0d727543e14238d47606aea1c1f8e136045`.
+
+Production then established each independent path:
+
+- Run Coordinator push run [30197991703](https://github.com/Thorncrag/ARRP/actions/runs/30197991703) completed successfully.
+- Independent workflow-conclusion projection run [30198190776](https://github.com/Thorncrag/ARRP/actions/runs/30198190776) published a healthy `automation-health.json` for that exact run without depending on the ordinary chain's final Console step.
+- Independent host-status run [30198200518](https://github.com/Thorncrag/ARRP/actions/runs/30198200518) published the deterministic-only host outcome for chain `arrp-20260726T101715Z`.
+- Explicit end-to-end Run Coordinator run [30198267959](https://github.com/Thorncrag/ARRP/actions/runs/30198267959) created chain `arrp-20260726T102646Z`. The repaired dispatcher advanced from archive proof, passed the host usage gate at 79 percent remaining against the protected 15-percent reserve, and launched Elim successfully.
+
+Elim completed the selected comprehensive Review Epoch, reviewed the complete governing boundary and a five-record rotating mature sample, and found a connected structural defect: the coordinator still required Source Checker persistent-input schema v1 even though the validated producer emits schema v2. The mismatch forced Source Checker to rerun despite a fresh complete feed. Elim changed only that accepted schema contract, added explicit obsolete-v1 rejection and current/future/stale-v2 coverage, proved the exact preserved inputs now require no refresh, recorded Review Epoch `epoch-arrp-20260726T102646Z`, and passed 473 Python tests, 24 participation tests, 27 Console tests, 32 focused coordinator tests, and authenticated consistency with 0 errors and 0 warnings.
+
+Live closeout then exposed two additional host-boundary defects:
+
+1. Elim used the semantically descriptive alias `Files and host closeout`, but the host correctly required the exact table field `Commits and synchronization`.
+2. After the field name was mechanically corrected and the exact 50-file declaration passed, the host created commit `ec0def6af8098ef89762f1a97ae29e16fd15eebf` but attempted the earlier direct-fast-forward publication. Protected `main` correctly rejected that write because a pull request and CodeQL were required.
+
+No work was lost or silently accepted. The exact prepared commit was pushed only to its bounded branch; all six reported CodeQL and Vercel checks passed; [pull request #432](https://github.com/Thorncrag/ARRP/pull/432) squash-merged it as `4988344eacd9eff78d2e93c270e8a6fcb7c16acc`; and canonical local `main` was read back at that exact merge. Independent cloud-health run [30199647679](https://github.com/Thorncrag/ARRP/actions/runs/30199647679) reported the exact merge healthy. The new resumable closeout path then revalidated the prepared host commit and merged pull request, cleared the exact pending Run Log reconciliation, resolved only its matching failure incident, and independently published `host-status.json` as `completed` through run [30200230361](https://github.com/Thorncrag/ARRP/actions/runs/30200230361).
+
+The final host contract now enumerates every exact Run Log field in Elim's launch instructions. Every accountably closed result other than `human_review` uses a bounded exact-head and exact-base pull request, waits up to 1,800 seconds for every reported check and the named required `CodeQL` check to pass, confirms that `origin/main` has not moved, squash-merges without bypass, and reads back the exact merge. A clean prepared host commit can be revalidated and resumed without rerunning Elim. Automatic preservation of ordinary canonical-workspace changes uses the same protected-main path and can resume its own exact prepared commit after a network, check-wait, or publication interruption. Recovery proves the commit's one-parent topology, parent-bound branch name, trusted-host author and committer identity, exact message, nonempty safe changed paths, diff hygiene, PR boundary, passing checks, and merge readback. Even an already merged PR must revalidate its checks.
 
 ## Incident reconstruction
 
@@ -27,7 +49,7 @@ During repair, two additional structural conditions were confirmed:
 - 90 untracked Finder-style duplicate names were present across generated Console data, reference products, and test/script paths. They caused repository inventory tests and host dirty-workspace preflight to fail.
 - canonical Git metadata contained `.git/refs/heads/main 2`, `.git/refs/.DS_Store`, and four duplicate index files. Git interpreted the first two as refs; `git fetch origin main` failed with `fatal: bad object refs/heads/main 2`.
 
-The filename pattern is consistent with filesystem or synchronization conflict copies, but this review did not establish which application created them.
+The filename pattern was consistent with filesystem or synchronization conflict copies. Final validation then established the containing filesystem mechanism: `/Users/benjaminsmith/Documents` carries the macOS `com.apple.file-provider-domain-id` attribute, and the macOS unified log records `bird` receiving 87 deleted items from the cloud at 07:53:07 -0400, the exact interval in which the freshly generated 41-file Console `data/` directory disappeared. This proves CloudDocs applied the destructive reconciliation; it does not identify which remote device or process originated the cloud-side deletions.
 
 ## Repaired architecture
 
@@ -106,14 +128,17 @@ Those two reappearing files were moved intact under the new policy to:
 
 The archive contains a machine-readable record of their original paths, SHA-256 hashes, and sizes; the same record is retained in bounded dispatcher control history. Canonical `.git/index` and refs were again left untouched.
 
-Future host preflight therefore moves only tightly allowlisted Finder-style duplicate ref/index files and `.DS_Store` files intact to a timestamped reconciliation archive before fetch. It separately recognizes a numbered project-tree copy only when it is untracked or newly staged and its name maps exactly to an existing file tracked at `HEAD`; it removes any such copy from the staged boundary and preserves it in the private worktree archive. It records original, canonical, and archive paths, hashes, sizes, timestamps, prior staged status, and bounded control history, verifies canonical state, and makes at most three passes when a synchronization process immediately regenerates either artifact class. It never deletes or rewrites canonical Git metadata or project files. Symlinks, unknown names, numbered paths without an exact tracked sibling, failed preservation, invalid canonical state, and continued regeneration beyond the bound still fail closed and use the independent failure path.
+Future host preflight therefore moves only tightly allowlisted Finder-style duplicate ref/index files and `.DS_Store` files anywhere inside `.git` intact to a timestamped reconciliation archive before fetch. It separately recognizes a numbered project-tree copy only when it is untracked or newly staged and its name maps exactly to an existing file tracked at `HEAD`; it removes any such copy from the staged boundary and preserves it in the private worktree archive. It records original, canonical, and archive paths, hashes, sizes, timestamps, prior staged status, and bounded control history, verifies canonical state, and makes at most three passes when a synchronization process immediately regenerates either artifact class. It never deletes or rewrites canonical Git metadata or project files. Symlinks, unknown names, numbered paths without an exact tracked sibling, failed preservation, invalid canonical state, and continued regeneration beyond the bound still fail closed and use the independent failure path.
+
+The recurring copies are now secondary containment, not the primary storage design. The installed host automation checkout and both launchd jobs move to `/Users/benjaminsmith/Projects/ARRP`, outside the File Provider-managed Documents domain. Before any Git operation, the dispatcher inspects the checkout and every ancestor for `com.apple.file-provider-domain-id`; detection or an unreadable storage boundary fails closed. The existing Documents checkout, its private archives, and the non-synced safety copy at `/private/tmp/arrp-repair-backup.ozXAi5` were retained rather than deleted or overwritten.
 
 ## Files and contracts changed
 
 - `.github/run-coordinator-bot.json` — reviewed cloud-health and host-status policy.
+- `.github/launchd/*.plist.example` — non-File-Provider installed checkout and log paths.
 - `.github/workflows/automation-health-projection.yml` — independent conclusion, watchdog, and host-event workflow.
 - `scripts/build_automation_health_projection.py` — schema-closed conclusion and watchdog builder.
-- `scripts/run_chain_dispatcher.py` — safe-head persistence, archive-proof recovery, status dispatch, incident consolidation/resolution, and Git-metadata hygiene.
+- `scripts/run_chain_dispatcher.py` — safe-head persistence, archive-proof recovery, status dispatch, incident consolidation/resolution, exact Run Log contract, checked protected-main publication, prepared-commit retry, and Git-metadata hygiene.
 - `scripts/publish_project_console_progress.py` — bounded non-fast-forward retry.
 - `research/horizon-review-console/app.js` — independent feed validation, refresh, and same-chain reconciliation.
 - governing autonomous rules, Run Coordinator runbook, pinned context hashes, and the nonauthoritative technical specification.
@@ -128,21 +153,27 @@ Behavior intentionally changed:
 - an ordinary final chain publication is no longer required for failure visibility;
 - repeated equivalent failures no longer create an unbounded Action Item list;
 - exact machine-proven routine recovery can close its own incident;
-- a verified isolated checkout head is recorded before launch selection rather than only after Elim closeout; and
-- tightly allowlisted noncanonical Git metadata and numbered tracked-sibling workspace copies are preserved outside the live repository boundary and verified automatically; unknown or repeatedly regenerated artifacts still fail closed.
+- a verified isolated checkout head is recorded before launch selection rather than only after Elim closeout;
+- tightly allowlisted noncanonical Git metadata and numbered tracked-sibling workspace copies are preserved outside the live repository boundary and verified automatically; unknown or repeatedly regenerated artifacts still fail closed;
+- the exact required Elim Run Log field names are now part of the launch contract rather than only a post-run validator;
+- accountably closed automated work no longer assumes direct writes to protected `main`; it uses checked exact-boundary pull requests and squash merges;
+- interrupted publication after a valid Elim or canonical-workspace host commit can resume that same exact prepared commit without repeating substantive work; and
+- the host automation checkout and launchd jobs no longer use the File Provider-managed Documents path; runtime rejects any File Provider-managed replacement.
 
 ## Residual limitations
 
 No same-provider design can guarantee real-time reporting during a complete GitHub Actions and raw-content outage. The separate host path provides cross-runtime evidence, local notification, and later publication when GitHub is reachable. If the Mac is asleep or offline at the same time, host detection waits for the next launchd poll. These are explicit availability limits, not states presented as healthy.
 
-The duplicate-name artifacts indicate an unresolved environmental source even though their operational effect is now contained. The repeated files retained old creation/modification timestamps, which is consistent with restoration or conflict-copy behavior, but does not prove which process created them. Investigate whether macOS Documents synchronization, a backup/sync utility, Finder copy behavior, or another tool is writing conflict copies inside repositories. Moving the repository outside a synchronized Documents location may be appropriate, but that filesystem relocation was not performed by this repair.
+The File Provider source is established, but the originating cloud-side actor remains unknown: the unified log does not expose whether another Mac, an application, or a stale cloud reconciliation submitted the deletions. The retired Documents checkout therefore remains evidence and should not be treated as an automation workspace. The non-synced checkout prevents CloudDocs from mutating the live host boundary; it cannot prevent a separately authorized process with ordinary local filesystem access from changing files.
 
 ## Validation record
 
 Pre-integration validation passed:
 
-- 473 Python repository tests;
+- 481 Python repository tests, including 95 focused dispatcher tests;
+- 24 participation-service tests;
 - 27 Node frontend tests;
+- File Provider ancestor detection and fail-closed preflight coverage;
 - workflow YAML structure and all three independent jobs;
 - Python compilation and JavaScript syntax;
 - deterministic authenticated Console refresh;
@@ -150,4 +181,4 @@ Pre-integration validation passed:
 - real `git fetch origin main` after metadata preservation; and
 - authenticated project consistency across 64 issue pages and 41 proposal pages with 0 errors and 0 warnings.
 
-Reviewed merge, end-to-end chain execution, independent feed publication, and live Console readback remain required. The implementation is not considered complete until the repaired branch is synchronized, the dispatcher advances the isolated checkout from its proven prior boundary, both independent feeds publish, and a fresh chain reaches an accounted host outcome.
+The implementation branch, repaired isolated-checkout transition, independent cloud projection, independent host projection, explicit Elim launch, comprehensive Review Epoch, Source Checker schema repair, checked recovery merge, and exact recovered host closeout have all been exercised in production. The prepared canonical-workspace recovery has also been exercised against a real temporary Git remote through a forced publication interruption and exact retry. One final fresh-chain readback remains required after the protected-main correction itself merges: it must show Source Checker `not_due`, a clean synchronized canonical and isolated checkout, resolved routine branch-state incidents, mutually consistent independent feeds, and the current Console projection.

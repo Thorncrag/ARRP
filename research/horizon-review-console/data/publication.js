@@ -7613,9 +7613,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 17176,
-      "estimated_pages": 27,
-      "table_count": 92,
+      "word_count": 17809,
+      "estimated_pages": 28,
+      "table_count": 93,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 75
@@ -8185,12 +8185,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3476,
-      "estimated_pages": 6,
+      "word_count": 3991,
+      "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 31
+      "longest_unbroken_token": 37
     },
     {
       "title": "Agent Rules — Context Handoff",
@@ -8726,12 +8726,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 615,
-      "estimated_pages": 1,
+      "word_count": 937,
+      "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 21
+      "longest_unbroken_token": 37
     },
     {
       "title": "Current Project Integrity Report",
@@ -8878,8 +8878,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 9090,
-      "estimated_pages": 14,
+      "word_count": 9151,
+      "estimated_pages": 15,
       "table_count": 12,
       "max_table_columns": 2,
       "heading_issue_count": 0,
@@ -8930,7 +8930,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 5746,
+      "word_count": 5826,
       "estimated_pages": 9,
       "table_count": 0,
       "max_table_columns": 0,
@@ -10417,7 +10417,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4065,
+      "word_count": 4332,
       "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
@@ -12407,8 +12407,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 14814,
-      "estimated_pages": 23,
+      "word_count": 15201,
+      "estimated_pages": 24,
       "table_count": 17,
       "max_table_columns": 5,
       "heading_issue_count": 0,
@@ -12636,8 +12636,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/reference-products-automation failure observability and dispatcher-state repair — july 26, 2026",
       "internal_links": [],
-      "word_count": 1825,
-      "estimated_pages": 3,
+      "word_count": 2714,
+      "estimated_pages": 5,
       "table_count": 1,
       "max_table_columns": 4,
       "heading_issue_count": 0,
@@ -15129,7 +15129,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
         "page_count": 490,
-        "modified_at": "2026-07-25T10:54:16+00:00",
+        "modified_at": "2026-07-22T16:21:44+00:00",
         "stale": true
       }
     ],
@@ -18128,8 +18128,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
-        "generated_at": "2026-07-26T10:32:06+00:00"
+        "revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
+        "generated_at": "2026-07-26T06:55:15+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20015,6 +20015,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-9e0e00a0acf757e394be"
+    "publication.js": "project-console-28b8479fca33f20a391a"
   }
 });
