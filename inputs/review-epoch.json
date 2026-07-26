@@ -1,22 +1,35 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-26T12:25:46+00:00",
-  "epoch_id": "epoch-arrp-20260726T122445Z",
-  "baseline_revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
-  "last_completed_at": "2026-07-26T10:49:27+00:00",
-  "next_due_at": "2026-08-09T10:49:27+00:00",
-  "due": true,
-  "due_reason": "governing_boundary_changed",
-  "boundary_changes": {
-    "extra": [],
-    "mismatched": [
-      "framework/agent-rules/autonomous-execution.md",
-      "framework/agents/ELIM.md",
-      "framework/agents/RUN_COORDINATOR_BOT.md",
-      "framework/context-routes.json"
-    ],
-    "missing": []
-  },
-  "unresolved_findings": [],
-  "unresolved_ids": []
+  "generated_at": "2026-07-26T12:57:06+00:00",
+  "epoch_id": "epoch-arrp-20260726T125551Z",
+  "baseline_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
+  "last_completed_at": "2026-07-26T12:39:29+00:00",
+  "next_due_at": "2026-08-09T12:39:29+00:00",
+  "due": false,
+  "due_reason": "interval current",
+  "boundary_changes": {},
+  "unresolved_findings": [
+    {
+      "discovered_work_unit_id": "DISCOVERY-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",
+      "id": "GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",
+      "next_action": "In a separately selected authorized automation repair, enforce sole-parent topology, coordinator author/committer and expected message, diff hygiene, and exact squash-merge parent readback, then add adversarial regression cases.",
+      "next_trigger": "A fresh queue selects this stable gap obligation for an agent-within-runbook repair.",
+      "owner": "Elim",
+      "status": "open",
+      "summary": "Trusted-host retry and checked-merge acceptance omit required exact topology, identity, message, hygiene, and post-merge parent proofs."
+    },
+    {
+      "discovered_work_unit_id": "DISCOVERY-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED",
+      "id": "GAP-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED",
+      "next_action": "After this atomic run and its trusted-host closeout finish, bootstrap the reviewed main LaunchAgent and read back its Projects path plus one successful scheduled poll.",
+      "next_trigger": "The current manual dispatcher exits and the host operator can load the service without overlapping the live run.",
+      "owner": "Benjamin / trusted-host operator",
+      "status": "human_required",
+      "summary": "The reviewed periodic dispatcher plist is installed on the Projects path but its LaunchAgent is not loaded; only the manual current dispatcher and the separate control service are running."
+    }
+  ],
+  "unresolved_ids": [
+    "GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",
+    "GAP-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED"
+  ]
 }

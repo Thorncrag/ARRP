@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "bot_id": "run-coordinator-bot",
-  "chain_id": "arrp-20260726T122445Z",
-  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30201992939",
-  "trigger": "workflow_dispatch",
-  "llm_launch_allowed": true,
-  "llm_launch_trigger": "workflow_dispatch",
-  "created_at": "2026-07-26T12:24:45+00:00",
-  "updated_at": "2026-07-26T12:25:46+00:00",
+  "chain_id": "arrp-20260726T125551Z",
+  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30203025904",
+  "trigger": "push",
+  "llm_launch_allowed": false,
+  "llm_launch_trigger": "push",
+  "created_at": "2026-07-26T12:55:51+00:00",
+  "updated_at": "2026-07-26T12:57:06+00:00",
   "status": "complete",
-  "baseline_commit": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
+  "baseline_commit": "ef8988414cbdb944a3e2eb6ee5d7942140b6fecc",
   "resume": {
     "count": 0,
     "from_run_id": null
@@ -18,12 +18,12 @@
     "key": "arrp-run-chain",
     "path": null,
     "status": "released-by-workflow",
-    "owner_chain_id": "arrp-20260726T122445Z"
+    "owner_chain_id": "arrp-20260726T125551Z"
   },
   "repository": {
     "branch": "main",
-    "head": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
-    "origin_main": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
+    "head": "ef8988414cbdb944a3e2eb6ee5d7942140b6fecc",
+    "origin_main": "ef8988414cbdb944a3e2eb6ee5d7942140b6fecc",
     "clean": true,
     "dirty_paths": [],
     "dirty_path_count": 0,
@@ -76,7 +76,7 @@
       "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T12:24:45+00:00",
+      "completed_at": "2026-07-26T12:55:51+00:00",
       "last_success_at": "2026-07-26T04:41:32+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -92,7 +92,7 @@
       "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T12:24:45+00:00",
+      "completed_at": "2026-07-26T12:55:51+00:00",
       "last_success_at": "2026-07-26T04:41:32+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -108,7 +108,7 @@
       "due_reason": "last success remains current until 2026-08-02T10:32:24+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T12:24:45+00:00",
+      "completed_at": "2026-07-26T12:55:51+00:00",
       "last_success_at": "2026-07-26T10:32:24+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -120,17 +120,21 @@
       "id": "project-console-progress-bot",
       "order": 4,
       "workflow": ".github/workflows/project-console-progress.yml",
-      "due": false,
-      "due_reason": "last success remains current until 2026-07-27T12:18:52+00:00",
-      "status": "not_due",
+      "due": true,
+      "due_reason": "forced",
+      "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T12:24:45+00:00",
-      "last_success_at": "2026-07-26T12:18:52+00:00",
+      "completed_at": "2026-07-26T12:57:06+00:00",
+      "last_success_at": "2026-07-26T12:57:06+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
-      "details": "",
-      "output": null
+      "details": "success",
+      "output": {
+        "path": "workflow-output",
+        "sha256": "sha256:909f454194b6e954116fb4cae80230d03e8a80be85999c19f55d9523c47a9ac1"
+      },
+      "work_count": 0
     },
     {
       "id": "public-intake",
@@ -140,15 +144,15 @@
       "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T12:25:46+00:00",
-      "last_success_at": "2026-07-26T12:25:46+00:00",
+      "completed_at": "2026-07-26T12:57:06+00:00",
+      "last_success_at": "2026-07-26T12:57:06+00:00",
       "retry_limit": 1,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:5d6f4e14282ee7fcca694a7a9c26b8f109e542eada4781231382424b87e95d8c"
+        "sha256": "sha256:fa35ff7fd88d21d38c99d7108b59ff78a7ac02729a059aff27d1f09a79cbc27a"
       },
       "work_count": 0
     },
@@ -157,18 +161,18 @@
       "order": 6,
       "workflow": ".github/workflows/project-integrity.yml",
       "due": true,
-      "due_reason": "required every chain",
+      "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-26T12:25:46+00:00",
-      "last_success_at": "2026-07-26T12:25:46+00:00",
+      "completed_at": "2026-07-26T12:57:06+00:00",
+      "last_success_at": "2026-07-26T12:57:06+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:6ce0975035a088e5f30e644f2116f61fef2c5de4aaa87217e888206a06b28847"
+        "sha256": "sha256:30479a682a0f79ab863da7019d6f07687c0a0bee0c807f71ff0fd29de5804a8a"
       },
       "work_count": 0
     }
@@ -184,38 +188,48 @@
   },
   "elim_decision": {
     "launch_recommended": false,
-    "reason": "Codex usage reserve has not been measured.",
+    "reason": "This trigger authorizes deterministic refresh only; Elim waits for the daily schedule, an eligible event, or explicit manual dispatch.",
     "blockers": [],
     "last_substantive_stage": true,
     "predecessors_complete": true,
     "profile": {
-      "id": "comprehensive",
+      "id": "substantive",
       "model": "gpt-5.6-sol",
       "reasoning_effort": "xhigh",
-      "full_context": true,
-      "reason": "The periodic comprehensive review epoch is due."
+      "full_context": false,
+      "reason": "The queue may require substantive project judgment."
     }
   },
   "review_epoch": {
     "interval_days": 14,
-    "last_completed_at": "2026-07-26T10:49:27+00:00",
-    "next_due_at": "2026-08-09T10:49:27+00:00",
-    "due": true,
-    "due_reason": "governing_boundary_changed",
-    "boundary_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
-    "epoch_id": "epoch-arrp-20260726T102646Z",
-    "stability_status": "evolving",
-    "unresolved_findings": [],
-    "boundary_changes": {
-      "extra": [],
-      "mismatched": [
-        "framework/agent-rules/autonomous-execution.md",
-        "framework/agents/ELIM.md",
-        "framework/agents/RUN_COORDINATOR_BOT.md",
-        "framework/context-routes.json"
-      ],
-      "missing": []
-    }
+    "last_completed_at": "2026-07-26T12:39:29+00:00",
+    "next_due_at": "2026-08-09T12:39:29+00:00",
+    "due": false,
+    "due_reason": "interval current",
+    "boundary_commit": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
+    "epoch_id": "epoch-arrp-20260726T122445Z",
+    "stability_status": "drift-detected",
+    "unresolved_findings": [
+      {
+        "discovered_work_unit_id": "DISCOVERY-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",
+        "id": "GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",
+        "next_action": "In a separately selected authorized automation repair, enforce sole-parent topology, coordinator author/committer and expected message, diff hygiene, and exact squash-merge parent readback, then add adversarial regression cases.",
+        "next_trigger": "A fresh queue selects this stable gap obligation for an agent-within-runbook repair.",
+        "owner": "Elim",
+        "status": "open",
+        "summary": "Trusted-host retry and checked-merge acceptance omit required exact topology, identity, message, hygiene, and post-merge parent proofs."
+      },
+      {
+        "discovered_work_unit_id": "DISCOVERY-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED",
+        "id": "GAP-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED",
+        "next_action": "After this atomic run and its trusted-host closeout finish, bootstrap the reviewed main LaunchAgent and read back its Projects path plus one successful scheduled poll.",
+        "next_trigger": "The current manual dispatcher exits and the host operator can load the service without overlapping the live run.",
+        "owner": "Benjamin / trusted-host operator",
+        "status": "human_required",
+        "summary": "The reviewed periodic dispatcher plist is installed on the Projects path but its LaunchAgent is not loaded; only the manual current dispatcher and the separate control service are running."
+      }
+    ],
+    "boundary_changes": null
   },
   "usage": {
     "hard_reserve_percent": 15,
@@ -225,8 +239,8 @@
   },
   "next_action": "No Elim launch; wait for the next trigger.",
   "action_items": [],
-  "completed_at": "2026-07-26T12:25:46+00:00",
-  "final_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
+  "completed_at": "2026-07-26T12:57:06+00:00",
+  "final_revision": "ef8988414cbdb944a3e2eb6ee5d7942140b6fecc",
   "bots": [
     {
       "id": "case-monitor-bot",
@@ -234,7 +248,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T12:24:45+00:00",
+      "completed_at": "2026-07-26T12:55:51+00:00",
       "error": null
     },
     {
@@ -243,7 +257,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T12:24:45+00:00",
+      "completed_at": "2026-07-26T12:55:51+00:00",
       "error": null
     },
     {
@@ -252,16 +266,16 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-26T12:24:45+00:00",
+      "completed_at": "2026-07-26T12:55:51+00:00",
       "error": null
     },
     {
       "id": "project-console-progress-bot",
       "name": "project-console-progress-bot",
-      "due": false,
-      "status": "not_due",
+      "due": true,
+      "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-26T12:24:45+00:00",
+      "completed_at": "2026-07-26T12:57:06+00:00",
       "error": null
     },
     {
@@ -270,7 +284,7 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-26T12:25:46+00:00",
+      "completed_at": "2026-07-26T12:57:06+00:00",
       "error": null
     }
   ]
