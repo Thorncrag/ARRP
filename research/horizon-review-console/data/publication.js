@@ -8726,7 +8726,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs-current audit handoff",
       "internal_links": [],
-      "word_count": 844,
+      "word_count": 867,
       "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
@@ -12636,7 +12636,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/reference-products-automation failure observability and dispatcher-state repair — july 26, 2026",
       "internal_links": [],
-      "word_count": 3625,
+      "word_count": 3819,
       "estimated_pages": 6,
       "table_count": 1,
       "max_table_columns": 4,
@@ -20015,6 +20015,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-21838f04985bb3912ae9"
+    "publication.js": "project-console-ae0eab58b1a30759b11f"
   }
 });

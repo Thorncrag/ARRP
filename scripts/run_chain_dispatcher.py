@@ -4462,6 +4462,7 @@ def resolve_verified_closeout_incident(
     *,
     chain_id: str,
     result_commit: str,
+    synchronized_head: str | None = None,
 ) -> int:
     """Resolve only the exact host-closeout incident proved by recovery."""
     items = control.get("action_items") or []
@@ -4495,7 +4496,11 @@ def resolve_verified_closeout_incident(
             == "host-repository-preflight failed: 'next_action'"
             and control.get("last_recovered_chain_id") == chain_id
             and control.get("last_successful_chain_id") == chain_id
-            and control.get("elim_checkout_synced_head") == result_commit
+            and control.get("elim_checkout_synced_chain_id") == chain_id
+            and control.get("elim_checkout_sync_source")
+            == "verified-host-closeout-recovery"
+            and control.get("elim_checkout_synced_head")
+            == (synchronized_head or result_commit)
         )
         if (
             item.get("resolved") is True
@@ -4529,8 +4534,42 @@ def resolve_verified_closeout_incident(
             for item in items
         ):
             control.pop("last_failed_chain_id", None)
+            control.pop("last_failed_exit_code", None)
             control.pop("last_failed_reason", None)
             control.pop("last_failed_at", None)
+    return resolved
+
+
+def record_verified_closeout_recovery(
+    control: dict[str, Any],
+    *,
+    chain_id: str,
+    result_commit: str,
+    synchronized_head: str,
+    recovered_at: str,
+) -> int:
+    """Apply one complete successful-recovery transition before resolution."""
+    control["elim_checkout_synced_head"] = synchronized_head
+    control["elim_checkout_synced_at"] = recovered_at
+    control["elim_checkout_synced_chain_id"] = chain_id
+    control["elim_checkout_sync_source"] = "verified-host-closeout-recovery"
+    control["last_consumed_chain_id"] = chain_id
+    control["last_consumed_at"] = recovered_at
+    control["last_successful_chain_id"] = chain_id
+    control["last_successful_at"] = recovered_at
+    control["last_recovered_chain_id"] = chain_id
+    control["last_recovered_at"] = recovered_at
+    resolved = resolve_verified_closeout_incident(
+        control,
+        chain_id=chain_id,
+        result_commit=result_commit,
+        synchronized_head=synchronized_head,
+    )
+    if control.get("last_failed_chain_id") == chain_id:
+        control.pop("last_failed_chain_id", None)
+        control.pop("last_failed_exit_code", None)
+        control.pop("last_failed_reason", None)
+        control.pop("last_failed_at", None)
     return resolved
 
 
@@ -7009,26 +7048,14 @@ def resume_verified_elim_closeout(
         repo / ELIM_GAP_OBLIGATION_STATE,
         result,
     )
-    resolve_verified_closeout_incident(
+    recovered_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+    record_verified_closeout_recovery(
         control,
         chain_id=chain_id,
         result_commit=str(result["commit"]),
+        synchronized_head=synchronized_head,
+        recovered_at=recovered_at,
     )
-    recovered_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
-    control["elim_checkout_synced_head"] = synchronized_head
-    control["elim_checkout_synced_at"] = recovered_at
-    control["elim_checkout_synced_chain_id"] = chain_id
-    control["elim_checkout_sync_source"] = "verified-host-closeout-recovery"
-    control["last_consumed_chain_id"] = chain_id
-    control["last_consumed_at"] = recovered_at
-    control["last_successful_chain_id"] = chain_id
-    control["last_successful_at"] = recovered_at
-    control["last_recovered_chain_id"] = chain_id
-    control["last_recovered_at"] = recovered_at
-    if control.get("last_failed_chain_id") == chain_id:
-        control.pop("last_failed_chain_id", None)
-        control.pop("last_failed_reason", None)
-        control.pop("last_failed_at", None)
     payload["host_closeout"] = {
         "outcome": result["outcome"],
         "commit": result["commit"],

@@ -185,6 +185,12 @@ Behavior intentionally changed:
 - interrupted publication after a valid Elim or canonical-workspace host commit can resume that same exact prepared commit without repeating substantive work; and
 - the host automation checkout and launchd jobs no longer use the File Provider-managed Documents path; runtime rejects any File Provider-managed replacement.
 
+## Historical closeout and terminal-state recovery
+
+Pull request #437 added a bounded historical-closeout path for a verified Elim result whose checked merge remains in current `main` after later reviewed changes have advanced that branch. Recovery now re-reads the recorded pull request, its exact base and head, every required check, equal head and merge trees, sole-parent merge topology, and ancestry from the result merge to current `origin/main`. Only after those proofs does it advance the clean isolated checkout to the current remote head.
+
+The exact preserved chain `arrp-20260726T122445Z` then recovered successfully at Elim result `ef8988414cbdb944a3e2eb6ee5d7942140b6fecc` and synchronized the isolated checkout to `1d89849bf3d494340c8e7657ee5b6a35ee84709c`. Post-recovery readback exposed a final ordering defect: the exact incident was resolved, but the prior synthetic `host-repository-preflight failed: 'next_action'` incident and stale `last_failed_*` summary survived because incident reconciliation ran before the successful recovery fields were atomically updated. The recovery transition now records its exact chain, current synchronized head, source, success, and recovery timestamps before narrowly resolving those two proved incident forms; it clears the associated failure ID, reason, timestamp, and exit code only when no unresolved failure remains for that failed Chain ID.
+
 ## Residual limitations
 
 No same-provider design can guarantee real-time reporting during a complete GitHub Actions and raw-content outage. The separate host path provides cross-runtime evidence, local notification, and later publication when GitHub is reachable. If the Mac is asleep or offline at the same time, host detection waits for the next launchd poll. These are explicit availability limits, not states presented as healthy.
@@ -195,7 +201,7 @@ The File Provider source is established, but the originating cloud-side actor re
 
 Current implementation-boundary validation passed:
 
-- 486 Python repository tests, including 100 focused dispatcher tests;
+- 489 Python repository tests, including 103 focused dispatcher tests;
 - 24 participation-service tests;
 - 27 Node frontend tests;
 - File Provider ancestor detection and fail-closed preflight coverage;

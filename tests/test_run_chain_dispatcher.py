@@ -4781,17 +4781,17 @@ class RunChainDispatcherTests(unittest.TestCase):
                     },
                 ],
                 "last_failed_chain_id": "host-dispatch-20260726T125538Z",
+                "last_failed_exit_code": 1,
                 "last_failed_reason": "host-repository-preflight failed: 'next_action'",
                 "last_failed_at": "2026-07-26T12:55:38+00:00",
-                "last_recovered_chain_id": "chain-1",
-                "last_successful_chain_id": "chain-1",
-                "elim_checkout_synced_head": "c" * 40,
             }
             self.assertEqual(
-                MODULE.resolve_verified_closeout_incident(
+                MODULE.record_verified_closeout_recovery(
                     control,
                     chain_id="chain-1",
                     result_commit="c" * 40,
+                    synchronized_head="d" * 40,
+                    recovered_at="2026-07-26T13:37:35+00:00",
                 ),
                 2,
             )
@@ -4803,6 +4803,12 @@ class RunChainDispatcherTests(unittest.TestCase):
                 "verified-host-closeout-recovery",
             )
             self.assertNotIn("last_failed_chain_id", control)
+            self.assertNotIn("last_failed_exit_code", control)
+            self.assertEqual(
+                control["elim_checkout_synced_head"],
+                "d" * 40,
+            )
+            self.assertEqual(control["last_recovered_chain_id"], "chain-1")
 
     def test_trusted_host_preserves_declared_usage_stop_with_real_git(self):
         with tempfile.TemporaryDirectory() as directory:
