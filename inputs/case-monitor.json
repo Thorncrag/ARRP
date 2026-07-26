@@ -1,38 +1,11 @@
 {
   "baseline_initialization_mode": false,
-  "change_counts": {
-    "changed": 1
-  },
-  "changes": [
-    {
-      "case_name": "Suri v. Trump (E.D. Va.)",
-      "changed_fields": [
-        "last case update"
-      ],
-      "courtlistener_url": "https://www.courtlistener.com/docket/69755722/suri-v-trump/",
-      "courtlistener_verification": {
-        "outcome": "unverified",
-        "reason": "CourtListener token unavailable"
-      },
-      "docket_number": "1:25-cv-00480",
-      "kind": "changed",
-      "last_case_update": "2026-07-23",
-      "source_matches": [
-        {
-          "record_ids": [
-            "RIGHTS-002"
-          ],
-          "source_id": "SRC-2238"
-        }
-      ],
-      "stable_key": "courtlistener:69755722|docket:1:25-cv-00480",
-      "tracker_status": "Government Action Blocked"
-    }
-  ],
-  "checked_at": "2026-07-25T04:15:42+00:00",
+  "change_counts": {},
+  "changes": [],
+  "checked_at": "2026-07-26T04:34:38+00:00",
   "coverage": {
     "case_baselines_initialized": 0,
-    "case_baselines_updated": 1,
+    "case_baselines_updated": 0,
     "mapped_catalog_rows": 490,
     "mapped_docket_families": 490,
     "monitored_catalog_rows": 497,
@@ -41,13 +14,209 @@
     "uncovered_docket_families": 7
   },
   "legal_significance_determined": false,
-  "repository_changes_prepared": true,
+  "pending_proposal": {
+    "affected_records": [
+      {
+        "record_id": "HOR-035",
+        "record_type": "candidate"
+      },
+      {
+        "record_id": "SRC-0632",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-0945",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-0965",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-0982",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1004",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1052",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1056",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1093",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1929",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1930",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1932",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1933",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1934",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1940",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1941",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1942",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1943",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1946",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1952",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1957",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1973",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1979",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-1982",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2042",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2080",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2081",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2105",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2110",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2136",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2149",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2190",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2216",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2221",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2235",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2238",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2351",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2591",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2649",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2651",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2652",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2653",
+        "record_type": "source"
+      },
+      {
+        "record_id": "SRC-2654",
+        "record_type": "source"
+      }
+    ],
+    "agent_id": "case-monitor-bot",
+    "event_id": "SDE-8B910AA22FBBBCE3E0AE125F",
+    "proposal": {
+      "base_ref": "main",
+      "head_ref": "bot/case-monitor-updates",
+      "proposal_revision": "51ab5321424426b78aeef84da03233248dbe4455",
+      "pull_request_number": 380,
+      "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/380",
+      "repository": "Thorncrag/ARRP"
+    },
+    "summary": {
+      "affected_record_count": 43,
+      "counts": {
+        "affected-files": 2,
+        "affected-records": 43,
+        "candidate-records": 1,
+        "source-records": 42
+      },
+      "status": "case monitor proposal delta"
+    }
+  },
+  "repository_changes_prepared": false,
   "schema_version": 6,
   "source_development_modules": [
     {
       "added_lead_ids": [],
-      "applied": true,
-      "content_changed": true,
+      "applied": false,
+      "content_changed": false,
       "lead_count": 214,
       "lead_fingerprint": "4d9b4c74b2b28271e195c87c554038db11d9c1d6f884f932a2fc1673d07ed5de",
       "matched_lead_count": 214,
@@ -65,7 +234,7 @@
       "target_path": "research/horizon-source-records/HOR-035-source-development.md"
     }
   ],
-  "status": "changes_detected",
+  "status": "no_change",
   "tracker_entry_count": 906,
   "tracker_url": "https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/"
 }
