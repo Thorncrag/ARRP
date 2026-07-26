@@ -87,7 +87,7 @@
     }
   },
   "hostDispatcher": {
-    "repositoryPath": "/Users/benjaminsmith/Projects/ARRP",
+    "repositoryPath": "/Users/benjaminsmith/Automation Workspaces/ARRP",
     "pythonPath": "/opt/homebrew/bin/python3",
     "gitPath": "/usr/bin/git",
     "xattrPath": "/usr/bin/xattr",

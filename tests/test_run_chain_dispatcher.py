@@ -331,7 +331,7 @@ class RunChainDispatcherTests(unittest.TestCase):
         self.assertEqual(config["hostDispatcher"]["staleLockSeconds"], 900)
         self.assertEqual(
             config["hostDispatcher"]["repositoryPath"],
-            "/Users/benjaminsmith/Projects/ARRP",
+            "/Users/benjaminsmith/Automation Workspaces/ARRP",
         )
         self.assertEqual(config["gapStewardship"], MODULE.GAP_STEWARDSHIP_POLICY)
         self.assertEqual(
@@ -360,7 +360,7 @@ class RunChainDispatcherTests(unittest.TestCase):
             ".github/launchd/com.thorncrag.arrp-run-coordinator-control.plist.example",
         ):
             body = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("/Users/benjaminsmith/Projects/ARRP", body)
+            self.assertIn("/Users/benjaminsmith/Automation Workspaces/ARRP", body)
             self.assertNotIn("/Users/benjaminsmith/Documents/ARRP", body)
 
     def test_file_provider_workspace_is_rejected_before_git_preflight(self):
