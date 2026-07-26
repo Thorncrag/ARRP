@@ -3995,5 +3995,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
     }
-  ]
+  ],
+  "domain_generation": {
+    "directives-catalog-003.js": "project-console-15af9c2e124d5ff3afeb"
+  }
 });

@@ -3209,5 +3209,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "monitoring_group": "Accessibility",
       "monitoring_baseline_present": true
     }
-  ]
+  ],
+  "domain_generation": {
+    "sources-catalog-006.js": "project-console-15af9c2e124d5ff3afeb"
+  }
 });
