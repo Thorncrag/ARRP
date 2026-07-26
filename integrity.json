@@ -1,13 +1,13 @@
 {
   "schema_version": 2,
   "contract_schema_version": 1,
-  "generation_id": "project-integrity-4bfdbde2c45e1b3baa63",
+  "generation_id": "project-integrity-21a4aa0718273dc7dc47",
   "source_revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
-  "generated_at": "2026-07-26T10:23:23+00:00",
+  "generated_at": "2026-07-26T10:32:06+00:00",
   "expected_count": 22,
   "actual_count": 22,
   "source_hashes": {
-    "integrity-report.json": "sha256:135c61b3a0160e28319eb4ca0eec792de763d6bcb940bca07e72ed6b7e598c4f"
+    "integrity-report.json": "sha256:718bbc1ec99793c93289de12842aaa835b37b63c051aaac5f1fcdf0b7fff300d"
   },
   "availability": "current",
   "completeness": {
@@ -35,7 +35,7 @@
   },
   "current": {
     "schema_version": 1,
-    "generated_at": "2026-07-26T10:23:23+00:00",
+    "generated_at": "2026-07-26T10:32:06+00:00",
     "revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
     "result": "clean",
     "counts": {
@@ -45,7 +45,7 @@
       "issue_pages": 64,
       "proposal_pages": 41
     },
-    "duration_seconds": 14.904,
+    "duration_seconds": 12.721,
     "scope": [
       "Issue and proposal structure, including Issue Snapshot concision",
       "Area and topic routing",
@@ -73,6 +73,19 @@
     "findings": []
   },
   "history": [
+    {
+      "generated_at": "2026-07-26T10:32:06+00:00",
+      "revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
+      "result": "clean",
+      "counts": {
+        "errors": 0,
+        "warnings": 0,
+        "findings": 0,
+        "issue_pages": 64,
+        "proposal_pages": 41
+      },
+      "duration_seconds": 12.721
+    },
     {
       "generated_at": "2026-07-26T10:23:23+00:00",
       "revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
@@ -449,19 +462,6 @@
         "proposal_pages": 41
       },
       "duration_seconds": 13.076
-    },
-    {
-      "generated_at": "2026-07-25T00:46:56+00:00",
-      "revision": "0925e578e9cc5b1b7ca75e863e1df54b131df704",
-      "result": "clean",
-      "counts": {
-        "errors": 0,
-        "warnings": 0,
-        "findings": 0,
-        "issue_pages": 64,
-        "proposal_pages": 41
-      },
-      "duration_seconds": 16.832
     }
   ]
 }
