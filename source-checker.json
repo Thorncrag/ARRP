@@ -3,9 +3,9 @@
   "agent_id": "source-checker-bot",
   "mode": "report-only",
   "contract_schema_version": 1,
-  "generation_id": "source-checker-b1631fd337dab0ab3f97",
+  "generation_id": "source-checker-2472ab572621f714964c",
   "source_revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
-  "checked_at": "2026-07-26T10:17:27+00:00",
+  "checked_at": "2026-07-26T10:27:00+00:00",
   "expected_count": 2055,
   "actual_count": 2055,
   "source_hashes": {
@@ -69,12 +69,12 @@
   "unexpected_source_ids": [],
   "duplicate_result_ids": [],
   "counts": {
-    "access restricted": 774,
+    "access restricted": 775,
     "broken": 14,
     "identity mismatch": 3,
     "identity-preserving redirect": 95,
     "review required": 81,
-    "transient failure": 10,
+    "transient failure": 9,
     "verified": 1078
   },
   "results": [
@@ -538,15 +538,13 @@
       "catalog_row": 31,
       "title": "",
       "requested_url": "https://www.legis.ga.gov/api/legislation/document/20212022/201121",
-      "attempts": 3,
-      "status_code": null,
+      "attempts": 1,
+      "status_code": 200,
       "final_url": "https://www.legis.ga.gov/api/legislation/document/20212022/201121",
-      "content_type": "",
-      "error": "timed out",
-      "error_kind": "transient",
-      "classification": "transient failure",
-      "exception_first_seen_at": "2026-07-26T10:17:27+00:00",
-      "exception_age_days": 0.0
+      "content_type": "text/plain",
+      "error": "",
+      "error_kind": "",
+      "classification": "verified"
     },
     {
       "source_id": "SRC-0031",
@@ -3578,7 +3576,7 @@
       "source_id": "SRC-0259",
       "catalog": "inventory/sources.csv",
       "catalog_row": 239,
-      "title": "Homepage - Election Official Legal Defense Network",
+      "title": "One moment, please... Loader",
       "requested_url": "https://eoldn.org/",
       "attempts": 1,
       "status_code": 200,
@@ -6446,7 +6444,7 @@
       "catalog_row": 433,
       "title": "Measure Status Details for SB 2471",
       "requested_url": "https://data.capitol.hawaii.gov/session/measure_indiv.aspx?billnumber=2471&billtype=SB&year=2026",
-      "attempts": 2,
+      "attempts": 1,
       "status_code": 200,
       "final_url": "https://data.capitol.hawaii.gov/session/measure_indiv.aspx?billnumber=2471&billtype=SB&year=2026",
       "content_type": "text/html",
@@ -7421,7 +7419,7 @@
       "attempts": 1,
       "status_code": 403,
       "final_url": "https://m.investing.com/news/stock-market-news/two-us-justice-dept-antitrust-officials-fired-over-merger-controversy-source-says-4158381",
-      "content_type": "text/plain",
+      "content_type": "text/html",
       "error": "HTTP 403",
       "error_kind": "access",
       "classification": "access restricted",
@@ -9759,7 +9757,7 @@
       "attempts": 1,
       "status_code": 403,
       "final_url": "https://www.investing.com/news/world-news/trump-administration-launches-effort-to-isolate-international-criminal-court-4788814",
-      "content_type": "text/plain",
+      "content_type": "text/html",
       "error": "HTTP 403",
       "error_kind": "access",
       "classification": "access restricted",
@@ -10016,15 +10014,17 @@
       "source_id": "SRC-0745",
       "catalog": "inventory/sources.csv",
       "catalog_row": 680,
-      "title": "FY 2026 Budget Request - NASA",
+      "title": "",
       "requested_url": "https://www.nasa.gov/fy-2026-budget-request/",
       "attempts": 1,
-      "status_code": 200,
+      "status_code": 429,
       "final_url": "https://www.nasa.gov/fy-2026-budget-request/",
       "content_type": "text/html",
-      "error": "",
-      "error_kind": "",
-      "classification": "verified"
+      "error": "HTTP 429",
+      "error_kind": "access",
+      "classification": "access restricted",
+      "exception_first_seen_at": "2026-07-26T10:27:00+00:00",
+      "exception_age_days": 0.0
     },
     {
       "source_id": "SRC-0746",
@@ -10350,7 +10350,7 @@
       "source_id": "SRC-0768",
       "catalog": "inventory/sources.csv",
       "catalog_row": 703,
-      "title": "Roundup: Trump-Era Agency Policy in the Courts – Institute for Policy Integrity",
+      "title": "One moment, please... Loader",
       "requested_url": "https://policyintegrity.org/trump-court-roundup",
       "attempts": 1,
       "status_code": 200,
@@ -27553,10 +27553,10 @@
       "title": "",
       "requested_url": "https://www.courtlistener.com/docket/70650763/friends-of-the-everglades-inc-v-noem",
       "attempts": 1,
-      "status_code": 403,
+      "status_code": 429,
       "final_url": "https://www.courtlistener.com/docket/70650763/friends-of-the-everglades-inc-v-noem",
       "content_type": "text/html",
-      "error": "HTTP 403",
+      "error": "HTTP 429",
       "error_kind": "access",
       "classification": "access restricted",
       "exception_first_seen_at": "2026-07-24T14:14:17Z",
@@ -27569,10 +27569,10 @@
       "title": "",
       "requested_url": "https://www.courtlistener.com/docket/71559749/hernandez-amaya-v-trump",
       "attempts": 1,
-      "status_code": 403,
+      "status_code": 429,
       "final_url": "https://www.courtlistener.com/docket/71559749/hernandez-amaya-v-trump",
       "content_type": "text/html",
-      "error": "HTTP 403",
+      "error": "HTTP 429",
       "error_kind": "access",
       "classification": "access restricted",
       "exception_first_seen_at": "2026-07-24T14:14:17Z",
@@ -27585,10 +27585,10 @@
       "title": "",
       "requested_url": "https://www.courtlistener.com/docket/70964222/neguse-v-us-immigration-and-customs-enforcement",
       "attempts": 1,
-      "status_code": 403,
+      "status_code": 429,
       "final_url": "https://www.courtlistener.com/docket/70964222/neguse-v-us-immigration-and-customs-enforcement",
       "content_type": "text/html",
-      "error": "HTTP 403",
+      "error": "HTTP 429",
       "error_kind": "access",
       "classification": "access restricted",
       "exception_first_seen_at": "2026-07-24T14:14:17Z",
@@ -27601,10 +27601,10 @@
       "title": "",
       "requested_url": "https://www.courtlistener.com/docket/72000469/reach-community-development-v-us-department-of-homeland-security",
       "attempts": 1,
-      "status_code": 403,
+      "status_code": 429,
       "final_url": "https://www.courtlistener.com/docket/72000469/reach-community-development-v-us-department-of-homeland-security",
       "content_type": "text/html",
-      "error": "HTTP 403",
+      "error": "HTTP 429",
       "error_kind": "access",
       "classification": "access restricted",
       "exception_first_seen_at": "2026-07-24T14:14:17Z",
@@ -27617,10 +27617,10 @@
       "title": "",
       "requested_url": "https://www.courtlistener.com/docket/71906132/ruiz-v-us-immigration-customs-enforcement",
       "attempts": 1,
-      "status_code": 403,
+      "status_code": 429,
       "final_url": "https://www.courtlistener.com/docket/71906132/ruiz-v-us-immigration-customs-enforcement",
       "content_type": "text/html",
-      "error": "HTTP 403",
+      "error": "HTTP 429",
       "error_kind": "access",
       "classification": "access restricted",
       "exception_first_seen_at": "2026-07-24T14:14:17Z",
@@ -27633,10 +27633,10 @@
       "title": "",
       "requested_url": "https://www.courtlistener.com/docket/73456083/salt-lake-city-corporation-v-mullin",
       "attempts": 1,
-      "status_code": 403,
+      "status_code": 429,
       "final_url": "https://www.courtlistener.com/docket/73456083/salt-lake-city-corporation-v-mullin",
       "content_type": "text/html",
-      "error": "HTTP 403",
+      "error": "HTTP 429",
       "error_kind": "access",
       "classification": "access restricted",
       "exception_first_seen_at": "2026-07-24T14:14:17Z",
@@ -27649,10 +27649,10 @@
       "title": "",
       "requested_url": "https://www.courtlistener.com/docket/73242269/arizona-state-of-v-mullin",
       "attempts": 1,
-      "status_code": 403,
+      "status_code": 429,
       "final_url": "https://www.courtlistener.com/docket/73242269/arizona-state-of-v-mullin",
       "content_type": "text/html",
-      "error": "HTTP 403",
+      "error": "HTTP 429",
       "error_kind": "access",
       "classification": "access restricted",
       "exception_first_seen_at": "2026-07-24T14:14:17Z",
@@ -30566,7 +30566,7 @@
       "error_kind": "access",
       "classification": "access restricted",
       "exception_first_seen_at": "2026-07-26T03:34:37+00:00",
-      "exception_age_days": 0.28
+      "exception_age_days": 0.29
     },
     {
       "source_id": "SRC-2652",
@@ -30582,7 +30582,7 @@
       "error_kind": "access",
       "classification": "access restricted",
       "exception_first_seen_at": "2026-07-26T03:34:37+00:00",
-      "exception_age_days": 0.28
+      "exception_age_days": 0.29
     },
     {
       "source_id": "SRC-2653",
@@ -30615,17 +30615,15 @@
   ],
   "deltas": {
     "available": true,
-    "baseline_checked_at": "2026-07-26T06:49:48+00:00",
-    "baseline_source_revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
-    "elapsed_days": 0.14,
+    "baseline_checked_at": "2026-07-26T10:17:27+00:00",
+    "baseline_source_revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
+    "elapsed_days": 0.01,
     "new_exception_ids": [],
     "regressed_exception_ids": [
-      "SRC-0030"
+      "SRC-0745"
     ],
     "resolved_exception_ids": [
-      "SRC-0598",
-      "SRC-0601",
-      "SRC-0747"
+      "SRC-0030"
     ],
     "ongoing_exception_ids": [
       "SRC-0002",
@@ -37670,20 +37668,20 @@
         "classification": "access restricted",
         "previous_classification": "access restricted",
         "first_seen_at": "2026-07-26T03:34:37+00:00",
-        "age_days": 0.28
+        "age_days": 0.29
       },
       {
         "source_id": "SRC-2652",
         "classification": "access restricted",
         "previous_classification": "access restricted",
         "first_seen_at": "2026-07-26T03:34:37+00:00",
-        "age_days": 0.28
+        "age_days": 0.29
       },
       {
-        "source_id": "SRC-0030",
-        "classification": "transient failure",
+        "source_id": "SRC-0745",
+        "classification": "access restricted",
         "previous_classification": "verified",
-        "first_seen_at": "2026-07-26T10:17:27+00:00",
+        "first_seen_at": "2026-07-26T10:27:00+00:00",
         "age_days": 0.0
       }
     ],
@@ -37692,13 +37690,53 @@
     "counts": {
       "new_exceptions": 0,
       "regressed_exceptions": 1,
-      "resolved_exceptions": 3,
+      "resolved_exceptions": 1,
       "ongoing_exceptions": 881,
       "entered_scope": 0,
       "left_scope": 0
     }
   },
   "history": [
+    {
+      "checked_at": "2026-07-26T10:27:00+00:00",
+      "generation_id": "source-checker-2472ab572621f714964c",
+      "source_revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
+      "source_hashes": {
+        "inventory/sources-pending.csv": "sha256:c6eafc0d61b601ee1db9c12e9271797eba4c0abd3f7bf75021df916989f5433c",
+        "inventory/sources.csv": "sha256:97f65cc569bc87ca53c9312e31f9702675b2a272c60a38b2c89e4b8a76015b5d"
+      },
+      "expected_count": 2055,
+      "actual_count": 2055,
+      "completeness": {
+        "complete": true,
+        "expected_count": 2055,
+        "actual_count": 2055,
+        "missing_count": 0
+      },
+      "eligible_urls": 2055,
+      "missing_source_ids": [],
+      "counts": {
+        "access restricted": 775,
+        "broken": 14,
+        "identity mismatch": 3,
+        "identity-preserving redirect": 95,
+        "review required": 81,
+        "transient failure": 9,
+        "verified": 1078
+      },
+      "deltas": {
+        "available": true,
+        "counts": {
+          "new_exceptions": 0,
+          "regressed_exceptions": 1,
+          "resolved_exceptions": 1,
+          "ongoing_exceptions": 881,
+          "entered_scope": 0,
+          "left_scope": 0
+        },
+        "baseline_checked_at": "2026-07-26T10:17:27+00:00"
+      }
+    },
     {
       "checked_at": "2026-07-26T10:17:27+00:00",
       "generation_id": "source-checker-b1631fd337dab0ab3f97",
