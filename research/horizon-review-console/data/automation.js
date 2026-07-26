@@ -450,1527 +450,84 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   ],
   "run_chain": {
     "schema_version": 1,
-    "chain_id": "host-dispatch-20260726T100402Z",
-    "stages": [],
-    "work_queue": null,
-    "context_packet": null,
-    "action_items": [],
-    "status": "failed",
-    "host_status": "failed",
-    "host_updated_at": "2026-07-26T10:04:02+00:00",
-    "updated_at": "2026-07-26T10:04:02+00:00",
-    "completed_at": "2026-07-26T10:04:02+00:00",
-    "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-    "failures": [
-      {
-        "stage": "host-repository-preflight",
-        "classification": "blocking",
-        "message": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/elim-dispatcher-state-repair instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "exit_code": 1,
-        "recorded_at": "2026-07-26T10:04:02+00:00"
-      }
-    ],
-    "host_action_items": [
-      {
-        "id": "automation-failure-daa8fd879c18d723a729",
-        "chain_id": "host-dispatch-20260725T013637Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T01:36:37+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: ARRP working tree is not clean; automated dispatch deferred",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-0b74e35daea3a71d"
-      },
-      {
-        "id": "automation-failure-1d35ce7ae6e1c8c03ecd",
-        "chain_id": "host-dispatch-20260725T014638Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T01:46:38+00:00",
-        "failure_count": 2,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/select_elim_context_route.py",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-15a4e8917300c3b6"
-      },
-      {
-        "id": "automation-failure-713d698964a3375df404",
-        "chain_id": "host-dispatch-20260725T015639Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T01:56:39+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/select_elim_context_route.py",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-b44480a540faadd7"
-      },
-      {
-        "id": "automation-failure-e8305a1d92876a2ac27f",
-        "chain_id": "host-dispatch-20260725T020640Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T02:06:40+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-ec4cfe2a37d30fa2"
-      },
-      {
-        "id": "automation-failure-1c042a07bf323d6f43bc",
-        "chain_id": "host-dispatch-20260725T021641Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T02:16:41+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-6892c15145558c39"
-      },
-      {
-        "id": "automation-failure-41e3ca616ec07fde465a",
-        "chain_id": "host-dispatch-20260725T022642Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T02:26:42+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-322dfb6087f80e4b"
-      },
-      {
-        "id": "automation-failure-87178723928a1caa5a72",
-        "chain_id": "host-dispatch-20260725T023644Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T02:36:44+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-3d0d51f7c2490bb3"
-      },
-      {
-        "id": "automation-failure-44509282a6ee45e123bf",
-        "chain_id": "host-dispatch-20260725T024645Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T02:46:45+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-d9ca62a37e4f1cb0"
-      },
-      {
-        "id": "automation-failure-4cd5993c673ae809eec3",
-        "chain_id": "arrp-20260725T035508Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T03:56:27+00:00",
-        "failure_count": 2,
-        "stage": "run-coordinator",
-        "details": "case_monitor report is current despite a recorded prior success; presidential_directives report is current despite a recorded prior success",
-        "next_action": "Refresh or repair the blocked Context Gateway input.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-bdd592100cec7778"
-      },
-      {
-        "id": "automation-failure-15ec577346abf4e1a2c0",
-        "chain_id": "arrp-20260725T041809Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T04:19:40+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-906c3c638f443370"
-      },
-      {
-        "id": "automation-failure-85c83d4f36008c7690f3",
-        "chain_id": "arrp-20260725T063006Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T08:21:06+00:00",
-        "failure_count": 1,
-        "stage": "elim-closeout",
-        "details": "elim-closeout failed: ARRP working tree is not clean; automated dispatch deferred",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T10:37:25+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Failed chain report reconstructed, validated as new and unique against ac9cd510, merged through PR #412 at ab845391, and read back from origin/main; no substantive Elim work was lost.",
-        "resolution_request_id": "control-5c9945e00875f4db"
-      },
-      {
-        "id": "automation-failure-e5c6d3dec24fb2885346",
-        "chain_id": "arrp-20260725T103811Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T10:39:28+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: ARRP working tree is not clean; automated dispatch deferred",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T10:55:09+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "PR #413 merged at 24f380c2; the original dirty checkout was archived intact after canonical proof, and no-LLM chain arrp-20260725T105258Z (workflow 30155231768) then passed cloud, Integrity, fresh-checkout, local rebuild, usage, and exact launch-boundary validation without invoking Elim.",
-        "resolution_request_id": "control-a488b94b1b8ba78f"
-      },
-      {
-        "id": "automation-failure-0eb33e10d9ebd209b591",
-        "chain_id": "arrp-20260726T064933Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T11:17:54+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "occurrence_count": 9,
-        "first_seen": "2026-07-25T11:17:54+00:00",
-        "last_seen": "2026-07-26T08:43:37+00:00",
-        "first_chain_id": "arrp-20260725T110820Z",
-        "last_chain_id": "arrp-20260726T064933Z",
-        "chain_ids": [
-          "arrp-20260725T110820Z",
-          "arrp-20260725T114639Z",
-          "arrp-20260725T201420Z",
-          "arrp-20260725T214010Z",
-          "arrp-20260725T224436Z",
-          "arrp-20260726T033003Z",
-          "arrp-20260726T041310Z",
-          "arrp-20260726T044932Z",
-          "arrp-20260726T064933Z"
-        ]
-      },
-      {
-        "id": "automation-failure-971a1d67c2f71b23c470",
-        "chain_id": "arrp-20260725T114639Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T11:58:01+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-5e4ce8945788af36c1da",
-        "chain_id": "host-dispatch-20260726T100402Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T20:08:54+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/elim-dispatcher-state-repair instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "occurrence_count": 39,
-        "first_seen": "2026-07-25T20:08:54+00:00",
-        "last_seen": "2026-07-26T10:04:02+00:00",
-        "first_chain_id": "host-dispatch-20260725T200854Z",
-        "last_chain_id": "host-dispatch-20260726T100402Z",
-        "chain_ids": [
-          "host-dispatch-20260726T005931Z",
-          "host-dispatch-20260726T010932Z",
-          "host-dispatch-20260726T011932Z",
-          "host-dispatch-20260726T012933Z",
-          "host-dispatch-20260726T013935Z",
-          "host-dispatch-20260726T014936Z",
-          "host-dispatch-20260726T015936Z",
-          "host-dispatch-20260726T020937Z",
-          "host-dispatch-20260726T021938Z",
-          "host-dispatch-20260726T022939Z",
-          "host-dispatch-20260726T023939Z",
-          "host-dispatch-20260726T024940Z",
-          "host-dispatch-20260726T025941Z",
-          "host-dispatch-20260726T030941Z",
-          "host-dispatch-20260726T031942Z",
-          "host-dispatch-20260726T032943Z",
-          "host-dispatch-20260726T040952Z",
-          "host-dispatch-20260726T042958Z",
-          "host-dispatch-20260725T200854Z",
-          "host-dispatch-20260726T100402Z"
-        ]
-      },
-      {
-        "id": "automation-failure-0cb740337952952e993c",
-        "chain_id": "arrp-20260725T201420Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T20:18:59+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-62c0ca81696fa1ea1772",
-        "chain_id": "host-dispatch-20260725T210904Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T21:09:04+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-1453943de7cf9e7bc65b",
-        "chain_id": "host-dispatch-20260725T211905Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T21:19:05+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-76d15df5ce3b488efb2b",
-        "chain_id": "host-dispatch-20260725T212906Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T21:29:06+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-b89607df4d8c20819d58",
-        "chain_id": "host-dispatch-20260725T213907Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T21:39:07+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-43b7c75312eef6c0a248",
-        "chain_id": "arrp-20260725T214010Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T21:49:12+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-6d28c3a80b5f16f09648",
-        "chain_id": "host-dispatch-20260725T221915Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T22:19:15+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-d9bb2f2ab411f91c050a",
-        "chain_id": "host-dispatch-20260725T222916Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T22:29:16+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-53d6cff484ca2b63b5eb",
-        "chain_id": "host-dispatch-20260725T223916Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T22:39:16+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-bf29478fa4f9e899345a",
-        "chain_id": "arrp-20260725T224436Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T22:49:21+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-66bc8d62a07f23ffdf75",
-        "chain_id": "host-dispatch-20260725T225922Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T22:59:22+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-93a087525179e3761c26",
-        "chain_id": "host-dispatch-20260725T230923Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T23:09:23+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-1013222a1feec565d1fb",
-        "chain_id": "host-dispatch-20260725T231923Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T23:19:23+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-b130454f419fa41188a6",
-        "chain_id": "host-dispatch-20260725T232924Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T23:29:24+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-4bf691f155bcd449a12c",
-        "chain_id": "host-dispatch-20260725T233925Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T23:39:25+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-46f4f53cb5900d3940c4",
-        "chain_id": "host-dispatch-20260725T234926Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T23:49:26+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-deb31d9597b16b2f9643",
-        "chain_id": "host-dispatch-20260725T235926Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T23:59:26+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-c66fe5bbc78b322d60eb",
-        "chain_id": "host-dispatch-20260726T000927Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T00:09:27+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-03e6a59463ad469c60c1",
-        "chain_id": "host-dispatch-20260726T001928Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T00:19:28+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-ee653d9899eee360b57d",
-        "chain_id": "host-dispatch-20260726T002929Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T00:29:29+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-adf84171d785975289c8",
-        "chain_id": "host-dispatch-20260726T003929Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T00:39:29+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-6de12c9fdc51582ccb6d",
-        "chain_id": "host-dispatch-20260726T004930Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T00:49:30+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-d4b29947b3e12030b4f9",
-        "chain_id": "host-dispatch-20260726T005931Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T00:59:31+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-740a28512bc098a7a148",
-        "chain_id": "host-dispatch-20260726T010932Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T01:09:32+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-7d5ec797c439346759af",
-        "chain_id": "host-dispatch-20260726T011932Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T01:19:32+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-d9e5cf70a19d34b1ae47",
-        "chain_id": "host-dispatch-20260726T012933Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T01:29:33+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-3e9e2f9e60e1db6ea3ef",
-        "chain_id": "host-dispatch-20260726T013935Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T01:39:35+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-a477e24ca9134c002a0a",
-        "chain_id": "host-dispatch-20260726T014936Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T01:49:36+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-d1162666236a82f9f93a",
-        "chain_id": "host-dispatch-20260726T015936Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T01:59:36+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-385e426d01eb2ce4936d",
-        "chain_id": "host-dispatch-20260726T020937Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T02:09:37+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-f5b5fd35c5ecf05d0110",
-        "chain_id": "host-dispatch-20260726T021938Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T02:19:38+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-8cf34da613b869d7fe6b",
-        "chain_id": "host-dispatch-20260726T022939Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T02:29:39+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-c44e3b9b45a0b76f5309",
-        "chain_id": "host-dispatch-20260726T023939Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T02:39:39+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-cb8c1e4fd9557ac0059c",
-        "chain_id": "host-dispatch-20260726T024940Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T02:49:40+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-25c1ea4721d9f8a9f8fa",
-        "chain_id": "host-dispatch-20260726T025941Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T02:59:41+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-fdd78f2e20b0762704bd",
-        "chain_id": "host-dispatch-20260726T030941Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T03:09:41+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-ea5699470342782f4d49",
-        "chain_id": "host-dispatch-20260726T031942Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T03:19:42+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-canonical-regeneration instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-bc5d4c31187f4193ed69",
-        "chain_id": "host-dispatch-20260726T032943Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T03:29:43+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/pages-deploy-node24 instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-f11346748196105e1b4e",
-        "chain_id": "arrp-20260726T033003Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T03:39:48+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-8b0d923c5ae9f6c2df3f",
-        "chain_id": "host-dispatch-20260726T040952Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T04:09:52+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/update-pypdf-security instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-0a52d28d47fb7cd1d8d2",
-        "chain_id": "arrp-20260726T041310Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T04:19:57+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-545f76e8f2a88440fe68",
-        "chain_id": "host-dispatch-20260726T042958Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T04:29:58+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-security-complete-regeneration instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-56e5d1b84839ba993540",
-        "chain_id": "arrp-20260726T044932Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T05:15:39+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-d08451c633223e2e030e",
-        "chain_id": "arrp-20260726T064933Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T08:43:37+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-1953ff6dff0fb53d0903",
-        "chain_id": "host-dispatch-20260726T095401Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T09:03:56+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical Git metadata contains noncanonical duplicate artifacts: .git/.DS_Store, .git/index 6. Preserve them outside .git, verify canonical refs and index, then retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": false,
-        "incident_fingerprint": "9fc268c731adbcda25d1",
-        "occurrence_count": 6,
-        "first_seen": "2026-07-26T09:03:56+00:00",
-        "last_seen": "2026-07-26T09:54:01+00:00",
-        "first_chain_id": "host-dispatch-20260726T090356Z",
-        "last_chain_id": "host-dispatch-20260726T095401Z",
-        "chain_ids": [
-          "host-dispatch-20260726T090356Z",
-          "host-dispatch-20260726T091357Z",
-          "host-dispatch-20260726T092358Z",
-          "host-dispatch-20260726T093359Z",
-          "host-dispatch-20260726T094400Z",
-          "host-dispatch-20260726T095401Z"
-        ]
-      },
-      {
-        "id": "automation-failure-6bc54c2203c87d61871d",
-        "chain_id": "host-dispatch-20260726T091357Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T09:13:57+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: could not refresh origin/main: fatal: bad object refs/heads/main 2\nerror: https://github.com/Thorncrag/ARRP.git did not send all necessary objects",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "7a27605a0510eb819e70",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-1953ff6dff0fb53d0903 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-1953ff6dff0fb53d0903"
-      }
-    ],
-    "last_successful_stages": [
+    "bot_id": "run-coordinator-bot",
+    "chain_id": "arrp-20260726T102646Z",
+    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30198267959",
+    "trigger": "workflow_dispatch",
+    "llm_launch_allowed": true,
+    "llm_launch_trigger": "workflow_dispatch",
+    "created_at": "2026-07-26T10:26:46+00:00",
+    "updated_at": "2026-07-26T10:32:50+00:00",
+    "status": "complete",
+    "baseline_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
+    "resume": {
+      "count": 0,
+      "from_run_id": null
+    },
+    "lock": {
+      "key": "arrp-run-chain",
+      "path": null,
+      "status": "released-by-workflow",
+      "owner_chain_id": "arrp-20260726T102646Z"
+    },
+    "repository": {
+      "branch": "main",
+      "head": "c4b1a0d727543e14238d47606aea1c1f8e136045",
+      "origin_main": "c4b1a0d727543e14238d47606aea1c1f8e136045",
+      "clean": true,
+      "dirty_paths": [],
+      "dirty_path_count": 0,
+      "ahead_of_origin_main": 0,
+      "behind_origin_main": 0,
+      "fresh": true
+    },
+    "workflow_health": {
+      "healthy": true,
+      "missing": [],
+      "checks": [
+        {
+          "stage": "case-monitor-bot",
+          "workflow": ".github/workflows/case-monitor-bot.yml",
+          "exists": true,
+          "sha256": "sha256:e007e3b1b332f1e623e3e16267d692b120e52163b1018bfae39670d0101b4001"
+        },
+        {
+          "stage": "presidential-directives-bot",
+          "workflow": ".github/workflows/presidential-directives-bot.yml",
+          "exists": true,
+          "sha256": "sha256:f015060695166dcfb3ffcae673639372076bd1cc833bd64c7137a5a5e520b44d"
+        },
+        {
+          "stage": "source-checker-bot",
+          "workflow": ".github/workflows/source-checker-bot.yml",
+          "exists": true,
+          "sha256": "sha256:215ebc77aa27987b20f2b52d84188a217e16cf4baa967e2ca9887d1a3eacfe41"
+        },
+        {
+          "stage": "project-console-progress-bot",
+          "workflow": ".github/workflows/project-console-progress.yml",
+          "exists": true,
+          "sha256": "sha256:1cc3fdc5491492a29407eb487ce155b708fe232a4a140ce5da6f1516d9917442"
+        },
+        {
+          "stage": "project-integrity-bot",
+          "workflow": ".github/workflows/project-integrity.yml",
+          "exists": true,
+          "sha256": "sha256:12181df885ff6d6faaa574e2773dcbd8546074febf7541cf1130eaf40c083b96"
+        }
+      ]
+    },
+    "stages": [
       {
         "id": "case-monitor-bot",
         "order": 1,
         "workflow": ".github/workflows/case-monitor-bot.yml",
-        "due": true,
-        "due_reason": "persistent watcher input is stale",
-        "status": "succeeded",
-        "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
-        "retry_limit": 2,
-        "retries": [],
-        "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:f3643db174a6cbd99f29de0c070c917f1bf7072acad086323f09d335aed63341"
-        },
-        "work_count": 43,
-        "attempt_key": "primary",
-        "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
-        "domain_event": {
-          "id": "SDE-8B910AA22FBBBCE3E0AE125F",
-          "sha256": "sha256:e28143a40764faf6bdb1630acbc0040d776d2c6bbf8a147af91a76051a73dc1b",
-          "json": {
-            "acceptance": null,
-            "affected_records": [
-              {
-                "record_id": "HOR-035",
-                "record_type": "candidate"
-              },
-              {
-                "record_id": "SRC-0632",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0945",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0965",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0982",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1004",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1052",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1056",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1093",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1929",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1930",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1932",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1933",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1934",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1940",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1941",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1942",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1943",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1946",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1952",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1957",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1973",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1979",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1982",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2042",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2080",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2081",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2105",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2110",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2136",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2149",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2190",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2216",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2221",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2235",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2238",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2351",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2591",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2649",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2651",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2652",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2653",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2654",
-                "record_type": "source"
-              }
-            ],
-            "agent_id": "case-monitor-bot",
-            "chain_id": "arrp-20260726T043422Z",
-            "event_id": "SDE-8B910AA22FBBBCE3E0AE125F",
-            "idempotency_key": "sha256:8b910aa22fbbbce3e0ae125f5916e8aca1a3af1fbc6850bafaa3da31df558671",
-            "kind": "source-domain-event",
-            "output_hashes": {
-              "files": [
-                {
-                  "bytes": 1818034,
-                  "path": "inventory/sources.csv",
-                  "sha256": "sha256:dd4e572ed54c5d0be25664d9d71ca8aca6e41e20aa039d34f92446b49ee84778"
-                },
-                {
-                  "bytes": 180849,
-                  "path": "research/horizon-source-records/HOR-035-source-development.md",
-                  "sha256": "sha256:bcb66117d0e1557deb4379d1d4979691cbcbb98ad4c2cec26398f837275d57e8"
-                }
-              ],
-              "proposal_diff": "sha256:ca82329205d345662c811596e247f0f43b56b60b6c3f849152b269b95075fde0",
-              "semantic_report": "sha256:11a7e758920934470a4e4b63fbff03a0e00b719aa88bdaf4d1caebbeab08714f"
-            },
-            "proposal": {
-              "base_ref": "main",
-              "head_ref": "bot/case-monitor-updates",
-              "proposal_revision": "51ab5321424426b78aeef84da03233248dbe4455",
-              "pull_request_number": 380,
-              "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/380",
-              "repository": "Thorncrag/ARRP"
-            },
-            "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
-            "schema_uri": ".github/source-domain-event.schema.json",
-            "schema_version": 1,
-            "source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-            "state": "proposed",
-            "summary": {
-              "affected_record_count": 43,
-              "counts": {
-                "affected-files": 2,
-                "affected-records": 43,
-                "candidate-records": 1,
-                "source-records": 42
-              },
-              "status": "case monitor proposal delta"
-            },
-            "trigger": "push"
-          }
-        }
-      },
-      {
-        "id": "presidential-directives-bot",
-        "order": 2,
-        "workflow": ".github/workflows/presidential-directives-bot.yml",
-        "due": true,
-        "due_reason": "persistent watcher input is stale",
-        "status": "succeeded",
-        "started_at": null,
-        "completed_at": "2026-07-26T04:41:32+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
-        "retry_limit": 2,
-        "retries": [],
-        "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:5d3d40da606c9766232db75a2f2c2da89d4dc5fb838ab6e813ad3aab60d58726"
-        },
-        "work_count": 10,
-        "attempt_key": "primary",
-        "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
-        "domain_event": {
-          "id": "SDE-4EDE456327A9D3C616449D75",
-          "sha256": "sha256:9b998a083d4be4f89dc89cb9290942d4d719807b656ce845fb00a53eb1aebb39",
-          "json": {
-            "acceptance": null,
-            "affected_records": [
-              {
-                "record_id": "2019-05370",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2019-16383",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14990",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14991",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14992",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14997",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14998",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14999",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-15003",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-15024",
-                "record_type": "presidential-directive"
-              }
-            ],
-            "agent_id": "presidential-directives-bot",
-            "chain_id": "arrp-20260726T043422Z",
-            "event_id": "SDE-4EDE456327A9D3C616449D75",
-            "idempotency_key": "sha256:4ede456327a9d3c616449d75eac08c825a405145a97339ca8cbc51869a3d210f",
-            "kind": "source-domain-event",
-            "output_hashes": {
-              "files": [
-                {
-                  "bytes": 1854598,
-                  "path": "inventory/presidential-directives.csv",
-                  "sha256": "sha256:9f14fdb579c9816258688f66f322d62a5f7feaa49410daa3063d3fd9094a7e3c"
-                }
-              ],
-              "proposal_diff": "sha256:21eee92eda009c4db723e0c530931dc0595962f544a6d379ebe2c3c0ee871dc4",
-              "semantic_report": "sha256:eead281dd9bc359cb2a6613c252bbb7c670545fec9c7eb128ab32383e696c968"
-            },
-            "proposal": {
-              "base_ref": "main",
-              "head_ref": "automation/presidential-directives-monitor",
-              "proposal_revision": "648af039d25490dfc00f55dc7d96136abe3399fa",
-              "pull_request_number": 381,
-              "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/381",
-              "repository": "Thorncrag/ARRP"
-            },
-            "run_id": "github-actions:Thorncrag/ARRP:30187993603:1:primary",
-            "schema_uri": ".github/source-domain-event.schema.json",
-            "schema_version": 1,
-            "source_revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-            "state": "proposed",
-            "summary": {
-              "affected_record_count": 10,
-              "counts": {
-                "affected-files": 1,
-                "affected-records": 10,
-                "presidential-directive-records": 10
-              },
-              "status": "presidential directives proposal delta"
-            },
-            "trigger": "push"
-          }
-        }
-      },
-      {
-        "id": "project-console-progress-bot",
-        "order": 4,
-        "workflow": ".github/workflows/project-console-progress.yml",
         "due": false,
-        "due_reason": "last success remains current until 2026-07-27T04:55:55+00:00",
-        "status": "succeeded",
+        "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
+        "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-26T06:49:33+00:00",
-        "last_success_at": "2026-07-26T04:55:55+00:00",
+        "completed_at": "2026-07-26T10:26:46+00:00",
+        "last_success_at": "2026-07-26T04:41:32+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
@@ -1978,44 +535,20 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "output": null
       },
       {
-        "id": "project-integrity-bot",
-        "order": 6,
-        "workflow": ".github/workflows/project-integrity.yml",
-        "due": true,
-        "due_reason": "required every chain",
-        "status": "succeeded",
+        "id": "presidential-directives-bot",
+        "order": 2,
+        "workflow": ".github/workflows/presidential-directives-bot.yml",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
+        "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-26T06:56:10+00:00",
-        "last_success_at": "2026-07-26T06:56:10+00:00",
+        "completed_at": "2026-07-26T10:26:46+00:00",
+        "last_success_at": "2026-07-26T04:41:32+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:90f9ec000cc89045f1b23ffa94d98e4f8a80d53ec08ff3d30850bc1c7575eb01"
-        },
-        "work_count": 0
-      },
-      {
-        "id": "public-intake",
-        "order": 5,
-        "workflow": null,
-        "due": true,
-        "due_reason": "required every chain",
-        "status": "succeeded",
-        "started_at": null,
-        "completed_at": "2026-07-26T06:56:10+00:00",
-        "last_success_at": "2026-07-26T06:56:10+00:00",
-        "retry_limit": 1,
-        "retries": [],
-        "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:cf5a5871a1b8d1cf6af9002558790586077d2c67bfe199481ea7d09ccd7e5806"
-        },
-        "work_count": 0
+        "details": "",
+        "output": null
       },
       {
         "id": "source-checker-bot",
@@ -2025,22 +558,22 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "persistent watcher input schema is invalid",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T06:56:10+00:00",
-        "last_success_at": "2026-07-26T06:56:10+00:00",
+        "completed_at": "2026-07-26T10:32:24+00:00",
+        "last_success_at": "2026-07-26T10:32:24+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:2f7b2fb44063e307bf10805ab27b782a404e09023202f9fc02b5e6b14834692a"
+          "sha256": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
         },
         "work_count": 98,
         "attempt_key": "primary",
-        "run_id": "github-actions:Thorncrag/ARRP:30191703134:1:primary",
+        "run_id": "github-actions:Thorncrag/ARRP:30198267959:1:primary",
         "domain_event": {
-          "id": "SDE-D82A0F9232ECA2CB6890222C",
-          "sha256": "sha256:4207476e3018e325c5832e713d76c98a7bb651e8af7484433c5baa82c948df21",
+          "id": "SDE-21226BFB43FC28A7FB8F13B3",
+          "sha256": "sha256:695f9d5b05806417d526cabfd014f34f44225f1d1b0b7fca350ff02c42e561e8",
           "json": {
             "acceptance": null,
             "affected_records": [
@@ -2797,14 +1330,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "record_type": "source"
               },
               {
-                "record_id": "SRC-0598",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0601",
-                "record_type": "source"
-              },
-              {
                 "record_id": "SRC-0608",
                 "record_type": "source"
               },
@@ -2933,7 +1458,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "record_type": "source"
               },
               {
-                "record_id": "SRC-0747",
+                "record_id": "SRC-0745",
                 "record_type": "source"
               },
               {
@@ -5582,50 +4107,5395 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               }
             ],
             "agent_id": "source-checker-bot",
-            "chain_id": "arrp-20260726T064933Z",
-            "event_id": "SDE-D82A0F9232ECA2CB6890222C",
-            "idempotency_key": "sha256:d82a0f9232eca2cb6890222cc565827a459772389f4d81a9bb9323731e9ee115",
+            "chain_id": "arrp-20260726T102646Z",
+            "event_id": "SDE-21226BFB43FC28A7FB8F13B3",
+            "idempotency_key": "sha256:21226bfb43fc28a7fb8f13b379068edfb14b79637ac3df9879d91842cafec4aa",
             "kind": "source-domain-event",
             "output_hashes": {
               "files": [
                 {
-                  "bytes": 50060,
+                  "bytes": 49960,
                   "path": "framework/reports/SOURCE_CHECKER_REPORT.md",
-                  "sha256": "sha256:0e1596d21e13f03941ca68eaeed8fd73a946d7d7d17de6180b9a4fe82b0cc126"
+                  "sha256": "sha256:5e539db9584d7a059832e3ccefa7bb4c429484dbadf8884e73d52aae3e71eb3f"
                 }
               ],
-              "proposal_diff": "sha256:3bc78f8362113444da6e006165b48f772468d1767cde9249820800edce416506",
-              "semantic_report": "sha256:8bc629297038e6567c612a54f38cd16d3b4afcf21c91fcbc1e3d94131a97bbcf"
+              "proposal_diff": "sha256:bc5f0ae9cb88eb3062fdfb88637f3d907368b7d3980be3e10bc76284afd53a0a",
+              "semantic_report": "sha256:ed7d73b78fac271796322e467bd46b0acf8bd1719f61cf64ebb5af62503fefab"
             },
             "proposal": {
               "base_ref": "main",
               "head_ref": "bot/source-checker-report",
-              "proposal_revision": "9e930e7bce07c9ce388660a82bb42b3654965b18",
+              "proposal_revision": "a9ed09574f27e34c5ce58ea493b619529817401b",
               "pull_request_number": 378,
               "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/378",
               "repository": "Thorncrag/ARRP"
             },
-            "run_id": "github-actions:Thorncrag/ARRP:30191703134:1:primary",
+            "run_id": "github-actions:Thorncrag/ARRP:30198267959:1:primary",
             "schema_uri": ".github/source-domain-event.schema.json",
             "schema_version": 1,
-            "source_revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
+            "source_revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
             "state": "proposed",
             "summary": {
-              "affected_record_count": 884,
+              "affected_record_count": 882,
               "counts": {
                 "affected-files": 1,
-                "affected-records": 884,
-                "source-records": 884
+                "affected-records": 882,
+                "source-records": 882
               },
               "status": "source checker proposal delta"
             },
-            "trigger": "schedule"
+            "trigger": "workflow_dispatch"
+          }
+        }
+      },
+      {
+        "id": "project-console-progress-bot",
+        "order": 4,
+        "workflow": ".github/workflows/project-console-progress.yml",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-27T10:23:36+00:00",
+        "status": "not_due",
+        "started_at": null,
+        "completed_at": "2026-07-26T10:26:46+00:00",
+        "last_success_at": "2026-07-26T10:23:36+00:00",
+        "retry_limit": 2,
+        "retries": [],
+        "failure_class": "none",
+        "details": "",
+        "output": null
+      },
+      {
+        "id": "public-intake",
+        "order": 5,
+        "workflow": null,
+        "due": true,
+        "due_reason": "required every chain",
+        "status": "succeeded",
+        "started_at": null,
+        "completed_at": "2026-07-26T10:32:24+00:00",
+        "last_success_at": "2026-07-26T10:32:24+00:00",
+        "retry_limit": 1,
+        "retries": [],
+        "failure_class": "none",
+        "details": "success",
+        "output": {
+          "path": "workflow-output",
+          "sha256": "sha256:880b0c7fa8f1dc2d36d14887b088679425215762a243efbc8951e9dd4f7cb12f"
+        },
+        "work_count": 0
+      },
+      {
+        "id": "project-integrity-bot",
+        "order": 6,
+        "workflow": ".github/workflows/project-integrity.yml",
+        "due": true,
+        "due_reason": "required every chain",
+        "status": "succeeded",
+        "started_at": null,
+        "completed_at": "2026-07-26T10:32:24+00:00",
+        "last_success_at": "2026-07-26T10:32:24+00:00",
+        "retry_limit": 2,
+        "retries": [],
+        "failure_class": "none",
+        "details": "success",
+        "output": {
+          "path": "workflow-output",
+          "sha256": "sha256:718bbc1ec99793c93289de12842aaa835b37b63c051aaac5f1fcdf0b7fff300d"
+        },
+        "work_count": 0
+      }
+    ],
+    "failures": [],
+    "degradations": [],
+    "queue_counts": {
+      "integrity": 0,
+      "monitoring": 0,
+      "sources": 98,
+      "intake": 0,
+      "total": 98
+    },
+    "elim_decision": {
+      "launch_recommended": true,
+      "reason": "Comprehensive review is due.",
+      "blockers": [],
+      "last_substantive_stage": true,
+      "predecessors_complete": true,
+      "profile": {
+        "id": "comprehensive",
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": "xhigh",
+        "full_context": true,
+        "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-2ef5397df5a5 and context profile comprehensive_review."
+      }
+    },
+    "review_epoch": {
+      "interval_days": 14,
+      "last_completed_at": "2026-07-24T15:40:02+00:00",
+      "next_due_at": "2026-08-07T15:40:02+00:00",
+      "due": true,
+      "due_reason": "governing_boundary_changed",
+      "boundary_commit": "d31863cdd38b6ed258ac4754012c91867c8d9487",
+      "epoch_id": "epoch-arrp-20260724T153028Z",
+      "stability_status": "evolving",
+      "unresolved_findings": [],
+      "boundary_changes": {
+        "extra": [
+          ".github/run-coordinator-bot.json",
+          "framework/agents/elim-context-routes.json"
+        ],
+        "mismatched": [
+          "framework/AGENT_OPERATING_RULES.md",
+          "framework/FRAMEWORK.md",
+          "framework/GITHUB_WORKFLOW.md",
+          "framework/INTAKE_AGENT_PROCESS.md",
+          "framework/PROJECT_STRUCTURE.md",
+          "framework/agents/ELIM.md",
+          "framework/agents/RUN_COORDINATOR_BOT.md"
+        ],
+        "missing": [
+          "AGENTS.md",
+          "README.md",
+          "framework/CONTEXT_ROUTING.md",
+          "framework/INTERBRANCH_REVIEW_COVERAGE_MATRIX.md",
+          "framework/INTERBRANCH_REVIEW_FRAMEWORK.md",
+          "framework/PRINT_ASSEMBLY.md",
+          "framework/PROJECT_CONSOLE_PROGRESS.md",
+          "framework/PROJECT_INTERFACE.md",
+          "framework/PUBLIC_RELEASE.md",
+          "framework/REMEDY_FRAMEWORK.md",
+          "framework/agent-rules/audit-execution.md",
+          "framework/agent-rules/autonomous-execution.md",
+          "framework/agent-rules/context-and-research.md",
+          "framework/agent-rules/handoff.md",
+          "framework/agent-rules/issue-and-candidate-work.md",
+          "framework/agent-rules/multi-agent.md",
+          "framework/agent-rules/provenance-and-logging.md",
+          "framework/agent-rules/validation-and-closeout.md",
+          "framework/agents/CASE_MONITOR_BOT.md",
+          "framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md",
+          "framework/agents/PROJECT_CONSOLE_PROGRESS_BOT.md",
+          "framework/agents/PROJECT_INTEGRITY_BOT.md",
+          "framework/agents/README.md",
+          "framework/agents/SOURCE_CHECKER_BOT.md",
+          "framework/audits/AUDIT_CORE.md",
+          "framework/audits/CHANGE_AUDITS.md",
+          "framework/audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md",
+          "framework/audits/PROJECT_CONSISTENCY_AUDITS.md",
+          "framework/audits/TIERED_AUDITS.md",
+          "framework/audits/VERIFICATION_PROTOCOL.md",
+          "framework/candidates/candidate-adjudication.md",
+          "framework/candidates/horizon-scanning.md",
+          "framework/context-routes.json",
+          "framework/evidence/annotation-and-source-standards.md",
+          "framework/evidence/evidence-records.md",
+          "framework/issues/issue-architecture.md",
+          "framework/lifecycle/development-levels.md",
+          "framework/lifecycle/foundation-and-development-gates.md",
+          "framework/methodology/neutrality-and-language.md",
+          "framework/methodology/partisan-perception-and-public-actors.md",
+          "framework/methodology/scope-and-admission.md",
+          "framework/navigation/inventory-and-indexes.md",
+          "framework/navigation/navigation-synchronization.md",
+          "framework/navigation/topic-guides.md",
+          "framework/operations/issue-development-check.md",
+          "framework/operations/project-update-checklist.md",
+          "framework/scoring/ADOPTION_AND_PATHWAY.md",
+          "framework/scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md",
+          "framework/scoring/PROPOSAL_QUALITY_AND_RUBRIC.md",
+          "framework/sources/automated-source-adjudication.md",
+          "framework/sources/presidential-directives.md",
+          "framework/sources/project-monitoring.md",
+          "framework/sources/source-catalogs.md"
+        ]
+      }
+    },
+    "usage": {
+      "hard_reserve_percent": 15,
+      "soft_run_target_percent": 10,
+      "remaining_percent": 79.0,
+      "status": "available",
+      "gate": {
+        "blockers": [],
+        "checkedAtUtc": "2026-07-26T10:32:50+00:00",
+        "lowestRemainingPercent": 79,
+        "reservePercent": 15,
+        "runBudget": {
+          "activatedWindows": [],
+          "baselinePath": "/Users/benjaminsmith/Documents/ARRP/.tmp/run-coordinator/elim-checkout/.tmp/run-coordinator/usage-baselines/4b2e8bb1824aec012dc8b3c6acf5a942e32b4ceefb6f313a565f4a48a8d150e6.json",
+          "dormantWindows": [
+            "codex_bengalfox:primary"
+          ],
+          "highestSpentPercent": 0,
+          "reserveBufferFloorPercent": 25,
+          "softTargetPercent": 10,
+          "softTargetReached": false,
+          "spentPercentByWindow": {
+            "codex:primary": 0,
+            "codex_bengalfox:primary": 0
+          }
+        },
+        "status": "pass",
+        "windows": [
+          {
+            "limitId": "codex",
+            "limitName": "codex",
+            "remainingPercent": 79,
+            "resetsAt": 1785611897,
+            "resetsAtUtc": "2026-08-01T19:18:17+00:00",
+            "usedPercent": 21,
+            "window": "primary",
+            "windowDurationMins": 10080
+          },
+          {
+            "limitId": "codex_bengalfox",
+            "limitName": "GPT-5.3-Codex-Spark",
+            "remainingPercent": 100,
+            "resetsAt": 1785666770,
+            "resetsAtUtc": "2026-08-02T10:32:50+00:00",
+            "usedPercent": 0,
+            "window": "primary",
+            "windowDurationMins": 10080
+          }
+        ]
+      },
+      "host_monitor": {
+        "source": "approved-host-dispatcher",
+        "status_path": ".tmp/run-coordinator/arrp-20260726T102646Z/usage-status-arrp-20260726T102646Z-20260726T103249Z.json",
+        "baseline_path": ".tmp/run-coordinator/usage-baselines/4b2e8bb1824aec012dc8b3c6acf5a942e32b4ceefb6f313a565f4a48a8d150e6.json",
+        "monitor_interval_seconds": 60,
+        "snapshot_max_age_seconds": 120
+      }
+    },
+    "next_action": "Authorized host dispatcher may launch Elim.",
+    "action_items": [],
+    "completed_at": "2026-07-26T10:32:50+00:00",
+    "final_revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
+    "bots": [
+      {
+        "id": "case-monitor-bot",
+        "name": "case-monitor-bot",
+        "due": false,
+        "status": "not_due",
+        "started_at": null,
+        "completed_at": "2026-07-26T10:26:46+00:00",
+        "error": null
+      },
+      {
+        "id": "presidential-directives-bot",
+        "name": "presidential-directives-bot",
+        "due": false,
+        "status": "not_due",
+        "started_at": null,
+        "completed_at": "2026-07-26T10:26:46+00:00",
+        "error": null
+      },
+      {
+        "id": "source-checker-bot",
+        "name": "source-checker-bot",
+        "due": true,
+        "status": "completed",
+        "started_at": null,
+        "completed_at": "2026-07-26T10:32:24+00:00",
+        "error": null
+      },
+      {
+        "id": "project-console-progress-bot",
+        "name": "project-console-progress-bot",
+        "due": false,
+        "status": "not_due",
+        "started_at": null,
+        "completed_at": "2026-07-26T10:26:46+00:00",
+        "error": null
+      },
+      {
+        "id": "project-integrity-bot",
+        "name": "project-integrity-bot",
+        "due": true,
+        "status": "completed",
+        "started_at": null,
+        "completed_at": "2026-07-26T10:32:24+00:00",
+        "error": null
+      }
+    ],
+    "work_queue": {
+      "path": "project-console-data:elim-work-queue.json",
+      "sha256": "sha256:2eb902b888e61b5390dfc9cb5e5c9af047e6cae3566e11405edf1752d118c835",
+      "ready_for_elim": true,
+      "launch_recommended": true,
+      "counts": {
+        "total": 155,
+        "elim_eligible": 155,
+        "human": 0,
+        "safety": 17,
+        "gap_obligations": 0,
+        "governance_discovery": 0
+      },
+      "problems": [],
+      "next_item": {
+        "schema_version": 1,
+        "id": "COMPREHENSIVE-REVIEW-2ef5397df5a5",
+        "kind": "comprehensive_review",
+        "work_class": "periodic_review",
+        "severity": "high",
+        "title": "Run the due comprehensive consistency review",
+        "owner": "agent",
+        "required_authority": "agent-within-runbook",
+        "exact_next_action": "Run the due comprehensive Review Epoch.",
+        "required_context_profile": "comprehensive_review",
+        "originating_stage": "review_epoch",
+        "source_identity": "epoch-arrp-20260726T102646Z",
+        "canonical_record_identity": "epoch-arrp-20260726T102646Z",
+        "dependencies": [
+          "review_epoch"
+        ],
+        "created_at": "2026-07-24T15:40:02+00:00",
+        "refreshed_at": "2026-07-26T10:32:24+00:00",
+        "eligible_for_elim": true,
+        "requires_human": false,
+        "eligibility_reason": "eligible under the selected runbook",
+        "blocking_reason": null,
+        "safety_class": 1,
+        "base_priority": 650,
+        "age_days": 1,
+        "fairness_boost": 1,
+        "priority_score": 651,
+        "selection_priority_score": 651,
+        "reason": "governing_boundary_changed",
+        "source": {
+          "input": "review_epoch",
+          "epoch_id": "epoch-arrp-20260726T102646Z",
+          "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
+          "next_due_at": "2026-08-07T15:40:02+00:00",
+          "due": true,
+          "due_reason": "governing_boundary_changed",
+          "boundary_changes": {
+            "extra": [
+              ".github/run-coordinator-bot.json",
+              "framework/agents/elim-context-routes.json"
+            ],
+            "mismatched": [
+              "framework/AGENT_OPERATING_RULES.md",
+              "framework/FRAMEWORK.md",
+              "framework/GITHUB_WORKFLOW.md",
+              "framework/INTAKE_AGENT_PROCESS.md",
+              "framework/PROJECT_STRUCTURE.md",
+              "framework/agents/ELIM.md",
+              "framework/agents/RUN_COORDINATOR_BOT.md"
+            ],
+            "missing": [
+              "AGENTS.md",
+              "README.md",
+              "framework/CONTEXT_ROUTING.md",
+              "framework/INTERBRANCH_REVIEW_COVERAGE_MATRIX.md",
+              "framework/INTERBRANCH_REVIEW_FRAMEWORK.md",
+              "framework/PRINT_ASSEMBLY.md",
+              "framework/PROJECT_CONSOLE_PROGRESS.md",
+              "framework/PROJECT_INTERFACE.md",
+              "framework/PUBLIC_RELEASE.md",
+              "framework/REMEDY_FRAMEWORK.md",
+              "framework/agent-rules/audit-execution.md",
+              "framework/agent-rules/autonomous-execution.md",
+              "framework/agent-rules/context-and-research.md",
+              "framework/agent-rules/handoff.md",
+              "framework/agent-rules/issue-and-candidate-work.md",
+              "framework/agent-rules/multi-agent.md",
+              "framework/agent-rules/provenance-and-logging.md",
+              "framework/agent-rules/validation-and-closeout.md",
+              "framework/agents/CASE_MONITOR_BOT.md",
+              "framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md",
+              "framework/agents/PROJECT_CONSOLE_PROGRESS_BOT.md",
+              "framework/agents/PROJECT_INTEGRITY_BOT.md",
+              "framework/agents/README.md",
+              "framework/agents/SOURCE_CHECKER_BOT.md",
+              "framework/audits/AUDIT_CORE.md",
+              "framework/audits/CHANGE_AUDITS.md",
+              "framework/audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md",
+              "framework/audits/PROJECT_CONSISTENCY_AUDITS.md",
+              "framework/audits/TIERED_AUDITS.md",
+              "framework/audits/VERIFICATION_PROTOCOL.md",
+              "framework/candidates/candidate-adjudication.md",
+              "framework/candidates/horizon-scanning.md",
+              "framework/context-routes.json",
+              "framework/evidence/annotation-and-source-standards.md",
+              "framework/evidence/evidence-records.md",
+              "framework/issues/issue-architecture.md",
+              "framework/lifecycle/development-levels.md",
+              "framework/lifecycle/foundation-and-development-gates.md",
+              "framework/methodology/neutrality-and-language.md",
+              "framework/methodology/partisan-perception-and-public-actors.md",
+              "framework/methodology/scope-and-admission.md",
+              "framework/navigation/inventory-and-indexes.md",
+              "framework/navigation/navigation-synchronization.md",
+              "framework/navigation/topic-guides.md",
+              "framework/operations/issue-development-check.md",
+              "framework/operations/project-update-checklist.md",
+              "framework/scoring/ADOPTION_AND_PATHWAY.md",
+              "framework/scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md",
+              "framework/scoring/PROPOSAL_QUALITY_AND_RUBRIC.md",
+              "framework/sources/automated-source-adjudication.md",
+              "framework/sources/presidential-directives.md",
+              "framework/sources/project-monitoring.md",
+              "framework/sources/source-catalogs.md"
+            ]
+          },
+          "unresolved_ids": []
+        },
+        "source_revision": "b63c3e1b470c6279bd2434cc457ce9696a439cadab5f07e44d3cf801ed5d896f",
+        "freshness_timestamp": "2026-07-26T10:32:24+00:00",
+        "source_chain_id": "arrp-20260726T102646Z",
+        "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
+        "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
+        "source_input_hashes": {
+          "review_epoch": "sha256:b63c3e1b470c6279bd2434cc457ce9696a439cadab5f07e44d3cf801ed5d896f"
+        },
+        "retry_state": {
+          "state": "new",
+          "attempt_count": 0,
+          "continuation": null,
+          "next_retry_at": null
+        },
+        "recovery": null
+      },
+      "selected_work_item_id": "COMPREHENSIVE-REVIEW-2ef5397df5a5",
+      "governance_discovery": {
+        "mode": "Project governance review and discovery",
+        "ordinary_selection_policy": "after-ordinary-queue-clears",
+        "minimum_interval_hours": 168,
+        "selected_as_quiet_queue_fallback": false,
+        "ordinary_eligible_count_before_fallback": 155,
+        "last_review": null,
+        "next_due_at": null,
+        "current_for_cadence": false,
+        "waiting_for_ordinary_queue": true,
+        "reason": "Ordinary eligible work remains and is selected first."
+      },
+      "gap_obligations": [],
+      "user_overrides": {
+        "applied": [],
+        "unmatched": [],
+        "request_sha256": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      },
+      "local_path": ".tmp/run-coordinator/arrp-20260726T102646Z/elim-work-queue.json"
+    },
+    "context_packet": {
+      "path": "project-console-data:elim-context.json",
+      "sha256": "sha256:0df0e5092f1ea3ed2d92d8e3da612c6d315bd58125f791e81c0ac82df8e3dbcc",
+      "profile": "comprehensive_review",
+      "work_item_id": "COMPREHENSIVE-REVIEW-2ef5397df5a5",
+      "issue_id": null,
+      "canonical_record": null,
+      "selection": {
+        "work_item_id": "COMPREHENSIVE-REVIEW-2ef5397df5a5",
+        "kind": "comprehensive_review",
+        "canonical_record": null
+      },
+      "repository_revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
+      "provenance_complete": true,
+      "limits": {
+        "max_bytes": 1000000,
+        "actual_bytes": 710611
+      },
+      "local_path": ".tmp/run-coordinator/arrp-20260726T102646Z/elim-context.json"
+    },
+    "user_overrides": {},
+    "verified_inputs": {
+      "case_monitor": {
+        "path": ".tmp/run-coordinator/arrp-20260726T102646Z/inputs/case-monitor.json",
+        "sha256": "sha256:f3643db174a6cbd99f29de0c070c917f1bf7072acad086323f09d335aed63341",
+        "bytes": 5693
+      },
+      "chain": {
+        "path": ".tmp/run-coordinator/arrp-20260726T102646Z/inputs/chain.json",
+        "sha256": "sha256:e9397ca629d85529776b016f99ebeb66322d512b6edb337327839b4f59b0dbee",
+        "bytes": 107137
+      },
+      "intake": {
+        "path": ".tmp/run-coordinator/arrp-20260726T102646Z/inputs/intake.json",
+        "sha256": "sha256:880b0c7fa8f1dc2d36d14887b088679425215762a243efbc8951e9dd4f7cb12f",
+        "bytes": 241
+      },
+      "integrity": {
+        "path": ".tmp/run-coordinator/arrp-20260726T102646Z/inputs/integrity.json",
+        "sha256": "sha256:718bbc1ec99793c93289de12842aaa835b37b63c051aaac5f1fcdf0b7fff300d",
+        "bytes": 1268
+      },
+      "presidential_directives": {
+        "path": ".tmp/run-coordinator/arrp-20260726T102646Z/inputs/presidential-directives.json",
+        "sha256": "sha256:5d3d40da606c9766232db75a2f2c2da89d4dc5fb838ab6e813ad3aab60d58726",
+        "bytes": 3719132
+      },
+      "progress": {
+        "path": ".tmp/run-coordinator/arrp-20260726T102646Z/inputs/progress.json",
+        "sha256": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
+        "bytes": 335193
+      },
+      "recovery": {
+        "path": ".tmp/run-coordinator/arrp-20260726T102646Z/inputs/recovery.json",
+        "sha256": "sha256:fe90b676ea2c5898e1a276e6eb38da41a9449234baa2a8d652ca305abade7437",
+        "bytes": 88
+      },
+      "review_epoch": {
+        "path": ".tmp/run-coordinator/arrp-20260726T102646Z/inputs/review-epoch.json",
+        "sha256": "sha256:b63c3e1b470c6279bd2434cc457ce9696a439cadab5f07e44d3cf801ed5d896f",
+        "bytes": 3526
+      },
+      "source_checker": {
+        "path": ".tmp/run-coordinator/arrp-20260726T102646Z/inputs/source-checker.json",
+        "sha256": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+        "bytes": 1445290
+      },
+      "recovery_effective": {
+        "path": ".tmp/run-coordinator/arrp-20260726T102646Z/inputs/recovery-effective.json",
+        "sha256": "sha256:63f281748b5442360c2b05367177cef3ac859f5e3f23db9c2629d01a8f7ca639",
+        "bytes": 88
+      },
+      "run_log_reconciliation": {
+        "path": ".tmp/run-coordinator/arrp-20260726T102646Z/inputs/run-log-reconciliation.json",
+        "sha256": "sha256:1f4eab03745ef5a3afcee30d938ddc5a146c785a7ee97a9d689f9319b8d06767",
+        "bytes": 86
+      },
+      "gap_obligations": {
+        "path": ".tmp/run-coordinator/arrp-20260726T102646Z/inputs/gap-obligations.json",
+        "sha256": "sha256:e96b6799348c155b0c7bd0e6a46f96f380415d97bf311bdb3ee2175ea567ce4a",
+        "bytes": 92
+      },
+      "overrides": {
+        "path": ".tmp/run-coordinator/arrp-20260726T102646Z/inputs/user-overrides.json",
+        "sha256": "sha256:9c3fb5e89aa40a0364258e831d5aa34a2a4b72dbbbd067b356ada825fa6cc271",
+        "bytes": 22
+      }
+    },
+    "host_action_items": [
+      {
+        "id": "automation-failure-daa8fd879c18d723a729",
+        "chain_id": "host-dispatch-20260725T013637Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T01:36:37+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: ARRP working tree is not clean; automated dispatch deferred",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-0b74e35daea3a71d"
+      },
+      {
+        "id": "automation-failure-1d35ce7ae6e1c8c03ecd",
+        "chain_id": "host-dispatch-20260725T014638Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T01:46:38+00:00",
+        "failure_count": 2,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-15a4e8917300c3b6"
+      },
+      {
+        "id": "automation-failure-713d698964a3375df404",
+        "chain_id": "host-dispatch-20260725T015639Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T01:56:39+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-b44480a540faadd7"
+      },
+      {
+        "id": "automation-failure-e8305a1d92876a2ac27f",
+        "chain_id": "host-dispatch-20260725T020640Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:06:40+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-ec4cfe2a37d30fa2"
+      },
+      {
+        "id": "automation-failure-1c042a07bf323d6f43bc",
+        "chain_id": "host-dispatch-20260725T021641Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:16:41+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-6892c15145558c39"
+      },
+      {
+        "id": "automation-failure-41e3ca616ec07fde465a",
+        "chain_id": "host-dispatch-20260725T022642Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:26:42+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-322dfb6087f80e4b"
+      },
+      {
+        "id": "automation-failure-87178723928a1caa5a72",
+        "chain_id": "host-dispatch-20260725T023644Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:36:44+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-3d0d51f7c2490bb3"
+      },
+      {
+        "id": "automation-failure-44509282a6ee45e123bf",
+        "chain_id": "host-dispatch-20260725T024645Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:46:45+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-d9ca62a37e4f1cb0"
+      },
+      {
+        "id": "automation-failure-4cd5993c673ae809eec3",
+        "chain_id": "arrp-20260725T035508Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T03:56:27+00:00",
+        "failure_count": 2,
+        "stage": "run-coordinator",
+        "details": "case_monitor report is current despite a recorded prior success; presidential_directives report is current despite a recorded prior success",
+        "next_action": "Refresh or repair the blocked Context Gateway input.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-bdd592100cec7778"
+      },
+      {
+        "id": "automation-failure-15ec577346abf4e1a2c0",
+        "chain_id": "arrp-20260725T041809Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T04:19:40+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-906c3c638f443370"
+      },
+      {
+        "id": "automation-failure-85c83d4f36008c7690f3",
+        "chain_id": "arrp-20260725T063006Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T08:21:06+00:00",
+        "failure_count": 1,
+        "stage": "elim-closeout",
+        "details": "elim-closeout failed: ARRP working tree is not clean; automated dispatch deferred",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T10:37:25+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Failed chain report reconstructed, validated as new and unique against ac9cd510, merged through PR #412 at ab845391, and read back from origin/main; no substantive Elim work was lost.",
+        "resolution_request_id": "control-5c9945e00875f4db"
+      },
+      {
+        "id": "automation-failure-e5c6d3dec24fb2885346",
+        "chain_id": "arrp-20260725T103811Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T10:39:28+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: ARRP working tree is not clean; automated dispatch deferred",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T10:55:09+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "PR #413 merged at 24f380c2; the original dirty checkout was archived intact after canonical proof, and no-LLM chain arrp-20260725T105258Z (workflow 30155231768) then passed cloud, Integrity, fresh-checkout, local rebuild, usage, and exact launch-boundary validation without invoking Elim.",
+        "resolution_request_id": "control-a488b94b1b8ba78f"
+      },
+      {
+        "id": "automation-failure-0eb33e10d9ebd209b591",
+        "chain_id": "arrp-20260726T064933Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T11:17:54+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "occurrence_count": 9,
+        "first_seen": "2026-07-25T11:17:54+00:00",
+        "last_seen": "2026-07-26T08:43:37+00:00",
+        "first_chain_id": "arrp-20260725T110820Z",
+        "last_chain_id": "arrp-20260726T064933Z",
+        "chain_ids": [
+          "arrp-20260725T110820Z",
+          "arrp-20260725T114639Z",
+          "arrp-20260725T201420Z",
+          "arrp-20260725T214010Z",
+          "arrp-20260725T224436Z",
+          "arrp-20260726T033003Z",
+          "arrp-20260726T041310Z",
+          "arrp-20260726T044932Z",
+          "arrp-20260726T064933Z"
+        ],
+        "resolved_at": "2026-07-26T10:24:08+00:00",
+        "resolved_by": "dispatcher-health-proof",
+        "resolution_reason": "The clean isolated checkout was advanced from a previously attested baseline and verified at exact origin/main."
+      },
+      {
+        "id": "automation-failure-971a1d67c2f71b23c470",
+        "chain_id": "arrp-20260725T114639Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T11:58:01+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-5e4ce8945788af36c1da",
+        "chain_id": "host-dispatch-20260726T101403Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T20:08:54+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/elim-dispatcher-state-repair instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "occurrence_count": 40,
+        "first_seen": "2026-07-25T20:08:54+00:00",
+        "last_seen": "2026-07-26T10:14:03+00:00",
+        "first_chain_id": "host-dispatch-20260725T200854Z",
+        "last_chain_id": "host-dispatch-20260726T101403Z",
+        "chain_ids": [
+          "host-dispatch-20260726T010932Z",
+          "host-dispatch-20260726T011932Z",
+          "host-dispatch-20260726T012933Z",
+          "host-dispatch-20260726T013935Z",
+          "host-dispatch-20260726T014936Z",
+          "host-dispatch-20260726T015936Z",
+          "host-dispatch-20260726T020937Z",
+          "host-dispatch-20260726T021938Z",
+          "host-dispatch-20260726T022939Z",
+          "host-dispatch-20260726T023939Z",
+          "host-dispatch-20260726T024940Z",
+          "host-dispatch-20260726T025941Z",
+          "host-dispatch-20260726T030941Z",
+          "host-dispatch-20260726T031942Z",
+          "host-dispatch-20260726T032943Z",
+          "host-dispatch-20260726T040952Z",
+          "host-dispatch-20260726T042958Z",
+          "host-dispatch-20260725T200854Z",
+          "host-dispatch-20260726T100402Z",
+          "host-dispatch-20260726T101403Z"
+        ],
+        "resolved_at": "2026-07-26T10:24:04+00:00",
+        "resolved_by": "dispatcher-health-proof",
+        "resolution_reason": "The canonical workspace is clean on main, origin/main was read back exactly, and every reviewed automation-runtime blob matches."
+      },
+      {
+        "id": "automation-failure-0cb740337952952e993c",
+        "chain_id": "arrp-20260725T201420Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T20:18:59+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-62c0ca81696fa1ea1772",
+        "chain_id": "host-dispatch-20260725T210904Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T21:09:04+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-1453943de7cf9e7bc65b",
+        "chain_id": "host-dispatch-20260725T211905Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T21:19:05+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-76d15df5ce3b488efb2b",
+        "chain_id": "host-dispatch-20260725T212906Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T21:29:06+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-b89607df4d8c20819d58",
+        "chain_id": "host-dispatch-20260725T213907Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T21:39:07+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-43b7c75312eef6c0a248",
+        "chain_id": "arrp-20260725T214010Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T21:49:12+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-6d28c3a80b5f16f09648",
+        "chain_id": "host-dispatch-20260725T221915Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T22:19:15+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-d9bb2f2ab411f91c050a",
+        "chain_id": "host-dispatch-20260725T222916Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T22:29:16+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-53d6cff484ca2b63b5eb",
+        "chain_id": "host-dispatch-20260725T223916Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T22:39:16+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-bf29478fa4f9e899345a",
+        "chain_id": "arrp-20260725T224436Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T22:49:21+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-66bc8d62a07f23ffdf75",
+        "chain_id": "host-dispatch-20260725T225922Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T22:59:22+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-93a087525179e3761c26",
+        "chain_id": "host-dispatch-20260725T230923Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T23:09:23+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-1013222a1feec565d1fb",
+        "chain_id": "host-dispatch-20260725T231923Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T23:19:23+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-b130454f419fa41188a6",
+        "chain_id": "host-dispatch-20260725T232924Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T23:29:24+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-4bf691f155bcd449a12c",
+        "chain_id": "host-dispatch-20260725T233925Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T23:39:25+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-46f4f53cb5900d3940c4",
+        "chain_id": "host-dispatch-20260725T234926Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T23:49:26+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-deb31d9597b16b2f9643",
+        "chain_id": "host-dispatch-20260725T235926Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T23:59:26+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-c66fe5bbc78b322d60eb",
+        "chain_id": "host-dispatch-20260726T000927Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T00:09:27+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-03e6a59463ad469c60c1",
+        "chain_id": "host-dispatch-20260726T001928Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T00:19:28+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-ee653d9899eee360b57d",
+        "chain_id": "host-dispatch-20260726T002929Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T00:29:29+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-adf84171d785975289c8",
+        "chain_id": "host-dispatch-20260726T003929Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T00:39:29+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-6de12c9fdc51582ccb6d",
+        "chain_id": "host-dispatch-20260726T004930Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T00:49:30+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-d4b29947b3e12030b4f9",
+        "chain_id": "host-dispatch-20260726T005931Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T00:59:31+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-740a28512bc098a7a148",
+        "chain_id": "host-dispatch-20260726T010932Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T01:09:32+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-7d5ec797c439346759af",
+        "chain_id": "host-dispatch-20260726T011932Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T01:19:32+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-d9e5cf70a19d34b1ae47",
+        "chain_id": "host-dispatch-20260726T012933Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T01:29:33+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-3e9e2f9e60e1db6ea3ef",
+        "chain_id": "host-dispatch-20260726T013935Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T01:39:35+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-a477e24ca9134c002a0a",
+        "chain_id": "host-dispatch-20260726T014936Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T01:49:36+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-d1162666236a82f9f93a",
+        "chain_id": "host-dispatch-20260726T015936Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T01:59:36+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-385e426d01eb2ce4936d",
+        "chain_id": "host-dispatch-20260726T020937Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:09:37+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-f5b5fd35c5ecf05d0110",
+        "chain_id": "host-dispatch-20260726T021938Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:19:38+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-8cf34da613b869d7fe6b",
+        "chain_id": "host-dispatch-20260726T022939Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:29:39+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-c44e3b9b45a0b76f5309",
+        "chain_id": "host-dispatch-20260726T023939Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:39:39+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-cb8c1e4fd9557ac0059c",
+        "chain_id": "host-dispatch-20260726T024940Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:49:40+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-25c1ea4721d9f8a9f8fa",
+        "chain_id": "host-dispatch-20260726T025941Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:59:41+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-fdd78f2e20b0762704bd",
+        "chain_id": "host-dispatch-20260726T030941Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T03:09:41+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-ea5699470342782f4d49",
+        "chain_id": "host-dispatch-20260726T031942Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T03:19:42+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-canonical-regeneration instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-bc5d4c31187f4193ed69",
+        "chain_id": "host-dispatch-20260726T032943Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T03:29:43+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/pages-deploy-node24 instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-f11346748196105e1b4e",
+        "chain_id": "arrp-20260726T033003Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T03:39:48+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-8b0d923c5ae9f6c2df3f",
+        "chain_id": "host-dispatch-20260726T040952Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T04:09:52+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/update-pypdf-security instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-0a52d28d47fb7cd1d8d2",
+        "chain_id": "arrp-20260726T041310Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T04:19:57+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-545f76e8f2a88440fe68",
+        "chain_id": "host-dispatch-20260726T042958Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T04:29:58+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-security-complete-regeneration instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-56e5d1b84839ba993540",
+        "chain_id": "arrp-20260726T044932Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T05:15:39+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-d08451c633223e2e030e",
+        "chain_id": "arrp-20260726T064933Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T08:43:37+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-1953ff6dff0fb53d0903",
+        "chain_id": "host-dispatch-20260726T095401Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T09:03:56+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical Git metadata contains noncanonical duplicate artifacts: .git/.DS_Store, .git/index 6. Preserve them outside .git, verify canonical refs and index, then retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "9fc268c731adbcda25d1",
+        "occurrence_count": 6,
+        "first_seen": "2026-07-26T09:03:56+00:00",
+        "last_seen": "2026-07-26T09:54:01+00:00",
+        "first_chain_id": "host-dispatch-20260726T090356Z",
+        "last_chain_id": "host-dispatch-20260726T095401Z",
+        "chain_ids": [
+          "host-dispatch-20260726T090356Z",
+          "host-dispatch-20260726T091357Z",
+          "host-dispatch-20260726T092358Z",
+          "host-dispatch-20260726T093359Z",
+          "host-dispatch-20260726T094400Z",
+          "host-dispatch-20260726T095401Z"
+        ],
+        "resolved_at": "2026-07-26T10:24:04+00:00",
+        "resolved_by": "dispatcher-health-proof",
+        "resolution_reason": "The canonical workspace is clean on main, origin/main was read back exactly, and every reviewed automation-runtime blob matches."
+      },
+      {
+        "id": "automation-failure-6bc54c2203c87d61871d",
+        "chain_id": "host-dispatch-20260726T091357Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T09:13:57+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: could not refresh origin/main: fatal: bad object refs/heads/main 2\nerror: https://github.com/Thorncrag/ARRP.git did not send all necessary objects",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "7a27605a0510eb819e70",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-1953ff6dff0fb53d0903 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-1953ff6dff0fb53d0903"
+      }
+    ],
+    "last_successful_stages": [
+      {
+        "id": "case-monitor-bot",
+        "order": 1,
+        "workflow": ".github/workflows/case-monitor-bot.yml",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
+        "status": "succeeded",
+        "started_at": null,
+        "completed_at": "2026-07-26T10:26:46+00:00",
+        "last_success_at": "2026-07-26T04:41:32+00:00",
+        "retry_limit": 2,
+        "retries": [],
+        "failure_class": "none",
+        "details": "",
+        "output": null
+      },
+      {
+        "id": "presidential-directives-bot",
+        "order": 2,
+        "workflow": ".github/workflows/presidential-directives-bot.yml",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
+        "status": "succeeded",
+        "started_at": null,
+        "completed_at": "2026-07-26T10:26:46+00:00",
+        "last_success_at": "2026-07-26T04:41:32+00:00",
+        "retry_limit": 2,
+        "retries": [],
+        "failure_class": "none",
+        "details": "",
+        "output": null
+      },
+      {
+        "id": "project-console-progress-bot",
+        "order": 4,
+        "workflow": ".github/workflows/project-console-progress.yml",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-27T10:23:36+00:00",
+        "status": "succeeded",
+        "started_at": null,
+        "completed_at": "2026-07-26T10:26:46+00:00",
+        "last_success_at": "2026-07-26T10:23:36+00:00",
+        "retry_limit": 2,
+        "retries": [],
+        "failure_class": "none",
+        "details": "",
+        "output": null
+      },
+      {
+        "id": "project-integrity-bot",
+        "order": 6,
+        "workflow": ".github/workflows/project-integrity.yml",
+        "due": true,
+        "due_reason": "required every chain",
+        "status": "succeeded",
+        "started_at": null,
+        "completed_at": "2026-07-26T10:32:24+00:00",
+        "last_success_at": "2026-07-26T10:32:24+00:00",
+        "retry_limit": 2,
+        "retries": [],
+        "failure_class": "none",
+        "details": "success",
+        "output": {
+          "path": "workflow-output",
+          "sha256": "sha256:718bbc1ec99793c93289de12842aaa835b37b63c051aaac5f1fcdf0b7fff300d"
+        },
+        "work_count": 0
+      },
+      {
+        "id": "public-intake",
+        "order": 5,
+        "workflow": null,
+        "due": true,
+        "due_reason": "required every chain",
+        "status": "succeeded",
+        "started_at": null,
+        "completed_at": "2026-07-26T10:32:24+00:00",
+        "last_success_at": "2026-07-26T10:32:24+00:00",
+        "retry_limit": 1,
+        "retries": [],
+        "failure_class": "none",
+        "details": "success",
+        "output": {
+          "path": "workflow-output",
+          "sha256": "sha256:880b0c7fa8f1dc2d36d14887b088679425215762a243efbc8951e9dd4f7cb12f"
+        },
+        "work_count": 0
+      },
+      {
+        "id": "source-checker-bot",
+        "order": 3,
+        "workflow": ".github/workflows/source-checker-bot.yml",
+        "due": true,
+        "due_reason": "persistent watcher input schema is invalid",
+        "status": "succeeded",
+        "started_at": null,
+        "completed_at": "2026-07-26T10:32:24+00:00",
+        "last_success_at": "2026-07-26T10:32:24+00:00",
+        "retry_limit": 2,
+        "retries": [],
+        "failure_class": "none",
+        "details": "success",
+        "output": {
+          "path": "workflow-output",
+          "sha256": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
+        },
+        "work_count": 98,
+        "attempt_key": "primary",
+        "run_id": "github-actions:Thorncrag/ARRP:30198267959:1:primary",
+        "domain_event": {
+          "id": "SDE-21226BFB43FC28A7FB8F13B3",
+          "sha256": "sha256:695f9d5b05806417d526cabfd014f34f44225f1d1b0b7fca350ff02c42e561e8",
+          "json": {
+            "acceptance": null,
+            "affected_records": [
+              {
+                "record_id": "SRC-0002",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0003",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0004",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0006",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0007",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0008",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0009",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0010",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0011",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0012",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0013",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0014",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0015",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0016",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0017",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0018",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0019",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0020",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0021",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0022",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0023",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0024",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0025",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0026",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0035",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0036",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0037",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0045",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0047",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0048",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0049",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0050",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0054",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0055",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0056",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0057",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0060",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0062",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0063",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0068",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0069",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0070",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0071",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0072",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0073",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0110",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0117",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0119",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0120",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0123",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0125",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0135",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0156",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0164",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0167",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0168",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0172",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0173",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0174",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0175",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0178",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0182",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0183",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0192",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0193",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0195",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0201",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0218",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0219",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0220",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0226",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0228",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0229",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0230",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0231",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0232",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0233",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0236",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0237",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0238",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0239",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0240",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0243",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0244",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0251",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0253",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0255",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0256",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0261",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0265",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0266",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0272",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0273",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0285",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0286",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0287",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0288",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0290",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0292",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0294",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0301",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0302",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0305",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0307",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0308",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0310",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0311",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0313",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0314",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0320",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0339",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0350",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0357",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0358",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0359",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0360",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0370",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0371",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0372",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0373",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0375",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0376",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0377",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0378",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0379",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0380",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0381",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0382",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0383",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0384",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0385",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0386",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0400",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0407",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0408",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0409",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0410",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0411",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0412",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0417",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0418",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0419",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0428",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0429",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0430",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0432",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0435",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0437",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0442",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0445",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0448",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0449",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0457",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0458",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0459",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0468",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0469",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0470",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0471",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0472",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0473",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0474",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0475",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0478",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0479",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0480",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0487",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0500",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0501",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0508",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0516",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0517",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0519",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0520",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0534",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0537",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0539",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0542",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0545",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0546",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0547",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0553",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0554",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0555",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0556",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0560",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0567",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0595",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0608",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0610",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0614",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0617",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0618",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0627",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0653",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0654",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0655",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0666",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0667",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0668",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0678",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0680",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0681",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0682",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0683",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0684",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0689",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0692",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0693",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0694",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0695",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0703",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0709",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0717",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0726",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0727",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0738",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0739",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0743",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0744",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0745",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0754",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0755",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0756",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0758",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0761",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0764",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0780",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0787",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0788",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0791",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0792",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0793",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0796",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0797",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0798",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0799",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0800",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0801",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0802",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0803",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0804",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0805",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0806",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0807",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0808",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0810",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0811",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0831",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0835",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0851",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0894",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0895",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0913",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0916",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0918",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0919",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0921",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0923",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0924",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0925",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0929",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0930",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0931",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0932",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0933",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0934",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0937",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0940",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0944",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0945",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0946",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0948",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0949",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0952",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0956",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0957",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0958",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0959",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0961",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0962",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0963",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0965",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0966",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0967",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0969",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0972",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0973",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0975",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0976",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0977",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0979",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0980",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0981",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0982",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0983",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0985",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0986",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0987",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0988",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0989",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0991",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0993",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0994",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0996",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0997",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0998",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1000",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1004",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1005",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1007",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1008",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1009",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1010",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1011",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1013",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1015",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1016",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1017",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1018",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1020",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1021",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1023",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1024",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1025",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1026",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1027",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1029",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1030",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1032",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1034",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1035",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1036",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1037",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1040",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1044",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1045",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1046",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1047",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1049",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1050",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1052",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1056",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1059",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1060",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1061",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1062",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1063",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1064",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1066",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1067",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1069",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1071",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1074",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1075",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1076",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1077",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1078",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1079",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1081",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1082",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1084",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1085",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1086",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1087",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1088",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1090",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1092",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1093",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1094",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1096",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1097",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1098",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1140",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1143",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1149",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1187",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1197",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1221",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1227",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1228",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1230",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1232",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1233",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1236",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1237",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1249",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1250",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1253",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1363",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1364",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1368",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1370",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1372",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1374",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1377",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1380",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1382",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1384",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1386",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1388",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1390",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1392",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1397",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1399",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1403",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1407",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1409",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1410",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1418",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1420",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1422",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1424",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1426",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1430",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1438",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1440",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1442",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1444",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1446",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1461",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1481",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1487",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1493",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1499",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1509",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1517",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1520",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1528",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1542",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1547",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1785",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1786",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1787",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1788",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1789",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1790",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1791",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1792",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1793",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1794",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1795",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1796",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1798",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1800",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1801",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1802",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1814",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1839",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1846",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1857",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1909",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1911",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1913",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1917",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1919",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1920",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1921",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1922",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1923",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1924",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1926",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1927",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1929",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1930",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1931",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1932",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1933",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1934",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1935",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1936",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1937",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1938",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1940",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1941",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1942",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1943",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1944",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1945",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1946",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1947",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1948",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1949",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1952",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1953",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1954",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1955",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1956",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1957",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1958",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1959",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1960",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1961",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1962",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1964",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1966",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1968",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1970",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1971",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1972",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1973",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1974",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1975",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1976",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1977",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1978",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1979",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1980",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1981",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1982",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1983",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1984",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1985",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1986",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1987",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1988",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1989",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1991",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1992",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2007",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2008",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2009",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2010",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2011",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2012",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2013",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2014",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2015",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2016",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2017",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2018",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2019",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2020",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2021",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2022",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2023",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2024",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2026",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2027",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2028",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2030",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2031",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2032",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2033",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2034",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2035",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2036",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2037",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2038",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2039",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2040",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2041",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2042",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2043",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2044",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2045",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2046",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2047",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2048",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2049",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2050",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2051",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2052",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2053",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2054",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2055",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2056",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2057",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2058",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2059",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2060",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2061",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2062",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2063",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2064",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2065",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2066",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2067",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2068",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2069",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2070",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2071",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2072",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2073",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2074",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2075",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2076",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2077",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2078",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2079",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2080",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2081",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2082",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2083",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2084",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2085",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2086",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2087",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2088",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2089",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2090",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2091",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2092",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2093",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2094",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2095",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2096",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2097",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2098",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2099",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2100",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2101",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2102",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2103",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2104",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2105",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2106",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2107",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2108",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2109",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2110",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2111",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2112",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2113",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2114",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2115",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2116",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2117",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2118",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2119",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2120",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2121",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2122",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2123",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2124",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2125",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2126",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2127",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2128",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2129",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2130",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2131",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2132",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2133",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2134",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2135",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2136",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2137",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2139",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2140",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2141",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2142",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2143",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2145",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2147",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2149",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2150",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2152",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2157",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2182",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2183",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2184",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2188",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2190",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2192",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2193",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2195",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2196",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2197",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2198",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2201",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2202",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2204",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2205",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2206",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2207",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2208",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2209",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2210",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2211",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2212",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2213",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2216",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2217",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2218",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2219",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2221",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2223",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2224",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2225",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2228",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2229",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2230",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2231",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2232",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2233",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2234",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2235",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2236",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2237",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2238",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2239",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2240",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2241",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2242",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2243",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2244",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2245",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2246",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2247",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2248",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2249",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2250",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2251",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2252",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2253",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2254",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2255",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2256",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2257",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2258",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2259",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2260",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2261",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2262",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2263",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2264",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2265",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2266",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2267",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2268",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2269",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2270",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2271",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2272",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2273",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2274",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2275",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2276",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2277",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2278",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2279",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2280",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2281",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2282",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2283",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2284",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2285",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2286",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2287",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2288",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2289",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2290",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2293",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2294",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2295",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2296",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2297",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2298",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2299",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2301",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2302",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2303",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2304",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2305",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2306",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2307",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2308",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2309",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2310",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2311",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2312",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2315",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2316",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2327",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2328",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2330",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2333",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2334",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2335",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2338",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2339",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2341",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2342",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2343",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2344",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2345",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2346",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2348",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2349",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2350",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2351",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2356",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2357",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2358",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2359",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2360",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2361",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2362",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2363",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2366",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2379",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2381",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2385",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2399",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2406",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2407",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2408",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2409",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2411",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2412",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2420",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2446",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2465",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2501",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2521",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2530",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2531",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2532",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2533",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2534",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2535",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2536",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2537",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2538",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2539",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2540",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2542",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2543",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2544",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2545",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2546",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2547",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2548",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2549",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2550",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2552",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2553",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2554",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2555",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2556",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2557",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2558",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2559",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2560",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2569",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2570",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2571",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2573",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2574",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2575",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2576",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2580",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2587",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2589",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2591",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2592",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2594",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2597",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2598",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2599",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2600",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2601",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2602",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2603",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2608",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2609",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2610",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2611",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2612",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2613",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2622",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2623",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2633",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2634",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2636",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2637",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2639",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2645",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2646",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2651",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2652",
+                "record_type": "source"
+              }
+            ],
+            "agent_id": "source-checker-bot",
+            "chain_id": "arrp-20260726T102646Z",
+            "event_id": "SDE-21226BFB43FC28A7FB8F13B3",
+            "idempotency_key": "sha256:21226bfb43fc28a7fb8f13b379068edfb14b79637ac3df9879d91842cafec4aa",
+            "kind": "source-domain-event",
+            "output_hashes": {
+              "files": [
+                {
+                  "bytes": 49960,
+                  "path": "framework/reports/SOURCE_CHECKER_REPORT.md",
+                  "sha256": "sha256:5e539db9584d7a059832e3ccefa7bb4c429484dbadf8884e73d52aae3e71eb3f"
+                }
+              ],
+              "proposal_diff": "sha256:bc5f0ae9cb88eb3062fdfb88637f3d907368b7d3980be3e10bc76284afd53a0a",
+              "semantic_report": "sha256:ed7d73b78fac271796322e467bd46b0acf8bd1719f61cf64ebb5af62503fefab"
+            },
+            "proposal": {
+              "base_ref": "main",
+              "head_ref": "bot/source-checker-report",
+              "proposal_revision": "a9ed09574f27e34c5ce58ea493b619529817401b",
+              "pull_request_number": 378,
+              "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/378",
+              "repository": "Thorncrag/ARRP"
+            },
+            "run_id": "github-actions:Thorncrag/ARRP:30198267959:1:primary",
+            "schema_uri": ".github/source-domain-event.schema.json",
+            "schema_version": 1,
+            "source_revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
+            "state": "proposed",
+            "summary": {
+              "affected_record_count": 882,
+              "counts": {
+                "affected-files": 1,
+                "affected-records": 882,
+                "source-records": 882
+              },
+              "status": "source checker proposal delta"
+            },
+            "trigger": "workflow_dispatch"
           }
         }
       }
     ]
   },
   "domain_generation": {
-    "automation.js": "project-console-3e4857ba9d39384e87d9"
+    "automation.js": "project-console-9e0e00a0acf757e394be"
   }
 });

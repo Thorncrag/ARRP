@@ -1761,3 +1761,28 @@ Prospective template:
 | Push status | Pending the ordinary reviewed pull-request workflow at entry time; required checks, merge, synchronized `main`, and live Pages readback remain closeout steps. |
 | Rollback notes | Revert this implementation change, restore the prior pinned governing hashes, and rebuild the Console. Retain the two recommendation records as historical provenance, marking any superseding exact-head recommendation separately rather than deleting them. |
 | Blockers/skipped checks | No implementation blocker. Pull requests #380 and #381 were not closed or merged; their exact disposition questions remain intentionally assigned to the user in Action Items. No issue lifecycle, Project field, score, Runs value, candidate disposition, or accepted watcher baseline changed. |
+
+
+### 2026-07-26 — Comprehensive Review Epoch epoch-arrp-20260726T102646Z — comprehensive-review
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-26 06:49:27 -0400 |
+| Agent | elim |
+| Run ID | arrp-20260726T102646Z |
+| Unit ID | COMPREHENSIVE-REVIEW-2ef5397df5a5 |
+| Trigger | Off-cycle comprehensive review because the governing boundary and automation architecture changed materially after the 2026-07-24 epoch |
+| Task type | comprehensive-review |
+| Outcome | Completed |
+| Issue/task | Full-context project Review Epoch `epoch-arrp-20260726T102646Z` |
+| Issue page | N/A |
+| Audit history | N/A |
+| Proposal page | N/A |
+| Tier | none |
+| Files changed | Review Epoch ledger; Run Coordinator persistent-input contract; Run Coordinator regression tests; current handoff; Elim Run Log; shared Agent Audit Log; deterministic Project Console projections generated from those records |
+| Source actions | No source-catalog row changed. The pinned Source Checker covered 2055 of 2055 records; its 98 ordinary queue items remain separately queued and were not reclassified as Review Epoch discoveries. |
+| Validation | Verified the manifest and all 13 preserved deterministic inputs by exact SHA-256 and byte count; validated the complete 60-entry governing boundary and comprehensive packet provenance; reviewed the 184-file boundary delta and a five-record rotating sample; passed 473 Python tests, 32 focused Run Coordinator tests, 24 participation-service tests, 27 Console frontend tests, exact-input refresh readback, local consistency with 0 errors and 0 warnings, deterministic epoch recording, and diff hygiene. |
+| Commit | Trusted-host closeout pending; the model-authored structured result leaves `commit` null as required. |
+| Push status | Trusted-host staging, compare-and-swap publication, and synchronization readback pending. Elim performed no repository Git or GitHub branch/pull-request mutation. |
+| Rollback notes | Revert the trusted-host closeout commit, remove only the final `epoch-arrp-20260726T102646Z` ledger row, restore the Source Checker persistent-input schema expectation and its regression fixtures together, then rebuild the Project Console. No issue, Project field, score, Runs value, source record, intake record, or public policy disposition changed. |
+| Blockers/skipped checks | None. The next live chain remains the operational trigger to confirm that a current schema-v2 Source Checker input is `not_due`; deterministic exact-input readback and complete regression coverage establish the repair at the reviewed boundary. |
