@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "item_schema_version": 1,
-  "generated_at": "2026-07-26T10:23:37+00:00",
+  "generated_at": "2026-07-26T10:32:26+00:00",
   "repository_revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
   "ready_for_elim": true,
   "launch_recommended": true,
@@ -41,10 +41,10 @@
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/integrity.json",
-      "sha256": "135c61b3a0160e28319eb4ca0eec792de763d6bcb940bca07e72ed6b7e598c4f",
+      "sha256": "718bbc1ec99793c93289de12842aaa835b37b63c051aaac5f1fcdf0b7fff300d",
       "bytes": 1268,
-      "modified_at": "2026-07-26T10:23:37+00:00",
-      "reported_at": "2026-07-26T10:23:23+00:00"
+      "modified_at": "2026-07-26T10:32:26+00:00",
+      "reported_at": "2026-07-26T10:32:06+00:00"
     },
     "progress": {
       "required": true,
@@ -52,26 +52,26 @@
       "path": ".tmp/run-coordinator-workflow/elim-inputs/progress.json",
       "sha256": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "bytes": 335193,
-      "modified_at": "2026-07-26T10:23:36+00:00",
+      "modified_at": "2026-07-26T10:32:25+00:00",
       "reported_at": "2026-07-26T10:22:35+00:00"
     },
     "intake": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/intake.json",
-      "sha256": "099c6efb0b07a27df7bdaab5a01af0f512247e4b0dd256ab6500030bb5b277b4",
+      "sha256": "880b0c7fa8f1dc2d36d14887b088679425215762a243efbc8951e9dd4f7cb12f",
       "bytes": 241,
-      "modified_at": "2026-07-26T10:23:36+00:00",
-      "reported_at": "2026-07-26T10:22:51+00:00"
+      "modified_at": "2026-07-26T10:32:25+00:00",
+      "reported_at": "2026-07-26T10:31:40+00:00"
     },
     "chain": {
       "required": true,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/chain.json",
-      "sha256": "8098a8cb1f7392edcfa833609fd44b08d68a51308f02295d05340fac236eb558",
-      "bytes": 107287,
-      "modified_at": "2026-07-26T10:23:37+00:00",
-      "reported_at": "2026-07-26T10:23:36+00:00"
+      "sha256": "e9397ca629d85529776b016f99ebeb66322d512b6edb337327839b4f59b0dbee",
+      "bytes": 107137,
+      "modified_at": "2026-07-26T10:32:26+00:00",
+      "reported_at": "2026-07-26T10:32:24+00:00"
     },
     "recovery": {
       "required": false,
@@ -79,7 +79,7 @@
       "path": ".tmp/run-coordinator-workflow/elim-inputs/recovery.json",
       "sha256": "fe90b676ea2c5898e1a276e6eb38da41a9449234baa2a8d652ca305abade7437",
       "bytes": 88,
-      "modified_at": "2026-07-26T10:23:37+00:00",
+      "modified_at": "2026-07-26T10:32:26+00:00",
       "reported_at": "2026-07-25T03:54:26+00:00"
     },
     "run_log_reconciliation": {
@@ -93,26 +93,26 @@
       "path": ".tmp/run-coordinator-workflow/elim-inputs/gap-obligations-reconstructed.json",
       "sha256": "0d1865010ac3e169b0fc0899ac699d39ccf98fbe91a4a27695623f52b26b3c8a",
       "bytes": 75,
-      "modified_at": "2026-07-26T10:23:37+00:00",
+      "modified_at": "2026-07-26T10:32:26+00:00",
       "reported_at": null
     },
     "review_epoch": {
       "required": false,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/review-epoch.json",
-      "sha256": "73a3832c5c3760e94d34d55cd2276a1cecf5b7354d33ad66153626ec4a0dd5a4",
+      "sha256": "b63c3e1b470c6279bd2434cc457ce9696a439cadab5f07e44d3cf801ed5d896f",
       "bytes": 3526,
-      "modified_at": "2026-07-26T10:23:37+00:00",
-      "reported_at": "2026-07-26T10:23:36+00:00"
+      "modified_at": "2026-07-26T10:32:26+00:00",
+      "reported_at": "2026-07-26T10:32:24+00:00"
     },
     "source_checker": {
       "required": false,
       "status": "current",
       "path": ".tmp/run-coordinator-workflow/elim-inputs/source-checker.json",
-      "sha256": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "bytes": 1444124,
-      "modified_at": "2026-07-26T10:23:36+00:00",
-      "reported_at": "2026-07-26T10:17:27+00:00"
+      "sha256": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "bytes": 1445290,
+      "modified_at": "2026-07-26T10:32:24+00:00",
+      "reported_at": "2026-07-26T10:27:00+00:00"
     },
     "case_monitor": {
       "required": false,
@@ -120,7 +120,7 @@
       "path": ".tmp/run-coordinator-workflow/elim-inputs/case-monitor.json",
       "sha256": "f3643db174a6cbd99f29de0c070c917f1bf7072acad086323f09d335aed63341",
       "bytes": 5693,
-      "modified_at": "2026-07-26T10:23:37+00:00",
+      "modified_at": "2026-07-26T10:32:25+00:00",
       "reported_at": "2026-07-26T04:34:38+00:00"
     },
     "presidential_directives": {
@@ -129,7 +129,7 @@
       "path": ".tmp/run-coordinator-workflow/elim-inputs/presidential-directives.json",
       "sha256": "5d3d40da606c9766232db75a2f2c2da89d4dc5fb838ab6e813ad3aab60d58726",
       "bytes": 3719132,
-      "modified_at": "2026-07-26T10:23:37+00:00",
+      "modified_at": "2026-07-26T10:32:26+00:00",
       "reported_at": "2026-07-26T04:35:03+00:00"
     },
     "overrides": {
@@ -147,7 +147,7 @@
     "pending_flag": false
   },
   "review_epoch": {
-    "epoch_id": "epoch-arrp-20260726T101715Z",
+    "epoch_id": "epoch-arrp-20260726T102646Z",
     "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
     "next_due_at": "2026-08-07T15:40:02+00:00",
     "due": true,
@@ -172,8 +172,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -207,13 +207,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -240,8 +240,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -275,13 +275,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -308,8 +308,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -343,13 +343,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -376,8 +376,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -411,13 +411,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -444,8 +444,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -479,13 +479,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -512,8 +512,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -547,13 +547,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -580,8 +580,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -615,13 +615,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -648,8 +648,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -683,13 +683,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -716,8 +716,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -751,13 +751,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -784,8 +784,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -819,13 +819,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -852,8 +852,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -887,13 +887,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -920,8 +920,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -955,13 +955,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -988,8 +988,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1023,13 +1023,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -1056,8 +1056,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1091,13 +1091,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -1124,8 +1124,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1159,13 +1159,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -1192,8 +1192,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1227,13 +1227,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -1260,8 +1260,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1295,13 +1295,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -1328,8 +1328,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1363,13 +1363,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -1396,8 +1396,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1431,13 +1431,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -1464,8 +1464,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1499,13 +1499,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -1532,8 +1532,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1567,13 +1567,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -1600,8 +1600,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1635,13 +1635,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -1668,8 +1668,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1703,13 +1703,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -1736,8 +1736,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1771,13 +1771,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -1804,8 +1804,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1839,13 +1839,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -1872,8 +1872,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1907,13 +1907,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -1940,8 +1940,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -1975,13 +1975,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2008,8 +2008,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2043,13 +2043,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2076,8 +2076,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2111,13 +2111,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2144,8 +2144,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2179,13 +2179,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2212,8 +2212,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2247,13 +2247,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2280,8 +2280,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2315,13 +2315,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2348,8 +2348,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2383,13 +2383,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2416,8 +2416,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2451,13 +2451,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2484,8 +2484,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2519,13 +2519,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2552,8 +2552,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2587,13 +2587,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2620,8 +2620,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2655,13 +2655,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2688,8 +2688,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2723,13 +2723,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2756,8 +2756,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2791,13 +2791,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2824,8 +2824,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2859,13 +2859,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2892,8 +2892,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2927,13 +2927,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -2960,8 +2960,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -2995,13 +2995,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3028,8 +3028,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -3063,13 +3063,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3096,8 +3096,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -3131,13 +3131,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3164,8 +3164,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -3199,13 +3199,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3232,8 +3232,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -3267,13 +3267,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3300,8 +3300,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -3335,13 +3335,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3368,8 +3368,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -3403,13 +3403,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3436,8 +3436,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -3471,13 +3471,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3504,8 +3504,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -3539,13 +3539,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3572,8 +3572,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -3607,13 +3607,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3640,8 +3640,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -3675,13 +3675,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3708,8 +3708,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -3743,13 +3743,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3776,8 +3776,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -3811,13 +3811,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3844,8 +3844,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -3879,13 +3879,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3912,8 +3912,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -3947,13 +3947,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -3980,8 +3980,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4015,13 +4015,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -4048,8 +4048,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4083,13 +4083,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -4116,8 +4116,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4151,13 +4151,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -4184,8 +4184,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4219,13 +4219,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -4252,8 +4252,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4287,13 +4287,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -4320,8 +4320,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4355,13 +4355,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -4388,8 +4388,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4423,13 +4423,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -4456,8 +4456,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4491,13 +4491,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -4524,8 +4524,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4559,13 +4559,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -4592,8 +4592,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4627,13 +4627,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -4660,8 +4660,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4695,13 +4695,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -4728,8 +4728,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4763,13 +4763,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -4796,8 +4796,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4831,13 +4831,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -4864,8 +4864,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4899,13 +4899,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -4932,8 +4932,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -4967,13 +4967,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5000,8 +5000,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5035,13 +5035,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5068,8 +5068,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5103,13 +5103,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5136,8 +5136,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5171,13 +5171,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5204,8 +5204,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5239,13 +5239,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5272,8 +5272,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5307,13 +5307,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5340,8 +5340,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5375,13 +5375,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5408,8 +5408,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5443,13 +5443,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5476,8 +5476,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5511,13 +5511,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5544,8 +5544,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5579,13 +5579,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5612,8 +5612,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5647,13 +5647,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5680,8 +5680,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5715,13 +5715,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5748,8 +5748,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5783,13 +5783,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5816,8 +5816,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5851,13 +5851,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5884,8 +5884,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5919,13 +5919,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -5952,8 +5952,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -5987,13 +5987,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -6020,8 +6020,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -6055,13 +6055,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -6088,8 +6088,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -6123,13 +6123,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -6156,8 +6156,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -6191,13 +6191,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -6224,8 +6224,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -6259,13 +6259,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -6292,8 +6292,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -6327,13 +6327,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -6360,8 +6360,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -6395,13 +6395,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -6428,8 +6428,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -6463,13 +6463,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -6496,8 +6496,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -6531,13 +6531,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -6564,8 +6564,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -6599,13 +6599,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -6632,8 +6632,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -6667,13 +6667,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -6700,8 +6700,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -6735,13 +6735,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -6768,8 +6768,8 @@
       "dependencies": [
         "source_checker"
       ],
-      "created_at": "2026-07-26T10:17:27+00:00",
-      "refreshed_at": "2026-07-26T10:17:27+00:00",
+      "created_at": "2026-07-26T10:27:00+00:00",
+      "refreshed_at": "2026-07-26T10:27:00+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -6803,13 +6803,13 @@
           "exception_age_days": 1.84
         }
       },
-      "source_revision": "efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2",
-      "freshness_timestamp": "2026-07-26T10:17:27+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+      "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "source_checker": "sha256:efcd6a149c2acca6f5e44d8d187a947d3831cb12b2290c3a2e0a4ce31b1faee2"
+        "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
       },
       "retry_state": {
         "state": "new",
@@ -7055,7 +7055,7 @@
       },
       "source_revision": "f3643db174a6cbd99f29de0c070c917f1bf7072acad086323f09d335aed63341",
       "freshness_timestamp": "2026-07-26T04:34:38+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -7172,7 +7172,7 @@
       },
       "source_revision": "5d3d40da606c9766232db75a2f2c2da89d4dc5fb838ab6e813ad3aab60d58726",
       "freshness_timestamp": "2026-07-26T04:35:03+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -7188,7 +7188,7 @@
     },
     {
       "schema_version": 1,
-      "id": "COMPREHENSIVE-REVIEW-3226cc6ec07e",
+      "id": "COMPREHENSIVE-REVIEW-2ef5397df5a5",
       "kind": "comprehensive_review",
       "work_class": "periodic_review",
       "severity": "high",
@@ -7198,13 +7198,13 @@
       "exact_next_action": "Run the due comprehensive Review Epoch.",
       "required_context_profile": "comprehensive_review",
       "originating_stage": "review_epoch",
-      "source_identity": "epoch-arrp-20260726T101715Z",
-      "canonical_record_identity": "epoch-arrp-20260726T101715Z",
+      "source_identity": "epoch-arrp-20260726T102646Z",
+      "canonical_record_identity": "epoch-arrp-20260726T102646Z",
       "dependencies": [
         "review_epoch"
       ],
       "created_at": "2026-07-24T15:40:02+00:00",
-      "refreshed_at": "2026-07-26T10:23:36+00:00",
+      "refreshed_at": "2026-07-26T10:32:24+00:00",
       "eligible_for_elim": true,
       "requires_human": false,
       "eligibility_reason": "eligible under the selected runbook",
@@ -7218,7 +7218,7 @@
       "reason": "governing_boundary_changed",
       "source": {
         "input": "review_epoch",
-        "epoch_id": "epoch-arrp-20260726T101715Z",
+        "epoch_id": "epoch-arrp-20260726T102646Z",
         "baseline_revision": "d31863cdd38b6ed258ac4754012c91867c8d9487",
         "next_due_at": "2026-08-07T15:40:02+00:00",
         "due": true,
@@ -7295,13 +7295,13 @@
         },
         "unresolved_ids": []
       },
-      "source_revision": "73a3832c5c3760e94d34d55cd2276a1cecf5b7354d33ad66153626ec4a0dd5a4",
-      "freshness_timestamp": "2026-07-26T10:23:36+00:00",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_revision": "b63c3e1b470c6279bd2434cc457ce9696a439cadab5f07e44d3cf801ed5d896f",
+      "freshness_timestamp": "2026-07-26T10:32:24+00:00",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
-        "review_epoch": "sha256:73a3832c5c3760e94d34d55cd2276a1cecf5b7354d33ad66153626ec4a0dd5a4"
+        "review_epoch": "sha256:b63c3e1b470c6279bd2434cc457ce9696a439cadab5f07e44d3cf801ed5d896f"
       },
       "retry_state": {
         "state": "new",
@@ -7354,7 +7354,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "HOR-030 integration and initial statutory draft (2026-07-14)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -7411,7 +7411,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Portfolio-consolidation and Epstein-files targeted Change Audit (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -7468,7 +7468,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "FBI-HSI investigative-responsibility internal review (2026-07-21)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -7525,7 +7525,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue admission and initial proposal development (2026-07-22)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -7582,7 +7582,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -7639,7 +7639,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -7696,7 +7696,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -7753,7 +7753,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -7810,7 +7810,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -7867,7 +7867,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -7924,7 +7924,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -7981,7 +7981,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8038,7 +8038,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8095,7 +8095,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8152,7 +8152,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Initial inventory audit (2026-06-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8209,7 +8209,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Horizon integration decision (2026-06-25)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8266,7 +8266,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Horizon integration decision (2026-06-25)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8323,7 +8323,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Horizon integration decision (2026-06-25)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8380,7 +8380,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Horizon integration decision (2026-06-25)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8437,7 +8437,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Initial candidate development (2026-06-29)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8494,7 +8494,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "SCOTUS doctrine update (2026-07-02)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8551,7 +8551,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Post-Barbara statutory-vulnerability update (2026-07-06)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8608,7 +8608,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Preliminary candidate promotion (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8665,7 +8665,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8722,7 +8722,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8779,7 +8779,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8836,7 +8836,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8893,7 +8893,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -8950,7 +8950,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9007,7 +9007,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9064,7 +9064,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9121,7 +9121,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9178,7 +9178,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9235,7 +9235,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9292,7 +9292,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9349,7 +9349,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9406,7 +9406,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Candidate reframing and HOR-028 integration (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9463,7 +9463,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9520,7 +9520,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9577,7 +9577,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9634,7 +9634,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9691,7 +9691,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9748,7 +9748,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Issue-admission consolidation (2026-07-16)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9805,7 +9805,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "ATRC monitoring update (2026-07-18)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9862,7 +9862,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Source-development review (2026-07-20)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9919,7 +9919,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Source-adjudication update (2026-07-21)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -9976,7 +9976,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Source-adjudication update (2026-07-21)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -10033,7 +10033,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Horizon candidate admission and foundation decision (2026-07-23)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -10090,7 +10090,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Foundation-sufficiency lifecycle review (2026-07-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -10147,7 +10147,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Foundation-sufficiency lifecycle review (2026-07-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -10204,7 +10204,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Foundation-sufficiency lifecycle review (2026-07-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -10261,7 +10261,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Foundation-sufficiency lifecycle review (2026-07-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -10318,7 +10318,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "targeted Change Audit and Internal Remedy-Fit Audit (2026-07-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
@@ -10375,7 +10375,7 @@
       },
       "source_revision": "624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "freshness_timestamp": "Foundation-sufficiency lifecycle review (2026-07-24)",
-      "source_chain_id": "arrp-20260726T101715Z",
+      "source_chain_id": "arrp-20260726T102646Z",
       "source_commit": "c4b1a0d727543e14238d47606aea1c1f8e136045",
       "source_project_snapshot": "sha256:624957fda4d5f9c5386eda0912049de2bb574d4d9d020cd97da9056119de1f5e",
       "source_input_hashes": {
