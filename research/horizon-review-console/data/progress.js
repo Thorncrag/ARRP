@@ -4356,9 +4356,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "status": "current",
       "supersession_rule": "A newer complete authenticated Project synchronization supersedes an older generation; repository HEAD alone does not."
     },
-    "generatedAt": "2026-07-26T03:49:39+00:00",
-    "generated_at": "2026-07-26T03:49:39+00:00",
-    "generation_id": "project-console-progress-9fb6d43378b4ded21570",
+    "generatedAt": "2026-07-26T04:18:23+00:00",
+    "generated_at": "2026-07-26T04:18:23+00:00",
+    "generation_id": "project-console-progress-37a9f0ba06745f864606",
     "goal": {
       "baselineDate": "2026-07-13",
       "baselineReady": 23,
@@ -11667,7 +11667,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       ".github/project-console-progress.json": "sha256:019fe104362dcca4cebb4c3a3f253c7e4cb9981ca0f4207a6effe282d259bbb5",
       "inventory/github_issue_registry.csv": "sha256:3e85d2b624fa507dce13adba047a515c3f5c87e146957213bcf8848bf11d483c"
     },
-    "source_revision": "a492bcf936796ca98c0c2ea92fad0f18ba4e51db",
+    "source_revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
     "warnings": [],
     "workflowStatusDistribution": [
       {
@@ -11714,12 +11714,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "authority": "authenticated_project_generation",
       "status": "current",
       "current": true,
-      "generation_id": "project-console-progress-9fb6d43378b4ded21570",
-      "synchronized_at": "2026-07-26T03:49:39+00:00",
+      "generation_id": "project-console-progress-37a9f0ba06745f864606",
+      "synchronized_at": "2026-07-26T04:18:23+00:00",
       "supersession_rule": "A newer complete authenticated Project synchronization supersedes an older generation; repository HEAD alone does not."
     }
   },
   "domain_generation": {
-    "progress.js": "project-console-ea9c7595795a119b767a"
+    "progress.js": "project-console-aff106abfac0bcc81c51"
   }
 });

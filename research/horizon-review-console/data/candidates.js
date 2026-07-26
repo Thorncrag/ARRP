@@ -19464,6 +19464,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "candidates.js": "project-console-ea9c7595795a119b767a"
+    "candidates.js": "project-console-aff106abfac0bcc81c51"
   }
 });

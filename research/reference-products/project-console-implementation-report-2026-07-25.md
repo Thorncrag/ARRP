@@ -1,7 +1,7 @@
 ---
 title: "ARRP Project Console — Implementation Report"
 status: non-authoritative-reference
-version: "1.2"
+version: "1.3"
 as_of: "2026-07-25"
 implementation_baseline: "e45a0e711aa82ca147cdc827cbf18c8b348e4cdd"
 print_status: excluded
@@ -106,6 +106,10 @@ runtime, governance, or project-structure contract.
 - The initial compatibility catalog is bounded. Full candidates, source and
   directive catalogs, Progress, Integrity, automation, logs, and Publication
   data are split into route-loaded domain files.
+- The complete Source Checker feed now has its own bounded domain rather than
+  sharing the general Sources projection. Sources and decision-support views
+  load that dependency only when needed, and the full result table remains
+  unrendered until its watcher is selected.
 - Source Checker generation now validates stable source identities, exact
   current catalog coverage, duplicate/missing/unexpected results, per-catalog
   counts and hashes, baseline validity, and comparable per-source deltas.
@@ -283,6 +287,11 @@ runtime, governance, or project-structure contract.
   `generated_at`-based baseline finding.
 - **Mixed-generation risk.** Generated domains are no longer rewritten
   independently without a common manifest and atomic swap.
+- **Source-domain size-boundary regression.** A complete 2,055-row Source
+  Checker generation exceeded the general `sources.js` four-megabyte
+  route-domain ceiling. The generator and loader now publish and validate a
+  separate `source-checker.js` domain, preserving the existing ceiling and
+  lazy rendering rather than weakening the performance contract.
 - **History-loss risk.** Prior-feed read failure can no longer silently publish
   an empty replacement history.
 - **Enumeration-loss risk.** GitHub Project and nested connection pagination
@@ -382,9 +391,10 @@ runtime, governance, or project-structure contract.
 
 ## Post-merge publication readback
 
-- The implementation merged through pull request `#422`; a generated-only
-  follow-up in `#423` rebuilt the 40 route-loaded domains from the canonical
-  implementation merge.
+- The implementation merged through pull request `#422`; generated follow-ups
+  rebuilt the route-loaded domains from the canonical implementation and
+  successful current feeds. The final bundle contains 41 bounded data domains,
+  including the separately loaded Source Checker projection.
 - GitHub Pages published successfully from final `main`, and the public
   interaction service returned HTTP 200. The Pages workflow's three official
   actions were upgraded to exact Node 24 release commits after the first live

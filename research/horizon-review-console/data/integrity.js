@@ -4,13 +4,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
     "contract_schema_version": 1,
-    "generation_id": "project-integrity-5e2ce1538568b76e3aec",
-    "source_revision": "a492bcf936796ca98c0c2ea92fad0f18ba4e51db",
-    "generated_at": "2026-07-26T03:50:23+00:00",
+    "generation_id": "project-integrity-0cdc81aa37e3c9522779",
+    "source_revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
+    "generated_at": "2026-07-26T04:19:07+00:00",
     "expected_count": 22,
     "actual_count": 22,
     "source_hashes": {
-      "integrity-report.json": "sha256:bd16ae82d36acefe291af3402d584ce3521c63f8f853376a11950fdb741dac9d"
+      "integrity-report.json": "sha256:fd7533b6df8637b40f3ab8b4f9f461ba0347df1bc6375037baaaec083aa37ebb"
     },
     "availability": "current",
     "completeness": {
@@ -38,8 +38,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "current": {
       "schema_version": 1,
-      "generated_at": "2026-07-26T03:50:23+00:00",
-      "revision": "a492bcf936796ca98c0c2ea92fad0f18ba4e51db",
+      "generated_at": "2026-07-26T04:19:07+00:00",
+      "revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
       "result": "clean",
       "counts": {
         "errors": 0,
@@ -48,7 +48,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "issue_pages": 64,
         "proposal_pages": 41
       },
-      "duration_seconds": 13.213,
+      "duration_seconds": 12.527,
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -76,6 +76,32 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "findings": []
     },
     "history": [
+      {
+        "generated_at": "2026-07-26T04:19:07+00:00",
+        "revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 12.527
+      },
+      {
+        "generated_at": "2026-07-26T04:04:32+00:00",
+        "revision": "1228faae406b2e9bee80e90d3e6e87419e72ba82",
+        "result": "clean",
+        "counts": {
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 11.457
+      },
       {
         "generated_at": "2026-07-26T03:50:23+00:00",
         "revision": "a492bcf936796ca98c0c2ea92fad0f18ba4e51db",
@@ -439,45 +465,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "proposal_pages": 41
         },
         "duration_seconds": 12.284
-      },
-      {
-        "generated_at": "2026-07-24T21:02:43+00:00",
-        "revision": "da5e2cdb85c8d1d04a98b4165278c73636ffd2e4",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 13.04
-      },
-      {
-        "generated_at": "2026-07-24T20:50:57+00:00",
-        "revision": "c2ee287497f592718d858ae3263f2debb931a8fb",
-        "result": "findings",
-        "counts": {
-          "errors": 0,
-          "warnings": 1,
-          "findings": 1,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 12.91
       }
     ],
     "currentness": {
       "authority": "repository_revision",
       "status": "current",
       "current": true,
-      "expected_source_revision": "a492bcf936796ca98c0c2ea92fad0f18ba4e51db",
-      "producer_source_revision": "a492bcf936796ca98c0c2ea92fad0f18ba4e51db",
+      "expected_source_revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
+      "producer_source_revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
       "equivalent_inputs_established": false,
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
     }
   },
   "domain_generation": {
-    "integrity.js": "project-console-ea9c7595795a119b767a"
+    "integrity.js": "project-console-aff106abfac0bcc81c51"
   }
 });
