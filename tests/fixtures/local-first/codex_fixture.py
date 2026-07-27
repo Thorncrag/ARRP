@@ -39,8 +39,17 @@ if sys.argv[1:3] == ["features", "list"]:
 if len(sys.argv) < 2 or sys.argv[1] != "exec":
     raise SystemExit(64)
 
-worktree = Path(option("--cd"))
-run_dir = Path(os.environ["ARRP_RUN_DIR"])
+worktree = Path.cwd().resolve()
+if Path(option("--cd")).resolve() != worktree:
+    raise SystemExit("fixture --cd does not match the process working directory")
+fixture_root = os.path.realpath(os.fspath(worktree.parent.parent))
+normalized_run_dir = os.path.realpath(os.environ["ARRP_RUN_DIR"])
+if (
+    normalized_run_dir != fixture_root
+    and not normalized_run_dir.startswith(fixture_root + os.sep)
+):
+    raise SystemExit("fixture run directory escapes the fixture root")
+run_dir = Path(normalized_run_dir)
 prompt = sys.stdin.read()
 proof = worktree / "research/elim-fixture.txt"
 proof.parent.mkdir(parents=True, exist_ok=True)
@@ -77,7 +86,10 @@ result = {
     "gap_obligation_updates": [],
     "github_action_requests": [],
 }
-Path(option("--output-last-message")).write_text(
+normalized_output = os.path.realpath(option("--output-last-message"))
+if not normalized_output.startswith(normalized_run_dir + os.sep):
+    raise SystemExit("fixture result path escapes the run directory")
+Path(normalized_output).write_text(
     json.dumps(result, sort_keys=True) + "\n",
     encoding="utf-8",
 )

@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import tempfile
 from datetime import datetime, timezone
@@ -64,7 +65,14 @@ def parse_args() -> argparse.Namespace:
 
 
 def write_json(path: Path, value: object, root: Path) -> None:
-    destination = contained_path(path, root)
+    normalized_root = os.path.realpath(os.fspath(root))
+    normalized_path = os.path.realpath(os.fspath(path))
+    if (
+        normalized_path != normalized_root
+        and not normalized_path.startswith(normalized_root + os.sep)
+    ):
+        raise ContextError(f"path escapes allowed root: {path}")
+    destination = Path(normalized_path)
     destination.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile(
         "w",
