@@ -752,9 +752,15 @@ def open_or_update_nightly_pull_request(
     title: str,
     body: str,
     api_request: Callable[..., Any] = github_api_request,
+    readback_timeout_seconds: float = 15.0,
+    readback_poll_seconds: float = 0.5,
+    monotonic: Callable[[], float] = time.monotonic,
+    sleeper: Callable[[float], None] = time.sleep,
 ) -> dict[str, Any]:
     """Create or read back exactly one App-authored nightly pull request."""
 
+    if readback_timeout_seconds <= 0 or readback_poll_seconds < 0:
+        raise GitHubBrokerError("invalid pull-request readback timing")
     head = api_request(
         "GET",
         f"/repos/{GITHUB_REPOSITORY}/git/ref/heads/{branch}",
@@ -776,6 +782,15 @@ def open_or_update_nightly_pull_request(
         raise GitHubBrokerError("multiple open pull requests exist for the nightly branch")
     if pulls:
         pull = pulls[0]
+        number = pull.get("number") if isinstance(pull, dict) else None
+        if not isinstance(number, int):
+            raise GitHubBrokerError("existing pull-request lookup omitted identity")
+        pull = api_request(
+            "PATCH",
+            f"/repos/{GITHUB_REPOSITORY}/pulls/{number}",
+            token,
+            payload={"title": title, "body": body},
+        )
     else:
         pull = api_request(
             "POST",
@@ -792,18 +807,24 @@ def open_or_update_nightly_pull_request(
     if not isinstance(pull, dict):
         raise GitHubBrokerError("pull-request operation returned an invalid response")
     number = pull.get("number")
-    readback = api_request(
-        "GET",
-        f"/repos/{GITHUB_REPOSITORY}/pulls/{number}",
-        token,
-    )
-    if (
-        not isinstance(readback, dict)
-        or readback.get("head", {}).get("sha") != expected_head
-        or readback.get("base", {}).get("ref") != "main"
-    ):
-        raise GitHubBrokerError("pull-request head/base readback failed")
-    return readback
+    if not isinstance(number, int):
+        raise GitHubBrokerError("pull-request operation omitted identity")
+    deadline = monotonic() + readback_timeout_seconds
+    while True:
+        readback = api_request(
+            "GET",
+            f"/repos/{GITHUB_REPOSITORY}/pulls/{number}",
+            token,
+        )
+        if (
+            isinstance(readback, dict)
+            and readback.get("head", {}).get("sha") == expected_head
+            and readback.get("base", {}).get("ref") == "main"
+        ):
+            return readback
+        if monotonic() >= deadline:
+            raise GitHubBrokerError("pull-request head/base readback failed")
+        sleeper(readback_poll_seconds)
 
 
 def required_checks_readback(
@@ -2099,6 +2120,16 @@ def run_p2_fixture_cycle(
         unit_id=str(elim["unit_id"]),
         files_touched=touched,
     )
+    status_path = config.state_root / "status.json"
+    if status_path.exists():
+        status_document = read_json_object(status_path)
+        write_status(
+            config,
+            status_document,
+            stage="09_elim",
+            elim_unit=str(elim["unit_id"]),
+            elim_outcome=str(result["outcome"]),
+        )
     success = last_success_document(
         config.state_root, run_dir, results, run_id=transaction.run_id
     )
@@ -2112,6 +2143,8 @@ def run_p2_fixture_cycle(
         "queue": str(run_dir / "queue.json"),
         "context": str(run_dir / "context.json"),
         "elim_result": str(result_path),
+        "elim_unit": str(elim["unit_id"]),
+        "elim_outcome": str(result["outcome"]),
         "files_touched": touched,
         "git_metadata_immutable": True,
         "persistent_session_required": False,
@@ -3211,7 +3244,14 @@ def prepare_transaction(
                 raise TransactionError("canonical origin is not approved")
             if starting_branch != "main":
                 raise TransactionError("canonical repository is off main")
-            preexisting = status_manifest(repository)
+            dynamic_protected = governing_protected_paths(
+                repository,
+                config.runtime_files,
+            )
+            preexisting = status_manifest(
+                repository,
+                dynamic_protected=dynamic_protected,
+            )
             reject_unsafe_manifest_entries(repository, preexisting)
             write_prelock_manifest(
                 config,
@@ -3355,6 +3395,11 @@ def prepare_transaction(
                 assert_canonical_unchanged(repository, starting_head, clean_digest)
                 publication_summary = publication_cycle(prepared, cycle_summary)
                 cycle_phase = "P5"
+            cycle_elim_summary = None
+            if isinstance(cycle_summary, Mapping):
+                nested_elim = cycle_summary.get("p2", cycle_summary)
+                if isinstance(nested_elim, Mapping):
+                    cycle_elim_summary = nested_elim
             write_status(
                 config,
                 status,
@@ -3364,6 +3409,16 @@ def prepare_transaction(
                 completed_at=iso_utc(),
                 worktree_path=str(worktree),
                 preserved_paths=[] if publication_summary is not None else [branch, str(worktree)],
+                elim_unit=(
+                    cycle_elim_summary.get("elim_unit")
+                    if cycle_elim_summary is not None
+                    else status.get("elim_unit")
+                ),
+                elim_outcome=(
+                    cycle_elim_summary.get("elim_outcome")
+                    if cycle_elim_summary is not None
+                    else status.get("elim_outcome")
+                ),
                 validation_summary={
                     "phase": cycle_phase if cycle_summary is not None else "P1",
                     "transaction_worktree_prepared": True,
