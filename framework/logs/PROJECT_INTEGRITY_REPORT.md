@@ -10,15 +10,17 @@ print_exclusion_reason: "Internal operational report."
 
 ## Current Result
 
-- **Result:** Clean
-- **Errors:** 0
+- **Result:** Findings require review
+- **Errors:** 1
 - **Warnings:** 0
 - **Issue pages checked:** 64
 - **Proposal pages checked:** 41
 
 ## Current Findings
 
-No repeatable integrity findings are currently reported.
+### Internal links
+
+- **ERROR:** broken local link in research/horizon-review-console/index.html: data/private-github-security.js?v=1
 
 ## Checks Included
 
