@@ -7609,9 +7609,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 19095,
+      "word_count": 19500,
       "estimated_pages": 30,
-      "table_count": 96,
+      "table_count": 97,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 75
@@ -8874,12 +8874,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 11048,
-      "estimated_pages": 17,
-      "table_count": 14,
+      "word_count": 11989,
+      "estimated_pages": 19,
+      "table_count": 15,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 9388
+      "longest_unbroken_token": 11456
     },
     {
       "title": "Elim Runbook",
@@ -12317,12 +12317,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 624,
+      "word_count": 620,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 36
+      "longest_unbroken_token": 49
     },
     {
       "title": "Public Interaction Service",
@@ -12353,7 +12353,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1368,
+      "word_count": 1401,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -15074,8 +15074,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "label": "Existing public-proposal draft PDF",
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
-        "page_count": 490,
-        "modified_at": "2026-07-26T23:58:53+00:00",
+        "page_count": null,
+        "modified_at": "2026-07-26T12:26:10+00:00",
         "stale": true
       }
     ],
@@ -15314,98 +15314,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "available": true,
         "source_complete": true,
         "count": 12,
-        "incomplete_metadata_count": 12,
+        "incomplete_metadata_count": 0,
         "items": [
-          {
-            "identifier": "Copyright infringement check",
-            "title": "Copyright infringement check",
-            "url": "https://github.com/Thorncrag/ARRP/issues/230",
-            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkQH4",
-            "workstream": "Project governance and operations",
-            "priority": null,
-            "status": "Development"
-          },
-          {
-            "identifier": "Final link and export validation",
-            "title": "Final link and export validation",
-            "url": "https://github.com/Thorncrag/ARRP/issues/229",
-            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4GQ",
-            "workstream": "Project governance and operations",
-            "priority": null,
-            "status": "Development"
-          },
-          {
-            "identifier": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
-            "title": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
-            "url": "https://github.com/Thorncrag/ARRP/issues/233",
-            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkyug",
-            "workstream": "Project governance and operations",
-            "priority": null,
-            "status": "Development"
-          },
-          {
-            "identifier": "Horizon proposal resolution for public release",
-            "title": "Horizon proposal resolution for public release",
-            "url": "https://github.com/Thorncrag/ARRP/issues/226",
-            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4FI",
-            "workstream": "Project governance and operations",
-            "priority": null,
-            "status": "Development"
-          },
-          {
-            "identifier": "Jack Smith reports crosswalks",
-            "title": "Jack Smith reports crosswalks",
-            "url": "https://github.com/Thorncrag/ARRP/issues/232",
-            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkpD4",
-            "workstream": "Project governance and operations",
-            "priority": null,
-            "status": "Development"
-          },
-          {
-            "identifier": "Modify or add an audit to add an executive summary to each issue page",
-            "title": "Modify or add an audit to add an executive summary to each issue page",
-            "url": "https://github.com/Thorncrag/ARRP/issues/231",
-            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkYQQ",
-            "workstream": "Project governance and operations",
-            "priority": null,
-            "status": "Development"
-          },
-          {
-            "identifier": "Neutrality and bipartisan adoption review",
-            "title": "Neutrality and bipartisan adoption review",
-            "url": "https://github.com/Thorncrag/ARRP/issues/225",
-            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4Eo",
-            "workstream": "Project governance and operations",
-            "priority": null,
-            "status": "Development"
-          },
-          {
-            "identifier": "Publication assembly workflow",
-            "title": "Publication assembly workflow",
-            "url": "https://github.com/Thorncrag/ARRP/issues/228",
-            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4Gk",
-            "workstream": "Project governance and operations",
-            "priority": null,
-            "status": "Development"
-          },
-          {
-            "identifier": "Release-blocker audit posture review",
-            "title": "Release-blocker audit posture review",
-            "url": "https://github.com/Thorncrag/ARRP/issues/227",
-            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4Fg",
-            "workstream": "Project governance and operations",
-            "priority": null,
-            "status": "Development"
-          },
-          {
-            "identifier": "Source and external-reference hardening",
-            "title": "Source and external-reference hardening",
-            "url": "https://github.com/Thorncrag/ARRP/issues/224",
-            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4EU",
-            "workstream": "Project governance and operations",
-            "priority": null,
-            "status": "Development"
-          },
           {
             "identifier": "Pre-publication final audit",
             "title": "Pre-publication final audit",
@@ -15423,6 +15333,96 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "workstream": "Project governance and operations",
             "priority": "Critical",
             "status": "Development"
+          },
+          {
+            "identifier": "Copyright infringement check",
+            "title": "Copyright infringement check",
+            "url": "https://github.com/Thorncrag/ARRP/issues/230",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkQH4",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development"
+          },
+          {
+            "identifier": "Final link and export validation",
+            "title": "Final link and export validation",
+            "url": "https://github.com/Thorncrag/ARRP/issues/229",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4GQ",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development"
+          },
+          {
+            "identifier": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
+            "title": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
+            "url": "https://github.com/Thorncrag/ARRP/issues/233",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkyug",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development"
+          },
+          {
+            "identifier": "Horizon proposal resolution for public release",
+            "title": "Horizon proposal resolution for public release",
+            "url": "https://github.com/Thorncrag/ARRP/issues/226",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4FI",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development"
+          },
+          {
+            "identifier": "Modify or add an audit to add an executive summary to each issue page",
+            "title": "Modify or add an audit to add an executive summary to each issue page",
+            "url": "https://github.com/Thorncrag/ARRP/issues/231",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkYQQ",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development"
+          },
+          {
+            "identifier": "Neutrality and bipartisan adoption review",
+            "title": "Neutrality and bipartisan adoption review",
+            "url": "https://github.com/Thorncrag/ARRP/issues/225",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4Eo",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development"
+          },
+          {
+            "identifier": "Publication assembly workflow",
+            "title": "Publication assembly workflow",
+            "url": "https://github.com/Thorncrag/ARRP/issues/228",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4Gk",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development"
+          },
+          {
+            "identifier": "Release-blocker audit posture review",
+            "title": "Release-blocker audit posture review",
+            "url": "https://github.com/Thorncrag/ARRP/issues/227",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4Fg",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development"
+          },
+          {
+            "identifier": "Source and external-reference hardening",
+            "title": "Source and external-reference hardening",
+            "url": "https://github.com/Thorncrag/ARRP/issues/224",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4EU",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development"
+          },
+          {
+            "identifier": "Jack Smith reports crosswalks",
+            "title": "Jack Smith reports crosswalks",
+            "url": "https://github.com/Thorncrag/ARRP/issues/232",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkpD4",
+            "workstream": "Project governance and operations",
+            "priority": "Medium",
+            "status": "Development"
           }
         ],
         "unavailable_reason": null
@@ -15430,7 +15430,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "release_blockers": {
         "available": true,
         "source_complete": true,
-        "count": 26,
+        "count": 34,
         "items": [
           {
             "identifier": "DOJ-001",
@@ -15663,16 +15663,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "release_blocker": "Yes"
           },
           {
-            "identifier": "Modify or add an audit to add an executive summary to each issue page",
-            "title": "Modify or add an audit to add an executive summary to each issue page",
-            "url": "https://github.com/Thorncrag/ARRP/issues/231",
-            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkYQQ",
-            "workstream": "Project governance and operations",
-            "priority": null,
-            "status": "Development",
-            "release_blocker": "Yes"
-          },
-          {
             "identifier": "Pre-publication final audit",
             "title": "Pre-publication final audit",
             "url": "https://github.com/Thorncrag/ARRP/issues/7",
@@ -15689,6 +15679,96 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxYpzQ",
             "workstream": "Project governance and operations",
             "priority": "Critical",
+            "status": "Development",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "Copyright infringement check",
+            "title": "Copyright infringement check",
+            "url": "https://github.com/Thorncrag/ARRP/issues/230",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkQH4",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "Final link and export validation",
+            "title": "Final link and export validation",
+            "url": "https://github.com/Thorncrag/ARRP/issues/229",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4GQ",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
+            "title": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
+            "url": "https://github.com/Thorncrag/ARRP/issues/233",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkyug",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "Horizon proposal resolution for public release",
+            "title": "Horizon proposal resolution for public release",
+            "url": "https://github.com/Thorncrag/ARRP/issues/226",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4FI",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "Modify or add an audit to add an executive summary to each issue page",
+            "title": "Modify or add an audit to add an executive summary to each issue page",
+            "url": "https://github.com/Thorncrag/ARRP/issues/231",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxkYQQ",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "Neutrality and bipartisan adoption review",
+            "title": "Neutrality and bipartisan adoption review",
+            "url": "https://github.com/Thorncrag/ARRP/issues/225",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4Eo",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "Publication assembly workflow",
+            "title": "Publication assembly workflow",
+            "url": "https://github.com/Thorncrag/ARRP/issues/228",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4Gk",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "Release-blocker audit posture review",
+            "title": "Release-blocker audit posture review",
+            "url": "https://github.com/Thorncrag/ARRP/issues/227",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4Fg",
+            "workstream": "Project governance and operations",
+            "priority": "High",
+            "status": "Development",
+            "release_blocker": "Yes"
+          },
+          {
+            "identifier": "Source and external-reference hardening",
+            "title": "Source and external-reference hardening",
+            "url": "https://github.com/Thorncrag/ARRP/issues/224",
+            "project_item_id": "PVTI_lAHOABOhzc4BcGD4zgxb4EU",
+            "workstream": "Project governance and operations",
+            "priority": "High",
             "status": "Development",
             "release_blocker": "Yes"
           }
@@ -18065,16 +18145,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "integrity_validation": {
         "available": true,
-        "result": "clean",
+        "result": "findings",
         "counts": {
           "errors": 0,
-          "warnings": 0,
-          "findings": 0,
+          "warnings": 3,
+          "findings": 3,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
-        "generated_at": "2026-07-26T14:09:55+00:00"
+        "revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+        "generated_at": "2026-07-27T08:05:07+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -18087,656 +18167,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "delivery_items": [
       {
         "area": "Governance",
-        "assignees": [],
-        "canonicalRecord": "",
-        "changeAuditNeeded": null,
-        "completeness": {
-          "complete": false,
-          "missingFields": [
-            "priority",
-            "release_blocker",
-            "owner",
-            "next_action",
-            "validation_requirement"
-          ]
-        },
-        "dependencies": null,
-        "developmentLevel": null,
-        "identifier": "Copyright infringement check",
-        "isIssueDevelopment": false,
-        "issueIdentity": "Thorncrag/ARRP#230",
-        "kind": "governance",
-        "labels": [],
-        "lastAudit": null,
-        "links": {
-          "canonical": null,
-          "issue": "https://github.com/Thorncrag/ARRP/issues/230",
-          "projectItem": "https://github.com/users/Thorncrag/projects/2"
-        },
-        "milestone": {
-          "dueOn": "2026-11-03T00:00:00Z",
-          "title": "Public Release 1.0",
-          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
-        },
-        "nextAction": null,
-        "nextAudit": null,
-        "number": 230,
-        "owner": null,
-        "parentIssue": {
-          "number": 7,
-          "title": "Pre-publication final audit",
-          "url": "https://github.com/Thorncrag/ARRP/issues/7"
-        },
-        "priority": null,
-        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkQH4",
-        "rawScore": null,
-        "ready": false,
-        "rebaselineStatus": null,
-        "releaseBlocker": null,
-        "runs": null,
-        "score": null,
-        "scoreState": "not_applicable",
-        "state": "OPEN",
-        "subissueProgress": {
-          "complete": true,
-          "completed": 0,
-          "items": [],
-          "percent": null,
-          "total": 0
-        },
-        "title": "Copyright infringement check",
-        "url": "https://github.com/Thorncrag/ARRP/issues/230",
-        "validationRequirement": null,
-        "warnings": [],
-        "workflowStatus": "Development",
-        "workstream": "Project governance and operations"
-      },
-      {
-        "area": "Export",
-        "assignees": [],
-        "canonicalRecord": "",
-        "changeAuditNeeded": null,
-        "completeness": {
-          "complete": false,
-          "missingFields": [
-            "priority",
-            "release_blocker",
-            "owner",
-            "next_action",
-            "validation_requirement"
-          ]
-        },
-        "dependencies": null,
-        "developmentLevel": null,
-        "identifier": "Final link and export validation",
-        "isIssueDevelopment": false,
-        "issueIdentity": "Thorncrag/ARRP#229",
-        "kind": "governance",
-        "labels": [],
-        "lastAudit": null,
-        "links": {
-          "canonical": null,
-          "issue": "https://github.com/Thorncrag/ARRP/issues/229",
-          "projectItem": "https://github.com/users/Thorncrag/projects/2"
-        },
-        "milestone": {
-          "dueOn": "2026-11-03T00:00:00Z",
-          "title": "Public Release 1.0",
-          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
-        },
-        "nextAction": null,
-        "nextAudit": null,
-        "number": 229,
-        "owner": null,
-        "parentIssue": {
-          "number": 9,
-          "title": "Pre-publication technical",
-          "url": "https://github.com/Thorncrag/ARRP/issues/9"
-        },
-        "priority": null,
-        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4GQ",
-        "rawScore": null,
-        "ready": false,
-        "rebaselineStatus": null,
-        "releaseBlocker": null,
-        "runs": null,
-        "score": null,
-        "scoreState": "not_applicable",
-        "state": "OPEN",
-        "subissueProgress": {
-          "complete": true,
-          "completed": 0,
-          "items": [],
-          "percent": null,
-          "total": 0
-        },
-        "title": "Final link and export validation",
-        "url": "https://github.com/Thorncrag/ARRP/issues/229",
-        "validationRequirement": null,
-        "warnings": [],
-        "workflowStatus": "Development",
-        "workstream": "Project governance and operations"
-      },
-      {
-        "area": "Source development",
-        "assignees": [],
-        "canonicalRecord": "",
-        "changeAuditNeeded": null,
-        "completeness": {
-          "complete": false,
-          "missingFields": [
-            "priority",
-            "release_blocker",
-            "owner",
-            "next_action",
-            "validation_requirement"
-          ]
-        },
-        "dependencies": null,
-        "developmentLevel": null,
-        "identifier": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
-        "isIssueDevelopment": false,
-        "issueIdentity": "Thorncrag/ARRP#233",
-        "kind": "governance",
-        "labels": [],
-        "lastAudit": null,
-        "links": {
-          "canonical": null,
-          "issue": "https://github.com/Thorncrag/ARRP/issues/233",
-          "projectItem": "https://github.com/users/Thorncrag/projects/2"
-        },
-        "milestone": null,
-        "nextAction": null,
-        "nextAudit": null,
-        "number": 233,
-        "owner": null,
-        "parentIssue": null,
-        "priority": null,
-        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkyug",
-        "rawScore": null,
-        "ready": false,
-        "rebaselineStatus": null,
-        "releaseBlocker": null,
-        "runs": null,
-        "score": null,
-        "scoreState": "not_applicable",
-        "state": "OPEN",
-        "subissueProgress": {
-          "complete": true,
-          "completed": 0,
-          "items": [],
-          "percent": null,
-          "total": 0
-        },
-        "title": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
-        "url": "https://github.com/Thorncrag/ARRP/issues/233",
-        "validationRequirement": null,
-        "warnings": [],
-        "workflowStatus": "Development",
-        "workstream": "Project governance and operations"
-      },
-      {
-        "area": "Governance",
-        "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
-        "changeAuditNeeded": null,
-        "completeness": {
-          "complete": false,
-          "missingFields": [
-            "priority",
-            "release_blocker",
-            "owner",
-            "next_action",
-            "validation_requirement"
-          ]
-        },
-        "dependencies": null,
-        "developmentLevel": null,
-        "identifier": "Horizon proposal resolution for public release",
-        "isIssueDevelopment": false,
-        "issueIdentity": "Thorncrag/ARRP#226",
-        "kind": "governance",
-        "labels": [],
-        "lastAudit": null,
-        "links": {
-          "canonical": "framework/logs/HORIZON_SCAN_LOG.md",
-          "issue": "https://github.com/Thorncrag/ARRP/issues/226",
-          "projectItem": "https://github.com/users/Thorncrag/projects/2"
-        },
-        "milestone": {
-          "dueOn": "2026-11-03T00:00:00Z",
-          "title": "Public Release 1.0",
-          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
-        },
-        "nextAction": null,
-        "nextAudit": null,
-        "number": 226,
-        "owner": null,
-        "parentIssue": {
-          "number": 7,
-          "title": "Pre-publication final audit",
-          "url": "https://github.com/Thorncrag/ARRP/issues/7"
-        },
-        "priority": null,
-        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4FI",
-        "rawScore": null,
-        "ready": false,
-        "rebaselineStatus": null,
-        "releaseBlocker": null,
-        "runs": null,
-        "score": null,
-        "scoreState": "not_applicable",
-        "state": "OPEN",
-        "subissueProgress": {
-          "complete": true,
-          "completed": 0,
-          "items": [],
-          "percent": null,
-          "total": 0
-        },
-        "title": "Horizon proposal resolution for public release",
-        "url": "https://github.com/Thorncrag/ARRP/issues/226",
-        "validationRequirement": null,
-        "warnings": [],
-        "workflowStatus": "Development",
-        "workstream": "Project governance and operations"
-      },
-      {
-        "area": "Source development",
-        "assignees": [],
-        "canonicalRecord": "",
-        "changeAuditNeeded": null,
-        "completeness": {
-          "complete": false,
-          "missingFields": [
-            "priority",
-            "release_blocker",
-            "owner",
-            "next_action",
-            "validation_requirement"
-          ]
-        },
-        "dependencies": null,
-        "developmentLevel": null,
-        "identifier": "Jack Smith reports crosswalks",
-        "isIssueDevelopment": false,
-        "issueIdentity": "Thorncrag/ARRP#232",
-        "kind": "source review",
-        "labels": [],
-        "lastAudit": null,
-        "links": {
-          "canonical": null,
-          "issue": "https://github.com/Thorncrag/ARRP/issues/232",
-          "projectItem": "https://github.com/users/Thorncrag/projects/2"
-        },
-        "milestone": null,
-        "nextAction": null,
-        "nextAudit": null,
-        "number": 232,
-        "owner": null,
-        "parentIssue": null,
-        "priority": null,
-        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkpD4",
-        "rawScore": null,
-        "ready": false,
-        "rebaselineStatus": null,
-        "releaseBlocker": null,
-        "runs": null,
-        "score": null,
-        "scoreState": "not_applicable",
-        "state": "OPEN",
-        "subissueProgress": {
-          "complete": true,
-          "completed": 0,
-          "items": [],
-          "percent": null,
-          "total": 0
-        },
-        "title": "Jack Smith reports crosswalks",
-        "url": "https://github.com/Thorncrag/ARRP/issues/232",
-        "validationRequirement": null,
-        "warnings": [],
-        "workflowStatus": "Development",
-        "workstream": "Project governance and operations"
-      },
-      {
-        "area": "Governance",
-        "assignees": [],
-        "canonicalRecord": "",
-        "changeAuditNeeded": null,
-        "completeness": {
-          "complete": false,
-          "missingFields": [
-            "priority",
-            "owner",
-            "next_action",
-            "validation_requirement"
-          ]
-        },
-        "dependencies": null,
-        "developmentLevel": null,
-        "identifier": "Modify or add an audit to add an executive summary to each issue page",
-        "isIssueDevelopment": false,
-        "issueIdentity": "Thorncrag/ARRP#231",
-        "kind": "governance",
-        "labels": [],
-        "lastAudit": null,
-        "links": {
-          "canonical": null,
-          "issue": "https://github.com/Thorncrag/ARRP/issues/231",
-          "projectItem": "https://github.com/users/Thorncrag/projects/2"
-        },
-        "milestone": {
-          "dueOn": null,
-          "title": "0.3 - Core Proposal Development",
-          "url": "https://github.com/Thorncrag/ARRP/milestone/4"
-        },
-        "nextAction": null,
-        "nextAudit": null,
-        "number": 231,
-        "owner": null,
-        "parentIssue": null,
-        "priority": null,
-        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkYQQ",
-        "rawScore": null,
-        "ready": false,
-        "rebaselineStatus": null,
-        "releaseBlocker": "Yes",
-        "runs": null,
-        "score": null,
-        "scoreState": "not_applicable",
-        "state": "OPEN",
-        "subissueProgress": {
-          "complete": true,
-          "completed": 0,
-          "items": [],
-          "percent": null,
-          "total": 0
-        },
-        "title": "Modify or add an audit to add an executive summary to each issue page",
-        "url": "https://github.com/Thorncrag/ARRP/issues/231",
-        "validationRequirement": null,
-        "warnings": [],
-        "workflowStatus": "Development",
-        "workstream": "Project governance and operations"
-      },
-      {
-        "area": "Governance",
-        "assignees": [],
-        "canonicalRecord": "",
-        "changeAuditNeeded": null,
-        "completeness": {
-          "complete": false,
-          "missingFields": [
-            "priority",
-            "release_blocker",
-            "owner",
-            "next_action",
-            "validation_requirement"
-          ]
-        },
-        "dependencies": null,
-        "developmentLevel": null,
-        "identifier": "Neutrality and bipartisan adoption review",
-        "isIssueDevelopment": false,
-        "issueIdentity": "Thorncrag/ARRP#225",
-        "kind": "governance",
-        "labels": [],
-        "lastAudit": null,
-        "links": {
-          "canonical": null,
-          "issue": "https://github.com/Thorncrag/ARRP/issues/225",
-          "projectItem": "https://github.com/users/Thorncrag/projects/2"
-        },
-        "milestone": {
-          "dueOn": "2026-11-03T00:00:00Z",
-          "title": "Public Release 1.0",
-          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
-        },
-        "nextAction": null,
-        "nextAudit": null,
-        "number": 225,
-        "owner": null,
-        "parentIssue": {
-          "number": 7,
-          "title": "Pre-publication final audit",
-          "url": "https://github.com/Thorncrag/ARRP/issues/7"
-        },
-        "priority": null,
-        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Eo",
-        "rawScore": null,
-        "ready": false,
-        "rebaselineStatus": null,
-        "releaseBlocker": null,
-        "runs": null,
-        "score": null,
-        "scoreState": "not_applicable",
-        "state": "OPEN",
-        "subissueProgress": {
-          "complete": true,
-          "completed": 0,
-          "items": [],
-          "percent": null,
-          "total": 0
-        },
-        "title": "Neutrality and bipartisan adoption review",
-        "url": "https://github.com/Thorncrag/ARRP/issues/225",
-        "validationRequirement": null,
-        "warnings": [],
-        "workflowStatus": "Development",
-        "workstream": "Project governance and operations"
-      },
-      {
-        "area": "Export",
-        "assignees": [],
-        "canonicalRecord": "",
-        "changeAuditNeeded": null,
-        "completeness": {
-          "complete": false,
-          "missingFields": [
-            "priority",
-            "release_blocker",
-            "owner",
-            "next_action",
-            "validation_requirement"
-          ]
-        },
-        "dependencies": null,
-        "developmentLevel": null,
-        "identifier": "Publication assembly workflow",
-        "isIssueDevelopment": false,
-        "issueIdentity": "Thorncrag/ARRP#228",
-        "kind": "governance",
-        "labels": [],
-        "lastAudit": null,
-        "links": {
-          "canonical": null,
-          "issue": "https://github.com/Thorncrag/ARRP/issues/228",
-          "projectItem": "https://github.com/users/Thorncrag/projects/2"
-        },
-        "milestone": {
-          "dueOn": "2026-11-03T00:00:00Z",
-          "title": "Public Release 1.0",
-          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
-        },
-        "nextAction": null,
-        "nextAudit": null,
-        "number": 228,
-        "owner": null,
-        "parentIssue": {
-          "number": 9,
-          "title": "Pre-publication technical",
-          "url": "https://github.com/Thorncrag/ARRP/issues/9"
-        },
-        "priority": null,
-        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Gk",
-        "rawScore": null,
-        "ready": false,
-        "rebaselineStatus": null,
-        "releaseBlocker": null,
-        "runs": null,
-        "score": null,
-        "scoreState": "not_applicable",
-        "state": "OPEN",
-        "subissueProgress": {
-          "complete": true,
-          "completed": 0,
-          "items": [],
-          "percent": null,
-          "total": 0
-        },
-        "title": "Publication assembly workflow",
-        "url": "https://github.com/Thorncrag/ARRP/issues/228",
-        "validationRequirement": null,
-        "warnings": [],
-        "workflowStatus": "Development",
-        "workstream": "Project governance and operations"
-      },
-      {
-        "area": "Governance",
-        "assignees": [],
-        "canonicalRecord": "",
-        "changeAuditNeeded": null,
-        "completeness": {
-          "complete": false,
-          "missingFields": [
-            "priority",
-            "release_blocker",
-            "owner",
-            "next_action",
-            "validation_requirement"
-          ]
-        },
-        "dependencies": null,
-        "developmentLevel": null,
-        "identifier": "Release-blocker audit posture review",
-        "isIssueDevelopment": false,
-        "issueIdentity": "Thorncrag/ARRP#227",
-        "kind": "governance",
-        "labels": [],
-        "lastAudit": null,
-        "links": {
-          "canonical": null,
-          "issue": "https://github.com/Thorncrag/ARRP/issues/227",
-          "projectItem": "https://github.com/users/Thorncrag/projects/2"
-        },
-        "milestone": {
-          "dueOn": "2026-11-03T00:00:00Z",
-          "title": "Public Release 1.0",
-          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
-        },
-        "nextAction": null,
-        "nextAudit": null,
-        "number": 227,
-        "owner": null,
-        "parentIssue": {
-          "number": 7,
-          "title": "Pre-publication final audit",
-          "url": "https://github.com/Thorncrag/ARRP/issues/7"
-        },
-        "priority": null,
-        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Fg",
-        "rawScore": null,
-        "ready": false,
-        "rebaselineStatus": null,
-        "releaseBlocker": null,
-        "runs": null,
-        "score": null,
-        "scoreState": "not_applicable",
-        "state": "OPEN",
-        "subissueProgress": {
-          "complete": true,
-          "completed": 0,
-          "items": [],
-          "percent": null,
-          "total": 0
-        },
-        "title": "Release-blocker audit posture review",
-        "url": "https://github.com/Thorncrag/ARRP/issues/227",
-        "validationRequirement": null,
-        "warnings": [],
-        "workflowStatus": "Development",
-        "workstream": "Project governance and operations"
-      },
-      {
-        "area": "Source development",
-        "assignees": [],
-        "canonicalRecord": "inventory/sources.csv",
-        "changeAuditNeeded": null,
-        "completeness": {
-          "complete": false,
-          "missingFields": [
-            "priority",
-            "release_blocker",
-            "owner",
-            "next_action",
-            "validation_requirement"
-          ]
-        },
-        "dependencies": null,
-        "developmentLevel": null,
-        "identifier": "Source and external-reference hardening",
-        "isIssueDevelopment": false,
-        "issueIdentity": "Thorncrag/ARRP#224",
-        "kind": "governance",
-        "labels": [],
-        "lastAudit": null,
-        "links": {
-          "canonical": "inventory/sources.csv",
-          "issue": "https://github.com/Thorncrag/ARRP/issues/224",
-          "projectItem": "https://github.com/users/Thorncrag/projects/2"
-        },
-        "milestone": {
-          "dueOn": "2026-11-03T00:00:00Z",
-          "title": "Public Release 1.0",
-          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
-        },
-        "nextAction": null,
-        "nextAudit": null,
-        "number": 224,
-        "owner": null,
-        "parentIssue": {
-          "number": 7,
-          "title": "Pre-publication final audit",
-          "url": "https://github.com/Thorncrag/ARRP/issues/7"
-        },
-        "priority": null,
-        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4EU",
-        "rawScore": null,
-        "ready": false,
-        "rebaselineStatus": null,
-        "releaseBlocker": null,
-        "runs": null,
-        "score": null,
-        "scoreState": "not_applicable",
-        "state": "OPEN",
-        "subissueProgress": {
-          "complete": true,
-          "completed": 0,
-          "items": [],
-          "percent": null,
-          "total": 0
-        },
-        "title": "Source and external-reference hardening",
-        "url": "https://github.com/Thorncrag/ARRP/issues/224",
-        "validationRequirement": null,
-        "warnings": [],
-        "workflowStatus": "Development",
-        "workstream": "Project governance and operations"
-      },
-      {
-        "area": "Governance",
         "assignees": [
           "Thorncrag"
         ],
         "canonicalRecord": "",
         "changeAuditNeeded": null,
         "completeness": {
-          "complete": false,
-          "missingFields": [
-            "next_action",
-            "validation_requirement"
-          ]
+          "complete": true,
+          "missingFields": []
         },
         "dependencies": null,
         "developmentLevel": null,
@@ -18756,10 +18194,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "title": "Public Release 1.0",
           "url": "https://github.com/Thorncrag/ARRP/milestone/1"
         },
-        "nextAction": null,
+        "nextAction": "Complete and close each attached substantive-audit sub-issue; record an explicit release disposition for every proposal in scope.",
         "nextAudit": null,
         "number": 7,
-        "owner": "Thorncrag",
+        "owner": "Benjamin",
         "parentIssue": null,
         "priority": "Critical",
         "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxYpvY",
@@ -18829,7 +18267,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         "title": "Pre-publication final audit",
         "url": "https://github.com/Thorncrag/ARRP/issues/7",
-        "validationRequirement": null,
+        "validationRequirement": "All attached sub-issues are closed; every release-scope proposal has final substantive review or an explicit deferral or disposition; Project and canonical records reconcile.",
         "warnings": [],
         "workflowStatus": "Development",
         "workstream": "Project governance and operations"
@@ -18842,11 +18280,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "canonicalRecord": "",
         "changeAuditNeeded": null,
         "completeness": {
-          "complete": false,
-          "missingFields": [
-            "next_action",
-            "validation_requirement"
-          ]
+          "complete": true,
+          "missingFields": []
         },
         "dependencies": null,
         "developmentLevel": null,
@@ -18866,10 +18301,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "title": "Public Release 1.0",
           "url": "https://github.com/Thorncrag/ARRP/milestone/1"
         },
-        "nextAction": null,
+        "nextAction": "Complete and close each attached technical sub-issue, then generate and validate the public-review exports and reader navigation.",
         "nextAudit": null,
         "number": 9,
-        "owner": "Thorncrag",
+        "owner": "Benjamin",
         "parentIssue": null,
         "priority": "Critical",
         "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxYpzQ",
@@ -18921,7 +18356,587 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         "title": "Pre-publication technical",
         "url": "https://github.com/Thorncrag/ARRP/issues/9",
-        "validationRequirement": null,
+        "validationRequirement": "All attached sub-issues are closed; repository and exports are navigable and valid; release, citation, and reuse posture is documented.",
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Governance",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": true,
+          "missingFields": []
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Copyright infringement check",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#230",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/230",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": "Conduct a documented copyright and licensing review of source use, quotations, images, generated exports, and reuse notices; route uncertain legal questions.",
+        "nextAudit": null,
+        "number": 230,
+        "owner": "Benjamin",
+        "parentIssue": {
+          "number": 7,
+          "title": "Pre-publication final audit",
+          "url": "https://github.com/Thorncrag/ARRP/issues/7"
+        },
+        "priority": "High",
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkQH4",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": "Yes",
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Copyright infringement check",
+        "url": "https://github.com/Thorncrag/ARRP/issues/230",
+        "validationRequirement": "Every release surface is reviewed; suspected infringement or licensing conflicts are removed, replaced, licensed, or held for qualified legal review; evidence is retained.",
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Export",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": true,
+          "missingFields": []
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Final link and export validation",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#229",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/229",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": "Run final link checks, generate current release exports, inspect structure, order, and references, and document remaining limitations.",
+        "nextAudit": null,
+        "number": 229,
+        "owner": "Elim",
+        "parentIssue": {
+          "number": 9,
+          "title": "Pre-publication technical",
+          "url": "https://github.com/Thorncrag/ARRP/issues/9"
+        },
+        "priority": "High",
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4GQ",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": "Yes",
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Final link and export validation",
+        "url": "https://github.com/Thorncrag/ARRP/issues/229",
+        "validationRequirement": "Link checks and export validators pass; required sections and appendices are present; export hashes, source revision, and known limitations are recorded.",
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Source development",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": true,
+          "missingFields": []
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#233",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/233",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": null,
+        "nextAction": "Audit all uses of indictments, prosecutorial reports, and related summaries; retain allegation or source-lead framing unless independently established.",
+        "nextAudit": null,
+        "number": 233,
+        "owner": "Elim",
+        "parentIssue": null,
+        "priority": "High",
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkyug",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": "Yes",
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
+        "url": "https://github.com/Thorncrag/ARRP/issues/233",
+        "validationRequirement": "No project-authored claim treats an indictment or prosecutorial report as proof; affected passages use neutral attribution and adequate support; consistency and source checks pass.",
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Governance",
+        "assignees": [],
+        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": true,
+          "missingFields": []
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Horizon proposal resolution for public release",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#226",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": "framework/logs/HORIZON_SCAN_LOG.md",
+          "issue": "https://github.com/Thorncrag/ARRP/issues/226",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": "Review each release-relevant HOR record and record an admit, merge, retire, park, or defer decision with synchronized Project and Horizon records.",
+        "nextAudit": null,
+        "number": 226,
+        "owner": "Benjamin",
+        "parentIssue": {
+          "number": 7,
+          "title": "Pre-publication final audit",
+          "url": "https://github.com/Thorncrag/ARRP/issues/7"
+        },
+        "priority": "High",
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4FI",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": "Yes",
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Horizon proposal resolution for public release",
+        "url": "https://github.com/Thorncrag/ARRP/issues/226",
+        "validationRequirement": "Every release-relevant formal candidate has one documented disposition and all affected issue bodies, Project fields, registry and navigation, and Horizon log entries reconcile.",
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Governance",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": true,
+          "missingFields": []
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Modify or add an audit to add an executive summary to each issue page",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#231",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/231",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": null,
+          "title": "0.3 - Core Proposal Development",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/4"
+        },
+        "nextAction": "Define the executive-summary audit standard, apply it after Issue Snapshot to every eligible issue page, and run consistency and publication validation.",
+        "nextAudit": null,
+        "number": 231,
+        "owner": "Elim",
+        "parentIssue": null,
+        "priority": "High",
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkYQQ",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": "Yes",
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Modify or add an audit to add an executive summary to each issue page",
+        "url": "https://github.com/Thorncrag/ARRP/issues/231",
+        "validationRequirement": "Every eligible issue page contains a concise, proposal-complete executive summary in the required location; links, headings, print assembly, and project consistency pass.",
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Governance",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": true,
+          "missingFields": []
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Neutrality and bipartisan adoption review",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#225",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/225",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": "Review public-facing proposal framing for neutrality, generalizability, overcorrection, and bipartisan adoption risk; repair affected records.",
+        "nextAudit": null,
+        "number": 225,
+        "owner": "Elim",
+        "parentIssue": {
+          "number": 7,
+          "title": "Pre-publication final audit",
+          "url": "https://github.com/Thorncrag/ARRP/issues/7"
+        },
+        "priority": "High",
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Eo",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": "Yes",
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Neutrality and bipartisan adoption review",
+        "url": "https://github.com/Thorncrag/ARRP/issues/225",
+        "validationRequirement": "Each release-scope proposal passes neutral-framing and reversed-control review, or has a documented exception and next action in its owning record.",
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Export",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": true,
+          "missingFields": []
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Publication assembly workflow",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#228",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/228",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": "Complete the edition and ordering rules, implement and verify consolidated source lists and durable internal locators, and test the assembler against the current manifest.",
+        "nextAudit": null,
+        "number": 228,
+        "owner": "Elim",
+        "parentIssue": {
+          "number": 9,
+          "title": "Pre-publication technical",
+          "url": "https://github.com/Thorncrag/ARRP/issues/9"
+        },
+        "priority": "High",
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Gk",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": "Yes",
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Publication assembly workflow",
+        "url": "https://github.com/Thorncrag/ARRP/issues/228",
+        "validationRequirement": "A test assembly preserves citations and locators, reports missing external or internal routes, follows manifest order, and passes publication preflight.",
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Governance",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": true,
+          "missingFields": []
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Release-blocker audit posture review",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#227",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/227",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": "Reconcile each Release blocker = Yes item's audit, source, score, next-audit, and lifecycle posture; repair incoherent records.",
+        "nextAudit": null,
+        "number": 227,
+        "owner": "Elim",
+        "parentIssue": {
+          "number": 7,
+          "title": "Pre-publication final audit",
+          "url": "https://github.com/Thorncrag/ARRP/issues/7"
+        },
+        "priority": "High",
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Fg",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": "Yes",
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Release-blocker audit posture review",
+        "url": "https://github.com/Thorncrag/ARRP/issues/227",
+        "validationRequirement": "All release blockers have current, internally consistent audit and source posture; canonical pages and authenticated Project readback pass consistency checks.",
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Source development",
+        "assignees": [],
+        "canonicalRecord": "inventory/sources.csv",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": true,
+          "missingFields": []
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Source and external-reference hardening",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#224",
+        "kind": "governance",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": "inventory/sources.csv",
+          "issue": "https://github.com/Thorncrag/ARRP/issues/224",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": {
+          "dueOn": "2026-11-03T00:00:00Z",
+          "title": "Public Release 1.0",
+          "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+        },
+        "nextAction": "Audit release-blocker proposals for citation gaps, weak, stale, or non-public support, comparator accuracy, and public-source limitations; repair the owning records.",
+        "nextAudit": null,
+        "number": 224,
+        "owner": "Elim",
+        "parentIssue": {
+          "number": 7,
+          "title": "Pre-publication final audit",
+          "url": "https://github.com/Thorncrag/ARRP/issues/7"
+        },
+        "priority": "High",
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4EU",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": "Yes",
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Source and external-reference hardening",
+        "url": "https://github.com/Thorncrag/ARRP/issues/224",
+        "validationRequirement": "Every release-blocker claim and comparator is reviewed; gaps are repaired or explicitly documented; affected source records, issue pages, audit sidecars, and Project fields reconcile.",
+        "warnings": [],
+        "workflowStatus": "Development",
+        "workstream": "Project governance and operations"
+      },
+      {
+        "area": "Source development",
+        "assignees": [],
+        "canonicalRecord": "",
+        "changeAuditNeeded": null,
+        "completeness": {
+          "complete": true,
+          "missingFields": []
+        },
+        "dependencies": null,
+        "developmentLevel": null,
+        "identifier": "Jack Smith reports crosswalks",
+        "isIssueDevelopment": false,
+        "issueIdentity": "Thorncrag/ARRP#232",
+        "kind": "source review",
+        "labels": [],
+        "lastAudit": null,
+        "links": {
+          "canonical": null,
+          "issue": "https://github.com/Thorncrag/ARRP/issues/232",
+          "projectItem": "https://github.com/users/Thorncrag/projects/2"
+        },
+        "milestone": null,
+        "nextAction": "Reconcile both Jack Smith internal crosswalks with their respective published topic pages without creating issue identities.",
+        "nextAudit": null,
+        "number": 232,
+        "owner": "Elim",
+        "parentIssue": null,
+        "priority": "Medium",
+        "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkpD4",
+        "rawScore": null,
+        "ready": false,
+        "rebaselineStatus": null,
+        "releaseBlocker": "Later",
+        "runs": null,
+        "score": null,
+        "scoreState": "not_applicable",
+        "state": "OPEN",
+        "subissueProgress": {
+          "complete": true,
+          "completed": 0,
+          "items": [],
+          "percent": null,
+          "total": 0
+        },
+        "title": "Jack Smith reports crosswalks",
+        "url": "https://github.com/Thorncrag/ARRP/issues/232",
+        "validationRequirement": "Each internal crosswalk and public topic-page pair has one stable topic-product identity; cited records and scope boundaries reconcile; neither stage enters issue-development metrics.",
         "warnings": [],
         "workflowStatus": "Development",
         "workstream": "Project governance and operations"
@@ -19119,656 +19134,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "delivery_items": [
     {
       "area": "Governance",
-      "assignees": [],
-      "canonicalRecord": "",
-      "changeAuditNeeded": null,
-      "completeness": {
-        "complete": false,
-        "missingFields": [
-          "priority",
-          "release_blocker",
-          "owner",
-          "next_action",
-          "validation_requirement"
-        ]
-      },
-      "dependencies": null,
-      "developmentLevel": null,
-      "identifier": "Copyright infringement check",
-      "isIssueDevelopment": false,
-      "issueIdentity": "Thorncrag/ARRP#230",
-      "kind": "governance",
-      "labels": [],
-      "lastAudit": null,
-      "links": {
-        "canonical": null,
-        "issue": "https://github.com/Thorncrag/ARRP/issues/230",
-        "projectItem": "https://github.com/users/Thorncrag/projects/2"
-      },
-      "milestone": {
-        "dueOn": "2026-11-03T00:00:00Z",
-        "title": "Public Release 1.0",
-        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
-      },
-      "nextAction": null,
-      "nextAudit": null,
-      "number": 230,
-      "owner": null,
-      "parentIssue": {
-        "number": 7,
-        "title": "Pre-publication final audit",
-        "url": "https://github.com/Thorncrag/ARRP/issues/7"
-      },
-      "priority": null,
-      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkQH4",
-      "rawScore": null,
-      "ready": false,
-      "rebaselineStatus": null,
-      "releaseBlocker": null,
-      "runs": null,
-      "score": null,
-      "scoreState": "not_applicable",
-      "state": "OPEN",
-      "subissueProgress": {
-        "complete": true,
-        "completed": 0,
-        "items": [],
-        "percent": null,
-        "total": 0
-      },
-      "title": "Copyright infringement check",
-      "url": "https://github.com/Thorncrag/ARRP/issues/230",
-      "validationRequirement": null,
-      "warnings": [],
-      "workflowStatus": "Development",
-      "workstream": "Project governance and operations"
-    },
-    {
-      "area": "Export",
-      "assignees": [],
-      "canonicalRecord": "",
-      "changeAuditNeeded": null,
-      "completeness": {
-        "complete": false,
-        "missingFields": [
-          "priority",
-          "release_blocker",
-          "owner",
-          "next_action",
-          "validation_requirement"
-        ]
-      },
-      "dependencies": null,
-      "developmentLevel": null,
-      "identifier": "Final link and export validation",
-      "isIssueDevelopment": false,
-      "issueIdentity": "Thorncrag/ARRP#229",
-      "kind": "governance",
-      "labels": [],
-      "lastAudit": null,
-      "links": {
-        "canonical": null,
-        "issue": "https://github.com/Thorncrag/ARRP/issues/229",
-        "projectItem": "https://github.com/users/Thorncrag/projects/2"
-      },
-      "milestone": {
-        "dueOn": "2026-11-03T00:00:00Z",
-        "title": "Public Release 1.0",
-        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
-      },
-      "nextAction": null,
-      "nextAudit": null,
-      "number": 229,
-      "owner": null,
-      "parentIssue": {
-        "number": 9,
-        "title": "Pre-publication technical",
-        "url": "https://github.com/Thorncrag/ARRP/issues/9"
-      },
-      "priority": null,
-      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4GQ",
-      "rawScore": null,
-      "ready": false,
-      "rebaselineStatus": null,
-      "releaseBlocker": null,
-      "runs": null,
-      "score": null,
-      "scoreState": "not_applicable",
-      "state": "OPEN",
-      "subissueProgress": {
-        "complete": true,
-        "completed": 0,
-        "items": [],
-        "percent": null,
-        "total": 0
-      },
-      "title": "Final link and export validation",
-      "url": "https://github.com/Thorncrag/ARRP/issues/229",
-      "validationRequirement": null,
-      "warnings": [],
-      "workflowStatus": "Development",
-      "workstream": "Project governance and operations"
-    },
-    {
-      "area": "Source development",
-      "assignees": [],
-      "canonicalRecord": "",
-      "changeAuditNeeded": null,
-      "completeness": {
-        "complete": false,
-        "missingFields": [
-          "priority",
-          "release_blocker",
-          "owner",
-          "next_action",
-          "validation_requirement"
-        ]
-      },
-      "dependencies": null,
-      "developmentLevel": null,
-      "identifier": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
-      "isIssueDevelopment": false,
-      "issueIdentity": "Thorncrag/ARRP#233",
-      "kind": "governance",
-      "labels": [],
-      "lastAudit": null,
-      "links": {
-        "canonical": null,
-        "issue": "https://github.com/Thorncrag/ARRP/issues/233",
-        "projectItem": "https://github.com/users/Thorncrag/projects/2"
-      },
-      "milestone": null,
-      "nextAction": null,
-      "nextAudit": null,
-      "number": 233,
-      "owner": null,
-      "parentIssue": null,
-      "priority": null,
-      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkyug",
-      "rawScore": null,
-      "ready": false,
-      "rebaselineStatus": null,
-      "releaseBlocker": null,
-      "runs": null,
-      "score": null,
-      "scoreState": "not_applicable",
-      "state": "OPEN",
-      "subissueProgress": {
-        "complete": true,
-        "completed": 0,
-        "items": [],
-        "percent": null,
-        "total": 0
-      },
-      "title": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
-      "url": "https://github.com/Thorncrag/ARRP/issues/233",
-      "validationRequirement": null,
-      "warnings": [],
-      "workflowStatus": "Development",
-      "workstream": "Project governance and operations"
-    },
-    {
-      "area": "Governance",
-      "assignees": [],
-      "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
-      "changeAuditNeeded": null,
-      "completeness": {
-        "complete": false,
-        "missingFields": [
-          "priority",
-          "release_blocker",
-          "owner",
-          "next_action",
-          "validation_requirement"
-        ]
-      },
-      "dependencies": null,
-      "developmentLevel": null,
-      "identifier": "Horizon proposal resolution for public release",
-      "isIssueDevelopment": false,
-      "issueIdentity": "Thorncrag/ARRP#226",
-      "kind": "governance",
-      "labels": [],
-      "lastAudit": null,
-      "links": {
-        "canonical": "framework/logs/HORIZON_SCAN_LOG.md",
-        "issue": "https://github.com/Thorncrag/ARRP/issues/226",
-        "projectItem": "https://github.com/users/Thorncrag/projects/2"
-      },
-      "milestone": {
-        "dueOn": "2026-11-03T00:00:00Z",
-        "title": "Public Release 1.0",
-        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
-      },
-      "nextAction": null,
-      "nextAudit": null,
-      "number": 226,
-      "owner": null,
-      "parentIssue": {
-        "number": 7,
-        "title": "Pre-publication final audit",
-        "url": "https://github.com/Thorncrag/ARRP/issues/7"
-      },
-      "priority": null,
-      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4FI",
-      "rawScore": null,
-      "ready": false,
-      "rebaselineStatus": null,
-      "releaseBlocker": null,
-      "runs": null,
-      "score": null,
-      "scoreState": "not_applicable",
-      "state": "OPEN",
-      "subissueProgress": {
-        "complete": true,
-        "completed": 0,
-        "items": [],
-        "percent": null,
-        "total": 0
-      },
-      "title": "Horizon proposal resolution for public release",
-      "url": "https://github.com/Thorncrag/ARRP/issues/226",
-      "validationRequirement": null,
-      "warnings": [],
-      "workflowStatus": "Development",
-      "workstream": "Project governance and operations"
-    },
-    {
-      "area": "Source development",
-      "assignees": [],
-      "canonicalRecord": "",
-      "changeAuditNeeded": null,
-      "completeness": {
-        "complete": false,
-        "missingFields": [
-          "priority",
-          "release_blocker",
-          "owner",
-          "next_action",
-          "validation_requirement"
-        ]
-      },
-      "dependencies": null,
-      "developmentLevel": null,
-      "identifier": "Jack Smith reports crosswalks",
-      "isIssueDevelopment": false,
-      "issueIdentity": "Thorncrag/ARRP#232",
-      "kind": "source review",
-      "labels": [],
-      "lastAudit": null,
-      "links": {
-        "canonical": null,
-        "issue": "https://github.com/Thorncrag/ARRP/issues/232",
-        "projectItem": "https://github.com/users/Thorncrag/projects/2"
-      },
-      "milestone": null,
-      "nextAction": null,
-      "nextAudit": null,
-      "number": 232,
-      "owner": null,
-      "parentIssue": null,
-      "priority": null,
-      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkpD4",
-      "rawScore": null,
-      "ready": false,
-      "rebaselineStatus": null,
-      "releaseBlocker": null,
-      "runs": null,
-      "score": null,
-      "scoreState": "not_applicable",
-      "state": "OPEN",
-      "subissueProgress": {
-        "complete": true,
-        "completed": 0,
-        "items": [],
-        "percent": null,
-        "total": 0
-      },
-      "title": "Jack Smith reports crosswalks",
-      "url": "https://github.com/Thorncrag/ARRP/issues/232",
-      "validationRequirement": null,
-      "warnings": [],
-      "workflowStatus": "Development",
-      "workstream": "Project governance and operations"
-    },
-    {
-      "area": "Governance",
-      "assignees": [],
-      "canonicalRecord": "",
-      "changeAuditNeeded": null,
-      "completeness": {
-        "complete": false,
-        "missingFields": [
-          "priority",
-          "owner",
-          "next_action",
-          "validation_requirement"
-        ]
-      },
-      "dependencies": null,
-      "developmentLevel": null,
-      "identifier": "Modify or add an audit to add an executive summary to each issue page",
-      "isIssueDevelopment": false,
-      "issueIdentity": "Thorncrag/ARRP#231",
-      "kind": "governance",
-      "labels": [],
-      "lastAudit": null,
-      "links": {
-        "canonical": null,
-        "issue": "https://github.com/Thorncrag/ARRP/issues/231",
-        "projectItem": "https://github.com/users/Thorncrag/projects/2"
-      },
-      "milestone": {
-        "dueOn": null,
-        "title": "0.3 - Core Proposal Development",
-        "url": "https://github.com/Thorncrag/ARRP/milestone/4"
-      },
-      "nextAction": null,
-      "nextAudit": null,
-      "number": 231,
-      "owner": null,
-      "parentIssue": null,
-      "priority": null,
-      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkYQQ",
-      "rawScore": null,
-      "ready": false,
-      "rebaselineStatus": null,
-      "releaseBlocker": "Yes",
-      "runs": null,
-      "score": null,
-      "scoreState": "not_applicable",
-      "state": "OPEN",
-      "subissueProgress": {
-        "complete": true,
-        "completed": 0,
-        "items": [],
-        "percent": null,
-        "total": 0
-      },
-      "title": "Modify or add an audit to add an executive summary to each issue page",
-      "url": "https://github.com/Thorncrag/ARRP/issues/231",
-      "validationRequirement": null,
-      "warnings": [],
-      "workflowStatus": "Development",
-      "workstream": "Project governance and operations"
-    },
-    {
-      "area": "Governance",
-      "assignees": [],
-      "canonicalRecord": "",
-      "changeAuditNeeded": null,
-      "completeness": {
-        "complete": false,
-        "missingFields": [
-          "priority",
-          "release_blocker",
-          "owner",
-          "next_action",
-          "validation_requirement"
-        ]
-      },
-      "dependencies": null,
-      "developmentLevel": null,
-      "identifier": "Neutrality and bipartisan adoption review",
-      "isIssueDevelopment": false,
-      "issueIdentity": "Thorncrag/ARRP#225",
-      "kind": "governance",
-      "labels": [],
-      "lastAudit": null,
-      "links": {
-        "canonical": null,
-        "issue": "https://github.com/Thorncrag/ARRP/issues/225",
-        "projectItem": "https://github.com/users/Thorncrag/projects/2"
-      },
-      "milestone": {
-        "dueOn": "2026-11-03T00:00:00Z",
-        "title": "Public Release 1.0",
-        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
-      },
-      "nextAction": null,
-      "nextAudit": null,
-      "number": 225,
-      "owner": null,
-      "parentIssue": {
-        "number": 7,
-        "title": "Pre-publication final audit",
-        "url": "https://github.com/Thorncrag/ARRP/issues/7"
-      },
-      "priority": null,
-      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Eo",
-      "rawScore": null,
-      "ready": false,
-      "rebaselineStatus": null,
-      "releaseBlocker": null,
-      "runs": null,
-      "score": null,
-      "scoreState": "not_applicable",
-      "state": "OPEN",
-      "subissueProgress": {
-        "complete": true,
-        "completed": 0,
-        "items": [],
-        "percent": null,
-        "total": 0
-      },
-      "title": "Neutrality and bipartisan adoption review",
-      "url": "https://github.com/Thorncrag/ARRP/issues/225",
-      "validationRequirement": null,
-      "warnings": [],
-      "workflowStatus": "Development",
-      "workstream": "Project governance and operations"
-    },
-    {
-      "area": "Export",
-      "assignees": [],
-      "canonicalRecord": "",
-      "changeAuditNeeded": null,
-      "completeness": {
-        "complete": false,
-        "missingFields": [
-          "priority",
-          "release_blocker",
-          "owner",
-          "next_action",
-          "validation_requirement"
-        ]
-      },
-      "dependencies": null,
-      "developmentLevel": null,
-      "identifier": "Publication assembly workflow",
-      "isIssueDevelopment": false,
-      "issueIdentity": "Thorncrag/ARRP#228",
-      "kind": "governance",
-      "labels": [],
-      "lastAudit": null,
-      "links": {
-        "canonical": null,
-        "issue": "https://github.com/Thorncrag/ARRP/issues/228",
-        "projectItem": "https://github.com/users/Thorncrag/projects/2"
-      },
-      "milestone": {
-        "dueOn": "2026-11-03T00:00:00Z",
-        "title": "Public Release 1.0",
-        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
-      },
-      "nextAction": null,
-      "nextAudit": null,
-      "number": 228,
-      "owner": null,
-      "parentIssue": {
-        "number": 9,
-        "title": "Pre-publication technical",
-        "url": "https://github.com/Thorncrag/ARRP/issues/9"
-      },
-      "priority": null,
-      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Gk",
-      "rawScore": null,
-      "ready": false,
-      "rebaselineStatus": null,
-      "releaseBlocker": null,
-      "runs": null,
-      "score": null,
-      "scoreState": "not_applicable",
-      "state": "OPEN",
-      "subissueProgress": {
-        "complete": true,
-        "completed": 0,
-        "items": [],
-        "percent": null,
-        "total": 0
-      },
-      "title": "Publication assembly workflow",
-      "url": "https://github.com/Thorncrag/ARRP/issues/228",
-      "validationRequirement": null,
-      "warnings": [],
-      "workflowStatus": "Development",
-      "workstream": "Project governance and operations"
-    },
-    {
-      "area": "Governance",
-      "assignees": [],
-      "canonicalRecord": "",
-      "changeAuditNeeded": null,
-      "completeness": {
-        "complete": false,
-        "missingFields": [
-          "priority",
-          "release_blocker",
-          "owner",
-          "next_action",
-          "validation_requirement"
-        ]
-      },
-      "dependencies": null,
-      "developmentLevel": null,
-      "identifier": "Release-blocker audit posture review",
-      "isIssueDevelopment": false,
-      "issueIdentity": "Thorncrag/ARRP#227",
-      "kind": "governance",
-      "labels": [],
-      "lastAudit": null,
-      "links": {
-        "canonical": null,
-        "issue": "https://github.com/Thorncrag/ARRP/issues/227",
-        "projectItem": "https://github.com/users/Thorncrag/projects/2"
-      },
-      "milestone": {
-        "dueOn": "2026-11-03T00:00:00Z",
-        "title": "Public Release 1.0",
-        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
-      },
-      "nextAction": null,
-      "nextAudit": null,
-      "number": 227,
-      "owner": null,
-      "parentIssue": {
-        "number": 7,
-        "title": "Pre-publication final audit",
-        "url": "https://github.com/Thorncrag/ARRP/issues/7"
-      },
-      "priority": null,
-      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Fg",
-      "rawScore": null,
-      "ready": false,
-      "rebaselineStatus": null,
-      "releaseBlocker": null,
-      "runs": null,
-      "score": null,
-      "scoreState": "not_applicable",
-      "state": "OPEN",
-      "subissueProgress": {
-        "complete": true,
-        "completed": 0,
-        "items": [],
-        "percent": null,
-        "total": 0
-      },
-      "title": "Release-blocker audit posture review",
-      "url": "https://github.com/Thorncrag/ARRP/issues/227",
-      "validationRequirement": null,
-      "warnings": [],
-      "workflowStatus": "Development",
-      "workstream": "Project governance and operations"
-    },
-    {
-      "area": "Source development",
-      "assignees": [],
-      "canonicalRecord": "inventory/sources.csv",
-      "changeAuditNeeded": null,
-      "completeness": {
-        "complete": false,
-        "missingFields": [
-          "priority",
-          "release_blocker",
-          "owner",
-          "next_action",
-          "validation_requirement"
-        ]
-      },
-      "dependencies": null,
-      "developmentLevel": null,
-      "identifier": "Source and external-reference hardening",
-      "isIssueDevelopment": false,
-      "issueIdentity": "Thorncrag/ARRP#224",
-      "kind": "governance",
-      "labels": [],
-      "lastAudit": null,
-      "links": {
-        "canonical": "inventory/sources.csv",
-        "issue": "https://github.com/Thorncrag/ARRP/issues/224",
-        "projectItem": "https://github.com/users/Thorncrag/projects/2"
-      },
-      "milestone": {
-        "dueOn": "2026-11-03T00:00:00Z",
-        "title": "Public Release 1.0",
-        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
-      },
-      "nextAction": null,
-      "nextAudit": null,
-      "number": 224,
-      "owner": null,
-      "parentIssue": {
-        "number": 7,
-        "title": "Pre-publication final audit",
-        "url": "https://github.com/Thorncrag/ARRP/issues/7"
-      },
-      "priority": null,
-      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4EU",
-      "rawScore": null,
-      "ready": false,
-      "rebaselineStatus": null,
-      "releaseBlocker": null,
-      "runs": null,
-      "score": null,
-      "scoreState": "not_applicable",
-      "state": "OPEN",
-      "subissueProgress": {
-        "complete": true,
-        "completed": 0,
-        "items": [],
-        "percent": null,
-        "total": 0
-      },
-      "title": "Source and external-reference hardening",
-      "url": "https://github.com/Thorncrag/ARRP/issues/224",
-      "validationRequirement": null,
-      "warnings": [],
-      "workflowStatus": "Development",
-      "workstream": "Project governance and operations"
-    },
-    {
-      "area": "Governance",
       "assignees": [
         "Thorncrag"
       ],
       "canonicalRecord": "",
       "changeAuditNeeded": null,
       "completeness": {
-        "complete": false,
-        "missingFields": [
-          "next_action",
-          "validation_requirement"
-        ]
+        "complete": true,
+        "missingFields": []
       },
       "dependencies": null,
       "developmentLevel": null,
@@ -19788,10 +19161,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "Public Release 1.0",
         "url": "https://github.com/Thorncrag/ARRP/milestone/1"
       },
-      "nextAction": null,
+      "nextAction": "Complete and close each attached substantive-audit sub-issue; record an explicit release disposition for every proposal in scope.",
       "nextAudit": null,
       "number": 7,
-      "owner": "Thorncrag",
+      "owner": "Benjamin",
       "parentIssue": null,
       "priority": "Critical",
       "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxYpvY",
@@ -19861,7 +19234,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "title": "Pre-publication final audit",
       "url": "https://github.com/Thorncrag/ARRP/issues/7",
-      "validationRequirement": null,
+      "validationRequirement": "All attached sub-issues are closed; every release-scope proposal has final substantive review or an explicit deferral or disposition; Project and canonical records reconcile.",
       "warnings": [],
       "workflowStatus": "Development",
       "workstream": "Project governance and operations"
@@ -19874,11 +19247,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "canonicalRecord": "",
       "changeAuditNeeded": null,
       "completeness": {
-        "complete": false,
-        "missingFields": [
-          "next_action",
-          "validation_requirement"
-        ]
+        "complete": true,
+        "missingFields": []
       },
       "dependencies": null,
       "developmentLevel": null,
@@ -19898,10 +19268,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "Public Release 1.0",
         "url": "https://github.com/Thorncrag/ARRP/milestone/1"
       },
-      "nextAction": null,
+      "nextAction": "Complete and close each attached technical sub-issue, then generate and validate the public-review exports and reader navigation.",
       "nextAudit": null,
       "number": 9,
-      "owner": "Thorncrag",
+      "owner": "Benjamin",
       "parentIssue": null,
       "priority": "Critical",
       "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxYpzQ",
@@ -19953,13 +19323,593 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "title": "Pre-publication technical",
       "url": "https://github.com/Thorncrag/ARRP/issues/9",
-      "validationRequirement": null,
+      "validationRequirement": "All attached sub-issues are closed; repository and exports are navigable and valid; release, citation, and reuse posture is documented.",
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Governance",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": true,
+        "missingFields": []
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Copyright infringement check",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#230",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/230",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": "Conduct a documented copyright and licensing review of source use, quotations, images, generated exports, and reuse notices; route uncertain legal questions.",
+      "nextAudit": null,
+      "number": 230,
+      "owner": "Benjamin",
+      "parentIssue": {
+        "number": 7,
+        "title": "Pre-publication final audit",
+        "url": "https://github.com/Thorncrag/ARRP/issues/7"
+      },
+      "priority": "High",
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkQH4",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": "Yes",
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Copyright infringement check",
+      "url": "https://github.com/Thorncrag/ARRP/issues/230",
+      "validationRequirement": "Every release surface is reviewed; suspected infringement or licensing conflicts are removed, replaced, licensed, or held for qualified legal review; evidence is retained.",
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Export",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": true,
+        "missingFields": []
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Final link and export validation",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#229",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/229",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": "Run final link checks, generate current release exports, inspect structure, order, and references, and document remaining limitations.",
+      "nextAudit": null,
+      "number": 229,
+      "owner": "Elim",
+      "parentIssue": {
+        "number": 9,
+        "title": "Pre-publication technical",
+        "url": "https://github.com/Thorncrag/ARRP/issues/9"
+      },
+      "priority": "High",
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4GQ",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": "Yes",
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Final link and export validation",
+      "url": "https://github.com/Thorncrag/ARRP/issues/229",
+      "validationRequirement": "Link checks and export validators pass; required sections and appendices are present; export hashes, source revision, and known limitations are recorded.",
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Source development",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": true,
+        "missingFields": []
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#233",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/233",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": null,
+      "nextAction": "Audit all uses of indictments, prosecutorial reports, and related summaries; retain allegation or source-lead framing unless independently established.",
+      "nextAudit": null,
+      "number": 233,
+      "owner": "Elim",
+      "parentIssue": null,
+      "priority": "High",
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkyug",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": "Yes",
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Final pass to verify that indictments and prosecutorial reports are only sourced for identifying weakness and not presented as proving the underlying claims",
+      "url": "https://github.com/Thorncrag/ARRP/issues/233",
+      "validationRequirement": "No project-authored claim treats an indictment or prosecutorial report as proof; affected passages use neutral attribution and adequate support; consistency and source checks pass.",
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Governance",
+      "assignees": [],
+      "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": true,
+        "missingFields": []
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Horizon proposal resolution for public release",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#226",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": "framework/logs/HORIZON_SCAN_LOG.md",
+        "issue": "https://github.com/Thorncrag/ARRP/issues/226",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": "Review each release-relevant HOR record and record an admit, merge, retire, park, or defer decision with synchronized Project and Horizon records.",
+      "nextAudit": null,
+      "number": 226,
+      "owner": "Benjamin",
+      "parentIssue": {
+        "number": 7,
+        "title": "Pre-publication final audit",
+        "url": "https://github.com/Thorncrag/ARRP/issues/7"
+      },
+      "priority": "High",
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4FI",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": "Yes",
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Horizon proposal resolution for public release",
+      "url": "https://github.com/Thorncrag/ARRP/issues/226",
+      "validationRequirement": "Every release-relevant formal candidate has one documented disposition and all affected issue bodies, Project fields, registry and navigation, and Horizon log entries reconcile.",
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Governance",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": true,
+        "missingFields": []
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Modify or add an audit to add an executive summary to each issue page",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#231",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/231",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": null,
+        "title": "0.3 - Core Proposal Development",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/4"
+      },
+      "nextAction": "Define the executive-summary audit standard, apply it after Issue Snapshot to every eligible issue page, and run consistency and publication validation.",
+      "nextAudit": null,
+      "number": 231,
+      "owner": "Elim",
+      "parentIssue": null,
+      "priority": "High",
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkYQQ",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": "Yes",
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Modify or add an audit to add an executive summary to each issue page",
+      "url": "https://github.com/Thorncrag/ARRP/issues/231",
+      "validationRequirement": "Every eligible issue page contains a concise, proposal-complete executive summary in the required location; links, headings, print assembly, and project consistency pass.",
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Governance",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": true,
+        "missingFields": []
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Neutrality and bipartisan adoption review",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#225",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/225",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": "Review public-facing proposal framing for neutrality, generalizability, overcorrection, and bipartisan adoption risk; repair affected records.",
+      "nextAudit": null,
+      "number": 225,
+      "owner": "Elim",
+      "parentIssue": {
+        "number": 7,
+        "title": "Pre-publication final audit",
+        "url": "https://github.com/Thorncrag/ARRP/issues/7"
+      },
+      "priority": "High",
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Eo",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": "Yes",
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Neutrality and bipartisan adoption review",
+      "url": "https://github.com/Thorncrag/ARRP/issues/225",
+      "validationRequirement": "Each release-scope proposal passes neutral-framing and reversed-control review, or has a documented exception and next action in its owning record.",
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Export",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": true,
+        "missingFields": []
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Publication assembly workflow",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#228",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/228",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": "Complete the edition and ordering rules, implement and verify consolidated source lists and durable internal locators, and test the assembler against the current manifest.",
+      "nextAudit": null,
+      "number": 228,
+      "owner": "Elim",
+      "parentIssue": {
+        "number": 9,
+        "title": "Pre-publication technical",
+        "url": "https://github.com/Thorncrag/ARRP/issues/9"
+      },
+      "priority": "High",
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Gk",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": "Yes",
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Publication assembly workflow",
+      "url": "https://github.com/Thorncrag/ARRP/issues/228",
+      "validationRequirement": "A test assembly preserves citations and locators, reports missing external or internal routes, follows manifest order, and passes publication preflight.",
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Governance",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": true,
+        "missingFields": []
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Release-blocker audit posture review",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#227",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/227",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": "Reconcile each Release blocker = Yes item's audit, source, score, next-audit, and lifecycle posture; repair incoherent records.",
+      "nextAudit": null,
+      "number": 227,
+      "owner": "Elim",
+      "parentIssue": {
+        "number": 7,
+        "title": "Pre-publication final audit",
+        "url": "https://github.com/Thorncrag/ARRP/issues/7"
+      },
+      "priority": "High",
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4Fg",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": "Yes",
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Release-blocker audit posture review",
+      "url": "https://github.com/Thorncrag/ARRP/issues/227",
+      "validationRequirement": "All release blockers have current, internally consistent audit and source posture; canonical pages and authenticated Project readback pass consistency checks.",
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Source development",
+      "assignees": [],
+      "canonicalRecord": "inventory/sources.csv",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": true,
+        "missingFields": []
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Source and external-reference hardening",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#224",
+      "kind": "governance",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": "inventory/sources.csv",
+        "issue": "https://github.com/Thorncrag/ARRP/issues/224",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": {
+        "dueOn": "2026-11-03T00:00:00Z",
+        "title": "Public Release 1.0",
+        "url": "https://github.com/Thorncrag/ARRP/milestone/1"
+      },
+      "nextAction": "Audit release-blocker proposals for citation gaps, weak, stale, or non-public support, comparator accuracy, and public-source limitations; repair the owning records.",
+      "nextAudit": null,
+      "number": 224,
+      "owner": "Elim",
+      "parentIssue": {
+        "number": 7,
+        "title": "Pre-publication final audit",
+        "url": "https://github.com/Thorncrag/ARRP/issues/7"
+      },
+      "priority": "High",
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxb4EU",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": "Yes",
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Source and external-reference hardening",
+      "url": "https://github.com/Thorncrag/ARRP/issues/224",
+      "validationRequirement": "Every release-blocker claim and comparator is reviewed; gaps are repaired or explicitly documented; affected source records, issue pages, audit sidecars, and Project fields reconcile.",
+      "warnings": [],
+      "workflowStatus": "Development",
+      "workstream": "Project governance and operations"
+    },
+    {
+      "area": "Source development",
+      "assignees": [],
+      "canonicalRecord": "",
+      "changeAuditNeeded": null,
+      "completeness": {
+        "complete": true,
+        "missingFields": []
+      },
+      "dependencies": null,
+      "developmentLevel": null,
+      "identifier": "Jack Smith reports crosswalks",
+      "isIssueDevelopment": false,
+      "issueIdentity": "Thorncrag/ARRP#232",
+      "kind": "source review",
+      "labels": [],
+      "lastAudit": null,
+      "links": {
+        "canonical": null,
+        "issue": "https://github.com/Thorncrag/ARRP/issues/232",
+        "projectItem": "https://github.com/users/Thorncrag/projects/2"
+      },
+      "milestone": null,
+      "nextAction": "Reconcile both Jack Smith internal crosswalks with their respective published topic pages without creating issue identities.",
+      "nextAudit": null,
+      "number": 232,
+      "owner": "Elim",
+      "parentIssue": null,
+      "priority": "Medium",
+      "projectItemId": "PVTI_lAHOABOhzc4BcGD4zgxkpD4",
+      "rawScore": null,
+      "ready": false,
+      "rebaselineStatus": null,
+      "releaseBlocker": "Later",
+      "runs": null,
+      "score": null,
+      "scoreState": "not_applicable",
+      "state": "OPEN",
+      "subissueProgress": {
+        "complete": true,
+        "completed": 0,
+        "items": [],
+        "percent": null,
+        "total": 0
+      },
+      "title": "Jack Smith reports crosswalks",
+      "url": "https://github.com/Thorncrag/ARRP/issues/232",
+      "validationRequirement": "Each internal crosswalk and public topic-page pair has one stable topic-product identity; cited records and scope boundaries reconcile; neither stage enters issue-development metrics.",
       "warnings": [],
       "workflowStatus": "Development",
       "workstream": "Project governance and operations"
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-c186d8838c2ce2735212"
+    "publication.js": "project-console-7190bb3b1c5cb5031a9f"
   }
 });

@@ -450,16 +450,26 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   ],
   "run_chain": {
     "schema_version": 1,
+    "availability": "current",
+    "expected_count": 6,
+    "actual_count": 6,
+    "completeness": {
+      "complete": true,
+      "expected_count": 6,
+      "actual_count": 6,
+      "missing_count": 0
+    },
+    "projection_errors": [],
     "bot_id": "run-coordinator-bot",
-    "chain_id": "arrp-20260726T140914Z",
-    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30205449067",
-    "trigger": "workflow_dispatch",
+    "chain_id": "arrp-20260727T075310Z",
+    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30247756721",
+    "trigger": "schedule",
     "llm_launch_allowed": true,
-    "llm_launch_trigger": "workflow_dispatch",
-    "created_at": "2026-07-26T14:09:14+00:00",
-    "updated_at": "2026-07-26T14:10:32+00:00",
+    "llm_launch_trigger": "schedule",
+    "created_at": "2026-07-27T07:53:10+00:00",
+    "updated_at": "2026-07-27T07:55:25+00:00",
     "status": "complete",
-    "baseline_commit": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
+    "baseline_commit": "6d28e75c637660deea94a4bc925704b6ad82045c",
     "resume": {
       "count": 0,
       "from_run_id": null
@@ -468,12 +478,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "key": "arrp-run-chain",
       "path": null,
       "status": "released-by-workflow",
-      "owner_chain_id": "arrp-20260726T140914Z"
+      "owner_chain_id": "arrp-20260727T075310Z"
     },
     "repository": {
       "branch": "main",
-      "head": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
-      "origin_main": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
+      "head": "6d28e75c637660deea94a4bc925704b6ad82045c",
+      "origin_main": "6d28e75c637660deea94a4bc925704b6ad82045c",
       "clean": true,
       "dirty_paths": [],
       "dirty_path_count": 0,
@@ -522,33 +532,359 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "id": "case-monitor-bot",
         "order": 1,
         "workflow": ".github/workflows/case-monitor-bot.yml",
-        "due": false,
-        "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
-        "status": "not_due",
+        "due": true,
+        "due_reason": "persistent watcher input is stale",
+        "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T14:09:14+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
+        "completed_at": "2026-07-27T07:55:25+00:00",
+        "last_success_at": "2026-07-27T07:55:25+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
-        "details": "",
-        "output": null
+        "details": "success",
+        "output": {
+          "path": "workflow-output",
+          "sha256": "sha256:8d234e9194dda93880400df7d7ed8ff30c293d105aa8d600651db570313b585a"
+        },
+        "work_count": 43,
+        "attempt_key": "primary",
+        "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
+        "domain_event": {
+          "id": "SDE-62EB0C60B193E98C0883A912",
+          "sha256": "sha256:d4388e0089e0292213c3288f26e6aec4dba52eb00c03f61cd478ad7f8e8e383f",
+          "json": {
+            "acceptance": null,
+            "affected_records": [
+              {
+                "record_id": "HOR-035",
+                "record_type": "candidate"
+              },
+              {
+                "record_id": "SRC-0632",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0945",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0965",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0982",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1004",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1052",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1056",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1093",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1929",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1930",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1932",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1933",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1934",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1940",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1941",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1942",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1943",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1946",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1952",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1957",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1973",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1979",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1982",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2042",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2080",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2081",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2105",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2110",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2136",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2149",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2190",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2216",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2221",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2235",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2238",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2351",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2591",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2649",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2651",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2652",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2653",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2654",
+                "record_type": "source"
+              }
+            ],
+            "agent_id": "case-monitor-bot",
+            "chain_id": "arrp-20260727T075310Z",
+            "event_id": "SDE-62EB0C60B193E98C0883A912",
+            "idempotency_key": "sha256:62eb0c60b193e98c0883a912550287a645e9712981e73600431f8b3f7a458ac9",
+            "kind": "source-domain-event",
+            "output_hashes": {
+              "files": [
+                {
+                  "bytes": 1818034,
+                  "path": "inventory/sources.csv",
+                  "sha256": "sha256:dd4e572ed54c5d0be25664d9d71ca8aca6e41e20aa039d34f92446b49ee84778"
+                },
+                {
+                  "bytes": 180849,
+                  "path": "research/horizon-source-records/HOR-035-source-development.md",
+                  "sha256": "sha256:bcb66117d0e1557deb4379d1d4979691cbcbb98ad4c2cec26398f837275d57e8"
+                }
+              ],
+              "proposal_diff": "sha256:ca82329205d345662c811596e247f0f43b56b60b6c3f849152b269b95075fde0",
+              "semantic_report": "sha256:11a7e758920934470a4e4b63fbff03a0e00b719aa88bdaf4d1caebbeab08714f"
+            },
+            "proposal": {
+              "base_ref": "main",
+              "head_ref": "bot/case-monitor-updates",
+              "proposal_revision": "7e6009506d62bf2e72bea07fa941302b780cadf2",
+              "pull_request_number": 380,
+              "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/380",
+              "repository": "Thorncrag/ARRP"
+            },
+            "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
+            "schema_uri": ".github/source-domain-event.schema.json",
+            "schema_version": 1,
+            "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+            "state": "proposed",
+            "summary": {
+              "affected_record_count": 43,
+              "counts": {
+                "affected-files": 2,
+                "affected-records": 43,
+                "candidate-records": 1,
+                "source-records": 42
+              },
+              "status": "case monitor proposal delta"
+            },
+            "trigger": "schedule"
+          }
+        }
       },
       {
         "id": "presidential-directives-bot",
         "order": 2,
         "workflow": ".github/workflows/presidential-directives-bot.yml",
-        "due": false,
-        "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
-        "status": "not_due",
+        "due": true,
+        "due_reason": "persistent watcher input is stale",
+        "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T14:09:14+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
+        "completed_at": "2026-07-27T07:55:25+00:00",
+        "last_success_at": "2026-07-27T07:55:25+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
-        "details": "",
-        "output": null
+        "details": "success",
+        "output": {
+          "path": "workflow-output",
+          "sha256": "sha256:4835a28dfa7cb81b01699eb33db68528c60ef63a8a454685ccfc5e1e77d5408e"
+        },
+        "work_count": 10,
+        "attempt_key": "primary",
+        "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
+        "domain_event": {
+          "id": "SDE-B42DD183BC2B93D484271CE3",
+          "sha256": "sha256:077dc1f6eb4ef28b71af781a63953723c4baeec2b7d217971bb6b31d246fc51e",
+          "json": {
+            "acceptance": null,
+            "affected_records": [
+              {
+                "record_id": "2019-05370",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2019-16383",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-14990",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-14991",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-14992",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-14997",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-14998",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-14999",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-15003",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-15024",
+                "record_type": "presidential-directive"
+              }
+            ],
+            "agent_id": "presidential-directives-bot",
+            "chain_id": "arrp-20260727T075310Z",
+            "event_id": "SDE-B42DD183BC2B93D484271CE3",
+            "idempotency_key": "sha256:b42dd183bc2b93d484271ce3244e70065b6766b616494823bdf1a82d345fd2d8",
+            "kind": "source-domain-event",
+            "output_hashes": {
+              "files": [
+                {
+                  "bytes": 1854598,
+                  "path": "inventory/presidential-directives.csv",
+                  "sha256": "sha256:9f14fdb579c9816258688f66f322d62a5f7feaa49410daa3063d3fd9094a7e3c"
+                }
+              ],
+              "proposal_diff": "sha256:21eee92eda009c4db723e0c530931dc0595962f544a6d379ebe2c3c0ee871dc4",
+              "semantic_report": "sha256:eead281dd9bc359cb2a6613c252bbb7c670545fec9c7eb128ab32383e696c968"
+            },
+            "proposal": {
+              "base_ref": "main",
+              "head_ref": "automation/presidential-directives-monitor",
+              "proposal_revision": "2495449ed92977df47b0f29489762c368c3e86dd",
+              "pull_request_number": 381,
+              "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/381",
+              "repository": "Thorncrag/ARRP"
+            },
+            "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
+            "schema_uri": ".github/source-domain-event.schema.json",
+            "schema_version": 1,
+            "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+            "state": "proposed",
+            "summary": {
+              "affected_record_count": 10,
+              "counts": {
+                "affected-files": 1,
+                "affected-records": 10,
+                "presidential-directive-records": 10
+              },
+              "status": "presidential directives proposal delta"
+            },
+            "trigger": "schedule"
+          }
+        }
       },
       {
         "id": "source-checker-bot",
@@ -558,7 +894,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-08-02T10:32:24+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-26T14:09:14+00:00",
+        "completed_at": "2026-07-27T07:53:10+00:00",
         "last_success_at": "2026-07-26T10:32:24+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -571,11 +907,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "order": 4,
         "workflow": ".github/workflows/project-console-progress.yml",
         "due": false,
-        "due_reason": "last success remains current until 2026-07-27T14:08:44+00:00",
+        "due_reason": "last success remains current until 2026-07-28T01:49:19+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-26T14:09:14+00:00",
-        "last_success_at": "2026-07-26T14:08:44+00:00",
+        "completed_at": "2026-07-27T07:53:10+00:00",
+        "last_success_at": "2026-07-27T01:49:19+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
@@ -590,15 +926,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T14:10:09+00:00",
-        "last_success_at": "2026-07-26T14:10:09+00:00",
+        "completed_at": "2026-07-27T07:55:25+00:00",
+        "last_success_at": "2026-07-27T07:55:25+00:00",
         "retry_limit": 1,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:7e533a01ea08424b452ef99786f634de98391de64a52e6aacbfd0d87d0e98b6d"
+          "sha256": "sha256:c39cce07b76dee692b17979a9264f779c21f27e805e22d3244d7576331d14e86"
         },
         "work_count": 0
       },
@@ -610,31 +946,31 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T14:10:09+00:00",
-        "last_success_at": "2026-07-26T14:10:09+00:00",
+        "completed_at": "2026-07-27T07:55:25+00:00",
+        "last_success_at": "2026-07-27T07:55:25+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:289e9ea25d53def95982fde7f0363317d069d03195826cb4f7f5b162d303d604"
+          "sha256": "sha256:08e10d4807317d31d69965a7da3ddf47ccd1cbe3e2c6687636a4515d8b58b3c9"
         },
-        "work_count": 0
+        "work_count": 1
       }
     ],
     "failures": [],
     "degradations": [],
     "queue_counts": {
-      "integrity": 0,
-      "monitoring": 0,
+      "integrity": 1,
+      "monitoring": 53,
       "sources": 0,
       "intake": 0,
-      "total": 0
+      "total": 54
     },
     "elim_decision": {
-      "launch_recommended": true,
-      "reason": "Comprehensive review is due.",
+      "launch_recommended": false,
+      "reason": "Codex usage reserve has not been measured.",
       "blockers": [],
       "last_substantive_stage": true,
       "predecessors_complete": true,
@@ -643,41 +979,35 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "model": "gpt-5.6-sol",
         "reasoning_effort": "xhigh",
         "full_context": true,
-        "reason": "Bound to selected work item COMPREHENSIVE-REVIEW-1afaea17f530 and context profile comprehensive_review."
+        "reason": "The periodic comprehensive review epoch is due."
       }
     },
     "review_epoch": {
       "interval_days": 14,
-      "last_completed_at": "2026-07-26T12:39:29+00:00",
-      "next_due_at": "2026-08-09T12:39:29+00:00",
+      "last_completed_at": "2026-07-26T14:25:30+00:00",
+      "next_due_at": "2026-08-09T14:25:30+00:00",
       "due": true,
       "due_reason": "governing_boundary_changed",
-      "boundary_commit": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
-      "epoch_id": "epoch-arrp-20260726T122445Z",
+      "boundary_commit": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
+      "epoch_id": "epoch-arrp-20260726T140914Z",
       "stability_status": "drift-detected",
       "unresolved_findings": [
         {
-          "discovered_work_unit_id": "DISCOVERY-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",
-          "id": "GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",
-          "next_action": "In a separately selected authorized automation repair, enforce sole-parent topology, coordinator author/committer and expected message, diff hygiene, and exact squash-merge parent readback, then add adversarial regression cases.",
-          "next_trigger": "A fresh queue selects this stable gap obligation for an agent-within-runbook repair.",
+          "discovered_work_unit_id": "DISCOVERY-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS",
+          "id": "GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS",
+          "next_action": "In a separately selected automation repair, disable or mock every external host-status and notification effect in tests, add a runtime test-mode side-effect guard and a no-network regression, then require current-chain, exact-source-revision, and monotonic freshness acceptance before host-status publication.",
+          "next_trigger": "A fresh current queue selects GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS under agent-within-runbook repair authority after this reviewed host closeout.",
           "owner": "Elim",
           "status": "open",
-          "summary": "Trusted-host retry and checked-merge acceptance omit required exact topology, identity, message, hygiene, and post-merge parent proofs."
-        },
-        {
-          "discovered_work_unit_id": "DISCOVERY-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED",
-          "id": "GAP-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED",
-          "next_action": "After this atomic run and its trusted-host closeout finish, bootstrap the reviewed main LaunchAgent and read back its Projects path plus one successful scheduled poll.",
-          "next_trigger": "The current manual dispatcher exits and the host operator can load the service without overlapping the live run.",
-          "owner": "Benjamin / trusted-host operator",
-          "status": "human_required",
-          "summary": "The reviewed periodic dispatcher plist is installed on the Projects path but its LaunchAgent is not loaded; only the manual current dispatcher and the separate control service are running."
+          "summary": "Dispatcher unit tests can issue real repository_dispatch mutations under active credentials, and the host-status publisher can let a stale synthetic chain with no source revision overwrite the current truthful projection."
         }
       ],
       "boundary_changes": {
         "extra": [],
         "mismatched": [
+          "README.md",
+          "framework/agent-rules/autonomous-execution.md",
+          "framework/agents/RUN_COORDINATOR_BOT.md",
           "framework/context-routes.json"
         ],
         "missing": []
@@ -686,81 +1016,30 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "usage": {
       "hard_reserve_percent": 15,
       "soft_run_target_percent": 10,
-      "remaining_percent": 72.0,
-      "status": "available",
-      "gate": {
-        "blockers": [],
-        "checkedAtUtc": "2026-07-26T14:10:32+00:00",
-        "lowestRemainingPercent": 72,
-        "reservePercent": 15,
-        "runBudget": {
-          "activatedWindows": [],
-          "baselinePath": "/Users/benjaminsmith/Projects/ARRP/.tmp/run-coordinator/elim-checkout/.tmp/run-coordinator/usage-baselines/ed4814f33ec480cc578e5b02ef6d24de2642d5f4d24ac17a00dc460cd35bf7b2.json",
-          "dormantWindows": [
-            "codex_bengalfox:primary"
-          ],
-          "highestSpentPercent": 0,
-          "reserveBufferFloorPercent": 25,
-          "softTargetPercent": 10,
-          "softTargetReached": false,
-          "spentPercentByWindow": {
-            "codex:primary": 0,
-            "codex_bengalfox:primary": 0
-          }
-        },
-        "status": "pass",
-        "windows": [
-          {
-            "limitId": "codex",
-            "limitName": "codex",
-            "remainingPercent": 72,
-            "resetsAt": 1785611897,
-            "resetsAtUtc": "2026-08-01T19:18:17+00:00",
-            "usedPercent": 28,
-            "window": "primary",
-            "windowDurationMins": 10080
-          },
-          {
-            "limitId": "codex_bengalfox",
-            "limitName": "GPT-5.3-Codex-Spark",
-            "remainingPercent": 100,
-            "resetsAt": 1785679832,
-            "resetsAtUtc": "2026-08-02T14:10:32+00:00",
-            "usedPercent": 0,
-            "window": "primary",
-            "windowDurationMins": 10080
-          }
-        ]
-      },
-      "host_monitor": {
-        "source": "approved-host-dispatcher",
-        "status_path": ".tmp/run-coordinator/arrp-20260726T140914Z/usage-status-arrp-20260726T140914Z-20260726T141031Z.json",
-        "baseline_path": ".tmp/run-coordinator/usage-baselines/ed4814f33ec480cc578e5b02ef6d24de2642d5f4d24ac17a00dc460cd35bf7b2.json",
-        "monitor_interval_seconds": 60,
-        "snapshot_max_age_seconds": 120
-      }
+      "remaining_percent": null,
+      "status": "unknown"
     },
-    "next_action": "Authorized host dispatcher may launch Elim.",
+    "next_action": "No Elim launch; wait for the next trigger.",
     "action_items": [],
-    "completed_at": "2026-07-26T14:10:32+00:00",
-    "final_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
+    "completed_at": "2026-07-27T07:55:25+00:00",
+    "final_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
     "bots": [
       {
         "id": "case-monitor-bot",
         "name": "case-monitor-bot",
-        "due": false,
-        "status": "not_due",
+        "due": true,
+        "status": "completed",
         "started_at": null,
-        "completed_at": "2026-07-26T14:09:14+00:00",
+        "completed_at": "2026-07-27T07:55:25+00:00",
         "error": null
       },
       {
         "id": "presidential-directives-bot",
         "name": "presidential-directives-bot",
-        "due": false,
-        "status": "not_due",
+        "due": true,
+        "status": "completed",
         "started_at": null,
-        "completed_at": "2026-07-26T14:09:14+00:00",
+        "completed_at": "2026-07-27T07:55:25+00:00",
         "error": null
       },
       {
@@ -769,7 +1048,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-26T14:09:14+00:00",
+        "completed_at": "2026-07-27T07:53:10+00:00",
         "error": null
       },
       {
@@ -778,7 +1057,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-26T14:09:14+00:00",
+        "completed_at": "2026-07-27T07:53:10+00:00",
         "error": null
       },
       {
@@ -787,1546 +1066,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": true,
         "status": "completed",
         "started_at": null,
-        "completed_at": "2026-07-26T14:10:09+00:00",
+        "completed_at": "2026-07-27T07:55:25+00:00",
         "error": null
-      }
-    ],
-    "work_queue": {
-      "path": "project-console-data:elim-work-queue.json",
-      "sha256": "sha256:cb278f955df3388c70233b69534b94cb098fe26414ba4d3bd8d43b4159293412",
-      "ready_for_elim": true,
-      "launch_recommended": true,
-      "counts": {
-        "total": 157,
-        "elim_eligible": 155,
-        "human": 1,
-        "safety": 17,
-        "gap_obligations": 2,
-        "governance_discovery": 0
-      },
-      "problems": [],
-      "next_item": {
-        "schema_version": 1,
-        "id": "COMPREHENSIVE-REVIEW-1afaea17f530",
-        "kind": "comprehensive_review",
-        "work_class": "periodic_review",
-        "severity": "high",
-        "title": "Run the due comprehensive consistency review",
-        "owner": "agent",
-        "required_authority": "agent-within-runbook",
-        "exact_next_action": "Run the due comprehensive Review Epoch.",
-        "required_context_profile": "comprehensive_review",
-        "originating_stage": "review_epoch",
-        "source_identity": "epoch-arrp-20260726T140914Z",
-        "canonical_record_identity": "epoch-arrp-20260726T140914Z",
-        "dependencies": [
-          "review_epoch"
-        ],
-        "created_at": "2026-07-26T12:39:29+00:00",
-        "refreshed_at": "2026-07-26T14:10:09+00:00",
-        "eligible_for_elim": true,
-        "requires_human": false,
-        "eligibility_reason": "eligible under the selected runbook",
-        "blocking_reason": null,
-        "safety_class": 1,
-        "base_priority": 650,
-        "age_days": 0,
-        "fairness_boost": 0,
-        "priority_score": 650,
-        "selection_priority_score": 650,
-        "reason": "governing_boundary_changed",
-        "source": {
-          "input": "review_epoch",
-          "epoch_id": "epoch-arrp-20260726T140914Z",
-          "baseline_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
-          "next_due_at": "2026-08-09T12:39:29+00:00",
-          "due": true,
-          "due_reason": "governing_boundary_changed",
-          "boundary_changes": {
-            "extra": [],
-            "mismatched": [
-              "framework/context-routes.json"
-            ],
-            "missing": []
-          },
-          "unresolved_ids": [
-            "GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",
-            "GAP-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED"
-          ]
-        },
-        "source_revision": "9bdbb2533a925dd7f351005045ba3086ea973af6fd292c6ce1720bdfa7e23fb5",
-        "freshness_timestamp": "2026-07-26T14:10:09+00:00",
-        "source_chain_id": "arrp-20260726T140914Z",
-        "source_commit": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
-        "source_project_snapshot": "sha256:783f90be667d38aef36e871c0bc2d5a5ff83c948576533a8c91d02568ee5acd1",
-        "source_input_hashes": {
-          "review_epoch": "sha256:9bdbb2533a925dd7f351005045ba3086ea973af6fd292c6ce1720bdfa7e23fb5"
-        },
-        "retry_state": {
-          "state": "new",
-          "attempt_count": 0,
-          "continuation": null,
-          "next_retry_at": null
-        },
-        "recovery": null
-      },
-      "selected_work_item_id": "COMPREHENSIVE-REVIEW-1afaea17f530",
-      "governance_discovery": {
-        "mode": "Project governance review and discovery",
-        "ordinary_selection_policy": "after-ordinary-queue-clears",
-        "minimum_interval_hours": 168,
-        "selected_as_quiet_queue_fallback": false,
-        "ordinary_eligible_count_before_fallback": 155,
-        "last_review": null,
-        "next_due_at": null,
-        "current_for_cadence": false,
-        "waiting_for_ordinary_queue": true,
-        "reason": "Ordinary eligible work remains and is selected first."
-      },
-      "gap_obligations": [
-        {
-          "queue_item_id": "INTEGRITY-120b41ba5787",
-          "obligation_id": "GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION",
-          "title": "An interrupted closeout could resume from a commit whose first parent and paths look valid but whose topology, identity, message, or whitespace hygiene violates the reviewed boundary; a moved-base squash merge could also be accepted without proving that the pinned baseline remained the sole parent.",
-          "status": "open",
-          "severity": "normal",
-          "owner": "Elim",
-          "authority": {
-            "classification": "mechanical",
-            "basis": "The required parent topology, fixed coordinator identity/message, path set, diff hygiene, and exact merge-parent relationship are deterministic reviewed invariants that do not require a policy, issue, source, score, publication, or human disposition judgment."
-          },
-          "authority_disposition": "out_of_scope",
-          "disposition": "reported",
-          "eligible_for_elim": false,
-          "requires_human": false,
-          "eligibility_reason": "retained as a non-implementable obligation under the recorded out_of_scope authority disposition",
-          "blocking_reason": "A fresh current queue selects GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION under agent-within-runbook repair authority.",
-          "first_seen": "2026-07-26T12:38:11+00:00",
-          "last_checked": "2026-07-26T12:38:11+00:00",
-          "occurrence_count": 1,
-          "age_days": 0,
-          "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
-          "exact_next_action": "In a separately selected authorized automation repair, enforce exact one-parent topology, coordinator author/committer and expected message, diff hygiene, and exact squash-merge parent readback, then add adversarial regression cases and rerun the complete closeout suite.",
-          "next_trigger": "A fresh current queue selects GAP-HOST-CLOSEOUT-BOUNDARY-REVALIDATION under agent-within-runbook repair authority.",
-          "source_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c"
-        },
-        {
-          "queue_item_id": "INTEGRITY-bc57e9417ad2",
-          "obligation_id": "GAP-HOST-DISPATCH-LAUNCHAGENT-NOT-LOADED",
-          "title": "After the live manual dispatcher exits, no verified 600-second host poll remains to consume and close future eligible Run Coordinator chains, so cloud work may appear healthy while host-side Elim execution and closeout do not start.",
-          "status": "human_required",
-          "severity": "normal",
-          "owner": "Benjamin / trusted-host operator",
-          "authority": {
-            "classification": "mechanical",
-            "basis": "Installed-path, launchd loaded state, process identity, and a successful scheduled poll are objective host-deployment facts. Loading must occur only after the live manual dispatcher exits to preserve the exclusive atomic run boundary."
-          },
-          "authority_disposition": "out_of_scope",
-          "disposition": "reported",
-          "eligible_for_elim": false,
-          "requires_human": true,
-          "eligibility_reason": "human authority is required",
-          "blocking_reason": "The current manual dispatcher exits and the trusted-host operator can load the periodic service without overlap.",
-          "first_seen": "2026-07-26T12:38:11+00:00",
-          "last_checked": "2026-07-26T12:38:11+00:00",
-          "occurrence_count": 1,
-          "age_days": 0,
-          "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
-          "exact_next_action": "After this atomic run and its trusted-host closeout finish, bootstrap the reviewed com.thorncrag.arrp-run-coordinator LaunchAgent, read back its Projects-path configuration, and verify one successful scheduled poll.",
-          "next_trigger": "The current manual dispatcher exits and the trusted-host operator can load the periodic service without overlap.",
-          "source_revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c"
-        }
-      ],
-      "user_overrides": {
-        "applied": [],
-        "unmatched": [],
-        "request_sha256": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
-      },
-      "local_path": ".tmp/run-coordinator/arrp-20260726T140914Z/elim-work-queue.json"
-    },
-    "context_packet": {
-      "path": "project-console-data:elim-context.json",
-      "sha256": "sha256:e17c1aa0cf1abf2f72892af97afc619a13cab0ae09066438c415cb65bf668109",
-      "profile": "comprehensive_review",
-      "work_item_id": "COMPREHENSIVE-REVIEW-1afaea17f530",
-      "issue_id": null,
-      "canonical_record": null,
-      "selection": {
-        "work_item_id": "COMPREHENSIVE-REVIEW-1afaea17f530",
-        "kind": "comprehensive_review",
-        "canonical_record": null
-      },
-      "repository_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
-      "provenance_complete": true,
-      "limits": {
-        "max_bytes": 1000000,
-        "actual_bytes": 732297
-      },
-      "local_path": ".tmp/run-coordinator/arrp-20260726T140914Z/elim-context.json"
-    },
-    "user_overrides": {},
-    "verified_inputs": {
-      "case_monitor": {
-        "path": ".tmp/run-coordinator/arrp-20260726T140914Z/inputs/case-monitor.json",
-        "sha256": "sha256:f3643db174a6cbd99f29de0c070c917f1bf7072acad086323f09d335aed63341",
-        "bytes": 5693
-      },
-      "chain": {
-        "path": ".tmp/run-coordinator/arrp-20260726T140914Z/inputs/chain.json",
-        "sha256": "sha256:8bd6c47fd0b9407c6229acb8c290ec84d27ab128c3b9cc49dddc364e18821024",
-        "bytes": 9757
-      },
-      "intake": {
-        "path": ".tmp/run-coordinator/arrp-20260726T140914Z/inputs/intake.json",
-        "sha256": "sha256:7e533a01ea08424b452ef99786f634de98391de64a52e6aacbfd0d87d0e98b6d",
-        "bytes": 241
-      },
-      "integrity": {
-        "path": ".tmp/run-coordinator/arrp-20260726T140914Z/inputs/integrity.json",
-        "sha256": "sha256:289e9ea25d53def95982fde7f0363317d069d03195826cb4f7f5b162d303d604",
-        "bytes": 1268
-      },
-      "presidential_directives": {
-        "path": ".tmp/run-coordinator/arrp-20260726T140914Z/inputs/presidential-directives.json",
-        "sha256": "sha256:5d3d40da606c9766232db75a2f2c2da89d4dc5fb838ab6e813ad3aab60d58726",
-        "bytes": 3719132
-      },
-      "progress": {
-        "path": ".tmp/run-coordinator/arrp-20260726T140914Z/inputs/progress.json",
-        "sha256": "sha256:783f90be667d38aef36e871c0bc2d5a5ff83c948576533a8c91d02568ee5acd1",
-        "bytes": 335193
-      },
-      "recovery": {
-        "path": ".tmp/run-coordinator/arrp-20260726T140914Z/inputs/recovery.json",
-        "sha256": "sha256:fe90b676ea2c5898e1a276e6eb38da41a9449234baa2a8d652ca305abade7437",
-        "bytes": 88
-      },
-      "review_epoch": {
-        "path": ".tmp/run-coordinator/arrp-20260726T140914Z/inputs/review-epoch.json",
-        "sha256": "sha256:9bdbb2533a925dd7f351005045ba3086ea973af6fd292c6ce1720bdfa7e23fb5",
-        "bytes": 2115
-      },
-      "source_checker": {
-        "path": ".tmp/run-coordinator/arrp-20260726T140914Z/inputs/source-checker.json",
-        "sha256": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
-        "bytes": 1445290
-      },
-      "recovery_effective": {
-        "path": ".tmp/run-coordinator/arrp-20260726T140914Z/inputs/recovery-effective.json",
-        "sha256": "sha256:58ea367eb3df2ba9c9fb324d3e0866337b39e9cc50f7a2c18e72ff6e8d034a96",
-        "bytes": 1035
-      },
-      "run_log_reconciliation": {
-        "path": ".tmp/run-coordinator/arrp-20260726T140914Z/inputs/run-log-reconciliation.json",
-        "sha256": "sha256:e6f5a7f40d661a790595f0f37d8c1531d61671eb4abc9a2ef27acca68afdfd6d",
-        "bytes": 86
-      },
-      "gap_obligations": {
-        "path": ".tmp/run-coordinator/arrp-20260726T140914Z/inputs/gap-obligations.json",
-        "sha256": "sha256:570eb7f8a2a7ea7800c85ce0365e93ab511829fcbc7e18e5e1b4bce8049025a1",
-        "bytes": 21859
-      },
-      "overrides": {
-        "path": ".tmp/run-coordinator/arrp-20260726T140914Z/inputs/user-overrides.json",
-        "sha256": "sha256:9c3fb5e89aa40a0364258e831d5aa34a2a4b72dbbbd067b356ada825fa6cc271",
-        "bytes": 22
-      }
-    },
-    "host_action_items": [
-      {
-        "id": "automation-failure-daa8fd879c18d723a729",
-        "chain_id": "host-dispatch-20260725T013637Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T01:36:37+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: ARRP working tree is not clean; automated dispatch deferred",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-0b74e35daea3a71d"
-      },
-      {
-        "id": "automation-failure-1d35ce7ae6e1c8c03ecd",
-        "chain_id": "host-dispatch-20260725T014638Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T01:46:38+00:00",
-        "failure_count": 2,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/select_elim_context_route.py",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-15a4e8917300c3b6"
-      },
-      {
-        "id": "automation-failure-713d698964a3375df404",
-        "chain_id": "host-dispatch-20260725T015639Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T01:56:39+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/select_elim_context_route.py",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-b44480a540faadd7"
-      },
-      {
-        "id": "automation-failure-e8305a1d92876a2ac27f",
-        "chain_id": "host-dispatch-20260725T020640Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T02:06:40+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-ec4cfe2a37d30fa2"
-      },
-      {
-        "id": "automation-failure-1c042a07bf323d6f43bc",
-        "chain_id": "host-dispatch-20260725T021641Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T02:16:41+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-6892c15145558c39"
-      },
-      {
-        "id": "automation-failure-41e3ca616ec07fde465a",
-        "chain_id": "host-dispatch-20260725T022642Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T02:26:42+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-322dfb6087f80e4b"
-      },
-      {
-        "id": "automation-failure-87178723928a1caa5a72",
-        "chain_id": "host-dispatch-20260725T023644Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T02:36:44+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-3d0d51f7c2490bb3"
-      },
-      {
-        "id": "automation-failure-44509282a6ee45e123bf",
-        "chain_id": "host-dispatch-20260725T024645Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T02:46:45+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-d9ca62a37e4f1cb0"
-      },
-      {
-        "id": "automation-failure-4cd5993c673ae809eec3",
-        "chain_id": "arrp-20260725T035508Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T03:56:27+00:00",
-        "failure_count": 2,
-        "stage": "run-coordinator",
-        "details": "case_monitor report is current despite a recorded prior success; presidential_directives report is current despite a recorded prior success",
-        "next_action": "Refresh or repair the blocked Context Gateway input.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-bdd592100cec7778"
-      },
-      {
-        "id": "automation-failure-15ec577346abf4e1a2c0",
-        "chain_id": "arrp-20260725T041809Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T04:19:40+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T04:23:50+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
-        "resolution_request_id": "control-906c3c638f443370"
-      },
-      {
-        "id": "automation-failure-85c83d4f36008c7690f3",
-        "chain_id": "arrp-20260725T063006Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T08:21:06+00:00",
-        "failure_count": 1,
-        "stage": "elim-closeout",
-        "details": "elim-closeout failed: ARRP working tree is not clean; automated dispatch deferred",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T10:37:25+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "Failed chain report reconstructed, validated as new and unique against ac9cd510, merged through PR #412 at ab845391, and read back from origin/main; no substantive Elim work was lost.",
-        "resolution_request_id": "control-5c9945e00875f4db"
-      },
-      {
-        "id": "automation-failure-e5c6d3dec24fb2885346",
-        "chain_id": "arrp-20260725T103811Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T10:39:28+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: ARRP working tree is not clean; automated dispatch deferred",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-25T10:55:09+00:00",
-        "resolved_by": "human-local-console",
-        "resolution_reason": "PR #413 merged at 24f380c2; the original dirty checkout was archived intact after canonical proof, and no-LLM chain arrp-20260725T105258Z (workflow 30155231768) then passed cloud, Integrity, fresh-checkout, local rebuild, usage, and exact launch-boundary validation without invoking Elim.",
-        "resolution_request_id": "control-a488b94b1b8ba78f"
-      },
-      {
-        "id": "automation-failure-0eb33e10d9ebd209b591",
-        "chain_id": "arrp-20260726T064933Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T11:17:54+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "occurrence_count": 9,
-        "first_seen": "2026-07-25T11:17:54+00:00",
-        "last_seen": "2026-07-26T08:43:37+00:00",
-        "first_chain_id": "arrp-20260725T110820Z",
-        "last_chain_id": "arrp-20260726T064933Z",
-        "chain_ids": [
-          "arrp-20260725T110820Z",
-          "arrp-20260725T114639Z",
-          "arrp-20260725T201420Z",
-          "arrp-20260725T214010Z",
-          "arrp-20260725T224436Z",
-          "arrp-20260726T033003Z",
-          "arrp-20260726T041310Z",
-          "arrp-20260726T044932Z",
-          "arrp-20260726T064933Z"
-        ],
-        "resolved_at": "2026-07-26T10:24:08+00:00",
-        "resolved_by": "dispatcher-health-proof",
-        "resolution_reason": "The clean isolated checkout was advanced from a previously attested baseline and verified at exact origin/main."
-      },
-      {
-        "id": "automation-failure-971a1d67c2f71b23c470",
-        "chain_id": "arrp-20260725T114639Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T11:58:01+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-5e4ce8945788af36c1da",
-        "chain_id": "host-dispatch-20260726T101403Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T20:08:54+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/elim-dispatcher-state-repair instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "occurrence_count": 40,
-        "first_seen": "2026-07-25T20:08:54+00:00",
-        "last_seen": "2026-07-26T10:14:03+00:00",
-        "first_chain_id": "host-dispatch-20260725T200854Z",
-        "last_chain_id": "host-dispatch-20260726T101403Z",
-        "chain_ids": [
-          "host-dispatch-20260726T010932Z",
-          "host-dispatch-20260726T011932Z",
-          "host-dispatch-20260726T012933Z",
-          "host-dispatch-20260726T013935Z",
-          "host-dispatch-20260726T014936Z",
-          "host-dispatch-20260726T015936Z",
-          "host-dispatch-20260726T020937Z",
-          "host-dispatch-20260726T021938Z",
-          "host-dispatch-20260726T022939Z",
-          "host-dispatch-20260726T023939Z",
-          "host-dispatch-20260726T024940Z",
-          "host-dispatch-20260726T025941Z",
-          "host-dispatch-20260726T030941Z",
-          "host-dispatch-20260726T031942Z",
-          "host-dispatch-20260726T032943Z",
-          "host-dispatch-20260726T040952Z",
-          "host-dispatch-20260726T042958Z",
-          "host-dispatch-20260725T200854Z",
-          "host-dispatch-20260726T100402Z",
-          "host-dispatch-20260726T101403Z"
-        ],
-        "resolved_at": "2026-07-26T10:24:04+00:00",
-        "resolved_by": "dispatcher-health-proof",
-        "resolution_reason": "The canonical workspace is clean on main, origin/main was read back exactly, and every reviewed automation-runtime blob matches."
-      },
-      {
-        "id": "automation-failure-0cb740337952952e993c",
-        "chain_id": "arrp-20260725T201420Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T20:18:59+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-62c0ca81696fa1ea1772",
-        "chain_id": "host-dispatch-20260725T210904Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T21:09:04+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-1453943de7cf9e7bc65b",
-        "chain_id": "host-dispatch-20260725T211905Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T21:19:05+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-76d15df5ce3b488efb2b",
-        "chain_id": "host-dispatch-20260725T212906Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T21:29:06+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-b89607df4d8c20819d58",
-        "chain_id": "host-dispatch-20260725T213907Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T21:39:07+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-43b7c75312eef6c0a248",
-        "chain_id": "arrp-20260725T214010Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T21:49:12+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-6d28c3a80b5f16f09648",
-        "chain_id": "host-dispatch-20260725T221915Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T22:19:15+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-d9bb2f2ab411f91c050a",
-        "chain_id": "host-dispatch-20260725T222916Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T22:29:16+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-53d6cff484ca2b63b5eb",
-        "chain_id": "host-dispatch-20260725T223916Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T22:39:16+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-bf29478fa4f9e899345a",
-        "chain_id": "arrp-20260725T224436Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T22:49:21+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-66bc8d62a07f23ffdf75",
-        "chain_id": "host-dispatch-20260725T225922Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T22:59:22+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-93a087525179e3761c26",
-        "chain_id": "host-dispatch-20260725T230923Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T23:09:23+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-1013222a1feec565d1fb",
-        "chain_id": "host-dispatch-20260725T231923Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T23:19:23+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-b130454f419fa41188a6",
-        "chain_id": "host-dispatch-20260725T232924Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T23:29:24+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-4bf691f155bcd449a12c",
-        "chain_id": "host-dispatch-20260725T233925Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T23:39:25+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-46f4f53cb5900d3940c4",
-        "chain_id": "host-dispatch-20260725T234926Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T23:49:26+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-deb31d9597b16b2f9643",
-        "chain_id": "host-dispatch-20260725T235926Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-25T23:59:26+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-c66fe5bbc78b322d60eb",
-        "chain_id": "host-dispatch-20260726T000927Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T00:09:27+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-03e6a59463ad469c60c1",
-        "chain_id": "host-dispatch-20260726T001928Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T00:19:28+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-ee653d9899eee360b57d",
-        "chain_id": "host-dispatch-20260726T002929Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T00:29:29+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-adf84171d785975289c8",
-        "chain_id": "host-dispatch-20260726T003929Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T00:39:29+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-6de12c9fdc51582ccb6d",
-        "chain_id": "host-dispatch-20260726T004930Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T00:49:30+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-d4b29947b3e12030b4f9",
-        "chain_id": "host-dispatch-20260726T005931Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T00:59:31+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-740a28512bc098a7a148",
-        "chain_id": "host-dispatch-20260726T010932Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T01:09:32+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-7d5ec797c439346759af",
-        "chain_id": "host-dispatch-20260726T011932Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T01:19:32+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-d9e5cf70a19d34b1ae47",
-        "chain_id": "host-dispatch-20260726T012933Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T01:29:33+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-3e9e2f9e60e1db6ea3ef",
-        "chain_id": "host-dispatch-20260726T013935Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T01:39:35+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-a477e24ca9134c002a0a",
-        "chain_id": "host-dispatch-20260726T014936Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T01:49:36+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-d1162666236a82f9f93a",
-        "chain_id": "host-dispatch-20260726T015936Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T01:59:36+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-385e426d01eb2ce4936d",
-        "chain_id": "host-dispatch-20260726T020937Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T02:09:37+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-f5b5fd35c5ecf05d0110",
-        "chain_id": "host-dispatch-20260726T021938Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T02:19:38+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-8cf34da613b869d7fe6b",
-        "chain_id": "host-dispatch-20260726T022939Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T02:29:39+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-c44e3b9b45a0b76f5309",
-        "chain_id": "host-dispatch-20260726T023939Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T02:39:39+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-cb8c1e4fd9557ac0059c",
-        "chain_id": "host-dispatch-20260726T024940Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T02:49:40+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-25c1ea4721d9f8a9f8fa",
-        "chain_id": "host-dispatch-20260726T025941Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T02:59:41+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-fdd78f2e20b0762704bd",
-        "chain_id": "host-dispatch-20260726T030941Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T03:09:41+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-ea5699470342782f4d49",
-        "chain_id": "host-dispatch-20260726T031942Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T03:19:42+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-canonical-regeneration instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-bc5d4c31187f4193ed69",
-        "chain_id": "host-dispatch-20260726T032943Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T03:29:43+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/pages-deploy-node24 instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-f11346748196105e1b4e",
-        "chain_id": "arrp-20260726T033003Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T03:39:48+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-8b0d923c5ae9f6c2df3f",
-        "chain_id": "host-dispatch-20260726T040952Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T04:09:52+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/update-pypdf-security instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-0a52d28d47fb7cd1d8d2",
-        "chain_id": "arrp-20260726T041310Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T04:19:57+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-545f76e8f2a88440fe68",
-        "chain_id": "host-dispatch-20260726T042958Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T04:29:58+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-security-complete-regeneration instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
-        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
-      },
-      {
-        "id": "automation-failure-56e5d1b84839ba993540",
-        "chain_id": "arrp-20260726T044932Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T05:15:39+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-d08451c633223e2e030e",
-        "chain_id": "arrp-20260726T064933Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T08:43:37+00:00",
-        "failure_count": 1,
-        "stage": "elim-isolated-checkout",
-        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "0a39237a532f3d6cba04",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
-      },
-      {
-        "id": "automation-failure-1953ff6dff0fb53d0903",
-        "chain_id": "host-dispatch-20260726T095401Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T09:03:56+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical Git metadata contains noncanonical duplicate artifacts: .git/.DS_Store, .git/index 6. Preserve them outside .git, verify canonical refs and index, then retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "9fc268c731adbcda25d1",
-        "occurrence_count": 6,
-        "first_seen": "2026-07-26T09:03:56+00:00",
-        "last_seen": "2026-07-26T09:54:01+00:00",
-        "first_chain_id": "host-dispatch-20260726T090356Z",
-        "last_chain_id": "host-dispatch-20260726T095401Z",
-        "chain_ids": [
-          "host-dispatch-20260726T090356Z",
-          "host-dispatch-20260726T091357Z",
-          "host-dispatch-20260726T092358Z",
-          "host-dispatch-20260726T093359Z",
-          "host-dispatch-20260726T094400Z",
-          "host-dispatch-20260726T095401Z"
-        ],
-        "resolved_at": "2026-07-26T10:24:04+00:00",
-        "resolved_by": "dispatcher-health-proof",
-        "resolution_reason": "The canonical workspace is clean on main, origin/main was read back exactly, and every reviewed automation-runtime blob matches."
-      },
-      {
-        "id": "automation-failure-6bc54c2203c87d61871d",
-        "chain_id": "host-dispatch-20260726T091357Z",
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T09:13:57+00:00",
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: could not refresh origin/main: fatal: bad object refs/heads/main 2\nerror: https://github.com/Thorncrag/ARRP.git did not send all necessary objects",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "incident_fingerprint": "7a27605a0510eb819e70",
-        "resolved_at": "2026-07-26T09:23:57+00:00",
-        "resolved_by": "dispatcher-incident-consolidation",
-        "resolution_reason": "Consolidated into continuing automation incident automation-failure-1953ff6dff0fb53d0903 without discarding its chain provenance.",
-        "superseded_by": "automation-failure-1953ff6dff0fb53d0903"
-      },
-      {
-        "id": "automation-failure-e745f1a9bd10dfc8b005",
-        "incident_fingerprint": "cd7d90b27ddc00f786da",
-        "chain_id": "arrp-20260726T102646Z",
-        "first_chain_id": "arrp-20260726T102646Z",
-        "last_chain_id": "arrp-20260726T102646Z",
-        "chain_ids": [
-          "arrp-20260726T102646Z"
-        ],
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T11:02:53+00:00",
-        "first_seen": "2026-07-26T11:02:53+00:00",
-        "last_seen": "2026-07-26T11:02:53+00:00",
-        "occurrence_count": 1,
-        "failure_count": 1,
-        "stage": "elim-host-git-closeout",
-        "details": "elim-host-git-closeout failed: current Elim Run Log report is incomplete; missing fields: Commits and synchronization",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-26T11:29:48+00:00",
-        "resolved_by": "verified-host-closeout-recovery",
-        "resolution_reason": "Trusted-host recovery verified, synchronized, and read back exact result commit 4988344eacd9eff78d2e93c270e8a6fcb7c16acc for Chain ID arrp-20260726T102646Z."
-      },
-      {
-        "id": "automation-failure-a1e2b44ad1941e9e1b6f",
-        "incident_fingerprint": "a39b011c24771b306d17",
-        "chain_id": "host-dispatch-20260726T121420Z",
-        "first_chain_id": "host-dispatch-20260726T111413Z",
-        "last_chain_id": "host-dispatch-20260726T121420Z",
-        "chain_ids": [
-          "host-dispatch-20260726T111413Z",
-          "host-dispatch-20260726T112414Z",
-          "host-dispatch-20260726T113416Z",
-          "host-dispatch-20260726T114417Z",
-          "host-dispatch-20260726T115418Z",
-          "host-dispatch-20260726T120419Z",
-          "host-dispatch-20260726T121420Z"
-        ],
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T11:14:13+00:00",
-        "first_seen": "2026-07-26T11:14:13+00:00",
-        "last_seen": "2026-07-26T12:14:20+00:00",
-        "occurrence_count": 7,
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/elim-protected-closeout instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-26T12:24:30+00:00",
-        "resolved_by": "dispatcher-health-proof",
-        "resolution_reason": "The canonical workspace is clean on main, origin/main was read back exactly, and every reviewed automation-runtime blob matches."
-      },
-      {
-        "id": "automation-failure-9bc8afae0dbff990f74e",
-        "incident_fingerprint": "e1c83ed2dd014c480fcc",
-        "chain_id": "arrp-20260726T122445Z",
-        "first_chain_id": "arrp-20260726T122445Z",
-        "last_chain_id": "arrp-20260726T122445Z",
-        "chain_ids": [
-          "arrp-20260726T122445Z"
-        ],
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T12:53:40+00:00",
-        "first_seen": "2026-07-26T12:53:40+00:00",
-        "last_seen": "2026-07-26T12:53:40+00:00",
-        "occurrence_count": 1,
-        "failure_count": 1,
-        "stage": "elim-host-git-closeout",
-        "details": "elim-host-git-closeout failed: closeout pull-request check readback is unreadable",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-26T12:55:38+00:00",
-        "resolved_by": "verified-host-closeout-recovery",
-        "resolution_reason": "Trusted-host recovery verified, synchronized, and read back exact result commit ef8988414cbdb944a3e2eb6ee5d7942140b6fecc for Chain ID arrp-20260726T122445Z."
-      },
-      {
-        "id": "automation-failure-2d39a27bbf1c93ab2a23",
-        "incident_fingerprint": "bf7717db54ad6ddf81e8",
-        "chain_id": "host-dispatch-20260726T125538Z",
-        "first_chain_id": "host-dispatch-20260726T125538Z",
-        "last_chain_id": "host-dispatch-20260726T125538Z",
-        "chain_ids": [
-          "host-dispatch-20260726T125538Z"
-        ],
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T12:55:38+00:00",
-        "first_seen": "2026-07-26T12:55:38+00:00",
-        "last_seen": "2026-07-26T12:55:38+00:00",
-        "occurrence_count": 1,
-        "failure_count": 1,
-        "stage": "host-repository-preflight",
-        "details": "host-repository-preflight failed: 'next_action'",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-26T13:53:48+00:00",
-        "resolved_by": "verified-host-closeout-recovery",
-        "resolution_reason": "Trusted-host recovery verified, synchronized, and read back exact result commit ef8988414cbdb944a3e2eb6ee5d7942140b6fecc for Chain ID arrp-20260726T122445Z."
-      },
-      {
-        "id": "automation-failure-71179f6a91d6b6a8dbca",
-        "incident_fingerprint": "4bf2bf174802279a4c21",
-        "chain_id": "arrp-20260726T122445Z",
-        "first_chain_id": "arrp-20260726T122445Z",
-        "last_chain_id": "arrp-20260726T122445Z",
-        "chain_ids": [
-          "arrp-20260726T122445Z"
-        ],
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T13:27:09+00:00",
-        "first_seen": "2026-07-26T13:27:09+00:00",
-        "last_seen": "2026-07-26T13:27:09+00:00",
-        "occurrence_count": 1,
-        "failure_count": 1,
-        "stage": "elim-closeout-recovery",
-        "details": "elim-closeout-recovery failed: isolated checkout is not synchronized with origin/main",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-26T13:37:35+00:00",
-        "resolved_by": "verified-host-closeout-recovery",
-        "resolution_reason": "Trusted-host recovery verified, synchronized, and read back exact result commit ef8988414cbdb944a3e2eb6ee5d7942140b6fecc for Chain ID arrp-20260726T122445Z."
-      },
-      {
-        "id": "automation-failure-120d448f9800d5882c84",
-        "incident_fingerprint": "3569e492b1f859286d99",
-        "chain_id": "arrp-20260726T122445Z",
-        "first_chain_id": "arrp-20260726T122445Z",
-        "last_chain_id": "arrp-20260726T122445Z",
-        "chain_ids": [
-          "arrp-20260726T122445Z"
-        ],
-        "kind": "automation_failure",
-        "owner": "human",
-        "summary": "ARRP run chain requires attention.",
-        "created_at": "2026-07-26T13:47:20+00:00",
-        "first_seen": "2026-07-26T13:47:20+00:00",
-        "last_seen": "2026-07-26T13:47:20+00:00",
-        "occurrence_count": 1,
-        "failure_count": 1,
-        "stage": "elim-closeout-recovery",
-        "details": "elim-closeout-recovery failed: isolated checkout is not at the applied result or current origin/main boundary",
-        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
-        "resolved": true,
-        "resolved_at": "2026-07-26T13:53:48+00:00",
-        "resolved_by": "verified-host-closeout-recovery",
-        "resolution_reason": "Trusted-host recovery verified, synchronized, and read back exact result commit ef8988414cbdb944a3e2eb6ee5d7942140b6fecc for Chain ID arrp-20260726T122445Z."
       }
     ],
     "last_successful_stages": [
@@ -2334,44 +1075,370 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "id": "case-monitor-bot",
         "order": 1,
         "workflow": ".github/workflows/case-monitor-bot.yml",
-        "due": false,
-        "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
+        "due": true,
+        "due_reason": "persistent watcher input is stale",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T13:53:24+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
+        "completed_at": "2026-07-27T07:55:25+00:00",
+        "last_success_at": "2026-07-27T07:55:25+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
-        "details": "",
-        "output": null
+        "details": "success",
+        "output": {
+          "path": "workflow-output",
+          "sha256": "sha256:8d234e9194dda93880400df7d7ed8ff30c293d105aa8d600651db570313b585a"
+        },
+        "work_count": 43,
+        "attempt_key": "primary",
+        "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
+        "domain_event": {
+          "id": "SDE-62EB0C60B193E98C0883A912",
+          "sha256": "sha256:d4388e0089e0292213c3288f26e6aec4dba52eb00c03f61cd478ad7f8e8e383f",
+          "json": {
+            "acceptance": null,
+            "affected_records": [
+              {
+                "record_id": "HOR-035",
+                "record_type": "candidate"
+              },
+              {
+                "record_id": "SRC-0632",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0945",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0965",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-0982",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1004",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1052",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1056",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1093",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1929",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1930",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1932",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1933",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1934",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1940",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1941",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1942",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1943",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1946",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1952",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1957",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1973",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1979",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-1982",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2042",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2080",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2081",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2105",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2110",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2136",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2149",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2190",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2216",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2221",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2235",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2238",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2351",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2591",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2649",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2651",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2652",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2653",
+                "record_type": "source"
+              },
+              {
+                "record_id": "SRC-2654",
+                "record_type": "source"
+              }
+            ],
+            "agent_id": "case-monitor-bot",
+            "chain_id": "arrp-20260727T075310Z",
+            "event_id": "SDE-62EB0C60B193E98C0883A912",
+            "idempotency_key": "sha256:62eb0c60b193e98c0883a912550287a645e9712981e73600431f8b3f7a458ac9",
+            "kind": "source-domain-event",
+            "output_hashes": {
+              "files": [
+                {
+                  "bytes": 1818034,
+                  "path": "inventory/sources.csv",
+                  "sha256": "sha256:dd4e572ed54c5d0be25664d9d71ca8aca6e41e20aa039d34f92446b49ee84778"
+                },
+                {
+                  "bytes": 180849,
+                  "path": "research/horizon-source-records/HOR-035-source-development.md",
+                  "sha256": "sha256:bcb66117d0e1557deb4379d1d4979691cbcbb98ad4c2cec26398f837275d57e8"
+                }
+              ],
+              "proposal_diff": "sha256:ca82329205d345662c811596e247f0f43b56b60b6c3f849152b269b95075fde0",
+              "semantic_report": "sha256:11a7e758920934470a4e4b63fbff03a0e00b719aa88bdaf4d1caebbeab08714f"
+            },
+            "proposal": {
+              "base_ref": "main",
+              "head_ref": "bot/case-monitor-updates",
+              "proposal_revision": "7e6009506d62bf2e72bea07fa941302b780cadf2",
+              "pull_request_number": 380,
+              "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/380",
+              "repository": "Thorncrag/ARRP"
+            },
+            "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
+            "schema_uri": ".github/source-domain-event.schema.json",
+            "schema_version": 1,
+            "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+            "state": "proposed",
+            "summary": {
+              "affected_record_count": 43,
+              "counts": {
+                "affected-files": 2,
+                "affected-records": 43,
+                "candidate-records": 1,
+                "source-records": 42
+              },
+              "status": "case monitor proposal delta"
+            },
+            "trigger": "schedule"
+          }
+        }
       },
       {
         "id": "presidential-directives-bot",
         "order": 2,
         "workflow": ".github/workflows/presidential-directives-bot.yml",
-        "due": false,
-        "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
+        "due": true,
+        "due_reason": "persistent watcher input is stale",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T13:53:24+00:00",
-        "last_success_at": "2026-07-26T04:41:32+00:00",
+        "completed_at": "2026-07-27T07:55:25+00:00",
+        "last_success_at": "2026-07-27T07:55:25+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
-        "details": "",
-        "output": null
+        "details": "success",
+        "output": {
+          "path": "workflow-output",
+          "sha256": "sha256:4835a28dfa7cb81b01699eb33db68528c60ef63a8a454685ccfc5e1e77d5408e"
+        },
+        "work_count": 10,
+        "attempt_key": "primary",
+        "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
+        "domain_event": {
+          "id": "SDE-B42DD183BC2B93D484271CE3",
+          "sha256": "sha256:077dc1f6eb4ef28b71af781a63953723c4baeec2b7d217971bb6b31d246fc51e",
+          "json": {
+            "acceptance": null,
+            "affected_records": [
+              {
+                "record_id": "2019-05370",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2019-16383",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-14990",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-14991",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-14992",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-14997",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-14998",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-14999",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-15003",
+                "record_type": "presidential-directive"
+              },
+              {
+                "record_id": "2026-15024",
+                "record_type": "presidential-directive"
+              }
+            ],
+            "agent_id": "presidential-directives-bot",
+            "chain_id": "arrp-20260727T075310Z",
+            "event_id": "SDE-B42DD183BC2B93D484271CE3",
+            "idempotency_key": "sha256:b42dd183bc2b93d484271ce3244e70065b6766b616494823bdf1a82d345fd2d8",
+            "kind": "source-domain-event",
+            "output_hashes": {
+              "files": [
+                {
+                  "bytes": 1854598,
+                  "path": "inventory/presidential-directives.csv",
+                  "sha256": "sha256:9f14fdb579c9816258688f66f322d62a5f7feaa49410daa3063d3fd9094a7e3c"
+                }
+              ],
+              "proposal_diff": "sha256:21eee92eda009c4db723e0c530931dc0595962f544a6d379ebe2c3c0ee871dc4",
+              "semantic_report": "sha256:eead281dd9bc359cb2a6613c252bbb7c670545fec9c7eb128ab32383e696c968"
+            },
+            "proposal": {
+              "base_ref": "main",
+              "head_ref": "automation/presidential-directives-monitor",
+              "proposal_revision": "2495449ed92977df47b0f29489762c368c3e86dd",
+              "pull_request_number": 381,
+              "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/381",
+              "repository": "Thorncrag/ARRP"
+            },
+            "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
+            "schema_uri": ".github/source-domain-event.schema.json",
+            "schema_version": 1,
+            "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+            "state": "proposed",
+            "summary": {
+              "affected_record_count": 10,
+              "counts": {
+                "affected-files": 1,
+                "affected-records": 10,
+                "presidential-directive-records": 10
+              },
+              "status": "presidential directives proposal delta"
+            },
+            "trigger": "schedule"
+          }
+        }
       },
       {
         "id": "project-console-progress-bot",
         "order": 4,
         "workflow": ".github/workflows/project-console-progress.yml",
         "due": false,
-        "due_reason": "last success remains current until 2026-07-27T14:08:44+00:00",
+        "due_reason": "last success remains current until 2026-07-28T01:49:19+00:00",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T14:09:14+00:00",
-        "last_success_at": "2026-07-26T14:08:44+00:00",
+        "completed_at": "2026-07-27T07:53:10+00:00",
+        "last_success_at": "2026-07-27T01:49:19+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
@@ -2386,17 +1453,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T14:10:09+00:00",
-        "last_success_at": "2026-07-26T14:10:09+00:00",
+        "completed_at": "2026-07-27T07:55:25+00:00",
+        "last_success_at": "2026-07-27T07:55:25+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:289e9ea25d53def95982fde7f0363317d069d03195826cb4f7f5b162d303d604"
+          "sha256": "sha256:08e10d4807317d31d69965a7da3ddf47ccd1cbe3e2c6687636a4515d8b58b3c9"
         },
-        "work_count": 0
+        "work_count": 1
       },
       {
         "id": "public-intake",
@@ -2406,15 +1473,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T14:10:09+00:00",
-        "last_success_at": "2026-07-26T14:10:09+00:00",
+        "completed_at": "2026-07-27T07:55:25+00:00",
+        "last_success_at": "2026-07-27T07:55:25+00:00",
         "retry_limit": 1,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:7e533a01ea08424b452ef99786f634de98391de64a52e6aacbfd0d87d0e98b6d"
+          "sha256": "sha256:c39cce07b76dee692b17979a9264f779c21f27e805e22d3244d7576331d14e86"
         },
         "work_count": 0
       },
@@ -2437,6 +1504,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ]
   },
   "domain_generation": {
-    "automation.js": "project-console-c186d8838c2ce2735212"
+    "automation.js": "project-console-7190bb3b1c5cb5031a9f"
   }
 });

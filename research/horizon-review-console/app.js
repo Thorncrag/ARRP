@@ -53,9 +53,15 @@
       : [];
   }
   normalizeLoadedData();
-  const privateGitHubProblems = Array.isArray(window.ARRP_PRIVATE_GITHUB_SECURITY?.problems)
-    ? window.ARRP_PRIVATE_GITHUB_SECURITY.problems
-    : [{ reference: "GHSEC-SNAPSHOT-UNAVAILABLE", category: "GitHub security", severity: "info", attention: "observed", owner: "Authenticated Console refresh", reported_by: "Project Console", status: "Unavailable", message: "Private GitHub security alerts are unavailable; alert absence is not inferred.", source_url: "https://github.com/Thorncrag/ARRP/security" }];
+  const PRIVATE_GITHUB_SECURITY_PATH = "data/private-github-security.js?v=1";
+  const PRIVATE_GITHUB_SECURITY_UNAVAILABLE = [{ reference: "GHSEC-SNAPSHOT-UNAVAILABLE", category: "GitHub security", severity: "info", attention: "observed", owner: "Authenticated Console refresh", reported_by: "Project Console", status: "Unavailable", message: "Private GitHub security alerts are unavailable; alert absence is not inferred.", source_url: "https://github.com/Thorncrag/ARRP/security" }];
+  let privateGitHubProblems = PRIVATE_GITHUB_SECURITY_UNAVAILABLE;
+  function capturePrivateGitHubProblems() {
+    if (!Array.isArray(window.ARRP_PRIVATE_GITHUB_SECURITY?.problems)) return false;
+    privateGitHubProblems = window.ARRP_PRIVATE_GITHUB_SECURITY.problems;
+    return true;
+  }
+  capturePrivateGitHubProblems();
   const catalogGenerationId = String(
     data.generation_id || data.generation_manifest?.generation_id || ""
   );
@@ -6110,6 +6116,22 @@
       && ["http:", "https:"].includes(window.location.protocol);
   }
 
+  function loadPrivateGitHubSecurity() {
+    if (capturePrivateGitHubProblems() || !coordinatorControlOriginAllowed()) {
+      return Promise.resolve();
+    }
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = PRIVATE_GITHUB_SECURITY_PATH;
+      script.onload = () => {
+        capturePrivateGitHubProblems();
+        resolve();
+      };
+      script.onerror = () => resolve();
+      document.head.append(script);
+    });
+  }
+
   function setCoordinatorControlStatus(message, tone = "") {
     const status = byId("coordinator-control-status");
     status.className = tone ? `control-status ${tone}` : "control-status";
@@ -8323,5 +8345,5 @@
     elimRunChainPresentation
   });
   if (window.__ARRP_CONSOLE_TEST_MODE__) return;
-  initialize();
+  loadPrivateGitHubSecurity().then(initialize);
 })();

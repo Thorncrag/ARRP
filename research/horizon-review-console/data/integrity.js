@@ -4,15 +4,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
     "contract_schema_version": 1,
-    "generation_id": "project-integrity-6dc34a3bc7733c301db2",
-    "source_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
-    "generated_at": "2026-07-26T14:09:55+00:00",
+    "generation_id": "project-integrity-1961dc0222c5770889ba",
+    "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+    "generated_at": "2026-07-27T08:05:07+00:00",
     "expected_count": 22,
     "actual_count": 22,
     "source_hashes": {
-      "integrity.json": "sha256:289e9ea25d53def95982fde7f0363317d069d03195826cb4f7f5b162d303d604"
+      "arrp-20260727T075310Z-integrity-after-repair.json": "sha256:fa14f4d3686787c34ed642461664405325d92bf3e45d36d518b9e53468702bdd"
     },
-    "availability": "stale",
+    "availability": "current",
     "completeness": {
       "complete": true,
       "expected_count": 22,
@@ -30,33 +30,25 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         }
       ]
     },
-    "projection_errors": [
-      {
-        "code": "repository_revision_superseded",
-        "severity": "warning",
-        "message": "Integrity generation is not bound to the authoritative repository revision.",
-        "expected_source_revision": "1cf67d020d85c0eb408b05112f336f1ec275a29d",
-        "producer_source_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184"
-      }
-    ],
+    "projection_errors": [],
     "freshness": {
-      "status": "stale",
+      "status": "current",
       "basis": "authoritative repository revision",
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
     },
     "current": {
       "schema_version": 1,
-      "generated_at": "2026-07-26T14:09:55+00:00",
-      "revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
-      "result": "clean",
+      "generated_at": "2026-07-27T08:05:07+00:00",
+      "revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+      "result": "findings",
       "counts": {
         "errors": 0,
-        "warnings": 0,
-        "findings": 0,
+        "warnings": 3,
+        "findings": 3,
         "issue_pages": 64,
         "proposal_pages": 41
       },
-      "duration_seconds": 12.817,
+      "duration_seconds": 4.217,
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -81,9 +73,47 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "Source-domain event preservation and acceptance wiring",
         "Structured-file and repository hygiene"
       ],
-      "findings": []
+      "findings": [
+        {
+          "id": "warning-0001",
+          "severity": "warning",
+          "category": "GitHub records",
+          "attention": "agent",
+          "message": "GitHub issue synchronization check skipped; rerun in the authenticated host context: the gh CLI is unavailable",
+          "path": ""
+        },
+        {
+          "id": "warning-0002",
+          "severity": "warning",
+          "category": "Project structure",
+          "attention": "agent",
+          "message": "GitHub Project synchronization check skipped; rerun in the authenticated host context: the gh CLI is unavailable",
+          "path": ""
+        },
+        {
+          "id": "warning-0003",
+          "severity": "warning",
+          "category": "GitHub records",
+          "attention": "agent",
+          "message": "GitHub Pages synchronization check skipped; rerun in the authenticated host context: the gh CLI is unavailable",
+          "path": ""
+        }
+      ]
     },
     "history": [
+      {
+        "generated_at": "2026-07-27T08:05:07+00:00",
+        "revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+        "result": "findings",
+        "counts": {
+          "errors": 0,
+          "warnings": 3,
+          "findings": 3,
+          "issue_pages": 64,
+          "proposal_pages": 41
+        },
+        "duration_seconds": 4.217
+      },
       {
         "generated_at": "2026-07-26T14:09:55+00:00",
         "revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
@@ -460,33 +490,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "proposal_pages": 41
         },
         "duration_seconds": 12.26
-      },
-      {
-        "generated_at": "2026-07-25T10:53:40+00:00",
-        "revision": "24f380c275440940d0af80be9b17842c04de37e6",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 14.81
       }
     ],
     "currentness": {
       "authority": "repository_revision",
-      "status": "stale",
-      "current": false,
-      "expected_source_revision": "1cf67d020d85c0eb408b05112f336f1ec275a29d",
-      "producer_source_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
+      "status": "current",
+      "current": true,
+      "expected_source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+      "producer_source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
       "equivalent_inputs_established": false,
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
-    },
-    "producer_availability": "stale"
+    }
   },
   "domain_generation": {
-    "integrity.js": "project-console-c186d8838c2ce2735212"
+    "integrity.js": "project-console-7190bb3b1c5cb5031a9f"
   }
 });
