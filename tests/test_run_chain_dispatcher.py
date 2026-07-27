@@ -10,6 +10,7 @@ from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[1]
+LEGACY_DISPATCHER_FIXTURE_COMMIT = "18d3dd5edf802d977841d6d35a108d1d41ef2168"
 SPEC = importlib.util.spec_from_file_location(
     "run_chain_dispatcher", ROOT / "scripts" / "run_chain_dispatcher.py"
 )
@@ -22,7 +23,11 @@ def legacy_dispatcher_config():
     """Load the retained pre-transition dispatcher fixture from Git history."""
 
     result = subprocess.run(
-        ["git", "show", "HEAD:.github/run-coordinator-bot.json"],
+        [
+            "git",
+            "show",
+            f"{LEGACY_DISPATCHER_FIXTURE_COMMIT}:.github/run-coordinator-bot.json",
+        ],
         cwd=ROOT,
         check=True,
         text=True,
