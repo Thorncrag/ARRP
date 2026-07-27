@@ -190,6 +190,24 @@ class LocalStageTests(unittest.TestCase):
             expected,
         )
 
+    def test_project_progress_stage_validates_the_generated_json_leaf(self):
+        progress = next(
+            row
+            for row in MODULE.default_local_stage_specs("python3")
+            if row.identifier == "project-console-progress-bot"
+        )
+        output_root = progress.command[progress.command.index("--output") + 1]
+        self.assertEqual(
+            output_root,
+            "{run_dir}/stages/project-console-progress-bot/data",
+        )
+        self.assertEqual(
+            progress.outputs,
+            (
+                "{run_dir}/stages/project-console-progress-bot/data/progress.json",
+            ),
+        )
+
     def test_stage_environment_override_is_confined_to_named_stage(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

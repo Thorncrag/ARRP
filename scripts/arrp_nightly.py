@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Disabled-by-default local-first transaction runner for ARRP.
+"""Reviewed local-first transaction runner for ARRP.
 
-P1 supplied the transaction boundary, P2 added deterministic local stages and
-one sealed fresh Elim invocation, and P3 adds local validation, exact delta
-classification, redacted secret scanning, and a proved local final commit. P4
-adds a fixture-first GitHub App, exact-PR, and semantic-action broker boundary.
-Host-service installation remains unavailable.
+The runner owns the deterministic stages, sealed Elim boundary, local
+validation and classification, exact-head GitHub App publication, semantic
+action brokerage, Pages verification, canonical-main reconciliation, and
+typed host status used by the P6 launchd service.
 """
 
 from __future__ import annotations
@@ -2365,11 +2364,13 @@ def default_local_stage_specs(python: str | None = None) -> tuple[LocalStageSpec
                 "--registry",
                 "{worktree}/inventory/github_issue_registry.csv",
                 "--output",
-                "{run_dir}/stages/project-console-progress-bot/report.json",
+                "{run_dir}/stages/project-console-progress-bot/data",
                 "--token-env",
                 "ARRP_PROJECT_TOKEN",
             ),
-            ("{run_dir}/stages/project-console-progress-bot/report.json",),
+            (
+                "{run_dir}/stages/project-console-progress-bot/data/progress.json",
+            ),
         ),
         LocalStageSpec(
             "project-integrity-bot",

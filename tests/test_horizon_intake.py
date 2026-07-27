@@ -903,6 +903,11 @@ class HorizonIntakeTest(unittest.TestCase):
                 )
             )
             javascript_parts.remove(private_projection.name)
+        local_status_projection = (
+            console_dir / "data" / "local-automation-status.js"
+        )
+        if local_status_projection.exists():
+            javascript_parts.remove(local_status_projection.name)
         self.assertEqual(
             javascript_parts,
             parts,
@@ -912,7 +917,11 @@ class HorizonIntakeTest(unittest.TestCase):
             *(
                 path
                 for path in (console_dir / "data").glob("*.js")
-                if path.name != private_projection.name
+                if path.name
+                not in {
+                    private_projection.name,
+                    local_status_projection.name,
+                }
             ),
         ]:
             text = path.read_text(encoding="utf-8")
