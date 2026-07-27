@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Handoff state | Open |
-| Active issue/task | P5 supervised end-to-end proof and corrective integration of the existing local-first transaction and publication components. |
-| Audit type/tier | implementation validation |
-| Started | 2026-07-27 16:52:55 -0400 |
-| Last checkpoint | 2026-07-27 18:03:00 -0400 |
-| User request | Execute contract phase P5; Benjamin authorized the narrowly necessary repairs after P5 found that the reviewed P1-P4 transaction and GitHub broker components were not connected into one executable chain. |
-| Scope | `scripts/arrp_nightly.py`; focused runner/bootstrap tests; exact implicated automation runbook and context hashes; protected repair publication; every P5 ordinary, protected, prohibited, race, outage, Elim-failure, Project, Pages, cleanup, and missed-run fixture. No scheduler install or P6 cutover. |
-| Files touched | `scripts/arrp_nightly.py`; `scripts/arrp_bootstrap.py`; `tests/test_arrp_p5_supervised.py`; `tests/test_arrp_local_stages.py`; `tests/test_arrp_bootstrap.py`; `framework/project/automation/autonomous-execution.md`; `framework/project/automation/runbooks/run-coordinator-bot.md`; `framework/project/automation/context-routes.json`; `framework/records/handoffs/current-task.md`; exact owner-only P5 evidence. |
-| Completed steps | Rebaselined P5 at verified P4 ending commit `ce441d7ffba5ef41c547df5cb91f609f28d7e704`; merged reviewed integration and sealed-auth repairs through PRs 457 and 458; preserved the first supervised run's pre-push authentication failure; completed sealed Elim run `p5-supervised-20260727-b`; preserved two fail-closed publication corrections without rerunning Elim; reduced the final ordinary range to `topics/README.md`; merged App PR 459 exact head `36ef6b0e9d614ae00df6122d216870899234d4b4` as `e9f62f1e64f547d1bcac08f30163e90413c613ff`; restored the reversible Project field to null; verified exact-sha Pages run 30309102191 succeeded; fast-forwarded canonical main exactly; and removed the successful worktree. The final protected repair now moves dynamic governing classification ahead of worktree execution, persists Elim unit/outcome through terminal status, refreshes existing PR metadata, and bounds post-push head/base readback retry. |
-| Next step | Finish full validation of `codex/p5-final-guard-repair`, update exact context hashes, publish the protected PR, obtain Benjamin's exact-head code-owner approval, merge and fast-forward it, run the remaining P5 negative live fixtures/readbacks, clear this handoff, and return the completion record. |
-| Blockers/questions | Final protected repair requires exact-head Benjamin code-owner approval after all checks pass. P6 remains unauthorized and unstarted. |
-| Validation status | Ordinary live cycle and exact Pages/Project/local readbacks passed. Final protected repair passes 577 Python tests, 32 Console tests, 25 participation tests, strict site build, compilation, runtime policy, context hash and JSON checks, plist lint, diff check, and consistency audit with zero errors; remaining negative live fixtures and protected merge are pending. |
+| Handoff state | Inactive |
+| Active issue/task | None. |
+| Audit type/tier | None. |
+| Started | None. |
+| Last checkpoint | 2026-07-27 18:18:00 -0400 |
+| User request | None. |
+| Scope | None. |
+| Files touched | None. |
+| Completed steps | None. |
+| Next step | None. |
+| Blockers/questions | None. |
+| Validation status | Not applicable. |
 
 ## Handoff Rules
 
