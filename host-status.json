@@ -1,7 +1,7 @@
 {
   "actual_count": 1,
   "availability": "current",
-  "chain_id": "arrp-20260727T000726Z",
+  "chain_id": "arrp-20260727T014755Z",
   "cloud_status": null,
   "completeness": {
     "actual_count": 1,
@@ -12,17 +12,17 @@
   "exit_code": 0,
   "expected_count": 1,
   "host_status": "not-launched",
-  "host_updated_at": "2026-07-27T00:14:16+00:00",
+  "host_updated_at": "2026-07-27T01:57:49+00:00",
   "message": "Host dispatcher rejected an LLM launch from a deterministic-only or unspecified trigger.",
   "next_action": "No Elim launch; wait for the daily schedule, an eligible event, or explicit manual dispatch.",
   "projection_errors": [],
   "projection_kind": "host-run-status",
   "schema_version": 1,
-  "source_revision": "bb4756316564a6eb7ca54c1d2b357d01f9246bb7",
+  "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
   "stage": "host-refinalization",
   "status": "not-launched",
-  "updated_at": "2026-07-27T00:14:16+00:00",
+  "updated_at": "2026-07-27T01:57:49+00:00",
   "usage_status": "available",
-  "work_item_id": "COMPREHENSIVE-REVIEW-dedd97733f7f",
+  "work_item_id": "COMPREHENSIVE-REVIEW-1f4c04dbfc2e",
   "host_action_items": []
 }
