@@ -1,4 +1,5 @@
 name: ARRP validation
+# P4 denied-workflow-push fixture; this commit must never reach GitHub.
 
 on:
   pull_request:
