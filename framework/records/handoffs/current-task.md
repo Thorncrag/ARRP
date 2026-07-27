@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Handoff state | Paused |
-| Active issue/task | Framework reorganization, full repository reconciliation, and reversible retirement of the legacy automation and duplicate local checkouts. |
-| Audit type/tier | Change Audit |
-| Started | 2026-07-27 05:32:27 -0400 |
-| Last checkpoint | 2026-07-27 10:06:50 -0400 |
-| User request | Implement the approved reusable `standards/`, ARRP-specific `project/`, and historical/state `records/` structure; reconcile it fully with GitHub; make the non-iCloud Automation Workspaces checkout canonical; discontinue the legacy automation; and move every noncanonical operable checkout to Trash after preservation. |
-| Scope | `framework/` placement and authority boundaries; associated content records; all affected routes, scripts, workflows, tests, and internal links; the two primary local checkouts and linked/nested automation checkouts; deployed GitHub, launchd, and Codex automation entry points. |
-| Files touched | `framework/`; `research/interbranch-review/`; affected repository routes, scripts, workflows, tests, and references; external owner-only recovery records and deployed scheduler configuration. |
-| Completed steps | Completed and validated the Framework reorganization; migrated and read back every affected hosted issue link; excluded host-only state from tracked Console data; passed protected pull request #451 and synchronized clean canonical `main` to merge `4715b6d134a24be0db3fe91ff67867fce2f4681f`; disabled and archived the legacy GitHub, launchd, and Codex automation entry points; archived and moved the retired run-coordinator runtime and external temporary worktree to Trash; preserved the Documents clone's exact final refs, reflogs, staged and untracked state; and verified the 2.2 GB owner-only recovery package through a 129-file SHA-256 manifest. |
-| Next step | Benjamin opens `/Users/benjaminsmith/Automation Workspaces/ARRP` as the project in Codex Desktop and starts the continuation there. The canonical-rooted task verifies clean merge `4715b6d`, closes or finishes Documents-backed interactive tasks, moves `/Users/benjaminsmith/Documents/ARRP` to a uniquely named Trash location, verifies that one active local clone remains, updates and rechecks the recovery manifest, and clears this checkpoint to `Inactive` through the protected GitHub workflow. |
-| Blockers/questions | Existing Codex tasks cannot be repointed to another project in place. This task and several older ChatGPT/Codex kernels still have `/Users/benjaminsmith/Documents/ARRP` as their fixed working directory; moving it while those interactive tasks remain open would be an unsafe task-state transition. |
-| Validation status | Passed for the merged implementation and completed retirement actions: 499 Python tests, 31 Console frontend tests, 25 participation-service tests, strict public-site preparation, Python and JavaScript syntax, diff hygiene, bounded Console JavaScript, exact changed-path and secret audits, hosted-issue readback, authenticated consistency with 0 errors and 0 warnings, all protected pull-request checks, exact merge-parent readback, exact canonical synchronization, successful exact-main CodeQL and public-site runs, verified runtime and Git archives, and verified owner-only SHA-256 recovery checksums. The final Documents-to-Trash and single-clone readback remain pending the canonical-rooted continuation. |
+| Handoff state | Open |
+| Active issue/task | P5 supervised end-to-end proof and corrective integration of the existing local-first transaction and publication components. |
+| Audit type/tier | implementation validation |
+| Started | 2026-07-27 16:52:55 -0400 |
+| Last checkpoint | 2026-07-27 17:06:47 -0400 |
+| User request | Execute contract phase P5; Benjamin authorized the narrowly necessary repairs after P5 found that the reviewed P1-P4 transaction and GitHub broker components were not connected into one executable chain. |
+| Scope | `scripts/arrp_nightly.py`; focused runner/bootstrap tests; exact implicated automation runbook and context hashes; protected repair publication; every P5 ordinary, protected, prohibited, race, outage, Elim-failure, Project, Pages, cleanup, and missed-run fixture. No scheduler install or P6 cutover. |
+| Files touched | `scripts/arrp_nightly.py`; `scripts/arrp_bootstrap.py`; `tests/test_arrp_p5_supervised.py`; `tests/test_arrp_bootstrap.py`; `framework/project/automation/autonomous-execution.md`; `framework/project/automation/runbooks/run-coordinator-bot.md`; `framework/project/automation/context-routes.json`; `framework/records/handoffs/current-task.md`; exact owner-only P5 evidence. |
+| Completed steps | Rebaselined P5 at verified P4 ending commit `ce441d7ffba5ef41c547df5cb91f609f28d7e704`; confirmed retired entry points remain disabled; implemented one exact disabled-by-default supervised route joining lock, transaction, full-range classification, App publication, required checks, reversible Project fixture, exact merge, Pages readback, canonical fast-forward, successful cleanup, independent failure status, and missed-slot idempotency; synchronized governing hashes; passed 571 Python, 32 Console, and 25 participation tests plus compilation, runtime policy, JSON, plist, shell, context, site, and diff validation. |
+| Next step | Stage the exact protected repair manifest, commit it, push the branch, open a protected pull request, and pause for Benjamin's exact-head code-owner review before executing the repaired runtime. |
+| Blockers/questions | None. The protected repair will require Benjamin's exact-head code-owner review before it may become reviewed runtime and be used for live P5 fixtures. |
+| Validation status | Repair validation passed locally. The authenticated Console refresh remains unavailable through the ordinary `gh` credential because that credential lacks Project scope; the dedicated Project-only credential is reserved for the exact runner fixture. Protected PR checks and live P5 acceptance remain pending. |
 
 ## Handoff Rules
 

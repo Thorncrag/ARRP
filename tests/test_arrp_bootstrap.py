@@ -28,6 +28,7 @@ class ArrpBootstrapTests(unittest.TestCase):
             manual=False,
             dry_run=False,
             run_id="fixture-run",
+            p5_supervised_plan=None,
         )
         command = MODULE.build_command(arguments)
         self.assertEqual(command[1], str(MODULE.runner_path()))
@@ -53,6 +54,42 @@ class ArrpBootstrapTests(unittest.TestCase):
             run.assert_not_called()
             self.assertEqual(MODULE.main(["--manual", "--dry-run"]), 0)
             run.assert_called_once()
+
+    def test_p5_supervised_plan_requires_exact_manual_boundary(self):
+        with mock.patch.object(
+            MODULE.subprocess, "run", return_value=mock.Mock(returncode=0)
+        ) as run:
+            self.assertEqual(
+                MODULE.main(["--p5-supervised-plan", "/tmp/p5.json"]),
+                64,
+            )
+            self.assertEqual(
+                MODULE.main(
+                    [
+                        "--manual",
+                        "--dry-run",
+                        "--p5-supervised-plan",
+                        "/tmp/p5.json",
+                    ]
+                ),
+                64,
+            )
+            self.assertEqual(
+                MODULE.main(
+                    [
+                        "--manual",
+                        "--p5-supervised-plan",
+                        "/tmp/p5.json",
+                    ]
+                ),
+                0,
+            )
+            command = run.call_args.args[0]
+            self.assertIn("--manual", command)
+            self.assertEqual(
+                command[-2:],
+                ["--p5-supervised-plan", "/tmp/p5.json"],
+            )
 
 
 if __name__ == "__main__":
