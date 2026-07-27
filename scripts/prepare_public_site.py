@@ -597,7 +597,7 @@ def generate_navigation(
             f"      - {yaml_label('Technical Record on GitHub')}: https://github.com/Thorncrag/ARRP",
             f"      - {yaml_label('Rights and Reuse')}: LICENSE.md",
             f"  - {yaml_label('Support')}: SUPPORT.md",
-            f"  - {yaml_label('Contact')}: https://arrp-public-intake.vercel.app/",
+            f"  - {yaml_label('Contact')}: https://gab.durablerepublic.org/",
         ]
     )
     return "\n".join(lines) + "\n"

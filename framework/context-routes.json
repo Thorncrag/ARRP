@@ -19,7 +19,7 @@
   "documents": {
     "public_premise": {
       "path": "README.md",
-      "sha256": "cb773dee4efd859f6518016d769e54d52721e3d8b497cd1dac124b2a11949012",
+      "sha256": "d0a5936c876d022ae186d40502aecc0074fcf1103bded47abb4a378aeab78ec4",
       "hash_policy": "pinned",
       "governing": true
     },

@@ -44,7 +44,7 @@ function requestExceedsLimit(req, limit) {
 
 function expectedTurnstile() {
   return {
-    hostname: String(process.env.ARRP_TURNSTILE_HOSTNAME || "arrp-public-intake.vercel.app").trim(),
+    hostname: String(process.env.ARRP_TURNSTILE_HOSTNAME || "gab.durablerepublic.org").trim(),
     action: String(process.env.ARRP_TURNSTILE_ACTION || "arrp_public_intake").trim(),
   };
 }
