@@ -34,7 +34,9 @@ from typing import Any, Iterable
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / ".github" / "presidential-directives-bot.json"
 DEFAULT_REGISTRY = ROOT / "inventory" / "presidential-directives.csv"
-DEFAULT_LOG = ROOT / "framework" / "logs" / "SOURCE_MONITOR_LOG.md"
+DEFAULT_LOG = (
+    ROOT / "framework" / "records" / "sources" / "source-monitor-log.md"
+)
 USER_AGENT = "ARRP presidential-directives-watcher/1.0"
 
 CSV_FIELDS = [

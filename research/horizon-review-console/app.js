@@ -121,6 +121,13 @@
   const releaseBlockerState = { status: "all", priority: "all", owner: "all" };
   const publicationLengthState = { sortKey: "estimated_pages", sortDirection: "desc" };
   const problemState = { search: "", owner: "all", severity: "all", status: "all" };
+  const actionInboxState = {
+    filter: "mine",
+    search: "",
+    layout: "right",
+    selectedId: "",
+    items: []
+  };
   const assemblyDrafts = new Map();
   const assemblyOperations = new Map();
   const logStates = {};
@@ -131,6 +138,7 @@
   const LAYOUT_STORAGE_KEY = "arrp-project-console-layout-v1";
   const DISCLOSURE_STORAGE_KEY = "arrp-project-console-disclosures-v1";
   const WORKFLOW_SUMMARY_STORAGE_KEY = "arrp-project-console-intro-hidden-v1";
+  const ACTION_INBOX_LAYOUT_STORAGE_KEY = "arrp-project-console-action-inbox-layout-v1";
   const layoutZones = new Map();
   const successfulStageHistory = new Map();
   let layoutEditing = false;
@@ -1308,8 +1316,6 @@
     registerLayoutZone(byId("overview-freshness"), "cards-overview-freshness", ":scope > a");
     registerLayoutZone(byId("progress-sections"), "sections-progress-v3", ":scope > section, :scope > details");
     registerLayoutZone(byId("progress-summary-grid"), "cards-progress-summary", ":scope > article");
-    registerLayoutZone(byId("action-items-grid"), "cards-actions", ":scope > .action-item-card");
-    registerLayoutZone(byId("action-oversight-grid"), "cards-actions-oversight", ":scope > .action-item-card");
     registerLayoutZone(document.querySelector(".integrity-view"), "sections-integrity", ":scope > .integrity-layout");
     registerLayoutZone(byId("integrity-metrics"), "cards-integrity-metrics", ":scope > article");
     registerLayoutZone(byId("integrity-components"), "cards-integrity-components", ":scope > article");
@@ -2543,137 +2549,267 @@
     navigateToConsoleTarget(target);
   }
 
-  function actionItemCard({
-    label,
-    count,
-    detail,
-    target,
-    updateCount = 0,
-    externalUrl = "",
-    items = [],
-    openLabel = ""
-  }) {
-    const card = element("article", `action-item-card${updateCount ? " has-update" : ""}${items.length > 4 ? " dense" : ""}`);
-    const identity = `action-${layoutSlug(label)}`;
-    card.dataset.layoutId = identity;
-    const summary = element("div", "action-item-summary");
-    const heading = element("div", "action-item-heading");
-    heading.append(element("span", "action-item-title", label), element("strong", "action-item-count", String(count)));
-    if (updateCount) heading.append(element("span", "tab-update-count action-update-count", `+${updateCount} new/updated`));
-    summary.append(heading);
-    card.append(summary, element("p", "", detail));
-    if (items.length) {
-      const list = element("ol", "action-item-detail-list");
-      items.forEach((item) => {
-        const row=element("li"), panel=element("details","action-item-record"),
-          head=element("summary"), body=element("div");
-        if (item && typeof item === "object" && item.kind === "repository-review") {
-          panel.classList.add("repository-review-item");
-          const title = element("strong", "repository-review-title", item.label);
-          const state = element(
-            "span",
-            `badge repository-review-state ${item.tone || ""}`.trim(),
-            item.status
-          );
-          head.append(title, state);
-          body.append(
-            element(
-              "p",
-              "repository-review-meta",
-              `${item.owner} · head ${item.headRevision.slice(0, 10)} · ${item.reviewer}`
-            ),
-            element("p", "repository-review-meta", `Affected records: ${item.affectedSummary || "Unavailable"}`),
-            element(
-              "p",
-              "repository-review-recommendation",
-              `Recommendation: ${item.recommendation}`
-            ),
-            element("p", "repository-review-rationale", `Why now: ${item.rationale}`),
-            element("p", "repository-review-rationale", `Consequence of delay: ${item.consequence || "The proposal remains unresolved."}`),
-            element("p", "repository-review-rationale", `Age / due trigger: ${item.due || "Unavailable"}`)
-          );
-          if (item.humanQuestion && item.humanQuestion.toLowerCase() !== "none") {
-            body.append(
-              element(
-                "p",
-                "repository-review-question",
-                `Decision requested: ${item.humanQuestion}`
-              )
-            );
-          }
-          const links = element("div", "repository-review-links");
-          const link = element(
-            "a",
-            "inline-link",
-            `Open ${item.specialistLabel || "owning specialist view"} →`
-          );
-          link.href = `#${item.specialistTarget || "automation:administration"}`;
-          link.addEventListener("click", (event) => {
-            event.preventDefault();
-            navigateToConsoleTarget(item.specialistTarget || "automation:administration");
-          });
-          links.append(link);
-          body.append(links);
-        } else if (item && typeof item === "object" && item.href) {
-          head.append(element("strong", "action-item-record-title", item.label));
-          const brief = element("div", "action-brief");
-          [
-            ["Owner", item.owner],
-            ["Question / recovery", item.question || item.recovery],
-            ["Recommendation / options", item.recommendation || item.options],
-            ["Why now", item.whyNow],
-            ["Consequence of delay", item.consequence],
-            ["Age / due trigger", item.due]
-          ].forEach(([label, value]) => {
-            if (value) brief.append(element("p", "", `${label}: ${value}`));
-          });
-          body.append(brief);
-          if (item.href.startsWith("#")) {
-            const anchor = element("a", "inline-link", "Open owning Console view →");
-            anchor.href = item.href;
-            anchor.addEventListener("click", (event) => {
-              event.preventDefault();
-              navigateToConsoleTarget(item.href.replace(/^#/, ""));
-            });
-            body.append(anchor);
-          } else {
-            body.append(inlineLink(item.label, item.href));
-          }
-        } else {
-          head.textContent = typeof item === "object" ? item.label : item;
-        }
-        panel.append(head, body);
-        row.append(panel);
-        list.append(row);
-      });
-      card.append(list);
+  function actionInboxIdentity(value) {
+    let hash = 2166136261;
+    const input = String(value || "");
+    for (let index = 0; index < input.length; index += 1) {
+      hash ^= input.charCodeAt(index);
+      hash = Math.imul(hash, 16777619);
     }
-    const actions = element("div", "action-item-links");
-    const open = element(
-      "a",
-      "record-link secondary",
-      openLabel || (target.startsWith("http") ? "Open GitHub queue ↗" : "Open full view →")
+    return `action-inbox-${(hash >>> 0).toString(16).padStart(8, "0")}`;
+  }
+
+  function actionInboxItem(group, item, index) {
+    const repositoryReview = item && typeof item === "object" && item.kind === "repository-review";
+    const title = typeof item === "object" ? item.label : String(item || "Untitled action item");
+    const rawIdentity = [
+      group.scope,
+      group.label,
+      repositoryReview ? item.evidenceUrl : item?.href,
+      title,
+      index
+    ].filter(Boolean).join("|");
+    const id = actionInboxIdentity(rawIdentity);
+    const itemHref = String(item?.href || "");
+    const route = repositoryReview
+      ? item.specialistTarget || group.target
+      : itemHref.startsWith("#")
+        ? itemHref.replace(/^#/, "")
+        : group.target;
+    const externalUrl = repositoryReview
+      ? item.evidenceUrl || ""
+      : /^https?:\/\//.test(itemHref)
+        ? itemHref
+        : "";
+    const question = repositoryReview
+      ? item.humanQuestion && String(item.humanQuestion).toLowerCase() !== "none"
+        ? item.humanQuestion
+        : group.scope === "mine"
+          ? "Review and decide the exact-head recommendation."
+          : "Monitor Elim's exact-head review and disposition."
+      : item?.question || item?.recovery || "";
+    const recommendation = repositoryReview
+      ? item.recommendation
+      : item?.recommendation || item?.options || "";
+    return {
+      id,
+      scope: group.scope,
+      queue: group.label,
+      title,
+      owner: repositoryReview ? item.owner : item?.owner || (group.scope === "mine" ? "You" : "Assigned elsewhere"),
+      status: repositoryReview ? item.status : item?.status || group.status,
+      tone: repositoryReview ? item.tone || group.tone : item?.tone || group.tone,
+      updated: Boolean(group.updated || item?.updated),
+      summary: question || recommendation || group.detail,
+      question,
+      recommendation,
+      whyNow: repositoryReview
+        ? item.rationale
+        : item?.whyNow || group.detail,
+      consequence: repositoryReview
+        ? item.consequence
+        : item?.consequence || "",
+      due: repositoryReview ? item.due : item?.due || "",
+      route,
+      routeLabel: repositoryReview
+        ? `Open ${item.specialistLabel || "owning specialist view"}`
+        : group.openLabel || "Open owning Console view",
+      externalUrl,
+      externalLabel: repositoryReview ? "Open pull request ↗" : "Open canonical record ↗",
+      affectedSummary: repositoryReview ? item.affectedSummary : "",
+      provenance: repositoryReview
+        ? `Head ${String(item.headRevision || "unknown").slice(0, 10)} · ${item.reviewer || "Reviewer unavailable"}`
+        : "",
+      searchText: [
+        group.label,
+        title,
+        repositoryReview ? item.owner : item?.owner,
+        repositoryReview ? item.status : group.status,
+        question,
+        recommendation,
+        repositoryReview ? item.rationale : item?.whyNow,
+        repositoryReview ? item.affectedSummary : "",
+        item?.consequence,
+        item?.due
+      ].filter(Boolean).join(" ").toLowerCase()
+    };
+  }
+
+  function actionInboxRow(item) {
+    const row = element("button", "action-inbox-row");
+    row.type = "button";
+    row.id = `${item.id}-row`;
+    row.dataset.actionItemId = item.id;
+    row.setAttribute("aria-pressed", String(actionInboxState.selectedId === item.id));
+    const attention = element("span", `action-inbox-attention ${item.tone || ""}`.trim());
+    attention.setAttribute("aria-hidden", "true");
+    const copy = element("span", "action-inbox-row-copy");
+    copy.append(
+      element("span", "action-inbox-row-title", item.title),
+      element("span", "action-inbox-row-summary", item.summary || "Open the item preview for details.")
     );
-    open.href = target.startsWith("http") ? target : `#${target}`;
-    if (target.startsWith("http")) {
-      open.target = "_blank";
-      open.rel = "noopener noreferrer";
+    const meta = element("span", "action-inbox-row-meta");
+    meta.append(
+      element("span", "", item.queue),
+      element("span", "", item.owner),
+      ...(item.due ? [element("span", "", item.due)] : [])
+    );
+    copy.append(meta);
+    const scope = element(
+      "span",
+      `action-inbox-row-scope${item.scope === "oversight" ? " oversight" : ""}`,
+      item.scope === "mine" ? "Mine" : "Oversight"
+    );
+    row.append(attention, copy, scope);
+    row.addEventListener("click", () => selectActionInboxItem(item.id));
+    return row;
+  }
+
+  function actionInboxLink(label, route, external = false) {
+    const link = element("a", external ? "record-link" : "record-link secondary", label);
+    link.href = external ? route : `#${route}`;
+    if (external) {
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
     } else {
-      open.addEventListener("click", (event) => {
+      link.addEventListener("click", (event) => {
         event.preventDefault();
-        navigateToConsoleTarget(target);
+        navigateToConsoleTarget(route);
       });
     }
-    actions.append(open);
-    if (externalUrl) {
-      const review = element("a", "record-link", "Review update PR ↗");
-      review.href = externalUrl;
-      review.target = "_blank";
-      review.rel = "noopener noreferrer";
-      actions.append(review);
+    return link;
+  }
+
+  function renderActionInboxPreview(item) {
+    const preview = byId("action-item-preview");
+    if (!item) {
+      const empty = element("div", "action-preview-empty");
+      empty.append(
+        element("span", "eyebrow", "Item preview"),
+        element("h3", "", "No item selected"),
+        element("p", "", "No action items match the current filter and search.")
+      );
+      empty.querySelector("h3").id = "action-preview-heading";
+      preview.replaceChildren(empty);
+      return;
     }
-    card.append(actions);
-    return card;
+    const header = element("header", "action-preview-header");
+    header.append(element("span", "eyebrow", item.queue));
+    const heading = element("h3", "", item.title);
+    heading.id = "action-preview-heading";
+    header.append(heading);
+    const badges = element("div", "action-preview-badges");
+    badges.append(
+      element("span", "badge info", item.scope === "mine" ? "Assigned to you" : "Oversight"),
+      element("span", `badge ${item.tone || "info"}`.trim(), item.status || "Open"),
+      element("span", "badge", item.owner)
+    );
+    if (item.updated) badges.append(element("span", "badge warning", "New or updated"));
+    header.append(badges);
+    const sections = [];
+    [
+      ["Question or recovery", item.question],
+      ["Recommendation or options", item.recommendation],
+      ["Why this is here now", item.whyNow],
+      ["Consequence of delay", item.consequence],
+      ["Age or due trigger", item.due],
+      ["Affected records", item.affectedSummary],
+      ["Review provenance", item.provenance]
+    ].forEach(([label, value]) => {
+      if (!value) return;
+      const section = element("section", "action-preview-section");
+      section.append(element("h4", "", label), element("p", "", value));
+      sections.push(section);
+    });
+    const links = element("div", "action-preview-links");
+    if (item.route) links.append(actionInboxLink(item.routeLabel, item.route));
+    if (item.externalUrl) links.append(actionInboxLink(item.externalLabel, item.externalUrl, true));
+    preview.replaceChildren(header, ...sections, links);
+  }
+
+  function filteredActionInboxItems() {
+    const query = actionInboxState.search.trim().toLowerCase();
+    return actionInboxState.items.filter((item) => {
+      if (actionInboxState.filter !== "all" && item.scope !== actionInboxState.filter) return false;
+      return !query || item.searchText.includes(query);
+    });
+  }
+
+  function selectActionInboxItem(id, focus = false) {
+    actionInboxState.selectedId = id;
+    document.querySelectorAll(".action-inbox-row").forEach((row) => {
+      row.setAttribute("aria-pressed", String(row.dataset.actionItemId === id));
+    });
+    const item = actionInboxState.items.find((record) => record.id === id);
+    renderActionInboxPreview(item);
+    if (focus) byId(`${id}-row`)?.focus();
+  }
+
+  function renderActionInboxRows() {
+    const items = filteredActionInboxItems();
+    if (!items.some((item) => item.id === actionInboxState.selectedId)) {
+      actionInboxState.selectedId = items[0]?.id || "";
+    }
+    byId("action-items-grid").replaceChildren(...(items.length
+      ? items.map(actionInboxRow)
+      : [element("p", "action-inbox-empty", "No action items match this view.")]));
+    const filterLabels = { mine: "My items", oversight: "Oversight", all: "All open" };
+    byId("action-inbox-list-heading").textContent = filterLabels[actionInboxState.filter];
+    byId("action-inbox-result-summary").textContent = actionInboxState.search
+      ? `${pluralizeWord(items.length, "matching item")} · ${pluralizeWord(actionInboxState.items.length, "open item")} total`
+      : pluralizeWord(items.length, "open item");
+    renderActionInboxPreview(
+      actionInboxState.items.find((item) => item.id === actionInboxState.selectedId)
+    );
+  }
+
+  function applyActionInboxLayout(layout, persist = true) {
+    actionInboxState.layout = layout === "below" ? "below" : "right";
+    byId("action-inbox-workspace").dataset.previewPosition = actionInboxState.layout;
+    document.querySelectorAll("[data-action-layout]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.actionLayout === actionInboxState.layout));
+    });
+    if (!persist) return;
+    try {
+      window.localStorage.setItem(ACTION_INBOX_LAYOUT_STORAGE_KEY, actionInboxState.layout);
+    } catch (_error) { /* keep the selected layout until reload */ }
+  }
+
+  function initializeActionInboxControls() {
+    document.querySelectorAll("[data-action-filter]").forEach((button) => {
+      button.addEventListener("click", () => {
+        actionInboxState.filter = button.dataset.actionFilter;
+        document.querySelectorAll("[data-action-filter]").forEach((candidate) => {
+          candidate.setAttribute("aria-pressed", String(candidate === button));
+        });
+        renderActionInboxRows();
+      });
+    });
+    byId("action-inbox-search").addEventListener("input", (event) => {
+      actionInboxState.search = event.target.value;
+      renderActionInboxRows();
+    });
+    document.querySelectorAll("[data-action-layout]").forEach((button) => {
+      button.addEventListener("click", () => applyActionInboxLayout(button.dataset.actionLayout));
+    });
+    let savedLayout = "right";
+    try {
+      savedLayout = window.localStorage.getItem(ACTION_INBOX_LAYOUT_STORAGE_KEY) || "right";
+    } catch (_error) { /* use the right-side default */ }
+    applyActionInboxLayout(savedLayout, false);
+    byId("action-items-grid").addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      const rows = [...byId("action-items-grid").querySelectorAll(".action-inbox-row")];
+      if (!rows.length) return;
+      const current = event.target.closest(".action-inbox-row");
+      let index = rows.indexOf(current);
+      if (event.key === "Home") index = 0;
+      else if (event.key === "End") index = rows.length - 1;
+      else if (event.key === "ArrowDown") index = Math.min(rows.length - 1, Math.max(0, index + 1));
+      else index = Math.max(0, index < 0 ? 0 : index - 1);
+      event.preventDefault();
+      selectActionInboxItem(rows[index].dataset.actionItemId, true);
+    });
   }
 
   function integrityFindingNeedsHuman(finding) {
@@ -2909,6 +3045,8 @@
       href: /^https?:\/\//.test(String(finding.source_url || ""))
         ? finding.source_url : "#integrity",
       owner: problemOwnerLabel(finding),
+      status: text(finding.status, "Open"),
+      tone: finding.severity || "warning",
       question: finding.human_question || message,
       recommendation: finding.recommendation || "Review the complete finding in Integrity and record the disposition at its canonical owner.",
       whyNow: `${text(finding.status, "Open")} ${finding.severity || "warning"} finding`,
@@ -3176,41 +3314,50 @@
       : repositoryElimActions.length
         ? `No confirmed human action is pending; ${repositoryElimActions.length} repository proposal${repositoryElimActions.length === 1 ? " awaits" : "s await"} Elim's recommendation.`
         : "No items currently await a human review or decision.";
-    byId("action-items-grid").replaceChildren(
-      actionItemCard({
+    const automationItem = (item, humanOwned) => ({
+      label: `${item.id || "Automation"}: ${item.stage || "run coordinator"} — ${item.summary || item.details || "Review the recorded failure."}`,
+      href: "#automation:administration",
+      owner: item.owners?.join(", ") || (humanOwned ? "Human recovery owner not recorded" : "No typed action owner"),
+      status: humanOwned ? "Human resolution required" : "Owned elsewhere",
+      tone: "error",
+      question: item.recovery || (humanOwned
+        ? "Confirm the root cause, repair the failed prerequisite, and record resolution evidence."
+        : "The accountable specialist must repair the prerequisite or assign the incident explicitly."),
+      recommendation: humanOwned
+        ? "Open the Automation incident and resolve the grouped root cause once, preserving every occurrence."
+        : "Review the grouped incident and preserve every occurrence while correcting its typed ownership or recovery state.",
+      whyNow: `${pluralizeWord(item.occurrences || 1, "occurrence")} · latest ${item.lastSeen ? formatDate(item.lastSeen) : "time unavailable"}`,
+      consequence: humanOwned
+        ? "The affected run-chain work remains blocked or untrustworthy until repair and validation are recorded."
+        : "The failure remains active but is not counted as a project-manager action until Human ownership is explicit.",
+      due: item.firstSeen ? `Open since ${formatDate(item.firstSeen)}` : "First detection unavailable"
+    });
+    const groups = [
+      {
+        scope: "mine",
         label: "Integrity decisions requiring you",
-        count: integrityHuman,
-        detail: integrityHuman
-          ? `${integrityHuman} Integrity finding${integrityHuman === 1 ? " requires" : "s require"} a reserved human decision or approval.`
-          : "No Integrity finding currently requires a reserved human decision.",
         target: "integrity",
+        status: "Human decision required",
+        tone: "warning",
+        detail: "A reserved human decision or approval is required.",
         items: integrityHumanFindings.map(integrityActionLink)
-      }),
-      actionItemCard({
+      },
+      {
+        scope: "mine",
         label: "Automation failures requiring resolution",
-        count: automationHumanActions.length,
-        detail: automationHumanActions.length
-          ? "Unresolved host and run-chain failures remain here until an explicit human resolution record is entered."
-          : "No unresolved automation failure with a typed Human owner currently requires attention.",
         target: "automation:administration",
-        items: automationHumanActions.map((item) => ({
-          label: `${item.id || "Automation"}: ${item.stage || "run coordinator"} — ${item.summary || item.details || "Review the recorded failure."}`,
-          href: "#automation:administration",
-          owner: item.owners?.join(", ") || "Human recovery owner not recorded",
-          question: item.recovery || "Confirm the root cause, repair the failed prerequisite, and record resolution evidence.",
-          recommendation: "Open the Automation incident and resolve the grouped root cause once, preserving every occurrence.",
-          whyNow: `${pluralizeWord(item.occurrences || 1, "occurrence")} · latest ${item.lastSeen ? formatDate(item.lastSeen) : "time unavailable"}`,
-          consequence: "The affected run-chain work remains blocked or untrustworthy until repair and validation are recorded.",
-          due: item.firstSeen ? `Open since ${formatDate(item.firstSeen)}` : "First detection unavailable"
-        }))
-      }),
-      actionItemCard({
+        status: "Human resolution required",
+        tone: "error",
+        detail: "An unresolved host or run-chain failure requires explicit human resolution.",
+        items: automationHumanActions.map((item) => automationItem(item, true))
+      },
+      {
+        scope: "mine",
         label: "Human decisions",
-        count: decisions,
-        detail: decisions
-          ? "Current proposals or candidates whose recorded next action is a decision reserved to you."
-          : "No current proposal or candidate has Human decision needed as its workflow Status.",
         target: "progress:holds",
+        status: "Human decision needed",
+        tone: "warning",
+        detail: "A proposal or candidate is waiting for reserved human judgment.",
         items: decisionRecords.map((record) => ({
           label: `ACT-${record.identifier}: ${record.title}`,
           href: "#progress:holds",
@@ -3221,25 +3368,25 @@
           consequence: record.consequence || "The record cannot advance to its next workflow state without the reserved decision.",
           due: record.dueDate ? formatDate(record.dueDate) : record.nextAudit ? `Next audit ${formatDate(record.nextAudit)}` : "No due trigger recorded"
         }))
-      }),
-      actionItemCard({
+      },
+      {
+        scope: "mine",
         label: "Repository decisions assigned to you",
-        count: repositoryHumanActions.length,
-        detail: repositoryHumanActions.length
-          ? "Exact-head recommendations whose recorded action owner is Human."
-          : pullRequestsKnown
-            ? "No exact-head repository recommendation is assigned to you."
-            : "Live pull-request state is unavailable; checked-in recommendations are not counted as current without exact-head verification.",
         target: "automation:administration",
-        openLabel: "Open specialist administration →",
+        openLabel: "Open specialist administration",
+        status: "Exact-head decision",
+        tone: "warning",
+        detail: "A current repository recommendation assigns the decision to you.",
         items: repositoryHumanActions
-      }),
-      actionItemCard({
+      },
+      {
+        scope: "mine",
         label: "Preliminary candidates",
-        count: preliminary,
-        updateCount: preliminary,
-        detail: preliminary ? "New synthesized institutional questions awaiting human intake review." : "No preliminary intake questions await review.",
         target: "candidates:preliminary",
+        status: "Intake review",
+        tone: "warning",
+        updated: true,
+        detail: "A synthesized institutional question awaits human intake review.",
         items: data.records.map((record) => ({
           label: `ACT-${record.id}: ${record.title}`,
           href: "#candidates:preliminary",
@@ -3250,12 +3397,14 @@
           consequence: "The question remains outside the formal portfolio and cannot enter issue development until disposition.",
           due: record.created_at ? `Created ${formatDate(record.created_at)}` : "Intake age unavailable"
         }))
-      }),
-      actionItemCard({
+      },
+      {
+        scope: "mine",
         label: "Pending source routing",
-        count: pending,
-        detail: pending ? "Sources still requiring a choice among plausible project destinations." : "No source-routing decisions are pending.",
         target: "sources:pending",
+        status: "Routing decision",
+        tone: "info",
+        detail: "A retained source still requires a choice among plausible project destinations.",
         items: data.pending_sources.map((record) => ({
           label: `ACT-${record.id}: ${record.title}`,
           href: "#sources:pending",
@@ -3266,49 +3415,42 @@
           consequence: "Evidence coverage and downstream monitoring remain incomplete until a destination is recorded.",
           due: record.date ? `Source dated ${formatDate(record.date)}` : "Routing age unavailable"
         }))
-      })
-    );
-    byId("action-oversight-grid").replaceChildren(
-      actionItemCard({
+      },
+      {
+        scope: "oversight",
         label: "Repository work owned by Elim",
-        count: repositoryElimActions.length,
-        detail: repositoryElimActions.length
-          ? `${repositoryElimActions.length} open proposal${repositoryElimActions.length === 1 ? " remains" : "s remain"} with Elim; each count and recommendation is bound to an exact pull-request head.`
-          : pullRequestsKnown
-            ? "No current exact-head repository recommendation remains with Elim."
-            : "Live pull-request heads are unavailable.",
         target: "automation:administration",
+        status: "Owned by Elim",
+        tone: "info",
+        detail: pullRequestsKnown
+          ? "An open repository proposal remains with Elim under an exact-head recommendation."
+          : "Live pull-request heads are unavailable.",
         items: repositoryElimActions
-      }),
-      actionItemCard({
+      },
+      {
+        scope: "oversight",
         label: "Automation incidents owned elsewhere",
-        count: automationOversightActions.length,
-        detail: automationOversightActions.length
-          ? "Active incident families without a typed Human action owner remain visible for oversight and owner correction."
-          : "No active automation incident is assigned outside the Human action queue.",
         target: "automation:administration",
-        items: automationOversightActions.map((item) => ({
-          label: `${item.id || "Automation"}: ${item.stage || "run coordinator"} — ${item.summary || "Review the recorded failure."}`,
-          href: "#automation:administration",
-          owner: item.owners?.join(", ") || "No typed action owner",
-          question: item.recovery || "The accountable specialist must repair the prerequisite or assign the incident explicitly.",
-          recommendation: "Review the grouped incident and preserve every occurrence while correcting its typed ownership or recovery state.",
-          whyNow: `${pluralizeWord(item.occurrences || 1, "occurrence")} · latest ${item.lastSeen ? formatDate(item.lastSeen) : "time unavailable"}`,
-          consequence: "The failure remains active but is not counted as a project-manager action until Human ownership is explicit.",
-          due: item.firstSeen ? `Open since ${formatDate(item.firstSeen)}` : "First detection unavailable"
-        }))
-      }),
-      actionItemCard({
+        status: "Owned elsewhere",
+        tone: "error",
+        detail: "An active incident family remains assigned outside the Human action queue.",
+        items: automationOversightActions.map((item) => automationItem(item, false))
+      },
+      {
+        scope: "oversight",
         label: "Integrity and readiness work owned elsewhere",
-        count: oversightProblems.length,
-        detail: oversightProblems.length
-          ? "Open observations and remediation obligations assigned to Elim, bots, or named project owners."
-          : "No non-human integrity or readiness obligation is currently projected.",
         target: "integrity",
+        status: "Owned elsewhere",
+        tone: "info",
+        detail: "An open observation or remediation obligation is assigned to Elim, a bot, or another named owner.",
         items: oversightProblems.map(integrityActionLink)
-      })
+      }
+    ];
+    actionInboxState.items = groups.flatMap((group) =>
+      group.items.map((item, index) => actionInboxItem(group, item, index))
     );
-    refreshLayoutZones();
+    byId("all-actions-count").textContent = actionInboxState.items.length;
+    renderActionInboxRows();
   }
 
   function parseCount(body, label) {
@@ -3393,8 +3535,8 @@
         reviewSignals.directives.reason = listIncomplete ? "GitHub returned more than one page, so absence cannot be established from this response." : "";
       }
       byId("action-items-live-note").textContent = listIncomplete
-        ? "GitHub returned a paginated pull-request inventory, so live repository state is incomplete and no human actions are counted. Action Items remains a nonauthoritative routing index."
-        : "Live pull-request heads were refreshed from GitHub and matched against checked-in exact-head recommendations. Action Items is a nonauthoritative routing index; specialist Console views and canonical records own disposition.";
+        ? "GitHub returned a paginated pull-request inventory, so live repository state is incomplete and no human actions are counted. The Action Inbox remains a nonauthoritative routing index."
+        : "Live pull-request heads were refreshed from GitHub and matched against checked-in exact-head recommendations. The Action Inbox is a nonauthoritative routing index; specialist Console views and canonical records own status and disposition.";
       renderReviewSignals();
     } catch (_error) {
       reviewSignals.pullRequestsStatus = reviewSignals.pullRequests.length ? "stale" : "unavailable";
@@ -8288,6 +8430,7 @@
     byId("tab-candidates-count").textContent = data.active_horizon_records.length + data.records.length;
     byId("manual-watch-count").textContent = data.monitoring_issues.length;
     initializeStaticControls();
+    initializeActionInboxControls();
     initializeWorkflowSummary();
     initializePersonalLayout();
     initializeTabs();

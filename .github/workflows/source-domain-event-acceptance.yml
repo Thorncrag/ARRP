@@ -72,7 +72,7 @@ jobs:
                 }
                 ;;
               bot/source-checker-report)
-                [ "${path}" = "framework/reports/SOURCE_CHECKER_REPORT.md" ] || {
+                [ "${path}" = "framework/records/status/source-checker-report.md" ] || {
                   printf 'Rejected source-checker path: %s\n' "${path}" >&2
                   exit 1
                 }
@@ -175,8 +175,8 @@ jobs:
         run: >-
           python "${RUNNER_TEMP}/trusted-source-domain-events.py" render
           --event "${RUNNER_TEMP}/accepted-source-domain-event.json"
-          --source-log framework/logs/SOURCE_MONITOR_LOG.md
-          --agent-log framework/logs/AGENT_AUDIT_LOG.md
+          --source-log framework/records/sources/source-monitor-log.md
+          --agent-log framework/records/automation/agent-audit-log.md
           --github-output "${GITHUB_OUTPUT}"
 
       - name: Verify or reserve the event-specific log branch
@@ -191,8 +191,8 @@ jobs:
               python "${RUNNER_TEMP}/trusted-source-domain-events.py" verify-log-branch \
                 --base-ref origin/main \
                 --branch-ref "origin/${LOG_BRANCH}" \
-                --source-log framework/logs/SOURCE_MONITOR_LOG.md \
-                --agent-log framework/logs/AGENT_AUDIT_LOG.md
+                --source-log framework/records/sources/source-monitor-log.md \
+                --agent-log framework/records/automation/agent-audit-log.md
             else
               publish_required=true
             fi
@@ -209,8 +209,8 @@ jobs:
           LOG_BRANCH: ${{ steps.log-branch.outputs.branch }}
         run: |
           gh auth setup-git
-          git add framework/logs/SOURCE_MONITOR_LOG.md framework/logs/AGENT_AUDIT_LOG.md
-          unexpected="$(git diff --cached --name-only | grep -Ev '^framework/logs/(SOURCE_MONITOR_LOG|AGENT_AUDIT_LOG)\.md$' || true)"
+          git add framework/records/sources/source-monitor-log.md framework/records/automation/agent-audit-log.md
+          unexpected="$(git diff --cached --name-only | grep -Ev '^framework/records/(sources/source-monitor-log|automation/agent-audit-log)\.md$' || true)"
           if [ -n "${unexpected}" ]; then
             printf 'Unexpected log-renderer changes:\n%s\n' "${unexpected}" >&2
             exit 1

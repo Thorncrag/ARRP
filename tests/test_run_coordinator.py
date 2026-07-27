@@ -40,7 +40,7 @@ class RunCoordinatorTests(unittest.TestCase):
                 "discovered_work_unit_id": "discovery-control-1",
                 "source_revision": "b" * 40,
                 "disposition": "no_material_finding",
-                "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+                "canonical_detail": "framework/records/automation/elim-run-log.md",
                 "next_trigger": "Repeat at the minimum cadence or when new work appears.",
             }
             if current
@@ -80,7 +80,7 @@ class RunCoordinatorTests(unittest.TestCase):
             "last_checked": "2026-07-24T08:00:00+00:00",
             "occurrence_count": 2,
             "age_days": 4,
-            "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+            "canonical_detail": "framework/records/automation/elim-run-log.md",
             "exact_next_action": "Retain the finding until its recorded trigger.",
             "next_trigger": "A governing rule authorizes the change.",
             "source_revision": "c" * 40,
@@ -102,8 +102,8 @@ class RunCoordinatorTests(unittest.TestCase):
                 "obligation_id": "GAP-001",
                 "obligation_status": "open",
                 "obligation_projection": projection,
-                "canonicalRecord": "framework/logs/ELIM_RUN_LOG.md",
-                "canonical_record": "framework/logs/ELIM_RUN_LOG.md",
+                "canonicalRecord": "framework/records/automation/elim-run-log.md",
+                "canonical_record": "framework/records/automation/elim-run-log.md",
             },
         }
 
@@ -810,7 +810,7 @@ class RunCoordinatorTests(unittest.TestCase):
                     "sha256": "a" * 64,
                 },
                 "checkpoint": {
-                    "path": "framework/logs/CURRENT_AUDIT.md",
+                    "path": "framework/records/handoffs/current-task.md",
                     "hash_policy": "runtime",
                     "governing": False,
                 },
@@ -818,7 +818,7 @@ class RunCoordinatorTests(unittest.TestCase):
         }
         current = {
             "framework/FRAMEWORK.md": "sha256:" + "a" * 64,
-            "framework/context-routes.json": "sha256:" + "b" * 64,
+            "framework/project/automation/context-routes.json": "sha256:" + "b" * 64,
         }
         status = MODULE.review_epoch_boundary_status(
             {"governing_hashes": current},
@@ -841,12 +841,12 @@ class RunCoordinatorTests(unittest.TestCase):
         self.assertEqual(changed["mismatched"], ["framework/FRAMEWORK.md"])
         self.assertEqual(
             changed["missing"],
-            ["framework/context-routes.json"],
+            ["framework/project/automation/context-routes.json"],
         )
 
         self_registered = json.loads(json.dumps(registry))
         self_registered["documents"]["manifest"] = {
-            "path": "framework/context-routes.json",
+            "path": "framework/project/automation/context-routes.json",
             "hash_policy": "pinned",
             "governing": True,
             "sha256": "b" * 64,
@@ -1693,7 +1693,7 @@ class RunCoordinatorTests(unittest.TestCase):
         self.assertEqual(projected["authority_disposition"], "forbidden")
         self.assertEqual(
             projected["canonical_detail"],
-            "framework/logs/ELIM_RUN_LOG.md",
+            "framework/records/automation/elim-run-log.md",
         )
         self.assertNotIn("evidence", projected)
         self.assertNotIn("reasoning", projected)

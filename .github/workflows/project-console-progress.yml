@@ -51,7 +51,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: >-
           python3 scripts/build_project_console_progress.py
-          --config .github/project-console-progress.json
+          --config framework/project/interfaces/project-console-progress.json
           --registry inventory/github_issue_registry.csv
           --output "${RUNNER_TEMP}/arrp-project-console-progress"
 

@@ -63,7 +63,7 @@ class RunChainDispatcherTests(unittest.TestCase):
             "Blockers/questions": "None." if inactive else blocker,
             "Validation status": "Not applicable." if inactive else "In progress.",
         }
-        path = repo / "framework/logs/CURRENT_AUDIT.md"
+        path = repo / "framework/records/handoffs/current-task.md"
         path.parent.mkdir(parents=True, exist_ok=True)
         rows = "\n".join(f"| {name} | {value} |" for name, value in values.items())
         path.write_text(
@@ -96,7 +96,7 @@ class RunChainDispatcherTests(unittest.TestCase):
             },
             "issue_id": "TEST-001",
             "canonical_record": "areas/TEST/issues/TEST-001.md",
-            "files_touched": ["framework/logs/ELIM_RUN_LOG.md"],
+            "files_touched": ["framework/records/automation/elim-run-log.md"],
             "source_ids": [],
             "validation": [],
             "commit": "a" * 40,
@@ -144,9 +144,9 @@ class RunChainDispatcherTests(unittest.TestCase):
         material: bool = False,
         outcome: str = "Completed",
     ) -> None:
-        logs = repo / "framework/logs"
+        logs = repo / "framework/records/automation"
         logs.mkdir(parents=True, exist_ok=True)
-        (logs / "ELIM_RUN_LOG.md").write_text(
+        (logs / "elim-run-log.md").write_text(
             "# Elim Run Log\n\n"
             "## Runs\n\n"
             f"### 2026-07-24 — {run_id} — Completed\n\n"
@@ -161,7 +161,7 @@ class RunChainDispatcherTests(unittest.TestCase):
             "| Work summary | Completed the selected bounded unit. |\n"
             "| Discovery and gap obligations | None. |\n"
             + (
-                "| Material units | [Shared entry](AGENT_AUDIT_LOG.md#entry) |\n"
+                "| Material units | [Shared entry](agent-audit-log.md#entry) |\n"
                 if material
                 else "| Material units | None. |\n"
             )
@@ -174,7 +174,7 @@ class RunChainDispatcherTests(unittest.TestCase):
             encoding="utf-8",
         )
         if material:
-            (logs / "AGENT_AUDIT_LOG.md").write_text(
+            (logs / "agent-audit-log.md").write_text(
                 "# Agent Audit Log\n\n"
                 "## Entries\n\n"
                 "### 2026-07-24 — Entry\n\n"
@@ -762,7 +762,9 @@ class RunChainDispatcherTests(unittest.TestCase):
             (
                 ROOT
                 / "framework"
-                / "agents"
+                / "project"
+                / "automation"
+                / "schemas"
                 / "elim-work-unit-result.schema.json"
             ).read_text()
         )
@@ -1723,7 +1725,7 @@ class RunChainDispatcherTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
             self.write_current_audit(repo, state="Inactive")
-            path = repo / "framework/logs/CURRENT_AUDIT.md"
+            path = repo / "framework/records/handoffs/current-task.md"
             path.write_text(
                 path.read_text(encoding="utf-8").replace(
                     "| Completed steps | None. |",
@@ -1873,7 +1875,7 @@ class RunChainDispatcherTests(unittest.TestCase):
             )
             with self.assertRaisesRegex(MODULE.ContextError, "invalid Handoff state"):
                 MODULE.read_current_audit(
-                    repo / "framework/logs/CURRENT_AUDIT.md",
+                    repo / "framework/records/handoffs/current-task.md",
                     repo,
                 )
 
@@ -2561,7 +2563,7 @@ class RunChainDispatcherTests(unittest.TestCase):
         MODULE.verify_elim_result_binding(manifest, result)
 
     def test_source_domain_proposal_binding_requires_exact_head_review(self):
-        canonical = "framework/logs/SOURCE_MONITOR_LOG.md"
+        canonical = "framework/records/sources/source-monitor-log.md"
         manifest = {
             "chain_id": "chain-1",
             "work_queue": {
@@ -2640,8 +2642,8 @@ class RunChainDispatcherTests(unittest.TestCase):
             result = self.elim_result()
             result["files_touched"] = [
                 "areas/TEST/issues/TEST-001.md",
-                "framework/logs/AGENT_AUDIT_LOG.md",
-                "framework/logs/ELIM_RUN_LOG.md",
+                "framework/records/automation/agent-audit-log.md",
+                "framework/records/automation/elim-run-log.md",
             ]
             result["synchronization"] = ["Merged pull request to origin/main."]
             def completed(argv, **_kwargs):
@@ -2651,8 +2653,8 @@ class RunChainDispatcherTests(unittest.TestCase):
                         0,
                         stdout=(
                             "areas/TEST/issues/TEST-001.md\n"
-                            "framework/logs/AGENT_AUDIT_LOG.md\n"
-                            "framework/logs/ELIM_RUN_LOG.md\n"
+                            "framework/records/automation/agent-audit-log.md\n"
+                            "framework/records/automation/elim-run-log.md\n"
                         ),
                         stderr="",
                     )
@@ -2769,8 +2771,8 @@ class RunChainDispatcherTests(unittest.TestCase):
                     "outcome": "human_review",
                     "files_touched": [
                         "areas/TEST/issues/TEST-001.md",
-                        "framework/logs/AGENT_AUDIT_LOG.md",
-                        "framework/logs/ELIM_RUN_LOG.md",
+                        "framework/records/automation/agent-audit-log.md",
+                        "framework/records/automation/elim-run-log.md",
                     ],
                     "commit": commit,
                     "synchronization": [
@@ -2833,8 +2835,8 @@ class RunChainDispatcherTests(unittest.TestCase):
                         0,
                         stdout=(
                             "areas/TEST/issues/TEST-001.md\n"
-                            "framework/logs/AGENT_AUDIT_LOG.md\n"
-                            "framework/logs/ELIM_RUN_LOG.md\n"
+                            "framework/records/automation/agent-audit-log.md\n"
+                            "framework/records/automation/elim-run-log.md\n"
                         ),
                         stderr="",
                     )
@@ -2864,8 +2866,8 @@ class RunChainDispatcherTests(unittest.TestCase):
                     "commit": "b" * 40,
                     "files_touched": [
                         "areas/TEST/issues/TEST-001.md",
-                        "framework/logs/AGENT_AUDIT_LOG.md",
-                        "framework/logs/ELIM_RUN_LOG.md",
+                        "framework/records/automation/agent-audit-log.md",
+                        "framework/records/automation/elim-run-log.md",
                     ],
                     "synchronization": ["Merged and read back origin/main."],
                 }
@@ -4187,7 +4189,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                     "evidence": ["The canonical route omits a required owner."],
                     "reasoning": "The omission prevents deterministic routing.",
                     "uncertainty": "The owner remains uncertain.",
-                    "affected_records": ["framework/context-routes.json"],
+                    "affected_records": ["framework/project/automation/context-routes.json"],
                     "consequence": "The gap can persist without a selected queue unit.",
                     "authority": {
                         "classification": "delegated_judgment",
@@ -4195,7 +4197,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                         "disposition": "uncertain",
                     },
                     "action_rationale": "Retain and recheck; do not guess the owner.",
-                    "changed_files": ["framework/logs/ELIM_RUN_LOG.md"],
+                    "changed_files": ["framework/records/automation/elim-run-log.md"],
                     "affected_surfaces": ["repository", "automation", "console"],
                     "validation_readback": [
                         {
@@ -4205,8 +4207,8 @@ class RunChainDispatcherTests(unittest.TestCase):
                         }
                     ],
                     "disposition": "retained",
-                    "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
-                    "provenance": ["framework/logs/ELIM_RUN_LOG.md#gap-1"],
+                    "canonical_detail": "framework/records/automation/elim-run-log.md",
+                    "provenance": ["framework/records/automation/elim-run-log.md#gap-1"],
                     "owner": "Elim",
                     "next_action": "Recheck ownership at the next revision.",
                     "next_trigger": "Context routes or ownership rules change.",
@@ -4391,12 +4393,14 @@ class RunChainDispatcherTests(unittest.TestCase):
             git(remote, "init", "--bare")
             repo.mkdir()
             git(repo, "init", "-b", "main")
-            (repo / "framework/logs").mkdir(parents=True)
-            (repo / "framework/logs/ELIM_RUN_LOG.md").write_text(
+            (
+                repo / "framework" / "records" / "automation"
+            ).mkdir(parents=True)
+            (repo / "framework/records/automation/elim-run-log.md").write_text(
                 "# Elim Run Log\n\n## Runs\n",
                 encoding="utf-8",
             )
-            git(repo, "add", "framework/logs/ELIM_RUN_LOG.md")
+            git(repo, "add", "framework/records/automation/elim-run-log.md")
             git(
                 repo,
                 "-c",
@@ -4420,7 +4424,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                 run_id=chain_id,
                 outcome="Failed before substantive work",
             )
-            git(repo, "add", "framework/logs/ELIM_RUN_LOG.md")
+            git(repo, "add", "framework/records/automation/elim-run-log.md")
             git(
                 repo,
                 "-c",
@@ -4432,7 +4436,9 @@ class RunChainDispatcherTests(unittest.TestCase):
                 "account failed run",
             )
             git(repo, "push", "origin", "main")
-            (checkout / "framework/logs/CURRENT_AUDIT.md").write_text(
+            checkpoint = checkout / "framework/records/handoffs/current-task.md"
+            checkpoint.parent.mkdir(parents=True, exist_ok=True)
+            checkpoint.write_text(
                 "Preserved interrupted checkpoint.\n",
                 encoding="utf-8",
             )
@@ -4502,7 +4508,7 @@ class RunChainDispatcherTests(unittest.TestCase):
             )
             self.assertEqual(
                 record["changed_paths"],
-                ["framework/logs/CURRENT_AUDIT.md"],
+                ["framework/records/handoffs/current-task.md"],
             )
             self.assertEqual(
                 control["checkout_archive_history"][0]["chain_id"],
@@ -4943,7 +4949,7 @@ class RunChainDispatcherTests(unittest.TestCase):
         second_parent = "c" * 40
         result = self.elim_result()
         result["run_id"] = "chain-1"
-        result["files_touched"] = ["framework/logs/ELIM_RUN_LOG.md"]
+        result["files_touched"] = ["framework/records/automation/elim-run-log.md"]
         branch = MODULE.host_closeout_branch(result["run_id"])
         expected_identity = "\0".join(
             [
@@ -4995,7 +5001,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                     return MODULE.subprocess.CompletedProcess(
                         argv,
                         0,
-                        stdout="framework/logs/ELIM_RUN_LOG.md\0",
+                        stdout="framework/records/automation/elim-run-log.md\0",
                         stderr="",
                     )
                 if argv[1:3] == ["diff", "--check"]:
@@ -5003,7 +5009,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                         argv,
                         1 if fault == "hygiene" else 0,
                         stdout=(
-                            "framework/logs/ELIM_RUN_LOG.md: trailing whitespace\n"
+                            "framework/records/automation/elim-run-log.md: trailing whitespace\n"
                             if fault == "hygiene"
                             else ""
                         ),
@@ -5224,12 +5230,13 @@ class RunChainDispatcherTests(unittest.TestCase):
             git(repo, "init", "-b", "main")
             (repo / ".gitignore").write_text(".tmp/\n", encoding="utf-8")
             self.write_current_audit(repo, state="Inactive")
-            logs = repo / "framework/logs"
-            (logs / "ELIM_RUN_LOG.md").write_text(
+            logs = repo / "framework/records/automation"
+            logs.mkdir(parents=True, exist_ok=True)
+            (logs / "elim-run-log.md").write_text(
                 "# Elim Run Log\n\n## Runs\n",
                 encoding="utf-8",
             )
-            git(repo, "add", ".gitignore", "framework/logs/CURRENT_AUDIT.md", "framework/logs/ELIM_RUN_LOG.md")
+            git(repo, "add", ".gitignore", "framework/records/handoffs/current-task.md", "framework/records/automation/elim-run-log.md")
             git(
                 repo,
                 "-c",
@@ -5263,8 +5270,8 @@ class RunChainDispatcherTests(unittest.TestCase):
             result["commit"] = None
             result["synchronization"] = []
             result["files_touched"] = [
-                "framework/logs/CURRENT_AUDIT.md",
-                "framework/logs/ELIM_RUN_LOG.md",
+                "framework/records/handoffs/current-task.md",
+                "framework/records/automation/elim-run-log.md",
             ]
             result_path = repo / ".tmp/result.json"
             result_path.parent.mkdir(parents=True)
@@ -5352,8 +5359,8 @@ class RunChainDispatcherTests(unittest.TestCase):
         result["commit"] = None
         result["synchronization"] = []
         result["files_touched"] = [
-            "framework/logs/CURRENT_AUDIT.md",
-            "framework/logs/ELIM_RUN_LOG.md",
+            "framework/records/handoffs/current-task.md",
+            "framework/records/automation/elim-run-log.md",
         ]
         with (
             tempfile.TemporaryDirectory() as directory,

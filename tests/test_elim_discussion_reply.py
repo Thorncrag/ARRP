@@ -82,8 +82,17 @@ class ElimDiscussionReplyValidationTest(unittest.TestCase):
             validate_reply(payload)
 
     def test_governing_records_share_the_same_limited_authority(self) -> None:
-        intake = (ROOT / "framework" / "INTAKE_AGENT_PROCESS.md").read_text()
-        elim = (ROOT / "framework" / "agents" / "ELIM.md").read_text()
+        intake = (
+            ROOT / "framework" / "project" / "workflows" / "public-input-review.md"
+        ).read_text()
+        elim = (
+            ROOT
+            / "framework"
+            / "project"
+            / "automation"
+            / "runbooks"
+            / "elim.md"
+        ).read_text()
         participation = (ROOT / "participate" / "README.md").read_text()
         security = (ROOT / "participate" / "SECURITY.md").read_text()
 

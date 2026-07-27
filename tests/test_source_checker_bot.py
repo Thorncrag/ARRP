@@ -322,7 +322,9 @@ class SourceCheckerTests(unittest.TestCase):
         self.assertEqual(
             config["offlineCachePath"], ".tmp/project-console-source-checker.json"
         )
-        self.assertNotIn("framework/reports/source-checker.json", config.values())
+        self.assertNotIn(
+            "framework/records/status/source-checker.json", config.values()
+        )
 
 
 if __name__ == "__main__":

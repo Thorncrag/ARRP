@@ -57,7 +57,7 @@ def main() -> int:
         gap_obligations = args.gap_obligations
         if gap_obligations is None:
             run_log = contained_path(
-                args.input_root / "framework/logs/ELIM_RUN_LOG.md",
+                args.input_root / "framework/records/automation/elim-run-log.md",
                 args.input_root,
             )
             if not run_log.is_file():

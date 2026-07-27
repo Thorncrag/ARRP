@@ -4,7 +4,7 @@
 The watcher compares the Just Security Trump-administration litigation tracker with
 case-specific baselines stored on monitored CourtListener rows in the source
 catalogs. When an observable source changes, ``--apply`` updates those catalog fields
-and appends a material event to ``framework/logs/SOURCE_MONITOR_LOG.md``. Configured
+and appends a material event to ``framework/records/sources/source-monitor-log.md``. Configured
 source-development modules may also project high-recall, machine-observed leads into
 an existing candidate or issue source-development record. GitHub Actions, rather
 than this script, commits the changes and creates or updates a narrow review PR.
@@ -39,7 +39,9 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / ".github" / "case-monitor-bot.json"
 DEFAULT_SOURCES = ROOT / "inventory" / "sources.csv"
 DEFAULT_PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
-DEFAULT_LOG = ROOT / "framework" / "logs" / "SOURCE_MONITOR_LOG.md"
+DEFAULT_LOG = (
+    ROOT / "framework" / "records" / "sources" / "source-monitor-log.md"
+)
 USER_AGENT = "ARRP case-monitor-bot/0.3"
 STATE_PREFIX = "arrp-case-monitor:v1:"
 MODULE_MARKER_PREFIX = "case-monitor-bot:source-development"

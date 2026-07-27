@@ -88,6 +88,30 @@ def lifecycle_findings(
 
 
 class GitHubIssueLinkTests(unittest.TestCase):
+    def test_ignored_private_console_projection_is_an_optional_html_asset(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            console = root / "research" / "horizon-review-console"
+            console.mkdir(parents=True)
+            page = console / "index.html"
+            page.write_text(
+                '<script src="data/private-github-security.js?v=1"></script>\n',
+                encoding="utf-8",
+            )
+            failures: list[str] = []
+            warnings: list[str] = []
+            with (
+                patch.object(consistency, "ROOT", root),
+                patch.object(
+                    consistency,
+                    "active_project_files",
+                    return_value=[page],
+                ),
+            ):
+                consistency.check_html_links(failures, warnings)
+            self.assertEqual(failures, [])
+            self.assertEqual(warnings, [])
+
     def context_registry_fixture(self, root: Path) -> dict[str, object]:
         framework = root / "framework"
         framework.mkdir(parents=True)
@@ -107,8 +131,9 @@ class GitHubIssueLinkTests(unittest.TestCase):
             encoding="utf-8",
         )
         (framework / "EXTRA.md").write_text("# Extra authority\n", encoding="utf-8")
-        (framework / "logs").mkdir()
-        (framework / "logs/CURRENT_AUDIT.md").write_text(
+        handoffs = framework / "records" / "handoffs"
+        handoffs.mkdir(parents=True)
+        (handoffs / "current-task.md").write_text(
             "# Current audit\n",
             encoding="utf-8",
         )
@@ -139,7 +164,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                     "governing": True,
                 },
                 "current_audit": {
-                    "path": "framework/logs/CURRENT_AUDIT.md",
+                    "path": "framework/records/handoffs/current-task.md",
                     "hash_policy": "runtime",
                     "governing": False,
                 },
@@ -168,7 +193,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 patch.object(
                     consistency,
                     "CONTEXT_MANIFEST",
-                    root / "framework/context-routes.json",
+                    root / "framework/project/automation/context-routes.json",
                 ),
                 patch.object(
                     consistency,
@@ -192,7 +217,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 "documents": {
                     **baseline["documents"],
                     "current_audit": {
-                        "path": "framework/logs/CURRENT_AUDIT.md",
+                        "path": "framework/records/handoffs/current-task.md",
                         "hash_policy": "pinned",
                         "governing": True,
                     },
@@ -201,7 +226,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             variants.append(
                 (
                     wrong_current,
-                    "CURRENT_AUDIT must be the required runtime-hashed",
+                    "current-task handoff must be the required runtime-hashed",
                 )
             )
 
@@ -229,7 +254,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                         patch.object(
                             consistency,
                             "CONTEXT_MANIFEST",
-                            root / "framework/context-routes.json",
+                            root / "framework/project/automation/context-routes.json",
                         ),
                         patch.object(
                             consistency,
@@ -264,7 +289,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 patch.object(
                     consistency,
                     "CONTEXT_MANIFEST",
-                    root / "framework/context-routes.json",
+                    root / "framework/project/automation/context-routes.json",
                 ),
                 patch.object(
                     consistency,
@@ -309,7 +334,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 patch.object(
                     consistency,
                     "CONTEXT_MANIFEST",
-                    root / "framework/context-routes.json",
+                    root / "framework/project/automation/context-routes.json",
                 ),
                 patch.object(
                     consistency,
@@ -332,7 +357,8 @@ class GitHubIssueLinkTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             manifest = self.context_registry_fixture(root)
-            module = root / "framework/PROJECT_INTERFACE.md"
+            module = root / "framework/project/interfaces/project-console.md"
+            module.parent.mkdir(parents=True)
             module.write_text(
                 "---\n"
                 "module_id: project_interface\n"
@@ -343,7 +369,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 encoding="utf-8",
             )
             manifest["documents"]["project_interface"] = {
-                "path": "framework/PROJECT_INTERFACE.md",
+                "path": "framework/project/interfaces/project-console.md",
                 "hash_policy": "pinned",
                 "governing": True,
                 "requires": ["framework_kernel"],
@@ -355,7 +381,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 patch.object(
                     consistency,
                     "CONTEXT_MANIFEST",
-                    root / "framework/context-routes.json",
+                    root / "framework/project/automation/context-routes.json",
                 ),
                 patch.object(
                     consistency,
@@ -368,7 +394,8 @@ class GitHubIssueLinkTests(unittest.TestCase):
             self.assertTrue(
                 any(
                     "project_interface front-matter dependencies differ" in failure
-                    and "framework/AGENT_OPERATING_RULES.md" in failure
+                    and "framework/project/interfaces/AGENT_OPERATING_RULES.md"
+                    in failure
                     and "framework/FRAMEWORK.md" in failure
                     for failure in failures
                 ),
@@ -384,8 +411,8 @@ class GitHubIssueLinkTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             manifest = self.context_registry_fixture(root)
-            module = root / "framework/methodology/test-rule.md"
-            module.parent.mkdir()
+            module = root / "framework/standards/content/test-rule.md"
+            module.parent.mkdir(parents=True)
             module.write_text(
                 "---\n"
                 'title: "Test Rule"\n'
@@ -395,7 +422,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 encoding="utf-8",
             )
             manifest["documents"]["test_rule"] = {
-                "path": "framework/methodology/test-rule.md",
+                "path": "framework/standards/content/test-rule.md",
                 "hash_policy": "pinned",
                 "governing": True,
                 "requires": ["framework_kernel"],
@@ -407,7 +434,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 patch.object(
                     consistency,
                     "CONTEXT_MANIFEST",
-                    root / "framework/context-routes.json",
+                    root / "framework/project/automation/context-routes.json",
                 ),
                 patch.object(
                     consistency,
@@ -419,8 +446,66 @@ class GitHubIssueLinkTests(unittest.TestCase):
             self.assertTrue(
                 any(
                     "test_rule front-matter dependencies differ" in failure
-                    and "framework/AGENT_OPERATING_RULES.md" in failure
+                    and "framework/standards/AGENT_OPERATING_RULES.md" in failure
                     and "framework/FRAMEWORK.md" in failure
+                    for failure in failures
+                ),
+                failures,
+            )
+            self.assertEqual(warnings, [])
+
+    def test_context_registry_rejects_standard_dependency_on_project_layer(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = self.context_registry_fixture(root)
+            project_module = root / "framework/project/profile/exact-values.md"
+            project_module.parent.mkdir(parents=True)
+            project_module.write_text("# Exact Values\n", encoding="utf-8")
+            standard = root / "framework/standards/content/reusable-rule.md"
+            standard.parent.mkdir(parents=True)
+            standard.write_text(
+                "---\n"
+                "dependencies:\n"
+                '  - "../../project/profile/exact-values.md"\n'
+                "---\n\n"
+                "# Reusable Rule\n",
+                encoding="utf-8",
+            )
+            manifest["documents"]["project_exact"] = {
+                "path": "framework/project/profile/exact-values.md",
+                "hash_policy": "pinned",
+                "governing": True,
+            }
+            manifest["documents"]["reusable_rule"] = {
+                "path": "framework/standards/content/reusable-rule.md",
+                "hash_policy": "pinned",
+                "governing": True,
+                "requires": ["project_exact"],
+            }
+            failures: list[str] = []
+            warnings: list[str] = []
+            with (
+                patch.object(consistency, "ROOT", root),
+                patch.object(
+                    consistency,
+                    "CONTEXT_MANIFEST",
+                    root / "framework/project/automation/context-routes.json",
+                ),
+                patch.object(
+                    consistency,
+                    "load_route_manifest",
+                    return_value=manifest,
+                ),
+            ):
+                check_context_registry(failures, warnings)
+
+            self.assertTrue(
+                any(
+                    "reusable standard "
+                    "framework/standards/content/reusable-rule.md depends on "
+                    "project-specific or historical module "
+                    "framework/project/profile/exact-values.md"
+                    in failure
                     for failure in failures
                 ),
                 failures,
@@ -447,7 +532,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 self.assertEqual(warnings, [])
 
     def test_current_audit_handoff_state_is_coherent(self):
-        current_audit = (ROOT / "framework/logs/CURRENT_AUDIT.md").read_text(
+        current_audit = (ROOT / "framework/records/handoffs/current-task.md").read_text(
             encoding="utf-8"
         )
         current_table = current_audit.split("## Current Task", 1)[1].split(
@@ -500,17 +585,25 @@ class GitHubIssueLinkTests(unittest.TestCase):
         )
 
     def test_current_audit_rules_separate_handoff_from_runtime_liveness(self):
-        current_audit = (ROOT / "framework/logs/CURRENT_AUDIT.md").read_text(
+        current_audit = (ROOT / "framework/records/handoffs/current-task.md").read_text(
             encoding="utf-8"
         )
         agent_rules = (ROOT / "framework/AGENT_OPERATING_RULES.md").read_text(
             encoding="utf-8"
         )
         handoff_rules = (
-            ROOT / "framework/agent-rules/handoff.md"
+            ROOT / "framework/standards/automation/task-handoffs.md"
         ).read_text(encoding="utf-8")
-        elim = (ROOT / "framework/agents/ELIM.md").read_text(encoding="utf-8")
-        coordinator = (ROOT / "framework/agents/RUN_COORDINATOR_BOT.md").read_text(
+        agent_policy = (
+            ROOT / "framework/project/automation/agent-policy.md"
+        ).read_text(encoding="utf-8")
+        project_autonomous = (
+            ROOT / "framework/project/automation/autonomous-execution.md"
+        ).read_text(encoding="utf-8")
+        normalized_handoff = " ".join(handoff_rules.split())
+        normalized_policy = " ".join(agent_policy.split())
+        elim = (ROOT / "framework/project/automation/runbooks/elim.md").read_text(encoding="utf-8")
+        coordinator = (ROOT / "framework/project/automation/runbooks/run-coordinator-bot.md").read_text(
             encoding="utf-8"
         )
 
@@ -524,16 +617,25 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertIn("This file is not a completion ledger.", current_audit)
         self.assertIn("## Context Handoff", agent_rules)
         self.assertIn(
-            "[`handoff.md`](agent-rules/handoff.md#context-handoff)",
+            "[`task-handoffs.md`](standards/automation/task-handoffs.md#context-handoff)",
             agent_rules,
         )
-        self.assertIn("Successful task closeout requires", handoff_rules)
-        self.assertIn("none establishes runtime liveness", handoff_rules)
+        self.assertIn("Successful closeout requires", normalized_handoff)
         self.assertIn(
-            "A required commit, push, review or merge, synchronization, publication, "
-            "validation, or human-reserved decision that remains part of the same task "
-            "means the task is not complete",
-            handoff_rules,
+            "A continuation state never establishes runtime liveness",
+            normalized_handoff,
+        )
+        self.assertIn(
+            "If a required commit, push, review or merge, synchronization, "
+            "publication, validation, or human-reserved decision remains part "
+            "of the same task, retain `Paused` or `Blocked`",
+            normalized_policy,
+        )
+        self.assertIn("#### Dispatcher liveness authority", project_autonomous)
+        self.assertIn(
+            "one operating-system-held local dispatcher lease separately "
+            "serializes host dispatch and Elim execution",
+            project_autonomous,
         )
         self.assertIn("continuation state, not proof", elim)
         self.assertIn("identifies unfinished continuation state only", coordinator)
@@ -555,7 +657,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             "trigger": "run-chain-or-manual",
             "schedule": "Due every 168 hours in the Run Coordinator chain; no independent schedule",
             "status": "report-only-pilot",
-            "current_report": "framework/reports/SOURCE_CHECKER_REPORT.md",
+            "current_report": "framework/records/status/source-checker-report.md",
             "current_data": "project-console-data:source-checker.json",
             "offline_cache_path": ".tmp/project-console-source-checker.json",
         }
@@ -567,7 +669,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 "coordinator": ".github/workflows/run-coordinator-bot.yml",
                 "dueEveryHours": 168,
             },
-            "currentReport": "framework/reports/SOURCE_CHECKER_REPORT.md",
+            "currentReport": "framework/records/status/source-checker-report.md",
             "currentData": "project-console-data:source-checker.json",
             "offlineCachePath": ".tmp/project-console-source-checker.json",
         }
@@ -595,7 +697,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
         drifted_values = {
             **values,
             "execution_environment": "local-shell",
-            "current_data": "framework/reports/source-checker.json",
+            "current_data": "framework/records/status/source-checker.json",
             "offline_cache_path": ".tmp/wrong.json",
         }
         drifted_config = {
@@ -1413,24 +1515,24 @@ class GitHubIssueLinkTests(unittest.TestCase):
     def test_extracts_main_branch_blob_target(self):
         body = (
             "[Horizon log](https://github.com/Thorncrag/ARRP/blob/main/"
-            "framework/logs/HORIZON_SCAN_LOG.md#horizon-integration-log)"
+            "framework/records/candidates/horizon-scan-log.md#horizon-integration-log)"
         )
 
         targets = github_repository_targets(body)
 
         self.assertEqual(len(targets), 1)
-        self.assertEqual(targets[0][1], "framework/logs/HORIZON_SCAN_LOG.md")
+        self.assertEqual(targets[0][1], "framework/records/candidates/horizon-scan-log.md")
 
     def test_extracts_repository_target_from_json_escaped_html(self):
         body = (
             '{"html":"<a href=\\"https://github.com/Thorncrag/ARRP/blob/main/'
-            'framework/logs/HORIZON_SCAN_LOG.md\\" target=\\"_blank\\">log</a>"}'
+            'framework/records/candidates/horizon-scan-log.md\\" target=\\"_blank\\">log</a>"}'
         )
 
         targets = github_repository_targets(body)
 
         self.assertEqual(len(targets), 1)
-        self.assertEqual(targets[0][1], "framework/logs/HORIZON_SCAN_LOG.md")
+        self.assertEqual(targets[0][1], "framework/records/candidates/horizon-scan-log.md")
 
     def test_ignores_non_main_branch_target(self):
         body = "https://github.com/Thorncrag/ARRP/blob/project-console-data/progress.json"
@@ -1441,7 +1543,17 @@ class GitHubIssueLinkTests(unittest.TestCase):
         relative_paths = {path.relative_to(ROOT).as_posix() for path in active_project_files(".md")}
 
         self.assertIn("research/README.md", relative_paths)
-        self.assertTrue(any(path.startswith("framework/templates/") for path in relative_paths))
+        self.assertTrue(
+            any(
+                path.startswith(
+                    (
+                        "framework/standards/content/templates/",
+                        "framework/standards/sources/templates/",
+                    )
+                )
+                for path in relative_paths
+            )
+        )
         self.assertFalse(any(path.startswith("archive/") for path in relative_paths))
 
     def test_research_scope_includes_central_and_area_records(self):

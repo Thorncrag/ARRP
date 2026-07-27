@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build a first-pass compiled ARRP public-proposal PDF.
 
-The generator follows the first-pass structure in framework/PRINT_ASSEMBLY.md
+The generator follows the first-pass structure in framework/project/publication/print-assembly.md
 and intentionally keeps the format conservative: readable typography, stable
 ordering, page numbers, legislation in appendices, and the canonical subject
 index as back matter. Final issue and subject-index page locators remain part of

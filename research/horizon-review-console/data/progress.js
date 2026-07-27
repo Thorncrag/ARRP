@@ -2686,7 +2686,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "DOM",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -2732,7 +2732,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "ELEC",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": "No",
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -2778,7 +2778,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "CONG",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -2824,7 +2824,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "REC",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -2870,7 +2870,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "EMOL",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -2916,7 +2916,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "HER",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -2962,7 +2962,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "RIGHTS",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -3009,7 +3009,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "JUD",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -3055,7 +3055,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "RIGHTS",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -3102,7 +3102,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "Cross-cutting",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -3148,7 +3148,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "RIGHTS",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -3194,7 +3194,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "EMERG",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -3240,7 +3240,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "RIGHTS",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -3286,7 +3286,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "CONG",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -3332,7 +3332,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "CONG",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -3378,7 +3378,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "REG",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -3424,7 +3424,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "DOM",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": "No",
         "dependencies": null,
         "developmentLevel": "Candidate",
@@ -3847,7 +3847,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "area": "Governance",
         "assignees": [],
-        "canonicalRecord": "framework/logs/HORIZON_SCAN_LOG.md",
+        "canonicalRecord": "framework/records/candidates/horizon-scan-log.md",
         "changeAuditNeeded": null,
         "completeness": {
           "complete": true,
@@ -3862,7 +3862,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "labels": [],
         "lastAudit": null,
         "links": {
-          "canonical": "framework/logs/HORIZON_SCAN_LOG.md",
+          "canonical": "framework/records/candidates/horizon-scan-log.md",
           "issue": "https://github.com/Thorncrag/ARRP/issues/226",
           "projectItem": "https://github.com/users/Thorncrag/projects/2"
         },
@@ -4291,9 +4291,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "status": "current",
       "supersession_rule": "A newer complete authenticated Project synchronization supersedes an older generation; repository HEAD alone does not."
     },
-    "generatedAt": "2026-07-27T01:48:13+00:00",
-    "generated_at": "2026-07-27T01:48:13+00:00",
-    "generation_id": "project-console-progress-42269601fca558eca99a",
+    "generatedAt": "2026-07-27T08:27:57+00:00",
+    "generated_at": "2026-07-27T08:27:57+00:00",
+    "generation_id": "project-console-progress-48b0f298cf07fc304795",
     "goal": {
       "baselineDate": "2026-07-13",
       "baselineReady": 23,
@@ -11901,7 +11901,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       ".github/project-console-progress.json": "sha256:019fe104362dcca4cebb4c3a3f253c7e4cb9981ca0f4207a6effe282d259bbb5",
       "inventory/github_issue_registry.csv": "sha256:3e85d2b624fa507dce13adba047a515c3f5c87e146957213bcf8848bf11d483c"
     },
-    "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+    "source_revision": "be3ae39a0841c6072ca421916a5e37936504619e",
     "warnings": [],
     "workflowStatusDistribution": [
       {
@@ -11948,12 +11948,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "authority": "authenticated_project_generation",
       "status": "current",
       "current": true,
-      "generation_id": "project-console-progress-42269601fca558eca99a",
-      "synchronized_at": "2026-07-27T01:48:13+00:00",
+      "generation_id": "project-console-progress-48b0f298cf07fc304795",
+      "synchronized_at": "2026-07-27T08:27:57+00:00",
       "supersession_rule": "A newer complete authenticated Project synchronization supersedes an older generation; repository HEAD alone does not."
+    },
+    "local_navigation_overlay": {
+      "source": "inventory/github_issue_registry.csv",
+      "source_hash": "sha256:e2f4f373a128a1b66de0d873271c1ed5b59cc2deab28fab57b312b07487cb9f3",
+      "replacement_count": 18
     }
   },
   "domain_generation": {
-    "progress.js": "project-console-7190bb3b1c5cb5031a9f"
+    "progress.js": "project-console-194cd7abe888937262fe"
   }
 });

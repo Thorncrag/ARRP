@@ -1067,8 +1067,8 @@ def build_context_packet(
         total += len(canonical_json(dossier))
     logs: dict[str, Any] = {}
     log_specs = (
-        ("elim_last_run", root / "framework/logs/ELIM_RUN_LOG.md", "## Runs", "newest-last"),
-        ("agent_last_entry", root / "framework/logs/AGENT_AUDIT_LOG.md", "## Log", "newest-last"),
+        ("elim_last_run", root / "framework/records/automation/elim-run-log.md", "## Runs", "newest-last"),
+        ("agent_last_entry", root / "framework/records/automation/agent-audit-log.md", "## Log", "newest-last"),
     )
     for name, path, parent, order in log_specs:
         if path.is_file():
@@ -1828,11 +1828,11 @@ def validate_queue_canonical_record(
         )
 
     if formal_horizon:
-        if normalized != "framework/logs/HORIZON_SCAN_LOG.md":
+        if normalized != "framework/records/candidates/horizon-scan-log.md":
             return (
                 None,
                 f"{identifier} formal-candidate canonicalRecord is not its GitHub Issue "
-                f"or framework/logs/HORIZON_SCAN_LOG.md: {normalized}",
+                f"or framework/records/candidates/horizon-scan-log.md: {normalized}",
             )
         return normalized, None
 
@@ -2020,7 +2020,7 @@ def build_work_queue(
     ]
     source_monitor_recommendations: list[dict[str, Any]] = []
     source_monitor_log = contained_path(
-        ROOT / "framework" / "logs" / "SOURCE_MONITOR_LOG.md",
+        ROOT / "framework" / "records" / "sources" / "source-monitor-log.md",
         ROOT,
     )
     if source_monitor_log.is_file():
@@ -2423,8 +2423,8 @@ def build_work_queue(
                         "finding_type": "source_domain_proposal",
                         "pending_proposal": pending,
                         "recommendation": recommendation,
-                        "canonicalRecord": "framework/logs/SOURCE_MONITOR_LOG.md",
-                        "canonical_record": "framework/logs/SOURCE_MONITOR_LOG.md",
+                        "canonicalRecord": "framework/records/sources/source-monitor-log.md",
+                        "canonical_record": "framework/records/sources/source-monitor-log.md",
                     },
                     base_priority=730,
                     reason=recommendation_reason,
@@ -2559,8 +2559,8 @@ def build_work_queue(
                         "finding_type": "source_domain_proposal",
                         "pending_proposal": pending,
                         "recommendation": recommendation,
-                        "canonicalRecord": "framework/logs/SOURCE_MONITOR_LOG.md",
-                        "canonical_record": "framework/logs/SOURCE_MONITOR_LOG.md",
+                        "canonicalRecord": "framework/records/sources/source-monitor-log.md",
+                        "canonical_record": "framework/records/sources/source-monitor-log.md",
                     },
                     base_priority=725,
                     reason=recommendation_reason,

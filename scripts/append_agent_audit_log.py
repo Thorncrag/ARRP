@@ -9,7 +9,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_LOG = ROOT / "framework" / "logs" / "AGENT_AUDIT_LOG.md"
+DEFAULT_LOG = (
+    ROOT / "framework" / "records" / "automation" / "agent-audit-log.md"
+)
 
 
 def entry(args: argparse.Namespace) -> str:

@@ -120,6 +120,270 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertEqual(snapshot["alerts"][1]["owner"], "Human")
         self.assertIn("Git-ignored", snapshot["privacy"])
 
+    def test_progress_navigation_overlay_updates_only_local_canonical_links(
+        self,
+    ) -> None:
+        producer = {
+            "generation_id": "project-generation",
+            "source_hashes": {
+                "inventory/github_issue_registry.csv": "sha256:producer-input"
+            },
+            "currentness": {
+                "authority": "authenticated_project_generation",
+                "status": "current",
+                "current": True,
+            },
+            "proposals": [
+                {
+                    "number": 101,
+                    "identifier": "EX-101",
+                    "canonicalRecord": "retired/by-number.md",
+                    "title": "Number match",
+                },
+                {
+                    "url": "https://github.com/Thorncrag/ARRP/issues/102",
+                    "identifier": "EX-102",
+                    "canonicalRecord": "retired/by-url.md",
+                    "title": "URL match",
+                },
+            ],
+            "candidates": [
+                {
+                    "identifier": "HOR-103",
+                    "canonicalRecord": "retired/by-identifier.md",
+                    "title": "Identifier match",
+                },
+                {
+                    "identifier": "HOR-999",
+                    "canonicalRecord": "retained/unmatched.md",
+                    "title": "Unmatched",
+                },
+            ],
+            "backlog": [
+                {
+                    "number": 101,
+                    "identifier": "EX-101",
+                    "canonicalRecord": "retired/backlog-copy.md",
+                    "title": "Backlog copy",
+                },
+            ],
+            "delivery_items": [
+                {
+                    "number": 104,
+                    "identifier": "Release review",
+                    "canonicalRecord": "retired/delivery-record.md",
+                    "links": {
+                        "canonical": "retired/delivery-link.md",
+                        "issue": "https://github.com/Thorncrag/ARRP/issues/104",
+                        "projectItem": (
+                            "https://github.com/users/Thorncrag/projects/2"
+                        ),
+                    },
+                    "title": "Release review",
+                },
+            ],
+        }
+        original = json.loads(json.dumps(producer))
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            registry = root / "inventory" / "github_issue_registry.csv"
+            registry.parent.mkdir()
+            with registry.open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(
+                    handle,
+                    fieldnames=[
+                        "GitHub Number",
+                        "GitHub Issue",
+                        "Object ID",
+                        "Kind",
+                        "GitHub Title",
+                        "Canonical Record",
+                        "Parent GitHub Number",
+                    ],
+                )
+                writer.writeheader()
+                writer.writerows(
+                    [
+                        {
+                            "GitHub Number": "101",
+                            "GitHub Issue": (
+                                "https://github.com/Thorncrag/ARRP/issues/101"
+                            ),
+                            "Object ID": "EX-101",
+                            "Kind": "proposal",
+                            "GitHub Title": "EX-101: Number match",
+                            "Canonical Record": "areas/EX/issues/EX-101.md",
+                            "Parent GitHub Number": "",
+                        },
+                        {
+                            "GitHub Number": "102",
+                            "GitHub Issue": (
+                                "https://github.com/Thorncrag/ARRP/issues/102"
+                            ),
+                            "Object ID": "EX-102",
+                            "Kind": "proposal",
+                            "GitHub Title": "EX-102: URL match",
+                            "Canonical Record": "areas/EX/issues/EX-102.md",
+                            "Parent GitHub Number": "",
+                        },
+                        {
+                            "GitHub Number": "103",
+                            "GitHub Issue": (
+                                "https://github.com/Thorncrag/ARRP/issues/103"
+                            ),
+                            "Object ID": "HOR-103",
+                            "Kind": "horizon",
+                            "GitHub Title": "HOR-103: Identifier match",
+                            "Canonical Record": (
+                                "framework/records/candidates/horizon-scan-log.md"
+                            ),
+                            "Parent GitHub Number": "",
+                        },
+                        {
+                            "GitHub Number": "104",
+                            "GitHub Issue": (
+                                "https://github.com/Thorncrag/ARRP/issues/104"
+                            ),
+                            "Object ID": "",
+                            "Kind": "governance",
+                            "GitHub Title": "Release review",
+                            "Canonical Record": (
+                                "framework/project/publication/first-release.md"
+                            ),
+                            "Parent GitHub Number": "",
+                        },
+                    ]
+                )
+
+            projected = console_builder.apply_progress_navigation_overlay(
+                producer,
+                registry_path=registry,
+                repository_root=root,
+            )
+
+            self.assertEqual(
+                projected["proposals"][0]["canonicalRecord"],
+                "areas/EX/issues/EX-101.md",
+            )
+            self.assertEqual(
+                projected["proposals"][1]["canonicalRecord"],
+                "areas/EX/issues/EX-102.md",
+            )
+            self.assertEqual(
+                projected["candidates"][0]["canonicalRecord"],
+                "framework/records/candidates/horizon-scan-log.md",
+            )
+            self.assertEqual(
+                projected["candidates"][1]["canonicalRecord"],
+                "retained/unmatched.md",
+            )
+            self.assertEqual(
+                projected["backlog"][0]["canonicalRecord"],
+                "areas/EX/issues/EX-101.md",
+            )
+            self.assertEqual(
+                projected["delivery_items"][0]["canonicalRecord"],
+                "framework/project/publication/first-release.md",
+            )
+            self.assertEqual(
+                projected["delivery_items"][0]["links"],
+                {
+                    "canonical": (
+                        "framework/project/publication/first-release.md"
+                    ),
+                    "issue": "https://github.com/Thorncrag/ARRP/issues/104",
+                    "projectItem": (
+                        "https://github.com/users/Thorncrag/projects/2"
+                    ),
+                },
+            )
+            self.assertEqual(
+                projected["local_navigation_overlay"],
+                {
+                    "source": "inventory/github_issue_registry.csv",
+                    "source_hash": console_builder.file_sha256(root, registry),
+                    "replacement_count": 5,
+                },
+            )
+
+        self.assertEqual(producer, original)
+        self.assertEqual(projected["source_hashes"], producer["source_hashes"])
+        self.assertEqual(projected["currentness"], producer["currentness"])
+        self.assertEqual(projected["generation_id"], producer["generation_id"])
+
+    def test_progress_snapshot_applies_navigation_after_currentness(self) -> None:
+        producer = {
+            "generatedAt": "2026-07-27T01:00:00+00:00",
+            "generation_id": "project-generation",
+            "availability": "current",
+            "completeness": {"complete": True},
+            "metrics": {},
+        }
+
+        def overlay(payload: dict[str, object]) -> dict[str, object]:
+            currentness = payload.get("currentness")
+            self.assertIsInstance(currentness, dict)
+            self.assertEqual(
+                currentness["authority"],
+                "authenticated_project_generation",
+            )
+            return {**payload, "overlay_applied": True}
+
+        with (
+            patch.object(
+                console_builder,
+                "read_snapshot_override",
+                return_value=producer,
+            ),
+            patch.object(
+                console_builder,
+                "apply_progress_navigation_overlay",
+                side_effect=overlay,
+            ) as apply_overlay,
+        ):
+            projected = console_builder.progress_snapshot()
+
+        apply_overlay.assert_called_once()
+        self.assertTrue(projected["overlay_applied"])
+        self.assertEqual(projected["generation_id"], "project-generation")
+
+    def test_private_security_projection_is_written_after_public_bundle_swap(
+        self,
+    ) -> None:
+        snapshot = {
+            "schema_version": 1,
+            "availability": "current",
+            "alerts": [],
+            "problems": [],
+        }
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "private-github-security.js"
+            with patch.object(
+                console_builder,
+                "PRIVATE_GITHUB_SECURITY_OUTPUT",
+                output,
+            ):
+                self.assertEqual(
+                    console_builder.write_private_github_security_actions(snapshot),
+                    snapshot,
+                )
+            text = output.read_text(encoding="utf-8")
+            self.assertTrue(
+                text.startswith(
+                    "/* Private local projection; never commit or publish. */"
+                )
+            )
+            self.assertIn("window.ARRP_PRIVATE_GITHUB_SECURITY=", text)
+        builder_source = (
+            ROOT / "scripts" / "build_horizon_review_console.py"
+        ).read_text(encoding="utf-8").split("def main() -> None:", 1)[1]
+        self.assertLess(
+            builder_source.index("write_console_bundle("),
+            builder_source.index(
+                "write_private_github_security_actions(private_github_security)"
+            ),
+        )
+
     def test_private_github_security_projection_is_git_ignored(self) -> None:
         ignored = (ROOT / ".gitignore").read_text(encoding="utf-8")
         self.assertIn(
@@ -376,9 +640,9 @@ class HorizonIntakeTest(unittest.TestCase):
             )
 
     def test_console_control_plane_exception_remains_narrow(self) -> None:
-        interface = (ROOT / "framework" / "PROJECT_INTERFACE.md").read_text(
-            encoding="utf-8"
-        )
+        interface = (
+            ROOT / "framework" / "project" / "interfaces" / "project-console.md"
+        ).read_text(encoding="utf-8")
         self.assertIn("localhost-only Run Coordinator control plane", interface)
         self.assertIn("does not directly invoke or select an agent", interface)
         self.assertIn("does not guarantee execution", interface)
@@ -561,11 +825,29 @@ class HorizonIntakeTest(unittest.TestCase):
             *{f"directives-catalog-{index:03d}.js" for index in range(1, 17)},
         }
         self.assertLess(compatibility.stat().st_size, 500_000)
+        javascript_parts = {
+            path.name for path in (console_dir / "data").glob("*.js")
+        }
+        private_projection = console_dir / "data" / "private-github-security.js"
+        if private_projection.exists():
+            self.assertTrue(
+                private_projection.read_text(encoding="utf-8").startswith(
+                    "/* Private local projection; never commit or publish. */"
+                )
+            )
+            javascript_parts.remove(private_projection.name)
         self.assertEqual(
-            {path.name for path in (console_dir / "data").glob("*.js")},
+            javascript_parts,
             parts,
         )
-        for path in [compatibility, *((console_dir / "data").glob("*.js"))]:
+        for path in [
+            compatibility,
+            *(
+                path
+                for path in (console_dir / "data").glob("*.js")
+                if path.name != private_projection.name
+            ),
+        ]:
             text = path.read_text(encoding="utf-8")
             self.assertLess(path.stat().st_size, 4_000_000, path)
             self.assertGreater(text.count("\n"), 10, path)
@@ -627,8 +909,8 @@ class HorizonIntakeTest(unittest.TestCase):
             for record in self.console["agent_registry"]
             if record["id"] == "elim"
         )
-        self.assertEqual(elim["run_log_path"], "framework/logs/ELIM_RUN_LOG.md")
-        self.assertTrue(elim["run_log_url"].endswith("/framework/logs/ELIM_RUN_LOG.md"))
+        self.assertEqual(elim["run_log_path"], "framework/records/automation/elim-run-log.md")
+        self.assertTrue(elim["run_log_url"].endswith("/framework/records/automation/elim-run-log.md"))
         self.assertTrue(
             all(
                 record["id"].endswith("-bot")
@@ -644,11 +926,11 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(integrity_bot["checks"])
         self.assertEqual(
             integrity_bot["current_report"],
-            "framework/logs/PROJECT_INTEGRITY_REPORT.md",
+            "framework/records/status/project-integrity-report.md",
         )
         self.assertTrue(
             integrity_bot["current_report_url"].endswith(
-                "/framework/logs/PROJECT_INTEGRITY_REPORT.md"
+                "/framework/records/status/project-integrity-report.md"
             )
         )
         self.assertLessEqual(
@@ -721,7 +1003,7 @@ class HorizonIntakeTest(unittest.TestCase):
         )
         self.assertTrue(all(record["entries"] for record in self.console["project_logs"]))
         self.assertTrue(
-            all(record["source_url"].startswith("https://github.com/Thorncrag/ARRP/blob/main/framework/logs/")
+            all(record["source_url"].startswith("https://github.com/Thorncrag/ARRP/blob/main/framework/records/")
                 for record in self.console["project_logs"])
         )
         for record in self.console["project_logs"]:
@@ -847,7 +1129,8 @@ class HorizonIntakeTest(unittest.TestCase):
         current_docs = (
             ROOT / "framework" / "FRAMEWORK.md",
             ROOT / "framework" / "AGENT_OPERATING_RULES.md",
-            ROOT / "framework" / "INTAKE_AGENT_PROCESS.md",
+            ROOT / "framework" / "standards" / "interfaces" / "public-input.md",
+            ROOT / "framework" / "project" / "workflows" / "public-input-review.md",
             ROOT / "participate" / "README.md",
             ROOT / "research" / "horizon-review-console" / "README.md",
             ROOT / "research" / "trump-administration-legal-review-summary.md",
@@ -913,16 +1196,16 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(not row["evidence_records"] for row in active))
 
         framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(encoding="utf-8")
-        interface = (ROOT / "framework" / "PROJECT_INTERFACE.md").read_text(
-            encoding="utf-8"
-        )
+        interface = (
+            ROOT / "framework" / "project" / "interfaces" / "project-console.md"
+        ).read_text(encoding="utf-8")
         self.assertEqual(
             framework.count("### Project-Operated Interface Visual Standard"),
             1,
         )
         self.assertIn(
-            "[`PROJECT_INTERFACE.md`](PROJECT_INTERFACE.md"
-            "#project-operated-interface-visual-standard)",
+            "[`project/interfaces/project-console.md`]"
+            "(project/interfaces/project-console.md)",
             framework,
         )
         self.assertIn(
@@ -941,7 +1224,7 @@ class HorizonIntakeTest(unittest.TestCase):
             ROOT / "framework" / "AGENT_OPERATING_RULES.md"
         ).read_text(encoding="utf-8")
         issue_agent_rules = (
-            ROOT / "framework" / "agent-rules" / "issue-and-candidate-work.md"
+            ROOT / "framework" / "project" / "automation" / "agent-policy.md"
         ).read_text(encoding="utf-8")
         principle = (
             "No person should suffer grave, arbitrary harm merely because institutional "
@@ -986,8 +1269,8 @@ class HorizonIntakeTest(unittest.TestCase):
             self.assertIn(language, framework)
         self.assertIn("## Guiding-Principle Check", agent_rules)
         self.assertIn(
-            "[`issue-and-candidate-work.md`]"
-            "(agent-rules/issue-and-candidate-work.md#guiding-principle-check)",
+            "[`project/automation/agent-policy.md`]"
+            "(project/automation/agent-policy.md#guiding-principle-check)",
             agent_rules,
         )
         self.assertIn(
@@ -999,14 +1282,14 @@ class HorizonIntakeTest(unittest.TestCase):
     def test_issue_admission_is_single_canonical_three_part_screen(self) -> None:
         framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(encoding="utf-8")
         admission_authority = (
-            ROOT / "framework" / "methodology" / "scope-and-admission.md"
+            ROOT / "framework" / "standards" / "content" / "scope-and-admission.md"
         ).read_text(encoding="utf-8")
 
         self.assertEqual(framework.count("### Issue-Admission Test"), 1)
         self.assertNotIn("## Adding or Promoting Issues", framework)
         self.assertIn(
-            "[`methodology/scope-and-admission.md`]"
-            "(methodology/scope-and-admission.md#issue-admission-test)",
+            "[`standards/content/scope-and-admission.md`]"
+            "(standards/content/scope-and-admission.md#issue-admission-test)",
             framework,
         )
         self.assertEqual(admission_authority.count("## Issue-Admission Test"), 1)
@@ -1029,13 +1312,13 @@ class HorizonIntakeTest(unittest.TestCase):
             ROOT / "framework" / "AGENT_OPERATING_RULES.md"
         ).read_text(encoding="utf-8")
         issue_agent_rules = (
-            ROOT / "framework" / "agent-rules" / "issue-and-candidate-work.md"
+            ROOT / "framework" / "project" / "automation" / "agent-policy.md"
         ).read_text(encoding="utf-8")
         admission_authority = (
-            ROOT / "framework" / "methodology" / "scope-and-admission.md"
+            ROOT / "framework" / "standards" / "content" / "scope-and-admission.md"
         ).read_text(encoding="utf-8")
         intake_process = (
-            ROOT / "framework" / "INTAKE_AGENT_PROCESS.md"
+            ROOT / "framework" / "project" / "workflows" / "public-input-review.md"
         ).read_text(encoding="utf-8")
         admission_match = re.search(
             r"(?ms)^## Issue-Admission Test\s*$\n(?P<body>.*?)(?=^##\s|\Z)",
@@ -1056,8 +1339,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("may not answer the question or represent it as satisfied", framework)
         self.assertIn("## Guiding-Principle Check", agent_rules)
         self.assertIn(
-            "[`issue-and-candidate-work.md`]"
-            "(agent-rules/issue-and-candidate-work.md#guiding-principle-check)",
+            "[`project/automation/agent-policy.md`]"
+            "(project/automation/agent-policy.md#guiding-principle-check)",
             agent_rules,
         )
         self.assertIn(
@@ -1124,16 +1407,16 @@ class HorizonIntakeTest(unittest.TestCase):
     def test_post_admission_development_gates_are_single_and_complete(self) -> None:
         framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(encoding="utf-8")
         gate_authority = (
-            ROOT / "framework" / "lifecycle" / "foundation-and-development-gates.md"
+            ROOT / "framework" / "project" / "profile" / "maturity-profile.md"
         ).read_text(encoding="utf-8")
         tier_authority = (
-            ROOT / "framework" / "audits" / "TIERED_AUDITS.md"
+            ROOT / "framework" / "standards" / "audits" / "levels.md"
         ).read_text(encoding="utf-8")
 
         self.assertEqual(framework.count("### Post-Admission Development Gates"), 1)
         self.assertIn(
-            "[`lifecycle/foundation-and-development-gates.md`]"
-            "(lifecycle/foundation-and-development-gates.md"
+            "[ARRP maturity profile]"
+            "(project/profile/maturity-profile.md"
             "#post-admission-development-gates)",
             framework,
         )
@@ -1144,6 +1427,7 @@ class HorizonIntakeTest(unittest.TestCase):
         )
         self.assertIsNotNone(gates_match)
         gates = gates_match.group("body")
+        gate_text = re.sub(r"\s+", " ", gate_authority)
         for gate in (
             "Foundation established — In development",
             "Package complete — Developed proposal",
@@ -1152,27 +1436,27 @@ class HorizonIntakeTest(unittest.TestCase):
             "Ready for the human publication decision — Release candidate",
         ):
             self.assertIn(gate, gates)
-        self.assertIn("current score of at least 75", gates)
-        self.assertIn("current cumulative T4 with no later unresolved material change", gates)
-        self.assertIn("no unresolved publication blocker", gates)
-        self.assertIn("current alignment among governing law and sources", gates)
-        self.assertIn("preferred standard is a total score of at least 79", gates)
-        self.assertIn("External Review Score: 4 / 4", gates)
+        self.assertIn("current score of at least 75", gate_text)
+        self.assertIn("current cumulative T4 with no later unresolved material change", gate_text)
+        self.assertIn("no unresolved publication blocker", gate_text)
+        self.assertIn("current alignment among governing law and sources", gate_text)
+        self.assertIn("preferred standard is a total score of at least 79", gate_text)
+        self.assertIn("External Review Score: 4 / 4", gate_text)
         self.assertIn(
             "a score of 79 or higher without those four points does not satisfy "
             "the preferred standard",
-            gates,
+            gate_text,
         )
         self.assertIn(
             "Whenever the preferred standard is not met, the human author must record "
             "acceptance of the departure",
-            gates,
+            gate_text,
         )
 
         self.assertEqual(framework.count("### Audit Depth Tiers"), 1)
         self.assertIn(
-            "[`audits/TIERED_AUDITS.md`]"
-            "(audits/TIERED_AUDITS.md#audit-depth-tiers)",
+            "[`standards/audits/levels.md`]"
+            "(standards/audits/levels.md#audit-depth-tiers)",
             framework,
         )
         tier_match = re.search(
@@ -1265,7 +1549,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("ARRP Project Console", console_html)
         self.assertIn("catalog-data.js?v=45", console_html)
         self.assertIn("app.js?v=47", console_html)
-        self.assertIn("styles.css?v=45", console_html)
+        self.assertIn("styles.css?v=46", console_html)
         self.assertEqual(
             re.findall(r'<script src="(data/[^"]+)"', console_html),
             [],
@@ -1465,11 +1749,12 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("current[key] = nextDefault", console_app)
         self.assertIn('disclosure.addEventListener("toggle"', console_app)
         self.assertIn(".disclosure-default-toggle", console_css)
-        self.assertIn('element("article", `action-item-card', console_app)
-        self.assertRegex(
-            console_css,
-            r"\.action-items-grid\s*\{[^}]*grid-template-columns:\s*repeat\(2",
-        )
+        self.assertIn('element("button", "action-inbox-row")', console_app)
+        self.assertIn('id="action-item-preview"', console_html)
+        self.assertIn('data-action-filter="mine" aria-pressed="true"', console_html)
+        self.assertIn("ACTION_INBOX_LAYOUT_STORAGE_KEY", console_app)
+        self.assertIn(".action-inbox-workspace", console_css)
+        self.assertIn('.action-inbox-row[aria-pressed="true"]', console_css)
         self.assertIn('category: "Workflow explanation"', console_app)
         self.assertIn("has no recorded explanation or reason", console_app)
         self.assertIn("dense-data-disclosure", console_html)
@@ -1494,7 +1779,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn('"Affected records:"', console_app)
         self.assertIn("Reported by:", console_app)
         self.assertIn("Open current report", console_html)
-        self.assertIn("PROJECT_INTEGRITY_REPORT.md", console_html)
+        self.assertIn("project-integrity-report.md", console_html)
         self.assertIn('id="scroll-to-top"', console_html)
         self.assertIn('id="workflow-summary-dismiss"', console_html)
         self.assertIn('id="workflow-summary-restore"', console_html)
@@ -1535,8 +1820,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn('label: "Repository decisions assigned to you"', console_app)
         self.assertIn("reviewSignals.pullRequests", console_app)
         self.assertIn("openPullRequests.map(repositoryReviewEntry)", console_app)
-        self.assertIn("Action Items is a nonauthoritative routing index", console_app)
-        self.assertIn("specialist Console views and canonical records own disposition", console_app)
+        self.assertIn("The Action Inbox is a nonauthoritative routing index", console_html)
+        self.assertIn("specialist Console views and canonical records own status and disposition", console_html)
         self.assertIn("repositoryHumanActions.length", console_app)
         self.assertIn("Open specialist administration", console_app)
         self.assertIn('record.workflowStatus === "Human decision needed"', console_app)
@@ -1544,10 +1829,10 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertNotIn('"foundation decision"', console_app)
         self.assertIn('String(finding.attention || "").toLowerCase() === "human"', console_app)
         self.assertIn("integrityHumanFindings.map", console_app)
-        self.assertIn('element("ol", "action-item-detail-list")', console_app)
+        self.assertIn("renderActionInboxPreview", console_app)
         self.assertIn("integrityActionLink", console_app)
         self.assertIn("GITHUB_BLOB_ROOT", console_app)
-        self.assertIn("action-item-detail-list", console_css)
+        self.assertIn("action-preview-section", console_css)
         self.assertIn("renderProjectLog", console_app)
         self.assertIn("projectLogTable", console_app)
         self.assertIn("renderIntegrityHistory", console_app)
@@ -1784,8 +2069,9 @@ class HorizonIntakeTest(unittest.TestCase):
             ROOT / "framework" / "AGENT_OPERATING_RULES.md"
         ).read_text(encoding="utf-8")
         foundation_authority = (
-            ROOT / "framework" / "lifecycle" / "foundation-and-development-gates.md"
+            ROOT / "framework" / "project" / "profile" / "maturity-profile.md"
         ).read_text(encoding="utf-8")
+        foundation_text = re.sub(r"\s+", " ", foundation_authority)
         self.assertIn(
             "Human-reserved judgment remains human.",
             framework,
@@ -1797,15 +2083,15 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn(
             "These reservations limit decision and implementation authority; "
             "they do not remove the subject from the agent's duty of review.",
-            foundation_authority,
+            foundation_text,
         )
         self.assertIn(
             "state its reasoned recommendation and any important uncertainty",
-            foundation_authority,
+            foundation_text,
         )
         self.assertIn(
             "withholding only the reserved decision and actions that depend upon it",
-            foundation_authority,
+            foundation_text,
         )
 
     def test_development_lifecycle_has_six_maturity_levels_only(self) -> None:
@@ -1813,12 +2099,12 @@ class HorizonIntakeTest(unittest.TestCase):
             encoding="utf-8"
         )
         lifecycle = (
-            ROOT / "framework" / "lifecycle" / "development-levels.md"
+            ROOT / "framework" / "project" / "profile" / "maturity-profile.md"
         ).read_text(encoding="utf-8")
         self.assertEqual(framework.count("### Development-Level Lifecycle"), 1)
         self.assertIn(
-            "[`lifecycle/development-levels.md`]"
-            "(lifecycle/development-levels.md#development-level-lifecycle)",
+            "[ARRP maturity profile]"
+            "(project/profile/maturity-profile.md#development-level-lifecycle)",
             framework,
         )
         match = re.search(
@@ -1840,7 +2126,7 @@ class HorizonIntakeTest(unittest.TestCase):
             ],
         )
         self.assertIn(
-            "They are repeatable reviews, not development levels.",
+            "They are repeatable reviews, not Development levels.",
             lifecycle,
         )
         console = (

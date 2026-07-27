@@ -44,23 +44,19 @@ REGISTRY_PATH = ROOT / "inventory" / "github_issue_registry.csv"
 SOURCE_PATH = ROOT / "inventory" / "sources.csv"
 PENDING_SOURCE_PATH = ROOT / "inventory" / "sources-pending.csv"
 PRELIMINARY_CANDIDATE_PATH = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
-PROJECT_INTEGRITY_RUNBOOK = ROOT / "framework" / "agents" / "PROJECT_INTEGRITY_BOT.md"
-RUN_COORDINATOR_CONFIG = ROOT / ".github" / "run-coordinator-bot.json"
-CONTEXT_MANIFEST = ROOT / "framework" / "context-routes.json"
-CONTEXT_MANAGED_DIRECTORIES = (
-    "agent-rules",
-    "agents",
-    "audits",
-    "candidates",
-    "evidence",
-    "issues",
-    "lifecycle",
-    "methodology",
-    "navigation",
-    "operations",
-    "scoring",
-    "sources",
+PROJECT_INTEGRITY_RUNBOOK = (
+    ROOT
+    / "framework"
+    / "project"
+    / "automation"
+    / "runbooks"
+    / "project-integrity-bot.md"
 )
+RUN_COORDINATOR_CONFIG = ROOT / ".github" / "run-coordinator-bot.json"
+CONTEXT_MANIFEST = (
+    ROOT / "framework" / "project" / "automation" / "context-routes.json"
+)
+CONTEXT_MANAGED_DIRECTORIES = ("standards", "project")
 CANONICAL_RUN_CHAIN_STAGE_ORDER = (
     "case-monitor-bot",
     "presidential-directives-bot",
@@ -235,7 +231,8 @@ TOOL_INTERFACES = (
 CURRENT_INTAKE_WORKFLOW_FILES = (
     ROOT / "framework" / "FRAMEWORK.md",
     ROOT / "framework" / "AGENT_OPERATING_RULES.md",
-    ROOT / "framework" / "INTAKE_AGENT_PROCESS.md",
+    ROOT / "framework" / "standards" / "interfaces" / "public-input.md",
+    ROOT / "framework" / "project" / "workflows" / "public-input-review.md",
     ROOT / "framework" / "PROJECT_STRUCTURE.md",
     ROOT / "participate" / "README.md",
     ROOT / "participate" / "SECURITY.md",
@@ -278,6 +275,9 @@ REPOSITORY_LINK_TEXT_SUFFIXES = {
     ".txt",
     ".yaml",
     ".yml",
+}
+OPTIONAL_LOCAL_HTML_ASSETS = {
+    Path("research/horizon-review-console/data/private-github-security.js"),
 }
 
 REQUIRED_ISSUE_HEADINGS = (
@@ -1125,6 +1125,12 @@ def check_html_links(failures: list[str], warnings: list[str]) -> None:
                 continue
             target = local_target(path, raw_target)
             if target and not target.exists():
+                try:
+                    relative_target = target.relative_to(ROOT.resolve())
+                except ValueError:
+                    relative_target = None
+                if relative_target in OPTIONAL_LOCAL_HTML_ASSETS:
+                    continue
                 report("ERROR", f"broken local link in {path.relative_to(ROOT)}: {raw_target}", failures, warnings)
 
 
@@ -2371,6 +2377,11 @@ def check_research_placement(failures: list[str], warnings: list[str]) -> None:
         area = issue_id.split("-", 1)[0]
         if area == "HOR" and path.parent == ROOT / "research" / "horizon-source-records":
             continue
+        if path.parent == ROOT / "research" / "interbranch-review":
+            # These matrices apply one issue's shared infrastructure across
+            # several institutional areas and therefore remain cross-project
+            # research rather than single-area issue research.
+            continue
         expected_parent = ROOT / "areas" / area / "research"
         if path.parent != expected_parent:
             report(
@@ -3140,7 +3151,7 @@ def check_structured_files_and_repository_hygiene(
 
 
 def check_print_assembly_configuration(failures: list[str], warnings: list[str]) -> None:
-    path = ROOT / "framework" / "print-assembly.json"
+    path = ROOT / "framework" / "project" / "publication" / "print-assembly.json"
     try:
         config = json.loads(read(path))
     except (OSError, json.JSONDecodeError):
@@ -3235,13 +3246,13 @@ def check_context_registry(failures: list[str], warnings: list[str]) -> None:
     documents = manifest["documents"]
     current = documents.get("current_audit") or {}
     if (
-        current.get("path") != "framework/logs/CURRENT_AUDIT.md"
+        current.get("path") != "framework/records/handoffs/current-task.md"
         or current.get("hash_policy") != "runtime"
         or current.get("governing")
     ):
         report(
             "ERROR",
-            "CURRENT_AUDIT must be the required runtime-hashed, non-governing "
+            "current-task handoff must be the required runtime-hashed, non-governing "
             "continuation record",
             failures,
             warnings,
@@ -3279,6 +3290,8 @@ def check_context_registry(failures: list[str], warnings: list[str]) -> None:
             path.relative_to(ROOT).as_posix()
             for path in (framework_root / directory).rglob("*.md")
             if path.is_file()
+            and path.name != "README.md"
+            and "templates" not in path.relative_to(framework_root).parts
         )
     registered_paths = {
         str(spec.get("path") or "")
@@ -3359,6 +3372,18 @@ def check_context_registry(failures: list[str], warnings: list[str]) -> None:
                 declared.append(f"<outside>/{raw}")
                 continue
             declared.append(resolved.as_posix())
+            if (
+                relative.parts[:2] == ("framework", "standards")
+                and resolved.parts[:2]
+                in {("framework", "project"), ("framework", "records")}
+            ):
+                report(
+                    "ERROR",
+                    f"reusable standard {relative.as_posix()} depends on "
+                    f"project-specific or historical module {resolved.as_posix()}",
+                    failures,
+                    warnings,
+                )
         expected = [
             path_by_id[required_id]
             for required_id in spec.get("requires") or []
@@ -3633,10 +3658,10 @@ def agent_runtime_invariant_findings(
 
 def check_agent_runbooks(failures: list[str], warnings: list[str]) -> None:
     """Validate persistent-agent identities and deployed configuration projections."""
-    directory = ROOT / "framework" / "agents"
-    registry = directory / "README.md"
+    directory = ROOT / "framework" / "project" / "automation" / "runbooks"
+    registry = directory.parent / "registry.md"
     if not registry.exists():
-        report("ERROR", "persistent-agent registry is missing: framework/agents/README.md", failures, warnings)
+        report("ERROR", "persistent-agent registry is missing: framework/project/automation/registry.md", failures, warnings)
         return
     registry_text = read(registry)
     try:
@@ -3702,7 +3727,7 @@ def check_agent_runbooks(failures: list[str], warnings: list[str]) -> None:
                 )
         if values["agent_type"] == "deterministic-bot" and not agent_id.endswith("-bot"):
             report("ERROR", f"deterministic Agent ID lacks required -bot designation: {agent_id}", failures, warnings)
-        if values["log_path"] != "framework/logs/AGENT_AUDIT_LOG.md":
+        if values["log_path"] != "framework/records/automation/agent-audit-log.md":
             report("ERROR", f"agent runbook {path.relative_to(ROOT)} does not use the shared Agent Audit Log", failures, warnings)
         runtime = values["runtime_id"]
         workflow_text = ""
@@ -3871,7 +3896,7 @@ def source_domain_event_pipeline_findings(root: Path = ROOT) -> list[str]:
     watcher_specs = {
         "case-monitor-bot": (
             ".github/workflows/case-monitor-bot.yml",
-            "framework/agents/CASE_MONITOR_BOT.md",
+            "framework/project/automation/runbooks/case-monitor-bot.md",
             "case-monitor-report-",
             (
                 'git checkout -B "${bot_branch}" "origin/${bot_branch}"',
@@ -3881,7 +3906,7 @@ def source_domain_event_pipeline_findings(root: Path = ROOT) -> list[str]:
         ),
         "presidential-directives-bot": (
             ".github/workflows/presidential-directives-bot.yml",
-            "framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md",
+            "framework/project/automation/runbooks/presidential-directives-bot.md",
             "presidential-directives-report-",
             (
                 'git checkout -B "${BOT_BRANCH}" FETCH_HEAD',
@@ -3891,14 +3916,14 @@ def source_domain_event_pipeline_findings(root: Path = ROOT) -> list[str]:
         ),
         "source-checker-bot": (
             ".github/workflows/source-checker-bot.yml",
-            "framework/agents/SOURCE_CHECKER_BOT.md",
+            "framework/project/automation/runbooks/source-checker-bot.md",
             "source-checker-report-",
             (
                 "SOURCE_REVISION=%s",
                 "git rev-parse HEAD",
                 'git switch -C "$branch" "${SOURCE_REVISION}"',
                 '--git-base "${SOURCE_REVISION}"',
-                "framework/reports/SOURCE_CHECKER_REPORT.md",
+                "framework/records/status/source-checker-report.md",
                 "exact report-only delta",
                 "git push --force-with-lease",
             ),
@@ -4140,7 +4165,7 @@ def markdown_report(report_data: dict[str, object]) -> str:
         "## Checks Included",
         "",
         "The authoritative check inventory is maintained in the "
-        "[Project Integrity Bot runbook](../agents/PROJECT_INTEGRITY_BOT.md#checks-included).",
+        "[Project Integrity Bot runbook](../../project/automation/runbooks/project-integrity-bot.md#checks-included).",
     ])
     return "\n".join(lines).rstrip() + "\n"
 

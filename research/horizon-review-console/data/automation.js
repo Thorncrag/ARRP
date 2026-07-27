@@ -15,9 +15,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "runtime_config_url": "",
       "execution_environment": "isolated-checkout",
       "model_policy": "Coordinator-routed: gpt-5.6-terra with high reasoning for read-heavy triage; gpt-5.6-sol with xhigh reasoning for substantive and comprehensive work",
-      "log_path": "framework/logs/AGENT_AUDIT_LOG.md",
-      "run_log_path": "framework/logs/ELIM_RUN_LOG.md",
-      "run_log_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/ELIM_RUN_LOG.md",
+      "log_path": "framework/records/automation/agent-audit-log.md",
+      "run_log_path": "framework/records/automation/elim-run-log.md",
+      "run_log_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/automation/elim-run-log.md",
       "current_report": "",
       "current_report_url": "",
       "current_data": "",
@@ -33,32 +33,32 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "id": "preflight",
           "title": "Preflight",
-          "html": "<ol><li>Start from the clean, current dispatcher-managed isolated full checkout, validate the chain-specific host usage attestation and unique invocation baseline named by the manifest, and confirm no overlapping interactive work on the selected issue or files. The checkout must use the reviewed <code>Thorncrag/ARRP<\/code> origin and advance only from a previously recorded successful boundary; its Git metadata is host-owned, and a dirty or unrecorded divergence is preserved and fails closed rather than reset. <code>CURRENT_AUDIT.md<\/code> is continuation state, not proof that any agent, bot, chain, task, or process is currently running. The operating-system-held dispatcher lease is the sole host-side liveness authority; its owner record and heartbeat are diagnostic evidence, not independent locks.<\/li><li>Read and validate the current Chain Manifest. Confirm that every bot due for this chain is <code>completed<\/code> or has an expressly nonblocking <code>degraded<\/code> result, and that the manifest, queue, and context packet match the current baseline commit, Project snapshot, governing-record hashes, and runtime configuration.<\/li><li>Treat any missing, stale, contradictory, blocking, or failed bot result as the first work item. Confirm that the coordinator already attempted permitted transient and mechanical recovery; diagnose or correct the remaining failure within Elim&#x27;s authority before ordinary work. Route credentials, unsafe external action, or human-reserved repair to Action Items. Do not proceed with unrelated work when the failed input could make it unreliable.<\/li><li>Read the governing sections and canonical records selected for the work unit, current integrity and source-check findings, authoritative GitHub Project state, applicable foundation metadata, the latest relevant shared Agent Audit entries, and the prior Elim Run Log closeout. A generated context packet is a nonauthoritative exact extract; expand to the complete canonical record when authority, freshness, ambiguity, conflict, or an unfamiliar issue class requires it.<\/li><li>Confirm authenticated access for any authorized GitHub semantic operation, validation tools, the host-owned repository closeout target, runtime identity, runbook/configuration agreement, and the work unit&#x27;s authority classification.<\/li><li>Establish a Run ID and stop before edits if safe reconciliation is unavailable.<\/li><\/ol>\n<p>The queue never asks Elim merely to confirm that an unexamined list is empty. Ordinary eligible work runs first. After that queue clears, queue construction creates one bounded <strong>Project governance review and discovery<\/strong> unit only when the preceding committed review is absent or at least 168 hours old; a current clean review remains visible without relaunching Elim on every poll. A clean pass records an explicit <code>no_material_finding<\/code> rather than a silent no-op. Once launched, Elim ordinarily uses one LLM agent and one bounded selected work unit at a time. It may expand context, create nested discovered work units, or delegate a genuinely independent, high-value investigation when required for quality; it must not weaken or truncate an audit to meet an efficiency target.<\/p>\n<p>The coordinator may use the reviewed read-heavy profile for monitoring, source, and intake triage whose bounded question does not require complex legal or audit judgment. Foundation work, legal analysis, Change Audits, T3/T4 work, and comprehensive Review Epochs use the substantive profile. Ambiguity, cross-cutting impact, or a newly material legal question escalates to the substantive profile rather than forcing completion under a cheaper setting.<\/p>",
-          "text": "1. Start from the clean, current dispatcher-managed isolated full checkout, validate the chain-specific host usage attestation and unique invocation baseline named by the manifest, and confirm no overlapping interactive work on the selected issue or files. The checkout must use the reviewed Thorncrag/ARRP origin and advance only from a previously recorded successful boundary; its Git metadata is host-owned, and a dirty or unrecorded divergence is preserved and fails closed rather than reset. CURRENT_AUDIT.md is continuation state, not proof that any agent, bot, chain, task, or process is currently running. The operating-system-held dispatcher lease is the sole host-side liveness authority; its owner record and heartbeat are diagnostic evidence, not independent locks. 2. Read and validate the current Chain Manifest. Confirm that every bot due for this chain is completed or has an expressly nonblocking degraded result, and that the manifest, queue, and context packet match the current baseline commit, Project snapshot, governing-record hashes, and runtime configuration. 3. Treat any missing, stale, contradictory, blocking, or failed bot result as the first work item. Confirm that the coordinator already attempted permitted transient and mechanical recovery; diagnose or correct the remaining failure within Elim's authority before ordinary work. Route credentials, unsafe external action, or human-reserved repair to Action Items. Do not proceed with unrelated work when the failed input could make it unreliable. 4. Read the governing sections and canonical records selected for the work unit, current integrity and source-check findings, authoritative GitHub Project state, applicable foundation metadata, the latest relevant shared Agent Audit entries, and the prior Elim Run Log closeout. A generated context packet is a nonauthoritative exact extract; expand to the complete canonical record when authority, freshness, ambiguity, conflict, or an unfamiliar issue class requires it. 5. Confirm authenticated access for any authorized GitHub semantic operation, validation tools, the host-owned repository closeout target, runtime identity, runbook/configuration agreement, and the work unit's authority classification. 6. Establish a Run ID and stop before edits if safe reconciliation is unavailable. The queue never asks Elim merely to confirm that an unexamined list is empty. Ordinary eligible work runs first. After that queue clears, queue construction creates one bounded **Project governance review and discovery** unit only when the preceding committed review is absent or at least 168 hours old; a current clean review remains visible without relaunching Elim on every poll. A clean pass records an explicit no_material_finding rather than a silent no-op. Once launched, Elim ordinarily uses one LLM agent and one bounded selected work unit at a time. It may expand context, create nested discovered work units, or delegate a genuinely independent, high-value investigation when required for quality; it must not weaken or truncate an audit to meet an efficiency target. The coordinator may use the reviewed read-heavy profile for monitoring, source, and intake triage whose bounded question does not require complex legal or audit judgment. Foundation work, legal analysis, Change Audits, T3/T4 work, and comprehensive Review Epochs use the substantive profile. Ambiguity, cross-cutting impact, or a newly material legal question escalates to the substantive profile rather than forcing completion under a cheaper setting."
+          "html": "<ol><li>Start from the clean, current dispatcher-managed isolated full checkout, validate the chain-specific host usage attestation and unique invocation baseline named by the manifest, and confirm no overlapping interactive work on the selected issue or files. The checkout must use the reviewed <code>Thorncrag/ARRP<\/code> origin and advance only from a previously recorded successful boundary; its Git metadata is host-owned, and a dirty or unrecorded divergence is preserved and fails closed rather than reset. <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/records/handoffs/current-task.md\" target=\"_blank\" rel=\"noopener noreferrer\"><code>current-task.md<\/code><\/a> is continuation state, not proof that any agent, bot, chain, task, or process is currently running. The operating-system-held dispatcher lease is the sole host-side liveness authority; its owner record and heartbeat are diagnostic evidence, not independent locks.<\/li><li>Read and validate the current Chain Manifest. Confirm that every bot due for this chain is <code>completed<\/code> or has an expressly nonblocking <code>degraded<\/code> result, and that the manifest, queue, and context packet match the current baseline commit, Project snapshot, governing-record hashes, and runtime configuration.<\/li><li>Treat any missing, stale, contradictory, blocking, or failed bot result as the first work item. Confirm that the coordinator already attempted permitted transient and mechanical recovery; diagnose or correct the remaining failure within Elim&#x27;s authority before ordinary work. Route credentials, unsafe external action, or human-reserved repair to Action Items. Do not proceed with unrelated work when the failed input could make it unreliable.<\/li><li>Read the governing sections and canonical records selected for the work unit, current integrity and source-check findings, authoritative GitHub Project state, applicable foundation metadata, the latest relevant shared Agent Audit entries, and the prior Elim Run Log closeout. A generated context packet is a nonauthoritative exact extract; expand to the complete canonical record when authority, freshness, ambiguity, conflict, or an unfamiliar issue class requires it.<\/li><li>Confirm authenticated access for any authorized GitHub semantic operation, validation tools, the host-owned repository closeout target, runtime identity, runbook/configuration agreement, and the work unit&#x27;s authority classification.<\/li><li>Establish a Run ID and stop before edits if safe reconciliation is unavailable.<\/li><\/ol>\n<p>The queue never asks Elim merely to confirm that an unexamined list is empty. Ordinary eligible work runs first. After that queue clears, queue construction creates one bounded <strong>Project governance review and discovery<\/strong> unit only when the preceding committed review is absent or at least 168 hours old; a current clean review remains visible without relaunching Elim on every poll. A clean pass records an explicit <code>no_material_finding<\/code> rather than a silent no-op. Once launched, Elim ordinarily uses one LLM agent and one bounded selected work unit at a time. It may expand context, create nested discovered work units, or delegate a genuinely independent, high-value investigation when required for quality; it must not weaken or truncate an audit to meet an efficiency target.<\/p>\n<p>The coordinator may use the reviewed read-heavy profile for monitoring, source, and intake triage whose bounded question does not require complex legal or audit judgment. Foundation work, legal analysis, Change Audits, T3/T4 work, and comprehensive Review Epochs use the substantive profile. Ambiguity, cross-cutting impact, or a newly material legal question escalates to the substantive profile rather than forcing completion under a cheaper setting.<\/p>",
+          "text": "1. Start from the clean, current dispatcher-managed isolated full checkout, validate the chain-specific host usage attestation and unique invocation baseline named by the manifest, and confirm no overlapping interactive work on the selected issue or files. The checkout must use the reviewed Thorncrag/ARRP origin and advance only from a previously recorded successful boundary; its Git metadata is host-owned, and a dirty or unrecorded divergence is preserved and fails closed rather than reset. current-task.md is continuation state, not proof that any agent, bot, chain, task, or process is currently running. The operating-system-held dispatcher lease is the sole host-side liveness authority; its owner record and heartbeat are diagnostic evidence, not independent locks. 2. Read and validate the current Chain Manifest. Confirm that every bot due for this chain is completed or has an expressly nonblocking degraded result, and that the manifest, queue, and context packet match the current baseline commit, Project snapshot, governing-record hashes, and runtime configuration. 3. Treat any missing, stale, contradictory, blocking, or failed bot result as the first work item. Confirm that the coordinator already attempted permitted transient and mechanical recovery; diagnose or correct the remaining failure within Elim's authority before ordinary work. Route credentials, unsafe external action, or human-reserved repair to Action Items. Do not proceed with unrelated work when the failed input could make it unreliable. 4. Read the governing sections and canonical records selected for the work unit, current integrity and source-check findings, authoritative GitHub Project state, applicable foundation metadata, the latest relevant shared Agent Audit entries, and the prior Elim Run Log closeout. A generated context packet is a nonauthoritative exact extract; expand to the complete canonical record when authority, freshness, ambiguity, conflict, or an unfamiliar issue class requires it. 5. Confirm authenticated access for any authorized GitHub semantic operation, validation tools, the host-owned repository closeout target, runtime identity, runbook/configuration agreement, and the work unit's authority classification. 6. Establish a Run ID and stop before edits if safe reconciliation is unavailable. The queue never asks Elim merely to confirm that an unexamined list is empty. Ordinary eligible work runs first. After that queue clears, queue construction creates one bounded **Project governance review and discovery** unit only when the preceding committed review is absent or at least 168 hours old; a current clean review remains visible without relaunching Elim on every poll. A clean pass records an explicit no_material_finding rather than a silent no-op. Once launched, Elim ordinarily uses one LLM agent and one bounded selected work unit at a time. It may expand context, create nested discovered work units, or delegate a genuinely independent, high-value investigation when required for quality; it must not weaken or truncate an audit to meet an efficiency target. The coordinator may use the reviewed read-heavy profile for monitoring, source, and intake triage whose bounded question does not require complex legal or audit judgment. Foundation work, legal analysis, Change Audits, T3/T4 work, and comprehensive Review Epochs use the substantive profile. Ambiguity, cross-cutting impact, or a newly material legal question escalates to the substantive profile rather than forcing completion under a cheaper setting."
         },
         {
           "id": "inputs-and-permitted-writes",
           "title": "Inputs and permitted writes",
-          "html": "<p>Elim reads the governing files, its runbook, current Integrity and source-check findings, the <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/logs/SOURCE_MONITOR_LOG.md\" target=\"_blank\" rel=\"noopener noreferrer\">Source Monitor Log<\/a>, shared Agent Audit Log, prior <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/logs/ELIM_RUN_LOG.md\" target=\"_blank\" rel=\"noopener noreferrer\">Elim Run Log<\/a> closeout and durable discovery records, public-intake comments made available under the Public-Intake Review Process, applicable candidate and canonical pages and vehicles, audit histories, source records, GitHub Issues, Project fields, and publication state. For a source-domain proposal it also reads the complete pending-proposal event and exact pull-request head, not merely the latest watcher narrative. It may follow a credible connected anomaly, omission, contradiction, risk, latent defect, or unanswered governance question far enough to characterize it and determine authority. It may change only records required for an authorized selected or discovered work unit and must remain inside the applicable delegated boundary. It may not originate or infer changes to credentials, runtime configuration, agent runbooks, scoring rubrics, foundational decisions, or candidate dispositions. It may implement a terminal or permanent candidate or issue disposition only as a distinct implementation action after a record-specific human decision identifies that record and disposition. Discovery does not make a forbidden, unsafe, out-of-scope, uncertain, or human-reserved action permissible.<\/p>",
+          "html": "<p>Elim reads the governing files, its runbook, current Integrity and source-check findings, the <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/records/sources/source-monitor-log.md\" target=\"_blank\" rel=\"noopener noreferrer\">Source Monitor Log<\/a>, shared Agent Audit Log, prior <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/records/automation/elim-run-log.md\" target=\"_blank\" rel=\"noopener noreferrer\">Elim Run Log<\/a> closeout and durable discovery records, public-intake comments made available under the Public-Intake Review Process, applicable candidate and canonical pages and vehicles, audit histories, source records, GitHub Issues, Project fields, and publication state. For a source-domain proposal it also reads the complete pending-proposal event and exact pull-request head, not merely the latest watcher narrative. It may follow a credible connected anomaly, omission, contradiction, risk, latent defect, or unanswered governance question far enough to characterize it and determine authority. It may change only records required for an authorized selected or discovered work unit and must remain inside the applicable delegated boundary. It may not originate or infer changes to credentials, runtime configuration, agent runbooks, scoring rubrics, foundational decisions, or candidate dispositions. It may implement a terminal or permanent candidate or issue disposition only as a distinct implementation action after a record-specific human decision identifies that record and disposition. Discovery does not make a forbidden, unsafe, out-of-scope, uncertain, or human-reserved action permissible.<\/p>",
           "text": "Elim reads the governing files, its runbook, current Integrity and source-check findings, the Source Monitor Log, shared Agent Audit Log, prior Elim Run Log closeout and durable discovery records, public-intake comments made available under the Public-Intake Review Process, applicable candidate and canonical pages and vehicles, audit histories, source records, GitHub Issues, Project fields, and publication state. For a source-domain proposal it also reads the complete pending-proposal event and exact pull-request head, not merely the latest watcher narrative. It may follow a credible connected anomaly, omission, contradiction, risk, latent defect, or unanswered governance question far enough to characterize it and determine authority. It may change only records required for an authorized selected or discovered work unit and must remain inside the applicable delegated boundary. It may not originate or infer changes to credentials, runtime configuration, agent runbooks, scoring rubrics, foundational decisions, or candidate dispositions. It may implement a terminal or permanent candidate or issue disposition only as a distinct implementation action after a record-specific human decision identifies that record and disposition. Discovery does not make a forbidden, unsafe, out-of-scope, uncertain, or human-reserved action permissible."
         },
         {
           "id": "work-order",
           "title": "Work Order",
-          "html": "<ol><li><strong>Chain health, recovery, and project integrity.<\/strong> Resolve the first authorized repair from any blocking or degraded bot result before ordinary project work. Then investigate every current Integrity-screen error and warning, including Source Checker Bot findings surfaced there. Resolve confirmed broken links, identity mismatches, and review-required redirects; recheck access restrictions and transient failures without calling them broken. Prefer a verified identity-preserving official replacement or retained archive, never a merely similar source. If replacement changes source identity, evidentiary support, or developed-proposal substance, route it through the required Change Audit and Internal Remedy-Fit review. Repair other objective or convention-governed defects, route substantive judgments, rerun the applicable checks, and verify repository/GitHub/Console agreement. Before selecting development work, reconcile every admitted unscored issue whose foundation metadata or lifecycle classification is absent, pending, or inconsistent under the canonical <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/FRAMEWORK.md#human-governed-foundation-and-delegated-development\" target=\"_blank\" rel=\"noopener noreferrer\">Human-Governed Foundation and Delegated Development<\/a> rule and <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/FRAMEWORK.md#post-admission-development-gates\" target=\"_blank\" rel=\"noopener noreferrer\">Post-Admission Development Gates<\/a>.<\/li><li><strong>Public-submission triage.<\/strong> Review every eligible public-intake comment made available under the <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/INTAKE_AGENT_PROCESS.md\" target=\"_blank\" rel=\"noopener noreferrer\">Public-Intake Review Process<\/a>, treating each comment rather than its containing Discussion as the submission. Assess institutional relevance, evidentiary posture, existing ownership, duplication, and the appropriate route. Sort and file clear material, route it to an existing owner, consolidate duplicate intake records, split materially distinct concerns, or preserve them separately only when the governing intake process expressly authorizes that non-substantive, reversible action; while organization remains report-only, make the corresponding recommendation without changing records. Current write authority is limited to a validated informative public reply and creation or update of a fully sourced preliminary candidate under the rules below; neither action implements or finalizes a project disposition. Flag potentially inappropriate, vulgar, or demeaning content for human moderation review without reproducing it, and identify strictly political submissions that do not allege a distinct repairable institutional defect as outside ARRP&#x27;s project-action scope.<\/li><li><strong>Change Audits.<\/strong> Resolve every actionable <code>Change audit needed: Yes<\/code> or <code>Pending review<\/code> marker. Route human-reserved decisions without blocking unrelated work.<\/li><li><strong>Audit-needed proposals.<\/strong> Process every eligible proposal marked for audit before ordinary development. Order comparable work by likely contribution to Review Ready, release-blocker posture, priority, readiness, age, and resolvability.<\/li><li><strong>Consecutive audit ladder.<\/strong> Once an issue is selected, start at its next required tier and continue through T4 while each successive tier is genuinely productive. Complete, memorialize, validate, and count each tier separately. Repair remediable defects and resume; pause only for a genuine human, evidentiary, external, synchronization, or validation blocker.<\/li><li><strong>Development and candidate-research workflow.<\/strong> When the audit queue is exhausted or blocked, select the highest-value bounded work unit from eligible proposals and authorized formal candidates using priority, likely contribution to the Review Ready portfolio, evidentiary readiness, age, and resolvability. Proposal work requires the approved foundation governed by the canonical Framework rule. Candidate work requires <code>Development level: Candidate<\/code>, <code>Status: Research<\/code>, and a defined investigation in <code>Next audit<\/code>; it may investigate the canonical admission conclusions, build and reconcile a source dossier, test recurrence, legal adequacy, project overlap, neutrality, and ripeness, identify possible remedy classes, answer the causal question, prepare neutral alternative-control analysis, and recommend a disposition. It may apply an already recorded human reversed-control answer but may not supply or infer one. Do not exhaust low-value candidate research merely because candidates exist. Preserve the candidate classification throughout research, and when its defined investigation is complete, route the recommended admission, integration, deferral, source-retention, retirement, or rejection decision—and any materially missing human reversed-control answer—to the human through <code>Status: Human decision needed<\/code>.<\/li><\/ol>\n<p>Source-domain proposal review is part of item 1. Elim must verify the complete exact-head delta at the current pull-request revision and inspect identity, classification, required fields, canonical linkage, evidence and provenance, lifecycle and authority, generated views, tests, and documentation before declaring it integration-ready. It inspects the primary records needed to understand the proposal, determines existing ownership and project relevance, and states a reasoned disposition rather than forwarding an unexplained pull request. It records the result in the Source Monitor Log using the canonical recommendation fields: recommendation ID, recorded time, reviewer, pull-request number and URL, exact head revision, proposal event ID, recommended disposition, rationale, affected records, confidence and uncertainty, action owner, exact human question or <code>None<\/code>, and the head-change reassessment trigger. An open pull request is Elim-owned until that exact-revision review is complete; it enters the human Action Items count only when the recommendation identifies a genuinely human-reserved or owner-gated decision and states the exact question. A recommendation with <code>Action owner: None<\/code> closes the review unit without inventing human work. A later pull-request head automatically invalidates the earlier recommendation and re-queues all nine checks. Elim may complete and publish this log recommendation even though the separately owner-gated watcher pull request remains open.<\/p>\n<p>T4 completion does not itself establish Review Ready. The governing score and substantive findings control. Elim optimizes for reliable Review Ready proposals, not activity, issue count, audit count, or score movement.<\/p>\n<p>Comparable queue items are ordered by severity, contribution to Review Ready, release-blocker posture, readiness, age, and resolvability. Age must prevent lower-severity development, candidate research, or public intake from being postponed indefinitely. Interrupted work returns with its exact continuation point; repeated failures become Action Items instead of cycling silently. A human may suppress, reprioritize, manually launch, or require full canonical context for any unit, and the chain records that intervention.<\/p>",
+          "html": "<ol><li><strong>Chain health, recovery, and project integrity.<\/strong> Resolve the first authorized repair from any blocking or degraded bot result before ordinary project work. Then investigate every current Integrity-screen error and warning, including Source Checker Bot findings surfaced there. Resolve confirmed broken links, identity mismatches, and review-required redirects; recheck access restrictions and transient failures without calling them broken. Prefer a verified identity-preserving official replacement or retained archive, never a merely similar source. If replacement changes source identity, evidentiary support, or developed-proposal substance, route it through the required Change Audit and Internal Remedy-Fit review. Repair other objective or convention-governed defects, route substantive judgments, rerun the applicable checks, and verify repository/GitHub/Console agreement. Before selecting development work, reconcile every admitted unscored issue whose foundation metadata or lifecycle classification is absent, pending, or inconsistent under the canonical <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/FRAMEWORK.md#human-governed-foundation-and-delegated-development\" target=\"_blank\" rel=\"noopener noreferrer\">Human-Governed Foundation and Delegated Development<\/a> rule and <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/FRAMEWORK.md#post-admission-development-gates\" target=\"_blank\" rel=\"noopener noreferrer\">Post-Admission Development Gates<\/a>.<\/li><li><strong>Public-submission triage.<\/strong> Review every eligible public-intake comment made available under the <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/project/workflows/public-input-review.md\" target=\"_blank\" rel=\"noopener noreferrer\">Public-Intake Review Process<\/a>, treating each comment rather than its containing Discussion as the submission. Assess institutional relevance, evidentiary posture, existing ownership, duplication, and the appropriate route. Sort and file clear material, route it to an existing owner, consolidate duplicate intake records, split materially distinct concerns, or preserve them separately only when the governing intake process expressly authorizes that non-substantive, reversible action; while organization remains report-only, make the corresponding recommendation without changing records. Current write authority is limited to a validated informative public reply and creation or update of a fully sourced preliminary candidate under the rules below; neither action implements or finalizes a project disposition. Flag potentially inappropriate, vulgar, or demeaning content for human moderation review without reproducing it, and identify strictly political submissions that do not allege a distinct repairable institutional defect as outside ARRP&#x27;s project-action scope.<\/li><li><strong>Change Audits.<\/strong> Resolve every actionable <code>Change audit needed: Yes<\/code> or <code>Pending review<\/code> marker. Route human-reserved decisions without blocking unrelated work.<\/li><li><strong>Audit-needed proposals.<\/strong> Process every eligible proposal marked for audit before ordinary development. Order comparable work by likely contribution to Review Ready, release-blocker posture, priority, readiness, age, and resolvability.<\/li><li><strong>Consecutive audit ladder.<\/strong> Once an issue is selected, start at its next required tier and continue through T4 while each successive tier is genuinely productive. Complete, memorialize, validate, and count each tier separately. Repair remediable defects and resume; pause only for a genuine human, evidentiary, external, synchronization, or validation blocker.<\/li><li><strong>Development and candidate-research workflow.<\/strong> When the audit queue is exhausted or blocked, select the highest-value bounded work unit from eligible proposals and authorized formal candidates using priority, likely contribution to the Review Ready portfolio, evidentiary readiness, age, and resolvability. Proposal work requires the approved foundation governed by the canonical Framework rule. Candidate work requires <code>Development level: Candidate<\/code>, <code>Status: Research<\/code>, and a defined investigation in <code>Next audit<\/code>; it may investigate the canonical admission conclusions, build and reconcile a source dossier, test recurrence, legal adequacy, project overlap, neutrality, and ripeness, identify possible remedy classes, answer the causal question, prepare neutral alternative-control analysis, and recommend a disposition. It may apply an already recorded human reversed-control answer but may not supply or infer one. Do not exhaust low-value candidate research merely because candidates exist. Preserve the candidate classification throughout research, and when its defined investigation is complete, route the recommended admission, integration, deferral, source-retention, retirement, or rejection decision—and any materially missing human reversed-control answer—to the human through <code>Status: Human decision needed<\/code>.<\/li><\/ol>\n<p>Source-domain proposal review is part of item 1. Elim must verify the complete exact-head delta at the current pull-request revision and inspect identity, classification, required fields, canonical linkage, evidence and provenance, lifecycle and authority, generated views, tests, and documentation before declaring it integration-ready. It inspects the primary records needed to understand the proposal, determines existing ownership and project relevance, and states a reasoned disposition rather than forwarding an unexplained pull request. It records the result in the Source Monitor Log using the canonical recommendation fields: recommendation ID, recorded time, reviewer, pull-request number and URL, exact head revision, proposal event ID, recommended disposition, rationale, affected records, confidence and uncertainty, action owner, exact human question or <code>None<\/code>, and the head-change reassessment trigger. An open pull request is Elim-owned until that exact-revision review is complete; it enters the human Action Items count only when the recommendation identifies a genuinely human-reserved or owner-gated decision and states the exact question. A recommendation with <code>Action owner: None<\/code> closes the review unit without inventing human work. A later pull-request head automatically invalidates the earlier recommendation and re-queues all nine checks. Elim may complete and publish this log recommendation even though the separately owner-gated watcher pull request remains open.<\/p>\n<p>T4 completion does not itself establish Review Ready. The governing score and substantive findings control. Elim optimizes for reliable Review Ready proposals, not activity, issue count, audit count, or score movement.<\/p>\n<p>Comparable queue items are ordered by severity, contribution to Review Ready, release-blocker posture, readiness, age, and resolvability. Age must prevent lower-severity development, candidate research, or public intake from being postponed indefinitely. Interrupted work returns with its exact continuation point; repeated failures become Action Items instead of cycling silently. A human may suppress, reprioritize, manually launch, or require full canonical context for any unit, and the chain records that intervention.<\/p>",
           "text": "1. **Chain health, recovery, and project integrity.** Resolve the first authorized repair from any blocking or degraded bot result before ordinary project work. Then investigate every current Integrity-screen error and warning, including Source Checker Bot findings surfaced there. Resolve confirmed broken links, identity mismatches, and review-required redirects; recheck access restrictions and transient failures without calling them broken. Prefer a verified identity-preserving official replacement or retained archive, never a merely similar source. If replacement changes source identity, evidentiary support, or developed-proposal substance, route it through the required Change Audit and Internal Remedy-Fit review. Repair other objective or convention-governed defects, route substantive judgments, rerun the applicable checks, and verify repository/GitHub/Console agreement. Before selecting development work, reconcile every admitted unscored issue whose foundation metadata or lifecycle classification is absent, pending, or inconsistent under the canonical Human-Governed Foundation and Delegated Development rule and Post-Admission Development Gates. 2. **Public-submission triage.** Review every eligible public-intake comment made available under the Public-Intake Review Process, treating each comment rather than its containing Discussion as the submission. Assess institutional relevance, evidentiary posture, existing ownership, duplication, and the appropriate route. Sort and file clear material, route it to an existing owner, consolidate duplicate intake records, split materially distinct concerns, or preserve them separately only when the governing intake process expressly authorizes that non-substantive, reversible action; while organization remains report-only, make the corresponding recommendation without changing records. Current write authority is limited to a validated informative public reply and creation or update of a fully sourced preliminary candidate under the rules below; neither action implements or finalizes a project disposition. Flag potentially inappropriate, vulgar, or demeaning content for human moderation review without reproducing it, and identify strictly political submissions that do not allege a distinct repairable institutional defect as outside ARRP's project-action scope. 3. **Change Audits.** Resolve every actionable Change audit needed: Yes or Pending review marker. Route human-reserved decisions without blocking unrelated work. 4. **Audit-needed proposals.** Process every eligible proposal marked for audit before ordinary development. Order comparable work by likely contribution to Review Ready, release-blocker posture, priority, readiness, age, and resolvability. 5. **Consecutive audit ladder.** Once an issue is selected, start at its next required tier and continue through T4 while each successive tier is genuinely productive. Complete, memorialize, validate, and count each tier separately. Repair remediable defects and resume; pause only for a genuine human, evidentiary, external, synchronization, or validation blocker. 6. **Development and candidate-research workflow.** When the audit queue is exhausted or blocked, select the highest-value bounded work unit from eligible proposals and authorized formal candidates using priority, likely contribution to the Review Ready portfolio, evidentiary readiness, age, and resolvability. Proposal work requires the approved foundation governed by the canonical Framework rule. Candidate work requires Development level: Candidate, Status: Research, and a defined investigation in Next audit; it may investigate the canonical admission conclusions, build and reconcile a source dossier, test recurrence, legal adequacy, project overlap, neutrality, and ripeness, identify possible remedy classes, answer the causal question, prepare neutral alternative-control analysis, and recommend a disposition. It may apply an already recorded human reversed-control answer but may not supply or infer one. Do not exhaust low-value candidate research merely because candidates exist. Preserve the candidate classification throughout research, and when its defined investigation is complete, route the recommended admission, integration, deferral, source-retention, retirement, or rejection decision—and any materially missing human reversed-control answer—to the human through Status: Human decision needed. Source-domain proposal review is part of item 1. Elim must verify the complete exact-head delta at the current pull-request revision and inspect identity, classification, required fields, canonical linkage, evidence and provenance, lifecycle and authority, generated views, tests, and documentation before declaring it integration-ready. It inspects the primary records needed to understand the proposal, determines existing ownership and project relevance, and states a reasoned disposition rather than forwarding an unexplained pull request. It records the result in the Source Monitor Log using the canonical recommendation fields: recommendation ID, recorded time, reviewer, pull-request number and URL, exact head revision, proposal event ID, recommended disposition, rationale, affected records, confidence and uncertainty, action owner, exact human question or None, and the head-change reassessment trigger. An open pull request is Elim-owned until that exact-revision review is complete; it enters the human Action Items count only when the recommendation identifies a genuinely human-reserved or owner-gated decision and states the exact question. A recommendation with Action owner: None closes the review unit without inventing human work. A later pull-request head automatically invalidates the earlier recommendation and re-queues all nine checks. Elim may complete and publish this log recommendation even though the separately owner-gated watcher pull request remains open. T4 completion does not itself establish Review Ready. The governing score and substantive findings control. Elim optimizes for reliable Review Ready proposals, not activity, issue count, audit count, or score movement. Comparable queue items are ordered by severity, contribution to Review Ready, release-blocker posture, readiness, age, and resolvability. Age must prevent lower-severity development, candidate research, or public intake from being postponed indefinitely. Interrupted work returns with its exact continuation point; repeated failures become Action Items instead of cycling silently. A human may suppress, reprioritize, manually launch, or require full canonical context for any unit, and the chain records that intervention."
         },
         {
           "id": "governance-discovery-and-gap-stewardship",
           "title": "Governance Discovery and Gap Stewardship",
-          "html": "<p>The named work-order categories, deterministic detectors, and context routes above are the minimum coverage floor, not an exhaustive whitelist. During any authorized run, Elim may create a distinct discovered work unit for a credible connected project anomaly, omission, contradiction, risk, latent defect, or unanswered question. In quiet-queue mode it must review, at minimum, project structure, governing-rule integration, authority and lifecycle boundaries, workflow coherence, source and monitoring coverage, automation, publication, contributor readiness, technical debt, and cross-surface consistency. It emits exactly one control record with domain <code>project-governance-review<\/code>, exact observation time, selected source revision, and the next trigger. Its disposition is <code>no_material_finding<\/code> when no defect is established or <code>review_completed<\/code> when separate confirmed discovered units are recorded. This control record governs the 168-hour minimum selection interval.<\/p>\n<p>For each confirmed finding, Elim must choose among three authority paths:<\/p>\n<ol><li>If evidence objectively supports the problem, implementation is authorized, and no rule prohibits or makes the action unsafe, create a distinct work unit; repair it; propagate every affected repository, GitHub, Project, source, monitoring, automation, Console, publication, and public surface within authority; validate and read back the result; and record verified resolution evidence.<\/li><li>If implementation is human-reserved, forbidden, unsafe, or out of scope, preserve the evidence, reasoning, uncertainty, consequence, exact authority basis, action or non-action rationale, recommendation, owner, next trigger, and exact human question when one actually exists. Do not implement, approximate, or work around the boundary.<\/li><li>If authority or facts remain uncertain, retain one stable unresolved obligation with the uncertainty, owner, exact next action, and reassessment trigger; do not guess or call the finding fixed.<\/li><\/ol>\n<p>Every discovered record includes the Chain ID, Run ID, selected work-unit ID, discovered work-unit ID, discovery context, exact source revision, evidence, reasoning, uncertainty, affected records, consequence, authority classification, separate <code>permitted<\/code>, <code>human_reserved<\/code>, <code>forbidden<\/code>, <code>unsafe<\/code>, <code>out_of_scope<\/code>, or <code>uncertain<\/code> disposition, action or non-action rationale, changed files, affected surfaces, validation and readback, fix/report/retain/no-material disposition, canonical-detail link, provenance, owner, exact next action, and next trigger. Every confirmed finding also updates exactly one stable gap obligation. Repeated observations preserve first seen, last checked, occurrence count, age, occurrence history, and status history under that identity. Absence from a later pass, a clean aggregate, a queue rebuild, a merge, or a report-only result is not closure. Only a verified authorized repair with passing readback or a recorded human disposition closes the obligation.<\/p>\n<p>The complete machine-readable discovery records live in the committed Elim Run Log and must exactly match the structured closeout. Before every queue build, the dispatcher reconstructs the entire stable obligation ledger from those committed records. <code>.tmp/run-coordinator/elim-gap-obligations.json<\/code> is a replaceable cache, not an authority; deletion, corruption, or an unmerged human-review branch must not erase or redefine committed continuity. Queue and Console projections carry compact status, age, owner, authority, next-action, trigger, and canonical-detail links without copying the full narrative. Routine Elim-owned, prohibited, unsafe, out-of-scope, or uncertain obligations remain visible in Agents &amp; Bots or Integrity. They enter human Action Items only when an actual human judgment, credential, unsafe external action, owner-gated decision, or intervention is required and the exact question or action is stated.<\/p>\n<p>If the Codex task or host dispatcher terminates before Elim emits and validates its complete run result, the invocation is interrupted and failed regardless of how much read-only analysis occurred. Preserved task messages, subagent results, searches, JSONL events, and an open <code>CURRENT_AUDIT.md<\/code> checkpoint are incomplete evidence, not an applied audit or authorization to infer a score or disposition. The dispatcher must project the failure to the Console and human Action Items, preserve the exact task and output paths, release only a provably abandoned lock, and require reconciliation plus a fresh current chain before resuming substantive work. If that launched invocation lacks its verified canonical Elim Run Log report, the dispatcher records the bounded obligation under the original Chain and invocation IDs. The next queue routes the pending set as a safety-class-0 repair. Elim then adds one complete failed-run report for each identified prior Chain without treating incomplete analysis as completed work; the current reconciliation invocation receives its own ordinary report. The dispatcher removes a selected obligation only after exact-state and reviewed-Git proof confirms that every prior report is newly present exactly once and complete.<\/p>",
-          "text": "The named work-order categories, deterministic detectors, and context routes above are the minimum coverage floor, not an exhaustive whitelist. During any authorized run, Elim may create a distinct discovered work unit for a credible connected project anomaly, omission, contradiction, risk, latent defect, or unanswered question. In quiet-queue mode it must review, at minimum, project structure, governing-rule integration, authority and lifecycle boundaries, workflow coherence, source and monitoring coverage, automation, publication, contributor readiness, technical debt, and cross-surface consistency. It emits exactly one control record with domain project-governance-review, exact observation time, selected source revision, and the next trigger. Its disposition is no_material_finding when no defect is established or review_completed when separate confirmed discovered units are recorded. This control record governs the 168-hour minimum selection interval. For each confirmed finding, Elim must choose among three authority paths: 1. If evidence objectively supports the problem, implementation is authorized, and no rule prohibits or makes the action unsafe, create a distinct work unit; repair it; propagate every affected repository, GitHub, Project, source, monitoring, automation, Console, publication, and public surface within authority; validate and read back the result; and record verified resolution evidence. 2. If implementation is human-reserved, forbidden, unsafe, or out of scope, preserve the evidence, reasoning, uncertainty, consequence, exact authority basis, action or non-action rationale, recommendation, owner, next trigger, and exact human question when one actually exists. Do not implement, approximate, or work around the boundary. 3. If authority or facts remain uncertain, retain one stable unresolved obligation with the uncertainty, owner, exact next action, and reassessment trigger; do not guess or call the finding fixed. Every discovered record includes the Chain ID, Run ID, selected work-unit ID, discovered work-unit ID, discovery context, exact source revision, evidence, reasoning, uncertainty, affected records, consequence, authority classification, separate permitted, human_reserved, forbidden, unsafe, out_of_scope, or uncertain disposition, action or non-action rationale, changed files, affected surfaces, validation and readback, fix/report/retain/no-material disposition, canonical-detail link, provenance, owner, exact next action, and next trigger. Every confirmed finding also updates exactly one stable gap obligation. Repeated observations preserve first seen, last checked, occurrence count, age, occurrence history, and status history under that identity. Absence from a later pass, a clean aggregate, a queue rebuild, a merge, or a report-only result is not closure. Only a verified authorized repair with passing readback or a recorded human disposition closes the obligation. The complete machine-readable discovery records live in the committed Elim Run Log and must exactly match the structured closeout. Before every queue build, the dispatcher reconstructs the entire stable obligation ledger from those committed records. .tmp/run-coordinator/elim-gap-obligations.json is a replaceable cache, not an authority; deletion, corruption, or an unmerged human-review branch must not erase or redefine committed continuity. Queue and Console projections carry compact status, age, owner, authority, next-action, trigger, and canonical-detail links without copying the full narrative. Routine Elim-owned, prohibited, unsafe, out-of-scope, or uncertain obligations remain visible in Agents & Bots or Integrity. They enter human Action Items only when an actual human judgment, credential, unsafe external action, owner-gated decision, or intervention is required and the exact question or action is stated. If the Codex task or host dispatcher terminates before Elim emits and validates its complete run result, the invocation is interrupted and failed regardless of how much read-only analysis occurred. Preserved task messages, subagent results, searches, JSONL events, and an open CURRENT_AUDIT.md checkpoint are incomplete evidence, not an applied audit or authorization to infer a score or disposition. The dispatcher must project the failure to the Console and human Action Items, preserve the exact task and output paths, release only a provably abandoned lock, and require reconciliation plus a fresh current chain before resuming substantive work. If that launched invocation lacks its verified canonical Elim Run Log report, the dispatcher records the bounded obligation under the original Chain and invocation IDs. The next queue routes the pending set as a safety-class-0 repair. Elim then adds one complete failed-run report for each identified prior Chain without treating incomplete analysis as completed work; the current reconciliation invocation receives its own ordinary report. The dispatcher removes a selected obligation only after exact-state and reviewed-Git proof confirms that every prior report is newly present exactly once and complete."
+          "html": "<p>The named work-order categories, deterministic detectors, and context routes above are the minimum coverage floor, not an exhaustive whitelist. During any authorized run, Elim may create a distinct discovered work unit for a credible connected project anomaly, omission, contradiction, risk, latent defect, or unanswered question. In quiet-queue mode it must review, at minimum, project structure, governing-rule integration, authority and lifecycle boundaries, workflow coherence, source and monitoring coverage, automation, publication, contributor readiness, technical debt, and cross-surface consistency. It emits exactly one control record with domain <code>project-governance-review<\/code>, exact observation time, selected source revision, and the next trigger. Its disposition is <code>no_material_finding<\/code> when no defect is established or <code>review_completed<\/code> when separate confirmed discovered units are recorded. This control record governs the 168-hour minimum selection interval.<\/p>\n<p>For each confirmed finding, Elim must choose among three authority paths:<\/p>\n<ol><li>If evidence objectively supports the problem, implementation is authorized, and no rule prohibits or makes the action unsafe, create a distinct work unit; repair it; propagate every affected repository, GitHub, Project, source, monitoring, automation, Console, publication, and public surface within authority; validate and read back the result; and record verified resolution evidence.<\/li><li>If implementation is human-reserved, forbidden, unsafe, or out of scope, preserve the evidence, reasoning, uncertainty, consequence, exact authority basis, action or non-action rationale, recommendation, owner, next trigger, and exact human question when one actually exists. Do not implement, approximate, or work around the boundary.<\/li><li>If authority or facts remain uncertain, retain one stable unresolved obligation with the uncertainty, owner, exact next action, and reassessment trigger; do not guess or call the finding fixed.<\/li><\/ol>\n<p>Every discovered record includes the Chain ID, Run ID, selected work-unit ID, discovered work-unit ID, discovery context, exact source revision, evidence, reasoning, uncertainty, affected records, consequence, authority classification, separate <code>permitted<\/code>, <code>human_reserved<\/code>, <code>forbidden<\/code>, <code>unsafe<\/code>, <code>out_of_scope<\/code>, or <code>uncertain<\/code> disposition, action or non-action rationale, changed files, affected surfaces, validation and readback, fix/report/retain/no-material disposition, canonical-detail link, provenance, owner, exact next action, and next trigger. Every confirmed finding also updates exactly one stable gap obligation. Repeated observations preserve first seen, last checked, occurrence count, age, occurrence history, and status history under that identity. Absence from a later pass, a clean aggregate, a queue rebuild, a merge, or a report-only result is not closure. Only a verified authorized repair with passing readback or a recorded human disposition closes the obligation.<\/p>\n<p>The complete machine-readable discovery records live in the committed Elim Run Log and must exactly match the structured closeout. Before every queue build, the dispatcher reconstructs the entire stable obligation ledger from those committed records. <code>.tmp/run-coordinator/elim-gap-obligations.json<\/code> is a replaceable cache, not an authority; deletion, corruption, or an unmerged human-review branch must not erase or redefine committed continuity. Queue and Console projections carry compact status, age, owner, authority, next-action, trigger, and canonical-detail links without copying the full narrative. Routine Elim-owned, prohibited, unsafe, out-of-scope, or uncertain obligations remain visible in Agents &amp; Bots or Integrity. They enter human Action Items only when an actual human judgment, credential, unsafe external action, owner-gated decision, or intervention is required and the exact question or action is stated.<\/p>\n<p>If the Codex task or host dispatcher terminates before Elim emits and validates its complete run result, the invocation is interrupted and failed regardless of how much read-only analysis occurred. Preserved task messages, subagent results, searches, JSONL events, and an open <code>current-task.md<\/code> checkpoint are incomplete evidence, not an applied audit or authorization to infer a score or disposition. The dispatcher must project the failure to the Console and human Action Items, preserve the exact task and output paths, release only a provably abandoned lock, and require reconciliation plus a fresh current chain before resuming substantive work. If that launched invocation lacks its verified canonical Elim Run Log report, the dispatcher records the bounded obligation under the original Chain and invocation IDs. The next queue routes the pending set as a safety-class-0 repair. Elim then adds one complete failed-run report for each identified prior Chain without treating incomplete analysis as completed work; the current reconciliation invocation receives its own ordinary report. The dispatcher removes a selected obligation only after exact-state and reviewed-Git proof confirms that every prior report is newly present exactly once and complete.<\/p>",
+          "text": "The named work-order categories, deterministic detectors, and context routes above are the minimum coverage floor, not an exhaustive whitelist. During any authorized run, Elim may create a distinct discovered work unit for a credible connected project anomaly, omission, contradiction, risk, latent defect, or unanswered question. In quiet-queue mode it must review, at minimum, project structure, governing-rule integration, authority and lifecycle boundaries, workflow coherence, source and monitoring coverage, automation, publication, contributor readiness, technical debt, and cross-surface consistency. It emits exactly one control record with domain project-governance-review, exact observation time, selected source revision, and the next trigger. Its disposition is no_material_finding when no defect is established or review_completed when separate confirmed discovered units are recorded. This control record governs the 168-hour minimum selection interval. For each confirmed finding, Elim must choose among three authority paths: 1. If evidence objectively supports the problem, implementation is authorized, and no rule prohibits or makes the action unsafe, create a distinct work unit; repair it; propagate every affected repository, GitHub, Project, source, monitoring, automation, Console, publication, and public surface within authority; validate and read back the result; and record verified resolution evidence. 2. If implementation is human-reserved, forbidden, unsafe, or out of scope, preserve the evidence, reasoning, uncertainty, consequence, exact authority basis, action or non-action rationale, recommendation, owner, next trigger, and exact human question when one actually exists. Do not implement, approximate, or work around the boundary. 3. If authority or facts remain uncertain, retain one stable unresolved obligation with the uncertainty, owner, exact next action, and reassessment trigger; do not guess or call the finding fixed. Every discovered record includes the Chain ID, Run ID, selected work-unit ID, discovered work-unit ID, discovery context, exact source revision, evidence, reasoning, uncertainty, affected records, consequence, authority classification, separate permitted, human_reserved, forbidden, unsafe, out_of_scope, or uncertain disposition, action or non-action rationale, changed files, affected surfaces, validation and readback, fix/report/retain/no-material disposition, canonical-detail link, provenance, owner, exact next action, and next trigger. Every confirmed finding also updates exactly one stable gap obligation. Repeated observations preserve first seen, last checked, occurrence count, age, occurrence history, and status history under that identity. Absence from a later pass, a clean aggregate, a queue rebuild, a merge, or a report-only result is not closure. Only a verified authorized repair with passing readback or a recorded human disposition closes the obligation. The complete machine-readable discovery records live in the committed Elim Run Log and must exactly match the structured closeout. Before every queue build, the dispatcher reconstructs the entire stable obligation ledger from those committed records. .tmp/run-coordinator/elim-gap-obligations.json is a replaceable cache, not an authority; deletion, corruption, or an unmerged human-review branch must not erase or redefine committed continuity. Queue and Console projections carry compact status, age, owner, authority, next-action, trigger, and canonical-detail links without copying the full narrative. Routine Elim-owned, prohibited, unsafe, out-of-scope, or uncertain obligations remain visible in Agents & Bots or Integrity. They enter human Action Items only when an actual human judgment, credential, unsafe external action, owner-gated decision, or intervention is required and the exact question or action is stated. If the Codex task or host dispatcher terminates before Elim emits and validates its complete run result, the invocation is interrupted and failed regardless of how much read-only analysis occurred. Preserved task messages, subagent results, searches, JSONL events, and an open current-task.md checkpoint are incomplete evidence, not an applied audit or authorization to infer a score or disposition. The dispatcher must project the failure to the Console and human Action Items, preserve the exact task and output paths, release only a provably abandoned lock, and require reconciliation plus a fresh current chain before resuming substantive work. If that launched invocation lacks its verified canonical Elim Run Log report, the dispatcher records the bounded obligation under the original Chain and invocation IDs. The next queue routes the pending set as a safety-class-0 repair. Elim then adds one complete failed-run report for each identified prior Chain without treating incomplete analysis as completed work; the current reconciliation invocation receives its own ordinary report. The dispatcher removes a selected obligation only after exact-state and reviewed-Git proof confirms that every prior report is newly present exactly once and complete."
         },
         {
           "id": "comprehensive-review-epoch",
           "title": "Comprehensive Review Epoch",
-          "html": "<p>Elim performs an intensive project-wide consistency review when the Run Coordinator Bot marks a Review Epoch due under its authoritative cadence and trigger configuration. The required epoch record, review boundary, look-back method, and comprehensive-context rule are governed by <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/agent-rules/autonomous-execution.md#comprehensive-review-epochs\" target=\"_blank\" rel=\"noopener noreferrer\"><code>../agent-rules/autonomous-execution.md<\/code><\/a>. Elim must review the supplied delta, unresolved exceptions, cross-project invariants, workflow health, and required sample without automatically repeating every issue&#x27;s T-audits.<\/p>\n<p>The Review Epoch is the periodic protection against scoped-context creep. It does not authorize Elim to change a rubric, foundation, remedy, disposition, publication decision, or other human-reserved judgment.<\/p>",
-          "text": "Elim performs an intensive project-wide consistency review when the Run Coordinator Bot marks a Review Epoch due under its authoritative cadence and trigger configuration. The required epoch record, review boundary, look-back method, and comprehensive-context rule are governed by ../agent-rules/autonomous-execution.md. Elim must review the supplied delta, unresolved exceptions, cross-project invariants, workflow health, and required sample without automatically repeating every issue's T-audits. The Review Epoch is the periodic protection against scoped-context creep. It does not authorize Elim to change a rubric, foundation, remedy, disposition, publication decision, or other human-reserved judgment."
+          "html": "<p>Elim performs an intensive project-wide consistency review when the Run Coordinator Bot marks a Review Epoch due under its authoritative cadence and trigger configuration. The required epoch record, review boundary, look-back method, and comprehensive-context rule are governed by the <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/autonomous-execution.md#comprehensive-review-epochs\" target=\"_blank\" rel=\"noopener noreferrer\">ARRP autonomous-execution policy<\/a>. Elim must review the supplied delta, unresolved exceptions, cross-project invariants, workflow health, and required sample without automatically repeating every issue&#x27;s T-audits.<\/p>\n<p>The Review Epoch is the periodic protection against scoped-context creep. It does not authorize Elim to change a rubric, foundation, remedy, disposition, publication decision, or other human-reserved judgment.<\/p>",
+          "text": "Elim performs an intensive project-wide consistency review when the Run Coordinator Bot marks a Review Epoch due under its authoritative cadence and trigger configuration. The required epoch record, review boundary, look-back method, and comprehensive-context rule are governed by the ARRP autonomous-execution policy. Elim must review the supplied delta, unresolved exceptions, cross-project invariants, workflow health, and required sample without automatically repeating every issue's T-audits. The Review Epoch is the periodic protection against scoped-context creep. It does not authorize Elim to change a rubric, foundation, remedy, disposition, publication decision, or other human-reserved judgment."
         },
         {
           "id": "public-intake-triage-boundary",
@@ -81,8 +81,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "id": "unit-completion-and-closeout",
           "title": "Unit Completion and Closeout",
-          "html": "<p>Each material unit updates and reads back every affected working-tree, GitHub Issue, Project, source, Console, and publication surface within its authority; runs applicable validation; leaves an exact declared file boundary for trusted-host preservation; and appends its ordinary project-wide provenance entry to the shared Agent Audit Log. A completed source-domain proposal review also appends its exact-head recommendation to the Source Monitor Log before closeout. Detailed T-audit and Change Audit findings remain in the affected issue audit sidecar and synchronized issue, inventory, dashboard, and GitHub records. The shared entry links those records rather than replacing or restating them. The host then verifies and creates the intentional commit and rollback path. Git closeout, authentication, semantic synchronization, or validation failure stops new work after preservation.<\/p>\n<p>At closeout, Elim emits the validated structured run result required by the chain and appends exactly one complete run-level report to the <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/logs/ELIM_RUN_LOG.md\" target=\"_blank\" rel=\"noopener noreferrer\">Elim Run Log<\/a>, including clean, productive, usage-stopped, blocked, and failed runs. The model-authored result leaves <code>commit<\/code> null and <code>synchronization<\/code> empty; the trusted host preserves that original result, adds the actual commit and synchronization readback to the host result and current host projection, and never asks the model to predict its own enclosing commit hash. The report lists Chain ID and work-unit IDs; bot-health exceptions and repairs; integrity findings; discovery and stable gap-obligation summary; public-intake comments reviewed; informative replies posted with their direct URLs; recommended or authorized organization and routing actions; duplicate or split recommendations; categorical moderation flags; strictly political no-action dispositions; candidate investigations and their recommended dispositions; human-review questions; Change Audits; every completed tier; ladders paused; score or maturity changes; proposals reaching Review Ready; Review Epoch state; validation; host-closeout disposition; blockers; usage-preflight and per-run-budget results; stop reason; and exact next actions. Each run section also includes hidden canonical machine-readable discovery markers that reproduce every <code>discovered_work_units<\/code> and <code>gap_obligation_updates<\/code> entry exactly; the dispatcher rejects a missing, extra, altered, duplicated, or noncanonical marker before host closeout. The report summarizes and links issue audit histories, gap-detail records, and shared Agent Audit Log entries without duplicating detailed findings. It does not reproduce flagged submission text.<\/p>\n<p>Deterministic rendering may turn immutable structured chain and unit events into the human-readable run report, shared provenance view, and Console. That rendering does not replace the canonical issue audit records or authorize a change. A stale, incomplete, or schema-invalid closeout fails validation and remains visibly incomplete.<\/p>\n<p>A successfully completed Elim task must leave <code>CURRENT_AUDIT.md<\/code> <code>Inactive<\/code> with its operational fields cleared before the final report. The dispatcher verifies that state in the model-authored boundary and again after trusted-host Git preservation; an uncommitted, undeclared, branch-only, or unsynchronized cleared copy is not a successful closeout. A usage stop, failure, or other interruption that leaves completion-critical work unfinished must instead leave an exact <code>Paused<\/code> or <code>Blocked<\/code> continuation checkpoint. A separate human-review question already routed to Action Items and the issue workflow does not keep a completed Elim task open.<\/p>\n<p>The dispatcher preserves and resumes one exact Elim Codex task, so routine invocations leave that task unarchived and reusable. It must not use a generic most-recent-task shortcut, create a replacement task while the recorded one remains valid, or treat task-list state as operational history. Archiving is optional reversible interface housekeeping only when the persistent task is deliberately retired or replaced; it must never delete the task, replace the Elim Run Log, conceal a failure, or determine whether a run succeeded.<\/p>",
-          "text": "Each material unit updates and reads back every affected working-tree, GitHub Issue, Project, source, Console, and publication surface within its authority; runs applicable validation; leaves an exact declared file boundary for trusted-host preservation; and appends its ordinary project-wide provenance entry to the shared Agent Audit Log. A completed source-domain proposal review also appends its exact-head recommendation to the Source Monitor Log before closeout. Detailed T-audit and Change Audit findings remain in the affected issue audit sidecar and synchronized issue, inventory, dashboard, and GitHub records. The shared entry links those records rather than replacing or restating them. The host then verifies and creates the intentional commit and rollback path. Git closeout, authentication, semantic synchronization, or validation failure stops new work after preservation. At closeout, Elim emits the validated structured run result required by the chain and appends exactly one complete run-level report to the Elim Run Log, including clean, productive, usage-stopped, blocked, and failed runs. The model-authored result leaves commit null and synchronization empty; the trusted host preserves that original result, adds the actual commit and synchronization readback to the host result and current host projection, and never asks the model to predict its own enclosing commit hash. The report lists Chain ID and work-unit IDs; bot-health exceptions and repairs; integrity findings; discovery and stable gap-obligation summary; public-intake comments reviewed; informative replies posted with their direct URLs; recommended or authorized organization and routing actions; duplicate or split recommendations; categorical moderation flags; strictly political no-action dispositions; candidate investigations and their recommended dispositions; human-review questions; Change Audits; every completed tier; ladders paused; score or maturity changes; proposals reaching Review Ready; Review Epoch state; validation; host-closeout disposition; blockers; usage-preflight and per-run-budget results; stop reason; and exact next actions. Each run section also includes hidden canonical machine-readable discovery markers that reproduce every discovered_work_units and gap_obligation_updates entry exactly; the dispatcher rejects a missing, extra, altered, duplicated, or noncanonical marker before host closeout. The report summarizes and links issue audit histories, gap-detail records, and shared Agent Audit Log entries without duplicating detailed findings. It does not reproduce flagged submission text. Deterministic rendering may turn immutable structured chain and unit events into the human-readable run report, shared provenance view, and Console. That rendering does not replace the canonical issue audit records or authorize a change. A stale, incomplete, or schema-invalid closeout fails validation and remains visibly incomplete. A successfully completed Elim task must leave CURRENT_AUDIT.md Inactive with its operational fields cleared before the final report. The dispatcher verifies that state in the model-authored boundary and again after trusted-host Git preservation; an uncommitted, undeclared, branch-only, or unsynchronized cleared copy is not a successful closeout. A usage stop, failure, or other interruption that leaves completion-critical work unfinished must instead leave an exact Paused or Blocked continuation checkpoint. A separate human-review question already routed to Action Items and the issue workflow does not keep a completed Elim task open. The dispatcher preserves and resumes one exact Elim Codex task, so routine invocations leave that task unarchived and reusable. It must not use a generic most-recent-task shortcut, create a replacement task while the recorded one remains valid, or treat task-list state as operational history. Archiving is optional reversible interface housekeeping only when the persistent task is deliberately retired or replaced; it must never delete the task, replace the Elim Run Log, conceal a failure, or determine whether a run succeeded."
+          "html": "<p>Each material unit updates and reads back every affected working-tree, GitHub Issue, Project, source, Console, and publication surface within its authority; runs applicable validation; leaves an exact declared file boundary for trusted-host preservation; and appends its ordinary project-wide provenance entry to the shared Agent Audit Log. A completed source-domain proposal review also appends its exact-head recommendation to the Source Monitor Log before closeout. Detailed T-audit and Change Audit findings remain in the affected issue audit sidecar and synchronized issue, inventory, dashboard, and GitHub records. The shared entry links those records rather than replacing or restating them. The host then verifies and creates the intentional commit and rollback path. Git closeout, authentication, semantic synchronization, or validation failure stops new work after preservation.<\/p>\n<p>At closeout, Elim emits the validated structured run result required by the chain and appends exactly one complete run-level report to the <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/records/automation/elim-run-log.md\" target=\"_blank\" rel=\"noopener noreferrer\">Elim Run Log<\/a>, including clean, productive, usage-stopped, blocked, and failed runs. The model-authored result leaves <code>commit<\/code> null and <code>synchronization<\/code> empty; the trusted host preserves that original result, adds the actual commit and synchronization readback to the host result and current host projection, and never asks the model to predict its own enclosing commit hash. The report lists Chain ID and work-unit IDs; bot-health exceptions and repairs; integrity findings; discovery and stable gap-obligation summary; public-intake comments reviewed; informative replies posted with their direct URLs; recommended or authorized organization and routing actions; duplicate or split recommendations; categorical moderation flags; strictly political no-action dispositions; candidate investigations and their recommended dispositions; human-review questions; Change Audits; every completed tier; ladders paused; score or maturity changes; proposals reaching Review Ready; Review Epoch state; validation; host-closeout disposition; blockers; usage-preflight and per-run-budget results; stop reason; and exact next actions. Each run section also includes hidden canonical machine-readable discovery markers that reproduce every <code>discovered_work_units<\/code> and <code>gap_obligation_updates<\/code> entry exactly; the dispatcher rejects a missing, extra, altered, duplicated, or noncanonical marker before host closeout. The report summarizes and links issue audit histories, gap-detail records, and shared Agent Audit Log entries without duplicating detailed findings. It does not reproduce flagged submission text.<\/p>\n<p>Deterministic rendering may turn immutable structured chain and unit events into the human-readable run report, shared provenance view, and Console. That rendering does not replace the canonical issue audit records or authorize a change. A stale, incomplete, or schema-invalid closeout fails validation and remains visibly incomplete.<\/p>\n<p>A successfully completed Elim task must leave <code>current-task.md<\/code> <code>Inactive<\/code> with its operational fields cleared before the final report. The dispatcher verifies that state in the model-authored boundary and again after trusted-host Git preservation; an uncommitted, undeclared, branch-only, or unsynchronized cleared copy is not a successful closeout. A usage stop, failure, or other interruption that leaves completion-critical work unfinished must instead leave an exact <code>Paused<\/code> or <code>Blocked<\/code> continuation checkpoint. A separate human-review question already routed to Action Items and the issue workflow does not keep a completed Elim task open.<\/p>\n<p>The dispatcher preserves and resumes one exact Elim Codex task, so routine invocations leave that task unarchived and reusable. It must not use a generic most-recent-task shortcut, create a replacement task while the recorded one remains valid, or treat task-list state as operational history. Archiving is optional reversible interface housekeeping only when the persistent task is deliberately retired or replaced; it must never delete the task, replace the Elim Run Log, conceal a failure, or determine whether a run succeeded.<\/p>",
+          "text": "Each material unit updates and reads back every affected working-tree, GitHub Issue, Project, source, Console, and publication surface within its authority; runs applicable validation; leaves an exact declared file boundary for trusted-host preservation; and appends its ordinary project-wide provenance entry to the shared Agent Audit Log. A completed source-domain proposal review also appends its exact-head recommendation to the Source Monitor Log before closeout. Detailed T-audit and Change Audit findings remain in the affected issue audit sidecar and synchronized issue, inventory, dashboard, and GitHub records. The shared entry links those records rather than replacing or restating them. The host then verifies and creates the intentional commit and rollback path. Git closeout, authentication, semantic synchronization, or validation failure stops new work after preservation. At closeout, Elim emits the validated structured run result required by the chain and appends exactly one complete run-level report to the Elim Run Log, including clean, productive, usage-stopped, blocked, and failed runs. The model-authored result leaves commit null and synchronization empty; the trusted host preserves that original result, adds the actual commit and synchronization readback to the host result and current host projection, and never asks the model to predict its own enclosing commit hash. The report lists Chain ID and work-unit IDs; bot-health exceptions and repairs; integrity findings; discovery and stable gap-obligation summary; public-intake comments reviewed; informative replies posted with their direct URLs; recommended or authorized organization and routing actions; duplicate or split recommendations; categorical moderation flags; strictly political no-action dispositions; candidate investigations and their recommended dispositions; human-review questions; Change Audits; every completed tier; ladders paused; score or maturity changes; proposals reaching Review Ready; Review Epoch state; validation; host-closeout disposition; blockers; usage-preflight and per-run-budget results; stop reason; and exact next actions. Each run section also includes hidden canonical machine-readable discovery markers that reproduce every discovered_work_units and gap_obligation_updates entry exactly; the dispatcher rejects a missing, extra, altered, duplicated, or noncanonical marker before host closeout. The report summarizes and links issue audit histories, gap-detail records, and shared Agent Audit Log entries without duplicating detailed findings. It does not reproduce flagged submission text. Deterministic rendering may turn immutable structured chain and unit events into the human-readable run report, shared provenance view, and Console. That rendering does not replace the canonical issue audit records or authorize a change. A stale, incomplete, or schema-invalid closeout fails validation and remains visibly incomplete. A successfully completed Elim task must leave current-task.md Inactive with its operational fields cleared before the final report. The dispatcher verifies that state in the model-authored boundary and again after trusted-host Git preservation; an uncommitted, undeclared, branch-only, or unsynchronized cleared copy is not a successful closeout. A usage stop, failure, or other interruption that leaves completion-critical work unfinished must instead leave an exact Paused or Blocked continuation checkpoint. A separate human-review question already routed to Action Items and the issue workflow does not keep a completed Elim task open. The dispatcher preserves and resumes one exact Elim Codex task, so routine invocations leave that task unarchived and reusable. It must not use a generic most-recent-task shortcut, create a replacement task while the recorded one remains valid, or treat task-list state as operational history. Archiving is optional reversible interface housekeeping only when the persistent task is deliberately retired or replaced; it must never delete the task, replace the Elim Run Log, conceal a failure, or determine whether a run succeeded."
         },
         {
           "id": "publication-validation-stop-and-notification",
@@ -91,8 +91,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "text": "Each completed unit follows the ordinary reviewed ARRP preservation, synchronization, and publication rules through trusted-host Git closeout; Elim has no force-replaced branch and may not mutate repository Git state. It validates repository structure, sources, relevant tests, GitHub Issue and Project readback, Console data when affected, and live publication surfaces when affected. It stops before a new operation on the ten-point soft-target rule, the 15-percent reserve, unreadable or persistently changed usage state, dirty or incompatible repository state, missing authority, human-reserved judgment, authentication failure, unresolved merge risk, validation failure, or incomplete semantic synchronization, after finishing and preserving only an already-started bounded operation and recording the exact continuation point. The host independently stops on an undeclared diff, stale baseline, remote race, Git failure, or incomplete repository readback. Failed runs notify the user; every run remains recoverable in the persistent Elim task and continuously visible through the Elim Run Log, while only material units enter the shared Agent Audit Log."
         }
       ],
-      "runbook_path": "framework/agents/ELIM.md",
-      "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agents/ELIM.md"
+      "runbook_path": "framework/project/automation/runbooks/elim.md",
+      "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/elim.md"
     },
     {
       "id": "case-monitor-bot",
@@ -107,7 +107,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "runtime_config_url": "https://github.com/Thorncrag/ARRP/blob/main/.github/case-monitor-bot.json",
       "execution_environment": "github-actions",
       "model_policy": "",
-      "log_path": "framework/logs/AGENT_AUDIT_LOG.md",
+      "log_path": "framework/records/automation/agent-audit-log.md",
       "run_log_path": "",
       "run_log_url": "",
       "current_report": "",
@@ -135,8 +135,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "text": "Before publication, the bot validates tracker structure and bounds, required table identity and headers, source eligibility, accepted baselines, allowed hosts, stable docket identity, primary-row and related-appeal distinctions, exact status and status-date retention, configured module IDs and signal groups, established target-path convention, exact marker ownership, configured lead ceilings, the 20-docket verification ceiling, 13-second CourtListener pacing, and the authorized change boundary. Missing required headers, duplicate identities, malformed rows or markers, an implausibly incomplete tracker response, a covered source without an accepted baseline during an ordinary run, an unsafe or absent target, signal volume above the configured ceiling, network/provider failure, boundary violations, commit/push failure, or validation failure stop the run without a misleading update. Outputs are the proposed catalog delta, generated source-development lead section, immutable structured stage and source-domain events, Actions summary, and retained diagnostic artifact. Workflow failures enter the Run Coordinator failure state and notification path; routed content changes rely on the assigned pull request."
         }
       ],
-      "runbook_path": "framework/agents/CASE_MONITOR_BOT.md",
-      "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agents/CASE_MONITOR_BOT.md"
+      "runbook_path": "framework/project/automation/runbooks/case-monitor-bot.md",
+      "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/case-monitor-bot.md"
     },
     {
       "id": "presidential-directives-bot",
@@ -151,7 +151,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "runtime_config_url": "https://github.com/Thorncrag/ARRP/blob/main/.github/presidential-directives-bot.json",
       "execution_environment": "github-actions",
       "model_policy": "",
-      "log_path": "framework/logs/AGENT_AUDIT_LOG.md",
+      "log_path": "framework/records/automation/agent-audit-log.md",
       "run_log_path": "",
       "run_log_url": "",
       "current_report": "",
@@ -179,8 +179,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "text": "Before publication, the bot validates the configured administration coverage, Federal Register host and response structure, document identity, pagination bounds, fingerprints, last-changed values, and its authorized file boundary. Missing or malformed inputs, provider/schema failure, identity ambiguity, boundary violations, commit/push failure, or validation failure stop the run without publishing a misleading update. Every run reports new, changed, unchanged, and not-seen registry records in the Actions summary and retained diagnostic artifact. Outputs are the proposed registry delta, immutable structured stage and source-domain events, Actions summary, and retained diagnostic artifact. Workflow failures enter the Run Coordinator failure state and notification path; routed content changes rely on the assigned pull request."
         }
       ],
-      "runbook_path": "framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md",
-      "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md"
+      "runbook_path": "framework/project/automation/runbooks/presidential-directives-bot.md",
+      "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/presidential-directives-bot.md"
     },
     {
       "id": "project-console-progress-bot",
@@ -191,11 +191,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "schedule": "Due every 24 hours in the Run Coordinator chain; no independent schedule",
       "runtime_id": ".github/workflows/project-console-progress.yml",
       "runtime_url": "https://github.com/Thorncrag/ARRP/blob/main/.github/workflows/project-console-progress.yml",
-      "runtime_config": ".github/project-console-progress.json",
-      "runtime_config_url": "https://github.com/Thorncrag/ARRP/blob/main/.github/project-console-progress.json",
+      "runtime_config": "framework/project/interfaces/project-console-progress.json",
+      "runtime_config_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/interfaces/project-console-progress.json",
       "execution_environment": "github-actions",
       "model_policy": "",
-      "log_path": "framework/logs/AGENT_AUDIT_LOG.md",
+      "log_path": "framework/records/automation/agent-audit-log.md",
       "run_log_path": "",
       "run_log_url": "",
       "current_report": "",
@@ -223,8 +223,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "text": "The bot validates Project authentication, registry joins, unique identifiers, the canonical six-stage development-level vocabulary, score/readiness consistency, complete record accounting, schema, and bounded history before publication. A missing Project credential fails the refresh closed with an explicit error; malformed inputs, unmatched or ambiguous authority records, publication failure, or validation failure stop or visibly flag the run rather than repairing Project state. Outputs are progress.json, bounded history, and the Console progress projection. Failures use the configured GitHub workflow notification path."
         }
       ],
-      "runbook_path": "framework/agents/PROJECT_CONSOLE_PROGRESS_BOT.md",
-      "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agents/PROJECT_CONSOLE_PROGRESS_BOT.md"
+      "runbook_path": "framework/project/automation/runbooks/project-console-progress-bot.md",
+      "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/project-console-progress-bot.md"
     },
     {
       "id": "project-integrity-bot",
@@ -239,11 +239,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "runtime_config_url": "",
       "execution_environment": "github-actions",
       "model_policy": "",
-      "log_path": "framework/logs/AGENT_AUDIT_LOG.md",
+      "log_path": "framework/records/automation/agent-audit-log.md",
       "run_log_path": "",
       "run_log_url": "",
-      "current_report": "framework/logs/PROJECT_INTEGRITY_REPORT.md",
-      "current_report_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/PROJECT_INTEGRITY_REPORT.md",
+      "current_report": "framework/records/status/project-integrity-report.md",
+      "current_report_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/status/project-integrity-report.md",
       "current_data": "",
       "description": "The Project Integrity Bot runs the deterministic project-consistency floor as the final deterministic stage of every Run Coordinator chain. A push to main or a manual request may also start the same coordinated path; the bot has no independent clock. It compares repository metadata, registries, GitHub Issues, controlled Project fields, generated routes, structured files, and encoded conventions. A missing Project credential fails the authenticated scope.",
       "checks": [
@@ -274,14 +274,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "id": "checks-included",
           "title": "Checks included",
-          "html": "<p>The machine-readable <code>checks_included<\/code> list in this runbook is the authoritative plain-language inventory displayed by the Project Console. The checker’s published run scope must match it. Adding, removing, or materially redefining a check requires updating both the implementation and this list in the same reviewed change.<\/p>\n<p>The lifecycle-field check distinguishes two separate authorities. Every canonical issue page must carry a nonblank lowercase front-matter <code>status<\/code> using the canonical issue-page metadata vocabulary: <code>awaiting-decision<\/code>, <code>awaiting-merits-adjudication<\/code>, <code>blocked<\/code>, <code>candidate<\/code>, <code>deferred<\/code>, <code>developed<\/code>, <code>in-development<\/code>, or <code>retired<\/code>. Missing, blank, or non-standard values are findings. This page metadata is not the GitHub Project workflow <code>Status<\/code>.<\/p>\n<p>For active Project items, the bot also reports missing or non-standard workflow Status values, incoherent <code>Development level<\/code> and Status combinations, monitoring designations without the watched matter, material relevance, reassessment trigger, and checking method, and required <code>workflow_hold_reason<\/code> explanations that do not supply the status-specific content for <code>Deferred<\/code> or <code>Blocked<\/code>. It may identify a missing explanation or contradiction, but it must not invent the explanation, infer a substantive classification, change a Project field, or auto-repair the record.<\/p>\n<p>The issue-structure check parses every Issue Snapshot that is present. It requires the standard Problem, Repair, and Vehicle fields and counts the reader-visible words in each field. Markdown link destinations and HTML formatting do not count, but visible link text does. A field above the Framework&#x27;s guideline of about twelve words produces an agent-owned warning, not an error or automatic rewrite, because legal precision may require editorial judgment.<\/p>\n<p>The source-domain-event wiring check fails visibly when the schema, event builder, immutable data-branch publisher, watcher hooks, attempt-specific artifact contract, human-merge acceptance gate, trusted-code diff guards, or separate non-auto-merged log-rendering pull request is missing or disconnected. It verifies architecture and authority boundaries, not the meaning or disposition of a source observation.<\/p>",
-          "text": "The machine-readable checks_included list in this runbook is the authoritative plain-language inventory displayed by the Project Console. The checker’s published run scope must match it. Adding, removing, or materially redefining a check requires updating both the implementation and this list in the same reviewed change. The lifecycle-field check distinguishes two separate authorities. Every canonical issue page must carry a nonblank lowercase front-matter status using the canonical issue-page metadata vocabulary: awaiting-decision, awaiting-merits-adjudication, blocked, candidate, deferred, developed, in-development, or retired. Missing, blank, or non-standard values are findings. This page metadata is not the GitHub Project workflow Status. For active Project items, the bot also reports missing or non-standard workflow Status values, incoherent Development level and Status combinations, monitoring designations without the watched matter, material relevance, reassessment trigger, and checking method, and required workflow_hold_reason explanations that do not supply the status-specific content for Deferred or Blocked. It may identify a missing explanation or contradiction, but it must not invent the explanation, infer a substantive classification, change a Project field, or auto-repair the record. The issue-structure check parses every Issue Snapshot that is present. It requires the standard Problem, Repair, and Vehicle fields and counts the reader-visible words in each field. Markdown link destinations and HTML formatting do not count, but visible link text does. A field above the Framework's guideline of about twelve words produces an agent-owned warning, not an error or automatic rewrite, because legal precision may require editorial judgment. The source-domain-event wiring check fails visibly when the schema, event builder, immutable data-branch publisher, watcher hooks, attempt-specific artifact contract, human-merge acceptance gate, trusted-code diff guards, or separate non-auto-merged log-rendering pull request is missing or disconnected. It verifies architecture and authority boundaries, not the meaning or disposition of a source observation."
+          "html": "<p>The machine-readable <code>checks_included<\/code> list in this runbook is the authoritative plain-language inventory displayed by the Project Console. The checker’s published run scope must match it. Adding, removing, or materially redefining a check requires updating both the implementation and this list in the same reviewed change.<\/p>\n<p>The encoded floor covers Markdown heading anchors; area <code>issue_count<\/code>, active-list placement, canonical labels, and links; issue, audit, legislation, topic-guide, source-catalog, print-assignment, and print-assembly metadata; reciprocal issue-to-legislation routing; lifecycle-field coherence and required workflow explanations; front-door discovery routes; structured JSON and CSV validity; and common tracked-file or local-path artifacts. Its internal-link pass covers active project Markdown and HTML plus main-branch ARRP repository URLs stored in active project text records. Generated build output and superseded archival snapshots are excluded.<\/p>\n<p>The lifecycle-field check distinguishes two separate authorities. Every canonical issue page must carry a nonblank lowercase front-matter <code>status<\/code> using the canonical issue-page metadata vocabulary: <code>awaiting-decision<\/code>, <code>awaiting-merits-adjudication<\/code>, <code>blocked<\/code>, <code>candidate<\/code>, <code>deferred<\/code>, <code>developed<\/code>, <code>in-development<\/code>, or <code>retired<\/code>. Missing, blank, or non-standard values are findings. This page metadata is not the GitHub Project workflow <code>Status<\/code>.<\/p>\n<p>For active Project items, the bot also reports missing or non-standard workflow Status values, incoherent <code>Development level<\/code> and Status combinations, monitoring designations without the watched matter, material relevance, reassessment trigger, and checking method, and required <code>workflow_hold_reason<\/code> explanations that do not supply the status-specific content for <code>Deferred<\/code> or <code>Blocked<\/code>. It may identify a missing explanation or contradiction, but it must not invent the explanation, infer a substantive classification, change a Project field, or auto-repair the record.<\/p>\n<p>The issue-structure check parses every Issue Snapshot that is present. It requires the standard Problem, Repair, and Vehicle fields and counts the reader-visible words in each field. Markdown link destinations and HTML formatting do not count, but visible link text does. A field above the Framework&#x27;s guideline of about twelve words produces an agent-owned warning, not an error or automatic rewrite, because legal precision may require editorial judgment.<\/p>\n<p>The source-domain-event wiring check fails visibly when the schema, event builder, immutable data-branch publisher, watcher hooks, attempt-specific artifact contract, human-merge acceptance gate, trusted-code diff guards, or separate non-auto-merged log-rendering pull request is missing or disconnected. It verifies architecture and authority boundaries, not the meaning or disposition of a source observation.<\/p>",
+          "text": "The machine-readable checks_included list in this runbook is the authoritative plain-language inventory displayed by the Project Console. The checker’s published run scope must match it. Adding, removing, or materially redefining a check requires updating both the implementation and this list in the same reviewed change. The encoded floor covers Markdown heading anchors; area issue_count, active-list placement, canonical labels, and links; issue, audit, legislation, topic-guide, source-catalog, print-assignment, and print-assembly metadata; reciprocal issue-to-legislation routing; lifecycle-field coherence and required workflow explanations; front-door discovery routes; structured JSON and CSV validity; and common tracked-file or local-path artifacts. Its internal-link pass covers active project Markdown and HTML plus main-branch ARRP repository URLs stored in active project text records. Generated build output and superseded archival snapshots are excluded. The lifecycle-field check distinguishes two separate authorities. Every canonical issue page must carry a nonblank lowercase front-matter status using the canonical issue-page metadata vocabulary: awaiting-decision, awaiting-merits-adjudication, blocked, candidate, deferred, developed, in-development, or retired. Missing, blank, or non-standard values are findings. This page metadata is not the GitHub Project workflow Status. For active Project items, the bot also reports missing or non-standard workflow Status values, incoherent Development level and Status combinations, monitoring designations without the watched matter, material relevance, reassessment trigger, and checking method, and required workflow_hold_reason explanations that do not supply the status-specific content for Deferred or Blocked. It may identify a missing explanation or contradiction, but it must not invent the explanation, infer a substantive classification, change a Project field, or auto-repair the record. The issue-structure check parses every Issue Snapshot that is present. It requires the standard Problem, Repair, and Vehicle fields and counts the reader-visible words in each field. Markdown link destinations and HTML formatting do not count, but visible link text does. A field above the Framework's guideline of about twelve words produces an agent-owned warning, not an error or automatic rewrite, because legal precision may require editorial judgment. The source-domain-event wiring check fails visibly when the schema, event builder, immutable data-branch publisher, watcher hooks, attempt-specific artifact contract, human-merge acceptance gate, trusted-code diff guards, or separate non-auto-merged log-rendering pull request is missing or disconnected. It verifies architecture and authority boundaries, not the meaning or disposition of a source observation."
         },
         {
           "id": "inputs-and-permitted-writes",
           "title": "Inputs and permitted writes",
-          "html": "<p>The bot reads repository structure and metadata, issue and source registries, canonical issue and proposal pages, GitHub Issues, GitHub Project 2, published-page state, agent runbooks, runtime manifests, and generated-file conventions. It may write only its generated Console feed and replaceable current report, and it emits immutable structured provenance to the Run Coordinator. It does not edit the shared Markdown log from its proposal branch. It may not repair findings, alter substantive records, change Project fields, or make legal, evidentiary, lifecycle, rubric, or scoring judgments.<\/p>",
-          "text": "The bot reads repository structure and metadata, issue and source registries, canonical issue and proposal pages, GitHub Issues, GitHub Project 2, published-page state, agent runbooks, runtime manifests, and generated-file conventions. It may write only its generated Console feed and replaceable current report, and it emits immutable structured provenance to the Run Coordinator. It does not edit the shared Markdown log from its proposal branch. It may not repair findings, alter substantive records, change Project fields, or make legal, evidentiary, lifecycle, rubric, or scoring judgments."
+          "html": "<p>The bot reads repository structure and metadata, issue and source registries, canonical issue and proposal pages, GitHub Issues, GitHub Project 2, published-page state, agent runbooks, runtime manifests, and generated-file conventions. It may write only its generated Console feed and replaceable current report, and it emits immutable structured provenance to the Run Coordinator. It does not edit the shared Markdown log from its proposal branch. It may not repair findings, alter substantive records, change Project fields, or make legal, evidentiary, lifecycle, rubric, or scoring judgments.<\/p>\n<p>The current Markdown report is a replaceable snapshot, not a cumulative audit ledger. Timestamps and bounded history remain in the Console feed and GitHub Actions. The Integrity screen groups findings for repair; it is not an audit tier, score, or authority for automatic content changes. A clean automated result means only that the encoded checks found no defect. The report builder treats a change in the deterministic finding set, checked-page counts, or declared check scope as a changed snapshot eligible for the narrow report proposal.<\/p>",
+          "text": "The bot reads repository structure and metadata, issue and source registries, canonical issue and proposal pages, GitHub Issues, GitHub Project 2, published-page state, agent runbooks, runtime manifests, and generated-file conventions. It may write only its generated Console feed and replaceable current report, and it emits immutable structured provenance to the Run Coordinator. It does not edit the shared Markdown log from its proposal branch. It may not repair findings, alter substantive records, change Project fields, or make legal, evidentiary, lifecycle, rubric, or scoring judgments. The current Markdown report is a replaceable snapshot, not a cumulative audit ledger. Timestamps and bounded history remain in the Console feed and GitHub Actions. The Integrity screen groups findings for repair; it is not an audit tier, score, or authority for automatic content changes. A clean automated result means only that the encoded checks found no defect. The report builder treats a change in the deterministic finding set, checked-page counts, or declared check scope as a changed snapshot eligible for the narrow report proposal."
         },
         {
           "id": "publication-and-review",
@@ -296,8 +296,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "text": "The bot validates Project credentials, checker execution, report schema, checked-page accounting, feed construction, data publication, report diff boundaries, commit/push status, and runbook/runtime agreement. Missing credentials, script or schema failure, unauthorized file changes, publication failure, or validation failure stops the run. Detected integrity findings are successful observations and remain visible as errors or warnings rather than being auto-repaired. Outputs are the Console integrity feed, bounded history, current report proposal when changed, immutable structured provenance, and Actions summary. Workflow failures enter the Run Coordinator failure state and notification path; findings route through the Integrity screen and report pull request."
         }
       ],
-      "runbook_path": "framework/agents/PROJECT_INTEGRITY_BOT.md",
-      "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agents/PROJECT_INTEGRITY_BOT.md"
+      "runbook_path": "framework/project/automation/runbooks/project-integrity-bot.md",
+      "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/project-integrity-bot.md"
     },
     {
       "id": "run-coordinator-bot",
@@ -312,7 +312,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "runtime_config_url": "https://github.com/Thorncrag/ARRP/blob/main/.github/run-coordinator-bot.json",
       "execution_environment": "github-actions-and-local-codex",
       "model_policy": "",
-      "log_path": "framework/logs/AGENT_AUDIT_LOG.md",
+      "log_path": "framework/records/automation/agent-audit-log.md",
       "run_log_path": "",
       "run_log_url": "",
       "current_report": "",
@@ -330,8 +330,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "id": "triggers-locking-and-execution-boundary",
           "title": "Triggers, locking, and execution boundary",
-          "html": "<p>One daily kickoff, a pending public-submission event, a manual dispatch, or a due periodic Review Epoch may authorize the complete chain, including a conditional Elim launch. A push to <code>main<\/code> starts only the deterministic refresh portion: it may update integrity and progress inputs, but it must set <code>launch_recommended: false<\/code> even when the refreshed queue contains LLM-owned work. That work waits for the daily schedule, an eligible event, or explicit manual dispatch. Events arriving while a chain is active or within its configured debounce window are consolidated into the current or next Chain ID. GitHub concurrency serializes cloud workflow runs. The sole host-side liveness authority is one operating-system-held dispatcher lease, which serializes local dispatch and Elim execution and is automatically released if its owning process terminates.<\/p>\n<p>Before any cloud stage, the coordinator records the exact <code>origin/main<\/code> baseline and verifies the authentication required by the due stages. Its canonical host checkout is the reviewed non-synced local path <code>/Users/benjaminsmith/Automation Workspaces/ARRP<\/code>. Before any repository mutation, the dispatcher inspects that path and every ancestor for <code>com.apple.file-provider-domain-id<\/code>; a File Provider-managed or unreadable storage boundary fails closed. Before host dispatch, it detects only the tightly allowlisted Finder-style duplicate indexes, numbered duplicate refs, and <code>.DS_Store<\/code> files anywhere inside the canonical <code>.git<\/code> metadata. The trusted host moves those files intact to <code>.tmp/run-coordinator/reconciled-git-metadata/<\/code>, records their paths, hashes, sizes, timestamps, and archive in bounded control history, and verifies the canonical refs and index before continuing. It separately detects an untracked or newly staged numbered project-tree file only when removing the number maps its name exactly to an existing file tracked at <code>HEAD<\/code>. It removes any such copy from the staged boundary, moves it intact to <code>.tmp/run-coordinator/reconciled-worktree-duplicates/<\/code> with the same evidence, and rechecks after staging so a synchronization race cannot enter the preservation commit. It makes no more than three passes if a synchronization process regenerates either artifact class. A symlink, unknown name, numbered copy without an exact tracked sibling, failed move, malformed history, invalid canonical metadata, or continued regeneration fails closed; canonical Git metadata and project files are never deleted or rewritten by this recovery. The dispatcher then fetches <code>origin/main<\/code> and requires the canonical checkout to be on <code>main<\/code>. When that checkout is clean but its local <code>HEAD<\/code> is behind, the dispatcher must prove that local <code>HEAD<\/code> is an ancestor of the exact fetched revision, fast-forward only to that pinned commit, and read back both the exact head and a clean working tree. A dirty checkout, local history that is ahead or divergent, an inconclusive ancestry check, a failed fast-forward, or a readback mismatch fails closed. If ordinary uncommitted paths remain after local <code>HEAD<\/code> already equals fetched <code>origin/main<\/code>, the dispatcher verifies that no conflict exists, creates a bounded host-workspace branch, stages the complete workspace, requires <code>git diff --cached --check<\/code>, and creates one <code>Preserve local ARRP changes before automated run<\/code> commit under the coordinator identity. It pushes only that bounded branch, opens an exact-head and exact-base pull request, requires every reported check to finish without failure inside the reviewed timeout, confirms that <code>origin/main<\/code> has not moved, squash-merges without bypass, and reads back the exact merge from <code>origin/main<\/code>. It then returns the canonical checkout to fast-forwarded <code>main<\/code> and exits successfully without triggering a cloud chain or launching Elim; the next poll reloads the reviewed runtime from the synchronized boundary. If publication stops after the host commit, the next poll recognizes only the bounded host-workspace branch, revalidates its exact single parent, branch-bound parent prefix, host identity and message, nonempty safe path set, diff hygiene, exact pull-request head and base, reported checks, and merge readback, then resumes that same commit. Any other off-main state, staging, diff-check, commit, pull-request, check, merge, or readback failure stops with the exact local preservation state. The dispatcher must not rebase, reset, force-push, bypass required checks, or resolve divergent history. After workspace reconciliation passes on a later poll, it verifies that the reviewed automation runtime in the canonical checkout exactly matches the same <code>origin/main<\/code>, then prepares the fixed ignored full checkout at <code>.tmp/run-coordinator/elim-checkout<\/code>. That checkout must use the reviewed remote, contain its own real <code>.git<\/code> directory for trusted-host use, start from the recorded remote boundary, and be clean before work. A linked Git worktree is prohibited because its metadata escapes the controlled checkout boundary.<\/p>\n<p>Elim runs in <code>workspace-write<\/code> and may create or modify only working-tree files required by its selected authority. It must not stage, branch, commit, push, or create a pull request. After Elim emits its schema-validated result, the dispatcher requires <code>commit: null<\/code>, an empty model-authored synchronization list, and an exact <code>files_touched<\/code> set. It independently compares that declaration with the complete working tree and requires the current Elim Run Log table to use every exact nonblank contract field, including <code>Commits and synchronization<\/code>; an alias does not count. It also validates shared provenance when material, the intake ledger when applicable, current handoff state, selected-unit binding, and comprehensive Review Epoch when applicable. It then refetches the allowlisted remote, requires both the checkout and <code>origin/main<\/code> to equal the pinned manifest baseline, creates a bounded chain-specific branch, stages only the declared paths, checks the staged boundary, and creates the commit under the coordinator identity. Before any network write it requires a clean tree, the pinned baseline as the commit&#x27;s sole parent, and the committed path set to equal the pre-commit declaration. A <code>human_review<\/code> outcome is pushed to an open, unmerged pull request whose head and base are read back. Every other accountably closed outcome is pushed only to its bounded branch, opened as an exact-head and exact-base pull request, held until every reported check finishes without failure, squash-merged only while <code>origin/main<\/code> still equals the pinned baseline, and read back at the exact merge boundary. A publication retry may revalidate and resume the clean prepared host commit rather than rerun Elim. The original model result and enriched host result remain distinguishable. A mismatch or race preserves the checkout and fails closed; no reset, force push, required-check bypass, or undeclared absorption is permitted.<\/p>\n<p>The coordinator must not overlap a queued unit with an expressly active interactive task affecting the same issue or files; an unrelated or abandoned non-Inactive handoff is not a global liveness lock. <code>CURRENT_AUDIT.md<\/code> identifies unfinished continuation state only and never proves that an agent, bot, chain, task, or process is live. The dispatcher lease is the host-liveness authority. Its acquisition-specific owner record stores the dispatcher process, current Chain ID, invocation, Elim task when known, preserved output path, and a continuously refreshed heartbeat for diagnosis and Console display; the owner record is not a second lock. Every owner update and release must present the same acquisition token. Legacy directory locks use only the tested dead-owner or expired-ownerless migration path. An abandoned operating-system lease is available automatically to the next dispatcher. Recovery before Elim begins records a coordinator failure without fabricating an Elim run. Recovery after Elim begins marks Elim failed, preserves the task and JSONL output as incomplete evidence, creates a human Action Item and notification, projects the error to the Console, and requires a fresh current chain before substantive work resumes. When that launched invocation lacks a verified canonical Elim Run Log report, the dispatcher persists a bounded reconciliation record keyed to its exact Chain and invocation identities. The next queue exposes one safety-class-0 repair unit for the pending set. The dispatcher clears selected records only after a completed result proves an unchanged reconciliation-state hash and a reviewed Git boundary containing exactly one newly added, complete report for each selected prior Chain ID.<\/p>\n<p>A failed launched invocation may leave the fixed isolated checkout dirty even after its canonical run report has been repaired elsewhere. That checkout may be released only through the dispatcher&#x27;s explicit reconciled-checkout archive mode. The host first refreshes and verifies the reviewed runtime, requires an empty pending run-log reconciliation queue and a matching resolved Action Item, and proves from Git objects that synchronized <code>origin/main<\/code> contains exactly one complete failed-run report that was absent from the preserved checkout baseline. It then moves the entire checkout intact—Git metadata, dirty files, and all—to <code>.tmp/run-coordinator/reconciled-checkouts/<\/code>, records the archive boundary and changed paths in local control history, and retires the stale task-reuse pointer. It never resets, cleans, overwrites, or deletes the evidence. Any failed predicate leaves the original checkout in place and fails closed; the next ordinary run creates a fresh full checkout at the fixed path.<\/p>\n<p>Configuration, executable, state-directory, and lease-setup failures occur before ordinary dispatcher state ownership. The bootstrap handler preserves a unique host-local failure artifact, retains the 128 newest recognized events, and notifies the user. When it can prove the dispatcher lease is free, it briefly acquires that lease and also writes the ordinary failure history and human Action Item. When another live dispatcher owns the lease, it must not race that owner by mutating shared control or history; the separate artifact and notification remain the failure evidence.<\/p>",
-          "text": "One daily kickoff, a pending public-submission event, a manual dispatch, or a due periodic Review Epoch may authorize the complete chain, including a conditional Elim launch. A push to main starts only the deterministic refresh portion: it may update integrity and progress inputs, but it must set launch_recommended: false even when the refreshed queue contains LLM-owned work. That work waits for the daily schedule, an eligible event, or explicit manual dispatch. Events arriving while a chain is active or within its configured debounce window are consolidated into the current or next Chain ID. GitHub concurrency serializes cloud workflow runs. The sole host-side liveness authority is one operating-system-held dispatcher lease, which serializes local dispatch and Elim execution and is automatically released if its owning process terminates. Before any cloud stage, the coordinator records the exact origin/main baseline and verifies the authentication required by the due stages. Its canonical host checkout is the reviewed non-synced local path /Users/benjaminsmith/Automation Workspaces/ARRP. Before any repository mutation, the dispatcher inspects that path and every ancestor for com.apple.file-provider-domain-id; a File Provider-managed or unreadable storage boundary fails closed. Before host dispatch, it detects only the tightly allowlisted Finder-style duplicate indexes, numbered duplicate refs, and .DS_Store files anywhere inside the canonical .git metadata. The trusted host moves those files intact to .tmp/run-coordinator/reconciled-git-metadata/, records their paths, hashes, sizes, timestamps, and archive in bounded control history, and verifies the canonical refs and index before continuing. It separately detects an untracked or newly staged numbered project-tree file only when removing the number maps its name exactly to an existing file tracked at HEAD. It removes any such copy from the staged boundary, moves it intact to .tmp/run-coordinator/reconciled-worktree-duplicates/ with the same evidence, and rechecks after staging so a synchronization race cannot enter the preservation commit. It makes no more than three passes if a synchronization process regenerates either artifact class. A symlink, unknown name, numbered copy without an exact tracked sibling, failed move, malformed history, invalid canonical metadata, or continued regeneration fails closed; canonical Git metadata and project files are never deleted or rewritten by this recovery. The dispatcher then fetches origin/main and requires the canonical checkout to be on main. When that checkout is clean but its local HEAD is behind, the dispatcher must prove that local HEAD is an ancestor of the exact fetched revision, fast-forward only to that pinned commit, and read back both the exact head and a clean working tree. A dirty checkout, local history that is ahead or divergent, an inconclusive ancestry check, a failed fast-forward, or a readback mismatch fails closed. If ordinary uncommitted paths remain after local HEAD already equals fetched origin/main, the dispatcher verifies that no conflict exists, creates a bounded host-workspace branch, stages the complete workspace, requires git diff --cached --check, and creates one Preserve local ARRP changes before automated run commit under the coordinator identity. It pushes only that bounded branch, opens an exact-head and exact-base pull request, requires every reported check to finish without failure inside the reviewed timeout, confirms that origin/main has not moved, squash-merges without bypass, and reads back the exact merge from origin/main. It then returns the canonical checkout to fast-forwarded main and exits successfully without triggering a cloud chain or launching Elim; the next poll reloads the reviewed runtime from the synchronized boundary. If publication stops after the host commit, the next poll recognizes only the bounded host-workspace branch, revalidates its exact single parent, branch-bound parent prefix, host identity and message, nonempty safe path set, diff hygiene, exact pull-request head and base, reported checks, and merge readback, then resumes that same commit. Any other off-main state, staging, diff-check, commit, pull-request, check, merge, or readback failure stops with the exact local preservation state. The dispatcher must not rebase, reset, force-push, bypass required checks, or resolve divergent history. After workspace reconciliation passes on a later poll, it verifies that the reviewed automation runtime in the canonical checkout exactly matches the same origin/main, then prepares the fixed ignored full checkout at .tmp/run-coordinator/elim-checkout. That checkout must use the reviewed remote, contain its own real .git directory for trusted-host use, start from the recorded remote boundary, and be clean before work. A linked Git worktree is prohibited because its metadata escapes the controlled checkout boundary. Elim runs in workspace-write and may create or modify only working-tree files required by its selected authority. It must not stage, branch, commit, push, or create a pull request. After Elim emits its schema-validated result, the dispatcher requires commit: null, an empty model-authored synchronization list, and an exact files_touched set. It independently compares that declaration with the complete working tree and requires the current Elim Run Log table to use every exact nonblank contract field, including Commits and synchronization; an alias does not count. It also validates shared provenance when material, the intake ledger when applicable, current handoff state, selected-unit binding, and comprehensive Review Epoch when applicable. It then refetches the allowlisted remote, requires both the checkout and origin/main to equal the pinned manifest baseline, creates a bounded chain-specific branch, stages only the declared paths, checks the staged boundary, and creates the commit under the coordinator identity. Before any network write it requires a clean tree, the pinned baseline as the commit's sole parent, and the committed path set to equal the pre-commit declaration. A human_review outcome is pushed to an open, unmerged pull request whose head and base are read back. Every other accountably closed outcome is pushed only to its bounded branch, opened as an exact-head and exact-base pull request, held until every reported check finishes without failure, squash-merged only while origin/main still equals the pinned baseline, and read back at the exact merge boundary. A publication retry may revalidate and resume the clean prepared host commit rather than rerun Elim. The original model result and enriched host result remain distinguishable. A mismatch or race preserves the checkout and fails closed; no reset, force push, required-check bypass, or undeclared absorption is permitted. The coordinator must not overlap a queued unit with an expressly active interactive task affecting the same issue or files; an unrelated or abandoned non-Inactive handoff is not a global liveness lock. CURRENT_AUDIT.md identifies unfinished continuation state only and never proves that an agent, bot, chain, task, or process is live. The dispatcher lease is the host-liveness authority. Its acquisition-specific owner record stores the dispatcher process, current Chain ID, invocation, Elim task when known, preserved output path, and a continuously refreshed heartbeat for diagnosis and Console display; the owner record is not a second lock. Every owner update and release must present the same acquisition token. Legacy directory locks use only the tested dead-owner or expired-ownerless migration path. An abandoned operating-system lease is available automatically to the next dispatcher. Recovery before Elim begins records a coordinator failure without fabricating an Elim run. Recovery after Elim begins marks Elim failed, preserves the task and JSONL output as incomplete evidence, creates a human Action Item and notification, projects the error to the Console, and requires a fresh current chain before substantive work resumes. When that launched invocation lacks a verified canonical Elim Run Log report, the dispatcher persists a bounded reconciliation record keyed to its exact Chain and invocation identities. The next queue exposes one safety-class-0 repair unit for the pending set. The dispatcher clears selected records only after a completed result proves an unchanged reconciliation-state hash and a reviewed Git boundary containing exactly one newly added, complete report for each selected prior Chain ID. A failed launched invocation may leave the fixed isolated checkout dirty even after its canonical run report has been repaired elsewhere. That checkout may be released only through the dispatcher's explicit reconciled-checkout archive mode. The host first refreshes and verifies the reviewed runtime, requires an empty pending run-log reconciliation queue and a matching resolved Action Item, and proves from Git objects that synchronized origin/main contains exactly one complete failed-run report that was absent from the preserved checkout baseline. It then moves the entire checkout intact—Git metadata, dirty files, and all—to .tmp/run-coordinator/reconciled-checkouts/, records the archive boundary and changed paths in local control history, and retires the stale task-reuse pointer. It never resets, cleans, overwrites, or deletes the evidence. Any failed predicate leaves the original checkout in place and fails closed; the next ordinary run creates a fresh full checkout at the fixed path. Configuration, executable, state-directory, and lease-setup failures occur before ordinary dispatcher state ownership. The bootstrap handler preserves a unique host-local failure artifact, retains the 128 newest recognized events, and notifies the user. When it can prove the dispatcher lease is free, it briefly acquires that lease and also writes the ordinary failure history and human Action Item. When another live dispatcher owns the lease, it must not race that owner by mutating shared control or history; the separate artifact and notification remain the failure evidence."
+          "html": "<p>One daily kickoff, a pending public-submission event, a manual dispatch, or a due periodic Review Epoch may authorize the complete chain, including a conditional Elim launch. A push to <code>main<\/code> starts only the deterministic refresh portion: it may update integrity and progress inputs, but it must set <code>launch_recommended: false<\/code> even when the refreshed queue contains LLM-owned work. That work waits for the daily schedule, an eligible event, or explicit manual dispatch. Events arriving while a chain is active or within its configured debounce window are consolidated into the current or next Chain ID. GitHub concurrency serializes cloud workflow runs. The sole host-side liveness authority is one operating-system-held dispatcher lease, which serializes local dispatch and Elim execution and is automatically released if its owning process terminates.<\/p>\n<p>Before any cloud stage, the coordinator records the exact <code>origin/main<\/code> baseline and verifies the authentication required by the due stages. Its canonical host checkout is the reviewed non-synced local path <code>/Users/benjaminsmith/Automation Workspaces/ARRP<\/code>. Before any repository mutation, the dispatcher inspects that path and every ancestor for <code>com.apple.file-provider-domain-id<\/code>; a File Provider-managed or unreadable storage boundary fails closed. Before host dispatch, it detects only the tightly allowlisted Finder-style duplicate indexes, numbered duplicate refs, and <code>.DS_Store<\/code> files anywhere inside the canonical <code>.git<\/code> metadata. The trusted host moves those files intact to <code>.tmp/run-coordinator/reconciled-git-metadata/<\/code>, records their paths, hashes, sizes, timestamps, and archive in bounded control history, and verifies the canonical refs and index before continuing. It separately detects an untracked or newly staged numbered project-tree file only when removing the number maps its name exactly to an existing file tracked at <code>HEAD<\/code>. It removes any such copy from the staged boundary, moves it intact to <code>.tmp/run-coordinator/reconciled-worktree-duplicates/<\/code> with the same evidence, and rechecks after staging so a synchronization race cannot enter the preservation commit. It makes no more than three passes if a synchronization process regenerates either artifact class. A symlink, unknown name, numbered copy without an exact tracked sibling, failed move, malformed history, invalid canonical metadata, or continued regeneration fails closed; canonical Git metadata and project files are never deleted or rewritten by this recovery. The dispatcher then fetches <code>origin/main<\/code> and requires the canonical checkout to be on <code>main<\/code>. When that checkout is clean but its local <code>HEAD<\/code> is behind, the dispatcher must prove that local <code>HEAD<\/code> is an ancestor of the exact fetched revision, fast-forward only to that pinned commit, and read back both the exact head and a clean working tree. A dirty checkout, local history that is ahead or divergent, an inconclusive ancestry check, a failed fast-forward, or a readback mismatch fails closed. If ordinary uncommitted paths remain after local <code>HEAD<\/code> already equals fetched <code>origin/main<\/code>, the dispatcher verifies that no conflict exists, creates a bounded host-workspace branch, stages the complete workspace, requires <code>git diff --cached --check<\/code>, and creates one <code>Preserve local ARRP changes before automated run<\/code> commit under the coordinator identity. It pushes only that bounded branch, opens an exact-head and exact-base pull request, requires every reported check to finish without failure inside the reviewed timeout, confirms that <code>origin/main<\/code> has not moved, squash-merges without bypass, and reads back the exact merge from <code>origin/main<\/code>. It then returns the canonical checkout to fast-forwarded <code>main<\/code> and exits successfully without triggering a cloud chain or launching Elim; the next poll reloads the reviewed runtime from the synchronized boundary. If publication stops after the host commit, the next poll recognizes only the bounded host-workspace branch, revalidates its exact single parent, branch-bound parent prefix, host identity and message, nonempty safe path set, diff hygiene, exact pull-request head and base, reported checks, and merge readback, then resumes that same commit. Any other off-main state, staging, diff-check, commit, pull-request, check, merge, or readback failure stops with the exact local preservation state. The dispatcher must not rebase, reset, force-push, bypass required checks, or resolve divergent history. After workspace reconciliation passes on a later poll, it verifies that the reviewed automation runtime in the canonical checkout exactly matches the same <code>origin/main<\/code>, then prepares the fixed ignored full checkout at <code>.tmp/run-coordinator/elim-checkout<\/code>. That checkout must use the reviewed remote, contain its own real <code>.git<\/code> directory for trusted-host use, start from the recorded remote boundary, and be clean before work. A linked Git worktree is prohibited because its metadata escapes the controlled checkout boundary.<\/p>\n<p>Elim runs in <code>workspace-write<\/code> and may create or modify only working-tree files required by its selected authority. It must not stage, branch, commit, push, or create a pull request. After Elim emits its schema-validated result, the dispatcher requires <code>commit: null<\/code>, an empty model-authored synchronization list, and an exact <code>files_touched<\/code> set. It independently compares that declaration with the complete working tree and requires the current Elim Run Log table to use every exact nonblank contract field, including <code>Commits and synchronization<\/code>; an alias does not count. It also validates shared provenance when material, the intake ledger when applicable, current handoff state, selected-unit binding, and comprehensive Review Epoch when applicable. It then refetches the allowlisted remote, requires both the checkout and <code>origin/main<\/code> to equal the pinned manifest baseline, creates a bounded chain-specific branch, stages only the declared paths, checks the staged boundary, and creates the commit under the coordinator identity. Before any network write it requires a clean tree, the pinned baseline as the commit&#x27;s sole parent, and the committed path set to equal the pre-commit declaration. A <code>human_review<\/code> outcome is pushed to an open, unmerged pull request whose head and base are read back. Every other accountably closed outcome is pushed only to its bounded branch, opened as an exact-head and exact-base pull request, held until every reported check finishes without failure, squash-merged only while <code>origin/main<\/code> still equals the pinned baseline, and read back at the exact merge boundary. A publication retry may revalidate and resume the clean prepared host commit rather than rerun Elim. The original model result and enriched host result remain distinguishable. A mismatch or race preserves the checkout and fails closed; no reset, force push, required-check bypass, or undeclared absorption is permitted.<\/p>\n<p>The coordinator must not overlap a queued unit with an expressly active interactive task affecting the same issue or files; an unrelated or abandoned non-Inactive handoff is not a global liveness lock. <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/records/handoffs/current-task.md\" target=\"_blank\" rel=\"noopener noreferrer\"><code>current-task.md<\/code><\/a> identifies unfinished continuation state only and never proves that an agent, bot, chain, task, or process is live. The dispatcher lease is the host-liveness authority. Its acquisition-specific owner record stores the dispatcher process, current Chain ID, invocation, Elim task when known, preserved output path, and a continuously refreshed heartbeat for diagnosis and Console display; the owner record is not a second lock. Every owner update and release must present the same acquisition token. Legacy directory locks use only the tested dead-owner or expired-ownerless migration path. An abandoned operating-system lease is available automatically to the next dispatcher. Recovery before Elim begins records a coordinator failure without fabricating an Elim run. Recovery after Elim begins marks Elim failed, preserves the task and JSONL output as incomplete evidence, creates a human Action Item and notification, projects the error to the Console, and requires a fresh current chain before substantive work resumes. When that launched invocation lacks a verified canonical Elim Run Log report, the dispatcher persists a bounded reconciliation record keyed to its exact Chain and invocation identities. The next queue exposes one safety-class-0 repair unit for the pending set. The dispatcher clears selected records only after a completed result proves an unchanged reconciliation-state hash and a reviewed Git boundary containing exactly one newly added, complete report for each selected prior Chain ID.<\/p>\n<p>A failed launched invocation may leave the fixed isolated checkout dirty even after its canonical run report has been repaired elsewhere. That checkout may be released only through the dispatcher&#x27;s explicit reconciled-checkout archive mode. The host first refreshes and verifies the reviewed runtime, requires an empty pending run-log reconciliation queue and a matching resolved Action Item, and proves from Git objects that synchronized <code>origin/main<\/code> contains exactly one complete failed-run report that was absent from the preserved checkout baseline. It then moves the entire checkout intact—Git metadata, dirty files, and all—to <code>.tmp/run-coordinator/reconciled-checkouts/<\/code>, records the archive boundary and changed paths in local control history, and retires the stale task-reuse pointer. It never resets, cleans, overwrites, or deletes the evidence. Any failed predicate leaves the original checkout in place and fails closed; the next ordinary run creates a fresh full checkout at the fixed path.<\/p>\n<p>Configuration, executable, state-directory, and lease-setup failures occur before ordinary dispatcher state ownership. The bootstrap handler preserves a unique host-local failure artifact, retains the 128 newest recognized events, and notifies the user. When it can prove the dispatcher lease is free, it briefly acquires that lease and also writes the ordinary failure history and human Action Item. When another live dispatcher owns the lease, it must not race that owner by mutating shared control or history; the separate artifact and notification remain the failure evidence.<\/p>",
+          "text": "One daily kickoff, a pending public-submission event, a manual dispatch, or a due periodic Review Epoch may authorize the complete chain, including a conditional Elim launch. A push to main starts only the deterministic refresh portion: it may update integrity and progress inputs, but it must set launch_recommended: false even when the refreshed queue contains LLM-owned work. That work waits for the daily schedule, an eligible event, or explicit manual dispatch. Events arriving while a chain is active or within its configured debounce window are consolidated into the current or next Chain ID. GitHub concurrency serializes cloud workflow runs. The sole host-side liveness authority is one operating-system-held dispatcher lease, which serializes local dispatch and Elim execution and is automatically released if its owning process terminates. Before any cloud stage, the coordinator records the exact origin/main baseline and verifies the authentication required by the due stages. Its canonical host checkout is the reviewed non-synced local path /Users/benjaminsmith/Automation Workspaces/ARRP. Before any repository mutation, the dispatcher inspects that path and every ancestor for com.apple.file-provider-domain-id; a File Provider-managed or unreadable storage boundary fails closed. Before host dispatch, it detects only the tightly allowlisted Finder-style duplicate indexes, numbered duplicate refs, and .DS_Store files anywhere inside the canonical .git metadata. The trusted host moves those files intact to .tmp/run-coordinator/reconciled-git-metadata/, records their paths, hashes, sizes, timestamps, and archive in bounded control history, and verifies the canonical refs and index before continuing. It separately detects an untracked or newly staged numbered project-tree file only when removing the number maps its name exactly to an existing file tracked at HEAD. It removes any such copy from the staged boundary, moves it intact to .tmp/run-coordinator/reconciled-worktree-duplicates/ with the same evidence, and rechecks after staging so a synchronization race cannot enter the preservation commit. It makes no more than three passes if a synchronization process regenerates either artifact class. A symlink, unknown name, numbered copy without an exact tracked sibling, failed move, malformed history, invalid canonical metadata, or continued regeneration fails closed; canonical Git metadata and project files are never deleted or rewritten by this recovery. The dispatcher then fetches origin/main and requires the canonical checkout to be on main. When that checkout is clean but its local HEAD is behind, the dispatcher must prove that local HEAD is an ancestor of the exact fetched revision, fast-forward only to that pinned commit, and read back both the exact head and a clean working tree. A dirty checkout, local history that is ahead or divergent, an inconclusive ancestry check, a failed fast-forward, or a readback mismatch fails closed. If ordinary uncommitted paths remain after local HEAD already equals fetched origin/main, the dispatcher verifies that no conflict exists, creates a bounded host-workspace branch, stages the complete workspace, requires git diff --cached --check, and creates one Preserve local ARRP changes before automated run commit under the coordinator identity. It pushes only that bounded branch, opens an exact-head and exact-base pull request, requires every reported check to finish without failure inside the reviewed timeout, confirms that origin/main has not moved, squash-merges without bypass, and reads back the exact merge from origin/main. It then returns the canonical checkout to fast-forwarded main and exits successfully without triggering a cloud chain or launching Elim; the next poll reloads the reviewed runtime from the synchronized boundary. If publication stops after the host commit, the next poll recognizes only the bounded host-workspace branch, revalidates its exact single parent, branch-bound parent prefix, host identity and message, nonempty safe path set, diff hygiene, exact pull-request head and base, reported checks, and merge readback, then resumes that same commit. Any other off-main state, staging, diff-check, commit, pull-request, check, merge, or readback failure stops with the exact local preservation state. The dispatcher must not rebase, reset, force-push, bypass required checks, or resolve divergent history. After workspace reconciliation passes on a later poll, it verifies that the reviewed automation runtime in the canonical checkout exactly matches the same origin/main, then prepares the fixed ignored full checkout at .tmp/run-coordinator/elim-checkout. That checkout must use the reviewed remote, contain its own real .git directory for trusted-host use, start from the recorded remote boundary, and be clean before work. A linked Git worktree is prohibited because its metadata escapes the controlled checkout boundary. Elim runs in workspace-write and may create or modify only working-tree files required by its selected authority. It must not stage, branch, commit, push, or create a pull request. After Elim emits its schema-validated result, the dispatcher requires commit: null, an empty model-authored synchronization list, and an exact files_touched set. It independently compares that declaration with the complete working tree and requires the current Elim Run Log table to use every exact nonblank contract field, including Commits and synchronization; an alias does not count. It also validates shared provenance when material, the intake ledger when applicable, current handoff state, selected-unit binding, and comprehensive Review Epoch when applicable. It then refetches the allowlisted remote, requires both the checkout and origin/main to equal the pinned manifest baseline, creates a bounded chain-specific branch, stages only the declared paths, checks the staged boundary, and creates the commit under the coordinator identity. Before any network write it requires a clean tree, the pinned baseline as the commit's sole parent, and the committed path set to equal the pre-commit declaration. A human_review outcome is pushed to an open, unmerged pull request whose head and base are read back. Every other accountably closed outcome is pushed only to its bounded branch, opened as an exact-head and exact-base pull request, held until every reported check finishes without failure, squash-merged only while origin/main still equals the pinned baseline, and read back at the exact merge boundary. A publication retry may revalidate and resume the clean prepared host commit rather than rerun Elim. The original model result and enriched host result remain distinguishable. A mismatch or race preserves the checkout and fails closed; no reset, force push, required-check bypass, or undeclared absorption is permitted. The coordinator must not overlap a queued unit with an expressly active interactive task affecting the same issue or files; an unrelated or abandoned non-Inactive handoff is not a global liveness lock. current-task.md identifies unfinished continuation state only and never proves that an agent, bot, chain, task, or process is live. The dispatcher lease is the host-liveness authority. Its acquisition-specific owner record stores the dispatcher process, current Chain ID, invocation, Elim task when known, preserved output path, and a continuously refreshed heartbeat for diagnosis and Console display; the owner record is not a second lock. Every owner update and release must present the same acquisition token. Legacy directory locks use only the tested dead-owner or expired-ownerless migration path. An abandoned operating-system lease is available automatically to the next dispatcher. Recovery before Elim begins records a coordinator failure without fabricating an Elim run. Recovery after Elim begins marks Elim failed, preserves the task and JSONL output as incomplete evidence, creates a human Action Item and notification, projects the error to the Console, and requires a fresh current chain before substantive work resumes. When that launched invocation lacks a verified canonical Elim Run Log report, the dispatcher persists a bounded reconciliation record keyed to its exact Chain and invocation identities. The next queue exposes one safety-class-0 repair unit for the pending set. The dispatcher clears selected records only after a completed result proves an unchanged reconciliation-state hash and a reviewed Git boundary containing exactly one newly added, complete report for each selected prior Chain ID. A failed launched invocation may leave the fixed isolated checkout dirty even after its canonical run report has been repaired elsewhere. That checkout may be released only through the dispatcher's explicit reconciled-checkout archive mode. The host first refreshes and verifies the reviewed runtime, requires an empty pending run-log reconciliation queue and a matching resolved Action Item, and proves from Git objects that synchronized origin/main contains exactly one complete failed-run report that was absent from the preserved checkout baseline. It then moves the entire checkout intact—Git metadata, dirty files, and all—to .tmp/run-coordinator/reconciled-checkouts/, records the archive boundary and changed paths in local control history, and retires the stale task-reuse pointer. It never resets, cleans, overwrites, or deletes the evidence. Any failed predicate leaves the original checkout in place and fails closed; the next ordinary run creates a fresh full checkout at the fixed path. Configuration, executable, state-directory, and lease-setup failures occur before ordinary dispatcher state ownership. The bootstrap handler preserves a unique host-local failure artifact, retains the 128 newest recognized events, and notifies the user. When it can prove the dispatcher lease is free, it briefly acquires that lease and also writes the ordinary failure history and human Action Item. When another live dispatcher owns the lease, it must not race that owner by mutating shared control or history; the separate artifact and notification remain the failure evidence."
         },
         {
           "id": "independent-failure-visibility",
@@ -366,8 +366,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "id": "comprehensive-review-epoch",
           "title": "Comprehensive Review Epoch",
-          "html": "<p>The chain marks a comprehensive Elim review due every two weeks while the project or automation architecture remains actively changing. After several clean reviews demonstrate stability, only recorded human approval may move the cadence to monthly. For deterministic off-cycle detection, the coordinator constructs the current registered governing boundary from every <code>governing: true<\/code> document and its integration-pinned hash, adds the current <code>context-routes.json<\/code> hash, and compares the exact result with the latest completed Review Epoch. Any difference in registered membership, path, governing hash, or registry hash marks an off-cycle epoch due because the bot cannot judge materiality. A governing file that no longer matches its pinned registry hash, or other runtime-only governing drift that does not form a valid registered boundary, is an integrity failure and stops safely rather than being accepted as an epoch trigger; intentionally runtime-hashed non-governing records are outside the comparison.<\/p>\n<p>The epoch record, look-back scope, and boundary schema are governed by the Agent Operating Rules&#x27; <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/agent-rules/autonomous-execution.md#comprehensive-review-epochs\" target=\"_blank\" rel=\"noopener noreferrer\">Comprehensive review epochs<\/a>. The coordinator supplies <code>epoch_id<\/code>, <code>triggering_run_id<\/code>, <code>baseline_commit<\/code>, <code>completion_commit<\/code>, <code>governing_hashes<\/code> including the registry hash, <code>project_snapshot<\/code>, <code>registry_snapshot<\/code>, <code>reviewed_domains<\/code>, <code>resolved_findings<\/code>, <code>unresolved_findings<\/code>, <code>automation_health<\/code>, <code>sampling_record<\/code>, <code>completed_at<\/code>, <code>next_due_at<\/code>, <code>cadence_status<\/code>, <code>stability_status<\/code>, and <code>triggering_reason<\/code>. It also supplies changes since the prior boundary, cross-project invariants, workflow health, and the rotating sample. Every prior unresolved finding must be copied forward into <code>unresolved_findings<\/code> until the reviewing agent records its resolution in <code>resolved_findings<\/code>; the coordinator may verify continuity but does not decide whether a finding is satisfied. When the epoch is due, the comprehensive work unit overrides ordinary queue ordering for context selection, and the manifest attachment step rejects a non-comprehensive packet.<\/p>",
-          "text": "The chain marks a comprehensive Elim review due every two weeks while the project or automation architecture remains actively changing. After several clean reviews demonstrate stability, only recorded human approval may move the cadence to monthly. For deterministic off-cycle detection, the coordinator constructs the current registered governing boundary from every governing: true document and its integration-pinned hash, adds the current context-routes.json hash, and compares the exact result with the latest completed Review Epoch. Any difference in registered membership, path, governing hash, or registry hash marks an off-cycle epoch due because the bot cannot judge materiality. A governing file that no longer matches its pinned registry hash, or other runtime-only governing drift that does not form a valid registered boundary, is an integrity failure and stops safely rather than being accepted as an epoch trigger; intentionally runtime-hashed non-governing records are outside the comparison. The epoch record, look-back scope, and boundary schema are governed by the Agent Operating Rules' Comprehensive review epochs. The coordinator supplies epoch_id, triggering_run_id, baseline_commit, completion_commit, governing_hashes including the registry hash, project_snapshot, registry_snapshot, reviewed_domains, resolved_findings, unresolved_findings, automation_health, sampling_record, completed_at, next_due_at, cadence_status, stability_status, and triggering_reason. It also supplies changes since the prior boundary, cross-project invariants, workflow health, and the rotating sample. Every prior unresolved finding must be copied forward into unresolved_findings until the reviewing agent records its resolution in resolved_findings; the coordinator may verify continuity but does not decide whether a finding is satisfied. When the epoch is due, the comprehensive work unit overrides ordinary queue ordering for context selection, and the manifest attachment step rejects a non-comprehensive packet."
+          "html": "<p>The chain marks a comprehensive Elim review due every two weeks while the project or automation architecture remains actively changing. After several clean reviews demonstrate stability, only recorded human approval may move the cadence to monthly. For deterministic off-cycle detection, the coordinator constructs the current registered governing boundary from every <code>governing: true<\/code> document and its integration-pinned hash, adds the current <code>context-routes.json<\/code> hash, and compares the exact result with the latest completed Review Epoch. Any difference in registered membership, path, governing hash, or registry hash marks an off-cycle epoch due because the bot cannot judge materiality. A governing file that no longer matches its pinned registry hash, or other runtime-only governing drift that does not form a valid registered boundary, is an integrity failure and stops safely rather than being accepted as an epoch trigger; intentionally runtime-hashed non-governing records are outside the comparison.<\/p>\n<p>The epoch record, look-back scope, and boundary schema are governed by the ARRP autonomous-execution policy&#x27;s <a href=\"https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/autonomous-execution.md#comprehensive-review-epochs\" target=\"_blank\" rel=\"noopener noreferrer\">Comprehensive review epochs<\/a>. The coordinator supplies <code>epoch_id<\/code>, <code>triggering_run_id<\/code>, <code>baseline_commit<\/code>, <code>completion_commit<\/code>, <code>governing_hashes<\/code> including the registry hash, <code>project_snapshot<\/code>, <code>registry_snapshot<\/code>, <code>reviewed_domains<\/code>, <code>resolved_findings<\/code>, <code>unresolved_findings<\/code>, <code>automation_health<\/code>, <code>sampling_record<\/code>, <code>completed_at<\/code>, <code>next_due_at<\/code>, <code>cadence_status<\/code>, <code>stability_status<\/code>, and <code>triggering_reason<\/code>. It also supplies changes since the prior boundary, cross-project invariants, workflow health, and the rotating sample. Every prior unresolved finding must be copied forward into <code>unresolved_findings<\/code> until the reviewing agent records its resolution in <code>resolved_findings<\/code>; the coordinator may verify continuity but does not decide whether a finding is satisfied. When the epoch is due, the comprehensive work unit overrides ordinary queue ordering for context selection, and the manifest attachment step rejects a non-comprehensive packet.<\/p>",
+          "text": "The chain marks a comprehensive Elim review due every two weeks while the project or automation architecture remains actively changing. After several clean reviews demonstrate stability, only recorded human approval may move the cadence to monthly. For deterministic off-cycle detection, the coordinator constructs the current registered governing boundary from every governing: true document and its integration-pinned hash, adds the current context-routes.json hash, and compares the exact result with the latest completed Review Epoch. Any difference in registered membership, path, governing hash, or registry hash marks an off-cycle epoch due because the bot cannot judge materiality. A governing file that no longer matches its pinned registry hash, or other runtime-only governing drift that does not form a valid registered boundary, is an integrity failure and stops safely rather than being accepted as an epoch trigger; intentionally runtime-hashed non-governing records are outside the comparison. The epoch record, look-back scope, and boundary schema are governed by the ARRP autonomous-execution policy's Comprehensive review epochs. The coordinator supplies epoch_id, triggering_run_id, baseline_commit, completion_commit, governing_hashes including the registry hash, project_snapshot, registry_snapshot, reviewed_domains, resolved_findings, unresolved_findings, automation_health, sampling_record, completed_at, next_due_at, cadence_status, stability_status, and triggering_reason. It also supplies changes since the prior boundary, cross-project invariants, workflow health, and the rotating sample. Every prior unresolved finding must be copied forward into unresolved_findings until the reviewing agent records its resolution in resolved_findings; the coordinator may verify continuity but does not decide whether a finding is satisfied. When the epoch is due, the comprehensive work unit overrides ordinary queue ordering for context selection, and the manifest attachment step rejects a non-comprehensive packet."
         },
         {
           "id": "output-logging-and-console",
@@ -378,12 +378,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "id": "validation-and-stop-conditions",
           "title": "Validation and stop conditions",
-          "html": "<p>The bot validates registry completeness, runbook/runtime agreement, stage dependency order, exclusive-lock ownership and lease recovery, canonical-workspace reconciliation and prepared-commit recovery, due calculations, freshness hashes, queue schema and unique IDs, quiet-queue fallback presence, gap-cache reconstruction from committed Run Log markers, stable obligation continuity, closure proof, exact-current-revision outside-contribution checks, intake cursor monotonicity, usage-gate results, Elim-last ordering, exact model/working-tree agreement, staged-path identity, exact Run Log field names, pinned pull-request head and base, reported checks, merge boundary, complete record accounting, generated projection schema, and the final <code>CURRENT_AUDIT.md<\/code> handoff state when Elim participated. It requires every discovered work unit to document discovery context, source revision, evidence, reasoning, uncertainty, records and surfaces affected, consequence, authority classification and disposition, action or non-action rationale, validation/readback, fix/report/retain/no-material disposition, canonical detail, provenance, owner, exact next action, and trigger; each confirmed finding must link exactly one stable obligation update, while the queue carries only the compact link projection. It automatically fast-forwards a clean canonical <code>main<\/code> only after proving that the local revision is an ancestor of the exact fetched <code>origin/main<\/code> revision and reading back the clean pinned result. It automatically commits and synchronizes ordinary uncommitted paths only when the canonical checkout is already on <code>main<\/code> and local <code>HEAD<\/code> equals freshly fetched <code>origin/main<\/code>, then defers the run to the next poll. A recognized clean host-workspace commit may resume only after exact parent, identity, message, path, diff, pull-request, check, and merge readback. It stops without triggering a cloud chain or launching Elim when any other checkout is off <code>main<\/code>, its history is ahead or divergent, conflicts exist, staged diff validation fails, or commit, pull-request, check, merge, or readback is incomplete. It also stops without launching Elim on a dirty or divergent isolated checkout, canonical-runtime drift from <code>origin/main<\/code>, a live or unsafe lock, missing blocking input, stale or contradictory manifest, invalid queue or context packet, unavailable required authentication, unavailable usage reading, unsafe recovery, or failed validation. It stops during closeout on an undeclared or missing path, invalid or noncanonical discovery markers, invalid run evidence, changed remote boundary, Git or pull-request failure, failed or timed-out checks, or incomplete readback. The coordinator preserves the exact failed stage and next action and notifies the user when attention is required. Dispatcher or Codex termination before verified closeout is a failed run, never a silent open handoff or a successful completion. A successfully completed task requires an <code>Inactive<\/code> handoff verified on the completed synchronized result; an unfinished failed, blocked, or intentionally suspended task requires an exact <code>Paused<\/code> or <code>Blocked<\/code> checkpoint.<\/p>",
-          "text": "The bot validates registry completeness, runbook/runtime agreement, stage dependency order, exclusive-lock ownership and lease recovery, canonical-workspace reconciliation and prepared-commit recovery, due calculations, freshness hashes, queue schema and unique IDs, quiet-queue fallback presence, gap-cache reconstruction from committed Run Log markers, stable obligation continuity, closure proof, exact-current-revision outside-contribution checks, intake cursor monotonicity, usage-gate results, Elim-last ordering, exact model/working-tree agreement, staged-path identity, exact Run Log field names, pinned pull-request head and base, reported checks, merge boundary, complete record accounting, generated projection schema, and the final CURRENT_AUDIT.md handoff state when Elim participated. It requires every discovered work unit to document discovery context, source revision, evidence, reasoning, uncertainty, records and surfaces affected, consequence, authority classification and disposition, action or non-action rationale, validation/readback, fix/report/retain/no-material disposition, canonical detail, provenance, owner, exact next action, and trigger; each confirmed finding must link exactly one stable obligation update, while the queue carries only the compact link projection. It automatically fast-forwards a clean canonical main only after proving that the local revision is an ancestor of the exact fetched origin/main revision and reading back the clean pinned result. It automatically commits and synchronizes ordinary uncommitted paths only when the canonical checkout is already on main and local HEAD equals freshly fetched origin/main, then defers the run to the next poll. A recognized clean host-workspace commit may resume only after exact parent, identity, message, path, diff, pull-request, check, and merge readback. It stops without triggering a cloud chain or launching Elim when any other checkout is off main, its history is ahead or divergent, conflicts exist, staged diff validation fails, or commit, pull-request, check, merge, or readback is incomplete. It also stops without launching Elim on a dirty or divergent isolated checkout, canonical-runtime drift from origin/main, a live or unsafe lock, missing blocking input, stale or contradictory manifest, invalid queue or context packet, unavailable required authentication, unavailable usage reading, unsafe recovery, or failed validation. It stops during closeout on an undeclared or missing path, invalid or noncanonical discovery markers, invalid run evidence, changed remote boundary, Git or pull-request failure, failed or timed-out checks, or incomplete readback. The coordinator preserves the exact failed stage and next action and notifies the user when attention is required. Dispatcher or Codex termination before verified closeout is a failed run, never a silent open handoff or a successful completion. A successfully completed task requires an Inactive handoff verified on the completed synchronized result; an unfinished failed, blocked, or intentionally suspended task requires an exact Paused or Blocked checkpoint."
+          "html": "<p>The bot validates registry completeness, runbook/runtime agreement, stage dependency order, exclusive-lock ownership and lease recovery, canonical-workspace reconciliation and prepared-commit recovery, due calculations, freshness hashes, queue schema and unique IDs, quiet-queue fallback presence, gap-cache reconstruction from committed Run Log markers, stable obligation continuity, closure proof, exact-current-revision outside-contribution checks, intake cursor monotonicity, usage-gate results, Elim-last ordering, exact model/working-tree agreement, staged-path identity, exact Run Log field names, pinned pull-request head and base, reported checks, merge boundary, complete record accounting, generated projection schema, and the final <code>current-task.md<\/code> handoff state when Elim participated. It requires every discovered work unit to document discovery context, source revision, evidence, reasoning, uncertainty, records and surfaces affected, consequence, authority classification and disposition, action or non-action rationale, validation/readback, fix/report/retain/no-material disposition, canonical detail, provenance, owner, exact next action, and trigger; each confirmed finding must link exactly one stable obligation update, while the queue carries only the compact link projection. It automatically fast-forwards a clean canonical <code>main<\/code> only after proving that the local revision is an ancestor of the exact fetched <code>origin/main<\/code> revision and reading back the clean pinned result. It automatically commits and synchronizes ordinary uncommitted paths only when the canonical checkout is already on <code>main<\/code> and local <code>HEAD<\/code> equals freshly fetched <code>origin/main<\/code>, then defers the run to the next poll. A recognized clean host-workspace commit may resume only after exact parent, identity, message, path, diff, pull-request, check, and merge readback. It stops without triggering a cloud chain or launching Elim when any other checkout is off <code>main<\/code>, its history is ahead or divergent, conflicts exist, staged diff validation fails, or commit, pull-request, check, merge, or readback is incomplete. It also stops without launching Elim on a dirty or divergent isolated checkout, canonical-runtime drift from <code>origin/main<\/code>, a live or unsafe lock, missing blocking input, stale or contradictory manifest, invalid queue or context packet, unavailable required authentication, unavailable usage reading, unsafe recovery, or failed validation. It stops during closeout on an undeclared or missing path, invalid or noncanonical discovery markers, invalid run evidence, changed remote boundary, Git or pull-request failure, failed or timed-out checks, or incomplete readback. The coordinator preserves the exact failed stage and next action and notifies the user when attention is required. Dispatcher or Codex termination before verified closeout is a failed run, never a silent open handoff or a successful completion. A successfully completed task requires an <code>Inactive<\/code> handoff verified on the completed synchronized result; an unfinished failed, blocked, or intentionally suspended task requires an exact <code>Paused<\/code> or <code>Blocked<\/code> checkpoint.<\/p>",
+          "text": "The bot validates registry completeness, runbook/runtime agreement, stage dependency order, exclusive-lock ownership and lease recovery, canonical-workspace reconciliation and prepared-commit recovery, due calculations, freshness hashes, queue schema and unique IDs, quiet-queue fallback presence, gap-cache reconstruction from committed Run Log markers, stable obligation continuity, closure proof, exact-current-revision outside-contribution checks, intake cursor monotonicity, usage-gate results, Elim-last ordering, exact model/working-tree agreement, staged-path identity, exact Run Log field names, pinned pull-request head and base, reported checks, merge boundary, complete record accounting, generated projection schema, and the final current-task.md handoff state when Elim participated. It requires every discovered work unit to document discovery context, source revision, evidence, reasoning, uncertainty, records and surfaces affected, consequence, authority classification and disposition, action or non-action rationale, validation/readback, fix/report/retain/no-material disposition, canonical detail, provenance, owner, exact next action, and trigger; each confirmed finding must link exactly one stable obligation update, while the queue carries only the compact link projection. It automatically fast-forwards a clean canonical main only after proving that the local revision is an ancestor of the exact fetched origin/main revision and reading back the clean pinned result. It automatically commits and synchronizes ordinary uncommitted paths only when the canonical checkout is already on main and local HEAD equals freshly fetched origin/main, then defers the run to the next poll. A recognized clean host-workspace commit may resume only after exact parent, identity, message, path, diff, pull-request, check, and merge readback. It stops without triggering a cloud chain or launching Elim when any other checkout is off main, its history is ahead or divergent, conflicts exist, staged diff validation fails, or commit, pull-request, check, merge, or readback is incomplete. It also stops without launching Elim on a dirty or divergent isolated checkout, canonical-runtime drift from origin/main, a live or unsafe lock, missing blocking input, stale or contradictory manifest, invalid queue or context packet, unavailable required authentication, unavailable usage reading, unsafe recovery, or failed validation. It stops during closeout on an undeclared or missing path, invalid or noncanonical discovery markers, invalid run evidence, changed remote boundary, Git or pull-request failure, failed or timed-out checks, or incomplete readback. The coordinator preserves the exact failed stage and next action and notifies the user when attention is required. Dispatcher or Codex termination before verified closeout is a failed run, never a silent open handoff or a successful completion. A successfully completed task requires an Inactive handoff verified on the completed synchronized result; an unfinished failed, blocked, or intentionally suspended task requires an exact Paused or Blocked checkpoint."
         }
       ],
-      "runbook_path": "framework/agents/RUN_COORDINATOR_BOT.md",
-      "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agents/RUN_COORDINATOR_BOT.md"
+      "runbook_path": "framework/project/automation/runbooks/run-coordinator-bot.md",
+      "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/run-coordinator-bot.md"
     },
     {
       "id": "source-checker-bot",
@@ -398,11 +398,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "runtime_config_url": "https://github.com/Thorncrag/ARRP/blob/main/.github/source-checker-bot.json",
       "execution_environment": "github-actions",
       "model_policy": "",
-      "log_path": "framework/logs/AGENT_AUDIT_LOG.md",
+      "log_path": "framework/records/automation/agent-audit-log.md",
       "run_log_path": "",
       "run_log_url": "",
-      "current_report": "framework/reports/SOURCE_CHECKER_REPORT.md",
-      "current_report_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/reports/SOURCE_CHECKER_REPORT.md",
+      "current_report": "framework/records/status/source-checker-report.md",
+      "current_report_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/status/source-checker-report.md",
       "current_data": "project-console-data:source-checker.json",
       "description": "The Source Checker Bot follows the project Framework and Agent Operating Rules. This runbook is its authoritative identity, narrower authority, and operational configuration.",
       "checks": [],
@@ -444,8 +444,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "text": "The bot validates catalog schemas, complete URL accounting, allowed classification values, request bounds, per-domain pacing, retry behavior, final identity signals, output schema, bounded history, and the no-catalog-mutation boundary. Catalog/schema failure, incomplete accounting, scanner exception, output/publication failure, unauthorized file changes, or validation failure stops the run without publishing partial success. Outputs are the current JSON results, 12-run bounded history, current Markdown report proposal when changed, Integrity findings, immutable structured provenance, Actions summary, and retained artifact. Workflow failures enter the Run Coordinator failure state and notification path; findings route through the Console and report pull request."
         }
       ],
-      "runbook_path": "framework/agents/SOURCE_CHECKER_BOT.md",
-      "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/agents/SOURCE_CHECKER_BOT.md"
+      "runbook_path": "framework/project/automation/runbooks/source-checker-bot.md",
+      "runbook_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/source-checker-bot.md"
     }
   ],
   "run_chain": {
@@ -461,15 +461,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "projection_errors": [],
     "bot_id": "run-coordinator-bot",
-    "chain_id": "arrp-20260727T075310Z",
-    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30247756721",
-    "trigger": "schedule",
-    "llm_launch_allowed": true,
-    "llm_launch_trigger": "schedule",
-    "created_at": "2026-07-27T07:53:10+00:00",
-    "updated_at": "2026-07-27T07:55:25+00:00",
+    "chain_id": "arrp-20260727T082740Z",
+    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30249971183",
+    "trigger": "push",
+    "llm_launch_allowed": false,
+    "llm_launch_trigger": "push",
+    "created_at": "2026-07-27T08:27:40+00:00",
+    "updated_at": "2026-07-27T08:37:33+00:00",
     "status": "complete",
-    "baseline_commit": "6d28e75c637660deea94a4bc925704b6ad82045c",
+    "baseline_commit": "be3ae39a0841c6072ca421916a5e37936504619e",
     "resume": {
       "count": 0,
       "from_run_id": null
@@ -478,12 +478,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "key": "arrp-run-chain",
       "path": null,
       "status": "released-by-workflow",
-      "owner_chain_id": "arrp-20260727T075310Z"
+      "owner_chain_id": "arrp-20260727T082740Z"
     },
     "repository": {
       "branch": "main",
-      "head": "6d28e75c637660deea94a4bc925704b6ad82045c",
-      "origin_main": "6d28e75c637660deea94a4bc925704b6ad82045c",
+      "head": "be3ae39a0841c6072ca421916a5e37936504619e",
+      "origin_main": "be3ae39a0841c6072ca421916a5e37936504619e",
       "clean": true,
       "dirty_paths": [],
       "dirty_path_count": 0,
@@ -532,359 +532,33 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "id": "case-monitor-bot",
         "order": 1,
         "workflow": ".github/workflows/case-monitor-bot.yml",
-        "due": true,
-        "due_reason": "persistent watcher input is stale",
-        "status": "succeeded",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-28T07:55:25+00:00",
+        "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-27T07:55:25+00:00",
+        "completed_at": "2026-07-27T08:27:40+00:00",
         "last_success_at": "2026-07-27T07:55:25+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:8d234e9194dda93880400df7d7ed8ff30c293d105aa8d600651db570313b585a"
-        },
-        "work_count": 43,
-        "attempt_key": "primary",
-        "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
-        "domain_event": {
-          "id": "SDE-62EB0C60B193E98C0883A912",
-          "sha256": "sha256:d4388e0089e0292213c3288f26e6aec4dba52eb00c03f61cd478ad7f8e8e383f",
-          "json": {
-            "acceptance": null,
-            "affected_records": [
-              {
-                "record_id": "HOR-035",
-                "record_type": "candidate"
-              },
-              {
-                "record_id": "SRC-0632",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0945",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0965",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0982",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1004",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1052",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1056",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1093",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1929",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1930",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1932",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1933",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1934",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1940",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1941",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1942",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1943",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1946",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1952",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1957",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1973",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1979",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1982",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2042",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2080",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2081",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2105",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2110",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2136",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2149",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2190",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2216",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2221",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2235",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2238",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2351",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2591",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2649",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2651",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2652",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2653",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2654",
-                "record_type": "source"
-              }
-            ],
-            "agent_id": "case-monitor-bot",
-            "chain_id": "arrp-20260727T075310Z",
-            "event_id": "SDE-62EB0C60B193E98C0883A912",
-            "idempotency_key": "sha256:62eb0c60b193e98c0883a912550287a645e9712981e73600431f8b3f7a458ac9",
-            "kind": "source-domain-event",
-            "output_hashes": {
-              "files": [
-                {
-                  "bytes": 1818034,
-                  "path": "inventory/sources.csv",
-                  "sha256": "sha256:dd4e572ed54c5d0be25664d9d71ca8aca6e41e20aa039d34f92446b49ee84778"
-                },
-                {
-                  "bytes": 180849,
-                  "path": "research/horizon-source-records/HOR-035-source-development.md",
-                  "sha256": "sha256:bcb66117d0e1557deb4379d1d4979691cbcbb98ad4c2cec26398f837275d57e8"
-                }
-              ],
-              "proposal_diff": "sha256:ca82329205d345662c811596e247f0f43b56b60b6c3f849152b269b95075fde0",
-              "semantic_report": "sha256:11a7e758920934470a4e4b63fbff03a0e00b719aa88bdaf4d1caebbeab08714f"
-            },
-            "proposal": {
-              "base_ref": "main",
-              "head_ref": "bot/case-monitor-updates",
-              "proposal_revision": "7e6009506d62bf2e72bea07fa941302b780cadf2",
-              "pull_request_number": 380,
-              "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/380",
-              "repository": "Thorncrag/ARRP"
-            },
-            "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
-            "schema_uri": ".github/source-domain-event.schema.json",
-            "schema_version": 1,
-            "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
-            "state": "proposed",
-            "summary": {
-              "affected_record_count": 43,
-              "counts": {
-                "affected-files": 2,
-                "affected-records": 43,
-                "candidate-records": 1,
-                "source-records": 42
-              },
-              "status": "case monitor proposal delta"
-            },
-            "trigger": "schedule"
-          }
-        }
+        "details": "",
+        "output": null
       },
       {
         "id": "presidential-directives-bot",
         "order": 2,
         "workflow": ".github/workflows/presidential-directives-bot.yml",
-        "due": true,
-        "due_reason": "persistent watcher input is stale",
-        "status": "succeeded",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-28T07:55:25+00:00",
+        "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-27T07:55:25+00:00",
+        "completed_at": "2026-07-27T08:27:40+00:00",
         "last_success_at": "2026-07-27T07:55:25+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:4835a28dfa7cb81b01699eb33db68528c60ef63a8a454685ccfc5e1e77d5408e"
-        },
-        "work_count": 10,
-        "attempt_key": "primary",
-        "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
-        "domain_event": {
-          "id": "SDE-B42DD183BC2B93D484271CE3",
-          "sha256": "sha256:077dc1f6eb4ef28b71af781a63953723c4baeec2b7d217971bb6b31d246fc51e",
-          "json": {
-            "acceptance": null,
-            "affected_records": [
-              {
-                "record_id": "2019-05370",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2019-16383",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14990",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14991",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14992",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14997",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14998",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14999",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-15003",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-15024",
-                "record_type": "presidential-directive"
-              }
-            ],
-            "agent_id": "presidential-directives-bot",
-            "chain_id": "arrp-20260727T075310Z",
-            "event_id": "SDE-B42DD183BC2B93D484271CE3",
-            "idempotency_key": "sha256:b42dd183bc2b93d484271ce3244e70065b6766b616494823bdf1a82d345fd2d8",
-            "kind": "source-domain-event",
-            "output_hashes": {
-              "files": [
-                {
-                  "bytes": 1854598,
-                  "path": "inventory/presidential-directives.csv",
-                  "sha256": "sha256:9f14fdb579c9816258688f66f322d62a5f7feaa49410daa3063d3fd9094a7e3c"
-                }
-              ],
-              "proposal_diff": "sha256:21eee92eda009c4db723e0c530931dc0595962f544a6d379ebe2c3c0ee871dc4",
-              "semantic_report": "sha256:eead281dd9bc359cb2a6613c252bbb7c670545fec9c7eb128ab32383e696c968"
-            },
-            "proposal": {
-              "base_ref": "main",
-              "head_ref": "automation/presidential-directives-monitor",
-              "proposal_revision": "2495449ed92977df47b0f29489762c368c3e86dd",
-              "pull_request_number": 381,
-              "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/381",
-              "repository": "Thorncrag/ARRP"
-            },
-            "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
-            "schema_uri": ".github/source-domain-event.schema.json",
-            "schema_version": 1,
-            "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
-            "state": "proposed",
-            "summary": {
-              "affected_record_count": 10,
-              "counts": {
-                "affected-files": 1,
-                "affected-records": 10,
-                "presidential-directive-records": 10
-              },
-              "status": "presidential directives proposal delta"
-            },
-            "trigger": "schedule"
-          }
-        }
+        "details": "",
+        "output": null
       },
       {
         "id": "source-checker-bot",
@@ -894,7 +568,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-08-02T10:32:24+00:00",
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-27T07:53:10+00:00",
+        "completed_at": "2026-07-27T08:27:40+00:00",
         "last_success_at": "2026-07-26T10:32:24+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -906,17 +580,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "id": "project-console-progress-bot",
         "order": 4,
         "workflow": ".github/workflows/project-console-progress.yml",
-        "due": false,
-        "due_reason": "last success remains current until 2026-07-28T01:49:19+00:00",
-        "status": "not_due",
+        "due": true,
+        "due_reason": "forced",
+        "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-27T07:53:10+00:00",
-        "last_success_at": "2026-07-27T01:49:19+00:00",
+        "completed_at": "2026-07-27T08:28:50+00:00",
+        "last_success_at": "2026-07-27T08:28:50+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
-        "details": "",
-        "output": null
+        "details": "success",
+        "output": {
+          "path": "workflow-output",
+          "sha256": "sha256:763540150a4404e600a5f2b2883173739f5f42c252a84d16d33773c2bf53ad22"
+        },
+        "work_count": 0
       },
       {
         "id": "public-intake",
@@ -926,15 +604,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-27T07:55:25+00:00",
-        "last_success_at": "2026-07-27T07:55:25+00:00",
+        "completed_at": "2026-07-27T08:28:50+00:00",
+        "last_success_at": "2026-07-27T08:28:50+00:00",
         "retry_limit": 1,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:c39cce07b76dee692b17979a9264f779c21f27e805e22d3244d7576331d14e86"
+          "sha256": "sha256:45ecdd2bca565a77da45197646bb33648d077ed4e635b4713ea5b962c4fd1a3a"
         },
         "work_count": 0
       },
@@ -943,103 +621,154 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "order": 6,
         "workflow": ".github/workflows/project-integrity.yml",
         "due": true,
-        "due_reason": "required every chain",
+        "due_reason": "forced",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-27T07:55:25+00:00",
-        "last_success_at": "2026-07-27T07:55:25+00:00",
+        "completed_at": "2026-07-27T08:28:50+00:00",
+        "last_success_at": "2026-07-27T08:28:50+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:08e10d4807317d31d69965a7da3ddf47ccd1cbe3e2c6687636a4515d8b58b3c9"
+          "sha256": "sha256:caea2b1361322544a8547ebd8cf1d522c10dd8e0a528b6be58f9e76e6dc72535"
         },
-        "work_count": 1
+        "work_count": 0
       }
     ],
     "failures": [],
     "degradations": [],
     "queue_counts": {
-      "integrity": 1,
-      "monitoring": 53,
+      "integrity": 0,
+      "monitoring": 0,
       "sources": 0,
       "intake": 0,
-      "total": 54
+      "total": 0
     },
     "elim_decision": {
       "launch_recommended": false,
-      "reason": "Codex usage reserve has not been measured.",
+      "reason": "Host dispatcher rejected an LLM launch from a deterministic-only or unspecified trigger.",
       "blockers": [],
       "last_substantive_stage": true,
       "predecessors_complete": true,
       "profile": {
-        "id": "comprehensive",
+        "id": "substantive",
         "model": "gpt-5.6-sol",
         "reasoning_effort": "xhigh",
-        "full_context": true,
-        "reason": "The periodic comprehensive review epoch is due."
+        "full_context": false,
+        "reason": "Bound to selected work item INTEGRITY-7b81c19899c9 and context profile integrity_reconciliation."
       }
     },
     "review_epoch": {
       "interval_days": 14,
-      "last_completed_at": "2026-07-26T14:25:30+00:00",
-      "next_due_at": "2026-08-09T14:25:30+00:00",
-      "due": true,
-      "due_reason": "governing_boundary_changed",
-      "boundary_commit": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
-      "epoch_id": "epoch-arrp-20260726T140914Z",
+      "last_completed_at": "2026-07-27T08:10:38+00:00",
+      "next_due_at": "2026-08-10T08:10:38+00:00",
+      "due": false,
+      "due_reason": "interval current",
+      "boundary_commit": "6d28e75c637660deea94a4bc925704b6ad82045c",
+      "epoch_id": "epoch-arrp-20260727T075310Z",
       "stability_status": "drift-detected",
       "unresolved_findings": [
         {
           "discovered_work_unit_id": "DISCOVERY-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS",
           "id": "GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS",
-          "next_action": "In a separately selected automation repair, disable or mock every external host-status and notification effect in tests, add a runtime test-mode side-effect guard and a no-network regression, then require current-chain, exact-source-revision, and monotonic freshness acceptance before host-status publication.",
-          "next_trigger": "A fresh current queue selects GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS under agent-within-runbook repair authority after this reviewed host closeout.",
+          "next_action": "In a separately selected automation repair, disable or mock every external host-status and notification effect in tests, add a runtime test-mode side-effect guard and a full-suite no-network regression, then require current-chain, exact-source-revision, and monotonic-freshness acceptance before host-status publication.",
+          "next_trigger": "A fresh current queue selects GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS under agent-within-runbook repair authority.",
           "owner": "Elim",
           "status": "open",
-          "summary": "Dispatcher unit tests can issue real repository_dispatch mutations under active credentials, and the host-status publisher can let a stale synthetic chain with no source revision overwrite the current truthful projection."
+          "summary": "Dispatcher unit tests can still issue real repository_dispatch mutations under active credentials, while stale or unbound host-status events can supersede truthful current state."
+        },
+        {
+          "discovered_work_unit_id": "DISCOVERY-GOVERNING-HASH-PREPUBLICATION-GATE",
+          "id": "GAP-GOVERNING-HASH-PREPUBLICATION-GATE",
+          "next_action": "In a separately selected automation repair, validate the staged and committed governing registry before canonical-workspace and Elim publication, expose that validation as a required pull-request check, and add positive, stale-registry, changed-governing-without-registry, and repaired-registry regressions.",
+          "next_trigger": "A fresh current queue selects GAP-GOVERNING-HASH-PREPUBLICATION-GATE under agent-within-runbook repair authority.",
+          "owner": "Elim",
+          "status": "open",
+          "summary": "Trusted-host preservation and Elim checked-publication paths can merge changed governing content without a matching pinned context registry; the next cloud chain detects the invalid main only after merge."
         }
       ],
-      "boundary_changes": {
-        "extra": [],
-        "mismatched": [
-          "README.md",
-          "framework/agent-rules/autonomous-execution.md",
-          "framework/agents/RUN_COORDINATOR_BOT.md",
-          "framework/context-routes.json"
-        ],
-        "missing": []
-      }
+      "boundary_changes": null
     },
     "usage": {
       "hard_reserve_percent": 15,
       "soft_run_target_percent": 10,
-      "remaining_percent": null,
-      "status": "unknown"
+      "remaining_percent": 58.0,
+      "status": "available",
+      "gate": {
+        "blockers": [],
+        "checkedAtUtc": "2026-07-27T08:37:33+00:00",
+        "lowestRemainingPercent": 58,
+        "reservePercent": 15,
+        "runBudget": {
+          "activatedWindows": [],
+          "baselinePath": "/Users/benjaminsmith/Automation Workspaces/ARRP/.tmp/run-coordinator/elim-checkout/.tmp/run-coordinator/usage-baselines/3d1518f1a8564d792efab80d8b3dc01eeeeaaa2d475c883bf424b25c2a06f663.json",
+          "dormantWindows": [
+            "codex_bengalfox:primary"
+          ],
+          "highestSpentPercent": 0,
+          "reserveBufferFloorPercent": 25,
+          "softTargetPercent": 10,
+          "softTargetReached": false,
+          "spentPercentByWindow": {
+            "codex:primary": 0,
+            "codex_bengalfox:primary": 0
+          }
+        },
+        "status": "pass",
+        "windows": [
+          {
+            "limitId": "codex",
+            "limitName": "codex",
+            "remainingPercent": 58,
+            "resetsAt": 1785611897,
+            "resetsAtUtc": "2026-08-01T19:18:17+00:00",
+            "usedPercent": 42,
+            "window": "primary",
+            "windowDurationMins": 10080
+          },
+          {
+            "limitId": "codex_bengalfox",
+            "limitName": "GPT-5.3-Codex-Spark",
+            "remainingPercent": 100,
+            "resetsAt": 1785746253,
+            "resetsAtUtc": "2026-08-03T08:37:33+00:00",
+            "usedPercent": 0,
+            "window": "primary",
+            "windowDurationMins": 10080
+          }
+        ]
+      },
+      "host_monitor": {
+        "source": "approved-host-dispatcher",
+        "status_path": ".tmp/run-coordinator/arrp-20260727T082740Z/usage-status-arrp-20260727T082740Z-20260727T083732Z.json",
+        "baseline_path": ".tmp/run-coordinator/usage-baselines/3d1518f1a8564d792efab80d8b3dc01eeeeaaa2d475c883bf424b25c2a06f663.json",
+        "monitor_interval_seconds": 60,
+        "snapshot_max_age_seconds": 120
+      }
     },
-    "next_action": "No Elim launch; wait for the next trigger.",
+    "next_action": "No Elim launch; wait for the daily schedule, an eligible event, or explicit manual dispatch.",
     "action_items": [],
-    "completed_at": "2026-07-27T07:55:25+00:00",
-    "final_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+    "completed_at": "2026-07-27T08:37:33+00:00",
+    "final_revision": "be3ae39a0841c6072ca421916a5e37936504619e",
     "bots": [
       {
         "id": "case-monitor-bot",
         "name": "case-monitor-bot",
-        "due": true,
-        "status": "completed",
+        "due": false,
+        "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-27T07:55:25+00:00",
+        "completed_at": "2026-07-27T08:27:40+00:00",
         "error": null
       },
       {
         "id": "presidential-directives-bot",
         "name": "presidential-directives-bot",
-        "due": true,
-        "status": "completed",
+        "due": false,
+        "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-27T07:55:25+00:00",
+        "completed_at": "2026-07-27T08:27:40+00:00",
         "error": null
       },
       {
@@ -1048,16 +777,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": false,
         "status": "not_due",
         "started_at": null,
-        "completed_at": "2026-07-27T07:53:10+00:00",
+        "completed_at": "2026-07-27T08:27:40+00:00",
         "error": null
       },
       {
         "id": "project-console-progress-bot",
         "name": "project-console-progress-bot",
-        "due": false,
-        "status": "not_due",
+        "due": true,
+        "status": "completed",
         "started_at": null,
-        "completed_at": "2026-07-27T07:53:10+00:00",
+        "completed_at": "2026-07-27T08:28:50+00:00",
         "error": null
       },
       {
@@ -1066,379 +795,1625 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due": true,
         "status": "completed",
         "started_at": null,
-        "completed_at": "2026-07-27T07:55:25+00:00",
+        "completed_at": "2026-07-27T08:28:50+00:00",
         "error": null
       }
     ],
+    "work_queue": {
+      "path": "project-console-data:elim-work-queue.json",
+      "sha256": "sha256:c28fb83e417af0e9ef11cd6ab098038d3db9400fcad0026f17ef34b4749a4000",
+      "ready_for_elim": true,
+      "launch_recommended": true,
+      "counts": {
+        "total": 156,
+        "elim_eligible": 154,
+        "human": 0,
+        "safety": 17,
+        "gap_obligations": 2,
+        "governance_discovery": 0
+      },
+      "problems": [],
+      "next_item": {
+        "schema_version": 1,
+        "id": "INTEGRITY-7b81c19899c9",
+        "kind": "integrity",
+        "work_class": "integrity",
+        "severity": "error",
+        "title": "SRC-2521: identity mismatch",
+        "owner": "agent",
+        "required_authority": "agent-within-runbook",
+        "exact_next_action": "Resolve the exact integrity finding or route it for human review.",
+        "required_context_profile": "integrity_reconciliation",
+        "originating_stage": "source_checker",
+        "source_identity": "source-checker:inventory/sources.csv:SRC-2521:identity mismatch",
+        "canonical_record_identity": "source-checker:inventory/sources.csv:SRC-2521:identity mismatch",
+        "dependencies": [
+          "source_checker"
+        ],
+        "created_at": "2026-07-26T10:27:00+00:00",
+        "refreshed_at": "2026-07-26T10:27:00+00:00",
+        "eligible_for_elim": true,
+        "requires_human": false,
+        "eligibility_reason": "eligible under the selected runbook",
+        "blocking_reason": null,
+        "safety_class": 0,
+        "base_priority": 880,
+        "age_days": 0,
+        "fairness_boost": 0,
+        "priority_score": 880,
+        "selection_priority_score": 880,
+        "reason": "Source Checker classified SRC-2521 as identity mismatch",
+        "source": {
+          "input": "source_checker",
+          "finding_type": "source_checker",
+          "source_id": "SRC-2521",
+          "catalog": "inventory/sources.csv",
+          "finding": {
+            "source_id": "SRC-2521",
+            "catalog": "inventory/sources.csv",
+            "catalog_row": 1956,
+            "title": "",
+            "requested_url": "https://clearinghouse-umich-production.s3.amazonaws.com/media/doc/161438.pdf",
+            "attempts": 1,
+            "status_code": 200,
+            "final_url": "https://clearinghouse-umich-production.s3.amazonaws.com/media/doc/161438.pdf",
+            "content_type": "application/pdf",
+            "error": "",
+            "error_kind": "",
+            "classification": "identity mismatch",
+            "exception_first_seen_at": "2026-07-24T14:14:17Z",
+            "exception_age_days": 1.84
+          }
+        },
+        "source_revision": "af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+        "freshness_timestamp": "2026-07-26T10:27:00+00:00",
+        "source_chain_id": "arrp-20260727T082740Z",
+        "source_commit": "be3ae39a0841c6072ca421916a5e37936504619e",
+        "source_project_snapshot": "sha256:763540150a4404e600a5f2b2883173739f5f42c252a84d16d33773c2bf53ad22",
+        "source_input_hashes": {
+          "source_checker": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595"
+        },
+        "retry_state": {
+          "state": "new",
+          "attempt_count": 0,
+          "continuation": null,
+          "next_retry_at": null
+        },
+        "recovery": null
+      },
+      "selected_work_item_id": "INTEGRITY-7b81c19899c9",
+      "governance_discovery": {
+        "mode": "Project governance review and discovery",
+        "ordinary_selection_policy": "after-ordinary-queue-clears",
+        "minimum_interval_hours": 168,
+        "selected_as_quiet_queue_fallback": false,
+        "ordinary_eligible_count_before_fallback": 154,
+        "last_review": {
+          "last_reviewed_at": "2026-07-27T08:10:38+00:00",
+          "run_id": "arrp-20260727T075310Z",
+          "selected_unit_id": "COMPREHENSIVE-REVIEW-21a6bc9b6636",
+          "discovered_work_unit_id": "REVIEW-PROJECT-GOVERNANCE-20260727T075310Z",
+          "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+          "disposition": "review_completed",
+          "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+          "next_trigger": "A material governing-boundary change or 2026-08-10T08:10:38+00:00, whichever occurs first."
+        },
+        "next_due_at": "2026-08-03T08:10:38+00:00",
+        "current_for_cadence": false,
+        "waiting_for_ordinary_queue": true,
+        "reason": "Ordinary eligible work remains and is selected first."
+      },
+      "gap_obligations": [
+        {
+          "queue_item_id": "INTEGRITY-974b0df508fe",
+          "obligation_id": "GAP-GOVERNING-HASH-PREPUBLICATION-GATE",
+          "title": "Trusted-host preservation or Elim closeout can merge an internally invalid governing boundary while reported publication checks appear successful; deterministic context selection and the next run chain then fail closed until a later repair.",
+          "status": "open",
+          "severity": "normal",
+          "owner": "Elim",
+          "authority": {
+            "classification": "mechanical",
+            "basis": "Pinned/actual SHA-256 equality, staged and committed validation, required-check wiring, and positive/adversarial regression behavior are deterministic automation properties."
+          },
+          "authority_disposition": "out_of_scope",
+          "disposition": "reported",
+          "eligible_for_elim": false,
+          "requires_human": false,
+          "eligibility_reason": "retained as a non-implementable obligation under the recorded out_of_scope authority disposition",
+          "blocking_reason": "A fresh current queue selects GAP-GOVERNING-HASH-PREPUBLICATION-GATE under agent-within-runbook repair authority.",
+          "first_seen": "2026-07-27T08:06:32+00:00",
+          "last_checked": "2026-07-27T08:06:32+00:00",
+          "occurrence_count": 1,
+          "age_days": 0,
+          "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+          "exact_next_action": "In a separately selected automation repair, validate the staged and committed governing registry before canonical-workspace and Elim closeout publication, expose it as a required pull-request check, and add positive, changed-governing-without-registry, stale-registry, and repaired-registry regressions.",
+          "next_trigger": "A fresh current queue selects GAP-GOVERNING-HASH-PREPUBLICATION-GATE under agent-within-runbook repair authority.",
+          "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c"
+        },
+        {
+          "queue_item_id": "INTEGRITY-cf25416d0785",
+          "obligation_id": "GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS",
+          "title": "Offline or focused unit tests can publish false synthetic failures and Action Items under active credentials, while stale or out-of-order host events can supersede correct current state.",
+          "status": "open",
+          "severity": "normal",
+          "owner": "Elim",
+          "authority": {
+            "classification": "mechanical",
+            "basis": "Test isolation, runtime side-effect guards, event chain/revision binding, monotonic time ordering, and no-network regression proof are deterministic automation properties."
+          },
+          "authority_disposition": "out_of_scope",
+          "disposition": "retained",
+          "eligible_for_elim": false,
+          "requires_human": false,
+          "eligibility_reason": "retained as a non-implementable obligation under the recorded out_of_scope authority disposition",
+          "blocking_reason": "A fresh current queue selects GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS under agent-within-runbook repair authority.",
+          "first_seen": "2026-07-26T14:15:24+00:00",
+          "last_checked": "2026-07-27T08:05:29+00:00",
+          "occurrence_count": 2,
+          "age_days": 0,
+          "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+          "exact_next_action": "In a separately selected automation repair, disable or mock every external host-status and notification effect in tests, add a runtime test-mode side-effect guard and a full-suite no-network regression, then require current-chain, exact-source-revision, and monotonic-freshness acceptance before host-status publication.",
+          "next_trigger": "A fresh current queue selects GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS under agent-within-runbook repair authority.",
+          "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c"
+        }
+      ],
+      "user_overrides": {
+        "applied": [],
+        "unmatched": [],
+        "request_sha256": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+      },
+      "local_path": ".tmp/run-coordinator/arrp-20260727T082740Z/elim-work-queue.json"
+    },
+    "context_packet": {
+      "path": "project-console-data:elim-context.json",
+      "sha256": "sha256:76186e31c55f59c28af481acb4aa2752750d50d2f2eecabe9ebd37eb9e343a34",
+      "profile": "integrity_reconciliation",
+      "work_item_id": "INTEGRITY-7b81c19899c9",
+      "issue_id": null,
+      "canonical_record": null,
+      "selection": {
+        "work_item_id": "INTEGRITY-7b81c19899c9",
+        "kind": "integrity",
+        "canonical_record": null
+      },
+      "repository_revision": "be3ae39a0841c6072ca421916a5e37936504619e",
+      "provenance_complete": true,
+      "limits": {
+        "max_bytes": 900000,
+        "actual_bytes": 627756
+      },
+      "local_path": ".tmp/run-coordinator/arrp-20260727T082740Z/elim-context.json"
+    },
+    "user_overrides": {},
+    "verified_inputs": {
+      "case_monitor": {
+        "path": ".tmp/run-coordinator/arrp-20260727T082740Z/inputs/case-monitor.json",
+        "sha256": "sha256:8d234e9194dda93880400df7d7ed8ff30c293d105aa8d600651db570313b585a",
+        "bytes": 5693
+      },
+      "chain": {
+        "path": ".tmp/run-coordinator/arrp-20260727T082740Z/inputs/chain.json",
+        "sha256": "sha256:0022bd8961e56ff931733a16e59dd9ff548bc1125441714d6cc4f79f682c004f",
+        "bytes": 10314
+      },
+      "intake": {
+        "path": ".tmp/run-coordinator/arrp-20260727T082740Z/inputs/intake.json",
+        "sha256": "sha256:45ecdd2bca565a77da45197646bb33648d077ed4e635b4713ea5b962c4fd1a3a",
+        "bytes": 241
+      },
+      "integrity": {
+        "path": ".tmp/run-coordinator/arrp-20260727T082740Z/inputs/integrity.json",
+        "sha256": "sha256:caea2b1361322544a8547ebd8cf1d522c10dd8e0a528b6be58f9e76e6dc72535",
+        "bytes": 1267
+      },
+      "presidential_directives": {
+        "path": ".tmp/run-coordinator/arrp-20260727T082740Z/inputs/presidential-directives.json",
+        "sha256": "sha256:4835a28dfa7cb81b01699eb33db68528c60ef63a8a454685ccfc5e1e77d5408e",
+        "bytes": 3719132
+      },
+      "progress": {
+        "path": ".tmp/run-coordinator/arrp-20260727T082740Z/inputs/progress.json",
+        "sha256": "sha256:763540150a4404e600a5f2b2883173739f5f42c252a84d16d33773c2bf53ad22",
+        "bytes": 343336
+      },
+      "recovery": {
+        "path": ".tmp/run-coordinator/arrp-20260727T082740Z/inputs/recovery.json",
+        "sha256": "sha256:fe90b676ea2c5898e1a276e6eb38da41a9449234baa2a8d652ca305abade7437",
+        "bytes": 88
+      },
+      "review_epoch": {
+        "path": ".tmp/run-coordinator/arrp-20260727T082740Z/inputs/review-epoch.json",
+        "sha256": "sha256:db9c62e15f29a693de58ec01abc022ba9bb8a8231c26ab094830798b07a9f3d7",
+        "bytes": 2301
+      },
+      "source_checker": {
+        "path": ".tmp/run-coordinator/arrp-20260727T082740Z/inputs/source-checker.json",
+        "sha256": "sha256:af04e444f086b5b3626ff964e94380dbc5de49d84ff029691a58376b7180a595",
+        "bytes": 1445290
+      },
+      "recovery_effective": {
+        "path": ".tmp/run-coordinator/arrp-20260727T082740Z/inputs/recovery-effective.json",
+        "sha256": "sha256:fe8f01ced74587ee8997a524835106e363f1bb301688da76cb4b5d2ede497285",
+        "bytes": 2462
+      },
+      "run_log_reconciliation": {
+        "path": ".tmp/run-coordinator/arrp-20260727T082740Z/inputs/run-log-reconciliation.json",
+        "sha256": "sha256:185789881b669331a2058689601179ab75a4637d8648c1b910e7b396e59ad8ef",
+        "bytes": 86
+      },
+      "gap_obligations": {
+        "path": ".tmp/run-coordinator/arrp-20260727T082740Z/inputs/gap-obligations.json",
+        "sha256": "sha256:542e1e41c4620d083916b453644ef9fe62b11f67ba456be9497cc99777e1cacb",
+        "bytes": 47175
+      },
+      "overrides": {
+        "path": ".tmp/run-coordinator/arrp-20260727T082740Z/inputs/user-overrides.json",
+        "sha256": "sha256:9c3fb5e89aa40a0364258e831d5aa34a2a4b72dbbbd067b356ada825fa6cc271",
+        "bytes": 22
+      }
+    },
+    "host_action_items": [
+      {
+        "id": "automation-failure-daa8fd879c18d723a729",
+        "chain_id": "host-dispatch-20260725T013637Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T01:36:37+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: ARRP working tree is not clean; automated dispatch deferred",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-0b74e35daea3a71d"
+      },
+      {
+        "id": "automation-failure-1d35ce7ae6e1c8c03ecd",
+        "chain_id": "host-dispatch-20260725T014638Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T01:46:38+00:00",
+        "failure_count": 2,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-15a4e8917300c3b6"
+      },
+      {
+        "id": "automation-failure-713d698964a3375df404",
+        "chain_id": "host-dispatch-20260725T015639Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T01:56:39+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-b44480a540faadd7"
+      },
+      {
+        "id": "automation-failure-e8305a1d92876a2ac27f",
+        "chain_id": "host-dispatch-20260725T020640Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:06:40+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-ec4cfe2a37d30fa2"
+      },
+      {
+        "id": "automation-failure-1c042a07bf323d6f43bc",
+        "chain_id": "host-dispatch-20260725T021641Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:16:41+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-6892c15145558c39"
+      },
+      {
+        "id": "automation-failure-41e3ca616ec07fde465a",
+        "chain_id": "host-dispatch-20260725T022642Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:26:42+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-322dfb6087f80e4b"
+      },
+      {
+        "id": "automation-failure-87178723928a1caa5a72",
+        "chain_id": "host-dispatch-20260725T023644Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:36:44+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-3d0d51f7c2490bb3"
+      },
+      {
+        "id": "automation-failure-44509282a6ee45e123bf",
+        "chain_id": "host-dispatch-20260725T024645Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T02:46:45+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: host automation runtime differs from reviewed origin/main: .github/run-coordinator-bot.json, scripts/arrp_context.py, scripts/build_elim_work_queue.py, scripts/elim_execution.py, scripts/run_chain_dispatcher.py, scripts/run_coordinator.py, scripts/run_coordinator_control.py, scripts/select_elim_context_route.py",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-d9ca62a37e4f1cb0"
+      },
+      {
+        "id": "automation-failure-4cd5993c673ae809eec3",
+        "chain_id": "arrp-20260725T035508Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T03:56:27+00:00",
+        "failure_count": 2,
+        "stage": "run-coordinator",
+        "details": "case_monitor report is current despite a recorded prior success; presidential_directives report is current despite a recorded prior success",
+        "next_action": "Refresh or repair the blocked Context Gateway input.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-bdd592100cec7778"
+      },
+      {
+        "id": "automation-failure-15ec577346abf4e1a2c0",
+        "chain_id": "arrp-20260725T041809Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T04:19:40+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T04:23:50+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Resolved by the reviewed automation architecture merge, regenerated typed watcher inputs, verified isolated-checkout reconciliation, and clean no-LLM chain arrp-20260725T042131Z.",
+        "resolution_request_id": "control-906c3c638f443370"
+      },
+      {
+        "id": "automation-failure-85c83d4f36008c7690f3",
+        "chain_id": "arrp-20260725T063006Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T08:21:06+00:00",
+        "failure_count": 1,
+        "stage": "elim-closeout",
+        "details": "elim-closeout failed: ARRP working tree is not clean; automated dispatch deferred",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T10:37:25+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "Failed chain report reconstructed, validated as new and unique against ac9cd510, merged through PR #412 at ab845391, and read back from origin/main; no substantive Elim work was lost.",
+        "resolution_request_id": "control-5c9945e00875f4db"
+      },
+      {
+        "id": "automation-failure-e5c6d3dec24fb2885346",
+        "chain_id": "arrp-20260725T103811Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T10:39:28+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: ARRP working tree is not clean; automated dispatch deferred",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-25T10:55:09+00:00",
+        "resolved_by": "human-local-console",
+        "resolution_reason": "PR #413 merged at 24f380c2; the original dirty checkout was archived intact after canonical proof, and no-LLM chain arrp-20260725T105258Z (workflow 30155231768) then passed cloud, Integrity, fresh-checkout, local rebuild, usage, and exact launch-boundary validation without invoking Elim.",
+        "resolution_request_id": "control-a488b94b1b8ba78f"
+      },
+      {
+        "id": "automation-failure-0eb33e10d9ebd209b591",
+        "chain_id": "arrp-20260726T064933Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T11:17:54+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "occurrence_count": 9,
+        "first_seen": "2026-07-25T11:17:54+00:00",
+        "last_seen": "2026-07-26T08:43:37+00:00",
+        "first_chain_id": "arrp-20260725T110820Z",
+        "last_chain_id": "arrp-20260726T064933Z",
+        "chain_ids": [
+          "arrp-20260725T110820Z",
+          "arrp-20260725T114639Z",
+          "arrp-20260725T201420Z",
+          "arrp-20260725T214010Z",
+          "arrp-20260725T224436Z",
+          "arrp-20260726T033003Z",
+          "arrp-20260726T041310Z",
+          "arrp-20260726T044932Z",
+          "arrp-20260726T064933Z"
+        ],
+        "resolved_at": "2026-07-26T10:24:08+00:00",
+        "resolved_by": "dispatcher-health-proof",
+        "resolution_reason": "The clean isolated checkout was advanced from a previously attested baseline and verified at exact origin/main."
+      },
+      {
+        "id": "automation-failure-971a1d67c2f71b23c470",
+        "chain_id": "arrp-20260725T114639Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T11:58:01+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-5e4ce8945788af36c1da",
+        "chain_id": "host-dispatch-20260726T101403Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T20:08:54+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/elim-dispatcher-state-repair instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "occurrence_count": 40,
+        "first_seen": "2026-07-25T20:08:54+00:00",
+        "last_seen": "2026-07-26T10:14:03+00:00",
+        "first_chain_id": "host-dispatch-20260725T200854Z",
+        "last_chain_id": "host-dispatch-20260726T101403Z",
+        "chain_ids": [
+          "host-dispatch-20260726T010932Z",
+          "host-dispatch-20260726T011932Z",
+          "host-dispatch-20260726T012933Z",
+          "host-dispatch-20260726T013935Z",
+          "host-dispatch-20260726T014936Z",
+          "host-dispatch-20260726T015936Z",
+          "host-dispatch-20260726T020937Z",
+          "host-dispatch-20260726T021938Z",
+          "host-dispatch-20260726T022939Z",
+          "host-dispatch-20260726T023939Z",
+          "host-dispatch-20260726T024940Z",
+          "host-dispatch-20260726T025941Z",
+          "host-dispatch-20260726T030941Z",
+          "host-dispatch-20260726T031942Z",
+          "host-dispatch-20260726T032943Z",
+          "host-dispatch-20260726T040952Z",
+          "host-dispatch-20260726T042958Z",
+          "host-dispatch-20260725T200854Z",
+          "host-dispatch-20260726T100402Z",
+          "host-dispatch-20260726T101403Z"
+        ],
+        "resolved_at": "2026-07-26T10:24:04+00:00",
+        "resolved_by": "dispatcher-health-proof",
+        "resolution_reason": "The canonical workspace is clean on main, origin/main was read back exactly, and every reviewed automation-runtime blob matches."
+      },
+      {
+        "id": "automation-failure-0cb740337952952e993c",
+        "chain_id": "arrp-20260725T201420Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T20:18:59+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-62c0ca81696fa1ea1772",
+        "chain_id": "host-dispatch-20260725T210904Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T21:09:04+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-1453943de7cf9e7bc65b",
+        "chain_id": "host-dispatch-20260725T211905Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T21:19:05+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-76d15df5ce3b488efb2b",
+        "chain_id": "host-dispatch-20260725T212906Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T21:29:06+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-b89607df4d8c20819d58",
+        "chain_id": "host-dispatch-20260725T213907Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T21:39:07+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-queue-refinement instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-43b7c75312eef6c0a248",
+        "chain_id": "arrp-20260725T214010Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T21:49:12+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-6d28c3a80b5f16f09648",
+        "chain_id": "host-dispatch-20260725T221915Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T22:19:15+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-d9bb2f2ab411f91c050a",
+        "chain_id": "host-dispatch-20260725T222916Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T22:29:16+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-53d6cff484ca2b63b5eb",
+        "chain_id": "host-dispatch-20260725T223916Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T22:39:16+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/repository-review-recommendations instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-bf29478fa4f9e899345a",
+        "chain_id": "arrp-20260725T224436Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T22:49:21+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-66bc8d62a07f23ffdf75",
+        "chain_id": "host-dispatch-20260725T225922Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T22:59:22+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-93a087525179e3761c26",
+        "chain_id": "host-dispatch-20260725T230923Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T23:09:23+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-1013222a1feec565d1fb",
+        "chain_id": "host-dispatch-20260725T231923Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T23:19:23+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-b130454f419fa41188a6",
+        "chain_id": "host-dispatch-20260725T232924Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T23:29:24+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-4bf691f155bcd449a12c",
+        "chain_id": "host-dispatch-20260725T233925Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T23:39:25+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-46f4f53cb5900d3940c4",
+        "chain_id": "host-dispatch-20260725T234926Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T23:49:26+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-deb31d9597b16b2f9643",
+        "chain_id": "host-dispatch-20260725T235926Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-25T23:59:26+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-c66fe5bbc78b322d60eb",
+        "chain_id": "host-dispatch-20260726T000927Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T00:09:27+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-03e6a59463ad469c60c1",
+        "chain_id": "host-dispatch-20260726T001928Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T00:19:28+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-ee653d9899eee360b57d",
+        "chain_id": "host-dispatch-20260726T002929Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T00:29:29+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-adf84171d785975289c8",
+        "chain_id": "host-dispatch-20260726T003929Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T00:39:29+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-6de12c9fdc51582ccb6d",
+        "chain_id": "host-dispatch-20260726T004930Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T00:49:30+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-d4b29947b3e12030b4f9",
+        "chain_id": "host-dispatch-20260726T005931Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T00:59:31+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-740a28512bc098a7a148",
+        "chain_id": "host-dispatch-20260726T010932Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T01:09:32+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-7d5ec797c439346759af",
+        "chain_id": "host-dispatch-20260726T011932Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T01:19:32+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-d9e5cf70a19d34b1ae47",
+        "chain_id": "host-dispatch-20260726T012933Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T01:29:33+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-3e9e2f9e60e1db6ea3ef",
+        "chain_id": "host-dispatch-20260726T013935Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T01:39:35+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-a477e24ca9134c002a0a",
+        "chain_id": "host-dispatch-20260726T014936Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T01:49:36+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-d1162666236a82f9f93a",
+        "chain_id": "host-dispatch-20260726T015936Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T01:59:36+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-385e426d01eb2ce4936d",
+        "chain_id": "host-dispatch-20260726T020937Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:09:37+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-f5b5fd35c5ecf05d0110",
+        "chain_id": "host-dispatch-20260726T021938Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:19:38+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-8cf34da613b869d7fe6b",
+        "chain_id": "host-dispatch-20260726T022939Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:29:39+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-c44e3b9b45a0b76f5309",
+        "chain_id": "host-dispatch-20260726T023939Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:39:39+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-cb8c1e4fd9557ac0059c",
+        "chain_id": "host-dispatch-20260726T024940Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:49:40+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-25c1ea4721d9f8a9f8fa",
+        "chain_id": "host-dispatch-20260726T025941Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T02:59:41+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-fdd78f2e20b0762704bd",
+        "chain_id": "host-dispatch-20260726T030941Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T03:09:41+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-comprehensive-review instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-ea5699470342782f4d49",
+        "chain_id": "host-dispatch-20260726T031942Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T03:19:42+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-canonical-regeneration instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-bc5d4c31187f4193ed69",
+        "chain_id": "host-dispatch-20260726T032943Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T03:29:43+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/pages-deploy-node24 instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-f11346748196105e1b4e",
+        "chain_id": "arrp-20260726T033003Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T03:39:48+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-8b0d923c5ae9f6c2df3f",
+        "chain_id": "host-dispatch-20260726T040952Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T04:09:52+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/update-pypdf-security instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-0a52d28d47fb7cd1d8d2",
+        "chain_id": "arrp-20260726T041310Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T04:19:57+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-545f76e8f2a88440fe68",
+        "chain_id": "host-dispatch-20260726T042958Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T04:29:58+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/console-security-complete-regeneration instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-5e4ce8945788af36c1da without discarding its chain provenance.",
+        "superseded_by": "automation-failure-5e4ce8945788af36c1da"
+      },
+      {
+        "id": "automation-failure-56e5d1b84839ba993540",
+        "chain_id": "arrp-20260726T044932Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T05:15:39+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-d08451c633223e2e030e",
+        "chain_id": "arrp-20260726T064933Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T08:43:37+00:00",
+        "failure_count": 1,
+        "stage": "elim-isolated-checkout",
+        "details": "elim-isolated-checkout failed: isolated Elim checkout contains a prior unsynchronized baseline; preserve and reconcile it before a new run",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "0a39237a532f3d6cba04",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-0eb33e10d9ebd209b591 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-0eb33e10d9ebd209b591"
+      },
+      {
+        "id": "automation-failure-1953ff6dff0fb53d0903",
+        "chain_id": "host-dispatch-20260726T095401Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T09:03:56+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical Git metadata contains noncanonical duplicate artifacts: .git/.DS_Store, .git/index 6. Preserve them outside .git, verify canonical refs and index, then retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "9fc268c731adbcda25d1",
+        "occurrence_count": 6,
+        "first_seen": "2026-07-26T09:03:56+00:00",
+        "last_seen": "2026-07-26T09:54:01+00:00",
+        "first_chain_id": "host-dispatch-20260726T090356Z",
+        "last_chain_id": "host-dispatch-20260726T095401Z",
+        "chain_ids": [
+          "host-dispatch-20260726T090356Z",
+          "host-dispatch-20260726T091357Z",
+          "host-dispatch-20260726T092358Z",
+          "host-dispatch-20260726T093359Z",
+          "host-dispatch-20260726T094400Z",
+          "host-dispatch-20260726T095401Z"
+        ],
+        "resolved_at": "2026-07-26T10:24:04+00:00",
+        "resolved_by": "dispatcher-health-proof",
+        "resolution_reason": "The canonical workspace is clean on main, origin/main was read back exactly, and every reviewed automation-runtime blob matches."
+      },
+      {
+        "id": "automation-failure-6bc54c2203c87d61871d",
+        "chain_id": "host-dispatch-20260726T091357Z",
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T09:13:57+00:00",
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: could not refresh origin/main: fatal: bad object refs/heads/main 2\nerror: https://github.com/Thorncrag/ARRP.git did not send all necessary objects",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "incident_fingerprint": "7a27605a0510eb819e70",
+        "resolved_at": "2026-07-26T09:23:57+00:00",
+        "resolved_by": "dispatcher-incident-consolidation",
+        "resolution_reason": "Consolidated into continuing automation incident automation-failure-1953ff6dff0fb53d0903 without discarding its chain provenance.",
+        "superseded_by": "automation-failure-1953ff6dff0fb53d0903"
+      },
+      {
+        "id": "automation-failure-e745f1a9bd10dfc8b005",
+        "incident_fingerprint": "cd7d90b27ddc00f786da",
+        "chain_id": "arrp-20260726T102646Z",
+        "first_chain_id": "arrp-20260726T102646Z",
+        "last_chain_id": "arrp-20260726T102646Z",
+        "chain_ids": [
+          "arrp-20260726T102646Z"
+        ],
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T11:02:53+00:00",
+        "first_seen": "2026-07-26T11:02:53+00:00",
+        "last_seen": "2026-07-26T11:02:53+00:00",
+        "occurrence_count": 1,
+        "failure_count": 1,
+        "stage": "elim-host-git-closeout",
+        "details": "elim-host-git-closeout failed: current Elim Run Log report is incomplete; missing fields: Commits and synchronization",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-26T11:29:48+00:00",
+        "resolved_by": "verified-host-closeout-recovery",
+        "resolution_reason": "Trusted-host recovery verified, synchronized, and read back exact result commit 4988344eacd9eff78d2e93c270e8a6fcb7c16acc for Chain ID arrp-20260726T102646Z."
+      },
+      {
+        "id": "automation-failure-a1e2b44ad1941e9e1b6f",
+        "incident_fingerprint": "a39b011c24771b306d17",
+        "chain_id": "host-dispatch-20260726T121420Z",
+        "first_chain_id": "host-dispatch-20260726T111413Z",
+        "last_chain_id": "host-dispatch-20260726T121420Z",
+        "chain_ids": [
+          "host-dispatch-20260726T111413Z",
+          "host-dispatch-20260726T112414Z",
+          "host-dispatch-20260726T113416Z",
+          "host-dispatch-20260726T114417Z",
+          "host-dispatch-20260726T115418Z",
+          "host-dispatch-20260726T120419Z",
+          "host-dispatch-20260726T121420Z"
+        ],
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T11:14:13+00:00",
+        "first_seen": "2026-07-26T11:14:13+00:00",
+        "last_seen": "2026-07-26T12:14:20+00:00",
+        "occurrence_count": 7,
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/elim-protected-closeout instead of main. Merge the intended branch through GitHub, return local main to origin/main, and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-26T12:24:30+00:00",
+        "resolved_by": "dispatcher-health-proof",
+        "resolution_reason": "The canonical workspace is clean on main, origin/main was read back exactly, and every reviewed automation-runtime blob matches."
+      },
+      {
+        "id": "automation-failure-9bc8afae0dbff990f74e",
+        "incident_fingerprint": "e1c83ed2dd014c480fcc",
+        "chain_id": "arrp-20260726T122445Z",
+        "first_chain_id": "arrp-20260726T122445Z",
+        "last_chain_id": "arrp-20260726T122445Z",
+        "chain_ids": [
+          "arrp-20260726T122445Z"
+        ],
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T12:53:40+00:00",
+        "first_seen": "2026-07-26T12:53:40+00:00",
+        "last_seen": "2026-07-26T12:53:40+00:00",
+        "occurrence_count": 1,
+        "failure_count": 1,
+        "stage": "elim-host-git-closeout",
+        "details": "elim-host-git-closeout failed: closeout pull-request check readback is unreadable",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-26T12:55:38+00:00",
+        "resolved_by": "verified-host-closeout-recovery",
+        "resolution_reason": "Trusted-host recovery verified, synchronized, and read back exact result commit ef8988414cbdb944a3e2eb6ee5d7942140b6fecc for Chain ID arrp-20260726T122445Z."
+      },
+      {
+        "id": "automation-failure-2d39a27bbf1c93ab2a23",
+        "incident_fingerprint": "bf7717db54ad6ddf81e8",
+        "chain_id": "host-dispatch-20260726T125538Z",
+        "first_chain_id": "host-dispatch-20260726T125538Z",
+        "last_chain_id": "host-dispatch-20260726T125538Z",
+        "chain_ids": [
+          "host-dispatch-20260726T125538Z"
+        ],
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T12:55:38+00:00",
+        "first_seen": "2026-07-26T12:55:38+00:00",
+        "last_seen": "2026-07-26T12:55:38+00:00",
+        "occurrence_count": 1,
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: 'next_action'",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-26T13:53:48+00:00",
+        "resolved_by": "verified-host-closeout-recovery",
+        "resolution_reason": "Trusted-host recovery verified, synchronized, and read back exact result commit ef8988414cbdb944a3e2eb6ee5d7942140b6fecc for Chain ID arrp-20260726T122445Z."
+      },
+      {
+        "id": "automation-failure-71179f6a91d6b6a8dbca",
+        "incident_fingerprint": "4bf2bf174802279a4c21",
+        "chain_id": "arrp-20260726T122445Z",
+        "first_chain_id": "arrp-20260726T122445Z",
+        "last_chain_id": "arrp-20260726T122445Z",
+        "chain_ids": [
+          "arrp-20260726T122445Z"
+        ],
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T13:27:09+00:00",
+        "first_seen": "2026-07-26T13:27:09+00:00",
+        "last_seen": "2026-07-26T13:27:09+00:00",
+        "occurrence_count": 1,
+        "failure_count": 1,
+        "stage": "elim-closeout-recovery",
+        "details": "elim-closeout-recovery failed: isolated checkout is not synchronized with origin/main",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-26T13:37:35+00:00",
+        "resolved_by": "verified-host-closeout-recovery",
+        "resolution_reason": "Trusted-host recovery verified, synchronized, and read back exact result commit ef8988414cbdb944a3e2eb6ee5d7942140b6fecc for Chain ID arrp-20260726T122445Z."
+      },
+      {
+        "id": "automation-failure-120d448f9800d5882c84",
+        "incident_fingerprint": "3569e492b1f859286d99",
+        "chain_id": "arrp-20260726T122445Z",
+        "first_chain_id": "arrp-20260726T122445Z",
+        "last_chain_id": "arrp-20260726T122445Z",
+        "chain_ids": [
+          "arrp-20260726T122445Z"
+        ],
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T13:47:20+00:00",
+        "first_seen": "2026-07-26T13:47:20+00:00",
+        "last_seen": "2026-07-26T13:47:20+00:00",
+        "occurrence_count": 1,
+        "failure_count": 1,
+        "stage": "elim-closeout-recovery",
+        "details": "elim-closeout-recovery failed: isolated checkout is not at the applied result or current origin/main boundary",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-26T13:53:48+00:00",
+        "resolved_by": "verified-host-closeout-recovery",
+        "resolution_reason": "Trusted-host recovery verified, synchronized, and read back exact result commit ef8988414cbdb944a3e2eb6ee5d7942140b6fecc for Chain ID arrp-20260726T122445Z."
+      },
+      {
+        "id": "automation-failure-50f70b93f0e97dc8c5db",
+        "incident_fingerprint": "c11194ad5615b6e14f8b",
+        "chain_id": "arrp-20260726T140914Z",
+        "first_chain_id": "arrp-20260726T140914Z",
+        "last_chain_id": "arrp-20260726T140914Z",
+        "chain_ids": [
+          "arrp-20260726T140914Z"
+        ],
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T14:44:38+00:00",
+        "first_seen": "2026-07-26T14:44:38+00:00",
+        "last_seen": "2026-07-26T14:44:38+00:00",
+        "occurrence_count": 1,
+        "failure_count": 1,
+        "stage": "elim-execution",
+        "details": "elim-execution was interrupted; the child process group was confirmed stopped and preserved evidence requires review.",
+        "next_action": "Inspect the preserved isolated checkout, JSONL output, Elim task, usage attestation, and CURRENT_AUDIT checkpoint before retrying.",
+        "resolved": true,
+        "resolved_at": "2026-07-26T19:31:17+00:00",
+        "resolved_by": "verified-host-closeout-recovery",
+        "resolution_reason": "Trusted-host recovery verified, synchronized, and read back exact result commit 2b15786f671fde5017e70b5e19950abd6c6ac770 for Chain ID arrp-20260726T140914Z."
+      },
+      {
+        "id": "automation-failure-afe1dbc5b5df3a7e9a6a",
+        "incident_fingerprint": "f545395a750ef2ea80e8",
+        "chain_id": "host-dispatch-20260726T232358Z",
+        "first_chain_id": "host-dispatch-20260726T230356Z",
+        "last_chain_id": "host-dispatch-20260726T232358Z",
+        "chain_ids": [
+          "host-dispatch-20260726T230356Z",
+          "host-dispatch-20260726T231357Z",
+          "host-dispatch-20260726T232358Z"
+        ],
+        "kind": "automation_failure",
+        "owner": "human",
+        "summary": "ARRP run chain requires attention.",
+        "created_at": "2026-07-26T23:03:56+00:00",
+        "first_seen": "2026-07-26T23:03:56+00:00",
+        "last_seen": "2026-07-26T23:23:58+00:00",
+        "occurrence_count": 3,
+        "failure_count": 1,
+        "stage": "host-repository-preflight",
+        "details": "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: local HEAD does not equal the fetched origin/main revision. Reconcile the divergent history through GitHub and retry automated dispatch.",
+        "next_action": "Inspect the host dispatcher failure and preserved local projection, repair the exact failed prerequisite, and launch a fresh current chain.",
+        "resolved": true,
+        "resolved_at": "2026-07-26T23:54:02+00:00",
+        "resolved_by": "dispatcher-health-proof",
+        "resolution_reason": "The canonical workspace is clean on main, origin/main was read back exactly, and every reviewed automation-runtime blob matches."
+      }
+    ],
+    "host_status": "not-launched",
+    "host_updated_at": "2026-07-27T08:37:33+00:00",
     "last_successful_stages": [
       {
         "id": "case-monitor-bot",
         "order": 1,
         "workflow": ".github/workflows/case-monitor-bot.yml",
-        "due": true,
-        "due_reason": "persistent watcher input is stale",
-        "status": "succeeded",
-        "started_at": null,
-        "completed_at": "2026-07-27T07:55:25+00:00",
-        "last_success_at": "2026-07-27T07:55:25+00:00",
-        "retry_limit": 2,
-        "retries": [],
-        "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:8d234e9194dda93880400df7d7ed8ff30c293d105aa8d600651db570313b585a"
-        },
-        "work_count": 43,
-        "attempt_key": "primary",
-        "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
-        "domain_event": {
-          "id": "SDE-62EB0C60B193E98C0883A912",
-          "sha256": "sha256:d4388e0089e0292213c3288f26e6aec4dba52eb00c03f61cd478ad7f8e8e383f",
-          "json": {
-            "acceptance": null,
-            "affected_records": [
-              {
-                "record_id": "HOR-035",
-                "record_type": "candidate"
-              },
-              {
-                "record_id": "SRC-0632",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0945",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0965",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-0982",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1004",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1052",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1056",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1093",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1929",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1930",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1932",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1933",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1934",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1940",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1941",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1942",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1943",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1946",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1952",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1957",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1973",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1979",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-1982",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2042",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2080",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2081",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2105",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2110",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2136",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2149",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2190",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2216",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2221",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2235",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2238",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2351",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2591",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2649",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2651",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2652",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2653",
-                "record_type": "source"
-              },
-              {
-                "record_id": "SRC-2654",
-                "record_type": "source"
-              }
-            ],
-            "agent_id": "case-monitor-bot",
-            "chain_id": "arrp-20260727T075310Z",
-            "event_id": "SDE-62EB0C60B193E98C0883A912",
-            "idempotency_key": "sha256:62eb0c60b193e98c0883a912550287a645e9712981e73600431f8b3f7a458ac9",
-            "kind": "source-domain-event",
-            "output_hashes": {
-              "files": [
-                {
-                  "bytes": 1818034,
-                  "path": "inventory/sources.csv",
-                  "sha256": "sha256:dd4e572ed54c5d0be25664d9d71ca8aca6e41e20aa039d34f92446b49ee84778"
-                },
-                {
-                  "bytes": 180849,
-                  "path": "research/horizon-source-records/HOR-035-source-development.md",
-                  "sha256": "sha256:bcb66117d0e1557deb4379d1d4979691cbcbb98ad4c2cec26398f837275d57e8"
-                }
-              ],
-              "proposal_diff": "sha256:ca82329205d345662c811596e247f0f43b56b60b6c3f849152b269b95075fde0",
-              "semantic_report": "sha256:11a7e758920934470a4e4b63fbff03a0e00b719aa88bdaf4d1caebbeab08714f"
-            },
-            "proposal": {
-              "base_ref": "main",
-              "head_ref": "bot/case-monitor-updates",
-              "proposal_revision": "7e6009506d62bf2e72bea07fa941302b780cadf2",
-              "pull_request_number": 380,
-              "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/380",
-              "repository": "Thorncrag/ARRP"
-            },
-            "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
-            "schema_uri": ".github/source-domain-event.schema.json",
-            "schema_version": 1,
-            "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
-            "state": "proposed",
-            "summary": {
-              "affected_record_count": 43,
-              "counts": {
-                "affected-files": 2,
-                "affected-records": 43,
-                "candidate-records": 1,
-                "source-records": 42
-              },
-              "status": "case monitor proposal delta"
-            },
-            "trigger": "schedule"
-          }
-        }
-      },
-      {
-        "id": "presidential-directives-bot",
-        "order": 2,
-        "workflow": ".github/workflows/presidential-directives-bot.yml",
-        "due": true,
-        "due_reason": "persistent watcher input is stale",
-        "status": "succeeded",
-        "started_at": null,
-        "completed_at": "2026-07-27T07:55:25+00:00",
-        "last_success_at": "2026-07-27T07:55:25+00:00",
-        "retry_limit": 2,
-        "retries": [],
-        "failure_class": "none",
-        "details": "success",
-        "output": {
-          "path": "workflow-output",
-          "sha256": "sha256:4835a28dfa7cb81b01699eb33db68528c60ef63a8a454685ccfc5e1e77d5408e"
-        },
-        "work_count": 10,
-        "attempt_key": "primary",
-        "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
-        "domain_event": {
-          "id": "SDE-B42DD183BC2B93D484271CE3",
-          "sha256": "sha256:077dc1f6eb4ef28b71af781a63953723c4baeec2b7d217971bb6b31d246fc51e",
-          "json": {
-            "acceptance": null,
-            "affected_records": [
-              {
-                "record_id": "2019-05370",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2019-16383",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14990",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14991",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14992",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14997",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14998",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-14999",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-15003",
-                "record_type": "presidential-directive"
-              },
-              {
-                "record_id": "2026-15024",
-                "record_type": "presidential-directive"
-              }
-            ],
-            "agent_id": "presidential-directives-bot",
-            "chain_id": "arrp-20260727T075310Z",
-            "event_id": "SDE-B42DD183BC2B93D484271CE3",
-            "idempotency_key": "sha256:b42dd183bc2b93d484271ce3244e70065b6766b616494823bdf1a82d345fd2d8",
-            "kind": "source-domain-event",
-            "output_hashes": {
-              "files": [
-                {
-                  "bytes": 1854598,
-                  "path": "inventory/presidential-directives.csv",
-                  "sha256": "sha256:9f14fdb579c9816258688f66f322d62a5f7feaa49410daa3063d3fd9094a7e3c"
-                }
-              ],
-              "proposal_diff": "sha256:21eee92eda009c4db723e0c530931dc0595962f544a6d379ebe2c3c0ee871dc4",
-              "semantic_report": "sha256:eead281dd9bc359cb2a6613c252bbb7c670545fec9c7eb128ab32383e696c968"
-            },
-            "proposal": {
-              "base_ref": "main",
-              "head_ref": "automation/presidential-directives-monitor",
-              "proposal_revision": "2495449ed92977df47b0f29489762c368c3e86dd",
-              "pull_request_number": 381,
-              "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/381",
-              "repository": "Thorncrag/ARRP"
-            },
-            "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
-            "schema_uri": ".github/source-domain-event.schema.json",
-            "schema_version": 1,
-            "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
-            "state": "proposed",
-            "summary": {
-              "affected_record_count": 10,
-              "counts": {
-                "affected-files": 1,
-                "affected-records": 10,
-                "presidential-directive-records": 10
-              },
-              "status": "presidential directives proposal delta"
-            },
-            "trigger": "schedule"
-          }
-        }
-      },
-      {
-        "id": "project-console-progress-bot",
-        "order": 4,
-        "workflow": ".github/workflows/project-console-progress.yml",
         "due": false,
-        "due_reason": "last success remains current until 2026-07-28T01:49:19+00:00",
+        "due_reason": "last success remains current until 2026-07-28T07:55:25+00:00",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-27T07:53:10+00:00",
-        "last_success_at": "2026-07-27T01:49:19+00:00",
+        "completed_at": "2026-07-27T08:27:40+00:00",
+        "last_success_at": "2026-07-27T07:55:25+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
@@ -1446,24 +2421,60 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "output": null
       },
       {
-        "id": "project-integrity-bot",
-        "order": 6,
-        "workflow": ".github/workflows/project-integrity.yml",
-        "due": true,
-        "due_reason": "required every chain",
+        "id": "presidential-directives-bot",
+        "order": 2,
+        "workflow": ".github/workflows/presidential-directives-bot.yml",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-28T07:55:25+00:00",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-27T07:55:25+00:00",
+        "completed_at": "2026-07-27T08:27:40+00:00",
         "last_success_at": "2026-07-27T07:55:25+00:00",
+        "retry_limit": 2,
+        "retries": [],
+        "failure_class": "none",
+        "details": "",
+        "output": null
+      },
+      {
+        "id": "project-console-progress-bot",
+        "order": 4,
+        "workflow": ".github/workflows/project-console-progress.yml",
+        "due": true,
+        "due_reason": "forced",
+        "status": "succeeded",
+        "started_at": null,
+        "completed_at": "2026-07-27T08:28:50+00:00",
+        "last_success_at": "2026-07-27T08:28:50+00:00",
         "retry_limit": 2,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:08e10d4807317d31d69965a7da3ddf47ccd1cbe3e2c6687636a4515d8b58b3c9"
+          "sha256": "sha256:763540150a4404e600a5f2b2883173739f5f42c252a84d16d33773c2bf53ad22"
         },
-        "work_count": 1
+        "work_count": 0
+      },
+      {
+        "id": "project-integrity-bot",
+        "order": 6,
+        "workflow": ".github/workflows/project-integrity.yml",
+        "due": true,
+        "due_reason": "forced",
+        "status": "succeeded",
+        "started_at": null,
+        "completed_at": "2026-07-27T08:28:50+00:00",
+        "last_success_at": "2026-07-27T08:28:50+00:00",
+        "retry_limit": 2,
+        "retries": [],
+        "failure_class": "none",
+        "details": "success",
+        "output": {
+          "path": "workflow-output",
+          "sha256": "sha256:caea2b1361322544a8547ebd8cf1d522c10dd8e0a528b6be58f9e76e6dc72535"
+        },
+        "work_count": 0
       },
       {
         "id": "public-intake",
@@ -1473,15 +2484,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "required every chain",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-27T07:55:25+00:00",
-        "last_success_at": "2026-07-27T07:55:25+00:00",
+        "completed_at": "2026-07-27T08:28:50+00:00",
+        "last_success_at": "2026-07-27T08:28:50+00:00",
         "retry_limit": 1,
         "retries": [],
         "failure_class": "none",
         "details": "success",
         "output": {
           "path": "workflow-output",
-          "sha256": "sha256:c39cce07b76dee692b17979a9264f779c21f27e805e22d3244d7576331d14e86"
+          "sha256": "sha256:45ecdd2bca565a77da45197646bb33648d077ed4e635b4713ea5b962c4fd1a3a"
         },
         "work_count": 0
       },
@@ -1493,7 +2504,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "due_reason": "last success remains current until 2026-08-02T10:32:24+00:00",
         "status": "succeeded",
         "started_at": null,
-        "completed_at": "2026-07-26T13:53:24+00:00",
+        "completed_at": "2026-07-27T01:47:55+00:00",
         "last_success_at": "2026-07-26T10:32:24+00:00",
         "retry_limit": 2,
         "retries": [],
@@ -1504,6 +2515,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ]
   },
   "domain_generation": {
-    "automation.js": "project-console-7190bb3b1c5cb5031a9f"
+    "automation.js": "project-console-194cd7abe888937262fe"
   }
 });

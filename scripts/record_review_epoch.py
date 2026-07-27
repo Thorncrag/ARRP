@@ -50,7 +50,9 @@ CADENCE = {"biweekly", "monthly", "event-triggered"}
 STABILITY = {"evolving", "stable", "drift-detected"}
 SHA256_PREFIX = "sha256:"
 COMPREHENSIVE_PROFILE = "comprehensive_review"
-DEFAULT_MANIFEST = ROOT / "framework" / "context-routes.json"
+DEFAULT_MANIFEST = (
+    ROOT / "framework" / "project" / "automation" / "context-routes.json"
+)
 AUTOMATION_HEALTH = {"healthy", "degraded", "failed"}
 
 

@@ -231,7 +231,10 @@ def validation_plan(files: list[str], task_type: str) -> dict[str, Any]:
             ["python3", "-m", "unittest", "tests.test_horizon_intake"],
             "Project Console",
         )
-    if any(path.startswith((".github/", "framework/agents/")) for path in normalized):
+    if any(
+        path.startswith((".github/", "framework/project/automation/"))
+        for path in normalized
+    ):
         add(
             "automation_tests",
             ["python3", "-m", "unittest", "discover", "-s", "tests", "-p", "test_*bot.py"],

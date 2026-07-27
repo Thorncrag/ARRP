@@ -1,0 +1,114 @@
+---
+title: "Project Console Progress"
+status: retired-baseline
+print_status: excluded
+print_exclusion_reason: "Historical implementation baseline retained for provenance."
+---
+
+# Project Console Progress
+
+> **Retired baseline (2026-07-27).** This file preserves the former combined
+> progress-governance record for provenance. Current reusable progress-view
+> rules are in
+> [`../../standards/interfaces/progress-views.md`](../../standards/interfaces/progress-views.md);
+> ARRP's exact active configuration is in
+> [`../../project/interfaces/project-console-progress.md`](../../project/interfaces/project-console-progress.md);
+> and bot execution belongs to the named project runbook. This baseline is not
+> current governing authority.
+
+The **Progress** tab in the internal [ARRP Project Console](../../../research/horizon-review-console/index.html) is the project's sole human-facing proposal-development progress dashboard. It visualizes the goal of bringing every eligible proposal to at least **Review Ready** by **December 31, 2026** and includes a compact six-stage development board. It does not replace the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2), whose `Development level` and `Status` fields remain authoritative, or repository issue pages and audit sidecars, which remain the substantive and audit authorities. Governance-discovery findings and gap obligations do not enter its target numerator, denominator, attainment velocity, or development backlog; the Console presents them in Integrity or Agents & Bots and routes only actual human-required decisions or interventions to Action Items.
+
+ARRP does not maintain a second Markdown dashboard on GitHub. Automation publishes only `progress.json` and `history.json` to the data-only `project-console-data` branch. The console consumes that feed and retains a checked-in offline snapshot. The data branch is infrastructure, not a second reader interface, and must not contain a rendered dashboard, narrative page, or chart files.
+
+## Goal and eligibility
+
+The corrected July 13, 2026 baseline is 23 Review Ready proposals out of 204 eligible proposal issues. A retrospective series begins June 24 and reconstructs how those 23 proposals reached Review Ready before automated tracking began. Eligibility and identity come from [`inventory/github_issue_registry.csv`](../../../inventory/github_issue_registry.csv) rows whose `Kind` is `proposal`. Closed merged records remain preserved as `merged proposal` rows but are excluded from the active portfolio.
+
+The builder joins the proposal identifier in the registry title to the identifier in the GitHub Project's built-in `Title` field. `Canonical page` is a fallback only when it uniquely identifies one Project item. Governance, horizon, source-review, merged-proposal, and other non-active-proposal records are excluded. A proposal without an unambiguous Project identity remains in the denominator, is treated as not ready, and produces a tracking warning.
+
+The official target and calculation settings are stored in [`framework/project/interfaces/project-console-progress.json`](../../project/interfaces/project-console-progress.json). A rolling forecast may move as progress changes, but it does not replace the official target. Project-governance reviews, automation defects, source-monitoring gaps, contributor-readiness checks, and other stable gap obligations are operational stewardship work rather than proposal eligibility. They may affect a proposal only through the ordinary canonical lifecycle or audit update that independently satisfies this dashboard's rules. Changes to eligibility, the readiness rule, or the official target require a project-level Change Audit.
+
+## Review Ready rule
+
+An eligible proposal counts toward the goal only when its GitHub Project score is at least 75 and its `Development level` is one of the two maturity values that represent at least Review Ready:
+
+- `Review ready`;
+- `Release candidate`.
+
+The issue page retains the more precise score-band label—such as `Advanced Review Ready`, `Proposal Ready`, `Publication Ready`, or `Fully Validated`—without inventing additional Project maturity values. The separate workflow `Status` does not change the Review Ready count; it explains what action, hold, or review comes next.
+
+`Completed within scope` and other administrative dispositions do not count as development progress. Merging, integrating, retiring, rejecting, or rerouting a record may change the active denominator, but it does not increase the Review Ready numerator or attainment velocity. The calculation flags development-level/score inconsistencies and workflow drift but never repairs Project data automatically.
+
+## Development board
+
+The Progress tab's read-only board places every formal candidate and active proposal into one of six columns: `Candidate`, `Admitted / undeveloped`, `In development`, `Developed proposal`, `Review ready`, and `Release candidate`. All six columns remain visible in one desktop row rather than reproducing GitHub's horizontally scrolling Kanban. Each compact card displays only the stable identifier, its current score when available, and links to the live proposal page and authoritative GitHub issue. The workflow `Status` remains available as a compact cue and accessible label but does not create another board column.
+
+The board is a visualization of Project and registry data, not an editable or competing tracker. Candidates come from active Horizon records; proposals come from active `proposal` registry rows. A missing or unrecognized development level appears in a visible unassigned warning rather than being silently inferred.
+
+## Metrics and forecast
+
+The console reports eligible, Review Ready, and remaining counts; current portfolio coverage; scope change from baseline; required and rolling weekly pace; forecast completion; schedule variance; compact area coverage; the six-stage development board; issue-level monitoring; workflow holds; and tracking warnings. The board is the primary record-level proposal-progress view; the former closest-to-ready list is not maintained as a separate Console presentation. Governance-discovery and gap-obligation counts must not be blended into these metrics or warnings; their owning views may link to an affected proposal when relevant. The trajectory graph compares actual attainment with the pace required to reach the official target.
+
+Required weekly pace is:
+
+`remaining eligible proposals / weeks remaining before the official target`.
+
+Rolling pace is the net change in Review Ready count during the configured 28-day window, expressed per week. A regression reduces measured progress; a newly admitted proposal increases the denominator. Administrative reductions in the denominator may change coverage and the forecast but are excluded from attainment velocity. Score movement is a pipeline signal, not a measure of labor. Forecasts are planning signals, not promises or substitutes for proposal-level judgment.
+
+## Retrospective evidence
+
+The checked-in [retrospective seed](../../../.github/progress-history-seed.json) records the earliest dated score-bearing audit at or above 75 for each proposal in the official 23-proposal baseline. Audit sidecars control the attainment date; commit history corroborates but does not replace an explicit audit date.
+
+The reconstructed series begins at zero on June 24, then records 1 on June 25, 3 on June 27, 16 on June 28, 17 on July 2, 22 on July 4, and 23 on July 9. A retained automated snapshot overrides the seed on the same date, and the current build overrides both. If an earlier qualifying audit is discovered, correct the seed and this explanation together through a project-level Change Audit.
+
+## Automation and retention
+
+The [`Project Console Progress Bot`](../../../.github/workflows/project-console-progress.yml) becomes due every 24 hours in the serialized Run Coordinator chain and also supports a manual or coordinator-invoked refresh. It has no independent schedule. It:
+
+1. reads GitHub Project fields through the GraphQL API;
+2. joins them to active proposal identity from the issue registry;
+3. loads the retrospective seed and retained `history.json`;
+4. validates and combines the retained and current snapshots;
+5. calculates the metrics, forecast, area results, backlog, and warnings; and
+6. publishes only `progress.json` and `history.json` to `project-console-data` through non-forced Git data API updates.
+
+When a scored audit changes an eligible proposal's Project `Development level`, workflow `Status`, `Score`, or goal eligibility, audit closeout must dispatch this workflow after Project readback and the repository push, wait for success, and verify `project-console-data/progress.json`. One final verified dispatch may close an expressly authorized multi-issue or successive-tier batch. The Run Coordinator's 24-hour due interval is the recovery backstop.
+
+History remains off `main` so automated daily snapshots do not create ordinary development commits. If retained history is unavailable or invalid, the builder safely restarts from the supported retrospective seed and current snapshot. Never edit the data branch manually.
+
+## Authentication and permissions
+
+The workflow requires the repository Actions secret `ARRP_PROJECT_TOKEN`, containing a classic personal access token limited to `read:project`. The GraphQL request reads Project field values and never mutates the Project. GitHub's workflow token receives `contents: write` only to update the data branch. Do not place either token in repository files, generated data, Project fields, or logs.
+
+If the secret is absent, expired, or revoked, the workflow fails closed with a visible error and leaves the existing data unchanged. Replace the secret and rerun the workflow; retained snapshots remain on the data branch.
+
+## Implementation map
+
+- [`framework/project/interfaces/project-console-progress.json`](../../project/interfaces/project-console-progress.json) owns the goal, readiness, field-mapping, and forecast settings.
+- [`.github/progress-history-seed.json`](../../../.github/progress-history-seed.json) owns the supported pre-automation attainment evidence.
+- [`.github/workflows/project-console-progress.yml`](../../../.github/workflows/project-console-progress.yml) owns scheduling and permissions.
+- [`scripts/build_project_console_progress.py`](../../../scripts/build_project_console_progress.py) calculates and writes the two data files.
+- [`scripts/publish_project_console_progress.py`](../../../scripts/publish_project_console_progress.py) updates the independent data branch.
+- [`tests/test_project_console_progress.py`](../../../tests/test_project_console_progress.py) covers eligibility, authority, history, forecast inputs, data-only output, and branch publication.
+- [`research/horizon-review-console/`](../../../research/horizon-review-console/) owns the sole human-facing visualization, including the trajectory graph.
+
+## Local validation
+
+Run:
+
+```bash
+python3 -m unittest tests/test_project_console_progress.py
+python3 scripts/build_project_console_progress.py \
+  --config tests/fixtures/progress-config.json \
+  --registry tests/fixtures/progress-registry.csv \
+  --input tests/fixtures/progress-project.json \
+  --history tests/fixtures/progress-history.json \
+  --as-of 2026-07-15 \
+  --output /tmp/arrp-project-console-progress
+```
+
+The output directory must contain only `progress.json` and `history.json`.
+
+## Governance effect
+
+This view changes no proposal score, audit result, GitHub issue, milestone, or Project field. It remains a derived read-only planning tool. Changes to eligibility, the Review Ready rule, the official target, or the interpretation of readiness require a project-level Change Audit because they can materially change the displayed result.

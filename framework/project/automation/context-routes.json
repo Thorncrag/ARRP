@@ -1,0 +1,1111 @@
+{
+  "schema_version": 2,
+  "generated_path_exclusions": [
+    ".site-build",
+    ".tmp",
+    ".venv",
+    "__pycache__",
+    "exports",
+    "node_modules",
+    "research/horizon-review-console/catalog-data.js",
+    "research/horizon-review-console/data",
+    "site"
+  ],
+  "required_modules": [
+    "framework_kernel",
+    "agent_rules_kernel",
+    "current_audit"
+  ],
+  "documents": {
+    "public_premise": {
+      "path": "README.md",
+      "sha256": "d0a5936c876d022ae186d40502aecc0074fcf1103bded47abb4a378aeab78ec4",
+      "hash_policy": "pinned",
+      "governing": true
+    },
+    "codex_bootstrap": {
+      "path": "AGENTS.md",
+      "sha256": "c51069c33ae05b5970d019c8b89670e675c1016e4c5dc1f2c4a78b2e5d8c26f7",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "agent_rules_kernel",
+        "current_audit",
+        "context_routing",
+        "project_structure"
+      ]
+    },
+    "framework_kernel": {
+      "path": "framework/FRAMEWORK.md",
+      "sha256": "e3463e5a06336e4d1df77e401e165cac64db6fede0fd63e6ccdae6b5a5127e33",
+      "hash_policy": "pinned",
+      "governing": true
+    },
+    "agent_rules_kernel": {
+      "path": "framework/AGENT_OPERATING_RULES.md",
+      "sha256": "b0ad3fbcc49b93e531fba8fbc06127c96a2cb4d575038fbb9c36eac74da7cf11",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel"
+      ]
+    },
+    "current_audit": {
+      "path": "framework/records/handoffs/current-task.md",
+      "hash_policy": "runtime",
+      "governing": false,
+      "requires": [
+        "framework_kernel",
+        "agent_rules_kernel"
+      ]
+    },
+    "context_routing": {
+      "path": "framework/CONTEXT_ROUTING.md",
+      "sha256": "6bd90880705b0b7320feccf00cfbbe9f3b43a5db4678b03f08bbda66d551262e",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "agent_rules_kernel"
+      ]
+    },
+    "project_structure": {
+      "path": "framework/PROJECT_STRUCTURE.md",
+      "sha256": "79c0fcc9a61f86c27eabc39671b86f0339faa9ab42e2b4c6d951dfb73dd415d0",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel"
+      ]
+    },
+    "github_workflow": {
+      "path": "framework/project/github/workflow.md",
+      "sha256": "a03b550b4092e441dfb4c7432ca9603253e5f74edb067f2513e3bcafdfa67376",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel"
+      ]
+    },
+    "remedy_framework": {
+      "path": "framework/standards/content/remedies.md",
+      "sha256": "4b00fe47ffd5fb685a1060055204da4554baefbb59edcae67db1a9b0f2e9909c",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel"
+      ]
+    },
+    "print_assembly": {
+      "path": "framework/project/publication/print-assembly.md",
+      "sha256": "81662cf8fc14a16eebe2ec5ed1e44020a2dcc2e5849312fb42d220173e4d5f38",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "print_assembly_standard",
+        "project_structure",
+        "project_source_adjudication"
+      ]
+    },
+    "public_release": {
+      "path": "framework/project/publication/first-release.md",
+      "sha256": "98a7ef09c6abadf8f8b8728adfb7292e2c519fdd8dbab6f5363e538639b3e147",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "print_assembly"
+      ]
+    },
+    "project_console_progress": {
+      "path": "framework/project/interfaces/project-console-progress.md",
+      "sha256": "53320b4fa36f5f42a9fffcbeca378a7e4636f3cec5b92111c348dae86317cf04",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "progress_view_standard",
+        "maturity_profile",
+        "github_workflow",
+        "progress_config"
+      ]
+    },
+    "project_interface": {
+      "path": "framework/project/interfaces/project-console.md",
+      "sha256": "31911f4d622aa8e17e6759819569145e6faefc0f233af5d4f44948e2a537a950",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "interface_standard",
+        "progress_view_standard",
+        "visual_identity",
+        "project_console_progress",
+        "candidate_adjudication",
+        "project_source_adjudication"
+      ]
+    },
+    "intake_process": {
+      "path": "framework/project/workflows/public-input-review.md",
+      "sha256": "f6076b6b42b19a8fdf000aca572e564908371405ba5380963138335a1bcfbd9e",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "public_input_standard",
+        "method_scope_admission",
+        "project_source_adjudication"
+      ]
+    },
+    "agent_audit_execution": {
+      "path": "framework/standards/automation/audit-execution.md",
+      "sha256": "0bc35ad23306ebec48ea4724129c1b68fc48215a4f53ddb5e9cfa160a2a4db27",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_rules_kernel"
+      ]
+    },
+    "agent_autonomous_execution": {
+      "path": "framework/standards/automation/autonomous-execution.md",
+      "sha256": "f8460b1a8ea03c2c5ba667646d195d75daebbd71e77fb201ba5939f48f9e45ea",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_rules_kernel"
+      ]
+    },
+    "project_autonomous_execution": {
+      "path": "framework/project/automation/autonomous-execution.md",
+      "sha256": "499f612c5c51b71e470f52615413a554a053948a89ad889ff86e33734aad77e0",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_rules_kernel",
+        "agent_autonomous_execution"
+      ]
+    },
+    "agent_context_research": {
+      "path": "framework/standards/automation/context-and-research.md",
+      "sha256": "36cce9023973fe27e53e3dcd4295fa53be4590fa5172adcee5b27055f707303b",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_rules_kernel"
+      ]
+    },
+    "agent_handoff": {
+      "path": "framework/standards/automation/task-handoffs.md",
+      "sha256": "279e5b3d744bc5deecadf39f7c4b6cc2a4cb1f6fb8a9067f22048234649219da",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_rules_kernel"
+      ]
+    },
+    "agent_issue_candidate_work": {
+      "path": "framework/project/automation/agent-policy.md",
+      "sha256": "5a9f85119277dc86be827bbb74df88d322973f80e9475d4ce11d856ca5469fb6",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_rules_kernel",
+        "agent_handoff",
+        "agent_provenance_logging"
+      ]
+    },
+    "agent_multi_agent": {
+      "path": "framework/standards/automation/multi-agent.md",
+      "sha256": "701057ad8c4e51bd990639dfc58411c2bb06fd443564c3ab426935a2952b5c28",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_rules_kernel"
+      ]
+    },
+    "agent_provenance_logging": {
+      "path": "framework/standards/automation/provenance-and-recovery.md",
+      "sha256": "2c0ebc99ef054e5756fd586818c2bb0f19c50d29b5bb868d5bf478e78859c9ef",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_rules_kernel"
+      ]
+    },
+    "agent_validation_closeout": {
+      "path": "framework/standards/automation/validation-and-closeout.md",
+      "sha256": "10d07d170529607c852e606d294cdfb3bbf4fa40f771e6e2dc53be4e9cf08908",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_rules_kernel"
+      ]
+    },
+    "agent_registry": {
+      "path": "framework/project/automation/registry.md",
+      "sha256": "79cb7eaef6d66be0c12932cd1fc86fb3c03127f8a0a89515de2c90b29fc0a4e9",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_rules_kernel"
+      ]
+    },
+    "runbook_elim": {
+      "path": "framework/project/automation/runbooks/elim.md",
+      "sha256": "e6e33b58f37952dc31fcdf622d2c353bb37a54fde0985dbd0da6f3acde61fdbf",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_registry",
+        "project_autonomous_execution",
+        "agent_provenance_logging",
+        "agent_validation_closeout"
+      ]
+    },
+    "runbook_case_monitor_bot": {
+      "path": "framework/project/automation/runbooks/case-monitor-bot.md",
+      "sha256": "ac122f725ae4ab7d31f4de766688c1b0ee3278f922c3f12dbf12c4e7c18b932a",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_registry"
+      ]
+    },
+    "runbook_presidential_directives_bot": {
+      "path": "framework/project/automation/runbooks/presidential-directives-bot.md",
+      "sha256": "f44004eaff068c77faa8766529b246534bb4dd6f50367a2e92cb00a2062ae13f",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_registry"
+      ]
+    },
+    "runbook_console_progress_bot": {
+      "path": "framework/project/automation/runbooks/project-console-progress-bot.md",
+      "sha256": "80e83b12e800c3ca31c34a3cf4873191e5c08ecbbe42978f46ba63de98f432eb",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_registry"
+      ]
+    },
+    "runbook_integrity_bot": {
+      "path": "framework/project/automation/runbooks/project-integrity-bot.md",
+      "sha256": "b8e65c80baa971c1e61826315efbfa632d8c91820abe70915eb09f53014db52e",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_registry"
+      ]
+    },
+    "runbook_run_coordinator_bot": {
+      "path": "framework/project/automation/runbooks/run-coordinator-bot.md",
+      "sha256": "7196d6e7163e221983ad5693b8c80e374fd49c1730cf15393b51613f0f3e56ca",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_registry",
+        "project_autonomous_execution"
+      ]
+    },
+    "runbook_source_checker_bot": {
+      "path": "framework/project/automation/runbooks/source-checker-bot.md",
+      "sha256": "2863973d24e0e369e1735a4a8a8bf38a5dea822e739adac0dd9a15cc9f7b82ed",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_registry"
+      ]
+    },
+    "audit_core": {
+      "path": "framework/standards/audits/core.md",
+      "sha256": "b7e62c38d8b5ee593bc4b697b4093422e089590e4077a560c9db7f2c8fc1c5d1",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "agent_rules_kernel"
+      ]
+    },
+    "audit_verification": {
+      "path": "framework/standards/audits/verification.md",
+      "sha256": "347591582674aa38a9b12d49439c6099ed4dbe9329f43460f6a54eed6ea8fbd4",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "audit_core",
+        "evidence_standards",
+        "source_catalogs"
+      ]
+    },
+    "audit_tiered": {
+      "path": "framework/standards/audits/levels.md",
+      "sha256": "b4f19a0e3e2414bcb29ed1c5c36c89ce49840435220985a1998cdee14470df84",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "audit_core",
+        "audit_verification"
+      ]
+    },
+    "audit_legal_prior_proposal": {
+      "path": "framework/standards/audits/legal-and-prior-work.md",
+      "sha256": "cc9cd4994b009f516ce6f45e1ca06e353a76ce15aa5932ae2774c37e6eec9d49",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "audit_core",
+        "audit_verification",
+        "audit_tiered",
+        "remedy_framework"
+      ]
+    },
+    "audit_project_consistency": {
+      "path": "framework/standards/audits/project-consistency.md",
+      "sha256": "c8c0920cca74ada3c060837d2c9bb0d45e05290b835f88dd59ae46b068c5c328",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "audit_core"
+      ]
+    },
+    "scoring_quality_rubric": {
+      "path": "framework/project/profile/scoring-rubric.md",
+      "sha256": "0e0900cd7ef52d6b1df9395a0521a46f662086e543aaeb4aa599dd9ce2cbfbc9",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "audit_core",
+        "audit_tiered",
+        "audit_verification",
+        "method_partisan_perception"
+      ]
+    },
+    "audit_change": {
+      "path": "framework/standards/audits/change-audits.md",
+      "sha256": "05eb46cc7ffa5aeea53da125c7dcd63518925e1eada4c94ea606eee014244e4b",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "audit_core",
+        "audit_project_consistency"
+      ]
+    },
+    "scoring_adoption_pathway": {
+      "path": "framework/standards/audits/adoption-and-pathways.md",
+      "sha256": "813c1991b4b5dc8233ec8d752ece5494ae165e77e580e0a211d0a9bcd788fa5a",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "audit_core",
+        "audit_verification"
+      ]
+    },
+    "scoring_external_international": {
+      "path": "framework/standards/audits/external-review.md",
+      "sha256": "0b81453ad1d3b2546df0300358501dbaaf9859f383793dd25cf4b5939f46a22d",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "audit_core",
+        "audit_verification"
+      ]
+    },
+    "method_neutrality_language": {
+      "path": "framework/standards/content/neutrality-and-language.md",
+      "sha256": "d98e68db1e4ae7e9e686701dd22e4feb1619bb603085494bd1bc7cd6d319a4e4",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel"
+      ]
+    },
+    "method_scope_admission": {
+      "path": "framework/standards/content/scope-and-admission.md",
+      "sha256": "16fc02d9d65646fd539adbc10631aad0f2da5d53d81891684e79eb63e1981682",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "method_neutrality_language"
+      ]
+    },
+    "method_partisan_perception": {
+      "path": "framework/project/profile/public-actor-conventions.md",
+      "sha256": "d4025ae4ac31f50ce41ddae37cb38c36335eef81d6a27dc90c3114fe355d98d3",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "method_neutrality_language",
+        "method_scope_admission"
+      ]
+    },
+    "evidence_standards": {
+      "path": "framework/standards/sources/claims-and-citations.md",
+      "sha256": "dcae73b20165a54a90dd75e042cca5502e73f98ab34706dddff493b6b0d73341",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "method_neutrality_language"
+      ]
+    },
+    "source_catalogs": {
+      "path": "framework/standards/sources/source-records.md",
+      "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "evidence_standards",
+        "issue_architecture",
+        "project_structure"
+      ]
+    },
+    "issue_architecture": {
+      "path": "framework/standards/content/record-architecture.md",
+      "sha256": "a12c163122b2930ecc2e33899cac5dd7ac9424441e47995db5bda604ac5bdd76",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "method_scope_admission",
+        "method_neutrality_language",
+        "evidence_standards",
+        "remedy_framework"
+      ]
+    },
+    "development_levels": {
+      "path": "framework/standards/content/maturity-and-gates.md",
+      "sha256": "c19bc2fc9d4fffaa82b6674885d34c25a6d588acf8682b511334079251262502",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "method_scope_admission",
+        "issue_architecture",
+        "remedy_framework"
+      ]
+    },
+    "navigation_inventory": {
+      "path": "framework/standards/content/navigation-and-indexes.md",
+      "sha256": "cbb9d69dab0d7481b517bfd69e0cb62efa48ede7923dc41912bd469eb875a841",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "project_structure",
+        "development_levels"
+      ]
+    },
+    "navigation_topic_guides": {
+      "path": "framework/standards/content/topic-guides.md",
+      "sha256": "ef1f9816f7425436795616671eddaa6c2c7ad6a93e331003489ee8a7ae0446b2",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "navigation_inventory",
+        "method_neutrality_language",
+        "print_assembly_standard"
+      ]
+    },
+    "candidate_adjudication": {
+      "path": "framework/project/workflows/candidate-review.md",
+      "sha256": "98e671ca45ec856d2104b17d65e9aeda5d696b15b7633addc9ee69e73500dfcd",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "candidate_review_standard",
+        "method_scope_admission",
+        "maturity_profile",
+        "source_catalogs",
+        "source_automated_adjudication",
+        "github_workflow"
+      ]
+    },
+    "source_automated_adjudication": {
+      "path": "framework/standards/sources/source-adjudication.md",
+      "sha256": "494db5f8fad868b53de66700f5b91038a5db0b5a4395f29725ed0c75f322960c",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "source_catalogs",
+        "method_scope_admission"
+      ]
+    },
+    "source_presidential_directives": {
+      "path": "framework/project/workflows/presidential-directive-review.md",
+      "sha256": "c8d58537ddf9fba6d4a1761ebb3ea13e022aa28a416b7f1b189d44392deb0955",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "source_catalogs",
+        "source_automated_adjudication",
+        "method_scope_admission",
+        "project_source_adjudication",
+        "runbook_presidential_directives_bot"
+      ]
+    },
+    "source_project_monitoring": {
+      "path": "framework/standards/sources/monitoring.md",
+      "sha256": "e9ec2778786a37450d94da06c17247618cadea5d9d988d21ee716e17cb2349c4",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "source_catalogs"
+      ]
+    },
+    "operation_project_update": {
+      "path": "framework/project/workflows/project-update.md",
+      "sha256": "ae3566d6152a84e806bad41e25d61be7aeacbd674001e4ba5d4b38e04648402f",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "github_workflow",
+        "project_structure",
+        "print_assembly",
+        "public_release",
+        "audit_change",
+        "navigation_project_sync",
+        "project_source_adjudication"
+      ]
+    },
+    "project_profile": {
+      "path": "framework/project/PROJECT_PROFILE.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "method_scope_admission",
+        "issue_architecture",
+        "method_neutrality_language"
+      ],
+      "sha256": "efc8cef3ff67074c4e6cc6d2204c6baef2c44d1105e9a76c0569ce03b0d31b6d"
+    },
+    "repository_map": {
+      "path": "framework/project/REPOSITORY_MAP.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "sha256": "4519b2192ae9063e3988efc8d2cba6cf0f1d31e40a8ec9a6679e75a8cb96d678"
+    },
+    "maturity_profile": {
+      "path": "framework/project/profile/maturity-profile.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "development_levels",
+        "github_workflow"
+      ],
+      "sha256": "14e09e9ed2eedc5f34f5853fde792ee2aa91927b9426fc24903666db1a985e91"
+    },
+    "scoring_standard": {
+      "path": "framework/standards/audits/scoring.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "audit_core",
+        "audit_verification",
+        "audit_change"
+      ],
+      "sha256": "0fe40bfa49acbf43e5f36a780f1c472493b2e3ef80675e819b5469fc9c248437"
+    },
+    "candidate_review_standard": {
+      "path": "framework/standards/content/candidate-review.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "method_scope_admission",
+        "method_neutrality_language",
+        "source_catalogs"
+      ],
+      "sha256": "4a73bf473e6de0b112598781ef8e4e533547238f1189e03f8bd46d8fe783bfd2"
+    },
+    "print_assembly_standard": {
+      "path": "framework/standards/publication/print-assembly.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "navigation_inventory"
+      ],
+      "sha256": "8c2c0d52e2558502e9fc937744c52ca896e1236f29fb260960f016ba17ccf74a"
+    },
+    "release_standard": {
+      "path": "framework/standards/publication/releases.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "print_assembly_standard",
+        "agent_validation_closeout"
+      ],
+      "sha256": "903f34930bba666fde157cc83a8ffdfd4c2c2c955ce1f1f9dae44e0ee94ed698"
+    },
+    "interface_standard": {
+      "path": "framework/standards/interfaces/standard.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "project_structure"
+      ],
+      "sha256": "fd0bb42230c2fa7f5b01b06987e053c23d48741a86e62f98ca5b157fa95ad7e8"
+    },
+    "progress_view_standard": {
+      "path": "framework/standards/interfaces/progress-views.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "interface_standard",
+        "development_levels"
+      ],
+      "sha256": "0b456d08c5a06750e3a041a1dc1f31c8dfdb149e8fb344a502e36dc283240b22"
+    },
+    "public_input_standard": {
+      "path": "framework/standards/interfaces/public-input.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "interface_standard",
+        "agent_provenance_logging",
+        "agent_validation_closeout"
+      ],
+      "sha256": "f5b7e569ac9d426acb5f58182912a3e29a048a3391255f8dceee2d825d5372de"
+    },
+    "work_tracking_standard": {
+      "path": "framework/standards/interfaces/work-tracking.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "development_levels",
+        "agent_validation_closeout"
+      ],
+      "sha256": "a6e9b38b1de3e82ec44a84ca66cb67da7595b7628ed966f3db8f5a853e9090ea"
+    },
+    "visual_identity": {
+      "path": "framework/project/interfaces/visual-identity.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "interface_standard"
+      ],
+      "sha256": "f685b6fc553ba52f3bc68d38bd9923e0ec2960c27ebbd41c9271520c35a608c4"
+    },
+    "print_manifest": {
+      "path": "framework/project/publication/print-assembly.json",
+      "hash_policy": "pinned",
+      "governing": true,
+      "sha256": "a893ac698b5ff4e3b00dafa87e072023fe504329bbef7db00acee63cdb0d529d"
+    },
+    "progress_config": {
+      "path": "framework/project/interfaces/project-console-progress.json",
+      "hash_policy": "pinned",
+      "governing": true,
+      "sha256": "bd7418ea8df1e25e031c6f432d878e635f22de74c7df5eaba07f2c3c689f352f"
+    },
+    "elim_result_schema": {
+      "path": "framework/project/automation/schemas/elim-work-unit-result.schema.json",
+      "hash_policy": "pinned",
+      "governing": true,
+      "sha256": "0b73fdbee5375ad99e003e70c1bb29fe321a2076b91c335601899155a5ccb213"
+    },
+    "project_source_adjudication": {
+      "path": "framework/project/workflows/source-adjudication.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "evidence_standards",
+        "source_catalogs",
+        "source_automated_adjudication",
+        "source_project_monitoring"
+      ],
+      "sha256": "1202c68506ab81564dc9c45b76286479f28af7377d0b9250f5baf7d621a12d6d"
+    },
+    "navigation_project_sync": {
+      "path": "framework/project/workflows/navigation-sync.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "navigation_inventory",
+        "navigation_topic_guides",
+        "github_workflow",
+        "repository_map",
+        "visual_identity"
+      ],
+      "sha256": "04a5e251471468003ed30405636d574b92de3a0fee064acacaa12f851b34b88f"
+    },
+    "project_audit_execution": {
+      "path": "framework/project/workflows/audit-execution.md",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_audit_execution",
+        "agent_validation_closeout",
+        "audit_tiered",
+        "audit_change",
+        "source_catalogs",
+        "source_project_monitoring",
+        "agent_issue_candidate_work",
+        "github_workflow",
+        "navigation_project_sync",
+        "project_source_adjudication",
+        "project_interface",
+        "project_console_progress"
+      ],
+      "sha256": "1e3bd528301799307600942bfca57db3375c6936d4e96edbbd1373b54f8a3f08"
+    }
+  },
+  "capabilities": {
+    "language_and_neutrality": [
+      "project_profile",
+      "method_neutrality_language",
+      "method_partisan_perception"
+    ],
+    "scope_and_candidates": [
+      "project_profile",
+      "candidate_review_standard",
+      "method_scope_admission",
+      "candidate_adjudication",
+      "agent_issue_candidate_work",
+      "maturity_profile"
+    ],
+    "issue_development": [
+      "project_profile",
+      "maturity_profile",
+      "issue_architecture",
+      "development_levels",
+      "remedy_framework",
+      "agent_issue_candidate_work"
+    ],
+    "evidence_and_sources": [
+      "source_catalogs",
+      "evidence_standards",
+      "agent_context_research",
+      "project_source_adjudication"
+    ],
+    "specialized_source_monitoring": [
+      "source_project_monitoring",
+      "source_automated_adjudication",
+      "source_presidential_directives",
+      "project_source_adjudication"
+    ],
+    "navigation_and_inventory": [
+      "repository_map",
+      "project_structure",
+      "navigation_inventory",
+      "navigation_topic_guides",
+      "navigation_project_sync"
+    ],
+    "audit_common": [
+      "audit_core",
+      "audit_verification",
+      "agent_audit_execution",
+      "project_audit_execution"
+    ],
+    "tiered_quality_audit": [
+      "audit_tiered",
+      "audit_legal_prior_proposal"
+    ],
+    "change_control": [
+      "audit_change",
+      "audit_project_consistency",
+      "operation_project_update",
+      "agent_validation_closeout",
+      "agent_provenance_logging"
+    ],
+    "github_lifecycle": [
+      "work_tracking_standard",
+      "github_workflow"
+    ],
+    "autonomous_execution": [
+      "project_autonomous_execution",
+      "agent_context_research",
+      "agent_handoff",
+      "agent_provenance_logging",
+      "agent_validation_closeout"
+    ],
+    "multi_agent_execution": [
+      "agent_multi_agent"
+    ],
+    "public_intake": [
+      "public_input_standard",
+      "intake_process"
+    ],
+    "publication": [
+      "print_assembly_standard",
+      "release_standard",
+      "print_assembly",
+      "public_release",
+      "print_manifest"
+    ],
+    "interface_governance": [
+      "interface_standard",
+      "progress_view_standard",
+      "visual_identity",
+      "project_console_progress",
+      "project_interface",
+      "progress_config"
+    ],
+    "interbranch_review": [
+      "remedy_framework"
+    ],
+    "bot_governance": [
+      "agent_registry",
+      "runbook_case_monitor_bot",
+      "runbook_presidential_directives_bot",
+      "runbook_console_progress_bot",
+      "runbook_integrity_bot",
+      "runbook_run_coordinator_bot",
+      "runbook_source_checker_bot",
+      "elim_result_schema"
+    ],
+    "proposal_scoring": [
+      "scoring_standard",
+      "scoring_quality_rubric",
+      "scoring_adoption_pathway",
+      "scoring_external_international"
+    ]
+  },
+  "profiles": {
+    "integrity_reconciliation": {
+      "max_bytes": 900000,
+      "modules": [
+        "project_autonomous_execution",
+        "agent_provenance_logging",
+        "agent_validation_closeout",
+        "audit_project_consistency",
+        "project_structure"
+      ],
+      "capabilities": [
+        "language_and_neutrality",
+        "scope_and_candidates",
+        "evidence_and_sources",
+        "specialized_source_monitoring",
+        "navigation_and_inventory",
+        "change_control",
+        "github_lifecycle",
+        "autonomous_execution",
+        "public_intake",
+        "publication",
+        "interface_governance",
+        "bot_governance",
+        "proposal_scoring"
+      ],
+      "sections": [
+        {
+          "document": "runbook_elim",
+          "heading": "## Preflight",
+          "max_bytes": 20000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Work Order",
+          "max_bytes": 20000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Governance Discovery and Gap Stewardship",
+          "max_bytes": 30000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Authority Boundary",
+          "max_bytes": 15000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Unit Completion and Closeout",
+          "max_bytes": 20000
+        }
+      ]
+    },
+    "issue_development": {
+      "max_bytes": 650000,
+      "modules": [
+        "project_profile",
+        "project_source_adjudication",
+        "project_autonomous_execution",
+        "agent_context_research",
+        "agent_provenance_logging",
+        "agent_validation_closeout",
+        "agent_issue_candidate_work",
+        "development_levels",
+        "maturity_profile",
+        "method_partisan_perception"
+      ],
+      "sections": [
+        {
+          "document": "runbook_elim",
+          "heading": "## Work Order",
+          "max_bytes": 20000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Foundation Classification Authority",
+          "max_bytes": 20000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Authority Boundary",
+          "max_bytes": 15000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Unit Completion and Closeout",
+          "max_bytes": 20000
+        }
+      ]
+    },
+    "candidate_research": {
+      "max_bytes": 600000,
+      "modules": [
+        "project_profile",
+        "project_source_adjudication",
+        "project_autonomous_execution",
+        "agent_context_research",
+        "agent_provenance_logging",
+        "agent_validation_closeout",
+        "agent_issue_candidate_work",
+        "candidate_adjudication",
+        "method_partisan_perception",
+        "source_catalogs"
+      ],
+      "sections": [
+        {
+          "document": "runbook_elim",
+          "heading": "## Work Order",
+          "max_bytes": 20000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Authority Boundary",
+          "max_bytes": 15000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Unit Completion and Closeout",
+          "max_bytes": 20000
+        }
+      ]
+    },
+    "issue_audit": {
+      "max_bytes": 800000,
+      "modules": [
+        "project_profile",
+        "project_source_adjudication",
+        "scoring_quality_rubric",
+        "project_autonomous_execution",
+        "agent_provenance_logging",
+        "agent_validation_closeout",
+        "project_audit_execution",
+        "audit_tiered",
+        "audit_legal_prior_proposal",
+        "scoring_adoption_pathway",
+        "scoring_external_international"
+      ],
+      "sections": [
+        {
+          "document": "runbook_elim",
+          "heading": "## Work Order",
+          "max_bytes": 20000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Authority Boundary",
+          "max_bytes": 15000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Unit Completion and Closeout",
+          "max_bytes": 20000
+        }
+      ]
+    },
+    "change_audit": {
+      "max_bytes": 800000,
+      "modules": [
+        "project_profile",
+        "project_source_adjudication",
+        "project_autonomous_execution",
+        "agent_provenance_logging",
+        "agent_validation_closeout",
+        "project_audit_execution",
+        "audit_change",
+        "scoring_quality_rubric",
+        "github_workflow"
+      ],
+      "sections": [
+        {
+          "document": "runbook_elim",
+          "heading": "## Work Order",
+          "max_bytes": 20000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Authority Boundary",
+          "max_bytes": 15000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Unit Completion and Closeout",
+          "max_bytes": 20000
+        }
+      ]
+    },
+    "public_intake": {
+      "max_bytes": 400000,
+      "modules": [
+        "project_source_adjudication",
+        "project_autonomous_execution",
+        "agent_provenance_logging",
+        "agent_validation_closeout",
+        "agent_issue_candidate_work",
+        "intake_process",
+        "github_workflow"
+      ],
+      "sections": [
+        {
+          "document": "runbook_elim",
+          "heading": "## Public-Intake Triage Boundary",
+          "max_bytes": 25000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Authority Boundary",
+          "max_bytes": 15000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Unit Completion and Closeout",
+          "max_bytes": 20000
+        }
+      ]
+    },
+    "github_sync": {
+      "max_bytes": 450000,
+      "modules": [
+        "navigation_project_sync",
+        "project_autonomous_execution",
+        "agent_provenance_logging",
+        "agent_validation_closeout",
+        "navigation_inventory"
+      ],
+      "sections": [
+        {
+          "document": "runbook_elim",
+          "heading": "## Authority Boundary",
+          "max_bytes": 15000
+        },
+        {
+          "document": "runbook_elim",
+          "heading": "## Unit Completion and Closeout",
+          "max_bytes": 20000
+        }
+      ]
+    },
+    "comprehensive_review": {
+      "max_bytes": 1000000,
+      "include_all_governing": true,
+      "modules": []
+    }
+  }
+}

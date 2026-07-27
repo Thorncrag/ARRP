@@ -11,7 +11,9 @@ from pathlib import Path
 from arrp_context import ContextError, ROOT, build_context_packet, manifest_hash_updates
 
 
-DEFAULT_MANIFEST = ROOT / "framework" / "context-routes.json"
+DEFAULT_MANIFEST = (
+    ROOT / "framework" / "project" / "automation" / "context-routes.json"
+)
 
 
 def parse_args() -> argparse.Namespace:

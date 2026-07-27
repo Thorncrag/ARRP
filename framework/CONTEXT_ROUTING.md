@@ -7,7 +7,7 @@ print_exclusion_reason: "Internal workflow or tool documentation."
 
 # Governing Context Routing
 
-This file governs how agents and bots assemble shared ARRP context from the independently loadable framework modules. The machine-readable registry is [`context-routes.json`](context-routes.json). The registry is a router and freshness control, not a substitute for any authority it identifies.
+This file governs how agents and bots assemble shared ARRP context from the independently loadable framework modules. The machine-readable registry is [`context-routes.json`](project/automation/context-routes.json). The registry is a router and freshness control, not a substitute for any authority it identifies.
 
 ## Required Floor
 
@@ -15,9 +15,10 @@ Every routed context packet begins with:
 
 1. the constitutional and methodological kernel in [`FRAMEWORK.md`](FRAMEWORK.md);
 2. the universal execution kernel in [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md); and
-3. the live continuation state in [`logs/CURRENT_AUDIT.md`](logs/CURRENT_AUDIT.md).
+3. the live continuation state in
+   [`records/handoffs/current-task.md`](records/handoffs/current-task.md).
 
-The first two are stable governing records whose integration-pinned hashes must match the registry. `CURRENT_AUDIT.md` is intentionally mutable and is read and hashed at packet-build time. Its runtime hash is preserved in packet provenance, but an ordinary checkpoint update does not require editing the registry.
+The first two are stable governing records whose integration-pinned hashes must match the registry. [`records/handoffs/current-task.md`](records/handoffs/current-task.md) is intentionally mutable and is read and hashed at packet-build time. Its runtime hash is preserved in packet provenance, but an ordinary checkpoint update does not require editing the registry.
 
 These records are a floor. They do not by themselves supply all context required for an operation.
 
@@ -92,7 +93,12 @@ The run should report the routing failure and preserve completed nonconflicting 
 
 Stable governing documents use integration-pinned SHA-256 values. After an authorized governing edit, update the affected registry hashes in the same reviewed change and validate every impacted profile. The manifest itself is covered by packet provenance rather than registering its own hash, which would create a self-reference.
 
-Generated site output, Console projections, dependency trees, caches, temporary files, exports, and other rebuildable artifacts are excluded from the registry. A generated view may be inspected as a validation target, but it does not become governing context. Logs and reports are likewise not shared governing modules; `CURRENT_AUDIT.md` is the narrow required exception because it supplies live continuation state.
+Generated site output, Console projections, dependency trees, caches, temporary
+files, exports, and other rebuildable artifacts are excluded from the registry.
+A generated view may be inspected as a validation target, but it does not
+become governing context. Records are likewise not shared governing modules;
+`records/handoffs/current-task.md` is the narrow required exception because it
+supplies live continuation state.
 
 When a new authoritative module is added:
 

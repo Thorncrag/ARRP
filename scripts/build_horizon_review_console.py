@@ -52,20 +52,22 @@ except ModuleNotFoundError:
 
 ROOT = Path(__file__).resolve().parents[1]
 CANDIDATES = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
-HORIZON_LOG = ROOT / "framework" / "logs" / "HORIZON_SCAN_LOG.md"
-CHANGE_AUDIT_LOG = ROOT / "framework" / "logs" / "CHANGE_AUDIT_LOG.md"
-AGENT_AUDIT_LOG = ROOT / "framework" / "logs" / "AGENT_AUDIT_LOG.md"
-ELIM_RUN_LOG = ROOT / "framework" / "logs" / "ELIM_RUN_LOG.md"
+HORIZON_LOG = ROOT / "framework" / "records" / "candidates" / "horizon-scan-log.md"
+CHANGE_AUDIT_LOG = ROOT / "framework" / "records" / "audits" / "change-audit-log.md"
+AGENT_AUDIT_LOG = ROOT / "framework" / "records" / "automation" / "agent-audit-log.md"
+ELIM_RUN_LOG = ROOT / "framework" / "records" / "automation" / "elim-run-log.md"
 SOURCE_CHECKER_CONFIG = ROOT / ".github" / "source-checker-bot.json"
-SOURCE_MONITOR_LOG = ROOT / "framework" / "logs" / "SOURCE_MONITOR_LOG.md"
-AGENT_RUNBOOKS = ROOT / "framework" / "agents"
+SOURCE_MONITOR_LOG = ROOT / "framework" / "records" / "sources" / "source-monitor-log.md"
+AGENT_RUNBOOKS = ROOT / "framework" / "project" / "automation" / "runbooks"
 ISSUE_REGISTRY = ROOT / "inventory" / "github_issue_registry.csv"
 CITED_SOURCES = ROOT / "inventory" / "sources.csv"
 PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
 DIRECTIVES = ROOT / "inventory" / "presidential-directives.csv"
 CASE_MONITOR_CONFIG = ROOT / ".github" / "case-monitor-bot.json"
 DIRECTIVE_MONITOR_CONFIG = ROOT / ".github" / "presidential-directives-bot.json"
-PRINT_ASSEMBLY_MANIFEST = ROOT / "framework" / "print-assembly.json"
+PRINT_ASSEMBLY_MANIFEST = (
+    ROOT / "framework" / "project" / "publication" / "print-assembly.json"
+)
 REVIEW_EPOCHS = ROOT / "research" / "review-epochs.jsonl"
 PUBLIC_PROPOSAL_PDF = ROOT / "exports" / "pdf" / "ARRP-public-proposal-draft.pdf"
 OUTPUT = ROOT / "research" / "horizon-review-console" / "catalog-data.js"
@@ -75,7 +77,7 @@ PRIVATE_GITHUB_SECURITY_OUTPUT = (
 )
 PARTICIPATION_OUTPUT = ROOT / "participate" / "intake-data.js"
 GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/"
-HORIZON_LOG_URL = GITHUB_BLOB_ROOT + "framework/logs/HORIZON_SCAN_LOG.md#horizon-integration-log"
+HORIZON_LOG_URL = GITHUB_BLOB_ROOT + "framework/records/candidates/horizon-scan-log.md#horizon-integration-log"
 PROGRESS_DATA_REF = "origin/project-console-data:progress.json"
 INTEGRITY_DATA_REF = "origin/project-console-data:integrity.json"
 RUN_CHAIN_DATA_REF = "origin/project-console-data:run-chain.json"
@@ -1388,7 +1390,7 @@ def horizon_log_view(
         "id": "horizon",
         "title": "Horizon Scan Log",
         "description": "Candidate intake, disposition, integration, and follow-up history.",
-        "source_url": GITHUB_BLOB_ROOT + "framework/logs/HORIZON_SCAN_LOG.md",
+        "source_url": GITHUB_BLOB_ROOT + "framework/records/candidates/horizon-scan-log.md",
         "columns": [
             {"key": "record", "label": "Record"},
             {"key": "date", "label": "Decision date"},
@@ -1443,7 +1445,7 @@ def change_audit_log_view(
         "id": "changes",
         "title": "Change Audit Log",
         "description": "Retained project-wide methodology, structure, and consistency changes.",
-        "source_url": GITHUB_BLOB_ROOT + "framework/logs/CHANGE_AUDIT_LOG.md",
+        "source_url": GITHUB_BLOB_ROOT + "framework/records/audits/change-audit-log.md",
         "columns": [
             {"key": "date", "label": "Date"},
             {"key": "change", "label": "Change audited"},
@@ -1533,7 +1535,7 @@ def agent_audit_log_view(
         "id": "agents",
         "title": "Agent Audit Log",
         "description": "Autonomous, batched, and scheduled agent-run provenance and rollback records.",
-        "source_url": GITHUB_BLOB_ROOT + "framework/logs/AGENT_AUDIT_LOG.md",
+        "source_url": GITHUB_BLOB_ROOT + "framework/records/automation/agent-audit-log.md",
         "columns": [
             {"key": "date", "label": "Date and time"},
             {"key": "record", "label": "Issue or task"},
@@ -1591,7 +1593,7 @@ def elim_run_log_view(
         "id": "elim",
         "title": "Elim Run Log",
         "description": "Complete per-run operational reports for ARRP's scheduled LLM agent.",
-        "source_url": GITHUB_BLOB_ROOT + "framework/logs/ELIM_RUN_LOG.md",
+        "source_url": GITHUB_BLOB_ROOT + "framework/records/automation/elim-run-log.md",
         "columns": [
             {"key": "date", "label": "Started"},
             {"key": "outcome", "label": "Outcome"},
@@ -1670,7 +1672,7 @@ def source_monitor_log_view(
         "id": "source-monitor",
         "title": "Source Monitor Log",
         "description": "Material watcher changes and exact-head repository disposition recommendations.",
-        "source_url": GITHUB_BLOB_ROOT + "framework/logs/SOURCE_MONITOR_LOG.md",
+        "source_url": GITHUB_BLOB_ROOT + "framework/records/sources/source-monitor-log.md",
         "columns": [
             {"key": "date", "label": "Date and time"},
             {"key": "watcher", "label": "Watcher"},
@@ -1893,7 +1895,7 @@ def repository_review_recommendations(
                 else None
             ),
             "source_url": GITHUB_BLOB_ROOT
-            + "framework/logs/SOURCE_MONITOR_LOG.md",
+            + "framework/records/sources/source-monitor-log.md",
             "console_target": "logs:source-monitor",
         }
         )
@@ -2555,8 +2557,11 @@ def github_security_action_snapshot() -> dict[str, object]:
     }
 
 
-def write_private_github_security_actions() -> dict[str, object]:
-    snapshot = github_security_action_snapshot()
+def write_private_github_security_actions(
+    snapshot: dict[str, object] | None = None,
+) -> dict[str, object]:
+    if snapshot is None:
+        snapshot = github_security_action_snapshot()
     serialized = json.dumps(
         snapshot, ensure_ascii=False, separators=(",", ":")
     ).replace("</", "<\\/")
@@ -3200,6 +3205,137 @@ def tracked_progress_snapshot() -> dict[str, object]:
     return payload if isinstance(payload, dict) else {}
 
 
+def apply_progress_navigation_overlay(
+    payload: dict[str, object],
+    *,
+    registry_path: Path | None = None,
+    repository_root: Path | None = None,
+) -> dict[str, object]:
+    """Reconcile projected links without altering the producer truth contract."""
+    if not payload:
+        return {}
+    registry = registry_path or ISSUE_REGISTRY
+    root = repository_root or ROOT
+    rows = read_csv(registry)
+
+    indices: dict[str, dict[str, int | None]] = {
+        "number": {},
+        "url": {},
+        "identifier": {},
+    }
+
+    def add_identity(kind: str, value: str, position: int) -> None:
+        if not value:
+            return
+        current = indices[kind].get(value)
+        if current is None and value not in indices[kind]:
+            indices[kind][value] = position
+        elif current != position:
+            indices[kind][value] = None
+
+    def issue_number(value: object) -> str:
+        raw = str(value or "").strip()
+        return str(int(raw)) if raw.isdigit() else ""
+
+    def issue_url(value: object) -> str:
+        raw = str(value or "").strip()
+        if not raw:
+            return ""
+        parsed = urllib.parse.urlsplit(raw)
+        if not parsed.scheme or not parsed.netloc:
+            return ""
+        return urllib.parse.urlunsplit(
+            (
+                parsed.scheme.casefold(),
+                parsed.netloc.casefold(),
+                parsed.path.rstrip("/").casefold(),
+                "",
+                "",
+            )
+        )
+
+    def identifier(value: object) -> str:
+        return " ".join(str(value or "").strip().casefold().split())
+
+    for position, row in enumerate(rows):
+        add_identity("number", issue_number(row.get("GitHub Number")), position)
+        add_identity("url", issue_url(row.get("GitHub Issue")), position)
+        add_identity("identifier", identifier(row.get("Object ID")), position)
+
+    replacement_count = 0
+    projected = dict(payload)
+    for collection_name in (
+        "proposals",
+        "candidates",
+        "backlog",
+        "delivery_items",
+    ):
+        collection = payload.get(collection_name)
+        if not isinstance(collection, list):
+            continue
+        reconciled: list[object] = []
+        for item in collection:
+            if not isinstance(item, dict):
+                reconciled.append(item)
+                continue
+            record_number = issue_number(item.get("number"))
+            if not record_number:
+                identity_match = re.search(
+                    r"#(\d+)$", str(item.get("issueIdentity") or "").strip()
+                )
+                record_number = (
+                    issue_number(identity_match.group(1)) if identity_match else ""
+                )
+            identity_values = (
+                ("number", record_number),
+                ("url", issue_url(item.get("url"))),
+                ("identifier", identifier(item.get("identifier"))),
+            )
+            matched_positions = {
+                position
+                for kind, value in identity_values
+                if value
+                for position in (indices[kind].get(value),)
+                if position is not None
+            }
+            if len(matched_positions) != 1:
+                reconciled.append(item)
+                continue
+            row = rows[matched_positions.pop()]
+            canonical_record = str(row.get("Canonical Record") or "").strip()
+            item_changed = False
+            if (
+                canonical_record
+                and canonical_record != str(item.get("canonicalRecord") or "").strip()
+            ):
+                item = {**item, "canonicalRecord": canonical_record}
+                item_changed = True
+            links = item.get("links")
+            if (
+                canonical_record
+                and isinstance(links, dict)
+                and "canonical" in links
+                and canonical_record != str(links.get("canonical") or "").strip()
+            ):
+                item = {
+                    **item,
+                    "links": {**links, "canonical": canonical_record},
+                }
+                item_changed = True
+            if item_changed:
+                replacement_count += 1
+            reconciled.append(item)
+        projected[collection_name] = reconciled
+
+    source_label = registry.resolve().relative_to(root.resolve()).as_posix()
+    projected["local_navigation_overlay"] = {
+        "source": source_label,
+        "source_hash": file_sha256(root, registry),
+        "replacement_count": replacement_count,
+    }
+    return projected
+
+
 def progress_snapshot() -> dict[str, object]:
     """Read the latest generated progress data without making it authoritative."""
     override = read_snapshot_override(
@@ -3208,7 +3344,9 @@ def progress_snapshot() -> dict[str, object]:
         required_fields=("metrics",),
     )
     if override is not None:
-        return with_project_generation_currentness(override)
+        return apply_progress_navigation_overlay(
+            with_project_generation_currentness(override)
+        )
     candidates: list[dict[str, object]] = []
     try:
         completed = subprocess.run(
@@ -3242,8 +3380,10 @@ def progress_snapshot() -> dict[str, object]:
         required_fields=("metrics",),
     ):
         candidates.append(cached)
-    return with_project_generation_currentness(
-        newest_snapshot(candidates, authority="generation")
+    return apply_progress_navigation_overlay(
+        with_project_generation_currentness(
+            newest_snapshot(candidates, authority="generation")
+        )
     )
 
 
@@ -4709,7 +4849,7 @@ def main() -> None:
     presidential_directives = presidential_directive_records()
     horizon_records, github_synced_at = horizon_snapshot(args.refresh_github)
     private_github_security = (
-        write_private_github_security_actions()
+        github_security_action_snapshot()
         if args.refresh_github
         else None
     )
@@ -5027,6 +5167,12 @@ def main() -> None:
         parts,
         generation_contract=generation_contract,
     )
+    if private_github_security is not None:
+        # The public bundle replaces the complete data directory atomically.
+        # Write the ignored authenticated projection only after that swap so
+        # the local file:// Console keeps it without admitting it to the
+        # public generation manifest or repository.
+        write_private_github_security_actions(private_github_security)
 
     if args.console_only:
         private_security_note = (

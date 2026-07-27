@@ -417,12 +417,13 @@ The implementation affects these owning groups:
 
 - governing rules and contributor policy: `CONTRIBUTING.md`,
   `framework/FRAMEWORK.md`, `framework/AGENT_OPERATING_RULES.md`, and
-  `framework/agent-rules/autonomous-execution.md`;
+  `framework/standards/automation/autonomous-execution.md`;
 - automation authority and runtime:
-  `framework/agents/ELIM.md`,
-  `framework/agents/RUN_COORDINATOR_BOT.md`,
-  `framework/agents/elim-work-unit-result.schema.json`,
-  `.github/run-coordinator-bot.json`, `framework/context-routes.json`,
+  `framework/project/automation/autonomous-execution.md`,
+  `framework/project/automation/runbooks/elim.md`,
+  `framework/project/automation/runbooks/run-coordinator-bot.md`,
+  `framework/project/automation/schemas/elim-work-unit-result.schema.json`,
+  `.github/run-coordinator-bot.json`, `framework/project/automation/context-routes.json`,
   `scripts/arrp_context.py`, `scripts/elim_execution.py`,
   `scripts/build_elim_work_queue.py`, `scripts/run_chain_dispatcher.py`, and
   `scripts/run_coordinator.py`;
@@ -444,4 +445,4 @@ The implementation affects these owning groups:
 - focused and integration tests under `tests/` and
   `research/horizon-review-console/tests/`; and
 - this implementation report, the accepted comprehensive review, the
-  re-uploadable implementation handoff, and `framework/logs/CURRENT_AUDIT.md`.
+  re-uploadable implementation handoff, and `framework/records/handoffs/current-task.md`.

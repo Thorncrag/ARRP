@@ -743,7 +743,7 @@ class QueueTests(unittest.TestCase):
         result = {
             "run_id": "chain-prior",
             "unit_id": "selected-gap-prior",
-            "files_touched": ["framework/logs/ELIM_RUN_LOG.md"],
+            "files_touched": ["framework/records/automation/elim-run-log.md"],
             "discovered_work_units": [
                 {
                     "id": "DISC-1",
@@ -755,7 +755,7 @@ class QueueTests(unittest.TestCase):
                     "evidence": ["A canonical route lacks an accountable owner."],
                     "reasoning": "The omission prevents deterministic stewardship.",
                     "uncertainty": None,
-                    "affected_records": ["framework/context-routes.json"],
+                    "affected_records": ["framework/project/automation/context-routes.json"],
                     "consequence": "The route gap may leave work undiscovered.",
                     "authority": {
                         "classification": "delegated_judgment",
@@ -767,7 +767,7 @@ class QueueTests(unittest.TestCase):
                         if authority_disposition == "permitted"
                         else "Retain evidence without implementing the prohibited change."
                     ),
-                    "changed_files": ["framework/logs/ELIM_RUN_LOG.md"],
+                    "changed_files": ["framework/records/automation/elim-run-log.md"],
                     "affected_surfaces": ["repository", "automation", "console"],
                     "validation_readback": [
                         {
@@ -777,8 +777,8 @@ class QueueTests(unittest.TestCase):
                         }
                     ],
                     "disposition": "reported",
-                    "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
-                    "provenance": ["framework/logs/ELIM_RUN_LOG.md#gap-1"],
+                    "canonical_detail": "framework/records/automation/elim-run-log.md",
+                    "provenance": ["framework/records/automation/elim-run-log.md#gap-1"],
                     "owner": "Elim",
                     "next_action": "Recheck the route and apply only an authorized repair.",
                     "next_trigger": "The route or authority record changes.",
@@ -801,7 +801,7 @@ class QueueTests(unittest.TestCase):
         result = {
             "run_id": "chain-governance-prior",
             "unit_id": "governance-review-prior",
-            "files_touched": ["framework/logs/ELIM_RUN_LOG.md"],
+            "files_touched": ["framework/records/automation/elim-run-log.md"],
             "discovered_work_units": [
                 {
                     "id": "DISC-governance-control",
@@ -813,7 +813,7 @@ class QueueTests(unittest.TestCase):
                     "evidence": ["All minimum domains were reviewed at the pinned boundary."],
                     "reasoning": "No material defect was established.",
                     "uncertainty": None,
-                    "affected_records": ["framework/logs/ELIM_RUN_LOG.md"],
+                    "affected_records": ["framework/records/automation/elim-run-log.md"],
                     "consequence": "The quiet-queue review is current for its cadence.",
                     "authority": {
                         "classification": "delegated_judgment",
@@ -821,7 +821,7 @@ class QueueTests(unittest.TestCase):
                         "disposition": "permitted",
                     },
                     "action_rationale": "Record a clean review without inventing work.",
-                    "changed_files": ["framework/logs/ELIM_RUN_LOG.md"],
+                    "changed_files": ["framework/records/automation/elim-run-log.md"],
                     "affected_surfaces": ["repository", "automation", "console"],
                     "validation_readback": [
                         {
@@ -831,8 +831,8 @@ class QueueTests(unittest.TestCase):
                         }
                     ],
                     "disposition": "no_material_finding",
-                    "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
-                    "provenance": ["framework/logs/ELIM_RUN_LOG.md#governance-review"],
+                    "canonical_detail": "framework/records/automation/elim-run-log.md",
+                    "provenance": ["framework/records/automation/elim-run-log.md#governance-review"],
                     "owner": "Elim",
                     "next_action": "Wait for the next due governance review.",
                     "next_trigger": "The 168-hour minimum interval elapses.",
@@ -917,7 +917,7 @@ class QueueTests(unittest.TestCase):
                 }
             },
         )
-        run_log = self.root / "framework/logs/ELIM_RUN_LOG.md"
+        run_log = self.root / "framework/records/automation/elim-run-log.md"
         run_log.parent.mkdir(parents=True, exist_ok=True)
         from elim_execution import render_discovery_markers  # noqa: E402
 
@@ -927,7 +927,7 @@ class QueueTests(unittest.TestCase):
                 {
                     "run_id": "chain-governance-prior",
                     "unit_id": "governance-review-prior",
-                    "files_touched": ["framework/logs/ELIM_RUN_LOG.md"],
+                    "files_touched": ["framework/records/automation/elim-run-log.md"],
                     "discovered_work_units": [
                         {
                             "id": "DISC-governance-control",
@@ -939,7 +939,7 @@ class QueueTests(unittest.TestCase):
                             "evidence": ["The complete minimum domain list was reviewed."],
                             "reasoning": "No material defect was established.",
                             "uncertainty": None,
-                            "affected_records": ["framework/logs/ELIM_RUN_LOG.md"],
+                            "affected_records": ["framework/records/automation/elim-run-log.md"],
                             "consequence": "The review is current for its cadence.",
                             "authority": {
                                 "classification": "delegated_judgment",
@@ -947,7 +947,7 @@ class QueueTests(unittest.TestCase):
                                 "disposition": "permitted",
                             },
                             "action_rationale": "Record a clean review.",
-                            "changed_files": ["framework/logs/ELIM_RUN_LOG.md"],
+                            "changed_files": ["framework/records/automation/elim-run-log.md"],
                             "affected_surfaces": [
                                 "repository",
                                 "automation",
@@ -961,9 +961,9 @@ class QueueTests(unittest.TestCase):
                                 }
                             ],
                             "disposition": "no_material_finding",
-                            "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+                            "canonical_detail": "framework/records/automation/elim-run-log.md",
                             "provenance": [
-                                "framework/logs/ELIM_RUN_LOG.md#governance"
+                                "framework/records/automation/elim-run-log.md#governance"
                             ],
                             "owner": "Elim",
                             "next_action": "Wait for the next due review.",
@@ -1672,7 +1672,7 @@ class QueueTests(unittest.TestCase):
 - Human question: Approve the exact reviewed head for merge?
 - Reassessment trigger: Any head change invalidates this recommendation.
 """
-        untrusted_log = self.root / "framework/logs/SOURCE_MONITOR_LOG.md"
+        untrusted_log = self.root / "framework/records/sources/source-monitor-log.md"
         untrusted_log.parent.mkdir(parents=True)
         untrusted_log.write_text(recommendation_text, encoding="utf-8")
         runtime_root = self.root / "reviewed-runtime"
@@ -1700,7 +1700,7 @@ class QueueTests(unittest.TestCase):
             )
         )
 
-        source_log = runtime_root / "framework/logs/SOURCE_MONITOR_LOG.md"
+        source_log = runtime_root / "framework/records/sources/source-monitor-log.md"
         source_log.parent.mkdir(parents=True)
         source_log.write_text(recommendation_text, encoding="utf-8")
         with patch("arrp_context.ROOT", runtime_root):
@@ -2204,7 +2204,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         self.assertIn(".venv/", policy)
 
     def test_production_context_routes_are_hash_pinned_and_extractable(self):
-        path = ROOT / "framework/context-routes.json"
+        path = ROOT / "framework/project/automation/context-routes.json"
         raw = json.loads(path.read_text(encoding="utf-8"))
         self.assertEqual(raw["schema_version"], 2)
         self.assertTrue(
@@ -2218,7 +2218,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         current_spec = raw["documents"]["current_audit"]
         self.assertEqual(
             current_spec["path"],
-            "framework/logs/CURRENT_AUDIT.md",
+            "framework/records/handoffs/current-task.md",
         )
         self.assertEqual(current_spec["hash_policy"], "runtime")
         self.assertFalse(current_spec["governing"])
@@ -2272,7 +2272,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         self.assertEqual(
             current_module["sha256"],
             hashlib.sha256(
-                (ROOT / "framework/logs/CURRENT_AUDIT.md").read_bytes()
+                (ROOT / "framework/records/handoffs/current-task.md").read_bytes()
             ).hexdigest(),
         )
 
@@ -2280,7 +2280,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
             "integrity_reconciliation": {
                 "audit_project_consistency",
                 "project_structure",
-                "agent_autonomous_execution",
+                "project_autonomous_execution",
                 "agent_provenance_logging",
                 "agent_validation_closeout",
                 "audit_change",
@@ -2294,15 +2294,28 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
                 "public_release",
             },
             "issue_development": {
+                "project_profile",
+                "project_source_adjudication",
                 "method_scope_admission",
                 "method_partisan_perception",
                 "issue_architecture",
                 "development_levels",
-                "foundation_development_gates",
+                "maturity_profile",
                 "agent_issue_candidate_work",
                 "github_workflow",
             },
+            "candidate_research": {
+                "project_profile",
+                "project_source_adjudication",
+                "candidate_adjudication",
+                "method_partisan_perception",
+                "source_catalogs",
+                "agent_issue_candidate_work",
+            },
             "issue_audit": {
+                "project_profile",
+                "project_source_adjudication",
+                "project_audit_execution",
                 "audit_core",
                 "audit_verification",
                 "audit_tiered",
@@ -2312,11 +2325,16 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
                 "scoring_external_international",
             },
             "change_audit": {
+                "project_profile",
+                "project_source_adjudication",
+                "project_audit_execution",
                 "audit_change",
                 "audit_project_consistency",
+                "scoring_quality_rubric",
                 "github_workflow",
             },
             "public_intake": {
+                "project_source_adjudication",
                 "intake_process",
                 "method_scope_admission",
                 "agent_issue_candidate_work",
@@ -2325,6 +2343,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
             "github_sync": {
                 "github_workflow",
                 "navigation_inventory",
+                "navigation_project_sync",
             },
         }
         for profile_name, expected_modules in expected_profile_modules.items():
@@ -2353,7 +2372,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         self.assertIn("current_audit", comprehensive_modules)
 
     def test_small_profiles_allow_additive_audit_capabilities_with_headroom(self):
-        path = ROOT / "framework/context-routes.json"
+        path = ROOT / "framework/project/automation/context-routes.json"
         manifest = load_route_manifest(path, root=ROOT)
         profiles = ("integrity_reconciliation", "github_sync")
         capabilities = ("change_control", "tiered_quality_audit")
@@ -2397,7 +2416,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
                     )
 
     def test_explicit_lower_packet_ceiling_still_fails_closed(self):
-        path = ROOT / "framework/context-routes.json"
+        path = ROOT / "framework/project/automation/context-routes.json"
         with self.assertRaisesRegex(
             ContextError,
             r"context packet exceeds max bytes \(\d+ > 300000\)",

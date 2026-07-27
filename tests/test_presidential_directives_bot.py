@@ -261,7 +261,7 @@ class PresidentialDirectivesBotTests(unittest.TestCase):
         self.assertIn("Verify the change boundary", workflow)
         self.assertIn("inventory/presidential-directives.csv", workflow)
         self.assertIn('${RUNNER_TEMP}/presidential-directives-event.md', workflow)
-        self.assertNotIn("framework/logs/AGENT_AUDIT_LOG.md", workflow)
+        self.assertNotIn("framework/records/automation/agent-audit-log.md", workflow)
         self.assertIn("actions/upload-artifact@", workflow)
         self.assertIn("gh pr create", workflow)
         self.assertIn("--add-assignee", workflow)
