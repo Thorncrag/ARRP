@@ -1,34 +1,35 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-27T07:55:25+00:00",
-  "epoch_id": "epoch-arrp-20260727T075310Z",
-  "baseline_revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
-  "last_completed_at": "2026-07-26T14:25:30+00:00",
-  "next_due_at": "2026-08-09T14:25:30+00:00",
-  "due": true,
-  "due_reason": "governing_boundary_changed",
-  "boundary_changes": {
-    "extra": [],
-    "mismatched": [
-      "README.md",
-      "framework/agent-rules/autonomous-execution.md",
-      "framework/agents/RUN_COORDINATOR_BOT.md",
-      "framework/context-routes.json"
-    ],
-    "missing": []
-  },
+  "generated_at": "2026-07-27T08:28:50+00:00",
+  "epoch_id": "epoch-arrp-20260727T082740Z",
+  "baseline_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+  "last_completed_at": "2026-07-27T08:10:38+00:00",
+  "next_due_at": "2026-08-10T08:10:38+00:00",
+  "due": false,
+  "due_reason": "interval current",
+  "boundary_changes": {},
   "unresolved_findings": [
     {
       "discovered_work_unit_id": "DISCOVERY-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS",
       "id": "GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS",
-      "next_action": "In a separately selected automation repair, disable or mock every external host-status and notification effect in tests, add a runtime test-mode side-effect guard and a no-network regression, then require current-chain, exact-source-revision, and monotonic freshness acceptance before host-status publication.",
-      "next_trigger": "A fresh current queue selects GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS under agent-within-runbook repair authority after this reviewed host closeout.",
+      "next_action": "In a separately selected automation repair, disable or mock every external host-status and notification effect in tests, add a runtime test-mode side-effect guard and a full-suite no-network regression, then require current-chain, exact-source-revision, and monotonic-freshness acceptance before host-status publication.",
+      "next_trigger": "A fresh current queue selects GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS under agent-within-runbook repair authority.",
       "owner": "Elim",
       "status": "open",
-      "summary": "Dispatcher unit tests can issue real repository_dispatch mutations under active credentials, and the host-status publisher can let a stale synthetic chain with no source revision overwrite the current truthful projection."
+      "summary": "Dispatcher unit tests can still issue real repository_dispatch mutations under active credentials, while stale or unbound host-status events can supersede truthful current state."
+    },
+    {
+      "discovered_work_unit_id": "DISCOVERY-GOVERNING-HASH-PREPUBLICATION-GATE",
+      "id": "GAP-GOVERNING-HASH-PREPUBLICATION-GATE",
+      "next_action": "In a separately selected automation repair, validate the staged and committed governing registry before canonical-workspace and Elim publication, expose that validation as a required pull-request check, and add positive, stale-registry, changed-governing-without-registry, and repaired-registry regressions.",
+      "next_trigger": "A fresh current queue selects GAP-GOVERNING-HASH-PREPUBLICATION-GATE under agent-within-runbook repair authority.",
+      "owner": "Elim",
+      "status": "open",
+      "summary": "Trusted-host preservation and Elim checked-publication paths can merge changed governing content without a matching pinned context registry; the next cloud chain detects the invalid main only after merge."
     }
   ],
   "unresolved_ids": [
-    "GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS"
+    "GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS",
+    "GAP-GOVERNING-HASH-PREPUBLICATION-GATE"
   ]
 }
