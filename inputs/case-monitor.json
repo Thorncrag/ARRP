@@ -2,7 +2,7 @@
   "baseline_initialization_mode": false,
   "change_counts": {},
   "changes": [],
-  "checked_at": "2026-07-26T04:34:38+00:00",
+  "checked_at": "2026-07-27T07:53:35+00:00",
   "coverage": {
     "case_baselines_initialized": 0,
     "case_baselines_updated": 0,
@@ -190,11 +190,11 @@
       }
     ],
     "agent_id": "case-monitor-bot",
-    "event_id": "SDE-8B910AA22FBBBCE3E0AE125F",
+    "event_id": "SDE-62EB0C60B193E98C0883A912",
     "proposal": {
       "base_ref": "main",
       "head_ref": "bot/case-monitor-updates",
-      "proposal_revision": "51ab5321424426b78aeef84da03233248dbe4455",
+      "proposal_revision": "7e6009506d62bf2e72bea07fa941302b780cadf2",
       "pull_request_number": 380,
       "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/380",
       "repository": "Thorncrag/ARRP"

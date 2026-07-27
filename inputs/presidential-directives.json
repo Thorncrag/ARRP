@@ -72373,7 +72373,7 @@
       "Title": "Continuation of the National Emergency With Respect to Mali"
     }
   ],
-  "generated_at": "2026-07-26T04:35:03+00:00",
+  "generated_at": "2026-07-27T07:54:04+00:00",
   "material_update": false,
   "mode": "read-only-comparison",
   "not_seen_ids": [],
@@ -72421,11 +72421,11 @@
       }
     ],
     "agent_id": "presidential-directives-bot",
-    "event_id": "SDE-4EDE456327A9D3C616449D75",
+    "event_id": "SDE-B42DD183BC2B93D484271CE3",
     "proposal": {
       "base_ref": "main",
       "head_ref": "automation/presidential-directives-monitor",
-      "proposal_revision": "648af039d25490dfc00f55dc7d96136abe3399fa",
+      "proposal_revision": "2495449ed92977df47b0f29489762c368c3e86dd",
       "pull_request_number": 381,
       "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/381",
       "repository": "Thorncrag/ARRP"
