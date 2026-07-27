@@ -1,0 +1,84 @@
+{
+  "acceptance": null,
+  "affected_records": [
+    {
+      "record_id": "2019-05370",
+      "record_type": "presidential-directive"
+    },
+    {
+      "record_id": "2019-16383",
+      "record_type": "presidential-directive"
+    },
+    {
+      "record_id": "2026-14990",
+      "record_type": "presidential-directive"
+    },
+    {
+      "record_id": "2026-14991",
+      "record_type": "presidential-directive"
+    },
+    {
+      "record_id": "2026-14992",
+      "record_type": "presidential-directive"
+    },
+    {
+      "record_id": "2026-14997",
+      "record_type": "presidential-directive"
+    },
+    {
+      "record_id": "2026-14998",
+      "record_type": "presidential-directive"
+    },
+    {
+      "record_id": "2026-14999",
+      "record_type": "presidential-directive"
+    },
+    {
+      "record_id": "2026-15003",
+      "record_type": "presidential-directive"
+    },
+    {
+      "record_id": "2026-15024",
+      "record_type": "presidential-directive"
+    }
+  ],
+  "agent_id": "presidential-directives-bot",
+  "chain_id": "arrp-20260727T075310Z",
+  "event_id": "SDE-B42DD183BC2B93D484271CE3",
+  "idempotency_key": "sha256:b42dd183bc2b93d484271ce3244e70065b6766b616494823bdf1a82d345fd2d8",
+  "kind": "source-domain-event",
+  "output_hashes": {
+    "files": [
+      {
+        "bytes": 1854598,
+        "path": "inventory/presidential-directives.csv",
+        "sha256": "sha256:9f14fdb579c9816258688f66f322d62a5f7feaa49410daa3063d3fd9094a7e3c"
+      }
+    ],
+    "proposal_diff": "sha256:21eee92eda009c4db723e0c530931dc0595962f544a6d379ebe2c3c0ee871dc4",
+    "semantic_report": "sha256:eead281dd9bc359cb2a6613c252bbb7c670545fec9c7eb128ab32383e696c968"
+  },
+  "proposal": {
+    "base_ref": "main",
+    "head_ref": "automation/presidential-directives-monitor",
+    "proposal_revision": "2495449ed92977df47b0f29489762c368c3e86dd",
+    "pull_request_number": 381,
+    "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/381",
+    "repository": "Thorncrag/ARRP"
+  },
+  "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
+  "schema_uri": ".github/source-domain-event.schema.json",
+  "schema_version": 1,
+  "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+  "state": "proposed",
+  "summary": {
+    "affected_record_count": 10,
+    "counts": {
+      "affected-files": 1,
+      "affected-records": 10,
+      "presidential-directive-records": 10
+    },
+    "status": "presidential directives proposal delta"
+  },
+  "trigger": "schedule"
+}
