@@ -36,7 +36,9 @@ def read_json(path: Path) -> dict[str, Any]:
 
 def write_json(path: Path, value: object, root: Path) -> None:
     normalized_root = os.path.realpath(os.fspath(root))
-    normalized_path = os.path.realpath(os.fspath(path))
+    normalized_path = os.path.realpath(
+        os.path.join(normalized_root, os.fspath(path))
+    )
     if (
         normalized_path != normalized_root
         and not normalized_path.startswith(normalized_root + os.sep)

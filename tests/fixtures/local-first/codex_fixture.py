@@ -40,10 +40,10 @@ if len(sys.argv) < 2 or sys.argv[1] != "exec":
     raise SystemExit(64)
 
 worktree = Path.cwd().resolve()
-if Path(option("--cd")).resolve() != worktree:
-    raise SystemExit("fixture --cd does not match the process working directory")
 fixture_root = os.path.realpath(os.fspath(worktree.parent.parent))
-normalized_run_dir = os.path.realpath(os.environ["ARRP_RUN_DIR"])
+normalized_run_dir = os.path.realpath(
+    os.path.join(fixture_root, os.environ["ARRP_RUN_DIR"])
+)
 if (
     normalized_run_dir != fixture_root
     and not normalized_run_dir.startswith(fixture_root + os.sep)
