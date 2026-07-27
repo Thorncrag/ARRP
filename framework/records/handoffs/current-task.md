@@ -17,14 +17,14 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Active issue/task | P6 local-first cutover |
 | Audit type/tier | Project-wide Change Audit / implementation cutover |
 | Started | 2026-07-27 18:39:00 -0400 |
-| Last checkpoint | 2026-07-27 19:24:52 -0400 |
+| Last checkpoint | 2026-07-27 19:33:20 -0400 |
 | User request | Execute P6 with the P5 completion record as continuation evidence; Benjamin authorized `e2415bf87d3a4b14dd1fb9e461f0575752069789` as the P6 rebaseline, selected 2:00 AM America/New_York, and authorized the minimal scheduled-production activation bridge plus one harmless ordinary cutover-evidence record. |
 | Scope | P6 scheduled runtime activation, retired-workflow and data-branch-write removal, governing synchronization, protected publication, owner-only host installation, supervised RunAtLoad proof, rollback rehearsal, and exact readback. |
 | Files touched | P6 runtime, bootstrap, local-stage, semantic-broker, Console, governing registry/runbooks, retired workflow/script/test removal, LaunchAgent template, generated Console projection, handoff, and acceptance-test files shown by the protected implementation commit. |
-| Completed steps | Fresh origin/main rebaseline passed; the 2:00 AM local-first runtime, exact reviewed-runtime bootstrap, complete production transaction, Project-only exact-node reads, semantic broker, retired-runtime removal, Console conversion, and rollback controls are implemented. All local and authenticated acceptance gates pass, including 0-error/0-warning Project consistency, strict site build, 478 Python tests, 32 Console tests, 25 participation tests, and exact context-hash validation. No host, credential, deployment, or service change has occurred. |
-| Next step | Commit and publish the protected P6 implementation through Benjamin's workflow-file credential path, obtain exact-head CODEOWNER review, merge, build and record the required off-cycle Review Epoch, then install only the exact merged bootstrap/plist and perform the supervised RunAtLoad cycle plus rollback rehearsal. |
-| Blockers/questions | Protected implementation must be published, exact-head reviewed, and merged before any host installation; the required Review Epoch must then bind the merged governing boundary. |
-| Validation status | Local implementation validation passed; protected publication, Review Epoch closeout, exact merged-source installation, supervised scheduled proof, and rollback rehearsal remain. |
+| Completed steps | Fresh origin/main rebaseline passed; the 2:00 AM local-first runtime, exact reviewed-runtime bootstrap, complete production transaction, Project-only exact-node reads, semantic broker, retired-runtime removal, Console conversion, and rollback controls were implemented. Protected PR #462 passed all checks, received exact-head CODEOWNER approval, and merged as `bd6b175d9ce20f58280ba4fa06cce8588783401b`; local main is exact and clean. Off-cycle Review Epoch `epoch-p6-local-first-20260727` validates all 72 governing hashes, resolves both carried automation-boundary findings, and records five rotating mature samples. No host installation or service change has occurred. |
+| Next step | Publish the ordinary Review Epoch/handoff closeout, then install only the exact merged `bd6b175d9ce20f58280ba4fa06cce8588783401b` bootstrap and plist, perform the rollback rehearsal, load the one LaunchAgent, and supervise the RunAtLoad ordinary cycle through merge, Project/Console/Pages/local readback. |
+| Blockers/questions | Host installation remains deliberately gated on synchronized Review Epoch evidence; after that merge, no unresolved decision remains. |
+| Validation status | Protected implementation and Review Epoch validation passed; ordinary epoch publication, exact-source host installation, supervised scheduled proof, rollback rehearsal, and final inactive handoff remain. |
 
 ## Handoff Rules
 
