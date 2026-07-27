@@ -1,7 +1,7 @@
 {
   "actual_count": 1,
   "availability": "current",
-  "chain_id": "arrp-20260727T075310Z",
+  "chain_id": "arrp-20260727T082740Z",
   "cloud_status": null,
   "completeness": {
     "actual_count": 1,
@@ -9,29 +9,20 @@
     "expected_count": 1,
     "missing_count": 0
   },
-  "elim_runtime": {
-    "chain_id": "arrp-20260727T075310Z",
-    "completed_at": "2026-07-27T08:27:27+00:00",
-    "details": "Elim completed and the dispatcher verified its required closeout.",
-    "exit_code": 0,
-    "id": "elim",
-    "name": "Elim",
-    "status": "completed"
-  },
   "exit_code": 0,
   "expected_count": 1,
-  "host_status": "completed",
-  "host_updated_at": "2026-07-27T08:27:27+00:00",
-  "message": "Elim completed and the dispatcher verified its required closeout.",
-  "next_action": "The trusted host must validate and publish exactly the declared file set through checked pull-request closeout. Future fresh queues should select GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS and GAP-GOVERNING-HASH-PREPUBLICATION-GATE as separate repairs; the next comprehensive epoch is due 2026-08-10T08:10:38+00:00 or upon an earlier material governing-boundary change.",
+  "host_status": "not-launched",
+  "host_updated_at": "2026-07-27T08:37:33+00:00",
+  "message": "Host dispatcher rejected an LLM launch from a deterministic-only or unspecified trigger.",
+  "next_action": "No Elim launch; wait for the daily schedule, an eligible event, or explicit manual dispatch.",
   "projection_errors": [],
   "projection_kind": "host-run-status",
   "schema_version": 1,
-  "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
-  "stage": "elim-closeout",
-  "status": "completed",
-  "updated_at": "2026-07-27T08:27:27+00:00",
-  "usage_status": "pass",
-  "work_item_id": "COMPREHENSIVE-REVIEW-21a6bc9b6636",
+  "source_revision": "be3ae39a0841c6072ca421916a5e37936504619e",
+  "stage": "host-refinalization",
+  "status": "not-launched",
+  "updated_at": "2026-07-27T08:37:33+00:00",
+  "usage_status": "available",
+  "work_item_id": "INTEGRITY-7b81c19899c9",
   "host_action_items": []
 }
