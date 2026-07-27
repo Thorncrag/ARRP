@@ -136,6 +136,20 @@ jobs:
           }
           if status not in allowed_statuses:
               raise RuntimeError("host-status value is invalid")
+          if source.get("availability") != "current":
+              raise RuntimeError("host-status availability is invalid")
+          completeness = source.get("completeness")
+          if (
+              not isinstance(completeness, dict)
+              or completeness.get("complete") is not True
+              or completeness.get("expected_count") != 1
+              or completeness.get("actual_count") != 1
+              or source.get("expected_count") != 1
+              or source.get("actual_count") != 1
+          ):
+              raise RuntimeError("host-status completeness is invalid")
+          if source.get("projection_errors") != []:
+              raise RuntimeError("host-status projection errors are invalid")
           updated_at = str(source.get("host_updated_at") or "")
           datetime.fromisoformat(updated_at.replace("Z", "+00:00"))
           stage = str(source.get("stage") or "").strip()
@@ -174,14 +188,19 @@ jobs:
                   if key in allowed_item_fields
               })
           allowed_fields = {
+              "actual_count",
+              "availability",
               "chain_id",
               "cloud_status",
+              "completeness",
               "elim_runtime",
               "exit_code",
+              "expected_count",
               "host_status",
               "host_updated_at",
               "message",
               "next_action",
+              "projection_errors",
               "projection_kind",
               "schema_version",
               "source_revision",

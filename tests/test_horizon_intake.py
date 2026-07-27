@@ -63,6 +63,70 @@ class HorizonIntakeTest(unittest.TestCase):
             participation_bundle.removeprefix(participation_prefix).removesuffix(";\n")
         )
 
+    @patch.object(console_builder, "run_gh_paginated_json")
+    def test_private_github_security_snapshot_routes_alerts_by_required_owner(
+        self, paginated: object
+    ) -> None:
+        paginated.side_effect = [
+            [
+                {
+                    "number": 102,
+                    "rule": {
+                        "id": "py/path-injection",
+                        "name": "Path injection",
+                        "security_severity_level": "high",
+                    },
+                    "most_recent_instance": {
+                        "location": {
+                            "path": "scripts/run_chain_dispatcher.py",
+                            "start_line": 517,
+                        }
+                    },
+                    "html_url": (
+                        "https://github.com/Thorncrag/ARRP/security/"
+                        "code-scanning/102"
+                    ),
+                    "created_at": "2026-07-26T10:00:00Z",
+                    "updated_at": "2026-07-26T11:00:00Z",
+                }
+            ],
+            [],
+            [
+                {
+                    "number": 9,
+                    "secret_type_display_name": "Test credential",
+                    "html_url": (
+                        "https://github.com/Thorncrag/ARRP/security/"
+                        "secret-scanning/9"
+                    ),
+                    "created_at": "2026-07-26T12:00:00Z",
+                    "updated_at": "2026-07-26T12:00:00Z",
+                }
+            ],
+        ]
+
+        snapshot = console_builder.github_security_action_snapshot()
+
+        self.assertEqual(snapshot["availability"], "current")
+        self.assertTrue(snapshot["completeness"]["complete"])
+        self.assertEqual(snapshot["completeness"]["open_alert_count"], 2)
+        self.assertEqual(snapshot["alerts"][0]["id"], "code-scanning-102")
+        self.assertEqual(snapshot["alerts"][0]["owner"], "Elim")
+        self.assertEqual(
+            snapshot["alerts"][0]["location"],
+            "scripts/run_chain_dispatcher.py:517",
+        )
+        self.assertEqual(snapshot["alerts"][1]["id"], "secret-scanning-9")
+        self.assertEqual(snapshot["alerts"][1]["owner"], "Human")
+        self.assertIn("Git-ignored", snapshot["privacy"])
+
+    def test_private_github_security_projection_is_git_ignored(self) -> None:
+        ignored = (ROOT / ".gitignore").read_text(encoding="utf-8")
+        self.assertIn(
+            "/research/horizon-review-console/data/private-github-security.js",
+            ignored,
+        )
+
     def test_two_catalog_architecture_has_no_legacy_source_ledgers(self) -> None:
         legacy_files = {
             "existing-issue-evidence-integration.csv",
@@ -1200,9 +1264,12 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
         self.assertIn("catalog-data.js?v=45", console_html)
-        self.assertIn("app.js?v=45", console_html)
+        self.assertIn("app.js?v=46", console_html)
         self.assertIn("styles.css?v=45", console_html)
-        self.assertNotIn('<script src="data/', console_html)
+        self.assertEqual(
+            re.findall(r'<script src="(data/[^"]+)"', console_html),
+            ["data/private-github-security.js?v=1"],
+        )
         for tab in {"overview", "progress", "actions", "candidates", "sources", "integrity", "automation", "logs", "publication"}:
             self.assertIn(f'id="tab-{tab}"', console_html)
             self.assertIn(f'id="panel-{tab}"', console_html)

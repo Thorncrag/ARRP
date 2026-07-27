@@ -2,16 +2,16 @@
 window.ARRP_HORIZON_REVIEW_DATA={
   "schema_version": 27,
   "contract_schema_version": 1,
-  "generation_id": "project-console-40fb98644e4d238a672a",
-  "source_revision": "c68c5ccccf11c302eb9f05abef708f2958bb09b9",
-  "generated_at": "2026-07-26T22:56:45+00:00",
+  "generation_id": "project-console-c186d8838c2ce2735212",
+  "source_revision": "1cf67d020d85c0eb408b05112f336f1ec275a29d",
+  "generated_at": "2026-07-27T00:03:11+00:00",
   "expected_count": 5647,
   "actual_count": 5647,
   "source_hashes": {
     ".github/case-monitor-bot.json": "sha256:15e31e00534a6cbb616ae4495ee01e1303e73877ff3fd17137f65a446978b15c",
     ".github/presidential-directives-bot.json": "sha256:c1e9d7826d9b34530b3c78be71594ce7d15c9144e2e471dfe5b87f68920c1027",
     ".github/source-checker-bot.json": "sha256:46f1a3767d4ada5e836c8ef9350dc4cf6b9fc0aac576d240623e1e976985c6a2",
-    "feed:integrity": "sha256:5c3e52a36c2895318f81ab343e0af293863ec665a6c2d8453283fb36fa6779cb",
+    "feed:integrity": "sha256:b6faa3a141856e33ecbcfa1dfee7a51d5338ea8a1249e68214898c68c97c4f91",
     "feed:progress": "sha256:8e108b315f3a35e56ae773bbaeabd5a3c9a2e11e2c86cdf6bc52ffbd9550940c",
     "feed:run_chain": "sha256:7979d8eca87b9b6b816ba25120c77fd62111f5d780c569614f7d5d3059f24747",
     "feed:source_checker": "sha256:64245f26fe495a3d75eefa60c75f864cf4f9a65ecc78ddf878df58fb52109e1a",
@@ -1176,9 +1176,9 @@ window.ARRP_HORIZON_REVIEW_DATA={
   },
   "generation_manifest": {
     "manifest_schema_version": 1,
-    "generation_id": "project-console-40fb98644e4d238a672a",
-    "generated_at": "2026-07-26T22:56:45+00:00",
-    "source_revision": "c68c5ccccf11c302eb9f05abef708f2958bb09b9",
+    "generation_id": "project-console-c186d8838c2ce2735212",
+    "generated_at": "2026-07-27T00:03:11+00:00",
+    "source_revision": "1cf67d020d85c0eb408b05112f336f1ec275a29d",
     "availability": "stale",
     "completeness": {
       "complete": false,
@@ -1190,8 +1190,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
     "domains": [
       {
         "file": "automation.js",
-        "sha256": "sha256:fd49a9007b1748d514f48d4cf33ed2850188b6030b8c954a9049c02047235df9",
-        "bytes": 318732,
+        "sha256": "sha256:3fe9b85be8db2676cfa98cfeb2dee3e75d11184ee33a7f393d511c1ce2c87d7f",
+        "bytes": 319966,
         "keys": [
           "agent_registry",
           "run_chain"
@@ -1200,8 +1200,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "candidates.js",
-        "sha256": "sha256:ca94ed6210ad062ae248d7700a40dbb51c03cdd46b48d41411114b05e748905a",
-        "bytes": 1417061,
+        "sha256": "sha256:0ea9a5271ae46558529d6062e55af1ddd3b212634654fec9c8e286866da7878e",
+        "bytes": 1417037,
         "keys": [
           "active_horizon_records",
           "horizon_records",
@@ -1211,7 +1211,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-001.js",
-        "sha256": "sha256:d78e843e4b0a8da1a68b52c22ff87655afde1e0d28d3b660ce961847852fd3aa",
+        "sha256": "sha256:45363bb5f26322002c097f71da91621a15e1a702f8bc1bfc8fc4f7702c16d878",
         "bytes": 197076,
         "keys": [
           "presidential_directives_chunk_001"
@@ -1220,7 +1220,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-002.js",
-        "sha256": "sha256:cf94be50fc8ccc9405940fc0e0278a1c603e06820d712d56ae8a63b76b053bf2",
+        "sha256": "sha256:554f5520300ffc9be149e5f7f48ef93d88897ab3d41134ecf05c7f354beec9f7",
         "bytes": 191565,
         "keys": [
           "presidential_directives_chunk_002"
@@ -1229,7 +1229,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-003.js",
-        "sha256": "sha256:3701f6e413385d31eec82aa9cd2341be2bb1ab9f69e2bc893e1b88e1f98f9a72",
+        "sha256": "sha256:ee136d47d9c4f4e8808f36c13ac2f8671e937f323f4c86bb541b3715f44d9f13",
         "bytes": 190597,
         "keys": [
           "presidential_directives_chunk_003"
@@ -1238,7 +1238,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-004.js",
-        "sha256": "sha256:670a7f3c3b11bebecd0beab5472a17625d1d75101e8a0832802ba385d086c649",
+        "sha256": "sha256:5d7fce109ab4c2b083fc780656aebba509f7edab1f0a041bea2d3c556f027173",
         "bytes": 191231,
         "keys": [
           "presidential_directives_chunk_004"
@@ -1247,7 +1247,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-005.js",
-        "sha256": "sha256:b3f7ef0faea28b6033b9341a0bb8249a6a397cab6737230e1b091e9f407fd210",
+        "sha256": "sha256:7370cd70cb3929b1afc1f1d85fc16b38f8722e6ade3a98f820a4a9ed1f4ce9c1",
         "bytes": 190900,
         "keys": [
           "presidential_directives_chunk_005"
@@ -1256,7 +1256,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-006.js",
-        "sha256": "sha256:a153cfbec797cba195c31241a198c57be3cde1c2fd4a3e04cf3ce7ed954c26ef",
+        "sha256": "sha256:10fb5756725c67742ea4fc1c9127199df94188c4adfae073a08d9c8a38ac94bb",
         "bytes": 188556,
         "keys": [
           "presidential_directives_chunk_006"
@@ -1265,7 +1265,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-007.js",
-        "sha256": "sha256:f70adbe3d5c2a77283ccc539f525633a84cdf15791831c17fafc952d3f9f2c3d",
+        "sha256": "sha256:5aac887deceba9ed4ace57c3a85e186af73537c047c65d331ef01e285d5d7022",
         "bytes": 189119,
         "keys": [
           "presidential_directives_chunk_007"
@@ -1274,7 +1274,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-008.js",
-        "sha256": "sha256:70a15142d4189dbf8ba4ea0eb003a2f0c827e316d11fcebc0f879fad5c4fe9bb",
+        "sha256": "sha256:b29a8e4482967125e170fb1eacc057f254c73dc7eb6fe4749740f42e45f25f99",
         "bytes": 190582,
         "keys": [
           "presidential_directives_chunk_008"
@@ -1283,7 +1283,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-009.js",
-        "sha256": "sha256:9745ef2d4ca7c1ace23aed496408aeb514a1ea27a05c03918f5168423090d398",
+        "sha256": "sha256:d778c4a7c001dae6e382cae87c2434da5a37306277b9acf8906f0036715f64f5",
         "bytes": 188805,
         "keys": [
           "presidential_directives_chunk_009"
@@ -1292,7 +1292,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-010.js",
-        "sha256": "sha256:44088a146df818a064f35e7156e1d52fd652dd9ea2954e62feefeb09db596d0b",
+        "sha256": "sha256:85423b7b897ca529fcf93962815e5edd01194996d72b8eee753aa06177f65bfc",
         "bytes": 189815,
         "keys": [
           "presidential_directives_chunk_010"
@@ -1301,7 +1301,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-011.js",
-        "sha256": "sha256:5d61a096585bcb8276821b05e3704232632c4acd0a5c48e3fe048e4b4694d3b0",
+        "sha256": "sha256:dd78d98c7fc36f865144f301979583a7f8de29a1cddb3831240ce49c1c46ed33",
         "bytes": 192216,
         "keys": [
           "presidential_directives_chunk_011"
@@ -1310,7 +1310,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-012.js",
-        "sha256": "sha256:9e5e9799970bd84fbf653c0066114edd9d3e42ba0332bd992bce308500fd43d5",
+        "sha256": "sha256:af6163aa30ff76748345764594fd370603b5046b50e3b16d597c81cbba35bf2a",
         "bytes": 192465,
         "keys": [
           "presidential_directives_chunk_012"
@@ -1319,7 +1319,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-013.js",
-        "sha256": "sha256:da079ebdfc602a453a9517ca4e44c5506b097cf67459de2fdda2d9be9ef8e47a",
+        "sha256": "sha256:fda9b70a1710aa2b1b3cfe6d626b97c46b6eba87365b985a4e1782f3d1e7310d",
         "bytes": 188906,
         "keys": [
           "presidential_directives_chunk_013"
@@ -1328,7 +1328,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-014.js",
-        "sha256": "sha256:ca84dae7775f1217f2b52713a25589a13fb4d0f5721bde046fd4dc3fc641795d",
+        "sha256": "sha256:c04a9111bd09ebaa3ec12991c10e511a2cd4e5388d65a8e42f21137992093a98",
         "bytes": 190280,
         "keys": [
           "presidential_directives_chunk_014"
@@ -1337,7 +1337,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-015.js",
-        "sha256": "sha256:a4249f09a252438658c2ce2b57dc3e186329538ab60d4633857e682ac919be46",
+        "sha256": "sha256:6c1acd34746b5eca3b3294fcb26a886dbdf56355c46c281d5589f16a365c124e",
         "bytes": 188808,
         "keys": [
           "presidential_directives_chunk_015"
@@ -1346,7 +1346,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "directives-catalog-016.js",
-        "sha256": "sha256:d460e58d0384ea468cfcb28411576d7d4c0fb1e9d4b56aff3a203f6a7db3d860",
+        "sha256": "sha256:d21c55a9b707f5ffab0b78c65034dd0e2c0fb48214367e6794c412a945a83700",
         "bytes": 187409,
         "keys": [
           "presidential_directives_chunk_016"
@@ -1355,8 +1355,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "integrity.js",
-        "sha256": "sha256:9c42be1e2e4436e95732af459432c903778f533098321535e5fad634867f8f2b",
-        "bytes": 14515,
+        "sha256": "sha256:f3be5bc8e502c75ad6bfc2f502900c7686d194d61da206d8d69376eadc825947",
+        "bytes": 14513,
         "keys": [
           "integrity"
         ],
@@ -1364,7 +1364,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "logs.js",
-        "sha256": "sha256:6fa1c436c19198773c69542816a6ce9ac5d70d0981013ae7a28fca17439a180a",
+        "sha256": "sha256:9ef3c2a71d86fe9a31147163c01160a3b562bedb6fc8971df02d865313b6b6de",
         "bytes": 904363,
         "keys": [
           "project_logs",
@@ -1374,7 +1374,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "overview.js",
-        "sha256": "sha256:c4149cdcd035313f069f5f3491eb4ecdebcdf1c18719024a491f4f079fd9ede4",
+        "sha256": "sha256:179a37141d9b40e6fd276897aaac5f142ce69a6055ac94e81d0c831fa1518006",
         "bytes": 28847,
         "keys": [
           "overview"
@@ -1383,7 +1383,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "progress.js",
-        "sha256": "sha256:cf94449d640a76cb0dfc774687234017227c35890d6d3989f21cfc00cf248483",
+        "sha256": "sha256:f237e35d4a9164306e22bd044699711ad1c74ac4191a0258ef50a72a6d223fd5",
         "bytes": 359286,
         "keys": [
           "progress"
@@ -1392,7 +1392,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "publication.js",
-        "sha256": "sha256:5657e3df7fa60b56c77e6e5ca47974e56775e4d68b7cd7f29aa921b3e33d7f0d",
+        "sha256": "sha256:d25449299c58a64e21061291afe989855d270c7361696af4e0b4349d7bdac50e",
         "bytes": 665358,
         "keys": [
           "delivery_items",
@@ -1404,7 +1404,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "source-checker.js",
-        "sha256": "sha256:2ee8bed6e7084c840bef5cf5fabe667abcabe62865256f44002304fc4c6c12b4",
+        "sha256": "sha256:906fc9b25449676491eada03bdc33953009bfe4502cbdfa0aadd7fde0814df18",
         "bytes": 1524339,
         "keys": [
           "source_checker"
@@ -1413,7 +1413,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-001.js",
-        "sha256": "sha256:bc2242bf93132880c0b40a09a9c3ba6d2e620f032be697230dfcfc69c7bc4aaa",
+        "sha256": "sha256:10423268615f29083a26ccbd2978eb9088d7d6604578acce4340532511a23a1b",
         "bytes": 132073,
         "keys": [
           "cited_sources_chunk_001"
@@ -1422,7 +1422,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-002.js",
-        "sha256": "sha256:c77b6f1bc30371fb47041b849cb184d2cc8fc4c41a0e4cf57ba80ec2fd831d07",
+        "sha256": "sha256:81f28f3a3fed49360d9e1dc73353a8f0cad28981cbff84c7e952cf948d0e12ec",
         "bytes": 148337,
         "keys": [
           "cited_sources_chunk_002"
@@ -1431,7 +1431,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-003.js",
-        "sha256": "sha256:e615e58655307eb162463245b0749c3bf2cfd7706512cd8c7afd868c84fb1f6e",
+        "sha256": "sha256:b48e3bd762bad1660589750802e1d5c9c88e508418f42a6edae75d22b9c5b7e8",
         "bytes": 157274,
         "keys": [
           "cited_sources_chunk_003"
@@ -1440,7 +1440,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-004.js",
-        "sha256": "sha256:5b9bf3907d5149db93abb0e89a198022959992ce7fc793d4a41242959ae9a015",
+        "sha256": "sha256:31f707839d31b2b923835ecc9b62360d6958528fc7acdb95c58b9dc26651536e",
         "bytes": 161793,
         "keys": [
           "cited_sources_chunk_004"
@@ -1449,7 +1449,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-005.js",
-        "sha256": "sha256:876615c88540a48f3bd2580ced8d05677b4bc8106693d1d531c50fb37e8b6eb9",
+        "sha256": "sha256:01e698b113f9afae8b7a75c3ca767b55bc80cece36ec9d7cfeffb87ece338f98",
         "bytes": 147692,
         "keys": [
           "cited_sources_chunk_005"
@@ -1458,7 +1458,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-006.js",
-        "sha256": "sha256:0270adee3b41cbb2ff70edb7311d66f510f2514adf29a4c967bfab825ac61fb3",
+        "sha256": "sha256:4ca1c6ccfd1174dc344a5207927a0a4f2f4d996a8efde5c952c8f0d367765d7f",
         "bytes": 175125,
         "keys": [
           "cited_sources_chunk_006"
@@ -1467,7 +1467,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-007.js",
-        "sha256": "sha256:30612e2c5aba71c980d33563dfcea4a81bcbc602d95bfbde422c393307dfe48c",
+        "sha256": "sha256:b69fa0e9079da4f47543820014b5bcd84d9b32fa9a3738e8463b24a6f7aeaa41",
         "bytes": 194692,
         "keys": [
           "cited_sources_chunk_007"
@@ -1476,7 +1476,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-008.js",
-        "sha256": "sha256:d88984c4a33b9111a1a4f556bcf454cc862e9df3105dc72aea3813dab8d16a70",
+        "sha256": "sha256:dcf3f8b34d14d605a1135c1074925e2f0347b7294553837c4c42a727fbdfdc88",
         "bytes": 165787,
         "keys": [
           "cited_sources_chunk_008"
@@ -1485,7 +1485,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-009.js",
-        "sha256": "sha256:6ab315131494c3f708aa9d9cf3ef5cf376a3b4e1f237cc1294c354fd3b9220e5",
+        "sha256": "sha256:c41d73e615efbe5366e35967cd09a1d4644e0a7a6b505c931ac38780a2ed210b",
         "bytes": 158635,
         "keys": [
           "cited_sources_chunk_009"
@@ -1494,7 +1494,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-010.js",
-        "sha256": "sha256:3e62d586c44e18e57e0caa6c2d627e8b6ce0670216b6e15d166647da98a024aa",
+        "sha256": "sha256:5bfbc4234decc9ae2e4c5291a8e8eabe7a1011e06d71008b1902504d947cfbb9",
         "bytes": 179908,
         "keys": [
           "cited_sources_chunk_010"
@@ -1503,7 +1503,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-011.js",
-        "sha256": "sha256:b1d6ddf890bffd82ca98686eaf752260888c782ef299cfdea4691251dfbc1840",
+        "sha256": "sha256:f1dc5b59bf62676c0e4a7213e61d7b9ffe048803ce70ffbe64b9fdf151fb347b",
         "bytes": 185734,
         "keys": [
           "cited_sources_chunk_011"
@@ -1512,7 +1512,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-012.js",
-        "sha256": "sha256:bfa3305b0e428d0fa12d9f08bc62786916811dbb41d749ee0460c7653e39b559",
+        "sha256": "sha256:dba9bebc4058f9190b0d7103529b3e4a6c1fb139841916b2b4e720f63c8cdf22",
         "bytes": 189916,
         "keys": [
           "cited_sources_chunk_012"
@@ -1521,7 +1521,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-013.js",
-        "sha256": "sha256:9004827d9ab0561848844dab008b0e9d2fdb4c5bc2b99cd4a62fd00486e23bc8",
+        "sha256": "sha256:90e3de3e69f4c8e236342e57413dcf8e438c030e90c9aa54b735b4027f9f1c91",
         "bytes": 184382,
         "keys": [
           "cited_sources_chunk_013"
@@ -1530,7 +1530,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-014.js",
-        "sha256": "sha256:52d5400645d452379c93926a8d895bd49b5be2815233b891672653185c1b3505",
+        "sha256": "sha256:b145b7651abaf55ac273a713b8d9929ecf8ce16bacbb05d8384406d1821956ed",
         "bytes": 177061,
         "keys": [
           "cited_sources_chunk_014"
@@ -1539,7 +1539,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-015.js",
-        "sha256": "sha256:5da63574c70c2668499d515c8756504ddadbd5dcdd11efe5f08d87dbc084134d",
+        "sha256": "sha256:952608a0c7d070f6984f27bc2c97ebcce249ca06b7aad62dc4aec12dcd4b2a1b",
         "bytes": 177535,
         "keys": [
           "cited_sources_chunk_015"
@@ -1548,7 +1548,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources-catalog-016.js",
-        "sha256": "sha256:27d0d4353900333e91f8582290fd6c8dbbe8ed5a7e2b9381f2776d108b23e2dd",
+        "sha256": "sha256:4f1f078131e545668b859ee14fd7f8f185e6044087c32f94b59067af0e5c39d2",
         "bytes": 149384,
         "keys": [
           "cited_sources_chunk_016"
@@ -1557,7 +1557,7 @@ window.ARRP_HORIZON_REVIEW_DATA={
       },
       {
         "file": "sources.js",
-        "sha256": "sha256:e6b9c862215f6d7298d2966b6e7a679b3fe8d6ff58c2b75b8d4f162f33b9d662",
+        "sha256": "sha256:a0c1ec96c214f4feb9c3839ec8d5b14a6a5e9980214d312ba5a3aa64c106c7b5",
         "bytes": 2484508,
         "keys": [
           "cited_sources",
@@ -1572,9 +1572,9 @@ window.ARRP_HORIZON_REVIEW_DATA={
     ],
     "files": {
       "automation.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:fd49a9007b1748d514f48d4cf33ed2850188b6030b8c954a9049c02047235df9",
-        "bytes": 318732,
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:3fe9b85be8db2676cfa98cfeb2dee3e75d11184ee33a7f393d511c1ce2c87d7f",
+        "bytes": 319966,
         "keys": [
           "agent_registry",
           "run_chain"
@@ -1582,9 +1582,9 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 108
       },
       "candidates.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:ca94ed6210ad062ae248d7700a40dbb51c03cdd46b48d41411114b05e748905a",
-        "bytes": 1417061,
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:0ea9a5271ae46558529d6062e55af1ddd3b212634654fec9c8e286866da7878e",
+        "bytes": 1417037,
         "keys": [
           "active_horizon_records",
           "horizon_records",
@@ -1593,8 +1593,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 43
       },
       "directives-catalog-001.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:d78e843e4b0a8da1a68b52c22ff87655afde1e0d28d3b660ce961847852fd3aa",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:45363bb5f26322002c097f71da91621a15e1a702f8bc1bfc8fc4f7702c16d878",
         "bytes": 197076,
         "keys": [
           "presidential_directives_chunk_001"
@@ -1602,8 +1602,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-002.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:cf94be50fc8ccc9405940fc0e0278a1c603e06820d712d56ae8a63b76b053bf2",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:554f5520300ffc9be149e5f7f48ef93d88897ab3d41134ecf05c7f354beec9f7",
         "bytes": 191565,
         "keys": [
           "presidential_directives_chunk_002"
@@ -1611,8 +1611,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-003.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:3701f6e413385d31eec82aa9cd2341be2bb1ab9f69e2bc893e1b88e1f98f9a72",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:ee136d47d9c4f4e8808f36c13ac2f8671e937f323f4c86bb541b3715f44d9f13",
         "bytes": 190597,
         "keys": [
           "presidential_directives_chunk_003"
@@ -1620,8 +1620,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-004.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:670a7f3c3b11bebecd0beab5472a17625d1d75101e8a0832802ba385d086c649",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:5d7fce109ab4c2b083fc780656aebba509f7edab1f0a041bea2d3c556f027173",
         "bytes": 191231,
         "keys": [
           "presidential_directives_chunk_004"
@@ -1629,8 +1629,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-005.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:b3f7ef0faea28b6033b9341a0bb8249a6a397cab6737230e1b091e9f407fd210",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:7370cd70cb3929b1afc1f1d85fc16b38f8722e6ade3a98f820a4a9ed1f4ce9c1",
         "bytes": 190900,
         "keys": [
           "presidential_directives_chunk_005"
@@ -1638,8 +1638,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-006.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:a153cfbec797cba195c31241a198c57be3cde1c2fd4a3e04cf3ce7ed954c26ef",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:10fb5756725c67742ea4fc1c9127199df94188c4adfae073a08d9c8a38ac94bb",
         "bytes": 188556,
         "keys": [
           "presidential_directives_chunk_006"
@@ -1647,8 +1647,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-007.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:f70adbe3d5c2a77283ccc539f525633a84cdf15791831c17fafc952d3f9f2c3d",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:5aac887deceba9ed4ace57c3a85e186af73537c047c65d331ef01e285d5d7022",
         "bytes": 189119,
         "keys": [
           "presidential_directives_chunk_007"
@@ -1656,8 +1656,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-008.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:70a15142d4189dbf8ba4ea0eb003a2f0c827e316d11fcebc0f879fad5c4fe9bb",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:b29a8e4482967125e170fb1eacc057f254c73dc7eb6fe4749740f42e45f25f99",
         "bytes": 190582,
         "keys": [
           "presidential_directives_chunk_008"
@@ -1665,8 +1665,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-009.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:9745ef2d4ca7c1ace23aed496408aeb514a1ea27a05c03918f5168423090d398",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:d778c4a7c001dae6e382cae87c2434da5a37306277b9acf8906f0036715f64f5",
         "bytes": 188805,
         "keys": [
           "presidential_directives_chunk_009"
@@ -1674,8 +1674,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-010.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:44088a146df818a064f35e7156e1d52fd652dd9ea2954e62feefeb09db596d0b",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:85423b7b897ca529fcf93962815e5edd01194996d72b8eee753aa06177f65bfc",
         "bytes": 189815,
         "keys": [
           "presidential_directives_chunk_010"
@@ -1683,8 +1683,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-011.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:5d61a096585bcb8276821b05e3704232632c4acd0a5c48e3fe048e4b4694d3b0",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:dd78d98c7fc36f865144f301979583a7f8de29a1cddb3831240ce49c1c46ed33",
         "bytes": 192216,
         "keys": [
           "presidential_directives_chunk_011"
@@ -1692,8 +1692,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-012.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:9e5e9799970bd84fbf653c0066114edd9d3e42ba0332bd992bce308500fd43d5",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:af6163aa30ff76748345764594fd370603b5046b50e3b16d597c81cbba35bf2a",
         "bytes": 192465,
         "keys": [
           "presidential_directives_chunk_012"
@@ -1701,8 +1701,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-013.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:da079ebdfc602a453a9517ca4e44c5506b097cf67459de2fdda2d9be9ef8e47a",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:fda9b70a1710aa2b1b3cfe6d626b97c46b6eba87365b985a4e1782f3d1e7310d",
         "bytes": 188906,
         "keys": [
           "presidential_directives_chunk_013"
@@ -1710,8 +1710,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-014.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:ca84dae7775f1217f2b52713a25589a13fb4d0f5721bde046fd4dc3fc641795d",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:c04a9111bd09ebaa3ec12991c10e511a2cd4e5388d65a8e42f21137992093a98",
         "bytes": 190280,
         "keys": [
           "presidential_directives_chunk_014"
@@ -1719,8 +1719,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-015.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:a4249f09a252438658c2ce2b57dc3e186329538ab60d4633857e682ac919be46",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:6c1acd34746b5eca3b3294fcb26a886dbdf56355c46c281d5589f16a365c124e",
         "bytes": 188808,
         "keys": [
           "presidential_directives_chunk_015"
@@ -1728,8 +1728,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 188
       },
       "directives-catalog-016.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:d460e58d0384ea468cfcb28411576d7d4c0fb1e9d4b56aff3a203f6a7db3d860",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:d21c55a9b707f5ffab0b78c65034dd0e2c0fb48214367e6794c412a945a83700",
         "bytes": 187409,
         "keys": [
           "presidential_directives_chunk_016"
@@ -1737,17 +1737,17 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 187
       },
       "integrity.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:9c42be1e2e4436e95732af459432c903778f533098321535e5fad634867f8f2b",
-        "bytes": 14515,
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:f3be5bc8e502c75ad6bfc2f502900c7686d194d61da206d8d69376eadc825947",
+        "bytes": 14513,
         "keys": [
           "integrity"
         ],
         "record_count": 54
       },
       "logs.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:6fa1c436c19198773c69542816a6ce9ac5d70d0981013ae7a28fca17439a180a",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:9ef3c2a71d86fe9a31147163c01160a3b562bedb6fc8971df02d865313b6b6de",
         "bytes": 904363,
         "keys": [
           "project_logs",
@@ -1756,8 +1756,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 7
       },
       "overview.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:c4149cdcd035313f069f5f3491eb4ecdebcdf1c18719024a491f4f079fd9ede4",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:179a37141d9b40e6fd276897aaac5f142ce69a6055ac94e81d0c831fa1518006",
         "bytes": 28847,
         "keys": [
           "overview"
@@ -1765,8 +1765,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 48
       },
       "progress.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:cf94449d640a76cb0dfc774687234017227c35890d6d3989f21cfc00cf248483",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:f237e35d4a9164306e22bd044699711ad1c74ac4191a0258ef50a72a6d223fd5",
         "bytes": 359286,
         "keys": [
           "progress"
@@ -1774,8 +1774,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 266
       },
       "publication.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:5657e3df7fa60b56c77e6e5ca47974e56775e4d68b7cd7f29aa921b3e33d7f0d",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:d25449299c58a64e21061291afe989855d270c7361696af4e0b4349d7bdac50e",
         "bytes": 665358,
         "keys": [
           "delivery_items",
@@ -1786,8 +1786,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 717
       },
       "source-checker.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:2ee8bed6e7084c840bef5cf5fabe667abcabe62865256f44002304fc4c6c12b4",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:906fc9b25449676491eada03bdc33953009bfe4502cbdfa0aadd7fde0814df18",
         "bytes": 1524339,
         "keys": [
           "source_checker"
@@ -1795,8 +1795,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 3839
       },
       "sources-catalog-001.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:bc2242bf93132880c0b40a09a9c3ba6d2e620f032be697230dfcfc69c7bc4aaa",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:10423268615f29083a26ccbd2978eb9088d7d6604578acce4340532511a23a1b",
         "bytes": 132073,
         "keys": [
           "cited_sources_chunk_001"
@@ -1804,8 +1804,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-002.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:c77b6f1bc30371fb47041b849cb184d2cc8fc4c41a0e4cf57ba80ec2fd831d07",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:81f28f3a3fed49360d9e1dc73353a8f0cad28981cbff84c7e952cf948d0e12ec",
         "bytes": 148337,
         "keys": [
           "cited_sources_chunk_002"
@@ -1813,8 +1813,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-003.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:e615e58655307eb162463245b0749c3bf2cfd7706512cd8c7afd868c84fb1f6e",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:b48e3bd762bad1660589750802e1d5c9c88e508418f42a6edae75d22b9c5b7e8",
         "bytes": 157274,
         "keys": [
           "cited_sources_chunk_003"
@@ -1822,8 +1822,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-004.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:5b9bf3907d5149db93abb0e89a198022959992ce7fc793d4a41242959ae9a015",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:31f707839d31b2b923835ecc9b62360d6958528fc7acdb95c58b9dc26651536e",
         "bytes": 161793,
         "keys": [
           "cited_sources_chunk_004"
@@ -1831,8 +1831,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-005.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:876615c88540a48f3bd2580ced8d05677b4bc8106693d1d531c50fb37e8b6eb9",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:01e698b113f9afae8b7a75c3ca767b55bc80cece36ec9d7cfeffb87ece338f98",
         "bytes": 147692,
         "keys": [
           "cited_sources_chunk_005"
@@ -1840,8 +1840,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-006.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:0270adee3b41cbb2ff70edb7311d66f510f2514adf29a4c967bfab825ac61fb3",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:4ca1c6ccfd1174dc344a5207927a0a4f2f4d996a8efde5c952c8f0d367765d7f",
         "bytes": 175125,
         "keys": [
           "cited_sources_chunk_006"
@@ -1849,8 +1849,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-007.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:30612e2c5aba71c980d33563dfcea4a81bcbc602d95bfbde422c393307dfe48c",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:b69fa0e9079da4f47543820014b5bcd84d9b32fa9a3738e8463b24a6f7aeaa41",
         "bytes": 194692,
         "keys": [
           "cited_sources_chunk_007"
@@ -1858,8 +1858,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-008.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:d88984c4a33b9111a1a4f556bcf454cc862e9df3105dc72aea3813dab8d16a70",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:dcf3f8b34d14d605a1135c1074925e2f0347b7294553837c4c42a727fbdfdc88",
         "bytes": 165787,
         "keys": [
           "cited_sources_chunk_008"
@@ -1867,8 +1867,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-009.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:6ab315131494c3f708aa9d9cf3ef5cf376a3b4e1f237cc1294c354fd3b9220e5",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:c41d73e615efbe5366e35967cd09a1d4644e0a7a6b505c931ac38780a2ed210b",
         "bytes": 158635,
         "keys": [
           "cited_sources_chunk_009"
@@ -1876,8 +1876,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-010.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:3e62d586c44e18e57e0caa6c2d627e8b6ce0670216b6e15d166647da98a024aa",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:5bfbc4234decc9ae2e4c5291a8e8eabe7a1011e06d71008b1902504d947cfbb9",
         "bytes": 179908,
         "keys": [
           "cited_sources_chunk_010"
@@ -1885,8 +1885,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-011.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:b1d6ddf890bffd82ca98686eaf752260888c782ef299cfdea4691251dfbc1840",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:f1dc5b59bf62676c0e4a7213e61d7b9ffe048803ce70ffbe64b9fdf151fb347b",
         "bytes": 185734,
         "keys": [
           "cited_sources_chunk_011"
@@ -1894,8 +1894,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-012.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:bfa3305b0e428d0fa12d9f08bc62786916811dbb41d749ee0460c7653e39b559",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:dba9bebc4058f9190b0d7103529b3e4a6c1fb139841916b2b4e720f63c8cdf22",
         "bytes": 189916,
         "keys": [
           "cited_sources_chunk_012"
@@ -1903,8 +1903,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-013.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:9004827d9ab0561848844dab008b0e9d2fdb4c5bc2b99cd4a62fd00486e23bc8",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:90e3de3e69f4c8e236342e57413dcf8e438c030e90c9aa54b735b4027f9f1c91",
         "bytes": 184382,
         "keys": [
           "cited_sources_chunk_013"
@@ -1912,8 +1912,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-014.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:52d5400645d452379c93926a8d895bd49b5be2815233b891672653185c1b3505",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:b145b7651abaf55ac273a713b8d9929ecf8ce16bacbb05d8384406d1821956ed",
         "bytes": 177061,
         "keys": [
           "cited_sources_chunk_014"
@@ -1921,8 +1921,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-015.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:5da63574c70c2668499d515c8756504ddadbd5dcdd11efe5f08d87dbc084134d",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:952608a0c7d070f6984f27bc2c97ebcce249ca06b7aad62dc4aec12dcd4b2a1b",
         "bytes": 177535,
         "keys": [
           "cited_sources_chunk_015"
@@ -1930,8 +1930,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 129
       },
       "sources-catalog-016.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:27d0d4353900333e91f8582290fd6c8dbbe8ed5a7e2b9381f2776d108b23e2dd",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:4f1f078131e545668b859ee14fd7f8f185e6044087c32f94b59067af0e5c39d2",
         "bytes": 149384,
         "keys": [
           "cited_sources_chunk_016"
@@ -1939,8 +1939,8 @@ window.ARRP_HORIZON_REVIEW_DATA={
         "record_count": 120
       },
       "sources.js": {
-        "generation_id": "project-console-40fb98644e4d238a672a",
-        "sha256": "sha256:e6b9c862215f6d7298d2966b6e7a679b3fe8d6ff58c2b75b8d4f162f33b9d662",
+        "generation_id": "project-console-c186d8838c2ce2735212",
+        "sha256": "sha256:a0c1ec96c214f4feb9c3839ec8d5b14a6a5e9980214d312ba5a3aa64c106c7b5",
         "bytes": 2484508,
         "keys": [
           "cited_sources",

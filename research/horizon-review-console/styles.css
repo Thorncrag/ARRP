@@ -367,23 +367,79 @@ a { color: var(--blue); }
 .action-item-count { color: var(--blue); font-size: 1.55rem; line-height: 1; }
 .action-update-count { flex: 0 0 auto; margin-left: 0; }
 .action-item-card > p { margin: 0; padding: .85rem 1rem; color: var(--muted); font-size: .82rem; }
-.action-item-detail-list { margin: 0; padding: 0 1.2rem .9rem 2.2rem; font-size: .82rem; }
-.action-item-detail-list li + li { margin-top: .35rem; }
-.action-item-links { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: auto; padding: 0 1rem 1rem; }
-.repository-review-item {
-  padding: .7rem .75rem;
+.action-item-detail-list {
+  display: grid;
+  gap: .45rem;
+  margin: 0;
+  padding: 0 1rem .9rem;
+  list-style: none;
+  font-size: .82rem;
+}
+.action-item-detail-list li { min-width: 0; }
+.action-item-record {
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: .55rem;
   background: var(--soft);
 }
-.repository-review-item + .repository-review-item { margin-top: .65rem !important; }
-.repository-review-header {
+.action-item-record > summary {
+  position: relative;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: .55rem;
+  min-width: 0;
+  align-items: center;
+  gap: .5rem;
+  padding: .62rem .7rem .62rem 1.75rem;
+  cursor: pointer;
+  list-style: none;
 }
-.repository-review-title { line-height: 1.35; }
+.action-item-record > summary::-webkit-details-marker { display: none; }
+.action-item-record > summary::before {
+  position: absolute;
+  left: .72rem;
+  color: var(--blue);
+  content: "›";
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+  transition: transform .14s ease;
+}
+.action-item-record[open] > summary::before { transform: rotate(90deg); }
+.action-item-record[open] > summary { border-bottom: 1px solid var(--line); background: white; }
+.action-item-record-title,
+.repository-review-title {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.action-item-record-owner {
+  min-width: 0;
+  flex: 0 1 34%;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: .7rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.action-item-record-count,
+.action-item-record-state { flex: 0 0 auto; }
+.action-item-record-count.warning,
+.action-item-record-state.warning { color: #765412; background: #fff0c7; }
+.action-item-record-count.error,
+.action-item-record-state.error { color: #8c2f23; background: #f9dfdc; }
+.action-item-record-count.info,
+.action-item-record-state.info { color: var(--blue); background: var(--blue-soft); }
+.action-item-record > div { padding: .68rem .75rem .75rem; background: white; }
+.action-item-record > div > :first-child { margin-top: 0; }
+.action-item-record > div > :last-child { margin-bottom: 0; }
+.action-item-record > div > .inline-link { display: inline-block; margin-top: .45rem; }
+.action-item-links { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: auto; padding: 0 1rem 1rem; }
+.repository-review-item {
+  background: var(--soft);
+}
 .repository-review-state { flex: 0 0 auto; }
 .repository-review-state.current { color: #285c3a; background: #e4f2e8; }
 .repository-review-state.stale { color: #765412; background: #fff0c7; }
@@ -2336,6 +2392,9 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
   .card-footer span { display: block; }
   .watcher-summary-grid { grid-template-columns: 1fr; }
   .action-items-grid { grid-template-columns: 1fr; }
+  .action-item-record.managed-disclosure > summary { padding-right: .7rem; }
+  .action-item-record .disclosure-default-toggle,
+  .action-item-record-owner { display: none; }
   .progress-summary-grid,
   .print-level-summary,
   .publication-metrics,

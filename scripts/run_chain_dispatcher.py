@@ -51,6 +51,11 @@ except ModuleNotFoundError:  # Imported as scripts.run_chain_dispatcher.
         validate_finding_continuity,
     )
 
+try:
+    from console_data_contracts import status_projection_contract
+except ModuleNotFoundError:  # Imported as scripts.run_chain_dispatcher.
+    from scripts.console_data_contracts import status_projection_contract
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CONFIG = ROOT / ".github" / "run-coordinator-bot.json"
@@ -2607,6 +2612,7 @@ def build_host_status_projection(
     updated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     projection: dict[str, Any] = {
         "schema_version": 1,
+        **status_projection_contract(1),
         "projection_kind": "host-run-status",
         "chain_id": str(chain_id),
         "host_status": str(status),

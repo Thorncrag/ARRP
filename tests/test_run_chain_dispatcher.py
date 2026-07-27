@@ -3672,6 +3672,10 @@ class RunChainDispatcherTests(unittest.TestCase):
                 }
             },
         )
+        self.assertEqual(projection["availability"], "current")
+        self.assertTrue(projection["completeness"]["complete"])
+        self.assertEqual(projection["expected_count"], 1)
+        self.assertEqual(projection["actual_count"], 1)
         self.assertEqual(projection["result_revision"], "c" * 40)
         self.assertTrue(projection["host_closeout"]["recovered"])
         completed = MODULE.subprocess.CompletedProcess(

@@ -20,6 +20,11 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
+try:
+    from console_data_contracts import status_projection_contract
+except ModuleNotFoundError:  # Imported as scripts.run_coordinator.
+    from scripts.console_data_contracts import status_projection_contract
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / ".github" / "run-coordinator-bot.json"
@@ -1300,6 +1305,7 @@ def plan(args: argparse.Namespace) -> int:
         )
     manifest = {
         "schema_version": 1,
+        **status_projection_contract(len(stages)),
         "bot_id": config["agentId"],
         "chain_id": chain_id,
         "run_id": args.run_id or chain_id,

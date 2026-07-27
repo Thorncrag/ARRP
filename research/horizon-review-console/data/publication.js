@@ -8181,7 +8181,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3993,
+      "word_count": 4104,
       "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
@@ -10413,7 +10413,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4333,
+      "word_count": 4432,
       "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
@@ -12378,7 +12378,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/horizon-review-console-arrp project console",
       "internal_links": [],
-      "word_count": 3838,
+      "word_count": 3888,
       "estimated_pages": 6,
       "table_count": 0,
       "max_table_columns": 0,
@@ -15075,7 +15075,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
         "page_count": 490,
-        "modified_at": "2026-07-26T22:30:22+00:00",
+        "modified_at": "2026-07-26T23:58:53+00:00",
         "stale": true
       }
     ],
@@ -16321,7 +16321,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "available": false,
         "artifact_path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "artifact_sha256": "sha256:ded6ea3b4d0e076a2531cfed123731a74889c85b794d60773f0dbd8424abdd02",
-        "artifact_repository_revision": "d516e7051e47ccde7c40fd68d89476a6c50e898d",
+        "artifact_repository_revision": "e4e91363527ef360b2cc61e65861869a7f262953",
         "build_source_revision": null,
         "input_hashes": null,
         "unavailable_reason": "The existing PDF has no recorded build source revision and complete input-hash manifest."
@@ -19960,6 +19960,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-40fb98644e4d238a672a"
+    "publication.js": "project-console-c186d8838c2ce2735212"
   }
 });
