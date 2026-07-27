@@ -170,7 +170,7 @@
       "total": 2
     }
   ],
-  "asOf": "2026-07-26",
+  "asOf": "2026-07-27",
   "availability": "current",
   "backlog": [
     {
@@ -4288,9 +4288,9 @@
     "status": "current",
     "supersession_rule": "A newer complete authenticated Project synchronization supersedes an older generation; repository HEAD alone does not."
   },
-  "generatedAt": "2026-07-26T23:46:25+00:00",
-  "generated_at": "2026-07-26T23:46:25+00:00",
-  "generation_id": "project-console-progress-31ffe9e3e39339843361",
+  "generatedAt": "2026-07-27T00:07:40+00:00",
+  "generated_at": "2026-07-27T00:07:40+00:00",
+  "generation_id": "project-console-progress-995da9af3112f969f9ae",
   "goal": {
     "baselineDate": "2026-07-13",
     "baselineReady": 23,
@@ -7602,6 +7602,305 @@
         "WAR-009": 0
       },
       "total": 81
+    },
+    {
+      "byArea": {
+        "APPT": {
+          "ready": 0,
+          "total": 2
+        },
+        "CIV": {
+          "ready": 0,
+          "total": 5
+        },
+        "CLASS": {
+          "ready": 0,
+          "total": 4
+        },
+        "CONG": {
+          "ready": 0,
+          "total": 2
+        },
+        "DOJ": {
+          "ready": 6,
+          "total": 7
+        },
+        "DOM": {
+          "ready": 0,
+          "total": 4
+        },
+        "ELEC": {
+          "ready": 13,
+          "total": 15
+        },
+        "EMERG": {
+          "ready": 0,
+          "total": 2
+        },
+        "EMOL": {
+          "ready": 1,
+          "total": 2
+        },
+        "FACT": {
+          "ready": 0,
+          "total": 2
+        },
+        "FED": {
+          "ready": 0,
+          "total": 3
+        },
+        "FRB": {
+          "ready": 0,
+          "total": 1
+        },
+        "FUND": {
+          "ready": 1,
+          "total": 2
+        },
+        "HER": {
+          "ready": 0,
+          "total": 1
+        },
+        "IMM": {
+          "ready": 1,
+          "total": 2
+        },
+        "JUD": {
+          "ready": 3,
+          "total": 6
+        },
+        "OVS": {
+          "ready": 0,
+          "total": 4
+        },
+        "PAR": {
+          "ready": 0,
+          "total": 2
+        },
+        "PRESS": {
+          "ready": 0,
+          "total": 3
+        },
+        "REC": {
+          "ready": 0,
+          "total": 1
+        },
+        "REG": {
+          "ready": 1,
+          "total": 4
+        },
+        "RET": {
+          "ready": 0,
+          "total": 1
+        },
+        "RIGHTS": {
+          "ready": 0,
+          "total": 4
+        },
+        "WAR": {
+          "ready": 1,
+          "total": 2
+        }
+      },
+      "date": "2026-07-27",
+      "detailAvailable": true,
+      "eligibleIssues": [
+        "APPT-001",
+        "APPT-004",
+        "CIV-001",
+        "CIV-004",
+        "CIV-005",
+        "CIV-009",
+        "CIV-010",
+        "CLASS-001",
+        "CLASS-004",
+        "CLASS-006",
+        "CLASS-011",
+        "CONG-001",
+        "CONG-007",
+        "DOJ-001",
+        "DOJ-002",
+        "DOJ-003",
+        "DOJ-004",
+        "DOJ-005",
+        "DOJ-007",
+        "DOJ-009",
+        "DOM-001",
+        "DOM-005",
+        "DOM-007",
+        "DOM-009",
+        "ELEC-001",
+        "ELEC-002",
+        "ELEC-003",
+        "ELEC-004",
+        "ELEC-005",
+        "ELEC-006",
+        "ELEC-007",
+        "ELEC-008",
+        "ELEC-009",
+        "ELEC-010",
+        "ELEC-011",
+        "ELEC-012",
+        "ELEC-013",
+        "ELEC-014",
+        "ELEC-015",
+        "EMERG-001",
+        "EMERG-003",
+        "EMOL-001",
+        "EMOL-015",
+        "FACT-001",
+        "FACT-009",
+        "FED-002",
+        "FED-003",
+        "FED-004",
+        "FRB-001",
+        "FUND-001",
+        "FUND-002",
+        "HER-001",
+        "IMM-001",
+        "IMM-002",
+        "JUD-001",
+        "JUD-005",
+        "JUD-009",
+        "JUD-010",
+        "JUD-011",
+        "JUD-012",
+        "OVS-001",
+        "OVS-004",
+        "OVS-008",
+        "OVS-009",
+        "PAR-001",
+        "PAR-005",
+        "PRESS-001",
+        "PRESS-003",
+        "PRESS-006",
+        "REC-001",
+        "REG-001",
+        "REG-002",
+        "REG-003",
+        "REG-006",
+        "RET-001",
+        "RIGHTS-001",
+        "RIGHTS-002",
+        "RIGHTS-003",
+        "RIGHTS-005",
+        "WAR-001",
+        "WAR-009"
+      ],
+      "ready": 27,
+      "readyIssues": [
+        "DOJ-001",
+        "DOJ-002",
+        "DOJ-003",
+        "DOJ-005",
+        "DOJ-007",
+        "DOJ-009",
+        "ELEC-001",
+        "ELEC-002",
+        "ELEC-003",
+        "ELEC-004",
+        "ELEC-005",
+        "ELEC-006",
+        "ELEC-007",
+        "ELEC-008",
+        "ELEC-009",
+        "ELEC-010",
+        "ELEC-011",
+        "ELEC-012",
+        "ELEC-013",
+        "EMOL-015",
+        "FUND-001",
+        "IMM-001",
+        "JUD-001",
+        "JUD-009",
+        "JUD-011",
+        "REG-001",
+        "WAR-001"
+      ],
+      "scores": {
+        "APPT-001": 0,
+        "APPT-004": 0,
+        "CIV-001": 0,
+        "CIV-004": 0,
+        "CIV-005": 0,
+        "CIV-009": 0,
+        "CIV-010": 0,
+        "CLASS-001": 0,
+        "CLASS-004": 0,
+        "CLASS-006": 0,
+        "CLASS-011": 0,
+        "CONG-001": 0,
+        "CONG-007": 0,
+        "DOJ-001": 82,
+        "DOJ-002": 78,
+        "DOJ-003": 82,
+        "DOJ-004": 0,
+        "DOJ-005": 76,
+        "DOJ-007": 78,
+        "DOJ-009": 77,
+        "DOM-001": 0,
+        "DOM-005": 0,
+        "DOM-007": 0,
+        "DOM-009": 0,
+        "ELEC-001": 77,
+        "ELEC-002": 76,
+        "ELEC-003": 77,
+        "ELEC-004": 75,
+        "ELEC-005": 78,
+        "ELEC-006": 76,
+        "ELEC-007": 78,
+        "ELEC-008": 75,
+        "ELEC-009": 75,
+        "ELEC-010": 77,
+        "ELEC-011": 77,
+        "ELEC-012": 75,
+        "ELEC-013": 75,
+        "ELEC-014": 0,
+        "ELEC-015": 0,
+        "EMERG-001": 0,
+        "EMERG-003": 0,
+        "EMOL-001": 0,
+        "EMOL-015": 83,
+        "FACT-001": 0,
+        "FACT-009": 0,
+        "FED-002": 0,
+        "FED-003": 0,
+        "FED-004": 0,
+        "FRB-001": 0,
+        "FUND-001": 83,
+        "FUND-002": 0,
+        "HER-001": 0,
+        "IMM-001": 78,
+        "IMM-002": 0,
+        "JUD-001": 78,
+        "JUD-005": 63,
+        "JUD-009": 77,
+        "JUD-010": 0,
+        "JUD-011": 82,
+        "JUD-012": 0,
+        "OVS-001": 0,
+        "OVS-004": 0,
+        "OVS-008": 0,
+        "OVS-009": 0,
+        "PAR-001": 0,
+        "PAR-005": 0,
+        "PRESS-001": 0,
+        "PRESS-003": 0,
+        "PRESS-006": 0,
+        "REC-001": 0,
+        "REG-001": 83,
+        "REG-002": 0,
+        "REG-003": 0,
+        "REG-006": 0,
+        "RET-001": 0,
+        "RIGHTS-001": 0,
+        "RIGHTS-002": 0,
+        "RIGHTS-003": 0,
+        "RIGHTS-005": 0,
+        "WAR-001": 77,
+        "WAR-009": 0
+      },
+      "total": 81
     }
   ],
   "metrics": {
@@ -7631,26 +7930,26 @@
         "plannedReady": 81
       }
     ],
-    "daysRemaining": 158,
-    "forecastDate": "2026-12-11",
-    "forecastLabel": "2026-12-11",
+    "daysRemaining": 157,
+    "forecastDate": "2026-12-17",
+    "forecastLabel": "2026-12-17",
     "forecastScopeLabel": "On track for current scope",
     "percentReady": 33.3,
     "plannedReadyToday": 28,
     "ready": 27,
     "remaining": 54,
-    "requiredPerWeek": 2.39,
-    "rollingWeeklyVelocity": 2.75,
+    "requiredPerWeek": 2.41,
+    "rollingWeeklyVelocity": 2.66,
     "scheduleVariance": -1,
     "scopeChange": -123,
     "scopeChangeMeaning": "Change in separately counted eligible proposal records; it is not a completion, failure, or substantive-readiness measure.",
-    "sinceBaselineWeeklyVelocity": 2.15,
+    "sinceBaselineWeeklyVelocity": 2.0,
     "total": 81,
     "trackStatus": "On track"
   },
   "movement": {
     "available": true,
-    "elapsedDays": 28,
+    "elapsedDays": 29,
     "eligibilityDetailAvailable": false,
     "fellBelowReady": [],
     "netScoreChange": 0,
@@ -7743,7 +8042,7 @@
     "earnedReadiness": {
       "baselineDate": "2026-07-13",
       "baselineReady": 23,
-      "currentDate": "2026-07-26",
+      "currentDate": "2026-07-27",
       "currentReady": 27,
       "netEarned": 4,
       "separateFromScope": true
@@ -7792,7 +8091,7 @@
       },
       {
         "countsAsAttainment": false,
-        "date": "2026-07-26",
+        "date": "2026-07-27",
         "delta": 4,
         "label": "Current eligible proposal scope after later admissions",
         "reasonCode": "later_admissions",
@@ -11599,7 +11898,7 @@
     ".github/project-console-progress.json": "sha256:019fe104362dcca4cebb4c3a3f253c7e4cb9981ca0f4207a6effe282d259bbb5",
     "inventory/github_issue_registry.csv": "sha256:3e85d2b624fa507dce13adba047a515c3f5c87e146957213bcf8848bf11d483c"
   },
-  "source_revision": "1cf67d020d85c0eb408b05112f336f1ec275a29d",
+  "source_revision": "bb4756316564a6eb7ca54c1d2b357d01f9246bb7",
   "warnings": [],
   "workflowStatusDistribution": [
     {
