@@ -44,7 +44,9 @@ def write_json(path: Path, value: object, root: Path) -> None:
         and not normalized_path.startswith(normalized_root + os.sep)
     ):
         raise ContextError(f"path escapes allowed root: {path}")
-    destination = Path(normalized_path)
+    if os.path.dirname(normalized_path) != normalized_root:
+        raise ContextError(f"path is not a direct child of allowed root: {path}")
+    destination = Path(normalized_root) / os.path.basename(normalized_path)
     destination.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile(
         "w",
@@ -210,8 +212,9 @@ def main() -> int:
         "--output",
         type=Path,
         help=(
-            "Write the selected route as deterministic JSON under --input-root. "
-            "When omitted, preserve the legacy five-line stdout interface."
+            "Write the selected route as deterministic JSON as a direct child "
+            "of --input-root. When omitted, preserve the legacy five-line "
+            "stdout interface."
         ),
     )
     args = parser.parse_args()

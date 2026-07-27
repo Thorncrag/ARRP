@@ -54,7 +54,7 @@ def parse_args() -> argparse.Namespace:
         "--output",
         type=Path,
         help=(
-            "Write the queue atomically to this path under --input-root. "
+            "Write the queue atomically as a direct child of --input-root. "
             "When omitted, preserve the legacy stdout interface."
         ),
     )
@@ -74,7 +74,9 @@ def write_json(path: Path, value: object, root: Path) -> None:
         and not normalized_path.startswith(normalized_root + os.sep)
     ):
         raise ContextError(f"path escapes allowed root: {path}")
-    destination = Path(normalized_path)
+    if os.path.dirname(normalized_path) != normalized_root:
+        raise ContextError(f"path is not a direct child of allowed root: {path}")
+    destination = Path(normalized_root) / os.path.basename(normalized_path)
     destination.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile(
         "w",

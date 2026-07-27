@@ -153,6 +153,33 @@ class ExactContextTests(unittest.TestCase):
             self.assertEqual(completed.returncode, 2)
             self.assertFalse(outside.exists())
 
+    def test_context_cli_rejects_nested_output_under_exact_output_root(self):
+        with tempfile.TemporaryDirectory() as output_directory:
+            output_root = Path(output_directory)
+            nested = output_root / "nested" / "packet.json"
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "scripts/build_elim_context.py"),
+                    "--input-root",
+                    str(self.root),
+                    "--manifest",
+                    str(self.manifest),
+                    "--profile",
+                    "issue",
+                    "--output-root",
+                    str(output_root),
+                    "--output",
+                    str(nested),
+                ],
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(completed.returncode, 2)
+            self.assertFalse(nested.exists())
+
     def schema_two_manifest(self) -> Path:
         documents = {
             "kernel": ("framework/kernel.md", "# Kernel\n"),
