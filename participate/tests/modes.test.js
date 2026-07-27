@@ -2,7 +2,7 @@
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { contactMode, intakeMode } = require("../api/security");
+const { contactMode, expectedTurnstile, intakeMode } = require("../api/security");
 
 function withEnvironment(values, callback) {
   const original = Object.fromEntries(Object.keys(values).map((key) => [key, process.env[key]]));
@@ -29,4 +29,14 @@ test("intake mode recognizes live and emergency paused states", () => {
 test("contact mode defaults live and requires an explicit disable", () => {
   withEnvironment({ ARRP_CONTACT_MODE: undefined }, () => assert.equal(contactMode(), "live"));
   withEnvironment({ ARRP_CONTACT_MODE: "disabled" }, () => assert.equal(contactMode(), "disabled"));
+});
+
+test("Turnstile defaults to the canonical public hostname and action", () => {
+  withEnvironment(
+    { ARRP_TURNSTILE_HOSTNAME: undefined, ARRP_TURNSTILE_ACTION: undefined },
+    () => assert.deepEqual(expectedTurnstile(), {
+      hostname: "gab.durablerepublic.org",
+      action: "arrp_public_intake",
+    }),
+  );
 });

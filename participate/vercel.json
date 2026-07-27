@@ -5,6 +5,19 @@
       "project-console-data": false
     }
   },
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "arrp-public-intake.vercel.app"
+        }
+      ],
+      "destination": "https://gab.durablerepublic.org/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

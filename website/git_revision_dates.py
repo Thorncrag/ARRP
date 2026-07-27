@@ -102,7 +102,7 @@ def page_actions(metadata: dict) -> str:
         '  <button type="button" class="arrp-page-action arrp-page-action--print" '
         'data-arrp-print>Print</button>\n'
         '  <a class="arrp-page-action arrp-page-action--contact" data-arrp-feedback '
-        'href="https://arrp-public-intake.vercel.app/?mode=contact">Contact or review</a>\n'
+        'href="https://gab.durablerepublic.org/?mode=contact">Contact or review</a>\n'
         "</nav>"
     )
 

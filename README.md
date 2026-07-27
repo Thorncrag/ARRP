@@ -115,7 +115,7 @@ The complete scoring formula, evidentiary requirements, adjustment rules, and au
 
 ## Complete Printable Edition
 
-Legislators, legislative staff, government officials, and institutional reviewers may [contact the author privately](https://arrp-public-intake.vercel.app/?mode=contact&subject=Printable%20edition%20request) to request the current compiled edition of the project.
+Legislators, legislative staff, government officials, and institutional reviewers may [contact the author privately](https://gab.durablerepublic.org/?mode=contact&subject=Printable%20edition%20request) to request the current compiled edition of the project.
 
 ## Find a Topic or Institution
 

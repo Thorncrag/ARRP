@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const participationUrl = "https://arrp-public-intake.vercel.app/";
+  const participationUrl = "https://gab.durablerepublic.org/";
 
   function pageTitle() {
     const heading = document.querySelector("article h1");

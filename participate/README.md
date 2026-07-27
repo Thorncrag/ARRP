@@ -6,7 +6,7 @@ print_exclusion_reason: "Internal workflow or tool documentation."
 
 # Public Interaction Service
 
-This folder contains ARRP's separately deployed public interaction service, available at [arrp-public-intake.vercel.app](https://arrp-public-intake.vercel.app/). It is deliberately separate from the read-only [`ARRP Project Console`](../research/horizon-review-console/) console. Both application-like surfaces use the [project-operated interface visual standard](../framework/FRAMEWORK.md#project-operated-interface-visual-standard); that standard does not replace the main GitHub Pages or print themes.
+This folder contains ARRP's separately deployed public interaction service, available at [gab.durablerepublic.org](https://gab.durablerepublic.org/). It is deliberately separate from the read-only [`ARRP Project Console`](../research/horizon-review-console/) console. Both application-like surfaces use the [project-operated interface visual standard](../framework/FRAMEWORK.md#project-operated-interface-visual-standard); that standard does not replace the main GitHub Pages or print themes.
 
 The form presents two separate routes. **Submit public input** accepts a short title, plain-language explanation, optional sources, and optional related ARRP page; its live route adds the submission as a comment in one canonical public GitHub Discussion. **Contact the author** sends a private message to the configured author mailbox and creates no public post, GitHub record, candidate, or project record. The email field is optional and empty by default. Entering an address authorizes a private reply or follow-up about that submission; leaving it blank means the contributor does not want to be contacted. A private author message with no address has no contributor `Reply-To` header or address, and its subject and body prominently prohibit a contributor reply. Local preview mode sends neither route.
 
@@ -33,7 +33,9 @@ Cloudflare Turnstile is mandatory in live mode. Store its secret key only in Ver
 
 Private author contact requires a transactional provider supported by the endpoint (currently Resend), with `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `ARRP_CONTACT_EMAIL` set only in Vercel's encrypted environment. The endpoint sends the message only to that private mailbox, uses an optional contributor address as the email reply target, and never creates a public post. `ARRP_INTAKE_REVIEW_EMAIL` remains a transitional fallback for the already-configured mailbox and optional public-input follow-up notices. The service never sends an email to a contributor.
 
-Copy [`.env.example`](.env.example) into Vercel's environment-variable interface. Set `ARRP_ALLOWED_ORIGINS` to the exact origins permitted to call the service, including the Vercel deployment origin and any separately approved future origin. Set `ARRP_INTAKE_MODE=live` last.
+Copy [`.env.example`](.env.example) into Vercel's environment-variable interface. Set `ARRP_ALLOWED_ORIGINS` to the exact origins permitted to call the service; Production uses `https://gab.durablerepublic.org`. Set `ARRP_INTAKE_MODE=live` last.
+
+The custom domain is attached to the Vercel Production environment through the GoDaddy `gab` CNAME. Requests to the legacy `arrp-public-intake.vercel.app` hostname receive a permanent redirect to the same path and query string at `gab.durablerepublic.org`.
 
 `intake-runtime.js` contains no secret. Leave its endpoint blank when Vercel serves this folder itself. If an approved future GitHub Pages page uses this backend from a separate origin, set `window.ARRP_INTAKE_ENDPOINT` to the Vercel deployment origin and include that Pages origin in `ARRP_ALLOWED_ORIGINS`.
 

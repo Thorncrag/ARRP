@@ -16,8 +16,8 @@ Appearing here does **not** mean that ARRP has concluded that misconduct occurre
 
 If your concern is not listed, ask ARRP to review it. If it is already listed, you can still contribute a new source, a missing example, a materially different institutional weakness, or a better remedy.
 
-[Submit an issue or source](https://arrp-public-intake.vercel.app/?mode=submit&subject=Issue%20or%20source%20request){ .md-button .md-button--primary }
-[Contact the author privately](https://arrp-public-intake.vercel.app/?mode=contact&subject=Issue%20review%20request){ .md-button }
+[Submit an issue or source](https://gab.durablerepublic.org/?mode=submit&subject=Issue%20or%20source%20request){ .md-button .md-button--primary }
+[Contact the author privately](https://gab.durablerepublic.org/?mode=contact&subject=Issue%20review%20request){ .md-button }
 
 </div>
 
@@ -31,6 +31,6 @@ Use the site search or your browser's find command to check an identifier, agenc
 
 Send a request when a subject is absent, when the listed framing misses the institutional problem, or when new evidence could change the project's disposition.
 
-[Request review or submit evidence](https://arrp-public-intake.vercel.app/?mode=submit&subject=Issue%20or%20source%20request){ .md-button .md-button--primary }
+[Request review or submit evidence](https://gab.durablerepublic.org/?mode=submit&subject=Issue%20or%20source%20request){ .md-button .md-button--primary }
 
 </div>

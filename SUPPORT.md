@@ -48,4 +48,4 @@ ARRP plans to release appropriate original project material under a Creative Com
 
 ARRP is not presently represented as a tax-exempt charitable organization. Financial support should not be treated as a tax-deductible charitable contribution.
 
-Questions about support or the project's independence may be sent through the private [contact-the-author form](https://arrp-public-intake.vercel.app/?mode=contact&subject=ARRP%20support).
+Questions about support or the project's independence may be sent through the private [contact-the-author form](https://gab.durablerepublic.org/?mode=contact&subject=ARRP%20support).
