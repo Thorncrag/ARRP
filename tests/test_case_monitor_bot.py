@@ -430,11 +430,11 @@ class CaseMonitorBotTests(unittest.TestCase):
             with paths["pending.csv"].open(newline="", encoding="utf-8") as handle:
                 self.assertEqual(len(list(csv.DictReader(handle))), 0)
 
-    def test_config_is_disabled_local_stage_without_tracking_issue_dependency(self):
+    def test_config_is_enabled_local_stage_without_tracking_issue_dependency(self):
         config = json.loads((ROOT / ".github" / "case-monitor-bot.json").read_text())
         self.assertEqual(config["schemaVersion"], 6)
         self.assertTrue(config["enabled"])
-        self.assertEqual(config["deploymentStatus"], "local-source-disabled")
+        self.assertEqual(config["deploymentStatus"], "local-first-enabled")
         self.assertEqual(config["sourceBaselineField"], "Monitoring Baseline")
         self.assertNotIn("notification", config)
         self.assertNotIn("automation", config)
@@ -447,22 +447,9 @@ class CaseMonitorBotTests(unittest.TestCase):
             "research/horizon-source-records/HOR-035-source-development.md",
         )
 
-        workflow = (ROOT / ".github" / "workflows" / "case-monitor-bot.yml").read_text()
-        self.assertIn("contents: write", workflow)
-        self.assertIn("pull-requests: write", workflow)
-        self.assertIn("issues: write", workflow)
-        self.assertNotIn("ARRP_PROJECT_TOKEN", workflow)
-        self.assertNotIn("317", workflow)
-        self.assertIn('open_pr="$(gh pr list', workflow)
-        self.assertIn('if [ -n "${open_pr}" ] && git fetch origin', workflow)
-        self.assertIn('git checkout -B "${bot_branch}" "origin/${base_branch}"', workflow)
-        self.assertLess(workflow.index("git config user.name"), workflow.index("git rebase"))
-        self.assertIn('echo "new_change=false"', workflow)
-        self.assertIn('echo "new_change=true"', workflow)
-        self.assertIn("preserves unresolved changes staged by an earlier run", workflow)
-        self.assertIn("the earlier unresolved branch change remains pending", workflow)
-        self.assertIn("source-development", workflow)
-        self.assertIn("source_development_targets", workflow)
+        self.assertFalse(
+            (ROOT / ".github/workflows/case-monitor-bot.yml").exists()
+        )
 
     def test_source_development_module_generates_stable_unreviewed_leads(self):
         config = json.loads((ROOT / ".github" / "case-monitor-bot.json").read_text())

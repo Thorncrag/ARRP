@@ -3,9 +3,9 @@ title: "Source Checker Bot Runbook"
 agent_id: source-checker-bot
 display_name: Source Checker Bot
 agent_type: deterministic-bot
-status: disabled
+status: report-only-enabled-local-stage
 trigger: local-chain-when-due
-schedule: "Due every 168 hours after cutover; no independent schedule"
+schedule: "Due every 168 hours within the 02:00 America/New_York local chain; no independent schedule"
 runtime_id: scripts/check_source_urls.py
 execution_environment: local-transaction-worktree
 runtime_config: .github/source-checker-bot.json
@@ -21,8 +21,9 @@ print_exclusion_reason: "Internal automation configuration."
 
 The bot reads only configured source catalogs and the exact prior typed
 report. It may write only its run-directory JSON and declared current Markdown
-report. Validation precedes acceptance. Publication is disabled in P2. A
-malformed catalog, unsafe response, or unapproved path is an explicit stop.
+report. Validation precedes acceptance. Publication occurs only through the
+coordinator's exact reviewed pull-request boundary. A malformed catalog,
+unsafe response, or unapproved path is an explicit stop.
 
 The Source Checker accounts for every nonblank URL in the configured source
 catalogs and reports `verified`, `identity-preserving redirect`, `access
@@ -31,7 +32,7 @@ required`. It uses paced `GET` requests, bounded retries and response size,
 and stable identity signals. It never substitutes a source or edits a
 catalog.
 
-## P2 local-stage contract
+## Local-stage contract
 
 The coordinator runs the report-only stage locally when due and supplies exact
 prior-output and current-output paths under
@@ -50,6 +51,6 @@ accounting failure stops the stage. Because this stage is degraded by default,
 independent queue work may continue, but it becomes blocking when selected
 work depends on current source-check evidence.
 
-P2 leaves the role disabled outside fixtures and manual dry-run validation.
-No branch, commit, pull request, data feed, credential, or hosted mutation is
-authorized.
+P6 enables this role only as a coordinator-owned local stage. The stage itself
+has no branch, commit, pull-request, data-feed, credential, or hosted-mutation
+authority.

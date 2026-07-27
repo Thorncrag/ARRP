@@ -1,19 +1,22 @@
 {
   "schemaVersion": 1,
   "agentId": "run-coordinator-bot",
-  "enabled": false,
+  "enabled": true,
   "repository": "Thorncrag/ARRP",
   "schedule": {
-    "mode": "disabled",
-    "intendedCron": "17 4 * * *",
-    "description": "Repository source only during P2; no scheduler is installed"
+    "mode": "launchd",
+    "localTime": "02:00",
+    "timeZone": "America/New_York",
+    "description": "One local LaunchAgent runs the coordinator at 02:00 America/New_York with RunAtLoad due evaluation"
   },
   "activation": {
     "allowed": [
       "fixture",
-      "manual-dry-run"
+      "manual-dry-run",
+      "manual",
+      "scheduled"
     ],
-    "cutoverRequiredForCanonicalRun": true
+    "cutoverRequiredForCanonicalRun": false
   },
   "runtime": {
     "entrypoint": "scripts/arrp_nightly.py",
@@ -33,6 +36,13 @@
     "context": "<run-dir>/context",
     "elimJsonl": "<run-dir>/elim.jsonl",
     "elimResult": "<run-dir>/elim-result.json"
+  },
+  "publication": {
+    "pullRequestTitle": "ARRP nightly local-first update",
+    "pullRequestBody": "Automated local-first ARRP update produced by the reviewed nightly transaction, validated against the exact source and head revisions, and published through the restricted ARRP Automation App.",
+    "requiredChecksTimeoutSeconds": 1800,
+    "pagesTimeoutSeconds": 1800,
+    "pollSeconds": 15
   },
   "usageGate": {
     "hardReservePercent": 15,

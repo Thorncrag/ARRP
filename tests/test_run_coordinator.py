@@ -1,9 +1,7 @@
 import importlib.util
 import hashlib
 import json
-import os
 import tempfile
-import textwrap
 import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -153,136 +151,46 @@ class RunCoordinatorTests(unittest.TestCase):
             )
 
     def test_comprehensive_queue_uses_the_full_context_profile(self):
-        workflow = (
-            ROOT / ".github" / "workflows" / "run-coordinator-bot.yml"
-        ).read_text()
-        self.assertIn(
-            "scripts/select_elim_context_route.py",
-            workflow,
+        self.assertFalse(
+            (ROOT / ".github/workflows/run-coordinator-bot.yml").exists()
         )
+        profile = self.config["llmRouting"]["profiles"]["comprehensive"]
+        self.assertTrue(profile["fullContext"])
+        self.assertIn("comprehensive-review", profile["eligibleQueueClasses"])
 
-    def test_workflow_forces_off_cycle_epoch_and_carries_unresolved_findings(self):
-        workflow = (
-            ROOT / ".github" / "workflows" / "run-coordinator-bot.yml"
-        ).read_text()
-        self.assertIn("review_epoch_boundary_status(", workflow)
-        self.assertIn('payload["force_comprehensive_review"] = True', workflow)
-        self.assertIn('"governing_boundary_changed"', workflow)
-        self.assertIn('"comprehensive_review_boundary_changes"', workflow)
-        self.assertIn('"comprehensive_review_unresolved_findings"', workflow)
-        self.assertIn('"due_reason": chain.get("review_epoch"', workflow)
-        self.assertIn('--source-checker "${CHAIN_WORK}/elim-inputs/source-checker.json"', workflow)
-        self.assertIn('--case-monitor "${CHAIN_WORK}/elim-inputs/case-monitor.json"', workflow)
-        self.assertIn(
-            '--presidential-directives "${CHAIN_WORK}/elim-inputs/presidential-directives.json"',
-            workflow,
-        )
-        self.assertIn('--recovery "${CHAIN_WORK}/elim-inputs/recovery.json"', workflow)
-        self.assertIn("Retrieve current persistent watcher inputs", workflow)
-        self.assertIn("watcher_input_refresh_requirements(", workflow)
-        self.assertIn('"force_stage_reasons": force_stage_reasons', workflow)
-        for path in (
-            "inputs/case-monitor.json",
-            "inputs/presidential-directives.json",
-            "source-checker.json",
-        ):
-            self.assertIn(path, workflow)
+    def test_local_planner_owns_review_epoch_boundary(self):
+        self.assertTrue(callable(MODULE.review_epoch_boundary_status))
+        self.assertEqual(self.config["reviewEpoch"]["intervalDays"], 14)
+        self.assertTrue(self.config["governanceDiscovery"]["enabled"])
 
-    def test_watcher_attempts_are_chain_bound_and_exactly_selected(self):
-        workflow = (
-            ROOT / ".github" / "workflows" / "run-coordinator-bot.yml"
-        ).read_text()
+    def test_local_stage_inventory_is_exact_and_has_no_workflow_adapter(self):
+        stage_ids = [stage["id"] for stage in self.config["stages"]]
+        self.assertEqual(len(stage_ids), len(set(stage_ids)))
         self.assertEqual(
-            workflow.count("chain_id: ${{ needs.plan.outputs.chain_id }}"),
-            6,
+            stage_ids,
+            [
+                "case-monitor-bot",
+                "presidential-directives-bot",
+                "source-checker-bot",
+                "public-intake",
+                "project-console-progress-bot",
+                "project-integrity-bot",
+            ],
         )
-        self.assertEqual(workflow.count("attempt_key: primary"), 3)
-        self.assertEqual(workflow.count("attempt_key: retry"), 3)
-        self.assertIn(
-            "case-monitor-report-${{ needs.case_retry.result == 'success' "
-            "&& 'retry' || 'primary' }}-${{ github.run_attempt }}",
-            workflow,
-        )
-        self.assertIn(
-            "presidential-directives-report-${{ "
-            "needs.directives_retry.result == 'success' && 'retry' || "
-            "'primary' }}-${{ github.run_attempt }}",
-            workflow,
-        )
-        self.assertIn(
-            "source-checker-report-${{ needs.source_retry.result == 'success' "
-            "&& 'retry' || 'primary' }}-${{ github.run_attempt }}",
-            workflow,
-        )
-        self.assertNotIn('pattern: "*-report"', workflow)
-        self.assertNotIn("max(candidates, key=reported_at)", workflow)
-        self.assertIn("materialize-watcher-inputs", workflow)
-        self.assertIn('"domain_event": domain_event', workflow)
-        self.assertIn('"run_id": (', workflow)
-        self.assertIn("def stage(prefix, bind_attempt=False):", workflow)
-        self.assertEqual(workflow.count("bind_attempt=True"), 3)
-        self.assertIn(
-            '"project-console-progress-bot": stage("PROGRESS")',
-            workflow,
-        )
-        self.assertIn(
-            '"project-integrity-bot": stage("INTEGRITY")',
-            workflow,
-        )
-        self.assertIn('"public-intake": stage("INTAKE")', workflow)
+        for stage in self.config["stages"]:
+            self.assertNotIn("workflow", stage)
+            self.assertTrue(stage["command"])
+            self.assertTrue(stage["output"])
 
     def test_ordinary_stage_compile_does_not_require_watcher_attempt_outputs(self):
-        workflow = (
-            ROOT / ".github" / "workflows" / "run-coordinator-bot.yml"
-        ).read_text()
-        block = workflow.split(
-            "      - name: Compile stage results",
-            1,
-        )[1].split(
-            "      - name: Finalize without launching Codex",
-            1,
-        )[0]
-        script = block.split("          python3 - <<'PY'\n", 1)[1].rsplit(
-            "\n          PY",
-            1,
-        )[0]
-        script = textwrap.dedent(script)
-        with tempfile.TemporaryDirectory() as directory:
-            environment = {
-                "CHAIN_WORK": directory,
-                "CASE_DUE": "false",
-                "DIRECTIVES_DUE": "false",
-                "SOURCE_DUE": "false",
-                "PROGRESS_DUE": "true",
-                "PROGRESS_RESULT": "success",
-                "PROGRESS_RETRY_RESULT": "skipped",
-                "PROGRESS_COUNT": "2",
-                "PROGRESS_HASH": "sha256:progress",
-                "INTEGRITY_DUE": "true",
-                "INTEGRITY_RESULT": "success",
-                "INTEGRITY_RETRY_RESULT": "skipped",
-                "INTEGRITY_COUNT": "1",
-                "INTEGRITY_HASH": "sha256:integrity",
-                "INTAKE_DUE": "true",
-                "INTAKE_RESULT": "success",
-                "INTAKE_COUNT": "3",
-                "INTAKE_HASH": "sha256:intake",
-            }
-            with mock.patch.dict(os.environ, environment, clear=True):
-                exec(compile(script, "<stage-results>", "exec"), {})
-            payload = json.loads(
-                (Path(directory) / "stage-results.json").read_text()
-            )
+        for stage in self.config["stages"]:
+            self.assertNotIn("attempt_key", stage)
+            self.assertNotIn("artifact", stage)
+            self.assertNotIn("workflow", stage)
         self.assertEqual(
-            payload["project-console-progress-bot"]["result"],
-            "success",
+            self.config["outputs"]["stageDirectory"],
+            "<run-dir>/stages",
         )
-        self.assertNotIn(
-            "attempt_key",
-            payload["project-console-progress-bot"],
-        )
-        self.assertNotIn("run_id", payload["project-integrity-bot"])
-        self.assertNotIn("domain_event", payload["public-intake"])
 
     def test_selected_watcher_artifact_is_hash_and_attempt_bound(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -498,14 +406,20 @@ class RunCoordinatorTests(unittest.TestCase):
                 )
 
     def test_local_first_config_has_no_workflow_trigger_authority(self):
-        self.assertFalse(self.config["enabled"])
+        self.assertTrue(self.config["enabled"])
         self.assertFalse(self.config["runtime"]["cloudWorkflowAuthority"])
         self.assertEqual(
             self.config["activation"]["allowed"],
-            ["fixture", "manual-dry-run"],
+            ["fixture", "manual-dry-run", "manual", "scheduled"],
         )
-        self.assertTrue(
+        self.assertFalse(
             self.config["activation"]["cutoverRequiredForCanonicalRun"]
+        )
+        self.assertEqual(self.config["schedule"]["mode"], "launchd")
+        self.assertEqual(self.config["schedule"]["localTime"], "02:00")
+        self.assertEqual(
+            self.config["schedule"]["timeZone"],
+            "America/New_York",
         )
         for stage in self.config["stages"]:
             self.assertNotIn("workflow", stage)

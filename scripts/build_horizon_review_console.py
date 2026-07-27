@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import functools
 import hashlib
 import html
 import json
@@ -22,6 +23,17 @@ try:
     from project_tree import iter_project_files
 except ModuleNotFoundError:  # Imported as scripts.build_horizon_review_console.
     from scripts.project_tree import iter_project_files
+
+try:
+    from build_project_console_progress import (
+        extract_field_values as extract_project_field_values,
+        fetch_project,
+    )
+except ModuleNotFoundError:  # Imported as scripts.build_horizon_review_console.
+    from scripts.build_project_console_progress import (
+        extract_field_values as extract_project_field_values,
+        fetch_project,
+    )
 
 try:
     from source_monitor_recommendations import parse_source_monitor_recommendations
@@ -78,9 +90,6 @@ PRIVATE_GITHUB_SECURITY_OUTPUT = (
 PARTICIPATION_OUTPUT = ROOT / "participate" / "intake-data.js"
 GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/"
 HORIZON_LOG_URL = GITHUB_BLOB_ROOT + "framework/records/candidates/horizon-scan-log.md#horizon-integration-log"
-PROGRESS_DATA_REF = "origin/project-console-data:progress.json"
-INTEGRITY_DATA_REF = "origin/project-console-data:integrity.json"
-RUN_CHAIN_DATA_REF = "origin/project-console-data:run-chain.json"
 LOCAL_INTEGRITY_FEED = ROOT / ".tmp" / "project-console-integrity.json"
 LOCAL_RUN_CHAIN_FEED = ROOT / ".tmp" / "run-chain.json"
 SNAPSHOT_OVERRIDE_PATHS = {
@@ -90,9 +99,6 @@ SNAPSHOT_OVERRIDE_PATHS = {
     "ARRP_INTEGRITY_SNAPSHOT": Path(".tmp/project-console-integrity.json"),
     "ARRP_SOURCE_CHECKER_SNAPSHOT": Path(".tmp/source-checker.json"),
 }
-LOCAL_RUN_COORDINATOR_CONTROL = (
-    ROOT / ".tmp" / "run-coordinator" / "control.json"
-)
 LEGACY_RUN_CHAIN_PATHS = {
     "framework/logs/ELIM_RUN_LOG.md":
         "framework/records/automation/elim-run-log.md",
@@ -1735,64 +1741,6 @@ def source_monitor_log_view(
     }
 
 
-def source_domain_event_index() -> dict[str, str]:
-    completed = subprocess.run(
-        [
-            "git",
-            "ls-tree",
-            "-r",
-            "--name-only",
-            "origin/project-console-data",
-            "source-domain-events/proposed",
-        ],
-        cwd=ROOT,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    if completed.returncode != 0:
-        return {}
-    return {
-        Path(path).stem: path
-        for path in completed.stdout.splitlines()
-        if path.strip().endswith(".json")
-    }
-
-
-def load_source_domain_event(
-    event_id: str,
-    event_paths: dict[str, str] | None = None,
-) -> tuple[dict[str, object], str]:
-    paths = event_paths if event_paths is not None else source_domain_event_index()
-    path = paths.get(event_id, "")
-    if not path:
-        raise RuntimeError(
-            f"Structured source-domain event {event_id} is unavailable."
-        )
-    completed = subprocess.run(
-        ["git", "show", f"origin/project-console-data:{path}"],
-        cwd=ROOT,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    if completed.returncode != 0:
-        raise RuntimeError(
-            f"Structured source-domain event {event_id} could not be read."
-        )
-    try:
-        payload = json.loads(completed.stdout)
-    except json.JSONDecodeError as exc:
-        raise RuntimeError(
-            f"Structured source-domain event {event_id} is invalid JSON."
-        ) from exc
-    if not isinstance(payload, dict):
-        raise RuntimeError(
-            f"Structured source-domain event {event_id} is not a JSON object."
-        )
-    return payload, path
-
-
 def structured_affected_set(
     recommendation: dict[str, object],
     event: dict[str, object],
@@ -1877,7 +1825,13 @@ def repository_review_recommendations(
     records = parse_source_monitor_recommendations(
         SOURCE_MONITOR_LOG.read_text(encoding="utf-8")
     )
-    event_paths = source_domain_event_index() if event_loader is None else {}
+    retained = {
+        str(item.get("id") or ""): item
+        for item in existing_console_payload().get(
+            "repository_review_recommendations", []
+        )
+        if isinstance(item, dict)
+    }
     display_fields = {
         "reviewer",
         "recommendation",
@@ -1893,17 +1847,26 @@ def repository_review_recommendations(
         event_id = str(record.get("proposal_event_id") or "")
         event_path = ""
         try:
-            if event_loader is None:
-                event, event_path = load_source_domain_event(event_id, event_paths)
-            else:
+            if event_loader is not None:
                 loaded = event_loader(event_id)
                 if isinstance(loaded, tuple):
                     event, event_path = loaded
                 else:
                     event = loaded
-            if not isinstance(event, dict):
+            else:
+                prior = retained.get(str(record.get("id") or ""), {})
+                affected = prior.get("affected")
+                if not isinstance(affected, dict):
+                    raise RuntimeError(
+                        "Retired source-domain event feed is no longer an active Console input."
+                    )
+                event = None
+            if event is None:
+                pass
+            elif not isinstance(event, dict):
                 raise RuntimeError("Structured event loader returned a non-object.")
-            affected = structured_affected_set(record, event)
+            else:
+                affected = structured_affected_set(record, event)
         except (RuntimeError, TypeError, ValueError) as exc:
             affected = {
                 "complete": False,
@@ -1934,12 +1897,7 @@ def repository_review_recommendations(
                 for key, value in record.items()
             },
             "affected": affected,
-            "event_source_url": (
-                "https://github.com/Thorncrag/ARRP/blob/project-console-data/"
-                + event_path
-                if event_path
-                else None
-            ),
+            "event_source_url": None,
             "source_url": GITHUB_BLOB_ROOT
             + "framework/records/sources/source-monitor-log.md",
             "console_target": "logs:source-monitor",
@@ -2310,6 +2268,62 @@ def run_gh_json(arguments: list[str]) -> object:
         ["gh", *arguments], cwd=ROOT, check=True, capture_output=True, text=True
     )
     return json.loads(completed.stdout)
+
+
+@functools.lru_cache(maxsize=1)
+def project_items_snapshot() -> dict[str, object]:
+    """Read the personal Project by exact node ID with the Project-only token."""
+
+    token = os.environ.get("ARRP_PROJECT_TOKEN", "").strip()
+    if not token:
+        raise RuntimeError(
+            "ARRP_PROJECT_TOKEN is required for an authenticated Console refresh."
+        )
+    config = json.loads(
+        (ROOT / "framework/project/interfaces/project-console-progress.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    raw = fetch_project(config, token)
+    items: list[dict[str, object]] = []
+    for node in raw.get("items") or []:
+        content = node.get("content") or {}
+        content_type = str(content.get("__typename") or "")
+        values = {
+            str(name).strip().casefold(): value
+            for name, value in extract_project_field_values(node).items()
+            if str(name).strip()
+        }
+        labels = [
+            str(label.get("name") or "")
+            for label in ((content.get("labels") or {}).get("nodes") or [])
+            if str(label.get("name") or "")
+        ]
+        items.append(
+            {
+                "id": node.get("id"),
+                "content": {
+                    "number": content.get("number"),
+                    "title": content.get("title"),
+                    "type": (
+                        "Issue"
+                        if content_type == "Issue"
+                        else "PullRequest"
+                        if content_type == "PullRequest"
+                        else "DraftIssue"
+                        if content_type == "DraftIssue"
+                        else content_type
+                    ),
+                    "url": content.get("url"),
+                },
+                "labels": labels,
+                **values,
+            }
+        )
+    return {
+        "items": items,
+        "totalCount": len(items),
+    }
 
 
 def run_gh_paginated_json(endpoint: str) -> list[dict[str, object]]:
@@ -3268,7 +3282,7 @@ def read_snapshot_override(
 
 
 def tracked_progress_snapshot() -> dict[str, object]:
-    """Recover the committed Console snapshot when it is newer than the data branch."""
+    """Recover the committed Console progress snapshot."""
     relative = (CONSOLE_DATA_DIR / "progress.js").relative_to(ROOT).as_posix()
     completed = subprocess.run(
         ["git", "show", f"HEAD:{relative}"],
@@ -3427,23 +3441,6 @@ def progress_snapshot() -> dict[str, object]:
             with_project_generation_currentness(override)
         )
     candidates: list[dict[str, object]] = []
-    try:
-        completed = subprocess.run(
-            ["git", "show", PROGRESS_DATA_REF],
-            cwd=ROOT,
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-        payload = json.loads(completed.stdout)
-        if valid_snapshot(
-            payload,
-            timestamp_fields=("generatedAt", "generated_at", "asOf", "as_of"),
-            required_fields=("metrics",),
-        ):
-            candidates.append(payload)
-    except (subprocess.CalledProcessError, json.JSONDecodeError):
-        pass
     tracked = tracked_progress_snapshot()
     if valid_snapshot(
         tracked,
@@ -3491,23 +3488,6 @@ def integrity_snapshot() -> dict[str, object]:
                 candidates.append(payload)
         except (OSError, json.JSONDecodeError):
             pass
-    try:
-        completed = subprocess.run(
-            ["git", "show", INTEGRITY_DATA_REF],
-            cwd=ROOT,
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-        payload = json.loads(completed.stdout)
-        if valid_snapshot(
-            payload,
-            timestamp_fields=("generated_at",),
-            required_fields=("current", "history"),
-        ):
-            candidates.append(payload)
-    except (subprocess.CalledProcessError, json.JSONDecodeError):
-        pass
     existing = existing_console_payload()
     cached = existing.get("integrity", {})
     if valid_snapshot(
@@ -3649,37 +3629,7 @@ def run_chain_snapshot() -> dict[str, object]:
         try:
             payload = json.loads(path.read_text(encoding="utf-8"))
             if isinstance(payload, dict):
-                if not local_chain and path == LOCAL_RUN_CHAIN_FEED:
-                    try:
-                        control = json.loads(
-                            LOCAL_RUN_COORDINATOR_CONTROL.read_text(
-                                encoding="utf-8"
-                            )
-                        )
-                    except (OSError, json.JSONDecodeError):
-                        control = {}
-                    action_items = (
-                        control.get("action_items")
-                        if isinstance(control, dict)
-                        else None
-                    )
-                    if isinstance(action_items, list):
-                        payload = dict(payload)
-                        payload["host_action_items"] = action_items
                 history_sources = [payload]
-                try:
-                    published = subprocess.run(
-                        ["git", "show", RUN_CHAIN_DATA_REF],
-                        cwd=ROOT,
-                        check=True,
-                        capture_output=True,
-                        text=True,
-                    )
-                    published_payload = json.loads(published.stdout)
-                    if isinstance(published_payload, dict):
-                        history_sources.append(published_payload)
-                except (OSError, subprocess.CalledProcessError, json.JSONDecodeError):
-                    pass
                 existing = existing_console_payload().get("run_chain", {})
                 if isinstance(existing, dict):
                     history_sources.append(existing)
@@ -3690,19 +3640,6 @@ def run_chain_snapshot() -> dict[str, object]:
                 return public_run_chain_projection(payload)
         except (OSError, json.JSONDecodeError):
             pass
-    try:
-        completed = subprocess.run(
-            ["git", "show", RUN_CHAIN_DATA_REF],
-            cwd=ROOT,
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-        payload = json.loads(completed.stdout)
-        if isinstance(payload, dict):
-            return public_run_chain_projection(payload)
-    except (subprocess.CalledProcessError, json.JSONDecodeError):
-        pass
     existing = existing_console_payload()
     cached = existing.get("run_chain", {})
     return (
@@ -3989,30 +3926,6 @@ def source_checker_snapshot() -> dict[str, object]:
         except (OSError, json.JSONDecodeError):
             pass
 
-    current_data = str(config.get("currentData") or "").strip()
-    data_branch = str(config.get("dataBranch") or "").strip()
-    data_path = str(config.get("currentDataPath") or "").strip()
-    if current_data and ":" in current_data:
-        configured_branch, configured_path = current_data.split(":", 1)
-        if not data_branch:
-            data_branch = configured_branch
-        if not data_path:
-            data_path = configured_path
-    if data_branch and data_path:
-        try:
-            completed = subprocess.run(
-                ["git", "show", f"origin/{data_branch}:{data_path}"],
-                cwd=ROOT,
-                check=True,
-                capture_output=True,
-                text=True,
-            )
-            payload = json.loads(completed.stdout)
-            if candidate_is_valid(payload):
-                candidates.append(with_current_catalog_coverage(payload))
-        except (subprocess.CalledProcessError, json.JSONDecodeError):
-            pass
-
     existing = existing_console_payload()
     cached = existing.get("source_checker", {})
     if candidate_is_valid(cached):
@@ -4087,12 +4000,7 @@ def monitoring_issue_snapshot(
         source="GitHub monitored-issue query",
     )
     project_limit = 1000
-    project = run_gh_json(
-        [
-            "project", "item-list", "2", "--owner", "Thorncrag", "--limit", str(project_limit),
-            "--format", "json",
-        ]
-    )
+    project = project_items_snapshot()
     if not isinstance(project, dict):
         raise RuntimeError("GitHub Project query did not return a JSON object.")
     project_items = require_complete_cli_collection(
@@ -4267,12 +4175,7 @@ def horizon_snapshot(refresh: bool) -> tuple[list[dict[str, object]], str]:
         source="GitHub Horizon issue query",
     )
     project_limit = 1000
-    project = run_gh_json(
-        [
-            "project", "item-list", "2", "--owner", "Thorncrag", "--limit", str(project_limit),
-            "--format", "json",
-        ]
-    )
+    project = project_items_snapshot()
     if not isinstance(project, dict):
         raise RuntimeError("GitHub Project query did not return a JSON object.")
     project_items = require_complete_cli_collection(

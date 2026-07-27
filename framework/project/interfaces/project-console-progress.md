@@ -62,12 +62,12 @@ The supported retrospective seed begins June 24, 2026. The preserved former
 combined record and its reconstructed July baseline are retained at
 [`../../records/baselines/project-console-progress.md`](../../records/baselines/project-console-progress.md).
 
-During the disabled P2 transition, the coordinator supplies an authenticated
-Project snapshot and exact local output paths. The bot writes current progress
+In the P6 production chain, the coordinator supplies an authenticated Project
+snapshot and exact local output paths. The bot writes current progress
 and bounded history under the transaction run directory; it does not publish
 to a data branch, obtain credentials through Elim, or mutate Project fields.
 Scheduling, credential isolation, local history carry-forward, failure
-behavior, validation, and the future cutover boundary belong to the [Project
+behavior, validation, and the production boundary belong to the [Project
 Console Progress Bot
 runbook](../automation/runbooks/project-console-progress-bot.md).
 

@@ -63,7 +63,7 @@ The reconstructed series begins at zero on June 24, then records 1 on June 25, 3
 
 ## Automation and retention
 
-The [`Project Console Progress Bot`](../../../.github/workflows/project-console-progress.yml) becomes due every 24 hours in the serialized Run Coordinator chain and also supports a manual or coordinator-invoked refresh. It has no independent schedule. It:
+The retired Project Console Progress Bot becomes due every 24 hours in the serialized Run Coordinator chain and also supports a manual or coordinator-invoked refresh. Its workflow source is preserved in Git history and it has no independent schedule. It:
 
 1. reads GitHub Project fields through the GraphQL API;
 2. joins them to active proposal identity from the issue registry;
@@ -86,9 +86,10 @@ If the secret is absent, expired, or revoked, the workflow fails closed with a v
 
 - [`framework/project/interfaces/project-console-progress.json`](../../project/interfaces/project-console-progress.json) owns the goal, readiness, field-mapping, and forecast settings.
 - [`.github/progress-history-seed.json`](../../../.github/progress-history-seed.json) owns the supported pre-automation attainment evidence.
-- [`.github/workflows/project-console-progress.yml`](../../../.github/workflows/project-console-progress.yml) owns scheduling and permissions.
+- Retired `.github/workflows/project-console-progress.yml` owns the historical scheduling and permissions and is preserved in Git history.
 - [`scripts/build_project_console_progress.py`](../../../scripts/build_project_console_progress.py) calculates and writes the two data files.
-- [`scripts/publish_project_console_progress.py`](../../../scripts/publish_project_console_progress.py) updates the independent data branch.
+- Retired `scripts/publish_project_console_progress.py` updated the independent
+  data branch and is preserved in Git history.
 - [`tests/test_project_console_progress.py`](../../../tests/test_project_console_progress.py) covers eligibility, authority, history, forecast inputs, data-only output, and branch publication.
 - [`research/horizon-review-console/`](../../../research/horizon-review-console/) owns the sole human-facing visualization, including the trajectory graph.
 

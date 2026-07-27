@@ -84,7 +84,28 @@ def lifecycle_findings(
         metadata=metadata or {},
         project_item=item,
         issue_body=issue_body,
-    )
+)
+
+
+class RetiredControlPlaneTests(unittest.TestCase):
+    def test_p6_control_plane_sources_are_absent(self):
+        retired = (
+            "scripts/run_chain_dispatcher.py",
+            "scripts/run_coordinator_control.py",
+            "scripts/build_automation_health_projection.py",
+            "scripts/publish_project_console_progress.py",
+            "scripts/publish_immutable_data_file.py",
+            ".github/launchd/com.thorncrag.arrp-run-coordinator.plist.example",
+            ".github/launchd/com.thorncrag.arrp-run-coordinator-control.plist.example",
+        )
+        self.assertEqual(
+            [relative for relative in retired if (ROOT / relative).exists()],
+            [],
+        )
+        self.assertEqual(
+            consistency.source_domain_event_pipeline_findings(ROOT),
+            [],
+        )
 
 
 class GitHubIssueLinkTests(unittest.TestCase):
@@ -744,6 +765,42 @@ class GitHubIssueLinkTests(unittest.TestCase):
 
         self.assertEqual(failures, [])
         self.assertEqual(warnings, [])
+
+    def test_project_sync_uses_exact_node_reader_without_duplicating_items(self):
+        failures: list[str] = []
+        warnings: list[str] = []
+        project = {
+            "items": [
+                {
+                    "id": "PVTI_fixture",
+                    "fieldValues": {
+                        "nodes": [
+                            {
+                                "name": "Development",
+                                "field": {"name": "Status"},
+                            }
+                        ]
+                    },
+                    "content": {
+                        "__typename": "Issue",
+                        "number": 42,
+                        "title": "HOR-042: Fixture",
+                        "url": "https://github.com/Thorncrag/ARRP/issues/42",
+                    },
+                }
+            ]
+        }
+        with (
+            patch.dict(consistency.os.environ, {"ARRP_PROJECT_TOKEN": "fixture-token"}),
+            patch.object(consistency, "fetch_project", return_value=project) as fetch,
+        ):
+            items = consistency.fetch_github_project_items(failures, warnings)
+
+        fetch.assert_called_once()
+        self.assertEqual(failures, [])
+        self.assertEqual(warnings, [])
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["status"], "Development")
 
     def test_pages_terminal_failure_is_an_error_during_publish_grace(self):
         failures: list[str] = []

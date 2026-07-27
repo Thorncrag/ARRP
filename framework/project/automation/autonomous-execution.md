@@ -16,7 +16,7 @@ worktree, local state, and eventual publication boundary. It supplements the
 [Agent Operating Rules](../../AGENT_OPERATING_RULES.md) and each applicable
 runbook. It does not create substantive or external authority.
 
-## P4 authority and deployment boundary
+## Transition proof boundary
 
 P1–P3 implement a disabled, local-first, fixture-tested chain through exact
 classification, local commit, result validation, and Console status. P4 adds
@@ -34,6 +34,10 @@ The sole coordinator source is `scripts/arrp_nightly.py`. During P2 it accepts
 fixture runs and explicit `--manual --dry-run` validation only. Repository
 configuration records the intended single nightly schedule, but configuration
 is not installation and creates no background service.
+
+Those phase-specific restrictions describe the completed proof sequence. They
+do not grant authority to retired workflows, data branches, host dispatchers,
+or persistent Codex sessions after cutover.
 
 ## Local-first transaction boundary
 
@@ -223,3 +227,36 @@ lock in `finally`, and do not launch a second model turn automatically.
 P5 ends after the supervised ordinary, protected, prohibited, and failure
 fixtures are proved and reviewed. Deployment and scheduled cutover remain
 outside this phase.
+
+## P6 production boundary
+
+P6 enables one owner LaunchAgent, `com.thorncrag.arrp-nightly`, as the sole
+scheduled ARRP coordinator. Its calendar boundary is 02:00 local time in
+`America/New_York`; `RunAtLoad` performs one due and idempotency evaluation
+after login rather than replaying every powered-off interval. One
+operating-system lock remains the sole liveness authority, and duplicate,
+sleep-coalesced, or manual starts cannot create a second chain.
+
+The installed owner-only bootstrap invokes only the exact reviewed runtime
+materialized from the fetched `origin/main` boundary. The production chain may
+checkpoint authorized daytime work, run due deterministic stages, select at
+most one sealed Elim unit, validate and classify the complete delta, use the
+deterministic credential broker, publish one exact pull request, perform
+registered semantic actions, require unchanged head/base and checks, merge
+through the applicable ordinary or protected rule, read back exact-SHA Pages
+and Project state, and fast-forward clean canonical `main`.
+
+The retired maintenance workflows, `project-console-data`, bot-specific
+ordinary publication branches, ten-minute dispatcher, loopback controller,
+and persistent Codex task have no runtime or publication authority. GitHub
+Actions retains the public-site workflow and required ARRP validation.
+Historical branches and Git records remain preserved until a separate
+archive or deletion decision.
+
+Elim remains uncredentialed and cannot write Git metadata, protected paths, or
+hosted state. All hosted mutation is performed by deterministic broker code
+from a schema-registered request or the exact publication transaction.
+Protected or workflow-file changes, missing credentials, moved refs, failed
+checks, failed Pages, incomplete Project readback, post-lock canonical drift,
+or any identity mismatch fail closed with branch, worktree, run state, and
+status evidence preserved.

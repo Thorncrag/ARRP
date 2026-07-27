@@ -246,36 +246,16 @@ class PresidentialDirectivesBotTests(unittest.TestCase):
             if row["Review Status"] == "Routed":
                 self.assertTrue(row["Source IDs"])
 
-    def test_workflow_is_coordinated_and_opens_a_narrow_review_pr(self):
-        workflow = (
-            ROOT / ".github" / "workflows" / "presidential-directives-bot.yml"
-        ).read_text()
-        self.assertIn("workflow_dispatch:", workflow)
-        self.assertIn("workflow_call:", workflow)
-        self.assertNotIn("schedule:", workflow)
-        self.assertIn("contents: write", workflow)
-        self.assertIn("pull-requests: write", workflow)
-        self.assertIn("issues: write", workflow)
-        self.assertIn("scripts/check_presidential_directives.py", workflow)
-        self.assertIn("--apply", workflow)
-        self.assertIn("Verify the change boundary", workflow)
-        self.assertIn("inventory/presidential-directives.csv", workflow)
-        self.assertIn('${RUNNER_TEMP}/presidential-directives-event.md', workflow)
-        self.assertNotIn("framework/records/automation/agent-audit-log.md", workflow)
-        self.assertIn("actions/upload-artifact@", workflow)
-        self.assertIn("gh pr create", workflow)
-        self.assertIn("--add-assignee", workflow)
-        self.assertNotIn("ARRP_PROJECT_TOKEN", workflow)
-        self.assertLess(workflow.index("git config user.name"), workflow.index("git rebase"))
-        self.assertIn("Detect a pending review branch", workflow)
-        self.assertIn("steps.pending.outputs.exists == 'true'", workflow)
-        self.assertIn("preserves changes staged by an earlier run", workflow)
-        self.assertNotIn("issue comment", workflow)
-        self.assertNotIn("317", workflow)
-        self.assertIn("if: always()", workflow)
+    def test_local_stage_replaces_retired_workflow(self):
+        self.assertFalse(
+            (
+                ROOT
+                / ".github/workflows/presidential-directives-bot.yml"
+            ).exists()
+        )
         self.assertTrue(self.config["enabled"])
         self.assertEqual(
-            self.config["deploymentStatus"], "local-source-disabled"
+            self.config["deploymentStatus"], "local-first-enabled"
         )
         self.assertNotIn("notification", self.config)
         self.assertNotIn("automation", self.config)

@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Create, verify, accept, and render minimized source-domain events.
+"""Create, verify, accept, and render minimized local source-domain events.
 
 The proposed event is an immutable projection of one deterministic watcher
-pull request. Acceptance is a separate state transition and is permitted only
-after the exact proposal revision is merged by a GitHub ``User``. Neither this
-tool nor its workflows merge a pull request or push directly to ``main``.
+delta in the coordinator-owned nightly branch. Acceptance is a separate state
+transition and is permitted only after the exact proposal revision is merged
+by a GitHub ``User``. This utility has no branch creation, push, merge,
+credential, scheduler, or data-branch authority.
 """
 
 from __future__ import annotations
@@ -42,10 +43,10 @@ SUMMARY_RE = re.compile(
 )
 SOURCE_ID_RE = re.compile(r"^SRC-[0-9]{4,}$")
 PROJECT_RECORD_RE = re.compile(r"^(?:HOR|[A-Z]+)-[0-9]{3}$")
+NIGHTLY_BRANCH_RE = re.compile(r"^automation/nightly-[0-9]{8}T[0-9]{6}Z$")
 
 AGENTS: dict[str, dict[str, Any]] = {
     "case-monitor-bot": {
-        "branch": "bot/case-monitor-updates",
         "display": "Case Monitor Bot",
         "allowed_paths": [
             re.compile(r"^inventory/sources(?:-pending)?\.csv$"),
@@ -58,14 +59,12 @@ AGENTS: dict[str, dict[str, Any]] = {
         ],
     },
     "presidential-directives-bot": {
-        "branch": "automation/presidential-directives-monitor",
         "display": "Presidential Directives Bot",
         "allowed_paths": [
             re.compile(r"^inventory/presidential-directives\.csv$"),
         ],
     },
     "source-checker-bot": {
-        "branch": "bot/source-checker-report",
         "display": "Source Checker Bot",
         "allowed_paths": [
             re.compile(r"^framework/records/status/source-checker-report\.md$"),
@@ -139,10 +138,10 @@ def validate_repository(repository: str) -> None:
 def validate_branch(agent_id: str, branch: str) -> None:
     if agent_id not in AGENTS:
         raise EventError(f"unknown source-domain agent: {agent_id}")
-    expected = str(AGENTS[agent_id]["branch"])
-    if branch != expected:
+    if not NIGHTLY_BRANCH_RE.fullmatch(branch):
         raise EventError(
-            f"{agent_id} proposal branch must be {expected!r}, not {branch!r}"
+            f"{agent_id} proposal must use the coordinator-owned nightly "
+            f"branch pattern, not {branch!r}"
         )
 
 
@@ -650,7 +649,7 @@ def pending_proposal_projection(event: dict[str, Any]) -> dict[str, Any]:
 
 
 def enrich_report(report: dict[str, Any], event: dict[str, Any]) -> dict[str, Any]:
-    """Bind a current-run report to the complete unresolved branch proposal."""
+    """Bind a current-run report to the complete unresolved nightly delta."""
 
     enriched = copy.deepcopy(report)
     enriched["pending_proposal"] = pending_proposal_projection(event)
@@ -669,7 +668,7 @@ def proposal_summary(event: dict[str, Any]) -> str:
 ## Complete unresolved proposal
 
 This section describes the complete change currently pending on the persistent
-watcher branch, including changes retained from earlier runs. It—not a
+coordinator-owned nightly branch, including checkpoint ancestry. It—not a
 current-run count by itself—is the review boundary.
 
 - Proposal event: `{event['event_id']}`
@@ -724,13 +723,14 @@ def marker_payload(body: str) -> dict[str, Any]:
         r"SDE-[A-F0-9]{24}\.json$"
     )
     if not expected.fullmatch(path) or ".." in Path(path).parts:
-        raise EventError("invalid marker data-branch path")
+        raise EventError("invalid marker event path")
     return payload
 
 
 def event_from_data_ref(data_ref: str, path: str) -> tuple[dict[str, Any], bytes]:
+    """Read an event from an existing repository ref without writing it."""
     if not re.fullmatch(r"[A-Za-z0-9_./-]+", data_ref) or data_ref.startswith("-"):
-        raise EventError("invalid data-branch ref")
+        raise EventError("invalid repository event ref")
     encoded = bytes(git("show", f"{data_ref}:{path}", binary=True))
     try:
         payload = json.loads(encoded)
@@ -849,7 +849,9 @@ def accept_event(args: argparse.Namespace) -> dict[str, Any]:
     marker_data = marker_payload(body)
     proposed, encoded = event_from_data_ref(args.data_ref, marker_data["path"])
     if hash_bytes(encoded) != marker_data["sha256"]:
-        raise EventError("data-branch proposed event does not match the PR marker hash")
+        raise EventError(
+            "repository-ref proposed event does not match the PR marker hash"
+        )
     validate_event(proposed, expected_state="proposed")
     if proposed["event_id"] != marker_data["event_id"]:
         raise EventError("marker event ID does not match proposed event")
@@ -959,7 +961,7 @@ def agent_log_entry(event: dict[str, Any]) -> str:
 | Proposal page | {acceptance['pull_request_url']} |
 | Tier | none |
 | Files changed | {paths} |
-| Validation | Proposed-event schema and content hash; exact same-repository bot branch and PR; exact PR head revision; source-revision ancestry; exact proposal patch and delta-derived semantics; supported merge topology; exact first-parent accepted delta and file hashes; allowlisted human-owner merge boundary |
+| Validation | Proposed-event schema and content hash; exact same-repository coordinator-owned nightly branch and PR; exact PR head revision; source-revision ancestry; exact proposal patch and delta-derived semantics; supported merge topology; exact first-parent accepted delta and file hashes; allowlisted human-owner merge boundary |
 | Commit | {acceptance['merge_commit']} |
 | Push status | Accepted on `main`; human-readable log rendering proposed separately |
 | Rollback notes | Revert accepted merge `{acceptance['merge_commit']}`; retain this provenance entry and record any revert separately |
@@ -1146,7 +1148,13 @@ def parser() -> argparse.ArgumentParser:
 
     accept = subparsers.add_parser("accept")
     accept.add_argument("--pr-body-file", type=Path, required=True)
-    accept.add_argument("--data-ref", required=True)
+    accept.add_argument(
+        "--event-ref",
+        "--data-ref",
+        dest="data_ref",
+        required=True,
+        help="Existing repository ref containing the proposed event; read-only.",
+    )
     accept.add_argument("--repository", required=True)
     accept.add_argument("--base-ref", required=True)
     accept.add_argument("--head-ref", required=True)

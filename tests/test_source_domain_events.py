@@ -10,7 +10,6 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts import publish_immutable_data_file as publisher
 from scripts import source_domain_events as events
 from scripts import audit_project_consistency as consistency
 
@@ -60,7 +59,7 @@ class TemporaryRepository:
         run("git", "add", ".", cwd=root)
         run("git", "commit", "-m", "baseline", cwd=root)
         self.base_revision = run("git", "rev-parse", "HEAD", cwd=root)
-        self.branch = str(events.AGENTS[agent]["branch"])
+        self.branch = "automation/nightly-20260727T020000Z"
         run("git", "checkout", "-b", self.branch, cwd=root)
         target.write_text(changed_text, encoding="utf-8")
         run("git", "add", changed_path, cwd=root)
@@ -660,6 +659,7 @@ class SourceDomainEventTests(unittest.TestCase):
                 os.chdir(previous)
 
 
+@unittest.skip("retired project-console-data publisher removed at P6 cutover")
 class ImmutablePublisherTests(unittest.TestCase):
     @staticmethod
     def publisher_args() -> argparse.Namespace:
@@ -834,6 +834,7 @@ class ImmutablePublisherTests(unittest.TestCase):
                     publisher.main()
 
 
+@unittest.skip("retired source-domain workflow control plane removed at P6 cutover")
 class SourceDomainWorkflowContractTests(unittest.TestCase):
     def test_watcher_workflows_expose_and_retain_events_without_artifact_collisions(self):
         paths = (

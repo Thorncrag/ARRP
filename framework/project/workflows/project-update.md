@@ -105,11 +105,10 @@ treatment, selected-tier scope, or another substantive safeguard.
 If an audit changes an eligible proposal's GitHub Project `Development level`,
 `Status`, `Score`, or goal eligibility, first push and read back the
 authoritative repository and Project changes. Then manually dispatch the
-`Project Console Progress Bot`, wait for completion, and verify that
-`project-console-data/progress.json` reflects the complete portfolio,
-development-board, workflow-status, score, and area effects. The daily
+local Project Console Progress stage, wait for completion, and verify that its
+checked-in Console projection reflects the complete portfolio,
+development-board, workflow-status, score, and area effects. The nightly
 schedule is a recovery backstop, not a substitute for same-session
 verification. An expressly authorized multi-issue or successive-tier batch may
 use one final refresh after all included Project changes and pushes, provided
-the readback covers the complete batch. Never edit the generated data branch
-by hand.
+the readback covers the complete batch.

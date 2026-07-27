@@ -138,7 +138,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       ],
       "monitoring_rationale": "Monitor the D.C. Circuit treatment of the section 504 cause-of-action question. Source-develop coverage of presidential briefings, social-media communications, emergency announcements, captions, transcripts, ASL interpretation, and other accessibility methods; identify whether delayed relief creates irreparable loss of contemporaneous access; and test overlap with RIGHTS-001, JUD-001, JUD-005, FACT-001, PRESS-001, and HOR-027 before making an admission recommendation.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/253",
-      "updated_at": "2026-07-20T21:47:42Z"
+      "updated_at": "2026-07-27T13:46:31Z"
     },
     {
       "id": "HOR-037",
@@ -2858,7 +2858,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       ],
       "monitoring_rationale": "- **Watched matter:** The 2026-TRC-1 Alien Terrorist Removal Court matter, including representation, notice, any unclassified evidentiary summary, custody, disposition, public explanation, and appellate review. - **Why it is materially relevant:** The proceeding is a live test of whether a statutorily opaque removal process nevertheless supplies meaningful and timely safeguards. - **Reassessment trigger:** Reassess upon a material order, hearing, custody or removal decision, appointment or denial of counsel, public evidentiary disclosure, or appellate action bearing on the identified safeguards. - **Checking method:** Review the Alien Terrorist Removal Court's public docket and posted documents, related federal-court and agency filings, official counsel records where available, and authoritative reporting used to identify nonpublicly indexed primary developments.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/257",
-      "updated_at": "2026-07-23T22:19:58Z"
+      "updated_at": "2026-07-27T13:46:29Z"
     },
     {
       "id": "CIV-001",
@@ -4031,7 +4031,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/86",
       "updated_at": "2026-07-23T10:46:40Z"
     },
@@ -4384,7 +4384,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/94",
       "updated_at": "2026-07-23T10:47:58Z"
     },
@@ -6673,7 +6673,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/135",
       "updated_at": "2026-07-23T10:48:19Z"
     },
@@ -11671,7 +11671,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/168",
       "updated_at": "2026-07-23T10:48:24Z"
     },
@@ -13820,7 +13820,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/188",
       "updated_at": "2026-07-23T10:48:39Z"
     },
@@ -18667,7 +18667,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/95",
       "updated_at": "2026-07-23T10:48:04Z"
     },
@@ -18867,7 +18867,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
       "issue_url": "https://github.com/Thorncrag/ARRP/issues/201",
       "updated_at": "2026-07-23T10:48:45Z"
     },
@@ -42442,6 +42442,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   },
   "pending_sources": [],
   "domain_generation": {
-    "sources.js": "project-console-947a0a710f1182f7281f"
+    "sources.js": "project-console-d24811e5a0b718794cb5"
   }
 });

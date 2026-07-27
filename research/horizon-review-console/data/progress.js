@@ -11955,10 +11955,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "local_navigation_overlay": {
       "source": "inventory/github_issue_registry.csv",
       "source_hash": "sha256:e2f4f373a128a1b66de0d873271c1ed5b59cc2deab28fab57b312b07487cb9f3",
-      "replacement_count": 18
+      "replacement_count": 0
     }
   },
   "domain_generation": {
-    "progress.js": "project-console-947a0a710f1182f7281f"
+    "progress.js": "project-console-d24811e5a0b718794cb5"
   }
 });

@@ -7737,23 +7737,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/AGENT_OPERATING_RULES.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/automation/agent-policy.md",
-          "exists": true
-        },
-        {
           "path": "framework/project/automation/runbooks/run-coordinator-bot.md",
           "exists": true
         },
         {
           "path": "framework/project/automation/runbooks/elim.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/automation/runbooks/project-integrity-bot.md",
           "exists": true
         },
         {
@@ -7765,20 +7753,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
+          "path": "framework/project/automation/runbooks/source-checker-bot.md",
+          "exists": true
+        },
+        {
           "path": "framework/project/automation/runbooks/project-console-progress-bot.md",
           "exists": true
         },
         {
-          "path": "framework/project/automation/runbooks/source-checker-bot.md",
+          "path": "framework/project/automation/runbooks/project-integrity-bot.md",
+          "exists": true
+        },
+        {
+          "path": "framework/project/automation/agent-policy.md",
           "exists": true
         }
       ],
-      "word_count": 374,
+      "word_count": 484,
       "estimated_pages": 1,
       "table_count": 1,
       "max_table_columns": 5,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 30
+      "longest_unbroken_token": 43
     },
     {
       "title": "ARRP Audit Execution and Closeout",
@@ -7845,7 +7841,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1226,
+      "word_count": 1220,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7869,48 +7865,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sort_key": "framework/project/automation-arrp autonomous and scheduled execution",
       "internal_links": [
         {
-          "path": "framework/standards/automation/autonomous-execution.md",
-          "exists": true
-        },
-        {
           "path": "framework/AGENT_OPERATING_RULES.md",
-          "exists": true
-        },
-        {
-          "path": "framework/FRAMEWORK.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/github/workflow.md",
-          "exists": true
-        },
-        {
-          "path": "framework/records/candidates/horizon-scan-log.md",
-          "exists": true
-        },
-        {
-          "path": "framework/records/automation/agent-audit-log.md",
-          "exists": true
-        },
-        {
-          "path": "framework/standards/automation/audit-execution.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/workflows/audit-execution.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/automation/agent-policy.md",
           "exists": true
         }
       ],
-      "word_count": 4148,
-      "estimated_pages": 7,
+      "word_count": 1915,
+      "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 36
+      "longest_unbroken_token": 29
     },
     {
       "title": "ARRP Candidate Discovery and Adjudication",
@@ -8227,13 +8191,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "framework/records/baselines/project-console-progress.md",
           "exists": true
-        },
-        {
-          "path": "framework/project/automation/runbooks/project-console-progress-bot.md",
-          "exists": true
         }
       ],
-      "word_count": 377,
+      "word_count": 424,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8289,7 +8249,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1351,
+      "word_count": 1316,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8401,7 +8361,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1366,
+      "word_count": 1359,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8573,7 +8533,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 320,
+      "word_count": 411,
       "estimated_pages": 1,
       "table_count": 3,
       "max_table_columns": 2,
@@ -9238,12 +9198,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation/runbooks-case monitor bot runbook",
       "internal_links": [],
-      "word_count": 1372,
-      "estimated_pages": 3,
+      "word_count": 303,
+      "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 63
+      "longest_unbroken_token": 36
     },
     {
       "title": "Change Audit Log",
@@ -9452,12 +9412,35 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 938,
+      "word_count": 855,
       "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 31
+      "longest_unbroken_token": 61
+    },
+    {
+      "title": "Elim Agent Runbook",
+      "path": "framework/project/automation/runbooks/elim.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal automation configuration.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/elim.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/project/automation/runbooks-elim agent runbook",
+      "internal_links": [],
+      "word_count": 1028,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 36
     },
     {
       "title": "Elim Run Log",
@@ -9538,62 +9521,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 11456
-    },
-    {
-      "title": "Elim Runbook",
-      "path": "framework/project/automation/runbooks/elim.md",
-      "section": "Framework and process",
-      "print_levels": [],
-      "print_level_labels": [],
-      "print_status": "excluded",
-      "print_exclusion_reason": "Internal automation configuration.",
-      "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/elim.md",
-      "document_type": "technical",
-      "print_metadata_present": true,
-      "invalid_print_levels": [],
-      "assembly_sections": {},
-      "assembly_sort_key": "framework/project/automation/runbooks-elim runbook",
-      "internal_links": [
-        {
-          "path": "framework/FRAMEWORK.md",
-          "exists": true
-        },
-        {
-          "path": "framework/AGENT_OPERATING_RULES.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/github/workflow.md",
-          "exists": true
-        },
-        {
-          "path": "framework/records/handoffs/current-task.md",
-          "exists": true
-        },
-        {
-          "path": "framework/records/sources/source-monitor-log.md",
-          "exists": true
-        },
-        {
-          "path": "framework/records/automation/elim-run-log.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/workflows/public-input-review.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/automation/autonomous-execution.md",
-          "exists": true
-        }
-      ],
-      "word_count": 5826,
-      "estimated_pages": 9,
-      "table_count": 0,
-      "max_table_columns": 0,
-      "heading_issue_count": 0,
-      "longest_unbroken_token": 52
     },
     {
       "title": "External and International Review",
@@ -9716,7 +9643,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4140,
+      "word_count": 4380,
       "estimated_pages": 7,
       "table_count": 1,
       "max_table_columns": 2,
@@ -10175,12 +10102,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation/runbooks-presidential directives bot runbook",
       "internal_links": [],
-      "word_count": 836,
-      "estimated_pages": 2,
+      "word_count": 261,
+      "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 60
+      "longest_unbroken_token": 47
     },
     {
       "title": "Presidential-Directive Completeness and Review",
@@ -10333,7 +10260,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1573,
+      "word_count": 1599,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -10356,12 +10283,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation/runbooks-project console progress bot runbook",
       "internal_links": [],
-      "word_count": 376,
+      "word_count": 256,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 38
+      "longest_unbroken_token": 51
     },
     {
       "title": "Project Integrity Bot Runbook",
@@ -10379,12 +10306,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation/runbooks-project integrity bot runbook",
       "internal_links": [],
-      "word_count": 1048,
-      "estimated_pages": 2,
+      "word_count": 296,
+      "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 42
+      "longest_unbroken_token": 24
     },
     {
       "title": "Project Interface Standard",
@@ -10613,22 +10540,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "invalid_print_levels": [],
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation/runbooks-run coordinator bot runbook",
-      "internal_links": [
-        {
-          "path": "framework/records/handoffs/current-task.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/automation/autonomous-execution.md",
-          "exists": true
-        }
-      ],
-      "word_count": 4433,
-      "estimated_pages": 7,
+      "internal_links": [],
+      "word_count": 795,
+      "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 54
+      "longest_unbroken_token": 35
     },
     {
       "title": "Scoring Standard",
@@ -10697,12 +10615,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation/runbooks-source checker bot runbook",
       "internal_links": [],
-      "word_count": 966,
-      "estimated_pages": 2,
+      "word_count": 265,
+      "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 51
+      "longest_unbroken_token": 38
     },
     {
       "title": "Source Monitor Log",
@@ -12693,8 +12611,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/horizon-review-console-arrp project console",
       "internal_links": [],
-      "word_count": 3988,
-      "estimated_pages": 7,
+      "word_count": 3900,
+      "estimated_pages": 6,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -15320,7 +15238,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1132,
+      "word_count": 1131,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -16789,7 +16707,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "link_export_validation": {
         "link_inventory_available": true,
-        "internal_link_count": 1384,
+        "internal_link_count": 1364,
         "missing_link_count": 0,
         "missing_links": [],
         "export_validation_available": false,
@@ -18552,8 +18470,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "be3ae39a0841c6072ca421916a5e37936504619e",
-        "generated_at": "2026-07-27T08:28:38+00:00"
+        "revision": "e2415bf87d3a4b14dd1fb9e461f0575752069789",
+        "generated_at": "2026-07-27T23:24:27+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20309,6 +20227,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-947a0a710f1182f7281f"
+    "publication.js": "project-console-d24811e5a0b718794cb5"
   }
 });

@@ -2,7 +2,7 @@
   "schemaVersion": 6,
   "enabled": true,
   "botName": "case-monitor-bot",
-  "deploymentStatus": "local-source-disabled",
+  "deploymentStatus": "local-first-enabled",
   "sourceMonitoringField": "Monitoring",
   "sourceBaselineField": "Monitoring Baseline",
   "tracker": {

@@ -3,9 +3,9 @@ title: "Case Monitor Bot Runbook"
 agent_id: case-monitor-bot
 display_name: Case Monitor Bot
 agent_type: deterministic-bot
-status: disabled
+status: enabled-local-stage
 trigger: local-chain-when-due
-schedule: "Due every 24 hours after cutover; no independent schedule"
+schedule: "Due every 24 hours within the 02:00 America/New_York local chain; no independent schedule"
 runtime_id: scripts/check_case_updates.py
 execution_environment: local-transaction-worktree
 runtime_config: .github/case-monitor-bot.json
@@ -21,7 +21,8 @@ print_exclusion_reason: "Internal automation configuration."
 The bot reads only its configured source catalogs, provider fixture or
 response, and exact prior typed output. It may write only the contract-listed
 catalog baselines, source-development records, log entry, and run-directory
-reports. Validation precedes acceptance. Publication is disabled in P2.
+reports. Validation precedes acceptance. Publication occurs only through the
+coordinator's exact reviewed pull-request boundary.
 Missing, malformed, stale, or unauthorized input is an explicit stop.
 
 The Case Monitor compares expressly monitored source rows with the configured
@@ -34,7 +35,7 @@ related-appeal distinctions, exact status fields, tracker limitations, request
 ceilings, allowed hosts, and the rule that a machine lead is not an admitted
 source or substantive conclusion.
 
-## P2 local-stage contract
+## Local-stage contract
 
 The coordinator runs the stage locally when due and supplies exact fixture or
 transaction inputs and output paths under
@@ -53,6 +54,6 @@ failure is blocking. Valid findings and observed changes are successful stage
 output and enter the current queue; they are not automatically accepted or
 published.
 
-P2 leaves the role disabled outside fixtures and manual dry-run validation.
-No branch, commit, pull request, source-domain event publication, credential,
-or hosted mutation is authorized.
+P6 enables this role only as a coordinator-owned local stage. The stage itself
+has no branch, commit, pull-request, source-domain-event publication,
+credential, or hosted-mutation authority.

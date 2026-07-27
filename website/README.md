@@ -27,7 +27,9 @@ This excludes the internal Project Console, its generated data, GitHub Project c
 
 The top-level `participate/` directory deploys separately as the public [ARRP participation service](https://gab.durablerepublic.org/). It is intentionally not copied into the Pages artifact or the internal ARRP Project Console. Its **Submit public input** route posts to a canonical public GitHub Discussion and returns the contributor's direct link; its **Contact the author** route sends a private message to the configured mailbox and creates no public record. A contributor may optionally provide an address for private follow-up, but it is never included in a public submission. The service's anti-abuse controls and manual Codex review boundary are governed by [`../participate/README.md`](../participate/README.md) and [`../framework/project/workflows/public-input-review.md`](../framework/project/workflows/public-input-review.md).
 
-The data-only `project-console-data` branch is not copied into the Pages artifact, linked from the public website, or included in website navigation, search, or the sitemap. It contains no reader-facing dashboard.
+Owner-only local automation state and the ignored local Console status
+projection are not copied into the Pages artifact, linked from the public
+website, or included in website navigation, search, or the sitemap.
 
 ## Build and Validation
 

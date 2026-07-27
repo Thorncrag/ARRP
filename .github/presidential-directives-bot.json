@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "enabled": true,
   "botName": "presidential-directives-bot",
-  "deploymentStatus": "local-source-disabled",
+  "deploymentStatus": "local-first-enabled",
   "catalogPath": "inventory/presidential-directives.csv",
   "localStage": {
     "coordinator": "scripts/arrp_nightly.py",
