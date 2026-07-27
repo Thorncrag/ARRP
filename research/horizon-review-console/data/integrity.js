@@ -12,7 +12,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "source_hashes": {
       "integrity-report.json": "sha256:caea2b1361322544a8547ebd8cf1d522c10dd8e0a528b6be58f9e76e6dc72535"
     },
-    "availability": "current",
+    "availability": "stale",
     "completeness": {
       "complete": true,
       "expected_count": 22,
@@ -30,9 +30,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         }
       ]
     },
-    "projection_errors": [],
+    "projection_errors": [
+      {
+        "code": "repository_revision_superseded",
+        "severity": "warning",
+        "message": "Integrity generation is not bound to the authoritative repository revision.",
+        "expected_source_revision": "13e7dbe867622c410ffdf79f50e31db81647a3e1",
+        "producer_source_revision": "be3ae39a0841c6072ca421916a5e37936504619e"
+      }
+    ],
     "freshness": {
-      "status": "current",
+      "status": "stale",
       "basis": "authoritative repository revision",
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
     },
@@ -469,15 +477,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "currentness": {
       "authority": "repository_revision",
-      "status": "current",
-      "current": true,
-      "expected_source_revision": "be3ae39a0841c6072ca421916a5e37936504619e",
+      "status": "stale",
+      "current": false,
+      "expected_source_revision": "13e7dbe867622c410ffdf79f50e31db81647a3e1",
       "producer_source_revision": "be3ae39a0841c6072ca421916a5e37936504619e",
       "equivalent_inputs_established": false,
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
-    }
+    },
+    "producer_availability": "current"
   },
   "domain_generation": {
-    "integrity.js": "project-console-194cd7abe888937262fe"
+    "integrity.js": "project-console-26a5c492746d5e7b5dd4"
   }
 });

@@ -179,6 +179,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items_available": true,
       "domain_attention": [
         {
+          "domain": "integrity",
+          "status": "stale",
+          "reason": "The feed does not completely cover its current authoritative source.",
+          "timestamp": "2026-07-27T08:28:38+00:00",
+          "route": "integrity"
+        },
+        {
           "domain": "source_checker",
           "status": "stale",
           "reason": "The feed does not completely cover its current authoritative source.",
@@ -604,7 +611,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "integrity_summary": {
       "generated_at": "2026-07-27T08:28:38+00:00",
       "source_revision": "be3ae39a0841c6072ca421916a5e37936504619e",
-      "availability": "current",
+      "availability": "stale",
       "result": "clean",
       "counts": {
         "errors": 0,
@@ -623,7 +630,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "publication_summary": {
       "disposition_counts": {
         "included": 138,
-        "excluded": 229,
+        "excluded": 223,
         "unclassified": 0,
         "conflict": 0
       },
@@ -648,6 +655,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-194cd7abe888937262fe"
+    "overview.js": "project-console-26a5c492746d5e7b5dd4"
   }
 });

@@ -716,12 +716,14 @@ test("Action Inbox uses a uniform selectable list with an adjacent preview", () 
 
 test("initial HTML loads only bounded scripts and stays within declared budgets", () => {
   const html = fs.readFileSync(indexPath, "utf8");
+  const app = fs.readFileSync(appPath, "utf8");
   const scriptSources = [...html.matchAll(/<script\s+src="([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(scriptSources, [
-    "data/private-github-security.js?v=1",
     "catalog-data.js?v=45",
     "app.js?v=47"
   ]);
+  assert.match(app, /const PRIVATE_GITHUB_SECURITY_PATH = "data\/private-github-security\.js\?v=1";/);
+  assert.match(app, /if \(capturePrivateGitHubProblems\(\) \|\| !coordinatorControlOriginAllowed\(\)\)/);
   assert.match(html, /data-initial-script-budget-kib="513"/);
   assert.match(html, /data-initial-dom-budget="1400"/);
   const bytes = ["catalog-data.js", "app.js"]

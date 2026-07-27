@@ -2680,9 +2680,11 @@ PART_PREFIX = (
 
 
 def serialized_catalog(payload: dict[str, object]) -> str:
-    serialized = json.dumps(payload, ensure_ascii=False, indent=2).replace(
-        "</", "<\\/"
-    )
+    serialized = json.dumps(
+        payload,
+        ensure_ascii=False,
+        separators=(",", ":"),
+    ).replace("</", "<\\/")
     return f"{CATALOG_PREFIX}{serialized};\n"
 
 

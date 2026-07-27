@@ -8174,42 +8174,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     {
       "title": "ARRP Project Configuration",
-      "path": "framework/project/README 2.md",
-      "section": "Framework and process",
-      "print_levels": [],
-      "print_level_labels": [],
-      "print_status": "excluded",
-      "print_exclusion_reason": "Internal project-configuration directory guide.",
-      "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/README 2.md",
-      "document_type": "technical",
-      "print_metadata_present": true,
-      "invalid_print_levels": [],
-      "assembly_sections": {},
-      "assembly_sort_key": "framework/project-arrp project configuration",
-      "internal_links": [
-        {
-          "path": "framework/project/PROJECT_PROFILE.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/REPOSITORY_MAP.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/profile/maturity-profile.md",
-          "exists": true
-        }
-      ],
-      "word_count": 85,
-      "estimated_pages": 1,
-      "table_count": 0,
-      "max_table_columns": 0,
-      "heading_issue_count": 0,
-      "longest_unbroken_token": 18
-    },
-    {
-      "title": "ARRP Project Configuration",
       "path": "framework/project/README.md",
       "section": "Framework and process",
       "print_levels": [],
@@ -8331,54 +8295,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "max_table_columns": 0,
       "heading_issue_count": 0,
       "longest_unbroken_token": 26
-    },
-    {
-      "title": "ARRP Project Profile",
-      "path": "framework/project/PROJECT_PROFILE 2.md",
-      "section": "Framework and process",
-      "print_levels": [],
-      "print_level_labels": [],
-      "print_status": "excluded",
-      "print_exclusion_reason": "Internal project configuration.",
-      "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/PROJECT_PROFILE 2.md",
-      "document_type": "technical",
-      "print_metadata_present": true,
-      "invalid_print_levels": [],
-      "assembly_sections": {},
-      "assembly_sort_key": "framework/project-arrp project profile",
-      "internal_links": [
-        {
-          "path": "README.md",
-          "exists": true
-        },
-        {
-          "path": "ABOUT.md",
-          "exists": true
-        },
-        {
-          "path": "framework/FRAMEWORK.md",
-          "exists": true
-        },
-        {
-          "path": "framework/standards/content/scope-and-admission.md",
-          "exists": true
-        },
-        {
-          "path": "framework/standards/content/record-architecture.md",
-          "exists": true
-        },
-        {
-          "path": "framework/standards/content/neutrality-and-language.md",
-          "exists": true
-        }
-      ],
-      "word_count": 557,
-      "estimated_pages": 1,
-      "table_count": 0,
-      "max_table_columns": 0,
-      "heading_issue_count": 0,
-      "longest_unbroken_token": 30
     },
     {
       "title": "ARRP Project Profile",
@@ -8630,50 +8546,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "print_exclusion_reason": "Internal project configuration.",
       "publication_disposition": "excluded",
       "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/REPOSITORY_MAP.md",
-      "document_type": "technical",
-      "print_metadata_present": true,
-      "invalid_print_levels": [],
-      "assembly_sections": {},
-      "assembly_sort_key": "framework/project-arrp repository map",
-      "internal_links": [
-        {
-          "path": "framework/PROJECT_STRUCTURE.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/PROJECT_PROFILE.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/REPOSITORY_MAP.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/github/workflow.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/workflows/navigation-sync.md",
-          "exists": true
-        }
-      ],
-      "word_count": 320,
-      "estimated_pages": 1,
-      "table_count": 3,
-      "max_table_columns": 2,
-      "heading_issue_count": 0,
-      "longest_unbroken_token": 39
-    },
-    {
-      "title": "ARRP Repository Map",
-      "path": "framework/project/REPOSITORY_MAP 2.md",
-      "section": "Framework and process",
-      "print_levels": [],
-      "print_level_labels": [],
-      "print_status": "excluded",
-      "print_exclusion_reason": "Internal project configuration.",
-      "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/REPOSITORY_MAP 2.md",
       "document_type": "technical",
       "print_metadata_present": true,
       "invalid_print_levels": [],
@@ -9765,38 +9637,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     {
       "title": "Framework Records",
-      "path": "framework/records/README 2.md",
-      "section": "Framework and process",
-      "print_levels": [],
-      "print_level_labels": [],
-      "print_status": "excluded",
-      "print_exclusion_reason": "Internal record-directory guide.",
-      "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/README 2.md",
-      "document_type": "technical",
-      "print_metadata_present": true,
-      "invalid_print_levels": [],
-      "assembly_sections": {},
-      "assembly_sort_key": "framework/records-framework records",
-      "internal_links": [
-        {
-          "path": "framework/PROJECT_STRUCTURE.md",
-          "exists": true
-        },
-        {
-          "path": "framework/records/handoffs/current-task.md",
-          "exists": true
-        }
-      ],
-      "word_count": 73,
-      "estimated_pages": 1,
-      "table_count": 0,
-      "max_table_columns": 0,
-      "heading_issue_count": 0,
-      "longest_unbroken_token": 29
-    },
-    {
-      "title": "Framework Records",
       "path": "framework/records/README.md",
       "section": "Framework and process",
       "print_levels": [],
@@ -10729,34 +10569,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "max_table_columns": 3,
       "heading_issue_count": 0,
       "longest_unbroken_token": 36
-    },
-    {
-      "title": "Reusable Framework Standards",
-      "path": "framework/standards/README 2.md",
-      "section": "Framework and process",
-      "print_levels": [],
-      "print_level_labels": [],
-      "print_status": "excluded",
-      "print_exclusion_reason": "Internal framework directory guide.",
-      "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/standards/README 2.md",
-      "document_type": "technical",
-      "print_metadata_present": true,
-      "invalid_print_levels": [],
-      "assembly_sections": {},
-      "assembly_sort_key": "framework/standards-reusable framework standards",
-      "internal_links": [
-        {
-          "path": "framework/standards/interfaces/work-tracking.md",
-          "exists": true
-        }
-      ],
-      "word_count": 126,
-      "estimated_pages": 1,
-      "table_count": 0,
-      "max_table_columns": 0,
-      "heading_issue_count": 0,
-      "longest_unbroken_token": 16
     },
     {
       "title": "Reusable Framework Standards",
@@ -13137,88 +12949,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "max_table_columns": 5,
       "heading_issue_count": 0,
       "longest_unbroken_token": 85
-    },
-    {
-      "title": "JUD-011 Coverage and Independent Alternatives Matrix",
-      "path": "research/interbranch-review/JUD-011-coverage-matrix 2.md",
-      "section": "Research",
-      "print_levels": [],
-      "print_level_labels": [],
-      "print_status": "excluded",
-      "print_exclusion_reason": "Nonauthoritative project research and classification record.",
-      "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/research/interbranch-review/JUD-011-coverage-matrix 2.md",
-      "document_type": "research",
-      "print_metadata_present": true,
-      "invalid_print_levels": [],
-      "assembly_sections": {
-        "public-proposal": "appendix-c-research"
-      },
-      "assembly_sort_key": "research/interbranch-review-jud-011 coverage and independent alternatives matrix",
-      "internal_links": [
-        {
-          "path": "framework/standards/content/remedies.md",
-          "exists": true
-        },
-        {
-          "path": "areas/JUD/issues/JUD-011.md",
-          "exists": true
-        },
-        {
-          "path": "areas/REG/issues/REG-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/FUND/issues/FUND-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/DOJ/issues/DOJ-007.md",
-          "exists": true
-        },
-        {
-          "path": "areas/JUD/issues/JUD-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/JUD/README.md",
-          "exists": true
-        },
-        {
-          "path": "areas/RET/issues/RET-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/FED/issues/FED-003.md",
-          "exists": true
-        },
-        {
-          "path": "areas/CIV/issues/CIV-009.md",
-          "exists": true
-        },
-        {
-          "path": "areas/OVS/issues/OVS-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/REC/issues/REC-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/DOM/issues/DOM-005.md",
-          "exists": true
-        },
-        {
-          "path": "areas/APPT/issues/APPT-001.md",
-          "exists": true
-        }
-      ],
-      "word_count": 859,
-      "estimated_pages": 2,
-      "table_count": 4,
-      "max_table_columns": 4,
-      "heading_issue_count": 0,
-      "longest_unbroken_token": 23
     },
     {
       "title": "JUD-011 Coverage and Independent Alternatives Matrix",
@@ -15748,7 +15478,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "disposition_counts": {
       "included": 138,
-      "excluded": 229,
+      "excluded": 223,
       "unclassified": 0,
       "conflict": 0
     },
@@ -15761,19 +15491,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Internal automation configuration.": 8,
       "Internal project workflow.": 1,
       "Online technical framework and methodology.": 25,
-      "Internal project configuration.": 6,
-      "Internal project-configuration directory guide.": 2,
+      "Internal project configuration.": 4,
+      "Internal project-configuration directory guide.": 1,
       "Internal interface configuration.": 2,
       "Internal interface-governance documentation.": 3,
       "Internal operational report.": 1,
       "Internal scheduled-agent run history.": 1,
-      "Internal record-directory guide.": 2,
+      "Internal record-directory guide.": 1,
       "Internal publication standard.": 2,
       "Historical implementation baseline retained for provenance.": 1,
       "Internal interface and safety documentation.": 1,
       "Online technical or workflow documentation.": 1,
       "Online technical documentation.": 1,
-      "Internal framework directory guide.": 2,
+      "Internal framework directory guide.": 1,
       "Replaceable internal automation report.": 1,
       "Internal drafting template.": 3,
       "Internal workflow documentation.": 1,
@@ -15781,7 +15511,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Nonauthoritative internal implementation handoff.": 1,
       "Nonauthoritative internal implementation and validation report.": 1,
       "Internal automation implementation report.": 1,
-      "Nonauthoritative project research and classification record.": 2,
+      "Nonauthoritative project research and classification record.": 1,
       "Internal planning record.": 1,
       "Website-only current candidacy and monitoring status.": 1,
       "GitHub repository security-reporting policy.": 1,
@@ -15983,7 +15713,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "label": "Assembly structurally valid",
         "disposition_counts": {
           "included": 138,
-          "excluded": 229,
+          "excluded": 223,
           "unclassified": 0,
           "conflict": 0
         }
@@ -17059,7 +16789,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "link_export_validation": {
         "link_inventory_available": true,
-        "internal_link_count": 1415,
+        "internal_link_count": 1384,
         "missing_link_count": 0,
         "missing_links": [],
         "export_validation_available": false,
@@ -20579,6 +20309,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-194cd7abe888937262fe"
+    "publication.js": "project-console-26a5c492746d5e7b5dd4"
   }
 });
