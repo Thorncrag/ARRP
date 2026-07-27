@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-27T00:08:24+00:00",
-  "revision": "bb4756316564a6eb7ca54c1d2b357d01f9246bb7",
+  "generated_at": "2026-07-27T01:48:57+00:00",
+  "revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
   "result": "findings",
   "counts": {
     "errors": 1,
@@ -10,7 +10,7 @@
     "issue_pages": 64,
     "proposal_pages": 41
   },
-  "duration_seconds": 12.818,
+  "duration_seconds": 13.56,
   "scope": [
     "Issue and proposal structure, including Issue Snapshot concision",
     "Area and topic routing",

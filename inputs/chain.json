@@ -11,15 +11,15 @@
   },
   "projection_errors": [],
   "bot_id": "run-coordinator-bot",
-  "chain_id": "arrp-20260727T000726Z",
-  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30226694606",
+  "chain_id": "arrp-20260727T014755Z",
+  "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30230633556",
   "trigger": "push",
   "llm_launch_allowed": false,
   "llm_launch_trigger": "push",
-  "created_at": "2026-07-27T00:07:26+00:00",
-  "updated_at": "2026-07-27T00:08:44+00:00",
+  "created_at": "2026-07-27T01:47:55+00:00",
+  "updated_at": "2026-07-27T01:49:19+00:00",
   "status": "complete",
-  "baseline_commit": "bb4756316564a6eb7ca54c1d2b357d01f9246bb7",
+  "baseline_commit": "6d28e75c637660deea94a4bc925704b6ad82045c",
   "resume": {
     "count": 0,
     "from_run_id": null
@@ -28,12 +28,12 @@
     "key": "arrp-run-chain",
     "path": null,
     "status": "released-by-workflow",
-    "owner_chain_id": "arrp-20260727T000726Z"
+    "owner_chain_id": "arrp-20260727T014755Z"
   },
   "repository": {
     "branch": "main",
-    "head": "bb4756316564a6eb7ca54c1d2b357d01f9246bb7",
-    "origin_main": "bb4756316564a6eb7ca54c1d2b357d01f9246bb7",
+    "head": "6d28e75c637660deea94a4bc925704b6ad82045c",
+    "origin_main": "6d28e75c637660deea94a4bc925704b6ad82045c",
     "clean": true,
     "dirty_paths": [],
     "dirty_path_count": 0,
@@ -86,7 +86,7 @@
       "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-27T00:07:26+00:00",
+      "completed_at": "2026-07-27T01:47:55+00:00",
       "last_success_at": "2026-07-26T04:41:32+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -102,7 +102,7 @@
       "due_reason": "last success remains current until 2026-07-27T04:41:32+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-27T00:07:26+00:00",
+      "completed_at": "2026-07-27T01:47:55+00:00",
       "last_success_at": "2026-07-26T04:41:32+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -118,7 +118,7 @@
       "due_reason": "last success remains current until 2026-08-02T10:32:24+00:00",
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-27T00:07:26+00:00",
+      "completed_at": "2026-07-27T01:47:55+00:00",
       "last_success_at": "2026-07-26T10:32:24+00:00",
       "retry_limit": 2,
       "retries": [],
@@ -134,15 +134,15 @@
       "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-27T00:08:44+00:00",
-      "last_success_at": "2026-07-27T00:08:44+00:00",
+      "completed_at": "2026-07-27T01:49:19+00:00",
+      "last_success_at": "2026-07-27T01:49:19+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:3dc0a8b3ee269db35781d43bba439aa9933ab7e0c7e743000e4080cf3fb9b67e"
+        "sha256": "sha256:0220d54181951ea18428b54d5ced81ef64309085f8af3c7728a2e39a9ba1a9b0"
       },
       "work_count": 0
     },
@@ -154,15 +154,15 @@
       "due_reason": "required every chain",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-27T00:08:44+00:00",
-      "last_success_at": "2026-07-27T00:08:44+00:00",
+      "completed_at": "2026-07-27T01:49:19+00:00",
+      "last_success_at": "2026-07-27T01:49:19+00:00",
       "retry_limit": 1,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:278b062cdf6b691e611d97d94be8a6576c06955f81b1aa54335d5754adbca061"
+        "sha256": "sha256:e4787d3d9f3a0d96e62655a3e72d85d26793a936cddf0cc23ad979cbc9c4ae0f"
       },
       "work_count": 0
     },
@@ -174,15 +174,15 @@
       "due_reason": "forced",
       "status": "succeeded",
       "started_at": null,
-      "completed_at": "2026-07-27T00:08:44+00:00",
-      "last_success_at": "2026-07-27T00:08:44+00:00",
+      "completed_at": "2026-07-27T01:49:19+00:00",
+      "last_success_at": "2026-07-27T01:49:19+00:00",
       "retry_limit": 2,
       "retries": [],
       "failure_class": "none",
       "details": "success",
       "output": {
         "path": "workflow-output",
-        "sha256": "sha256:774c97afeff0871a22485201cfe24ac6cbe89e2b9797f8c5b971f6147e76d4c6"
+        "sha256": "sha256:0532382cb6cca4e3a957d575bfa7fc5efd8ef429f228333a223b1325ae1abe0f"
       },
       "work_count": 1
     }
@@ -233,6 +233,7 @@
     "boundary_changes": {
       "extra": [],
       "mismatched": [
+        "README.md",
         "framework/agent-rules/autonomous-execution.md",
         "framework/agents/RUN_COORDINATOR_BOT.md",
         "framework/context-routes.json"
@@ -248,8 +249,8 @@
   },
   "next_action": "No Elim launch; wait for the next trigger.",
   "action_items": [],
-  "completed_at": "2026-07-27T00:08:44+00:00",
-  "final_revision": "bb4756316564a6eb7ca54c1d2b357d01f9246bb7",
+  "completed_at": "2026-07-27T01:49:19+00:00",
+  "final_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
   "bots": [
     {
       "id": "case-monitor-bot",
@@ -257,7 +258,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-27T00:07:26+00:00",
+      "completed_at": "2026-07-27T01:47:55+00:00",
       "error": null
     },
     {
@@ -266,7 +267,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-27T00:07:26+00:00",
+      "completed_at": "2026-07-27T01:47:55+00:00",
       "error": null
     },
     {
@@ -275,7 +276,7 @@
       "due": false,
       "status": "not_due",
       "started_at": null,
-      "completed_at": "2026-07-27T00:07:26+00:00",
+      "completed_at": "2026-07-27T01:47:55+00:00",
       "error": null
     },
     {
@@ -284,7 +285,7 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-27T00:08:44+00:00",
+      "completed_at": "2026-07-27T01:49:19+00:00",
       "error": null
     },
     {
@@ -293,7 +294,7 @@
       "due": true,
       "status": "completed",
       "started_at": null,
-      "completed_at": "2026-07-27T00:08:44+00:00",
+      "completed_at": "2026-07-27T01:49:19+00:00",
       "error": null
     }
   ]
