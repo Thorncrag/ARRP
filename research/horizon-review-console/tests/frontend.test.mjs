@@ -723,7 +723,7 @@ test("initial HTML loads only bounded scripts and stays within declared budgets"
     "app.js?v=48"
   ]);
   assert.match(app, /const PRIVATE_GITHUB_SECURITY_PATH = "data\/private-github-security\.js\?v=1";/);
-  assert.match(app, /if \(capturePrivateGitHubProblems\(\) \|\| !coordinatorControlOriginAllowed\(\)\)/);
+  assert.match(app, /if \(capturePrivateGitHubProblems\(\) \|\| !localConsoleOriginAllowed\(\)\)/);
   assert.match(html, /data-initial-script-budget-kib="513"/);
   assert.match(html, /data-initial-dom-budget="1400"/);
   const bytes = ["catalog-data.js", "app.js"]

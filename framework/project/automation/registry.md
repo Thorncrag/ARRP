@@ -15,31 +15,31 @@ authority; it cannot create authority.
 ARRP uses **bot** for deterministic code and **agent** for an LLM-directed
 worker. Temporary interactive or delegated agents are not persistent roles.
 
-## P4 transition status
+## P6 local-first runtime status
 
 The former GitHub Actions, data-branch, host-dispatcher, and scheduled Codex
-chain is retired and has no runtime authority. P4 adapts the retained roles to
-one local-first source chain in `scripts/arrp_nightly.py`, with typed stage
+chain is retired and has no runtime authority. P6 enables the retained roles
+through one local-first source chain in `scripts/arrp_nightly.py`, with typed stage
 outputs under a transaction run directory and cadence evidence in owner-only
 `~/Library/Application Support/ARRP/last-success.json`.
 
-This source remains disabled for canonical and unattended execution. P4 adds
-the protected `CODEOWNERS` and validation-workflow source plus a fixture-tested
-GitHub App, exact-PR, and registered semantic-action broker boundary. No
-LaunchAgent is installed, no scheduler is active, and no retired workflow is
-reactivated. Live publication remains limited to expressly approved P4
-fixtures; role status may change to enabled only at an expressly authorized
-cutover.
+One owner LaunchAgent, `com.thorncrag.arrp-nightly`, is the only scheduled
+ARRP coordinator. It runs at 02:00 local time in `America/New_York` and uses
+`RunAtLoad` only for due evaluation. The protected `CODEOWNERS`,
+required-validation workflow, GitHub App exact-PR boundary, and registered
+semantic-action broker remain controlling. Retired maintenance workflows,
+bot branches, and `project-console-data` are not runtime or publication
+surfaces.
 
-| Agent ID | Type | P4 status | Authoritative runbook | Local runtime |
+| Agent ID | Type | P6 status | Authoritative runbook | Local runtime |
 | --- | --- | --- | --- | --- |
-| `run-coordinator-bot` | Deterministic bot | Source implemented; disabled | [Run Coordinator Bot](runbooks/run-coordinator-bot.md) | `scripts/arrp_nightly.py` |
-| `elim` | Conditional LLM agent | Fixture invocation only; disabled for canonical runs and never credentialed | [Elim](runbooks/elim.md) | One fresh sealed `codex exec` subprocess |
-| `case-monitor-bot` | Deterministic bot | Local stage source; disabled | [Case Monitor Bot](runbooks/case-monitor-bot.md) | `scripts/check_case_updates.py` |
-| `presidential-directives-bot` | Deterministic bot | Local stage source; disabled | [Presidential Directives Bot](runbooks/presidential-directives-bot.md) | `scripts/check_presidential_directives.py` |
-| `source-checker-bot` | Deterministic bot | Local report stage source; disabled | [Source Checker Bot](runbooks/source-checker-bot.md) | `scripts/check_source_urls.py` |
-| `project-console-progress-bot` | Deterministic bot | Local projection stage source; disabled | [Project Console Progress Bot](runbooks/project-console-progress-bot.md) | `scripts/build_project_console_progress.py` |
-| `project-integrity-bot` | Deterministic bot | Local integrity stage source; disabled | [Project Integrity Bot](runbooks/project-integrity-bot.md) | `scripts/audit_project_consistency.py` |
+| `run-coordinator-bot` | Deterministic bot | Enabled; sole scheduled coordinator | [Run Coordinator Bot](runbooks/run-coordinator-bot.md) | `scripts/arrp_nightly.py` |
+| `elim` | Conditional LLM agent | Enabled only for one selected unit per eligible run; never credentialed | [Elim](runbooks/elim.md) | One fresh sealed `codex exec` subprocess |
+| `case-monitor-bot` | Deterministic bot | Enabled local stage | [Case Monitor Bot](runbooks/case-monitor-bot.md) | `scripts/check_case_updates.py` |
+| `presidential-directives-bot` | Deterministic bot | Enabled local stage | [Presidential Directives Bot](runbooks/presidential-directives-bot.md) | `scripts/check_presidential_directives.py` |
+| `source-checker-bot` | Deterministic bot | Enabled local report stage | [Source Checker Bot](runbooks/source-checker-bot.md) | `scripts/check_source_urls.py` |
+| `project-console-progress-bot` | Deterministic bot | Enabled local projection stage | [Project Console Progress Bot](runbooks/project-console-progress-bot.md) | `scripts/build_project_console_progress.py` |
+| `project-integrity-bot` | Deterministic bot | Enabled local integrity stage | [Project Integrity Bot](runbooks/project-integrity-bot.md) | `scripts/audit_project_consistency.py` |
 
 Public-intake collection is a deterministic coordinator stage, not a separate
 persistent named role.

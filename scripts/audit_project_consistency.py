@@ -36,6 +36,17 @@ try:
 except ModuleNotFoundError:  # Imported as scripts.audit_project_consistency.
     from scripts.arrp_context import ContextError, load_route_manifest
 
+try:
+    from build_project_console_progress import (
+        extract_field_values as extract_project_field_values,
+        fetch_project,
+    )
+except ModuleNotFoundError:  # Imported as scripts.audit_project_consistency.
+    from scripts.build_project_console_progress import (
+        extract_field_values as extract_project_field_values,
+        fetch_project,
+    )
+
 
 ROOT = Path(__file__).resolve().parents[1]
 ISSUE_PATH = ROOT / "areas"
@@ -1388,93 +1399,45 @@ def fetch_github_issues(failures: list[str], warnings: list[str]) -> list[dict[s
 
 
 def fetch_github_project_items(failures: list[str], warnings: list[str]) -> list[dict[str, object]] | None:
-    """Read the user-owned Project directly, avoiding gh owner-type discovery in Actions."""
-    query = """
-query($owner:String!,$number:Int!,$after:String){
-  user(login:$owner){
-    projectV2(number:$number){
-      items(first:100,after:$after){
-        pageInfo{hasNextPage endCursor}
-        nodes{
-          id
-          content{... on Issue{number title url}}
-          fieldValues(first:50){
-            nodes{
-              ... on ProjectV2ItemFieldTextValue{text field{... on ProjectV2Field{name}}}
-              ... on ProjectV2ItemFieldNumberValue{number field{... on ProjectV2Field{name}}}
-              ... on ProjectV2ItemFieldSingleSelectValue{name field{... on ProjectV2SingleSelectField{name}}}
-            }
-          }
-        }
-      }
-    }
-  }
-}
-""".strip()
-    after = ""
+    """Read the personal Project by exact node ID with the Project-only token."""
+
+    token = os.environ.get("ARRP_PROJECT_TOKEN", "").strip()
+    if not token:
+        report(
+            "WARNING",
+            "GitHub Project synchronization check skipped; ARRP_PROJECT_TOKEN is unavailable",
+            failures,
+            warnings,
+        )
+        return None
+    config = json.loads(
+        (
+            ROOT / "framework/project/interfaces/project-console-progress.json"
+        ).read_text(encoding="utf-8")
+    )
+    try:
+        project = fetch_project(config, token)
+    except (OSError, RuntimeError, ValueError) as error:
+        report(
+            "WARNING",
+            "GitHub Project synchronization check skipped; " + str(error),
+            failures,
+            warnings,
+        )
+        return None
     items: list[dict[str, object]] = []
-    while True:
-        command = [
-            "gh",
-            "api",
-            "graphql",
-            "-F",
-            f"owner={GITHUB_PROJECT_OWNER}",
-            "-F",
-            f"number={GITHUB_PROJECT_NUMBER}",
-            "-f",
-            f"query={query}",
-        ]
-        if after:
-            command.extend(["-F", f"after={after}"])
-        payload, error = run_gh_json(command)
-        if payload is None:
-            report(
-                "WARNING",
-                "GitHub Project synchronization check skipped; rerun in the authenticated host context: " + error,
-                failures,
-                warnings,
-            )
-            return None
-        try:
-            page = payload["data"]["user"]["projectV2"]["items"]
-        except (KeyError, TypeError):
-            report(
-                "WARNING",
-                "GitHub Project synchronization check skipped; the Project GraphQL response was incomplete",
-                failures,
-                warnings,
-            )
-            return None
-        for node in page.get("nodes") or []:
-            item: dict[str, object] = {
-                "id": node.get("id"),
-                "content": node.get("content") or {},
+    for node in project.get("items") or []:
+        item: dict[str, object] = {
+            "id": node.get("id"),
+            "content": node.get("content") or {},
+        }
+        item.update(
+            {
+                str(name).casefold(): value
+                for name, value in extract_project_field_values(node).items()
             }
-            for value in (node.get("fieldValues") or {}).get("nodes") or []:
-                field = value.get("field") or {}
-                field_name = str(field.get("name") or "").casefold()
-                if not field_name:
-                    continue
-                if "text" in value:
-                    item[field_name] = value.get("text")
-                elif "number" in value:
-                    item[field_name] = value.get("number")
-                elif "name" in value:
-                    item[field_name] = value.get("name")
-            items.append(item)
-        page_info = page.get("pageInfo") or {}
-        if not page_info.get("hasNextPage"):
-            break
-        after = str(page_info.get("endCursor") or "")
-        if not after:
-            report(
-                "WARNING",
-                "GitHub Project synchronization check stopped at an invalid pagination cursor",
-                failures,
-                warnings,
-            )
-            return None
+        )
+        items.append(item)
     return items
 
 
@@ -3782,6 +3745,28 @@ def source_domain_event_pipeline_findings(root: Path = ROOT) -> list[str]:
         coordinator_config = {}
     runtime = coordinator_config.get("runtime")
     if isinstance(runtime, dict) and runtime.get("cloudWorkflowAuthority") is False:
+        retired_control_plane = (
+            "scripts/run_chain_dispatcher.py",
+            "scripts/run_coordinator_control.py",
+            "scripts/build_automation_health_projection.py",
+            "scripts/publish_project_console_progress.py",
+            "scripts/publish_immutable_data_file.py",
+            ".github/launchd/com.thorncrag.arrp-run-coordinator.plist.example",
+            ".github/launchd/com.thorncrag.arrp-run-coordinator-control.plist.example",
+            ".github/workflows/run-coordinator-bot.yml",
+            ".github/workflows/case-monitor-bot.yml",
+            ".github/workflows/presidential-directives-bot.yml",
+            ".github/workflows/source-checker-bot.yml",
+            ".github/workflows/project-console-progress.yml",
+            ".github/workflows/project-integrity.yml",
+            ".github/workflows/automation-health-projection.yml",
+            ".github/workflows/source-domain-event-acceptance.yml",
+        )
+        for relative in retired_control_plane:
+            if (root / relative).exists():
+                findings.append(
+                    f"retired control-plane source remains active-looking: {relative}"
+                )
         return findings
 
     def require_file(relative: str) -> str:

@@ -1251,14 +1251,14 @@ def validate_config(config: dict[str, Any]) -> None:
         raise ValueError("project-integrity-bot must be the last deterministic stage")
     if is_local_first_config(config):
         activation = config.get("activation") or {}
-        if activation.get("cutoverRequiredForCanonicalRun") is not True:
-            raise ValueError(
-                "local coordinator must require cutover for a canonical run"
-            )
-        if config.get("enabled") is not False:
-            raise ValueError(
-                "local coordinator must remain disabled before cutover"
-            )
+        enabled = config.get("enabled")
+        cutover_required = activation.get("cutoverRequiredForCanonicalRun")
+        if enabled is False and cutover_required is not True:
+            raise ValueError("disabled local coordinator must require cutover")
+        if enabled is True and cutover_required is not False:
+            raise ValueError("enabled local coordinator must record completed cutover")
+        if enabled not in {True, False}:
+            raise ValueError("local coordinator enabled state must be boolean")
         for stage in config.get("stages", []):
             if stage.get("workflow"):
                 raise ValueError(
@@ -1968,7 +1968,7 @@ def attach_context(args: argparse.Namespace) -> int:
                 f"Elim work queue {field} count differs from its typed projection"
             )
     manifest["work_queue"] = {
-        "path": "project-console-data:elim-work-queue.json",
+        "path": "<run-dir>/queue.json",
         "sha256": file_hash(queue_path),
         "ready_for_elim": bool(queue.get("ready_for_elim")),
         "launch_recommended": bool(queue.get("launch_recommended")),
@@ -2137,7 +2137,7 @@ def attach_context(args: argparse.Namespace) -> int:
         }
         context_path = args.context.resolve()
         manifest["context_packet"] = {
-            "path": "project-console-data:elim-context.json",
+            "path": "<run-dir>/context",
             "sha256": file_hash(context_path),
             "profile": context.get("profile"),
             "work_item_id": selected_id,

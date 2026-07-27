@@ -15,6 +15,7 @@ from scripts.build_horizon_review_console import (
     horizon_snapshot,
     monitoring_issue_snapshot,
     monitoring_rationale_for_record,
+    project_items_snapshot,
     project_log_views,
     repository_review_recommendations,
     render_markdown_safe,
@@ -119,6 +120,53 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertEqual(snapshot["alerts"][1]["id"], "secret-scanning-9")
         self.assertEqual(snapshot["alerts"][1]["owner"], "Human")
         self.assertIn("Git-ignored", snapshot["privacy"])
+
+    @patch.object(console_builder, "fetch_project")
+    def test_project_refresh_uses_exact_node_query_and_normalizes_cli_shape(
+        self, fetch_project_mock: object
+    ) -> None:
+        fetch_project_mock.return_value = {
+            "items": [
+                {
+                    "id": "PVTI_fixture",
+                    "fieldValues": {
+                        "nodes": [
+                            {
+                                "name": "Development",
+                                "field": {"name": "Status"},
+                            },
+                            {
+                                "name": "High",
+                                "field": {"name": "Priority"},
+                            },
+                        ]
+                    },
+                    "content": {
+                        "__typename": "Issue",
+                        "number": 42,
+                        "title": "HOR-042: Fixture",
+                        "url": "https://github.com/Thorncrag/ARRP/issues/42",
+                        "labels": {
+                            "nodes": [{"name": "kind: horizon"}],
+                        },
+                    },
+                }
+            ]
+        }
+        project_items_snapshot.cache_clear()
+        try:
+            with patch.dict(os.environ, {"ARRP_PROJECT_TOKEN": "fixture-token"}):
+                snapshot = project_items_snapshot()
+        finally:
+            project_items_snapshot.cache_clear()
+
+        fetch_project_mock.assert_called_once()
+        self.assertEqual(snapshot["totalCount"], 1)
+        item = snapshot["items"][0]
+        self.assertEqual(item["content"]["type"], "Issue")
+        self.assertEqual(item["labels"], ["kind: horizon"])
+        self.assertEqual(item["status"], "Development")
+        self.assertEqual(item["priority"], "High")
 
     def test_progress_navigation_overlay_updates_only_local_canonical_links(
         self,
@@ -459,7 +507,6 @@ class HorizonIntakeTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             chain = root / "run-chain.json"
-            control = root / "control.json"
             chain.write_text(
                 json.dumps(
                     {
@@ -487,29 +534,7 @@ class HorizonIntakeTest(unittest.TestCase):
                 ),
                 encoding="utf-8",
             )
-            control.write_text(
-                json.dumps(
-                    {
-                        "action_items": [
-                            {
-                                "id": "failure-1",
-                                "resolved": True,
-                                "resolution_reason": "Verified recovery passed.",
-                            }
-                        ]
-                    }
-                ),
-                encoding="utf-8",
-            )
-
-            with (
-                patch.object(console_builder, "LOCAL_RUN_CHAIN_FEED", chain),
-                patch.object(
-                    console_builder,
-                    "LOCAL_RUN_COORDINATOR_CONTROL",
-                    control,
-                ),
-            ):
+            with patch.object(console_builder, "LOCAL_RUN_CHAIN_FEED", chain):
                 snapshot = run_chain_snapshot()
 
         self.assertNotIn("host_action_items", snapshot)
@@ -630,7 +655,7 @@ class HorizonIntakeTest(unittest.TestCase):
             self.assertTrue(projected["completeness"]["complete"])
             self.assertEqual(projected["actual_count"], 1)
 
-    def test_source_checker_snapshot_reads_the_published_data_branch(self) -> None:
+    def test_source_checker_snapshot_does_not_read_retired_data_branch(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             fixture_root = Path(directory)
             config = fixture_root / "source-checker-config.json"
@@ -680,26 +705,16 @@ class HorizonIntakeTest(unittest.TestCase):
                 ),
             ):
                 projected = source_checker_snapshot()
-            self.assertEqual(projected["checked_at"], expected["checked_at"])
-            self.assertTrue(projected["completeness"]["complete"])
-            self.assertIn(
-                [
-                    "git",
-                    "show",
-                    "origin/project-console-data:source-checker.json",
-                ],
-                [call.args[0] for call in run.call_args_list],
-            )
+            self.assertNotEqual(projected.get("checked_at"), expected["checked_at"])
+            run.assert_not_called()
 
-    def test_console_control_plane_exception_remains_narrow(self) -> None:
+    def test_console_has_no_retired_control_plane_authority(self) -> None:
         interface = (
             ROOT / "framework" / "project" / "interfaces" / "project-console.md"
         ).read_text(encoding="utf-8")
-        self.assertIn("localhost-only Run Coordinator control plane", interface)
-        self.assertIn("does not directly invoke or select an agent", interface)
-        self.assertIn("does not guarantee execution", interface)
-        self.assertIn("No interface control may bypass", interface)
-        self.assertIn("mutate GitHub or project files", interface)
+        self.assertIn("retired localhost coordinator control plane", interface)
+        self.assertIn("has no current authority", interface)
+        self.assertIn("Manual runs use the owner-controlled installed bootstrap", interface)
 
     def test_agent_log_exposes_structured_filter_fields(self) -> None:
         log = agent_audit_log_view()
@@ -991,7 +1006,7 @@ class HorizonIntakeTest(unittest.TestCase):
         )
         self.assertEqual(len(integrity_bot["checks"]), len(set(integrity_bot["checks"])))
         self.assertIn(
-            "Source-domain event preservation and acceptance wiring",
+            "Local-first source-monitoring and provenance wiring",
             integrity_bot["checks"],
         )
         self.assertTrue(
@@ -1031,9 +1046,19 @@ class HorizonIntakeTest(unittest.TestCase):
                 edition["id"],
             )
         self.assertEqual(self.console["project_logs"], project_log_views())
+        rebuilt_recommendations = repository_review_recommendations()
         self.assertEqual(
-            self.console["repository_review_recommendations"],
-            repository_review_recommendations(),
+            [
+                (record["id"], record["affected"])
+                for record in self.console["repository_review_recommendations"]
+            ],
+            [
+                (record["id"], record["affected"])
+                for record in rebuilt_recommendations
+            ],
+        )
+        self.assertTrue(
+            all(record["event_source_url"] is None for record in rebuilt_recommendations)
         )
         self.assertEqual(
             {
@@ -1611,7 +1636,7 @@ class HorizonIntakeTest(unittest.TestCase):
             console_app,
         )
         self.assertIn(
-            "if (capturePrivateGitHubProblems() || !coordinatorControlOriginAllowed())",
+            "if (capturePrivateGitHubProblems() || !localConsoleOriginAllowed())",
             console_app,
         )
         for tab in {"overview", "progress", "actions", "candidates", "sources", "integrity", "automation", "logs", "publication"}:
@@ -1624,7 +1649,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("white-space: nowrap", console_css)
         for subtab in {"candidate-tab-formal", "candidate-tab-preliminary", "source-tab-catalog", "source-tab-pending", "source-tab-watchers"}:
             self.assertIn(f'id="{subtab}"', console_html)
-        self.assertIn("Project data remains read-only here", console_html)
+        self.assertIn("Project data and automation status remain read-only here", console_html)
         self.assertIn('id="automation-tab-administration"', console_html)
         self.assertIn('id="automation-tab-agents"', console_html)
         self.assertIn('id="automation-panel-administration"', console_html)
@@ -1634,23 +1659,12 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertNotIn("Administration rules", console_html)
         self.assertNotIn('id="automation-tab-workers"', console_html)
         self.assertNotIn('id="automation-panel-workers"', console_html)
-        self.assertIn("What can be changed here", console_html)
+        self.assertIn("Read-only automation view", console_html)
         self.assertIn('id="automation-chain-summary"', console_html)
-        self.assertIn('id="coordinator-request-run"', console_html)
-        self.assertIn('id="coordinator-request-review"', console_html)
-        self.assertIn('id="coordinator-prioritize"', console_html)
-        self.assertIn('id="coordinator-suppress"', console_html)
-        self.assertIn('id="coordinator-clear"', console_html)
-        self.assertIn('<select id="coordinator-work-unit">', console_html)
-        self.assertIn('<select id="coordinator-action-item">', console_html)
-        self.assertIn("populateCoordinatorControlChoices", console_app)
-        self.assertIn("window.confirm", console_app)
-        self.assertIn("http://127.0.0.1:8766/v1/control", console_app)
-        self.assertIn('action: "request_run"', console_app)
-        self.assertIn('action: "request_comprehensive_review"', console_app)
-        self.assertIn('queuePayload("reprioritize")', console_app)
-        self.assertIn('queuePayload("suppress")', console_app)
-        self.assertIn('queuePayload("clear_override")', console_app)
+        self.assertNotIn('id="coordinator-request-run"', console_html)
+        self.assertNotIn('id="coordinator-request-review"', console_html)
+        self.assertNotIn("http://127.0.0.1:8766", console_app)
+        self.assertNotIn("project-console-data", console_app)
         self.assertIn("Decision dossiers", console_html)
         self.assertIn("Project bibliography", console_html)
         self.assertIn("Issues being monitored", console_html)
@@ -1726,7 +1740,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn('id="source-checker-owner"', console_html)
         self.assertIn("grid-template-columns: repeat(4, minmax(0, 1fr))", console_css)
         self.assertIn(".watcher-tab-list button", console_css)
-        self.assertIn("LIVE_SOURCE_CHECKER_URL", console_app)
+        self.assertNotIn("LIVE_SOURCE_CHECKER_URL", console_app)
         self.assertIn('category: "Source integrity"', console_app)
         self.assertIn('["broken", "identity mismatch", "review required"]', console_app)
         self.assertIn("Complete exception inventory", console_html)
@@ -1753,7 +1767,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Project integrity", console_html)
         self.assertIn("Whole-project overview", console_html)
         self.assertIn("Daily operations briefing", console_html)
-        self.assertIn('id="overview-refresh-request"', console_html)
+        self.assertNotIn('id="overview-refresh-request"', console_html)
         self.assertIn('id="overview-automation-activity-grid"', console_html)
         self.assertNotIn('id="overview-chain-stages"', console_html)
         self.assertNotIn('id="overview-elim-improvements"', console_html)
@@ -1858,15 +1872,13 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("reconcileRunChainSnapshot", console_app)
         self.assertIn('cloud.status = "host_pending"', console_app)
         self.assertIn('source === "local" ? "local-host" : "published-host"', console_app)
-        self.assertIn("LIVE_AUTOMATION_HEALTH_URL", console_app)
-        self.assertIn("LIVE_HOST_STATUS_URL", console_app)
-        self.assertIn("Promise.allSettled", console_app)
+        self.assertNotIn("LIVE_AUTOMATION_HEALTH_URL", console_app)
+        self.assertNotIn("LIVE_HOST_STATUS_URL", console_app)
         self.assertIn("matchingElimRuntime", console_app)
         self.assertIn("Cloud ${cloudStatus} · Host ${hostStatus}", console_app)
         self.assertNotIn("data.run_chain = snapshot;", console_app)
-        self.assertIn("item.resolved !== true", console_app)
         self.assertIn('record.chain_id || (currentSource ? chain.chain_id : "")', console_app)
-        self.assertIn('id="coordinator-resolve-action"', console_html)
+        self.assertNotIn('id="coordinator-resolve-action"', console_html)
         self.assertIn('label: "Integrity decisions requiring you"', console_app)
         self.assertIn('label: "Human decisions"', console_app)
         self.assertIn('label: "Repository decisions assigned to you"', console_app)
@@ -1971,7 +1983,7 @@ class HorizonIntakeTest(unittest.TestCase):
             console_app,
         )
         self.assertIn(
-            "renderSourceChecker();\n      renderIntegrity();\n      renderOverview();",
+            "Source Checker data is the checked-in projection from the latest local transaction.",
             console_app,
         )
         self.assertIn('element("section", "log-group")', console_app)

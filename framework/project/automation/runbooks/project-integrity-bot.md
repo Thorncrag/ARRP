@@ -3,7 +3,7 @@ title: "Project Integrity Bot Runbook"
 agent_id: project-integrity-bot
 display_name: Project Integrity Bot
 agent_type: deterministic-bot
-status: disabled
+status: enabled-local-stage
 trigger: local-chain-after-other-inputs
 schedule: "Every local chain after other deterministic inputs; no independent schedule"
 runtime_id: scripts/audit_project_consistency.py
@@ -31,7 +31,7 @@ checks_included:
   - Print-assembly configuration
   - Governing context registry, hashes, and module coverage
   - Persistent-agent runbooks and runtime configuration
-  - Source-domain event preservation and acceptance wiring
+  - Local-first source-monitoring and provenance wiring
   - Structured-file and repository hygiene
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
@@ -44,8 +44,9 @@ print_exclusion_reason: "Internal automation configuration."
 The bot reads the repository, registries, routed governing records, and
 runner-supplied authenticated snapshots. It may write only its declared
 run-directory JSON and current Markdown status report. Validation is the
-purpose of the stage. Publication is disabled in P2. Execution or schema
-failure is an explicit stop; ordinary findings enter the queue.
+purpose of the stage. Publication occurs only through the coordinator's exact
+reviewed pull-request boundary. Execution or schema failure is an explicit
+stop; ordinary findings enter the queue.
 
 The Project Integrity Bot deterministically checks repository structure,
 metadata, identity, links, lifecycle coherence, source and proposal wiring,
@@ -58,7 +59,7 @@ checks found no defect.
 The machine-readable `checks_included` front matter is the authoritative
 deterministic coverage floor for the current implementation.
 
-## P2 local-stage contract
+## Local-stage contract
 
 The coordinator runs the bot after the other current inputs and supplies exact
 JSON and Markdown output paths. The typed integrity JSON is written under the
@@ -77,6 +78,6 @@ and work queue; the bot cannot repair them, infer classifications, change
 Project fields, or make legal, evidentiary, lifecycle, rubric, scoring, or
 human-reserved decisions.
 
-P2 leaves the role disabled outside fixtures and manual dry-run validation.
-No branch, commit, pull request, data projection, credential provisioning, or
-hosted mutation is authorized.
+P6 enables this role only as a coordinator-owned local stage. The stage itself
+has no branch, commit, pull-request, data-projection, credential-provisioning,
+or hosted-mutation authority.

@@ -80,9 +80,9 @@ PORTFOLIO_ARCHITECTURE_RECORD = Path(
 )
 
 PROJECT_QUERY = r"""
-query($owner: String!, $number: Int!, $cursor: String) {
-  user(login: $owner) {
-    projectV2(number: $number) {
+query($project: ID!, $cursor: String) {
+  node(id: $project) {
+    ... on ProjectV2 {
       title
       items(first: 100, after: $cursor) {
         totalCount
@@ -311,12 +311,11 @@ def fetch_project(config: Dict[str, Any], token: str) -> Dict[str, Any]:
         payload = graphql_request(
             token,
             {
-                "owner": config["projectOwner"],
-                "number": int(config["projectNumber"]),
+                "project": config["projectNodeId"],
                 "cursor": cursor,
             },
         )
-        project = ((payload.get("data") or {}).get("user") or {}).get("projectV2")
+        project = (payload.get("data") or {}).get("node")
         if not project:
             raise RuntimeError("The configured GitHub user Project could not be read.")
         title = project.get("title") or title
@@ -1006,6 +1005,8 @@ def load_history(config: Dict[str, Any], local_path: Optional[Path]) -> Dict[str
     branch = config.get("dataBranch")
     history_path = config.get("historyPath")
     if not token or not branch or not history_path:
+        if config.get("deploymentStatus") == "local-first-enabled":
+            return {"schemaVersion": 1, "snapshots": []}
         raise RuntimeError(
             "Progress history cannot be retained because GITHUB_TOKEN, dataBranch, "
             "or historyPath is unavailable."

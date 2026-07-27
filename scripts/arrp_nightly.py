@@ -29,9 +29,10 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterator, Mapping, Sequence
+from zoneinfo import ZoneInfo
 
 
 SCHEMA_VERSION = "1.0"
@@ -197,15 +198,18 @@ GITHUB_PROJECT_KEYCHAIN_ACCOUNT = "ARRP Project token"
 REQUIRED_CHECKS = frozenset({"ARRP Validation", "CodeQL"})
 P5_SUPERVISED_PHASE = "P5_SUPERVISED_END_TO_END_PROOF"
 P5_SUPERVISED_AUTHORIZATION = "BENJAMIN_APPROVED_P5_LIVE_FIXTURE"
+PRODUCTION_TIME_ZONE = ZoneInfo("America/New_York")
+PRODUCTION_SCHEDULE_HOUR = 2
+PRODUCTION_CODEX = Path("/Applications/ChatGPT.app/Contents/Resources/codex")
 BROKER_OPERATION_TYPES = frozenset(
     {
         "read_state",
         "set_project_field",
         "update_issue_wrapper",
         "post_discussion_reply",
-        "nightly_pull_request",
     }
 )
+RUNNER_OWNED_BROKER_OPERATIONS = frozenset({"nightly_pull_request"})
 BROKER_INTENT_FIELDS = frozenset(
     {
         "operation_type",
@@ -221,6 +225,23 @@ BROKER_INTENT_FIELDS = frozenset(
         "rollback_or_correction",
         "readback_contract",
     }
+)
+BROKER_TARGET_FIELDS = {
+    "set_project_field": frozenset({"project_id", "item_id", "field_id"}),
+    "update_issue_wrapper": frozenset({"issue_number", "marker"}),
+    "post_discussion_reply": frozenset(
+        {"discussion_number", "reply_to_comment_id"}
+    ),
+}
+BROKER_READBACK_CONTRACTS = {
+    "read_state": "exact_state_snapshot",
+    "set_project_field": "exact_project_field_value",
+    "update_issue_wrapper": "exact_issue_body",
+    "post_discussion_reply": "exactly_one_discussion_reply",
+}
+BROKER_NODE_ID = re.compile(r"^[A-Za-z0-9_-]{4,128}$")
+BROKER_WRAPPER_MARKER = re.compile(
+    r"^<!-- ARRP-WRAPPER:[A-Za-z0-9._:-]{1,96} -->$"
 )
 APP_REPOSITORY_PERMISSIONS = {
     "actions": "read",
@@ -352,6 +373,7 @@ class RunnerConfig:
     runtime_files: tuple[str, ...] = field(default_factory=lambda: RUNTIME_FILES)
     console_projection: Path | None = None
     supervised_live: bool = False
+    runtime_commit: str | None = None
 
     def validate(self) -> None:
         canonical = self.canonical_path.resolve()
@@ -364,6 +386,14 @@ class RunnerConfig:
                 raise TransactionError("non-fixture state root is not the approved ARRP state root")
             if self.supervised_live and self.trigger != "manual-p5-supervised":
                 raise TransactionError("live supervision requires the exact P5 manual trigger")
+            if self.trigger in {"manual", "scheduled"}:
+                if (
+                    self.runtime_commit is None
+                    or re.fullmatch(r"[0-9a-f]{40}", self.runtime_commit) is None
+                ):
+                    raise TransactionError(
+                        "production execution requires an exact runtime commit"
+                    )
         else:
             fixture = self.fixture_root.resolve()
             if not _is_within(canonical, fixture) or not _is_within(state, fixture):
@@ -428,6 +458,64 @@ def iso_utc(value: datetime | None = None) -> str:
 
 def make_run_id(value: datetime | None = None) -> str:
     return (value or utc_now()).strftime("arrp-%Y%m%dT%H%M%SZ")
+
+
+def scheduled_slot(value: datetime | None = None) -> str:
+    """Return the most recent 02:00 America/New_York slot for due evaluation."""
+
+    current = (value or utc_now()).astimezone(PRODUCTION_TIME_ZONE)
+    candidate = current.replace(
+        hour=PRODUCTION_SCHEDULE_HOUR,
+        minute=0,
+        second=0,
+        microsecond=0,
+    )
+    if current < candidate:
+        candidate = (candidate - timedelta(days=1)).astimezone(PRODUCTION_TIME_ZONE)
+    return candidate.isoformat()
+
+
+def verify_executed_runtime(
+    state_root: Path,
+    runtime_commit: str,
+    *,
+    executed_script: Path | None = None,
+) -> Path:
+    """Prove this runner is the exact hash-bound script from the reviewed snapshot."""
+
+    if re.fullmatch(r"[0-9a-f]{40}", runtime_commit) is None:
+        raise TransactionError("runtime commit must be a 40-character Git hash")
+    runtime = (state_root / "runtime" / runtime_commit).resolve()
+    script = (executed_script or Path(__file__)).resolve()
+    expected = (runtime / "scripts/arrp_nightly.py").resolve()
+    if script != expected:
+        raise TransactionError("executed runner is outside the reviewed runtime snapshot")
+    manifest_path = runtime / "runtime-manifest.json"
+    try:
+        manifest = read_json_object(manifest_path)
+    except (OSError, UnicodeError, ValueError, json.JSONDecodeError) as error:
+        raise TransactionError("reviewed runtime manifest is unavailable") from error
+    files = manifest.get("files")
+    if (
+        manifest.get("source_commit") != runtime_commit
+        or not isinstance(files, dict)
+        or set(files) != set(RUNTIME_FILES)
+    ):
+        raise TransactionError("reviewed runtime manifest identity is invalid")
+    for relative in RUNTIME_FILES:
+        target = (runtime / relative).resolve()
+        if not _is_within(target, runtime) or target.is_symlink() or not target.is_file():
+            raise TransactionError(f"reviewed runtime entry is unsafe: {relative}")
+        info = target.stat()
+        if info.st_uid != os.getuid() or bool(stat.S_IMODE(info.st_mode) & 0o077):
+            raise TransactionError(f"reviewed runtime mode is unsafe: {relative}")
+        expected_hash = files.get(relative)
+        if (
+            not isinstance(expected_hash, str)
+            or file_sha256(target) != expected_hash
+        ):
+            raise TransactionError(f"reviewed runtime hash mismatch: {relative}")
+    return runtime
 
 
 def ensure_owner_directory(path: Path) -> None:
@@ -717,12 +805,109 @@ def git_push_with_token(
         shutil.rmtree(run_dir)
 
 
+def encode_broker_target(operation_type: str, target: Mapping[str, Any]) -> str:
+    """Return the one canonical, bounded JSON encoding for a broker target."""
+
+    if operation_type == "read_state":
+        kind = target.get("kind") if isinstance(target, Mapping) else None
+        if kind == "project_field":
+            required = frozenset({"kind", "project_id", "item_id", "field_id"})
+        elif kind == "issue":
+            required = frozenset({"kind", "issue_number"})
+        elif kind == "discussion":
+            required = frozenset(
+                {"kind", "discussion_number", "reply_to_comment_id"}
+            )
+        else:
+            raise GitHubBrokerError("read-state target kind is not registered")
+    else:
+        required = BROKER_TARGET_FIELDS.get(operation_type)
+        if required is None:
+            raise GitHubBrokerError("broker target operation is not registered")
+    if not isinstance(target, Mapping) or set(target) != required:
+        raise GitHubBrokerError("broker target fields do not match the operation")
+    for key, item in target.items():
+        if key in {"issue_number", "discussion_number", "reply_to_comment_id"}:
+            if isinstance(item, bool) or not isinstance(item, int) or item <= 0:
+                raise GitHubBrokerError("broker numeric target must be a positive integer")
+        elif key == "kind":
+            continue
+        elif key == "marker":
+            if not isinstance(item, str) or not BROKER_WRAPPER_MARKER.fullmatch(item):
+                raise GitHubBrokerError("broker Issue marker is invalid")
+        elif not isinstance(item, str) or not BROKER_NODE_ID.fullmatch(item):
+            raise GitHubBrokerError(f"broker target {key} is not a bounded node ID")
+    encoded = json.dumps(dict(target), sort_keys=True, separators=(",", ":"))
+    if len(encoded.encode("utf-8")) > 1024:
+        raise GitHubBrokerError("broker target encoding exceeds the bound")
+    return encoded
+
+
+def decode_broker_target(operation_type: str, encoded: object) -> dict[str, Any]:
+    """Decode a broker target only when it uses the exact canonical encoding."""
+
+    if not isinstance(encoded, str) or not encoded or len(encoded.encode("utf-8")) > 1024:
+        raise GitHubBrokerError("broker target must be a bounded JSON string")
+    try:
+        target = json.loads(encoded)
+    except (TypeError, ValueError) as exc:
+        raise GitHubBrokerError("broker target is not valid JSON") from exc
+    if not isinstance(target, dict):
+        raise GitHubBrokerError("broker target must encode one object")
+    if encode_broker_target(operation_type, target) != encoded:
+        raise GitHubBrokerError("broker target is not canonically encoded")
+    return target
+
+
+def _validate_broker_state_contract(value: Mapping[str, Any]) -> None:
+    operation = value["operation_type"]
+    expected = value["expected_old_state"]
+    new = value["new_state_or_content"]
+    if operation == "set_project_field":
+        if expected is not None and not isinstance(expected, str):
+            raise GitHubBrokerError("Project expected state must be text or null")
+        if new is not None and not isinstance(new, str):
+            raise GitHubBrokerError("Project new state must be text or null")
+    elif operation == "update_issue_wrapper":
+        if (
+            not isinstance(expected, dict)
+            or set(expected) != {"body"}
+            or (expected["body"] is not None and not isinstance(expected["body"], str))
+            or not isinstance(new, dict)
+            or set(new) != {"body"}
+            or not isinstance(new["body"], str)
+        ):
+            raise GitHubBrokerError("Issue wrapper states must contain only body")
+        marker = decode_broker_target(operation, value["target_node_or_number"])["marker"]
+        if len(new["body"].encode("utf-8")) > 65536 or new["body"].count(marker) != 1:
+            raise GitHubBrokerError("Issue wrapper body must contain its marker exactly once")
+    elif operation == "post_discussion_reply":
+        if (
+            not isinstance(expected, dict)
+            or set(expected) != {"reply_absent"}
+            or expected["reply_absent"] != value["idempotency_key"]
+            or not isinstance(new, dict)
+            or set(new) != {"body"}
+            or not isinstance(new["body"], str)
+            or len(new["body"].encode("utf-8")) > 65536
+            or new["body"].count(value["idempotency_key"]) != 1
+        ):
+            raise GitHubBrokerError("Discussion reply state or idempotency marker is invalid")
+    elif operation == "read_state" and new is not None:
+        raise GitHubBrokerError("read-state intent cannot request a new state")
+
+
 def validate_broker_intent(value: object, *, source_revision: str) -> dict[str, Any]:
     """Validate one exact, non-human-reserved semantic action request."""
 
     if not isinstance(value, dict) or set(value) != BROKER_INTENT_FIELDS:
         raise GitHubBrokerError("broker intent fields do not match the registered schema")
-    if value["operation_type"] not in BROKER_OPERATION_TYPES:
+    operation_type = value["operation_type"]
+    if not isinstance(operation_type, str):
+        raise GitHubBrokerError("broker operation must be a string")
+    if operation_type in RUNNER_OWNED_BROKER_OPERATIONS:
+        raise GitHubBrokerError("nightly pull requests are runner-owned")
+    if operation_type not in BROKER_OPERATION_TYPES:
         raise GitHubBrokerError("broker operation is not registered")
     if value["repository"] != GITHUB_REPOSITORY:
         raise GitHubBrokerError("broker intent targets a different repository")
@@ -733,7 +918,6 @@ def validate_broker_intent(value: object, *, source_revision: str) -> dict[str, 
     if value["privacy_class"] != "public":
         raise GitHubBrokerError("broker intent is not public")
     for field_name in (
-        "target_node_or_number",
         "authority_record",
         "idempotency_key",
         "rollback_or_correction",
@@ -741,6 +925,14 @@ def validate_broker_intent(value: object, *, source_revision: str) -> dict[str, 
     ):
         if not isinstance(value[field_name], str) or not value[field_name].strip():
             raise GitHubBrokerError(f"broker intent {field_name} must be nonblank")
+    if not re.fullmatch(r"[0-9a-f]{40}", value["source_revision"]):
+        raise GitHubBrokerError("broker intent source revision is not a full Git SHA")
+    if not value["authority_record"].startswith("framework/"):
+        raise GitHubBrokerError("broker authority record must be a framework path")
+    if value["readback_contract"] != BROKER_READBACK_CONTRACTS[operation_type]:
+        raise GitHubBrokerError("broker readback contract does not match the operation")
+    decode_broker_target(operation_type, value["target_node_or_number"])
+    _validate_broker_state_contract(value)
     return dict(value)
 
 
@@ -1212,18 +1404,369 @@ def execute_project_field_intent(
 
     if intent.get("operation_type") != "set_project_field":
         raise GitHubBrokerError("intent is not a Project field operation")
-    observed = read_field(intent, project_token)
+    target = decode_broker_target(
+        "set_project_field", intent.get("target_node_or_number")
+    )
+    observed = read_field(target, project_token)
+    requested = intent.get("new_state_or_content")
+    if observed == requested:
+        return {
+            "idempotency_key": intent["idempotency_key"],
+            "old_state": intent.get("expected_old_state"),
+            "new_state": observed,
+            "already_applied": True,
+        }
     if observed != intent.get("expected_old_state"):
         raise GitHubBrokerError("Project field prior-state check failed")
-    write_field(intent, intent.get("new_state_or_content"), project_token)
-    readback = read_field(intent, project_token)
-    if readback != intent.get("new_state_or_content"):
+    write_field(target, requested, project_token)
+    readback = read_field(target, project_token)
+    if readback != requested:
         raise GitHubBrokerError("Project field readback failed")
     return {
         "idempotency_key": intent["idempotency_key"],
         "old_state": observed,
         "new_state": readback,
+        "already_applied": False,
     }
+
+
+def execute_issue_wrapper_intent(
+    intent: Mapping[str, Any],
+    token: SensitiveValue,
+    *,
+    api_request: Callable[..., Any] = github_api_request,
+) -> dict[str, Any]:
+    """Apply an exact Issue body transition and read it back."""
+
+    if intent.get("operation_type") != "update_issue_wrapper":
+        raise GitHubBrokerError("intent is not an Issue wrapper operation")
+    target = decode_broker_target(
+        "update_issue_wrapper", intent.get("target_node_or_number")
+    )
+    path = f"/repos/{GITHUB_REPOSITORY}/issues/{target['issue_number']}"
+
+    def read_body() -> str | None:
+        response = api_request("GET", path, token)
+        if not isinstance(response, dict) or "pull_request" in response:
+            raise GitHubBrokerError("Issue wrapper target did not read back as an Issue")
+        body = response.get("body")
+        if body is not None and not isinstance(body, str):
+            raise GitHubBrokerError("Issue wrapper body readback is invalid")
+        return body
+
+    expected = intent["expected_old_state"]["body"]
+    requested = intent["new_state_or_content"]["body"]
+    observed = read_body()
+    if observed == requested:
+        return {
+            "idempotency_key": intent["idempotency_key"],
+            "old_state": expected,
+            "new_state": observed,
+            "already_applied": True,
+        }
+    if observed != expected:
+        raise GitHubBrokerError("Issue wrapper prior-state check failed")
+    response = api_request("PATCH", path, token, payload={"body": requested})
+    if not isinstance(response, dict):
+        raise GitHubBrokerError("Issue wrapper update returned invalid data")
+    readback = read_body()
+    if readback != requested:
+        raise GitHubBrokerError("Issue wrapper readback failed")
+    return {
+        "idempotency_key": intent["idempotency_key"],
+        "old_state": observed,
+        "new_state": readback,
+        "already_applied": False,
+    }
+
+
+DISCUSSION_REPLY_QUERY = """
+query($owner: String!, $name: String!, $number: Int!) {
+  repository(owner: $owner, name: $name) {
+    discussion(number: $number) {
+      id
+      comments(first: 100) {
+        nodes {
+          id
+          databaseId
+          body
+          replies(first: 100) {
+            nodes { id body }
+            pageInfo { hasNextPage }
+          }
+        }
+        pageInfo { hasNextPage }
+      }
+    }
+  }
+}
+"""
+
+DISCUSSION_REPLY_MUTATION = """
+mutation($discussion: ID!, $replyTo: ID!, $body: String!) {
+  addDiscussionComment(input: {
+    discussionId: $discussion,
+    replyToId: $replyTo,
+    body: $body
+  }) {
+    comment { id body }
+  }
+}
+"""
+
+
+def discussion_reply_matches(
+    target: Mapping[str, Any],
+    idempotency_key: str,
+    token: SensitiveValue,
+    *,
+    graphql_request: Callable[..., dict[str, Any]] = github_graphql_request,
+) -> list[dict[str, str]]:
+    """Read exact replies carrying one broker idempotency marker."""
+
+    data = graphql_request(
+        DISCUSSION_REPLY_QUERY,
+        {
+            "owner": GITHUB_OWNER,
+            "name": GITHUB_REPOSITORY.split("/", 1)[1],
+            "number": target["discussion_number"],
+        },
+        token,
+    )
+    discussion = data.get("repository", {}).get("discussion")
+    comments = discussion.get("comments") if isinstance(discussion, dict) else None
+    if not isinstance(comments, dict) or comments.get("pageInfo", {}).get("hasNextPage"):
+        raise GitHubBrokerError("Discussion comment lookup is missing or paginated")
+    nodes = comments.get("nodes")
+    if not isinstance(nodes, list):
+        raise GitHubBrokerError("Discussion comment lookup rows are invalid")
+    parent = next(
+        (
+            row
+            for row in nodes
+            if isinstance(row, dict)
+            and row.get("databaseId") == target["reply_to_comment_id"]
+        ),
+        None,
+    )
+    replies = parent.get("replies") if isinstance(parent, dict) else None
+    if not isinstance(replies, dict) or replies.get("pageInfo", {}).get("hasNextPage"):
+        raise GitHubBrokerError("Discussion reply readback is missing or paginated")
+    rows = replies.get("nodes")
+    if not isinstance(rows, list):
+        raise GitHubBrokerError("Discussion reply readback rows are invalid")
+    return [
+        {"id": row["id"], "body": row["body"]}
+        for row in rows
+        if isinstance(row, dict)
+        and isinstance(row.get("id"), str)
+        and isinstance(row.get("body"), str)
+        and idempotency_key in row["body"]
+    ]
+
+
+def discussion_target_node_ids(
+    target: Mapping[str, Any],
+    token: SensitiveValue,
+    *,
+    graphql_request: Callable[..., dict[str, Any]] = github_graphql_request,
+) -> tuple[str, str]:
+    """Resolve a bounded public Discussion number/comment database ID pair."""
+
+    data = graphql_request(
+        DISCUSSION_REPLY_QUERY,
+        {
+            "owner": GITHUB_OWNER,
+            "name": GITHUB_REPOSITORY.split("/", 1)[1],
+            "number": target["discussion_number"],
+        },
+        token,
+    )
+    discussion = data.get("repository", {}).get("discussion")
+    comments = discussion.get("comments") if isinstance(discussion, dict) else None
+    nodes = comments.get("nodes") if isinstance(comments, dict) else None
+    if (
+        not isinstance(discussion, dict)
+        or not BROKER_NODE_ID.fullmatch(str(discussion.get("id", "")))
+        or not isinstance(comments, dict)
+        or comments.get("pageInfo", {}).get("hasNextPage")
+        or not isinstance(nodes, list)
+    ):
+        raise GitHubBrokerError("Discussion target resolution is invalid or paginated")
+    parent = next(
+        (
+            row
+            for row in nodes
+            if isinstance(row, dict)
+            and row.get("databaseId") == target["reply_to_comment_id"]
+            and BROKER_NODE_ID.fullmatch(str(row.get("id", "")))
+        ),
+        None,
+    )
+    if parent is None:
+        raise GitHubBrokerError("Discussion reply target was not found")
+    return str(discussion["id"]), str(parent["id"])
+
+
+def execute_discussion_reply_intent(
+    intent: Mapping[str, Any],
+    token: SensitiveValue,
+    *,
+    graphql_request: Callable[..., dict[str, Any]] = github_graphql_request,
+) -> dict[str, Any]:
+    """Post one validated Discussion reply and prove exactly-once readback."""
+
+    if intent.get("operation_type") != "post_discussion_reply":
+        raise GitHubBrokerError("intent is not a Discussion reply operation")
+    target = decode_broker_target(
+        "post_discussion_reply", intent.get("target_node_or_number")
+    )
+    marker = intent["idempotency_key"]
+    requested = intent["new_state_or_content"]["body"]
+    matches = discussion_reply_matches(
+        target, marker, token, graphql_request=graphql_request
+    )
+    if len(matches) > 1:
+        raise GitHubBrokerError("Discussion reply idempotency marker is duplicated")
+    if len(matches) == 1:
+        if matches[0]["body"] != requested:
+            raise GitHubBrokerError("Discussion reply marker has different content")
+        return {
+            "idempotency_key": marker,
+            "reply_id": matches[0]["id"],
+            "already_applied": True,
+        }
+    discussion_id, reply_to_id = discussion_target_node_ids(
+        target, token, graphql_request=graphql_request
+    )
+    data = graphql_request(
+        DISCUSSION_REPLY_MUTATION,
+        {
+            "discussion": discussion_id,
+            "replyTo": reply_to_id,
+            "body": requested,
+        },
+        token,
+    )
+    comment = data.get("addDiscussionComment", {}).get("comment")
+    if not isinstance(comment, dict) or comment.get("body") != requested:
+        raise GitHubBrokerError("Discussion reply mutation response is invalid")
+    matches = discussion_reply_matches(
+        target, marker, token, graphql_request=graphql_request
+    )
+    if len(matches) != 1 or matches[0]["body"] != requested:
+        raise GitHubBrokerError("Discussion reply exact-once readback failed")
+    return {
+        "idempotency_key": marker,
+        "reply_id": matches[0]["id"],
+        "already_applied": False,
+    }
+
+
+def execute_read_state_intent(
+    intent: Mapping[str, Any],
+    github_token: SensitiveValue,
+    *,
+    project_token: SensitiveValue | None = None,
+    api_request: Callable[..., Any] = github_api_request,
+    graphql_request: Callable[..., dict[str, Any]] = github_graphql_request,
+) -> dict[str, Any]:
+    """Read one registered state target without performing a mutation."""
+
+    if intent.get("operation_type") != "read_state":
+        raise GitHubBrokerError("intent is not a read-state operation")
+    target = decode_broker_target("read_state", intent.get("target_node_or_number"))
+    if target["kind"] == "project_field":
+        if project_token is None:
+            raise GitHubBrokerError("Project read requires the Project-only credential")
+        observed = read_project_text_field(
+            target, project_token, graphql_request=graphql_request
+        )
+    elif target["kind"] == "issue":
+        response = api_request(
+            "GET",
+            f"/repos/{GITHUB_REPOSITORY}/issues/{target['issue_number']}",
+            github_token,
+        )
+        if not isinstance(response, dict) or "pull_request" in response:
+            raise GitHubBrokerError("Issue state readback is invalid")
+        observed = {"body": response.get("body"), "state": response.get("state")}
+    else:
+        data = graphql_request(
+            DISCUSSION_REPLY_QUERY,
+            {
+                "owner": GITHUB_OWNER,
+                "name": GITHUB_REPOSITORY.split("/", 1)[1],
+                "number": target["discussion_number"],
+            },
+            github_token,
+        )
+        discussion = data.get("repository", {}).get("discussion")
+        comments = discussion.get("comments") if isinstance(discussion, dict) else None
+        nodes = comments.get("nodes") if isinstance(comments, dict) else None
+        node = next(
+            (
+                row
+                for row in nodes or []
+                if isinstance(row, dict)
+                and row.get("databaseId") == target["reply_to_comment_id"]
+            ),
+            None,
+        )
+        if not isinstance(node, dict) or not isinstance(node.get("body"), str):
+            raise GitHubBrokerError("Discussion state readback is invalid")
+        observed = {"body": node["body"]}
+    expected = intent.get("expected_old_state")
+    if expected is not None and observed != expected:
+        raise GitHubBrokerError("read-state exact snapshot check failed")
+    return {
+        "idempotency_key": intent["idempotency_key"],
+        "state": observed,
+        "mutated": False,
+    }
+
+
+def execute_semantic_broker_intent(
+    intent: object,
+    *,
+    source_revision: str,
+    github_token: SensitiveValue,
+    project_token: SensitiveValue | None = None,
+    api_request: Callable[..., Any] = github_api_request,
+    graphql_request: Callable[..., dict[str, Any]] = github_graphql_request,
+) -> dict[str, Any]:
+    """Validate and execute exactly one model-requestable broker operation."""
+
+    accepted = validate_broker_intent(intent, source_revision=source_revision)
+    operation = accepted["operation_type"]
+    if operation == "set_project_field":
+        if project_token is None:
+            raise GitHubBrokerError("Project write requires the Project-only credential")
+        return execute_project_field_intent(
+            accepted,
+            project_token,
+            read_field=lambda target, token: read_project_text_field(
+                target, token, graphql_request=graphql_request
+            ),
+            write_field=lambda target, value, token: write_project_text_field(
+                target, value, token, graphql_request=graphql_request
+            ),
+        )
+    if operation == "update_issue_wrapper":
+        return execute_issue_wrapper_intent(
+            accepted, github_token, api_request=api_request
+        )
+    if operation == "post_discussion_reply":
+        return execute_discussion_reply_intent(
+            accepted, github_token, graphql_request=graphql_request
+        )
+    return execute_read_state_intent(
+        accepted,
+        github_token,
+        project_token=project_token,
+        api_request=api_request,
+        graphql_request=graphql_request,
+    )
 
 
 def validate_repository_policy(repository: Path) -> dict[str, Any]:
@@ -1331,8 +1874,37 @@ def determine_stage_due(
     return True, "missing_stale_or_invalid_typed_output"
 
 
-def _render_stage_value(value: str, worktree: Path, run_dir: Path) -> str:
-    return value.replace("{worktree}", str(worktree)).replace("{run_dir}", str(run_dir))
+def _render_stage_value(
+    value: str,
+    worktree: Path,
+    run_dir: Path,
+    runtime_root: Path | None = None,
+) -> str:
+    return (
+        value.replace("{worktree}", str(worktree))
+        .replace("{run_dir}", str(run_dir))
+        .replace("{runtime}", str(runtime_root or worktree))
+    )
+
+
+def verify_worktree_entrypoint(
+    worktree: Path,
+    runtime_commit: str,
+    entrypoint: Path,
+) -> None:
+    """Require a worktree script to remain byte-identical to reviewed runtime."""
+
+    resolved = entrypoint.resolve()
+    if not _is_within(resolved, worktree.resolve()):
+        raise TransactionError("worktree entrypoint escapes the transaction root")
+    relative = resolved.relative_to(worktree.resolve()).as_posix()
+    if resolved.is_symlink() or not resolved.is_file():
+        raise TransactionError(f"worktree entrypoint is unsafe: {relative}")
+    reviewed = git(worktree, "show", f"{runtime_commit}:{relative}").stdout
+    if hashlib.sha256(resolved.read_bytes()).digest() != hashlib.sha256(reviewed).digest():
+        raise TransactionError(
+            f"worktree entrypoint differs from runtime commit: {relative}"
+        )
 
 
 def run_local_stages(
@@ -1343,7 +1915,10 @@ def run_local_stages(
     specs: Sequence[LocalStageSpec],
     last_success: Mapping[str, Any] | None = None,
     environment: Mapping[str, str] | None = None,
+    environment_by_stage: Mapping[str, Mapping[str, str]] | None = None,
     now: datetime | None = None,
+    runtime_root: Path | None = None,
+    runtime_commit: str | None = None,
 ) -> list[LocalStageResult]:
     """Execute exact stage commands and write typed, hash-bound envelopes."""
 
@@ -1361,7 +1936,22 @@ def run_local_stages(
         stage_dir = run_dir / "stages" / spec.identifier
         ensure_owner_directory(stage_dir)
         command = tuple(
-            _render_stage_value(value, worktree, run_dir) for value in spec.command
+            _render_stage_value(value, worktree, run_dir, runtime_root)
+            for value in spec.command
+        )
+        if runtime_commit is not None:
+            if len(command) < 2:
+                raise TransactionError(
+                    f"stage command lacks a reviewed entrypoint: {spec.identifier}"
+                )
+            verify_worktree_entrypoint(
+                worktree,
+                runtime_commit,
+                Path(command[1]),
+            )
+        stage_environment = dict(environment or os.environ)
+        stage_environment.update(
+            (environment_by_stage or {}).get(spec.identifier, {})
         )
         process = subprocess.run(
             command,
@@ -1369,12 +1959,17 @@ def run_local_stages(
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             check=False,
-            env=dict(environment or os.environ),
+            env=stage_environment,
         )
         output_rows: list[dict[str, str]] = []
         output_error: str | None = None
         for relative in spec.outputs:
-            rendered = _render_stage_value(relative, worktree, run_dir)
+            rendered = _render_stage_value(
+                relative,
+                worktree,
+                run_dir,
+                runtime_root,
+            )
             path = Path(rendered).resolve()
             if not _is_within(path, run_dir.resolve()) and not _is_within(
                 path, worktree.resolve()
@@ -1437,9 +2032,18 @@ def last_success_document(
     results: Sequence[LocalStageResult],
     *,
     run_id: str,
+    previous: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
+    prior_stages = (previous or {}).get("stages")
     stages: dict[str, dict[str, str]] = {}
     for result in results:
+        if (
+            result.status == "not_due"
+            and isinstance(prior_stages, Mapping)
+            and isinstance(prior_stages.get(result.identifier), Mapping)
+        ):
+            stages[result.identifier] = dict(prior_stages[result.identifier])
+            continue
         if result.status != "succeeded" or result.envelope is None:
             continue
         envelope = Path(result.envelope).resolve()
@@ -1744,6 +2348,8 @@ def default_local_stage_specs(python: str | None = None) -> tuple[LocalStageSpec
                 "{worktree}/inventory/github_issue_registry.csv",
                 "--output",
                 "{run_dir}/stages/project-console-progress-bot/report.json",
+                "--token-env",
+                "ARRP_PROJECT_TOKEN",
             ),
             ("{run_dir}/stages/project-console-progress-bot/report.json",),
         ),
@@ -2206,6 +2812,527 @@ def run_p3_fixture_cycle(
         "p2": p2,
         "commands": command_results,
         "final_commit": commit,
+    }
+
+
+def _run_production_command(
+    command: Sequence[str],
+    *,
+    cwd: Path,
+    accepted: frozenset[int] = frozenset({0}),
+    environment: Mapping[str, str] | None = None,
+) -> subprocess.CompletedProcess[bytes]:
+    result = subprocess.run(
+        list(command),
+        cwd=cwd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+        env=dict(environment or os.environ),
+    )
+    if result.returncode not in accepted:
+        raise TransactionError(
+            f"production command failed ({result.returncode}): "
+            + result.stderr.decode("utf-8", "replace")[:500]
+        )
+    return result
+
+
+def _stage_output_from_envelope(
+    state_root: Path,
+    envelope_path: Path,
+) -> Path:
+    envelope = read_json_object(envelope_path)
+    outputs = envelope.get("outputs")
+    if not isinstance(outputs, list) or not outputs:
+        raise TransactionError("stage result lacks a typed output")
+    relative = outputs[0].get("path") if isinstance(outputs[0], dict) else None
+    if not isinstance(relative, str) or not relative:
+        raise TransactionError("stage result output path is invalid")
+    output = (state_root / relative).resolve()
+    if not _is_within(output, state_root.resolve()) or not output.is_file():
+        raise TransactionError("stage result output is outside owner state")
+    if file_sha256(output) != outputs[0].get("sha256"):
+        raise TransactionError("stage result output hash does not match")
+    return output
+
+
+def _production_stage_outputs(
+    state_root: Path,
+    results: Sequence[LocalStageResult],
+    last_success: Mapping[str, Any],
+) -> dict[str, Path]:
+    outputs: dict[str, Path] = {}
+    prior = last_success.get("stages")
+    prior = prior if isinstance(prior, Mapping) else {}
+    for result in results:
+        envelope: Path | None = None
+        if result.envelope is not None:
+            envelope = Path(result.envelope).resolve()
+        elif result.status == "not_due":
+            record = prior.get(result.identifier)
+            if isinstance(record, Mapping) and isinstance(record.get("envelope"), str):
+                envelope = (state_root / record["envelope"]).resolve()
+                if file_sha256(envelope) != record.get("sha256"):
+                    raise TransactionError(
+                        f"prior stage envelope hash differs: {result.identifier}"
+                    )
+        if envelope is not None:
+            try:
+                outputs[result.identifier] = _stage_output_from_envelope(
+                    state_root,
+                    envelope,
+                )
+            except TransactionError:
+                if result.status != "degraded":
+                    raise
+    return outputs
+
+
+def _mirror_production_inputs(
+    run_dir: Path,
+    stage_outputs: Mapping[str, Path],
+) -> dict[str, Path]:
+    inputs = run_dir / "inputs"
+    ensure_owner_directory(inputs)
+    mirrored: dict[str, Path] = {}
+    for identifier, source in stage_outputs.items():
+        destination = inputs / f"{identifier}.json"
+        atomic_write_bytes(destination, source.read_bytes())
+        mirrored[identifier] = destination
+    return mirrored
+
+
+def _usage_remaining(
+    runtime: Path,
+    worktree: Path,
+    run_id: str,
+    reserve_percent: float,
+) -> float | None:
+    result = _run_production_command(
+        (
+            sys.executable,
+            str(runtime / "scripts/check_codex_usage_reserve.py"),
+            "--reserve-percent",
+            str(reserve_percent),
+            "--soft-target-percent",
+            str(reserve_percent),
+            "--run-baseline-id",
+            run_id,
+        ),
+        cwd=worktree,
+        accepted=frozenset({0, 2, 3}),
+    )
+    try:
+        value = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        return None
+    remaining = value.get("lowestRemainingPercent") if isinstance(value, dict) else None
+    return float(remaining) if isinstance(remaining, (int, float)) else None
+
+
+def execute_production_semantic_actions(
+    requests: Sequence[Mapping[str, Any]],
+    *,
+    source_revision: str,
+    github_token: SensitiveValue,
+) -> list[dict[str, Any]]:
+    """Execute validated intents after PR checks and before exact-head merge."""
+
+    project_token = None
+    if any(
+        request.get("operation_type") == "set_project_field"
+        or (
+            request.get("operation_type") == "read_state"
+            and decode_broker_target(
+                "read_state", request.get("target_node_or_number")
+            ).get("kind")
+            == "project_field"
+        )
+        for request in requests
+    ):
+        project_token = read_keychain_secret(
+            GITHUB_PROJECT_KEYCHAIN_SERVICE,
+            GITHUB_PROJECT_KEYCHAIN_ACCOUNT,
+        )
+    return [
+        execute_semantic_broker_intent(
+            request,
+            source_revision=source_revision,
+            github_token=github_token,
+            project_token=project_token,
+        )
+        for request in requests
+    ]
+
+
+def run_production_cycle(
+    config: RunnerConfig,
+    transaction: TransactionResult,
+    runtime: Path,
+) -> dict[str, Any]:
+    """Run the enabled local-first chain without a fixture or persistent plan."""
+
+    if (
+        config.trigger not in {"scheduled", "manual"}
+        or config.runtime_commit is None
+        or transaction.worktree_path is None
+        or transaction.fetched_origin_main != config.runtime_commit
+    ):
+        raise TransactionError("production cycle lacks exact runtime/transaction binding")
+    worktree = Path(transaction.worktree_path).resolve()
+    run_dir = config.state_root / "runs" / transaction.run_id
+    ensure_owner_directory(run_dir)
+    coordinator = runtime / "scripts/run_coordinator.py"
+    coordinator_config = worktree / ".github/run-coordinator-bot.json"
+    chain = run_dir / "run-chain.json"
+    signals = run_dir / "signals.json"
+    atomic_write_json(
+        signals,
+        {
+            "allow_elim_launch": True,
+            "elim_launch_trigger": config.trigger,
+        },
+    )
+    _run_production_command(
+        (
+            sys.executable,
+            str(coordinator),
+            "plan",
+            "--config",
+            str(coordinator_config),
+            "--repo",
+            str(worktree),
+            "--signals",
+            str(signals),
+            "--output",
+            str(chain),
+            "--chain-id",
+            transaction.run_id,
+            "--run-id",
+            transaction.run_id,
+            "--trigger",
+            config.trigger,
+            "--local",
+        ),
+        cwd=worktree,
+    )
+
+    last_success_path = config.state_root / "last-success.json"
+    last_success = (
+        read_json_object(last_success_path) if last_success_path.exists() else {}
+    )
+    project_token = read_keychain_secret(
+        GITHUB_PROJECT_KEYCHAIN_SERVICE,
+        GITHUB_PROJECT_KEYCHAIN_ACCOUNT,
+    )
+    stages = run_local_stages(
+        worktree=worktree,
+        run_dir=run_dir,
+        state_root=config.state_root,
+        specs=default_local_stage_specs(),
+        last_success=last_success,
+        environment=os.environ,
+        environment_by_stage={
+            "project-console-progress-bot": {
+                "ARRP_PROJECT_TOKEN": project_token.reveal(),
+            }
+        },
+        runtime_root=runtime,
+        runtime_commit=config.runtime_commit,
+    )
+    for result in stages:
+        command = [
+            sys.executable,
+            str(coordinator),
+            "record",
+            "--manifest",
+            str(chain),
+            "--stage",
+            result.identifier,
+            "--status",
+            result.status,
+            "--failure-class",
+            (
+                "none"
+                if result.status in {"succeeded", "not_due"}
+                else next(
+                    spec.failure_class
+                    for spec in default_local_stage_specs()
+                    if spec.identifier == result.identifier
+                )
+            ),
+            "--details",
+            result.reason,
+            "--work-count",
+            "0",
+        ]
+        if result.envelope is not None:
+            command.extend(("--output-file", result.envelope))
+        _run_production_command(command, cwd=worktree)
+    if any(result.status == "failed" for result in stages):
+        raise TransactionError("blocking deterministic production stage failed")
+
+    run_config = read_json_object(coordinator_config)
+    reserve = float(run_config["usageGate"]["hardReservePercent"])
+    remaining = _usage_remaining(
+        runtime,
+        worktree,
+        transaction.run_id,
+        reserve,
+    )
+    empty_results = run_dir / "stage-results.json"
+    atomic_write_json(empty_results, {})
+    finalize = [
+        sys.executable,
+        str(coordinator),
+        "finalize",
+        "--config",
+        str(coordinator_config),
+        "--manifest",
+        str(chain),
+        "--stage-results",
+        str(empty_results),
+    ]
+    if remaining is not None:
+        finalize.extend(("--usage-remaining", str(remaining)))
+    _run_production_command(finalize, cwd=worktree)
+
+    outputs = _production_stage_outputs(config.state_root, stages, last_success)
+    required = {
+        "project-integrity-bot",
+        "project-console-progress-bot",
+        "public-intake",
+    }
+    if not required.issubset(outputs):
+        raise TransactionError("required production queue inputs are unavailable")
+    mirrored = _mirror_production_inputs(run_dir, outputs)
+    review_epoch = run_dir / "review-epoch.json"
+    atomic_write_json(
+        review_epoch,
+        read_json_object(chain).get("review_epoch") or {},
+    )
+    queue = run_dir / "queue.json"
+    queue_command = [
+        sys.executable,
+        str(runtime / "scripts/build_elim_work_queue.py"),
+        "--input-root",
+        str(run_dir),
+        "--repository-root",
+        str(worktree),
+        "--integrity",
+        str(mirrored["project-integrity-bot"]),
+        "--progress",
+        str(mirrored["project-console-progress-bot"]),
+        "--intake",
+        str(mirrored["public-intake"]),
+        "--chain",
+        str(chain),
+        "--review-epoch",
+        str(review_epoch),
+        "--output",
+        str(queue),
+    ]
+    for identifier, option in (
+        ("source-checker-bot", "--source-checker"),
+        ("case-monitor-bot", "--case-monitor"),
+        ("presidential-directives-bot", "--presidential-directives"),
+    ):
+        if identifier in mirrored:
+            queue_command.extend((option, str(mirrored[identifier])))
+    _run_production_command(
+        queue_command,
+        cwd=worktree,
+        accepted=frozenset({0, 3}),
+    )
+
+    route = run_dir / "route.json"
+    _run_production_command(
+        (
+            sys.executable,
+            str(runtime / "scripts/select_elim_context_route.py"),
+            "--queue",
+            str(queue),
+            "--chain",
+            str(chain),
+            "--input-root",
+            str(run_dir),
+            "--output",
+            str(route),
+        ),
+        cwd=worktree,
+    )
+    selected = read_json_object(route)
+    context_path: Path | None = None
+    if selected.get("profile"):
+        context_path = run_dir / "context.json"
+        context_command = [
+            sys.executable,
+            str(runtime / "scripts/build_elim_context.py"),
+            "--manifest",
+            str(worktree / "framework/project/automation/context-routes.json"),
+            "--input-root",
+            str(worktree),
+            "--review-epoch-root",
+            str(run_dir),
+            "--output-root",
+            str(run_dir),
+            "--output",
+            str(context_path),
+            "--profile",
+            str(selected["profile"]),
+            "--work-item-id",
+            str(selected.get("work_item_id") or ""),
+            "--work-kind",
+            str(selected.get("kind") or ""),
+            "--review-epoch",
+            str(review_epoch),
+        ]
+        if selected.get("issue"):
+            context_command.extend(("--issue", str(selected["issue"])))
+        if selected.get("canonical_record"):
+            context_command.extend(
+                ("--canonical-record", str(selected["canonical_record"]))
+            )
+        _run_production_command(context_command, cwd=worktree)
+
+    attach = [
+        sys.executable,
+        str(coordinator),
+        "attach-context",
+        "--config",
+        str(coordinator_config),
+        "--manifest",
+        str(chain),
+        "--queue",
+        str(queue),
+    ]
+    if context_path is not None:
+        attach.extend(("--context", str(context_path)))
+    _run_production_command(attach, cwd=worktree)
+    _run_production_command(finalize, cwd=worktree)
+    chain_value = read_json_object(chain)
+
+    elim_result: dict[str, Any] | None = None
+    if (chain_value.get("elim_decision") or {}).get("launch_recommended"):
+        unit = (chain_value.get("work_queue") or {}).get("next_item") or {}
+        unit_id = str(unit.get("id") or selected.get("work_item_id") or "")
+        profile = (chain_value["elim_decision"].get("profile") or {})
+        model = str(profile.get("model") or run_config["llmRouting"]["profiles"][
+            selected["profile"]
+        ]["model"])
+        codex_home = trusted_codex_auth_home()
+        codex_sqlite_home = run_dir / "codex-home"
+        ensure_owner_directory(codex_sqlite_home)
+        sealed_environment = sealed_elim_environment(
+            os.environ,
+            worktree=worktree,
+            run_dir=run_dir,
+            model=model,
+            codex_home=codex_home,
+            codex_sqlite_home=codex_sqlite_home,
+        )
+        feature_command = [str(PRODUCTION_CODEX), "features", "list"]
+        for feature in SEALED_DISABLED_FEATURES:
+            feature_command.extend(("--disable", feature))
+        feature_environment = dict(sealed_environment)
+        feature_environment["CODEX_HOME"] = str(codex_sqlite_home)
+        feature_readback = _run_production_command(
+            feature_command,
+            cwd=worktree,
+            environment=feature_environment,
+        )
+        validate_sealed_feature_readback(
+            feature_readback.stdout.decode("utf-8", "strict")
+        )
+        before_git = git_metadata_snapshot(worktree)
+        before_paths = _manifest_path_state(worktree)
+        command = sealed_elim_command(
+            codex=PRODUCTION_CODEX,
+            worktree=worktree,
+            run_dir=run_dir,
+            model=model,
+            schema=worktree
+            / "framework/project/automation/schemas/elim-work-unit-result.schema.json",
+        )
+        process = run_sealed_elim_process(
+            command,
+            worktree=worktree,
+            prompt=(
+                "Execute only the exact ARRP work unit bound by "
+                f"{chain} and {context_path}; run_id={transaction.run_id}; "
+                f"unit_id={unit_id}. Return the strict result schema."
+            ).encode("utf-8"),
+            environment=sealed_environment,
+            timeout_seconds=1800,
+            jsonl_path=run_dir / "elim.jsonl",
+        )
+        if process.returncode:
+            raise TransactionError(f"sealed production Elim exited {process.returncode}")
+        if git_metadata_snapshot(worktree) != before_git:
+            raise TransactionError("Elim changed Git metadata")
+        after_paths = _manifest_path_state(worktree)
+        touched = sorted(
+            path
+            for path in set(before_paths) | set(after_paths)
+            if before_paths.get(path) != after_paths.get(path)
+        )
+        elim_result = read_json_object(run_dir / "elim-result.json")
+        validate_elim_result_boundary(
+            elim_result,
+            run_id=transaction.run_id,
+            unit_id=unit_id,
+            files_touched=touched,
+            source_revision=config.runtime_commit,
+            allow_github_actions=True,
+        )
+
+    for spec in default_post_elim_validation_specs():
+        command = expand_validation_command(worktree, spec.command)
+        if len(command) > 1 and command[1].endswith(".py"):
+            verify_worktree_entrypoint(
+                worktree,
+                config.runtime_commit,
+                (worktree / command[1]).resolve(),
+            )
+    validations = run_validation_specs(
+        worktree=worktree,
+        run_dir=run_dir,
+        specs=default_post_elim_validation_specs(),
+        environment=os.environ,
+    )
+    final_commit = create_local_final_commit(
+        worktree,
+        run_dir,
+        message=f"ARRP nightly automation {utc_now().date().isoformat()}",
+    )
+    success_candidate = last_success_document(
+        config.state_root,
+        run_dir,
+        stages,
+        run_id=transaction.run_id,
+        previous=last_success,
+    )
+    return {
+        "schema_version": 1,
+        "phase": "P6",
+        "run_id": transaction.run_id,
+        "runtime_commit": config.runtime_commit,
+        "stage_results": [result.__dict__ for result in stages],
+        "chain": str(chain),
+        "queue": str(queue),
+        "route": str(route),
+        "context": str(context_path) if context_path is not None else None,
+        "elim_result": elim_result,
+        "semantic_action_requests": (
+            elim_result.get("github_action_requests") or []
+            if isinstance(elim_result, Mapping)
+            else []
+        ),
+        "validation_results": validations,
+        "final_commit": final_commit,
+        "last_success_candidate": success_candidate,
+        "publication_attempted": False,
     }
 
 
@@ -3167,6 +4294,188 @@ def publish_supervised_transaction(
     }
 
 
+def publish_production_transaction(
+    config: RunnerConfig,
+    transaction: TransactionResult,
+    cycle_summary: Mapping[str, Any],
+    *,
+    api_request: Callable[..., Any] = github_api_request,
+) -> dict[str, Any]:
+    """Publish or cleanly close one enabled P6 production transaction."""
+
+    if (
+        config.trigger not in {"scheduled", "manual"}
+        or transaction.worktree_path is None
+        or transaction.branch is None
+        or transaction.fetched_origin_main is None
+        or cycle_summary.get("phase") != "P6"
+    ):
+        raise TransactionError("production publication lacks exact cycle binding")
+    worktree = Path(transaction.worktree_path).resolve()
+    final = cycle_summary.get("final_commit")
+    if not isinstance(final, Mapping):
+        raise TransactionError("production cycle omitted final commit evidence")
+    success_candidate = cycle_summary.get("last_success_candidate")
+    if not isinstance(success_candidate, Mapping):
+        raise TransactionError("production cycle omitted last-success evidence")
+    expected_head = git_text(worktree, "rev-parse", "HEAD")
+    run_dir = config.state_root / "runs" / transaction.run_id
+    publication_range = classify_publication_range(
+        worktree,
+        run_dir,
+        base_commit=transaction.fetched_origin_main,
+        head_commit=expected_head,
+    )
+    if final.get("commit") is not None and expected_head != final.get("commit"):
+        raise TransactionError("production final commit readback differs")
+    if (
+        expected_head == transaction.fetched_origin_main
+        and not publication_range["classification"]["ordinary"]
+        and not publication_range["review_required"]
+    ):
+        if status_manifest(worktree):
+            raise TransactionError("no-op production cycle left a dirty worktree")
+        remove_successful_transaction_worktree(
+            config.canonical_path,
+            config.state_root,
+            worktree,
+        )
+        git(config.canonical_path, "branch", "-d", transaction.branch)
+        atomic_write_json(
+            config.state_root / "last-success.json",
+            success_candidate,
+        )
+        return {
+            "phase": "P6",
+            "publication_attempted": False,
+            "no_op": True,
+            "project_sync": {
+                "source": "project-console-progress-bot",
+                "readback": "typed-stage-output",
+            },
+            "canonical_main": git_text(config.canonical_path, "rev-parse", "HEAD"),
+            "worktree_removed": True,
+            "branch_removed": True,
+        }
+    if not publication_range["classification"]["ordinary"] and not publication_range[
+        "review_required"
+    ]:
+        raise TransactionError("production cycle has no publishable evidence")
+    run_config = read_json_object(
+        worktree / ".github/run-coordinator-bot.json"
+    )
+    publication = run_config.get("publication")
+    required = {
+        "pullRequestTitle",
+        "pullRequestBody",
+        "requiredChecksTimeoutSeconds",
+        "pagesTimeoutSeconds",
+        "pollSeconds",
+    }
+    if not isinstance(publication, dict) or set(publication) != required:
+        raise TransactionError("production publication configuration is not exact")
+    identity = GitHubAppIdentity.from_json(config.state_root / "github-app.json")
+    private_key = read_keychain_secret(
+        GITHUB_APP_KEYCHAIN_SERVICE,
+        GITHUB_APP_KEYCHAIN_ACCOUNT,
+    )
+    app_token = mint_installation_token(
+        identity,
+        private_key,
+        api_request=api_request,
+    )
+    git_push_with_token(
+        worktree,
+        f"{expected_head}:refs/heads/{transaction.branch}",
+        app_token,
+    )
+    pull = open_or_update_nightly_pull_request(
+        app_token,
+        branch=transaction.branch,
+        expected_head=expected_head,
+        title=str(publication["pullRequestTitle"]),
+        body=str(publication["pullRequestBody"]),
+        api_request=api_request,
+    )
+    pull_number = pull.get("number") if isinstance(pull, dict) else None
+    pull_url = pull.get("html_url") if isinstance(pull, dict) else None
+    if not isinstance(pull_number, int) or not isinstance(pull_url, str):
+        raise GitHubBrokerError("production pull-request readback omitted identity")
+    if publication_range["review_required"]:
+        return {
+            "phase": "P6",
+            "publication_attempted": True,
+            "publication_range": publication_range,
+            "pull_request": {"number": pull_number, "url": pull_url},
+            "expected_pr_head": expected_head,
+            "review_required": True,
+            "project_sync": {
+                "source": "project-console-progress-bot",
+                "readback": "typed-stage-output",
+            },
+            "worktree_removed": False,
+        }
+    checks = wait_for_required_checks(
+        app_token,
+        head_sha=expected_head,
+        timeout_seconds=int(publication["requiredChecksTimeoutSeconds"]),
+        poll_seconds=float(publication["pollSeconds"]),
+        api_request=api_request,
+    )
+    semantic_results = execute_production_semantic_actions(
+        cycle_summary.get("semantic_action_requests") or [],
+        source_revision=config.runtime_commit or transaction.fetched_origin_main,
+        github_token=app_token,
+    )
+    merge_sha = merge_exact_head(
+        app_token,
+        pull_number=pull_number,
+        expected_head=expected_head,
+        expected_base=transaction.fetched_origin_main,
+        protected=False,
+        api_request=api_request,
+    )
+    pages = wait_for_pages_deployment(
+        app_token,
+        merge_sha=merge_sha,
+        timeout_seconds=int(publication["pagesTimeoutSeconds"]),
+        poll_seconds=float(publication["pollSeconds"]),
+        api_request=api_request,
+    )
+    canonical = config.canonical_path.resolve()
+    git(canonical, "fetch", "origin", "main")
+    if git_text(canonical, "rev-parse", "origin/main") != merge_sha:
+        raise TransactionError("origin/main differs from production merge readback")
+    synchronized = fast_forward_main(canonical, merge_sha)
+    remove_successful_transaction_worktree(
+        canonical,
+        config.state_root,
+        worktree,
+    )
+    atomic_write_json(
+        config.state_root / "last-success.json",
+        success_candidate,
+    )
+    return {
+        "phase": "P6",
+        "publication_attempted": True,
+        "publication_range": publication_range,
+        "pull_request": {"number": pull_number, "url": pull_url},
+        "expected_pr_head": expected_head,
+        "required_checks": checks,
+        "project_sync": {
+            "source": "project-console-progress-bot",
+            "readback": "typed-stage-output",
+            "semantic_actions": semantic_results,
+        },
+        "merge_commit": merge_sha,
+        "pages_workflow_run": pages,
+        "pages_conclusion": "success",
+        "canonical_main": synchronized,
+        "worktree_removed": True,
+    }
+
+
 def prepare_transaction(
     config: RunnerConfig,
     *,
@@ -3285,6 +4594,13 @@ def prepare_transaction(
                 )
             git(repository, "fetch", "origin", "main")
             fetched = git_text(repository, "rev-parse", "origin/main")
+            if (
+                config.runtime_commit is not None
+                and fetched != config.runtime_commit
+            ):
+                raise TransactionError(
+                    "fetched origin/main moved beyond the executed runtime commit"
+                )
             write_status(
                 config,
                 status,
@@ -3394,7 +4710,7 @@ def prepare_transaction(
                     )
                 assert_canonical_unchanged(repository, starting_head, clean_digest)
                 publication_summary = publication_cycle(prepared, cycle_summary)
-                cycle_phase = "P5"
+                cycle_phase = str(publication_summary.get("phase") or cycle_phase)
             cycle_elim_summary = None
             if isinstance(cycle_summary, Mapping):
                 nested_elim = cycle_summary.get("p2", cycle_summary)
@@ -3408,7 +4724,12 @@ def prepare_transaction(
                 "06_local_cycle" if cycle_summary is not None else "05_worktree",
                 completed_at=iso_utc(),
                 worktree_path=str(worktree),
-                preserved_paths=[] if publication_summary is not None else [branch, str(worktree)],
+                preserved_paths=(
+                    []
+                    if publication_summary is not None
+                    and publication_summary.get("worktree_removed") is True
+                    else [value for value in (branch, str(worktree)) if value]
+                ),
                 elim_unit=(
                     cycle_elim_summary.get("elim_unit")
                     if cycle_elim_summary is not None
@@ -3461,7 +4782,15 @@ def prepare_transaction(
                     else None
                 ),
                 exact_next_action=(
-                    "P5 supervised publication completed with exact readback."
+                    "P6 production cycle completed with exact readback."
+                    if cycle_phase == "P6"
+                    and publication_summary is not None
+                    and not publication_summary.get("review_required")
+                    else "Benjamin reviews the protected P6 pull request."
+                    if cycle_phase == "P6"
+                    and publication_summary is not None
+                    and publication_summary.get("review_required")
+                    else "P5 supervised publication completed with exact readback."
                     if publication_summary is not None
                     else "Preserve the completed local-only final commit for review."
                     if cycle_summary is not None and cycle_phase == "P3"
@@ -3486,6 +4815,8 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--state-root", type=Path)
     parser.add_argument("--fixture", type=Path, help="owner-controlled fixture root")
     parser.add_argument("--manual", action="store_true")
+    parser.add_argument("--scheduled", action="store_true")
+    parser.add_argument("--runtime-commit")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--run-id")
     parser.add_argument(
@@ -3512,6 +4843,19 @@ def main(argv: Sequence[str] | None = None) -> int:
         repository = (args.canonical_path or Path.cwd()).resolve()
         print(json.dumps(validate_repository_policy(repository), sort_keys=True))
         return 0
+    production = (
+        args.fixture is None
+        and args.p5_supervised_plan is None
+        and args.runtime_commit is not None
+        and (args.scheduled or args.manual)
+        and not args.dry_run
+    )
+    if args.scheduled and args.manual:
+        print("select exactly one of --scheduled or --manual", file=sys.stderr)
+        return 64
+    if args.scheduled and (args.fixture is not None or args.dry_run):
+        print("scheduled execution cannot use fixture or dry-run mode", file=sys.stderr)
+        return 64
     if args.p5_supervised_plan is not None:
         if args.fixture is not None or args.dry_run or not args.manual:
             print(
@@ -3519,9 +4863,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 file=sys.stderr,
             )
             return 64
-    elif args.fixture is None and not (args.manual and args.dry_run):
+    elif args.fixture is None and not (args.manual and args.dry_run) and not production:
         print(
-            "P1_DISABLED: use --fixture, or explicit --manual --dry-run",
+            "production execution requires --scheduled/--manual and --runtime-commit",
             file=sys.stderr,
         )
         return 64
@@ -3559,6 +4903,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         config.validate()
         print("P1_DRY_RUN_OK: configuration validated; no repository operation performed")
         return 0
+    runtime: Path | None = None
+    if production:
+        runtime = verify_executed_runtime(
+            state,
+            str(args.runtime_commit),
+        )
     supervised_plan = (
         read_p5_supervised_plan(args.p5_supervised_plan)
         if args.p5_supervised_plan is not None
@@ -3568,12 +4918,22 @@ def main(argv: Sequence[str] | None = None) -> int:
         canonical,
         state,
         fixture_root=fixture,
-        trigger="manual-p5-supervised" if supervised_plan is not None else "fixture",
+        trigger=(
+            "manual-p5-supervised"
+            if supervised_plan is not None
+            else "scheduled"
+            if args.scheduled
+            else "manual"
+            if production
+            else "fixture"
+        ),
+        scheduled_for=scheduled_slot() if args.scheduled else None,
         console_projection=(
             canonical
             / "research/horizon-review-console/data/local-automation-status.js"
         ),
         supervised_live=supervised_plan is not None,
+        runtime_commit=str(args.runtime_commit) if production else None,
     )
     cycle_output: dict[str, Any] = {}
     publication_output: dict[str, Any] = {}
@@ -3621,13 +4981,38 @@ def main(argv: Sequence[str] | None = None) -> int:
                 )
             )
             return publication_output
+    elif production:
+        assert runtime is not None
+
+        def local_cycle(transaction: TransactionResult) -> Mapping[str, Any]:
+            cycle_output.update(
+                run_production_cycle(
+                    config,
+                    transaction,
+                    runtime,
+                )
+            )
+            return cycle_output
+
+        def publication_cycle(
+            transaction: TransactionResult,
+            summary: Mapping[str, Any],
+        ) -> Mapping[str, Any]:
+            publication_output.update(
+                publish_production_transaction(
+                    config,
+                    transaction,
+                    summary,
+                )
+            )
+            return publication_output
 
     result = prepare_transaction(
         config,
         run_id=args.run_id,
         local_cycle=local_cycle,
         publication_cycle=(
-            publication_cycle if supervised_plan is not None else None
+            publication_cycle if supervised_plan is not None or production else None
         ),
     )
     output: dict[str, Any] = {"transaction": result.__dict__}

@@ -4429,7 +4429,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         ],
         "issue_development_count": 1
       },
-      "event_source_url": "https://github.com/Thorncrag/ARRP/blob/project-console-data/source-domain-events/proposed/case-monitor-bot/SDE-93345EDC1D1AC55F8CFA3E44.json",
+      "event_source_url": null,
       "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/sources/source-monitor-log.md",
       "console_target": "logs:source-monitor"
     },
@@ -4536,12 +4536,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "issue_development_ids": [],
         "issue_development_count": 0
       },
-      "event_source_url": "https://github.com/Thorncrag/ARRP/blob/project-console-data/source-domain-events/proposed/presidential-directives-bot/SDE-578F200E8E9344ADF613CA76.json",
+      "event_source_url": null,
       "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/sources/source-monitor-log.md",
       "console_target": "logs:source-monitor"
     }
   ],
   "domain_generation": {
-    "logs.js": "project-console-947a0a710f1182f7281f"
+    "logs.js": "project-console-d24811e5a0b718794cb5"
   }
 });

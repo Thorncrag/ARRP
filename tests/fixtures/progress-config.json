@@ -2,6 +2,7 @@
   "schemaVersion": 2,
   "projectOwner": "Thorncrag",
   "projectNumber": 2,
+  "projectNodeId": "PVT_fixture",
   "repository": "Thorncrag/ARRP",
   "registryPath": "tests/fixtures/progress-registry.csv",
   "projectFields": {"area": "Area", "developmentLevel": "Development level", "status": "Status", "score": "Score", "lastAudit": "Last audit", "nextAudit": "Next audit", "canonicalPage": "Canonical page"},

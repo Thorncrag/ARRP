@@ -124,16 +124,15 @@ For each issue:
 6. run issue-specific and complete changed-surface validation;
 7. commit and push the completed audit through the reviewed GitHub boundary;
 8. when the audit changes an eligible proposal's `Development level`, `Status`,
-   `Score`, or goal eligibility, dispatch the Project Console progress-data
-   workflow after Project readback and push, wait for success, and verify
-   `project-console-data/progress.json`; and
+   `Score`, or goal eligibility, run the local Project Console Progress stage
+   after Project readback and push, wait for success, and verify its checked-in
+   Console projection; and
 9. only then move to the next eligible issue.
 
 For an expressly authorized multi-unit scored batch, one final progress-data
-dispatch after the last synchronized Project update and push is sufficient
+refresh after the last synchronized Project update and push is sufficient
 when every unit is committed and pushed and readback confirms the complete
-batch. The daily schedule is a recovery backstop, not audit closeout. Never edit
-the generated data branch manually.
+batch. The nightly schedule is a recovery backstop, not audit closeout.
 
 ## Change Audit Markers
 
@@ -177,7 +176,7 @@ After each autonomous unit, validate:
 7. whitespace and formatting;
 8. the required commit hash in
    `framework/records/automation/agent-audit-log.md`;
-9. the Review Ready progress workflow and generated readback when
+9. the Review Ready local progress stage and generated readback when
    goal-relevant fields changed; and
 10. absence of unintended changed files, including generated exports unless
     the user requested or the task expressly requires them.

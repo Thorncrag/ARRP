@@ -53,14 +53,17 @@ in [`../PROJECT_STRUCTURE.md`](../PROJECT_STRUCTURE.md).
 | [`interfaces/`](interfaces/) | Project Console and visual-identity configuration. |
 | [`automation/`](automation/) | Context registry, named runbooks, and exact agent/bot configuration. |
 
-## Local-first transition sources
+## Local-first runtime
 
-P1–P4 add disabled `scripts/arrp_bootstrap.py` and `scripts/arrp_nightly.py`
-source, an unscheduled disabled LaunchAgent example under `.github/launchd/`,
-protected ownership and validation policy under `.github/`, and fixture-first
-`tests/test_arrp_*.py` coverage. The GitHub broker is repository- and
-permission-bound; Elim never receives its credentials. No scheduler or host
-service is deployed.
+The reviewed `scripts/arrp_bootstrap.py` and `scripts/arrp_nightly.py` source
+implements the enabled local-first chain. One owner LaunchAgent,
+`com.thorncrag.arrp-nightly`, is the sole scheduled coordinator and evaluates
+the chain at 02:00 `America/New_York`, with `RunAtLoad` due evaluation.
+Protected ownership and validation policy remain under `.github/`, and
+`tests/test_arrp_*.py` retain fixture-first coverage. The GitHub broker is
+repository- and permission-bound; Elim never receives its credentials.
+GitHub Actions retains only public-site publication and required validation,
+not scheduled project maintenance.
 
 ## Project records
 

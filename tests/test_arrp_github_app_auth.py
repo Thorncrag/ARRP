@@ -21,7 +21,14 @@ def intent(**updates):
     value = {
         "operation_type": "set_project_field",
         "repository": "Thorncrag/ARRP",
-        "target_node_or_number": "PVTI_fixture",
+        "target_node_or_number": MODULE.encode_broker_target(
+            "set_project_field",
+            {
+                "project_id": "PVT_fixture",
+                "item_id": "PVTI_fixture",
+                "field_id": "PVTF_fixture",
+            },
+        ),
         "source_revision": "a" * 40,
         "authority_record": "framework/project/github/workflow.md",
         "expected_old_state": "old",
@@ -30,7 +37,7 @@ def intent(**updates):
         "privacy_class": "public",
         "human_reserved": False,
         "rollback_or_correction": "restore old after fixture readback",
-        "readback_contract": "exact field value equals requested value",
+        "readback_contract": "exact_project_field_value",
     }
     value.update(updates)
     return value

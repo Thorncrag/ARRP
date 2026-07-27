@@ -151,20 +151,30 @@ def broker_intent(
         raise ReplyValidationError("source_revision must be a full lowercase Git SHA")
     if not authority_record.startswith("framework/"):
         raise ReplyValidationError("authority_record must be a framework path")
-    comment_id = validated["submission_url"].rsplit("-", 1)[-1]
+    parsed = urlsplit(validated["submission_url"])
+    discussion_number = int(parsed.path.rstrip("/").rsplit("/", 1)[-1])
+    comment_id = int(parsed.fragment.rsplit("-", 1)[-1])
+    target = json.dumps(
+        {
+            "discussion_number": discussion_number,
+            "reply_to_comment_id": comment_id,
+        },
+        sort_keys=True,
+        separators=(",", ":"),
+    )
     return {
         "operation_type": "post_discussion_reply",
         "repository": "Thorncrag/ARRP",
-        "target_node_or_number": comment_id,
+        "target_node_or_number": target,
         "source_revision": source_revision,
         "authority_record": authority_record,
-        "expected_old_state": {"marker_absent": validated["marker"]},
+        "expected_old_state": {"reply_absent": validated["marker"]},
         "new_state_or_content": {"body": validated["validated_body"]},
         "idempotency_key": validated["marker"],
         "privacy_class": "public",
         "human_reserved": False,
         "rollback_or_correction": "post a transparent correction; never silently edit history",
-        "readback_contract": "reply body and idempotency marker read back exactly once",
+        "readback_contract": "exactly_one_discussion_reply",
     }
 
 

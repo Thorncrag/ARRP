@@ -9,17 +9,17 @@
   "domain_count": 41,
   "domains": [
     {
-      "bytes": 231159,
+      "bytes": 79742,
       "file": "automation.js",
       "keys": [
         "agent_registry",
         "run_chain"
       ],
       "record_count": 28,
-      "sha256": "sha256:60d73cefa99c4b476052275bea4f49caf8e84d606661700e7660e989e615e636"
+      "sha256": "sha256:42d057d2877e9b672de25717ba0e1f68167ac69704287872285f6283cef1af81"
     },
     {
-      "bytes": 1419349,
+      "bytes": 1419553,
       "file": "candidates.js",
       "keys": [
         "active_horizon_records",
@@ -27,7 +27,7 @@
         "records"
       ],
       "record_count": 43,
-      "sha256": "sha256:f395fc1c16e3182d8c826be24d7242bfdd5223739895f37ef9e311e68a07fec0"
+      "sha256": "sha256:ecc0eb40934945cb7de52ff26089019d10b257c6ee081479cc7d0091f6abb74f"
     },
     {
       "bytes": 197076,
@@ -36,7 +36,7 @@
         "presidential_directives_chunk_001"
       ],
       "record_count": 188,
-      "sha256": "sha256:cf64a5e3d741eaff9bf44063ca1f74f4bd0a27159cfec50048eaa11b76c62659"
+      "sha256": "sha256:e96e93afd1c17d9ca471d279f44b185d137ac8524d9add9c0f5465368c83a5ce"
     },
     {
       "bytes": 191565,
@@ -45,7 +45,7 @@
         "presidential_directives_chunk_002"
       ],
       "record_count": 188,
-      "sha256": "sha256:56434769bd9b4765cda081a304466dd9599a543ad8548c4cf091c028ab0fba12"
+      "sha256": "sha256:cee849d984edf915a7fe18b383b4d9b50f5ef9f35de17416ce067c73db62a7f9"
     },
     {
       "bytes": 190597,
@@ -54,7 +54,7 @@
         "presidential_directives_chunk_003"
       ],
       "record_count": 188,
-      "sha256": "sha256:a5d51012a1730788a0cf5a1c30208ec360beae5464c7d54a98639b651940a337"
+      "sha256": "sha256:45ce67caddb816797a085aae0f450ea12a5ec771259fa4ede3dd970aa5fbf46b"
     },
     {
       "bytes": 191231,
@@ -63,7 +63,7 @@
         "presidential_directives_chunk_004"
       ],
       "record_count": 188,
-      "sha256": "sha256:88cdbb3b31baed121a4e99f5c138805f22600996e41b21158073533f4412f172"
+      "sha256": "sha256:f39a48cd48907153e882d48eef05b4270d1a7e3acf8724be6d5a7443f89a2db3"
     },
     {
       "bytes": 190900,
@@ -72,7 +72,7 @@
         "presidential_directives_chunk_005"
       ],
       "record_count": 188,
-      "sha256": "sha256:31cee0412b281daf8b50e4982e608c643746eef1b1fc42d003adb9adf37ddd8f"
+      "sha256": "sha256:e90ff30355efa57fa426f7959b1ab993c9f918d0e8fc4e7523f23ee639c53b92"
     },
     {
       "bytes": 188556,
@@ -81,7 +81,7 @@
         "presidential_directives_chunk_006"
       ],
       "record_count": 188,
-      "sha256": "sha256:e55d6d9d92ab7506a7a4dc3e9decdc6f8b9e3a48490e39895ca2f1603d82a06e"
+      "sha256": "sha256:71c6f6dfed7d6d2589212f3bde50148fdbcec84beff6130f321f70e691ebdbb7"
     },
     {
       "bytes": 189119,
@@ -90,7 +90,7 @@
         "presidential_directives_chunk_007"
       ],
       "record_count": 188,
-      "sha256": "sha256:9455aa97e01d25e8022117cc62608a6c2ab8b81c42811a9635f7941041acd18c"
+      "sha256": "sha256:5f75772f7e21eedb38f2f6e40bc72fafeb29a10effb9b92231627781e3125ccc"
     },
     {
       "bytes": 190582,
@@ -99,7 +99,7 @@
         "presidential_directives_chunk_008"
       ],
       "record_count": 188,
-      "sha256": "sha256:12b6f3448f6f448d2a0b9875ceb465845d9571b0b021ab872a6cf9bc5e405b47"
+      "sha256": "sha256:423416e4775cabd556a80fac6a5ee2e8589a8be5ea1644d21c3ee96d874cda65"
     },
     {
       "bytes": 188805,
@@ -108,7 +108,7 @@
         "presidential_directives_chunk_009"
       ],
       "record_count": 188,
-      "sha256": "sha256:bf36c3e1c55d1a663960b1dd324339d5baadfdb5700fd3d9ddcc13e6671be3c0"
+      "sha256": "sha256:24db1279754fff1e56f628758556944f5cca4a85f64bf27de3cf415c90df9e76"
     },
     {
       "bytes": 189815,
@@ -117,7 +117,7 @@
         "presidential_directives_chunk_010"
       ],
       "record_count": 188,
-      "sha256": "sha256:908d260d5fa0200cc31b60976e3336d2dc3db31c12fb1dd8e2be8921986ed2e3"
+      "sha256": "sha256:75321da7e9996b0f595c1116b08e9ceb90726779c6ed221ed9f4f0d3661cf003"
     },
     {
       "bytes": 192216,
@@ -126,7 +126,7 @@
         "presidential_directives_chunk_011"
       ],
       "record_count": 188,
-      "sha256": "sha256:b366ae164c1a7077588263da6bd66abd2de07f938719f6ddf73c104880b2d5e7"
+      "sha256": "sha256:766adcade38e5344a914bea1805b1cd8fc4e75adddc7c3951480eac51264cc36"
     },
     {
       "bytes": 192465,
@@ -135,7 +135,7 @@
         "presidential_directives_chunk_012"
       ],
       "record_count": 188,
-      "sha256": "sha256:141aca546b6e4955463f891834a30495f9e4ce3fd3bd2414f53ddcd8d832713a"
+      "sha256": "sha256:5eb8fec28f81fdd719189b9dba737f8fb30167ca4945174446b0e2886b1b107b"
     },
     {
       "bytes": 188906,
@@ -144,7 +144,7 @@
         "presidential_directives_chunk_013"
       ],
       "record_count": 188,
-      "sha256": "sha256:ef6d545e9f9cba8b69c5ae70a489a5ffdd44ef0c354f76cbcaef545525c36230"
+      "sha256": "sha256:9a60376a1b435fa997206d2d15556945c98d0b8ec406c2d43af853cb9013584e"
     },
     {
       "bytes": 190280,
@@ -153,7 +153,7 @@
         "presidential_directives_chunk_014"
       ],
       "record_count": 188,
-      "sha256": "sha256:cb214fec2a4ea85450981591b7ca2981838a39415e92d768dde34a17d18e0848"
+      "sha256": "sha256:aec7c3cdbc7dbe523ffe3e054681e3637ca7d93c9e48be444a999c62e78b1774"
     },
     {
       "bytes": 188808,
@@ -162,7 +162,7 @@
         "presidential_directives_chunk_015"
       ],
       "record_count": 188,
-      "sha256": "sha256:14a462a3e2dcdd3d75d3b1348da285d4390dcd40cc2e6e14dea9390a87ceaf0e"
+      "sha256": "sha256:3c831a781487a074943b90b511a3d6bde4b81c2a1b772986d5bf19e1434ded35"
     },
     {
       "bytes": 187409,
@@ -171,47 +171,47 @@
         "presidential_directives_chunk_016"
       ],
       "record_count": 187,
-      "sha256": "sha256:ac7a6779094f9cfadcab42810bd0d6dac5eabd3490ce51cf31eaa5961d81ae28"
+      "sha256": "sha256:2d67c558275165b698f3aad2cc44c8946564e8c380eee3c4e0c5c98708fffe27"
     },
     {
-      "bytes": 14530,
+      "bytes": 14140,
       "file": "integrity.js",
       "keys": [
         "integrity"
       ],
-      "record_count": 54,
-      "sha256": "sha256:a093d05dff62842d33dc5d6795b16d3bec587512a315a7dedb72d25411ac4bdd"
+      "record_count": 53,
+      "sha256": "sha256:e69f92ac0ca50bc18ee8e74cd4602048b87a081482f27a0e87e4cce6411201fb"
     },
     {
-      "bytes": 978517,
+      "bytes": 978230,
       "file": "logs.js",
       "keys": [
         "project_logs",
         "repository_review_recommendations"
       ],
       "record_count": 7,
-      "sha256": "sha256:28831b0c0d80cb259726a8a605e6aa22d393ded787fbade62d2a403be804dca1"
+      "sha256": "sha256:e6e76b68db11447771e6ca997d3eda950278508a50d11f70046775a4c6c614c5"
     },
     {
-      "bytes": 26532,
+      "bytes": 26276,
       "file": "overview.js",
       "keys": [
         "overview"
       ],
-      "record_count": 46,
-      "sha256": "sha256:f24ea33dfa1a7c109fa5c8f7684fb797b7e0309ca15d07be899ea60c53f7e61a"
+      "record_count": 45,
+      "sha256": "sha256:4710e085a2706b227635c9e4c85f195c52cd29cfc2e54237cf0aa7ad03009866"
     },
     {
-      "bytes": 368385,
+      "bytes": 368384,
       "file": "progress.js",
       "keys": [
         "progress"
       ],
       "record_count": 267,
-      "sha256": "sha256:d42712ddcbbc3d05a5461529e115a1c919ee91ecb44a0ae94cf8530a87427c8b"
+      "sha256": "sha256:d4d0e1b6693c9cb8403590b4051eceadaf7a9fc1efcc74e072be36d1f2eb9b0e"
     },
     {
-      "bytes": 692422,
+      "bytes": 690189,
       "file": "publication.js",
       "keys": [
         "delivery_items",
@@ -220,7 +220,7 @@
         "topic_products"
       ],
       "record_count": 737,
-      "sha256": "sha256:5c6ceb9397f507574e09beee5f88991c8d508275b9a039551857974bf23d3175"
+      "sha256": "sha256:6e0eb3348e749829f3dbde3f620fa2a410497d8ad3dbb47ad2447893d89e070c"
     },
     {
       "bytes": 1524801,
@@ -229,7 +229,7 @@
         "source_checker"
       ],
       "record_count": 3841,
-      "sha256": "sha256:ddb986e28651431a65f26c96b50ec412f76476f1390ef6e88894e510b297ed89"
+      "sha256": "sha256:fd6f931be02f4231a05867abbb9687194b45889417aa045d9722f8a4d33d0c83"
     },
     {
       "bytes": 132073,
@@ -238,7 +238,7 @@
         "cited_sources_chunk_001"
       ],
       "record_count": 129,
-      "sha256": "sha256:91f48a35ffa16f1b266d7d81885313232826e6e8cbe10a10dd0b13704780b463"
+      "sha256": "sha256:2dd8deccd0e676b0e82811c9d13882b688621cb535d16b064b7435529c1750b9"
     },
     {
       "bytes": 148337,
@@ -247,7 +247,7 @@
         "cited_sources_chunk_002"
       ],
       "record_count": 129,
-      "sha256": "sha256:fad8e582de31cb74dd916e3356f32893988d8dad16038d71f5f42635f9e01646"
+      "sha256": "sha256:99305b13207f13556c750bbb441c455ac49f8dfcc5f22c358fb93073bca21562"
     },
     {
       "bytes": 157274,
@@ -256,7 +256,7 @@
         "cited_sources_chunk_003"
       ],
       "record_count": 129,
-      "sha256": "sha256:8ea69cb46e58fabb48f19c0d3b585332f3dbf2a5a4be86000c3b79d86e892318"
+      "sha256": "sha256:37b97313ec3d07716fccba709d1ba98f6df5246c922ab2f0ba8598b317dad823"
     },
     {
       "bytes": 161863,
@@ -265,7 +265,7 @@
         "cited_sources_chunk_004"
       ],
       "record_count": 129,
-      "sha256": "sha256:a8f200bf1329c04e848debb73f6898a30eb54ce3a561bd24ab14076c03ddafb8"
+      "sha256": "sha256:f853e94a749f7437f8fe14ce8d81fff7c943cda6e5b6e4c80d4f0671d89b2005"
     },
     {
       "bytes": 147692,
@@ -274,7 +274,7 @@
         "cited_sources_chunk_005"
       ],
       "record_count": 129,
-      "sha256": "sha256:b83776ac86b131e6e8e56549960eaf2ca60c1ee625cd95a604c7766fafae55fa"
+      "sha256": "sha256:3fe7567c2f0b87dd717a97056ef966f4c85db9ff80b98c34f3c2c1068e0bfaaf"
     },
     {
       "bytes": 175265,
@@ -283,7 +283,7 @@
         "cited_sources_chunk_006"
       ],
       "record_count": 129,
-      "sha256": "sha256:3eaadbeea173d2a9349913ba28f91aa399bdfa4e5b32f561c005055a2f9324bd"
+      "sha256": "sha256:4bc3afbd3132fad4497d731703ca21c019c41bafb818a313460ada57bb183bf2"
     },
     {
       "bytes": 194692,
@@ -292,7 +292,7 @@
         "cited_sources_chunk_007"
       ],
       "record_count": 129,
-      "sha256": "sha256:40fdaa5995b3b0ffb2db454f00f52437902abd7b101eef357ecfa3754cfaa6f1"
+      "sha256": "sha256:56a2886d6bc27fb48c63829c3cd6ed78e6cd185957d0c32fd432173be9711b06"
     },
     {
       "bytes": 165787,
@@ -301,7 +301,7 @@
         "cited_sources_chunk_008"
       ],
       "record_count": 129,
-      "sha256": "sha256:ed7a44ed9591576fc74201200a55f56c8ceb801b42c23a6faf683f8c1e7a7d06"
+      "sha256": "sha256:1b06c7328c011b2d443756790169068720f3b5a8b70c99938b01115e4ef2c039"
     },
     {
       "bytes": 158635,
@@ -310,7 +310,7 @@
         "cited_sources_chunk_009"
       ],
       "record_count": 129,
-      "sha256": "sha256:37a8e36970d1f893fe9a77f93dfc01e59ac17bb358e2afed5b0c889fb3cad81e"
+      "sha256": "sha256:28a98d5022b3aa0935e4247b2bb079a88d940836785f50c256c0c89fbef1a045"
     },
     {
       "bytes": 179908,
@@ -319,7 +319,7 @@
         "cited_sources_chunk_010"
       ],
       "record_count": 129,
-      "sha256": "sha256:ab57ca26cf49a658ac94f1b926978999067077687a55617ef1412557e0bed436"
+      "sha256": "sha256:769b00c69f97570cf6405157132997b44607c97c570585d8da01dfbf3552820a"
     },
     {
       "bytes": 185734,
@@ -328,7 +328,7 @@
         "cited_sources_chunk_011"
       ],
       "record_count": 129,
-      "sha256": "sha256:0be9d04d768c9218359bb09b06001add0f7484b90d23bd05c7200b766ed5bc8b"
+      "sha256": "sha256:daf9d53521f3c1f31b32220c2a54397ffcce8f440ea872af7dfb164e128acc04"
     },
     {
       "bytes": 189916,
@@ -337,7 +337,7 @@
         "cited_sources_chunk_012"
       ],
       "record_count": 129,
-      "sha256": "sha256:716748e2d3607e781d83cc51840a4d39572848dbf6a4700ba46cf5a621b2603f"
+      "sha256": "sha256:ffe0837a3b76290dcfb1efdc37bd3e1ead2521a6b0d430f806310a3316eb963b"
     },
     {
       "bytes": 184382,
@@ -346,7 +346,7 @@
         "cited_sources_chunk_013"
       ],
       "record_count": 129,
-      "sha256": "sha256:e6c0b1115189c58f7e76b7c51180743edb121694a62d1832bbf71c0d5e70b30c"
+      "sha256": "sha256:bddafe963bb7f727905f1d3955ecc2611246fcbc011ab57d2934ff232fd81497"
     },
     {
       "bytes": 177061,
@@ -355,7 +355,7 @@
         "cited_sources_chunk_014"
       ],
       "record_count": 129,
-      "sha256": "sha256:236c04110eb92d174bfaa930ba03f01da8ac02de727d9c66a09afef536be430d"
+      "sha256": "sha256:05a927be1c83d7b17d8b2a443fd57d9089b6e322bb50313ffa17f36fb4e1f502"
     },
     {
       "bytes": 177535,
@@ -364,7 +364,7 @@
         "cited_sources_chunk_015"
       ],
       "record_count": 129,
-      "sha256": "sha256:2e1e1afe49f06b9f378a26fc1ce6d4e4f84bf2b4bbc5c8cca144ce5aad21fc59"
+      "sha256": "sha256:ba62aac72a420164df858cab2770bb641560bc5962e9310bfaacecf5dc4d3df4"
     },
     {
       "bytes": 149384,
@@ -373,10 +373,10 @@
         "cited_sources_chunk_016"
       ],
       "record_count": 120,
-      "sha256": "sha256:20a13d4d2ab16cb483a2345994c1fe6074fc96064e3ec37a3b9a34ce1fa2cb89"
+      "sha256": "sha256:c7deb758d9e258f748d12582a3444d15ff8aa6aca875301469de1cbe3879d517"
     },
     {
-      "bytes": 2484662,
+      "bytes": 2484907,
       "file": "sources.js",
       "keys": [
         "cited_sources",
@@ -387,215 +387,215 @@
         "watcher_metadata"
       ],
       "record_count": 529,
-      "sha256": "sha256:a48b2abfd6b3bc7052f901aba4a3547363a7c5259d4ecfda84db2777aa5630f1"
+      "sha256": "sha256:2b129f6903e7e66683a9bdc3adec1f24540f2b9f95d0c65e3df336a3570eee57"
     }
   ],
   "files": {
     "automation.js": {
-      "bytes": 231159,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "bytes": 79742,
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "agent_registry",
         "run_chain"
       ],
       "record_count": 28,
-      "sha256": "sha256:60d73cefa99c4b476052275bea4f49caf8e84d606661700e7660e989e615e636"
+      "sha256": "sha256:42d057d2877e9b672de25717ba0e1f68167ac69704287872285f6283cef1af81"
     },
     "candidates.js": {
-      "bytes": 1419349,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "bytes": 1419553,
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "active_horizon_records",
         "horizon_records",
         "records"
       ],
       "record_count": 43,
-      "sha256": "sha256:f395fc1c16e3182d8c826be24d7242bfdd5223739895f37ef9e311e68a07fec0"
+      "sha256": "sha256:ecc0eb40934945cb7de52ff26089019d10b257c6ee081479cc7d0091f6abb74f"
     },
     "directives-catalog-001.js": {
       "bytes": 197076,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_001"
       ],
       "record_count": 188,
-      "sha256": "sha256:cf64a5e3d741eaff9bf44063ca1f74f4bd0a27159cfec50048eaa11b76c62659"
+      "sha256": "sha256:e96e93afd1c17d9ca471d279f44b185d137ac8524d9add9c0f5465368c83a5ce"
     },
     "directives-catalog-002.js": {
       "bytes": 191565,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_002"
       ],
       "record_count": 188,
-      "sha256": "sha256:56434769bd9b4765cda081a304466dd9599a543ad8548c4cf091c028ab0fba12"
+      "sha256": "sha256:cee849d984edf915a7fe18b383b4d9b50f5ef9f35de17416ce067c73db62a7f9"
     },
     "directives-catalog-003.js": {
       "bytes": 190597,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_003"
       ],
       "record_count": 188,
-      "sha256": "sha256:a5d51012a1730788a0cf5a1c30208ec360beae5464c7d54a98639b651940a337"
+      "sha256": "sha256:45ce67caddb816797a085aae0f450ea12a5ec771259fa4ede3dd970aa5fbf46b"
     },
     "directives-catalog-004.js": {
       "bytes": 191231,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_004"
       ],
       "record_count": 188,
-      "sha256": "sha256:88cdbb3b31baed121a4e99f5c138805f22600996e41b21158073533f4412f172"
+      "sha256": "sha256:f39a48cd48907153e882d48eef05b4270d1a7e3acf8724be6d5a7443f89a2db3"
     },
     "directives-catalog-005.js": {
       "bytes": 190900,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_005"
       ],
       "record_count": 188,
-      "sha256": "sha256:31cee0412b281daf8b50e4982e608c643746eef1b1fc42d003adb9adf37ddd8f"
+      "sha256": "sha256:e90ff30355efa57fa426f7959b1ab993c9f918d0e8fc4e7523f23ee639c53b92"
     },
     "directives-catalog-006.js": {
       "bytes": 188556,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_006"
       ],
       "record_count": 188,
-      "sha256": "sha256:e55d6d9d92ab7506a7a4dc3e9decdc6f8b9e3a48490e39895ca2f1603d82a06e"
+      "sha256": "sha256:71c6f6dfed7d6d2589212f3bde50148fdbcec84beff6130f321f70e691ebdbb7"
     },
     "directives-catalog-007.js": {
       "bytes": 189119,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_007"
       ],
       "record_count": 188,
-      "sha256": "sha256:9455aa97e01d25e8022117cc62608a6c2ab8b81c42811a9635f7941041acd18c"
+      "sha256": "sha256:5f75772f7e21eedb38f2f6e40bc72fafeb29a10effb9b92231627781e3125ccc"
     },
     "directives-catalog-008.js": {
       "bytes": 190582,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_008"
       ],
       "record_count": 188,
-      "sha256": "sha256:12b6f3448f6f448d2a0b9875ceb465845d9571b0b021ab872a6cf9bc5e405b47"
+      "sha256": "sha256:423416e4775cabd556a80fac6a5ee2e8589a8be5ea1644d21c3ee96d874cda65"
     },
     "directives-catalog-009.js": {
       "bytes": 188805,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_009"
       ],
       "record_count": 188,
-      "sha256": "sha256:bf36c3e1c55d1a663960b1dd324339d5baadfdb5700fd3d9ddcc13e6671be3c0"
+      "sha256": "sha256:24db1279754fff1e56f628758556944f5cca4a85f64bf27de3cf415c90df9e76"
     },
     "directives-catalog-010.js": {
       "bytes": 189815,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_010"
       ],
       "record_count": 188,
-      "sha256": "sha256:908d260d5fa0200cc31b60976e3336d2dc3db31c12fb1dd8e2be8921986ed2e3"
+      "sha256": "sha256:75321da7e9996b0f595c1116b08e9ceb90726779c6ed221ed9f4f0d3661cf003"
     },
     "directives-catalog-011.js": {
       "bytes": 192216,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_011"
       ],
       "record_count": 188,
-      "sha256": "sha256:b366ae164c1a7077588263da6bd66abd2de07f938719f6ddf73c104880b2d5e7"
+      "sha256": "sha256:766adcade38e5344a914bea1805b1cd8fc4e75adddc7c3951480eac51264cc36"
     },
     "directives-catalog-012.js": {
       "bytes": 192465,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_012"
       ],
       "record_count": 188,
-      "sha256": "sha256:141aca546b6e4955463f891834a30495f9e4ce3fd3bd2414f53ddcd8d832713a"
+      "sha256": "sha256:5eb8fec28f81fdd719189b9dba737f8fb30167ca4945174446b0e2886b1b107b"
     },
     "directives-catalog-013.js": {
       "bytes": 188906,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_013"
       ],
       "record_count": 188,
-      "sha256": "sha256:ef6d545e9f9cba8b69c5ae70a489a5ffdd44ef0c354f76cbcaef545525c36230"
+      "sha256": "sha256:9a60376a1b435fa997206d2d15556945c98d0b8ec406c2d43af853cb9013584e"
     },
     "directives-catalog-014.js": {
       "bytes": 190280,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_014"
       ],
       "record_count": 188,
-      "sha256": "sha256:cb214fec2a4ea85450981591b7ca2981838a39415e92d768dde34a17d18e0848"
+      "sha256": "sha256:aec7c3cdbc7dbe523ffe3e054681e3637ca7d93c9e48be444a999c62e78b1774"
     },
     "directives-catalog-015.js": {
       "bytes": 188808,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_015"
       ],
       "record_count": 188,
-      "sha256": "sha256:14a462a3e2dcdd3d75d3b1348da285d4390dcd40cc2e6e14dea9390a87ceaf0e"
+      "sha256": "sha256:3c831a781487a074943b90b511a3d6bde4b81c2a1b772986d5bf19e1434ded35"
     },
     "directives-catalog-016.js": {
       "bytes": 187409,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "presidential_directives_chunk_016"
       ],
       "record_count": 187,
-      "sha256": "sha256:ac7a6779094f9cfadcab42810bd0d6dac5eabd3490ce51cf31eaa5961d81ae28"
+      "sha256": "sha256:2d67c558275165b698f3aad2cc44c8946564e8c380eee3c4e0c5c98708fffe27"
     },
     "integrity.js": {
-      "bytes": 14530,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "bytes": 14140,
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "integrity"
       ],
-      "record_count": 54,
-      "sha256": "sha256:a093d05dff62842d33dc5d6795b16d3bec587512a315a7dedb72d25411ac4bdd"
+      "record_count": 53,
+      "sha256": "sha256:e69f92ac0ca50bc18ee8e74cd4602048b87a081482f27a0e87e4cce6411201fb"
     },
     "logs.js": {
-      "bytes": 978517,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "bytes": 978230,
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "project_logs",
         "repository_review_recommendations"
       ],
       "record_count": 7,
-      "sha256": "sha256:28831b0c0d80cb259726a8a605e6aa22d393ded787fbade62d2a403be804dca1"
+      "sha256": "sha256:e6e76b68db11447771e6ca997d3eda950278508a50d11f70046775a4c6c614c5"
     },
     "overview.js": {
-      "bytes": 26532,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "bytes": 26276,
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "overview"
       ],
-      "record_count": 46,
-      "sha256": "sha256:f24ea33dfa1a7c109fa5c8f7684fb797b7e0309ca15d07be899ea60c53f7e61a"
+      "record_count": 45,
+      "sha256": "sha256:4710e085a2706b227635c9e4c85f195c52cd29cfc2e54237cf0aa7ad03009866"
     },
     "progress.js": {
-      "bytes": 368385,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "bytes": 368384,
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "progress"
       ],
       "record_count": 267,
-      "sha256": "sha256:d42712ddcbbc3d05a5461529e115a1c919ee91ecb44a0ae94cf8530a87427c8b"
+      "sha256": "sha256:d4d0e1b6693c9cb8403590b4051eceadaf7a9fc1efcc74e072be36d1f2eb9b0e"
     },
     "publication.js": {
-      "bytes": 692422,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "bytes": 690189,
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "delivery_items",
         "page_inventory",
@@ -603,164 +603,164 @@
         "topic_products"
       ],
       "record_count": 737,
-      "sha256": "sha256:5c6ceb9397f507574e09beee5f88991c8d508275b9a039551857974bf23d3175"
+      "sha256": "sha256:6e0eb3348e749829f3dbde3f620fa2a410497d8ad3dbb47ad2447893d89e070c"
     },
     "source-checker.js": {
       "bytes": 1524801,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "source_checker"
       ],
       "record_count": 3841,
-      "sha256": "sha256:ddb986e28651431a65f26c96b50ec412f76476f1390ef6e88894e510b297ed89"
+      "sha256": "sha256:fd6f931be02f4231a05867abbb9687194b45889417aa045d9722f8a4d33d0c83"
     },
     "sources-catalog-001.js": {
       "bytes": 132073,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_001"
       ],
       "record_count": 129,
-      "sha256": "sha256:91f48a35ffa16f1b266d7d81885313232826e6e8cbe10a10dd0b13704780b463"
+      "sha256": "sha256:2dd8deccd0e676b0e82811c9d13882b688621cb535d16b064b7435529c1750b9"
     },
     "sources-catalog-002.js": {
       "bytes": 148337,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_002"
       ],
       "record_count": 129,
-      "sha256": "sha256:fad8e582de31cb74dd916e3356f32893988d8dad16038d71f5f42635f9e01646"
+      "sha256": "sha256:99305b13207f13556c750bbb441c455ac49f8dfcc5f22c358fb93073bca21562"
     },
     "sources-catalog-003.js": {
       "bytes": 157274,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_003"
       ],
       "record_count": 129,
-      "sha256": "sha256:8ea69cb46e58fabb48f19c0d3b585332f3dbf2a5a4be86000c3b79d86e892318"
+      "sha256": "sha256:37b97313ec3d07716fccba709d1ba98f6df5246c922ab2f0ba8598b317dad823"
     },
     "sources-catalog-004.js": {
       "bytes": 161863,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_004"
       ],
       "record_count": 129,
-      "sha256": "sha256:a8f200bf1329c04e848debb73f6898a30eb54ce3a561bd24ab14076c03ddafb8"
+      "sha256": "sha256:f853e94a749f7437f8fe14ce8d81fff7c943cda6e5b6e4c80d4f0671d89b2005"
     },
     "sources-catalog-005.js": {
       "bytes": 147692,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_005"
       ],
       "record_count": 129,
-      "sha256": "sha256:b83776ac86b131e6e8e56549960eaf2ca60c1ee625cd95a604c7766fafae55fa"
+      "sha256": "sha256:3fe7567c2f0b87dd717a97056ef966f4c85db9ff80b98c34f3c2c1068e0bfaaf"
     },
     "sources-catalog-006.js": {
       "bytes": 175265,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_006"
       ],
       "record_count": 129,
-      "sha256": "sha256:3eaadbeea173d2a9349913ba28f91aa399bdfa4e5b32f561c005055a2f9324bd"
+      "sha256": "sha256:4bc3afbd3132fad4497d731703ca21c019c41bafb818a313460ada57bb183bf2"
     },
     "sources-catalog-007.js": {
       "bytes": 194692,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_007"
       ],
       "record_count": 129,
-      "sha256": "sha256:40fdaa5995b3b0ffb2db454f00f52437902abd7b101eef357ecfa3754cfaa6f1"
+      "sha256": "sha256:56a2886d6bc27fb48c63829c3cd6ed78e6cd185957d0c32fd432173be9711b06"
     },
     "sources-catalog-008.js": {
       "bytes": 165787,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_008"
       ],
       "record_count": 129,
-      "sha256": "sha256:ed7a44ed9591576fc74201200a55f56c8ceb801b42c23a6faf683f8c1e7a7d06"
+      "sha256": "sha256:1b06c7328c011b2d443756790169068720f3b5a8b70c99938b01115e4ef2c039"
     },
     "sources-catalog-009.js": {
       "bytes": 158635,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_009"
       ],
       "record_count": 129,
-      "sha256": "sha256:37a8e36970d1f893fe9a77f93dfc01e59ac17bb358e2afed5b0c889fb3cad81e"
+      "sha256": "sha256:28a98d5022b3aa0935e4247b2bb079a88d940836785f50c256c0c89fbef1a045"
     },
     "sources-catalog-010.js": {
       "bytes": 179908,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_010"
       ],
       "record_count": 129,
-      "sha256": "sha256:ab57ca26cf49a658ac94f1b926978999067077687a55617ef1412557e0bed436"
+      "sha256": "sha256:769b00c69f97570cf6405157132997b44607c97c570585d8da01dfbf3552820a"
     },
     "sources-catalog-011.js": {
       "bytes": 185734,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_011"
       ],
       "record_count": 129,
-      "sha256": "sha256:0be9d04d768c9218359bb09b06001add0f7484b90d23bd05c7200b766ed5bc8b"
+      "sha256": "sha256:daf9d53521f3c1f31b32220c2a54397ffcce8f440ea872af7dfb164e128acc04"
     },
     "sources-catalog-012.js": {
       "bytes": 189916,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_012"
       ],
       "record_count": 129,
-      "sha256": "sha256:716748e2d3607e781d83cc51840a4d39572848dbf6a4700ba46cf5a621b2603f"
+      "sha256": "sha256:ffe0837a3b76290dcfb1efdc37bd3e1ead2521a6b0d430f806310a3316eb963b"
     },
     "sources-catalog-013.js": {
       "bytes": 184382,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_013"
       ],
       "record_count": 129,
-      "sha256": "sha256:e6c0b1115189c58f7e76b7c51180743edb121694a62d1832bbf71c0d5e70b30c"
+      "sha256": "sha256:bddafe963bb7f727905f1d3955ecc2611246fcbc011ab57d2934ff232fd81497"
     },
     "sources-catalog-014.js": {
       "bytes": 177061,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_014"
       ],
       "record_count": 129,
-      "sha256": "sha256:236c04110eb92d174bfaa930ba03f01da8ac02de727d9c66a09afef536be430d"
+      "sha256": "sha256:05a927be1c83d7b17d8b2a443fd57d9089b6e322bb50313ffa17f36fb4e1f502"
     },
     "sources-catalog-015.js": {
       "bytes": 177535,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_015"
       ],
       "record_count": 129,
-      "sha256": "sha256:2e1e1afe49f06b9f378a26fc1ce6d4e4f84bf2b4bbc5c8cca144ce5aad21fc59"
+      "sha256": "sha256:ba62aac72a420164df858cab2770bb641560bc5962e9310bfaacecf5dc4d3df4"
     },
     "sources-catalog-016.js": {
       "bytes": 149384,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources_chunk_016"
       ],
       "record_count": 120,
-      "sha256": "sha256:20a13d4d2ab16cb483a2345994c1fe6074fc96064e3ec37a3b9a34ce1fa2cb89"
+      "sha256": "sha256:c7deb758d9e258f748d12582a3444d15ff8aa6aca875301469de1cbe3879d517"
     },
     "sources.js": {
-      "bytes": 2484662,
-      "generation_id": "project-console-947a0a710f1182f7281f",
+      "bytes": 2484907,
+      "generation_id": "project-console-d24811e5a0b718794cb5",
       "keys": [
         "cited_sources",
         "court_watch_sources",
@@ -770,11 +770,11 @@
         "watcher_metadata"
       ],
       "record_count": 529,
-      "sha256": "sha256:a48b2abfd6b3bc7052f901aba4a3547363a7c5259d4ecfda84db2777aa5630f1"
+      "sha256": "sha256:2b129f6903e7e66683a9bdc3adec1f24540f2b9f95d0c65e3df336a3570eee57"
     }
   },
-  "generated_at": "2026-07-27T13:54:17+00:00",
-  "generation_id": "project-console-947a0a710f1182f7281f",
+  "generated_at": "2026-07-27T23:24:46+00:00",
+  "generation_id": "project-console-d24811e5a0b718794cb5",
   "manifest_schema_version": 1,
-  "source_revision": "316cb4136ebdb9cce3d4479651c2b0d4e289808e"
+  "source_revision": "e2415bf87d3a4b14dd1fb9e461f0575752069789"
 }

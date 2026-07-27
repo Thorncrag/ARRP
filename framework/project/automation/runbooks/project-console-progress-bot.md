@@ -3,9 +3,9 @@ title: "Project Console Progress Bot Runbook"
 agent_id: project-console-progress-bot
 display_name: Project Console Progress Bot
 agent_type: deterministic-bot
-status: disabled
+status: enabled-local-stage
 trigger: local-chain-when-due
-schedule: "Due every 24 hours after cutover; no independent schedule"
+schedule: "Due every 24 hours within the 02:00 America/New_York local chain; no independent schedule"
 runtime_id: scripts/build_project_console_progress.py
 execution_environment: local-transaction-worktree
 runtime_config: framework/project/interfaces/project-console-progress.json
@@ -20,9 +20,10 @@ print_exclusion_reason: "Internal automation configuration."
 
 The bot reads the exact configured Project snapshot, issue registry, history,
 and progress configuration. It may write only its caller-selected typed
-run-directory output. Validation precedes acceptance. Publication is disabled
-in P2. Missing authentication, malformed input, or an unapproved output path
-is an explicit stop.
+run-directory output. Validation precedes acceptance. Publication occurs only
+through the coordinator's exact reviewed pull-request boundary. Missing
+authentication, malformed input, or an unapproved output path is an explicit
+stop.
 
 The Project Console Progress Bot reads the issue registry and an authenticated
 GitHub Project snapshot supplied by deterministic code, then calculates the
@@ -30,7 +31,7 @@ configured Review Ready goal, six-stage board, metrics, forecast, warnings,
 and bounded history. It is read-only with respect to GitHub and canonical
 substantive records.
 
-## P2 local-stage contract
+## Local-stage contract
 
 The coordinator runs the stage locally when due and supplies exact inputs and
 `<run-dir>/progress` as the output root. The stage must not fetch credentials
@@ -48,6 +49,6 @@ failure is blocking. Unknown or unmatched records remain visible warnings and
 are not repaired automatically. Generated progress output is a local
 transaction projection, not authority and not publication.
 
-P2 leaves the role disabled outside fixtures and manual dry-run validation.
-No data branch, workflow, credential provisioning, or hosted mutation is
-authorized.
+P6 enables this role only as a coordinator-owned local stage. The stage itself
+has no data-branch, workflow, credential-provisioning, or hosted-mutation
+authority.

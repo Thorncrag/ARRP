@@ -1,7 +1,8 @@
 {
   "agentId": "source-checker-bot",
+  "enabled": true,
   "mode": "report-only",
-  "deploymentStatus": "local-source-disabled",
+  "deploymentStatus": "local-first-enabled",
   "localStage": {
     "coordinator": "scripts/arrp_nightly.py",
     "dueEveryHours": 168,

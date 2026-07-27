@@ -190,6 +190,45 @@ class LocalStageTests(unittest.TestCase):
             expected,
         )
 
+    def test_stage_environment_override_is_confined_to_named_stage(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            state = root / "state"
+            worktree = root / "worktree"
+            worktree.mkdir()
+            first = stage_spec(
+                "case-monitor-bot",
+                "{run_dir}/stages/case-monitor-bot/report.json",
+            )
+            progress = stage_spec(
+                "project-console-progress-bot",
+                "{run_dir}/stages/project-console-progress-bot/report.json",
+            )
+            original_run = MODULE.subprocess.run
+            environments = []
+
+            def recording_run(*args, **kwargs):
+                environments.append(dict(kwargs["env"]))
+                return original_run(*args, **kwargs)
+
+            with mock.patch.object(MODULE.subprocess, "run", side_effect=recording_run):
+                result = MODULE.run_local_stages(
+                    worktree=worktree,
+                    run_dir=state / "runs/run-1",
+                    state_root=state,
+                    specs=(first, progress),
+                    environment={"PATH": os.environ["PATH"]},
+                    environment_by_stage={
+                        "project-console-progress-bot": {
+                            "ARRP_PROJECT_TOKEN": "project-token",
+                        }
+                    },
+                )
+
+            self.assertEqual([row.status for row in result], ["succeeded", "succeeded"])
+            self.assertNotIn("ARRP_PROJECT_TOKEN", environments[0])
+            self.assertEqual(environments[1]["ARRP_PROJECT_TOKEN"], "project-token")
+
 
 class SealedElimTests(unittest.TestCase):
     def test_command_and_environment_remove_inherited_authority(self):

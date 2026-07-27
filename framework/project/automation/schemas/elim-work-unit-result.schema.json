@@ -88,8 +88,65 @@
     "human_questions": { "type": "array", "items": { "type": "string" } },
     "github_action_requests": {
       "type": "array",
-      "maxItems": 0,
-      "items": { "type": "string" }
+      "maxItems": 128,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "operation_type",
+          "repository",
+          "target_node_or_number",
+          "source_revision",
+          "authority_record",
+          "expected_old_state",
+          "new_state_or_content",
+          "idempotency_key",
+          "privacy_class",
+          "human_reserved",
+          "rollback_or_correction",
+          "readback_contract"
+        ],
+        "properties": {
+          "operation_type": {
+            "type": "string",
+            "enum": [
+              "read_state",
+              "set_project_field",
+              "update_issue_wrapper",
+              "post_discussion_reply"
+            ]
+          },
+          "repository": { "type": "string", "const": "Thorncrag/ARRP" },
+          "target_node_or_number": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 1024
+          },
+          "source_revision": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "authority_record": {
+            "type": "string",
+            "pattern": "^framework/.+"
+          },
+          "expected_old_state": {},
+          "new_state_or_content": {},
+          "idempotency_key": { "type": "string", "minLength": 1 },
+          "privacy_class": { "type": "string", "const": "public" },
+          "human_reserved": { "type": "boolean", "const": false },
+          "rollback_or_correction": { "type": "string", "minLength": 1 },
+          "readback_contract": {
+            "type": "string",
+            "enum": [
+              "exact_state_snapshot",
+              "exact_project_field_value",
+              "exact_issue_body",
+              "exactly_one_discussion_reply"
+            ]
+          }
+        }
+      }
     },
     "continuation": {
       "type": "object",

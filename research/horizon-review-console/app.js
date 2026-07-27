@@ -144,7 +144,6 @@
   const successfulStageHistory = new Map();
   let layoutEditing = false;
   let draggedLayoutItem = null;
-  let coordinatorControlsAvailable = false;
 
   const PRINT_LEVEL_LABELS = {
     "public-proposal": "Public proposal edition",
@@ -162,12 +161,6 @@
     "Internal planning record.",
     "Website-only page."
   ];
-  const LIVE_PROGRESS_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/progress.json";
-  const LIVE_INTEGRITY_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/integrity.json";
-  const LIVE_SOURCE_CHECKER_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/source-checker.json";
-  const LIVE_RUN_CHAIN_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/run-chain.json";
-  const LIVE_AUTOMATION_HEALTH_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/automation-health.json";
-  const LIVE_HOST_STATUS_URL = "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/host-status.json";
   const LIVE_PULL_REQUESTS_URL = "https://api.github.com/repos/Thorncrag/ARRP/pulls?state=open&per_page=100";
   const OPENAI_STATUS_URL = "https://status.openai.com/api/v2/status.json";
   const OPENAI_COMPONENTS_URL = "https://status.openai.com/api/v2/components.json";
@@ -2059,24 +2052,8 @@
   }
 
   async function refreshLiveSourceChecker() {
-    try {
-      const response = await fetch(LIVE_SOURCE_CHECKER_URL, { cache: "no-store" });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const payload = await response.json();
-      const validation = validateLivePayload("source-checker", payload, data.source_checker);
-      if (!validation.valid) {
-        byId("source-checker-live-note").textContent = `The published Source Checker feed was rejected; the valid checked-in projection remains shown. ${validation.errors.join(" ")}`;
-        return;
-      }
-      data.source_checker = payload;
-      populateSourceCheckerFilters();
-      renderSourceChecker();
-      renderIntegrity();
-      renderOverview();
-      byId("source-checker-live-note").textContent = "Source Checker Bot data refreshed from the published Console data branch.";
-    } catch (_error) {
-      byId("source-checker-live-note").textContent = "Published Source Checker Bot data is not available yet; the checked-in snapshot remains shown.";
-    }
+    byId("source-checker-live-note").textContent =
+      "Source Checker data is the checked-in projection from the latest local transaction.";
   }
 
   function populateSourceCheckerFilters() {
@@ -5805,21 +5782,6 @@
       if (record.runtime_url) links.append(linkButton("Open runtime ↗", record.runtime_url, true));
       if (record.runtime_config_url) links.append(linkButton("Open runtime configuration ↗", record.runtime_config_url, true));
       if (record.current_report_url) links.append(linkButton("Open current report ↗", record.current_report_url, true));
-      if (record.current_data) {
-        const currentData = String(record.current_data);
-        const separator = currentData.indexOf(":");
-        const dataBranch = separator >= 0
-          ? currentData.slice(0, separator)
-          : "project-console-data";
-        const dataPath = separator >= 0
-          ? currentData.slice(separator + 1)
-          : currentData.replace(/^project-console-data\//, "");
-        links.append(linkButton(
-          "Open current data ↗",
-          `https://github.com/Thorncrag/ARRP/blob/${dataBranch}/${dataPath}`,
-          true
-        ));
-      }
       links.append(consoleLinkButton(
         "Open filtered log →",
         record.id === "elim" ? "#logs:elim" : `#logs:agents:${record.id}`
@@ -5977,7 +5939,6 @@
     }) : [element("p", "empty-state compact-empty", "Gap stewardship is unavailable until the producer emits typed stable obligations; no empty conclusion is inferred.")]));
     renderGovernanceReviewSpecialist(chain);
     renderRunChain();
-    populateCoordinatorControlChoices();
     refreshLayoutZones();
   }
 
@@ -6148,186 +6109,17 @@
   }
 
   async function refreshLiveRunChain() {
-    const readFeed = async (url) => {
-      const response = await fetch(url, { cache: "no-store" });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return response.json();
-    };
-    const [chainResult, healthResult, hostResult] = await Promise.allSettled([
-      readFeed(LIVE_RUN_CHAIN_URL),
-      readFeed(LIVE_AUTOMATION_HEALTH_URL),
-      readFeed(LIVE_HOST_STATUS_URL)
-    ]);
-    const notes = [];
-    let accepted = 0;
-    if (chainResult.status === "fulfilled") {
-      const snapshot = chainResult.value;
-      const validation = validateLivePayload("run-chain", snapshot, data.run_chain);
-      if (validation.valid) {
-        captureSuccessfulStageHistory(data.run_chain);
-        captureSuccessfulStageHistory(snapshot);
-        data.run_chain = reconcileRunChainSnapshot(
-          data.run_chain,
-          snapshot,
-          "cloud"
-        );
-        accepted += 1;
-      } else {
-        notes.push(`run-chain rejected: ${validation.errors.join(" ")}`);
-      }
-    } else {
-      notes.push("run-chain unavailable");
-    }
-    if (healthResult.status === "fulfilled") {
-      const health = healthResult.value;
-      const validation = validateLivePayload("automation-health", health);
-      if (!validation.valid) {
-        notes.push(`cloud health rejected: ${validation.errors.join(" ")}`);
-      } else if (health.status === "failed") {
-        const failure = health.failure && typeof health.failure === "object"
-          ? health.failure
-          : {};
-        const failedProjection = {
-          schema_version: 1,
-          availability: health.availability,
-          expected_count: health.expected_count,
-          actual_count: health.actual_count,
-          completeness: health.completeness,
-          projection_errors: health.projection_errors,
-          chain_id: health.chain_id,
-          status: "failed",
-          updated_at: health.updated_at,
-          completed_at: health.completed_at,
-          final_revision: health.source_revision,
-          run_id: health.run_url,
-          stages: [],
-          failures: [{
-            stage: failure.stage || "github-actions-run-coordinator",
-            classification: failure.classification || "blocking",
-            message: failure.message || `The Run Coordinator workflow ended ${health.conclusion || "unsuccessfully"}.`,
-            recorded_at: health.updated_at,
-            run_url: health.run_url
-          }],
-          degradations: [],
-          next_action: health.next_action
-        };
-        data.run_chain = reconcileRunChainSnapshot(
-          data.run_chain,
-          failedProjection,
-          "cloud"
-        );
-        accepted += 1;
-      } else {
-        accepted += 1;
-      }
-    } else {
-      notes.push("cloud health unavailable");
-    }
-    if (hostResult.status === "fulfilled") {
-      const hostStatus = hostResult.value;
-      const validation = validateLivePayload("host-status", hostStatus);
-      if (validation.valid) {
-        data.run_chain = reconcileRunChainSnapshot(
-          data.run_chain,
-          hostStatus,
-          "host"
-        );
-        accepted += 1;
-      } else {
-        notes.push(`host status rejected: ${validation.errors.join(" ")}`);
-      }
-    } else {
-      notes.push("published host status unavailable");
-    }
-    if (accepted) {
-      renderAutomation();
-      renderActionItems();
-      renderIntegrity();
-      renderOverview();
-      byId("run-chain-live-note").textContent = notes.length
-        ? `Independent automation feeds refreshed with limitations: ${notes.join("; ")}.`
-        : "Run-chain, cloud health, and host-status projections were refreshed independently.";
-    } else {
-      byId("run-chain-live-note").textContent = "No independent live automation feed could be accepted; the checked-in projection remains shown.";
-    }
+    byId("run-chain-live-note").textContent =
+      "Run-chain state is the checked-in projection from the latest local transaction.";
   }
 
-  function coordinatorControlElements() {
-    return [
-      "overview-refresh-request",
-      "coordinator-work-unit",
-      "coordinator-priority",
-      "coordinator-override-reason",
-      "coordinator-request-run",
-      "coordinator-request-review",
-      "coordinator-prioritize",
-      "coordinator-suppress",
-      "coordinator-clear",
-      "coordinator-action-item",
-      "coordinator-resolution-reason",
-      "coordinator-resolve-action"
-    ].map(byId).filter(Boolean);
-  }
-
-  function populateCoordinatorControlChoices() {
-    const workSelect = byId("coordinator-work-unit");
-    const actionSelect = byId("coordinator-action-item");
-    if (!workSelect || !actionSelect) return;
-
-    const workItems = [];
-    const queue = data.run_chain?.work_queue || {};
-    if (Array.isArray(queue.items)) workItems.push(...queue.items);
-    if (queue.next_item) workItems.push(queue.next_item);
-    Object.keys(data.run_chain?.control_overrides || {}).forEach((id) => {
-      workItems.push({ id, title: "Existing user-owned override" });
-    });
-    const uniqueWorkItems = new Map();
-    workItems.filter((item) => item?.id).forEach((item) => uniqueWorkItems.set(String(item.id), item));
-    const previousWork = workSelect.value;
-    const workOptions = [element("option", "", uniqueWorkItems.size ? "Choose a work item…" : "No published work items")];
-    workOptions[0].value = "";
-    uniqueWorkItems.forEach((item, id) => {
-      const option = element("option", "", `${item.title || item.exact_next_action || "Queued work item"} · ${id}`);
-      option.value = id;
-      option.title = item.exact_next_action || item.reason || item.title || id;
-      workOptions.push(option);
-    });
-    workSelect.replaceChildren(...workOptions);
-    if (uniqueWorkItems.has(previousWork)) workSelect.value = previousWork;
-
-    const unresolved = (data.run_chain?.host_action_items || []).filter((item) => item && item.resolved !== true);
-    const previousAction = actionSelect.value;
-    const actionOptions = [element("option", "", unresolved.length ? "Choose an alert…" : "No unresolved alerts")];
-    actionOptions[0].value = "";
-    unresolved.forEach((item) => {
-      const option = element("option", "", `${item.stage || "Automation"} · ${item.summary || item.details || item.id}`);
-      option.value = item.id;
-      option.title = item.details || item.next_action || item.summary || item.id;
-      actionOptions.push(option);
-    });
-    actionSelect.replaceChildren(...actionOptions);
-    if (unresolved.some((item) => item.id === previousAction)) actionSelect.value = previousAction;
-
-    const workSelected = Boolean(workSelect.value);
-    const actionSelected = Boolean(actionSelect.value);
-    workSelect.disabled = !coordinatorControlsAvailable || uniqueWorkItems.size === 0;
-    actionSelect.disabled = !coordinatorControlsAvailable || unresolved.length === 0;
-    byId("coordinator-priority").disabled = !coordinatorControlsAvailable || !workSelected;
-    byId("coordinator-override-reason").disabled = !coordinatorControlsAvailable || !workSelected;
-    byId("coordinator-resolution-reason").disabled = !coordinatorControlsAvailable || !actionSelected;
-    ["coordinator-prioritize", "coordinator-suppress", "coordinator-clear"].forEach((id) => {
-      byId(id).disabled = !coordinatorControlsAvailable || !workSelected;
-    });
-    byId("coordinator-resolve-action").disabled = !coordinatorControlsAvailable || !actionSelected;
-  }
-
-  function coordinatorControlOriginAllowed() {
+  function localConsoleOriginAllowed() {
     return ["127.0.0.1", "localhost", "::1", "[::1]"].includes(window.location.hostname)
       && ["http:", "https:"].includes(window.location.protocol);
   }
 
   function loadPrivateGitHubSecurity() {
-    if (capturePrivateGitHubProblems() || !coordinatorControlOriginAllowed()) {
+    if (capturePrivateGitHubProblems() || !localConsoleOriginAllowed()) {
       return Promise.resolve();
     }
     return new Promise((resolve) => {
@@ -6353,215 +6145,9 @@
     });
   }
 
-  function setCoordinatorControlStatus(message, tone = "") {
-    const status = byId("coordinator-control-status");
-    status.className = tone ? `control-status ${tone}` : "control-status";
-    status.textContent = message;
-  }
-
-  function setOverviewRefreshStatus(message, tone = "") {
-    const status = byId("overview-refresh-status");
-    if (!status) return;
-    status.className = tone ? `overview-refresh-status ${tone}` : "overview-refresh-status";
-    status.textContent = message;
-  }
-
-  async function coordinatorControlRequest(payload, mirrorOverview = false) {
-    const reportStatus = (message, tone = "") => {
-      setCoordinatorControlStatus(message, tone);
-      if (mirrorOverview) setOverviewRefreshStatus(message, tone);
-    };
-    const token = sessionStorage.getItem("arrp-run-coordinator-control-token") || "";
-    if (!token) {
-      reportStatus("The local coordinator did not provide an approved control session.", "warning");
-      return;
-    }
-    reportStatus("Sending the request…");
-    try {
-      const response = await fetch("http://127.0.0.1:8766/v1/control", {
-        method: "POST",
-        mode: "cors",
-        cache: "no-store",
-        headers: {
-          "Content-Type": "application/json",
-          "X-ARRP-Control-Token": token
-        },
-        body: JSON.stringify(payload)
-      });
-      let result = {};
-      try {
-        result = await response.json();
-      } catch (_error) {
-        result = {};
-      }
-      if (!response.ok) {
-        throw new Error(result.error || result.message || `Coordinator returned ${response.status}`);
-      }
-      if (payload.action === "resolve_action_item") {
-        const item = (data.run_chain?.host_action_items || [])
-          .find((candidate) => candidate.id === payload.action_item_id);
-        if (item) {
-          item.resolved = true;
-          item.resolved_at = new Date().toISOString();
-          item.resolution_reason = payload.reason;
-        }
-        renderActionItems();
-        populateCoordinatorControlChoices();
-      }
-      reportStatus(result.message || "Coordinator request accepted.", "success");
-      window.setTimeout(refreshLiveRunChain, 500);
-    } catch (error) {
-      reportStatus(`Request not accepted: ${error.message}. Project data was not changed.`, "error");
-    }
-  }
-
-  async function initializeCoordinatorControls() {
-    const controls = coordinatorControlElements();
-    if (!coordinatorControlOriginAllowed()) {
-      coordinatorControlsAvailable = false;
-      controls.forEach((control) => { control.disabled = true; });
-      setCoordinatorControlStatus("Read-only preview. Serve the Console from localhost:8765 and start the coordinator control service to use these controls.");
-      setOverviewRefreshStatus("Read-only preview; local coordinator unavailable.");
-      await refreshLiveRunChain();
-      return;
-    }
-    try {
-      const response = await fetch("http://127.0.0.1:8766/v1/status", { cache: "no-store", mode: "cors" });
-      if (!response.ok) throw new Error(`status ${response.status}`);
-      const result = await response.json();
-      if (!result.available || !result.control || !result.control_token) throw new Error("control service unavailable");
-      coordinatorControlsAvailable = true;
-      controls.forEach((control) => { control.disabled = false; });
-      if (result.manifest && typeof result.manifest === "object") {
-        const localManifest = {
-          ...result.manifest,
-          control_overrides: result.control.overrides && typeof result.control.overrides === "object"
-            ? result.control.overrides
-            : {},
-          host_action_items: Array.isArray(result.control.action_items)
-          ? result.control.action_items
-          : [],
-          host_action_item_history: Array.isArray(result.control.action_item_history)
-          ? result.control.action_item_history
-          : []
-        };
-        const runtime = matchingElimRuntime(
-          result.control.elim_runtime,
-          localManifest.chain_id
-        );
-        if (runtime) localManifest.elim_runtime = runtime;
-        captureSuccessfulStageHistory(data.run_chain);
-        captureSuccessfulStageHistory(localManifest);
-        data.run_chain = reconcileRunChainSnapshot(
-          data.run_chain,
-          localManifest,
-          "local"
-        );
-        renderAutomation();
-        renderOverview();
-        renderActionItems();
-      }
-      populateCoordinatorControlChoices();
-      sessionStorage.setItem("arrp-run-coordinator-control-token", result.control_token);
-      setCoordinatorControlStatus("Local coordinator available.");
-      setOverviewRefreshStatus("Local coordinator available.");
-    } catch (_error) {
-      coordinatorControlsAvailable = false;
-      controls.forEach((control) => { control.disabled = true; });
-      setCoordinatorControlStatus("Local coordinator is not running. The Console remains read-only.");
-      setOverviewRefreshStatus("Local coordinator is not running.");
-      await refreshLiveRunChain();
-      return;
-    }
-
-    await refreshLiveRunChain();
-    byId("overview-refresh-request").addEventListener("click", () =>
-      coordinatorControlRequest({ action: "request_run" }, true));
-    byId("coordinator-request-run").addEventListener("click", () =>
-      coordinatorControlRequest({ action: "request_run" }));
-    byId("coordinator-request-review").addEventListener("click", () => {
-      if (window.confirm("Request a full project review? This loads the complete registered project context and can use substantially more resources.")) {
-        coordinatorControlRequest({ action: "request_comprehensive_review", full_context: true });
-      }
-    });
-    byId("coordinator-work-unit").addEventListener("change", populateCoordinatorControlChoices);
-    byId("coordinator-action-item").addEventListener("change", populateCoordinatorControlChoices);
-
-    const queuePayload = (action) => {
-      const workUnitId = byId("coordinator-work-unit").value.trim();
-      const reason = byId("coordinator-override-reason").value.trim();
-      if (!workUnitId) {
-        setCoordinatorControlStatus("Choose a published work item before changing its queue override.", "warning");
-        return null;
-      }
-      if (action === "suppress" && !reason) {
-        setCoordinatorControlStatus("A reason is required before suppressing a work unit.", "warning");
-        return null;
-      }
-      return {
-        action,
-        work_unit_id: workUnitId,
-        priority: byId("coordinator-priority").value,
-        reason
-      };
-    };
-    byId("coordinator-prioritize").addEventListener("click", () => {
-      const payload = queuePayload("reprioritize");
-      if (payload && window.confirm(`Save a ${payload.priority} user-owned priority for ${payload.work_unit_id}?`)) {
-        coordinatorControlRequest(payload);
-      }
-    });
-    byId("coordinator-suppress").addEventListener("click", () => {
-      const payload = queuePayload("suppress");
-      if (payload && window.confirm(`Pause ${payload.work_unit_id} in your local automation queue? System state and history remain preserved.`)) {
-        coordinatorControlRequest(payload);
-      }
-    });
-    byId("coordinator-clear").addEventListener("click", () => {
-      const payload = queuePayload("clear_override");
-      if (payload && window.confirm(`Remove your queue override for ${payload.work_unit_id} and restore system ordering?`)) {
-        coordinatorControlRequest(payload);
-      }
-    });
-    byId("coordinator-resolve-action").addEventListener("click", () => {
-      const actionItemId = byId("coordinator-action-item").value.trim();
-      const reason = byId("coordinator-resolution-reason").value.trim();
-      if (!actionItemId || !reason) {
-        setCoordinatorControlStatus("Choose an unresolved alert and enter its resolution record.", "warning");
-        return;
-      }
-      if (window.confirm(`Record ${actionItemId} as resolved? Its history will remain preserved.`)) {
-        coordinatorControlRequest({
-          action: "resolve_action_item",
-          action_item_id: actionItemId,
-          reason
-        });
-      }
-    });
-  }
-
   async function refreshLiveProgress() {
-    try {
-      const response = await fetch(LIVE_PROGRESS_URL, { cache: "no-store" });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const snapshot = await response.json();
-      const current = { ...data.progress, generated_at: data.progress?.generatedAt || data.progress?.asOf };
-      const incoming = { ...snapshot, generated_at: snapshot.generatedAt || snapshot.asOf };
-      const validation = validateLivePayload("progress", incoming, current);
-      if (!validation.valid) {
-        byId("progress-live-note").textContent = `The live Progress feed was rejected; the valid checked-in projection remains shown. ${validation.errors.join(" ")}`;
-        return;
-      }
-      data.progress = snapshot;
-      renderProgress();
-      renderProposed();
-      renderIntegrity();
-      renderActionItems();
-      if (loadedDomains.has("publication")) renderEditionAnalysis();
-      byId("progress-live-note").textContent = "Progress was refreshed from a valid newer live feed.";
-    } catch (_error) {
-      byId("progress-live-note").textContent = "Live Progress data could not be refreshed; the checked-in projection remains shown.";
-    }
+    byId("progress-live-note").textContent =
+      "Progress is the checked-in projection from the latest local transaction.";
   }
 
   function integrityMetric(label, value, detail) {
@@ -6939,22 +6525,8 @@
   }
 
   async function refreshLiveIntegrity() {
-    try {
-      const response = await fetch(LIVE_INTEGRITY_URL, { cache: "no-store" });
-      if (!response.ok) throw new Error(`GitHub returned ${response.status}`);
-      const feed = await response.json();
-      const validation = validateLivePayload("integrity", feed, data.integrity || {});
-      if (!validation.valid) {
-        byId("integrity-live-note").textContent = `The live Integrity feed was rejected; the valid checked-in projection remains shown. ${validation.errors.join(" ")}`;
-        return;
-      }
-      data.integrity = feed;
-      renderIntegrity(feed);
-      renderActionItems();
-      byId("integrity-live-note").textContent = "Integrity findings and run history were refreshed from the repository data branch.";
-    } catch (_error) {
-      byId("integrity-live-note").textContent = "Live integrity data could not be refreshed; the checked-in snapshot remains available.";
-    }
+    byId("integrity-live-note").textContent =
+      "Integrity is the checked-in projection from the latest local transaction.";
   }
 
   function pageSearchText(record) {
@@ -8452,7 +8024,7 @@
         populateSelect(byId("sources-health"), [...new Set(sourceCheckerRecords().map((record) => record.classification)), "Unavailable"], "All health states");
         renderSourceView("sources", data.cited_sources, "type");
       }
-      initializeCoordinatorControls();
+      refreshLiveRunChain();
     }
     if (domain === "integrity") {
       renderIntegrity();

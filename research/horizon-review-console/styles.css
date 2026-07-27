@@ -2088,53 +2088,6 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
 .automation-stage-fields dt { color: var(--muted); font-weight: 750; }
 .automation-stage-fields dd { min-width: 0; margin: 0; overflow-wrap: anywhere; }
 .automation-manual-controls { margin-top: .8rem; }
-.coordinator-controls {
-  display: grid;
-  gap: .75rem;
-  margin-top: .8rem;
-  padding: .85rem;
-  border: 1px solid var(--line);
-  border-radius: .65rem;
-  background: var(--soft);
-}
-.coordinator-controls h4 { margin: 0; font-size: .95rem; }
-.coordinator-controls p { margin: .25rem 0 0; font-size: .78rem; }
-.coordinator-control-group {
-  min-width: 0;
-  margin: 0;
-  padding: .75rem;
-  border: 1px solid #d5dde8;
-  border-radius: .55rem;
-  background: white;
-}
-.coordinator-control-group legend { padding: 0 .3rem; color: var(--ink); font-size: .8rem; font-weight: 850; }
-.coordinator-primary-actions,
-.coordinator-queue-actions { display: flex; flex-wrap: wrap; gap: .45rem; align-items: end; }
-.coordinator-queue-controls {
-  display: grid;
-  grid-template-columns: minmax(190px, .9fr) minmax(150px, .8fr) minmax(130px, .55fr) minmax(220px, 1.2fr);
-  gap: .6rem;
-  align-items: end;
-}
-.coordinator-queue-controls.resolution { grid-template-columns: minmax(230px, 1fr) minmax(280px, 1.3fr) auto; }
-.coordinator-queue-controls label { color: var(--muted); font-size: .72rem; font-weight: 750; }
-.coordinator-queue-controls input,
-.coordinator-queue-controls select {
-  width: 100%;
-  min-height: 2.35rem;
-  margin-top: .25rem;
-  padding: .45rem .55rem;
-  border: 1px solid var(--line);
-  border-radius: .45rem;
-  color: var(--ink);
-  background: white;
-  font: inherit;
-}
-.coordinator-queue-controls input:disabled,
-.coordinator-queue-controls select:disabled { color: #788597; background: #eef1f5; cursor: not-allowed; }
-.control-status.success { color: var(--green); }
-.control-status.warning { color: #75500d; }
-.control-status.error { color: var(--red); }
 .automation-card { display: flex; overflow: hidden; flex-direction: column; padding: 0; }
 .automation-card-summary {
   display: grid;

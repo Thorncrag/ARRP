@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "configurationLayer": "framework/project",
   "agentId": "project-console-progress-bot",
-  "deploymentStatus": "local-source-disabled",
+  "deploymentStatus": "local-first-enabled",
   "localStage": {
     "coordinator": "scripts/arrp_nightly.py",
     "dueEveryHours": 24,
@@ -12,6 +12,7 @@
   },
   "projectOwner": "Thorncrag",
   "projectNumber": 2,
+  "projectNodeId": "PVT_kwHOABOhzc4BcGD4",
   "repository": "Thorncrag/ARRP",
   "registryPath": "inventory/github_issue_registry.csv",
   "projectFields": {

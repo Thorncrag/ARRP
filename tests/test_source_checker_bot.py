@@ -301,20 +301,16 @@ class SourceCheckerTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError, "history contract"):
                 MODULE.with_history(report, invalid, 3)
 
-    def test_workflow_does_not_ignore_missing_prior_history(self):
-        workflow = (
-            ROOT / ".github" / "workflows" / "source-checker-bot.yml"
-        ).read_text(encoding="utf-8")
-        history_step = workflow.split(
-            "- name: Retrieve bounded prior history", 1
-        )[1].split("- name: Check every cataloged source URL", 1)[0]
-        self.assertNotIn("continue-on-error", history_step)
+    def test_retired_workflow_is_absent(self):
+        self.assertFalse(
+            (ROOT / ".github/workflows/source-checker-bot.yml").exists()
+        )
 
     def test_runtime_config_names_local_typed_data_and_prior_success(self):
         config = json.loads(
             (ROOT / ".github" / "source-checker-bot.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(config["deploymentStatus"], "local-source-disabled")
+        self.assertEqual(config["deploymentStatus"], "local-first-enabled")
         self.assertNotIn("dataBranch", config)
         self.assertNotIn("currentDataPath", config)
         self.assertEqual(

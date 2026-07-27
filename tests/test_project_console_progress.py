@@ -13,10 +13,6 @@ SCRIPT = ROOT / "scripts" / "build_project_console_progress.py"
 SPEC = importlib.util.spec_from_file_location("project_console_progress", str(SCRIPT))
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
-PUBLISH_SCRIPT = ROOT / "scripts" / "publish_project_console_progress.py"
-PUBLISH_SPEC = importlib.util.spec_from_file_location("publish_project_console_progress", str(PUBLISH_SCRIPT))
-PUBLISH_MODULE = importlib.util.module_from_spec(PUBLISH_SPEC)
-PUBLISH_SPEC.loader.exec_module(PUBLISH_MODULE)
 
 
 class ProjectConsoleProgressTests(unittest.TestCase):
@@ -36,16 +32,14 @@ class ProjectConsoleProgressTests(unittest.TestCase):
     ):
         return {
             "data": {
-                "user": {
-                    "projectV2": {
-                        "title": "ARRP",
-                        "items": {
-                            "totalCount": total_count,
-                            "nodes": [node],
-                            "pageInfo": {
-                                "hasNextPage": has_next_page,
-                                "endCursor": end_cursor,
-                            },
+                "node": {
+                    "title": "ARRP",
+                    "items": {
+                        "totalCount": total_count,
+                        "nodes": [node],
+                        "pageInfo": {
+                            "hasNextPage": has_next_page,
+                            "endCursor": end_cursor,
                         },
                     }
                 }
@@ -364,13 +358,13 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         )
         self.assertEqual(len(payload["developmentLevels"]), 6)
 
-    def test_workflow_fails_closed_when_project_credential_is_missing(self):
-        workflow = (ROOT / ".github" / "workflows" / "project-console-progress.yml").read_text(
-            encoding="utf-8"
+    def test_retired_progress_workflow_and_publisher_are_absent(self):
+        self.assertFalse(
+            (ROOT / ".github/workflows/project-console-progress.yml").exists()
         )
-        self.assertIn("::error::ARRP_PROJECT_TOKEN is not configured", workflow)
-        self.assertIn("exit 1", workflow)
-        self.assertNotIn("progress refresh is inactive", workflow)
+        self.assertFalse(
+            (ROOT / "scripts/publish_project_console_progress.py").exists()
+        )
 
     def test_retrospective_seed_extends_history_without_replacing_live_dates(self):
         config = deepcopy(self.config)
@@ -733,101 +727,6 @@ class ProjectConsoleProgressTests(unittest.TestCase):
             self.assertEqual(sorted(path.name for path in output.iterdir()), ["history.json", "progress.json"])
             saved = json.loads((output / "progress.json").read_text(encoding="utf-8"))
             self.assertEqual(saved["metrics"]["total"], 4)
-
-    def test_publisher_collects_generated_data_and_optional_deployment_control(self):
-        with tempfile.TemporaryDirectory() as directory:
-            source = Path(directory) / "data"
-            source.mkdir()
-            (source / "progress.json").write_text("{}\n", encoding="utf-8")
-            (source / "history.json").write_text("{}\n", encoding="utf-8")
-            vercel_config = Path(directory) / "vercel-control.json"
-            vercel_config.write_text('{"git":{"deploymentEnabled":false}}\n', encoding="utf-8")
-            files = PUBLISH_MODULE.collect_files(source, vercel_config)
-            self.assertEqual(
-                [path for path, _ in files],
-                ["history.json", "progress.json", "participate/vercel.json"],
-            )
-
-    def test_publisher_creates_isolated_generated_branch_tree(self):
-        with tempfile.TemporaryDirectory() as directory:
-            source = Path(directory) / "data"
-            source.mkdir()
-            (source / "progress.json").write_text(
-                json.dumps({"asOf": "2026-07-15"}), encoding="utf-8"
-            )
-            (source / "history.json").write_text(
-                json.dumps({"schemaVersion": 1, "snapshots": []}), encoding="utf-8"
-            )
-            vercel_config = Path(directory) / "vercel-control.json"
-            vercel_config.write_text('{"git":{"deploymentEnabled":false}}\n', encoding="utf-8")
-            responses = [
-                None,
-                {"sha": "blob-one"},
-                {"sha": "blob-two"},
-                {"sha": "blob-three"},
-                {"sha": "tree-sha"},
-                {"sha": "commit-sha"},
-                {"ref": "refs/heads/project-console-data"},
-            ]
-            with mock.patch.object(PUBLISH_MODULE, "api_request", side_effect=responses) as request:
-                commit = PUBLISH_MODULE.publish(
-                    source,
-                    "Thorncrag/ARRP",
-                    "project-console-data",
-                    "token",
-                    vercel_config,
-                )
-            self.assertEqual(commit, "commit-sha")
-            tree_payload = request.call_args_list[4].args[3]
-            self.assertNotIn("base_tree", tree_payload)
-            self.assertEqual(
-                [entry["path"] for entry in tree_payload["tree"]],
-                ["history.json", "progress.json", "participate/vercel.json"],
-            )
-            commit_payload = request.call_args_list[5].args[3]
-            self.assertEqual(commit_payload["parents"], [])
-            create_ref_payload = request.call_args_list[6].args[3]
-            self.assertEqual(create_ref_payload["ref"], "refs/heads/project-console-data")
-
-    def test_publisher_retries_non_fast_forward_data_branch_race(self):
-        with tempfile.TemporaryDirectory() as directory:
-            source = Path(directory) / "host"
-            source.mkdir()
-            (source / "host-status.json").write_text(
-                json.dumps({"chain_id": "chain-1"}),
-                encoding="utf-8",
-            )
-            responses = [
-                {"object": {"sha": "parent-one"}},
-                {"sha": "blob-one"},
-                {"tree": {"sha": "base-tree-one"}},
-                {"sha": "tree-one"},
-                {"sha": "commit-one"},
-                PUBLISH_MODULE.GitHubApiError(422, "reference update failed"),
-                {"object": {"sha": "parent-two"}},
-                {"tree": {"sha": "base-tree-two"}},
-                {"sha": "tree-two"},
-                {"sha": "commit-two"},
-                {},
-            ]
-            with mock.patch.object(
-                PUBLISH_MODULE,
-                "api_request",
-                side_effect=responses,
-            ) as request:
-                commit = PUBLISH_MODULE.publish(
-                    source,
-                    "Thorncrag/ARRP",
-                    "project-console-data",
-                    "token",
-                )
-            self.assertEqual(commit, "commit-two")
-            self.assertEqual(request.call_count, 11)
-            second_tree_payload = request.call_args_list[8].args[3]
-            self.assertEqual(
-                second_tree_payload["base_tree"],
-                "base-tree-two",
-            )
 
     def test_vercel_config_excludes_data_branch_from_application_previews(self):
         config = json.loads((ROOT / "participate" / "vercel.json").read_text(encoding="utf-8"))

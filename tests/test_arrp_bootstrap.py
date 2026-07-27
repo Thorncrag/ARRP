@@ -1,6 +1,7 @@
-import argparse
 import importlib.util
+import io
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
 from unittest import mock
 
@@ -15,80 +16,71 @@ SPEC.loader.exec_module(MODULE)
 
 
 class ArrpBootstrapTests(unittest.TestCase):
-    def test_disabled_without_fixture_or_explicit_manual_dry_run(self):
-        with mock.patch.object(MODULE.subprocess, "run") as run:
-            self.assertEqual(MODULE.main([]), 64)
-            run.assert_not_called()
-
-    def test_fixture_arguments_are_forwarded_exactly(self):
-        arguments = argparse.Namespace(
-            fixture=Path("/tmp/fixture"),
-            canonical_path=Path("/tmp/fixture/repo"),
-            state_root=Path("/tmp/fixture/state"),
-            manual=False,
-            dry_run=False,
-            run_id="fixture-run",
-            p5_supervised_plan=None,
-        )
-        command = MODULE.build_command(arguments)
-        self.assertEqual(command[1], str(MODULE.runner_path()))
+    def test_scheduled_command_uses_reviewed_runtime(self):
+        runtime = Path("/tmp/reviewed-runtime")
+        revision = "a" * 40
+        command = MODULE.build_command(runtime, revision)
         self.assertEqual(
-            command[2:],
+            command[1:],
             [
-                "--fixture",
-                "/tmp/fixture",
+                "/tmp/reviewed-runtime/scripts/arrp_nightly.py",
                 "--canonical-path",
-                "/tmp/fixture/repo",
+                str(MODULE.CANONICAL_PATH),
                 "--state-root",
-                "/tmp/fixture/state",
-                "--run-id",
-                "fixture-run",
+                str(MODULE.STATE_ROOT),
+                "--runtime-commit",
+                revision,
+                "--scheduled",
             ],
         )
 
-    def test_manual_requires_dry_run_during_p1(self):
-        with mock.patch.object(
-            MODULE.subprocess, "run", return_value=mock.Mock(returncode=0)
-        ) as run:
-            self.assertEqual(MODULE.main(["--manual"]), 64)
-            run.assert_not_called()
-            self.assertEqual(MODULE.main(["--manual", "--dry-run"]), 0)
-            run.assert_called_once()
+    def test_manual_command_is_forwarded_exactly(self):
+        runtime = Path("/tmp/reviewed-runtime")
+        revision = "b" * 40
+        command = MODULE.build_command(runtime, revision, manual=True)
+        self.assertEqual(command[-1], "--manual")
+        self.assertNotIn("--scheduled", command)
 
-    def test_p5_supervised_plan_requires_exact_manual_boundary(self):
-        with mock.patch.object(
-            MODULE.subprocess, "run", return_value=mock.Mock(returncode=0)
-        ) as run:
-            self.assertEqual(
-                MODULE.main(["--p5-supervised-plan", "/tmp/p5.json"]),
-                64,
-            )
-            self.assertEqual(
-                MODULE.main(
-                    [
-                        "--manual",
-                        "--dry-run",
-                        "--p5-supervised-plan",
-                        "/tmp/p5.json",
-                    ]
-                ),
-                64,
-            )
-            self.assertEqual(
-                MODULE.main(
-                    [
-                        "--manual",
-                        "--p5-supervised-plan",
-                        "/tmp/p5.json",
-                    ]
-                ),
-                0,
-            )
-            command = run.call_args.args[0]
-            self.assertIn("--manual", command)
-            self.assertEqual(
-                command[-2:],
-                ["--p5-supervised-plan", "/tmp/p5.json"],
+    def test_dry_run_reports_without_invoking_runner(self):
+        runtime = Path("/tmp/reviewed-runtime")
+        revision = "c" * 40
+        output = io.StringIO()
+        with (
+            mock.patch.object(
+                MODULE,
+                "reviewed_runtime",
+                return_value=(runtime, revision),
+            ),
+            mock.patch.object(MODULE.subprocess, "run") as run,
+            redirect_stdout(output),
+        ):
+            self.assertEqual(MODULE.main(["--dry-run"]), 0)
+            run.assert_not_called()
+        self.assertIn(revision, output.getvalue())
+        self.assertIn(
+            str(runtime / "scripts/arrp_nightly.py"),
+            output.getvalue(),
+        )
+
+    def test_manual_main_invokes_reviewed_runtime_runner(self):
+        runtime = Path("/tmp/reviewed-runtime")
+        revision = "d" * 40
+        with (
+            mock.patch.object(
+                MODULE,
+                "reviewed_runtime",
+                return_value=(runtime, revision),
+            ),
+            mock.patch.object(
+                MODULE.subprocess,
+                "run",
+                return_value=mock.Mock(returncode=0),
+            ) as run,
+        ):
+            self.assertEqual(MODULE.main(["--manual"]), 0)
+            run.assert_called_once_with(
+                MODULE.build_command(runtime, revision, manual=True),
+                check=False,
             )
 
 

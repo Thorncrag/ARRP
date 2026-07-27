@@ -72,8 +72,6 @@
             </div>
             <div class="overview-header-actions">
               <p class="refresh-note">Console built <time id="overview-generated-at">—</time></p>
-              <button type="button" id="overview-refresh-request" class="secondary">Request fresh overview</button>
-              <span id="overview-refresh-status" class="overview-refresh-status" role="status" aria-live="polite">Checking local coordinator…</span>
             </div>
           </div>
           <section class="automation-error-alert" id="overview-bot-alert" role="alert" aria-labelledby="overview-bot-alert-heading" hidden>
@@ -471,7 +469,7 @@
         <section class="watcher-panel" id="watcher-panel-source-checker" role="tabpanel" aria-labelledby="watcher-tab-source-checker" hidden>
           <div class="watcher-panel-header">
             <div><h3>Source Checker Bot</h3><p>A read-only view of the latest deterministic URL scan. The bot verifies reachability and source identity signals; it never substitutes a source or changes evidentiary meaning.</p><p class="muted">Last checked <time id="source-checker-as-of">—</time> · <span id="source-checker-mode">Awaiting first run</span></p></div>
-            <div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/source-checker-bot.md" target="_blank" rel="noopener noreferrer">Open runbook ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/records/status/source-checker-report.md" target="_blank" rel="noopener noreferrer">Open current report ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/source-checker-bot.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a></div>
+            <div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/source-checker-bot.md" target="_blank" rel="noopener noreferrer">Open runbook ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/records/status/source-checker-report.md" target="_blank" rel="noopener noreferrer">Open current report ↗</a></div>
           </div>
           <div class="watcher-summary-grid" id="source-checker-summary"></div>
           <div class="source-checker-completeness" id="source-checker-completeness" role="status"></div>
@@ -487,7 +485,7 @@
             <div id="source-checker-table"></div>
             <nav class="pagination" id="source-checker-pagination" aria-label="Source Checker result pages"></nav>
           </details>
-          <p class="method-note" id="source-checker-live-note">The checked-in snapshot refreshes from the published Console data branch when network access is available.</p>
+          <p class="method-note" id="source-checker-live-note">The checked-in projection is refreshed by the local transaction.</p>
         </section>
       </section>
       </div>
@@ -524,11 +522,11 @@
           <p class="result-count"><b id="problem-visible">0</b> problems shown</p>
           <div class="integrity-layout">
             <section aria-labelledby="integrity-findings-heading">
-              <div class="section-heading-row"><div><h3 id="integrity-findings-heading">Problems by accountable owner</h3><p>Each owner group states its complete count. Category, affected records, reporting source, state, severity, and direct links remain visible on each problem.</p></div><div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/records/status/project-integrity-report.md" target="_blank" rel="noopener noreferrer">Open current report ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/project-integrity.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a></div></div>
+              <div class="section-heading-row"><div><h3 id="integrity-findings-heading">Problems by accountable owner</h3><p>Each owner group states its complete count. Category, affected records, reporting source, state, severity, and direct links remain visible on each problem.</p></div><div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/records/status/project-integrity-report.md" target="_blank" rel="noopener noreferrer">Open current report ↗</a></div></div>
               <div id="integrity-findings"></div>
             </section>
           </div>
-          <p class="method-note" id="integrity-live-note">The checked-in snapshot refreshes from the repository data branch when network access is available.</p>
+          <p class="method-note" id="integrity-live-note">The checked-in projection is refreshed by the local transaction.</p>
         </section>
       </section>
 
@@ -586,13 +584,9 @@
                 <h3 id="automation-chain-heading">Current run chain</h3>
                 <p>Due bots run first, Integrity checks the refreshed state, and Elim is launched only for eligible LLM-owned work. Elim is the final substantive stage.</p>
               </div>
-              <div class="section-heading-actions">
-                <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/run-coordinator-bot.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a>
-                <a class="record-link secondary" href="https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/run-chain.json" target="_blank" rel="noopener noreferrer">Open chain data ↗</a>
-              </div>
             </div>
             <p class="attention-note" id="automation-chain-note">Awaiting the first Run Coordinator Bot projection.</p>
-            <p class="method-note" id="run-chain-live-note">Using the checked-in run-chain projection until a valid newer live feed is accepted.</p>
+            <p class="method-note" id="run-chain-live-note">Using the checked-in projection from the latest local transaction.</p>
             <div class="automation-chain-summary" id="automation-chain-summary"></div>
             <details class="dense-data-disclosure automation-chain-stages" id="automation-chain-stages">
               <summary><span>Stages and recovery state</span><span class="count-pill" id="automation-chain-stage-count">0</span></summary>
@@ -613,52 +607,11 @@
               <p class="method-note" id="governance-discovery-status">Governance-review and discovery mode has not been projected in this bundle.</p>
               <div id="gap-stewardship-list" class="gap-stewardship-list"></div>
             </section>
-            <section class="coordinator-controls" aria-labelledby="coordinator-controls-heading">
-              <div class="coordinator-controls-intro">
-                <h4 id="coordinator-controls-heading">Manual coordinator controls</h4>
-                <p>Guided requests to the local coordinator. These controls never edit project records or select an agent directly.</p>
-                <p id="coordinator-control-status" role="status" aria-live="polite">Checking for an approved localhost coordinator…</p>
-              </div>
-              <fieldset class="coordinator-control-group">
-                <legend>Start automation</legend>
-                <p>Ask the coordinator to evaluate the current queues now. A full review loads the complete registered project context and is substantially larger.</p>
-                <div class="coordinator-primary-actions">
-                  <button type="button" id="coordinator-request-run">Evaluate current queues now</button>
-                  <button type="button" id="coordinator-request-review" class="secondary">Request full project review</button>
-                </div>
-              </fieldset>
-              <fieldset class="coordinator-control-group">
-                <legend>Adjust one queued work item</legend>
-                <p>Choose a published work unit, then save a temporary user-owned priority or pause. Removing the override restores system queue ordering.</p>
-                <div class="coordinator-queue-controls">
-                  <label for="coordinator-work-unit">Queued work item<select id="coordinator-work-unit"><option value="">Choose a work item…</option></select></label>
-                  <label for="coordinator-priority">Requested priority<select id="coordinator-priority"><option value="critical">Critical</option><option value="high">High</option><option value="normal" selected>Normal</option><option value="low">Low</option></select></label>
-                  <label for="coordinator-override-reason">Reason or note<input id="coordinator-override-reason" type="text" placeholder="Why this override is useful" autocomplete="off"></label>
-                  <div class="coordinator-queue-actions">
-                    <button type="button" id="coordinator-prioritize" class="secondary">Save priority</button>
-                    <button type="button" id="coordinator-suppress" class="secondary">Pause this item</button>
-                    <button type="button" id="coordinator-clear" class="secondary">Remove my override</button>
-                  </div>
-                </div>
-              </fieldset>
-              <fieldset class="coordinator-control-group">
-                <legend>Record an automation alert as resolved</legend>
-                <p>Choose an unresolved alert and describe what was reviewed or corrected. The history remains preserved.</p>
-                <div class="coordinator-queue-controls resolution">
-                  <label for="coordinator-action-item">Unresolved alert<select id="coordinator-action-item"><option value="">Choose an alert…</option></select></label>
-                  <label for="coordinator-resolution-reason">Resolution record<input id="coordinator-resolution-reason" type="text" placeholder="What was reviewed or corrected" autocomplete="off"></label>
-                  <div class="coordinator-queue-actions">
-                    <button type="button" id="coordinator-resolve-action" class="secondary">Record as resolved</button>
-                  </div>
-                </div>
-              </fieldset>
-              <p class="muted">Consequential requests require confirmation. Clearing an override cannot remove system state, and resolving an alert never deletes its history.</p>
-            </section>
           </section>
           <section class="automation-change-boundary" aria-labelledby="automation-change-boundary-heading">
             <div>
-              <h3 id="automation-change-boundary-heading">What can be changed here</h3>
-              <p>The controls above may request a run or comprehensive review and may create or clear only your queue overrides. Schedule, stage order, usage limits, permissions, and runbook rules require a reviewed repository change so the displayed design and deployed behavior cannot silently diverge.</p>
+              <h3 id="automation-change-boundary-heading">Read-only automation view</h3>
+              <p>The Console reports checked-in local-first status and does not control the runner. Manual runs use the installed bootstrap; schedule, stage order, usage limits, permissions, and runbook rules require a reviewed repository change.</p>
             </div>
             <div class="source-list dossier-actions">
               <a class="record-link secondary" href="#automation:agents">Inspect Agents &amp; Bots →</a>
@@ -762,7 +715,7 @@
           <section class="queue-view log-view" aria-labelledby="log-integrity-heading">
             <div class="queue-view-header">
               <div><span class="eyebrow">Deterministic check history</span><h2 id="log-integrity-heading">Project Integrity Bot runs</h2><p>The bounded history of scheduled, push-triggered, and manual integrity runs. Current unresolved findings remain in Integrity; the runbook owns the check inventory.</p></div>
-              <div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/project-integrity-bot.md" target="_blank" rel="noopener noreferrer">Open runbook ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/project-integrity.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a></div>
+              <div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/project-integrity-bot.md" target="_blank" rel="noopener noreferrer">Open runbook ↗</a></div>
             </div>
             <span id="log-integrity-visible" hidden>0</span>
             <div class="integrity-history-list" id="integrity-history"></div>
@@ -883,7 +836,7 @@
         </div>
       </section>
 
-      <p class="method-note">Project data remains read-only here. When served from the approved localhost coordinator, the Agents &amp; Bots controls may request a run or create a user-owned queue override; file previews remain fully read-only.</p>
+      <p class="method-note">Project data and automation status remain read-only here. Manual runs use the installed local bootstrap; the Console does not operate a control service.</p>
     </main>
 
     <button type="button" id="scroll-to-top" class="scroll-to-top" aria-label="Back to top" hidden>↑ <span>Back to top</span></button>
