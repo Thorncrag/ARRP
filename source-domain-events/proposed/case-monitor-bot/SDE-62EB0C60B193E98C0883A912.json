@@ -1,0 +1,222 @@
+{
+  "acceptance": null,
+  "affected_records": [
+    {
+      "record_id": "HOR-035",
+      "record_type": "candidate"
+    },
+    {
+      "record_id": "SRC-0632",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0945",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0965",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-0982",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1004",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1052",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1056",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1093",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1929",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1930",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1932",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1933",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1934",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1940",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1941",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1942",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1943",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1946",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1952",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1957",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1973",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1979",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-1982",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2042",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2080",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2081",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2105",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2110",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2136",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2149",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2190",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2216",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2221",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2235",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2238",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2351",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2591",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2649",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2651",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2652",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2653",
+      "record_type": "source"
+    },
+    {
+      "record_id": "SRC-2654",
+      "record_type": "source"
+    }
+  ],
+  "agent_id": "case-monitor-bot",
+  "chain_id": "arrp-20260727T075310Z",
+  "event_id": "SDE-62EB0C60B193E98C0883A912",
+  "idempotency_key": "sha256:62eb0c60b193e98c0883a912550287a645e9712981e73600431f8b3f7a458ac9",
+  "kind": "source-domain-event",
+  "output_hashes": {
+    "files": [
+      {
+        "bytes": 1818034,
+        "path": "inventory/sources.csv",
+        "sha256": "sha256:dd4e572ed54c5d0be25664d9d71ca8aca6e41e20aa039d34f92446b49ee84778"
+      },
+      {
+        "bytes": 180849,
+        "path": "research/horizon-source-records/HOR-035-source-development.md",
+        "sha256": "sha256:bcb66117d0e1557deb4379d1d4979691cbcbb98ad4c2cec26398f837275d57e8"
+      }
+    ],
+    "proposal_diff": "sha256:ca82329205d345662c811596e247f0f43b56b60b6c3f849152b269b95075fde0",
+    "semantic_report": "sha256:11a7e758920934470a4e4b63fbff03a0e00b719aa88bdaf4d1caebbeab08714f"
+  },
+  "proposal": {
+    "base_ref": "main",
+    "head_ref": "bot/case-monitor-updates",
+    "proposal_revision": "7e6009506d62bf2e72bea07fa941302b780cadf2",
+    "pull_request_number": 380,
+    "pull_request_url": "https://github.com/Thorncrag/ARRP/pull/380",
+    "repository": "Thorncrag/ARRP"
+  },
+  "run_id": "github-actions:Thorncrag/ARRP:30247756721:1:primary",
+  "schema_uri": ".github/source-domain-event.schema.json",
+  "schema_version": 1,
+  "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+  "state": "proposed",
+  "summary": {
+    "affected_record_count": 43,
+    "counts": {
+      "affected-files": 2,
+      "affected-records": 43,
+      "candidate-records": 1,
+      "source-records": 42
+    },
+    "status": "case monitor proposal delta"
+  },
+  "trigger": "schedule"
+}
