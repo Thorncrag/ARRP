@@ -38,6 +38,8 @@ class AutomationHealthProjectionTests(unittest.TestCase):
             {"workflow_run": run(123, conclusion="failure")}
         )
         self.assertEqual(payload["status"], "failed")
+        self.assertEqual(payload["availability"], "current")
+        self.assertTrue(payload["completeness"]["complete"])
         self.assertEqual(payload["chain_id"], "cloud-run-123")
         self.assertEqual(
             payload["failure"]["stage"],
@@ -50,6 +52,8 @@ class AutomationHealthProjectionTests(unittest.TestCase):
             {"workflow_run": run(124)}
         )
         self.assertEqual(payload["status"], "healthy")
+        self.assertEqual(payload["expected_count"], 1)
+        self.assertEqual(payload["actual_count"], 1)
         self.assertIsNone(payload["failure"])
         self.assertEqual(payload["workflow_run_id"], "124")
 
@@ -117,6 +121,9 @@ class AutomationHealthProjectionTests(unittest.TestCase):
         self.assertIn("--mode workflow-run", source)
         self.assertIn("--mode watchdog", source)
         self.assertIn("arrp-host-status", source)
+        self.assertIn("host-status completeness is invalid", source)
+        self.assertIn('"availability"', source)
+        self.assertIn('"completeness"', source)
         self.assertEqual(
             source.count("scripts/publish_project_console_progress.py"),
             3,

@@ -53,6 +53,9 @@
       : [];
   }
   normalizeLoadedData();
+  const privateGitHubProblems = Array.isArray(window.ARRP_PRIVATE_GITHUB_SECURITY?.problems)
+    ? window.ARRP_PRIVATE_GITHUB_SECURITY.problems
+    : [{ reference: "GHSEC-SNAPSHOT-UNAVAILABLE", category: "GitHub security", severity: "info", attention: "observed", owner: "Authenticated Console refresh", reported_by: "Project Console", status: "Unavailable", message: "Private GitHub security alerts are unavailable; alert absence is not inferred.", source_url: "https://github.com/Thorncrag/ARRP/security" }];
   const catalogGenerationId = String(
     data.generation_id || data.generation_manifest?.generation_id || ""
   );
@@ -330,6 +333,26 @@
       reason: completeness?.reason || errors.join("; ") || "",
       timestamp: feed.generated_at || feed.checked_at || fallbackTimestamp || ""
     };
+  }
+
+  function operationalFeedState(chain = {}) {
+    const timestamp = chain.host_updated_at || chain.updated_at
+      || chain.completed_at || chain.created_at || "";
+    const declared = feedContractState(chain, timestamp);
+    if (declared.state !== "undeclared") return declared;
+    const hasIdentity = Boolean(chain.chain_id || chain.id);
+    const hasStatus = Boolean(chain.host_status || chain.status || chain.outcome);
+    if (hasIdentity && hasStatus && parseTimestamp(timestamp) !== null) {
+      return {
+        ...declared,
+        state: "available",
+        label: "Available",
+        complete: true,
+        reason: "Legacy typed chain status; producer completeness was not yet declared.",
+        timestamp
+      };
+    }
+    return declared;
   }
 
   function shouldAcceptLiveFeed(kindOrCurrent = {}, currentOrIncoming = {}, maybeIncoming = {}) {
@@ -2536,19 +2559,18 @@
     if (items.length) {
       const list = element("ol", "action-item-detail-list");
       items.forEach((item) => {
-        const row = element("li");
+        const row=element("li"), panel=element("details","action-item-record"),
+          head=element("summary"), body=element("div");
         if (item && typeof item === "object" && item.kind === "repository-review") {
-          row.className = "repository-review-item";
-          const header = element("div", "repository-review-header");
+          panel.classList.add("repository-review-item");
           const title = element("strong", "repository-review-title", item.label);
           const state = element(
             "span",
             `badge repository-review-state ${item.tone || ""}`.trim(),
             item.status
           );
-          header.append(title, state);
-          row.append(
-            header,
+          head.append(title, state);
+          body.append(
             element(
               "p",
               "repository-review-meta",
@@ -2565,7 +2587,7 @@
             element("p", "repository-review-rationale", `Age / due trigger: ${item.due || "Unavailable"}`)
           );
           if (item.humanQuestion && item.humanQuestion.toLowerCase() !== "none") {
-            row.append(
+            body.append(
               element(
                 "p",
                 "repository-review-question",
@@ -2574,21 +2596,21 @@
             );
           }
           const links = element("div", "repository-review-links");
-          const specialistLink = element(
+          const link = element(
             "a",
             "inline-link",
             `Open ${item.specialistLabel || "owning specialist view"} →`
           );
-          specialistLink.href = `#${item.specialistTarget || "automation:administration"}`;
-          specialistLink.addEventListener("click", (event) => {
+          link.href = `#${item.specialistTarget || "automation:administration"}`;
+          link.addEventListener("click", (event) => {
             event.preventDefault();
             navigateToConsoleTarget(item.specialistTarget || "automation:administration");
           });
-          links.append(specialistLink);
-          row.append(links);
+          links.append(link);
+          body.append(links);
         } else if (item && typeof item === "object" && item.href) {
+          head.append(element("strong", "action-item-record-title", item.label));
           const brief = element("div", "action-brief");
-          brief.append(element("strong", "", item.label));
           [
             ["Owner", item.owner],
             ["Question / recovery", item.question || item.recovery],
@@ -2599,21 +2621,23 @@
           ].forEach(([label, value]) => {
             if (value) brief.append(element("p", "", `${label}: ${value}`));
           });
-          row.append(brief);
+          body.append(brief);
           if (item.href.startsWith("#")) {
-            const anchor = element("a", "inline-link", item.label);
+            const anchor = element("a", "inline-link", "Open owning Console view →");
             anchor.href = item.href;
-            anchor.textContent = "Open owning Console view →";
             anchor.addEventListener("click", (event) => {
               event.preventDefault();
               navigateToConsoleTarget(item.href.replace(/^#/, ""));
             });
-            row.append(anchor);
+            body.append(anchor);
           } else {
-            row.append(inlineLink(item.label, item.href));
+            body.append(inlineLink(item.label, item.href));
           }
+        } else {
+          head.textContent = typeof item === "object" ? item.label : item;
         }
-        else row.textContent = typeof item === "object" ? item.label : item;
+        panel.append(head, body);
+        row.append(panel);
         list.append(row);
       });
       card.append(list);
@@ -2845,6 +2869,8 @@
       });
     });
 
+    privateGitHubProblems.forEach((problem) => add(problem));
+
     data.agent_registry
       .filter((agent) => !/^enabled$/i.test(agent.status || ""))
       .forEach((agent) => add({
@@ -2874,7 +2900,8 @@
     const canonical = String(proposal?.canonicalRecord || "").trim();
     return {
       label: `${finding.reference || "Problem"}: ${message}`,
-      href: "#integrity",
+      href: /^https?:\/\//.test(String(finding.source_url || ""))
+        ? finding.source_url : "#integrity",
       owner: problemOwnerLabel(finding),
       question: finding.human_question || message,
       recommendation: finding.recommendation || "Review the complete finding in Integrity and record the disposition at its canonical owner.",
@@ -5271,11 +5298,35 @@
     return "";
   }
 
+  function elimRunChainPresentation(chain = {}) {
+    const decision = chain.elim || chain.elim_decision || {};
+    const runtime = matchingElimRuntime(chain.elim_runtime, chain.chain_id);
+    if (runtime) {
+      const runtimeStatus = runtime.status || chain.host_status || "completed";
+      return {
+        label: overviewStagePresentation(runtimeStatus).statusLabel,
+        detail: runtime.summary || runtime.details || decision.reason
+          || "The host recorded this Elim execution.",
+        ran: true
+      };
+    }
+    const launched = decision.launched ?? decision.launch
+      ?? decision.launch_recommended ?? chain.elim_launched;
+    return {
+      label: launched === true
+        ? "Launched"
+        : launched === false
+          ? "Not launched"
+          : decision.decision || "Awaiting decision",
+      detail: decision.reason || chain.elim_reason || "No launch reason recorded",
+      ran: launched === true
+    };
+  }
+
   function renderRunChain() {
     const chain = data.run_chain || {};
     const stages = runChainStages(chain);
     const queue = runChainQueue(chain);
-    const elim = chain.elim || chain.elim_decision || {};
     const epoch = chain.review_epoch || {};
     const usage = chain.usage || chain.usage_summary || {};
     const chainId = chain.chain_id || chain.id || "Awaiting baseline";
@@ -5290,8 +5341,7 @@
       || runChainCount(queue, "agent");
     const failures = Array.isArray(chain.failures) ? chain.failures : [];
     const degradations = Array.isArray(chain.degradations) ? chain.degradations : [];
-    const launched = elim.launched ?? elim.launch ?? elim.launch_recommended ?? chain.elim_launched;
-    const elimDecision = launched === true ? "Launched" : launched === false ? "Not launched" : (elim.decision || "Awaiting decision");
+    const elimPresentation = elimRunChainPresentation(chain);
     const remaining = usage.remaining_percent ?? usage.remaining ?? usage.applicable_remaining_percent;
     const consumed = usage.consumed_percent ?? usage.consumed;
     const usageLabel = remaining !== undefined && remaining !== null
@@ -5324,7 +5374,7 @@
       integrityMetric("Work queue", queueTotal ?? "Unavailable", queueAvailable
         ? `${runChainCount(queue, "human")} human · ${elimEligible} Elim-eligible · ${runChainCount(queue, "safety")} safety-sensitive`
         : "The producer did not publish queue counts; zero is not inferred."),
-      integrityMetric("Elim", elimDecision, elim.reason || chain.elim_reason || "No launch reason recorded"),
+      integrityMetric("Elim", elimPresentation.label, elimPresentation.detail),
       integrityMetric("Review epoch", epoch.review_id || epoch.id || "Not established", nextReview ? `Next ${formatDate(nextReview)}` : "Next review not recorded"),
       integrityMetric("Usage", usageLabel, usage.stop_reason || usage.gate || "15% reserve applies")
     );
@@ -5923,6 +5973,11 @@
           : {};
         const failedProjection = {
           schema_version: 1,
+          availability: health.availability,
+          expected_count: health.expected_count,
+          actual_count: health.actual_count,
+          completeness: health.completeness,
+          projection_errors: health.projection_errors,
           chain_id: health.chain_id,
           status: "failed",
           updated_at: health.updated_at,
@@ -6383,7 +6438,7 @@
       current.generated_at
     );
     const progressHealth = feedContractState(data.progress, data.progress?.generatedAt || data.progress?.asOf);
-    const automationHealth = feedContractState(data.run_chain, data.run_chain?.updated_at);
+    const automationHealth = operationalFeedState(data.run_chain);
     const sourceExceptions = sourceCheckerRecords().filter((record) =>
       !["verified", "identity-preserving redirect"].includes(record.classification)).length;
     const candidateGaps = candidateProjectRecords()
@@ -8241,11 +8296,13 @@
     sourceTypeFamily,
     sourceCheckerDeltaPresentation,
     feedContractState,
+    operationalFeedState,
     shouldAcceptLiveFeed,
     validateLivePayload,
     reconcileRunChainSnapshot,
     domainGenerationStatus,
     hasNextLink,
+    allProblemRecords,
     repositorySpecialistRoute,
     repositoryAffectedSummary,
     explicitYes,
@@ -8262,7 +8319,8 @@
     elimImprovementRecords,
     compactActivityPresentation,
     pluralizeWord,
-    overviewStagePresentation
+    overviewStagePresentation,
+    elimRunChainPresentation
   });
   if (window.__ARRP_CONSOLE_TEST_MODE__) return;
   initialize();
