@@ -81,7 +81,7 @@
     },
     "github_workflow": {
       "path": "framework/project/github/workflow.md",
-      "sha256": "e6ce6e2b0926b62df3b39751e519423475b6e84de22ce545258604cc17b90ff3",
+      "sha256": "53a849ff86bd03915d9b08846ae13ba64005ccf34374fda99a6f669bc8e416dd",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [

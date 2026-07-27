@@ -628,6 +628,33 @@ def git_push_with_token(
 ) -> None:
     """Push through a pipe-backed askpass helper; the token never enters argv or disk."""
 
+    source_ref, separator, destination_ref = refspec.partition(":")
+    source_ref = source_ref.removeprefix("+")
+    if (
+        not separator
+        or not source_ref
+        or not destination_ref.startswith("refs/heads/")
+    ):
+        raise GitHubBrokerError("authenticated push refspec is not an exact branch update")
+    outgoing = git(
+        repository,
+        "diff",
+        "--name-only",
+        "-z",
+        f"{remote}/main...{source_ref}",
+    ).stdout.split(b"\0")
+    workflow_paths = sorted(
+        path.decode("utf-8", "surrogateescape")
+        for path in outgoing
+        if path.startswith(b".github/workflows/")
+    )
+    if workflow_paths:
+        raise GitHubBrokerError(
+            "workflow changes require Benjamin's credential and cannot enter "
+            "the GitHub App push boundary: "
+            + ", ".join(workflow_paths)
+        )
+
     run_dir = Path(tempfile.mkdtemp(prefix="arrp-askpass-"))
     try:
         os.chmod(run_dir, 0o700)
