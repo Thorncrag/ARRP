@@ -6,9 +6,16 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import tempfile
 from pathlib import Path
 
-from arrp_context import ContextError, ROOT, build_context_packet, manifest_hash_updates
+from arrp_context import (
+    ContextError,
+    ROOT,
+    build_context_packet,
+    contained_path,
+    manifest_hash_updates,
+)
 
 
 DEFAULT_MANIFEST = (
@@ -19,6 +26,32 @@ DEFAULT_MANIFEST = (
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
+    parser.add_argument(
+        "--input-root",
+        type=Path,
+        default=ROOT,
+        help="Exact reviewed repository root used to build the packet.",
+    )
+    parser.add_argument(
+        "--review-epoch-root",
+        type=Path,
+        help=(
+            "Exact reviewed run root containing --review-epoch. Defaults to "
+            "--input-root."
+        ),
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        help="Write the packet atomically instead of emitting it on stdout.",
+    )
+    parser.add_argument(
+        "--output-root",
+        type=Path,
+        help=(
+            "Exact reviewed root containing --output. Defaults to --input-root."
+        ),
+    )
     parser.add_argument("--profile")
     parser.add_argument("--issue")
     parser.add_argument("--work-item-id")
@@ -40,6 +73,34 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def write_json(path: Path, value: object, root: Path) -> None:
+    destination = contained_path(path, root)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        "w",
+        encoding="utf-8",
+        dir=destination.parent,
+        delete=False,
+    ) as handle:
+        json.dump(value, handle, indent=2, ensure_ascii=False, sort_keys=True)
+        handle.write("\n")
+        temporary = Path(handle.name)
+    temporary.replace(destination)
+
+
+def emit(
+    value: object,
+    *,
+    output: Path | None,
+    output_root: Path,
+) -> None:
+    if output is not None:
+        write_json(output, value, output_root)
+        return
+    json.dump(value, sys.stdout, indent=2, ensure_ascii=False, sort_keys=True)
+    sys.stdout.write("\n")
+
+
 def main() -> int:
     args = parse_args()
     try:
@@ -47,7 +108,10 @@ def main() -> int:
             value = {
                 "schema_version": 2,
                 "manifest": str(args.manifest),
-                "document_hashes": manifest_hash_updates(args.manifest),
+                "document_hashes": manifest_hash_updates(
+                    args.manifest,
+                    root=args.input_root,
+                ),
             }
         else:
             if not args.profile:
@@ -55,20 +119,33 @@ def main() -> int:
             value = build_context_packet(
                 args.manifest,
                 args.profile,
+                root=args.input_root,
                 issue_id=args.issue,
                 review_epoch_path=args.review_epoch,
+                review_epoch_root=args.review_epoch_root,
                 max_total_bytes=args.max_total_bytes,
                 capabilities=args.capability,
                 work_item_id=args.work_item_id,
                 work_kind=args.work_kind,
                 canonical_record=args.canonical_record,
             )
-        json.dump(value, sys.stdout, indent=2, ensure_ascii=False)
-        sys.stdout.write("\n")
+        emit(
+            value,
+            output=args.output,
+            output_root=args.output_root or args.input_root,
+        )
         return 0
     except ContextError as exc:
-        json.dump({"schema_version": 2, "status": "blocked", "error": str(exc)}, sys.stdout, indent=2)
-        sys.stdout.write("\n")
+        value = {"schema_version": 2, "status": "blocked", "error": str(exc)}
+        try:
+            emit(
+                value,
+                output=args.output,
+                output_root=args.output_root or args.input_root,
+            )
+        except ContextError:
+            json.dump(value, sys.stdout, indent=2, sort_keys=True)
+            sys.stdout.write("\n")
         return 2
 
 

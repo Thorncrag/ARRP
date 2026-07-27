@@ -113,6 +113,45 @@ class RunCoordinatorTests(unittest.TestCase):
         self.assertEqual(ids[-1], "project-integrity-bot")
         self.assertNotIn("elim", ids)
 
+    def test_local_config_has_no_required_workflow_adapter(self):
+        self.assertTrue(MODULE.is_local_first_config(self.config))
+        MODULE.validate_config(self.config)
+        health = MODULE.workflow_health(self.config, ROOT)
+        self.assertEqual(
+            health,
+            {"healthy": True, "missing": [], "checks": []},
+        )
+
+    def test_local_plan_uses_external_runner_lock_and_plain_json_output(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            output = root / "run-chain.json"
+            args = mock.Mock(
+                config=ROOT / ".github/run-coordinator-bot.json",
+                previous=None,
+                signals=None,
+                now="2026-07-24T08:00:00+00:00",
+                chain_id="local-chain",
+                resume=False,
+                lock_path=None,
+                repo=ROOT,
+                run_id="local-run",
+                trigger="fixture",
+                output=output,
+                github_output=None,
+                local=True,
+            )
+            self.assertEqual(MODULE.plan(args), 0)
+            manifest = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(
+                manifest["lock"]["status"],
+                "external-local-lock",
+            )
+            self.assertEqual(
+                manifest["workflow_health"]["checks"],
+                [],
+            )
+
     def test_comprehensive_queue_uses_the_full_context_profile(self):
         workflow = (
             ROOT / ".github" / "workflows" / "run-coordinator-bot.yml"
@@ -458,24 +497,20 @@ class RunCoordinatorTests(unittest.TestCase):
                     root / "inputs",
                 )
 
-    def test_main_pushes_enter_the_chain_not_individual_bots(self):
-        coordinator = (
-            ROOT / ".github" / "workflows" / "run-coordinator-bot.yml"
-        ).read_text()
-        self.assertIn("  push:\n    branches:\n      - main", coordinator)
-        self.assertIn('"allow_elim_launch": allow_elim_launch', coordinator)
-        self.assertIn("launch_policy[\"authorizedTriggers\"]", coordinator)
-        self.assertIn(
-            "push",
-            self.config["llmLaunchPolicy"]["deterministicOnlyTriggers"],
+    def test_local_first_config_has_no_workflow_trigger_authority(self):
+        self.assertFalse(self.config["enabled"])
+        self.assertFalse(self.config["runtime"]["cloudWorkflowAuthority"])
+        self.assertEqual(
+            self.config["activation"]["allowed"],
+            ["fixture", "manual-dry-run"],
         )
-        self.assertNotIn(
-            "push",
-            self.config["llmLaunchPolicy"]["authorizedTriggers"],
+        self.assertTrue(
+            self.config["activation"]["cutoverRequiredForCanonicalRun"]
         )
-        for name in ("project-integrity.yml", "project-console-progress.yml"):
-            workflow = (ROOT / ".github" / "workflows" / name).read_text()
-            self.assertNotIn("  push:\n", workflow)
+        for stage in self.config["stages"]:
+            self.assertNotIn("workflow", stage)
+            self.assertTrue(stage["command"])
+            self.assertTrue(stage["output"])
 
     def test_interval_and_intake_reconciliation_due_logic(self):
         previous = {

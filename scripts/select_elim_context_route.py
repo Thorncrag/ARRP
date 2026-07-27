@@ -6,10 +6,11 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
-from arrp_context import ContextError, apply_user_overrides
+from arrp_context import ContextError, ROOT, apply_user_overrides, contained_path
 
 
 PROFILE_BY_KIND = {
@@ -30,6 +31,21 @@ def read_json(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise ValueError(f"{path} must contain a JSON object")
     return value
+
+
+def write_json(path: Path, value: object, root: Path) -> None:
+    destination = contained_path(path, root)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        "w",
+        encoding="utf-8",
+        dir=destination.parent,
+        delete=False,
+    ) as handle:
+        json.dump(value, handle, indent=2, sort_keys=True)
+        handle.write("\n")
+        temporary = Path(handle.name)
+    temporary.replace(destination)
 
 
 def select_context_route(
@@ -174,9 +190,28 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--queue", type=Path, required=True)
     parser.add_argument("--chain", type=Path, required=True)
+    parser.add_argument(
+        "--input-root",
+        type=Path,
+        default=ROOT,
+        help="Exact reviewed run root containing the queue and chain.",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        help=(
+            "Write the selected route as deterministic JSON under --input-root. "
+            "When omitted, preserve the legacy five-line stdout interface."
+        ),
+    )
     args = parser.parse_args()
     try:
-        route = select_context_route(read_json(args.queue), read_json(args.chain))
+        queue = contained_path(args.queue, args.input_root)
+        chain = contained_path(args.chain, args.input_root)
+        route = select_context_route(read_json(queue), read_json(chain))
+        if args.output is not None:
+            write_json(args.output, route, args.input_root)
+            return 0
     except (ContextError, OSError, json.JSONDecodeError, ValueError) as exc:
         print(f"select-elim-context-route: {exc}", file=sys.stderr)
         return 2

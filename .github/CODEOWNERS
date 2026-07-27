@@ -1,0 +1,23 @@
+# ARRP behaviorally active and human-reserved paths
+/.github/ @Thorncrag
+/scripts/ @Thorncrag
+/tests/ @Thorncrag
+/AGENTS.md @Thorncrag
+/requirements*.txt @Thorncrag
+/pyproject.toml @Thorncrag
+/package.json @Thorncrag
+/package-lock.json @Thorncrag
+/**/*.schema.json @Thorncrag
+/framework/FRAMEWORK.md @Thorncrag
+/framework/AGENT_OPERATING_RULES.md @Thorncrag
+/framework/CONTEXT_ROUTING.md @Thorncrag
+/framework/PROJECT_STRUCTURE.md @Thorncrag
+/framework/standards/ @Thorncrag
+/framework/project/ @Thorncrag
+/participate/ @Thorncrag
+/website/ @Thorncrag
+/research/horizon-review-console/README.md @Thorncrag
+/research/horizon-review-console/index.html @Thorncrag
+/research/horizon-review-console/app.js @Thorncrag
+/research/horizon-review-console/styles.css @Thorncrag
+/research/horizon-review-console/tests/ @Thorncrag

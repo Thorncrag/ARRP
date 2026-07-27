@@ -53,6 +53,15 @@ in [`../PROJECT_STRUCTURE.md`](../PROJECT_STRUCTURE.md).
 | [`interfaces/`](interfaces/) | Project Console and visual-identity configuration. |
 | [`automation/`](automation/) | Context registry, named runbooks, and exact agent/bot configuration. |
 
+## Local-first transition sources
+
+P1–P4 add disabled `scripts/arrp_bootstrap.py` and `scripts/arrp_nightly.py`
+source, an unscheduled disabled LaunchAgent example under `.github/launchd/`,
+protected ownership and validation policy under `.github/`, and fixture-first
+`tests/test_arrp_*.py` coverage. The GitHub broker is repository- and
+permission-bound; Elim never receives its credentials. No scheduler or host
+service is deployed.
+
 ## Project records
 
 Current state and historical evidence live under [`../records/`](../records/).

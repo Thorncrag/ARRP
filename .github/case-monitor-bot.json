@@ -2,6 +2,7 @@
   "schemaVersion": 6,
   "enabled": true,
   "botName": "case-monitor-bot",
+  "deploymentStatus": "local-source-disabled",
   "sourceMonitoringField": "Monitoring",
   "sourceBaselineField": "Monitoring Baseline",
   "tracker": {
@@ -91,16 +92,11 @@
       ]
     }
   ],
-  "automation": {
-    "branch": "bot/case-monitor-updates",
-    "baseBranch": "main",
-    "assignee": "Thorncrag",
-    "pullRequestTitle": "Case-monitor source updates",
-    "eventProjection": "project-console-data:run-chain.json"
-  },
-  "schedule": {
-    "mode": "run-chain",
-    "coordinator": ".github/workflows/run-coordinator-bot.yml",
-    "dueEveryHours": 24
+  "localStage": {
+    "coordinator": "scripts/arrp_nightly.py",
+    "dueEveryHours": 24,
+    "outputRoot": "<run-dir>/stages/case-monitor-bot",
+    "publication": false,
+    "remoteMutation": false
   }
 }

@@ -310,18 +310,22 @@ class SourceCheckerTests(unittest.TestCase):
         )[1].split("- name: Check every cataloged source URL", 1)[0]
         self.assertNotIn("continue-on-error", history_step)
 
-    def test_runtime_config_names_published_data_and_offline_cache(self):
+    def test_runtime_config_names_local_typed_data_and_prior_success(self):
         config = json.loads(
             (ROOT / ".github" / "source-checker-bot.json").read_text(encoding="utf-8")
         )
-        self.assertEqual(config["dataBranch"], "project-console-data")
-        self.assertEqual(config["currentDataPath"], "source-checker.json")
+        self.assertEqual(config["deploymentStatus"], "local-source-disabled")
+        self.assertNotIn("dataBranch", config)
+        self.assertNotIn("currentDataPath", config)
         self.assertEqual(
-            config["currentData"], "project-console-data:source-checker.json"
+            config["currentData"],
+            "<run-dir>/stages/source-checker-bot/source-checker.json",
         )
         self.assertEqual(
-            config["offlineCachePath"], ".tmp/project-console-source-checker.json"
+            config["priorData"],
+            "<last-success>/source-checker-bot/source-checker.json",
         )
+        self.assertFalse(config["localStage"]["publication"])
         self.assertNotIn(
             "framework/records/status/source-checker.json", config.values()
         )

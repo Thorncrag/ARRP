@@ -1,10 +1,13 @@
 {
   "agentId": "source-checker-bot",
   "mode": "report-only",
-  "schedule": {
-    "mode": "run-chain",
-    "coordinator": ".github/workflows/run-coordinator-bot.yml",
-    "dueEveryHours": 168
+  "deploymentStatus": "local-source-disabled",
+  "localStage": {
+    "coordinator": "scripts/arrp_nightly.py",
+    "dueEveryHours": 168,
+    "outputRoot": "<run-dir>/stages/source-checker-bot",
+    "publication": false,
+    "remoteMutation": false
   },
   "catalogs": [
     "inventory/sources.csv",
@@ -24,8 +27,6 @@
   },
   "historyLimit": 12,
   "currentReport": "framework/records/status/source-checker-report.md",
-  "dataBranch": "project-console-data",
-  "currentDataPath": "source-checker.json",
-  "currentData": "project-console-data:source-checker.json",
-  "offlineCachePath": ".tmp/project-console-source-checker.json"
+  "currentData": "<run-dir>/stages/source-checker-bot/source-checker.json",
+  "priorData": "<last-success>/source-checker-bot/source-checker.json"
 }

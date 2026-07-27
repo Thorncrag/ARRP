@@ -1107,12 +1107,22 @@ def workflow_health(config: dict[str, Any], repo: Path) -> dict[str, Any]:
     return {"healthy": not missing, "missing": missing, "checks": checks}
 
 
-def acquire_lock(path: Path | None, chain_id: str, resume: bool) -> dict[str, Any]:
+def acquire_lock(
+    path: Path | None,
+    chain_id: str,
+    resume: bool,
+    *,
+    external_local_lock: bool = False,
+) -> dict[str, Any]:
     if path is None:
         return {
             "key": "arrp-run-chain",
             "path": None,
-            "status": "github-concurrency",
+            "status": (
+                "external-local-lock"
+                if external_local_lock
+                else "github-concurrency"
+            ),
             "owner_chain_id": chain_id,
         }
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -1202,6 +1212,33 @@ def review_epoch(
     }
 
 
+def is_local_first_config(config: dict[str, Any]) -> bool:
+    runtime = config.get("runtime")
+    return (
+        isinstance(runtime, dict)
+        and runtime.get("cloudWorkflowAuthority") is False
+    )
+
+
+def usage_policy(config: dict[str, Any]) -> dict[str, Any]:
+    usage = config.get("usage")
+    if isinstance(usage, dict):
+        return {
+            "hard_reserve_percent": usage["hardReservePercent"],
+            "soft_run_target_percent": usage["softRunTargetPercent"],
+        }
+    local = config.get("usageGate")
+    if isinstance(local, dict):
+        hard = local.get("hardReservePercent")
+        if not isinstance(hard, (int, float)) or isinstance(hard, bool):
+            raise ValueError("usageGate hardReservePercent must be numeric")
+        return {
+            "hard_reserve_percent": hard,
+            "soft_run_target_percent": hard,
+        }
+    raise ValueError("run coordinator has no usage policy")
+
+
 def validate_config(config: dict[str, Any]) -> None:
     if config.get("schemaVersion") != 1:
         raise ValueError("unsupported run-coordinator config schemaVersion")
@@ -1212,6 +1249,40 @@ def validate_config(config: dict[str, Any]) -> None:
         raise ValueError("run-coordinator stage IDs must be unique")
     if ids[-1:] != ["project-integrity-bot"]:
         raise ValueError("project-integrity-bot must be the last deterministic stage")
+    if is_local_first_config(config):
+        activation = config.get("activation") or {}
+        if activation.get("cutoverRequiredForCanonicalRun") is not True:
+            raise ValueError(
+                "local coordinator must require cutover for a canonical run"
+            )
+        if config.get("enabled") is not False:
+            raise ValueError(
+                "local coordinator must remain disabled before cutover"
+            )
+        for stage in config.get("stages", []):
+            if stage.get("workflow"):
+                raise ValueError(
+                    "local coordinator stages must not require GitHub workflows"
+                )
+            if not isinstance(stage.get("command"), str) or not stage["command"]:
+                raise ValueError(
+                    f"local coordinator stage {stage.get('id')} has no command"
+                )
+            if not isinstance(stage.get("output"), str) or not stage["output"]:
+                raise ValueError(
+                    f"local coordinator stage {stage.get('id')} has no output"
+                )
+        usage_policy(config)
+        if config.get("governanceDiscovery") != {
+            "enabled": True,
+            "mode": "Project governance review and discovery",
+            "ordinarySelectionPolicy": "after-ordinary-queue-clears",
+            "minimumIntervalHours": 168,
+        }:
+            raise ValueError(
+                "governanceDiscovery must preserve the reviewed quiet-queue fallback"
+            )
+        return
     launch_policy = config.get("llmLaunchPolicy") or {}
     authorized = launch_policy.get("authorizedTriggers")
     deterministic_only = launch_policy.get("deterministicOnlyTriggers")
@@ -1274,7 +1345,15 @@ def plan(args: argparse.Namespace) -> int:
     is_resume = bool(args.resume and previous)
     if is_resume:
         chain_id = previous["chain_id"]
-    lock = acquire_lock(args.lock_path, chain_id, is_resume)
+    local_adapter = bool(
+        getattr(args, "local", False) or is_local_first_config(config)
+    )
+    lock = acquire_lock(
+        args.lock_path,
+        chain_id,
+        is_resume,
+        external_local_lock=local_adapter,
+    )
     repo = repository_state(args.repo)
     health = workflow_health(config, args.repo)
     stages = []
@@ -1296,7 +1375,12 @@ def plan(args: argparse.Namespace) -> int:
                     iso(now) if not due else None
                 ),
                 "last_success_at": last_success_at(previous, definition["id"]),
-                "retry_limit": int(definition["retry"]["maximumAttempts"]),
+                "retry_limit": int(
+                    (definition.get("retry") or {}).get(
+                        "maximumAttempts",
+                        0 if local_adapter else 1,
+                    )
+                ),
                 "retries": list(old.get("retries", [])) if retained else [],
                 "failure_class": "none",
                 "details": "Retained from resumed chain" if retained else "",
@@ -1341,8 +1425,7 @@ def plan(args: argparse.Namespace) -> int:
         },
         "review_epoch": review_epoch(config, previous, signals, now),
         "usage": {
-            "hard_reserve_percent": config["usage"]["hardReservePercent"],
-            "soft_run_target_percent": config["usage"]["softRunTargetPercent"],
+            **usage_policy(config),
             "remaining_percent": None,
             "status": "not_checked",
         },
@@ -1573,7 +1656,7 @@ def finalize(args: argparse.Namespace) -> int:
         }
         for item in failures
     ]
-    reserve = float(config["usage"]["hardReservePercent"])
+    reserve = float(usage_policy(config)["hard_reserve_percent"])
     remaining = args.usage_remaining
     usage_status = (
         "unknown"
@@ -2148,6 +2231,14 @@ def parser() -> argparse.ArgumentParser:
     p.add_argument("--trigger", default="manual")
     p.add_argument("--now")
     p.add_argument("--resume", action="store_true")
+    p.add_argument(
+        "--local",
+        action="store_true",
+        help=(
+            "Use the enclosing local runner's process lock and do not require "
+            "GitHub Actions adapters."
+        ),
+    )
     p.set_defaults(function=plan)
 
     p = commands.add_parser("record")

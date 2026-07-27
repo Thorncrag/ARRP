@@ -2,16 +2,14 @@
   "schemaVersion": 2,
   "enabled": true,
   "botName": "presidential-directives-bot",
+  "deploymentStatus": "local-source-disabled",
   "catalogPath": "inventory/presidential-directives.csv",
-  "automation": {
-    "branch": "automation/presidential-directives-monitor",
-    "assignee": "Thorncrag",
-    "eventProjection": "project-console-data:run-chain.json"
-  },
-  "schedule": {
-    "mode": "run-chain",
-    "coordinator": ".github/workflows/run-coordinator-bot.yml",
-    "dueEveryHours": 24
+  "localStage": {
+    "coordinator": "scripts/arrp_nightly.py",
+    "dueEveryHours": 24,
+    "outputRoot": "<run-dir>/stages/presidential-directives-bot",
+    "publication": false,
+    "remoteMutation": false
   },
   "provider": {
     "type": "federal-register-api-v1",

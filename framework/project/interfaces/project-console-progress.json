@@ -2,10 +2,13 @@
   "schemaVersion": 2,
   "configurationLayer": "framework/project",
   "agentId": "project-console-progress-bot",
-  "schedule": {
-    "mode": "run-chain",
-    "coordinator": ".github/workflows/run-coordinator-bot.yml",
-    "dueEveryHours": 24
+  "deploymentStatus": "local-source-disabled",
+  "localStage": {
+    "coordinator": "scripts/arrp_nightly.py",
+    "dueEveryHours": 24,
+    "outputRoot": "<run-dir>/progress",
+    "publication": false,
+    "remoteMutation": false
   },
   "projectOwner": "Thorncrag",
   "projectNumber": 2,
@@ -48,6 +51,6 @@
     "minimumForecastDays": 7
   },
   "historySeedPath": ".github/progress-history-seed.json",
-  "dataBranch": "project-console-data",
-  "historyPath": "history.json"
+  "historyInput": "<last-success>/project-console-progress-bot/history.json",
+  "historyOutput": "<run-dir>/progress/history.json"
 }

@@ -6,34 +6,60 @@ print_exclusion_reason: "Internal automation configuration."
 
 # ARRP Agent and Bot Registry
 
-This directory contains the one authoritative runbook for every persistent named ARRP agent or bot. All runbooks inherit the [Framework](../../FRAMEWORK.md) and [Agent Operating Rules](../../AGENT_OPERATING_RULES.md); they define only the identity, deployed configuration, narrower authority, work order, and stop conditions of the named role. Runtime manifests and workflows must match these records.
+This registry identifies every persistent named ARRP automation role. Each role
+inherits the [Framework](../../FRAMEWORK.md), [Agent Operating
+Rules](../../AGENT_OPERATING_RULES.md), the ARRP [autonomous-execution
+policy](autonomous-execution.md), and its linked runbook. A runbook narrows
+authority; it cannot create authority.
 
-Every registered role also inherits the exact
-[ARRP task-handoff](agent-policy.md#arrp-task-handoff) and
-[provenance and log-ownership](agent-policy.md#arrp-provenance-and-log-ownership)
-policies. A runbook may name its dedicated run log and narrower event records,
-but it may not replace the shared Agent Audit Log, issue audit histories,
-domain event records, or the current-task checkpoint.
+ARRP uses **bot** for deterministic code and **agent** for an LLM-directed
+worker. Temporary interactive or delegated agents are not persistent roles.
 
-ARRP uses **bot** for a deterministic script or program and **agent** for an LLM-directed worker. A bot uses a stable `-bot` designation; an LLM agent does not, regardless of whether either one runs manually, on a schedule, or in response to an event. Elim is an LLM agent.
+## P4 transition status
 
-> **Deployment status — retired 2026-07-27.** All registered ARRP
-> maintenance roles are out of service pending the approved local-first
-> replacement. Their GitHub workflows are disabled, both launchd services and
-> labels are disabled with their installed definitions archived, and the
-> scheduled Codex Elim automation has been archived and removed. The runbooks,
-> workflows, scripts, and configuration below are retained as versioned
-> implementation history and migration input; they are not evidence of a
-> currently deployed or authorized automation.
+The former GitHub Actions, data-branch, host-dispatcher, and scheduled Codex
+chain is retired and has no runtime authority. P4 adapts the retained roles to
+one local-first source chain in `scripts/arrp_nightly.py`, with typed stage
+outputs under a transaction run directory and cadence evidence in owner-only
+`~/Library/Application Support/ARRP/last-success.json`.
 
-| Agent ID | Type | Status | Authoritative runbook | Runtime |
+This source remains disabled for canonical and unattended execution. P4 adds
+the protected `CODEOWNERS` and validation-workflow source plus a fixture-tested
+GitHub App, exact-PR, and registered semantic-action broker boundary. No
+LaunchAgent is installed, no scheduler is active, and no retired workflow is
+reactivated. Live publication remains limited to expressly approved P4
+fixtures; role status may change to enabled only at an expressly authorized
+cutover.
+
+| Agent ID | Type | P4 status | Authoritative runbook | Local runtime |
 | --- | --- | --- | --- | --- |
-| `run-coordinator-bot` | Deterministic bot | Retired; source retained | [Run Coordinator Bot](runbooks/run-coordinator-bot.md) | Not deployed; former GitHub workflow and local dispatcher |
-| `elim` | Conditional LLM agent | Retired; source retained | [Elim](runbooks/elim.md) | Not deployed; former scheduled Codex automation and isolated checkout |
-| `project-integrity-bot` | Deterministic bot | Retired; source retained | [Project Integrity Bot](runbooks/project-integrity-bot.md) | Not deployed; former GitHub workflow |
-| `case-monitor-bot` | Deterministic bot | Retired; source retained | [Case Monitor Bot](runbooks/case-monitor-bot.md) | Not deployed; former GitHub workflow |
-| `presidential-directives-bot` | Deterministic bot | Retired; source retained | [Presidential Directives Bot](runbooks/presidential-directives-bot.md) | Not deployed; former GitHub workflow |
-| `project-console-progress-bot` | Deterministic bot | Retired; source retained | [Project Console Progress Bot](runbooks/project-console-progress-bot.md) | Not deployed; former GitHub workflow |
-| `source-checker-bot` | Deterministic bot | Retired; source retained | [Source Checker Bot](runbooks/source-checker-bot.md) | Not deployed; former report-only pilot workflow |
+| `run-coordinator-bot` | Deterministic bot | Source implemented; disabled | [Run Coordinator Bot](runbooks/run-coordinator-bot.md) | `scripts/arrp_nightly.py` |
+| `elim` | Conditional LLM agent | Fixture invocation only; disabled for canonical runs and never credentialed | [Elim](runbooks/elim.md) | One fresh sealed `codex exec` subprocess |
+| `case-monitor-bot` | Deterministic bot | Local stage source; disabled | [Case Monitor Bot](runbooks/case-monitor-bot.md) | `scripts/check_case_updates.py` |
+| `presidential-directives-bot` | Deterministic bot | Local stage source; disabled | [Presidential Directives Bot](runbooks/presidential-directives-bot.md) | `scripts/check_presidential_directives.py` |
+| `source-checker-bot` | Deterministic bot | Local report stage source; disabled | [Source Checker Bot](runbooks/source-checker-bot.md) | `scripts/check_source_urls.py` |
+| `project-console-progress-bot` | Deterministic bot | Local projection stage source; disabled | [Project Console Progress Bot](runbooks/project-console-progress-bot.md) | `scripts/build_project_console_progress.py` |
+| `project-integrity-bot` | Deterministic bot | Local integrity stage source; disabled | [Project Integrity Bot](runbooks/project-integrity-bot.md) | `scripts/audit_project_consistency.py` |
 
-Temporary task agents and one-off delegated subagents do not receive runbooks unless they become persistent named roles.
+Public-intake collection is a deterministic coordinator stage, not a separate
+persistent named role.
+
+## Common local-stage contract
+
+The coordinator supplies every exact input and output path. A stage may read
+only its canonical inputs and prior successful typed output. It writes only
+its declared run-directory output and any exact worktree path expressly
+authorized by its runbook. A stage cannot create a branch, commit, pull
+request, data-branch projection, Project mutation, Discussion reply, or other
+external action.
+
+A stage is `not_due` only when `last-success.json` points to prior successful
+typed output that is present, schema-valid, hashable, and within cadence.
+Missing, stale, malformed, or unhashed output makes the stage due. Execution
+or schema failure is blocking or degraded exactly as listed in the
+coordinator configuration; findings produced by a successful detector are not
+execution failures.
+
+All roles use the shared provenance and handoff rules in
+[`agent-policy.md`](agent-policy.md). The run directory is operational
+evidence, not a new source of substantive authority.

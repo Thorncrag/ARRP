@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -38,7 +39,23 @@ def parse_args() -> argparse.Namespace:
         "--input-root",
         type=Path,
         default=ROOT,
-        help="Reviewed root containing every queue input path.",
+        help="Exact reviewed run root containing every queue input path.",
+    )
+    parser.add_argument(
+        "--repository-root",
+        type=Path,
+        help=(
+            "Exact reviewed repository root used for repository-owned policy and "
+            "Run Log inputs. Defaults to --input-root for compatibility."
+        ),
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        help=(
+            "Write the queue atomically to this path under --input-root. "
+            "When omitted, preserve the legacy stdout interface."
+        ),
     )
     parser.add_argument("--max-age-hours", type=int, default=36)
     parser.add_argument("--source-checker-max-age-hours", type=int, default=192)
@@ -46,9 +63,33 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def write_json(path: Path, value: object, root: Path) -> None:
+    destination = contained_path(path, root)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        "w",
+        encoding="utf-8",
+        dir=destination.parent,
+        delete=False,
+    ) as handle:
+        json.dump(value, handle, indent=2, ensure_ascii=False, sort_keys=True)
+        handle.write("\n")
+        temporary = Path(handle.name)
+    temporary.replace(destination)
+
+
+def emit(value: object, *, output: Path | None, root: Path) -> None:
+    if output is not None:
+        write_json(output, value, root)
+        return
+    json.dump(value, sys.stdout, indent=2, ensure_ascii=False, sort_keys=True)
+    sys.stdout.write("\n")
+
+
 def main() -> int:
     args = parse_args()
     try:
+        repository_root = args.repository_root or args.input_root
         now = None
         if args.as_of:
             now = datetime.fromisoformat(args.as_of.replace("Z", "+00:00"))
@@ -57,8 +98,12 @@ def main() -> int:
         gap_obligations = args.gap_obligations
         if gap_obligations is None:
             run_log = contained_path(
-                args.input_root / "framework/records/automation/elim-run-log.md",
-                args.input_root,
+                repository_root
+                / "framework"
+                / "records"
+                / "automation"
+                / "elim-run-log.md",
+                repository_root,
             )
             if not run_log.is_file():
                 raise ContextError(
@@ -74,8 +119,8 @@ def main() -> int:
             gap_obligations.write_bytes(canonical_json(reconstructed) + b"\n")
         governance_minimum_interval_hours = 168
         coordinator_config = contained_path(
-            args.input_root / ".github/run-coordinator-bot.json",
-            args.input_root,
+            repository_root / ".github/run-coordinator-bot.json",
+            repository_root,
         )
         if coordinator_config.is_file():
             try:
@@ -126,13 +171,17 @@ def main() -> int:
                 governance_minimum_interval_hours
             ),
             input_root=args.input_root,
+            repository_root=repository_root,
         )
-        json.dump(value, sys.stdout, indent=2, ensure_ascii=False)
-        sys.stdout.write("\n")
+        emit(value, output=args.output, root=args.input_root)
         return 0 if value["ready_for_elim"] else 3
     except ContextError as exc:
-        json.dump({"schema_version": 1, "status": "blocked", "error": str(exc)}, sys.stdout, indent=2)
-        sys.stdout.write("\n")
+        value = {"schema_version": 1, "status": "blocked", "error": str(exc)}
+        try:
+            emit(value, output=args.output, root=args.input_root)
+        except ContextError:
+            json.dump(value, sys.stdout, indent=2, sort_keys=True)
+            sys.stdout.write("\n")
         return 2
 
 

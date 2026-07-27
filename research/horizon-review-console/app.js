@@ -54,6 +54,7 @@
   }
   normalizeLoadedData();
   const PRIVATE_GITHUB_SECURITY_PATH = "data/private-github-security.js?v=1";
+  const LOCAL_AUTOMATION_STATUS_PATH = "data/local-automation-status.js";
   const PRIVATE_GITHUB_SECURITY_UNAVAILABLE = [{ reference: "GHSEC-SNAPSHOT-UNAVAILABLE", category: "GitHub security", severity: "info", attention: "observed", owner: "Authenticated Console refresh", reported_by: "Project Console", status: "Unavailable", message: "Private GitHub security alerts are unavailable; alert absence is not inferred.", source_url: "https://github.com/Thorncrag/ARRP/security" }];
   let privateGitHubProblems = PRIVATE_GITHUB_SECURITY_UNAVAILABLE;
   function capturePrivateGitHubProblems() {
@@ -5446,6 +5447,72 @@
     return "";
   }
 
+  function localAutomationPresentation(status = window.ARRP_LOCAL_AUTOMATION_STATUS) {
+    if (!status || typeof status !== "object" || !Object.keys(status).length) {
+      return {
+        available: false,
+        tone: "unavailable",
+        label: "Unavailable",
+        summary: "The optional ignored local status feed is not present; no health conclusion is inferred."
+      };
+    }
+    const value = String(status.status || "").toLowerCase();
+    if (value === "completed") {
+      return {
+        available: true,
+        tone: "success",
+        label: "Completed",
+        summary: status.failure_reason || "The local-only transaction completed."
+      };
+    }
+    if (value === "review-required") {
+      return {
+        available: true,
+        tone: "warning",
+        label: "Review required",
+        summary: status.failure_reason || "The preserved transaction requires Benjamin's review."
+      };
+    }
+    if (["failed", "blocked", "usage-stopped", "missed"].includes(value)) {
+      return {
+        available: true,
+        tone: "error",
+        label: value.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase()),
+        summary: status.failure_reason || "The local transaction stopped and preserved its state."
+      };
+    }
+    if (value === "running") {
+      return {
+        available: true,
+        tone: "warning",
+        label: "Running",
+        summary: `The local transaction is active at ${status.stage || "an unreported stage"}.`
+      };
+    }
+    return {
+      available: true,
+      tone: "warning",
+      label: value ? value.replaceAll("-", " ") : "Unknown status",
+      summary: status.failure_reason || "The local feed is present but does not report a terminal success."
+    };
+  }
+
+  function renderLocalAutomationStatus() {
+    const status = window.ARRP_LOCAL_AUTOMATION_STATUS;
+    const presentation = localAutomationPresentation(status);
+    const note = byId("local-automation-note");
+    const summary = byId("local-automation-summary");
+    if (!note || !summary) return;
+    note.className = `attention-note ${presentation.tone}`.trim();
+    note.textContent = `${presentation.label} · ${presentation.summary}`;
+    summary.replaceChildren(
+      integrityMetric("Run", status?.run_id || "Unavailable", `Trigger ${status?.trigger || "unavailable"}`),
+      integrityMetric("Stage", status?.stage || "Unavailable", `Updated ${formatDate(status?.updated_at)}`),
+      integrityMetric("Classification", status?.classification?.protected_review === true ? "Protected review" : status?.classification ? "Recorded" : "Unavailable", status?.failure_class || "No failure class recorded"),
+      integrityMetric("Next action", status?.exact_next_action || "Unavailable", "Independent owner-only status")
+    );
+  }
+
   function elimRunChainPresentation(chain = {}) {
     const decision = chain.elim || chain.elim_decision || {};
     const runtime = matchingElimRuntime(chain.elim_runtime, chain.chain_id);
@@ -5654,6 +5721,7 @@
       integrityMetric("Agents", agents, "LLM-directed roles"),
       integrityMetric("Bots", bots, "deterministic programs")
     );
+    renderLocalAutomationStatus();
 
     byId("automation-overview-grid").replaceChildren(...records.map((record) => {
       const stage = agentCurrentStage(record, chain);
@@ -6269,6 +6337,17 @@
         capturePrivateGitHubProblems();
         resolve();
       };
+      script.onerror = () => resolve();
+      document.head.append(script);
+    });
+  }
+
+  function loadLocalAutomationStatus() {
+    if (window.ARRP_LOCAL_AUTOMATION_STATUS) return Promise.resolve();
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = LOCAL_AUTOMATION_STATUS_PATH;
+      script.onload = () => resolve();
       script.onerror = () => resolve();
       document.head.append(script);
     });
@@ -8485,8 +8564,12 @@
     compactActivityPresentation,
     pluralizeWord,
     overviewStagePresentation,
-    elimRunChainPresentation
+    elimRunChainPresentation,
+    localAutomationPresentation
   });
   if (window.__ARRP_CONSOLE_TEST_MODE__) return;
-  loadPrivateGitHubSecurity().then(initialize);
+  Promise.all([
+    loadPrivateGitHubSecurity(),
+    loadLocalAutomationStatus()
+  ]).then(initialize);
 })();

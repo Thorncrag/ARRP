@@ -1600,7 +1600,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
         self.assertIn("catalog-data.js?v=45", console_html)
-        self.assertIn("app.js?v=47", console_html)
+        self.assertIn("app.js?v=48", console_html)
         self.assertIn("styles.css?v=46", console_html)
         self.assertEqual(
             re.findall(r'<script src="(data/[^"]+)"', console_html),

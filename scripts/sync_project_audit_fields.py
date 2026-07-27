@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -54,7 +55,20 @@ def development_level_from_metadata(meta: dict[str, str], current: str) -> str:
     return ""
 
 
-def run_gh(args: list[str]) -> str:
+def project_subprocess_environment(token: str | None = None) -> dict[str, str]:
+    """Expose a Project token only to the exact deterministic gh subprocess."""
+
+    environment = {
+        key: value
+        for key, value in os.environ.items()
+        if key in {"HOME", "PATH", "TMPDIR", "LANG", "LC_ALL"}
+    }
+    if token is not None:
+        environment["GH_TOKEN"] = token
+    return environment
+
+
+def run_gh(args: list[str], *, token: str | None = None) -> str:
     proc = subprocess.run(
         ["gh", *args],
         text=True,
@@ -62,6 +76,7 @@ def run_gh(args: list[str]) -> str:
         stderr=subprocess.PIPE,
         cwd=ROOT,
         check=False,
+        env=project_subprocess_environment(token),
     )
     if proc.returncode != 0:
         raise RuntimeError(

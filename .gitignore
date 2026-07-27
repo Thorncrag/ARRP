@@ -14,6 +14,7 @@ Thumbs.db
 __pycache__/
 *.pyc
 /research/horizon-review-console/data/private-github-security.js
+/research/horizon-review-console/data/local-automation-status.js
 
 # Local secrets
 .env

@@ -3,6 +3,7 @@ from pathlib import Path
 
 from scripts.validate_elim_discussion_reply import (
     ReplyValidationError,
+    broker_intent,
     marker_for_submission,
     validate_reply,
 )
@@ -32,6 +33,19 @@ def valid_payload() -> dict[str, str]:
 
 
 class ElimDiscussionReplyValidationTest(unittest.TestCase):
+    def test_validated_reply_becomes_typed_broker_intent_without_posting(self) -> None:
+        validated = validate_reply(valid_payload())
+        result = broker_intent(
+            validated,
+            source_revision="a" * 40,
+            authority_record="framework/project/workflows/public-input-review.md",
+        )
+        self.assertEqual(result["operation_type"], "post_discussion_reply")
+        self.assertFalse(result["human_reserved"])
+        self.assertEqual(
+            result["new_state_or_content"]["body"], validated["validated_body"]
+        )
+
     def test_valid_existing_coverage_reply_gets_stable_marker(self) -> None:
         result = validate_reply(valid_payload())
 
