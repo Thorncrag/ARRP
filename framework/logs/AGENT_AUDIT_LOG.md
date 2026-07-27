@@ -1886,3 +1886,28 @@ Prospective template:
 | Push status | Pending trusted-host exact-file-set staging, bounded branch, required checks, squash merge, and exact `origin/main` readback. Elim performed no GitHub branch or pull-request mutation. |
 | Rollback notes | Preserve the append-only epoch, resolved-obligation evidence, synthetic-event incident, and discovery history. If a closeout correction is required, add a superseding exact-provenance record and revert only the reviewed generated/log projection changes through the checked workflow. |
 | Blockers/skipped checks | The Review Epoch itself is complete. `GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS` remains open for a separately selected automation repair. A truthful host closeout projection can restore current display state but does not close the recurring test-side-effect or stale-event-acceptance defect. |
+
+
+### 2026-07-27 — Comprehensive Review Epoch epoch-arrp-20260727T075310Z — comprehensive-review
+
+| Field | Entry |
+| --- | --- |
+| Date/time | 2026-07-27 04:10:38 -0400 |
+| Agent | elim |
+| Run ID | arrp-20260727T075310Z |
+| Unit ID | COMPREHENSIVE-REVIEW-21a6bc9b6636 |
+| Trigger | Off-cycle comprehensive review because the registered governing boundary changed after the preceding epoch |
+| Task type | comprehensive-review |
+| Outcome | Completed |
+| Issue/task | Full-context project Review Epoch `epoch-arrp-20260727T075310Z` |
+| Issue page | N/A |
+| Audit history | N/A |
+| Proposal page | N/A |
+| Tier | none |
+| Files changed | Review Epoch ledger; Project Console private-security loader and focused regression; current handoff; Elim Run Log; shared Agent Audit Log; deterministic Project Console projections generated from the exact pinned current chain |
+| Source actions | No source-catalog row changed. Source Checker covered 2055 of 2055 rows; its existing 14 broken, 3 identity-mismatch, 81 review-required, 9 transient, and other ordinary states remain separately queued. Case-monitor and presidential-directive exact-head proposals #380 and #381 remain separately owner-gated. |
+| Validation | Verified the manifest, queue, packet, and all 13 preserved deterministic inputs by exact SHA-256 and byte count; validated the complete governing boundary and packet provenance; reviewed the 92-path delta and pull requests #442 through #449; sampled DOJ-007, DOJ-009, ELEC-002, ELEC-006, and JUD-009; carried the host-status gap forward; and recorded the new governing-hash prepublication gap. The Console repair passed focused Horizon tests and a fresh consistency audit with zero errors; the audit's three warnings solely reflect unavailable authenticated `gh` readback in the workspace sandbox. Review Epoch recording passed with digest `sha256:df1499372ae8ac5ae793630279b3cb588cd7f104393e2eaa10bdf7329f3585ff`. |
+| Commit | Elim leaves `commit` null and makes no repository Git mutation. Trusted-host checked pull-request closeout remains pending after the structured result. |
+| Push status | Pending trusted-host exact-file-set staging, bounded branch, required checks, squash merge, and exact `origin/main` readback. Elim performed no GitHub branch or pull-request mutation. |
+| Rollback notes | Preserve the append-only epoch and gap history. If the Console loader repair must be reverted, restore the static load only together with a tracked privacy-safe projection or a verified equivalent that keeps clean-checkout Integrity at zero errors; never commit the private alert payload. |
+| Blockers/skipped checks | The Review Epoch itself is complete. `GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS` and `GAP-GOVERNING-HASH-PREPUBLICATION-GATE` remain open for separately selected automation repairs. No issue-level Change Audit or T-audit began, and no human-reserved decision was made. |

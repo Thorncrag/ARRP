@@ -1264,11 +1264,19 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
         self.assertIn("catalog-data.js?v=45", console_html)
-        self.assertIn("app.js?v=46", console_html)
+        self.assertIn("app.js?v=47", console_html)
         self.assertIn("styles.css?v=45", console_html)
         self.assertEqual(
             re.findall(r'<script src="(data/[^"]+)"', console_html),
-            ["data/private-github-security.js?v=1"],
+            [],
+        )
+        self.assertIn(
+            'const PRIVATE_GITHUB_SECURITY_PATH = "data/private-github-security.js?v=1";',
+            console_app,
+        )
+        self.assertIn(
+            "if (capturePrivateGitHubProblems() || !coordinatorControlOriginAllowed())",
+            console_app,
         )
         for tab in {"overview", "progress", "actions", "candidates", "sources", "integrity", "automation", "logs", "publication"}:
             self.assertIn(f'id="tab-{tab}"', console_html)
