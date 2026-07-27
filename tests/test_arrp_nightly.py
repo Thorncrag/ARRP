@@ -116,6 +116,51 @@ class ArrpNightlyTransactionTests(unittest.TestCase):
         self.assertTrue(manifest["due"])
         self.assertEqual(manifest["paths"][0]["path"], "areas/TEST/issues/TEST-001.md")
 
+    def test_owner_pause_file_exits_before_repository_mutation(self):
+        pause = self.fixture.state / "PAUSED"
+        self.fixture.state.mkdir(parents=True, exist_ok=True)
+        pause.write_text("P6 rollback rehearsal\n", encoding="utf-8")
+        pause.chmod(0o600)
+        before = run("git", "rev-parse", "HEAD", cwd=self.fixture.repo)
+        local_cycle = mock.Mock()
+
+        result = MODULE.prepare_transaction(
+            self.fixture.config(),
+            run_id="paused-run",
+            local_cycle=local_cycle,
+        )
+
+        self.assertEqual(result.status, "paused")
+        self.assertEqual(run("git", "rev-parse", "HEAD", cwd=self.fixture.repo), before)
+        self.assertEqual(run("git", "branch", "--show-current", cwd=self.fixture.repo), "main")
+        self.assertEqual(run("git", "status", "--porcelain", cwd=self.fixture.repo), "")
+        local_cycle.assert_not_called()
+        status = json.loads(
+            (self.fixture.state / "status.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(status["status"], "paused")
+        self.assertEqual(status["stage"], "01_preflight")
+        self.assertEqual(
+            status["validation_summary"]["reason"],
+            "owner_pause_file_present",
+        )
+
+    def test_unsafe_pause_marker_fails_closed(self):
+        self.fixture.state.mkdir(parents=True, exist_ok=True)
+        target = self.fixture.state / "pause-target"
+        target.write_text("unsafe\n", encoding="utf-8")
+        (self.fixture.state / "PAUSED").symlink_to(target.name)
+
+        with self.assertRaisesRegex(
+            MODULE.TransactionError,
+            "PAUSED must be a regular owner-only file",
+        ):
+            MODULE.prepare_transaction(
+                self.fixture.config(),
+                run_id="unsafe-pause",
+            )
+        self.assertEqual(run("git", "branch", "--show-current", cwd=self.fixture.repo), "main")
+
     def test_untracked_recognized_file_is_checkpointed(self):
         path = self.fixture.repo / "research/new-record.md"
         path.parent.mkdir()
