@@ -77,8 +77,4 @@ Topic pages do not create additional recommendations or duplicate project lifecy
 
 Additional topics will be added selectively when a familiar public subject crosses multiple proposals and a short explanation would materially improve navigation.
 
-## Temporary Validation Fixture
-
-- **[P5 Supervised Publication Proof](p5-supervised-publication-proof.md)**
-
-    Harmless public-content marker used to verify the supervised local-first publication transaction; it records no substantive ARRP position.
+<!-- P5 supervised local-first publication proof: harmless public-page fixture, 2026-07-27. -->
