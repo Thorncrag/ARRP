@@ -5,11 +5,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
-from arrp_context import ContextError, apply_user_overrides
+from arrp_context import ContextError, ROOT, apply_user_overrides, contained_path
 
 
 PROFILE_BY_KIND = {
@@ -30,6 +32,32 @@ def read_json(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise ValueError(f"{path} must contain a JSON object")
     return value
+
+
+def write_json(path: Path, value: object, root: Path) -> None:
+    normalized_root = os.path.realpath(os.fspath(root))
+    normalized_path = os.path.realpath(
+        os.path.join(normalized_root, os.fspath(path))
+    )
+    if (
+        normalized_path != normalized_root
+        and not normalized_path.startswith(normalized_root + os.sep)
+    ):
+        raise ContextError(f"path escapes allowed root: {path}")
+    if os.path.dirname(normalized_path) != normalized_root:
+        raise ContextError(f"path is not a direct child of allowed root: {path}")
+    destination = Path(normalized_root) / os.path.basename(normalized_path)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        "w",
+        encoding="utf-8",
+        dir=destination.parent,
+        delete=False,
+    ) as handle:
+        json.dump(value, handle, indent=2, sort_keys=True)
+        handle.write("\n")
+        temporary = Path(handle.name)
+    temporary.replace(destination)
 
 
 def select_context_route(
@@ -174,9 +202,29 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--queue", type=Path, required=True)
     parser.add_argument("--chain", type=Path, required=True)
+    parser.add_argument(
+        "--input-root",
+        type=Path,
+        default=ROOT,
+        help="Exact reviewed run root containing the queue and chain.",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        help=(
+            "Write the selected route as deterministic JSON as a direct child "
+            "of --input-root. When omitted, preserve the legacy five-line "
+            "stdout interface."
+        ),
+    )
     args = parser.parse_args()
     try:
-        route = select_context_route(read_json(args.queue), read_json(args.chain))
+        queue = contained_path(args.queue, args.input_root)
+        chain = contained_path(args.chain, args.input_root)
+        route = select_context_route(read_json(queue), read_json(chain))
+        if args.output is not None:
+            write_json(args.output, route, args.input_root)
+            return 0
     except (ContextError, OSError, json.JSONDecodeError, ValueError) as exc:
         print(f"select-elim-context-route: {exc}", file=sys.stderr)
         return 2

@@ -19,6 +19,7 @@
     "commit",
     "synchronization",
     "human_questions",
+    "github_action_requests",
     "continuation",
     "discovered_work_units",
     "gap_obligation_updates"
@@ -85,6 +86,11 @@
     "commit": { "type": ["string", "null"] },
     "synchronization": { "type": "array", "items": { "type": "string" } },
     "human_questions": { "type": "array", "items": { "type": "string" } },
+    "github_action_requests": {
+      "type": "array",
+      "maxItems": 0,
+      "items": { "type": "string" }
+    },
     "continuation": {
       "type": "object",
       "additionalProperties": false,

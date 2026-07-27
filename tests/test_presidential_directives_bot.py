@@ -274,11 +274,16 @@ class PresidentialDirectivesBotTests(unittest.TestCase):
         self.assertNotIn("317", workflow)
         self.assertIn("if: always()", workflow)
         self.assertTrue(self.config["enabled"])
-        self.assertNotIn("notification", self.config)
         self.assertEqual(
-            self.config["automation"]["branch"],
-            "automation/presidential-directives-monitor",
+            self.config["deploymentStatus"], "local-source-disabled"
         )
+        self.assertNotIn("notification", self.config)
+        self.assertNotIn("automation", self.config)
+        self.assertEqual(
+            self.config["localStage"]["coordinator"],
+            "scripts/arrp_nightly.py",
+        )
+        self.assertFalse(self.config["localStage"]["publication"])
 
 
 if __name__ == "__main__":

@@ -97,6 +97,7 @@ ELIM_RESULT_FIELDS = frozenset(
         "commit",
         "synchronization",
         "human_questions",
+        "github_action_requests",
         "continuation",
         "discovered_work_units",
         "gap_obligation_updates",

@@ -61,8 +61,8 @@ CANONICAL_RUN_CHAIN_STAGE_ORDER = (
     "case-monitor-bot",
     "presidential-directives-bot",
     "source-checker-bot",
-    "project-console-progress-bot",
     "public-intake",
+    "project-console-progress-bot",
     "project-integrity-bot",
 )
 GITHUB_REPOSITORY = "Thorncrag/ARRP"
@@ -3506,14 +3506,20 @@ def agent_runtime_invariant_findings(
     if isinstance(config.get("enabled"), bool):
         configured_enabled = bool(config["enabled"])
         runbook_enabled = status not in {"disabled", "inactive", "paused"}
-        if configured_enabled != runbook_enabled:
+        deployment_disabled = str(
+            config.get("deploymentStatus") or ""
+        ).strip().casefold().endswith("disabled")
+        if not deployment_disabled and configured_enabled != runbook_enabled:
             add(
                 f"runbook status {values.get('status')!r} conflicts with "
                 f"runtime_config enabled={configured_enabled}"
             )
 
     configured_mode = str(config.get("mode") or "").strip().casefold()
-    if configured_mode and not status.startswith(configured_mode):
+    deployment_disabled = str(
+        config.get("deploymentStatus") or ""
+    ).strip().casefold().endswith("disabled")
+    if configured_mode and not deployment_disabled and not status.startswith(configured_mode):
         add(
             f"runbook status {values.get('status')!r} conflicts with "
             f"runtime_config mode {configured_mode!r}"
@@ -3768,6 +3774,15 @@ def source_domain_event_pipeline_findings(root: Path = ROOT) -> list[str]:
     """Return critical source-domain-event wiring and safety drift findings."""
 
     findings: list[str] = []
+    try:
+        coordinator_config = json.loads(
+            (root / ".github/run-coordinator-bot.json").read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError):
+        coordinator_config = {}
+    runtime = coordinator_config.get("runtime")
+    if isinstance(runtime, dict) and runtime.get("cloudWorkflowAuthority") is False:
+        return findings
 
     def require_file(relative: str) -> str:
         path = root / relative

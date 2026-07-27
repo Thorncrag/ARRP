@@ -96,6 +96,90 @@ class ExactContextTests(unittest.TestCase):
     def tearDown(self):
         self.temp.cleanup()
 
+    def test_context_cli_uses_exact_repository_and_output_roots(self):
+        with tempfile.TemporaryDirectory() as output_directory:
+            output_root = Path(output_directory)
+            output = output_root / "packet.json"
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "scripts/build_elim_context.py"),
+                    "--input-root",
+                    str(self.root),
+                    "--manifest",
+                    str(self.manifest),
+                    "--profile",
+                    "issue",
+                    "--output-root",
+                    str(output_root),
+                    "--output",
+                    str(output),
+                ],
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            self.assertEqual(completed.stdout, "")
+            packet = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(packet["profile"], "issue")
+            self.assertEqual(packet["manifest"]["path"], "manifest.json")
+
+    def test_context_cli_rejects_output_outside_exact_output_root(self):
+        with tempfile.TemporaryDirectory() as output_directory:
+            output_root = Path(output_directory)
+            outside = self.root / "outside.json"
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "scripts/build_elim_context.py"),
+                    "--input-root",
+                    str(self.root),
+                    "--manifest",
+                    str(self.manifest),
+                    "--profile",
+                    "issue",
+                    "--output-root",
+                    str(output_root),
+                    "--output",
+                    str(outside),
+                ],
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(completed.returncode, 2)
+            self.assertFalse(outside.exists())
+
+    def test_context_cli_rejects_nested_output_under_exact_output_root(self):
+        with tempfile.TemporaryDirectory() as output_directory:
+            output_root = Path(output_directory)
+            nested = output_root / "nested" / "packet.json"
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "scripts/build_elim_context.py"),
+                    "--input-root",
+                    str(self.root),
+                    "--manifest",
+                    str(self.manifest),
+                    "--profile",
+                    "issue",
+                    "--output-root",
+                    str(output_root),
+                    "--output",
+                    str(nested),
+                ],
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(completed.returncode, 2)
+            self.assertFalse(nested.exists())
+
     def schema_two_manifest(self) -> Path:
         documents = {
             "kernel": ("framework/kernel.md", "# Kernel\n"),
@@ -993,6 +1077,8 @@ class QueueTests(unittest.TestCase):
                 str(chain),
                 "--as-of",
                 "2026-07-24T12:00:00+00:00",
+                "--output",
+                str(self.root / "queue.json"),
             ],
             cwd=ROOT,
             check=False,
@@ -1000,7 +1086,8 @@ class QueueTests(unittest.TestCase):
             text=True,
         )
         self.assertEqual(completed.returncode, 0, completed.stderr)
-        queue = json.loads(completed.stdout)
+        self.assertEqual(completed.stdout, "")
+        queue = json.loads((self.root / "queue.json").read_text())
         self.assertTrue(queue["governance_discovery"]["current_for_cadence"])
         self.assertEqual(
             queue["governance_discovery"]["minimum_interval_hours"],
@@ -2027,6 +2114,60 @@ class QueueTests(unittest.TestCase):
 
 
 class ContextRouteTests(unittest.TestCase):
+    def test_route_cli_can_write_bounded_deterministic_json(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            queue = root / "queue.json"
+            chain = root / "chain.json"
+            output = root / "route.json"
+            write_json(
+                queue,
+                {
+                    "items": [
+                        {
+                            "id": "INTEGRITY-FIRST",
+                            "kind": "integrity",
+                            "eligible_for_elim": True,
+                            "source": {},
+                        }
+                    ]
+                },
+            )
+            write_json(
+                chain,
+                {"elim_decision": {"profile": {"full_context": False}}},
+            )
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "scripts/select_elim_context_route.py"),
+                    "--input-root",
+                    str(root),
+                    "--queue",
+                    str(queue),
+                    "--chain",
+                    str(chain),
+                    "--output",
+                    str(output),
+                ],
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            self.assertEqual(completed.stdout, "")
+            self.assertEqual(
+                json.loads(output.read_text(encoding="utf-8")),
+                {
+                    "canonical_record": None,
+                    "issue": None,
+                    "kind": "integrity",
+                    "profile": "integrity_reconciliation",
+                    "work_item_id": "INTEGRITY-FIRST",
+                },
+            )
+
     def test_safety_zero_bot_repair_preempts_due_comprehensive_review(self):
         queue = {
             "items": [

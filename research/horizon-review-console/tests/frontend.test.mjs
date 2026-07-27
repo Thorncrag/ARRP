@@ -720,7 +720,7 @@ test("initial HTML loads only bounded scripts and stays within declared budgets"
   const scriptSources = [...html.matchAll(/<script\s+src="([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(scriptSources, [
     "catalog-data.js?v=45",
-    "app.js?v=47"
+    "app.js?v=48"
   ]);
   assert.match(app, /const PRIVATE_GITHUB_SECURITY_PATH = "data\/private-github-security\.js\?v=1";/);
   assert.match(app, /if \(capturePrivateGitHubProblems\(\) \|\| !coordinatorControlOriginAllowed\(\)\)/);
@@ -745,4 +745,18 @@ test("initial HTML loads only bounded scripts and stays within declared budgets"
   assert.match(html, /id="proposed-trigger"/);
   assert.match(html, /id="publication-release-blockers-list"/);
   assert.doesNotMatch(html, /id="tab-logs-count"/);
+});
+
+test("local automation status distinguishes unavailable, running, failure, review, and success", () => {
+  const { api } = loadApi();
+  assert.deepEqual(api.localAutomationPresentation(null), {
+    available: false,
+    tone: "unavailable",
+    label: "Unavailable",
+    summary: "The optional ignored local status feed is not present; no health conclusion is inferred."
+  });
+  assert.equal(api.localAutomationPresentation({ status: "running", stage: "12_validate" }).label, "Running");
+  assert.equal(api.localAutomationPresentation({ status: "failed" }).tone, "error");
+  assert.equal(api.localAutomationPresentation({ status: "review-required" }).label, "Review required");
+  assert.equal(api.localAutomationPresentation({ status: "completed" }).tone, "success");
 });

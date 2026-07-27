@@ -1081,6 +1081,7 @@ def validate_work_unit(value: dict[str, Any]) -> None:
         "commit",
         "synchronization",
         "human_questions",
+        "github_action_requests",
         "continuation",
         "discovered_work_units",
         "gap_obligation_updates",
@@ -1184,6 +1185,10 @@ def validate_work_unit(value: dict[str, Any]) -> None:
             isinstance(item, str) for item in value[field]
         ):
             raise ContextError(f"work-unit {field} must be an array of strings")
+    if value["github_action_requests"] != []:
+        raise ContextError(
+            "work-unit github_action_requests must be an empty array"
+        )
     for path in value["files_touched"]:
         if Path(path).is_absolute() or ".." in Path(path).parts:
             raise ContextError(f"work-unit file path is unsafe: {path}")
@@ -1239,6 +1244,7 @@ def compile_closeout(
         "commit": value.get("commit"),
         "synchronization": value.get("synchronization") or [],
         "human_questions": value.get("human_questions") or [],
+        "github_action_requests": [],
         "discovered_work_units": value.get("discovered_work_units") or [],
         "gap_obligation_updates": value.get("gap_obligation_updates") or [],
         "attempt_count": attempt,

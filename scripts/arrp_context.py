@@ -894,6 +894,7 @@ def build_context_packet(
     profile_name: str,
     *,
     root: Path = ROOT,
+    review_epoch_root: Path | None = None,
     issue_id: str | None = None,
     review_epoch_path: Path | None = None,
     max_total_bytes: int | None = None,
@@ -1080,8 +1081,12 @@ def build_context_packet(
     total += len(canonical_json(logs))
     review_epoch = None
     if review_epoch_path:
-        review_epoch_path = contained_path(review_epoch_path, root)
-        review_epoch = load_json(review_epoch_path, root)
+        reviewed_record_root = review_epoch_root or root
+        review_epoch_path = contained_path(
+            review_epoch_path,
+            reviewed_record_root,
+        )
+        review_epoch = load_json(review_epoch_path, reviewed_record_root)
         total += len(canonical_json(review_epoch))
     if selection is not None:
         total += len(canonical_json(selection))
@@ -1963,8 +1968,13 @@ def build_work_queue(
         GOVERNANCE_DISCOVERY_MIN_INTERVAL_HOURS
     ),
     input_root: Path = ROOT,
+    repository_root: Path | None = None,
 ) -> dict[str, Any]:
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
+    # Queue feeds may live under a narrow run root, but repository-owned
+    # authority continues to come from the reviewed checkout unless a caller
+    # expressly supplies another repository root.
+    reviewed_repository_root = repository_root or ROOT
     records = {
         "integrity": input_record(integrity_path, True, now, max_age_hours, input_root),
         "progress": input_record(progress_path, True, now, max_age_hours, input_root),
@@ -2020,8 +2030,12 @@ def build_work_queue(
     ]
     source_monitor_recommendations: list[dict[str, Any]] = []
     source_monitor_log = contained_path(
-        ROOT / "framework" / "records" / "sources" / "source-monitor-log.md",
-        ROOT,
+        reviewed_repository_root
+        / "framework"
+        / "records"
+        / "sources"
+        / "source-monitor-log.md",
+        reviewed_repository_root,
     )
     if source_monitor_log.is_file():
         try:

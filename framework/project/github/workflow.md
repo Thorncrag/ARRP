@@ -16,6 +16,30 @@ The project's local macOS GitHub CLI credential should have one authoritative co
 
 Do not use `--insecure-storage` as a workaround or retain a second token in `~/.config/gh/hosts.yml`. A duplicate file-stored token can become stale and recreate the apparent recurring failure. Reauthorize only if `gh auth status` fails in the host context. After authorization, verify that the account is reported as Keychain-backed, required scopes include `repo`, `workflow`, and `project`, `hosts.yml` contains account routing but no `oauth_token`, and a new process can read both the repository API and Project 2.
 
+## Local-first automation publication boundary
+
+ARRP's disabled local-first runner uses a private, repository-selected GitHub
+App only through its deterministic broker. Installation tokens are minted per
+transaction, downscoped to `Thorncrag/ARRP` and the registered permission
+subset, and never supplied to Elim. A separate Project-only Keychain
+credential may enter only the exact Project subprocess.
+
+All ordinary authorized tracked work uses one nightly pull request and
+`merge_method=merge`. The broker verifies the exact remote head and base,
+requires `ARRP Validation`, CodeQL, and every reported completed check, then
+merges only with the expected head SHA and reads back the merge parents.
+Any CODEOWNERS, governing, runtime, technical, security, configuration,
+dependency, schema, test, deployment, interface, new-file-class, or
+human-reserved change protects the complete pull request and requires
+Benjamin's code-owner approval. `.github/workflows/**` is never App-pushed;
+Benjamin reviews and publishes workflow changes with his own credential.
+
+Elim may return only a typed request. The broker independently requires a
+registered operation, this repository, an exact source revision and prior
+state, recorded authority, public privacy class, non-human-reserved
+classification, idempotency key, correction rule, and exact readback. It
+stops on any mismatch and never treats generated text as executable authority.
+
 ## Tracking Rule
 
 Each active ARRP proposal or active horizon item should have a GitHub issue. The GitHub issue tracks discussion, assignment, contributor-facing workflow, and links back to the canonical repository record. The GitHub Project tracks structured workflow metadata. The canonical repo file records the adopted substance.

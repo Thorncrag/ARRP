@@ -201,6 +201,7 @@ class ExecutionHelperTests(unittest.TestCase):
             "commit": None,
             "synchronization": [],
             "human_questions": [],
+            "github_action_requests": [],
             "continuation": {"state": "retryable", "next_action": "Resume source review"},
             "discovered_work_units": [],
             "gap_obligation_updates": [],
@@ -235,6 +236,7 @@ class ExecutionHelperTests(unittest.TestCase):
             "commit": None,
             "synchronization": [],
             "human_questions": ["Review the proposed candidate disposition."],
+            "github_action_requests": [],
             "continuation": {
                 "state": "human_required",
                 "next_action": "Human reviews the candidate disposition.",
@@ -270,6 +272,7 @@ class ExecutionHelperTests(unittest.TestCase):
             "commit": None,
             "synchronization": [],
             "human_questions": [],
+            "github_action_requests": [],
             "continuation": {"state": "complete", "next_action": None},
             "discovered_work_units": [],
             "gap_obligation_updates": [],
@@ -281,6 +284,7 @@ class ExecutionHelperTests(unittest.TestCase):
             "commit",
             "synchronization",
             "human_questions",
+            "github_action_requests",
         ):
             incomplete = dict(value)
             incomplete.pop(field)
@@ -291,6 +295,19 @@ class ExecutionHelperTests(unittest.TestCase):
                         queue_sha256="0" * 64,
                         context_sha256="c" * 64,
                     )
+
+        nonempty_github_requests = {
+            **value,
+            "github_action_requests": [
+                {"operation": "update_project_field"}
+            ],
+        }
+        with self.assertRaisesRegex(ContextError, "must be an empty array"):
+            compile_closeout(
+                nonempty_github_requests,
+                queue_sha256="0" * 64,
+                context_sha256="c" * 64,
+            )
 
         authority_extra = {
             **value,

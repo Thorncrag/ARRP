@@ -1,53 +1,43 @@
 {
   "schemaVersion": 1,
   "agentId": "run-coordinator-bot",
-  "enabled": true,
+  "enabled": false,
   "repository": "Thorncrag/ARRP",
   "schedule": {
-    "cron": "17 4 * * *",
-    "description": "One daily run-chain kickoff; individual bots have no independent schedule"
+    "mode": "disabled",
+    "intendedCron": "17 4 * * *",
+    "description": "Repository source only during P2; no scheduler is installed"
   },
-  "concurrency": {
-    "group": "arrp-run-chain",
-    "cancelInProgress": false
-  },
-  "llmLaunchPolicy": {
-    "authorizedTriggers": [
-      "schedule",
-      "workflow_dispatch",
-      "repository_dispatch"
+  "activation": {
+    "allowed": [
+      "fixture",
+      "manual-dry-run"
     ],
-    "deterministicOnlyTriggers": [
-      "push"
-    ]
+    "cutoverRequiredForCanonicalRun": true
   },
-  "manifest": {
-    "dataBranch": "project-console-data",
-    "path": "run-chain.json",
-    "localFallback": ".tmp/run-chain.json",
-    "historyLimit": 24
+  "runtime": {
+    "entrypoint": "scripts/arrp_nightly.py",
+    "repositoryPath": "/Users/benjaminsmith/Automation Workspaces/ARRP",
+    "stateDirectory": "~/Library/Application Support/ARRP",
+    "lastSuccessPath": "~/Library/Application Support/ARRP/last-success.json",
+    "oneScheduler": true,
+    "oneOperatingSystemLock": true,
+    "cloudWorkflowAuthority": false
   },
-  "hostStatusProjection": {
-    "enabled": true,
-    "eventType": "arrp-host-status",
-    "dataBranch": "project-console-data",
-    "path": "host-status.json",
-    "maximumIncidents": 20,
-    "minimumRepeatIntervalSeconds": 1800
+  "outputs": {
+    "root": "<run-dir>",
+    "status": "<run-dir>/status.json",
+    "stageDirectory": "<run-dir>/stages",
+    "queue": "<run-dir>/queue.json",
+    "route": "<run-dir>/route.json",
+    "context": "<run-dir>/context",
+    "elimJsonl": "<run-dir>/elim.jsonl",
+    "elimResult": "<run-dir>/elim-result.json"
   },
-  "automationHealthProjection": {
-    "enabled": true,
-    "workflow": "run-coordinator-bot.yml",
-    "dataBranch": "project-console-data",
-    "path": "automation-health.json",
-    "watchdogCron": "47 10 * * *",
-    "maximumScheduledRunAgeHours": 18
-  },
-  "usage": {
+  "usageGate": {
     "hardReservePercent": 15,
-    "softRunTargetPercent": 10,
-    "monitorIntervalSeconds": 60,
-    "snapshotMaxAgeSeconds": 120
+    "maximumSelectedUnits": 1,
+    "unavailableAction": "skip-elim"
   },
   "llmRouting": {
     "defaultProfile": "substantive",
@@ -86,50 +76,20 @@
       }
     }
   },
-  "hostDispatcher": {
-    "repositoryPath": "/Users/benjaminsmith/Automation Workspaces/ARRP",
-    "pythonPath": "/opt/homebrew/bin/python3",
-    "gitPath": "/usr/bin/git",
-    "xattrPath": "/usr/bin/xattr",
-    "githubCliPath": "/opt/homebrew/bin/gh",
-    "codexPath": "/Applications/ChatGPT.app/Contents/Resources/codex",
-    "notificationPath": "/usr/bin/osascript",
-    "workflow": "run-coordinator-bot.yml",
-    "stateDirectory": ".tmp/run-coordinator",
-    "isolatedCheckoutPath": ".tmp/run-coordinator/elim-checkout",
-    "repositoryCloseout": {
-      "owner": "trusted-host-dispatcher",
-      "modelGitMutation": "forbidden",
-      "changedPathPolicy": "exact-declared-set",
-      "defaultPublication": "checked-pull-request-squash-merge",
-      "humanReviewPublication": "open-unmerged-pull-request",
-      "checkTimeoutSeconds": 1800,
-      "checkPollSeconds": 10,
-      "requiredCheckNames": [
-        "CodeQL"
-      ]
-    },
-    "canonicalWorkspaceReconciliation": {
-      "requiredBranch": "main",
-      "storageBoundary": "non-file-provider-local-filesystem",
-      "cleanMainBehindAction": "verified-fast-forward-only",
-      "dirtyMainAction": "checked-pull-request-squash-merge-and-defer",
-      "preparedCommitResume": "exact-parent-identity-paths-checks-readback",
-      "changedPathPolicy": "complete-workspace",
-      "commitMessage": "Preserve local ARRP changes before automated run",
-      "requireConflictFree": true,
-      "requireStagedDiffCheck": true,
-      "foreignGitMetadataAction": "quarantine-allowlisted-preserve-and-verify",
-      "foreignGitMetadataArchive": ".tmp/run-coordinator/reconciled-git-metadata",
-      "maximumForeignGitMetadataPasses": 3,
-      "foreignWorkspaceCopyAction": "quarantine-numbered-copy-with-tracked-sibling",
-      "foreignWorkspaceCopyArchive": ".tmp/run-coordinator/reconciled-worktree-duplicates",
-      "maximumForeignWorkspaceCopyPasses": 3,
-      "divergentHistoryAction": "fail-closed"
-    },
-    "staleLockSeconds": 900,
-    "controlHost": "127.0.0.1",
-    "controlPort": 8766
+  "elim": {
+    "freshEachRun": true,
+    "sandbox": "workspace-write",
+    "approvalPolicy": "never",
+    "shellNetwork": false,
+    "webSearch": false,
+    "plugins": false,
+    "mcpServers": false,
+    "subagents": false,
+    "credentials": false,
+    "gitMutation": false,
+    "strictResultSchema": "framework/project/automation/schemas/elim-work-unit-result.schema.json",
+    "allowedWriteClass": "selected-ordinary-paths-only",
+    "protectedWriteAction": "preserve-and-fail-closed"
   },
   "reviewEpoch": {
     "intervalDays": 14
@@ -141,7 +101,7 @@
     "minimumIntervalHours": 168
   },
   "gapStewardship": {
-    "statePath": ".tmp/run-coordinator/elim-gap-obligations.json",
+    "statePath": "<run-dir>/elim-gap-obligations.json",
     "stateRole": "replaceable-cache",
     "durableAuthority": "framework/records/automation/elim-run-log.md#machine-readable-discovery-markers",
     "reconstructBeforeQueueBuild": true,
@@ -152,71 +112,59 @@
   "stages": [
     {
       "id": "case-monitor-bot",
-      "workflow": ".github/workflows/case-monitor-bot.yml",
+      "command": "python3 scripts/check_case_updates.py --apply <runner-supplied exact output arguments>",
+      "output": "<run-dir>/stages/case-monitor-bot",
       "due": {
         "kind": "interval",
         "hours": 24
-      },
-      "retry": {
-        "maximumAttempts": 2
       },
       "failureClass": "blocking"
     },
     {
       "id": "presidential-directives-bot",
-      "workflow": ".github/workflows/presidential-directives-bot.yml",
+      "command": "python3 scripts/check_presidential_directives.py --apply <runner-supplied exact output arguments>",
+      "output": "<run-dir>/stages/presidential-directives-bot",
       "due": {
         "kind": "interval",
         "hours": 24
-      },
-      "retry": {
-        "maximumAttempts": 2
       },
       "failureClass": "blocking"
     },
     {
       "id": "source-checker-bot",
-      "workflow": ".github/workflows/source-checker-bot.yml",
+      "command": "python3 scripts/check_source_urls.py <runner-supplied prior/report arguments>",
+      "output": "<run-dir>/stages/source-checker-bot",
       "due": {
         "kind": "interval",
         "hours": 168
       },
-      "retry": {
-        "maximumAttempts": 2
+      "failureClass": "degraded"
+    },
+    {
+      "id": "public-intake",
+      "command": "python3 scripts/collect_public_intake.py <runner-supplied prior/ledger/output arguments>",
+      "output": "<run-dir>/stages/public-intake",
+      "due": {
+        "kind": "always"
       },
       "failureClass": "degraded"
     },
     {
       "id": "project-console-progress-bot",
-      "workflow": ".github/workflows/project-console-progress.yml",
+      "command": "python3 scripts/build_project_console_progress.py --config framework/project/interfaces/project-console-progress.json --registry inventory/github_issue_registry.csv --output <run-dir>/progress",
+      "output": "<run-dir>/progress",
       "due": {
         "kind": "interval",
         "hours": 24
       },
-      "retry": {
-        "maximumAttempts": 2
-      },
       "failureClass": "blocking"
     },
     {
-      "id": "public-intake",
-      "workflow": null,
-      "due": {
-        "kind": "always"
-      },
-      "retry": {
-        "maximumAttempts": 1
-      },
-      "failureClass": "degraded"
-    },
-    {
       "id": "project-integrity-bot",
-      "workflow": ".github/workflows/project-integrity.yml",
+      "command": "python3 scripts/audit_project_consistency.py --json-output <run-dir>/integrity.json --markdown-output framework/records/status/project-integrity-report.md --exit-zero-on-findings",
+      "output": "<run-dir>/integrity.json",
       "due": {
         "kind": "always"
-      },
-      "retry": {
-        "maximumAttempts": 2
       },
       "failureClass": "blocking"
     }

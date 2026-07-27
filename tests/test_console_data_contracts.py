@@ -433,6 +433,11 @@ class ConsoleDataContractTests(unittest.TestCase):
             data = console / "data"
             data.mkdir(parents=True)
             (data / "stale.js").write_text("stale", encoding="utf-8")
+            local_status = data / "local-automation-status.js"
+            local_status.write_text(
+                'window.ARRP_LOCAL_AUTOMATION_STATUS = {"status":"running"};\n',
+                encoding="utf-8",
+            )
             output = console / "catalog-data.js"
             output.write_text("old", encoding="utf-8")
             contract = CONTRACTS.feed_contract(
@@ -456,6 +461,14 @@ class ConsoleDataContractTests(unittest.TestCase):
             )
             self.assertFalse((data / "stale.js").exists())
             self.assertTrue((data / "overview.js").is_file())
+            self.assertEqual(
+                (data / "local-automation-status.js").read_text(encoding="utf-8"),
+                'window.ARRP_LOCAL_AUTOMATION_STATUS = {"status":"running"};\n',
+            )
+            self.assertEqual(
+                (data / "local-automation-status.js").stat().st_mode & 0o777,
+                0o600,
+            )
             self.assertFalse((data / ".generation-manifest.json").exists())
             saved_manifest = json.loads(
                 (data / "generation-manifest.json").read_text(encoding="utf-8")

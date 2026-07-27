@@ -139,6 +139,35 @@ def validate_reply(payload: object) -> dict[str, str]:
     }
 
 
+def broker_intent(
+    validated: dict[str, str],
+    *,
+    source_revision: str,
+    authority_record: str,
+) -> dict[str, object]:
+    """Render the exact deterministic broker request; this does not post it."""
+
+    if not re.fullmatch(r"[0-9a-f]{40}", source_revision):
+        raise ReplyValidationError("source_revision must be a full lowercase Git SHA")
+    if not authority_record.startswith("framework/"):
+        raise ReplyValidationError("authority_record must be a framework path")
+    comment_id = validated["submission_url"].rsplit("-", 1)[-1]
+    return {
+        "operation_type": "post_discussion_reply",
+        "repository": "Thorncrag/ARRP",
+        "target_node_or_number": comment_id,
+        "source_revision": source_revision,
+        "authority_record": authority_record,
+        "expected_old_state": {"marker_absent": validated["marker"]},
+        "new_state_or_content": {"body": validated["validated_body"]},
+        "idempotency_key": validated["marker"],
+        "privacy_class": "public",
+        "human_reserved": False,
+        "rollback_or_correction": "post a transparent correction; never silently edit history",
+        "readback_contract": "reply body and idempotency marker read back exactly once",
+    }
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Validate a proposed Elim Discussion reply JSON file."
@@ -148,6 +177,12 @@ def parse_args() -> argparse.Namespace:
         "--body-only",
         action="store_true",
         help="Print only the exact validated body to post",
+    )
+    parser.add_argument("--broker-intent", action="store_true")
+    parser.add_argument("--source-revision")
+    parser.add_argument(
+        "--authority-record",
+        default="framework/project/workflows/public-input-review.md",
     )
     return parser.parse_args()
 
@@ -161,7 +196,24 @@ def main() -> int:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
 
-    if args.body_only:
+    if args.body_only and args.broker_intent:
+        print("ERROR: select only one output mode", file=sys.stderr)
+        return 1
+    if args.broker_intent:
+        if not args.source_revision:
+            print("ERROR: --source-revision is required with --broker-intent", file=sys.stderr)
+            return 1
+        try:
+            result = broker_intent(
+                result,
+                source_revision=args.source_revision,
+                authority_record=args.authority_record,
+            )
+        except ReplyValidationError as exc:
+            print(f"ERROR: {exc}", file=sys.stderr)
+            return 1
+        print(json.dumps(result, indent=2, sort_keys=True))
+    elif args.body_only:
         print(result["validated_body"])
     else:
         print(json.dumps(result, indent=2, sort_keys=True))

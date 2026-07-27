@@ -430,12 +430,18 @@ class CaseMonitorBotTests(unittest.TestCase):
             with paths["pending.csv"].open(newline="", encoding="utf-8") as handle:
                 self.assertEqual(len(list(csv.DictReader(handle))), 0)
 
-    def test_config_has_no_tracking_issue_dependency(self):
+    def test_config_is_disabled_local_stage_without_tracking_issue_dependency(self):
         config = json.loads((ROOT / ".github" / "case-monitor-bot.json").read_text())
         self.assertEqual(config["schemaVersion"], 6)
+        self.assertTrue(config["enabled"])
+        self.assertEqual(config["deploymentStatus"], "local-source-disabled")
         self.assertEqual(config["sourceBaselineField"], "Monitoring Baseline")
         self.assertNotIn("notification", config)
-        self.assertEqual(config["automation"]["branch"], "bot/case-monitor-updates")
+        self.assertNotIn("automation", config)
+        self.assertEqual(
+            config["localStage"]["coordinator"], "scripts/arrp_nightly.py"
+        )
+        self.assertFalse(config["localStage"]["publication"])
         self.assertEqual(
             config["sourceDevelopmentModules"][0]["targetPath"],
             "research/horizon-source-records/HOR-035-source-development.md",

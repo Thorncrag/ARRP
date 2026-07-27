@@ -1,0 +1,113 @@
+name: ARRP validation
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arrp-validation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python-tests:
+    runs-on: macos-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-local-tools.txt
+      - run: python -m pip install --requirement requirements-local-tools.txt
+      - run: python -m unittest discover -s tests -p 'test_*.py'
+
+  console-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "22"
+      - run: node --test research/horizon-review-console/tests/frontend.test.mjs
+
+  participation-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "22"
+      - run: node --test participate/tests/*.test.js
+
+  site-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-pages.txt
+      - run: python -m pip install --requirement requirements-pages.txt
+      - run: python scripts/prepare_public_site.py
+      - run: python -m mkdocs build --strict --config-file .site-build/mkdocs.yml
+
+  runtime-policy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.12"
+      - name: Compile runtime and tests
+        run: python -m compileall -q scripts tests
+      - name: Validate context routes
+        run: python scripts/build_elim_context.py --print-hash-updates
+      - name: Reject tracked symlinks, submodules, and unexpected executables
+        run: python scripts/arrp_nightly.py --validate-repository-policy
+
+  aggregate:
+    name: ARRP Validation
+    if: always()
+    needs:
+      - python-tests
+      - console-tests
+      - participation-tests
+      - site-build
+      - runtime-policy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every validation job
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import sys
+
+          results = {
+              name: value["result"]
+              for name, value in json.loads(os.environ["NEEDS_JSON"]).items()
+          }
+          failures = {name: result for name, result in results.items() if result != "success"}
+          if failures:
+              print(json.dumps(failures, sort_keys=True))
+              sys.exit(1)
+          PY

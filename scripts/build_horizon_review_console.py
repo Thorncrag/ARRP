@@ -2769,6 +2769,27 @@ def atomic_write_text(path: Path, text: str) -> None:
         raise
 
 
+def validated_local_automation_projection(path: Path) -> str | None:
+    """Return a valid ignored local status projection for atomic preservation."""
+
+    if not path.is_file() or path.is_symlink():
+        return None
+    prefix = "window.ARRP_LOCAL_AUTOMATION_STATUS = "
+    try:
+        text = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError):
+        return None
+    if not text.startswith(prefix) or not text.endswith(";\n"):
+        return None
+    try:
+        value = json.loads(text.removeprefix(prefix).removesuffix(";\n"))
+    except json.JSONDecodeError:
+        return None
+    if not isinstance(value, dict) or not isinstance(value.get("status"), str):
+        return None
+    return text
+
+
 def write_console_bundle(
     compatibility_payload: dict[str, object],
     parts: dict[str, dict[str, object]],
@@ -2784,6 +2805,9 @@ def write_console_bundle(
     if not generation_id_value:
         raise RuntimeError("Console bundle generation lacks a generation_id.")
     output.parent.mkdir(parents=True, exist_ok=True)
+    local_status_text = validated_local_automation_projection(
+        data_dir / "local-automation-status.js"
+    )
     stage_root = Path(
         tempfile.mkdtemp(prefix=".console-generation-", dir=output.parent)
     )
@@ -2871,6 +2895,10 @@ def write_console_bundle(
                 os.replace(data_dir, prior_data)
             os.replace(stage_data, data_dir)
             data_replaced = True
+            if local_status_text is not None:
+                local_status_path = data_dir / "local-automation-status.js"
+                atomic_write_text(local_status_path, local_status_text)
+                os.chmod(local_status_path, 0o600)
             if output.exists():
                 os.replace(output, prior_catalog)
             os.replace(stage_catalog, output)

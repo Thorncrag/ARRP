@@ -2,6 +2,7 @@ import importlib.util
 import hashlib
 import json
 import os
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -9,12 +10,31 @@ from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[1]
+LEGACY_DISPATCHER_FIXTURE_COMMIT = "18d3dd5edf802d977841d6d35a108d1d41ef2168"
 SPEC = importlib.util.spec_from_file_location(
     "run_chain_dispatcher", ROOT / "scripts" / "run_chain_dispatcher.py"
 )
 MODULE = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
 SPEC.loader.exec_module(MODULE)
+
+
+def legacy_dispatcher_config():
+    """Load the retained pre-transition dispatcher fixture from Git history."""
+
+    result = subprocess.run(
+        [
+            "git",
+            "show",
+            f"{LEGACY_DISPATCHER_FIXTURE_COMMIT}:.github/run-coordinator-bot.json",
+        ],
+        cwd=ROOT,
+        check=True,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    return json.loads(result.stdout)
 
 
 class RunChainDispatcherTests(unittest.TestCase):
@@ -102,6 +122,7 @@ class RunChainDispatcherTests(unittest.TestCase):
             "commit": "a" * 40,
             "synchronization": ["Synchronized and read back origin/main."],
             "human_questions": human_questions or [],
+            "github_action_requests": [],
             "continuation": {
                 "state": continuation_state,
                 "next_action": next_action,
@@ -310,58 +331,31 @@ class RunChainDispatcherTests(unittest.TestCase):
         self.assertIn("Outside contributions require", prompt)
         self.assertIn("render-discovery-markers", prompt)
 
-    def test_config_uses_explicit_host_paths_and_conservative_profiles(self):
+    def test_config_is_disabled_local_first_with_conservative_profiles(self):
         config = json.loads(
             (ROOT / ".github" / "run-coordinator-bot.json").read_text()
         )
-        for key in (
-            "pythonPath",
-            "gitPath",
-            "xattrPath",
-            "githubCliPath",
-            "codexPath",
-        ):
-            self.assertTrue(Path(config["hostDispatcher"][key]).is_absolute())
+        self.assertFalse(config["enabled"])
+        self.assertFalse(config["runtime"]["cloudWorkflowAuthority"])
+        self.assertEqual(config["runtime"]["entrypoint"], "scripts/arrp_nightly.py")
+        self.assertTrue(config["activation"]["cutoverRequiredForCanonicalRun"])
         profiles = config["llmRouting"]["profiles"]
         self.assertEqual(profiles["read-heavy-triage"]["model"], "gpt-5.6-terra")
         self.assertEqual(profiles["substantive"]["model"], "gpt-5.6-sol")
         self.assertTrue(profiles["comprehensive"]["fullContext"])
-        self.assertEqual(config["usage"]["monitorIntervalSeconds"], 60)
-        self.assertEqual(config["usage"]["snapshotMaxAgeSeconds"], 120)
-        self.assertEqual(config["hostDispatcher"]["staleLockSeconds"], 900)
         self.assertEqual(
-            config["hostDispatcher"]["repositoryPath"],
+            config["runtime"]["repositoryPath"],
             "/Users/benjaminsmith/Automation Workspaces/ARRP",
         )
-        self.assertEqual(config["gapStewardship"], MODULE.GAP_STEWARDSHIP_POLICY)
+        self.assertEqual(config["usageGate"]["hardReservePercent"], 15)
         self.assertEqual(
             config["governanceDiscovery"]["ordinarySelectionPolicy"],
             "after-ordinary-queue-clears",
         )
         self.assertEqual(config["governanceDiscovery"]["minimumIntervalHours"], 168)
-        self.assertEqual(
-            config["hostDispatcher"]["isolatedCheckoutPath"],
-            ".tmp/run-coordinator/elim-checkout",
-        )
-        self.assertEqual(
-            config["hostDispatcher"]["repositoryCloseout"],
-            MODULE.HOST_CLOSEOUT_POLICY,
-        )
-        self.assertEqual(
-            config["hostDispatcher"]["canonicalWorkspaceReconciliation"],
-            MODULE.CANONICAL_WORKSPACE_RECONCILIATION_POLICY,
-        )
-        self.assertEqual(
-            config["automationHealthProjection"],
-            MODULE.AUTOMATION_HEALTH_PROJECTION_POLICY,
-        )
-        for relative in (
-            ".github/launchd/com.thorncrag.arrp-run-coordinator.plist.example",
-            ".github/launchd/com.thorncrag.arrp-run-coordinator-control.plist.example",
-        ):
-            body = (ROOT / relative).read_text(encoding="utf-8")
-            self.assertIn("/Users/benjaminsmith/Automation Workspaces/ARRP", body)
-            self.assertNotIn("/Users/benjaminsmith/Documents/ARRP", body)
+        self.assertNotIn("hostDispatcher", config)
+        self.assertNotIn("manifest", config)
+        self.assertNotIn("automationHealthProjection", config)
 
     def test_file_provider_workspace_is_rejected_before_git_preflight(self):
         repo = Path("/Users/test/Documents/ARRP")
@@ -775,6 +769,14 @@ class RunChainDispatcherTests(unittest.TestCase):
             schema["properties"]["work_type"]["enum"],
         )
         self.assertIn("canonical_record", schema["required"])
+        self.assertEqual(
+            schema["properties"]["github_action_requests"]["maxItems"],
+            0,
+        )
+        self.assertEqual(
+            schema["properties"]["github_action_requests"]["items"]["type"],
+            "string",
+        )
         self.assertNotIn("uniqueItems", json.dumps(schema))
         self.assertNotIn('"format"', json.dumps(schema))
         self.assertNotIn('"oneOf"', json.dumps(schema))
@@ -867,9 +869,7 @@ class RunChainDispatcherTests(unittest.TestCase):
             self.assertFalse(
                 MODULE.comprehensive_epoch_recorded(repo, "chain-1", packet)
             )
-            config = json.loads(
-                (ROOT / ".github" / "run-coordinator-bot.json").read_text()
-            )
+            config = legacy_dispatcher_config()
             control = {}
             manifest = {
                 "chain_id": "chain-1",
@@ -2013,9 +2013,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                 + "\n",
                 encoding="utf-8",
             )
-            config = json.loads(
-                (ROOT / ".github" / "run-coordinator-bot.json").read_text()
-            )
+            config = legacy_dispatcher_config()
             config["manifest"]["localFallback"] = ".tmp/run-coordinator/run-chain.json"
             control = {}
             with (
@@ -2108,9 +2106,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                 + "\n",
                 encoding="utf-8",
             )
-            config = json.loads(
-                (ROOT / ".github" / "run-coordinator-bot.json").read_text()
-            )
+            config = legacy_dispatcher_config()
             config["manifest"]["localFallback"] = (
                 ".tmp/run-coordinator/run-chain.json"
             )
@@ -2150,9 +2146,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                 first_descriptor,
                 MODULE.fcntl.LOCK_EX | MODULE.fcntl.LOCK_NB,
             )
-            config = json.loads(
-                (ROOT / ".github" / "run-coordinator-bot.json").read_text()
-            )
+            config = legacy_dispatcher_config()
             try:
                 with self.assertRaisesRegex(
                     RuntimeError,
@@ -2174,9 +2168,7 @@ class RunChainDispatcherTests(unittest.TestCase):
             state = repo / ".tmp/run-coordinator"
             state.mkdir(parents=True)
             (state / "run-chain.json").write_text("{}\n", encoding="utf-8")
-            config = json.loads(
-                (ROOT / ".github" / "run-coordinator-bot.json").read_text()
-            )
+            config = legacy_dispatcher_config()
             config["manifest"]["localFallback"] = ".tmp/run-coordinator/run-chain.json"
             _, lease = MODULE.acquire_dispatch_lock(
                 state / "host-dispatch.lock",
@@ -2215,9 +2207,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                 + "\n",
                 encoding="utf-8",
             )
-            config = json.loads(
-                (ROOT / ".github" / "run-coordinator-bot.json").read_text()
-            )
+            config = legacy_dispatcher_config()
             config["manifest"]["localFallback"] = ".tmp/run-coordinator/run-chain.json"
             control = {}
             recovered, lease = MODULE.acquire_dispatch_lock(
@@ -2251,9 +2241,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                 json.dumps({"chain_id": "chain-1", "failures": []}) + "\n",
                 encoding="utf-8",
             )
-            config = json.loads(
-                (ROOT / ".github" / "run-coordinator-bot.json").read_text()
-            )
+            config = legacy_dispatcher_config()
             config["manifest"]["localFallback"] = ".tmp/run-coordinator/run-chain.json"
             recovered, lease = MODULE.acquire_dispatch_lock(
                 lock,
@@ -3592,9 +3580,7 @@ class RunChainDispatcherTests(unittest.TestCase):
     def test_terminal_failure_projects_and_preserves_prior_action_items(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
-            config = json.loads(
-                (ROOT / ".github/run-coordinator-bot.json").read_text()
-            )
+            config = legacy_dispatcher_config()
             config["manifest"]["localFallback"] = ".tmp/run-chain.json"
             control_path = repo / ".tmp/run-coordinator/control.json"
             control = {}
@@ -3641,9 +3627,7 @@ class RunChainDispatcherTests(unittest.TestCase):
             self.assertEqual(len(persisted_control["action_items"]), 2)
 
     def test_host_failure_projection_dispatches_independently_and_throttles_repeats(self):
-        config = json.loads(
-            (ROOT / ".github/run-coordinator-bot.json").read_text()
-        )
+        config = legacy_dispatcher_config()
         control = {
             "action_items": [
                 {
@@ -4020,9 +4004,7 @@ class RunChainDispatcherTests(unittest.TestCase):
     def test_synthetic_failure_projection_never_inherits_prior_chain_payload(self):
         with tempfile.TemporaryDirectory() as directory:
             repo = Path(directory)
-            config = json.loads(
-                (ROOT / ".github/run-coordinator-bot.json").read_text()
-            )
+            config = legacy_dispatcher_config()
             fallback = repo / config["manifest"]["localFallback"]
             fallback.parent.mkdir(parents=True)
             fallback.write_text(
@@ -4251,9 +4233,7 @@ class RunChainDispatcherTests(unittest.TestCase):
             repo = Path(directory)
             checkout = repo / ".tmp/run-coordinator/elim-checkout"
             (checkout / ".git").mkdir(parents=True)
-            config = json.loads(
-                (ROOT / ".github/run-coordinator-bot.json").read_text()
-            )
+            config = legacy_dispatcher_config()
             current = "a" * 40
             remote = "b" * 40
             origin = "https://github.com/Thorncrag/ARRP.git"
@@ -4449,9 +4429,7 @@ class RunChainDispatcherTests(unittest.TestCase):
                 json.dumps({"schema_version": 1, "items": []}) + "\n",
                 encoding="utf-8",
             )
-            config = json.loads(
-                (ROOT / ".github/run-coordinator-bot.json").read_text()
-            )
+            config = legacy_dispatcher_config()
             control = {
                 "action_items": [
                     {

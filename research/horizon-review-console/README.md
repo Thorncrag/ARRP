@@ -65,6 +65,13 @@ The Presidential Directives view is generated from `inventory/presidential-direc
 
 Open [`index.html`](index.html) in the Codex in-app browser. The separate [public interaction service](https://gab.durablerepublic.org/) remains the submission surface. The Console contains no promote, defer, reject, direct agent-invocation, or GitHub-mutation controls. Its approved localhost controls may submit bounded requests to the Run Coordinator, and its publication controls only produce a local change-list download. Conduct every candidate disposition and canonical metadata edit in Codex under the applicable workflow.
 
+The local-first runner may write the ignored optional feed
+`data/local-automation-status.js`. The Console reads that file directly, so no
+HTTP service is required. A missing feed is rendered as **Unavailable** and
+never as healthy or successful. The feed can show an active start, a preserved
+failure, a review-required stop, or a completed local transaction; it is an
+independent status projection, not repository authority.
+
 ## Publication-disposition change export
 
 Use the × on an existing assignment to stage its removal, select **Add print level…** to stage an additional assignment, or choose **Exclude from print…** and a reason. The summary cards, filters, and inventory immediately reflect the proposed state. **Undo page changes** restores one page; **Reset** clears the full draft. **Export changes** downloads this schema:
