@@ -397,6 +397,11 @@ class SealedElimTests(unittest.TestCase):
             )
             codex_home = fixture.state / "runs/p2-full-cycle/codex-home"
             self.assertEqual(list(codex_home.iterdir()), [])
+            status = json.loads(
+                (fixture.state / "status.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(status["elim_unit"], "fixture-unit")
+            self.assertEqual(status["elim_outcome"], "completed")
 
 
 if __name__ == "__main__":

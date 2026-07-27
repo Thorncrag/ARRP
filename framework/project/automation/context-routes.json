@@ -175,7 +175,7 @@
     },
     "project_autonomous_execution": {
       "path": "framework/project/automation/autonomous-execution.md",
-      "sha256": "799c3e9bd376eb0a52e47de3ea44c8127f9038eeb84b505b643730078e9182e3",
+      "sha256": "6364b72128368c7ea1df53d3b9dd4c7057b85265e999fbfe19dede9bbc03f10d",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -298,7 +298,7 @@
     },
     "runbook_run_coordinator_bot": {
       "path": "framework/project/automation/runbooks/run-coordinator-bot.md",
-      "sha256": "cb9ee57b0b34ecee719fe164faebd7b6d678ce95d8b8f70391d8bf35f654b010",
+      "sha256": "f16dec78cd0437717d01c2c4cfecbfa168d3b12f0b386f8280fe740c3c4027fe",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [

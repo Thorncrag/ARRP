@@ -42,14 +42,17 @@ atomically under `~/Library/Application Support/ARRP`; `last-success.json`
 stores cadence evidence. Each run has an immutable run identity and a bounded
 run directory. The coordinator records the exact repository, approved remote,
 main-branch state, fetched `origin/main`, pre-lock and preexisting manifests,
-reviewed runtime, stage inputs, outputs, hashes, outcomes, and next action.
+reviewed runtime, stage inputs, outputs, hashes, Elim unit and outcome, and
+next action.
 
 Ordinary daytime work is checkpointed exactly before the canonical worktree
 returns to clean `main`. A linked transaction worktree is created from that
 checkpoint and merges the exact fetched `origin/main`. Conflicts, protected
-runtime intersections, private or prohibited paths, post-lock canonical
-change, and any identity uncertainty fail closed while preserving the branch,
-worktree, run directory, and path-only evidence. The runner never stashes,
+runtime intersections, dynamically registered governing paths, private or
+prohibited paths, post-lock canonical change, and any identity uncertainty
+fail closed while preserving the branch, worktree, run directory, and
+path-only evidence. Dynamic governing-path classification occurs before
+checkpointed work can reach a transaction worktree. The runner never stashes,
 rebases, resets, force-pushes, or discards human work.
 
 Only files materialized from the reviewed runtime commit may execute.
@@ -192,13 +195,15 @@ execution.
 The coordinator holds the same operating-system lock across local work and
 publication. It classifies and secret-scans the complete commit range,
 including checkpoint ancestry; requires a wholly ordinary range; pushes and
-opens the exact App-authored branch and pull request; waits for CodeQL and ARRP
-Validation; performs and restores any exact Project fixture; merges only the
-unchanged head and base; requires a successful public-site workflow for the
-exact merge SHA; fast-forwards clean canonical `main`; and removes only the
-clean registered transaction worktree under the owner-only state root. A
-network, credential, check, Project, merge, Pages, synchronization, or cleanup
-failure writes independent terminal status and preserves recoverable state.
+opens or refreshes the exact App-authored branch and pull request; retries
+post-push head/base readback only within a short fixed bound; waits for CodeQL
+and ARRP Validation; performs and restores any exact Project fixture; merges
+only the unchanged head and base; requires a successful public-site workflow
+for the exact merge SHA; fast-forwards clean canonical `main`; and removes
+only the clean registered transaction worktree under the owner-only state
+root. A network, credential, check, Project, merge, Pages, synchronization, or
+cleanup failure writes independent terminal status and preserves recoverable
+state.
 
 ## Result gate and failure behavior
 

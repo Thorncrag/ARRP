@@ -109,8 +109,10 @@ normal-Actions-trigger fixtures. P5 may join those reviewed components through
 the exact disabled-by-default `--manual --p5-supervised-plan` route. The plan
 must be an owner-only `0600` file outside the repository carrying the exact P5
 phase and authorization sentinels. The coordinator retains the one lock through
-classification, App push, PR and check readback, reversible Project fixture,
-exact-head merge, exact-SHA Pages success, canonical fast-forward, and bounded
-successful-worktree removal. Any failure preserves the branch, worktree, run
+dynamic governing-path classification before worktree execution, App push,
+bounded post-push PR metadata and head/base readback, reversible Project
+fixture, exact-head merge, exact-SHA Pages success, canonical fast-forward,
+and bounded successful-worktree removal. The terminal status preserves the
+sealed Elim unit and outcome. Any failure preserves the branch, worktree, run
 directory, and independent status. A successful supervised fixture does not
 enable, install, schedule, or broadly publish the bot.

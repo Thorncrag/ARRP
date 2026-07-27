@@ -166,6 +166,91 @@ class P5SealedProcessTests(unittest.TestCase):
 
 
 class P5GitHubWaitTests(unittest.TestCase):
+    def test_existing_pull_request_refreshes_metadata_and_retries_stale_head(self):
+        expected_head = "a" * 40
+        calls = []
+        readbacks = iter(
+            [
+                {
+                    "number": 12,
+                    "head": {"sha": "b" * 40},
+                    "base": {"ref": "main"},
+                },
+                {
+                    "number": 12,
+                    "head": {"sha": expected_head},
+                    "base": {"ref": "main"},
+                },
+            ]
+        )
+
+        def api(method, path, _token, *, payload=None):
+            calls.append((method, path, payload))
+            if path.endswith("/git/ref/heads/automation/nightly-fixture"):
+                return {"object": {"sha": expected_head}}
+            if "/pulls?state=open" in path:
+                return [{"number": 12}]
+            if method == "PATCH":
+                return {"number": 12}
+            if path.endswith("/pulls/12"):
+                return next(readbacks)
+            raise AssertionError((method, path))
+
+        observed = MODULE.open_or_update_nightly_pull_request(
+            MODULE.SensitiveValue("fixture"),
+            branch="automation/nightly-fixture",
+            expected_head=expected_head,
+            title="Updated fixture",
+            body="Updated fixture body",
+            api_request=api,
+            readback_timeout_seconds=1,
+            readback_poll_seconds=0,
+            monotonic=lambda: 0,
+            sleeper=lambda _seconds: None,
+        )
+        self.assertEqual(observed["head"]["sha"], expected_head)
+        self.assertIn(
+            (
+                "PATCH",
+                f"/repos/{MODULE.GITHUB_REPOSITORY}/pulls/12",
+                {"title": "Updated fixture", "body": "Updated fixture body"},
+            ),
+            calls,
+        )
+
+    def test_pull_request_stale_head_fails_after_bounded_readback(self):
+        expected_head = "a" * 40
+        clock = iter([0.0, 1.0])
+
+        def api(method, path, _token, *, payload=None):
+            if path.endswith("/git/ref/heads/automation/nightly-fixture"):
+                return {"object": {"sha": expected_head}}
+            if "/pulls?state=open" in path:
+                return []
+            if method == "POST":
+                return {"number": 12}
+            if path.endswith("/pulls/12"):
+                return {
+                    "number": 12,
+                    "head": {"sha": "b" * 40},
+                    "base": {"ref": "main"},
+                }
+            raise AssertionError((method, path))
+
+        with self.assertRaisesRegex(MODULE.GitHubBrokerError, "head/base"):
+            MODULE.open_or_update_nightly_pull_request(
+                MODULE.SensitiveValue("fixture"),
+                branch="automation/nightly-fixture",
+                expected_head=expected_head,
+                title="Fixture",
+                body="Fixture",
+                api_request=api,
+                readback_timeout_seconds=0.5,
+                readback_poll_seconds=0,
+                monotonic=lambda: next(clock),
+                sleeper=lambda _seconds: None,
+            )
+
     def test_required_checks_wait_for_both_exact_checks(self):
         times = iter([0.0, 0.0, 1.0])
         observed = MODULE.wait_for_required_checks(
@@ -321,6 +406,48 @@ class P5PublicationManifestTests(unittest.TestCase):
 
 
 class P5CoordinatorIntegrationTests(unittest.TestCase):
+    def test_dynamic_governing_change_stops_before_worktree_execution(self):
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = GitFixture(Path(directory))
+            registry = (
+                fixture.repo
+                / "framework/project/automation/context-routes.json"
+            )
+            registry.parent.mkdir(parents=True)
+            registry.write_text(
+                json.dumps(
+                    {
+                        "documents": {
+                            "fixture_governing": {
+                                "path": "areas/TEST/issues/TEST-001.md",
+                                "governing": True,
+                            }
+                        }
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            run("git", "add", str(registry.relative_to(fixture.repo)), cwd=fixture.repo)
+            run("git", "commit", "-m", "add governing fixture", cwd=fixture.repo)
+            issue = fixture.repo / "areas/TEST/issues/TEST-001.md"
+            issue.write_text("protected governing change\n", encoding="utf-8")
+            local_cycle = mock.Mock()
+
+            result = MODULE.prepare_transaction(
+                fixture.config(),
+                run_id="p5-dynamic-governing",
+                local_cycle=local_cycle,
+            )
+
+            self.assertEqual(result.status, "review-required")
+            self.assertEqual(
+                result.protected_paths,
+                ("areas/TEST/issues/TEST-001.md",),
+            )
+            self.assertIsNone(result.worktree_path)
+            local_cycle.assert_not_called()
+
     def test_supervised_publication_joins_all_required_success_boundaries(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
