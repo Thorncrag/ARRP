@@ -75,6 +75,95 @@ class P5PlanBoundaryTests(unittest.TestCase):
         with self.assertRaisesRegex(MODULE.TransactionError, "exact P5"):
             config.validate()
 
+    def test_trusted_codex_auth_home_requires_owner_only_regular_auth_file(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            auth_home = root / ".codex"
+            auth_home.mkdir()
+            auth = auth_home / "auth.json"
+            auth.write_text("{}\n", encoding="utf-8")
+            os.chmod(auth, 0o600)
+            with mock.patch.object(MODULE.Path, "home", return_value=root):
+                self.assertEqual(
+                    MODULE.trusted_codex_auth_home(),
+                    auth_home.resolve(),
+                )
+                os.chmod(auth, 0o644)
+                with self.assertRaisesRegex(MODULE.TransactionError, "unsafe"):
+                    MODULE.trusted_codex_auth_home()
+
+
+class P5SealedProcessTests(unittest.TestCase):
+    def test_failed_elim_preserves_jsonl_before_returning(self):
+        class FailedProcess:
+            pid = 1234
+            returncode = 1
+
+            def communicate(self, *, input=None, timeout=None):
+                self.returncode = 1
+                return b'{"type":"fixture.failed"}\n', b"fixture failure"
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            jsonl = root / "run/elim.jsonl"
+            with mock.patch.object(
+                MODULE.subprocess,
+                "Popen",
+                return_value=FailedProcess(),
+            ) as launch:
+                result = MODULE.run_sealed_elim_process(
+                    ["codex", "exec"],
+                    worktree=root,
+                    environment={},
+                    prompt=b"fixture",
+                    timeout_seconds=10,
+                    jsonl_path=jsonl,
+                )
+            self.assertEqual(result.returncode, 1)
+            self.assertEqual(jsonl.read_bytes(), b'{"type":"fixture.failed"}\n')
+            self.assertEqual(jsonl.stat().st_mode & 0o777, 0o600)
+            launch.assert_called_once()
+
+    def test_timeout_terminates_process_group_and_preserves_partial_jsonl(self):
+        class TimedOutProcess:
+            pid = 4321
+            returncode = None
+
+            def __init__(self):
+                self.calls = 0
+
+            def communicate(self, *, input=None, timeout=None):
+                self.calls += 1
+                if self.calls == 1:
+                    raise MODULE.subprocess.TimeoutExpired(["codex"], timeout)
+                self.returncode = -15
+                return b'{"type":"fixture.partial"}\n', b""
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            jsonl = root / "run/elim.jsonl"
+            process = TimedOutProcess()
+            with (
+                mock.patch.object(
+                    MODULE.subprocess,
+                    "Popen",
+                    return_value=process,
+                ) as launch,
+                mock.patch.object(MODULE.os, "killpg") as kill_group,
+            ):
+                with self.assertRaisesRegex(MODULE.TransactionError, "timed out"):
+                    MODULE.run_sealed_elim_process(
+                        ["codex", "exec"],
+                        worktree=root,
+                        environment={},
+                        prompt=b"fixture",
+                        timeout_seconds=1,
+                        jsonl_path=jsonl,
+                    )
+            self.assertEqual(jsonl.read_bytes(), b'{"type":"fixture.partial"}\n')
+            kill_group.assert_called_once_with(4321, MODULE.signal.SIGTERM)
+            launch.assert_called_once()
+
 
 class P5GitHubWaitTests(unittest.TestCase):
     def test_required_checks_wait_for_both_exact_checks(self):

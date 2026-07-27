@@ -90,12 +90,19 @@ implementation authority.
 
 ## Elim seal
 
-Elim receives at most one selected unit. Each run creates a fresh isolated
-Codex home and ephemeral process. No user configuration, rules, memories,
-hooks, plugins, MCP servers, browser or computer-use tools, subagents,
-credentials, persistent session, or shell network is inherited. The process
-uses `workspace-write`, approval policy `never`, web search disabled, and the
-strict result schema. Before launch, the coordinator runs the official usage
+Elim receives at most one selected unit. Each run creates fresh isolated
+Codex SQLite/session storage and an ephemeral process. The Codex client reads
+only its existing owner-only OpenAI authentication from Benjamin's exact
+Codex home; `--ignore-user-config` prevents that home's configuration from
+loading. The narrower `arrp_elim` permission profile extends workspace access
+but denies model-tool reads of the Codex home and Keychain directory, denies
+execution of `/usr/bin/security`, disables network, passes an empty inherited
+shell environment with a fixed system `PATH`, and disallows login shells. No
+GitHub, Project, SSH, API-key environment credential, user configuration,
+rules, memories, hooks, plugins, MCP servers, browser or computer-use tools,
+subagents, persistent session, or shell network is inherited. Approval policy
+remains `never`, web search remains disabled, and the strict result schema
+remains mandatory. Before launch, the coordinator runs the official usage
 reserve check once and skips Elim if the configured 15-percent reserve cannot
 be proved.
 
