@@ -16,13 +16,13 @@ GitHub Issues and the project board are the authoritative workflow record for ac
 
 Each active proposal or horizon item should have a GitHub issue for discussion, assignment, and contributor-facing workflow. Structured workflow metadata belongs in GitHub Project fields rather than duplicate labels or issue-body metadata. Substantive project changes should be made through repository edits and pull requests so the public workflow record and the canonical drafting record stay aligned.
 
-For the working conventions, Project field ownership, label rule, sub-issue rule, milestone rule, and import ledger, see [GitHub Workflow](framework/GITHUB_WORKFLOW.md).
+For the working conventions, Project field ownership, label rule, sub-issue rule, milestone rule, and import ledger, see [GitHub Workflow](framework/project/github/workflow.md).
 
 Contributors should follow the project's current governing documents rather than treating this page as a complete rulebook. The controlling conventions for structure, method, sourcing, scoring, audit practice, neutrality, drafting, and publication are maintained in:
 
 - [Framework and Methodology](framework/FRAMEWORK.md)
-- [GitHub Workflow](framework/GITHUB_WORKFLOW.md)
-- [Print Assembly Framework](framework/PRINT_ASSEMBLY.md)
+- [GitHub Workflow](framework/project/github/workflow.md)
+- [Print Assembly Framework](framework/project/publication/print-assembly.md)
 - [Project Structure](framework/PROJECT_STRUCTURE.md)
 
 If those documents change, contributors should follow the current version of those documents.

@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>ARRP Project Console</title>
     <meta name="description" content="ARRP project progress, candidate, source, monitoring, automation, log, and print-planning console.">
-    <link rel="stylesheet" href="styles.css?v=45">
+    <link rel="stylesheet" href="styles.css?v=46">
   </head>
   <body
     data-interface-theme="arrp-tool"
@@ -259,20 +259,42 @@
           <div class="queue-view-header">
             <div>
               <span class="eyebrow">Central review inbox</span>
-              <h2 id="action-items-heading">Action items</h2>
-              <p>Everything presently assigned for a human decision, routing choice, or Integrity response. Repository proposals are listed here with an exact-head recommendation, rationale, owner, and decision question; an unexplained open pull request remains with Elim and does not count as your action.</p>
+              <h2 id="action-items-heading">Action inbox</h2>
+              <p>Scan one consistent list, then select an item to preview its owner, decision or recovery question, timing, consequence, and authoritative route. The inbox opens with your items; work assigned elsewhere remains available for project-manager oversight.</p>
             </div>
             <p class="attention-note" id="action-items-note">Loading review queues…</p>
           </div>
-          <section class="action-items-section primary-actions" aria-labelledby="assigned-actions-heading">
-            <div class="section-heading-row"><div><h3 id="assigned-actions-heading">Assigned to you</h3><p>Only decisions, authority, credentials, or recovery actions presently assigned to the project owner count toward the Action Items total.</p></div><span class="count-pill" id="assigned-actions-count">0</span></div>
-            <div class="action-items-grid" id="action-items-grid"></div>
-          </section>
-          <section class="action-items-section oversight-actions" aria-labelledby="oversight-actions-heading">
-            <div class="section-heading-row"><div><h3 id="oversight-actions-heading">Other assigned work to oversee</h3><p>Elim-, bot-, automation-, and other-owner obligations remain visible without transferring ownership or inflating your total.</p></div><span class="count-pill" id="oversight-actions-count">0</span></div>
-            <div class="action-items-grid" id="action-oversight-grid"></div>
-          </section>
-          <p class="method-note" id="action-items-live-note">Live pull-request heads refresh from GitHub when available and are matched against checked-in recommendations. Action Items is a nonauthoritative routing index; each specialist Console view and canonical record owns disposition.</p>
+          <div class="action-inbox-toolbar">
+            <div class="action-inbox-filters" role="group" aria-label="Action inbox assignment filter">
+              <button type="button" class="action-inbox-filter" data-action-filter="mine" aria-pressed="true">My items <span id="assigned-actions-count">0</span></button>
+              <button type="button" class="action-inbox-filter" data-action-filter="oversight" aria-pressed="false">Oversight <span id="oversight-actions-count">0</span></button>
+              <button type="button" class="action-inbox-filter" data-action-filter="all" aria-pressed="false">All open <span id="all-actions-count">0</span></button>
+            </div>
+            <label class="action-inbox-search" for="action-inbox-search">Find an action item
+              <input id="action-inbox-search" type="search" placeholder="Title, queue, owner, or status">
+            </label>
+            <div class="action-inbox-layout" role="group" aria-label="Preview position">
+              <span>Preview</span>
+              <button type="button" data-action-layout="right" aria-pressed="true">Right</button>
+              <button type="button" data-action-layout="below" aria-pressed="false">Below</button>
+            </div>
+          </div>
+          <div class="action-inbox-workspace" id="action-inbox-workspace" data-preview-position="right">
+            <section class="action-inbox-list-pane" aria-labelledby="action-inbox-list-heading">
+              <div class="action-inbox-list-header">
+                <div><h3 id="action-inbox-list-heading">My items</h3><p id="action-inbox-result-summary">Loading items…</p></div>
+              </div>
+              <div class="action-inbox-list" id="action-items-grid" role="list" aria-label="Action items"></div>
+            </section>
+            <article class="action-inbox-preview" id="action-item-preview" aria-live="polite" aria-labelledby="action-preview-heading">
+              <div class="action-preview-empty">
+                <span class="eyebrow">Item preview</span>
+                <h3 id="action-preview-heading">Choose an action item</h3>
+                <p>Select an item from the inbox to inspect its details and open the specialist view or canonical record that owns it.</p>
+              </div>
+            </article>
+          </div>
+          <p class="method-note" id="action-items-live-note">Live pull-request heads refresh from GitHub when available and are matched against checked-in recommendations. The Action Inbox is a nonauthoritative routing index; specialist Console views and canonical records own status and disposition.</p>
         </section>
       </section>
 
@@ -449,7 +471,7 @@
         <section class="watcher-panel" id="watcher-panel-source-checker" role="tabpanel" aria-labelledby="watcher-tab-source-checker" hidden>
           <div class="watcher-panel-header">
             <div><h3>Source Checker Bot</h3><p>A read-only view of the latest deterministic URL scan. The bot verifies reachability and source identity signals; it never substitutes a source or changes evidentiary meaning.</p><p class="muted">Last checked <time id="source-checker-as-of">—</time> · <span id="source-checker-mode">Awaiting first run</span></p></div>
-            <div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/agents/SOURCE_CHECKER_BOT.md" target="_blank" rel="noopener noreferrer">Open runbook ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/reports/SOURCE_CHECKER_REPORT.md" target="_blank" rel="noopener noreferrer">Open current report ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/source-checker-bot.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a></div>
+            <div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/source-checker-bot.md" target="_blank" rel="noopener noreferrer">Open runbook ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/records/status/source-checker-report.md" target="_blank" rel="noopener noreferrer">Open current report ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/source-checker-bot.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a></div>
           </div>
           <div class="watcher-summary-grid" id="source-checker-summary"></div>
           <div class="source-checker-completeness" id="source-checker-completeness" role="status"></div>
@@ -502,7 +524,7 @@
           <p class="result-count"><b id="problem-visible">0</b> problems shown</p>
           <div class="integrity-layout">
             <section aria-labelledby="integrity-findings-heading">
-              <div class="section-heading-row"><div><h3 id="integrity-findings-heading">Problems by accountable owner</h3><p>Each owner group states its complete count. Category, affected records, reporting source, state, severity, and direct links remain visible on each problem.</p></div><div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/PROJECT_INTEGRITY_REPORT.md" target="_blank" rel="noopener noreferrer">Open current report ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/project-integrity.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a></div></div>
+              <div class="section-heading-row"><div><h3 id="integrity-findings-heading">Problems by accountable owner</h3><p>Each owner group states its complete count. Category, affected records, reporting source, state, severity, and direct links remain visible on each problem.</p></div><div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/records/status/project-integrity-report.md" target="_blank" rel="noopener noreferrer">Open current report ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/project-integrity.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a></div></div>
               <div id="integrity-findings"></div>
             </section>
           </div>
@@ -527,7 +549,7 @@
               <p>An at-a-glance overview of registered automation, the current serialized chain, recovery posture, and safe coordinator requests. Complete role details remain under Agents &amp; Bots.</p>
             </div>
             <div class="section-heading-actions">
-              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/agents/RUN_COORDINATOR_BOT.md" target="_blank" rel="noopener noreferrer">Open coordinator runbook ↗</a>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/run-coordinator-bot.md" target="_blank" rel="noopener noreferrer">Open coordinator runbook ↗</a>
               <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/.github/run-coordinator-bot.json" target="_blank" rel="noopener noreferrer">Open runtime configuration ↗</a>
             </div>
           </div>
@@ -628,7 +650,7 @@
             </div>
             <div class="source-list dossier-actions">
               <a class="record-link secondary" href="#automation:agents">Inspect Agents &amp; Bots →</a>
-              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/agents/README.md" target="_blank" rel="noopener noreferrer">Open agent and bot registry ↗</a>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/registry.md" target="_blank" rel="noopener noreferrer">Open agent and bot registry ↗</a>
             </div>
           </section>
         </section>
@@ -642,7 +664,7 @@
                 <h2 id="automation-agents-heading">Agents &amp; Bots</h2>
                 <p>Complete details parsed from each authoritative runbook, together with current status, latest execution, recovery posture, runtime records, and filtered log access.</p>
               </div>
-              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/agents/README.md" target="_blank" rel="noopener noreferrer">Open registry ↗</a>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/registry.md" target="_blank" rel="noopener noreferrer">Open registry ↗</a>
             </div>
             <section class="governance-review-specialist" id="governance-review-specialist" aria-labelledby="governance-review-specialist-heading">
               <div class="section-heading-row">
@@ -680,7 +702,7 @@
           <section class="queue-view log-view" aria-labelledby="log-horizon-heading">
             <div class="queue-view-header">
               <div><span class="eyebrow">Candidate disposition history</span><h2 id="log-horizon-heading">Horizon Scan Log</h2><p>Candidate intake, disposition, integration, and follow-up history. GitHub Issues and Project fields remain authoritative for current workflow state.</p></div>
-              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/HORIZON_SCAN_LOG.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/records/candidates/horizon-scan-log.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
             </div>
             <div class="queue-controls"><label for="log-horizon-search">Search<input id="log-horizon-search" type="search" placeholder="Record, concern, disposition, route, or rationale…"></label><label for="log-horizon-group">Group by<select id="log-horizon-group"><option value="all">No grouping</option></select></label></div>
             <p class="result-count"><b id="log-horizon-visible">0</b> entries match</p>
@@ -692,7 +714,7 @@
           <section class="queue-view log-view" aria-labelledby="log-elim-heading">
             <div class="queue-view-header">
               <div><span class="eyebrow">Complete scheduled-agent history</span><h2 id="log-elim-heading">Elim Run Log</h2><p>Every Elim invocation, including usage, work examined, all actions taken, linked issue-audit records, validation, synchronization, human-review routing, stop reason, and exact continuation point.</p></div>
-              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/ELIM_RUN_LOG.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/records/automation/elim-run-log.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
             </div>
             <div class="queue-controls"><label for="log-elim-search">Search<input id="log-elim-search" type="search" placeholder="Run, action, outcome, usage, issue, blocker, or next action…"></label><label for="log-elim-group">Group by<select id="log-elim-group"><option value="all">No grouping</option></select></label></div>
             <p class="result-count"><b id="log-elim-visible">0</b> runs match</p>
@@ -704,7 +726,7 @@
           <section class="queue-view log-view" aria-labelledby="log-agents-heading">
             <div class="queue-view-header">
               <div><span class="eyebrow">Material-unit provenance</span><h2 id="log-agents-heading">Bot Activity Log</h2><p>Material bot and historical autonomous actions, validation, commits, rollback references, and unresolved blockers. Complete Elim run reports remain in the dedicated Elim log.</p></div>
-              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/AGENT_AUDIT_LOG.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/records/automation/agent-audit-log.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
             </div>
             <div class="queue-controls"><label for="log-agents-search">Search<input id="log-agents-search" type="search" placeholder="Issue, task, tier, bot, run, commit, or blocker…"></label><label for="log-agents-agent">Bot or historical automation<select id="log-agents-agent"><option value="all">All bots and historical automation</option></select></label><label for="log-agents-task">Task type<select id="log-agents-task"><option value="all">All task types</option></select></label><label for="log-agents-outcome">Outcome<select id="log-agents-outcome"><option value="all">All outcomes</option></select></label><label for="log-agents-group">Group by<select id="log-agents-group"><option value="all">No grouping</option></select></label></div>
             <p class="result-count"><b id="log-agents-visible">0</b> entries match</p>
@@ -716,7 +738,7 @@
           <section class="queue-view log-view" aria-labelledby="log-source-monitor-heading">
             <div class="queue-view-header">
               <div><span class="eyebrow">Watcher change history</span><h2 id="log-source-monitor-heading">Source Monitor Log</h2><p>Material source or directive changes detected by deterministic watchers. Routine no-change runs remain in GitHub Actions.</p></div>
-              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/SOURCE_MONITOR_LOG.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/records/sources/source-monitor-log.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
             </div>
             <div class="queue-controls"><label for="log-source-monitor-search">Search<input id="log-source-monitor-search" type="search" placeholder="Watcher, activity code, result, or affected record…"></label><label for="log-source-monitor-group">Group by<select id="log-source-monitor-group"><option value="all">No grouping</option></select></label></div>
             <p class="result-count"><b id="log-source-monitor-visible">0</b> entries match</p>
@@ -728,7 +750,7 @@
           <section class="queue-view log-view" aria-labelledby="log-integrity-heading">
             <div class="queue-view-header">
               <div><span class="eyebrow">Deterministic check history</span><h2 id="log-integrity-heading">Project Integrity Bot runs</h2><p>The bounded history of scheduled, push-triggered, and manual integrity runs. Current unresolved findings remain in Integrity; the runbook owns the check inventory.</p></div>
-              <div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/agents/PROJECT_INTEGRITY_BOT.md" target="_blank" rel="noopener noreferrer">Open runbook ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/project-integrity.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a></div>
+              <div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/project-integrity-bot.md" target="_blank" rel="noopener noreferrer">Open runbook ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/project-integrity.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a></div>
             </div>
             <span id="log-integrity-visible" hidden>0</span>
             <div class="integrity-history-list" id="integrity-history"></div>
@@ -739,7 +761,7 @@
           <section class="queue-view log-view" aria-labelledby="log-changes-heading">
             <div class="queue-view-header">
               <div><span class="eyebrow">Method and consistency history</span><h2 id="log-changes-heading">Change Audit Log</h2><p>Project-wide methodology, structure, and consistency changes are tracked here. Current durable rules live in their governing files.</p></div>
-              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/CHANGE_AUDIT_LOG.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/records/audits/change-audit-log.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
             </div>
             <div class="queue-controls"><label for="log-changes-search">Search<input id="log-changes-search" type="search" placeholder="Date, change, scope, effect, or correction…"></label><label for="log-changes-group">Group by<select id="log-changes-group"><option value="all">No grouping</option></select></label></div>
             <p class="result-count"><b id="log-changes-visible">0</b> entries match</p>

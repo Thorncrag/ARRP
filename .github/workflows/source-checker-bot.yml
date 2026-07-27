@@ -95,7 +95,7 @@ jobs:
           python3 scripts/check_source_urls.py
           --existing-json "${RUNNER_TEMP}/source-checker-existing.json"
           --json-output "${RUNNER_TEMP}/arrp-source-checker/source-checker.json"
-          --markdown-output framework/reports/SOURCE_CHECKER_REPORT.md
+          --markdown-output framework/records/status/source-checker-report.md
 
       - name: Publish Console-ready current data and bounded history
         env:
@@ -112,7 +112,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- framework/reports/SOURCE_CHECKER_REPORT.md; then
+          if git diff --quiet -- framework/records/status/source-checker-report.md; then
             echo "The current Source Checker Bot report is unchanged."
             echo "pending=false" >> "${GITHUB_OUTPUT}"
             exit 0
@@ -121,15 +121,15 @@ jobs:
           git config user.name "arrp-source-checker[bot]"
           git config user.email "arrp-source-checker[bot]@users.noreply.github.com"
           git switch -C "$branch" "${SOURCE_REVISION}"
-          unexpected="$(git status --short | awk '{print $2}' | grep -Ev '^framework/reports/SOURCE_CHECKER_REPORT\.md$' || true)"
+          unexpected="$(git status --short | awk '{print $2}' | grep -Ev '^framework/records/status/source-checker-report\.md$' || true)"
           if [ -n "${unexpected}" ]; then
             printf 'Source Checker changed files outside its report-only boundary:\n%s\n' "${unexpected}" >&2
             exit 1
           fi
-          git add framework/reports/SOURCE_CHECKER_REPORT.md
+          git add framework/records/status/source-checker-report.md
           git commit -m "Refresh current source-checker report"
           changed="$(git diff --name-only "${SOURCE_REVISION}...HEAD")"
-          if [ "${changed}" != "framework/reports/SOURCE_CHECKER_REPORT.md" ]; then
+          if [ "${changed}" != "framework/records/status/source-checker-report.md" ]; then
             printf 'Source Checker proposal is not the exact report-only delta: %s\n' "${changed}" >&2
             exit 1
           fi
@@ -235,8 +235,8 @@ jobs:
       - name: Publish run summary
         if: always()
         run: |
-          if [ -f framework/reports/SOURCE_CHECKER_REPORT.md ]; then
-            cat framework/reports/SOURCE_CHECKER_REPORT.md >> "${GITHUB_STEP_SUMMARY}"
+          if [ -f framework/records/status/source-checker-report.md ]; then
+            cat framework/records/status/source-checker-report.md >> "${GITHUB_STEP_SUMMARY}"
           else
             echo "Source Checker Bot did not produce a report; review the failed step." >> "${GITHUB_STEP_SUMMARY}"
           fi

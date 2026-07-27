@@ -23,7 +23,7 @@
     "maximumBytes": 262144
   },
   "historyLimit": 12,
-  "currentReport": "framework/reports/SOURCE_CHECKER_REPORT.md",
+  "currentReport": "framework/records/status/source-checker-report.md",
   "dataBranch": "project-console-data",
   "currentDataPath": "source-checker.json",
   "currentData": "project-console-data:source-checker.json",

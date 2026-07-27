@@ -143,7 +143,7 @@
   "gapStewardship": {
     "statePath": ".tmp/run-coordinator/elim-gap-obligations.json",
     "stateRole": "replaceable-cache",
-    "durableAuthority": "framework/logs/ELIM_RUN_LOG.md#machine-readable-discovery-markers",
+    "durableAuthority": "framework/records/automation/elim-run-log.md#machine-readable-discovery-markers",
     "reconstructBeforeQueueBuild": true,
     "maximumObligations": 512,
     "closureProofRequired": true,

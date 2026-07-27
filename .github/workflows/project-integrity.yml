@@ -47,7 +47,7 @@ jobs:
         run: >-
           python3 scripts/audit_project_consistency.py
           --json-output .tmp/project-integrity/integrity-report.json
-          --markdown-output framework/logs/PROJECT_INTEGRITY_REPORT.md
+          --markdown-output framework/records/status/project-integrity-report.md
           --exit-zero-on-findings
 
       - name: Build the console integrity feed
@@ -71,7 +71,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- framework/logs/PROJECT_INTEGRITY_REPORT.md; then
+          if git diff --quiet -- framework/records/status/project-integrity-report.md; then
             echo "The current integrity report is unchanged."
             exit 0
           fi
@@ -79,7 +79,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C "$branch"
-          git add framework/logs/PROJECT_INTEGRITY_REPORT.md
+          git add framework/records/status/project-integrity-report.md
           git commit -m "Refresh current project integrity report"
           gh auth setup-git
           git fetch origin "$branch:refs/remotes/origin/$branch" || true

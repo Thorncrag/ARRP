@@ -11,7 +11,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current main?",
           "priority": "Human decision",
           "route": "logs:source-monitor",
-          "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/SOURCE_MONITOR_LOG.md"
+          "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/sources/source-monitor-log.md"
         },
         {
           "id": "SMR-20260725-PR381",
@@ -19,7 +19,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current main?",
           "priority": "Human decision",
           "route": "logs:source-monitor",
-          "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/logs/SOURCE_MONITOR_LOG.md"
+          "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/sources/source-monitor-log.md"
         },
         {
           "id": "JUD-009",
@@ -172,12 +172,26 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "progress"
         }
       ],
-      "integrity_findings": 3,
+      "integrity_findings": 0,
       "integrity_findings_available": true,
-      "source_checker_complete": true,
+      "source_checker_complete": false,
       "delivery_items": 12,
       "delivery_items_available": true,
       "domain_attention": [
+        {
+          "domain": "integrity",
+          "status": "stale",
+          "reason": "The feed does not completely cover its current authoritative source.",
+          "timestamp": "2026-07-27T08:28:38+00:00",
+          "route": "integrity"
+        },
+        {
+          "domain": "source_checker",
+          "status": "stale",
+          "reason": "The feed does not completely cover its current authoritative source.",
+          "timestamp": "2026-07-26T10:27:00+00:00",
+          "route": "sources:assurance"
+        },
         {
           "domain": "publication_release",
           "status": "not_determined",
@@ -508,7 +522,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "agents": {
       "registered": 7,
-      "last_chain_id": "arrp-20260727T075310Z",
+      "last_chain_id": "arrp-20260727T082740Z",
       "chain_status": "complete"
     },
     "services": {
@@ -534,8 +548,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "status": "unknown"
     },
     "progress_summary": {
-      "generated_at": "2026-07-27T01:48:13+00:00",
-      "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
+      "generated_at": "2026-07-27T08:27:57+00:00",
+      "source_revision": "be3ae39a0841c6072ca421916a5e37936504619e",
       "availability": "current",
       "ready": 27,
       "total": 81,
@@ -544,28 +558,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items": 12
     },
     "integrity_summary": {
-      "generated_at": "2026-07-27T08:05:07+00:00",
-      "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
-      "availability": "current",
-      "result": "findings",
+      "generated_at": "2026-07-27T08:28:38+00:00",
+      "source_revision": "be3ae39a0841c6072ca421916a5e37936504619e",
+      "availability": "stale",
+      "result": "clean",
       "counts": {
         "errors": 0,
-        "warnings": 3,
-        "findings": 3,
+        "warnings": 0,
+        "findings": 0,
         "issue_pages": 64,
         "proposal_pages": 41
       }
     },
     "automation_summary": {
-      "chain_id": "arrp-20260727T075310Z",
+      "chain_id": "arrp-20260727T082740Z",
       "status": "complete",
-      "generated_at": "2026-07-27T07:55:25+00:00",
+      "generated_at": "2026-07-27T08:37:33+00:00",
       "stage_count": 6
     },
     "publication_summary": {
       "disposition_counts": {
         "included": 138,
-        "excluded": 209,
+        "excluded": 223,
         "unclassified": 0,
         "conflict": 0
       },
@@ -575,7 +589,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "source_checker_summary": {
       "checked_at": "2026-07-26T10:27:00+00:00",
       "source_revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
-      "availability": "current",
+      "availability": "stale",
       "expected_count": 2055,
       "actual_count": 2055,
       "counts": {
@@ -590,6 +604,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-7190bb3b1c5cb5031a9f"
+    "overview.js": "project-console-947a0a710f1182f7281f"
   }
 });

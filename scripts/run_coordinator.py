@@ -888,7 +888,7 @@ def review_epoch_boundary_status(
     context_registry: dict[str, Any],
     context_registry_sha256: str,
     *,
-    context_registry_path: str = "framework/context-routes.json",
+    context_registry_path: str = "framework/project/automation/context-routes.json",
 ) -> dict[str, Any]:
     """Compare one recorded Review Epoch with the current registry boundary."""
     if context_registry.get("schema_version") != 2:
@@ -1252,7 +1252,7 @@ def validate_config(config: dict[str, Any]) -> None:
         "statePath": ".tmp/run-coordinator/elim-gap-obligations.json",
         "stateRole": "replaceable-cache",
         "durableAuthority": (
-            "framework/logs/ELIM_RUN_LOG.md#machine-readable-discovery-markers"
+            "framework/records/automation/elim-run-log.md#machine-readable-discovery-markers"
         ),
         "reconstructBeforeQueueBuild": True,
         "maximumObligations": 512,

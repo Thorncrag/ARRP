@@ -696,27 +696,34 @@ test("compact Overview activity preserves actor, outcome, affected scope, time, 
   assert.equal(row.tone, "warning");
 });
 
-test("each Action Item record is a closed-by-default native disclosure", () => {
+test("Action Inbox uses a uniform selectable list with an adjacent preview", () => {
   const app = fs.readFileSync(appPath, "utf8");
+  const html = fs.readFileSync(indexPath, "utf8");
   const styles = fs.readFileSync(path.join(consoleDirectory, "styles.css"), "utf8");
-  const start = app.indexOf("function actionItemCard(");
+  const start = app.indexOf("function actionInboxRow(");
   const end = app.indexOf("function integrityFindingNeedsHuman(", start);
   const renderer = app.slice(start, end);
   assert.ok(start >= 0 && end > start);
-  assert.match(renderer, /element\("details","action-item-record"\)/);
-  assert.match(renderer, /panel\.append\(head, body\)/);
-  assert.doesNotMatch(renderer, /\.open\s*=/);
-  assert.match(styles, /\.action-item-record\[open\]\s*>\s*summary/);
+  assert.match(renderer, /element\("button", "action-inbox-row"\)/);
+  assert.match(renderer, /renderActionInboxPreview/);
+  assert.match(renderer, /ACTION_INBOX_LAYOUT_STORAGE_KEY/);
+  assert.doesNotMatch(renderer, /element\("details"/);
+  assert.match(html, /data-action-filter="mine" aria-pressed="true"/);
+  assert.match(html, /id="action-item-preview"/);
+  assert.match(styles, /\.action-inbox-workspace\s*\{/);
+  assert.match(styles, /\.action-inbox-row\[aria-pressed="true"\]/);
 });
 
 test("initial HTML loads only bounded scripts and stays within declared budgets", () => {
   const html = fs.readFileSync(indexPath, "utf8");
+  const app = fs.readFileSync(appPath, "utf8");
   const scriptSources = [...html.matchAll(/<script\s+src="([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(scriptSources, [
-    "data/private-github-security.js?v=1",
     "catalog-data.js?v=45",
-    "app.js?v=46"
+    "app.js?v=47"
   ]);
+  assert.match(app, /const PRIVATE_GITHUB_SECURITY_PATH = "data\/private-github-security\.js\?v=1";/);
+  assert.match(app, /if \(capturePrivateGitHubProblems\(\) \|\| !coordinatorControlOriginAllowed\(\)\)/);
   assert.match(html, /data-initial-script-budget-kib="513"/);
   assert.match(html, /data-initial-dom-budget="1400"/);
   const bytes = ["catalog-data.js", "app.js"]

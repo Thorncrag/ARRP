@@ -9,7 +9,16 @@ print_exclusion_reason: "Online technical framework and methodology."
 
 This file is ARRP's cross-cutting governing kernel and routing index. It states the principles, authority boundaries, and conventions that apply throughout the project. Detailed methodology is authoritative in the independently loadable modules linked below. Together, this kernel and those modules constitute the complete Framework; this file is not a compressed substitute for a module whose subject is implicated.
 
-The public premise, mission, scope, and governing principles are maintained in [`../README.md`](../README.md). Repository paths and file purposes are maintained only in [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md). GitHub lifecycle fields and synchronization mechanics are maintained in [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md). Print selection and assembly are maintained in [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md). Agent execution is governed by [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md), with public-intake review governed separately by [`INTAKE_AGENT_PROCESS.md`](INTAKE_AGENT_PROCESS.md).
+The public premise, mission, scope, and governing principles are maintained in
+[`../README.md`](../README.md). Placement is governed by
+[`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md). Exact ARRP GitHub mechanics are
+in [`project/github/workflow.md`](project/github/workflow.md). Reusable print
+rules and ARRP edition configuration are separated between
+[`standards/publication/`](standards/publication/) and
+[`project/publication/`](project/publication/). Agent execution is governed by
+[`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md), with public-input review
+governed separately by
+[`project/workflows/public-input-review.md`](project/workflows/public-input-review.md).
 
 **Homepage synchronization notice.** The homepage's [Guiding Principle and introductory framing](../README.md#guiding-principle) mirror portions of the governing substance stated here in public-facing form. Any substantive revision in either location must include a synchronization review of the other and any necessary corresponding update in the same change. This Framework remains authoritative for project methodology; the homepage remains authoritative for the public statement of the project's premise, mission, and scope.
 
@@ -26,21 +35,21 @@ Routing is additive. Selecting one operation never excludes another module that 
 
 Automated agents should use reviewed, hash-verified routes and fail closed when required context is missing, stale, contradictory, oversized, or unregistered. Interactive work with the user remains comprehensive by default: the routes establish a minimum complete context, not a ceiling on investigation or review.
 
-The human-readable routing and maintenance rules are in [`CONTEXT_ROUTING.md`](CONTEXT_ROUTING.md); the machine-readable registry is [`context-routes.json`](context-routes.json).
+The human-readable routing and maintenance rules are in [`CONTEXT_ROUTING.md`](CONTEXT_ROUTING.md); the machine-readable registry is [`context-routes.json`](project/automation/context-routes.json).
 
 ## Governing Authority
 
 | Subject | Canonical authority |
 | --- | --- |
 | Cross-cutting project principles, authority, and routing | This kernel |
-| Detailed scope, methodology, issue, evidence, lifecycle, source, candidate, audit, and scoring rules | The modules registered below and in [`context-routes.json`](context-routes.json) |
+| Detailed scope, methodology, issue, evidence, lifecycle, source, candidate, audit, and scoring rules | The modules registered below and in [`context-routes.json`](project/automation/context-routes.json) |
 | Repository directories and file purposes | [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md) |
-| GitHub Issues, Project fields, lifecycle synchronization, workflow Status, and holds | [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md) |
-| Remedy selection, categories, repair and prevention, and trigger stages | [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md) and linked specialized remedy records |
-| Print selection, order, page locators, and compiled editions | [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md) and [`print-assembly.json`](print-assembly.json) |
+| GitHub Issues, Project fields, lifecycle synchronization, workflow Status, and holds | [`project/github/workflow.md`](project/github/workflow.md) |
+| Remedy selection, categories, repair and prevention, and trigger stages | [`standards/content/remedies.md`](standards/content/remedies.md) |
+| Print selection, order, page locators, and compiled editions | [`standards/publication/print-assembly.md`](standards/publication/print-assembly.md), [`project/publication/print-assembly.md`](project/publication/print-assembly.md), and [`project/publication/print-assembly.json`](project/publication/print-assembly.json) |
 | Agent and bot execution | [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md), its routed modules, and the applicable registered runbook |
-| Public-intake privacy and action boundary | [`INTAKE_AGENT_PROCESS.md`](INTAKE_AGENT_PROCESS.md) |
-| Public release | [`PUBLIC_RELEASE.md`](PUBLIC_RELEASE.md) |
+| Public-input privacy and action boundary | [`standards/interfaces/public-input.md`](standards/interfaces/public-input.md) and [`project/workflows/public-input-review.md`](project/workflows/public-input-review.md) |
+| Public release | [`standards/publication/releases.md`](standards/publication/releases.md) and [`project/publication/first-release.md`](project/publication/first-release.md) |
 
 A specialized authority governs its assigned subject. It may implement or elaborate this kernel but may not silently alter a cross-cutting rule, enlarge an agent's authority, or redefine another authority's subject. A generated view, dashboard, context packet, automation manifest, runbook summary, or compatibility pointer is not an independent source of substantive authority.
 
@@ -102,58 +111,59 @@ The following routes are cumulative. Each linked module states its own load trig
 
 | Work or subject | Authoritative module |
 | --- | --- |
-| Institutional scope, political-failure boundary, analytical method, or admission | [`methodology/scope-and-admission.md`](methodology/scope-and-admission.md) |
-| Neutral characterization, claim status, motive, and reader-facing terminology | [`methodology/neutrality-and-language.md`](methodology/neutrality-and-language.md) |
-| Partisan perception, public actors, President Trump, Project 2025, coalitions, or advocacy tone | [`methodology/partisan-perception-and-public-actors.md`](methodology/partisan-perception-and-public-actors.md) |
-| Issue-page structure, proposal presentation, snapshot, survey, budget, or concision | [`issues/issue-architecture.md`](issues/issue-architecture.md) |
-| Annotation, assertion discipline, and source quality | [`evidence/annotation-and-source-standards.md`](evidence/annotation-and-source-standards.md) |
-| Evidence pages, source-development records, qualitative placement, or issue-source reconciliation | [`evidence/evidence-records.md`](evidence/evidence-records.md) |
-| Remedy selection, repair and prevention, constitutional amendments, taxonomy, or triggers | [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md) |
-| Executive nullification or evasion of enacted federal commands | [`INTERBRANCH_REVIEW_FRAMEWORK.md`](INTERBRANCH_REVIEW_FRAMEWORK.md) and [`INTERBRANCH_REVIEW_COVERAGE_MATRIX.md`](INTERBRANCH_REVIEW_COVERAGE_MATRIX.md) |
+| Institutional scope, political-failure boundary, analytical method, or admission | [`standards/content/scope-and-admission.md`](standards/content/scope-and-admission.md) |
+| Neutral characterization, claim status, motive, and reader-facing terminology | [`Neutrality and Language`](standards/content/neutrality-and-language.md) |
+| Partisan perception, public actors, President Trump, Project 2025, coalitions, or advocacy tone | [`ARRP Public-Actor Conventions`](project/profile/public-actor-conventions.md) |
+| Issue-page structure, proposal presentation, snapshot, survey, budget, or concision | [`Content Record Architecture`](standards/content/record-architecture.md) |
+| Annotation, assertion discipline, and source quality | [`Claims and Citations`](standards/sources/claims-and-citations.md) |
+| Evidence pages, source-development records, qualitative placement, or issue-source reconciliation | [`Source and Evidence Records`](standards/sources/source-records.md) plus [`ARRP Source Catalog and Adjudication`](project/workflows/source-adjudication.md) for exact paths and fields |
+| Remedy selection, repair and prevention, constitutional amendments, taxonomy, shared remedies, or triggers | [`standards/content/remedies.md`](standards/content/remedies.md) |
+| JUD-011 application or executive nullification of enacted federal commands | [`standards/content/remedies.md`](standards/content/remedies.md), the canonical JUD-011 records, and the nonauthoritative [`JUD-011 coverage matrix`](../research/interbranch-review/JUD-011-coverage-matrix.md) |
 
-### Lifecycle, Operations, Sources, Candidates, and Navigation
+### Content Development, Sources, Candidates, and Navigation
 
 | Work or subject | Authoritative module |
 | --- | --- |
-| Six maturity levels, pre-lifecycle intake, or repeatable workflows | [`lifecycle/development-levels.md`](lifecycle/development-levels.md) |
-| Four-part foundation, delegated development, human reservations, or post-admission gates | [`lifecycle/foundation-and-development-gates.md`](lifecycle/foundation-and-development-gates.md) |
-| GitHub Status, holds, labels, fields, transitions, or synchronization | [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md) |
-| Substantive issue-work preflight and closeout | [`operations/issue-development-check.md`](operations/issue-development-check.md) |
-| Cross-surface project updates | [`operations/project-update-checklist.md`](operations/project-update-checklist.md) |
-| Source catalogs, stable source identity, review metadata, or source-level monitoring | [`sources/source-catalogs.md`](sources/source-catalogs.md) |
-| Issue monitoring or a project-wide monitoring pass | [`sources/project-monitoring.md`](sources/project-monitoring.md) |
-| Automated source routing, preliminary-candidate synthesis, or batch reconciliation | [`sources/automated-source-adjudication.md`](sources/automated-source-adjudication.md) |
-| Presidential-directive completeness or substantive directive review | [`sources/presidential-directives.md`](sources/presidential-directives.md) |
-| Horizon discovery | [`candidates/horizon-scanning.md`](candidates/horizon-scanning.md) |
-| Formal Horizon candidate investigation or disposition implementation | [`candidates/candidate-adjudication.md`](candidates/candidate-adjudication.md) |
-| Inventory files, area lists, stable issue identity, developed-work links, or cross-references | [`navigation/inventory-and-indexes.md`](navigation/inventory-and-indexes.md) |
-| Topic-guide creation or revision | [`navigation/topic-guides.md`](navigation/topic-guides.md) |
-| Navigation synchronization or its T1 gate | [`navigation/navigation-synchronization.md`](navigation/navigation-synchronization.md) |
+| Substantive maturity, pre-lifecycle intake, or repeatable workflows | [`standards/content/maturity-and-gates.md`](standards/content/maturity-and-gates.md) |
+| ARRP maturity values, thresholds, and classifiers | [`project/profile/maturity-profile.md`](project/profile/maturity-profile.md) |
+| GitHub Status, holds, labels, fields, transitions, or synchronization | [`project/github/workflow.md`](project/github/workflow.md) |
+| Substantive issue-work preflight and closeout | [`Content Maturity and Development Gates`](standards/content/maturity-and-gates.md) |
+| Cross-surface project updates | [`ARRP Project Update`](project/workflows/project-update.md) |
+| Source catalogs, stable source identity, review metadata, or source-level monitoring | [`Source and Evidence Records`](standards/sources/source-records.md) plus [`ARRP Source Catalog and Adjudication`](project/workflows/source-adjudication.md) for exact catalogs and fields |
+| Issue monitoring or a project-wide monitoring pass | [`Content and Project Monitoring`](standards/sources/monitoring.md) plus the [`GitHub workflow`](project/github/workflow.md) and [`ARRP source workflow`](project/workflows/source-adjudication.md) for exact representations |
+| Automated source routing or batch reconciliation | [`Automated Source Adjudication`](standards/sources/source-adjudication.md) plus [`ARRP Source Catalog and Adjudication`](project/workflows/source-adjudication.md) |
+| Preliminary-candidate synthesis or promotion | [`Candidate Review`](standards/content/candidate-review.md) plus the [`ARRP Candidate Discovery and Adjudication`](project/workflows/candidate-review.md) workflow |
+| Presidential-directive completeness or substantive directive review | [`Presidential-Directive Completeness and Review`](project/workflows/presidential-directive-review.md) |
+| Horizon discovery, formal-candidate investigation, or disposition implementation | [`Candidate Review`](standards/content/candidate-review.md) plus [`ARRP Candidate Discovery and Adjudication`](project/workflows/candidate-review.md) |
+| Inventory, stable identity, cross-references, or generic navigation | [`Content Navigation, Indexes, and Synchronization`](standards/content/navigation-and-indexes.md) |
+| Topic-guide creation or revision | [`Topic Guide Standard`](standards/content/topic-guides.md) plus [`ARRP Navigation and Index Synchronization`](project/workflows/navigation-sync.md) for exact ARRP configuration |
+| ARRP navigation synchronization or its T1 gate | [`ARRP Navigation and Index Synchronization`](project/workflows/navigation-sync.md) |
 
 ### Audits and Scoring
 
 | Work or subject | Authoritative module |
 | --- | --- |
-| Common audit orientation, workflow, run counting, unknowns, preservation, output, or method learning | [`audits/AUDIT_CORE.md`](audits/AUDIT_CORE.md) |
-| T0–T4 depth or formatting preflight | [`audits/TIERED_AUDITS.md`](audits/TIERED_AUDITS.md) |
-| Change Audit or Internal Remedy-Fit Audit | [`audits/CHANGE_AUDITS.md`](audits/CHANGE_AUDITS.md) |
-| Project consistency audit | [`audits/PROJECT_CONSISTENCY_AUDITS.md`](audits/PROJECT_CONSISTENCY_AUDITS.md) |
-| Hallucination resistance, source verification, or traceability | [`audits/VERIFICATION_PROTOCOL.md`](audits/VERIFICATION_PROTOCOL.md) |
-| Existing law, judicial or scholarly scrutiny, prior proposals, or functional analogues | [`audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md`](audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md) |
-| Proposal quality, rubric governance, penalties, fixed zeroes, or score consistency | [`scoring/PROPOSAL_QUALITY_AND_RUBRIC.md`](scoring/PROPOSAL_QUALITY_AND_RUBRIC.md) |
-| Adoption formula, enactment pathway, friction, support, or coalition appeal | [`scoring/ADOPTION_AND_PATHWAY.md`](scoring/ADOPTION_AND_PATHWAY.md) |
-| Qualified external review or international support and relations | [`scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md`](scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md) |
+| Common audit orientation, workflow, run counting, unknowns, preservation, output, or method learning | [`Audit Core`](standards/audits/core.md) |
+| T0–T4 depth or formatting preflight | [`standards/audits/levels.md`](standards/audits/levels.md) |
+| Change Audit or Internal Remedy-Fit Audit | [`Change Audits`](standards/audits/change-audits.md) |
+| Project consistency audit | [`Project Consistency Audits`](standards/audits/project-consistency.md) |
+| Hallucination resistance, source verification, or traceability | [`Verification Protocol`](standards/audits/verification.md) |
+| Existing law, judicial or scholarly scrutiny, prior proposals, or functional analogues | [`Legal and Prior-Work Review`](standards/audits/legal-and-prior-work.md) |
+| Reusable scoring discipline | [`standards/audits/scoring.md`](standards/audits/scoring.md) |
+| ARRP Proposal Quality Score, weights, penalties, fixed zeroes, or score consistency | [`project/profile/scoring-rubric.md`](project/profile/scoring-rubric.md) |
+| Adoption method, enactment pathway, friction, support, or coalition appeal | [`Adoption and Enactment Pathway Analysis`](standards/audits/adoption-and-pathways.md) plus the [`ARRP scoring profile`](project/profile/scoring-rubric.md) for exact values and formulas |
+| Qualified external review or international support and relations | [`External and International Review`](standards/audits/external-review.md) plus the [`ARRP scoring profile`](project/profile/scoring-rubric.md) for exact statuses and formulas |
 
 ### Project and Agent Operations
 
 | Work or subject | Authoritative record |
 | --- | --- |
-| Agent or bot behavior | [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md), its [`agent-rules/`](agent-rules/) modules, and any applicable [`agents/`](agents/) runbook |
-| Context selection, manifest maintenance, or comprehensive-review coverage | [`CONTEXT_ROUTING.md`](CONTEXT_ROUTING.md) and [`context-routes.json`](context-routes.json) |
+| Agent or bot behavior | [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md), reusable [`standards/automation/`](standards/automation/) rules, and applicable [`project/automation/`](project/automation/) policy or runbook |
+| Context selection, manifest maintenance, or comprehensive-review coverage | [`CONTEXT_ROUTING.md`](CONTEXT_ROUTING.md) and [`context-routes.json`](project/automation/context-routes.json) |
 | Repository placement | [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md) |
-| Project-operated interface layout and behavior | [`PROJECT_INTERFACE.md`](PROJECT_INTERFACE.md) |
-| Console progress calculation and display | [`PROJECT_CONSOLE_PROGRESS.md`](PROJECT_CONSOLE_PROGRESS.md) |
-| Publication and compiled editions | [`PUBLIC_RELEASE.md`](PUBLIC_RELEASE.md), [`PRINT_ASSEMBLY.md`](PRINT_ASSEMBLY.md), and [`print-assembly.json`](print-assembly.json) |
+| Project-operated interface layout and behavior | [`standards/interfaces/standard.md`](standards/interfaces/standard.md) and [`project/interfaces/project-console.md`](project/interfaces/project-console.md) |
+| Console progress calculation and display | [`standards/interfaces/progress-views.md`](standards/interfaces/progress-views.md) and [`project/interfaces/project-console-progress.md`](project/interfaces/project-console-progress.md) |
+| Publication and compiled editions | [`standards/publication/`](standards/publication/), [`project/publication/`](project/publication/), and [`project/publication/print-assembly.json`](project/publication/print-assembly.json) |
 
 ## Comprehensive Review Boundary
 
@@ -167,123 +177,124 @@ The following stable headings preserve existing repository links. They are point
 
 ## Neutrality and Language Guidelines
 
-See [`methodology/neutrality-and-language.md`](methodology/neutrality-and-language.md) and [`methodology/partisan-perception-and-public-actors.md`](methodology/partisan-perception-and-public-actors.md).
+See [`Neutrality and Language`](standards/content/neutrality-and-language.md) and
+[`ARRP Public-Actor Conventions`](project/profile/public-actor-conventions.md).
 
 ### Institutional Focus
 
-See [`methodology/scope-and-admission.md`](methodology/scope-and-admission.md#institutional-focus).
+See [`Scope and Admission`](standards/content/scope-and-admission.md#institutional-focus).
 
 ### Resilience and Temporal Scope
 
-See [`methodology/scope-and-admission.md`](methodology/scope-and-admission.md#resilience-and-temporal-scope).
+See [`Scope and Admission`](standards/content/scope-and-admission.md#resilience-and-temporal-scope).
 
 ### Political-Failure Boundary
 
-See [`methodology/scope-and-admission.md`](methodology/scope-and-admission.md#political-failure-boundary).
+See [`Scope and Admission`](standards/content/scope-and-admission.md#political-failure-boundary).
 
 ### Neutral Application
 
-See [`methodology/neutrality-and-language.md`](methodology/neutrality-and-language.md#neutral-application).
+See [`Neutrality and Language`](standards/content/neutrality-and-language.md#neutral-application).
 
 ### Substantive Positions and Partisan Perception
 
-See [`methodology/partisan-perception-and-public-actors.md`](methodology/partisan-perception-and-public-actors.md#substantive-positions-and-partisan-perception).
+See [`ARRP Public-Actor Conventions`](project/profile/public-actor-conventions.md#substantive-positions-and-partisan-perception).
 
 ### Public-Actor References
 
-See [`methodology/partisan-perception-and-public-actors.md`](methodology/partisan-perception-and-public-actors.md#public-actor-references).
+See [`ARRP Public-Actor Conventions`](project/profile/public-actor-conventions.md#public-actor-references).
 
 ### Accuracy Over Softening
 
-See [`methodology/neutrality-and-language.md`](methodology/neutrality-and-language.md#accuracy-over-softening).
+See [`Neutrality and Language`](standards/content/neutrality-and-language.md#accuracy-over-softening).
 
 ### Neutral Characterization
 
-See [`methodology/neutrality-and-language.md`](methodology/neutrality-and-language.md#neutral-characterization).
+See [`Neutrality and Language`](standards/content/neutrality-and-language.md#neutral-characterization).
 
 ### Motive and Intent
 
-See [`methodology/neutrality-and-language.md`](methodology/neutrality-and-language.md#motive-and-intent).
+See [`Neutrality and Language`](standards/content/neutrality-and-language.md#motive-and-intent).
 
 ### Conduct Before Character
 
-See [`methodology/neutrality-and-language.md`](methodology/neutrality-and-language.md#conduct-before-character).
+See [`Neutrality and Language`](standards/content/neutrality-and-language.md#conduct-before-character).
 
 ### Reader-Facing and Technical Terminology
 
-See [`methodology/neutrality-and-language.md`](methodology/neutrality-and-language.md#reader-facing-and-technical-terminology).
+See [`Neutrality and Language`](standards/content/neutrality-and-language.md#reader-facing-and-technical-terminology).
 
 ### Project 2025 Treatment
 
-See [`methodology/partisan-perception-and-public-actors.md`](methodology/partisan-perception-and-public-actors.md#project-2025-treatment).
+See [`ARRP Public-Actor Conventions`](project/profile/public-actor-conventions.md#project-2025-treatment).
 
 ### Collective Labels
 
-See [`methodology/partisan-perception-and-public-actors.md`](methodology/partisan-perception-and-public-actors.md#collective-labels).
+See [`ARRP Public-Actor Conventions`](project/profile/public-actor-conventions.md#collective-labels).
 
 ### Coalition Reality
 
-See [`methodology/partisan-perception-and-public-actors.md`](methodology/partisan-perception-and-public-actors.md#coalition-reality).
+See [`ARRP Public-Actor Conventions`](project/profile/public-actor-conventions.md#coalition-reality).
 
 ### Advocacy Tone
 
-See [`methodology/partisan-perception-and-public-actors.md`](methodology/partisan-perception-and-public-actors.md#advocacy-tone).
+See [`ARRP Public-Actor Conventions`](project/profile/public-actor-conventions.md#advocacy-tone).
 
 ## Analytical Method
 
-See [`methodology/scope-and-admission.md`](methodology/scope-and-admission.md#analytical-method).
+See [`Scope and Admission`](standards/content/scope-and-admission.md#analytical-method).
 
 ### Issue-Admission Test
 
-See [`methodology/scope-and-admission.md`](methodology/scope-and-admission.md#issue-admission-test).
+See [`standards/content/scope-and-admission.md`](standards/content/scope-and-admission.md#issue-admission-test).
 
 ## Mandatory Issue Architecture
 
-See [`issues/issue-architecture.md`](issues/issue-architecture.md#mandatory-issue-architecture).
+See [`Content Record Architecture`](standards/content/record-architecture.md#mandatory-issue-architecture).
 
 ### Issue Snapshot Format
 
-See [`issues/issue-architecture.md`](issues/issue-architecture.md#issue-snapshot-format).
+See [`Content Record Architecture`](standards/content/record-architecture.md#issue-snapshot-format).
 
 ### Proposal Survey
 
-See [`issues/issue-architecture.md`](issues/issue-architecture.md#proposal-survey).
+See [`Content Record Architecture`](standards/content/record-architecture.md#proposal-survey).
 
 ## Issue-Level Conciseness
 
-See [`issues/issue-architecture.md`](issues/issue-architecture.md#issue-level-conciseness).
+See [`Content Record Architecture`](standards/content/record-architecture.md#issue-level-conciseness).
 
 ## Annotation and Evidence
 
-See [`evidence/annotation-and-source-standards.md`](evidence/annotation-and-source-standards.md#annotation-and-evidence).
+See [`Claims and Citations`](standards/sources/claims-and-citations.md#annotation-and-evidence).
 
 ### Standard Annotation
 
-See [`evidence/annotation-and-source-standards.md`](evidence/annotation-and-source-standards.md#standard-annotation).
+See [`Claims and Citations`](standards/sources/claims-and-citations.md#standard-annotation).
 
 ### Assertion Discipline
 
-See [`evidence/annotation-and-source-standards.md`](evidence/annotation-and-source-standards.md#assertion-discipline).
+See [`Claims and Citations`](standards/sources/claims-and-citations.md#assertion-discipline).
 
 ### Source Standard
 
-See [`evidence/annotation-and-source-standards.md`](evidence/annotation-and-source-standards.md#source-standard).
+See [`Claims and Citations`](standards/sources/claims-and-citations.md#source-standard).
 
 ## Least-Complex Adequate Remedy
 
-See [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md#least-complex-adequate-remedy).
+See the [remedy standard](standards/content/remedies.md#least-complex-adequate-remedy).
 
 ## Repair and Prevention
 
-See [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md#repair-and-prevention).
+See the [remedy standard](standards/content/remedies.md#repair-and-prevention).
 
 ## Constitutional Amendments
 
-See [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md#constitutional-amendments).
+See the [remedy standard](standards/content/remedies.md#constitutional-amendments).
 
 ## Automatic Constitutional Stabilizers and Institutional-Failure Triggers
 
-See [`REMEDY_FRAMEWORK.md`](REMEDY_FRAMEWORK.md#trigger-stages).
+See the [remedy standard](standards/content/remedies.md#trigger-stages).
 
 ## Project Lifecycle, Sources, Navigation, and Audits
 
@@ -291,39 +302,39 @@ Use the applicable routes above; this heading remains only as the former section
 
 ## Inventory Files
 
-See [`navigation/inventory-and-indexes.md`](navigation/inventory-and-indexes.md#inventory-files).
+See [`Content Navigation, Indexes, and Synchronization`](standards/content/navigation-and-indexes.md#inventory-files).
 
 ## Inventory Rules
 
-See [`navigation/inventory-and-indexes.md`](navigation/inventory-and-indexes.md#inventory-rules).
+See [`Content Navigation, Indexes, and Synchronization`](standards/content/navigation-and-indexes.md#inventory-rules).
 
 ## Issue Lifecycle: Discovery Through Publication and Maintenance
 
-See [`lifecycle/development-levels.md`](lifecycle/development-levels.md#issue-lifecycle-discovery-through-publication-and-maintenance).
+See the [ARRP maturity profile](project/profile/maturity-profile.md#issue-lifecycle-discovery-through-publication-and-maintenance).
 
 ### Development-Level Lifecycle
 
-See [`lifecycle/development-levels.md`](lifecycle/development-levels.md#development-level-lifecycle).
+See the [ARRP maturity profile](project/profile/maturity-profile.md#development-level-lifecycle).
 
 ### Intake Before the Development-Level Lifecycle
 
-See [`lifecycle/development-levels.md`](lifecycle/development-levels.md#intake-before-the-development-level-lifecycle).
+See the [ARRP maturity profile](project/profile/maturity-profile.md#intake-before-the-development-level-lifecycle).
 
 ### Repeatable Workflows Around the Lifecycle
 
-See [`lifecycle/development-levels.md`](lifecycle/development-levels.md#repeatable-workflows-around-the-lifecycle).
+See the [ARRP maturity profile](project/profile/maturity-profile.md#repeatable-workflows-around-the-lifecycle).
 
 ### Workflow Status and Hold Definitions
 
-See [`GITHUB_WORKFLOW.md`](GITHUB_WORKFLOW.md#issue-development-lifecycle).
+See the [ARRP GitHub workflow](project/github/workflow.md#issue-development-lifecycle).
 
 ### Human-Governed Foundation and Delegated Development
 
-See [`lifecycle/foundation-and-development-gates.md`](lifecycle/foundation-and-development-gates.md#human-governed-foundation-and-delegated-development).
+See the [ARRP maturity profile](project/profile/maturity-profile.md#human-governed-foundation-and-delegated-development).
 
 ### Post-Admission Development Gates
 
-See [`lifecycle/foundation-and-development-gates.md`](lifecycle/foundation-and-development-gates.md#post-admission-development-gates).
+See the [ARRP maturity profile](project/profile/maturity-profile.md#post-admission-development-gates).
 
 ### Persistent Agents and Runbooks
 
@@ -331,67 +342,80 @@ See [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md#persistent-agent-runbo
 
 ## Issue-Development Lifecycle Check
 
-See [`operations/issue-development-check.md`](operations/issue-development-check.md#required-check).
+See the [content-maturity standard](standards/content/maturity-and-gates.md#required-lifecycle-check)
+and the [ARRP maturity profile](project/profile/maturity-profile.md#required-lifecycle-check).
 
 ## Project-Update Checklist
 
-See [`operations/project-update-checklist.md`](operations/project-update-checklist.md#project-update-checklist).
+See [`ARRP Project Update`](project/workflows/project-update.md#project-update-checklist).
 
 ## Area and Issue Index Rules
 
-See [`navigation/inventory-and-indexes.md`](navigation/inventory-and-indexes.md#area-and-issue-index-rules).
+See [`Content Navigation, Indexes, and Synchronization`](standards/content/navigation-and-indexes.md#area-and-issue-index-rules).
 
 ### Area-Page Issue Lists
 
-See [`navigation/inventory-and-indexes.md`](navigation/inventory-and-indexes.md#area-page-issue-lists).
+See [`Content Navigation, Indexes, and Synchronization`](standards/content/navigation-and-indexes.md#area-page-issue-lists).
 
 ### Topic Page Standard
 
-See [`navigation/topic-guides.md`](navigation/topic-guides.md#topic-page-standard).
+See [`Topic Guide Standard`](standards/content/topic-guides.md#topic-page-standard).
 
 ### Navigation Synchronization Check
 
-See [`navigation/navigation-synchronization.md`](navigation/navigation-synchronization.md#navigation-synchronization-check).
+See [`standards/content/navigation-and-indexes.md`](standards/content/navigation-and-indexes.md#navigation-synchronization).
 
 ### Project-Operated Interface Visual Standard
 
-See [`PROJECT_INTERFACE.md`](PROJECT_INTERFACE.md#project-operated-interface-visual-standard).
+See the [interface standard](standards/interfaces/standard.md) and
+[ARRP tool visual identity](project/interfaces/visual-identity.md).
 
 ## Source Inventory Rules
 
-See [`sources/source-catalogs.md`](sources/source-catalogs.md#source-inventory-rules).
+See [Source and Evidence Records](standards/sources/source-records.md#source-inventory-and-stable-identity)
+and [ARRP Source Catalog and Adjudication](project/workflows/source-adjudication.md#canonical-source-catalogs).
 
 ## Automated Source Adjudication and Issue Evidence Records
 
-See [`sources/automated-source-adjudication.md`](sources/automated-source-adjudication.md) and [`evidence/evidence-records.md`](evidence/evidence-records.md).
+See [Automated Source Adjudication](standards/sources/source-adjudication.md),
+[Source and Evidence Records](standards/sources/source-records.md), and
+[ARRP Source Catalog and Adjudication](project/workflows/source-adjudication.md).
 
 ### Evidence and Monitoring Architecture
 
-See [`evidence/evidence-records.md`](evidence/evidence-records.md#evidence-architecture) and [`sources/project-monitoring.md`](sources/project-monitoring.md).
+See [Source and Evidence Records](standards/sources/source-records.md#evidence-architecture),
+[Content and Project Monitoring](standards/sources/monitoring.md), and
+[ARRP Source Catalog and Adjudication](project/workflows/source-adjudication.md).
 
 ### Source Reconciliation During Issue Work
 
-See [`evidence/evidence-records.md`](evidence/evidence-records.md#source-reconciliation-during-issue-work).
+See [Source and Evidence Records](standards/sources/source-records.md#source-reconciliation-during-issue-work)
+and [ARRP Source Catalog and Adjudication](project/workflows/source-adjudication.md).
 
 ### Project-Wide Monitoring Pass
 
-See [`sources/project-monitoring.md`](sources/project-monitoring.md#project-wide-monitoring-pass).
+See [Content and Project Monitoring](standards/sources/monitoring.md#project-wide-monitoring-pass),
+the [GitHub workflow](project/github/workflow.md#issue-specific-monitoring),
+and [ARRP Source Catalog and Adjudication](project/workflows/source-adjudication.md#canonical-source-catalogs).
 
 ### Route-Centered Automated Adjudication
 
-See [`sources/automated-source-adjudication.md`](sources/automated-source-adjudication.md#route-centered-automated-adjudication).
+See [Automated Source Adjudication](standards/sources/source-adjudication.md#route-centered-automated-adjudication)
+and [ARRP Source Catalog and Adjudication](project/workflows/source-adjudication.md#arrp-route-centered-adjudication).
 
 ### Presidential-Directive Completeness Scans
 
-See [`sources/presidential-directives.md`](sources/presidential-directives.md#presidential-directive-completeness-scans).
+See [Presidential-Directive Completeness and Review](project/workflows/presidential-directive-review.md#presidential-directive-completeness-scans).
 
 ### Automation and Human-Decision Boundary
 
-See [`sources/automated-source-adjudication.md`](sources/automated-source-adjudication.md#automation-and-human-decision-boundary).
+See [Automated Source Adjudication](standards/sources/source-adjudication.md#automation-and-human-decision-boundary)
+and [ARRP Source Catalog and Adjudication](project/workflows/source-adjudication.md#arrp-closeout-mappings).
 
 ### Batch Reconciliation and Closeout
 
-See [`sources/automated-source-adjudication.md`](sources/automated-source-adjudication.md#batch-reconciliation-and-closeout).
+See [Automated Source Adjudication](standards/sources/source-adjudication.md#batch-reconciliation-and-closeout)
+and [ARRP Source Catalog and Adjudication](project/workflows/source-adjudication.md#arrp-closeout-mappings).
 
 ## Audit Rules and Proposal Quality Scoring
 
@@ -399,116 +423,141 @@ See the audit and scoring routes above.
 
 ### Pre-Audit Orientation
 
-See [`audits/AUDIT_CORE.md`](audits/AUDIT_CORE.md#pre-audit-orientation).
+See [`Audit Core`](standards/audits/core.md#pre-audit-orientation).
 
 ### Change Audit
 
-See [`audits/CHANGE_AUDITS.md`](audits/CHANGE_AUDITS.md#change-audit).
+See [`Change Audits`](standards/audits/change-audits.md#change-audit).
 
 ### Audit Workflow
 
-See [`audits/AUDIT_CORE.md`](audits/AUDIT_CORE.md#audit-workflow).
+See [`Audit Core`](standards/audits/core.md#audit-workflow).
 
 ### Formatting Preflight
 
-See [`audits/TIERED_AUDITS.md`](audits/TIERED_AUDITS.md#formatting-preflight).
+See [`Audit Levels`](standards/audits/levels.md#formatting-preflight).
 
 ### Audit Run Counting Rule
 
-See [`audits/AUDIT_CORE.md`](audits/AUDIT_CORE.md#audit-run-counting-rule).
+See [`Audit Core`](standards/audits/core.md#audit-run-counting-rule).
 
 ### Project Consistency Audit
 
-See [`audits/PROJECT_CONSISTENCY_AUDITS.md`](audits/PROJECT_CONSISTENCY_AUDITS.md#project-consistency-audit).
+See [`Project Consistency Audits`](standards/audits/project-consistency.md#project-consistency-audit).
 
 ### Audit Learning and Method Improvement
 
-See [`audits/AUDIT_CORE.md`](audits/AUDIT_CORE.md#audit-learning-and-method-improvement).
+See [`Audit Core`](standards/audits/core.md#audit-learning-and-method-improvement).
 
 ### Audit Depth Tiers
 
-See [`audits/TIERED_AUDITS.md`](audits/TIERED_AUDITS.md#audit-depth-tiers).
+See [`standards/audits/levels.md`](standards/audits/levels.md#audit-depth-tiers).
 
 ### Horizon Scan Audit
 
-See [`candidates/horizon-scanning.md`](candidates/horizon-scanning.md#horizon-scan).
+See [`project/workflows/candidate-review.md`](project/workflows/candidate-review.md#horizon-discovery).
 
 ### Horizon Candidate Adjudication Workflow
 
-See [`candidates/candidate-adjudication.md`](candidates/candidate-adjudication.md#horizon-candidate-adjudication-workflow).
+See [`ARRP Candidate Discovery and Adjudication`](project/workflows/candidate-review.md#horizon-candidate-adjudication-workflow).
 
 ### Audit Autonomy and Unknowns
 
-See [`audits/AUDIT_CORE.md`](audits/AUDIT_CORE.md#audit-autonomy-and-unknowns).
+See [`Audit Core`](standards/audits/core.md#audit-autonomy-and-unknowns).
 
 ### Audit Preservation and GitHub Storage
 
-See [`audits/AUDIT_CORE.md`](audits/AUDIT_CORE.md#audit-preservation-and-github-storage).
+See [`Audit Core`](standards/audits/core.md#audit-preservation-and-closeout).
 
 ### Audit Output
 
-See [`audits/AUDIT_CORE.md`](audits/AUDIT_CORE.md#audit-output).
+See [`Audit Core`](standards/audits/core.md#audit-output).
 
 ### Hallucination-Resistance and Verification Protocol
 
-See [`audits/VERIFICATION_PROTOCOL.md`](audits/VERIFICATION_PROTOCOL.md#hallucination-resistance-and-verification-protocol).
+See [`Verification Protocol`](standards/audits/verification.md#hallucination-resistance-and-verification-protocol).
 
 ### Proposal Quality Score
 
-See [`scoring/PROPOSAL_QUALITY_AND_RUBRIC.md`](scoring/PROPOSAL_QUALITY_AND_RUBRIC.md#proposal-quality-score).
+See the reusable [scoring standard](standards/audits/scoring.md) and the
+[ARRP scoring profile](project/profile/scoring-rubric.md#proposal-quality-score).
 
 ### External Review Status and Qualified Reviewers
 
-See [`scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md`](scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md#external-review-status-and-qualified-reviewers).
+See the reusable
+[External and International Review](standards/audits/external-review.md#external-review-status-and-qualified-reviewers)
+and the
+[ARRP configuration](project/profile/scoring-rubric.md#external-and-international-review-configuration).
 
 ### Adoption Score Formula
 
-See [`scoring/ADOPTION_AND_PATHWAY.md`](scoring/ADOPTION_AND_PATHWAY.md#adoption-score-formula).
+See the reusable
+[adoption method](standards/audits/adoption-and-pathways.md#adoption-score-formula)
+and the
+[ARRP configuration](project/profile/scoring-rubric.md#adoption-and-enactment-pathway-configuration).
 
 ### Enactment Pathway Check
 
-See [`scoring/ADOPTION_AND_PATHWAY.md`](scoring/ADOPTION_AND_PATHWAY.md#enactment-pathway-check).
+See the reusable
+[Enactment Pathway Check](standards/audits/adoption-and-pathways.md#enactment-pathway-check)
+and the
+[ARRP configuration](project/profile/scoring-rubric.md#adoption-and-enactment-pathway-configuration).
 
 #### Institutional Self-Limitation Rule
 
-See [`scoring/ADOPTION_AND_PATHWAY.md`](scoring/ADOPTION_AND_PATHWAY.md#institutional-self-limitation-rule).
+See the reusable
+[Institutional Self-Limitation Rule](standards/audits/adoption-and-pathways.md#institutional-self-limitation-rule)
+and the
+[ARRP configuration](project/profile/scoring-rubric.md#adoption-and-enactment-pathway-configuration).
 
 ### Adoption Friction Score
 
-See [`scoring/ADOPTION_AND_PATHWAY.md`](scoring/ADOPTION_AND_PATHWAY.md#adoption-friction-score).
+See the reusable
+[Adoption Friction method](standards/audits/adoption-and-pathways.md#adoption-friction-score)
+and the
+[ARRP configuration](project/profile/scoring-rubric.md#adoption-friction-configuration).
 
 ### International Support and Relations Score
 
-See [`scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md`](scoring/EXTERNAL_AND_INTERNATIONAL_REVIEW.md#international-support-and-relations-score).
+See the reusable
+[International Support and Relations method](standards/audits/external-review.md#international-support-and-relations-score)
+and the
+[ARRP configuration](project/profile/scoring-rubric.md#external-and-international-review-configuration).
 
 ### Score Consistency Rules
 
-See [`scoring/PROPOSAL_QUALITY_AND_RUBRIC.md`](scoring/PROPOSAL_QUALITY_AND_RUBRIC.md#score-consistency-rules).
+See the [ARRP scoring profile](project/profile/scoring-rubric.md#score-consistency-rules).
 
 ### Support and Adoption Audit
 
-See [`scoring/ADOPTION_AND_PATHWAY.md`](scoring/ADOPTION_AND_PATHWAY.md#support-and-adoption-audit).
+See the
+[Support and Adoption Audit](standards/audits/adoption-and-pathways.md#support-and-adoption-audit)
+and the
+[ARRP public-actor conventions](project/profile/public-actor-conventions.md).
 
 ### Political-Language and Coalition-Appeal Audit
 
-See [`scoring/ADOPTION_AND_PATHWAY.md`](scoring/ADOPTION_AND_PATHWAY.md#political-language-and-coalition-appeal-audit).
+See the
+[Political-Language and Coalition-Appeal Audit](standards/audits/adoption-and-pathways.md#political-language-and-coalition-appeal-audit)
+and the
+[ARRP public-actor conventions](project/profile/public-actor-conventions.md).
 
 ### Judicial and Scholarly Scrutiny Audit
 
-See [`audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md`](audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md#judicial-and-scholarly-scrutiny-audit).
+See [`Legal and Prior-Work Review`](standards/audits/legal-and-prior-work.md#judicial-and-scholarly-scrutiny-audit).
 
 ### Existing-Law and Prior-Proposal Consistency Audit
 
-See [`audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md`](audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md#existing-law-and-prior-proposal-consistency-audit).
+See [`Legal and Prior-Work Review`](standards/audits/legal-and-prior-work.md#existing-law-and-prior-proposal-consistency-audit).
 
 ### Functional Analogue Search
 
-See [`audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md`](audits/LEGAL_AND_PRIOR_PROPOSAL_REVIEW.md#functional-analogue-search).
+See [`Legal and Prior-Work Review`](standards/audits/legal-and-prior-work.md#functional-analogue-search).
 
 ## Links to Developed Work
 
-See [`navigation/inventory-and-indexes.md`](navigation/inventory-and-indexes.md#links-to-developed-work).
+See [`Content Navigation, Indexes, and Synchronization`](standards/content/navigation-and-indexes.md#links-to-developed-work).
 
 ## Cross-References
 
-See [`navigation/inventory-and-indexes.md`](navigation/inventory-and-indexes.md#cross-references).
+See [`Content Navigation, Indexes, and Synchronization`](standards/content/navigation-and-indexes.md#cross-references).

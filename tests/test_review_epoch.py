@@ -37,13 +37,13 @@ def boundary(root: Path) -> tuple[Path, dict, dict[str, str]]:
             True,
         ),
         "current_audit": (
-            "framework/logs/CURRENT_AUDIT.md",
-            "# Current Audit\n",
+            "framework/records/handoffs/current-task.md",
+            "# Current Task\n",
             "runtime",
             False,
         ),
         "additional_rule": (
-            "framework/methodology/additional.md",
+            "framework/standards/content/additional.md",
             "# Additional Rule\n",
             "pinned",
             True,
@@ -86,7 +86,8 @@ def boundary(root: Path) -> tuple[Path, dict, dict[str, str]]:
             }
         },
     }
-    manifest_path = root / "framework/context-routes.json"
+    manifest_path = root / "framework/project/automation/context-routes.json"
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     manifest_sha = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
 
@@ -107,7 +108,7 @@ def boundary(root: Path) -> tuple[Path, dict, dict[str, str]]:
         "profile": "comprehensive_review",
         "repository_revision": "b" * 40,
         "manifest": {
-            "path": "framework/context-routes.json",
+            "path": "framework/project/automation/context-routes.json",
             "sha256": manifest_sha,
         },
         "modules": modules,
@@ -119,7 +120,7 @@ def boundary(root: Path) -> tuple[Path, dict, dict[str, str]]:
         for path, content, _, governing in contents.values()
         if governing
     }
-    hashes["framework/context-routes.json"] = "sha256:" + manifest_sha
+    hashes["framework/project/automation/context-routes.json"] = "sha256:" + manifest_sha
     return manifest_path, packet, hashes
 
 
@@ -194,7 +195,7 @@ class ReviewEpochTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             manifest, packet, hashes = boundary(root)
-            del hashes["framework/methodology/additional.md"]
+            del hashes["framework/standards/content/additional.md"]
             with self.assertRaisesRegex(ValueError, "boundary is incomplete"):
                 MODULE.validate(
                     record(hashes),
@@ -207,7 +208,7 @@ class ReviewEpochTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             manifest, packet, hashes = boundary(root)
-            del hashes["framework/context-routes.json"]
+            del hashes["framework/project/automation/context-routes.json"]
             with self.assertRaisesRegex(ValueError, "boundary is incomplete"):
                 MODULE.validate(
                     record(hashes),
@@ -245,7 +246,7 @@ class ReviewEpochTests(unittest.TestCase):
             root = Path(directory)
             manifest, packet, hashes = boundary(root)
             for candidate in (
-                Path("framework/context-routes.json"),
+                Path("framework/project/automation/context-routes.json"),
                 manifest,
             ):
                 with self.subTest(candidate=str(candidate)):

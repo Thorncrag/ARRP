@@ -131,9 +131,9 @@ WORK_TYPE_BY_QUEUE_KIND = {
 ISSUE_WORK_TYPES = frozenset(
     {"change_audit", "issue_audit", "issue_development"}
 )
-ELIM_RUN_LOG = "framework/logs/ELIM_RUN_LOG.md"
-AGENT_AUDIT_LOG = "framework/logs/AGENT_AUDIT_LOG.md"
-CURRENT_AUDIT_LOG = "framework/logs/CURRENT_AUDIT.md"
+ELIM_RUN_LOG = "framework/records/automation/elim-run-log.md"
+AGENT_AUDIT_LOG = "framework/records/automation/agent-audit-log.md"
+CURRENT_AUDIT_LOG = "framework/records/handoffs/current-task.md"
 INTAKE_REVIEW_LEDGER = "research/intake-review-ledger.jsonl"
 ELIM_RUN_REPORT_FIELD_ORDER = (
     "Started",
@@ -160,11 +160,12 @@ SAFE_CHAIN_ID = re.compile(r"^[A-Za-z0-9_.-]+$")
 AUTOMATION_RUNTIME_PATHS = (
     ".github/run-coordinator-bot.json",
     ".github/workflows/automation-health-projection.yml",
-    "framework/agent-rules/autonomous-execution.md",
-    "framework/agents/ELIM.md",
-    "framework/agents/RUN_COORDINATOR_BOT.md",
-    "framework/agents/elim-work-unit-result.schema.json",
-    "framework/context-routes.json",
+    "framework/standards/automation/autonomous-execution.md",
+    "framework/project/automation/autonomous-execution.md",
+    "framework/project/automation/runbooks/elim.md",
+    "framework/project/automation/runbooks/run-coordinator-bot.md",
+    "framework/project/automation/schemas/elim-work-unit-result.schema.json",
+    "framework/project/automation/context-routes.json",
     "scripts/arrp_context.py",
     "scripts/build_automation_health_projection.py",
     "scripts/build_elim_context.py",
@@ -995,7 +996,7 @@ def persist_pending_run_log_reconciliation(
                 snapshot.parent.mkdir(parents=True, exist_ok=True)
                 if source.stat().st_size > 1_000_000:
                     raise ContextError(
-                        "CURRENT_AUDIT checkpoint exceeds the evidence size limit"
+                        "current-task handoff exceeds the evidence size limit"
                     )
                 temporary = snapshot.with_suffix(".md.tmp")
                 temporary.write_bytes(source.read_bytes())
@@ -1834,7 +1835,7 @@ def verify_successful_elim_evidence(
 def read_current_audit(path: Path, repo: Path) -> dict[str, str]:
     safe_path = contained_path(path, repo)
     if not safe_path.is_file():
-        raise ContextError("CURRENT_AUDIT.md is missing")
+        raise ContextError("current-task.md is missing")
     body = safe_path.read_text(encoding="utf-8")
     section = re.search(
         r"^## Current Task\s*$([\s\S]*?)(?=^## |\Z)",
@@ -1842,7 +1843,7 @@ def read_current_audit(path: Path, repo: Path) -> dict[str, str]:
         re.MULTILINE,
     )
     if not section:
-        raise ContextError("CURRENT_AUDIT.md lacks its Current Task table")
+        raise ContextError("current-task.md lacks its Current Task table")
     fields: dict[str, str] = {}
     for name, value in re.findall(
         r"^\|\s*([^|\n]+?)\s*\|\s*([^|\n]+?)\s*\|\s*$",
@@ -1852,23 +1853,23 @@ def read_current_audit(path: Path, repo: Path) -> dict[str, str]:
         if name in {"Field", "---"}:
             continue
         if name in fields:
-            raise ContextError(f"CURRENT_AUDIT.md repeats field {name!r}")
+            raise ContextError(f"current-task.md repeats field {name!r}")
         fields[name] = value.strip()
     required = {"Handoff state", "Last checkpoint"} | set(
         CURRENT_AUDIT_INACTIVE_FIELDS
     )
     if set(fields) != required:
-        raise ContextError("CURRENT_AUDIT.md fields do not match the approved handoff table")
+        raise ContextError("current-task.md fields do not match the approved handoff table")
     if fields["Handoff state"] not in CURRENT_AUDIT_STATES:
         raise ContextError(
-            f"CURRENT_AUDIT.md has invalid Handoff state {fields['Handoff state']!r}"
+            f"current-task.md has invalid Handoff state {fields['Handoff state']!r}"
         )
     return fields
 
 
 def verify_elim_closeout(repo: Path, result: dict[str, Any]) -> tuple[bool, str]:
     handoff = read_current_audit(
-        repo / "framework" / "logs" / "CURRENT_AUDIT.md",
+        repo / "framework" / "records" / "handoffs" / "current-task.md",
         repo,
     )
     outcome = result["outcome"]
@@ -1916,7 +1917,7 @@ def verify_elim_closeout(repo: Path, result: dict[str, Any]) -> tuple[bool, str]
             )
         if handoff["Handoff state"] != "Inactive":
             raise ContextError(
-                "completed Elim work requires CURRENT_AUDIT.md Handoff state Inactive"
+                "completed Elim work requires current-task.md Handoff state Inactive"
             )
         uncleared = {
             name: (handoff[name], expected)
@@ -1926,7 +1927,7 @@ def verify_elim_closeout(repo: Path, result: dict[str, Any]) -> tuple[bool, str]
         if uncleared:
             names = ", ".join(sorted(uncleared))
             raise ContextError(
-                f"inactive CURRENT_AUDIT.md has uncleared task fields: {names}"
+                f"inactive current-task.md has uncleared task fields: {names}"
             )
         return True, "Elim completed and the dispatcher verified its required closeout."
 
@@ -1937,15 +1938,15 @@ def verify_elim_closeout(repo: Path, result: dict[str, Any]) -> tuple[bool, str]
     for name in ("Active issue/task", "Audit type/tier", "Scope", "Next step"):
         if handoff[name] in {"", "None."}:
             raise ContextError(
-                f"{handoff['Handoff state']} CURRENT_AUDIT.md lacks {name}"
+                f"{handoff['Handoff state']} current-task.md lacks {name}"
             )
     if handoff["Blockers/questions"] in {"", "None."}:
         raise ContextError(
-            f"{handoff['Handoff state']} CURRENT_AUDIT.md lacks blocker semantics"
+            f"{handoff['Handoff state']} current-task.md lacks blocker semantics"
         )
     if handoff["Next step"] != next_action.strip():
         raise ContextError(
-            "CURRENT_AUDIT.md Next step does not match Elim's exact continuation"
+            "current-task.md Next step does not match Elim's exact continuation"
         )
     return False, f"Elim safely closed with outcome {outcome!r}; continuation is preserved."
 
@@ -7038,7 +7039,13 @@ def comprehensive_epoch_recorded(
         packet = json.loads(packet_path.read_text(encoding="utf-8"))
         validate_review_epoch(
             recorder_input,
-            manifest_path=repo / "framework" / "context-routes.json",
+            manifest_path=(
+                repo
+                / "framework"
+                / "project"
+                / "automation"
+                / "context-routes.json"
+            ),
             context_packet=packet,
             root=repo,
         )
@@ -8123,7 +8130,7 @@ def main() -> int:
             exit_code=130,
             next_action=(
                 "Inspect the preserved isolated checkout, JSONL output, Elim task, "
-                "usage attestation, and CURRENT_AUDIT checkpoint before retrying."
+                "usage attestation, and current-task handoff before retrying."
             ),
             payload=payload or None,
             chain_id=(

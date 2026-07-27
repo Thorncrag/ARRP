@@ -45,8 +45,8 @@ class TemporaryRepository:
         run("git", "config", "user.name", "Source Event Test", cwd=root)
         run("git", "config", "user.email", "source-event@example.test", cwd=root)
         for log in (
-            "framework/logs/SOURCE_MONITOR_LOG.md",
-            "framework/logs/AGENT_AUDIT_LOG.md",
+            "framework/records/sources/source-monitor-log.md",
+            "framework/records/automation/agent-audit-log.md",
         ):
             path = root / log
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -187,7 +187,7 @@ class SourceDomainEventTests(unittest.TestCase):
             repository = TemporaryRepository(
                 Path(directory),
                 agent="source-checker-bot",
-                changed_path="framework/reports/SOURCE_CHECKER_REPORT.md",
+                changed_path="framework/records/status/source-checker-report.md",
                 base_text="# Report\n\nNo exceptions.\n",
                 changed_text="# Report\n\n| SRC-0007 | broken |\n",
             )
@@ -272,13 +272,13 @@ class SourceDomainEventTests(unittest.TestCase):
                 accepted = events.accept_event(args)
                 changed = events.render_event(
                     accepted,
-                    Path("framework/logs/SOURCE_MONITOR_LOG.md"),
-                    Path("framework/logs/AGENT_AUDIT_LOG.md"),
+                    Path("framework/records/sources/source-monitor-log.md"),
+                    Path("framework/records/automation/agent-audit-log.md"),
                 )
                 unchanged = events.render_event(
                     accepted,
-                    Path("framework/logs/SOURCE_MONITOR_LOG.md"),
-                    Path("framework/logs/AGENT_AUDIT_LOG.md"),
+                    Path("framework/records/sources/source-monitor-log.md"),
+                    Path("framework/records/automation/agent-audit-log.md"),
                 )
             finally:
                 os.chdir(previous)
@@ -290,12 +290,14 @@ class SourceDomainEventTests(unittest.TestCase):
             self.assertTrue(changed)
             self.assertFalse(unchanged)
             for relative in (
-                "framework/logs/SOURCE_MONITOR_LOG.md",
-                "framework/logs/AGENT_AUDIT_LOG.md",
+                "framework/records/sources/source-monitor-log.md",
+                "framework/records/automation/agent-audit-log.md",
             ):
                 text = (repository.root / relative).read_text(encoding="utf-8")
                 marker_suffix = (
-                    "agent-audit" if "AGENT_AUDIT" in relative else "source-monitor"
+                    "agent-audit"
+                    if relative.endswith("agent-audit-log.md")
+                    else "source-monitor"
                 )
                 marker = (
                     f"<!-- ARRP_SOURCE_DOMAIN_EVENT:{event['event_id']}:"
@@ -614,8 +616,8 @@ class SourceDomainEventTests(unittest.TestCase):
             root = Path(directory)
             TemporaryRepository(root)
             run("git", "checkout", "main", cwd=root)
-            source_log = root / "framework/logs/SOURCE_MONITOR_LOG.md"
-            agent_log = root / "framework/logs/AGENT_AUDIT_LOG.md"
+            source_log = root / "framework/records/sources/source-monitor-log.md"
+            agent_log = root / "framework/records/automation/agent-audit-log.md"
             run("git", "checkout", "-b", "event-log", cwd=root)
             source_log.write_text(
                 "# SOURCE_MONITOR_LOG\n\nUnrelated edit.\n",
@@ -651,8 +653,8 @@ class SourceDomainEventTests(unittest.TestCase):
                     events.verify_existing_log_branch(
                         base_ref="main",
                         branch_ref="event-log",
-                        source_log=Path("framework/logs/SOURCE_MONITOR_LOG.md"),
-                        agent_log=Path("framework/logs/AGENT_AUDIT_LOG.md"),
+                        source_log=Path("framework/records/sources/source-monitor-log.md"),
+                        agent_log=Path("framework/records/automation/agent-audit-log.md"),
                     )
             finally:
                 os.chdir(previous)
@@ -913,8 +915,8 @@ class SourceDomainWorkflowContractTests(unittest.TestCase):
             "--merge-commit",
             "publish_immutable_data_file.py",
             'trusted-source-domain-events.py" render',
-            "framework/logs/SOURCE_MONITOR_LOG.md",
-            "framework/logs/AGENT_AUDIT_LOG.md",
+            "framework/records/sources/source-monitor-log.md",
+            "framework/records/automation/agent-audit-log.md",
             "Prove the accepted pull request contains only watcher-owned data",
             'git diff --name-status "${BASE_SHA}...${HEAD_SHA}"',
             "Accepted merge changed trusted execution code",
@@ -963,9 +965,9 @@ class SourceDomainWorkflowContractTests(unittest.TestCase):
             ".github/workflows/source-checker-bot.yml",
             "scripts/source_domain_events.py",
             "scripts/publish_immutable_data_file.py",
-            "framework/agents/CASE_MONITOR_BOT.md",
-            "framework/agents/PRESIDENTIAL_DIRECTIVES_BOT.md",
-            "framework/agents/SOURCE_CHECKER_BOT.md",
+            "framework/project/automation/runbooks/case-monitor-bot.md",
+            "framework/project/automation/runbooks/presidential-directives-bot.md",
+            "framework/project/automation/runbooks/source-checker-bot.md",
         )
         with tempfile.TemporaryDirectory() as directory:
             temporary = Path(directory)

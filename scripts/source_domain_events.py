@@ -68,7 +68,7 @@ AGENTS: dict[str, dict[str, Any]] = {
         "branch": "bot/source-checker-report",
         "display": "Source Checker Bot",
         "allowed_paths": [
-            re.compile(r"^framework/reports/SOURCE_CHECKER_REPORT\.md$"),
+            re.compile(r"^framework/records/status/source-checker-report\.md$"),
         ],
     },
 }
