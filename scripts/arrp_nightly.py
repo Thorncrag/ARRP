@@ -526,6 +526,24 @@ def ensure_owner_directory(path: Path) -> None:
         raise TransactionError(f"unsafe state directory ownership or mode: {path}")
 
 
+def pause_requested(state_root: Path) -> bool:
+    """Return true only for a regular owner-only persistent pause marker."""
+
+    path = state_root / "PAUSED"
+    try:
+        info = path.lstat()
+    except FileNotFoundError:
+        return False
+    if (
+        path.is_symlink()
+        or not stat.S_ISREG(info.st_mode)
+        or info.st_uid != os.getuid()
+        or bool(stat.S_IMODE(info.st_mode) & 0o077)
+    ):
+        raise TransactionError("PAUSED must be a regular owner-only file")
+    return True
+
+
 def atomic_write_bytes(path: Path, encoded: bytes) -> None:
     ensure_owner_directory(path.parent)
     descriptor, temporary_name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
@@ -4518,6 +4536,31 @@ def prepare_transaction(
     try:
         with exclusive_lock(config.state_root, run_id, on_error=record_failure):
             write_status(config, status)
+            if pause_requested(config.state_root):
+                write_status(
+                    config,
+                    status,
+                    status="paused",
+                    stage="01_preflight",
+                    completed_at=iso_utc(),
+                    validation_summary={
+                        "phase": "pause-control",
+                        "due": False,
+                        "reason": "owner_pause_file_present",
+                    },
+                    exact_next_action=(
+                        "Remove the owner-only PAUSED file and invoke the same "
+                        "reviewed bootstrap manually or wait for the next schedule."
+                    ),
+                )
+                return TransactionResult(
+                    run_id,
+                    "paused",
+                    None,
+                    None,
+                    None,
+                    None,
+                )
             if config.scheduled_for is not None and not claim_scheduled_slot(
                 config.state_root,
                 config.scheduled_for,
@@ -5021,7 +5064,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if publication_output:
         output["publication"] = publication_output
     print(json.dumps(output, sort_keys=True, default=list))
-    return 0 if result.status == "completed" else 2
+    return 0 if result.status in {"completed", "paused"} else 2
 
 
 if __name__ == "__main__":
