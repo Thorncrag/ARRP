@@ -97,6 +97,48 @@ LEGACY_RUN_CHAIN_PATHS = {
     "framework/logs/ELIM_RUN_LOG.md":
         "framework/records/automation/elim-run-log.md",
 }
+PUBLIC_RUN_CHAIN_FIELDS = frozenset({
+    "action_items",
+    "actual_count",
+    "availability",
+    "baseline_commit",
+    "bot_id",
+    "bots",
+    "chain_id",
+    "completed_at",
+    "completeness",
+    "context_packet",
+    "created_at",
+    "degradations",
+    "elim_decision",
+    "expected_count",
+    "failures",
+    "final_revision",
+    "llm_launch_allowed",
+    "llm_launch_trigger",
+    "lock",
+    "next_action",
+    "projection_errors",
+    "queue_counts",
+    "repository",
+    "resume",
+    "review_epoch",
+    "run_id",
+    "schema_version",
+    "stages",
+    "status",
+    "trigger",
+    "updated_at",
+    "usage",
+    "work_queue",
+    "workflow_health",
+})
+LOCAL_RUN_CHAIN_PATH_FIELDS = frozenset({
+    "baselinePath",
+    "baseline_path",
+    "local_path",
+    "status_path",
+})
 PRINT_LEVEL_ORDER = (
     "public-proposal",
     "legislative-appendix",
@@ -3535,6 +3577,40 @@ def normalize_run_chain_paths(value: object) -> object:
     return normalized
 
 
+def strip_local_run_chain_metadata(value: object) -> object:
+    """Remove host-only paths from a tracked Console projection."""
+    if isinstance(value, list):
+        return [strip_local_run_chain_metadata(item) for item in value]
+    if not isinstance(value, dict):
+        return value
+    return {
+        key: strip_local_run_chain_metadata(item)
+        for key, item in value.items()
+        if key not in LOCAL_RUN_CHAIN_PATH_FIELDS
+    }
+
+
+def public_run_chain_projection(payload: dict[str, object]) -> dict[str, object]:
+    """Project local chain state without publishing host control or usage state."""
+    normalized = normalize_run_chain_paths(payload)
+    if not isinstance(normalized, dict):
+        return {}
+    projection = {
+        key: strip_local_run_chain_metadata(value)
+        for key, value in normalized.items()
+        if key in PUBLIC_RUN_CHAIN_FIELDS
+    }
+    usage = projection.get("usage")
+    if isinstance(usage, dict):
+        projection["usage"] = {
+            "hard_reserve_percent": usage.get("hard_reserve_percent"),
+            "soft_run_target_percent": usage.get("soft_run_target_percent"),
+            "remaining_percent": None,
+            "status": "unknown",
+        }
+    return projection
+
+
 def run_chain_snapshot() -> dict[str, object]:
     """Read the latest generated run-chain state without making it authoritative."""
     local_chain = os.environ.get("ARRP_RUN_CHAIN_SNAPSHOT", "").strip()
@@ -3583,7 +3659,7 @@ def run_chain_snapshot() -> dict[str, object]:
                 payload["last_successful_stages"] = successful_run_chain_stages(
                     *history_sources
                 )
-                return normalize_run_chain_paths(payload)
+                return public_run_chain_projection(payload)
         except (OSError, json.JSONDecodeError):
             pass
     try:
@@ -3596,13 +3672,13 @@ def run_chain_snapshot() -> dict[str, object]:
         )
         payload = json.loads(completed.stdout)
         if isinstance(payload, dict):
-            return normalize_run_chain_paths(payload)
+            return public_run_chain_projection(payload)
     except (subprocess.CalledProcessError, json.JSONDecodeError):
         pass
     existing = existing_console_payload()
     cached = existing.get("run_chain", {})
     return (
-        normalize_run_chain_paths(cached)
+        public_run_chain_projection(cached)
         if isinstance(cached, dict)
         else {}
     )

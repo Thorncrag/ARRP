@@ -544,59 +544,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "usage": {
       "hard_reserve_percent": 15,
       "soft_run_target_percent": 10,
-      "remaining_percent": 58.0,
-      "status": "available",
-      "gate": {
-        "blockers": [],
-        "checkedAtUtc": "2026-07-27T08:37:33+00:00",
-        "lowestRemainingPercent": 58,
-        "reservePercent": 15,
-        "runBudget": {
-          "activatedWindows": [],
-          "baselinePath": "/Users/benjaminsmith/Automation Workspaces/ARRP/.tmp/run-coordinator/elim-checkout/.tmp/run-coordinator/usage-baselines/3d1518f1a8564d792efab80d8b3dc01eeeeaaa2d475c883bf424b25c2a06f663.json",
-          "dormantWindows": [
-            "codex_bengalfox:primary"
-          ],
-          "highestSpentPercent": 0,
-          "reserveBufferFloorPercent": 25,
-          "softTargetPercent": 10,
-          "softTargetReached": false,
-          "spentPercentByWindow": {
-            "codex:primary": 0,
-            "codex_bengalfox:primary": 0
-          }
-        },
-        "status": "pass",
-        "windows": [
-          {
-            "limitId": "codex",
-            "limitName": "codex",
-            "remainingPercent": 58,
-            "resetsAt": 1785611897,
-            "resetsAtUtc": "2026-08-01T19:18:17+00:00",
-            "usedPercent": 42,
-            "window": "primary",
-            "windowDurationMins": 10080
-          },
-          {
-            "limitId": "codex_bengalfox",
-            "limitName": "GPT-5.3-Codex-Spark",
-            "remainingPercent": 100,
-            "resetsAt": 1785746253,
-            "resetsAtUtc": "2026-08-03T08:37:33+00:00",
-            "usedPercent": 0,
-            "window": "primary",
-            "windowDurationMins": 10080
-          }
-        ]
-      },
-      "host_monitor": {
-        "source": "approved-host-dispatcher",
-        "status_path": ".tmp/run-coordinator/arrp-20260727T082740Z/usage-status-arrp-20260727T082740Z-20260727T083732Z.json",
-        "baseline_path": ".tmp/run-coordinator/usage-baselines/3d1518f1a8564d792efab80d8b3dc01eeeeaaa2d475c883bf424b25c2a06f663.json",
-        "monitor_interval_seconds": 60,
-        "snapshot_max_age_seconds": 120
-      }
+      "remaining_percent": null,
+      "status": "unknown"
     },
     "progress_summary": {
       "generated_at": "2026-07-27T08:27:57+00:00",
@@ -655,6 +604,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-a4971fc55a6a53e7e9c8"
+    "overview.js": "project-console-947a0a710f1182f7281f"
   }
 });

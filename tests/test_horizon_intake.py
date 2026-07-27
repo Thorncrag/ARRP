@@ -455,7 +455,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertEqual(history[0]["status"], "succeeded")
         self.assertEqual(history[0]["last_success_at"], "2026-07-25T05:17:45+00:00")
 
-    def test_local_run_chain_uses_current_control_action_item_resolution(self) -> None:
+    def test_local_run_chain_excludes_host_control_and_usage_details(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             chain = root / "run-chain.json"
@@ -467,6 +467,22 @@ class HorizonIntakeTest(unittest.TestCase):
                         "host_action_items": [
                             {"id": "failure-1", "resolved": False}
                         ],
+                        "work_queue": {
+                            "path": "project-console-data:elim-work-queue.json",
+                            "local_path": ".tmp/run-coordinator/queue.json",
+                        },
+                        "usage": {
+                            "hard_reserve_percent": 15,
+                            "soft_run_target_percent": 10,
+                            "remaining_percent": 58,
+                            "status": "available",
+                            "gate": {
+                                "runBudget": {
+                                    "baselinePath": "/Users/example/private.json",
+                                    "dormantWindows": ["private-window:primary"],
+                                }
+                            },
+                        },
                     }
                 ),
                 encoding="utf-8",
@@ -496,10 +512,16 @@ class HorizonIntakeTest(unittest.TestCase):
             ):
                 snapshot = run_chain_snapshot()
 
-        self.assertTrue(snapshot["host_action_items"][0]["resolved"])
+        self.assertNotIn("host_action_items", snapshot)
+        self.assertNotIn("local_path", snapshot["work_queue"])
         self.assertEqual(
-            snapshot["host_action_items"][0]["resolution_reason"],
-            "Verified recovery passed.",
+            snapshot["usage"],
+            {
+                "hard_reserve_percent": 15,
+                "soft_run_target_percent": 10,
+                "remaining_percent": None,
+                "status": "unknown",
+            },
         )
 
     def test_run_chain_maps_retired_canonical_detail_to_live_record(self) -> None:
@@ -508,13 +530,14 @@ class HorizonIntakeTest(unittest.TestCase):
             chain.write_text(
                 json.dumps(
                     {
-                        "host_action_items": [
-                            {
-                                "id": "legacy-gap",
-                                "canonical_detail":
-                                    "framework/logs/ELIM_RUN_LOG.md",
+                        "work_queue": {
+                            "governance_discovery": {
+                                "last_review": {
+                                    "canonical_detail":
+                                        "framework/logs/ELIM_RUN_LOG.md",
+                                }
                             }
-                        ]
+                        }
                     }
                 ),
                 encoding="utf-8",
@@ -526,7 +549,8 @@ class HorizonIntakeTest(unittest.TestCase):
                 snapshot = run_chain_snapshot()
 
         self.assertEqual(
-            snapshot["host_action_items"][0]["canonical_detail"],
+            snapshot["work_queue"]["governance_discovery"]
+                ["last_review"]["canonical_detail"],
             "framework/records/automation/elim-run-log.md",
         )
 

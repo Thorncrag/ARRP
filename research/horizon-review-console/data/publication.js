@@ -9452,7 +9452,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 899,
+      "word_count": 938,
       "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
@@ -20309,6 +20309,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-a4971fc55a6a53e7e9c8"
+    "publication.js": "project-console-947a0a710f1182f7281f"
   }
 });
