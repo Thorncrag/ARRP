@@ -173,6 +173,26 @@ for Benjamin to publish with his credential because the App has no workflow
 permission. Semantic actions are schema-registered, public,
 non-human-reserved, idempotent, prior-state checked, and read back exactly.
 
+## P5 supervised proof boundary
+
+Before scheduler installation, the reviewed coordinator may perform one
+explicitly owner-approved live proof through
+`--manual --p5-supervised-plan`. This route remains disabled by default and
+requires an owner-only `0600` plan outside the repository with exact phase and
+authorization sentinels. It does not authorize scheduled or unattended
+execution.
+
+The coordinator holds the same operating-system lock across local work and
+publication. It classifies and secret-scans the complete commit range,
+including checkpoint ancestry; requires a wholly ordinary range; pushes and
+opens the exact App-authored branch and pull request; waits for CodeQL and ARRP
+Validation; performs and restores any exact Project fixture; merges only the
+unchanged head and base; requires a successful public-site workflow for the
+exact merge SHA; fast-forwards clean canonical `main`; and removes only the
+clean registered transaction worktree under the owner-only state root. A
+network, credential, check, Project, merge, Pages, synchronization, or cleanup
+failure writes independent terminal status and preserves recoverable state.
+
 ## Result gate and failure behavior
 
 Deterministic code validates the strict schema, selected-unit and authority
@@ -188,5 +208,6 @@ worktree, run directory, exact command and exit state, and a bounded next
 action. Terminate the process group on timeout, release every descriptor and
 lock in `finally`, and do not launch a second model turn automatically.
 
-P4 ends after repository validation and approved fixture publication evidence.
-Deployment and scheduled cutover remain outside this phase.
+P5 ends after the supervised ordinary, protected, prohibited, and failure
+fixtures are proved and reviewed. Deployment and scheduled cutover remain
+outside this phase.

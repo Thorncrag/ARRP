@@ -25,6 +25,7 @@ import sys
 import tempfile
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -192,6 +193,9 @@ GITHUB_APP_KEYCHAIN_SERVICE = "org.thorncrag.arrp.github-app.v1"
 GITHUB_APP_KEYCHAIN_ACCOUNT = "ARRP Automation private key"
 GITHUB_PROJECT_KEYCHAIN_SERVICE = "org.thorncrag.arrp.github-project"
 GITHUB_PROJECT_KEYCHAIN_ACCOUNT = "ARRP Project token"
+REQUIRED_CHECKS = frozenset({"ARRP Validation", "CodeQL"})
+P5_SUPERVISED_PHASE = "P5_SUPERVISED_END_TO_END_PROOF"
+P5_SUPERVISED_AUTHORIZATION = "BENJAMIN_APPROVED_P5_LIVE_FIXTURE"
 BROKER_OPERATION_TYPES = frozenset(
     {
         "read_state",
@@ -346,6 +350,7 @@ class RunnerConfig:
     scheduled_for: str | None = None
     runtime_files: tuple[str, ...] = field(default_factory=lambda: RUNTIME_FILES)
     console_projection: Path | None = None
+    supervised_live: bool = False
 
     def validate(self) -> None:
         canonical = self.canonical_path.resolve()
@@ -356,12 +361,16 @@ class RunnerConfig:
                 raise TransactionError("non-fixture canonical path is not the approved ARRP path")
             if state != Path.home() / "Library/Application Support/ARRP":
                 raise TransactionError("non-fixture state root is not the approved ARRP state root")
+            if self.supervised_live and self.trigger != "manual-p5-supervised":
+                raise TransactionError("live supervision requires the exact P5 manual trigger")
         else:
             fixture = self.fixture_root.resolve()
             if not _is_within(canonical, fixture) or not _is_within(state, fixture):
                 raise TransactionError("fixture repository and state root must stay inside fixture root")
             if canonical == Path("/Users/benjaminsmith/Automation Workspaces/ARRP"):
                 raise TransactionError("fixture mode cannot target Benjamin's canonical repository")
+            if self.supervised_live:
+                raise TransactionError("fixture mode cannot claim live supervision")
 
 
 @dataclass(frozen=True)
@@ -820,6 +829,58 @@ def required_checks_readback(
     return observed
 
 
+def wait_for_required_checks(
+    token: SensitiveValue,
+    *,
+    head_sha: str,
+    timeout_seconds: int,
+    poll_seconds: float,
+    api_request: Callable[..., Any] = github_api_request,
+    monotonic: Callable[[], float] = time.monotonic,
+    sleeper: Callable[[float], None] = time.sleep,
+) -> dict[str, str]:
+    """Wait for the exact required checks while failing closed on any failure."""
+
+    if timeout_seconds <= 0 or poll_seconds < 0:
+        raise GitHubBrokerError("invalid required-check wait configuration")
+    deadline = monotonic() + timeout_seconds
+    while True:
+        observed = required_checks_readback(
+            token,
+            head_sha=head_sha,
+            api_request=api_request,
+        )
+        failed = {
+            name: result
+            for name, result in observed.items()
+            if result
+            in {
+                "failure",
+                "cancelled",
+                "timed_out",
+                "action_required",
+                "error",
+            }
+        }
+        if failed:
+            raise GitHubBrokerError(f"pull-request checks failed: {failed}")
+        if all(
+            observed.get(name) in {"success", "neutral", "skipped"}
+            for name in REQUIRED_CHECKS
+        ):
+            return observed
+        if monotonic() >= deadline:
+            incomplete = {
+                name: observed.get(name)
+                for name in REQUIRED_CHECKS
+                if observed.get(name) not in {"success", "neutral", "skipped"}
+            }
+            raise GitHubBrokerError(
+                f"required checks did not complete before timeout: {incomplete}"
+            )
+        sleeper(poll_seconds)
+
+
 def merge_exact_head(
     token: SensitiveValue,
     *,
@@ -858,7 +919,7 @@ def merge_exact_head(
     checks = required_checks_readback(
         token, head_sha=expected_head, api_request=api_request
     )
-    required = {"ARRP Validation", "CodeQL"}
+    required = REQUIRED_CHECKS
     incomplete = {
         name: checks.get(name)
         for name in required
@@ -897,6 +958,59 @@ def merge_exact_head(
     return merge_sha
 
 
+def wait_for_pages_deployment(
+    token: SensitiveValue,
+    *,
+    merge_sha: str,
+    timeout_seconds: int,
+    poll_seconds: float,
+    api_request: Callable[..., Any] = github_api_request,
+    monotonic: Callable[[], float] = time.monotonic,
+    sleeper: Callable[[float], None] = time.sleep,
+) -> dict[str, Any]:
+    """Require a successful public-site workflow for the exact merge SHA."""
+
+    if timeout_seconds <= 0 or poll_seconds < 0:
+        raise GitHubBrokerError("invalid Pages wait configuration")
+    encoded_sha = urllib.parse.quote(merge_sha, safe="")
+    path = (
+        f"/repos/{GITHUB_REPOSITORY}/actions/workflows/public-site.yml/runs"
+        f"?event=push&head_sha={encoded_sha}&per_page=20"
+    )
+    deadline = monotonic() + timeout_seconds
+    while True:
+        response = api_request("GET", path, token)
+        rows = response.get("workflow_runs") if isinstance(response, dict) else None
+        if not isinstance(rows, list):
+            raise GitHubBrokerError("Pages workflow lookup returned invalid data")
+        exact = [
+            row
+            for row in rows
+            if isinstance(row, dict) and row.get("head_sha") == merge_sha
+        ]
+        if len(exact) > 1:
+            exact.sort(key=lambda row: int(row.get("id", 0)), reverse=True)
+        if exact:
+            run = exact[0]
+            if run.get("status") == "completed":
+                if run.get("conclusion") != "success":
+                    raise GitHubBrokerError(
+                        "exact-SHA public-site workflow did not succeed"
+                    )
+                return {
+                    "id": run.get("id"),
+                    "head_sha": merge_sha,
+                    "status": "completed",
+                    "conclusion": "success",
+                    "url": run.get("html_url"),
+                }
+        if monotonic() >= deadline:
+            raise GitHubBrokerError(
+                "exact-SHA public-site workflow did not complete before timeout"
+            )
+        sleeper(poll_seconds)
+
+
 def github_graphql_request(
     query: str,
     variables: Mapping[str, Any],
@@ -916,6 +1030,149 @@ def github_graphql_request(
     if not isinstance(data, dict):
         raise GitHubBrokerError("GitHub GraphQL response omitted data")
     return data
+
+
+PROJECT_TEXT_FIELD_QUERY = """
+query($item: ID!) {
+  node(id: $item) {
+    ... on ProjectV2Item {
+      fieldValues(first: 100) {
+        nodes {
+          ... on ProjectV2ItemFieldTextValue {
+            text
+            field {
+              ... on ProjectV2FieldCommon {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+"""
+
+PROJECT_TEXT_FIELD_UPDATE = """
+mutation($project: ID!, $item: ID!, $field: ID!, $text: String!) {
+  updateProjectV2ItemFieldValue(input: {
+    projectId: $project,
+    itemId: $item,
+    fieldId: $field,
+    value: {text: $text}
+  }) {
+    projectV2Item { id }
+  }
+}
+"""
+
+PROJECT_FIELD_CLEAR = """
+mutation($project: ID!, $item: ID!, $field: ID!) {
+  clearProjectV2ItemFieldValue(input: {
+    projectId: $project,
+    itemId: $item,
+    fieldId: $field
+  }) {
+    projectV2Item { id }
+  }
+}
+"""
+
+
+def read_project_text_field(
+    fixture: Mapping[str, Any],
+    token: SensitiveValue,
+    *,
+    graphql_request: Callable[..., dict[str, Any]] = github_graphql_request,
+) -> str | None:
+    data = graphql_request(
+        PROJECT_TEXT_FIELD_QUERY,
+        {"item": fixture["item_id"]},
+        token,
+    )
+    node = data.get("node")
+    values = node.get("fieldValues", {}).get("nodes", []) if isinstance(node, dict) else []
+    for value in values:
+        field_value = value.get("field") if isinstance(value, dict) else None
+        if (
+            isinstance(value, dict)
+            and isinstance(field_value, dict)
+            and field_value.get("id") == fixture["field_id"]
+        ):
+            text_value = value.get("text")
+            return text_value if isinstance(text_value, str) else None
+    return None
+
+
+def write_project_text_field(
+    fixture: Mapping[str, Any],
+    value: str | None,
+    token: SensitiveValue,
+    *,
+    graphql_request: Callable[..., dict[str, Any]] = github_graphql_request,
+) -> None:
+    variables = {
+        "project": fixture["project_id"],
+        "item": fixture["item_id"],
+        "field": fixture["field_id"],
+    }
+    if value is None:
+        graphql_request(PROJECT_FIELD_CLEAR, variables, token)
+    else:
+        graphql_request(
+            PROJECT_TEXT_FIELD_UPDATE,
+            {**variables, "text": value},
+            token,
+        )
+
+
+def run_reversible_project_text_fixture(
+    fixture: Mapping[str, Any],
+    token: SensitiveValue,
+    *,
+    read_field: Callable[..., str | None] = read_project_text_field,
+    write_field: Callable[..., None] = write_project_text_field,
+) -> dict[str, Any]:
+    """Change one exact text field, read it back, and restore its prior value."""
+
+    required = {
+        "project_id",
+        "item_id",
+        "field_id",
+        "expected_old_value",
+        "fixture_value",
+    }
+    if set(fixture) != required or not all(
+        isinstance(fixture[name], str) and fixture[name]
+        for name in ("project_id", "item_id", "field_id", "fixture_value")
+    ):
+        raise GitHubBrokerError("Project fixture fields are invalid")
+    expected_old = fixture["expected_old_value"]
+    if expected_old is not None and not isinstance(expected_old, str):
+        raise GitHubBrokerError("Project fixture expected value is invalid")
+    observed = read_field(fixture, token)
+    if observed != expected_old:
+        raise GitHubBrokerError("Project fixture prior-state check failed")
+    changed = False
+    try:
+        write_field(fixture, fixture["fixture_value"], token)
+        changed = True
+        if read_field(fixture, token) != fixture["fixture_value"]:
+            raise GitHubBrokerError("Project fixture changed-state readback failed")
+    finally:
+        if changed:
+            write_field(fixture, expected_old, token)
+    restored = read_field(fixture, token)
+    if restored != expected_old:
+        raise GitHubBrokerError("Project fixture restoration readback failed")
+    return {
+        "project_id": fixture["project_id"],
+        "item_id": fixture["item_id"],
+        "field_id": fixture["field_id"],
+        "changed_value_readback": True,
+        "restored": True,
+        "restored_value": restored,
+    }
 
 
 def execute_project_field_intent(
@@ -1553,16 +1810,92 @@ def _manifest_path_state(repository: Path) -> dict[str, tuple[str, int | None, s
     }
 
 
+def read_p5_supervised_plan(path: Path) -> dict[str, Any]:
+    """Read an owner-only explicit live-fixture plan outside the repository."""
+
+    resolved = path.resolve()
+    info = resolved.stat()
+    if (
+        not stat.S_ISREG(info.st_mode)
+        or info.st_uid != os.getuid()
+        or stat.S_IMODE(info.st_mode) != 0o600
+    ):
+        raise TransactionError("P5 supervised plan must be an owner-only 0600 file")
+    repository = Path("/Users/benjaminsmith/Automation Workspaces/ARRP").resolve()
+    if _is_within(resolved, repository):
+        raise TransactionError("P5 supervised plan must remain outside the repository")
+    plan = read_json_object(resolved)
+    required_plan = {
+        "contract_phase",
+        "authorization",
+        "stages",
+        "queue_command",
+        "context_command",
+        "elim",
+        "post_commands",
+        "validation_commands",
+        "publication",
+    }
+    if set(plan) != required_plan:
+        raise TransactionError("P5 supervised plan fields are not exact")
+    if plan.get("contract_phase") != P5_SUPERVISED_PHASE:
+        raise TransactionError("P5 supervised plan has the wrong contract phase")
+    if plan.get("authorization") != P5_SUPERVISED_AUTHORIZATION:
+        raise TransactionError("P5 supervised plan lacks exact owner authorization")
+    publication = plan.get("publication")
+    if not isinstance(publication, dict):
+        raise TransactionError("P5 supervised plan lacks publication configuration")
+    required_publication = {
+        "app_identity_file",
+        "check_timeout_seconds",
+        "pages_timeout_seconds",
+        "poll_seconds",
+        "pull_request_title",
+        "pull_request_body",
+        "project_fixture",
+    }
+    if set(publication) != required_publication:
+        raise TransactionError("P5 publication configuration fields are not exact")
+    for name in ("check_timeout_seconds", "pages_timeout_seconds"):
+        if not isinstance(publication[name], int) or publication[name] <= 0:
+            raise TransactionError(f"P5 publication {name} is invalid")
+    if (
+        not isinstance(publication["poll_seconds"], (int, float))
+        or publication["poll_seconds"] < 0
+    ):
+        raise TransactionError("P5 publication poll_seconds is invalid")
+    for name in ("app_identity_file", "pull_request_title", "pull_request_body"):
+        if not isinstance(publication[name], str) or not publication[name]:
+            raise TransactionError(f"P5 publication {name} is invalid")
+    if publication["project_fixture"] is not None and not isinstance(
+        publication["project_fixture"], dict
+    ):
+        raise TransactionError("P5 Project fixture is invalid")
+    return plan
+
+
 def run_p2_fixture_cycle(
     config: RunnerConfig,
     transaction: TransactionResult,
     plan_path: Path,
+    *,
+    supervised: bool = False,
 ) -> dict[str, Any]:
-    """Run a complete, local-only P2 cycle against an explicit fixture plan."""
+    """Run a complete P2 cycle against an explicit fixture or supervised plan."""
 
-    if config.fixture_root is None or transaction.worktree_path is None:
-        raise TransactionError("P2 fixture cycle requires a prepared fixture worktree")
+    if transaction.worktree_path is None:
+        raise TransactionError("P2 cycle requires a prepared transaction worktree")
     plan = read_json_object(plan_path)
+    if supervised:
+        if not config.supervised_live:
+            raise TransactionError("P5 supervision is not enabled in runner configuration")
+        if (
+            plan.get("contract_phase") != P5_SUPERVISED_PHASE
+            or plan.get("authorization") != P5_SUPERVISED_AUTHORIZATION
+        ):
+            raise TransactionError("P5 supervised cycle lacks exact authorization")
+    elif config.fixture_root is None:
+        raise TransactionError("P2 fixture cycle requires fixture mode")
     run_dir = config.state_root / "runs" / transaction.run_id
     worktree = Path(transaction.worktree_path).resolve()
     environment = dict(os.environ)
@@ -1700,13 +2033,22 @@ def run_p3_fixture_cycle(
     config: RunnerConfig,
     transaction: TransactionResult,
     plan_path: Path,
+    *,
+    supervised: bool = False,
 ) -> dict[str, Any]:
     """Run P2 plus post-generation, validation, and a proved local-only commit."""
 
-    if config.fixture_root is None or transaction.worktree_path is None:
-        raise TransactionError("P3 fixture cycle requires a prepared fixture worktree")
+    if transaction.worktree_path is None:
+        raise TransactionError("P3 cycle requires a prepared transaction worktree")
+    if not supervised and config.fixture_root is None:
+        raise TransactionError("P3 fixture cycle requires fixture mode")
     plan = read_json_object(plan_path)
-    p2 = run_p2_fixture_cycle(config, transaction, plan_path)
+    p2 = run_p2_fixture_cycle(
+        config,
+        transaction,
+        plan_path,
+        supervised=supervised,
+    )
     worktree = Path(transaction.worktree_path).resolve()
     run_dir = config.state_root / "runs" / transaction.run_id
     environment = dict(os.environ)
@@ -1736,7 +2078,7 @@ def run_p3_fixture_cycle(
     )
     return {
         "schema_version": 1,
-        "phase": "P3",
+        "phase": "P5" if supervised else "P3",
         "run_id": transaction.run_id,
         "publication_attempted": False,
         "p2": p2,
@@ -2058,6 +2400,32 @@ def write_console_status_projection(status_path: Path, output: Path | None = Non
     return target
 
 
+def claim_scheduled_slot(state_root: Path, scheduled_for: str) -> bool:
+    """Claim one exact scheduled slot while the caller holds the run lock."""
+
+    try:
+        parsed = datetime.fromisoformat(scheduled_for.replace("Z", "+00:00"))
+    except ValueError as error:
+        raise TransactionError("scheduled_for is not a valid timestamp") from error
+    if parsed.tzinfo is None:
+        raise TransactionError("scheduled_for must include a timezone")
+    normalized = parsed.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+    path = state_root / "last-scheduled-slot.json"
+    if path.exists():
+        previous = read_json_object(path)
+        if previous.get("scheduled_for") == normalized:
+            return False
+    atomic_write_json(
+        path,
+        {
+            "schema_version": SCHEMA_VERSION,
+            "scheduled_for": normalized,
+            "claimed_at": iso_utc(),
+        },
+    )
+    return True
+
+
 def explicit_stage(repository: Path, paths: Sequence[str]) -> None:
     if not paths:
         return
@@ -2348,6 +2716,90 @@ def create_local_final_commit(
     }
 
 
+def committed_range_manifest(
+    repository: Path,
+    base_commit: str,
+    head_commit: str,
+) -> list[IndexRecord]:
+    """Classify the complete publication range, including checkpoint ancestry."""
+
+    dynamic_protected = governing_protected_paths(repository)
+    records: list[IndexRecord] = []
+    for status_code, path in _changed_paths_against_commit(
+        repository,
+        base_commit,
+        head_commit,
+    ):
+        base_entry = _tree_entry(repository, base_commit, path)
+        head_entry = _tree_entry(repository, head_commit, path)
+        mode, blob = head_entry if head_entry is not None else (None, None)
+        effective_mode = mode or (base_entry[0] if base_entry else None)
+        if effective_mode == "120000":
+            raise TransactionError(f"symlink change is prohibited: {path}")
+        if effective_mode == "160000":
+            raise TransactionError(f"submodule change is prohibited: {path}")
+        if mode is not None and mode.endswith("755"):
+            base_mode = base_entry[0] if base_entry else None
+            if base_mode != mode:
+                raise TransactionError(f"executable mode change is prohibited: {path}")
+        classification = classify_path(
+            path,
+            int(effective_mode, 8) if effective_mode else None,
+            tracked=base_entry is not None,
+            dynamic_protected=dynamic_protected,
+        )
+        records.append(
+            IndexRecord(path, mode, blob, status_code, classification)
+        )
+    return records
+
+
+def classify_publication_range(
+    repository: Path,
+    run_dir: Path,
+    *,
+    base_commit: str,
+    head_commit: str,
+) -> dict[str, Any]:
+    records = committed_range_manifest(repository, base_commit, head_commit)
+    findings = scan_staged_blobs(repository, records)
+    prohibited = [
+        record.path
+        for record in records
+        if record.classification in {"prohibited", "unrecognized"}
+    ]
+    atomic_write_json(
+        run_dir / "publication-manifest.json",
+        {
+            "schema_version": SCHEMA_VERSION,
+            "base_commit": base_commit,
+            "head_commit": head_commit,
+            "records": [record.as_dict() for record in records],
+            "secret_private_findings": findings,
+        },
+    )
+    if prohibited:
+        raise TransactionError(
+            "prohibited paths cannot enter publication: " + ", ".join(prohibited)
+        )
+    if findings:
+        raise TransactionError(
+            "secret/private detector blocked publication; "
+            "see redacted path-only manifest"
+        )
+    classification = {
+        name: [record.path for record in records if record.classification == name]
+        for name in ("ordinary", "protected", "prohibited")
+    }
+    return {
+        "base_commit": base_commit,
+        "head_commit": head_commit,
+        "classification": classification,
+        "review_required": bool(classification["protected"]),
+        "manifest": str(run_dir / "publication-manifest.json"),
+    }
+
+
 def assert_canonical_unchanged(
     repository: Path, expected_head: str, expected_manifest_sha256: str
 ) -> None:
@@ -2425,11 +2877,183 @@ def fast_forward_main(repository: Path, expected_origin_main: str) -> str:
     return observed
 
 
+def remove_successful_transaction_worktree(
+    canonical_repository: Path,
+    state_root: Path,
+    worktree: Path,
+) -> None:
+    """Remove only a clean, successful transaction worktree under state_root."""
+
+    canonical = canonical_repository.resolve()
+    candidate = worktree.resolve()
+    expected_parent = (state_root / "worktrees").resolve()
+    if candidate == canonical or not _is_within(candidate, expected_parent):
+        raise TransactionError("transaction worktree cleanup target is outside state root")
+    if not candidate.exists():
+        raise TransactionError("transaction worktree cleanup target is missing")
+    if status_manifest(candidate):
+        raise TransactionError("successful transaction worktree is not clean")
+    git(canonical, "worktree", "remove", str(candidate))
+    if candidate.exists():
+        raise TransactionError("transaction worktree still exists after cleanup")
+    registered = git_text(canonical, "worktree", "list", "--porcelain")
+    if str(candidate) in registered:
+        raise TransactionError("transaction worktree remains registered after cleanup")
+
+
+def publish_supervised_transaction(
+    config: RunnerConfig,
+    transaction: TransactionResult,
+    cycle_summary: Mapping[str, Any],
+    publication: Mapping[str, Any],
+    *,
+    api_request: Callable[..., Any] = github_api_request,
+    graphql_request: Callable[..., dict[str, Any]] = github_graphql_request,
+) -> dict[str, Any]:
+    """Publish one reviewed P5 transaction and complete exact local readback."""
+
+    if not config.supervised_live or config.trigger != "manual-p5-supervised":
+        raise TransactionError("live publication requires exact P5 supervision")
+    if (
+        transaction.worktree_path is None
+        or transaction.branch is None
+        or transaction.fetched_origin_main is None
+    ):
+        raise TransactionError("P5 publication requires a complete transaction")
+    if cycle_summary.get("phase") != "P5":
+        raise TransactionError("P5 publication received the wrong local cycle")
+    worktree = Path(transaction.worktree_path).resolve()
+    run_dir = config.state_root / "runs" / transaction.run_id
+    expected_head = git_text(worktree, "rev-parse", "HEAD")
+    publication_range = classify_publication_range(
+        worktree,
+        run_dir,
+        base_commit=transaction.fetched_origin_main,
+        head_commit=expected_head,
+    )
+    if publication_range["review_required"]:
+        raise TransactionError(
+            "the ordinary P5 supervised cycle unexpectedly contains protected paths"
+        )
+    if not publication_range["classification"]["ordinary"]:
+        raise TransactionError("the ordinary P5 supervised cycle has no publishable change")
+
+    identity_path = Path(str(publication["app_identity_file"])).resolve()
+    identity = GitHubAppIdentity.from_json(identity_path)
+    private_key = read_keychain_secret(
+        GITHUB_APP_KEYCHAIN_SERVICE,
+        GITHUB_APP_KEYCHAIN_ACCOUNT,
+    )
+    app_token = mint_installation_token(
+        identity,
+        private_key,
+        api_request=api_request,
+    )
+    refspec = f"{expected_head}:refs/heads/{transaction.branch}"
+    git_push_with_token(worktree, refspec, app_token)
+    pull = open_or_update_nightly_pull_request(
+        app_token,
+        branch=transaction.branch,
+        expected_head=expected_head,
+        title=str(publication["pull_request_title"]),
+        body=str(publication["pull_request_body"]),
+        api_request=api_request,
+    )
+    pull_number = pull.get("number")
+    pull_url = pull.get("html_url")
+    if not isinstance(pull_number, int) or not isinstance(pull_url, str):
+        raise GitHubBrokerError("P5 pull-request readback omitted identity")
+    checks = wait_for_required_checks(
+        app_token,
+        head_sha=expected_head,
+        timeout_seconds=int(publication["check_timeout_seconds"]),
+        poll_seconds=float(publication["poll_seconds"]),
+        api_request=api_request,
+    )
+
+    project_result = None
+    project_fixture = publication.get("project_fixture")
+    if project_fixture is not None:
+        project_token = read_keychain_secret(
+            GITHUB_PROJECT_KEYCHAIN_SERVICE,
+            GITHUB_PROJECT_KEYCHAIN_ACCOUNT,
+        )
+
+        def project_graphql(
+            query: str,
+            variables: Mapping[str, Any],
+            token: SensitiveValue,
+        ) -> dict[str, Any]:
+            return graphql_request(
+                query,
+                variables,
+                token,
+                api_request=api_request,
+            )
+
+        project_result = run_reversible_project_text_fixture(
+            project_fixture,
+            project_token,
+            read_field=lambda fixture, token: read_project_text_field(
+                fixture,
+                token,
+                graphql_request=project_graphql,
+            ),
+            write_field=lambda fixture, value, token: write_project_text_field(
+                fixture,
+                value,
+                token,
+                graphql_request=project_graphql,
+            ),
+        )
+
+    merge_sha = merge_exact_head(
+        app_token,
+        pull_number=pull_number,
+        expected_head=expected_head,
+        expected_base=transaction.fetched_origin_main,
+        protected=False,
+        api_request=api_request,
+    )
+    pages = wait_for_pages_deployment(
+        app_token,
+        merge_sha=merge_sha,
+        timeout_seconds=int(publication["pages_timeout_seconds"]),
+        poll_seconds=float(publication["poll_seconds"]),
+        api_request=api_request,
+    )
+    canonical = config.canonical_path.resolve()
+    git(canonical, "fetch", "origin", "main")
+    observed_origin = git_text(canonical, "rev-parse", "origin/main")
+    if observed_origin != merge_sha:
+        raise TransactionError("origin/main readback differs from the exact merge commit")
+    synchronized = fast_forward_main(canonical, merge_sha)
+    remove_successful_transaction_worktree(canonical, config.state_root, worktree)
+    return {
+        "phase": "P5",
+        "publication_attempted": True,
+        "publication_range": publication_range,
+        "pull_request": {"number": pull_number, "url": pull_url},
+        "expected_pr_head": expected_head,
+        "required_checks": checks,
+        "project_sync": project_result,
+        "merge_commit": merge_sha,
+        "pages_workflow_run": pages,
+        "pages_conclusion": "success",
+        "canonical_main": synchronized,
+        "worktree_removed": True,
+    }
+
+
 def prepare_transaction(
     config: RunnerConfig,
     *,
     run_id: str | None = None,
     local_cycle: Callable[[TransactionResult], Mapping[str, Any]] | None = None,
+    publication_cycle: Callable[
+        [TransactionResult, Mapping[str, Any]], Mapping[str, Any]
+    ]
+    | None = None,
 ) -> TransactionResult:
     config.validate()
     run_id = run_id or make_run_id()
@@ -2463,6 +3087,31 @@ def prepare_transaction(
     try:
         with exclusive_lock(config.state_root, run_id, on_error=record_failure):
             write_status(config, status)
+            if config.scheduled_for is not None and not claim_scheduled_slot(
+                config.state_root,
+                config.scheduled_for,
+            ):
+                write_status(
+                    config,
+                    status,
+                    status="completed",
+                    stage="20_finish",
+                    completed_at=iso_utc(),
+                    validation_summary={
+                        "phase": "due-check",
+                        "due": False,
+                        "reason": "scheduled_slot_already_claimed",
+                    },
+                    exact_next_action="No duplicate catch-up run was started.",
+                )
+                return TransactionResult(
+                    run_id,
+                    "completed",
+                    None,
+                    None,
+                    None,
+                    None,
+                )
             repository = config.canonical_path.resolve()
             if not (repository / ".git").exists():
                 raise TransactionError("canonical path is not a Git worktree")
@@ -2602,22 +3251,69 @@ def prepare_transaction(
                 if isinstance(cycle_summary, Mapping) and cycle_summary.get("phase")
                 else "P2"
             )
+            publication_summary = None
+            if publication_cycle is not None:
+                if not isinstance(cycle_summary, Mapping):
+                    raise TransactionError(
+                        "publication requires a completed local cycle summary"
+                    )
+                assert_canonical_unchanged(repository, starting_head, clean_digest)
+                publication_summary = publication_cycle(prepared, cycle_summary)
+                cycle_phase = "P5"
             write_status(
                 config,
                 status,
                 status="completed",
-                stage="06_local_cycle" if cycle_summary is not None else "05_worktree",
+                stage="20_finish" if publication_summary is not None else
+                "06_local_cycle" if cycle_summary is not None else "05_worktree",
                 completed_at=iso_utc(),
                 worktree_path=str(worktree),
-                preserved_paths=[branch, str(worktree)],
+                preserved_paths=[] if publication_summary is not None else [branch, str(worktree)],
                 validation_summary={
                     "phase": cycle_phase if cycle_summary is not None else "P1",
                     "transaction_worktree_prepared": True,
-                    "publication_attempted": False,
+                    "publication_attempted": publication_summary is not None,
                     **({"local_cycle": cycle_summary} if cycle_summary is not None else {}),
+                    **(
+                        {"publication_cycle": publication_summary}
+                        if publication_summary is not None
+                        else {}
+                    ),
                 },
+                pull_request=(
+                    publication_summary.get("pull_request")
+                    if publication_summary is not None
+                    else None
+                ),
+                expected_pr_head=(
+                    publication_summary.get("expected_pr_head")
+                    if publication_summary is not None
+                    else None
+                ),
+                merge_commit=(
+                    publication_summary.get("merge_commit")
+                    if publication_summary is not None
+                    else None
+                ),
+                project_sync=(
+                    publication_summary.get("project_sync")
+                    if publication_summary is not None
+                    else None
+                ),
+                pages_workflow_run=(
+                    publication_summary.get("pages_workflow_run")
+                    if publication_summary is not None
+                    else None
+                ),
+                pages_conclusion=(
+                    publication_summary.get("pages_conclusion")
+                    if publication_summary is not None
+                    else None
+                ),
                 exact_next_action=(
-                    "Preserve the completed local-only final commit for review."
+                    "P5 supervised publication completed with exact readback."
+                    if publication_summary is not None
+                    else "Preserve the completed local-only final commit for review."
                     if cycle_summary is not None and cycle_phase == "P3"
                     else "Preserve the completed local-only cycle for review."
                     if cycle_summary is not None
@@ -2652,6 +3348,11 @@ def _parser() -> argparse.ArgumentParser:
         type=Path,
         help="explicit local-only P3 fixture plan; valid only with --fixture",
     )
+    parser.add_argument(
+        "--p5-supervised-plan",
+        type=Path,
+        help="owner-approved P5 live plan; requires --manual and reviewed main",
+    )
     return parser
 
 
@@ -2661,7 +3362,14 @@ def main(argv: Sequence[str] | None = None) -> int:
         repository = (args.canonical_path or Path.cwd()).resolve()
         print(json.dumps(validate_repository_policy(repository), sort_keys=True))
         return 0
-    if args.fixture is None and not (args.manual and args.dry_run):
+    if args.p5_supervised_plan is not None:
+        if args.fixture is not None or args.dry_run or not args.manual:
+            print(
+                "P5 supervised execution requires --manual without fixture or dry-run",
+                file=sys.stderr,
+            )
+            return 64
+    elif args.fixture is None and not (args.manual and args.dry_run):
         print(
             "P1_DISABLED: use --fixture, or explicit --manual --dry-run",
             file=sys.stderr,
@@ -2670,10 +3378,17 @@ def main(argv: Sequence[str] | None = None) -> int:
     fixture = args.fixture.resolve() if args.fixture else None
     selected_plans = [
         path
-        for path in (args.p2_fixture_plan, args.p3_fixture_plan)
+        for path in (
+            args.p2_fixture_plan,
+            args.p3_fixture_plan,
+            args.p5_supervised_plan,
+        )
         if path is not None
     ]
-    if selected_plans and fixture is None:
+    if (
+        (args.p2_fixture_plan is not None or args.p3_fixture_plan is not None)
+        and fixture is None
+    ):
         print("P2/P3 fixture plans require --fixture", file=sys.stderr)
         return 64
     if len(selected_plans) > 1:
@@ -2694,17 +3409,24 @@ def main(argv: Sequence[str] | None = None) -> int:
         config.validate()
         print("P1_DRY_RUN_OK: configuration validated; no repository operation performed")
         return 0
+    supervised_plan = (
+        read_p5_supervised_plan(args.p5_supervised_plan)
+        if args.p5_supervised_plan is not None
+        else None
+    )
     config = RunnerConfig(
         canonical,
         state,
         fixture_root=fixture,
-        trigger="fixture",
+        trigger="manual-p5-supervised" if supervised_plan is not None else "fixture",
         console_projection=(
             canonical
             / "research/horizon-review-console/data/local-automation-status.js"
         ),
+        supervised_live=supervised_plan is not None,
     )
     cycle_output: dict[str, Any] = {}
+    publication_output: dict[str, Any] = {}
     local_cycle = None
     if args.p2_fixture_plan is not None:
         plan = args.p2_fixture_plan.resolve()
@@ -2722,11 +3444,47 @@ def main(argv: Sequence[str] | None = None) -> int:
         def local_cycle(transaction: TransactionResult) -> Mapping[str, Any]:
             cycle_output.update(run_p3_fixture_cycle(config, transaction, plan))
             return cycle_output
+    elif supervised_plan is not None:
+        plan = args.p5_supervised_plan.resolve()
 
-    result = prepare_transaction(config, run_id=args.run_id, local_cycle=local_cycle)
+        def local_cycle(transaction: TransactionResult) -> Mapping[str, Any]:
+            cycle_output.update(
+                run_p3_fixture_cycle(
+                    config,
+                    transaction,
+                    plan,
+                    supervised=True,
+                )
+            )
+            return cycle_output
+
+        def publication_cycle(
+            transaction: TransactionResult,
+            summary: Mapping[str, Any],
+        ) -> Mapping[str, Any]:
+            publication_output.update(
+                publish_supervised_transaction(
+                    config,
+                    transaction,
+                    summary,
+                    supervised_plan["publication"],
+                )
+            )
+            return publication_output
+
+    result = prepare_transaction(
+        config,
+        run_id=args.run_id,
+        local_cycle=local_cycle,
+        publication_cycle=(
+            publication_cycle if supervised_plan is not None else None
+        ),
+    )
     output: dict[str, Any] = {"transaction": result.__dict__}
     if cycle_output:
         output[cycle_output.get("phase", "P2").lower()] = cycle_output
+    if publication_output:
+        output["publication"] = publication_output
     print(json.dumps(output, sort_keys=True, default=list))
     return 0 if result.status == "completed" else 2
 

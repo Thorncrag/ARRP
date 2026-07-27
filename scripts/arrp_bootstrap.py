@@ -28,6 +28,8 @@ def build_command(args: argparse.Namespace) -> list[str]:
         command.append("--dry-run")
     if args.run_id:
         command.extend(["--run-id", args.run_id])
+    if args.p5_supervised_plan:
+        command.extend(["--p5-supervised-plan", str(args.p5_supervised_plan)])
     return command
 
 
@@ -39,12 +41,20 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--manual", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--run-id")
+    parser.add_argument("--p5-supervised-plan", type=Path)
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = _parser().parse_args(argv)
-    if args.fixture is None and not (args.manual and args.dry_run):
+    if args.p5_supervised_plan is not None:
+        if args.fixture is not None or args.dry_run or not args.manual:
+            print(
+                "P5 supervised bootstrap requires --manual without fixture or dry-run",
+                file=sys.stderr,
+            )
+            return 64
+    elif args.fixture is None and not (args.manual and args.dry_run):
         print(
             "P1_DISABLED: bootstrap requires --fixture or explicit --manual --dry-run",
             file=sys.stderr,
