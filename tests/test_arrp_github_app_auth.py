@@ -124,6 +124,25 @@ class GitHubAppCredentialTests(unittest.TestCase):
         self.assertNotIn(token.reveal(), json.dumps(environment))
         self.assertEqual(environment["GIT_TERMINAL_PROMPT"], "0")
 
+    def test_workflow_change_is_rejected_before_authenticated_push(self):
+        token = MODULE.SensitiveValue("push-fixture-token")
+        changed = mock.Mock(
+            stdout=b".github/workflows/fixture.yml\0",
+            stderr=b"",
+            returncode=0,
+        )
+        with tempfile.TemporaryDirectory() as directory, mock.patch.object(
+            MODULE, "git", return_value=changed
+        ), mock.patch.object(MODULE.subprocess, "run") as run:
+            with self.assertRaisesRegex(
+                MODULE.GitHubBrokerError,
+                "workflow changes require Benjamin's credential",
+            ):
+                MODULE.git_push_with_token(
+                    Path(directory), "HEAD:refs/heads/fixture", token
+                )
+        run.assert_not_called()
+
     def test_revoked_or_rotated_credentials_fail_closed_without_value(self):
         token = MODULE.SensitiveValue("revoked-fixture-token")
         error = MODULE.urllib.error.URLError("fixture unavailable")

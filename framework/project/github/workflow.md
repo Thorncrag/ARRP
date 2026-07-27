@@ -37,7 +37,10 @@ Benjamin reviews and publishes workflow changes with his own credential.
 Elim may return only a typed request. The broker independently requires a
 registered operation, this repository, an exact source revision and prior
 state, recorded authority, public privacy class, non-human-reserved
-classification, idempotency key, correction rule, and exact readback. It
+classification, idempotency key, correction rule, and exact readback. Before
+an authenticated Git push, the broker compares the outgoing commit range to
+`origin/main` and rejects any `.github/workflows/**` path without presenting
+the App token. It
 stops on any mismatch and never treats generated text as executable authority.
 
 ## Tracking Rule
