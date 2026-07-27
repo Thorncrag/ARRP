@@ -17,14 +17,23 @@ domain event records, or the current-task checkpoint.
 
 ARRP uses **bot** for a deterministic script or program and **agent** for an LLM-directed worker. A bot uses a stable `-bot` designation; an LLM agent does not, regardless of whether either one runs manually, on a schedule, or in response to an event. Elim is an LLM agent.
 
+> **Deployment status — retired 2026-07-27.** All registered ARRP
+> maintenance roles are out of service pending the approved local-first
+> replacement. Their GitHub workflows are disabled, both launchd services and
+> labels are disabled with their installed definitions archived, and the
+> scheduled Codex Elim automation has been archived and removed. The runbooks,
+> workflows, scripts, and configuration below are retained as versioned
+> implementation history and migration input; they are not evidence of a
+> currently deployed or authorized automation.
+
 | Agent ID | Type | Status | Authoritative runbook | Runtime |
 | --- | --- | --- | --- | --- |
-| `run-coordinator-bot` | Deterministic bot | Enabled | [Run Coordinator Bot](runbooks/run-coordinator-bot.md) | `.github/workflows/run-coordinator-bot.yml` with local Codex dispatch |
-| `elim` | Conditional LLM agent | Enabled | [Elim](runbooks/elim.md) | Codex automation `elim`, dispatcher-managed isolated full checkout |
-| `project-integrity-bot` | Deterministic bot | Enabled | [Project Integrity Bot](runbooks/project-integrity-bot.md) | `.github/workflows/project-integrity.yml` |
-| `case-monitor-bot` | Deterministic bot | Enabled | [Case Monitor Bot](runbooks/case-monitor-bot.md) | `.github/workflows/case-monitor-bot.yml` |
-| `presidential-directives-bot` | Deterministic bot | Enabled | [Presidential Directives Bot](runbooks/presidential-directives-bot.md) | `.github/workflows/presidential-directives-bot.yml` |
-| `project-console-progress-bot` | Deterministic bot | Enabled | [Project Console Progress Bot](runbooks/project-console-progress-bot.md) | `.github/workflows/project-console-progress.yml` |
-| `source-checker-bot` | Deterministic bot | Report-only pilot | [Source Checker Bot](runbooks/source-checker-bot.md) | `.github/workflows/source-checker-bot.yml` |
+| `run-coordinator-bot` | Deterministic bot | Retired; source retained | [Run Coordinator Bot](runbooks/run-coordinator-bot.md) | Not deployed; former GitHub workflow and local dispatcher |
+| `elim` | Conditional LLM agent | Retired; source retained | [Elim](runbooks/elim.md) | Not deployed; former scheduled Codex automation and isolated checkout |
+| `project-integrity-bot` | Deterministic bot | Retired; source retained | [Project Integrity Bot](runbooks/project-integrity-bot.md) | Not deployed; former GitHub workflow |
+| `case-monitor-bot` | Deterministic bot | Retired; source retained | [Case Monitor Bot](runbooks/case-monitor-bot.md) | Not deployed; former GitHub workflow |
+| `presidential-directives-bot` | Deterministic bot | Retired; source retained | [Presidential Directives Bot](runbooks/presidential-directives-bot.md) | Not deployed; former GitHub workflow |
+| `project-console-progress-bot` | Deterministic bot | Retired; source retained | [Project Console Progress Bot](runbooks/project-console-progress-bot.md) | Not deployed; former GitHub workflow |
+| `source-checker-bot` | Deterministic bot | Retired; source retained | [Source Checker Bot](runbooks/source-checker-bot.md) | Not deployed; former report-only pilot workflow |
 
 Temporary task agents and one-off delegated subagents do not receive runbooks unless they become persistent named roles.

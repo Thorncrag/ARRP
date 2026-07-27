@@ -241,7 +241,7 @@
     },
     "agent_registry": {
       "path": "framework/project/automation/registry.md",
-      "sha256": "79cb7eaef6d66be0c12932cd1fc86fb3c03127f8a0a89515de2c90b29fc0a4e9",
+      "sha256": "3ca7d35a1fcfca389f73d2bd58ebacbf75e51b11e577a7f7836cac379ae71ace",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [

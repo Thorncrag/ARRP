@@ -93,6 +93,10 @@ SNAPSHOT_OVERRIDE_PATHS = {
 LOCAL_RUN_COORDINATOR_CONTROL = (
     ROOT / ".tmp" / "run-coordinator" / "control.json"
 )
+LEGACY_RUN_CHAIN_PATHS = {
+    "framework/logs/ELIM_RUN_LOG.md":
+        "framework/records/automation/elim-run-log.md",
+}
 PRINT_LEVEL_ORDER = (
     "public-proposal",
     "legislative-appendix",
@@ -2680,11 +2684,14 @@ PART_PREFIX = (
 
 
 def serialized_catalog(payload: dict[str, object]) -> str:
-    serialized = json.dumps(
-        payload,
-        ensure_ascii=False,
-        separators=(",", ":"),
-    ).replace("</", "<\\/")
+    serialized = "{\n" + ",\n".join(
+        (
+            f"{json.dumps(key, ensure_ascii=False)}:"
+            f"{json.dumps(value, ensure_ascii=False, separators=(',', ':'))}"
+        )
+        for key, value in payload.items()
+    ) + "\n}"
+    serialized = serialized.replace("</", "<\\/")
     return f"{CATALOG_PREFIX}{serialized};\n"
 
 
@@ -3513,6 +3520,21 @@ def successful_run_chain_stages(
     return sorted(latest.values(), key=lambda stage: str(stage["id"]))
 
 
+def normalize_run_chain_paths(value: object) -> object:
+    """Map retired repository paths in operational projections to live records."""
+    if isinstance(value, list):
+        return [normalize_run_chain_paths(item) for item in value]
+    if not isinstance(value, dict):
+        return value
+    normalized: dict[str, object] = {}
+    for key, item in value.items():
+        if key == "canonical_detail" and isinstance(item, str):
+            normalized[key] = LEGACY_RUN_CHAIN_PATHS.get(item, item)
+        else:
+            normalized[key] = normalize_run_chain_paths(item)
+    return normalized
+
+
 def run_chain_snapshot() -> dict[str, object]:
     """Read the latest generated run-chain state without making it authoritative."""
     local_chain = os.environ.get("ARRP_RUN_CHAIN_SNAPSHOT", "").strip()
@@ -3561,7 +3583,7 @@ def run_chain_snapshot() -> dict[str, object]:
                 payload["last_successful_stages"] = successful_run_chain_stages(
                     *history_sources
                 )
-                return payload
+                return normalize_run_chain_paths(payload)
         except (OSError, json.JSONDecodeError):
             pass
     try:
@@ -3574,12 +3596,16 @@ def run_chain_snapshot() -> dict[str, object]:
         )
         payload = json.loads(completed.stdout)
         if isinstance(payload, dict):
-            return payload
+            return normalize_run_chain_paths(payload)
     except (subprocess.CalledProcessError, json.JSONDecodeError):
         pass
     existing = existing_console_payload()
     cached = existing.get("run_chain", {})
-    return cached if isinstance(cached, dict) else {}
+    return (
+        normalize_run_chain_paths(cached)
+        if isinstance(cached, dict)
+        else {}
+    )
 
 
 def source_checker_snapshot() -> dict[str, object]:

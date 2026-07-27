@@ -502,6 +502,34 @@ class HorizonIntakeTest(unittest.TestCase):
             "Verified recovery passed.",
         )
 
+    def test_run_chain_maps_retired_canonical_detail_to_live_record(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            chain = Path(directory) / "run-chain.json"
+            chain.write_text(
+                json.dumps(
+                    {
+                        "host_action_items": [
+                            {
+                                "id": "legacy-gap",
+                                "canonical_detail":
+                                    "framework/logs/ELIM_RUN_LOG.md",
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+            with patch.dict(
+                os.environ,
+                {"ARRP_RUN_CHAIN_SNAPSHOT": str(chain)},
+            ):
+                snapshot = run_chain_snapshot()
+
+        self.assertEqual(
+            snapshot["host_action_items"][0]["canonical_detail"],
+            "framework/records/automation/elim-run-log.md",
+        )
+
     def test_progress_board_accounts_for_every_current_record_exactly_once(self) -> None:
         candidates = self.console["active_horizon_records"]
         proposals = self.console["progress"]["proposals"]
