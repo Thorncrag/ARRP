@@ -895,7 +895,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "discovered_work_unit_id": "REVIEW-PROJECT-GOVERNANCE-20260727T075310Z",
           "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
           "disposition": "review_completed",
-          "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+          "canonical_detail": "framework/records/automation/elim-run-log.md",
           "next_trigger": "A material governing-boundary change or 2026-08-10T08:10:38+00:00, whichever occurs first."
         },
         "next_due_at": "2026-08-03T08:10:38+00:00",
@@ -925,7 +925,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "last_checked": "2026-07-27T08:06:32+00:00",
           "occurrence_count": 1,
           "age_days": 0,
-          "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+          "canonical_detail": "framework/records/automation/elim-run-log.md",
           "exact_next_action": "In a separately selected automation repair, validate the staged and committed governing registry before canonical-workspace and Elim closeout publication, expose it as a required pull-request check, and add positive, changed-governing-without-registry, stale-registry, and repaired-registry regressions.",
           "next_trigger": "A fresh current queue selects GAP-GOVERNING-HASH-PREPUBLICATION-GATE under agent-within-runbook repair authority.",
           "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c"
@@ -951,7 +951,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "last_checked": "2026-07-27T08:05:29+00:00",
           "occurrence_count": 2,
           "age_days": 0,
-          "canonical_detail": "framework/logs/ELIM_RUN_LOG.md",
+          "canonical_detail": "framework/records/automation/elim-run-log.md",
           "exact_next_action": "In a separately selected automation repair, disable or mock every external host-status and notification effect in tests, add a runtime test-mode side-effect guard and a full-suite no-network regression, then require current-chain, exact-source-revision, and monotonic-freshness acceptance before host-status publication.",
           "next_trigger": "A fresh current queue selects GAP-HOST-STATUS-TEST-ISOLATION-AND-FRESHNESS under agent-within-runbook repair authority.",
           "source_revision": "6d28e75c637660deea94a4bc925704b6ad82045c"
@@ -2515,6 +2515,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ]
   },
   "domain_generation": {
-    "automation.js": "project-console-26a5c492746d5e7b5dd4"
+    "automation.js": "project-console-a4971fc55a6a53e7e9c8"
   }
 });

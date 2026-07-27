@@ -7773,12 +7773,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 289,
+      "word_count": 374,
       "estimated_pages": 1,
       "table_count": 1,
       "max_table_columns": 5,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 51
+      "longest_unbroken_token": 30
     },
     {
       "title": "ARRP Audit Execution and Closeout",
@@ -15472,7 +15472,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
         "page_count": 490,
-        "modified_at": "2026-07-22T16:21:44+00:00",
+        "modified_at": "2026-07-26T12:19:02+00:00",
         "stale": true
       }
     ],
@@ -20309,6 +20309,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-26a5c492746d5e7b5dd4"
+    "publication.js": "project-console-a4971fc55a6a53e7e9c8"
   }
 });
