@@ -76,3 +76,9 @@ Topic pages do not create additional recommendations or duplicate project lifecy
     Maps possible political misuse of federal investigation, prosecution, enforcement, personnel, and supervisory authority.
 
 Additional topics will be added selectively when a familiar public subject crosses multiple proposals and a short explanation would materially improve navigation.
+
+## Temporary Validation Fixture
+
+- **[P5 Supervised Publication Proof](p5-supervised-publication-proof.md)**
+
+    Harmless public-content marker used to verify the supervised local-first publication transaction; it records no substantive ARRP position.
