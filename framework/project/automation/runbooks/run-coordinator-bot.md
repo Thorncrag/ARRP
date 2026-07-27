@@ -80,11 +80,18 @@ selected. If no ordinary unit exists, one bounded governance-discovery unit
 may be selected when due.
 
 Before Elim, it performs the official usage-reserve check once. A launch uses
-one fresh ephemeral isolated Codex process with no inherited configuration,
-rules, memories, hooks, plugins, MCP servers, subagents, credentials, web
-search, or shell network. The coordinator validates the strict result and
-exact Elim-created path delta. P2 requires `github_action_requests` to be an
-empty array.
+one fresh ephemeral Codex process with per-run SQLite/session storage. The
+client reads its exact owner-only OpenAI authentication home under
+`--ignore-user-config`; model tools run under the narrower `arrp_elim`
+permission profile, which denies that Codex home, the Keychain directory, and
+`/usr/bin/security`, disables network and login shells, and inherits no shell
+environment beyond a fixed system `PATH`. No GitHub, Project, SSH, API-key
+environment credential, configuration, rules, memories, hooks, plugins, MCP
+servers, subagents, web search, or shell network reaches Elim. The coordinator
+preserves JSONL before returning any process failure or timeout, terminates the
+timed-out process group, validates the strict result, and verifies the exact
+Elim-created path delta. P2 requires `github_action_requests` to be an empty
+array.
 
 ## Stop and preservation rules
 

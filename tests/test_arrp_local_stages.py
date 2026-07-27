@@ -198,7 +198,8 @@ class SealedElimTests(unittest.TestCase):
             worktree = root / "worktree"
             run_dir = root / "run"
             home = root / "codex-home"
-            for path in (worktree, run_dir, home):
+            sqlite_home = root / "codex-sqlite-home"
+            for path in (worktree, run_dir, home, sqlite_home):
                 path.mkdir()
             environment = MODULE.sealed_elim_environment(
                 {
@@ -213,11 +214,14 @@ class SealedElimTests(unittest.TestCase):
                 run_dir=run_dir,
                 model="fixture-model",
                 codex_home=home,
+                codex_sqlite_home=sqlite_home,
             )
             self.assertFalse(
                 {"GH_TOKEN", "GITHUB_TOKEN", "OPENAI_API_KEY", "SSH_AUTH_SOCK"}
                 & set(environment)
             )
+            self.assertEqual(environment["CODEX_HOME"], str(home))
+            self.assertEqual(environment["CODEX_SQLITE_HOME"], str(sqlite_home))
             command = MODULE.sealed_elim_command(
                 codex=root / "codex",
                 worktree=worktree,
@@ -231,10 +235,16 @@ class SealedElimTests(unittest.TestCase):
                 "--ignore-user-config",
                 "--ignore-rules",
                 "--strict-config",
-                "sandbox_workspace_write.network_access=false",
+                'default_permissions="arrp_elim"',
+                'permissions.arrp_elim.extends=":workspace"',
+                'permissions.arrp_elim.filesystem."/usr/bin/security"="deny"',
+                "permissions.arrp_elim.network.enabled=false",
+                'shell_environment_policy.inherit="none"',
+                "allow_login_shell=false",
                 'approval_policy="never"',
             ):
                 self.assertIn(required, joined)
+            self.assertNotIn("--sandbox workspace-write", joined)
             for feature in MODULE.SEALED_DISABLED_FEATURES:
                 self.assertIn(f"--disable {feature}", joined)
 

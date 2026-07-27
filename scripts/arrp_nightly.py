@@ -18,6 +18,7 @@ import hashlib
 import json
 import os
 import re
+import signal
 import shutil
 import stat
 import subprocess
@@ -437,11 +438,8 @@ def ensure_owner_directory(path: Path) -> None:
         raise TransactionError(f"unsafe state directory ownership or mode: {path}")
 
 
-def atomic_write_json(path: Path, value: Any) -> None:
+def atomic_write_bytes(path: Path, encoded: bytes) -> None:
     ensure_owner_directory(path.parent)
-    encoded = (
-        json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
-    ).encode("utf-8")
     descriptor, temporary_name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
     temporary = Path(temporary_name)
     try:
@@ -460,6 +458,13 @@ def atomic_write_json(path: Path, value: Any) -> None:
     finally:
         if temporary.exists():
             temporary.unlink()
+
+
+def atomic_write_json(path: Path, value: Any) -> None:
+    encoded = (
+        json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
+    ).encode("utf-8")
+    atomic_write_bytes(path, encoded)
 
 
 def file_sha256(path: Path) -> str:
@@ -1437,6 +1442,7 @@ def sealed_elim_environment(
     run_dir: Path,
     model: str,
     codex_home: Path,
+    codex_sqlite_home: Path | None = None,
 ) -> dict[str, str]:
     environment = {
         key: value for key, value in source.items() if key in ELIM_ENVIRONMENT_ALLOWLIST
@@ -1447,10 +1453,70 @@ def sealed_elim_environment(
             "ARRP_RUN_DIR": str(run_dir),
             "ARRP_ELIM_MODEL": model,
             "CODEX_HOME": str(codex_home),
-            "CODEX_SQLITE_HOME": str(codex_home),
+            "CODEX_SQLITE_HOME": str(codex_sqlite_home or codex_home),
         }
     )
     return environment
+
+
+def trusted_codex_auth_home() -> Path:
+    """Return Benjamin's exact owner-only Codex authentication home."""
+
+    home = (Path.home() / ".codex").resolve()
+    auth = home / "auth.json"
+    info = auth.lstat()
+    if (
+        auth.is_symlink()
+        or not stat.S_ISREG(info.st_mode)
+        or info.st_uid != os.getuid()
+        or bool(stat.S_IMODE(info.st_mode) & 0o077)
+    ):
+        raise TransactionError("trusted Codex authentication file is unsafe")
+    return home
+
+
+def run_sealed_elim_process(
+    command: Sequence[str],
+    *,
+    worktree: Path,
+    environment: Mapping[str, str],
+    prompt: bytes,
+    timeout_seconds: int,
+    jsonl_path: Path,
+) -> subprocess.CompletedProcess[bytes]:
+    """Run one process group and preserve its JSONL before any failure returns."""
+
+    if timeout_seconds <= 0:
+        raise TransactionError("sealed Elim timeout must be positive")
+    process = subprocess.Popen(
+        list(command),
+        cwd=worktree,
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        env=dict(environment),
+        start_new_session=True,
+    )
+    try:
+        stdout, stderr = process.communicate(input=prompt, timeout=timeout_seconds)
+    except subprocess.TimeoutExpired as error:
+        os.killpg(process.pid, signal.SIGTERM)
+        try:
+            stdout, stderr = process.communicate(timeout=10)
+        except subprocess.TimeoutExpired:
+            os.killpg(process.pid, signal.SIGKILL)
+            stdout, stderr = process.communicate()
+        atomic_write_bytes(jsonl_path, stdout or b"")
+        raise TransactionError(
+            f"sealed fixture Elim timed out after {timeout_seconds} seconds"
+        ) from error
+    atomic_write_bytes(jsonl_path, stdout)
+    return subprocess.CompletedProcess(
+        list(command),
+        process.returncode,
+        stdout,
+        stderr,
+    )
 
 
 def sealed_elim_command(
@@ -1461,6 +1527,8 @@ def sealed_elim_command(
     model: str,
     schema: Path,
 ) -> tuple[str, ...]:
+    auth_home = (Path.home() / ".codex").resolve()
+    keychain_home = (Path.home() / "Library/Keychains").resolve()
     command = [
         str(codex),
         "exec",
@@ -1469,8 +1537,6 @@ def sealed_elim_command(
         "--ignore-user-config",
         "--ignore-rules",
         "--strict-config",
-        "--sandbox",
-        "workspace-write",
         "--cd",
         str(worktree),
         "--model",
@@ -1478,7 +1544,29 @@ def sealed_elim_command(
         "-c",
         'approval_policy="never"',
         "-c",
-        "sandbox_workspace_write.network_access=false",
+        'default_permissions="arrp_elim"',
+        "-c",
+        'permissions.arrp_elim.extends=":workspace"',
+        "-c",
+        (
+            "permissions.arrp_elim.filesystem."
+            f"{json.dumps(str(auth_home))}=\"deny\""
+        ),
+        "-c",
+        'permissions.arrp_elim.filesystem."/usr/bin/security"="deny"',
+        "-c",
+        (
+            "permissions.arrp_elim.filesystem."
+            f"{json.dumps(str(keychain_home))}=\"deny\""
+        ),
+        "-c",
+        "permissions.arrp_elim.network.enabled=false",
+        "-c",
+        'shell_environment_policy.inherit="none"',
+        "-c",
+        'shell_environment_policy.set={PATH="/usr/bin:/bin"}',
+        "-c",
+        "allow_login_shell=false",
         "-c",
         "project_doc_max_bytes=0",
     ]
@@ -1943,25 +2031,29 @@ def run_p2_fixture_cycle(
         raise TransactionError("fixture plan lacks sealed Elim configuration")
     codex = Path(str(elim["codex"])).resolve()
     schema = _resolve_inside(worktree, str(elim["schema"]))
-    codex_home = run_dir / "codex-home"
-    ensure_owner_directory(codex_home)
+    codex_sqlite_home = run_dir / "codex-home"
+    ensure_owner_directory(codex_sqlite_home)
+    codex_home = trusted_codex_auth_home() if supervised else codex_sqlite_home
     sealed_environment = sealed_elim_environment(
         environment,
         worktree=worktree,
         run_dir=run_dir,
         model=str(elim["model"]),
         codex_home=codex_home,
+        codex_sqlite_home=codex_sqlite_home,
     )
     feature_command = [str(codex), "features", "list"]
     for feature in SEALED_DISABLED_FEATURES:
         feature_command.extend(("--disable", feature))
+    feature_environment = dict(sealed_environment)
+    feature_environment["CODEX_HOME"] = str(codex_sqlite_home)
     feature_readback = subprocess.run(
         feature_command,
         cwd=worktree,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         check=False,
-        env=sealed_environment,
+        env=feature_environment,
     )
     if feature_readback.returncode:
         raise TransactionError("sealed Codex feature readback failed")
@@ -1977,16 +2069,13 @@ def run_p2_fixture_cycle(
         model=str(elim["model"]),
         schema=schema,
     )
-    process = subprocess.run(
+    process = run_sealed_elim_process(
         command,
-        cwd=worktree,
-        input=str(elim["prompt"]).encode("utf-8"),
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        check=False,
-        env=sealed_environment,
-        start_new_session=True,
-        timeout=int(elim.get("timeout_seconds", 60)),
+        worktree=worktree,
+        prompt=str(elim["prompt"]).encode("utf-8"),
+        environment=sealed_environment,
+        timeout_seconds=int(elim.get("timeout_seconds", 60)),
+        jsonl_path=run_dir / "elim.jsonl",
     )
     if process.returncode:
         raise TransactionError(
@@ -3244,6 +3333,12 @@ def prepare_transaction(
             assert_canonical_unchanged(repository, starting_head, clean_digest)
             prepared = TransactionResult(
                 run_id, "completed", branch, checkpoint, str(worktree), fetched
+            )
+            write_status(
+                config,
+                status,
+                stage="05_worktree",
+                worktree_path=str(worktree),
             )
             cycle_summary = local_cycle(prepared) if local_cycle is not None else None
             cycle_phase = (
