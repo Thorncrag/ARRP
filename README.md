@@ -140,3 +140,5 @@ The complete Framework and Methodology—including issue-admission standards, po
 Agent-assisted and autonomous-review rules are maintained in [framework/AGENT_OPERATING_RULES.md](framework/AGENT_OPERATING_RULES.md). Automated run provenance is recorded in the applicable agent or bot log, while proposal-specific research and audit history remains with the affected proposal.
 
 The public website is the accessible reading edition. The [GitHub repository](https://github.com/Thorncrag/ARRP) preserves the more complete technical record, including source catalogs, proposed legal text, development materials, audit histories, and repository change history.
+
+<!-- P5 supervised publication proof: harmless Pages-triggering fixture, 2026-07-27. -->
