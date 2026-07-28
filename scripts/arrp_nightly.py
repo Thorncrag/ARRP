@@ -2480,19 +2480,24 @@ def run_validation_specs(
     run_dir: Path,
     specs: Sequence[ValidationSpec],
     environment: Mapping[str, str] | None = None,
+    environment_by_spec: Mapping[str, Mapping[str, str]] | None = None,
 ) -> list[dict[str, Any]]:
     """Run and record the bound validation set without persisting command output."""
 
     records: list[dict[str, Any]] = []
     for spec in specs:
         command = expand_validation_command(worktree, spec.command)
+        spec_environment = dict(environment or os.environ)
+        spec_environment.update(
+            (environment_by_spec or {}).get(spec.identifier, {})
+        )
         result = subprocess.run(
             command,
             cwd=worktree,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             check=False,
-            env=dict(environment or os.environ),
+            env=spec_environment,
         )
         combined = result.stdout + b"\n" + result.stderr
         record = {
@@ -3343,7 +3348,13 @@ def run_production_cycle(
         worktree=worktree,
         run_dir=run_dir,
         specs=validation_specs,
-        environment=os.environ,
+        environment=stage_environment,
+        environment_by_spec={
+            "console-build": {
+                "ARRP_PROJECT_TOKEN": project_token.reveal(),
+                "GH_TOKEN": app_token.reveal(),
+            },
+        },
     )
     final_commit = create_local_final_commit(
         worktree,
