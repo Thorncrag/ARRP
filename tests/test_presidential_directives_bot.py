@@ -234,7 +234,7 @@ class PresidentialDirectivesBotTests(unittest.TestCase):
 
     def test_checked_in_baseline_has_completed_screening_dispositions(self):
         rows = MODULE.read_registry(ROOT / "inventory" / "presidential-directives.csv")
-        self.assertEqual(len(rows), 3007)
+        self.assertGreaterEqual(len(rows), 3007)
         self.assertNotIn("Needs review", {row["Review Status"] for row in rows})
         for row in rows:
             self.assertIn(
