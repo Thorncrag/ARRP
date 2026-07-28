@@ -204,6 +204,14 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
             return subprocess.CompletedProcess(command, 0, b"", b"")
 
         with (
+            mock.patch.dict(
+                os.environ,
+                {
+                    "ARRP_PROJECT_TOKEN": "inherited-project-token",
+                    "GH_TOKEN": "inherited-github-token",
+                    "GITHUB_TOKEN": "inherited-github-token",
+                },
+            ),
             mock.patch.object(
                 MODULE,
                 "_run_production_command",
@@ -229,7 +237,7 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                 MODULE,
                 "run_validation_specs",
                 return_value=[{"id": "focused", "returncode": 0}],
-            ),
+            ) as validations,
             mock.patch.object(
                 MODULE,
                 "expand_validation_command",
@@ -243,6 +251,16 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                 MODULE,
                 "read_keychain_secret",
                 return_value=MODULE.SensitiveValue("project-token"),
+            ),
+            mock.patch.object(
+                MODULE.GitHubAppIdentity,
+                "from_json",
+                return_value=mock.sentinel.app_identity,
+            ),
+            mock.patch.object(
+                MODULE,
+                "mint_installation_token",
+                return_value=MODULE.SensitiveValue("app-token"),
             ),
             mock.patch.object(
                 MODULE,
@@ -275,10 +293,40 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
         self.assertEqual(
             stages.call_args.kwargs["environment_by_stage"],
             {
+                "public-intake": {
+                    "GH_TOKEN": "app-token",
+                },
                 "project-console-progress-bot": {
                     "ARRP_PROJECT_TOKEN": "project-token",
-                }
+                },
+                "project-integrity-bot": {
+                    "ARRP_PROJECT_TOKEN": "project-token",
+                    "GH_TOKEN": "app-token",
+                },
             },
+        )
+        for credential_name in (
+            "ARRP_PROJECT_TOKEN",
+            "GH_TOKEN",
+            "GITHUB_TOKEN",
+        ):
+            self.assertNotIn(
+                credential_name,
+                stages.call_args.kwargs["environment"],
+            )
+        production_python = str(self.repository / ".venv/bin/python")
+        self.assertTrue(
+            all(
+                spec.command[0] == production_python
+                for spec in stages.call_args.kwargs["specs"]
+            )
+        )
+        self.assertTrue(
+            all(
+                spec.command[0] == production_python
+                for spec in validations.call_args.kwargs["specs"]
+                if spec.command[0].endswith("python")
+            )
         )
         rendered = [" ".join(value) for value in calls]
         for operation in (
