@@ -127,6 +127,34 @@ class PublicationPolicyTests(unittest.TestCase):
             },
         )
 
+    def test_validation_globs_expand_only_path_arguments(self):
+        tests = self.fixture.repo / "participate/tests"
+        tests.mkdir(parents=True)
+        (tests / "first.test.js").write_text("// fixture\n", encoding="utf-8")
+        (tests / "second.test.js").write_text("// fixture\n", encoding="utf-8")
+
+        expanded = MODULE.expand_validation_command(
+            self.fixture.repo,
+            (
+                "python",
+                "-m",
+                "unittest",
+                "discover",
+                "-p",
+                "test_*.py",
+                "participate/tests/*.test.js",
+            ),
+        )
+
+        self.assertIn("test_*.py", expanded)
+        self.assertEqual(
+            expanded[-2:],
+            (
+                "participate/tests/first.test.js",
+                "participate/tests/second.test.js",
+            ),
+        )
+
     def test_symlink_submodule_and_executable_mode_are_rejected(self):
         symlink = self.fixture.repo / "research/link.md"
         symlink.parent.mkdir(exist_ok=True)

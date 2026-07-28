@@ -2448,7 +2448,7 @@ def expand_validation_command(
 ) -> tuple[str, ...]:
     expanded: list[str] = []
     for value in command:
-        if "*" not in value:
+        if "*" not in value or "/" not in value:
             expanded.append(value)
             continue
         matches = sorted(
