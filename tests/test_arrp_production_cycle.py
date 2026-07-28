@@ -328,6 +328,24 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                 if spec.command[0].endswith("python")
             )
         )
+        self.assertEqual(
+            validations.call_args.kwargs["environment_by_spec"],
+            {
+                "console-build": {
+                    "ARRP_PROJECT_TOKEN": "project-token",
+                    "GH_TOKEN": "app-token",
+                },
+            },
+        )
+        for credential_name in (
+            "ARRP_PROJECT_TOKEN",
+            "GH_TOKEN",
+            "GITHUB_TOKEN",
+        ):
+            self.assertNotIn(
+                credential_name,
+                validations.call_args.kwargs["environment"],
+            )
         rendered = [" ".join(value) for value in calls]
         for operation in (
             " plan ",

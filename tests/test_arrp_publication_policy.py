@@ -1,10 +1,12 @@
 import json
 import os
 import shutil
+import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from tests.test_arrp_local_stages import FIXTURES, stage_spec
 from tests.test_arrp_nightly import GitFixture, MODULE, run
@@ -154,6 +156,42 @@ class PublicationPolicyTests(unittest.TestCase):
                 "participate/tests/second.test.js",
             ),
         )
+
+    def test_validation_credentials_are_confined_to_named_spec(self):
+        environments = []
+
+        def record_run(command, **kwargs):
+            environments.append(dict(kwargs["env"]))
+            return subprocess.CompletedProcess(command, 0, b"", b"")
+
+        with mock.patch.object(
+            MODULE.subprocess,
+            "run",
+            side_effect=record_run,
+        ):
+            MODULE.run_validation_specs(
+                worktree=self.fixture.repo,
+                run_dir=self.run_dir,
+                specs=(
+                    MODULE.ValidationSpec("public-check", ("true",)),
+                    MODULE.ValidationSpec("console-build", ("true",)),
+                ),
+                environment={"PATH": os.environ["PATH"]},
+                environment_by_spec={
+                    "console-build": {
+                        "ARRP_PROJECT_TOKEN": "project-token",
+                        "GH_TOKEN": "app-token",
+                    },
+                },
+            )
+
+        self.assertNotIn("ARRP_PROJECT_TOKEN", environments[0])
+        self.assertNotIn("GH_TOKEN", environments[0])
+        self.assertEqual(
+            environments[1]["ARRP_PROJECT_TOKEN"],
+            "project-token",
+        )
+        self.assertEqual(environments[1]["GH_TOKEN"], "app-token")
 
     def test_symlink_submodule_and_executable_mode_are_rejected(self):
         symlink = self.fixture.repo / "research/link.md"
