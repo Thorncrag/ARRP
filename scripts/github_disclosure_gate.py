@@ -352,20 +352,29 @@ def evaluate_outbound_bundle(
     policy: Mapping[str, Any] | None = None,
     control_pack: Mapping[str, Any] | None = None,
     allow_candidate_control_pack: bool = False,
+    defense_in_depth_only: bool = False,
     complete: bool = True,
 ) -> dict[str, Any]:
-    """Return one exact decision; raise only when registry resolution is unsafe."""
+    """Return one exact decision.
+
+    ``defense_in_depth_only`` is reserved for checks running after content has
+    already reached GitHub. It never supplies an authoritative outbound
+    authorization and deliberately cannot substitute for the owner-local
+    control pack required before transmission.
+    """
 
     active_policy = dict(policy) if policy is not None else load_policy()
-    active_control_pack = (
-        validate_control_pack(
-            control_pack,
-            policy=active_policy,
-            allow_candidate=allow_candidate_control_pack,
+    active_control_pack: Mapping[str, Any] | None = None
+    if not defense_in_depth_only:
+        active_control_pack = (
+            validate_control_pack(
+                control_pack,
+                policy=active_policy,
+                allow_candidate=allow_candidate_control_pack,
+            )
+            if control_pack is not None
+            else load_control_pack(policy=active_policy)
         )
-        if control_pack is not None
-        else load_control_pack(policy=active_policy)
-    )
     rows = list(artifacts)
     findings: list[dict[str, str]] = []
     classified: list[dict[str, Any]] = []
@@ -498,8 +507,22 @@ def evaluate_outbound_bundle(
     return {
         "schema_version": 1,
         "policy_id": active_policy.get("policy_id"),
-        "control_pack_id": active_control_pack.get("pack_id"),
-        "control_version": active_control_pack.get("control_version"),
+        "control_pack_id": (
+            active_control_pack.get("pack_id")
+            if active_control_pack is not None
+            else None
+        ),
+        "control_version": (
+            active_control_pack.get("control_version")
+            if active_control_pack is not None
+            else None
+        ),
+        "authoritative": not defense_in_depth_only,
+        "mode": (
+            "post_transmission_defense_in_depth"
+            if defense_in_depth_only
+            else "pre_transmission_authorization"
+        ),
         "operation": operation,
         "source_revision": source_revision,
         "allowed": allowed,
@@ -512,6 +535,29 @@ def evaluate_outbound_bundle(
 
 def require_outbound_bundle(*args: Any, **kwargs: Any) -> dict[str, Any]:
     decision = evaluate_outbound_bundle(*args, **kwargs)
+    if not decision["allowed"] or decision.get("authoritative") is not True:
+        raise DisclosureBlocked(decision)
+    return decision
+
+
+def require_defense_in_depth_bundle(
+    artifacts: Iterable[OutboundArtifact],
+    *,
+    operation: str,
+    source_revision: str,
+    policy: Mapping[str, Any] | None = None,
+    complete: bool = True,
+) -> dict[str, Any]:
+    """Run a non-authoritative public-core recheck after GitHub transmission."""
+
+    decision = evaluate_outbound_bundle(
+        artifacts,
+        operation=operation,
+        source_revision=source_revision,
+        policy=policy,
+        defense_in_depth_only=True,
+        complete=complete,
+    )
     if not decision["allowed"]:
         raise DisclosureBlocked(decision)
     return decision

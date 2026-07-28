@@ -453,6 +453,35 @@ class GitHubDisclosureGateTests(unittest.TestCase):
             )
         self.assertIn("active-control-pack-unavailable", str(caught.exception))
 
+    def test_github_actions_defense_check_is_explicitly_nonauthoritative(self) -> None:
+        with mock.patch.object(
+            MODULE,
+            "load_control_pack",
+            side_effect=AssertionError("defense check must not load local controls"),
+        ):
+            decision = MODULE.require_defense_in_depth_bundle(
+                [self.artifact("README.md", "Public project entry")],
+                operation="github_actions_defense_in_depth",
+                source_revision=self.revision,
+                policy=self.policy,
+                complete=True,
+            )
+        self.assertTrue(decision["allowed"])
+        self.assertFalse(decision["authoritative"])
+        self.assertEqual(decision["mode"], "post_transmission_defense_in_depth")
+        self.assertIsNone(decision["control_pack_id"])
+
+    def test_defense_only_decision_cannot_authorize_outbound_mutation(self) -> None:
+        with self.assertRaises(MODULE.DisclosureBlocked):
+            MODULE.require_outbound_bundle(
+                [self.artifact("README.md", "Public project entry")],
+                operation="git_push",
+                source_revision=self.revision,
+                policy=self.policy,
+                defense_in_depth_only=True,
+                complete=True,
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

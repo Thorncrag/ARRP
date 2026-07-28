@@ -23,12 +23,14 @@ try:
     from github_disclosure_gate import (
         DisclosureBlocked,
         OutboundArtifact,
+        require_defense_in_depth_bundle,
         require_outbound_bundle,
     )
 except ModuleNotFoundError:
     from scripts.github_disclosure_gate import (
         DisclosureBlocked,
         OutboundArtifact,
+        require_defense_in_depth_bundle,
         require_outbound_bundle,
     )
 
@@ -755,9 +757,18 @@ def prepare() -> dict[str, object]:
         )
     )
     try:
-        require_outbound_bundle(
+        gate = (
+            require_defense_in_depth_bundle
+            if os.environ.get("GITHUB_ACTIONS") == "true"
+            else require_outbound_bundle
+        )
+        gate(
             artifacts,
-            operation="public_site_generation",
+            operation=(
+                "public_site_generation_defense_in_depth"
+                if gate is require_defense_in_depth_bundle
+                else "public_site_generation"
+            ),
             source_revision=disclosure_revision(source_paths),
             complete=True,
         )
