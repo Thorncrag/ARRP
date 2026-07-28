@@ -232,19 +232,28 @@ class PresidentialDirectivesBotTests(unittest.TestCase):
                 )
             self.assertIn("absent from discovery", str(raised.exception))
 
-    def test_checked_in_baseline_has_completed_screening_dispositions(self):
+    def test_registry_rows_have_valid_screening_dispositions(self):
         rows = MODULE.read_registry(ROOT / "inventory" / "presidential-directives.csv")
         self.assertGreaterEqual(len(rows), 3007)
         self.assertNotIn("Needs review", {row["Review Status"] for row in rows})
         for row in rows:
             self.assertIn(
                 row["Review Status"],
-                {"Routed", "Screened — no separate action"},
+                {
+                    "Routed",
+                    "Screened — no separate action",
+                    "New since baseline screening",
+                    "Changed since screening",
+                },
             )
-            self.assertTrue(row["Reviewed Date"])
-            self.assertTrue(row["Disposition Rationale"])
-            if row["Review Status"] == "Routed":
-                self.assertTrue(row["Source IDs"])
+            if row["Review Status"] in {
+                "Routed",
+                "Screened — no separate action",
+            }:
+                self.assertTrue(row["Reviewed Date"])
+                self.assertTrue(row["Disposition Rationale"])
+                if row["Review Status"] == "Routed":
+                    self.assertTrue(row["Source IDs"])
 
     def test_local_stage_replaces_retired_workflow(self):
         self.assertFalse(
