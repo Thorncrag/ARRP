@@ -3,6 +3,48 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_007": [
     {
+      "id": "2023-09523",
+      "administration": "Biden",
+      "president": "Joseph R. Biden Jr.",
+      "type": "Proclamation",
+      "number": "10560",
+      "title": "Jewish American Heritage Month, 2023",
+      "signed_date": "2023-04-28",
+      "published_date": "2023-05-03",
+      "citation": "88 FR 27657",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2023-05-03/pdf/2023-09523.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2023/05/03/2023-09523/jewish-american-heritage-month-2023",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2023-09522",
+      "administration": "Biden",
+      "president": "Joseph R. Biden Jr.",
+      "type": "Proclamation",
+      "number": "10559",
+      "title": "Asian American, Native Hawaiian, and Pacific Islander Heritage Month, 2023",
+      "signed_date": "2023-04-28",
+      "published_date": "2023-05-03",
+      "citation": "88 FR 27655",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2023-05-03/pdf/2023-09522.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2023/05/03/2023-09522/asian-american-native-hawaiian-and-pacific-islander-heritage-month-2023",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
       "id": "2023-09414",
       "administration": "Biden",
       "president": "Joseph R. Biden Jr.",
@@ -3928,30 +3970,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "source_ids": [],
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2022-20578",
-      "administration": "Biden",
-      "president": "Joseph R. Biden Jr.",
-      "type": "Proclamation",
-      "number": "10448",
-      "title": "Constitution Day and Citizenship Day, and Constitution Week, 2022",
-      "signed_date": "2022-09-16",
-      "published_date": "2022-09-21",
-      "citation": "87 FR 57561",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2022-09-21/pdf/2022-20578.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2022/09/21/2022-20578/constitution-day-and-citizenship-day-and-constitution-week-2022",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-007.js": "project-console-d24811e5a0b718794cb5"
+    "directives-catalog-007.js": "project-console-e40c9d8c4a02be3ee610"
   }
 });

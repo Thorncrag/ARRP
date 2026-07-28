@@ -3,52 +3,6 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_011": [
     {
-      "id": "2021-01712",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Executive Order",
-      "number": "13982",
-      "title": "Care of Veterans With Service in Uzbekistan",
-      "signed_date": "2021-01-19",
-      "published_date": "2021-01-25",
-      "citation": "86 FR 6833",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2021-01-25/pdf/2021-01712.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2021/01/25/2021-01712/care-of-veterans-with-service-in-uzbekistan",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2021-01711",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Proclamation",
-      "number": "10139",
-      "title": "Adjusting Imports of Aluminum Into the United States",
-      "signed_date": "2021-01-19",
-      "published_date": "2021-01-25",
-      "citation": "86 FR 6825",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2021-01-25/pdf/2021-01711.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2021/01/25/2021-01711/adjusting-imports-of-aluminum-into-the-united-states",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Routed",
-      "arrp_record_ids": [
-        "HOR-040"
-      ],
-      "source_ids": [
-        "SRC-1349"
-      ],
-      "disposition_rationale": "Completed baseline screening linked this directive to the listed ARRP and source-development records.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
       "id": "2021-01646",
       "administration": "Trump I",
       "president": "Donald Trump",
@@ -4029,9 +3983,76 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "source_ids": [],
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2020-16098",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "10057",
+      "title": "Death of John Lewis",
+      "signed_date": "2020-07-18",
+      "published_date": "2020-07-23",
+      "citation": "85 FR 44451",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2020-07-23/pdf/2020-16098.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2020/07/23/2020-16098/death-of-john-lewis",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2020-16622",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Determination",
+      "number": "2020-09",
+      "title": "Continuation of U.S. Drug Interdiction Assistance to the Government of Colombia",
+      "signed_date": "2020-07-17",
+      "published_date": "2020-07-29",
+      "citation": "85 FR 45751",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2020-07-29/pdf/2020-16622.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2020/07/29/2020-16622/continuation-of-us-drug-interdiction-assistance-to-the-government-of-colombia",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Routed",
+      "arrp_record_ids": [
+        "HOR-042"
+      ],
+      "source_ids": [
+        "SRC-1330"
+      ],
+      "disposition_rationale": "Completed baseline screening linked this directive to the listed ARRP and source-development records.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2020-16035",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "10056",
+      "title": "Captive Nations Week, 2020",
+      "signed_date": "2020-07-17",
+      "published_date": "2020-07-22",
+      "citation": "85 FR 44449",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2020-07-22/pdf/2020-16035.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2020/07/22/2020-16035/captive-nations-week-2020",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-011.js": "project-console-d24811e5a0b718794cb5"
+    "directives-catalog-011.js": "project-console-e40c9d8c4a02be3ee610"
   }
 });

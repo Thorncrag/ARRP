@@ -3949,9 +3949,30 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "source_ids": [],
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2021-14814",
+      "administration": "Biden",
+      "president": "Joseph R. Biden Jr.",
+      "type": "Notice",
+      "number": "",
+      "title": "Continuation of the National Emergency With Respect to Transnational Criminal Organizations",
+      "signed_date": "2021-07-07",
+      "published_date": "2021-07-09",
+      "citation": "86 FR 36481",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2021-07-09/pdf/2021-14814.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2021/07/09/2021-14814/continuation-of-the-national-emergency-with-respect-to-transnational-criminal-organizations",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-009.js": "project-console-d24811e5a0b718794cb5"
+    "directives-catalog-009.js": "project-console-e40c9d8c4a02be3ee610"
   }
 });

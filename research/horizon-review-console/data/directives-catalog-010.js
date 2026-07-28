@@ -3,27 +3,6 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_010": [
     {
-      "id": "2021-14814",
-      "administration": "Biden",
-      "president": "Joseph R. Biden Jr.",
-      "type": "Notice",
-      "number": "",
-      "title": "Continuation of the National Emergency With Respect to Transnational Criminal Organizations",
-      "signed_date": "2021-07-07",
-      "published_date": "2021-07-09",
-      "citation": "86 FR 36481",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2021-07-09/pdf/2021-14814.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2021/07/09/2021-14814/continuation-of-the-national-emergency-with-respect-to-transnational-criminal-organizations",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
       "id": "2021-14806",
       "administration": "Biden",
       "president": "Joseph R. Biden Jr.",
@@ -3953,9 +3932,55 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "source_ids": [],
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2021-01712",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Executive Order",
+      "number": "13982",
+      "title": "Care of Veterans With Service in Uzbekistan",
+      "signed_date": "2021-01-19",
+      "published_date": "2021-01-25",
+      "citation": "86 FR 6833",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2021-01-25/pdf/2021-01712.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2021/01/25/2021-01712/care-of-veterans-with-service-in-uzbekistan",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2021-01711",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "10139",
+      "title": "Adjusting Imports of Aluminum Into the United States",
+      "signed_date": "2021-01-19",
+      "published_date": "2021-01-25",
+      "citation": "86 FR 6825",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2021-01-25/pdf/2021-01711.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2021/01/25/2021-01711/adjusting-imports-of-aluminum-into-the-united-states",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Routed",
+      "arrp_record_ids": [
+        "HOR-040"
+      ],
+      "source_ids": [
+        "SRC-1349"
+      ],
+      "disposition_rationale": "Completed baseline screening linked this directive to the listed ARRP and source-development records.",
+      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-010.js": "project-console-d24811e5a0b718794cb5"
+    "directives-catalog-010.js": "project-console-e40c9d8c4a02be3ee610"
   }
 });
