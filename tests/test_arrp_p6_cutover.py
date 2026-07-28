@@ -61,6 +61,12 @@ class ArrpP6LaunchAgentTests(unittest.TestCase):
             {"Hour": 2, "Minute": 0},
         )
 
+    def test_launchd_path_exposes_reviewed_local_toolchain(self):
+        self.assertEqual(
+            self.plist["EnvironmentVariables"]["PATH"],
+            "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        )
+
     def test_launchd_logs_stay_inside_owner_only_state_root(self):
         self.assertEqual(
             self.plist["StandardOutPath"],

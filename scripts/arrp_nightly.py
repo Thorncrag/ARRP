@@ -3045,17 +3045,37 @@ def run_production_cycle(
         GITHUB_PROJECT_KEYCHAIN_SERVICE,
         GITHUB_PROJECT_KEYCHAIN_ACCOUNT,
     )
+    app_identity = GitHubAppIdentity.from_json(
+        config.state_root / "github-app.json"
+    )
+    app_private_key = read_keychain_secret(
+        GITHUB_APP_KEYCHAIN_SERVICE,
+        GITHUB_APP_KEYCHAIN_ACCOUNT,
+    )
+    app_token = mint_installation_token(app_identity, app_private_key)
+    production_python = str(config.canonical_path / ".venv/bin/python")
+    stage_specs = default_local_stage_specs(production_python)
+    stage_environment = dict(os.environ)
+    for credential_name in ("ARRP_PROJECT_TOKEN", "GH_TOKEN", "GITHUB_TOKEN"):
+        stage_environment.pop(credential_name, None)
     stages = run_local_stages(
         worktree=worktree,
         run_dir=run_dir,
         state_root=config.state_root,
-        specs=default_local_stage_specs(),
+        specs=stage_specs,
         last_success=last_success,
-        environment=os.environ,
+        environment=stage_environment,
         environment_by_stage={
+            "public-intake": {
+                "GH_TOKEN": app_token.reveal(),
+            },
             "project-console-progress-bot": {
                 "ARRP_PROJECT_TOKEN": project_token.reveal(),
-            }
+            },
+            "project-integrity-bot": {
+                "ARRP_PROJECT_TOKEN": project_token.reveal(),
+                "GH_TOKEN": app_token.reveal(),
+            },
         },
         runtime_root=runtime,
         runtime_commit=config.runtime_commit,
@@ -3073,14 +3093,14 @@ def run_production_cycle(
             result.status,
             "--failure-class",
             (
-                "none"
-                if result.status in {"succeeded", "not_due"}
-                else next(
-                    spec.failure_class
-                    for spec in default_local_stage_specs()
-                    if spec.identifier == result.identifier
-                )
-            ),
+                    "none"
+                    if result.status in {"succeeded", "not_due"}
+                    else next(
+                        spec.failure_class
+                        for spec in stage_specs
+                        if spec.identifier == result.identifier
+                    )
+                ),
             "--details",
             result.reason,
             "--work-count",
@@ -3306,7 +3326,11 @@ def run_production_cycle(
             allow_github_actions=True,
         )
 
-    for spec in default_post_elim_validation_specs():
+    validation_specs = default_post_elim_validation_specs(
+        production_python,
+        production_python,
+    )
+    for spec in validation_specs:
         command = expand_validation_command(worktree, spec.command)
         if len(command) > 1 and command[1].endswith(".py"):
             verify_worktree_entrypoint(
@@ -3317,7 +3341,7 @@ def run_production_cycle(
     validations = run_validation_specs(
         worktree=worktree,
         run_dir=run_dir,
-        specs=default_post_elim_validation_specs(),
+        specs=validation_specs,
         environment=os.environ,
     )
     final_commit = create_local_final_commit(
