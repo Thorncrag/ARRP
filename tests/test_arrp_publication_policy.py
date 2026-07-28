@@ -180,7 +180,6 @@ class PublicationPolicyTests(unittest.TestCase):
                 environment_by_spec={
                     "console-build": {
                         "ARRP_PROJECT_TOKEN": "project-token",
-                        "GH_TOKEN": "app-token",
                     },
                 },
             )
@@ -191,7 +190,7 @@ class PublicationPolicyTests(unittest.TestCase):
             environments[1]["ARRP_PROJECT_TOKEN"],
             "project-token",
         )
-        self.assertEqual(environments[1]["GH_TOKEN"], "app-token")
+        self.assertNotIn("GH_TOKEN", environments[1])
 
     def test_symlink_submodule_and_executable_mode_are_rejected(self):
         symlink = self.fixture.repo / "research/link.md"

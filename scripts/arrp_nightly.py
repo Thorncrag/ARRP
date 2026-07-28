@@ -3352,7 +3352,6 @@ def run_production_cycle(
         environment_by_spec={
             "console-build": {
                 "ARRP_PROJECT_TOKEN": project_token.reveal(),
-                "GH_TOKEN": app_token.reveal(),
             },
         },
     )
