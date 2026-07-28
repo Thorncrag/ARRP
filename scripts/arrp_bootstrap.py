@@ -220,6 +220,7 @@ def build_command(
 ) -> list[str]:
     command = [
         sys.executable,
+        "-B",
         str(runtime / "scripts/arrp_nightly.py"),
         "--canonical-path",
         str(repository),
