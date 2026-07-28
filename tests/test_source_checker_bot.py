@@ -100,6 +100,19 @@ class SourceCheckerTests(unittest.TestCase):
         self.assertEqual(len(result["history"]), 3)
         self.assertEqual(result["history"][0]["checked_at"], "new")
 
+    def test_markdown_has_no_trailing_whitespace(self):
+        rendered = MODULE.markdown(
+            {
+                "mode": "report-only",
+                "eligible_urls": 1,
+                "counts": {"verified": 1},
+                "results": [],
+            }
+        )
+        self.assertFalse(
+            any(line != line.rstrip() for line in rendered.splitlines())
+        )
+
     def test_source_result_deltas_distinguish_new_regressed_resolved_and_aging(self):
         current = {
             "checked_at": "2026-07-25T12:00:00+00:00",

@@ -559,7 +559,7 @@ def with_history(report: dict[str, Any], existing: Path | None, limit: int) -> d
 
 
 def markdown(report: dict[str, Any]) -> str:
-    lines = ["---", 'title: "Source Checker Bot Current Report"', "print_status: excluded", 'print_exclusion_reason: "Replaceable internal automation report."', "---", "", "# Source Checker Bot Current Report", "", "> This replaceable snapshot changes only when the classified result set changes. Run timestamps and bounded history remain in the Project Console data feed and GitHub Actions.", "", f"Mode: **{report['mode']}**  ", f"Eligible URLs: **{report['eligible_urls']}**", "", "## Results", "", "| Classification | Count |", "|---|---:|"]
+    lines = ["---", 'title: "Source Checker Bot Current Report"', "print_status: excluded", 'print_exclusion_reason: "Replaceable internal automation report."', "---", "", "# Source Checker Bot Current Report", "", "> This replaceable snapshot changes only when the classified result set changes. Run timestamps and bounded history remain in the Project Console data feed and GitHub Actions.", "", f"Mode: **{report['mode']}**", f"Eligible URLs: **{report['eligible_urls']}**", "", "## Results", "", "| Classification | Count |", "|---|---:|"]
     for name, count in report["counts"].items(): lines.append(f"| {name} | {count} |")
     exceptions = [x for x in report["results"] if x["classification"] not in {"verified", "identity-preserving redirect"}]
     lines += ["", "## Exceptions requiring attention", ""]
