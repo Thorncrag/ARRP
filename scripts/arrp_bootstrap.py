@@ -25,6 +25,10 @@ RUNTIME_FILES = (
     "scripts/arrp_nightly.py",
     "scripts/arrp_bootstrap.py",
     "scripts/arrp_context.py",
+    "scripts/path_authority.py",
+    "scripts/github_disclosure_gate.py",
+    "scripts/operational_incidents.py",
+    "scripts/repository_gates.py",
     "scripts/source_monitor_recommendations.py",
     "scripts/run_coordinator.py",
     "scripts/build_elim_work_queue.py",
@@ -33,6 +37,7 @@ RUNTIME_FILES = (
     "scripts/elim_execution.py",
     "scripts/check_codex_usage_reserve.py",
     "scripts/console_data_contracts.py",
+    "framework/project/github/disclosure-policy.json",
 )
 
 
@@ -64,6 +69,14 @@ def _owner_directory(path: Path) -> None:
     info = path.stat()
     if info.st_uid != os.getuid() or not stat.S_ISDIR(info.st_mode):
         raise BootstrapError(f"unsafe owner directory: {path}")
+
+
+def _owner_directory_chain(root: Path, destination: Path) -> None:
+    relative = destination.relative_to(root)
+    current = root
+    for part in relative.parts:
+        current = current / part
+        _owner_directory(current)
 
 
 def _write_json(path: Path, payload: object) -> None:
@@ -173,7 +186,7 @@ def materialize_runtime(
         if _hash_object(repository, content) != blob:
             raise BootstrapError(f"runtime content identity failed: {relative}")
         target = temporary / relative
-        _owner_directory(target.parent)
+        _owner_directory_chain(temporary, target.parent)
         descriptor = os.open(target, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
         with os.fdopen(descriptor, "wb") as handle:
             handle.write(content)

@@ -1323,7 +1323,7 @@ def validate_config(config: dict[str, Any]) -> None:
         "statePath": ".tmp/run-coordinator/elim-gap-obligations.json",
         "stateRole": "replaceable-cache",
         "durableAuthority": (
-            "framework/records/automation/elim-run-log.md#machine-readable-discovery-markers"
+            "owner-local:records/automation/elim-run-log.md#machine-readable-discovery-markers"
         ),
         "reconstructBeforeQueueBuild": True,
         "maximumObligations": 512,
@@ -2203,6 +2203,56 @@ def attach_context(args: argparse.Namespace) -> int:
     return 0
 
 
+def attach_repository_gates(args: argparse.Namespace) -> int:
+    manifest = read_json(args.manifest)
+    snapshot = read_json(args.repository_gates)
+    if not isinstance(snapshot, dict) or snapshot.get("schema_version") != 1:
+        raise ValueError("repository-gate snapshot has an invalid schema")
+    if snapshot.get("complete") is not True or snapshot.get("availability") != "current":
+        raise ValueError("repository-gate snapshot is not complete and current")
+    items = snapshot.get("items")
+    if not isinstance(items, list) or snapshot.get("count") != len(items):
+        raise ValueError("repository-gate count does not match its complete items")
+    trigger = str(manifest.get("trigger") or "")
+    stage_ids = {str(stage.get("id") or "") for stage in manifest.get("stages") or []}
+    applied: list[str] = []
+    normalized_items: list[dict[str, Any]] = []
+    for raw in items:
+        if not isinstance(raw, dict) or raw.get("blocks_automation") is not True:
+            raise ValueError("repository-gate item lacks blocks_automation=true")
+        gate_id = str(raw.get("gate_id") or "")
+        scopes = raw.get("next_run_scope")
+        scope_values = (
+            {str(value) for value in scopes}
+            if isinstance(scopes, list)
+            else {str(scopes or "")}
+        )
+        affected = raw.get("affected_stages")
+        if not gate_id or not isinstance(affected, list):
+            raise ValueError("repository-gate item lacks stable identity or affected stages")
+        unknown = sorted(set(map(str, affected)) - stage_ids)
+        if unknown:
+            raise ValueError(
+                f"repository gate {gate_id} names unknown stages: {', '.join(unknown)}"
+            )
+        applies = bool({"all", trigger} & scope_values)
+        item = {**raw, "affected_latest_attempt": applies}
+        if applies:
+            applied.append(gate_id)
+        normalized_items.append(item)
+    manifest["repository_gates"] = {
+        **snapshot,
+        "items": normalized_items,
+        "applied_gate_ids": applied,
+        "snapshot_sha256": hashlib.sha256(
+            args.repository_gates.read_bytes()
+        ).hexdigest(),
+    }
+    manifest["updated_at"] = iso(utc_now())
+    atomic_write(args.output or args.manifest, manifest)
+    return 0
+
+
 def materialize_watcher_inputs(args: argparse.Namespace) -> int:
     manifest = read_json(args.manifest)
     if not isinstance(manifest, dict):
@@ -2270,6 +2320,12 @@ def parser() -> argparse.ArgumentParser:
     p.add_argument("--context", type=Path)
     p.add_argument("--output", type=Path)
     p.set_defaults(function=attach_context)
+
+    p = commands.add_parser("attach-repository-gates")
+    p.add_argument("--manifest", type=Path, required=True)
+    p.add_argument("--repository-gates", type=Path, required=True)
+    p.add_argument("--output", type=Path)
+    p.set_defaults(function=attach_repository_gates)
 
     p = commands.add_parser("materialize-watcher-inputs")
     p.add_argument("--manifest", type=Path, required=True)

@@ -29,8 +29,12 @@ Before creating a public release, complete a final review of:
 5. [`CITATION.cff`](../../../CITATION.cff), including author, title, repository URL, abstract, and citation message;
 6. source citations for named real-world events, public actors, legal materials, reports, and institutional examples;
 7. Git history and author metadata;
-8. repository settings for issues, discussions, pull requests, branch protection, and contributor permissions; and
-9. any draft material that should remain private, be archived, or be revised before publication.
+8. repository settings for issues, discussions, pull requests, branch protection, and contributor permissions;
+9. any draft material that should remain private, be archived, or be revised before publication; and
+10. one complete, exact-revision decision from the governing
+    [GitHub Disclosure Boundary](../github/disclosure-boundary.md) covering
+    release notes, source documents, generated PDFs, generators, tests,
+    fixtures, and assets before any GitHub transmission.
 
 ## Suggested First Release
 

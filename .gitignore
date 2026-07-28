@@ -14,7 +14,15 @@ Thumbs.db
 __pycache__/
 *.pyc
 /research/horizon-review-console/data/private-github-security.js
+/research/horizon-review-console/data/private-operations.js
 /research/horizon-review-console/data/local-automation-status.js
+/research/horizon-review-console/prototypes/
+/research/review-epochs.jsonl
+/framework/records/automation/disclosure-inventory-*.json
+/framework/records/automation/operational-incidents.jsonl
+/framework/records/automation/repository-gates.jsonl
+/framework/records/handoffs/current-task.local.md
+/exports/pdf/*.pending.pdf
 
 # Local secrets
 .env

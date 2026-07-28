@@ -7213,372 +7213,32 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 15
     },
     {
-      "title": "ARRP Agent Audit Log",
-      "path": "framework/records/automation/agent-audit-log.md",
+      "title": "ARRP Agent Audit Summary",
+      "path": "framework/records/automation/agent-audit-summary.md",
       "section": "Framework and process",
       "print_levels": [],
       "print_level_labels": [],
       "print_status": "excluded",
-      "print_exclusion_reason": "Internal operational log.",
+      "print_exclusion_reason": "Online operational summary.",
       "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/automation/agent-audit-log.md",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/automation/agent-audit-summary.md",
       "document_type": "technical",
       "print_metadata_present": true,
       "invalid_print_levels": [],
       "assembly_sections": {},
-      "assembly_sort_key": "framework/records/automation-arrp agent audit log",
+      "assembly_sort_key": "framework/records/automation-arrp agent audit summary",
       "internal_links": [
         {
-          "path": "framework/records/handoffs/current-task.md",
-          "exists": true
-        },
-        {
-          "path": "areas/JUD/issues/JUD-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/JUD/issues/JUD-001.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/JUD-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/JUD/issues/JUD-009.md",
-          "exists": true
-        },
-        {
-          "path": "areas/JUD/issues/JUD-009.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/JUD-009.md",
-          "exists": true
-        },
-        {
-          "path": "areas/DOJ/issues/DOJ-005.md",
-          "exists": true
-        },
-        {
-          "path": "areas/DOJ/issues/DOJ-005.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/DOJ-005.md",
-          "exists": true
-        },
-        {
-          "path": "areas/DOJ/issues/DOJ-007.md",
-          "exists": true
-        },
-        {
-          "path": "areas/DOJ/issues/DOJ-007.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/DOJ-007-amendment.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/DOJ-007.md",
-          "exists": true
-        },
-        {
-          "path": "areas/DOJ/issues/DOJ-009.md",
-          "exists": true
-        },
-        {
-          "path": "areas/DOJ/issues/DOJ-009.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/DOJ-009.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-001.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/ELEC-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-002.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-002.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/ELEC-002-state.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-003.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-003.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/ELEC-003-state.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/ELEC-003.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-004.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-004.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/ELEC-004-state.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/ELEC-004.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-005.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-005.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/ELEC-005.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-006.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-006.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/ELEC-006.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-007.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-007.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/ELEC-007.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-008.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-008.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/ELEC-008.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-009.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-009.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/ELEC-009-amendment.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-010.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-010.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/ELEC-010.md",
-          "exists": true
-        },
-        {
-          "path": "areas/WAR/issues/WAR-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/WAR/issues/WAR-001.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/WAR-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/IMM/issues/IMM-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/IMM/issues/IMM-001.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/IMM-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/JUD/issues/JUD-011.md",
-          "exists": true
-        },
-        {
-          "path": "areas/JUD/issues/JUD-011.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/JUD-011.md",
-          "exists": true
-        },
-        {
-          "path": "areas/FUND/issues/FUND-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/FUND/issues/FUND-001.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/FUND-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/REG/issues/REG-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/REG/issues/REG-001.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/REG-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/EMOL/issues/EMOL-015.md",
-          "exists": true
-        },
-        {
-          "path": "areas/EMOL/issues/EMOL-015.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/EMOL-015.md",
-          "exists": true
-        },
-        {
-          "path": "areas/APPT/issues/APPT-001.md",
-          "exists": true
-        },
-        {
-          "path": "areas/RIGHTS/issues/RIGHTS-005.md",
-          "exists": true
-        },
-        {
-          "path": "areas/JUD/issues/JUD-012.md",
-          "exists": true
-        },
-        {
-          "path": "areas/OVS/issues/OVS-009.md",
-          "exists": true
-        },
-        {
-          "path": "areas/REG/issues/REG-002.md",
-          "exists": true
-        },
-        {
-          "path": "areas/APPT/issues/APPT-001.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/RIGHTS/issues/RIGHTS-005.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/JUD/issues/JUD-012.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/OVS/issues/OVS-009.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/REG/issues/REG-002.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/APPT-001.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/RIGHTS-005.md",
-          "exists": true
-        },
-        {
-          "path": "areas/DOJ/issues/DOJ-002.md",
-          "exists": true
-        },
-        {
-          "path": "areas/DOJ/issues/DOJ-002.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/DOJ-002.md",
-          "exists": true
-        },
-        {
-          "path": "areas/WAR/issues/WAR-009.md",
-          "exists": true
-        },
-        {
-          "path": "areas/WAR/issues/WAR-009.audit.md",
-          "exists": true
-        },
-        {
-          "path": "legislation/WAR-009.md",
-          "exists": true
-        },
-        {
-          "path": "framework/records/sources/source-monitor-log.md",
+          "path": "framework/records/automation/console-development-log.md",
           "exists": true
         }
       ],
-      "word_count": 19500,
-      "estimated_pages": 30,
-      "table_count": 97,
-      "max_table_columns": 2,
+      "word_count": 162,
+      "estimated_pages": 1,
+      "table_count": 0,
+      "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 75
+      "longest_unbroken_token": 52
     },
     {
       "title": "ARRP Agent Authority Policy",
@@ -7621,20 +7281,20 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/records/automation/agent-audit-log.md",
+          "path": "framework/standards/automation/provenance-and-recovery.md",
           "exists": true
         },
         {
-          "path": "framework/standards/automation/provenance-and-recovery.md",
+          "path": "framework/records/automation/agent-audit-summary.md",
           "exists": true
         }
       ],
-      "word_count": 2745,
+      "word_count": 2762,
       "estimated_pages": 5,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 30
+      "longest_unbroken_token": 39
     },
     {
       "title": "ARRP Agent Operating Rules",
@@ -7697,6 +7357,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
+          "path": "framework/project/github/disclosure-boundary.md",
+          "exists": true
+        },
+        {
           "path": "framework/standards/automation/provenance-and-recovery.md",
           "exists": true
         },
@@ -7709,7 +7373,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1824,
+      "word_count": 1898,
       "estimated_pages": 3,
       "table_count": 1,
       "max_table_columns": 2,
@@ -7769,8 +7433,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 484,
-      "estimated_pages": 1,
+      "word_count": 752,
+      "estimated_pages": 2,
       "table_count": 1,
       "max_table_columns": 5,
       "heading_issue_count": 0,
@@ -7841,7 +7505,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1220,
+      "word_count": 1219,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7867,14 +7531,18 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "framework/AGENT_OPERATING_RULES.md",
           "exists": true
+        },
+        {
+          "path": "framework/project/github/disclosure-boundary.md",
+          "exists": true
         }
       ],
-      "word_count": 1915,
+      "word_count": 1866,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 29
+      "longest_unbroken_token": 26
     },
     {
       "title": "ARRP Candidate Discovery and Adjudication",
@@ -7933,6 +7601,52 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 60
     },
     {
+      "title": "ARRP Console Development Log",
+      "path": "framework/records/automation/console-development-log.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal interface-development history.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/automation/console-development-log.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/records/automation-arrp console development log",
+      "internal_links": [],
+      "word_count": 1578,
+      "estimated_pages": 3,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 42
+    },
+    {
+      "title": "ARRP Elim Run Summary",
+      "path": "framework/records/automation/elim-run-summary.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online operational summary.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/automation/elim-run-summary.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/records/automation-arrp elim run summary",
+      "internal_links": [],
+      "word_count": 130,
+      "estimated_pages": 1,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 49
+    },
+    {
       "title": "ARRP First Public Release Plan",
       "path": "framework/project/publication/first-release.md",
       "section": "Framework and process",
@@ -7963,9 +7677,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "PRINT_READERS_GUIDE.md",
           "exists": true
+        },
+        {
+          "path": "framework/project/github/disclosure-boundary.md",
+          "exists": true
         }
       ],
-      "word_count": 460,
+      "word_count": 488,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8193,7 +7911,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 424,
+      "word_count": 471,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8247,14 +7965,18 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "framework/project/github/workflow.md",
           "exists": true
+        },
+        {
+          "path": "framework/records/automation/console-development-log.md",
+          "exists": true
         }
       ],
-      "word_count": 1316,
-      "estimated_pages": 3,
+      "word_count": 5285,
+      "estimated_pages": 9,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 26
+      "longest_unbroken_token": 33
     },
     {
       "title": "ARRP Project Profile",
@@ -9412,12 +9134,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 913,
-      "estimated_pages": 2,
+      "word_count": 615,
+      "estimated_pages": 1,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 43
+      "longest_unbroken_token": 21
     },
     {
       "title": "Elim Agent Runbook",
@@ -9435,92 +9157,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation/runbooks-elim agent runbook",
       "internal_links": [],
-      "word_count": 1028,
+      "word_count": 1144,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
       "longest_unbroken_token": 36
-    },
-    {
-      "title": "Elim Run Log",
-      "path": "framework/records/automation/elim-run-log.md",
-      "section": "Framework and process",
-      "print_levels": [],
-      "print_level_labels": [],
-      "print_status": "excluded",
-      "print_exclusion_reason": "Internal scheduled-agent run history.",
-      "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/automation/elim-run-log.md",
-      "document_type": "technical",
-      "print_metadata_present": true,
-      "invalid_print_levels": [],
-      "assembly_sections": {},
-      "assembly_sort_key": "framework/records/automation-elim run log",
-      "internal_links": [
-        {
-          "path": "framework/records/automation/agent-audit-log.md",
-          "exists": true
-        },
-        {
-          "path": "areas/APPT/issues/APPT-001.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/RIGHTS/issues/RIGHTS-005.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/JUD/issues/JUD-012.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/OVS/issues/OVS-009.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/REG/issues/REG-002.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/DOJ/issues/DOJ-002.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/WAR/issues/WAR-009.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/DOJ/issues/DOJ-001.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/ELEC/issues/ELEC-004.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/FUND/issues/FUND-001.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/JUD/issues/JUD-011.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/WAR/issues/WAR-001.audit.md",
-          "exists": true
-        },
-        {
-          "path": "areas/JUD/issues/JUD-009.audit.md",
-          "exists": true
-        }
-      ],
-      "word_count": 11989,
-      "estimated_pages": 19,
-      "table_count": 15,
-      "max_table_columns": 2,
-      "heading_issue_count": 0,
-      "longest_unbroken_token": 11456
     },
     {
       "title": "External and International Review",
@@ -9595,6 +9237,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 29
     },
     {
+      "title": "GitHub Disclosure Boundary",
+      "path": "framework/project/github/disclosure-boundary.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Online repository-governance summary.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/github/disclosure-boundary.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/project/github-github disclosure boundary",
+      "internal_links": [],
+      "word_count": 785,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 79
+    },
+    {
       "title": "GitHub Workflow",
       "path": "framework/project/github/workflow.md",
       "section": "Framework and process",
@@ -9610,6 +9275,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/github-github workflow",
       "internal_links": [
+        {
+          "path": "framework/project/github/disclosure-boundary.md",
+          "exists": true
+        },
         {
           "path": "framework/FRAMEWORK.md",
           "exists": true
@@ -9643,8 +9312,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4380,
-      "estimated_pages": 7,
+      "word_count": 4760,
+      "estimated_pages": 8,
       "table_count": 1,
       "max_table_columns": 2,
       "heading_issue_count": 0,
@@ -10352,7 +10021,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/standards/interfaces-project interface standard",
       "internal_links": [],
-      "word_count": 317,
+      "word_count": 461,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -10438,12 +10107,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/standards/publication-release standard",
       "internal_links": [],
-      "word_count": 141,
+      "word_count": 182,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 14
+      "longest_unbroken_token": 15
     },
     {
       "title": "Remedy Selection and Design Standard",
@@ -10513,7 +10182,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 983,
+      "word_count": 1017,
       "estimated_pages": 2,
       "table_count": 6,
       "max_table_columns": 3,
@@ -10564,7 +10233,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation/runbooks-run coordinator bot runbook",
       "internal_links": [],
-      "word_count": 795,
+      "word_count": 1044,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -12633,9 +12302,18 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "public-proposal": "appendix-c-research"
       },
       "assembly_sort_key": "research/horizon-review-console-arrp project console",
-      "internal_links": [],
-      "word_count": 3900,
-      "estimated_pages": 6,
+      "internal_links": [
+        {
+          "path": "framework/project/interfaces/project-console.md",
+          "exists": true
+        },
+        {
+          "path": "framework/records/automation/console-development-log.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1417,
+      "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -15412,14 +15090,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "label": "Existing public-proposal draft PDF",
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
-        "page_count": 490,
-        "modified_at": "2026-07-28T02:07:40+00:00",
-        "stale": true
+        "page_count": 505,
+        "modified_at": "2026-07-28T21:50:31+00:00",
+        "stale": false
       }
     ],
     "disposition_counts": {
       "included": 138,
-      "excluded": 224,
+      "excluded": 226,
       "unclassified": 0,
       "conflict": 0
     },
@@ -15428,17 +15106,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Internal source-development record.": 62,
       "Supporting research retained in the GitHub technical record.": 13,
       "Internal workflow or tool documentation.": 27,
-      "Internal operational log.": 4,
+      "Online operational summary.": 2,
       "Internal automation configuration.": 8,
       "Internal project workflow.": 1,
       "Online technical framework and methodology.": 25,
+      "Internal interface-development history.": 1,
       "Internal project configuration.": 4,
       "Internal project-configuration directory guide.": 1,
       "Internal interface configuration.": 2,
       "Internal interface-governance documentation.": 3,
+      "Internal operational log.": 3,
       "Internal operational report.": 1,
-      "Internal scheduled-agent run history.": 1,
       "Internal record-directory guide.": 1,
+      "Online repository-governance summary.": 1,
       "Internal supervised local-first cutover evidence.": 1,
       "Internal publication standard.": 2,
       "Historical implementation baseline retained for provenance.": 1,
@@ -15655,7 +15335,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "label": "Assembly structurally valid",
         "disposition_counts": {
           "included": 138,
-          "excluded": 224,
+          "excluded": 226,
           "unclassified": 0,
           "conflict": 0
         }
@@ -16731,7 +16411,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "link_export_validation": {
         "link_inventory_available": true,
-        "internal_link_count": 1364,
+        "internal_link_count": 1272,
         "missing_link_count": 0,
         "missing_links": [],
         "export_validation_available": false,
@@ -16741,15 +16421,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "export_lineage": {
         "available": false,
         "artifact_path": "exports/pdf/ARRP-public-proposal-draft.pdf",
-        "artifact_sha256": "sha256:ded6ea3b4d0e076a2531cfed123731a74889c85b794d60773f0dbd8424abdd02",
-        "artifact_repository_revision": "e4e91363527ef360b2cc61e65861869a7f262953",
+        "artifact_sha256": "sha256:96965f823bb003dfdf154fe6da604efb0b784da6f266a1642293ae397feb8e31",
+        "artifact_repository_revision": "3f0f1d3d48b4aea148de9da92c946fe36f2c8a35",
         "build_source_revision": null,
         "input_hashes": null,
         "unavailable_reason": "The existing PDF has no recorded build source revision and complete input-hash manifest."
       },
       "stale_pdf": {
         "revision_backed_status": "unavailable",
-        "mtime_indicator": true,
+        "mtime_indicator": false,
         "mtime_indicator_only": true,
         "explanation": "Filesystem modification time is retained as a diagnostic only; it cannot establish current export lineage."
       },
@@ -18494,8 +18174,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "e2415bf87d3a4b14dd1fb9e461f0575752069789",
-        "generated_at": "2026-07-27T23:24:27+00:00"
+        "revision": "a47082d0a684de38626c68fec325337765f35b9a",
+        "generated_at": "2026-07-28T18:43:46+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20251,6 +19931,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-e40c9d8c4a02be3ee610"
+    "publication.js": "project-console-29196c24bdb1d7db30ce"
   }
 });

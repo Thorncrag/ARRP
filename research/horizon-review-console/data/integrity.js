@@ -4,13 +4,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
     "contract_schema_version": 1,
-    "generation_id": "project-integrity-af2766cde396cb46646f",
-    "source_revision": "e2415bf87d3a4b14dd1fb9e461f0575752069789",
-    "generated_at": "2026-07-27T23:24:27+00:00",
+    "generation_id": "project-integrity-00df1e12be8028e70ecb",
+    "source_revision": "a47082d0a684de38626c68fec325337765f35b9a",
+    "generated_at": "2026-07-28T18:43:46+00:00",
     "expected_count": 22,
     "actual_count": 22,
     "source_hashes": {
-      "project-integrity-raw.json": "sha256:3b8e3db37a8c30d94d9519c909d6ce5536032935bf3a2693dc314d6257390eea"
+      "integrity.json": "sha256:ee19d8ba52a255a02fe75beeb9807ad7d7fa9129bd505397aa7b4e9840a4deed"
     },
     "availability": "stale",
     "completeness": {
@@ -35,8 +35,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "code": "repository_revision_superseded",
         "severity": "warning",
         "message": "Integrity generation is not bound to the authoritative repository revision.",
-        "expected_source_revision": "93b15876e1c0dc1902ebf9caabce45552cb6714b",
-        "producer_source_revision": "e2415bf87d3a4b14dd1fb9e461f0575752069789"
+        "expected_source_revision": "cf5ca6a32c1eb2d604be278d3c7b0feccb3db97b",
+        "producer_source_revision": "a47082d0a684de38626c68fec325337765f35b9a"
       }
     ],
     "freshness": {
@@ -46,8 +46,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "current": {
       "schema_version": 1,
-      "generated_at": "2026-07-27T23:24:27+00:00",
-      "revision": "e2415bf87d3a4b14dd1fb9e461f0575752069789",
+      "generated_at": "2026-07-28T18:43:46+00:00",
+      "revision": "a47082d0a684de38626c68fec325337765f35b9a",
       "result": "clean",
       "counts": {
         "errors": 0,
@@ -56,7 +56,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "issue_pages": 64,
         "proposal_pages": 41
       },
-      "duration_seconds": 11.739,
+      "duration_seconds": 10.919,
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -83,410 +83,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       ],
       "findings": []
     },
-    "history": [
-      {
-        "generated_at": "2026-07-27T23:24:27+00:00",
-        "revision": "e2415bf87d3a4b14dd1fb9e461f0575752069789",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 11.739
-      },
-      {
-        "generated_at": "2026-07-27T08:28:38+00:00",
-        "revision": "be3ae39a0841c6072ca421916a5e37936504619e",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 14.12
-      },
-      {
-        "generated_at": "2026-07-27T07:55:04+00:00",
-        "revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
-        "result": "findings",
-        "counts": {
-          "errors": 1,
-          "warnings": 0,
-          "findings": 1,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 13.942
-      },
-      {
-        "generated_at": "2026-07-27T01:48:57+00:00",
-        "revision": "6d28e75c637660deea94a4bc925704b6ad82045c",
-        "result": "findings",
-        "counts": {
-          "errors": 1,
-          "warnings": 0,
-          "findings": 1,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 13.56
-      },
-      {
-        "generated_at": "2026-07-27T00:08:24+00:00",
-        "revision": "bb4756316564a6eb7ca54c1d2b357d01f9246bb7",
-        "result": "findings",
-        "counts": {
-          "errors": 1,
-          "warnings": 0,
-          "findings": 1,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 12.818
-      },
-      {
-        "generated_at": "2026-07-26T23:47:04+00:00",
-        "revision": "1cf67d020d85c0eb408b05112f336f1ec275a29d",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 12.044
-      },
-      {
-        "generated_at": "2026-07-26T23:43:36+00:00",
-        "revision": "329b026ad07820c54e9705361e533071efde2b5c",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 15.619
-      },
-      {
-        "generated_at": "2026-07-26T19:31:43+00:00",
-        "revision": "5e028173e03b4cfa7a2e74aacd5e3dc56e5a408a",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 14.787
-      },
-      {
-        "generated_at": "2026-07-26T19:24:41+00:00",
-        "revision": "2b15786f671fde5017e70b5e19950abd6c6ac770",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 14.397
-      },
-      {
-        "generated_at": "2026-07-26T14:09:55+00:00",
-        "revision": "cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 12.817
-      },
-      {
-        "generated_at": "2026-07-26T14:01:41+00:00",
-        "revision": "1f0183c68196968d392b3813d5a380d33d7929fa",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 13.568
-      },
-      {
-        "generated_at": "2026-07-26T13:54:22+00:00",
-        "revision": "4d01d5a01a5dc208a1765974b572b232b1aa28a9",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 12.919
-      },
-      {
-        "generated_at": "2026-07-26T13:47:51+00:00",
-        "revision": "6f0d0eed6b916bb8a138ae7a38fb092a395e2c4c",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 12.323
-      },
-      {
-        "generated_at": "2026-07-26T13:38:08+00:00",
-        "revision": "1d89849bf3d494340c8e7657ee5b6a35ee84709c",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 12.837
-      },
-      {
-        "generated_at": "2026-07-26T13:27:10+00:00",
-        "revision": "775e0eb40d7b5fa9c7eece48e7b1d868b4a5a0dc",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 12.722
-      },
-      {
-        "generated_at": "2026-07-26T13:15:13+00:00",
-        "revision": "8aa2b745a3e808d7cc4c7d60def486bdb476e0d2",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 12.535
-      },
-      {
-        "generated_at": "2026-07-26T12:56:52+00:00",
-        "revision": "ef8988414cbdb944a3e2eb6ee5d7942140b6fecc",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 13.839
-      },
-      {
-        "generated_at": "2026-07-26T12:25:32+00:00",
-        "revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 14.835
-      },
-      {
-        "generated_at": "2026-07-26T12:18:37+00:00",
-        "revision": "6f3640e2e7a382e9f4763913a52463fc5242c66c",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 11.859
-      },
-      {
-        "generated_at": "2026-07-26T11:10:28+00:00",
-        "revision": "4988344eacd9eff78d2e93c270e8a6fcb7c16acc",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 11.8
-      },
-      {
-        "generated_at": "2026-07-26T10:32:06+00:00",
-        "revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 12.721
-      },
-      {
-        "generated_at": "2026-07-26T10:23:23+00:00",
-        "revision": "c4b1a0d727543e14238d47606aea1c1f8e136045",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 14.904
-      },
-      {
-        "generated_at": "2026-07-26T06:55:15+00:00",
-        "revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 14.104
-      },
-      {
-        "generated_at": "2026-07-26T04:55:36+00:00",
-        "revision": "a62eaf38eb0448c89ff05b8ec4ebb9ae28805b5f",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 13.007
-      },
-      {
-        "generated_at": "2026-07-26T04:41:13+00:00",
-        "revision": "aee2fd40194bd47d0f7d85eba5d11af350c0a449",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 11.688
-      },
-      {
-        "generated_at": "2026-07-26T04:19:07+00:00",
-        "revision": "95fd7cef8204f57d3862a8352ca93caf5ebad7d8",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 12.527
-      },
-      {
-        "generated_at": "2026-07-26T04:04:32+00:00",
-        "revision": "1228faae406b2e9bee80e90d3e6e87419e72ba82",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 11.457
-      },
-      {
-        "generated_at": "2026-07-26T03:50:23+00:00",
-        "revision": "a492bcf936796ca98c0c2ea92fad0f18ba4e51db",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 13.213
-      },
-      {
-        "generated_at": "2026-07-26T03:30:59+00:00",
-        "revision": "2681f26ce7a71dc551bc01a17b5c9ff243aaf3c1",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 13.501
-      },
-      {
-        "generated_at": "2026-07-26T03:27:00+00:00",
-        "revision": "6982dd06680b2846464f13142311c9e4b3774f92",
-        "result": "clean",
-        "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
-          "issue_pages": 64,
-          "proposal_pages": 41
-        },
-        "duration_seconds": 13.296
-      }
-    ],
     "currentness": {
       "authority": "repository_revision",
       "status": "stale",
       "current": false,
-      "expected_source_revision": "93b15876e1c0dc1902ebf9caabce45552cb6714b",
-      "producer_source_revision": "e2415bf87d3a4b14dd1fb9e461f0575752069789",
+      "expected_source_revision": "cf5ca6a32c1eb2d604be278d3c7b0feccb3db97b",
+      "producer_source_revision": "a47082d0a684de38626c68fec325337765f35b9a",
       "equivalent_inputs_established": false,
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
     },
-    "producer_availability": "current"
+    "producer_availability": "current",
+    "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-e40c9d8c4a02be3ee610"
+    "integrity.js": "project-console-29196c24bdb1d7db30ce"
   }
 });

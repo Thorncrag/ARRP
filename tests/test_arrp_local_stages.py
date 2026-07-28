@@ -9,6 +9,10 @@ from pathlib import Path
 from unittest import mock
 
 from tests.test_arrp_nightly import GitFixture, MODULE
+from scripts.operational_incidents import (
+    project_incident_log,
+    reconcile_failure_spool,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -42,6 +46,43 @@ def stage_spec(
 
 
 class LocalStageTests(unittest.TestCase):
+    def test_invalid_elim_result_is_preserved_in_failure_safe_incident_spool(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture = GitFixture(root)
+
+            def invalid_elim(_transaction):
+                raise MODULE.TransactionError(
+                    "sealed production Elim returned no valid result"
+                )
+
+            with self.assertRaisesRegex(MODULE.TransactionError, "no valid result"):
+                MODULE.prepare_transaction(
+                    fixture.config(),
+                    run_id="invalid-elim-result",
+                    local_cycle=invalid_elim,
+                )
+
+            spool = fixture.state / "incident-spool.jsonl"
+            self.assertTrue(spool.is_file())
+            rows = [
+                json.loads(line)
+                for line in spool.read_text(encoding="utf-8").splitlines()
+                if line.strip()
+            ]
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(rows[0]["run_id"], "invalid-elim-result")
+            self.assertNotIn("token", rows[0]["diagnostic"].lower())
+
+            events = root / "reconciled-incidents.jsonl"
+            self.assertEqual(reconcile_failure_spool(spool, events), 1)
+            projection = project_incident_log(events)
+            self.assertEqual(projection["unresolved_count"], 1)
+            self.assertEqual(
+                projection["items"][0]["affected_runs"],
+                ["invalid-elim-result"],
+            )
+
     def test_due_stage_is_reproducible_and_current_typed_output_is_not_due(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -312,6 +353,7 @@ class SealedElimTests(unittest.TestCase):
             "commit": None,
             "synchronization": [],
             "github_action_requests": [],
+            "incident_reports": [],
             "files_touched": ["research/result.md"],
         }
         MODULE.validate_elim_result_boundary(

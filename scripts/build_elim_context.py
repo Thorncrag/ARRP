@@ -8,6 +8,7 @@ import json
 import os
 import sys
 import tempfile
+from collections.abc import Sequence
 from pathlib import Path
 
 from arrp_context import (
@@ -17,6 +18,10 @@ from arrp_context import (
     contained_path,
     manifest_hash_updates,
 )
+from path_authority import (
+    PathAuthorityError,
+    ProjectPathAuthority,
+)
 
 
 DEFAULT_MANIFEST = (
@@ -24,7 +29,23 @@ DEFAULT_MANIFEST = (
 )
 
 
-def parse_args() -> argparse.Namespace:
+def _resolved_requested_root(
+    requested: Path,
+    expected: Path,
+    label: str,
+) -> Path:
+    normalized_requested = os.path.normpath(
+        os.path.abspath(os.path.expanduser(os.fspath(requested)))
+    )
+    normalized_expected = os.path.normpath(
+        os.path.abspath(os.fspath(expected))
+    )
+    if normalized_requested != normalized_expected:
+        raise PathAuthorityError(f"{label} does not match its authority")
+    return expected
+
+
+def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument(
@@ -32,6 +53,16 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=ROOT,
         help="Exact reviewed repository root used to build the packet.",
+    )
+    parser.add_argument(
+        "--path-authority",
+        choices=(
+            "production-canonical",
+            "production-transaction",
+            "repository-validation",
+        ),
+        default=None,
+        help="Explicit trust boundary for every repository and output path.",
     )
     parser.add_argument(
         "--review-epoch-root",
@@ -74,7 +105,7 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Print document hashes for human-reviewed manifest integration; do not build context.",
     )
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
 
 def write_json(path: Path, value: object, root: Path) -> None:
@@ -116,47 +147,109 @@ def emit(
     sys.stdout.write("\n")
 
 
-def main() -> int:
-    args = parse_args()
+def main(
+    argv: Sequence[str] | None = None,
+    *,
+    path_authority: ProjectPathAuthority | None = None,
+) -> int:
+    args = parse_args(argv)
+    authority: ProjectPathAuthority | None = None
     try:
+        if path_authority is not None:
+            if path_authority.mode != "fixture":
+                raise PathAuthorityError(
+                    "injected path authority is reserved for isolated tests"
+                )
+            if args.path_authority is not None:
+                raise PathAuthorityError(
+                    "injected tests cannot select a production path authority"
+                )
+            if args.input_root != ROOT or args.output_root is not None:
+                raise PathAuthorityError(
+                    "injected tests receive repository and output roots from their authority"
+                )
+            authority = path_authority
+        elif (args.path_authority or "production-canonical") == "production-canonical":
+            authority = ProjectPathAuthority.production()
+            _resolved_requested_root(
+                args.input_root,
+                authority.repository_root,
+                "production input root",
+            )
+        elif args.path_authority == "production-transaction":
+            if args.output_root is None:
+                raise PathAuthorityError(
+                    "production transaction requires an exact run root"
+                )
+            authority = ProjectPathAuthority.production_transaction(
+                repository_root=args.input_root,
+                run_root=args.output_root,
+            )
+        else:
+            if not args.print_hash_updates:
+                raise PathAuthorityError(
+                    "repository validation is limited to hash inspection"
+                )
+            authority = ProjectPathAuthority.repository_validation(ROOT)
+            _resolved_requested_root(
+                args.input_root,
+                authority.repository_root,
+                "repository validation root",
+            )
+        input_root = authority.repository_root
+        manifest_path = authority.requested_repository_file(args.manifest)
+        if args.review_epoch_root is not None:
+            review_epoch_root = _resolved_requested_root(
+                args.review_epoch_root,
+                authority.output_root,
+                "review epoch root",
+            )
+        else:
+            review_epoch_root = authority.output_root
+        output_root = authority.output_root
         if args.print_hash_updates:
             value = {
                 "schema_version": 2,
-                "manifest": str(args.manifest),
+                "manifest": str(manifest_path),
                 "document_hashes": manifest_hash_updates(
-                    args.manifest,
-                    root=args.input_root,
+                    manifest_path,
+                    root=input_root,
                 ),
             }
         else:
             if not args.profile:
                 raise ContextError("--profile is required unless --print-hash-updates is used")
             value = build_context_packet(
-                args.manifest,
+                manifest_path,
                 args.profile,
-                root=args.input_root,
+                root=input_root,
                 issue_id=args.issue,
                 review_epoch_path=args.review_epoch,
-                review_epoch_root=args.review_epoch_root,
+                review_epoch_root=review_epoch_root,
                 max_total_bytes=args.max_total_bytes,
                 capabilities=args.capability,
                 work_item_id=args.work_item_id,
                 work_kind=args.work_kind,
                 canonical_record=args.canonical_record,
+                path_authority=authority,
             )
         emit(
             value,
             output=args.output,
-            output_root=args.output_root or args.input_root,
+            output_root=output_root,
         )
         return 0
-    except ContextError as exc:
+    except (ContextError, PathAuthorityError) as exc:
         value = {"schema_version": 2, "status": "blocked", "error": str(exc)}
         try:
             emit(
                 value,
                 output=args.output,
-                output_root=args.output_root or args.input_root,
+                output_root=(
+                    authority.output_root
+                    if authority is not None
+                    else args.output_root or args.input_root
+                ),
             )
         except ContextError:
             json.dump(value, sys.stdout, indent=2, sort_keys=True)

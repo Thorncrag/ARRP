@@ -7,7 +7,7 @@
     "mode": "launchd",
     "localTime": "02:00",
     "timeZone": "America/New_York",
-    "description": "One local LaunchAgent runs the coordinator at 02:00 America/New_York with RunAtLoad due evaluation"
+    "description": "One owner-local scheduler evaluates the nightly coordinator at 02:00 America/New_York"
   },
   "activation": {
     "allowed": [
@@ -20,9 +20,6 @@
   },
   "runtime": {
     "entrypoint": "scripts/arrp_nightly.py",
-    "repositoryPath": "/Users/benjaminsmith/Automation Workspaces/ARRP",
-    "stateDirectory": "~/Library/Application Support/ARRP",
-    "lastSuccessPath": "~/Library/Application Support/ARRP/last-success.json",
     "oneScheduler": true,
     "oneOperatingSystemLock": true,
     "cloudWorkflowAuthority": false
@@ -113,7 +110,7 @@
   "gapStewardship": {
     "statePath": "<run-dir>/elim-gap-obligations.json",
     "stateRole": "replaceable-cache",
-    "durableAuthority": "framework/records/automation/elim-run-log.md#machine-readable-discovery-markers",
+    "durableAuthority": "owner-local:records/automation/elim-run-log.md#machine-readable-discovery-markers",
     "reconstructBeforeQueueBuild": true,
     "maximumObligations": 512,
     "closureProofRequired": true,

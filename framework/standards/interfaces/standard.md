@@ -20,6 +20,11 @@ a competing authority.
 
 - Use a centered responsive shell, clear hierarchy, concise labels, and
   functional groupings that remain readable on narrow screens.
+- Keep compact portals, status cells, and metric summaries on one deliberate
+  desktop row whenever their content can remain legible. Prefer tighter copy,
+  smaller fixed spans, or bounded horizontal overflow to an accidental second
+  row. A stacked or multi-row arrangement is an intentional narrow-screen
+  adaptation, not the desktop default.
 - Preserve strong keyboard focus, adequate contrast, semantic form labels,
   skip navigation, explicit hover and disabled states, and layouts that do not
   hide information when columns collapse.
@@ -30,6 +35,14 @@ a competing authority.
   performance materially requires it.
 - Security, privacy, public-posting, disabled-service, stale-data, and error
   notices remain prominent functional warnings.
+- Navigation status conditions use fixed-size colored dots with an accessible
+  text label or equivalent tooltip; they do not use variable-width status text
+  that shifts neighboring controls. A number appears only when it is the exact
+  actionable-queue count owned by that destination; inventory, history, role,
+  or displayed-record totals do not become navigation badges. A red dot marks
+  a typed current blocker represented in the destination independently from
+  its count, but exact Blocked or Deferred workflow Status alone does not
+  trigger it. Color is never the only accessible statement of the condition.
 
 ## Authority and controls
 

@@ -14,6 +14,17 @@ from pathlib import Path
 from typing import Any
 
 try:
+    from operational_incidents import (
+        IncidentContractError,
+        validate_incident_report,
+    )
+except ModuleNotFoundError:
+    from scripts.operational_incidents import (
+        IncidentContractError,
+        validate_incident_report,
+    )
+
+try:
     from arrp_context import (
         ContextError,
         GAP_OBLIGATION_CLOSED_STATUSES,
@@ -1081,6 +1092,7 @@ def validate_work_unit(value: dict[str, Any]) -> None:
         "commit",
         "synchronization",
         "human_questions",
+        "incident_reports",
         "github_action_requests",
         "continuation",
         "discovered_work_units",
@@ -1089,8 +1101,8 @@ def validate_work_unit(value: dict[str, Any]) -> None:
     missing = sorted(required - set(value))
     if missing:
         raise ContextError(f"work-unit result is missing required fields: {missing}")
-    if isinstance(value["schema_version"], bool) or value["schema_version"] != 1:
-        raise ContextError("work-unit result schema_version must be 1")
+    if isinstance(value["schema_version"], bool) or value["schema_version"] != 2:
+        raise ContextError("work-unit result schema_version must be 2")
     extras = sorted(set(value) - required)
     if extras:
         raise ContextError(f"work-unit result contains unapproved fields: {extras}")
@@ -1133,6 +1145,14 @@ def validate_work_unit(value: dict[str, Any]) -> None:
         raise ContextError("work-unit authority classification is invalid")
     if not isinstance(authority.get("basis"), str) or not authority["basis"].strip():
         raise ContextError("work-unit authority basis is required")
+    incident_reports = value["incident_reports"]
+    if not isinstance(incident_reports, list) or len(incident_reports) > 16:
+        raise ContextError("work-unit incident_reports must be a bounded array")
+    try:
+        for report in incident_reports:
+            validate_incident_report(report)
+    except IncidentContractError as error:
+        raise ContextError(f"work-unit incident report is invalid: {error}") from error
     continuation = value["continuation"]
     if not isinstance(continuation, dict) or set(continuation) != {
         "state",
@@ -1244,6 +1264,7 @@ def compile_closeout(
         "commit": value.get("commit"),
         "synchronization": value.get("synchronization") or [],
         "human_questions": value.get("human_questions") or [],
+        "incident_reports": value.get("incident_reports") or [],
         "github_action_requests": [],
         "discovered_work_units": value.get("discovered_work_units") or [],
         "gap_obligation_updates": value.get("gap_obligation_updates") or [],

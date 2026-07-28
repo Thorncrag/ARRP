@@ -2,14 +2,15 @@
 title: "Elim Agent Runbook"
 agent_id: elim
 display_name: Elim
+console_purpose: "Completes one selected research, analysis, or drafting work unit within bounded authority."
 agent_type: llm-agent
 status: enabled-conditional
 trigger: one-selected-local-work-unit
 schedule: none
 runtime_id: scripts/elim_execution.py
 execution_environment: transaction-worktree
-log_path: framework/records/automation/agent-audit-log.md
-run_log_path: framework/records/automation/elim-run-log.md
+log_path: owner-local:records/automation/agent-audit-log.md
+run_log_path: owner-local:records/automation/elim-run-log.md
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
 ---
@@ -128,6 +129,16 @@ identity, work type, outcome, authority, canonical record, exact
 discovered work units, gap-obligation updates, and
 `github_action_requests`. `commit` is null and synchronization is empty.
 
+The result also contains the required bounded `incident_reports` array, empty
+when no unresolved operational condition was observed. A report is an
+evidence-backed advisory package: it preserves observations and safe evidence
+references, checks, ruled-out possibilities, confidence-marked hypotheses,
+attempted remedies, the exact unresolved boundary, preferred and alternate
+remedies, recommended owner, required authority, next action, deferred risk,
+fallback, and closure test. It never enlarges Elim's authority or makes Elim
+the incident authority. The deterministic coordinator independently validates,
+sanitizes, deduplicates, and records accepted reports.
+
 `files_touched` must exactly equal the delta created by Elim. A nonempty
 `github_action_requests` array must match the registered broker schema, exact
 source revision, public privacy class, recorded authority, exact prior state,
@@ -146,7 +157,10 @@ human authority.
 The deterministic result gate independently validates schema, unit binding,
 authority, exact paths, Git immutability, protected-path exclusion, provenance,
 and continuation. On timeout or invalid output, preserve JSONL, any result,
-the worktree, and next action; do not launch a second turn automatically.
+the worktree, and next action; do not launch a second turn automatically. The
+coordinator also records a sanitized failure event through the owner-only
+incident spool so observability does not depend on Elim returning a valid
+report or on the normal generated-view stage.
 The handoff is continuation state, not proof that an Elim process remains
 alive.
 

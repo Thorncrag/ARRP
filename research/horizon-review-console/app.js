@@ -42,7 +42,24 @@
     data.integrity = data.integrity || {};
     data.source_checker = data.source_checker || {};
     data.run_chain = data.run_chain || {};
+    data.repository_gates = data.repository_gates || {};
+    data.operational_incidents = data.operational_incidents
+      && typeof data.operational_incidents === "object"
+      ? data.operational_incidents
+      : {
+          availability: "unavailable",
+          complete: false,
+          unresolved_count: null,
+          impact_state: "gray",
+          items: [],
+          active_links: {},
+          reason: "Operational incident feed is unavailable."
+        };
     data.agent_registry = Array.isArray(data.agent_registry) ? data.agent_registry : [];
+    data.automation_role_status = data.automation_role_status
+      && typeof data.automation_role_status === "object"
+      ? data.automation_role_status
+      : { availability: "unavailable", roles: [] };
     data.repository_review_recommendations = Array.isArray(data.repository_review_recommendations)
       ? data.repository_review_recommendations
       : [];
@@ -54,18 +71,101 @@
   }
   normalizeLoadedData();
   const PRIVATE_GITHUB_SECURITY_PATH = "data/private-github-security.js?v=1";
+  const PRIVATE_OPERATIONS_PATH = "data/private-operations.js?v=1";
   const LOCAL_AUTOMATION_STATUS_PATH = "data/local-automation-status.js";
   const PRIVATE_GITHUB_SECURITY_UNAVAILABLE = [{ reference: "GHSEC-SNAPSHOT-UNAVAILABLE", category: "GitHub security", severity: "info", attention: "observed", owner: "Authenticated Console refresh", reported_by: "Project Console", status: "Unavailable", message: "Private GitHub security alerts are unavailable; alert absence is not inferred.", source_url: "https://github.com/Thorncrag/ARRP/security" }];
   let privateGitHubProblems = PRIVATE_GITHUB_SECURITY_UNAVAILABLE;
+  let privateGitHubSecuritySnapshot = {
+    schema_version: 1,
+    availability: "unavailable",
+    completeness: { complete: false, open_alert_count: null },
+    alerts: [],
+    problems: PRIVATE_GITHUB_SECURITY_UNAVAILABLE,
+    generated_at: null
+  };
   function capturePrivateGitHubProblems() {
-    if (!Array.isArray(window.ARRP_PRIVATE_GITHUB_SECURITY?.problems)) return false;
-    privateGitHubProblems = window.ARRP_PRIVATE_GITHUB_SECURITY.problems;
+    const snapshot = window.ARRP_PRIVATE_GITHUB_SECURITY;
+    if (!snapshot || typeof snapshot !== "object" || !Array.isArray(snapshot.problems)) return false;
+    privateGitHubSecuritySnapshot = snapshot;
+    privateGitHubProblems = snapshot.problems;
     return true;
+  }
+  let privateOperationsSnapshot = null;
+  function capturePrivateOperations() {
+    const snapshot = window.ARRP_PRIVATE_OPERATIONS;
+    if (!snapshot || typeof snapshot !== "object") return false;
+    if (!Array.isArray(snapshot.agent_registry) || !Array.isArray(snapshot.project_logs)) {
+      return false;
+    }
+    privateOperationsSnapshot = snapshot;
+    data.agent_registry = snapshot.agent_registry;
+    data.project_logs = snapshot.project_logs;
+    if (snapshot.integrity && typeof snapshot.integrity === "object") {
+      data.integrity = snapshot.integrity;
+    }
+    if (snapshot.run_chain && typeof snapshot.run_chain === "object") {
+      data.run_chain = snapshot.run_chain;
+    }
+    return true;
+  }
+  function securityRemediationProjection(snapshot = privateGitHubSecuritySnapshot) {
+    const complete = snapshot?.availability === "current"
+      && snapshot?.completeness?.complete === true
+      && Array.isArray(snapshot?.alerts);
+    if (!complete) {
+      return {
+        available: false,
+        count: null,
+        rawAlertCount: null,
+        checkedAt: snapshot?.generated_at || null,
+        reason: "A complete current authenticated GitHub security snapshot is unavailable.",
+        workUnits: []
+      };
+    }
+    const groups = new Map();
+    let valid = true;
+    snapshot.alerts.forEach((alert) => {
+      if (!alert || typeof alert !== "object" || !String(alert.id || "").trim()) {
+        valid = false;
+        return;
+      }
+      const remediationId = String(alert.remediation_group_id || alert.id);
+      if (!groups.has(remediationId)) {
+        groups.set(remediationId, {
+          id: remediationId,
+          owner: alert.owner,
+          nextAction: alert.next_action,
+          alerts: []
+        });
+      }
+      const group = groups.get(remediationId);
+      if (group.owner !== alert.owner || group.nextAction !== alert.next_action) valid = false;
+      group.alerts.push(alert);
+    });
+    if (!valid) {
+      return {
+        available: false,
+        count: null,
+        rawAlertCount: snapshot.alerts.length,
+        checkedAt: snapshot.generated_at,
+        reason: "The authenticated snapshot contains an invalid or contradictory remediation-group declaration.",
+        workUnits: [...groups.values()]
+      };
+    }
+    return {
+      available: true,
+      count: groups.size,
+      rawAlertCount: snapshot.alerts.length,
+      checkedAt: snapshot.generated_at,
+      reason: "",
+      workUnits: [...groups.values()]
+    };
   }
   capturePrivateGitHubProblems();
   const catalogGenerationId = String(
     data.generation_id || data.generation_manifest?.generation_id || ""
   );
+  const consoleOpenedAt = new Date().toISOString();
 
   const byId = (id) => document.getElementById(id);
   const preliminaryState = { search: "", term: "all", area: "all" };
@@ -94,15 +194,25 @@
       sortDirection: "asc"
     }
   };
-  const progressNextWorkState = {
+  const pipelineState = {
+    mode: "active",
     search: "",
-    cohort: "all",
+    workClass: "all",
+    scope: "active-development",
+    sort: "pipeline",
     status: "all",
-    priority: "all",
     development: "all",
-    releaseBlocker: "all",
     area: "all",
-    owner: "all"
+    owner: "all",
+    priority: "all",
+    releaseBlocker: "all",
+    gap: "all",
+    selectedId: "",
+    focused: false,
+    sourceContext: "",
+    sourceReference: "",
+    returnTarget: "",
+    items: []
   };
   const pendingState = { search: "", owner: "all" };
   const manualWatchState = { search: "", kind: "all" };
@@ -129,14 +239,32 @@
     selectedId: "",
     items: []
   };
+  const incidentLogState = {
+    scope: "unresolved",
+    search: "",
+    selectedId: ""
+  };
   const assemblyDrafts = new Map();
   const assemblyOperations = new Map();
+  const automationConfigurationDrafts = new Map();
+  const automationRoleState = {
+    selectedId: "run-coordinator-bot",
+    unavailableId: ""
+  };
   const logStates = {};
   const PAGE_SIZE = 50;
   const SOURCE_CHECKER_PAGE_SIZE = 50;
   let pageIndex = new Map(data.page_inventory.map((record) => [record.path, record]));
 
   const LAYOUT_STORAGE_KEY = "arrp-project-console-layout-v1";
+  const LAYOUT_PLACEMENTS_KEY = "__placements";
+  const LAYOUT_WIDTHS = Object.freeze({
+    full: "Full",
+    half: "Half",
+    third: "Third",
+    quarter: "Quarter",
+    compact: "Compact"
+  });
   const DISCLOSURE_STORAGE_KEY = "arrp-project-console-disclosures-v1";
   const WORKFLOW_SUMMARY_STORAGE_KEY = "arrp-project-console-intro-hidden-v1";
   const ACTION_INBOX_LAYOUT_STORAGE_KEY = "arrp-project-console-action-inbox-layout-v1";
@@ -164,9 +292,15 @@
   const LIVE_PULL_REQUESTS_URL = "https://api.github.com/repos/Thorncrag/ARRP/pulls?state=open&per_page=100";
   const OPENAI_STATUS_URL = "https://status.openai.com/api/v2/status.json";
   const OPENAI_COMPONENTS_URL = "https://status.openai.com/api/v2/components.json";
+  const OPENAI_INCIDENTS_URL = "https://status.openai.com/api/v2/incidents/unresolved.json";
+  const VERCEL_STATUS_URL = "https://www.vercel-status.com/api/v2/status.json";
+  const VERCEL_COMPONENTS_URL = "https://www.vercel-status.com/api/v2/components.json";
+  const VERCEL_INCIDENTS_URL = "https://www.vercel-status.com/api/v2/incidents/unresolved.json";
+  const CLOUDFLARE_COMPONENTS_URL = "https://www.cloudflarestatus.com/api/v2/components.json";
+  const CLOUDFLARE_INCIDENTS_URL = "https://www.cloudflarestatus.com/api/v2/incidents/unresolved.json";
   const GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/";
   const LIVE_SITE_ROOT = "https://thorncrag.github.io/ARRP/";
-  const SCRIPT_VERSION = "47";
+  const SCRIPT_VERSION = "49";
   const sourceCatalogScripts = Array.from(
     { length: 16 },
     (_, index) => `data/sources-catalog-${String(index + 1).padStart(3, "0")}.js?v=${SCRIPT_VERSION}`
@@ -228,11 +362,43 @@
     pullRequestsStatus: "pending",
     pullRequestsCheckedAt: null
   };
-  const serviceSignals = {
-    status: "pending",
-    checkedAt: null,
-    overall: null,
-    components: []
+  const PLATFORM_PROVIDER_SPECS = Object.freeze({
+    openai: {
+      label: "OpenAI",
+      source: "https://status.openai.com/",
+      registrations: [
+        { id: "gpts", label: "GPTs", names: ["GPTs"] },
+        { id: "codex", label: "Codex", names: ["Codex in ChatGPT Desktop", "Codex API", "Codex Web", "CLI", "VS Code extension"] },
+        { id: "api-platform", label: "API platform", names: ["Responses", "Chat Completions", "Realtime", "Files", "Embeddings"] }
+      ]
+    },
+    vercel: {
+      label: "Vercel",
+      source: "https://www.vercel-status.com/",
+      registrations: [
+        { id: "j7g76bfzc8hw", label: "CDN", exactName: "CDN" },
+        { id: "kgcsn9c73xzf", label: "Functions", exactName: "Functions" },
+        { id: "xxh50pzvy03x", label: "Firewall", exactName: "Firewall" },
+        { id: "bc3cl3q4jn9m", label: "TLS Certificates", exactName: "TLS Certificates" },
+        { id: "7ckq6xr6nsbv", label: "Builds", exactName: "Builds" },
+        { id: "hpqj1ys9gr78", label: "Git Integrations", exactName: "Git Integrations" }
+      ]
+    },
+    cloudflare: {
+      label: "Cloudflare",
+      source: "https://www.cloudflarestatus.com/",
+      registrations: [
+        { id: "m4jywscr0n0k", label: "Turnstile", exactName: "Turnstile" }
+      ]
+    }
+  });
+  const platformSignals = {
+    schemaVersion: 1,
+    providers: {
+      openai: { availability: "pending", complete: false, checkedAt: null, components: [], incidents: [], lastValid: null },
+      vercel: { availability: "pending", complete: false, checkedAt: null, components: [], incidents: [], lastValid: null },
+      cloudflare: { availability: "pending", complete: false, checkedAt: null, components: [], incidents: [], lastValid: null }
+    }
   };
 
   function text(value, fallback = "—") {
@@ -266,12 +432,41 @@
   }
 
   function formatDate(value) {
+    const dateOnly = typeof value === "string"
+      && /^\d{4}-\d{2}-\d{2}$/.test(value.trim());
+    if (dateOnly) {
+      const [year, month, day] = value.trim().split("-").map(Number);
+      return new Intl.DateTimeFormat(undefined, { dateStyle: "medium" })
+        .format(new Date(year, month - 1, day));
+    }
     const timestamp = parseTimestamp(value);
     if (timestamp === null) return value ? String(value) : "Not recorded";
     const date = new Date(timestamp);
     return Number.isNaN(date.valueOf())
       ? value
       : new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" }).format(date);
+  }
+
+  function formatOperationalDate(value) {
+    const timestamp = parseTimestamp(value);
+    if (timestamp === null) return value ? String(value) : "Not recorded";
+    return new Intl.DateTimeFormat(undefined, {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      timeZoneName: "short"
+    }).format(new Date(timestamp));
+  }
+
+  function nextScheduledCoordinatorRun(afterValue = Date.now()) {
+    const timestamp = parseTimestamp(afterValue) ?? Date.now();
+    const candidate = new Date(timestamp);
+    candidate.setHours(2, 0, 0, 0);
+    if (candidate.getTime() < timestamp) candidate.setDate(candidate.getDate() + 1);
+    return candidate.toISOString();
   }
 
   function scorePresentation(value) {
@@ -319,6 +514,11 @@
     const actual = Number(feed.actual_count ?? completeness?.actual_count);
     const complete = completeness?.complete;
     const errors = Array.isArray(feed.projection_errors) ? feed.projection_errors : [];
+    const errorReason = errors.map((error) => {
+      if (typeof error === "string") return error;
+      if (error && typeof error === "object") return error.message || error.code || "Projection error";
+      return String(error);
+    }).join("; ");
     let state = availability || "undeclared";
     if (errors.length || complete === false || (Number.isFinite(expected) && Number.isFinite(actual) && expected !== actual)) {
       state = state === "unavailable" ? "unavailable" : "incomplete";
@@ -334,11 +534,15 @@
     return {
       state,
       label,
-      complete: complete === true && !errors.length
+      complete: (complete === true
+        || (complete == null && ["available", "current", "stale"].includes(state)))
+        && !errors.length
         && !(Number.isFinite(expected) && Number.isFinite(actual) && expected !== actual),
       expected: Number.isFinite(expected) ? expected : null,
       actual: Number.isFinite(actual) ? actual : null,
-      reason: completeness?.reason || errors.join("; ") || "",
+      reason: typeof completeness?.reason === "string"
+        ? completeness.reason
+        : errorReason,
       timestamp: feed.generated_at || feed.checked_at || fallbackTimestamp || ""
     };
   }
@@ -612,6 +816,9 @@
           validateLoadedDomainScript(source);
         }
         normalizeLoadedData();
+        // Public domain files carry only safe summaries. Restore the complete
+        // ignored owner-local projection after a domain assignment replaces it.
+        if (privateOperationsSnapshot) capturePrivateOperations();
         loadedDomains.add(domain);
         hydrateLoadedDomain(domain);
         return true;
@@ -904,7 +1111,14 @@
       element("span", "", `Last reviewed: ${text(record.last_checked, "Not recorded")}`),
       element("span", "", "Review disposition in Codex")
     );
-    card.append(header, defect, details, sources, footer);
+    const links = element("div", "source-list dossier-actions");
+    const workbenchTarget = workbenchTargetForArtifact(record.id, {
+      source: "Preliminary Candidates",
+      reference: record.id,
+      returnTarget: `planning:preliminary:selected=${encodeURIComponent(record.id)}`
+    });
+    if (workbenchTarget) links.append(internalInlineLink("Open in Workbench", workbenchTarget));
+    card.append(header, defect, details, sources, footer, links);
     return card;
   }
 
@@ -981,6 +1195,12 @@
     }
 
     const links = element("div", "source-list dossier-actions");
+    const workbenchTarget = workbenchTargetForArtifact(record.id, {
+      source: "Candidates",
+      reference: record.id,
+      returnTarget: `planning:candidates:selected=${encodeURIComponent(record.id)}`
+    });
+    if (workbenchTarget) links.append(internalInlineLink("Open in Workbench", workbenchTarget));
     links.append(linkButton("Open GitHub issue", record.issue_url));
     if (record.canonical_page && record.canonical_page !== record.issue_url) {
       links.append(linkButton("Open canonical page", record.canonical_page, true));
@@ -1126,8 +1346,12 @@
   }
 
   function layoutItems(config) {
-    return [...config.container.querySelectorAll(config.selector)]
+    const selected = [...config.container.querySelectorAll(config.selector)]
       .filter((node) => node.parentElement === config.container);
+    const transferred = [...config.container.children].filter((node) =>
+      node.dataset.layoutTransferGroup
+      && config.acceptedTransferGroups.has(node.dataset.layoutTransferGroup));
+    return [...new Set([...selected, ...transferred])];
   }
 
   function saveLayoutZone(config) {
@@ -1140,17 +1364,134 @@
       : "This browser did not permit saving; the arrangement will last until reload.";
   }
 
+  function layoutSizeKey(config) {
+    return `${config.key}:sizes`;
+  }
+
+  function layoutItemDefaultWidth(item, config) {
+    return item.dataset.layoutDefaultWidth || config.defaultWidth || "full";
+  }
+
+  function setLayoutItemWidth(item, config, width) {
+    if (!config.sizable) return;
+    const preferences = readLayoutPreferences();
+    const key = layoutSizeKey(config);
+    const sizes = preferences[key] && typeof preferences[key] === "object"
+      ? { ...preferences[key] }
+      : {};
+    if (width === "default") delete sizes[item.dataset.layoutId];
+    else if (Object.prototype.hasOwnProperty.call(LAYOUT_WIDTHS, width)) {
+      sizes[item.dataset.layoutId] = width;
+    }
+    if (Object.keys(sizes).length) preferences[key] = sizes;
+    else delete preferences[key];
+    const saved = writeLayoutPreferences(preferences);
+    applyLayoutZone(config);
+    byId("layout-status").textContent = saved
+      ? "Layout size saved in this browser."
+      : "This browser did not permit saving; the size will last until reload.";
+    announce(
+      `${item.querySelector("h2, h3, h4, strong")?.textContent || "Item"} width set to ${
+        width === "default"
+          ? `project default (${LAYOUT_WIDTHS[layoutItemDefaultWidth(item, config)]})`
+          : LAYOUT_WIDTHS[width]
+      }.`
+    );
+  }
+
+  function compatibleLayoutZones(item) {
+    const transferGroup = item.dataset.layoutTransferGroup;
+    if (!transferGroup) return [];
+    return [...layoutZones.values()].filter((config) =>
+      config.acceptedTransferGroups.has(transferGroup));
+  }
+
+  function layoutConfigForItem(item) {
+    return [...layoutZones.values()].find((config) =>
+      config.container === item.parentElement
+      && layoutItems(config).includes(item));
+  }
+
+  function moveLayoutItemToZone(item, targetKey) {
+    const sourceConfig = layoutConfigForItem(item);
+    const targetConfig = layoutZones.get(targetKey);
+    const transferGroup = item.dataset.layoutTransferGroup;
+    if (!sourceConfig || !targetConfig || sourceConfig === targetConfig) return;
+    if (!targetConfig.acceptedTransferGroups.has(transferGroup)) return;
+    targetConfig.container.append(item);
+    const preferences = readLayoutPreferences();
+    const placements = preferences[LAYOUT_PLACEMENTS_KEY]
+      && typeof preferences[LAYOUT_PLACEMENTS_KEY] === "object"
+      ? { ...preferences[LAYOUT_PLACEMENTS_KEY] }
+      : {};
+    if (targetConfig.key === item.dataset.layoutOriginZone) {
+      delete placements[item.dataset.layoutId];
+    } else {
+      placements[item.dataset.layoutId] = targetConfig.key;
+    }
+    if (Object.keys(placements).length) preferences[LAYOUT_PLACEMENTS_KEY] = placements;
+    else delete preferences[LAYOUT_PLACEMENTS_KEY];
+    preferences[sourceConfig.key] = layoutItems(sourceConfig).map((node) => node.dataset.layoutId);
+    preferences[targetConfig.key] = layoutItems(targetConfig).map((node) => node.dataset.layoutId);
+    const saved = writeLayoutPreferences(preferences);
+    applyLayoutZone(sourceConfig);
+    applyLayoutZone(targetConfig);
+    const itemLabel = item.querySelector("h2, h3, h4, strong")?.textContent || "Item";
+    byId("layout-status").textContent = saved
+      ? `${itemLabel} moved to ${targetConfig.label}.`
+      : `${itemLabel} moved, but this browser did not permit saving the placement.`;
+    announce(`${itemLabel} moved to ${targetConfig.label}.`);
+  }
+
   function refreshLayoutHandles(config) {
     const items = layoutItems(config);
     items.forEach((item, index) => {
       item.draggable = layoutEditing;
       item.classList.add("layout-item");
+      if (!layoutEditing) {
+        [...item.children]
+          .filter((child) => child.classList?.contains("layout-handle"))
+          .forEach((handle) => handle.remove());
+        return;
+      }
       if (["A", "BUTTON", "DETAILS"].includes(item.tagName)) return;
       let handle = [...item.children].find((child) => child.classList?.contains("layout-handle"));
       if (!handle) {
         handle = element("div", "layout-handle");
         const label = element("span", "", "Drag to rearrange");
         const actions = element("span", "layout-handle-actions");
+        if (config.sizable) {
+          const widthLabel = element("label", "layout-width-control", "Width");
+          const widthSelect = element("select", "layout-width-select");
+          const defaultOption = element("option", "", "Project default");
+          defaultOption.value = "default";
+          widthSelect.append(defaultOption);
+          Object.entries(LAYOUT_WIDTHS).forEach(([value, textLabel]) => {
+            const option = element("option", "", textLabel);
+            option.value = value;
+            widthSelect.append(option);
+          });
+          widthSelect.addEventListener("change", (event) => {
+            setLayoutItemWidth(item, config, event.currentTarget.value);
+          });
+          widthLabel.append(widthSelect);
+          actions.append(widthLabel);
+        }
+        const destinations = compatibleLayoutZones(item);
+        if (destinations.length > 1) {
+          const containerLabel = element("label", "layout-container-control", "Container");
+          const containerSelect = element("select", "layout-container-select");
+          destinations.forEach((destination) => {
+            const option = element("option", "", destination.label);
+            option.value = destination.key;
+            containerSelect.append(option);
+          });
+          containerSelect.addEventListener("change", (event) => {
+            moveLayoutItemToZone(item, event.currentTarget.value);
+          });
+          containerLabel.append(containerSelect);
+          actions.append(containerLabel);
+        }
         const previous = element("button", "", config.axis === "horizontal" ? "←" : "↑");
         const next = element("button", "", config.axis === "horizontal" ? "→" : "↓");
         previous.type = next.type = "button";
@@ -1169,13 +1510,25 @@
       buttons[1].setAttribute("aria-label", `Move ${itemLabel.trim()} ${config.axis === "horizontal" ? "right" : "down"}`);
       buttons[0].disabled = index === 0;
       buttons[1].disabled = index === items.length - 1;
+      const widthSelect = handle.querySelector(".layout-width-select");
+      if (widthSelect) {
+        const sizes = readLayoutPreferences()[layoutSizeKey(config)];
+        widthSelect.value = sizes?.[item.dataset.layoutId] || "default";
+        widthSelect.setAttribute("aria-label", `Width for ${itemLabel.trim()}`);
+      }
+      const containerSelect = handle.querySelector(".layout-container-select");
+      if (containerSelect) {
+        containerSelect.value = config.key;
+        containerSelect.setAttribute("aria-label", `Container for ${itemLabel.trim()}`);
+      }
     });
   }
 
   function applyLayoutZone(config) {
     const items = layoutItems(config);
     items.forEach((item, index) => { item.dataset.layoutId = layoutIdentity(item, index); });
-    const order = readLayoutPreferences()[config.key];
+    const preferences = readLayoutPreferences();
+    const order = preferences[config.key];
     if (Array.isArray(order)) {
       const byLayoutId = new Map(items.map((item) => [item.dataset.layoutId, item]));
       order.forEach((id) => {
@@ -1184,6 +1537,20 @@
       });
       items.filter((item) => !order.includes(item.dataset.layoutId)).forEach((item) => config.container.append(item));
     }
+    const sizes = preferences[layoutSizeKey(config)];
+    const hasSizes = config.sizable
+      && sizes
+      && typeof sizes === "object"
+      && Object.keys(sizes).length > 0;
+    config.container.classList.toggle("layout-size-zone", Boolean(hasSizes));
+    layoutItems(config).forEach((item) => {
+      if (hasSizes) {
+        item.dataset.layoutWidth = sizes[item.dataset.layoutId]
+          || layoutItemDefaultWidth(item, config);
+      } else {
+        delete item.dataset.layoutWidth;
+      }
+    });
     refreshLayoutHandles(config);
   }
 
@@ -1201,9 +1568,26 @@
     announce(`${item.querySelector("h2, h3, h4, strong")?.textContent || "Item"} moved ${delta < 0 ? "earlier" : "later"}.`);
   }
 
-  function registerLayoutZone(container, key, selector = ":scope > *", axis = "vertical") {
+  function registerLayoutZone(
+    container,
+    key,
+    selector = ":scope > *",
+    axis = "vertical",
+    sizable = false,
+    defaultWidth = "full",
+    options = {}
+  ) {
     if (!container) return;
-    const config = { container, key, selector, axis };
+    const config = {
+      container,
+      key,
+      selector,
+      axis,
+      sizable,
+      defaultWidth,
+      label: options.label || key,
+      acceptedTransferGroups: new Set(options.accepts || [])
+    };
     layoutZones.set(key, config);
     container.classList.add("layout-zone");
     container.dataset.layoutZone = key;
@@ -1254,7 +1638,32 @@
     applyLayoutZone(config);
   }
 
+  function applySavedLayoutPlacements() {
+    const preferences = readLayoutPreferences();
+    const placements = preferences[LAYOUT_PLACEMENTS_KEY];
+    if (!placements || typeof placements !== "object") return;
+    document.querySelectorAll("[data-layout-transfer-group][data-layout-id]").forEach((item) => {
+      const currentConfig = layoutConfigForItem(item);
+      if (currentConfig && !item.dataset.layoutOriginZone) {
+        item.dataset.layoutOriginZone = currentConfig.key;
+      }
+      const targetConfig = layoutZones.get(placements[item.dataset.layoutId]);
+      if (!targetConfig
+        || !targetConfig.acceptedTransferGroups.has(item.dataset.layoutTransferGroup)
+        || targetConfig.container === item.parentElement) return;
+      targetConfig.container.append(item);
+    });
+  }
+
   function refreshLayoutZones() {
+    layoutZones.forEach((config) => {
+      layoutItems(config).forEach((item) => {
+        if (item.dataset.layoutTransferGroup && !item.dataset.layoutOriginZone) {
+          item.dataset.layoutOriginZone = config.key;
+        }
+      });
+    });
+    applySavedLayoutPlacements();
     layoutZones.forEach(applyLayoutZone);
     refreshDisclosurePreferences();
   }
@@ -1266,6 +1675,7 @@
       if (key.startsWith(`sections-${active}`) || key.startsWith(`cards-${active}`) || key === `subtabs-${active}`) delete preferences[key];
       if (active === "sources" && key === "watcher-tabs") delete preferences[key];
     });
+    if (active === "overview") delete preferences[LAYOUT_PLACEMENTS_KEY];
     writeLayoutPreferences(preferences);
     const disclosures = readDisclosurePreferences();
     Object.keys(disclosures).forEach((key) => {
@@ -1295,48 +1705,168 @@
     byId("workflow-summary-restore").addEventListener("click", () => setWorkflowSummaryHidden(false));
   }
 
+  function movePanelContents(sourceId, destinationId, stacked = false) {
+    const source = byId(sourceId);
+    const destination = byId(destinationId);
+    if (!source || !destination) return;
+    source.hidden = false;
+    source.removeAttribute("role");
+    source.removeAttribute("aria-labelledby");
+    if (stacked) source.classList.add("planning-stacked-section");
+    destination.append(...source.children);
+  }
+
+  function prepareConsolidatedNavigation() {
+    movePanelContents("candidate-panel-formal", "planning-panel-candidates");
+    movePanelContents("candidate-panel-preliminary", "planning-panel-preliminary");
+    ["catalog", "pending", "watchers"].forEach((name) => {
+      const source = byId(`source-panel-${name}`);
+      if (!source) return;
+      source.hidden = false;
+      source.removeAttribute("role");
+      source.removeAttribute("aria-labelledby");
+      source.classList.add("planning-stacked-section");
+      byId("planning-panel-sources").append(...source.children);
+    });
+    ["assignments", "analysis", "builder"].forEach((name) => {
+      const source = byId(`publication-panel-${name}`);
+      if (!source) return;
+      source.hidden = false;
+      source.removeAttribute("role");
+      source.removeAttribute("aria-labelledby");
+      source.classList.add("planning-stacked-section");
+      byId("planning-panel-publication").append(...source.children);
+    });
+
+    const watcherTabs = document.querySelector(".watcher-tabs");
+    if (watcherTabs) watcherTabs.hidden = true;
+    const watcherHeading = byId("watchers-heading")?.closest(".queue-view-header");
+    if (watcherHeading && !byId("source-workspace-selector")) {
+      const selector = element("label", "compact-view-selector", "Source workspace");
+      const select = element("select", "");
+      select.id = "source-workspace-selector";
+      [
+        ["courts", "Court cases"],
+        ["directives", "Presidential directives"],
+        ["source-checker", "Source Checker Bot"]
+      ].forEach(([value, label]) => {
+        const option = element("option", "", label);
+        option.value = value;
+        select.append(option);
+      });
+      selector.append(select);
+      watcherHeading.after(selector);
+    }
+
+    const legacyLogs = byId("panel-logs");
+    const operationsLogs = byId("automation-panel-logs");
+    if (legacyLogs && operationsLogs) {
+      const logTabs = legacyLogs.querySelector(".section-tabs");
+      if (logTabs) logTabs.hidden = true;
+      const menu = element("nav", "compact-specialist-menu operations-log-menu");
+      menu.id = "operations-log-menu";
+      menu.setAttribute("aria-label", "Project logs");
+      const menuList = element("div", "compact-specialist-menu-list operations-log-menu-list");
+      [
+        ["incidents", "Incidents"],
+        ["horizon", "Horizon"],
+        ["elim", "Elim"],
+        ["agents", "Bots"],
+        ["source-monitor", "Sources"],
+        ["integrity", "Integrity"],
+        ["changes", "Change audits"],
+        ["console-development", "Console development"]
+      ].forEach(([value, label]) => {
+        const button = element("a", "compact-specialist-menu-item operations-log-menu-button", label);
+        button.href = `#automation:logs:${value}`;
+        button.dataset.logView = value;
+        button.setAttribute("aria-current", "false");
+        if (value === "incidents") {
+          const count = element("span", "tab-count", "—");
+          count.id = "operations-log-menu-incident-count";
+          button.append(count);
+        }
+        menuList.append(button);
+      });
+      menu.append(menuList);
+      const logPanels = [...legacyLogs.children].filter((child) => child !== logTabs);
+      operationsLogs.append(menu, ...logPanels);
+      if (logTabs) operationsLogs.append(logTabs);
+    }
+
+    [
+      ["panel-candidates", ".section-tabs"],
+      ["panel-sources", ".section-tabs"],
+      ["panel-publication", ".section-tabs"]
+    ].forEach(([panelId, selector]) => {
+      const navigation = byId(panelId)?.querySelector(selector);
+      if (navigation) navigation.hidden = true;
+    });
+  }
+
   function initializePersonalLayout() {
     registerLayoutZone(document.querySelector(".tab-list"), "main-tabs", ":scope > button", "horizontal");
-    ["candidates", "sources", "logs", "publication"].forEach((group) => {
+    ["planning", "automation"].forEach((group) => {
       registerLayoutZone(document.querySelector(`[data-subtab-group="${group}"]`)?.parentElement, `subtabs-${group}`, ":scope > button", "horizontal");
     });
-    registerLayoutZone(document.querySelector(".watcher-tab-list"), "watcher-tabs", ":scope > button", "horizontal");
-    registerLayoutZone(document.querySelector(".overview-view"), "sections-overview", ":scope > .overview-section");
-    registerLayoutZone(byId("overview-manager-focus"), "cards-overview-manager-focus", ":scope > a");
-    registerLayoutZone(byId("overview-queue-directory"), "cards-overview-queues", ":scope > a");
-    registerLayoutZone(byId("overview-automation-activity-grid"), "cards-overview-overnight", ":scope > a");
-    registerLayoutZone(byId("overview-portals"), "cards-overview-portals", ":scope > a");
-    registerLayoutZone(byId("overview-system-grid"), "cards-overview-system", ":scope > article");
-    registerLayoutZone(byId("overview-freshness"), "cards-overview-freshness", ":scope > a");
-    registerLayoutZone(byId("progress-sections"), "sections-progress-v3", ":scope > section, :scope > details");
-    registerLayoutZone(byId("progress-summary-grid"), "cards-progress-summary", ":scope > article");
-    registerLayoutZone(document.querySelector(".integrity-view"), "sections-integrity", ":scope > .integrity-layout");
-    registerLayoutZone(byId("integrity-metrics"), "cards-integrity-metrics", ":scope > article");
-    registerLayoutZone(byId("integrity-components"), "cards-integrity-components", ":scope > article");
-    registerLayoutZone(byId("source-checker-summary"), "cards-sources-source-checker", ":scope > article");
-    registerLayoutZone(byId("automation-grid"), "cards-automation", ":scope > .automation-card");
-    registerLayoutZone(byId("automation-summary"), "cards-automation-summary", ":scope > article");
-    registerLayoutZone(byId("automation-incidents"), "cards-automation-incidents", ":scope > article");
-    registerLayoutZone(byId("gap-stewardship-list"), "cards-gap-stewardship", ":scope > details");
+    registerLayoutZone(
+      document.querySelector(".overview-view"),
+      "sections-overview",
+      ":scope > .overview-section",
+      "vertical",
+      true,
+      "full",
+      { label: "Overview main flow", accepts: ["overview-portlet"] }
+    );
+    registerLayoutZone(
+      document.querySelector(".overview-lower-grid"),
+      "sections-overview-lower",
+      ":scope > .overview-section",
+      "horizontal",
+      true,
+      "half",
+      { label: "Overview lower row", accepts: ["overview-portlet"] }
+    );
+    registerLayoutZone(byId("overview-queue-directory"), "cards-overview-queues", ":scope > article", "horizontal", true, "quarter");
+    registerLayoutZone(byId("overview-automation-activity-grid"), "cards-overview-overnight", ":scope > a", "horizontal", true, "compact");
+    registerLayoutZone(
+      byId("overview-portals"),
+      "cards-overview-portals",
+      ":scope > article",
+      "horizontal",
+      true,
+      "quarter",
+      { label: "Operational indicators", accepts: ["overview-portlet"] }
+    );
+    registerLayoutZone(byId("overview-system-grid"), "cards-overview-system", ":scope > article", "horizontal", true, "third");
+    registerLayoutZone(byId("overview-freshness"), "cards-overview-freshness", ":scope > a", "horizontal", true, "third");
+    registerLayoutZone(byId("progress-sections"), "sections-progress-v3", ":scope > section, :scope > details", "vertical", true, "full");
+    registerLayoutZone(byId("progress-summary-grid"), "cards-progress-summary", ":scope > article", "horizontal", true, "quarter");
+    registerLayoutZone(document.querySelector(".integrity-view"), "sections-integrity", ":scope > .integrity-layout", "vertical", true, "full");
+    registerLayoutZone(byId("integrity-metrics"), "cards-integrity-metrics", ":scope > article", "horizontal", true, "quarter");
+    registerLayoutZone(byId("integrity-components"), "cards-integrity-components", ":scope > article", "horizontal", true, "quarter");
+    registerLayoutZone(byId("source-checker-summary"), "cards-sources-source-checker", ":scope > article", "horizontal", true, "quarter");
+    registerLayoutZone(byId("automation-overview-grid"), "cards-automation-overview", ":scope > a", "horizontal");
+    registerLayoutZone(byId("automation-incidents"), "cards-automation-incidents", ":scope > article", "vertical", true, "full");
     registerLayoutZone(byId("print-level-summary"), "cards-publication-assignments", ":scope > button", "horizontal");
-    registerLayoutZone(byId("publication-metrics"), "cards-publication-metrics", ":scope > article");
-    registerLayoutZone(byId("publication-delivery-list"), "cards-publication-delivery", ":scope > article");
-    registerLayoutZone(byId("publication-release-blockers-list"), "cards-publication-release-blockers", ":scope > article");
-    registerLayoutZone(byId("topic-products-list"), "cards-publication-topics", ":scope > article");
-    registerLayoutZone(byId("release-readiness-grid"), "cards-publication-release", ":scope > article");
-    registerLayoutZone(document.querySelector(".publication-analysis-view"), "sections-publication", ":scope > .publication-analysis-grid, :scope > section");
-    registerLayoutZone(document.querySelector(".publication-analysis-grid"), "cards-publication-analysis", ":scope > section");
-    registerLayoutZone(document.querySelector(".publication-builder-grid"), "cards-publication-builder", ":scope > section, :scope > aside");
+    registerLayoutZone(byId("publication-metrics"), "cards-publication-metrics", ":scope > article", "horizontal", true, "quarter");
+    registerLayoutZone(byId("publication-delivery-list"), "cards-publication-delivery", ":scope > article", "horizontal", true, "third");
+    registerLayoutZone(byId("publication-release-blockers-list"), "cards-publication-release-blockers", ":scope > article", "vertical", true, "full");
+    registerLayoutZone(byId("topic-products-list"), "cards-publication-topics", ":scope > article", "horizontal", true, "third");
+    registerLayoutZone(byId("release-readiness-grid"), "cards-publication-release", ":scope > article", "horizontal", true, "quarter");
+    registerLayoutZone(document.querySelector(".publication-analysis-view"), "sections-publication", ":scope > .publication-analysis-grid, :scope > section", "vertical", true, "full");
+    registerLayoutZone(document.querySelector(".publication-analysis-grid"), "cards-publication-analysis", ":scope > section", "horizontal", true, "half");
+    registerLayoutZone(document.querySelector(".publication-builder-grid"), "cards-publication-builder", ":scope > section, :scope > aside", "horizontal", true, "half");
 
     const toggle = byId("layout-edit-toggle");
     toggle.addEventListener("click", () => {
       layoutEditing = !layoutEditing;
       document.body.classList.toggle("layout-editing", layoutEditing);
       toggle.setAttribute("aria-pressed", String(layoutEditing));
-      toggle.textContent = layoutEditing ? "Done arranging" : "Arrange layout";
+      toggle.textContent = layoutEditing ? "Done designing" : "Design layout";
       byId("layout-status").classList.toggle("is-editing", layoutEditing);
       byId("layout-status").textContent = layoutEditing
-        ? "Drag highlighted tabs and sections, use the arrow controls, or press Alt plus an arrow key. Changes save automatically."
+        ? "Drag highlighted items, use the arrow controls, or choose a safe grid width. Changes save automatically in this browser."
         : "Layout preferences are saved in this browser.";
       refreshLayoutZones();
     });
@@ -1407,7 +1937,10 @@
     if (!window.location.hash.startsWith(`#${selected.dataset.tab}`)) {
       window.history.replaceState(null, "", `#${selected.dataset.tab}`);
     }
-    void activateDomainForTab(selected.dataset.tab);
+    const selectedSubtab = document.querySelector(
+      `[data-subtab-group="${selected.dataset.tab}"][aria-selected="true"]`
+    )?.dataset.subtab || "";
+    void activateDomainForTab(selected.dataset.tab, selectedSubtab);
   }
 
   function initializeTabs() {
@@ -1427,7 +1960,12 @@
         activateTab(target.dataset.tab, true);
       });
     });
-    const requested = window.location.hash.replace(/^#/, "").split(":", 1)[0];
+    const rawTarget = window.location.hash.replace(/^#/, "");
+    const normalizedTarget = normalizeConsoleTarget(rawTarget);
+    if (rawTarget && normalizedTarget !== rawTarget) {
+      window.history.replaceState(null, "", `#${normalizedTarget}`);
+    }
+    const requested = normalizedTarget.split(":", 1)[0];
     activateTab(tabs.some((tab) => tab.dataset.tab === requested) ? requested : "overview");
   }
 
@@ -1480,8 +2018,14 @@
       byId(tab.getAttribute("aria-controls")).hidden = !active;
     });
     if (focus) selected.focus();
-    if (window.location.hash.startsWith("#sources:watchers")) {
-      window.history.replaceState(null, "", `#sources:watchers:${selected.dataset.watcherTab}`);
+    const selector = byId("source-workspace-selector");
+    if (selector) {
+      selector.value = selected.dataset.watcherTab;
+      if (focus) selector.focus();
+    }
+    if (window.location.hash.startsWith("#planning:sources")
+      || window.location.hash.startsWith("#sources:watchers")) {
+      window.history.replaceState(null, "", `#planning:sources:watchers:${selected.dataset.watcherTab}`);
     }
     if (name === "source-checker") {
       void Promise.all([
@@ -1515,8 +2059,379 @@
       });
     });
     const parts = window.location.hash.replace(/^#/, "").split(":");
-    const requested = parts[0] === "sources" && parts[1] === "watchers" ? parts[2] : "courts";
+    const requested = parts[0] === "planning" && parts[1] === "sources" && parts[2] === "watchers"
+      ? parts[3]
+      : parts[0] === "sources" && parts[1] === "watchers"
+        ? parts[2]
+        : "courts";
     activateWatcherTab(tabs.some((tab) => tab.dataset.watcherTab === requested) ? requested : "courts");
+    byId("source-workspace-selector")?.addEventListener("change", (event) => {
+      activateWatcherTab(event.currentTarget.value);
+    });
+  }
+
+  function activateLogView(name, focus = false) {
+    const panels = [...document.querySelectorAll('[id^="log-panel-"]')];
+    const selected = panels.find((panel) => panel.id === `log-panel-${name}`)
+      || byId("log-panel-incidents");
+    panels.forEach((panel) => { panel.hidden = panel !== selected; });
+    const selectedName = selected.id.replace(/^log-panel-/, "");
+    const buttons = [...document.querySelectorAll("[data-log-view]")];
+    const selectedButton = buttons.find((button) => button.dataset.logView === selectedName);
+    buttons.forEach((button) => {
+      const active = button === selectedButton;
+      button.setAttribute("aria-current", active ? "page" : "false");
+      button.tabIndex = active ? 0 : -1;
+    });
+    if (focus) selectedButton?.focus();
+    const activeTopLevel = document.querySelector('[role="tab"][data-tab][aria-selected="true"]')?.dataset.tab;
+    const activeOperation = document.querySelector('[data-subtab-group="automation"][aria-selected="true"]')?.dataset.subtab;
+    if (activeTopLevel === "automation" && activeOperation === "logs") {
+      if (!window.location.hash.startsWith(`#automation:logs:${selectedName}`)) {
+        window.history.replaceState(null, "", `#automation:logs:${selectedName}`);
+      }
+      void activateDomainForTab("automation", "logs");
+    }
+    if (selectedName === "incidents") renderIncidentLog();
+  }
+
+  function initializeLogMenu() {
+    const buttons = [...document.querySelectorAll("[data-log-view]")];
+    if (!buttons.length) return;
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => activateLogView(button.dataset.logView));
+      button.addEventListener("keydown", (event) => {
+        const index = buttons.indexOf(button);
+        let target = null;
+        if (event.key === "ArrowRight") target = buttons[(index + 1) % buttons.length];
+        if (event.key === "ArrowLeft") target = buttons[(index - 1 + buttons.length) % buttons.length];
+        if (event.key === "Home") target = buttons[0];
+        if (event.key === "End") target = buttons[buttons.length - 1];
+        if (!target) return;
+        event.preventDefault();
+        activateLogView(target.dataset.logView, true);
+      });
+    });
+    const parts = window.location.hash.replace(/^#/, "").split(":");
+    const requested = parts[0] === "automation" && parts[1] === "logs"
+      ? parts[2]
+      : parts[0] === "logs"
+        ? parts[1]
+      : "incidents";
+    activateLogView(requested || "incidents");
+  }
+
+  function operationalIncidentProjection() {
+    const projection = data.operational_incidents || {};
+    const complete = projection.availability === "current"
+      && projection.complete === true
+      && Number.isInteger(projection.unresolved_count)
+      && Array.isArray(projection.items)
+      && projection.active_links
+      && typeof projection.active_links === "object";
+    return {
+      ...projection,
+      complete,
+      unresolvedCount: complete ? projection.unresolved_count : null,
+      items: Array.isArray(projection.items) ? projection.items : [],
+      impactState: complete ? projection.impact_state : "gray"
+    };
+  }
+
+  function unresolvedOperationalIncidents() {
+    const projection = operationalIncidentProjection();
+    if (!projection.complete) return [];
+    return projection.items.filter((incident) =>
+      ["open", "investigating", "mitigated", "monitoring"].includes(incident.status));
+  }
+
+  function operationalIncidentsById(ids = []) {
+    const wanted = new Set(ids);
+    return operationalIncidentProjection().items.filter((incident) =>
+      wanted.has(incident.incident_id));
+  }
+
+  function activeIncidentIdsForTypedLink(reference) {
+    const projection = operationalIncidentProjection();
+    return projection.complete && Array.isArray(projection.active_links?.[reference])
+      ? projection.active_links[reference]
+      : [];
+  }
+
+  function incidentIdsIncludeBlocker(ids = []) {
+    return operationalIncidentsById(ids).some((incident) =>
+      ["blocking", "disrupted"].includes(incident.impact)
+      && ["open", "investigating"].includes(incident.status));
+  }
+
+  function humanOwnsIncident(incident) {
+    return ["human", "benjamin", "benjamin smith", "you"].includes(
+      String(incident?.owner || "").trim().toLowerCase()
+    );
+  }
+
+  function incidentStatusPresentation(incident) {
+    const status = String(incident?.status || "unavailable");
+    if (status === "resolved") return { tone: "success", label: "Resolved" };
+    if (["mitigated", "monitoring"].includes(status)) {
+      return { tone: "warning", label: humanizeKey(status) };
+    }
+    if (["blocking", "disrupted"].includes(incident?.impact)) {
+      return { tone: "error", label: humanizeKey(status) };
+    }
+    return { tone: "warning", label: humanizeKey(status) };
+  }
+
+  function incidentTypedLink(reference) {
+    const [kind, ...rest] = String(reference || "").split(":");
+    const identifier = rest.join(":");
+    if (!identifier) return null;
+    const routes = {
+      "automation-role": `automation:agents:${encodeURIComponent(identifier)}`,
+      "repository-gate": "automation:gates",
+      security: "automation:security",
+      platform: "automation:platform",
+      data: "automation:data",
+      log: `automation:logs:${encodeURIComponent(identifier)}`
+    };
+    if (routes[kind]) {
+      return {
+        label: kind === "automation-role"
+          ? "Open affected role"
+          : `Open ${kind.replaceAll("-", " ")} detail`,
+        route: routes[kind],
+        external: false
+      };
+    }
+    if (kind === "github" && /^https?:\/\//.test(identifier)) {
+      return { label: "Open GitHub record ↗", route: identifier, external: true };
+    }
+    return null;
+  }
+
+  function renderIncidentPreview(incident, preview) {
+    if (!incident) {
+      preview.replaceChildren(element("p", "empty-state", "No incident is selected."));
+      return;
+    }
+    const presentation = incidentStatusPresentation(incident);
+    const header = element("div", "email-preview-heading");
+    const title = element("div");
+    title.append(
+      element("span", "eyebrow", incident.incident_id),
+      element("h3", "", incident.summary || "Operational incident")
+    );
+    header.append(
+      title,
+      element("span", `status-badge ${presentation.tone}`, presentation.label)
+    );
+    const fields = element("dl", "email-preview-fields incident-preview-fields");
+    [
+      ["Component", incident.component],
+      ["Prerequisite", incident.prerequisite],
+      ["Failure class", incident.failure_class],
+      ["Impact", humanizeKey(incident.impact)],
+      ["Owner", incident.owner || "Unassigned"],
+      ["Recommended owner", incident.recommended_owner],
+      ["Reported by", incident.reported_by],
+      ["First observed", formatOperationalDate(incident.first_observed)],
+      ["Last observed", formatOperationalDate(incident.last_observed)],
+      ["Next action", incident.next_action]
+    ].forEach(([label, value]) => {
+      const field = element("div", "email-preview-field");
+      field.append(element("dt", "", label), element("dd", "", value || "Unavailable"));
+      fields.append(field);
+    });
+    const timeline = element("section", "incident-occurrence-timeline");
+    timeline.append(
+      element("h4", "", "Occurrence timeline"),
+      element(
+        "p",
+        "micro-note",
+        `${pluralizeWord((incident.occurrences || []).length, "exact occurrence")} retained`
+      )
+    );
+    const occurrenceList = element("ol", "incident-occurrence-list");
+    [...(incident.occurrences || [])]
+      .sort((left, right) => String(right.observed_at || "").localeCompare(String(left.observed_at || "")))
+      .forEach((occurrence) => {
+        const row = element("li", "");
+        row.append(
+          element("strong", "", formatOperationalDate(occurrence.observed_at)),
+          element("span", "", occurrence.diagnostic || "No diagnostic recorded."),
+          element("span", "micro-note", [
+            occurrence.run_id ? `Run ${occurrence.run_id}` : "",
+            occurrence.source_ref || ""
+          ].filter(Boolean).join(" · "))
+        );
+        occurrenceList.append(row);
+      });
+    timeline.append(occurrenceList);
+    const recovery = element("section", "incident-recovery-evidence");
+    recovery.append(element("h4", "", "Recovery and closure evidence"));
+    if ((incident.recovery_evidence || []).length) {
+      const list = element("ul", "");
+      incident.recovery_evidence.forEach((item) => {
+        list.append(element(
+          "li",
+          "",
+          `${item.result} · ${item.closure_test} · verified ${formatOperationalDate(item.verified_at)}`
+        ));
+      });
+      recovery.append(list);
+    } else {
+      recovery.append(element("p", "micro-note", "No exact recovery evidence has been recorded."));
+    }
+    const links = element("div", "source-list dossier-actions");
+    (incident.active_links || []).map(incidentTypedLink).filter(Boolean).forEach((link) => {
+      links.append(actionInboxLink(link.label, link.route, link.external));
+    });
+    preview.replaceChildren(header, fields, timeline, recovery, links);
+  }
+
+  function updateIncidentNavigationCounts() {
+    const projection = operationalIncidentProjection();
+    const display = projection.complete ? String(projection.unresolvedCount) : "—";
+    [
+      "tab-automation-count",
+      "automation-logs-incident-count",
+      "log-incidents-count",
+      "operations-log-menu-incident-count"
+    ].forEach((id) => {
+      if (byId(id)) byId(id).textContent = display;
+    });
+  }
+
+  function renderIncidentLog() {
+    const projection = operationalIncidentProjection();
+    const status = byId("incident-log-status");
+    const host = byId("incident-log-workspace");
+    if (!status || !host) return;
+    updateIncidentNavigationCounts();
+    if (!projection.complete) {
+      status.textContent = `${projection.reason || "Operational incident feed is unavailable."} Unresolved count is not inferred.`;
+      byId("incident-log-visible").textContent = "—";
+      host.replaceChildren(element("p", "empty-state", "Incident history is unavailable; zero incidents cannot be established."));
+      return;
+    }
+    const query = incidentLogState.search.trim().toLowerCase();
+    const items = projection.items
+      .filter((incident) => incidentLogState.scope === "all"
+        || ["open", "investigating", "mitigated", "monitoring"].includes(incident.status))
+      .filter((incident) => !query || [
+        incident.incident_id,
+        incident.summary,
+        incident.component,
+        incident.prerequisite,
+        incident.failure_class,
+        incident.owner,
+        incident.recommended_owner,
+        incident.next_action,
+        ...(incident.occurrences || []).map((row) => row.diagnostic)
+      ].filter(Boolean).join(" ").toLowerCase().includes(query))
+      .sort((left, right) =>
+        String(right.last_observed || "").localeCompare(String(left.last_observed || ""))
+        || String(right.incident_id || "").localeCompare(String(left.incident_id || "")));
+    const selectedFromRoute = decodeURIComponent(
+      window.location.hash.split(":").find((part) => part.startsWith("selected="))?.slice(9) || ""
+    );
+    if (selectedFromRoute && items.some((item) => item.incident_id === selectedFromRoute)) {
+      incidentLogState.selectedId = selectedFromRoute;
+    }
+    if (!items.some((item) => item.incident_id === incidentLogState.selectedId)) {
+      incidentLogState.selectedId = items[0]?.incident_id || "";
+    }
+    byId("incident-log-visible").textContent = items.length;
+    status.textContent = `${pluralizeWord(projection.unresolvedCount, "unresolved incident")} · checked ${formatOperationalDate(projection.checked_at)} · ${projection.impactState} impact posture`;
+    if (!items.length) {
+      host.replaceChildren(element(
+        "p",
+        "empty-state",
+        incidentLogState.scope === "unresolved"
+          ? "No unresolved operational incidents are recorded."
+          : "No incidents match the current search."
+      ));
+      return;
+    }
+    const workspace = element("div", "email-workspace log-email-workspace incident-email-workspace");
+    const list = element("div", "email-list log-email-list incident-email-list");
+    list.setAttribute("role", "listbox");
+    list.setAttribute("aria-label", "Operational incidents, newest occurrence first");
+    const preview = element("article", "email-preview log-email-preview incident-email-preview");
+    const select = (incident, focus = false) => {
+      incidentLogState.selectedId = incident.incident_id;
+      list.querySelectorAll(".email-list-row").forEach((row) => {
+        const selected = row.dataset.entryId === incident.incident_id;
+        row.classList.toggle("selected", selected);
+        row.setAttribute("aria-selected", String(selected));
+      });
+      renderIncidentPreview(incident, preview);
+      window.history.replaceState(
+        null,
+        "",
+        `#automation:logs:incidents:selected=${encodeURIComponent(incident.incident_id)}`
+      );
+      if (focus) list.querySelector(`[data-entry-id="${incident.incident_id}"]`)?.focus();
+    };
+    items.forEach((incident) => {
+      const presentation = incidentStatusPresentation(incident);
+      const row = element("button", "email-list-row log-email-row");
+      row.type = "button";
+      row.dataset.entryId = incident.incident_id;
+      row.setAttribute("role", "option");
+      row.setAttribute("aria-selected", String(incident.incident_id === incidentLogState.selectedId));
+      if (incident.incident_id === incidentLogState.selectedId) row.classList.add("selected");
+      const copy = element("span", "email-list-copy");
+      copy.append(
+        element("strong", "", `${incident.incident_id} · ${incident.summary}`),
+        element("span", "", `${incident.component} · ${incident.owner || "Unassigned owner"}`)
+      );
+      row.append(
+        element("span", `status-dot ${presentation.tone}`, ""),
+        copy,
+        element("span", "email-list-meta", `${pluralizeWord((incident.occurrences || []).length, "occurrence")} · ${formatOperationalDate(incident.last_observed)}`)
+      );
+      row.addEventListener("click", () => select(incident));
+      list.append(row);
+    });
+    list.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      const currentIndex = Math.max(
+        0,
+        items.findIndex((item) => item.incident_id === incidentLogState.selectedId)
+      );
+      const nextIndex = event.key === "Home"
+        ? 0
+        : event.key === "End"
+          ? items.length - 1
+          : event.key === "ArrowDown"
+            ? Math.min(items.length - 1, currentIndex + 1)
+            : Math.max(0, currentIndex - 1);
+      event.preventDefault();
+      select(items[nextIndex], true);
+    });
+    workspace.append(list, preview);
+    host.replaceChildren(workspace);
+    renderIncidentPreview(
+      items.find((item) => item.incident_id === incidentLogState.selectedId),
+      preview
+    );
+  }
+
+  function initializeIncidentLog() {
+    const search = byId("incident-log-search");
+    const scope = byId("incident-log-scope");
+    if (!search || !scope || search.dataset.bound) return;
+    search.dataset.bound = "true";
+    search.addEventListener("input", (event) => {
+      incidentLogState.search = event.target.value;
+      renderIncidentLog();
+    });
+    scope.addEventListener("change", (event) => {
+      incidentLogState.scope = event.target.value;
+      renderIncidentLog();
+    });
+    renderIncidentLog();
   }
 
   function sourceSearchText(record) {
@@ -1655,7 +2570,71 @@
     const start = (state.page - 1) * PAGE_SIZE;
     const rerender = () => renderSourceView(name, records, filterField);
     byId(`${name}-visible`).textContent = ordered.length;
-    byId(`${name}-table`).replaceChildren(sourceTable(ordered.slice(start, start + PAGE_SIZE), state, rerender));
+    const visible = ordered.slice(start, start + PAGE_SIZE);
+    const host = byId(`${name}-table`);
+    if (!visible.length) {
+      host.replaceChildren(element("p", "empty-state", "No sources match the current filters."));
+    } else {
+      if (!visible.some((record) => record.id === state.selectedId)) state.selectedId = visible[0].id;
+      const workspace = element("div", "email-workspace source-email-workspace");
+      const list = element("div", "email-list source-email-list");
+      list.setAttribute("role", "listbox");
+      list.setAttribute("aria-label", `${name} sources`);
+      const preview = element("article", "email-preview source-email-preview");
+      const showSource = (record) => {
+        state.selectedId = record.id;
+        list.querySelectorAll(".email-list-row").forEach((row) => {
+          const selected = row.dataset.entryId === record.id;
+          row.classList.toggle("selected", selected);
+          row.setAttribute("aria-selected", String(selected));
+        });
+        const heading = element("div", "email-preview-heading");
+        const title = element("div");
+        title.append(element("span", "record-id", record.id), element("h3", "", text(record.title, "Untitled source")));
+        heading.append(title, record.url ? inlineLink("Open source ↗", record.url) : element("span", "muted", "No source link"));
+        const fields = element("dl", "email-preview-fields");
+        [
+          ["Publisher", text(record.publisher)],
+          ["Date", text(record.date)],
+          ["Type", text(record[filterField])],
+          ["Reviewed", text(record.reviewed, "Not recorded")],
+          ["Reliability", text(record.reliability, "Not recorded")],
+          ["URL health", text(healthIndex.get(record.id), "Unavailable")],
+          ["Associated records", (record.record_ids || []).join(" · ") || "None recorded"],
+          ["Monitoring", record.monitoring === "Yes" ? text(record.monitoring_rationale, "Enabled") : "No"]
+        ].forEach(([label, value]) => {
+          const field = element("div", "email-preview-field");
+          field.append(element("dt", "", label), element("dd", "", value));
+          fields.append(field);
+        });
+        const links = element("div", "source-list dossier-actions");
+        (record.record_ids || []).forEach((identifier) => {
+          const target = workbenchTargetForArtifact(identifier, {
+            source: "Sources",
+            reference: record.id,
+            returnTarget: `planning:sources:${name}`
+          });
+          if (target) links.append(internalInlineLink(`Open ${identifier} in Workbench`, target));
+        });
+        preview.replaceChildren(heading, fields, links);
+      };
+      visible.forEach((record) => {
+        const row = element("button", "email-list-row");
+        row.type = "button";
+        row.dataset.entryId = record.id;
+        row.setAttribute("role", "option");
+        row.append(
+          element("strong", "email-row-title", `${record.id} · ${text(record.title, "Untitled source")}`),
+          element("span", "email-row-time", text(record.date, "Date unavailable")),
+          element("span", "email-row-summary", `${text(record.publisher, "Publisher unavailable")} · ${text(record[filterField], "Type unavailable")}`)
+        );
+        row.addEventListener("click", () => showSource(record));
+        list.append(row);
+      });
+      workspace.append(list, preview);
+      host.replaceChildren(workspace);
+      showSource(visible.find((record) => record.id === state.selectedId) || visible[0]);
+    }
     pagination(name, ordered.length, state, rerender);
     updateDenseDisclosureSummary(`${name}-results-summary`, ordered.length, "source", `page ${state.page} of ${pages}`);
     const monitored = records.filter((record) => record.monitoring === "Yes").length;
@@ -1950,7 +2929,11 @@
     const validProjection = validation.valid;
     const counts = report.counts || {};
     const exceptions = records.filter((record) => !["verified", "identity-preserving redirect"].includes(record.classification)).length;
-    byId("source-checker-count").textContent = validProjection ? String(report.eligible_urls) : "Unavailable";
+    setButtonBlockerFlag(
+      "watcher-tab-source-checker",
+      !validProjection,
+      "Source Checker is unavailable"
+    );
     byId("source-checker-as-of").textContent = report.checked_at || "Awaiting first run";
     byId("source-checker-mode").textContent = report.mode ? `Mode: ${report.mode}` : "Awaiting first run";
     const classificationCards = validProjection
@@ -2151,90 +3134,6 @@
     }, null)?.id || null;
   }
 
-  function projectLogTable(log, entries, state, render) {
-    const wrapper = element("div", "source-table-wrap project-log-table-wrap");
-    const table = element("table", "source-table project-log-table");
-    const head = element("thead");
-    const headRow = element("tr");
-    log.columns.forEach((column) => headRow.append(sortableHeader(column.label, column.key, state, render)));
-    headRow.append(element("th", "log-details-heading", "Complete entry"));
-    head.append(headRow);
-    const body = element("tbody");
-    entries.forEach((entry) => {
-      const row = element("tr");
-      log.columns.forEach((column) => {
-        const cell = element("td");
-        const value = element("div", "log-cell-value");
-        value.innerHTML = (entry.values_html || {})[column.key] || text((entry.values || {})[column.key]);
-        cell.append(value);
-        row.append(cell);
-      });
-      const detailCell = element("td", "log-details-cell");
-      const detailId = `log-${log.id}-${entry.id}-details`;
-      const toggle = element("button", "log-entry-toggle", "View complete entry");
-      toggle.type = "button";
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.setAttribute("aria-controls", detailId);
-      detailCell.append(toggle);
-      row.append(detailCell);
-      body.append(row);
-
-      const expandedRow = element("tr", "log-entry-expanded");
-      expandedRow.id = detailId;
-      expandedRow.hidden = true;
-      const expandedCell = element("td");
-      expandedCell.colSpan = log.columns.length + 1;
-      expandedCell.append(logEntryBody(entry));
-      expandedRow.append(expandedCell);
-      body.append(expandedRow);
-
-      toggle.addEventListener("click", () => {
-        const expanded = toggle.getAttribute("aria-expanded") === "true";
-        toggle.setAttribute("aria-expanded", String(!expanded));
-        toggle.textContent = expanded ? "View complete entry" : "Hide complete entry";
-        expandedRow.hidden = expanded;
-      });
-    });
-    table.append(head, body);
-    wrapper.append(table);
-    return wrapper;
-  }
-
-  function projectLatestLogContainer(log, entry) {
-    const section = element("section", "latest-log-entry");
-    const heading = element("div", "latest-log-entry-header");
-    heading.append(element("h3", "", "Latest log entry"));
-
-    const fields = element("dl", "latest-log-fields");
-    log.columns.forEach((column) => {
-      const field = element("div", "latest-log-field");
-      const value = element("dd", "log-cell-value");
-      value.innerHTML = (entry.values_html || {})[column.key] || text((entry.values || {})[column.key]);
-      field.append(element("dt", "", column.label), value);
-      fields.append(field);
-    });
-
-    const detailId = `log-${log.id}-${entry.id}-latest-details`;
-    const toggle = element("button", "record-link secondary latest-log-toggle", "View complete entry");
-    toggle.type = "button";
-    toggle.setAttribute("aria-expanded", "false");
-    toggle.setAttribute("aria-controls", detailId);
-    const expanded = element("div", "latest-log-details");
-    expanded.id = detailId;
-    expanded.hidden = true;
-    expanded.append(logEntryBody(entry));
-    toggle.addEventListener("click", () => {
-      const isExpanded = toggle.getAttribute("aria-expanded") === "true";
-      toggle.setAttribute("aria-expanded", String(!isExpanded));
-      toggle.textContent = isExpanded ? "View complete entry" : "Hide complete entry";
-      expanded.hidden = isExpanded;
-    });
-
-    heading.append(toggle);
-    section.append(heading, fields, expanded);
-    return section;
-  }
-
   function logHistoryHeading(label, count, singular = "entry") {
     const heading = element("div", "log-history-heading");
     heading.append(
@@ -2269,60 +3168,81 @@
       return Object.entries(state.filters || {}).every(([key, selected]) =>
         selected === "all" || String((entry.values || {})[key] || "Not recorded") === selected);
     });
-    const render = () => renderProjectLog(logId);
-    const ordered = sortedRecords(filtered, state, (entry, key) => (entry.values || {})[key]);
-    const latestEntryId = latestLogEntryId(ordered);
-    const latestEntry = ordered.find((entry) => entry.id === latestEntryId) || null;
-    const remainingEntries = latestEntry ? ordered.filter((entry) => entry.id !== latestEntry.id) : ordered;
-    const pages = Math.max(1, Math.ceil(remainingEntries.length / PAGE_SIZE));
-    state.page = Math.min(state.page || 1, pages);
-    const historyStart = (state.page - 1) * PAGE_SIZE;
-    const visibleHistory = remainingEntries.slice(historyStart, historyStart + PAGE_SIZE);
+    const ordered = [...filtered].sort((left, right) =>
+      logEntryLatestValue(right) - logEntryLatestValue(left));
     byId(`log-${logId}-visible`).textContent = ordered.length;
     const container = byId(`log-${logId}-table`);
     if (!ordered.length) {
       container.replaceChildren(element("p", "empty-state", "No log entries match the current filters."));
       return;
     }
-    const nodes = [];
-    if (latestEntry) {
-      nodes.push(projectLatestLogContainer(log, latestEntry));
+    if (!ordered.some((entry) => entry.id === state.selectedId)) {
+      state.selectedId = ordered[0].id;
     }
-    if (!remainingEntries.length) {
-      container.replaceChildren(...nodes);
-      return;
-    }
-    if (state.groupKey === "all") {
-      nodes.push(
-        logHistoryHeading("Earlier entries", remainingEntries.length),
-        projectLogTable(log, visibleHistory, state, render),
-        paginationControls(`log-${logId}`, remainingEntries.length, state, render)
-      );
-      container.replaceChildren(...nodes);
-      return;
-    }
-    const groups = new Map();
-    visibleHistory.forEach((entry) => {
-      const label = text((entry.values || {})[state.groupKey], "Not recorded");
-      if (!groups.has(label)) groups.set(label, []);
-      groups.get(label).push(entry);
-    });
-    const sections = [...groups].map(([label, entries]) => {
-      const section = element("section", "log-group");
-      const heading = element("h4", "log-group-heading");
+    const workspace = element("div", "email-workspace log-email-workspace");
+    const list = element("div", "email-list log-email-list");
+    list.setAttribute("role", "listbox");
+    list.setAttribute("aria-label", `${log.title || log.id} entries, newest first`);
+    const preview = element("article", "email-preview log-email-preview");
+
+    const showEntry = (entry) => {
+      state.selectedId = entry.id;
+      list.querySelectorAll(".email-list-row").forEach((row) => {
+        const selected = row.dataset.entryId === String(entry.id);
+        row.classList.toggle("selected", selected);
+        row.setAttribute("aria-selected", String(selected));
+      });
+      const heading = element("div", "email-preview-heading");
+      const title = element("div");
+      title.append(element("span", "eyebrow", "Selected entry"), element("h3", "", logEntryHeadline(log, entry)));
       heading.append(
-        element("span", "", label),
-        element("span", "count-pill", `${entries.length} entr${entries.length === 1 ? "y" : "ies"}`)
+        title,
+        element("time", "email-preview-time", formatDate((entry.values || {}).date || entry.created_at || entry.generated_at))
       );
-      section.append(heading, projectLogTable(log, entries, state, render));
-      return section;
+      const fields = element("dl", "email-preview-fields");
+      log.columns.forEach((column) => {
+        const field = element("div", "email-preview-field");
+        const value = element("dd", "log-cell-value");
+        value.innerHTML = (entry.values_html || {})[column.key] || text((entry.values || {})[column.key]);
+        field.append(element("dt", "", column.label), value);
+        fields.append(field);
+      });
+      const actions = element("div", "source-list dossier-actions");
+      structuredArtifactIdentifiers({
+        ...entry,
+        ...(entry.structured || {}),
+        ...(entry.affected || {})
+      }).forEach((identifier) => {
+        const target = workbenchTargetForArtifact(identifier, {
+          source: "Logs",
+          reference: entry.id,
+          returnTarget: `automation:logs:${logId}`
+        });
+        if (target) actions.append(internalInlineLink(`Open ${identifier} in Workbench`, target));
+      });
+      preview.replaceChildren(heading, fields, logEntryBody(entry), actions);
+    };
+
+    ordered.forEach((entry) => {
+      const values = entry.values || {};
+      const row = element("button", "email-list-row");
+      row.type = "button";
+      row.dataset.entryId = String(entry.id);
+      row.setAttribute("role", "option");
+      row.append(
+        element("strong", "email-row-title", logEntryHeadline(log, entry)),
+        element("time", "email-row-time", formatDate(values.date || entry.created_at || entry.generated_at)),
+        element("span", "email-row-summary", text(logEntrySummary(log, entry), "No summary recorded."))
+      );
+      if (state.groupKey !== "all") {
+        row.append(element("span", "email-row-group", text(values[state.groupKey], "Not recorded")));
+      }
+      row.addEventListener("click", () => showEntry(entry));
+      list.append(row);
     });
-    container.replaceChildren(
-      ...nodes,
-      logHistoryHeading("Earlier entries", remainingEntries.length),
-      ...sections,
-      paginationControls(`log-${logId}`, remainingEntries.length, state, render)
-    );
+    workspace.append(list, preview);
+    container.replaceChildren(workspace);
+    showEntry(ordered.find((entry) => entry.id === state.selectedId) || ordered[0]);
   }
 
   function renderDirectives() {
@@ -2360,9 +3280,42 @@
 
   function setUpdateBadge(id, count) {
     const badge = byId(id);
+    if (!badge) return;
     badge.textContent = `+${count}`;
     badge.hidden = count === 0;
     badge.setAttribute("aria-label", `${count} new or updated`);
+  }
+
+  function setNavigationMarker(id, value, status = "", label = "") {
+    const marker = byId(id);
+    if (!marker) return;
+    if (status) {
+      marker.className = `tab-status-dot ${status}`.trim();
+      marker.textContent = "";
+      marker.setAttribute("role", "img");
+      marker.setAttribute("aria-label", label || serviceStatusLabel(status));
+      marker.title = label || serviceStatusLabel(status);
+      return;
+    }
+    marker.className = "tab-count";
+    marker.textContent = String(value ?? 0);
+    marker.removeAttribute("role");
+    marker.removeAttribute("aria-label");
+    marker.removeAttribute("title");
+  }
+
+  function setButtonBlockerFlag(id, blocked, label = "Blocking condition represented in this screen") {
+    const button = byId(id);
+    if (!button) return;
+    let marker = button.querySelector(".button-blocker-dot");
+    if (!marker) {
+      marker = element("span", "tab-status-dot error button-blocker-dot", "");
+      marker.setAttribute("role", "img");
+      button.append(marker);
+    }
+    marker.hidden = !blocked;
+    marker.setAttribute("aria-label", label);
+    marker.title = label;
   }
 
   function renderWatcherUpdateBanner(kind, label) {
@@ -2402,8 +3355,20 @@
 
   function currentLifecycleRecords() {
     const proposals = Array.isArray(data.progress?.proposals) ? data.progress.proposals : [];
+    const pipelineById = new Map(
+      (Array.isArray(data.progress?.pipeline?.items) ? data.progress.pipeline.items : [])
+        .map((record) => [String(record.id || ""), record])
+    );
     const candidates = candidateProjectRecords().map((record) => ({
+      ...(() => {
+        const pipelineRecord = pipelineById.get(String(record.id)) || {};
+        return {
+          explanation: pipelineRecord.hold?.reason || "",
+          followUp: pipelineRecord.hold?.trigger || (record.horizon_history || {}).follow_up || ""
+        };
+      })(),
       identifier: record.id,
+      kind: "horizon",
       title: record.title,
       kind: "horizon",
       developmentLevel: record.development_level,
@@ -2434,8 +3399,6 @@
       lastUpdated: record.updated_at,
       canonicalRecord: "",
       url: record.issue_url,
-      explanation: (record.horizon_history || {}).rationale || "",
-      followUp: (record.horizon_history || {}).follow_up || "",
       needsMonitoring: explicitYes(record.needs_monitoring)
     }));
     return [...candidates, ...proposals];
@@ -2447,37 +3410,249 @@
     );
   }
 
-  function applyProgressNextWorkParameters(serialized) {
+  function workbenchArtifactRecord(identifier) {
+    const id = String(identifier || "").trim();
+    if (!id) return null;
+    const items = data.progress?.pipeline?.items;
+    if (!Array.isArray(items)) return null;
+    return items.find((record) =>
+      String(record.id || "") === id
+      && ["Preliminary candidate", "Formal candidate", "Proposal"].includes(record.workClass)
+    ) || null;
+  }
+
+  function safeConsoleTarget(value, fallback = "overview") {
+    const raw = String(value || "").replace(/^#/, "");
+    if (raw.length > 2048 || /[\u0000-\u001f\u007f]/.test(raw)) return fallback;
+    try {
+      const target = normalizeConsoleTarget(raw);
+      if (
+        target.length > 2048
+        || !/^[A-Za-z0-9_.~%=&:+-]+$/.test(target)
+      ) return fallback;
+      const staticRoutes = new Set([
+        "overview",
+        "actions",
+        "progress",
+        "progress:monitoring",
+        "planning",
+        "planning:preliminary",
+        "planning:candidates",
+        "planning:sources",
+        "planning:publication",
+        "planning:publication:analysis",
+        "integrity",
+        "automation",
+        "automation:overview",
+        "automation:gates",
+        "automation:capacity",
+        "automation:platform",
+        "automation:data",
+        "automation:security"
+      ]);
+      if (staticRoutes.has(target)) return target;
+      if (/^planning:(?:preliminary|candidates):selected=[A-Za-z0-9._-]{1,128}$/.test(target)) {
+        return target;
+      }
+      if (/^planning:sources:[A-Za-z0-9._:+-]{1,256}$/.test(target)) return target;
+      if (/^automation:agents:[A-Za-z0-9._-]{1,128}$/.test(target)) return target;
+      if (/^automation:logs:[A-Za-z0-9._-]{1,128}$/.test(target)) return target;
+      if (target === "planning:workbench:pipeline") return target;
+      if (target.startsWith("planning:workbench:pipeline:")) {
+        const parameters = new URLSearchParams(
+          target.slice("planning:workbench:pipeline:".length)
+        );
+        const allowed = new Set([
+          "mode", "selected", "search", "gap", "work_class", "scope",
+          "sort", "status", "development", "release_blocker", "area",
+          "workstream", "owner", "priority", "source", "ref", "return", "focus"
+        ]);
+        if ([...parameters.keys()].every((key) => allowed.has(key))) return target;
+      }
+    } catch (_error) {
+      return fallback;
+    }
+    return fallback;
+  }
+
+  function safePipelineExternalUrl(value) {
+    try {
+      const target = new URL(String(value || ""));
+      const allowedPath = (
+        /^\/Thorncrag\/ARRP\/issues\/[1-9][0-9]*$/.test(target.pathname)
+        || /^\/Thorncrag\/ARRP\/blob\/(?:main|[0-9a-f]{40})\/[^?#]+$/.test(target.pathname)
+      );
+      if (
+        target.protocol !== "https:"
+        || target.hostname !== "github.com"
+        || target.port
+        || !allowedPath
+        || target.username
+        || target.password
+      ) return null;
+      return target.href;
+    } catch (_error) {
+      return null;
+    }
+  }
+
+  function workbenchTargetForArtifact(identifier, context = {}) {
+    const record = workbenchArtifactRecord(identifier);
+    if (!record) return null;
+    const parameters = new URLSearchParams();
+    parameters.set("selected", record.id);
+    parameters.set("focus", "1");
+    if (record.mode === "hold") parameters.set("mode", "hold");
+    if (context.source) parameters.set("source", context.source);
+    if (context.reference) parameters.set("ref", context.reference);
+    if (context.returnTarget) {
+      parameters.set("return", safeConsoleTarget(context.returnTarget));
+    }
+    return `planning:workbench:pipeline:${parameters.toString()}`;
+  }
+
+  function structuredArtifactIdentifiers(record = {}) {
+    const candidates = [
+      record.artifact_id,
+      record.artifactId,
+      record.affected_artifact_id,
+      record.affectedArtifactId,
+      record.identifier,
+      ...(Array.isArray(record.artifact_ids) ? record.artifact_ids : []),
+      ...(Array.isArray(record.affected_artifact_ids) ? record.affected_artifact_ids : []),
+      ...(Array.isArray(record.affected_ids) ? record.affected_ids : []),
+      ...(Array.isArray(record.record_ids) ? record.record_ids : [])
+    ];
+    return [...new Set(candidates.map((value) => String(value || "").trim()).filter(Boolean))]
+      .filter((identifier) => workbenchArtifactRecord(identifier));
+  }
+
+  function applyPipelineParameters(serialized) {
     const parameters = new URLSearchParams(serialized);
     const keys = {
+      mode: "mode",
+      selected: "selectedId",
+      search: "search",
+      gap: "gap",
+      work_class: "workClass",
+      scope: "scope",
+      sort: "sort",
       status: "status",
-      cohort: "cohort",
       development: "development",
       release_blocker: "releaseBlocker",
       area: "area",
       workstream: "area",
       owner: "owner",
-      priority: "priority"
+      priority: "priority",
+      source: "sourceContext",
+      ref: "sourceReference",
+      return: "returnTarget"
     };
     Object.entries(keys).forEach(([parameter, stateKey]) => {
-      if (parameters.has(parameter)) progressNextWorkState[stateKey] = parameters.get(parameter) || "all";
+      if (parameters.has(parameter)) {
+        const value = parameters.get(parameter) || "all";
+        pipelineState[stateKey] = stateKey === "returnTarget"
+          ? safeConsoleTarget(value)
+          : value;
+      }
     });
-    return { ...progressNextWorkState };
+    pipelineState.mode = pipelineState.mode === "hold" ? "hold" : "active";
+    pipelineState.focused = parameters.get("focus") === "1";
+    if (pipelineState.mode === "hold") pipelineState.scope = "all";
+    return { ...pipelineState };
+  }
+
+  function legacyNextWorkTarget(serialized) {
+    const parameters = new URLSearchParams(serialized);
+    const cohort = parameters.get("cohort") || "";
+    const status = parameters.get("status") || "";
+    if (cohort === "Human-reserved") return "actions";
+    if (cohort === "Fired monitoring") return "progress:monitoring";
+    if (status === "Human decision needed") return "actions";
+    if (status === "Publication approval") return "planning:publication";
+    if (["Blocked", "Deferred"].includes(status)) parameters.set("mode", "hold");
+    parameters.delete("cohort");
+    if (cohort === "Audit-ready") parameters.set("status", "Audit work");
+    if (cohort === "External-review follow-up") {
+      parameters.set("status", "External review");
+      parameters.set("scope", "review-ready");
+    }
+    if (cohort === "Critical / High release blocker") {
+      parameters.set("release_blocker", "required");
+    }
+    const suffix = parameters.toString();
+    return `planning:workbench:pipeline${suffix ? `:${suffix}` : ""}`;
+  }
+
+  function normalizeConsoleTarget(target) {
+    const parts = String(target || "").replace(/^#/, "").split(":");
+    if (parts[0] === "candidates") {
+      const destination = ["preliminary", "public"].includes(parts[1])
+        ? "preliminary"
+        : "candidates";
+      return ["planning", destination, ...parts.slice(2)].join(":");
+    }
+    if (parts[0] === "sources") {
+      return ["planning", "sources", ...parts.slice(1)].join(":");
+    }
+    if (parts[0] === "publication" || parts[0] === "pages") {
+      return ["planning", "publication", ...parts.slice(1)].join(":");
+    }
+    if (parts[0] === "planning" && parts[1] === "next-work") {
+      return legacyNextWorkTarget(parts.slice(2).join(":"));
+    }
+    if (parts[0] === "progress" && parts[1] === "next-work") {
+      return legacyNextWorkTarget(parts.slice(2).join(":"));
+    }
+    if (parts[0] === "planning" && parts[1] === "pipeline") {
+      return ["planning", "workbench", "pipeline", ...parts.slice(2)].join(":");
+    }
+    if (parts[0] === "planning" && parts[1] === "workbench" && !parts[2]) {
+      return "planning:workbench:pipeline";
+    }
+    if (parts[0] === "logs") {
+      return ["automation", "logs", parts[1] || "incidents", ...parts.slice(2)].join(":");
+    }
+    if (parts[0] === "automation" && ["administration", "chain"].includes(parts[1])) {
+      return ["automation", "overview", ...parts.slice(2)].join(":");
+    }
+    if (parts[0] === "automation" && parts[1] === "workers") {
+      return ["automation", "agents", ...parts.slice(2)].join(":");
+    }
+    if (parts[0] === "automation" && [
+      "run-coordinator-bot",
+      "case-monitor-bot",
+      "presidential-directives-bot",
+      "source-checker-bot",
+      "project-console-progress-bot",
+      "project-integrity-bot",
+      "elim"
+    ].includes(parts[1])) {
+      return ["automation", "agents", parts[1], ...parts.slice(2)].join(":");
+    }
+    if (parts[0] === "automation" && parts[1] === "agents" && !parts[2]) {
+      return "automation:agents:run-coordinator-bot";
+    }
+    return parts.join(":");
   }
 
   function navigateToConsoleTarget(target) {
-    const parts = target.split(":");
-    if (parts[0] === "automation" && parts[1] === "workers") parts[1] = "agents";
+    const normalizedTarget = normalizeConsoleTarget(target);
+    const parts = normalizedTarget.split(":");
+    if (normalizedTarget !== String(target || "").replace(/^#/, "")) {
+      window.history.replaceState(null, "", `#${normalizedTarget}`);
+    }
+    const automationSubviews = ["overview", "agents", "gates", "security", "capacity", "platform", "data", "logs"];
     activateTab(parts[0]);
-    if (parts[0] === "candidates" && parts[1]) activateSectionTab("candidates", parts[1]);
-    if (parts[0] === "sources" && parts[1]) activateSectionTab("sources", parts[1]);
-    if (parts[0] === "logs" && parts[1]) {
-      activateSectionTab("logs", parts[1]);
-      if (parts[1] === "agents" && parts[2]) {
-        const record = data.agent_registry.find((agent) => agent.id === parts[2]);
+    if (parts[0] === "planning" && parts[1]) activateSectionTab("planning", parts[1]);
+    if (parts[0] === "automation" && parts[1] === "logs") {
+      activateSectionTab("automation", "logs");
+      activateLogView(parts[2] || "incidents");
+      if (parts[2] === "agents" && parts[3]) {
+        const record = data.agent_registry.find((agent) => agent.id === parts[3]);
         const select = byId("log-agents-agent");
         const match = [...(select?.options || [])].find((option) =>
-          [parts[2], record?.name].filter(Boolean).some((value) =>
+          [parts[3], record?.name].filter(Boolean).some((value) =>
             String(option.value).localeCompare(String(value), undefined, { sensitivity: "accent" }) === 0));
         if (select && match) {
           select.value = match.value;
@@ -2486,44 +3661,57 @@
         }
       }
     }
-    if (parts[0] === "publication" && parts[1]) activateSectionTab("publication", parts[1]);
-    if (parts[0] === "progress" && parts[1] === "next-work" && parts[2]) {
-      applyProgressNextWorkParameters(parts.slice(2).join(":"));
-      if (loadedDomains.has("progress")) renderProgressNextWork(data.progress);
+    if (parts[0] === "planning" && parts[1] === "workbench" && parts[2] === "pipeline") {
+      resetPipelineMode("active");
+      if (parts[3]) applyPipelineParameters(parts.slice(3).join(":"));
+      if (loadedDomains.has("progress")) renderPipeline();
     }
-    if (parts[0] === "automation" && ["administration", "agents"].includes(parts[1])) {
+    if (parts[0] === "automation" && automationSubviews.includes(parts[1])) {
       activateSectionTab("automation", parts[1]);
     }
-    if (parts[0] === "sources" && parts[1] === "watchers" && parts[2]) activateWatcherTab(parts[2]);
+    if (parts[0] === "planning" && parts[1] === "sources"
+      && parts[2] === "watchers" && parts[3]) activateWatcherTab(parts[3]);
     let destination = byId(`panel-${parts[0]}`);
     if (parts[0] === "progress" && parts[1]) {
       const section = byId(`progress-${parts[1]}`);
       if (section?.tagName === "DETAILS") section.open = true;
       if (section) destination = section;
     }
-    if (parts[0] === "automation" && parts[1] && !["administration", "agents"].includes(parts[1])) {
-      activateSectionTab("automation", "agents");
-      const card = byId(`automation-card-${parts[1]}`);
-      if (card) {
-        destination = card;
-        card.setAttribute("tabindex", "-1");
-        window.setTimeout(() => card.focus({ preventScroll: true }), 350);
-      }
-    }
     if (parts[0] === "automation" && parts[1] === "agents" && parts[2]) {
-      const card = byId(`automation-card-${parts[2]}`);
+      activateAutomationRole(parts[2], false, false);
+      destination = byId("automation-role-detail") || destination;
+    }
+    if (parts[0] === "planning" && parts[1] === "sources" && parts[2]) {
+      destination = {
+        catalog: byId("sources-heading"),
+        pending: byId("pending-heading"),
+        watchers: byId("watchers-heading")
+      }[parts[2]] || destination;
+    }
+    if (parts[0] === "planning"
+      && ["candidates", "preliminary"].includes(parts[1])
+      && parts[2]?.startsWith("selected=")) {
+      const selected = decodeURIComponent(parts[2].slice("selected=".length));
+      const card = byId(`candidate-${selected}`);
       if (card) {
+        card.open = true;
         destination = card;
-        card.setAttribute("tabindex", "-1");
-        window.setTimeout(() => card.focus({ preventScroll: true }), 350);
       }
     }
-    destination.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (parts[0] === "planning" && parts[1] === "publication" && parts[2]) {
+      destination = {
+        assignments: byId("pages-heading"),
+        analysis: byId("publication-analysis-heading"),
+        builder: byId("publication-builder-heading")
+      }[parts[2]] || destination;
+    }
+    destination?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function navigateFromHash() {
     const target = window.location.hash.replace(/^#/, "");
-    if (!target || !byId(`panel-${target.split(":")[0]}`)) return;
+    const normalized = normalizeConsoleTarget(target);
+    if (!normalized || !byId(`panel-${normalized.split(":")[0]}`)) return;
     navigateToConsoleTarget(target);
   }
 
@@ -2551,11 +3739,15 @@
     const itemHref = String(item?.href || "");
     const route = repositoryReview
       ? item.specialistTarget || group.target
+      : item?.route
+        ? item.route
       : itemHref.startsWith("#")
         ? itemHref.replace(/^#/, "")
         : group.target;
     const externalUrl = repositoryReview
       ? item.evidenceUrl || ""
+      : item?.canonicalUrl
+        ? item.canonicalUrl
       : /^https?:\/\//.test(itemHref)
         ? itemHref
         : "";
@@ -2569,6 +3761,14 @@
     const recommendation = repositoryReview
       ? item.recommendation
       : item?.recommendation || item?.options || "";
+    const artifactIdentifier = structuredArtifactIdentifiers(item || {})[0] || "";
+    const workbenchTarget = artifactIdentifier
+      ? workbenchTargetForArtifact(artifactIdentifier, {
+          source: "Action Items",
+          reference: id,
+          returnTarget: "actions"
+        })
+      : null;
     return {
       id,
       scope: group.scope,
@@ -2588,10 +3788,15 @@
         ? item.consequence
         : item?.consequence || "",
       due: repositoryReview ? item.due : item?.due || "",
+      dueAt: item?.dueAt || "",
+      priority: item?.priority || "",
+      blockingEffect: item?.blockingEffect === true,
+      consequentialDecision: item?.consequentialDecision === true,
       route,
       routeLabel: repositoryReview
         ? `Open ${item.specialistLabel || "owning specialist view"}`
         : group.openLabel || "Open owning Console view",
+      workbenchTarget,
       externalUrl,
       externalLabel: repositoryReview ? "Open pull request ↗" : "Open canonical record ↗",
       affectedSummary: repositoryReview ? item.affectedSummary : "",
@@ -2611,6 +3816,88 @@
         item?.due
       ].filter(Boolean).join(" ").toLowerCase()
     };
+  }
+
+  function priorityAttentionReasons(item, now = Date.now()) {
+    if (!item || item.scope !== "mine") return [];
+    const reasons = [];
+    if (item.blockingEffect === true) {
+      reasons.push({ key: "blocking", rank: 0, label: "Explicit blocking effect" });
+    }
+    const priority = String(item.priority || "").trim().toLowerCase();
+    if (priority === "critical") {
+      reasons.push({ key: "critical", rank: 1, label: "Critical priority" });
+    } else if (priority === "high") {
+      reasons.push({ key: "high", rank: 2, label: "High priority" });
+    }
+    const dueAt = parseTimestamp(item.dueAt);
+    if (dueAt !== null) {
+      reasons.push({
+        key: dueAt <= now ? "overdue" : "due",
+        rank: dueAt <= now ? 1 : 3,
+        label: dueAt <= now
+          ? `Overdue since ${formatOperationalDate(item.dueAt)}`
+          : `Due ${formatOperationalDate(item.dueAt)}`
+      });
+    }
+    if (item.consequentialDecision === true) {
+      reasons.push({ key: "consequential", rank: 4, label: "Recorded consequential decision" });
+    }
+    return reasons;
+  }
+
+  function priorityAttentionItems(items = actionInboxState.items, now = Date.now()) {
+    return items
+      .map((item) => ({ item, reasons: priorityAttentionReasons(item, now) }))
+      .filter((record) => record.reasons.length)
+      .sort((left, right) =>
+        Math.min(...left.reasons.map((reason) => reason.rank))
+          - Math.min(...right.reasons.map((reason) => reason.rank))
+        || (parseTimestamp(left.item.dueAt) ?? Infinity) - (parseTimestamp(right.item.dueAt) ?? Infinity)
+        || left.item.title.localeCompare(right.item.title)
+      )
+      .slice(0, 5);
+  }
+
+  function openPriorityAttentionItem(item) {
+    actionInboxState.filter = "mine";
+    actionInboxState.search = "";
+    byId("action-inbox-search").value = "";
+    document.querySelectorAll("[data-action-filter]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.actionFilter === "mine"));
+    });
+    renderActionInboxRows();
+    selectActionInboxItem(item.id);
+    byId(`${item.id}-row`)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  function renderPriorityAttention() {
+    const section = byId("action-priority-attention");
+    const host = byId("action-priority-list");
+    const records = priorityAttentionItems();
+    section.hidden = records.length === 0;
+    if (!records.length) {
+      host.replaceChildren();
+      byId("action-priority-summary").textContent = "";
+      return;
+    }
+    host.replaceChildren(...records.map(({ item, reasons }) => {
+      const row = element("button", "action-priority-row");
+      row.type = "button";
+      const copy = element("span", "action-priority-copy");
+      copy.append(
+        element("strong", "", item.title),
+        element("span", "", reasons.map((reason) => reason.label).join(" · "))
+      );
+      row.append(
+        copy,
+        element("span", "action-priority-open", "Open in inbox →")
+      );
+      row.addEventListener("click", () => openPriorityAttentionItem(item));
+      return row;
+    }));
+    byId("action-priority-summary").textContent =
+      `${records.length} elevated item${records.length === 1 ? "" : "s"}`;
   }
 
   function actionInboxRow(item) {
@@ -2701,6 +3988,7 @@
     });
     const links = element("div", "action-preview-links");
     if (item.route) links.append(actionInboxLink(item.routeLabel, item.route));
+    if (item.workbenchTarget) links.append(actionInboxLink("Open in Workbench", item.workbenchTarget));
     if (item.externalUrl) links.append(actionInboxLink(item.externalLabel, item.externalUrl, true));
     preview.replaceChildren(header, ...sections, links);
   }
@@ -2810,6 +4098,27 @@
     return `PRB-${(hash >>> 0).toString(16).toUpperCase().padStart(8, "0")}`;
   }
 
+  function exactIntegrityProblemRecords(feed = data.integrity) {
+    const current = feed && typeof feed.current === "object" ? feed.current : {};
+    return (Array.isArray(current.findings) ? current.findings : []).map((finding) => {
+      const human = integrityFindingNeedsHuman(finding);
+      const normalized = {
+        category: finding.category || "Project structure",
+        severity: finding.severity || "warning",
+        attention: human ? "human" : (finding.attention || "agent"),
+        owner: human ? "Human" : (finding.owner || "Elim"),
+        reported_by: "Project Integrity Bot",
+        status: finding.status || "Open",
+        detected_at: finding.detected_at || current.generated_at || data.generated_at,
+        checked_at: finding.checked_at || current.generated_at || data.generated_at,
+        ...finding
+      };
+      normalized.affected_ids = finding.affected_ids || finding.owner_ids || [];
+      normalized.reference = finding.reference || stableProblemReference(normalized);
+      return normalized;
+    });
+  }
+
   function allProblemRecords(feed = data.integrity) {
     const current = feed && typeof feed.current === "object" ? feed.current : {};
     const problems = [];
@@ -2899,6 +4208,23 @@
       detected_at: data.progress.generatedAt || data.progress.asOf,
       checked_at: data.progress.generatedAt || data.progress.asOf
     }));
+    (Array.isArray(data.progress?.pipeline?.integrityFindings)
+      ? data.progress.pipeline.integrityFindings
+      : []).forEach((finding) => add({
+      category: "Pipeline integrity",
+      severity: finding.severity || "warning",
+      attention: "agent",
+      owner: "Elim",
+      reported_by: "Project Console Pipeline projection",
+      status: "Correction required",
+      owner_ids: [finding.identifier].filter(Boolean),
+      message: finding.message,
+      source_url: finding.route?.startsWith("http")
+        ? finding.route
+        : `#${finding.route || "planning:workbench:pipeline"}`,
+      detected_at: data.progress.pipeline.generatedAt,
+      checked_at: data.progress.pipeline.generatedAt
+    }));
 
     const approvedWorkflowStatuses = new Set(APPROVED_WORKFLOW_STATUSES);
     const progressStatusWarnings = new Set(
@@ -2983,7 +4309,7 @@
         status: String(stage.status || "Error").replaceAll("_", " "),
         owner_ids: [stage.id],
         message: `${record?.name || stage.id}: ${botFailureSummary(stage)}`,
-        source_url: `#automation:${stage.id}`,
+        source_url: `#automation:agents:${stage.id}`,
         detected_at: stage.completed_at || stage.updated_at || data.run_chain?.updated_at,
         checked_at: data.run_chain?.updated_at || data.generated_at
       });
@@ -3014,10 +4340,7 @@
 
   function integrityActionLink(finding) {
     const message = String(finding.message || "Integrity finding requires review");
-    const identifier = message.match(/\b(?:HOR|[A-Z]{2,})-\d{3}\b/)?.[0] || "";
-    const proposal = (data.progress?.proposals || []).find((record) => record.identifier === identifier);
-    const candidate = (data.active_horizon_records || []).find((record) => record.id === identifier);
-    const canonical = String(proposal?.canonicalRecord || "").trim();
+    const identifier = structuredArtifactIdentifiers(finding)[0] || "";
     return {
       label: `${finding.reference || "Problem"}: ${message}`,
       href: /^https?:\/\//.test(String(finding.source_url || ""))
@@ -3025,11 +4348,22 @@
       owner: problemOwnerLabel(finding),
       status: text(finding.status, "Open"),
       tone: finding.severity || "warning",
-      question: finding.human_question || message,
+      question: finding.human_question || finding.next_action || message,
       recommendation: finding.recommendation || "Review the complete finding in Integrity and record the disposition at its canonical owner.",
       whyNow: `${text(finding.status, "Open")} ${finding.severity || "warning"} finding`,
       consequence: finding.consequence_of_delay || "The exception remains unresolved and may block reliable project or release decisions.",
-      due: finding.due_at ? formatDate(finding.due_at) : `Detected ${formatDate(finding.detected_at)}`
+      due: finding.due_at ? formatDate(finding.due_at) : `Detected ${formatDate(finding.detected_at)}`,
+      dueAt: finding.due_at || "",
+      priority: finding.priority || "",
+      blockingEffect: (
+        finding.blocking === true
+        || finding.blocks_automation === true
+        || finding.release_blocker === true
+      ),
+      consequentialDecision: Boolean(
+        finding.human_question && finding.consequence_of_delay
+      ),
+      artifact_id: identifier
     };
   }
 
@@ -3085,7 +4419,7 @@
       };
     }
     return {
-      target: "automation:administration",
+      target: "automation:overview",
       label: "Agents & Bots administration"
     };
   }
@@ -3182,7 +4516,16 @@
       specialistTarget: specialist.target,
       specialistLabel: specialist.label,
       consequence: exact?.consequence_of_delay || "The repository proposal cannot be authoritatively disposed until the assigned review is completed.",
-      due: exact?.due_at ? formatDate(exact.due_at) : `Reviewed ${formatDate(exact?.recorded_at)}`
+      due: exact?.due_at ? formatDate(exact.due_at) : `Reviewed ${formatDate(exact?.recorded_at)}`,
+      dueAt: exact?.due_at || "",
+      priority: exact?.priority || "",
+      blockingEffect: exact?.blocks_future_automation === true,
+      consequentialDecision: Boolean(
+        owner === "Human"
+        && exact?.human_question
+        && String(exact.human_question).toLowerCase() !== "none"
+        && exact?.consequence_of_delay
+      )
     };
   }
 
@@ -3195,19 +4538,22 @@
     const integrityHumanFindings = problemRecords
       .filter((finding) => finding.attention === "human")
       .filter((finding) => finding.category !== "Automation failure")
+      .filter((finding) => finding.reported_by !== "GitHub Security")
       .sort((left, right) => String(left.message || "").localeCompare(String(right.message || "")));
-    const chain = data.run_chain || {};
-    const automationActions = groupAutomationIncidents(chain).map((incident, index) => ({
-      id: `INC-${String(index + 1).padStart(3, "0")}`,
-      stage: incident.stages.join(", ") || "run coordinator",
-      summary: incident.rootCause,
-      occurrences: incident.occurrences,
-      owners: incident.owners,
-      humanOwned: incidentHasHumanOwner(incident),
-      recovery: incident.recovery,
-      firstSeen: incident.firstSeen,
-      lastSeen: incident.lastSeen,
-      source_url: "#automation:administration"
+    const automationActions = unresolvedOperationalIncidents().map((incident) => ({
+      id: incident.incident_id,
+      stage: incident.component,
+      summary: incident.summary,
+      occurrences: (incident.occurrences || []).length,
+      owners: incident.owner ? [incident.owner] : [],
+      humanOwned: humanOwnsIncident(incident),
+      recovery: incident.next_action,
+      firstSeen: incident.first_observed,
+      lastSeen: incident.last_observed,
+      impact: incident.impact,
+      status: incident.status,
+      recommendedOwner: incident.recommended_owner,
+      source_url: `#automation:logs:incidents:selected=${encodeURIComponent(incident.incident_id)}`
     }));
     return {
       integrityHumanFindings,
@@ -3233,6 +4579,12 @@
     const repositoryElimActions = repositoryReviews.filter(
       (item) => item.actionOwner === "Elim"
     );
+    const securityProblems = problemRecords.filter((item) =>
+      item.reported_by === "GitHub Security");
+    const securityHumanActions = securityProblems.filter((item) =>
+      item.attention === "human" || String(item.owner || "").toLowerCase() === "human");
+    const securityOversightActions = securityProblems.filter((item) =>
+      !securityHumanActions.includes(item));
     return {
       decisionRecords,
       decisions: decisionRecords.length,
@@ -3249,10 +4601,13 @@
       repositoryReviews,
       repositoryHumanActions,
       repositoryElimActions,
+      securityHumanActions,
+      securityOversightActions,
       total: decisionRecords.length
         + data.records.length
         + data.pending_sources.length
         + repositoryHumanActions.length
+        + securityHumanActions.length
         + integrityHumanFindings.length
         + automationHumanActions.length
     };
@@ -3275,13 +4630,17 @@
       repositoryReviews,
       repositoryHumanActions,
       repositoryElimActions,
+      securityHumanActions,
+      securityOversightActions,
       total
     } = actionItemSnapshot();
     const newOrUpdated = preliminary;
     const oversightProblems = problemRecords
       .filter((finding) => finding.attention !== "human")
+      .filter((finding) => finding.reported_by !== "GitHub Security")
       .filter((finding) => !/resolved|closed|complete/i.test(String(finding.status || "")));
     const oversightCount = repositoryElimActions.length
+      + securityOversightActions.length
       + automationOversightActions.length
       + oversightProblems.length;
     byId("tab-actions-count").textContent = total;
@@ -3294,23 +4653,34 @@
         : "No items currently await a human review or decision.";
     const automationItem = (item, humanOwned) => ({
       label: `${item.id || "Automation"}: ${item.stage || "run coordinator"} — ${item.summary || item.details || "Review the recorded failure."}`,
-      href: "#automation:administration",
-      owner: item.owners?.join(", ") || (humanOwned ? "Human recovery owner not recorded" : "No typed action owner"),
-      status: humanOwned ? "Human resolution required" : "Owned elsewhere",
-      tone: "error",
+      href: item.source_url || "#automation:logs:incidents",
+      route: String(item.source_url || "").replace(/^#/, "") || "automation:logs:incidents",
+      owner: item.owners?.join(", ") || `Unassigned · recommended ${item.recommendedOwner || "owner unavailable"}`,
+      status: humanOwned ? "Human resolution required" : humanizeKey(item.status || "Open"),
+      tone: ["blocking", "disrupted"].includes(item.impact) ? "error" : "warning",
       question: item.recovery || (humanOwned
-        ? "Confirm the root cause, repair the failed prerequisite, and record resolution evidence."
-        : "The accountable specialist must repair the prerequisite or assign the incident explicitly."),
+        ? "Complete the recorded next action and attach exact closure evidence."
+        : "The accountable specialist must complete the recorded next action; unassigned ownership remains an oversight problem."),
       recommendation: humanOwned
-        ? "Open the Automation incident and resolve the grouped root cause once, preserving every occurrence."
-        : "Review the grouped incident and preserve every occurrence while correcting its typed ownership or recovery state.",
+        ? "Open the authoritative incident record, preserve every occurrence, and resolve only after its exact closure test passes."
+        : "Open the authoritative incident record and correct its typed ownership or recovery state without inventing a browser disposition.",
       whyNow: `${pluralizeWord(item.occurrences || 1, "occurrence")} · latest ${item.lastSeen ? formatDate(item.lastSeen) : "time unavailable"}`,
       consequence: humanOwned
         ? "The affected run-chain work remains blocked or untrustworthy until repair and validation are recorded."
         : "The failure remains active but is not counted as a project-manager action until Human ownership is explicit.",
-      due: item.firstSeen ? `Open since ${formatDate(item.firstSeen)}` : "First detection unavailable"
+      due: item.firstSeen ? `Open since ${formatDate(item.firstSeen)}` : "First detection unavailable",
+      blockingEffect: humanOwned && ["blocking", "disrupted"].includes(item.impact)
     });
     const groups = [
+      {
+        scope: "mine",
+        label: "Security actions requiring you",
+        target: "automation:security",
+        status: "Human security action",
+        tone: "error",
+        detail: "A credential, secret, or other security action is explicitly assigned to you.",
+        items: securityHumanActions.map(integrityActionLink)
+      },
       {
         scope: "mine",
         label: "Integrity decisions requiring you",
@@ -3322,8 +4692,8 @@
       },
       {
         scope: "mine",
-        label: "Automation failures requiring resolution",
-        target: "automation:administration",
+        label: "Operational incidents requiring your action",
+        target: "automation:logs:incidents",
         status: "Human resolution required",
         tone: "error",
         detail: "An unresolved host or run-chain failure requires explicit human resolution.",
@@ -3332,25 +4702,35 @@
       {
         scope: "mine",
         label: "Human decisions",
-        target: "progress:holds",
+        target: "actions",
         status: "Human decision needed",
         tone: "warning",
         detail: "A proposal or candidate is waiting for reserved human judgment.",
         items: decisionRecords.map((record) => ({
           label: `ACT-${record.identifier}: ${record.title}`,
-          href: "#progress:holds",
+          artifact_id: record.identifier,
+          route: record.kind === "horizon"
+            ? "planning:candidates"
+            : record.workflowStatus === "Publication approval"
+              ? "planning:publication"
+              : "actions",
+          canonicalUrl: record.url,
           owner: text(record.owner, "You / reserved human authority"),
           question: record.followUp || record.nextAction || `Decide the recorded next step for ${record.identifier}.`,
-          recommendation: record.recommendation || "Review the hold explanation, evidence, options, and authority boundary in Progress before recording a decision in the canonical owner.",
+          recommendation: record.recommendation || "Review the evidence, options, and authority boundary in the owning dossier before recording a decision in the canonical record.",
           whyNow: `Workflow Status is ${record.workflowStatus}.`,
           consequence: record.consequence || "The record cannot advance to its next workflow state without the reserved decision.",
-          due: record.dueDate ? formatDate(record.dueDate) : record.nextAudit ? `Next audit ${formatDate(record.nextAudit)}` : "No due trigger recorded"
+          due: record.dueDate ? formatDate(record.dueDate) : record.nextAudit ? `Next audit ${formatDate(record.nextAudit)}` : "No due trigger recorded",
+          dueAt: record.dueDate || "",
+          priority: record.priority || "",
+          blockingEffect: record.releaseBlocker === true || explicitYes(record.releaseBlocker),
+          consequentialDecision: Boolean(record.consequence)
         }))
       },
       {
         scope: "mine",
         label: "Repository decisions assigned to you",
-        target: "automation:administration",
+        target: "automation:overview",
         openLabel: "Open specialist administration",
         status: "Exact-head decision",
         tone: "warning",
@@ -3367,6 +4747,7 @@
         detail: "A synthesized institutional question awaits human intake review.",
         items: data.records.map((record) => ({
           label: `ACT-${record.id}: ${record.title}`,
+          artifact_id: record.id,
           href: "#candidates:preliminary",
           owner: "You",
           question: record.unresolved || "Admit, merge, defer, or reject this preliminary candidate.",
@@ -3385,6 +4766,7 @@
         detail: "A retained source still requires a choice among plausible project destinations.",
         items: data.pending_sources.map((record) => ({
           label: `ACT-${record.id}: ${record.title}`,
+          record_ids: record.record_ids || [],
           href: "#sources:pending",
           owner: "You",
           question: `Choose the appropriate project destination${record.record_ids?.length ? ` among ${record.record_ids.join(", ")}` : ""}.`,
@@ -3396,8 +4778,17 @@
       },
       {
         scope: "oversight",
+        label: "Security remediation owned by Elim",
+        target: "automation:security",
+        status: "Owned by Elim",
+        tone: "error",
+        detail: "Open CodeQL, Dependabot, or other typed security remediation remains with Elim.",
+        items: securityOversightActions.map(integrityActionLink)
+      },
+      {
+        scope: "oversight",
         label: "Repository work owned by Elim",
-        target: "automation:administration",
+        target: "automation:overview",
         status: "Owned by Elim",
         tone: "info",
         detail: pullRequestsKnown
@@ -3407,8 +4798,8 @@
       },
       {
         scope: "oversight",
-        label: "Automation incidents owned elsewhere",
-        target: "automation:administration",
+        label: "Operational incidents under oversight",
+        target: "automation:logs:incidents",
         status: "Owned elsewhere",
         tone: "error",
         detail: "An active incident family remains assigned outside the Human action queue.",
@@ -3427,7 +4818,14 @@
     actionInboxState.items = groups.flatMap((group) =>
       group.items.map((item, index) => actionInboxItem(group, item, index))
     );
+    const blockingItems = actionInboxState.items.filter((item) => item.blockingEffect === true);
+    setButtonBlockerFlag(
+      "tab-actions",
+      blockingItems.length > 0,
+      `${pluralizeWord(blockingItems.length, "blocker")} represented in Action Items`
+    );
     byId("all-actions-count").textContent = actionInboxState.items.length;
+    renderPriorityAttention();
     renderActionInboxRows();
   }
 
@@ -3443,9 +4841,9 @@
 
   function renderReviewSignals() {
     const botUpdates = reviewSignals.courts.count + reviewSignals.directives.count;
-    setUpdateBadge("tab-candidates-update", data.records.length);
+    setUpdateBadge("planning-preliminary-update", data.records.length);
     setUpdateBadge("candidate-preliminary-update", data.records.length);
-    setUpdateBadge("tab-sources-update", botUpdates);
+    setUpdateBadge("planning-sources-update", botUpdates);
     setUpdateBadge("source-watchers-update", botUpdates);
     setUpdateBadge("court-watch-update", reviewSignals.courts.count);
     setUpdateBadge("directive-watch-update", reviewSignals.directives.count);
@@ -3631,6 +5029,12 @@
       element("span", score.valid ? "development-score" : "development-score invalid", score.label)
     );
     const links = element("div", "development-card-links");
+    const workbenchTarget = workbenchTargetForArtifact(record.identifier, {
+      source: "Progress",
+      reference: record.identifier,
+      returnTarget: "progress"
+    });
+    if (workbenchTarget) links.append(internalInlineLink("Open in Workbench", workbenchTarget));
     const liveUrl = proposalLiveUrl(record);
     if (liveUrl) links.append(linkButton("Live", liveUrl, true));
     if (record.url) links.append(linkButton("Issue", record.url, true));
@@ -3686,49 +5090,14 @@
   }
 
   function renderProgressHolds(snapshot) {
-    const records = workflowHoldRecords();
-    const groups = [
-      ["Deferred", "Deferred"],
-      ["Blocked", "Blocked"],
-      ["Human decision needed", "Human decision needed"]
-    ];
-    const host = byId("progress-holds");
-    byId("progress-holds-count").textContent = records.length;
-    host.replaceChildren(...groups.map(([status, label]) => {
-      const section = element("details", "progress-hold-group");
-      section.dataset.disclosureId = `progress-hold-list-${layoutSlug(status)}`;
-      const matching = records.filter((record) => record.workflowStatus === status)
-        .sort((left, right) => left.identifier.localeCompare(right.identifier));
-      const heading = element("summary", "section-heading-row");
-      const title = element("span", "progress-hold-group-title", label);
-      heading.append(title, element("span", "count-pill", matching.length));
-      section.append(heading);
-      if (!matching.length) {
-        section.append(element("p", "development-column-empty", "No current records"));
-        return section;
-      }
-      const list = element("div", "progress-hold-list");
-      matching.forEach((record) => {
-        const card = element("article", "progress-hold-card");
-        const header = element("div", "progress-hold-header");
-        header.append(element("strong", "record-id", record.identifier), element("span", "badge formal", text(record.developmentLevel, "Development level unavailable")), element("span", "badge", status));
-        const explanation = String(record.explanation || "").trim();
-        const nextAction = String(record.followUp || record.nextAudit || "").trim();
-        card.append(
-          header,
-          element("h5", "", text(record.title, record.identifier)),
-          dossierSection("Explanation / reason", explanation || "Missing: no explanation is available in the current authoritative Project or canonical metadata.", explanation ? "wide" : "wide warning"),
-          dossierSection("Next trigger / action", nextAction && nextAction !== "Not recorded" ? nextAction : "Missing: no next trigger or action is recorded.", nextAction && nextAction !== "Not recorded" ? "wide" : "wide warning")
-        );
-        const links = element("div", "source-list compact-links");
-        const liveUrl = proposalLiveUrl(record);
-        if (liveUrl) links.append(linkButton("Live", liveUrl, true));
-        if (record.url) links.append(linkButton("Issue", record.url, true));
-        card.append(links); list.append(card);
-      });
-      section.append(list); return section;
-    }));
-    refreshDisclosurePreferences(host);
+    const items = Array.isArray(snapshot.pipeline?.items)
+      ? snapshot.pipeline.items.filter((item) => item.mode === "hold")
+      : [];
+    const blocked = items.filter((item) => item.status === "Blocked").length;
+    const deferred = items.filter((item) => item.status === "Deferred").length;
+    byId("progress-holds-count").textContent = items.length;
+    byId("progress-blocked-count").textContent = blocked;
+    byId("progress-deferred-count").textContent = deferred;
   }
 
   function portfolioArchitecturePoints(snapshot) {
@@ -3779,34 +5148,6 @@
     }
   }
 
-  function nextWorkCohort(record) {
-    const priority = String(record.priority || "").toLowerCase();
-    const releaseBlocker = typedReleaseBlocker(record.releaseBlocker);
-    if (["Human decision needed", "Publication approval"].includes(record.workflowStatus)) {
-      return { name: "Human-reserved", reason: `Workflow Status is ${record.workflowStatus}.` };
-    }
-    if (priority === "critical" && (record.workflowStatus === "Blocked" || record.blocker || record.dependency)) {
-      return { name: "Critical incident", reason: "Critical priority is paired with a recorded blocker, dependency, or blocked workflow state." };
-    }
-    if (releaseBlocker && ["critical", "high"].includes(priority)) {
-      return { name: "Critical / High release blocker", reason: `${text(record.priority)} priority and an explicit release blocker are recorded.` };
-    }
-    if (["Audit needed", "Audit in progress"].includes(record.workflowStatus) || explicitYes(record.changeAuditNeeded)) {
-      return { name: "Audit-ready", reason: `Audit work is declared by Status or Change Audit field (${text(record.changeAuditNeeded, "Status-driven")}).` };
-    }
-    if (explicitYes(record.monitoringTriggered)
-        || /fired|material change|action required/i.test(String(record.monitoringPosture || record.latestPosture || ""))) {
-      return { name: "Fired monitoring", reason: "A typed monitoring trigger or material-change posture is active." };
-    }
-    if (explicitYes(record.sourceStale) || explicitYes(record.candidateStale) || explicitYes(record.stale)) {
-      return { name: "Stale source / candidate", reason: "The producer explicitly marks a source or candidate projection stale." };
-    }
-    if (record.workflowStatus === "External review") {
-      return { name: "External-review follow-up", reason: "Workflow Status is External review." };
-    }
-    return { name: "Ordinary backlog", reason: `No higher deterministic cohort condition matched; current Status is ${text(record.workflowStatus, "unavailable")}.` };
-  }
-
   function explicitYes(value) {
     return value === true || value === 1 || /^(?:yes|true|required|active|fired|blocked)$/i.test(String(value || "").trim());
   }
@@ -3815,102 +5156,429 @@
     return value === true || /^(?:yes|true)$/i.test(String(value ?? "").trim());
   }
 
-  function renderProgressNextWork(snapshot) {
-    const records = currentLifecycleRecords().map((record) => {
-      const cohort = nextWorkCohort(record);
-      return { ...record, cohort: cohort.name, cohortReason: cohort.reason };
-    });
-    const cohorts = [...new Set(records.map((record) => record.cohort))];
-    const statuses = [...new Set(records.map((record) => record.workflowStatus).filter(Boolean))];
-    const priorities = [...new Set(records.map((record) => text(record.priority, "Unassigned")))];
-    const developmentLevels = [...new Set(records.map((record) => text(record.developmentLevel, "Unassigned")))];
-    const blockerState = (record) => {
-      return typedReleaseBlocker(record.releaseBlocker) ? "Required" : "Not required";
+  function pipelineProjectionState() {
+    const projection = data.progress?.pipeline;
+    if (!projection || projection.schemaVersion !== 1) {
+      return { available: false, reason: "No compatible typed Pipeline projection is available.", items: [], projection: {} };
+    }
+    const sourceCounts = projection.sourceCounts || {};
+    const incompatible = (
+      projection.progressGenerationId
+      && data.progress?.generation_id
+      && projection.progressGenerationId !== data.progress.generation_id
+    ) || Number(sourceCounts.preliminaryCandidates) !== data.records.length
+      || Number(sourceCounts.formalCandidates) !== data.active_horizon_records.length
+      || Number(sourceCounts.proposals) !== (data.progress?.proposals || []).length;
+    if (incompatible) {
+      return { available: false, reason: "Pipeline inputs do not match the loaded candidate and Progress generation; rebuild the Console.", items: [], projection };
+    }
+    if (["stale", "unavailable"].includes(String(projection.availability || ""))) {
+      return { available: false, reason: "The typed Pipeline projection is stale or unavailable and is not used for planning classification.", items: [], projection };
+    }
+    return {
+      available: true,
+      reason: "",
+      items: Array.isArray(projection.items) ? projection.items : [],
+      projection
     };
-    const areaValue = (record) => text(record.area || record.workstream, "Unassigned");
-    const ownerValue = (record) => text(record.owner, "Unassigned");
-    populateSelect(byId("progress-next-cohort"), cohorts, "All cohorts");
-    populateSelect(byId("progress-next-status"), statuses, "All statuses");
-    populateSelect(byId("progress-next-priority"), priorities, "All priorities");
-    populateSelect(byId("progress-next-development"), developmentLevels, "All development levels");
-    populateSelect(byId("progress-next-release-blocker"), ["Required", "Not required"], "All blocker states");
-    populateSelect(byId("progress-next-area"), [...new Set(records.map(areaValue))], "All areas and workstreams");
-    populateSelect(byId("progress-next-owner"), [...new Set(records.map(ownerValue))], "All owners");
-    byId("progress-next-cohort").value = progressNextWorkState.cohort;
-    byId("progress-next-status").value = progressNextWorkState.status;
-    byId("progress-next-priority").value = progressNextWorkState.priority;
-    byId("progress-next-development").value = progressNextWorkState.development;
-    byId("progress-next-release-blocker").value = progressNextWorkState.releaseBlocker;
-    byId("progress-next-area").value = progressNextWorkState.area;
-    byId("progress-next-owner").value = progressNextWorkState.owner;
-    const query = progressNextWorkState.search.toLowerCase();
-    const priorityOrder = { urgent: 0, high: 1, medium: 2, normal: 3, low: 4, unassigned: 5 };
-    const cohortOrder = [
-      "Human-reserved",
-      "Critical incident",
-      "Critical / High release blocker",
-      "Audit-ready",
-      "Fired monitoring",
-      "Stale source / candidate",
-      "External-review follow-up",
-      "Ordinary backlog"
-    ];
-    const filtered = records.filter((record) => {
-      if (progressNextWorkState.cohort !== "all" && record.cohort !== progressNextWorkState.cohort) return false;
-      if (progressNextWorkState.status !== "all" && record.workflowStatus !== progressNextWorkState.status) return false;
-      if (progressNextWorkState.priority !== "all" && text(record.priority, "Unassigned") !== progressNextWorkState.priority) return false;
-      if (progressNextWorkState.development !== "all" && text(record.developmentLevel, "Unassigned") !== progressNextWorkState.development) return false;
-      if (progressNextWorkState.releaseBlocker !== "all" && blockerState(record) !== progressNextWorkState.releaseBlocker) return false;
-      if (progressNextWorkState.area !== "all" && areaValue(record) !== progressNextWorkState.area) return false;
-      if (progressNextWorkState.owner !== "all" && ownerValue(record) !== progressNextWorkState.owner) return false;
-      return !query || [record.identifier, record.title, record.cohort, record.workflowStatus,
-        record.priority, record.releaseBlocker, record.nextAudit, record.followUp, record.workstream]
-        .filter(Boolean).join(" ").toLowerCase().includes(query);
-    }).sort((left, right) =>
-      (cohortOrder.indexOf(left.cohort) < 0 ? cohortOrder.length : cohortOrder.indexOf(left.cohort))
-        - (cohortOrder.indexOf(right.cohort) < 0 ? cohortOrder.length : cohortOrder.indexOf(right.cohort))
-      || (priorityOrder[String(left.priority || "unassigned").toLowerCase()] ?? 5)
-        - (priorityOrder[String(right.priority || "unassigned").toLowerCase()] ?? 5)
-      || String(left.identifier).localeCompare(String(right.identifier)));
-    byId("progress-next-visible").textContent = filtered.length;
-    byId("progress-next-work-summary").textContent = `${filtered.length} of ${records.length} records · deterministic grouping only`;
-    byId("progress-next-work-list").replaceChildren(...(filtered.length ? filtered.map((record) => {
-      const card = element("article", "progress-next-work-card");
-      const header = element("div", "progress-next-work-heading");
-      header.append(
-        element("strong", "record-id", record.identifier),
-        element("span", "badge formal", record.cohort),
-        element("span", "badge", text(record.priority, "Priority unassigned")),
-        element("span", "badge", text(record.workflowStatus, "Status unavailable"))
+  }
+
+  function resetPipelineMode(mode = pipelineState.mode) {
+    Object.assign(pipelineState, {
+      mode: mode === "hold" ? "hold" : "active",
+      search: "",
+      workClass: "all",
+      scope: mode === "hold" ? "all" : "active-development",
+      sort: "pipeline",
+      status: "all",
+      development: "all",
+      area: "all",
+      owner: "all",
+      priority: "all",
+      releaseBlocker: "all",
+      gap: "all",
+      selectedId: "",
+      focused: false,
+      sourceContext: "",
+      sourceReference: "",
+      returnTarget: ""
+    });
+  }
+
+  function pipelineStatusMatches(record) {
+    if (pipelineState.status === "all") return true;
+    if (pipelineState.status === "Audit work") {
+      return ["Audit needed", "Audit in progress"].includes(record.status);
+    }
+    return record.status === pipelineState.status;
+  }
+
+  function pipelineDefaultSort(left, right) {
+    const leftSort = left.sortInputs || {};
+    const rightSort = right.sortInputs || {};
+    if (pipelineState.mode === "hold") {
+      const now = Date.now();
+      const holdRank = (record) => {
+        const hold = record.hold || {};
+        const due = parseTimestamp(hold.reviewDue);
+        if (due !== null && due <= now) return [0, due];
+        if (due !== null) return [1, due];
+        if (!hold.lastReviewed) return [2, Infinity];
+        return [3, Infinity];
+      };
+      const leftRank = holdRank(left);
+      const rightRank = holdRank(right);
+      return leftRank[0] - rightRank[0]
+        || leftRank[1] - rightRank[1]
+        || (parseTimestamp(left.hold?.holdSince) ?? Infinity) - (parseTimestamp(right.hold?.holdSince) ?? Infinity)
+        || Number(leftSort.priorityRank ?? 99) - Number(rightSort.priorityRank ?? 99)
+        || String(left.id).localeCompare(String(right.id));
+    }
+    return Number(leftSort.classRank ?? 99) - Number(rightSort.classRank ?? 99)
+      || (
+        left.workClass === "Proposal" && right.workClass === "Proposal"
+          ? Number(leftSort.scoreDescending ?? Infinity) - Number(rightSort.scoreDescending ?? Infinity)
+          : 0
+      )
+      || Number(Boolean(leftSort.nextStepMissing)) - Number(Boolean(rightSort.nextStepMissing))
+      || Number(leftSort.priorityRank ?? 99) - Number(rightSort.priorityRank ?? 99)
+      || (parseTimestamp(leftSort.dueDate) ?? Infinity) - (parseTimestamp(rightSort.dueDate) ?? Infinity)
+      || String(left.id).localeCompare(String(right.id));
+  }
+
+  function pipelineSortRecords(left, right) {
+    if (pipelineState.sort === "identifier") return String(left.id).localeCompare(String(right.id));
+    if (pipelineState.sort === "priority") {
+      return Number(left.sortInputs?.priorityRank ?? 99) - Number(right.sortInputs?.priorityRank ?? 99)
+        || pipelineDefaultSort(left, right);
+    }
+    if (pipelineState.sort === "due") {
+      const leftDue = pipelineState.mode === "hold" ? left.hold?.reviewDue : left.dueDate;
+      const rightDue = pipelineState.mode === "hold" ? right.hold?.reviewDue : right.dueDate;
+      return (parseTimestamp(leftDue) ?? Infinity) - (parseTimestamp(rightDue) ?? Infinity)
+        || pipelineDefaultSort(left, right);
+    }
+    return pipelineDefaultSort(left, right);
+  }
+
+  function filteredPipelineItems(items = pipelineState.items) {
+    const query = pipelineState.search.trim().toLowerCase();
+    return items.filter((record) => {
+      if (record.mode !== pipelineState.mode) return false;
+      if (pipelineState.workClass !== "all" && record.workClass !== pipelineState.workClass) return false;
+      if (pipelineState.mode === "active") {
+        if (pipelineState.scope === "active-development" && record.readinessState === "ready") return false;
+        if (pipelineState.scope === "review-ready" && record.readinessState !== "ready") return false;
+      }
+      if (!pipelineStatusMatches(record)) return false;
+      if (pipelineState.development !== "all" && text(record.developmentLevel, "Unassigned") !== pipelineState.development) return false;
+      if (pipelineState.area !== "all" && text(record.area, "Unassigned") !== pipelineState.area) return false;
+      if (pipelineState.owner !== "all" && text(record.owner, "Unassigned") !== pipelineState.owner) return false;
+      if (pipelineState.priority !== "all" && text(record.priority, "Unassigned") !== pipelineState.priority) return false;
+      const releaseRequired = typedReleaseBlocker(record.releaseBlocker);
+      if (pipelineState.releaseBlocker === "required" && !releaseRequired) return false;
+      if (pipelineState.releaseBlocker === "not-required" && releaseRequired) return false;
+      if (pipelineState.gap === "next_step_missing" && record.nextActionState !== "missing") return false;
+      return !query || [
+        record.id,
+        record.title,
+        record.workClass,
+        record.status,
+        record.nextAction,
+        record.owner,
+        record.area,
+        record.hold?.reason,
+        record.hold?.trigger
+      ].filter(Boolean).join(" ").toLowerCase().includes(query);
+    }).sort(pipelineSortRecords);
+  }
+
+  function pipelineRouteParameters() {
+    const parameters = new URLSearchParams();
+    if (pipelineState.mode !== "active") parameters.set("mode", pipelineState.mode);
+    if (pipelineState.selectedId) parameters.set("selected", pipelineState.selectedId);
+    const defaults = pipelineState.mode === "hold"
+      ? { scope: "all" }
+      : { scope: "active-development" };
+    [
+      ["work_class", "workClass", "all"],
+      ["scope", "scope", defaults.scope],
+      ["sort", "sort", "pipeline"],
+      ["status", "status", "all"],
+      ["development", "development", "all"],
+      ["area", "area", "all"],
+      ["owner", "owner", "all"],
+      ["priority", "priority", "all"],
+      ["release_blocker", "releaseBlocker", "all"]
+    ].forEach(([parameter, key, defaultValue]) => {
+      if (pipelineState[key] !== defaultValue) parameters.set(parameter, pipelineState[key]);
+    });
+    if (pipelineState.gap !== "all") parameters.set("gap", pipelineState.gap);
+    if (pipelineState.search) parameters.set("search", pipelineState.search);
+    if (pipelineState.focused) parameters.set("focus", "1");
+    if (pipelineState.sourceContext) parameters.set("source", pipelineState.sourceContext);
+    if (pipelineState.sourceReference) parameters.set("ref", pipelineState.sourceReference);
+    if (pipelineState.returnTarget) parameters.set("return", pipelineState.returnTarget);
+    return parameters.toString();
+  }
+
+  function updatePipelineRoute() {
+    if (window.location.hash
+      && !window.location.hash.startsWith("#planning:workbench:pipeline")) return;
+    const parameters = pipelineRouteParameters();
+    window.history.replaceState(null, "", `#planning:workbench:pipeline${parameters ? `:${parameters}` : ""}`);
+  }
+
+  function pipelineLink(label, route, external = false) {
+    const link = element("a", external ? "record-link" : "record-link secondary", label);
+    if (external) {
+      const safeRoute = safePipelineExternalUrl(route);
+      if (!safeRoute) {
+        return element("span", "record-link unavailable", "Link unavailable");
+      }
+      const parsedRoute = new URL(safeRoute);
+      link.href = "https://github.com/Thorncrag/ARRP/";
+      link.pathname = parsedRoute.pathname;
+      link.search = parsedRoute.search;
+      link.hash = parsedRoute.hash;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+    } else {
+      const safeRoute = safeConsoleTarget(route);
+      link.href = "#";
+      link.hash = safeRoute;
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        navigateToConsoleTarget(safeRoute);
+      });
+    }
+    return link;
+  }
+
+  function renderPipelinePreview(record) {
+    const preview = byId("pipeline-preview");
+    if (!record) {
+      const empty = element("div", "pipeline-preview-empty");
+      empty.append(
+        element("span", "eyebrow", "Workbench preview"),
+        element("h3", "", "No record selected"),
+        element("p", "", "No artifacts match the current Workbench mode and filters.")
       );
-      const score = scorePresentation(record.score);
-      const nextAction = record.followUp || record.nextAudit || record.nextAction;
-      card.append(
-        header,
-        element("h4", "", text(record.title, record.identifier)),
-        dossierSection("Why in this cohort", record.cohortReason, "wide"),
-        dossierSection("Score", score.label),
-        dossierSection("Last audit", record.lastAudit ? formatDate(record.lastAudit) : "Unavailable"),
-        dossierSection("Next audit / action", nextAction || "Unavailable"),
-        dossierSection("Change Audit", text(record.changeAuditNeeded, "Unavailable")),
-        dossierSection("Rebaseline", text(record.rebaselineStatus, "Unavailable")),
-        dossierSection("Age", record.lastUpdated || record.lastAudit ? agePosture(record.lastUpdated || record.lastAudit) : "Unavailable"),
-        dossierSection("Milestone / due", [record.milestone, record.dueDate ? formatDate(record.dueDate) : ""].filter(Boolean).join(" · ") || "Unavailable"),
-        dossierSection("Owner", text(record.owner, "Unassigned")),
-        dossierSection("Blocker / dependency", [record.releaseBlocker, record.blocker, record.dependency].flat().filter(Boolean).join(" · ") || "None recorded"),
-        dossierSection("Monitoring trigger", text(record.monitoringTrigger, "Unavailable")),
-        dossierSection("Monitoring method", text(record.monitoringMethod, "Unavailable")),
-        dossierSection("Monitoring cadence", text(record.monitoringCadence, "Unavailable")),
-        dossierSection("Change since last pass", text(record.monitoringChange, "Unavailable")),
-        dossierSection("Material relevance", text(record.monitoringRelevance, "Unavailable")),
-        dossierSection("Coverage sources / gaps", [record.monitoringCoverage, record.monitoringGaps].flat().filter(Boolean).join(" · ") || "Unavailable"),
-        element("p", "micro-note", `Development: ${text(record.developmentLevel)} · workstream: ${text(record.workstream, "unassigned")} · runs: ${text(record.runs, "unavailable")}`)
-      );
-      const links = element("div", "source-list compact-links");
-      if (record.url) links.append(linkButton("Open authoritative record ↗", record.url, true));
-      card.append(links);
-      return card;
-    }) : [element("p", "empty-state compact-empty", "No issue-development records match the current Next work filters.")]));
+      empty.querySelector("h3").id = "pipeline-preview-heading";
+      preview.replaceChildren(empty);
+      return;
+    }
+    const heading = element("h3", "", `${record.id}: ${text(record.title, "Untitled record")}`);
+    heading.id = "pipeline-preview-heading";
+    const header = element("header", "pipeline-preview-header");
+    const badges = element("div", "pipeline-preview-badges");
+    badges.append(
+      element("span", "badge formal", record.workClass),
+      element("span", "badge", text(record.status, "Status unavailable"))
+    );
+    if (record.workClass === "Proposal") {
+      badges.append(element("span", "badge", scorePresentation(record.score).label));
+    }
+    header.append(element("span", "eyebrow", pipelineState.mode === "hold" ? "Hold artifact" : "Workbench artifact"), heading, badges);
+    const sections = [];
+    const add = (label, value, className = "") => {
+      if (!value) return;
+      const section = element("section", `pipeline-preview-section ${className}`.trim());
+      section.append(element("h4", "", label), element("p", "", value));
+      sections.push(section);
+    };
+    add("Why this record is here", record.membershipReason);
+    add("Why it occupies this position", record.positionReason);
+    if (record.mode === "hold") {
+      const hold = record.hold || {};
+      add("Hold reason", hold.reason || "Warning: required hold reason is not recorded.", hold.reason ? "" : "warning");
+      if (record.status === "Blocked") {
+        add("Blocked action", hold.blockedAction || "Not separately structured in the producer record.");
+        add("Missing prerequisite", hold.missingPrerequisite || "Not separately structured in the producer record.");
+      }
+      add(record.status === "Blocked" ? "Unblock trigger" : "Reconsideration trigger", hold.trigger || "Warning: required trigger is not recorded.", hold.trigger ? "" : "warning");
+      add("Hold since", hold.holdSince ? formatDate(hold.holdSince) : "Warning: no matching transition entry exists in the issue audit log.", hold.holdSince ? "" : "warning");
+      add("Last reviewed", hold.lastReviewed ? formatDate(hold.lastReviewed) : "No later hold-review entry is recorded.");
+      add("Review due", hold.reviewDue ? formatDate(hold.reviewDue) : "No explicit reconsideration date is recorded.");
+      add("Audit provenance", hold.provenanceState === "verified" ? "Matched to the exact Status transition in the issue audit log." : "Warning: Project Status and audit transition provenance do not reconcile.", hold.provenanceState === "verified" ? "" : "warning");
+    } else {
+      add("Exact recorded next action", record.nextAction || "Next step not recorded", record.nextAction ? "" : "warning");
+      add("Owner", text(record.owner, "Unassigned"));
+      add("Development level and score", record.workClass === "Proposal"
+        ? `${text(record.developmentLevel, "Unavailable")} · ${scorePresentation(record.score).label}`
+        : `${text(record.developmentLevel, "Unavailable")} · Candidate score: Not applicable`);
+      if ((record.readinessGaps || []).length) {
+        add("Typed readiness gaps", record.readinessGaps.join(" "));
+      }
+      if (record.nextActionState === "missing") {
+        add("Missing planning input", "The authoritative producer does not record an exact next step. The record remains visible after peers with complete next steps.", "warning");
+      }
+    }
+    add("Area and workstream", [record.area, record.workstream].filter(Boolean).join(" · "));
+    add("Priority and due date", [record.priority, record.dueDate ? formatDate(record.dueDate) : ""].filter(Boolean).join(" · ") || "No priority or due date recorded.");
+    const links = element("div", "pipeline-preview-links");
+    if (record.links?.dossier) links.append(pipelineLink("Open complete dossier", record.links.dossier));
+    if (record.links?.issue) links.append(pipelineLink("Open GitHub issue ↗", record.links.issue, true));
+    if (record.links?.canonical && record.links.canonical !== record.links.issue) {
+      links.append(pipelineLink("Open canonical record ↗", record.links.canonical, true));
+    }
+    if (record.links?.audit) links.append(pipelineLink("Open audit transition ↗", record.links.audit, true));
+    preview.replaceChildren(header, ...sections, links);
+  }
+
+  function pipelineRow(record) {
+    const row = element("button", "pipeline-row");
+    row.type = "button";
+    row.dataset.pipelineId = record.id;
+    row.setAttribute("role", "option");
+    row.setAttribute("aria-selected", String(pipelineState.selectedId === record.id));
+    row.tabIndex = pipelineState.selectedId === record.id ? 0 : -1;
+    const title = element("span", "pipeline-row-title");
+    title.append(element("strong", "", record.id), element("span", "", text(record.title, "Untitled record")));
+    const score = record.workClass === "Proposal"
+      ? ` · ${scorePresentation(record.score).label}`
+      : "";
+    const nextAction = record.nextAction || (
+      record.mode === "hold"
+        ? record.hold?.trigger || "Trigger not recorded"
+        : "Next step not recorded"
+    );
+    const meta = element(
+      "span",
+      "pipeline-row-meta",
+      `${record.workClass} · ${text(record.status, "Status unavailable")}${score} · ${nextAction}`
+    );
+    row.append(title, meta);
+    row.addEventListener("click", () => selectPipelineItem(record.id, false, true));
+    return row;
+  }
+
+  function selectPipelineItem(id, focus = false, updateRoute = false) {
+    const record = pipelineState.items.find((item) => item.id === id);
+    if (!record) return;
+    pipelineState.selectedId = id;
+    byId("pipeline-list").querySelectorAll(".pipeline-row").forEach((row) => {
+      const selected = row.dataset.pipelineId === id;
+      row.setAttribute("aria-selected", String(selected));
+      row.tabIndex = selected ? 0 : -1;
+    });
+    renderPipelinePreview(record);
+    if (focus) byId("pipeline-list").querySelector(`[data-pipeline-id="${CSS.escape(id)}"]`)?.focus();
+    if (updateRoute) updatePipelineRoute();
+  }
+
+  function renderPipeline() {
+    const projectionState = pipelineProjectionState();
+    const projection = projectionState.projection || {};
+    byId("pipeline-as-of").textContent = projection.asOf || "Unavailable";
+    byId("pipeline-hold-mode-count").textContent = projection.counts?.blockedDeferred ?? 0;
+    if (!projectionState.available) {
+      pipelineState.items = [];
+      byId("pipeline-data-note").textContent = projectionState.reason;
+      byId("pipeline-list").replaceChildren(element("p", "empty-state compact-empty", "Pipeline classification is unavailable until the typed projection is rebuilt."));
+      byId("pipeline-result-summary").textContent = "Projection unavailable";
+      renderPipelinePreview(null);
+      return;
+    }
+    pipelineState.items = projectionState.items;
+    const workbenchBlockers = pipelineState.items.filter((item) =>
+      !["Blocked", "Deferred"].includes(item.status)
+      && typedReleaseBlocker(item.releaseBlocker)
+    );
+    setButtonBlockerFlag(
+      "planning-tab-workbench",
+      workbenchBlockers.length > 0,
+      `${pluralizeWord(workbenchBlockers.length, "blocker")} represented in Workbench`
+    );
+    setButtonBlockerFlag(
+      "tab-planning",
+      workbenchBlockers.length > 0,
+      "A blocker is represented in Planning"
+    );
+    const modeItems = pipelineState.items.filter((item) => item.mode === pipelineState.mode);
+    const values = (key, fallback = "Unassigned") => [...new Set(modeItems.map((item) => text(item[key], fallback)))];
+    populateSelect(byId("pipeline-work-class"), values("workClass"), "All work classes");
+    populateSelect(byId("pipeline-status"), [...new Set(modeItems.map((item) => item.status).filter(Boolean))], "All statuses");
+    populateSelect(byId("pipeline-development"), values("developmentLevel"), "All development levels");
+    populateSelect(byId("pipeline-area"), values("area"), "All areas");
+    populateSelect(byId("pipeline-owner"), values("owner"), "All owners");
+    populateSelect(byId("pipeline-priority"), values("priority"), "All priorities");
+    [
+      ["pipeline-work-class", "workClass"],
+      ["pipeline-scope", "scope"],
+      ["pipeline-sort", "sort"],
+      ["pipeline-status", "status"],
+      ["pipeline-development", "development"],
+      ["pipeline-area", "area"],
+      ["pipeline-owner", "owner"],
+      ["pipeline-priority", "priority"],
+      ["pipeline-release-blocker", "releaseBlocker"]
+    ].forEach(([id, key]) => {
+      const select = byId(id);
+      if ([...select.options].some((option) => option.value === pipelineState[key])) {
+        select.value = pipelineState[key];
+      } else {
+        pipelineState[key] = id === "pipeline-scope" && pipelineState.mode === "hold" ? "all" : "all";
+        select.value = pipelineState[key];
+      }
+    });
+    byId("pipeline-scope").disabled = pipelineState.mode === "hold";
+    byId("pipeline-search").value = pipelineState.search;
+    document.querySelectorAll("[data-pipeline-mode]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.pipelineMode === pipelineState.mode));
+    });
+    const filtered = filteredPipelineItems();
+    const focusedRecord = pipelineState.focused
+      ? pipelineState.items.find((item) => item.id === pipelineState.selectedId)
+      : null;
+    const focusOutsideDefault = Boolean(
+      focusedRecord && !filtered.some((item) => item.id === focusedRecord.id)
+    );
+    const displayed = focusOutsideDefault
+      ? [focusedRecord, ...filtered]
+      : filtered;
+    if (!displayed.some((item) => item.id === pipelineState.selectedId)) {
+      pipelineState.selectedId = displayed[0]?.id || "";
+    }
+    byId("pipeline-list").replaceChildren(...(displayed.length
+      ? displayed.map(pipelineRow)
+      : [element("p", "empty-state compact-empty", "No records match the current Pipeline mode and filters.")]));
+    byId("pipeline-list-heading").textContent = pipelineState.mode === "hold"
+      ? "Blocked & deferred"
+      : "Active Pipeline";
+    byId("pipeline-result-summary").textContent = `${filtered.length} of ${modeItems.length} records shown${focusOutsideDefault ? " · 1 contextual artifact added" : ""}`;
+    const contextNotice = byId("workbench-context-notice");
+    contextNotice.hidden = !focusedRecord;
+    if (focusedRecord) {
+      const source = pipelineState.sourceContext
+        ? pipelineState.sourceContext.replaceAll("-", " ")
+        : "a linked project screen";
+      const reference = pipelineState.sourceReference
+        ? ` ${pipelineState.sourceReference}`
+        : "";
+      byId("workbench-context-copy").textContent =
+        `Opened from ${source}${reference}; ${focusOutsideDefault ? "outside the current Pipeline mode or filters" : "also represented in the current Pipeline view"}.`;
+      const returnLink = byId("workbench-context-return");
+      const returnTarget = safeConsoleTarget(pipelineState.returnTarget || "overview");
+      returnLink.href = "#";
+      returnLink.hash = returnTarget;
+      returnLink.onclick = (event) => {
+        event.preventDefault();
+        navigateToConsoleTarget(returnTarget);
+      };
+      returnLink.textContent = `Return to ${source} →`;
+    }
+    const gaps = Array.isArray(projection.dataGaps) ? projection.dataGaps : [];
+    byId("pipeline-gap-count").textContent = gaps.length;
+    byId("pipeline-gap-notice").hidden = gaps.length === 0;
+    const appliedAdvanced = ["status", "development", "area", "owner", "priority", "releaseBlocker"]
+      .filter((key) => pipelineState[key] !== "all").length;
+    byId("pipeline-advanced-summary").textContent = appliedAdvanced
+      ? `${appliedAdvanced} applied`
+      : "None applied";
+    byId("pipeline-data-note").textContent =
+      `Typed planning projection · ${projection.counts?.active ?? 0} active · ${projection.counts?.blockedDeferred ?? 0} blocked or deferred · browser classification disabled`;
+    renderPipelinePreview(displayed.find((item) => item.id === pipelineState.selectedId));
   }
 
   function renderProgress() {
@@ -3931,7 +5599,7 @@
       byId("development-board").replaceChildren(element("p", "muted", "Development-level data unavailable."));
       renderProgressHolds(snapshot);
       renderPortfolioArchitecture(snapshot);
-      renderProgressNextWork(snapshot);
+      renderPipeline();
       return;
     }
 
@@ -3952,11 +5620,13 @@
     renderDevelopmentBoard(snapshot);
     renderProgressHolds(snapshot);
     renderPortfolioArchitecture(snapshot);
-    renderProgressNextWork(snapshot);
+    renderPipeline();
 
     const areaRows = [...areas].sort((left, right) => right.remaining - left.remaining || left.area.localeCompare(right.area));
     byId("progress-area-list").replaceChildren(...areaRows.map((area) => {
-      const row = element("div", "progress-area-row");
+      const row = element("a", "progress-area-row");
+      row.href = `#planning:workbench:pipeline:area=${encodeURIComponent(area.area)}`;
+      row.setAttribute("aria-label", `Open ${area.area} artifacts in Workbench`);
       const identity = element("div", "progress-area-identity");
       identity.append(element("strong", "", area.area), element("span", "", `${area.ready}/${area.total} ready`));
       const bar = element("div", "mini-progress-track");
@@ -4099,38 +5769,31 @@
     const runtime = matchingElimRuntime(chain.elim_runtime, chain.chain_id);
     const launchRecommended = chain.elim_decision?.launch_recommended === true
       || chain.elim?.launch_recommended === true;
-    const preflightFailed = /fail|error|block|timeout/i.test(String(
-      chain.preflight?.status || chain.plan?.status || chain.repository?.status || ""
-    )) || (Array.isArray(chain.failures) && chain.failures.some((failure) =>
-      /plan|preflight|repository/i.test(String(failure.stage || failure.stage_id || ""))));
-    const planStatus = chain.chain_id
-      ? preflightFailed ? "failed" : chain.repository?.fresh === false ? "degraded" : "succeeded"
-      : "unavailable";
     const elimStatus = runtime?.status
       || (launchRecommended ? "launch recommended" : chain.elim_decision ? "not due" : "not launched");
-    const hostStatus = chain.host_status
-      || (chain.host_closeout?.status)
-      || (launchRecommended ? "pending" : /^complete$/i.test(String(chain.status || "")) ? "not due" : chain.status);
     const specs = [
-      ["Plan", { status: planStatus, details: chain.work_queue?.next_item?.title || chain.chain_id || "No chain plan published" }],
-      ["Cases", stageForAgent("case-monitor-bot")],
-      ["Directives", stageForAgent("presidential-directives-bot")],
-      ["Sources", stageForAgent("source-checker-bot")],
-      ["Progress", stageForAgent("project-console-progress-bot")],
-      ["Intake", stages.get("public-intake") || {}],
-      ["Integrity", stageForAgent("project-integrity-bot")],
-      ["Elim", { ...(runtime || {}), status: elimStatus, details: runtime?.summary || chain.elim_decision?.reason || "No host Elim result is attached to this chain" }],
-      ["Host closeout", { status: hostStatus, details: chain.host_closeout?.details || chain.next_action || "No host closeout result is attached" }]
+      ["case-monitor-bot", "Cases", stageForAgent("case-monitor-bot")],
+      ["presidential-directives-bot", "Presidential directives", stageForAgent("presidential-directives-bot")],
+      ["source-checker-bot", "Sources", stageForAgent("source-checker-bot")],
+      ["public-intake", "Public input", stages.get("public-intake") || {}],
+      ["project-console-progress-bot", "Progress", stageForAgent("project-console-progress-bot")],
+      ["project-integrity-bot", "Integrity", stageForAgent("project-integrity-bot")],
+      ["elim", "Elim", { ...(runtime || {}), status: elimStatus, details: runtime?.summary || chain.elim_decision?.reason || "No host Elim result is attached to this chain" }]
     ];
-    return specs.map(([label, stage]) => {
+    return specs.map(([id, label, stage]) => {
       const presentation = stageExecutionPresentation(stage);
       const scheduling = presentation.currentChainLabel === "Not due this chain"
         ? `${presentation.currentChainLabel}${presentation.scheduleDetail ? ` · ${presentation.scheduleDetail}` : ""}`
         : "";
       return {
+        id,
         label,
         status: presentation.rawStatus || "unavailable",
         detail: scheduling || stage.details || stage.due_reason || "No detail recorded",
+        completedAt: stage.completed_at || stage.updated_at || presentation.lastSuccessAt,
+        activeIncidentIds: Array.isArray(stage.active_incident_ids)
+          ? stage.active_incident_ids
+          : [],
         ...presentation
       };
     });
@@ -4189,106 +5852,83 @@
     return { id: record.id, status: "unavailable", details: "No successful execution or current run-chain stage is published." };
   }
 
-  function renderOverviewAutomationActivity(chain = data.run_chain || {}) {
-    const compactAgents = Array.isArray(data.overview?.agents) ? data.overview.agents : [];
-    if (!data.agent_registry.length && compactAgents.length) {
-      const material = compactAgents.filter((record) =>
-        /fail|error|block|warn|degrad|pending|progress/i.test(String(record.status || record.tone || ""))
-          || record.material === true
-          || Number(record.affected_count || record.work_count || record.findings || record.updates || 0) > 0);
-      const cards = material.map((record, index) => {
-        const presentation = overviewStagePresentation(record.status);
-        const card = element("a", `overview-automation-card ${presentation.tone}`.trim());
-        card.dataset.layoutId = `overview-activity-${record.id || index}`;
-        card.href = record.target ? `#${record.target.replace(/^#/, "")}` : "#automation:agents";
-        card.append(
-          element("span", "eyebrow", record.type || "Agent / bot"),
-          element("h4", "", record.name || record.id || `Worker ${index + 1}`),
-          element("span", `status-badge ${presentation.tone}`, presentation.statusLabel),
-          element("p", "", record.detail || record.summary || "No compact status detail recorded."),
-          element("span", "overview-automation-open", "Open status and recovery →")
-        );
-        return card;
-      });
-      const collapsed = compactAgents.length - material.length;
-      if (collapsed) {
-        cards.unshift(overviewCard(
-          "Current automation chain",
-          serviceStatusLabel(chain.status || data.overview?.automation_summary?.status),
-          `${collapsed} clean or no-op worker result${collapsed === 1 ? "" : "s"} collapsed; open Agents & Bots for the complete directory.`,
-          "automation:administration"
+  function renderOverviewAutomationActivity(
+    chain = data.run_chain || {},
+    readiness = data.overview?.automation_readiness || {}
+  ) {
+    const stages = overviewRunChainStages(chain);
+    const latestAttempt = readiness.latest_attempt || {};
+    const blockers = Array.isArray(latestAttempt.blockers)
+      ? latestAttempt.blockers
+      : [];
+    byId("overview-automation-activity-grid").replaceChildren(...stages.map((stage, index) => {
+      const stageBlockers = blockers.filter((blocker) => blocker.stage_id === stage.id);
+      const tone = stageBlockers.length ? "error" : stage.tone;
+      const statusLabel = stageBlockers.length ? "Blocked" : stage.statusLabel;
+      const card = element("a", `overview-automation-card ${tone}`.trim());
+      card.dataset.layoutId = `overview-stage-${index + 1}`;
+      card.href = "#automation:overview";
+      card.append(
+        element("span", "overview-stage-number", `Stage ${index + 1}`),
+        element("h4", "", stage.label),
+        element("span", `status-badge ${tone}`, statusLabel),
+        element(
+          "time",
+          "overview-stage-time",
+          formatDate(
+            stage.lastSuccessAt
+              || stage.completedAt
+              || chain.updated_at
+          )
+        )
+      );
+      if (stageBlockers.length) {
+        card.append(element(
+          "p",
+          "overview-stage-reason",
+          stageBlockers.map((blocker) => blocker.reason).join(" · ")
+        ));
+      } else if (stage.tone === "error" || stage.tone === "warning") {
+        card.append(element("p", "overview-stage-reason", stage.detail));
+      }
+      if (stage.activeIncidentIds.length) {
+        card.append(element(
+          "p",
+          "overview-stage-reason",
+          `Incident ${stage.activeIncidentIds.join(", ")}`
         ));
       }
-      byId("overview-automation-activity-grid").replaceChildren(...cards);
-      return;
-    }
-    const failureById = new Map(failedAutomationStages(chain).map((stage) => [stage.id, stage]));
-    const workerResults = data.agent_registry.map((record) => {
-      const stage = agentCurrentStage(record, chain);
-      const failure = failureById.get(record.id);
-      const material = Boolean(failure)
-        || /pending|progress|block|warn|degrad|error|fail/i.test(String(stage.status || ""))
-        || stage.material === true
-        || Number(stage.affected_count || stage.work_count || stage.change_count
-          || stage.findings || stage.updates || stage.results_count || 0) > 0;
-      return { record, stage, failure, material };
-    });
-    const cards = workerResults.filter((result) => result.material).map(({ record, stage, failure }) => {
-      const presentation = stageExecutionPresentation(stage);
-      const card = element("a", `overview-automation-card ${failure ? "error" : presentation.tone}`.trim());
-      card.dataset.layoutId = `overview-activity-${record.id}`;
-      card.href = `#automation:agents:${record.id}`;
-      const heading = element("div", "overview-automation-card-heading");
-      heading.append(
-        element("span", "eyebrow", /llm-agent/i.test(record.type) ? "Agent" : "Bot"),
-        element("span", `status-badge ${failure ? "error" : presentation.tone}`, failure ? "Error" : presentation.statusLabel)
+      card.setAttribute(
+        "aria-label",
+        `Stage ${index + 1}, ${stage.label}: ${statusLabel}. Open complete run-chain detail.`
       );
-      const latestAt = presentation.lastSuccessAt
-        || stage.completed_at
-        || stage.updated_at
-        || chain.updated_at;
-      const currentChain = presentation.currentChainLabel === presentation.statusLabel
-        ? `Current chain: ${presentation.currentChainLabel}`
-        : `Current chain: ${presentation.currentChainLabel}`;
-      let detail = failure
-        ? botFailureSummary(failure)
-        : stage.details || stage.summary || presentation.scheduleDetail || "No recovery action is required.";
-      if (record.id === "elim") {
-        const improvements = elimImprovementRecords(latestLogEntry("elim"));
-        if (improvements.length) {
-          detail = `${improvements.length} issue-level improvement${improvements.length === 1 ? "" : "s"} recorded. ${detail}`;
-        }
-      }
-      card.append(
-        heading,
-        element("h4", "", record.name),
-        element("p", "overview-automation-latest", `${presentation.lastSuccessAt ? "Latest successful execution" : "Latest recorded activity"}: ${formatDate(latestAt)}`),
-        element("span", "overview-automation-chain-state", currentChain),
-        element("p", "overview-automation-recovery", failure ? `Recovery: ${detail}` : detail),
-        element("span", "overview-automation-open", "Open status and recovery →")
-      );
-      card.setAttribute("aria-label", `${record.name}: ${failure ? "Error" : presentation.statusLabel}. Open status and recovery details.`);
       return card;
-    });
-    const latestCompleted = workerResults
-      .map(({ record, stage }) => ({ record, stage, at: parseTimestamp(stage.completed_at || stage.updated_at) || 0 }))
-      .sort((left, right) => right.at - left.at)[0];
-    const incidents = groupAutomationIncidents(chain);
-    const collapsed = workerResults.length - cards.length;
-    const chainCard = overviewCard(
-      "Current automation chain",
-      serviceStatusLabel(effectiveRunChainStatus(chain)),
-      [
-        `${pluralizeWord(incidents.length, "active incident")}`,
-        latestCompleted?.at ? `latest completed: ${latestCompleted.record.name} ${formatDate(latestCompleted.at)}` : "latest completion unavailable",
-        `${collapsed} clean or no-op role${collapsed === 1 ? "" : "s"} collapsed`
-      ].join(" · "),
-      "automation:administration",
-      incidents.length ? "error" : ""
-    );
-    chainCard.dataset.layoutId = "overview-activity-current-chain";
-    cards.unshift(chainCard);
-    byId("overview-automation-activity-grid").replaceChildren(...cards);
+    }));
+    const futureGates = readiness.future_run_gates || {};
+    const unassignedBlockers = blockers.filter((blocker) =>
+      !stages.some((stage) => stage.id === blocker.stage_id));
+    const latestLabel = latestAttempt.available === true
+      ? unassignedBlockers.length
+        ? `Latest-attempt blockers: ${unassignedBlockers.length} chain-level`
+        : `Latest-attempt blockers: ${Number(latestAttempt.blocker_count || 0)}`
+      : "Latest-attempt blockers: unavailable";
+    const gatesLabel = futureGates.available === true
+      ? `Future-run gates: ${Number(futureGates.count || 0)} open`
+      : "Future-run gates: unavailable";
+    const readinessLink = byId("overview-chain-readiness");
+    readinessLink.textContent = `${latestLabel} · ${gatesLabel}`;
+    readinessLink.className = `overview-chain-readiness ${
+      latestAttempt.available !== true || futureGates.available !== true
+        ? "unavailable"
+        : Number(latestAttempt.blocker_count || 0) || Number(futureGates.count || 0)
+          ? "error"
+          : "success"
+    }`;
+    readinessLink.title = [
+      latestAttempt.reason,
+      futureGates.reason,
+      ...unassignedBlockers.map((blocker) => blocker.reason)
+    ].filter(Boolean).join(" · ");
   }
 
   function projectLog(logId) {
@@ -4415,6 +6055,7 @@
     if (log.id === "agents") return `${values.record || "Project"} · ${values.task || "agent activity"}`;
     if (log.id === "source-monitor") return `${values.watcher || "Source monitor"} · ${String(values.result || "result").replaceAll("_", " ")}`;
     if (log.id === "changes") return values.change || entry.id;
+    if (log.id === "console-development") return `${values.change || entry.id} · ${values.feature || "Console"}`;
     return `${values.record || entry.id} · ${values.disposition || "decision"}`;
   }
 
@@ -4424,78 +6065,38 @@
     if (log.id === "agents") return `${values.agent || "Agent"} recorded ${values.outcome || "an outcome"} for run ${values.run || "not identified"}.`;
     if (log.id === "source-monitor") return `Affected: ${values.affected || "not recorded"} · Activity: ${values.activity || "not recorded"}.`;
     if (log.id === "changes") return `${values.scope || ""} ${values.effect || ""}`.trim();
+    if (log.id === "console-development") return `${values.lifecycle || "Changed"} · ${values.state || "state unavailable"} · ${values.commit || "commit pending"}`;
     return values.destination || values.disposition;
   }
 
   function renderOverviewRecentActivity() {
-    const recent = [];
-    ["elim", "source-monitor", "horizon", "changes"].forEach((logId) => {
-      const log = projectLog(logId);
-      (log?.entries || []).forEach((entry) => recent.push({ log, entry, target: `logs:${logId}` }));
+    const activity = Array.isArray(data.overview?.activity) ? data.overview.activity.slice(0, 8) : [];
+    const rows = activity.map((record) => {
+      const target = String(record.route || record.target || "logs").replace(/^#/, "");
+      const row = element("a", "overview-material-row");
+      row.href = target.startsWith("http") ? target : `#${target}`;
+      const rawArtifact = text(record.affected_scope || record.title || record.id, "Project artifact");
+      const affectedItems = String(record.affected_scope || "").split(",").map((item) => item.trim()).filter(Boolean);
+      const artifact = rawArtifact.length > 96 && affectedItems.length > 1
+        ? `${affectedItems.length} touched artifacts`
+        : rawArtifact;
+      const descriptor = text(
+        record.score_change
+          || record.delta
+          || record.outcome
+          || record.summary,
+        "Change recorded"
+      );
+      row.append(
+        element("strong", "", artifact),
+        element("span", "overview-material-change", descriptor),
+        element("time", "", overviewDisplayDate(record.date || record.recorded_at))
+      );
+      return row;
     });
-    const agentLog = projectLog("agents");
-    (agentLog?.entries || [])
-      .forEach((entry) => recent.push({ log: agentLog, entry, target: "logs:agents" }));
-    (data.integrity?.history || []).forEach((entry, index) => {
-      recent.push({
-        log: { id: "integrity", title: "Integrity" },
-        entry: {
-          id: `integrity-${index}`,
-          values: {
-            date: entry.generated_at,
-            outcome: entry.result,
-            summary: `${entry.counts?.findings || 0} findings · ${entry.counts?.errors || 0} errors · ${entry.counts?.warnings || 0} warnings`
-          }
-        },
-        target: "logs:integrity"
-      });
-    });
-    const ordered = recent
-      .sort((left, right) => dateTimestamp(right.entry.values?.date) - dateTimestamp(left.entry.values?.date));
-    const collapsed = [];
-    ordered.forEach((row) => {
-      const values = row.entry.values || {};
-      const actor = ["horizon", "changes"].includes(row.log.id)
-        ? "Human project governance"
-        : String(values.agent || values.actor || row.log.title || "Unknown actor");
-      const outcome = String(values.outcome || values.result || "");
-      const summary = String(values.summary || values.activity || "");
-      const cleanNoop = /clean|no.?op|no material|no change|unchanged|succeed|complete/i.test(`${outcome} ${summary}`)
-        && !/fail|error|block|warn|finding|changed|update/i.test(`${outcome} ${summary}`);
-      const prior = collapsed[collapsed.length - 1];
-      if (cleanNoop && prior?.cleanNoop) {
-        prior.count += 1;
-        prior.actors.add(actor);
-        return;
-      }
-      collapsed.push({ ...row, actor, cleanNoop, count: 1, actors: new Set([actor]) });
-    });
-    const rows = collapsed.slice(0, 8);
-    const compactActivity = Array.isArray(data.overview?.activity) ? data.overview.activity : [];
     byId("overview-recent-actions").replaceChildren(...(rows.length
-      ? rows.map(({ log, entry, target, actor, cleanNoop, count, actors }) =>
-          overviewLogRow({
-            title: cleanNoop && count > 1
-              ? `${count} consecutive clean / no-op activities`
-              : log.id === "integrity"
-              ? `Project Integrity Bot · ${serviceStatusLabel(entry.values?.outcome)}`
-              : `${actor} · ${logEntryHeadline(log, entry)}`,
-            meta: `${log.title} · ${overviewDisplayDate(entry.values?.date)}`,
-            summary: cleanNoop && count > 1
-              ? `Actors: ${[...actors].join(", ")}. Consecutive routine outcomes are collapsed; open the owning log for complete retained history.`
-              : [
-                  `Outcome: ${text(entry.values?.outcome || entry.values?.result, "Unavailable")}.`,
-                  `Affected: ${text(entry.values?.affected || entry.values?.record || entry.values?.record_ids, "Unavailable")}.`,
-                  log.id === "integrity" ? entry.values?.summary : logEntrySummary(log, entry),
-                  `Manager effect: ${text(entry.values?.manager_action || entry.values?.manager_effect || entry.values?.next_action, "No manager action recorded")}.`
-                ].filter(Boolean).join(" "),
-            target,
-            tone: /fail|error|block/i.test(String(entry.values?.outcome || entry.values?.result || "")) ? "error" : ""
-          }))
-      : compactActivity.length
-        ? compactActivity.slice(0, 7).map((activity) =>
-            overviewLogRow(compactActivityPresentation(activity)))
-        : [element("p", "empty-state compact-empty", "Detailed activity has not been loaded and the compact Overview projection contains no activity rows.")]));
+      ? rows
+      : [element("p", "empty-state compact-empty", "No recent material artifact changes are recorded.")]));
   }
 
   function publicInputSnapshot(chain = data.run_chain || {}) {
@@ -4520,34 +6121,119 @@
   }
 
   function renderOverviewPortals(snapshot, chain) {
-    const problems = snapshot.problemRecords;
-    const humanProblems = problems.filter((problem) => problem.attention === "human").length;
     const intake = publicInputSnapshot(chain);
-    const workCount = Number(chain.work_queue?.counts?.total);
-    const pullRequestTone = reviewSignals.pullRequestsStatus === "current"
-      ? (snapshot.pullRequests ? "warning" : "")
-      : "warning";
-    const pullRequestValue = snapshot.pullRequestsKnown
-      ? snapshot.pullRequests
-      : reviewSignals.pullRequestsStatus === "stale"
-        ? `${snapshot.pullRequests} stale`
-        : "Unavailable";
-    byId("overview-portals").replaceChildren(
-      overviewCard("Human actions", snapshot.total, "confirmed decisions, reviews, and dispositions assigned to you", "actions", snapshot.total ? "warning" : ""),
-      overviewCard("Integrity findings", problems.length, `${humanProblems} human · ${problems.filter((problem) => problem.attention === "agent").length} agent · ${problems.filter((problem) => problem.attention === "observed").length} observed`, "integrity", problems.some((problem) => problem.severity === "error") ? "error" : ""),
-      overviewCard("Monitored issues", data.monitoring_issues.length, "issues with a defined external monitoring predicate", "progress:monitoring"),
-      overviewCard(
-        "Repository reviews",
-        pullRequestValue,
-        reviewSignals.pullRequestsStatus === "current"
-          ? `${snapshot.repositoryHumanActions.length} yours · ${snapshot.repositoryElimActions.length} Elim · ${agePosture(reviewSignals.pullRequestsCheckedAt)}`
-          : "exact-head recommendation state is not currently verifiable",
-        "actions",
-        pullRequestTone
-      ),
-      overviewCard("Public input", intake.available ? intake.count : "Unavailable", `${intake.detail}${intake.checkedAt ? ` · ${agePosture(intake.checkedAt)}` : ""}`, "candidates:preliminary", intake.available && intake.count ? "warning" : intake.available ? "" : "warning"),
-      overviewCard("Elim-eligible work", Number.isFinite(workCount) ? workCount : "Unavailable", chain.work_queue?.next_item?.title || "no current work-queue projection", "automation:administration", effectiveRunChainStatus(chain) === "host_pending" ? "warning" : "")
+    const humanActionCount = data.overview?.queue_counts?.human_actions ?? snapshot.total;
+    const makeCard = (title, value, detail, target, tone = "") => {
+      const card = element("article", `overview-indicator-card ${tone}`.trim());
+      card.dataset.layoutId = `overview-portlet-${layoutSlug(title)}`;
+      card.dataset.layoutTransferGroup = "overview-portlet";
+      const heading = element("div", "overview-card-heading");
+      heading.append(element("h4", "", title));
+      if (tone) heading.append(element("span", `status-badge ${tone}`, serviceStatusLabel(tone)));
+      const link = internalInlineLink("View details →", target);
+      link.className = "overview-indicator-link";
+      card.append(
+        heading,
+        element("strong", "overview-indicator-value", value),
+        element("p", "overview-indicator-detail", detail),
+        link
+      );
+      return card;
+    };
+    const publicCard = makeCard(
+      "Public intake",
+      intake.available ? `${intake.count} unresolved` : "Unavailable",
+      `${intake.detail}${intake.checkedAt ? ` · checked ${formatOperationalDate(intake.checkedAt)}` : ""}`,
+      "planning:preliminary",
+      intake.available && intake.count ? "notice" : intake.available ? "" : "unavailable"
     );
+    const humanCard = makeCard(
+      "Human action items",
+      `${humanActionCount} unresolved`,
+      `${snapshot.decisions} decisions · ${snapshot.repositoryHumanActions.length} repository reviews · ${snapshot.automationHumanActions.length} technical interventions`,
+      "actions",
+      humanActionCount ? "notice" : "success"
+    );
+    const capacityCard = element("article", "overview-indicator-card overview-capacity-indicator");
+    capacityCard.dataset.layoutId = "overview-portlet-codex-capacity";
+    capacityCard.dataset.layoutTransferGroup = "overview-portlet";
+    capacityCard.append(
+      element("div", "overview-card-heading", ""),
+      internalInlineLink("View capacity →", "automation:capacity")
+    );
+    capacityCard.firstChild.append(
+      element("h4", "", "Codex capacity"),
+      byId("overview-usage-posture")
+    );
+    capacityCard.insertBefore(byId("overview-usage-summary"), capacityCard.lastChild);
+    capacityCard.insertBefore(byId("overview-usage-trend"), capacityCard.lastChild);
+
+    const platformCard = element("article", "overview-indicator-card overview-compact-indicator overview-platform-indicator");
+    platformCard.dataset.layoutId = "overview-portlet-platform-status";
+    platformCard.dataset.layoutTransferGroup = "overview-portlet";
+    const platformHeading = element("div", "overview-card-heading");
+    platformHeading.append(element("h4", "", "Platform status"));
+    platformCard.append(
+      platformHeading,
+      byId("overview-openai-status"),
+      byId("overview-openai-checked"),
+      internalInlineLink("View platform status →", "automation:platform")
+    );
+
+    const dataCard = element("article", "overview-indicator-card overview-compact-indicator");
+    dataCard.dataset.layoutId = "overview-portlet-project-data";
+    dataCard.dataset.layoutTransferGroup = "overview-portlet";
+    const dataHeading = element("div", "overview-card-heading");
+    const progressFeed = Object.keys(data.progress || {}).length ? data.progress : data.overview?.progress_summary;
+    const sourceFeed = Object.keys(data.source_checker || {}).length ? data.source_checker : data.overview?.source_checker_summary;
+    const integrityFeed = Object.keys(data.integrity || {}).length ? data.integrity : data.overview?.integrity_summary;
+    const feedSpecs = [
+      ["Progress", progressFeed, progressFeed?.generated_at || progressFeed?.generatedAt],
+      ["Sources", sourceFeed, sourceFeed?.checked_at],
+      ["Chain", chain, chain.updated_at || chain.completed_at],
+      ["Candidates", { availability: "current", completeness: { complete: true } }, data.generated_at],
+      ["Public input", { availability: intake.available ? "current" : "unavailable" }, intake.checkedAt],
+      ["Integrity", integrityFeed, integrityFeed?.current?.generated_at || integrityFeed?.generated_at]
+    ];
+    const feedStates = feedSpecs.map(([label, feed, timestamp]) => ({
+      label,
+      state: feedContractState(feed || {}, timestamp)
+    }));
+    const problemFeeds = feedStates.filter(({ state }) =>
+      !state.complete || state.state === "stale");
+    dataHeading.append(
+      element("h4", "", "Project data"),
+      element(
+        "span",
+        `status-badge ${problemFeeds.length ? "warning" : "success"}`,
+        problemFeeds.length ? "Problem" : "Current"
+      )
+    );
+    const dataGrid = element("div", "overview-status-grid");
+    dataGrid.append(...feedStates.map(({ label, state }) => {
+      const tone = state.complete && state.state !== "stale"
+        ? "success"
+        : state.state === "unavailable"
+          ? "unavailable"
+          : "error";
+      const cell = element("div", "overview-status-cell");
+      cell.setAttribute("aria-label", `${label}: ${state.label}`);
+      cell.title = state.reason || state.label;
+      cell.append(element("span", `health-dot ${tone}`, ""), element("strong", "", label));
+      return cell;
+    }));
+    const dataLink = internalInlineLink(
+      problemFeeds.length ? `View ${pluralizeWord(problemFeeds.length, "data problem")} →` : "View data status →",
+      "automation:data"
+    );
+    dataCard.append(dataHeading, dataGrid, dataLink);
+    [capacityCard, platformCard, dataCard].forEach((card) => {
+      card.lastChild.className = "overview-indicator-link";
+    });
+    const cards = [publicCard, humanCard, capacityCard, platformCard, dataCard];
+    document.querySelectorAll('[data-layout-transfer-group="overview-portlet"]')
+      .forEach((card) => card.remove());
+    byId("overview-portals").replaceChildren(...cards);
   }
 
   function serviceStatusLabel(status) {
@@ -4556,66 +6242,221 @@
       .replace(/\b\w/g, (letter) => letter.toUpperCase());
   }
 
-  function aggregateServiceStatus(names) {
-    const ranks = { major_outage: 5, partial_outage: 4, degraded_performance: 3, under_maintenance: 2, operational: 1 };
-    const components = serviceSignals.components.filter((component) => names.includes(component.name));
-    if (!components.length) return { status: "unavailable", detail: "Component not returned" };
-    const worst = [...components].sort((left, right) => (ranks[right.status] || 99) - (ranks[left.status] || 99))[0];
+  function platformStatusRank(status) {
     return {
-      status: worst.status,
-      detail: components.map((component) => `${component.name}: ${serviceStatusLabel(component.status)}`).join(" · ")
+      operational: 1,
+      under_maintenance: 2,
+      degraded_performance: 3,
+      partial_outage: 4,
+      major_outage: 5
+    }[status] || 99;
+  }
+
+  function platformStatusPresentation(status) {
+    if (status === "operational") return { tone: "success", label: "Operational" };
+    if (["under_maintenance", "degraded_performance"].includes(status)) {
+      return { tone: "warning", label: serviceStatusLabel(status) };
+    }
+    if (["partial_outage", "major_outage"].includes(status)) {
+      return { tone: "error", label: serviceStatusLabel(status) };
+    }
+    return { tone: "unavailable", label: "Unavailable" };
+  }
+
+  function worstPlatformStatus(components) {
+    if (!components.length) return "unavailable";
+    return [...components]
+      .sort((left, right) => platformStatusRank(right.status) - platformStatusRank(left.status))[0]
+      ?.status || "unavailable";
+  }
+
+  function relevantPlatformIncidents(incidents, componentIds) {
+    const relevantIds = new Set(componentIds);
+    return (Array.isArray(incidents) ? incidents : []).filter((incident) => {
+      const linked = Array.isArray(incident?.components) ? incident.components : [];
+      return linked.some((component) => relevantIds.has(String(component?.id || component)));
+    }).map((incident) => ({
+      id: incident.id,
+      name: incident.name,
+      status: incident.status,
+      impact: incident.impact,
+      shortlink: incident.shortlink || null,
+      updatedAt: incident.updated_at || null
+    }));
+  }
+
+  function platformProviderObservation(providerId, componentPayload, incidentPayload, checkedAt, previous = null) {
+    const spec = PLATFORM_PROVIDER_SPECS[providerId];
+    const components = Array.isArray(componentPayload?.components) ? componentPayload.components : null;
+    const incidents = Array.isArray(incidentPayload?.incidents) ? incidentPayload.incidents : [];
+    const unavailable = (reason) => ({
+      providerId,
+      provider: spec?.label || providerId,
+      source: spec?.source || "",
+      availability: "unavailable",
+      complete: false,
+      checkedAt,
+      aggregate: "unavailable",
+      components: [],
+      incidents: [],
+      reason,
+      lastValid: previous?.complete ? previous : previous?.lastValid || null
+    });
+    if (!spec || !components) return unavailable("The official component feed was unavailable or incomplete.");
+    const selected = [];
+    for (const registration of spec.registrations) {
+      let matches;
+      if (registration.exactName) {
+        matches = components.filter((component) =>
+          component.id === registration.id && component.name === registration.exactName);
+      } else {
+        matches = components.filter((component) => registration.names.includes(component.name));
+      }
+      if (!matches.length) {
+        return unavailable(`Registered component ${registration.label} could not be established exactly.`);
+      }
+      selected.push(...matches.map((component) => ({
+        id: component.id,
+        name: component.name,
+        label: registration.label,
+        status: component.status
+      })));
+    }
+    if (selected.some((component) => platformStatusRank(component.status) === 99)) {
+      return unavailable("A registered component returned an unrecognized status.");
+    }
+    const relevantIncidents = relevantPlatformIncidents(
+      incidents,
+      selected.map((component) => component.id)
+    );
+    return {
+      providerId,
+      provider: spec.label,
+      source: spec.source,
+      availability: "current",
+      complete: true,
+      checkedAt,
+      aggregate: worstPlatformStatus(selected),
+      components: selected,
+      incidents: relevantIncidents,
+      reason: "",
+      lastValid: null
     };
   }
 
-  function renderOpenAIStatus() {
-    const host = byId("overview-openai-status");
-    if (serviceSignals.status !== "current") {
-      const state = serviceSignals.status === "pending" ? "Checking" : "Unavailable";
-      host.replaceChildren(...["GPTs", "Codex", "API platform"].map((label) => {
-        const row = element("div", "overview-service-row unavailable");
-        row.append(element("strong", "", label), element("span", "", state));
-        return row;
-      }));
-      byId("overview-openai-checked").textContent = serviceSignals.status === "pending"
-        ? "Checking the official OpenAI status feed…"
-        : `Official status could not be refreshed · checked ${formatDate(serviceSignals.checkedAt)}`;
-      return;
-    }
-    const services = [
-      ["GPTs", aggregateServiceStatus(["GPTs"])],
-      ["Codex", aggregateServiceStatus(["Codex in ChatGPT Desktop", "Codex API", "Codex Web", "CLI", "VS Code extension"])],
-      ["API platform", aggregateServiceStatus(["Responses", "Chat Completions", "Realtime", "Files", "Embeddings"])]
+  function platformCellProjection(providers = platformSignals.providers) {
+    const openai = providers.openai || {};
+    const openaiComponent = (label) => {
+      if (!openai.complete) {
+        return {
+          label,
+          provider: "OpenAI",
+          status: "unavailable",
+          checkedAt: openai.checkedAt,
+          detail: openai.reason || "OpenAI status is unavailable.",
+          source: PLATFORM_PROVIDER_SPECS.openai.source,
+          lastValid: openai.lastValid
+        };
+      }
+      const components = openai.components.filter((component) => component.label === label);
+      return {
+        label,
+        provider: "OpenAI",
+        status: worstPlatformStatus(components),
+        checkedAt: openai.checkedAt,
+        detail: components.map((component) => `${component.name}: ${serviceStatusLabel(component.status)}`).join(" · "),
+        source: openai.source,
+        incidents: openai.incidents,
+        lastValid: openai.lastValid
+      };
+    };
+    const providerCell = (providerId, label) => {
+      const provider = providers[providerId] || {};
+      return {
+        label,
+        provider: provider.provider || PLATFORM_PROVIDER_SPECS[providerId].label,
+        status: provider.complete ? provider.aggregate : "unavailable",
+        checkedAt: provider.checkedAt,
+        detail: provider.complete
+          ? provider.components.map((component) => `${component.label}: ${serviceStatusLabel(component.status)}`).join(" · ")
+          : provider.reason || `${label} status is unavailable.`,
+        source: provider.source || PLATFORM_PROVIDER_SPECS[providerId].source,
+        incidents: provider.incidents || [],
+        lastValid: provider.lastValid || null
+      };
+    };
+    return [
+      openaiComponent("GPTs"),
+      openaiComponent("Codex"),
+      openaiComponent("API platform"),
+      providerCell("vercel", "Vercel"),
+      providerCell("cloudflare", "Cloudflare Turnstile")
     ];
-    host.replaceChildren(...services.map(([label, service]) => {
-      const presentation = overviewStagePresentation(service.status);
-      const row = element("div", `overview-service-row ${presentation.tone}`);
-      row.title = service.detail;
-      row.append(element("strong", "", label), element("span", "", serviceStatusLabel(service.status)));
-      return row;
-    }));
-    byId("overview-openai-checked").textContent = `${serviceSignals.overall?.description || "Official status checked"} · ${formatDate(serviceSignals.checkedAt)}`;
   }
 
-  async function refreshOpenAIStatus() {
+  function renderPlatformStatus() {
+    const host = byId("overview-openai-status");
+    host.className = "overview-status-grid";
+    const cells = platformCellProjection();
+    host.replaceChildren(...cells.map((service) => {
+      const presentation = platformStatusPresentation(service.status);
+      const row = element("div", "overview-status-cell");
+      const retained = service.lastValid?.checkedAt
+        ? ` Last valid observation ${formatOperationalDate(service.lastValid.checkedAt)}.`
+        : "";
+      row.title = `${service.detail}${retained}`;
+      row.setAttribute("aria-label", `${service.label}: ${presentation.label}.${retained}`);
+      row.append(element("span", `health-dot ${presentation.tone}`, ""), element("strong", "", service.label));
+      return row;
+    }));
+    const currentChecks = Object.values(platformSignals.providers)
+      .filter((provider) => provider.complete && provider.checkedAt)
+      .map((provider) => provider.checkedAt);
+    const unavailableCount = Object.values(platformSignals.providers)
+      .filter((provider) => !provider.complete).length;
+    byId("overview-openai-checked").textContent = currentChecks.length
+      ? `Official provider observations checked independently${unavailableCount ? ` · ${unavailableCount} unavailable` : ""}`
+      : "Checking independent official provider feeds…";
+    renderOperationsLedgers(data.run_chain || {});
+  }
+
+  async function fetchPlatformProvider(providerId, urls) {
+    const previous = platformSignals.providers[providerId];
+    const checkedAt = new Date().toISOString();
     try {
-      const [statusResponse, componentResponse] = await Promise.all([
-        fetch(OPENAI_STATUS_URL, { cache: "no-store" }),
-        fetch(OPENAI_COMPONENTS_URL, { cache: "no-store" })
+      const [statusResponse, componentResponse, incidentResponse] = await Promise.all([
+        urls.status ? fetch(urls.status, { cache: "no-store" }) : Promise.resolve(null),
+        fetch(urls.components, { cache: "no-store" }),
+        fetch(urls.incidents, { cache: "no-store" })
       ]);
-      if (!statusResponse.ok || !componentResponse.ok) throw new Error("Official status feed unavailable");
-      const [statusData, componentData] = await Promise.all([statusResponse.json(), componentResponse.json()]);
-      if (!statusData?.status || !Array.isArray(componentData?.components)) throw new Error("Official status feed incomplete");
-      serviceSignals.status = "current";
-      serviceSignals.checkedAt = new Date().toISOString();
-      serviceSignals.overall = statusData.status;
-      serviceSignals.components = componentData.components;
+      if ((statusResponse && !statusResponse.ok) || !componentResponse.ok || !incidentResponse.ok) {
+        throw new Error("Official provider feed unavailable");
+      }
+      const [statusData, componentData, incidentData] = await Promise.all([
+        statusResponse ? statusResponse.json() : Promise.resolve(null),
+        componentResponse.json(),
+        incidentResponse.json()
+      ]);
+      if (statusResponse && !statusData?.status) throw new Error("Official provider status feed incomplete");
+      return {
+        ...platformProviderObservation(providerId, componentData, incidentData, checkedAt, previous),
+        overall: statusData?.status || null
+      };
     } catch (_error) {
-      serviceSignals.status = "unavailable";
-      serviceSignals.checkedAt = new Date().toISOString();
-      serviceSignals.overall = null;
-      serviceSignals.components = [];
+      return platformProviderObservation(providerId, null, null, checkedAt, previous);
     }
-    renderOpenAIStatus();
+  }
+
+  async function refreshPlatformStatus() {
+    const observations = await Promise.all([
+      fetchPlatformProvider("openai", { status: OPENAI_STATUS_URL, components: OPENAI_COMPONENTS_URL, incidents: OPENAI_INCIDENTS_URL }),
+      fetchPlatformProvider("vercel", { status: VERCEL_STATUS_URL, components: VERCEL_COMPONENTS_URL, incidents: VERCEL_INCIDENTS_URL }),
+      fetchPlatformProvider("cloudflare", { components: CLOUDFLARE_COMPONENTS_URL, incidents: CLOUDFLARE_INCIDENTS_URL })
+    ]);
+    observations.forEach((observation) => {
+      platformSignals.providers[observation.providerId] = observation;
+    });
+    renderPlatformStatus();
   }
 
   function renderUsageTrend() {
@@ -4676,6 +6517,22 @@
       label.textContent = String(Math.round(value));
       chart.append(label);
     });
+
+    const epoch = data.run_chain?.review_epoch;
+    const epochAt = Date.parse(String(epoch?.last_completed_at || ""));
+    if (Number.isFinite(epochAt)) {
+      const dated = points
+        .map((point, index) => ({ index, distance: Math.abs(Date.parse(String(point.date || "")) - epochAt) }))
+        .filter((point) => Number.isFinite(point.distance))
+        .sort((leftPoint, rightPoint) => leftPoint.distance - rightPoint.distance)[0];
+      if (dated) {
+        const epochX = xFor(dated.index);
+        chart.append(svgNode("line", { x1: epochX, x2: epochX, y1: top, y2: top + height }, "usage-trend-epoch"));
+        const epochLabel = svgNode("text", { x: epochX + 5, y: top + 10 }, "usage-trend-epoch-label");
+        epochLabel.textContent = "Review Epoch";
+        chart.append(epochLabel);
+      }
+    }
 
     let segment = [];
     const appendSegment = () => {
@@ -4769,24 +6626,29 @@
   }
 
   function queueDirectoryCard(queue) {
-    const card = element("a", `overview-queue-card${queue.tone ? ` ${queue.tone}` : ""}`);
+    const card = element("article", `overview-queue-card${queue.tone ? ` ${queue.tone}` : ""}`);
     card.dataset.layoutId = `overview-queue-${layoutSlug(queue.label)}`;
     const external = queue.target.startsWith("http");
-    card.href = external ? queue.target : `#${queue.target}`;
+    const primary = element("a", "overview-queue-primary");
+    primary.href = external ? queue.target : `#${queue.target}`;
     if (external) {
-      card.target = "_blank";
-      card.rel = "noopener noreferrer";
+      primary.target = "_blank";
+      primary.rel = "noopener noreferrer";
     }
-    const count = queue.count == null ? "Unavailable" : queue.count === 0 ? "Empty" : String(queue.count);
+    const count = queue.count == null ? "—" : String(queue.count);
     const heading = element("div", "overview-queue-card-heading");
     heading.append(element("strong", "", queue.label), element("span", "overview-queue-count", count));
-    card.append(
-      heading,
-      element("span", "overview-queue-owner", queue.owner),
-      element("span", "overview-queue-posture", queue.posture),
-      element("p", "", queue.detail),
-      element("span", "overview-queue-open", external ? "Open GitHub queue ↗" : "Open queue →")
-    );
+    primary.append(heading, element("span", "overview-queue-open", external ? "Details ↗" : "Details →"));
+    card.append(primary);
+    if (queue.tone && queue.tone !== "success") {
+      const problem = element(
+        "a",
+        "overview-queue-problem",
+        queue.problemLabel || (queue.count == null ? "Feed unavailable · open log →" : "Problem · open log →")
+      );
+      problem.href = `#${queue.problemTarget || "logs:agents"}`;
+      card.append(problem);
+    }
     return card;
   }
 
@@ -4794,7 +6656,7 @@
     const lifecycle = currentLifecycleRecords();
     const workflowCount = (...statuses) => lifecycle.filter((record) => statuses.includes(record.workflowStatus)).length;
     const intake = publicInputSnapshot(chain);
-    const failures = snapshot.automationActions.length;
+    const incidentProjection = operationalIncidentProjection();
     const configuredQueues = Array.isArray(data.overview?.queue_counts)
       ? data.overview.queue_counts
       : data.overview?.queue_counts && typeof data.overview.queue_counts === "object"
@@ -4804,43 +6666,78 @@
           }))
         : [];
     const queueTarget = (label, target) => {
-      if (target && target !== "progress") return target;
       const normalized = String(label || "").toLowerCase();
-      if (normalized === "development") return "progress:next-work:status=Development";
-      if (normalized === "research") return "progress:next-work:status=Research";
-      if (normalized === "audits") return "progress:next-work:cohort=Audit-ready";
-      if (normalized === "external review") return "progress:next-work:cohort=External-review%20follow-up";
+      if (normalized === "development") return "planning:workbench:pipeline:status=Development";
+      if (normalized === "research") return "planning:workbench:pipeline:status=Research";
+      if (normalized === "audits") return "planning:workbench:pipeline:status=Audit%20work";
+      if (normalized === "external review") return "planning:workbench:pipeline:status=External%20review&scope=review-ready";
+      if (["candidate intake", "preliminary intake"].includes(normalized)) {
+        return "planning:workbench:pipeline:work_class=Preliminary%20candidate";
+      }
+      if (target && target !== "progress") return target;
       return target || "overview";
     };
-    const queues = configuredQueues.length ? configuredQueues.map((queue) => ({
+    const allowedQueues = new Set([
+      "Human actions", "Development", "Research", "Audits", "External review",
+      "Candidate intake", "Preliminary intake", "Source routing", "Pending source routing",
+      "Operational incidents", "Security remediation"
+    ]);
+    const configuredActiveQueues = configuredQueues.filter((queue) =>
+      allowedQueues.has(queue.label || queue.name || queue.id));
+    const compactCounts = data.overview?.queue_counts || {};
+    const queues = configuredActiveQueues.length ? configuredActiveQueues.map((queue) => ({
       label: queue.label || queue.name || queue.id,
       count: queue.available === false ? null : queue.count,
-      owner: queue.owner || "Owner unavailable",
-      posture: queue.posture || queue.status || "State unavailable",
       target: queueTarget(queue.label || queue.name || queue.id, queue.target || queue.route),
-      detail: queue.detail || queue.description || "No compact queue detail recorded.",
-      tone: queue.tone || ""
+      tone: queue.tone || "",
+      problemTarget: queue.problem_target || queue.log_route
     })) : [
-      { label: "Human actions", count: snapshot.total, owner: "You", posture: `${agePosture(data.generated_at)} projection`, target: "actions", detail: "The central human-review inbox: Integrity decisions, automation recovery, reserved workflow decisions, exact-head repository recommendations assigned to you, preliminary candidates, and pending source routing." },
-      { label: "Integrity", count: snapshot.problemRecords.length, owner: "Human + Elim", posture: agePosture(data.integrity?.current?.generated_at), target: "integrity", detail: "Every current project-integrity finding, grouped by owner and attention class." },
-      { label: "Preliminary intake", count: data.records.length, owner: "You", posture: agePosture(data.generated_at), target: "candidates:preliminary", detail: "Preliminary candidate questions awaiting a human intake disposition." },
-      { label: "Pending source routing", count: data.pending_sources.length, owner: "You", posture: agePosture(data.generated_at), target: "sources:pending", detail: "Sources whose project destination still requires a routing choice." },
-      { label: "Repository reviews", count: snapshot.pullRequestsKnown ? snapshot.pullRequests : null, owner: "Elim first; you when routed", posture: reviewSignals.pullRequestsStatus === "current" ? agePosture(reviewSignals.pullRequestsCheckedAt) : "Live state unavailable", target: "actions", detail: `${snapshot.repositoryHumanActions.length} exact-head recommendation${snapshot.repositoryHumanActions.length === 1 ? "" : "s"} assigned to you; ${snapshot.repositoryElimActions.length} proposal${snapshot.repositoryElimActions.length === 1 ? "" : "s"} remain with Elim. Action Items routes work; the recommendation log and canonical records own evidence and disposition.` },
-      { label: "Development", count: workflowCount("Development"), owner: "Elim + interactive", posture: "Workflow status", target: "progress:next-work:status=Development", detail: "Admitted work whose recorded next action is substantive development." },
-      { label: "Research", count: workflowCount("Research"), owner: "Elim + interactive", posture: "Workflow status", target: "progress:next-work:status=Research", detail: "Issues in active source development, investigation, or another research-bound next action." },
-      { label: "Audits", count: workflowCount("Audit needed", "Audit in progress"), owner: "Elim", posture: "Audit needed / in progress", target: "progress:next-work:cohort=Audit-ready", detail: "Issues with an audit as their current workflow action." },
-      { label: "External review", count: workflowCount("External review"), owner: "External reviewer", posture: "Workflow status", target: "progress:next-work:cohort=External-review%20follow-up", detail: "Developed work routed for qualified professional or subject-matter review." },
-      { label: "Publication approval", count: workflowCount("Publication approval"), owner: "You", posture: "Workflow status", target: "publication:assignments", detail: "Release candidates awaiting the human publication decision." },
-      { label: "Monitoring", count: data.monitoring_issues.length, owner: "Elim + bots", posture: agePosture(data.generated_at), target: "progress:monitoring", detail: "Issues with a defined external predicate being watched while ordinary work may continue." },
-      { label: "Deferred", count: workflowCount("Deferred"), owner: "Human", posture: "Hold with reason", target: "progress:holds", detail: "Project work deliberately postponed under a recorded explanation." },
-      { label: "Blocked", count: workflowCount("Blocked"), owner: "Human + dependency", posture: "Blocked with reason", target: "progress:holds", detail: "Pertinent work that cannot proceed until its recorded external or factual prerequisite changes." },
-      { label: "Public input", count: intake.available ? intake.count : null, owner: "Elim", posture: intake.checkedAt ? agePosture(intake.checkedAt) : "Not checked", target: "candidates:preliminary", detail: "Eligible public submissions awaiting structured intake review and any warranted reply or candidate generation." },
-      { label: "Automation recovery", count: failures, owner: "Human / coordinator", posture: failures ? "Action required" : agePosture(chain.updated_at), target: "automation:administration", detail: "Unresolved run-chain or host failures requiring repair and an explicit resolution record." }
+      { label: "Human actions", count: compactCounts.human_actions ?? snapshot.total, target: "actions", problemTarget: "logs:integrity" },
+      { label: "Development", count: compactCounts.development ?? workflowCount("Development"), target: "planning:workbench:pipeline:status=Development" },
+      { label: "Research", count: compactCounts.research ?? workflowCount("Research"), target: "planning:workbench:pipeline:status=Research" },
+      { label: "Audits", count: compactCounts.audits ?? workflowCount("Audit needed", "Audit in progress"), target: "planning:workbench:pipeline:status=Audit%20work" },
+      { label: "External review", count: compactCounts.external_review ?? workflowCount("External review"), target: "planning:workbench:pipeline:status=External%20review&scope=review-ready" },
+      { label: "Candidate intake", count: compactCounts.preliminary_candidates ?? data.records.length, target: "planning:workbench:pipeline:work_class=Preliminary%20candidate" },
+      { label: "Source routing", count: compactCounts.pending_sources ?? data.pending_sources.length, target: "sources:pending" },
+      {
+        label: "Operational incidents",
+        count: incidentProjection.unresolvedCount,
+        target: "automation:logs:incidents",
+        tone: incidentProjection.complete
+          ? incidentProjection.impactState === "red"
+            ? "error"
+            : incidentProjection.impactState === "yellow"
+              ? "warning"
+              : ""
+          : "unavailable",
+        problemTarget: "automation:logs:incidents",
+        problemLabel: incidentProjection.complete
+          ? "Open incident ledger →"
+          : "Incident feed unavailable →"
+      }
     ];
+    if (!queues.some((queue) => queue.label === "Security remediation")) {
+      const security = securityRemediationProjection();
+      queues.push({
+        label: "Security remediation",
+        count: security.count,
+        target: "automation:security",
+        tone: security.available ? (security.count ? "error" : "") : "unavailable",
+        problemTarget: "automation:security",
+        problemLabel: security.available
+          ? "Open security detail →"
+          : "Private feed unavailable →"
+      });
+    }
     queues.forEach((queue) => {
       if (queue.count == null) queue.tone = "unavailable";
-      else if (queue.label === "Automation recovery" && queue.count) queue.tone = "error";
-      else if (["Human actions", "Blocked"].includes(queue.label) && queue.count) queue.tone = "warning";
+      else if (queue.label === "Operational incidents") {
+        queue.tone = incidentProjection.impactState === "red"
+          ? "error"
+          : incidentProjection.impactState === "yellow"
+            ? "warning"
+            : "";
+      }
     });
     const active = queues.filter((queue) => queue.count != null && queue.count > 0);
     const empty = queues.filter((queue) => queue.count === 0);
@@ -4849,7 +6746,266 @@
     byId("overview-queues-summary").textContent = `${active.length} active · ${empty.length} empty · ${unavailable.length} unavailable`;
   }
 
-  function renderOverviewDaily(snapshot, chain) {
+  function overviewBriefVerification(chain) {
+    const progressFeed = Object.keys(data.progress || {}).length
+      ? data.progress
+      : data.overview?.progress_summary || {};
+    const integrityFeed = Object.keys(data.integrity || {}).length
+      ? data.integrity
+      : data.overview?.integrity_summary || {};
+    const sourceFeed = Object.keys(data.source_checker || {}).length
+      ? data.source_checker
+      : data.overview?.source_checker_summary || {};
+    const required = [
+      {
+        label: "Progress",
+        state: feedContractState(
+          progressFeed,
+          progressFeed.generated_at || progressFeed.generatedAt
+        )
+      },
+      {
+        label: "Integrity",
+        state: feedContractState(
+          integrityFeed,
+          integrityFeed.current?.generated_at || integrityFeed.generated_at
+        )
+      },
+      {
+        label: "Source checks",
+        state: feedContractState(sourceFeed, sourceFeed.checked_at)
+      },
+      {
+        label: "Run chain",
+        state: operationalFeedState(chain)
+      }
+    ].map((entry) => ({
+      ...entry,
+      timestampValid: parseTimestamp(entry.state.timestamp) !== null,
+      current: (
+        entry.state.state === "current"
+        && entry.state.complete
+        && parseTimestamp(entry.state.timestamp) !== null
+      )
+    }));
+    const bundle = domainGenerationStatus(
+      catalogGenerationId,
+      "overview.js",
+      data.domain_generation,
+      data.generation_manifest
+    );
+    const bundleVerified = bundle.valid && !bundle.legacy;
+    const failed = required.filter((entry) => !entry.current);
+    return {
+      required,
+      failed,
+      passed: required.length - failed.length,
+      bundle,
+      bundleVerified,
+      verified: bundleVerified && failed.length === 0
+    };
+  }
+
+  function attemptRecordedAt(attempt = {}) {
+    return attempt.host_updated_at
+      || attempt.checked_at
+      || attempt.updated_at
+      || attempt.completed_at
+      || attempt.created_at
+      || attempt.started_at;
+  }
+
+  function attemptFailed(attempt = {}) {
+    return Boolean(attempt.failure_reason)
+      || /fail|error|block|cancel|timeout/i.test(String(attempt.status || ""));
+  }
+
+  function attemptSucceeded(attempt = {}) {
+    return !attemptFailed(attempt)
+      && /success|succeed|complete|healthy|pass|not[-_ ]?due/i.test(String(attempt.status || ""));
+  }
+
+  function attemptIntentionallyPaused(attempt = {}) {
+    const reason = String(
+      attempt.pause_reason
+      || attempt.suppression_reason
+      || attempt.validation_summary?.reason
+      || ""
+    );
+    return attempt.control_state === "paused"
+      || /pause|suppressed/i.test(String(attempt.status || ""))
+      || /owner_pause_file_present|intentional_pause/i.test(reason);
+  }
+
+  function newestAttempt(...attempts) {
+    return attempts
+      .filter((attempt) => attempt && typeof attempt === "object" && attemptRecordedAt(attempt))
+      .sort((left, right) =>
+        (parseTimestamp(attemptRecordedAt(right)) ?? -Infinity)
+        - (parseTimestamp(attemptRecordedAt(left)) ?? -Infinity))[0] || {};
+  }
+
+  function scopedAutomationBlockers(readiness, scope) {
+    const latest = readiness.latest_attempt || {};
+    const gates = readiness.future_run_gates || {};
+    const blockers = [
+      ...(Array.isArray(latest.blockers) ? latest.blockers : []),
+      ...(Array.isArray(gates.items) ? gates.items : [])
+    ];
+    return blockers.filter((blocker) => {
+      const declared = blocker.run_scopes
+        || blocker.applies_to
+        || blocker.scope
+        || blocker.run_scope;
+      if (!declared) return true;
+      const values = (Array.isArray(declared) ? declared : [declared])
+        .map((value) => String(value).toLowerCase());
+      if (values.some((value) => /all|both|automation/.test(value))) return true;
+      return scope === "full-review"
+        ? values.some((value) => /full|review|epoch|biweekly/.test(value))
+        : values.some((value) => /ordinary|scheduled|daily|next/.test(value));
+    });
+  }
+
+  function upcomingAutomationState(readiness, controlState, scope) {
+    const blockers = scopedAutomationBlockers(readiness, scope);
+    if (blockers.length) {
+      return {
+        tone: "error",
+        label: `${pluralizeWord(blockers.length, "confirmed automation blocker")} applies to this run`,
+        route: "automation:gates"
+      };
+    }
+    if (controlState === "paused") {
+      return {
+        tone: "warning",
+        label: "Automation is intentionally Paused",
+        route: "automation:overview"
+      };
+    }
+    const readinessKnown = readiness.latest_attempt?.available === true
+      && readiness.future_run_gates?.available === true;
+    if (controlState === "run" && readinessKnown) {
+      return {
+        tone: "success",
+        label: "Automation is in Run state with no applicable blocker recorded"
+      };
+    }
+    return {
+      tone: "unavailable",
+      label: "Run readiness cannot be verified from the authoritative control and blocker records",
+      route: "automation:data"
+    };
+  }
+
+  function overviewBriefFactStates(
+    chain,
+    readiness,
+    verification,
+    localStatus = window.ARRP_LOCAL_AUTOMATION_STATUS
+  ) {
+    const scheduledProjection = readiness.latest_scheduled_attempt || {};
+    const scheduledAttempt = newestAttempt(
+      scheduledProjection.available === true ? scheduledProjection : null,
+      /schedule|launchd/i.test(String(chain.trigger || "")) ? chain : null,
+      /schedule|launchd/i.test(String(localStatus?.trigger || "")) ? localStatus : null
+    );
+    const controlState = ["run", "paused"].includes(String(localStatus?.control_state || "").toLowerCase())
+      ? String(localStatus.control_state).toLowerCase()
+      : ["run", "paused"].includes(String(readiness.control_state || "").toLowerCase())
+        ? String(readiness.control_state).toLowerCase()
+        : "unknown";
+    const scheduledPaused = attemptIntentionallyPaused(scheduledAttempt);
+    const scheduledFailed = attemptFailed(scheduledAttempt);
+    const scheduledBlocked = scopedAutomationBlockers(readiness, "ordinary").length > 0;
+    const scheduledState = scheduledFailed || (scheduledPaused && scheduledBlocked)
+      ? {
+          tone: "error",
+          label: scheduledFailed
+            ? "The chronologically latest scheduled attempt failed or was prevented by an operational fault"
+            : "A confirmed operational blocker takes precedence over the recorded pause state",
+          route: "automation:overview"
+        }
+      : scheduledPaused
+        ? {
+            tone: "warning",
+            label: "The chronologically latest scheduled attempt was intentionally Paused",
+            route: "automation:overview"
+          }
+        : attemptSucceeded(scheduledAttempt)
+          ? {
+              tone: "success",
+              label: "The chronologically latest scheduled attempt completed successfully"
+            }
+          : {
+              tone: "unavailable",
+              label: "The chronologically latest scheduled attempt outcome cannot be determined reliably",
+              route: "automation:data"
+            };
+    const staleOnly = verification.failed.length > 0
+      && verification.bundleVerified
+      && verification.failed.every((entry) =>
+        entry.state.state === "stale"
+        && entry.state.complete
+        && entry.timestampValid);
+    const explicitRefreshFailure = verification.failed.some((entry) =>
+      /fail|error|block/i.test(String(entry.state.reason || "")));
+    const dataState = verification.verified
+      ? {
+          tone: "success",
+          label: "The loaded project data meets every defined freshness cadence"
+        }
+      : explicitRefreshFailure
+        ? {
+            tone: "error",
+            label: "A required project-data refresh reports a confirmed failure or blocker",
+            route: "automation:data"
+          }
+        : staleOnly && controlState === "paused"
+        ? {
+            tone: "warning",
+            label: "The loaded project data became stale while automation was intentionally Paused",
+            route: "automation:data"
+          }
+        : staleOnly
+          ? {
+              tone: "error",
+              label: "Required project data is unexpectedly stale or its latest refresh failed",
+              route: "automation:data"
+            }
+          : {
+              tone: "unavailable",
+              label: "Project data freshness cannot be verified reliably",
+              route: "automation:data"
+            };
+    return {
+      latestAttempt: scheduledAttempt,
+      scheduledAttempt,
+      controlState,
+      data: dataState,
+      latest: scheduledState,
+      lastSuccessful: {
+        ...scheduledState,
+        label: scheduledState.tone === "success"
+          ? "No newer scheduled attempt failed after this full success"
+          : scheduledState.tone === "warning"
+            ? "A deliberate pause occurred after this full success without a later failure"
+            : scheduledState.tone === "error"
+              ? "The immediately latest scheduled attempt failed after this full success"
+              : "The relationship between this full success and the latest scheduled attempt cannot be verified",
+        route: scheduledState.tone === "success" ? undefined : scheduledState.route
+      },
+      nextRun: upcomingAutomationState(readiness, controlState, "ordinary"),
+      nextEpoch: upcomingAutomationState(readiness, controlState, "full-review")
+    };
+  }
+
+  function renderOverviewDaily(
+    snapshot,
+    chain,
+    readiness = data.overview?.automation_readiness || {}
+  ) {
+    const humanActionCount = data.overview?.queue_counts?.human_actions ?? snapshot.total;
     const stages = overviewRunChainStages(chain);
     const failed = stages.filter((stage) => stage.tone === "error").length;
     const degraded = stages.filter((stage) => stage.tone === "warning").length;
@@ -4858,188 +7014,139 @@
     const notDue = stages.filter((stage) => stage.currentChainLabel === "Not due this chain").length;
     const unavailable = stages.filter((stage) => stage.tone === "unavailable").length;
     const chainStatus = effectiveRunChainStatus(chain);
-    let posture = "Current";
+    const verification = overviewBriefVerification(chain);
     let tone = "success";
     let summary = `${succeeded} current-chain stage result${succeeded === 1 ? "" : "s"} succeeded; ${notDue} stage${notDue === 1 ? " was" : "s were"} not due this chain. Latest successful worker results remain visible separately.`;
     if (failed) {
-      posture = "Attention required";
       tone = "error";
       summary = `${failed} current-chain stage${failed === 1 ? "" : "s"} failed or blocked. ${succeeded} current-chain stage result${succeeded === 1 ? "" : "s"} succeeded; ${notDue} ${notDue === 1 ? "was" : "were"} not due.`;
     } else if (degraded || /pending|progress|stopp/i.test(chainStatus)) {
-      posture = "Closeout pending";
       tone = "warning";
       summary = `${succeeded} current-chain stage result${succeeded === 1 ? "" : "s"} succeeded; ${notDue} ${notDue === 1 ? "was" : "were"} not due; ${degraded} stage${degraded === 1 ? "" : "s"} still lack${degraded === 1 ? "s" : ""} a final or fully healthy result.`;
     } else if (unavailable) {
-      posture = "Incomplete data";
       tone = "warning";
       summary = `${succeeded} current-chain stage result${succeeded === 1 ? "" : "s"} succeeded; ${notDue} ${notDue === 1 ? "was" : "were"} not due; ${unavailable} stage${unavailable === 1 ? "" : "s"} lack${unavailable === 1 ? "s" : ""} a current result.`;
+    } else if (!verification.bundleVerified || verification.failed.some((entry) =>
+      !entry.state.complete
+      || !entry.timestampValid
+      || ["unavailable", "incomplete", "undeclared"].includes(entry.state.state))) {
+      tone = "warning";
+      summary = `${summary} The brief cannot verify ${verification.failed.map((entry) => entry.label).join(", ") || "its generation identity"}.`;
+    } else if (verification.failed.length) {
+      tone = "warning";
+      summary = `${summary} ${verification.failed.map((entry) => entry.label).join(" and ")} ${verification.failed.length === 1 ? "is" : "are"} producer-declared stale.`;
     }
+    const factStates = overviewBriefFactStates(chain, readiness, verification);
     const badge = byId("overview-daily-status");
-    badge.className = `status-badge ${tone}`;
-    badge.textContent = posture;
-    byId("overview-daily-summary").textContent = `${summary} ${snapshot.total} confirmed human action${snapshot.total === 1 ? "" : "s"} remain${snapshot.total === 1 ? "s" : ""}.`;
+    badge.className = `status-badge ${factStates.latest.tone}`;
+    badge.textContent = {
+      success: "Current",
+      warning: "Paused",
+      error: "Failed",
+      unavailable: "Unknown"
+    }[factStates.latest.tone];
+    badge.title = factStates.latest.label;
+    const attemptAt = attemptRecordedAt(factStates.latestAttempt)
+      || chain.host_updated_at
+      || chain.completed_at
+      || chain.updated_at
+      || chain.created_at;
+    const successfulTimes = overviewRunChainStages(chain)
+      .map((stage) => parseTimestamp(stage.lastSuccessAt))
+      .filter((value) => value !== null);
+    const lastFullySuccessfulAt = chain.last_successful_at
+      || chain.last_success_at
+      || (successfulTimes.length ? new Date(Math.min(...successfulTimes)).toISOString() : null);
+    const progressFeed = Object.keys(data.progress || {}).length ? data.progress : data.overview?.progress_summary;
+    const integrityFeed = Object.keys(data.integrity || {}).length ? data.integrity : data.overview?.integrity_summary;
+    const sourceFeed = Object.keys(data.source_checker || {}).length ? data.source_checker : data.overview?.source_checker_summary;
+    const feedTimes = [
+      progressFeed?.generated_at || progressFeed?.generatedAt,
+      integrityFeed?.current?.generated_at || integrityFeed?.generated_at,
+      sourceFeed?.checked_at,
+      chain.updated_at || chain.completed_at
+    ].map(parseTimestamp).filter((value) => value !== null);
+    const currentThrough = feedTimes.length ? new Date(Math.min(...feedTimes)).toISOString() : null;
+    const asOf = attemptAt || data.generated_at;
+    byId("overview-daily-summary").textContent =
+      `As of ${formatOperationalDate(asOf)}, ${summary} ${humanActionCount} confirmed human action${humanActionCount === 1 ? "" : "s"} remain${humanActionCount === 1 ? "s" : ""}.`;
     const epoch = chain.review_epoch || {};
     const facts = [
-      ["Current activity", chain.work_queue?.next_item?.title || "No current work item is published"],
-      ["What happens next", chain.next_action || chain.elim_decision?.reason || "Await the next scheduled or requested chain"],
-      ["Review epoch", epoch.due ? `Due now · ${String(epoch.due_reason || "reason not recorded").replaceAll("_", " ")}` : epoch.next_due_at ? `Next ${formatDate(epoch.next_due_at)}` : "No review boundary recorded"],
-      ["Human queue", `${snapshot.total} confirmed item${snapshot.total === 1 ? "" : "s"} · open Action Items for detail`]
+      ["Data current through", formatOperationalDate(currentThrough), factStates.data],
+      ["Latest scheduled attempt", formatOperationalDate(attemptAt), factStates.latest],
+      ["Last fully successful", formatOperationalDate(lastFullySuccessfulAt), factStates.lastSuccessful],
+      ["Next scheduled run", formatOperationalDate(chain.next_scheduled_at || nextScheduledCoordinatorRun()), factStates.nextRun],
+      ["Next full Review Epoch", epoch.next_due_at
+        ? formatOperationalDate(nextScheduledCoordinatorRun(epoch.next_due_at))
+        : "No review boundary recorded", factStates.nextEpoch]
     ];
-    byId("overview-daily-facts").replaceChildren(...facts.map(([label, value]) => {
+    byId("overview-daily-facts").replaceChildren(...facts.map(([label, value, state]) => {
       const fact = element("div", "overview-daily-fact");
-      fact.append(element("strong", "", label), element("span", "", value));
+      const valueRow = element(state.tone === "success" || !state.route ? "span" : "a", "overview-daily-value");
+      if (state.route) valueRow.href = `#${state.route}`;
+      const dot = element("span", `overview-fact-dot ${state.tone}`, "");
+      dot.setAttribute("role", "img");
+      dot.setAttribute("aria-label", state.label);
+      dot.tabIndex = 0;
+      dot.title = state.label;
+      valueRow.append(dot, element("span", "overview-daily-date", value));
+      fact.append(element("strong", "", label), valueRow);
       return fact;
     }));
-  }
-
-  function overviewAutomationFailures(chain) {
-    const failures = failedAutomationStages(chain);
-    if (/fail|error|block|cancel|timeout/i.test(effectiveRunChainStatus(chain))
-      && !failures.some((stage) => stage.id === "run-coordinator-bot")) {
-      failures.push({
-        id: "run-coordinator-bot",
-        status: effectiveRunChainStatus(chain),
-        details: chain.host_closeout?.details || chain.next_action || "The current chain lacks a successful host closeout."
-      });
+    const verificationNode = byId("overview-daily-verification");
+    const failedBasis = verification.failed.map((entry) => {
+      if (!entry.timestampValid) return `${entry.label} has no valid timestamp`;
+      if (!entry.state.complete) return `${entry.label} is incomplete`;
+      return `${entry.label} is ${entry.state.label.toLowerCase()}`;
+    });
+    if (!verification.bundleVerified) {
+      failedBasis.unshift(verification.bundle.reason || "Overview generation identity is not verifiable");
     }
-    return failures;
-  }
-
-  function renderManagerFocus(snapshot, chain) {
-    const managerFocus = data.overview?.manager_focus;
-    const compactHumanActions = Array.isArray(managerFocus?.human_actions) ? managerFocus.human_actions : [];
-    const compactNonIncidentActions = compactHumanActions
-      .filter((item) => item.kind !== "automation_failure");
-    const compactIncidentCount = Array.isArray(managerFocus?.incidents)
-      ? new Set(managerFocus.incidents.map((item) => item.incident_id || item.id || item.message)).size
-      : Number(managerFocus?.active_incidents || 0);
-    const compactHumanDecisionCount = new Set(compactNonIncidentActions.map((item) => item.id || `${item.kind}:${item.label}`)).size
-      + compactIncidentCount;
-    const configured = Array.isArray(managerFocus)
-      ? managerFocus
-      : Array.isArray(managerFocus?.items)
-        ? managerFocus.items
-        : managerFocus && typeof managerFocus === "object"
-          ? [
-              {
-                label: "Human decisions",
-                count: compactHumanDecisionCount,
-                detail: `${compactNonIncidentActions.length} non-incident decision${compactNonIncidentActions.length === 1 ? "" : "s"} · ${compactIncidentCount} grouped incident root cause${compactIncidentCount === 1 ? "" : "s"}. Raw retry rows are not counted as separate decisions.`,
-                target: "actions",
-                tone: compactHumanDecisionCount ? "warning" : ""
-              },
-              {
-                label: "Active automation incidents",
-                count: managerFocus.active_incidents,
-                detail: (managerFocus.incidents || []).slice(0, 2).map((item) => item.message || item.label).join(" · ") || "Incident detail unavailable",
-                target: "automation:administration",
-                tone: Number(managerFocus.active_incidents) ? "error" : ""
-              },
-              {
-                label: "Release blockers",
-                count: managerFocus.release_blocker_fields_available === false ? "Unavailable" : managerFocus.release_blockers,
-                detail: managerFocus.release_blocker_fields_available === false ? "Release-blocker fields are not available in the compact projection." : "Typed publication release blockers",
-                target: "publication:analysis",
-                tone: managerFocus.release_blocker_fields_available === false ? "unavailable" : Number(managerFocus.release_blockers) ? "warning" : ""
-              },
-              {
-                label: "Integrity findings",
-                count: managerFocus.integrity_findings_available === false ? "Unavailable" : managerFocus.integrity_findings,
-                detail: managerFocus.integrity_findings_available === false
-                  ? "The compact projection does not contain a current deterministic finding count."
-                  : "Current deterministic project-integrity findings",
-                target: "integrity",
-                tone: managerFocus.integrity_findings_available === false
-                  ? "unavailable"
-                  : Number(managerFocus.integrity_findings) ? "warning" : ""
-              },
-              {
-                label: "Source Checker coverage",
-                count: managerFocus.source_checker_complete === true ? "Complete" : "Incomplete",
-                detail: managerFocus.source_checker_complete === true ? "The compact projection declares complete source coverage." : "Open assurance details for missing IDs, counts, revisions, and hashes.",
-                target: "sources:watchers:source-checker",
-                tone: managerFocus.source_checker_complete === true ? "" : "warning"
-              },
-              {
-                label: "Delivery work",
-                count: managerFocus.delivery_items_available === false ? "Unavailable" : managerFocus.delivery_items,
-                detail: managerFocus.delivery_items_available === false ? "Non-proposal delivery work is not available in this compact projection." : "Typed delivery items outside the proposal denominator",
-                target: "publication:analysis",
-                tone: managerFocus.delivery_items_available === false ? "unavailable" : ""
-              },
-              ...(Array.isArray(managerFocus.domain_attention) ? managerFocus.domain_attention.map((item) => ({
-                label: `${String(item.domain || "Domain").replaceAll("_", " ")} posture`,
-                count: serviceStatusLabel(item.status),
-                detail: `${item.reason || "No reason recorded"}${item.timestamp ? ` · ${agePosture(item.timestamp)}` : ""}`,
-                target: item.domain === "source_checker" ? "sources:watchers:source-checker" : item.route || "overview",
-                tone: /attention|stale|unavailable|not_determined/i.test(String(item.status)) ? "warning" : ""
-              })) : [])
-            ]
-          : [];
-    const sourceState = feedContractState(data.source_checker, data.source_checker?.checked_at);
-    const fallback = [
-      {
-        label: "Human actions",
-        count: snapshot.total,
-        detail: "Confirmed decisions, authority, credentials, and recovery actions assigned to you.",
-        target: "actions",
-        tone: snapshot.total ? "warning" : ""
-      },
-      {
-        label: "Automation incidents",
-        count: overviewAutomationFailures(chain).length,
-        detail: "Current failed or blocking automation root causes requiring monitoring or recovery.",
-        target: "automation:administration",
-        tone: overviewAutomationFailures(chain).length ? "error" : ""
-      },
-      {
-        label: "Integrity exceptions",
-        count: snapshot.problemRecords.filter((problem) => ["error", "warning"].includes(problem.severity)).length,
-        detail: "Current project consistency, source, completeness, and readiness exceptions.",
-        target: "integrity",
-        tone: snapshot.problemRecords.some((problem) => problem.severity === "error") ? "error" : ""
-      },
-      {
-        label: "Blocked or deferred",
-        count: workflowHoldRecords().length,
-        detail: "Issue-development holds requiring a reason, trigger, or later review.",
-        target: "progress:holds",
-        tone: workflowHoldRecords().length ? "warning" : ""
-      },
-      {
-        label: "Source projection",
-        count: sourceState.complete ? 0 : sourceState.actual ?? null,
-        detail: sourceState.complete ? sourceState.label : `${sourceState.label}${sourceState.reason ? ` · ${sourceState.reason}` : ""}`,
-        target: "sources:watchers:source-checker",
-        tone: sourceState.complete ? "" : "warning"
-      }
-    ];
-    const detailedDomainsLoaded = ["progress", "integrity", "automation", "sources", "publication"]
-      .every((domain) => loadedDomains.has(domain));
-    const items = configured.length
-      ? configured
-      : detailedDomainsLoaded
-        ? fallback
-        : [{
-            label: "Manager focus",
-            count: "Unavailable",
-            detail: "The compact Overview projection is unavailable; open specialist views to load current domain detail.",
-            target: "overview",
-            tone: "unavailable"
-          }];
-    byId("overview-manager-focus").replaceChildren(...items.map((item) =>
-      overviewCard(
-        item.label || item.title || "Focus item",
-        item.count ?? item.value ?? "Unavailable",
-        item.detail || item.reason || "No detail recorded",
-        item.target || item.route || "overview",
-        item.tone || item.severity || ""
-      )));
-    const attention = items.filter((item) =>
-      Number(item.count ?? item.value) > 0 || /warning|error|critical/i.test(String(item.tone || item.severity || ""))).length;
-    byId("overview-manager-focus-summary").textContent = configured.length
-      ? `${attention} attention signal${attention === 1 ? "" : "s"} from the compact Overview projection`
-      : `${attention} attention signal${attention === 1 ? "" : "s"} · detailed domains load when opened`;
+    verificationNode.className = `overview-daily-verification${verification.verified ? "" : " warning"}`;
+    verificationNode.replaceChildren(
+      document.createTextNode(
+        verification.verified
+          ? `Verified when this page opened ${formatOperationalDate(consoleOpenedAt)}: all ${verification.required.length} required snapshot feeds are producer-declared current, structurally complete, timestamped, and generation-compatible. `
+          : `Not verified current when this page opened ${formatOperationalDate(consoleOpenedAt)}: ${verification.passed} of ${verification.required.length} required snapshot feeds passed; ${failedBasis.join("; ")}. `
+      ),
+      document.createTextNode("This evaluates the loaded snapshot; it does not reread every external authority. "),
+      (() => {
+        const link = element("a", "", "Open Data evidence →");
+        link.href = "#automation:data";
+        return link;
+      })()
+    );
+    const explanation = byId("overview-degraded-explanation");
+    const integrityState = feedContractState(
+      integrityFeed,
+      integrityFeed?.current?.generated_at || integrityFeed?.generated_at
+    );
+    const needsExplanation = tone !== "success" || !integrityState.complete || !verification.verified;
+    explanation.hidden = !needsExplanation;
+    if (needsExplanation) {
+      const fields = [
+        ["Affected", verification.failed.length
+          ? `${verification.failed.map((entry) => entry.label).join(", ")} and dependent summaries`
+          : !verification.bundleVerified
+            ? "Overview generation identity and dependent summaries"
+            : Number(readiness.latest_attempt?.blocker_count || 0)
+              ? `${pluralizeWord(Number(readiness.latest_attempt.blocker_count), "latest-attempt blocker")} and dependent summaries`
+              : "One or more current operational summaries"],
+        ["Why", failedBasis.join("; ") || integrityState.reason || chain.next_action || summary],
+        ["Still trustworthy", currentThrough
+          ? `Last valid projections through ${formatOperationalDate(currentThrough)}`
+          : "The specialist ledgers identify their last valid boundaries"],
+        ["Next action", verification.failed.length || !verification.bundleVerified
+          ? "Open the Data ledger and follow the affected feed's recorded recovery route"
+          : chain.next_action || "Open the affected specialist ledger and follow its recorded recovery route"]
+      ];
+      explanation.replaceChildren(...fields.flatMap(([label, value]) => [
+        element("dt", "", label),
+        element("dd", "", value)
+      ]));
+    } else {
+      explanation.replaceChildren();
+    }
   }
 
   function renderOverview() {
@@ -5049,36 +7156,10 @@
       : data.overview?.automation_summary?.run_chain || data.overview?.automation_summary || {};
     captureSuccessfulStageHistory(chain);
     const snapshot = actionItemSnapshot();
-    const botFailures = overviewAutomationFailures(chain);
+    const readiness = data.overview?.automation_readiness || {};
     byId("overview-generated-at").textContent = formatDate(data.generated_at);
-    const botAlert = byId("overview-bot-alert");
-    botAlert.hidden = botFailures.length === 0;
-    if (botFailures.length) {
-      byId("overview-bot-alert-heading").textContent = botFailures.length === 1
-        ? "An agent or bot failed or is blocking the run chain"
-        : `${botFailures.length} agents or bots failed or are blocking the run chain`;
-      byId("overview-bot-alert-summary").textContent = botFailures
-        .map((stage) => `${stage.id}: ${botFailureSummary(stage)}`)
-        .join(" · ");
-      byId("overview-bot-alert-links").replaceChildren(...botFailures.map((stage) => {
-        const record = data.agent_registry.find((agent) => agent.id === stage.id);
-        const link = element("a", "record-link error-link", `Open ${record?.name || stage.id} →`);
-        link.href = `#automation:agents:${stage.id}`;
-        link.setAttribute("aria-label", `Open ${record?.name || stage.id} error details on Agents and Bots`);
-        link.addEventListener("click", (event) => {
-          event.preventDefault();
-          window.history.replaceState(null, "", `#automation:agents:${stage.id}`);
-          navigateToConsoleTarget(`automation:agents:${stage.id}`);
-        });
-        return link;
-      }));
-    } else {
-      byId("overview-bot-alert-summary").textContent = "";
-      byId("overview-bot-alert-links").replaceChildren();
-    }
-    renderOverviewDaily(snapshot, chain);
-    renderManagerFocus(snapshot, chain);
-    renderOverviewAutomationActivity(chain);
+    renderOverviewDaily(snapshot, chain, readiness);
+    renderOverviewAutomationActivity(chain, readiness);
     renderOverviewPortals(snapshot, chain);
     renderOverviewRecentActivity();
     const progressFeed = Object.keys(data.progress || {}).length
@@ -5098,7 +7179,7 @@
       projectionStatusCard("Run chain", chain, "automation", chain.updated_at || chain.created_at || data.overview?.automation_summary?.generated_at),
       projectionStatusCard("Source checks", sourceCheckerFeed, "sources:watchers:source-checker", sourceCheckerFeed.checked_at || sourceCheckerFeed.generated_at)
     );
-    renderOpenAIStatus();
+    renderPlatformStatus();
     renderOverviewUsage(chain);
     renderOverviewQueues(snapshot, chain);
     refreshLayoutZones();
@@ -5480,13 +7561,21 @@
     const note = byId("local-automation-note");
     const summary = byId("local-automation-summary");
     if (!note || !summary) return;
-    note.className = `attention-note ${presentation.tone}`.trim();
-    note.textContent = `${presentation.label} · ${presentation.summary}`;
+    const controlState = String(status?.control_state || "").toLowerCase();
+    const controlLabel = controlState === "run"
+      ? "Run"
+      : controlState === "paused"
+        ? "Paused"
+        : "Unavailable";
+    note.className = `attention-note ${
+      controlState === "paused" ? "warning" : presentation.tone
+    }`.trim();
+    note.textContent = `${controlLabel} · ${presentation.label} · ${presentation.summary}`;
     summary.replaceChildren(
-      integrityMetric("Run", status?.run_id || "Unavailable", `Trigger ${status?.trigger || "unavailable"}`),
-      integrityMetric("Stage", status?.stage || "Unavailable", `Updated ${formatDate(status?.updated_at)}`),
-      integrityMetric("Classification", status?.classification?.protected_review === true ? "Protected review" : status?.classification ? "Recorded" : "Unavailable", status?.failure_class || "No failure class recorded"),
-      integrityMetric("Next action", status?.exact_next_action || "Unavailable", "Independent owner-only status")
+      integrityMetric("State", controlLabel, `Checked ${formatDate(status?.control_state_checked_at)}`),
+      integrityMetric("Latest scheduled", presentation.label, formatDate(status?.completed_at || status?.updated_at)),
+      integrityMetric("Next scheduled", formatOperationalDate(nextScheduledCoordinatorRun()), controlState === "paused" ? "Intentionally suppressed while Paused" : "Owner-only local schedule"),
+      integrityMetric("Currentness", status?.updated_at ? "Current feed" : "Unavailable", status?.updated_at ? `Updated ${formatDate(status.updated_at)}` : "No owner-only status loaded")
     );
   }
 
@@ -5559,6 +7648,32 @@
     note.textContent = hasPublishedChain
       ? `${chainId} · ${String(status).replaceAll("_", " ")} · ${phaseDetail} · ${chain.trigger || chain.trigger_type || "trigger not recorded"}`
       : "Awaiting the first Run Coordinator Bot projection. No chain health conclusion is available yet.";
+
+    const runStrip = byId("operations-run-strip");
+    if (runStrip) {
+      runStrip.replaceChildren(...overviewRunChainStages(chain).map((stage, index) => {
+        const card = element("a", `operations-run-stage ${stage.tone}`.trim());
+        card.href = stage.id === "elim"
+          ? "#automation:agents:elim"
+          : stage.id === "public-intake"
+            ? "#planning:candidates"
+            : `#automation:agents:${stage.id}`;
+        card.append(
+          element("span", "overview-stage-number", String(index + 1)),
+          element("strong", "", stage.label),
+          element("span", `status-badge ${stage.tone}`, stage.statusLabel)
+        );
+        if (stage.activeIncidentIds.length) {
+          card.append(element("span", "micro-note", stage.activeIncidentIds.join(", ")));
+          card.href = `#automation:logs:incidents:selected=${encodeURIComponent(stage.activeIncidentIds[0])}`;
+        }
+        card.setAttribute(
+          "aria-label",
+          `Stage ${index + 1}, ${stage.label}: ${stage.statusLabel}`
+        );
+        return card;
+      }));
+    }
 
     byId("automation-chain-summary").replaceChildren(
       integrityMetric("Chain", chainId, `Baseline ${String(chain.baseline_commit || "not recorded").slice(0, 12)}`),
@@ -5682,263 +7797,890 @@
     if (links.childNodes.length) host.append(links);
   }
 
+  function operationsLedgerRow(label, state, detail, timestamp, link = null) {
+    const row = element("article", "operations-ledger-row");
+    const identity = element("div");
+    identity.append(
+      element("strong", "", label),
+      element("span", `status-badge ${state.tone || "unavailable"}`, state.label || "Unavailable")
+    );
+    const copy = element("div");
+    copy.append(
+      element("p", "", detail || "No detail is recorded."),
+      element("p", "micro-note", timestamp ? `Checked ${formatOperationalDate(timestamp)}` : "Checked time unavailable")
+    );
+    row.append(identity, copy);
+    if (link) row.append(link.startsWith("http")
+      ? inlineLink("Open source ↗", link)
+      : internalInlineLink("Open source →", link));
+    return row;
+  }
+
+  function renderSecurityRemediation() {
+    const projection = securityRemediationProjection();
+    const status = byId("operations-security-status");
+    const host = byId("operations-security-list");
+    if (!status || !host) return;
+    status.textContent = projection.available
+      ? `${pluralizeWord(projection.count, "actionable remediation work unit")} · ${pluralizeWord(projection.rawAlertCount, "raw open alert")} · checked ${formatOperationalDate(projection.checkedAt)}`
+      : `${projection.reason} Count unavailable${projection.checkedAt ? ` · last checked ${formatOperationalDate(projection.checkedAt)}` : ""}.`;
+    if (!projection.available) {
+      host.replaceChildren(operationsLedgerRow(
+        "Security remediation inventory",
+        { tone: "unavailable", label: "Unavailable" },
+        projection.reason,
+        projection.checkedAt,
+        "https://github.com/Thorncrag/ARRP/security"
+      ));
+      setButtonBlockerFlag("automation-tab-security", false);
+      return;
+    }
+    host.replaceChildren(...(projection.workUnits.length
+      ? projection.workUnits.map((unit) => {
+          const first = unit.alerts[0] || {};
+          const row = element("article", "operations-security-unit");
+          const heading = element("div", "section-heading-row");
+          const identity = element("div");
+          identity.append(
+            element("span", "record-id", unit.id),
+            element("h3", "", first.title || first.rule_id || "Security remediation"),
+            element("p", "", `${unit.owner || "Owner unavailable"} · ${pluralizeWord(unit.alerts.length, "raw alert")}`)
+          );
+          heading.append(identity, element("span", `status-badge ${/critical|high/i.test(String(first.severity || "")) ? "error" : "warning"}`, first.severity || "Open"));
+          const next = element("p", "automation-purpose", unit.nextAction || "Typed next action unavailable.");
+          const alerts = element("ul", "operations-security-alerts");
+          unit.alerts.forEach((alert) => {
+            const item = element("li", "");
+            item.append(
+              inlineLink(
+                `${alert.id} · ${alert.location || alert.category || "Location unavailable"} ↗`,
+                alert.url || alert.href
+              )
+            );
+            alerts.append(item);
+          });
+          const incidentLinks = element("div", "source-list compact-links");
+          [...new Set(unit.alerts.flatMap((alert) => alert.active_incident_ids || []))]
+            .forEach((incidentId) => {
+              incidentLinks.append(consoleLinkButton(
+                `${incidentId} →`,
+                `#automation:logs:incidents:selected=${encodeURIComponent(incidentId)}`
+              ));
+            });
+          row.append(heading, next, alerts, incidentLinks);
+          return row;
+        })
+      : [element("p", "empty-state compact-empty", "No open actionable security remediation is present in the complete authenticated snapshot.")]));
+    setButtonBlockerFlag(
+      "automation-tab-security",
+      projection.workUnits.some((unit) =>
+        unit.alerts.some((alert) => alert.blocks_automation === true)
+        || incidentIdsIncludeBlocker(
+          unit.alerts.flatMap((alert) => alert.active_incident_ids || [])
+        )),
+      "An explicitly typed automation blocker is represented in Security"
+    );
+  }
+
+  function renderOperationsLedgers(chain = data.run_chain || {}) {
+    const gates = data.overview?.automation_readiness?.future_run_gates || {};
+    const chainBlockers = failedAutomationStages(chain);
+    const gateBlockers = gates.available === true
+      ? (Array.isArray(gates.items) ? gates.items : [])
+      : [];
+    setButtonBlockerFlag(
+      "automation-tab-overview",
+      chainBlockers.length > 0,
+      `${pluralizeWord(chainBlockers.length, "current automation blocker")} represented in Operations overview`
+    );
+    setButtonBlockerFlag(
+      "automation-tab-gates",
+      gateBlockers.length > 0,
+      `${pluralizeWord(gateBlockers.length, "forward automation blocker")} represented in Repository gates`
+    );
+    const gateHost = byId("operations-gates-list");
+    if (gateHost) {
+      if (gates.available !== true) {
+        gateHost.replaceChildren(operationsLedgerRow(
+          "Automation-blocking pull requests",
+          { tone: "unavailable", label: "Unavailable" },
+          gates.reason || "The producer has not declared a complete typed blocker inventory.",
+          gates.checked_at,
+          "logs:agents"
+        ));
+      } else if (!(gates.items || []).length) {
+        gateHost.replaceChildren(operationsLedgerRow(
+          "Automation-blocking pull requests",
+          { tone: "success", label: "None open" },
+          "No open pull request is explicitly typed as blocking future automation.",
+          gates.checked_at
+        ));
+      } else {
+        gateHost.replaceChildren(...gates.items.map((gate) => {
+          const row = operationsLedgerRow(
+            `Pull request #${gate.number || gate.id || "—"}`,
+            { tone: "error", label: "Blocks automation" },
+            gate.title || gate.reason || "Typed automation gate",
+            gate.updated_at || gates.checked_at,
+            gate.url || "logs:agents"
+          );
+          (gate.active_incident_ids || []).forEach((incidentId) => {
+            row.append(consoleLinkButton(
+              `${incidentId} →`,
+              `#automation:logs:incidents:selected=${encodeURIComponent(incidentId)}`
+            ));
+          });
+          return row;
+        }));
+      }
+    }
+
+    const usage = chain.usage || data.overview?.usage || {};
+    const usageGate = usage.gate || {};
+    const remaining = usageGate.lowestRemainingPercent ?? usage.remaining_percent;
+    const capacityBlocked = Number.isFinite(Number(remaining))
+      && Number(remaining) <= Number(usageGate.reservePercent ?? 15);
+    setButtonBlockerFlag(
+      "automation-tab-capacity",
+      capacityBlocked,
+      "Codex capacity is at or below the automation reserve"
+    );
+    const capacitySummary = byId("operations-capacity-summary");
+    if (capacitySummary) {
+      capacitySummary.replaceChildren(
+        operationsLedgerRow(
+          "Current reserve posture",
+          Number.isFinite(Number(remaining))
+            ? { tone: Number(remaining) <= Number(usageGate.reservePercent ?? 15) ? "error" : "success", label: `${remaining}% remaining` }
+            : { tone: "unavailable", label: "Unavailable" },
+          `${usageGate.reservePercent ?? 15}% hard reserve · ${usageGate.runBudget?.softTargetPercent ?? 10}-point soft run target`,
+          usageGate.checkedAtUtc || chain.updated_at
+        ),
+        operationsLedgerRow(
+          "Full Review Epoch",
+          { tone: chain.review_epoch?.due ? "warning" : "success", label: chain.review_epoch?.due ? "Due" : "Scheduled" },
+          `Last completed ${formatOperationalDate(chain.review_epoch?.last_completed_at)} · next due ${formatOperationalDate(chain.review_epoch?.next_due_at)}`,
+          chain.review_epoch?.last_completed_at
+        )
+      );
+    }
+    const capacityHistory = byId("operations-capacity-history");
+    if (capacityHistory) {
+      const points = (projectLog("elim")?.entries || []).map((entry) => ({
+        id: entry.id,
+        date: entry.values?.date,
+        value: elimUsageConsumption(entry)
+      })).filter((point) => Number.isFinite(point.value)).slice(-12).reverse();
+      capacityHistory.replaceChildren(
+        logHistoryHeading("Measured consumption history", points.length, "run"),
+        ...points.map((point) => operationsLedgerRow(
+          point.id,
+          { tone: "success", label: `${point.value} points` },
+          "Measured Elim consumption for this run.",
+          point.date,
+          "logs:elim"
+        ))
+      );
+    }
+
+    const services = platformCellProjection();
+    const platformBlocked = services.some((service) =>
+      ["major_outage", "partial_outage", "unavailable"].includes(service.status));
+    setButtonBlockerFlag(
+      "automation-tab-platform",
+      platformBlocked,
+      "A platform outage represented in this screen may block automation"
+    );
+    const platformHost = byId("operations-platform-list");
+    if (platformHost) {
+      const providerRows = [];
+      let priorProvider = "";
+      services.forEach((service) => {
+        if (service.provider !== priorProvider) {
+          const providerHeading = element("div", "operations-ledger-provider");
+          providerHeading.append(
+            element("strong", "", service.provider),
+            inlineLink("Official source ↗", service.source)
+          );
+          providerRows.push(providerHeading);
+          priorProvider = service.provider;
+        }
+        const presentation = platformStatusPresentation(service.status);
+        const retained = service.lastValid?.checkedAt
+          ? ` · last valid ${formatOperationalDate(service.lastValid.checkedAt)}`
+          : "";
+        const relevantIncidents = (service.incidents || []).length
+          ? ` · ${pluralizeWord(service.incidents.length, "relevant provider incident")}`
+          : " · no relevant provider incident returned";
+        const row = operationsLedgerRow(
+          service.label,
+          { tone: presentation.tone, label: serviceStatusLabel(service.status) },
+          `${service.detail}${relevantIncidents}${retained}`,
+          service.checkedAt,
+          service.source
+        );
+        activeIncidentIdsForTypedLink(`platform:${layoutSlug(service.label)}`).forEach((incidentId) => {
+          row.append(consoleLinkButton(
+            `${incidentId} →`,
+            `#automation:logs:incidents:selected=${encodeURIComponent(incidentId)}`
+          ));
+        });
+        providerRows.push(row);
+      });
+      platformHost.replaceChildren(...providerRows);
+    }
+
+    const intake = publicInputSnapshot(chain);
+    const operationsProgressFeed = Object.keys(data.progress || {}).length ? data.progress : data.overview?.progress_summary;
+    const operationsSourceFeed = Object.keys(data.source_checker || {}).length ? data.source_checker : data.overview?.source_checker_summary;
+    const operationsIntegrityFeed = Object.keys(data.integrity || {}).length ? data.integrity : data.overview?.integrity_summary;
+    const feedSpecs = [
+      ["Progress", operationsProgressFeed, operationsProgressFeed?.generated_at || operationsProgressFeed?.generatedAt, "progress"],
+      ["Sources", operationsSourceFeed, operationsSourceFeed?.checked_at, "sources:watchers"],
+      ["Operations overview", chain, chain.updated_at || chain.completed_at, "automation:overview"],
+      ["Candidates", { availability: "current", completeness: { complete: true } }, data.generated_at, "candidates"],
+      ["Public input", { availability: intake.available ? "current" : "unavailable" }, intake.checkedAt, "candidates:public"],
+      ["Integrity", operationsIntegrityFeed, operationsIntegrityFeed?.current?.generated_at || operationsIntegrityFeed?.generated_at, "integrity"]
+    ];
+    const dataBlocked = feedSpecs.some(([, feed, timestamp]) => {
+      const state = feedContractState(feed || {}, timestamp);
+      return !state.complete || ["unavailable", "incomplete"].includes(state.state);
+    });
+    setButtonBlockerFlag(
+      "automation-tab-data",
+      dataBlocked,
+      "Unavailable or incomplete project data represented in this screen blocks reliable use"
+    );
+    const incidentBlocking = incidentIdsIncludeBlocker(
+      unresolvedOperationalIncidents().map((incident) => incident.incident_id)
+    );
+    setButtonBlockerFlag(
+      "tab-automation",
+      incidentBlocking || chainBlockers.length > 0 || gateBlockers.length > 0 || capacityBlocked || platformBlocked || dataBlocked,
+      "An operational blocker is represented in Operations"
+    );
+    const dataHost = byId("operations-data-list");
+    if (dataHost) {
+      dataHost.replaceChildren(...feedSpecs.map(([label, feed, timestamp, route]) => {
+        const state = feedContractState(feed || {}, timestamp);
+        const row = operationsLedgerRow(
+          label,
+          {
+            tone: state.complete && state.state !== "stale"
+              ? "success"
+              : state.state === "unavailable"
+                ? "unavailable"
+                : "error",
+            label: state.label
+          },
+          state.reason || (state.complete ? "The producer declares this projection complete." : "The producer does not establish a complete current projection."),
+          state.timestamp || timestamp,
+          route
+        );
+        activeIncidentIdsForTypedLink(`data:${layoutSlug(label)}`).forEach((incidentId) => {
+          row.append(consoleLinkButton(
+            `${incidentId} →`,
+            `#automation:logs:incidents:selected=${encodeURIComponent(incidentId)}`
+          ));
+        });
+        return row;
+      }));
+    }
+  }
+
+  function humanizeKey(value) {
+    return String(value || "")
+      .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+      .replaceAll("_", " ")
+      .replaceAll("-", " ")
+      .replace(/\b\w/g, (character) => character.toUpperCase());
+  }
+
+  function automationConfigurationInput(path, value) {
+    const row = element("label", "automation-config-control");
+    const key = path[path.length - 1];
+    row.append(element("span", "", humanizeKey(key)));
+    let control;
+    if (typeof value === "boolean") {
+      control = element("select", "");
+      control.append(
+        element("option", "", "True"),
+        element("option", "", "False")
+      );
+      control.options[0].value = "true";
+      control.options[1].value = "false";
+      control.value = String(value);
+      control.dataset.valueType = "boolean";
+    } else if (typeof value === "number") {
+      control = element("input", "");
+      control.type = "number";
+      control.step = Number.isInteger(value) ? "1" : "any";
+      control.value = String(value);
+      control.dataset.valueType = "number";
+    } else if (Array.isArray(value)) {
+      control = element("textarea", "automation-config-json");
+      control.rows = Math.min(8, Math.max(2, JSON.stringify(value, null, 2).split("\n").length));
+      control.value = JSON.stringify(value, null, 2);
+      control.dataset.valueType = "json";
+    } else if (value && typeof value === "object") {
+      control = element("textarea", "automation-config-json");
+      control.rows = Math.min(10, Math.max(3, JSON.stringify(value, null, 2).split("\n").length));
+      control.value = JSON.stringify(value, null, 2);
+      control.dataset.valueType = "json";
+    } else {
+      control = element("input", "");
+      control.type = "text";
+      control.value = value ?? "";
+      control.dataset.valueType = value === null ? "null" : "string";
+    }
+    control.dataset.configPath = JSON.stringify(path);
+    row.append(control);
+    return row;
+  }
+
+  function automationConfigurationFields(configuration) {
+    const fields = element("div", "automation-config-fields");
+    Object.entries(configuration || {}).forEach(([key, value]) => {
+      if (value && typeof value === "object" && !Array.isArray(value)) {
+        const group = element("fieldset", "automation-config-group");
+        group.append(element("legend", "", humanizeKey(key)));
+        Object.entries(value).forEach(([nestedKey, nestedValue]) => {
+          group.append(automationConfigurationInput([key, nestedKey], nestedValue));
+        });
+        fields.append(group);
+      } else {
+        fields.append(automationConfigurationInput([key], value));
+      }
+    });
+    return fields;
+  }
+
+  function setConfigurationPath(target, path, value) {
+    let cursor = target;
+    path.slice(0, -1).forEach((part) => {
+      if (!cursor[part] || typeof cursor[part] !== "object" || Array.isArray(cursor[part])) {
+        cursor[part] = {};
+      }
+      cursor = cursor[part];
+    });
+    cursor[path[path.length - 1]] = value;
+  }
+
+  function configurationControlValue(control) {
+    if (control.dataset.valueType === "boolean") return control.value === "true";
+    if (control.dataset.valueType === "number") {
+      const value = Number(control.value);
+      if (!Number.isFinite(value)) throw new Error("Enter a valid number.");
+      return value;
+    }
+    if (control.dataset.valueType === "json") return JSON.parse(control.value);
+    if (control.dataset.valueType === "null" && !control.value.trim()) return null;
+    return control.value;
+  }
+
+  function configurationFromPanel(panel, original) {
+    const next = JSON.parse(JSON.stringify(original || {}));
+    panel.querySelectorAll("[data-config-path]").forEach((control) => {
+      const path = JSON.parse(control.dataset.configPath);
+      setConfigurationPath(next, path, configurationControlValue(control));
+    });
+    return next;
+  }
+
+  function downloadConsoleFile(filename, content, type = "application/json") {
+    const blob = new Blob([content], { type });
+    const url = URL.createObjectURL(blob);
+    const download = document.createElement("a");
+    download.href = url;
+    download.download = filename;
+    document.body.append(download);
+    download.click();
+    download.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function automationConfigurationPanel(record) {
+    const configuration = record.runtime_configuration;
+    if (!configuration || typeof configuration !== "object" || !Object.keys(configuration).length) {
+      return null;
+    }
+    const panel = element("details", "automation-config-panel");
+    panel.dataset.disclosureId = `automation-config-${record.id}`;
+    const summary = element("summary", "");
+    summary.append(
+      element("strong", "", "Staged configuration"),
+      element("span", "overview-row-meta", "Browser-local · collapsed")
+    );
+    const content = element("div", "automation-config-content");
+    const note = element(
+      "p",
+      "muted",
+      "Edits remain only for this open Console session until exported. They do not change the live runner or survive a reload."
+    );
+    const error = element("p", "warning-text automation-config-error");
+    error.hidden = true;
+    const fieldsHost = element("div", "");
+    const renderFields = () => {
+      const draft = automationConfigurationDrafts.get(record.id);
+      fieldsHost.replaceChildren(automationConfigurationFields(configuration));
+      if (draft?.rawValues) {
+        fieldsHost.querySelectorAll("[data-config-path]").forEach((control) => {
+          const key = control.dataset.configPath;
+          if (!Object.prototype.hasOwnProperty.call(draft.rawValues, key)) return;
+          if (control.type === "checkbox") control.checked = draft.rawValues[key] === true;
+          else control.value = draft.rawValues[key];
+        });
+      }
+    };
+    renderFields();
+    const captureDraft = () => {
+      const rawValues = {};
+      fieldsHost.querySelectorAll("[data-config-path]").forEach((control) => {
+        rawValues[control.dataset.configPath] = control.type === "checkbox"
+          ? control.checked
+          : control.value;
+      });
+      automationConfigurationDrafts.set(record.id, { rawValues });
+    };
+    fieldsHost.addEventListener("input", captureDraft);
+    fieldsHost.addEventListener("change", captureDraft);
+    const actions = element("div", "source-list dossier-actions");
+    const exportButton = element("button", "record-link", "Export configuration");
+    exportButton.type = "button";
+    exportButton.addEventListener("click", () => {
+      try {
+        const payload = configurationFromPanel(fieldsHost, configuration);
+        error.hidden = true;
+        const filename = record.runtime_config?.split("/").pop() || `${record.id}.json`;
+        downloadConsoleFile(filename, `${JSON.stringify(payload, null, 2)}\n`);
+      } catch (caught) {
+        error.textContent = `Export blocked: ${caught.message || "a configuration value is invalid."}`;
+        error.hidden = false;
+      }
+    });
+    const restoreButton = element("button", "record-link secondary", "Restore loaded values");
+    restoreButton.type = "button";
+    restoreButton.addEventListener("click", () => {
+      automationConfigurationDrafts.delete(record.id);
+      renderFields();
+      error.hidden = true;
+    });
+    actions.append(exportButton, restoreButton);
+    content.append(note, fieldsHost, error, actions);
+    panel.append(summary, content);
+    return panel;
+  }
+
+  function automationOutcomePresentation(value) {
+    const normalized = String(value || "").toLowerCase().replaceAll("_", "-");
+    if (/success|succeed|complete|healthy/.test(normalized)) {
+      return { tone: "success", label: "Succeeded" };
+    }
+    if (/pause|suppress|skip/.test(normalized)) {
+      return { tone: "warning", label: "Paused" };
+    }
+    if (/fail|block|error|miss/.test(normalized)) {
+      return { tone: "error", label: "Failed" };
+    }
+    if (/running|progress|pending/.test(normalized)) {
+      return { tone: "warning", label: "Running" };
+    }
+    return { tone: "unavailable", label: "Unavailable" };
+  }
+
+  function effectiveAutomationRoleStatusProjection(
+    projection = data.automation_role_status,
+    localStatus = window.ARRP_LOCAL_AUTOMATION_STATUS
+  ) {
+    const source = projection && typeof projection === "object"
+      ? projection
+      : { availability: "unavailable", roles: [] };
+    const roles = (Array.isArray(source.roles) ? source.roles : []).map((role) => ({
+      ...role,
+      latest_scheduled: { ...(role.latest_scheduled || {}) },
+      last_successful: { ...(role.last_successful || {}) },
+      data_currentness: { ...(role.data_currentness || {}) },
+      current_blocker: role.current_blocker && typeof role.current_blocker === "object"
+        ? { ...role.current_blocker }
+        : null
+    }));
+    const controlValue = String(localStatus?.control_state || "").toLowerCase();
+    const exactControl = ["run", "paused"].includes(controlValue)
+      ? {
+          state: controlValue,
+          source: "owner-only-local-status",
+          checked_at: localStatus.control_state_checked_at || localStatus.updated_at,
+          reason: ""
+        }
+      : { ...(source.control_state || {}) };
+    roles.forEach((role) => { role.pause_state = exactControl.state || "unavailable"; });
+
+    const coordinator = roles.find((role) => role.id === "run-coordinator-bot");
+    if (coordinator && String(localStatus?.trigger || "").toLowerCase() === "scheduled") {
+      coordinator.latest_scheduled = {
+        available: true,
+        outcome: localStatus.status || "unavailable",
+        at: localStatus.completed_at || localStatus.updated_at || localStatus.scheduled_for,
+        scheduled_for: localStatus.scheduled_for,
+        source: "owner-only-local-status",
+        run_id: localStatus.run_id,
+        reason: localStatus.failure_reason || ""
+      };
+      if (/complete|success/i.test(String(localStatus.status || ""))) {
+        coordinator.last_successful = {
+          available: true,
+          at: localStatus.completed_at || localStatus.updated_at,
+          source: "owner-only-local-status",
+          reason: ""
+        };
+      }
+      if (/fail|block|error|miss/i.test(String(localStatus.status || ""))) {
+        coordinator.current_blocker = {
+          id: localStatus.run_id || "local-scheduled-attempt",
+          summary: localStatus.failure_reason || "The latest scheduled local attempt failed.",
+          route: "automation:overview"
+        };
+      }
+      coordinator.checked_at = localStatus.updated_at || coordinator.checked_at;
+    }
+    return {
+      ...source,
+      control_state: exactControl,
+      roles
+    };
+  }
+
+  function automationRoleRecords() {
+    const projection = effectiveAutomationRoleStatusProjection();
+    const registry = new Map(data.agent_registry.map((record) => [record.id, record]));
+    return [...projection.roles]
+      .sort((left, right) =>
+        Number(left.display_order || 999) - Number(right.display_order || 999)
+        || String(left.display_name || left.id).localeCompare(String(right.display_name || right.id)))
+      .map((status) => ({
+        ...status,
+        registry: registry.get(status.id) || null
+      }));
+  }
+
+  function automationRoleProblem(role) {
+    if (role.current_blocker) {
+      return {
+        tone: "error",
+        label: role.current_blocker.summary || "Current blocker"
+      };
+    }
+    const currentness = String(role.data_currentness?.state || "").toLowerCase();
+    if (["stale", "error", "failed"].includes(currentness)) {
+      return {
+        tone: "error",
+        label: role.data_currentness?.reason || `Data ${currentness}`
+      };
+    }
+    if (!currentness || ["unavailable", "unknown"].includes(currentness)) {
+      return {
+        tone: "unavailable",
+        label: role.data_currentness?.reason || "Currentness unavailable"
+      };
+    }
+    return null;
+  }
+
+  function renderAutomationRoleMenu() {
+    const host = byId("operations-role-menu-list");
+    if (!host) return;
+    const roles = automationRoleRecords();
+    host.replaceChildren(...roles.map((role) => {
+      const link = element("a", "compact-specialist-menu-item", role.menu_label || role.display_name || role.id);
+      link.href = `#automation:agents:${role.id}`;
+      link.dataset.automationRole = role.id;
+      link.setAttribute("aria-current", role.id === automationRoleState.selectedId ? "page" : "false");
+      link.tabIndex = role.id === automationRoleState.selectedId ? 0 : -1;
+      if (role.current_blocker || incidentIdsIncludeBlocker(role.active_incident_ids)) {
+        const dot = element("span", "nav-flag-dot error");
+        dot.setAttribute("aria-label", "Current blocker or linked operational incident");
+        link.append(dot);
+      }
+      return link;
+    }));
+  }
+
+  function renderAutomationRoleDetail() {
+    const host = byId("automation-role-detail");
+    if (!host) return;
+    const role = automationRoleRecords().find((candidate) =>
+      candidate.id === automationRoleState.selectedId);
+    if (!role) {
+      const unavailable = element("section", "automation-role-unavailable");
+      unavailable.append(
+        element("span", "eyebrow", "Unavailable role"),
+        element("h3", "", automationRoleState.unavailableId || "Unknown role"),
+        element(
+          "p",
+          "",
+          "This role is unknown or retired in the loaded typed registry. No other role has been selected in its place."
+        ),
+        consoleLinkButton("Open Coordinator →", "#automation:agents:run-coordinator-bot")
+      );
+      host.replaceChildren(unavailable);
+      return;
+    }
+    const registry = role.registry || {};
+    const latest = role.latest_scheduled || {};
+    const presentation = latest.available === true
+      ? automationOutcomePresentation(latest.outcome)
+      : { tone: "unavailable", label: "Unavailable" };
+    const problem = automationRoleProblem(role);
+    const view = element("article", `automation-role-workspace${problem?.tone === "error" ? " has-error" : ""}`);
+    const heading = element("div", "automation-role-heading");
+    const identity = element("div");
+    identity.append(
+      element("span", "eyebrow", `${role.role_type || "Role"} detail`),
+      element("h3", "", role.display_name || registry.name || role.id),
+      element("p", "automation-purpose", registry.purpose || "Purpose not recorded.")
+    );
+    const status = element("div", "automation-role-posture");
+    status.append(
+      element("span", `status-badge ${presentation.tone}`, presentation.label),
+      element("time", "", latest.available === true ? formatDate(latest.at) : "Date unavailable")
+    );
+    heading.append(identity, status);
+
+    const details = element("dl", "automation-role-fields");
+    [
+      ["Current execution posture", `${presentation.label}${latest.available === true ? ` · ${formatDate(latest.at)}` : ` · ${latest.reason || "No typed occurrence"}`}`],
+      ["Last successful occurrence", role.last_successful?.available === true ? formatDate(role.last_successful.at) : role.last_successful?.reason || "Unavailable"],
+      ["Trigger", String(registry.trigger || "Not recorded").replaceAll("-", " ")],
+      ["Cadence", role.cadence || registry.schedule || "Not recorded"],
+      ["Eligibility", role.eligibility || "Not recorded"],
+      ["Authority", String(registry.status || "Not recorded").replaceAll("-", " ")],
+      ["Environment", String(registry.execution_environment || "Not recorded").replaceAll("-", " ")],
+      ["Runtime", registry.runtime_id || "Not recorded"],
+      ["Data currentness", `${String(role.data_currentness?.state || "unavailable").replaceAll("-", " ")} · ${role.data_currentness?.reason || "No additional detail"}`],
+      ["Checked", formatDate(role.checked_at)]
+    ].forEach(([label, value]) => {
+      details.append(element("dt", "", label), element("dd", "", value));
+    });
+
+    const recovery = element("section", `automation-role-recovery ${problem?.tone || "success"}`);
+    recovery.append(
+      element("h4", "", problem ? "Current exception" : "Recovery"),
+      element("p", "", problem?.label || "No current blocker is recorded for this role.")
+    );
+    const linkedIncidents = operationalIncidentsById(role.active_incident_ids);
+    const incidentLinks = element("section", "automation-role-incidents");
+    incidentLinks.append(element("h4", "", "Linked operational incidents"));
+    if (linkedIncidents.length) {
+      const list = element("ul", "");
+      linkedIncidents.forEach((incident) => {
+        const row = element("li", "");
+        row.append(
+          consoleLinkButton(
+            `${incident.incident_id} · ${incident.summary} →`,
+            `#automation:logs:incidents:selected=${encodeURIComponent(incident.incident_id)}`
+          )
+        );
+        list.append(row);
+      });
+      incidentLinks.append(list);
+    } else {
+      incidentLinks.append(element("p", "micro-note", "No active incident is linked to this role."));
+    }
+
+    const links = element("div", "source-list dossier-actions");
+    if (registry.runbook_url) links.append(linkButton("View runbook ↗", registry.runbook_url, true));
+    if (registry.current_report_url) links.append(linkButton("View current report ↗", registry.current_report_url, true));
+    links.append(consoleLinkButton(
+      "View history →",
+      role.id === "elim"
+        ? "#automation:logs:elim"
+        : `#automation:logs:agents:${role.id}`
+    ));
+    if (registry.log_path) links.append(linkButton("View authoritative log ↗", `${GITHUB_BLOB_ROOT}${registry.log_path}`, true));
+
+    view.append(heading, details, recovery, incidentLinks, links);
+    if (role.id !== "source-checker-bot") {
+      const configuration = automationConfigurationPanel(registry);
+      if (configuration) view.append(configuration);
+    }
+    if (role.id === "elim") {
+      const governance = element("section", "governance-review-specialist");
+      governance.id = "governance-review-specialist";
+      const governanceHeading = element("div", "section-heading-row");
+      const governanceIdentity = element("div");
+      governanceIdentity.append(
+        element("h3", "", "Project governance review and discovery"),
+        element("p", "", "Elim-specific periodic governance review, finding disposition, documentation, and validation.")
+      );
+      const governanceStatus = element("span", "status-badge unavailable", "Unavailable");
+      governanceStatus.id = "governance-review-specialist-status";
+      governanceHeading.append(governanceIdentity, governanceStatus);
+      const governanceDetail = element("div", "governance-review-specialist-detail");
+      governanceDetail.id = "governance-review-specialist-detail";
+      governance.append(governanceHeading, governanceDetail);
+      view.append(governance);
+    }
+    host.replaceChildren(view);
+    if (role.id === "elim") renderGovernanceReviewSpecialist(data.run_chain || {});
+    refreshDisclosurePreferences(host);
+  }
+
+  function activateAutomationRole(roleId, focus = false, updateHash = true) {
+    const roles = automationRoleRecords();
+    const exact = roles.find((role) => role.id === roleId);
+    automationRoleState.selectedId = exact ? exact.id : "";
+    automationRoleState.unavailableId = exact ? "" : String(roleId || "Unknown role");
+    renderAutomationRoleMenu();
+    renderAutomationRoleDetail();
+    const links = [...document.querySelectorAll("[data-automation-role]")];
+    const selected = links.find((link) => link.dataset.automationRole === automationRoleState.selectedId);
+    if (focus) selected?.focus();
+    if (updateHash) {
+      const target = exact
+        ? `automation:agents:${exact.id}`
+        : `automation:agents:${encodeURIComponent(automationRoleState.unavailableId)}`;
+      window.history.replaceState(null, "", `#${target}`);
+    }
+  }
+
+  function initializeAutomationRoleMenu() {
+    const host = byId("operations-role-menu-list");
+    if (!host || host.dataset.bound) return;
+    host.dataset.bound = "true";
+    host.addEventListener("click", (event) => {
+      const link = event.target.closest("[data-automation-role]");
+      if (!link) return;
+      event.preventDefault();
+      activateAutomationRole(link.dataset.automationRole, false, true);
+    });
+    host.addEventListener("keydown", (event) => {
+      if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+      const links = [...host.querySelectorAll("[data-automation-role]")];
+      if (!links.length) return;
+      const current = event.target.closest("[data-automation-role]");
+      const index = Math.max(0, links.indexOf(current));
+      let target = current;
+      if (event.key === "ArrowRight") target = links[(index + 1) % links.length];
+      if (event.key === "ArrowLeft") target = links[(index - 1 + links.length) % links.length];
+      if (event.key === "Home") target = links[0];
+      if (event.key === "End") target = links[links.length - 1];
+      event.preventDefault();
+      activateAutomationRole(target.dataset.automationRole, true, true);
+    });
+    const parts = normalizeConsoleTarget(window.location.hash).split(":");
+    activateAutomationRole(
+      parts[0] === "automation" && parts[1] === "agents"
+        ? decodeURIComponent(parts[2] || "run-coordinator-bot")
+        : "run-coordinator-bot",
+      false,
+      false
+    );
+  }
+
   function renderAutomation() {
-    const records = data.agent_registry;
     const chain = data.run_chain || {};
     captureSuccessfulStageHistory(chain);
-    const failureById = new Map(failedAutomationStages(chain).map((stage) => [stage.id, stage]));
-    const enabled = records.filter((record) => /^enabled$/i.test(record.status)).length;
-    const agents = records.filter((record) => /llm-agent/i.test(record.type)).length;
-    const bots = records.filter((record) => /bot/i.test(record.type)).length;
-    byId("tab-automation-count").textContent = records.length;
-    byId("automation-agents-count").textContent = records.length;
-    byId("automation-summary").replaceChildren(
-      integrityMetric("Registered", records.length, "persistent agents and bots"),
-      integrityMetric("Enabled", enabled, "currently enabled runbooks"),
-      integrityMetric("Agents", agents, "LLM-directed roles"),
-      integrityMetric("Bots", bots, "deterministic programs")
-    );
+    renderOperationsLedgers(chain);
+    renderSecurityRemediation();
     renderLocalAutomationStatus();
-
-    byId("automation-overview-grid").replaceChildren(...records.map((record) => {
-      const stage = agentCurrentStage(record, chain);
-      const failure = failureById.get(record.id);
-      const presentation = stageExecutionPresentation(stage);
-      const card = element("a", `automation-overview-card ${failure ? "error" : presentation.tone}`.trim());
-      card.href = `#automation:agents:${record.id}`;
-      card.dataset.layoutId = `automation-overview-${record.id}`;
-      const heading = element("div", "automation-overview-card-heading");
-      heading.append(
-        element("strong", "", record.name),
-        element("span", `status-badge ${failure ? "error" : presentation.tone}`, failure ? "Error" : presentation.statusLabel)
-      );
-      const latestAt = presentation.lastSuccessAt
-        || stage.completed_at
-        || stage.updated_at
-        || chain.updated_at;
-      card.append(
-        heading,
-        element("span", "record-id", record.id),
-        element("p", "", `${presentation.lastSuccessAt ? "Latest successful execution" : "Latest recorded activity"}: ${formatDate(latestAt)}`),
-        element("span", "automation-overview-chain-state", `Current chain: ${presentation.currentChainLabel}`),
-        element("p", "automation-overview-recovery", failure
-          ? `Recovery: ${botFailureSummary(failure)}`
-          : stage.details || stage.summary || presentation.scheduleDetail || "No recovery action is required."),
-        element("span", "automation-overview-open", "Open complete details →")
-      );
-      return card;
-    }));
-
-    byId("automation-grid").replaceChildren(...records.map((record) => {
-      const stage = agentCurrentStage(record, chain);
-      const failure = failureById.get(record.id);
-      const presentation = stageExecutionPresentation(stage);
-      const card = element("article", `automation-card${failure ? " has-error" : ""}`);
-      card.id = `automation-card-${record.id}`;
-      card.dataset.layoutId = `automation-${record.id}`;
-      const summary = element("div", "automation-card-summary");
-      const summaryMeta = element("span", "automation-card-tags");
-      const typeTag = /llm-agent/i.test(record.type)
-        ? "LLM agent"
-        : /bot/i.test(record.type)
-          ? "bot"
-          : record.type.replaceAll("-", " ");
-      summaryMeta.append(
-        element("span", "badge formal automation-type", typeTag),
-        element("span", `status-badge ${automationStatusClass(record.status)}`, String(record.status).replaceAll("-", " "))
-      );
-      if (failure) {
-        const errorBadge = element("span", "status-badge error automation-error-badge", "Error");
-        errorBadge.setAttribute("aria-label", `${record.name} automation error`);
-        summaryMeta.append(errorBadge);
-      }
-      summary.append(
-        element("h3", "automation-card-title", record.name),
-        summaryMeta,
-        element("span", "record-id automation-card-id", record.id)
-      );
-      const body = element("div", "automation-card-body");
-      const details = element("dl");
-      [
-        ["Identity", record.id],
-        ["Type", record.type.replaceAll("-", " ")],
-        ["Runbook status", record.status.replaceAll("-", " ")],
-        ["Trigger", record.trigger.replaceAll("-", " ")],
-        ["Schedule", record.schedule || "Event or manual only"],
-        ["Environment", record.execution_environment.replaceAll("-", " ")],
-        ["Runtime", record.runtime_id || "Not recorded"],
-        ["Runtime configuration", record.runtime_config || "Not recorded"],
-        ["Model policy", record.model_policy || (/llm-agent/i.test(record.type) ? "Not recorded" : "Not applicable")],
-        ["Latest result", failure ? "Error" : presentation.statusLabel],
-        ["Current chain", presentation.currentChainLabel],
-        ["Latest successful execution", formatDate(presentation.lastSuccessAt)],
-        ["Latest recorded activity", formatDate(stage.completed_at || stage.updated_at || chain.updated_at)],
-        ["Recovery posture", failure
-          ? botFailureSummary(failure)
-          : stage.details || stage.summary || presentation.scheduleDetail || "No recovery action is required."]
-      ].forEach(([label, value]) => details.append(element("dt", "", label), element("dd", "", value || "Not recorded")));
-      const links = element("div", "source-list dossier-actions");
-      links.append(linkButton("Open runbook ↗", record.runbook_url, true));
-      if (record.runtime_url) links.append(linkButton("Open runtime ↗", record.runtime_url, true));
-      if (record.runtime_config_url) links.append(linkButton("Open runtime configuration ↗", record.runtime_config_url, true));
-      if (record.current_report_url) links.append(linkButton("Open current report ↗", record.current_report_url, true));
-      links.append(consoleLinkButton(
-        "Open filtered log →",
-        record.id === "elim" ? "#logs:elim" : `#logs:agents:${record.id}`
-      ));
-      if (record.log_path) links.append(linkButton("Open authoritative log ↗", `${GITHUB_BLOB_ROOT}${record.log_path}`, true));
-      if (failure) {
-        const error = element("div", "automation-card-error");
-        error.setAttribute("role", "alert");
-        error.append(
-          element("strong", "", "Current automation error"),
-          element("p", "", botFailureSummary(failure))
-        );
-        body.append(error);
-      }
-      body.append(element("p", "", record.description || "Authoritative operating configuration."), details);
-      body.append(links);
-      const runbook = element("section", "automation-runbook");
-      runbook.append(
-        element("h4", "", "Complete runbook details"),
-        element("p", "muted", "Every section below is parsed from the authoritative runbook; the linked source remains controlling.")
-      );
-      const sections = Array.isArray(record.runbook_sections) ? record.runbook_sections : [];
-      const sectionList = element("div", "automation-runbook-sections");
-      sections.forEach((section, index) => {
-        const disclosure = element("details", "automation-runbook-section");
-        disclosure.dataset.disclosureId = `automation-runbook-${record.id}-${section.id || index}`;
-        const heading = element("summary", "");
-        heading.append(
-          element("strong", "", section.title || `Runbook section ${index + 1}`),
-          element("span", "overview-row-meta", "Authoritative detail")
-        );
-        const contentHost = element("div", "automation-runbook-content-host");
-        contentHost.append(element("p", "muted", "Open this section to load its authoritative detail."));
-        disclosure.addEventListener("toggle", () => {
-          if (!disclosure.open || contentHost.dataset.hydrated === "true") return;
-          const content = element("div", "markdown-body automation-runbook-content");
-          // The builder escapes source HTML and emits only allowlisted markup.
-          content.innerHTML = section.html || "";
-          contentHost.replaceChildren(content);
-          contentHost.dataset.hydrated = "true";
-        });
-        disclosure.append(heading, contentHost);
-        sectionList.append(disclosure);
-      });
-      runbook.append(sections.length
-        ? sectionList
-        : element("p", "empty-state compact-empty", "No second-level runbook sections were available in this snapshot."));
-      body.append(runbook);
-      card.append(summary, body);
-      return card;
-    }));
-    const incidents = groupAutomationIncidents(chain);
-    byId("automation-incident-count").textContent = incidents.length;
-    byId("automation-incidents").replaceChildren(...(incidents.length ? incidents.map((incident) => {
-      const card = element("article", "automation-incident-card");
-      const chainIds = [...new Set(incident.history.map((row) => row.chainId).filter(Boolean))];
-      const currentRows = incident.history.filter((row) => row.posture === "Current chain");
-      const supersededRows = incident.history.filter((row) => row.posture === "Superseded");
-      card.append(
-        element("strong", "", incident.rootCause),
-        element("span", "count-pill", pluralizeWord(incident.occurrences, "occurrence")),
-        element("p", "", `Affected stages: ${incident.stages.join(", ") || "unavailable"}`),
-        element("p", "micro-note", `Failed prerequisite: ${incident.failedPrerequisite} · checkout: ${incident.checkoutState} · runtime: ${incident.runtimeState}`),
-        element("p", "micro-note", `Affected chains: ${chainIds.join(", ") || "chain IDs unavailable"}`),
-        element("p", "micro-note", `Current-chain state: ${currentRows.length ? `${pluralizeWord(currentRows.length, "current occurrence")} retained` : "no current-chain occurrence is identified"} · supersession evidence: ${pluralizeWord(supersededRows.length, "resolved or superseded occurrence")}`),
-        element("p", "micro-note", `Owner: ${incident.owners.join(", ") || "unassigned"} · first seen ${incident.firstSeen === null ? "unavailable" : formatDate(incident.firstSeen)} · last seen ${incident.lastSeen === null ? "unavailable" : formatDate(incident.lastSeen)}`),
-        element("p", incident.recovery ? "" : "warning-text", `Exact recovery: ${incident.recovery || "No structured recovery action is recorded."}`)
-      );
-      const history = element("details", "automation-incident-history");
-      const historySummary = element("summary", "", `Full retained occurrence history (${incident.history.length})`);
-      const historyList = element("ol", "automation-incident-history-list");
-      incident.history.forEach((row) => {
-        historyList.append(element(
-          "li",
-          "",
-          `${formatDate(row.observed)} · chain ${row.chainId || "unavailable"} · ${row.stage} · ${row.posture} · ${row.status}${row.checkoutState ? ` · checkout ${row.checkoutState}` : ""}${row.details ? ` · ${row.details}` : ""}`
-        ));
-      });
-      history.append(historySummary, historyList);
-      card.append(history);
-      return card;
-    }) : [element("p", "empty-state compact-empty", "No active automation incident is represented in the loaded run-chain projection.")]));
-    const compactGapObligations = Array.isArray(chain.work_queue?.gap_obligations)
-      ? chain.work_queue.gap_obligations
-      : [];
-    const legacyGaps = [
-      ...(Array.isArray(chain.gaps) ? chain.gaps : []),
-      ...(Array.isArray(chain.work_queue?.gaps) ? chain.work_queue.gaps : []),
-      ...(Array.isArray(data.overview?.automation_summary?.gaps) ? data.overview.automation_summary.gaps : [])
-    ];
-    const gaps = compactGapObligations.length ? compactGapObligations : legacyGaps;
-    byId("gap-stewardship-count").textContent = gaps.length;
-    byId("gap-stewardship-status").textContent = gaps.length
-      ? `${gaps.length} stable obligation${gaps.length === 1 ? "" : "s"} retained with typed ownership · ${compactGapObligations.length ? "current compact work-queue projection; evidence, reasoning, affected scope, and validation remain in each linked canonical detail" : "legacy compatibility projection"}`
-      : "No structured gap feed available";
-    byId("gap-stewardship-list").replaceChildren(...(gaps.length ? gaps.map((gap, index) => {
-      const card = element("details", "gap-stewardship-card");
-      card.dataset.disclosureId = `automation-gap-${gap.queue_item_id || gap.obligation_id || gap.id || index}`;
-      const summary = element("summary", "");
-      summary.append(
-        element("strong", "", `${gap.obligation_id || gap.id || `Gap ${index + 1}`}${gap.title ? ` — ${gap.title}` : ""}`),
-        element("span", "badge", text(gap.status, "Open"))
-      );
-      const body = element("div", "gap-stewardship-body");
-      body.append(element("p", "", gap.summary || gap.description || gap.reason || "No gap description recorded."));
-      const firstSeen = gap.first_seen || gap.discovered_at || gap.created_at;
-      const lastSeen = gap.last_seen || gap.last_checked || gap.updated_at || gap.checked_at;
-      const compact = Boolean(gap.queue_item_id || compactGapObligations.includes(gap));
-      const authority = gap.authority && typeof gap.authority === "object" ? gap.authority : {};
-      const fields = compact ? [
-        ["Queue / obligation identity", `${text(gap.queue_item_id, "queue ID unavailable")} · ${text(gap.obligation_id, "obligation ID unavailable")}`],
-        ["Severity / age", `${text(gap.severity, "Unavailable")} · ${gap.age_days == null ? "age unavailable" : `${gap.age_days} days`}`],
-        ["Owner / eligibility", `${text(gap.owner, "Unassigned")} · Elim eligible ${gap.eligible_for_elim === true ? "Yes" : gap.eligible_for_elim === false ? "No" : "Unavailable"} · requires Human ${gap.requires_human === true ? "Yes" : gap.requires_human === false ? "No" : "Unavailable"}`],
-        ["Eligibility / blocker", `${text(gap.eligibility_reason, "Eligibility reason unavailable")} · ${text(gap.blocking_reason, "No blocking reason recorded")}`],
-        ["Authority", `${text(authority.classification, "Unavailable")} · ${text(authority.basis, "basis unavailable")}`],
-        ["Authority / work disposition", `${text(gap.authority_disposition, "Unavailable")} · ${text(gap.disposition, "Unavailable")}`],
-        ["History", `${text(gap.occurrence_count, "occurrences unavailable")} · first ${formatDate(firstSeen)} · last ${formatDate(lastSeen)}`],
-        ["Exact next action", text(gap.exact_next_action, "Unavailable")],
-        ["Next trigger", text(gap.next_trigger, "Unavailable")]
-      ] : [
-        ["Queue / obligation identity", `${text(gap.queue_item_id, "queue ID unavailable")} · ${text(gap.obligation_id, "obligation ID unavailable")}`],
-        ["Discovery source / revision", `${text(gap.discovery_source || gap.source || gap.reported_by, "Unavailable")} · ${text(gap.discovery_revision || gap.source_revision || gap.revision, "revision unavailable")}`],
-        ["Work class / affected records", `${text(gap.work_class || gap.classification, "Unavailable")} · ${(gap.affected_record_ids || gap.affected_records || gap.record_ids || []).join?.(", ") || text(gap.affected_records, compact ? "See canonical detail" : "Unavailable")}`],
-        ["History", `First ${formatDate(firstSeen)} · last ${formatDate(lastSeen)} · ${lastSeen ? agePosture(lastSeen) : "age unavailable"} · ${text(gap.occurrences ?? gap.occurrence_count, "occurrences unavailable")}`],
-        ["Evidence / reasoning", gap.evidence || gap.reasoning || gap.rationale || (compact ? "Available in the linked canonical detail; intentionally omitted from this compact queue row." : "Unavailable")],
-        ["Actual owner", gap.actual_owner || gap.owner || gap.assigned_to || "Unassigned"],
-        ["Authority / disposition", `${text(gap.authority_classification || gap.authority, "Unavailable")} · ${text(gap.authority_disposition || gap.disposition, "Unavailable")}`],
-        ["Eligibility / blocker", `${text(gap.eligibility_reason, "Eligibility reason unavailable")} · ${text(gap.blocking_reason, "No blocking reason recorded")}`],
-        ["Repair", gap.exact_next_action || gap.repair || gap.recommended_repair || "Unavailable"],
-        ["Question", gap.question || gap.human_question || "Unavailable"],
-        ["Prohibition", gap.prohibition || gap.must_not || "Unavailable"],
-        ["Next trigger", gap.next_trigger || gap.due_trigger || gap.next_action || "Unavailable"],
-        ["Status / proof", `${text(gap.status, "Unavailable")} · ${text(gap.validation_proof || gap.resolution_proof || gap.validation, "validation or resolution proof unavailable")}`]
-      ];
-      const description = element("dl", "gap-stewardship-fields");
-      fields.forEach(([label, value]) => description.append(element("dt", "", label), element("dd", "", String(value))));
-      body.append(description);
-      const links = element("div", "source-list compact-links");
-      const canonicalDetail = gap.canonical_detail;
-      const canonicalUrl = canonicalDetail
-        ? /^https?:\/\//.test(String(canonicalDetail))
-          ? canonicalDetail
-          : `${GITHUB_BLOB_ROOT}${String(canonicalDetail).replace(/^\/+/, "")}`
-        : gap.canonical_url || gap.url;
-      [
-        ["Open canonical record ↗", canonicalUrl],
-        ["Open provenance ↗", gap.provenance_url || gap.source_url],
-        ["Open validation ↗", gap.validation_url || gap.resolution_url]
-      ].forEach(([label, url]) => {
-        if (url) links.append(linkButton(label, url, true));
-      });
-      if (links.childNodes.length) body.append(links);
-      card.append(summary, body);
-      return card;
-    }) : [element("p", "empty-state compact-empty", "Gap stewardship is unavailable until the producer emits typed stable obligations; no empty conclusion is inferred.")]));
-    renderGovernanceReviewSpecialist(chain);
     renderRunChain();
+
+    const roles = automationRoleRecords();
+    const roleBlockers = roles.filter((role) => role.current_blocker);
+    setButtonBlockerFlag(
+      "automation-tab-agents",
+      roleBlockers.length > 0,
+      `${pluralizeWord(roleBlockers.length, "automation blocker")} represented in Agents & Bots`
+    );
+    byId("automation-overview-grid")?.replaceChildren(...roles.map((role) => {
+      const latest = role.latest_scheduled || {};
+      const presentation = latest.available === true
+        ? automationOutcomePresentation(latest.outcome)
+        : { tone: "unavailable", label: "Unavailable" };
+      const problem = automationRoleProblem(role);
+      const card = element("a", `automation-overview-card ${problem?.tone || presentation.tone}`.trim());
+      card.href = `#automation:agents:${role.id}`;
+      card.dataset.layoutId = `automation-overview-${role.id}`;
+      card.append(
+        element("strong", "", role.display_name || role.id),
+        element("span", "automation-role-type", role.role_type || "Role"),
+        element(
+          "p",
+          "automation-role-occurrence",
+          latest.available === true
+            ? `${presentation.label} · ${formatDate(latest.at)}`
+            : `Latest scheduled attempt unavailable`
+        ),
+        element("span", "automation-role-cadence", role.cadence || "Cadence unavailable")
+      );
+      if (problem) {
+        const flag = element("span", `automation-role-problem ${problem.tone}`, problem.label);
+        card.append(flag);
+      }
+      card.setAttribute(
+        "aria-label",
+        `${role.display_name || role.id}, ${role.role_type || "role"}: ${presentation.label}. Open role details.`
+      );
+      return card;
+    }));
+
+    const incidentProjection = operationalIncidentProjection();
+    const incidents = unresolvedOperationalIncidents();
+    const representedRoleIds = new Set(
+      roles
+        .filter((role) => (role.active_incident_ids || []).length)
+        .map((role) => role.id)
+    );
+    const roleExceptions = roles.filter((role) =>
+      automationRoleProblem(role) && !representedRoleIds.has(role.id));
+    const exceptionCount = incidentProjection.complete
+      ? incidents.length + roleExceptions.length
+      : null;
+    byId("automation-incident-count").textContent = exceptionCount == null ? "—" : exceptionCount;
+    const incidentRows = incidents.map((incident) => {
+      const row = element("article", "automation-incident-card");
+      row.append(
+        element("strong", "", `${incident.incident_id} · ${incident.summary}`),
+        element("p", "", `${incident.component} · ${incident.owner || "Unassigned owner"}`),
+        element("p", "warning-text", incident.next_action || "Exact next action is unavailable.")
+      );
+      const links = element("div", "source-list compact-links");
+      links.append(consoleLinkButton(
+        "Open incident →",
+        `#automation:logs:incidents:selected=${encodeURIComponent(incident.incident_id)}`
+      ));
+      row.append(links);
+      return row;
+    });
+    const roleRows = roleExceptions.map((role) => {
+      const problem = automationRoleProblem(role);
+      const row = element("article", `automation-incident-card ${problem.tone}`);
+      row.append(
+        element("strong", "", role.display_name || role.id),
+        element("p", "", problem.label)
+      );
+      row.append(consoleLinkButton("View details →", `#automation:agents:${role.id}`));
+      return row;
+    });
+    byId("automation-incidents").replaceChildren(...(
+      exceptionCount == null
+        ? [element("p", "empty-state compact-empty", incidentProjection.reason || "Operational incident feed is unavailable; zero incidents cannot be inferred.")]
+        : exceptionCount
+        ? [...incidentRows, ...roleRows]
+        : [element("p", "empty-state compact-empty", "No current operational exception is represented in the loaded typed projection.")]
+    ));
+    updateIncidentNavigationCounts();
+
+    if (!automationRoleState.selectedId
+      && roles.some((role) => role.id === automationRoleState.unavailableId)) {
+      automationRoleState.selectedId = automationRoleState.unavailableId;
+      automationRoleState.unavailableId = "";
+    }
+    renderAutomationRoleMenu();
+    if (!automationRoleState.selectedId && !automationRoleState.unavailableId) {
+      automationRoleState.selectedId = "run-coordinator-bot";
+    }
+    renderAutomationRoleDetail();
     refreshLayoutZones();
   }
 
@@ -6134,6 +8876,22 @@
     });
   }
 
+  function loadPrivateOperations() {
+    if (capturePrivateOperations() || !localConsoleOriginAllowed()) {
+      return Promise.resolve();
+    }
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = PRIVATE_OPERATIONS_PATH;
+      script.onload = () => {
+        capturePrivateOperations();
+        resolve();
+      };
+      script.onerror = () => resolve();
+      document.head.append(script);
+    });
+  }
+
   function loadLocalAutomationStatus() {
     if (window.ARRP_LOCAL_AUTOMATION_STATUS) return Promise.resolve();
     return new Promise((resolve) => {
@@ -6194,7 +8952,6 @@
     const findings = history.length - clean;
     const latest = history[0] || {};
     const latestDuration = latest.duration_seconds == null ? "—" : `${Number(latest.duration_seconds).toFixed(1)}s`;
-    byId("log-integrity-count").textContent = history.length;
     byId("log-integrity-visible").textContent = history.length;
     byId("integrity-log-summary").replaceChildren(
       integrityMetric("Retained runs", history.length, "bounded history in the integrity feed"),
@@ -6207,56 +8964,56 @@
       host.replaceChildren(element("p", "empty-state compact-empty", "No Project Integrity Bot run history is available yet."));
       return;
     }
-    const renderRun = (run) => {
-      const row = element("article", "integrity-history-row");
-      const runCounts = run.counts || {};
-      const header = element("div", "integrity-history-heading");
-      header.append(
-        element("strong", "", formatDate(run.generated_at)),
-        element("span", run.result === "clean" ? "status-badge ready" : "status-badge needs-review",
-          run.result === "clean" ? "Clean" : `${Number(runCounts.findings) || 0} findings`)
-      );
-      if (run.revision) {
-        header.append(inlineLink(String(run.revision).slice(0, 7), `https://github.com/Thorncrag/ARRP/commit/${run.revision}`));
-      }
-      row.append(
-        header,
-        element("p", "", `${Number(runCounts.errors) || 0} errors · ${Number(runCounts.warnings) || 0} warnings · ${run.duration_seconds == null ? "duration unavailable" : `${Number(run.duration_seconds).toFixed(1)}s`}`)
-      );
-      return row;
+    const workspace = element("div", "email-workspace log-email-workspace");
+    const list = element("div", "email-list log-email-list");
+    list.setAttribute("role", "listbox");
+    list.setAttribute("aria-label", "Integrity runs, newest first");
+    const preview = element("article", "email-preview log-email-preview");
+    const showRun = (run, selectedRow) => {
+      list.querySelectorAll(".email-list-row").forEach((row) => {
+        const selected = row === selectedRow;
+        row.classList.toggle("selected", selected);
+        row.setAttribute("aria-selected", String(selected));
+      });
+      const counts = run.counts || {};
+      const heading = element("div", "email-preview-heading");
+      const title = element("div");
+      title.append(element("span", "eyebrow", "Selected run"), element("h3", "", formatDate(run.generated_at)));
+      heading.append(title, element("span", run.result === "clean" ? "status-badge ready" : "status-badge needs-review",
+        run.result === "clean" ? "Clean" : `${Number(counts.findings) || 0} findings`));
+      const fields = element("dl", "email-preview-fields");
+      [
+        ["Errors", Number(counts.errors) || 0],
+        ["Warnings", Number(counts.warnings) || 0],
+        ["Duration", run.duration_seconds == null ? "Unavailable" : `${Number(run.duration_seconds).toFixed(1)}s`],
+        ["Revision", run.revision || "Unavailable"]
+      ].forEach(([label, value]) => {
+        const field = element("div", "email-preview-field");
+        field.append(element("dt", "", label), element("dd", "", String(value)));
+        fields.append(field);
+      });
+      const links = element("div", "source-list compact-links");
+      if (run.revision) links.append(inlineLink("Open commit ↗", `https://github.com/Thorncrag/ARRP/commit/${run.revision}`));
+      preview.replaceChildren(heading, fields, links);
     };
-    const latestRun = history[0];
-    const latestCard = element("section", "latest-log-entry");
-    const latestHeader = element("div", "latest-log-entry-header");
-    latestHeader.append(
-      element("h3", "", "Latest run"),
-      latestRun.revision
-        ? inlineLink(String(latestRun.revision).slice(0, 7), `https://github.com/Thorncrag/ARRP/commit/${latestRun.revision}`)
-        : element("span", "muted", "No revision recorded")
-    );
-    const latestCounts = latestRun.counts || {};
-    const latestFields = element("dl", "latest-log-fields integrity-latest-fields");
-    [
-      ["Run time", formatDate(latestRun.generated_at)],
-      ["Result", latestRun.result === "clean" ? "Clean" : `${Number(latestCounts.findings) || 0} findings`],
-      ["Errors", Number(latestCounts.errors) || 0],
-      ["Warnings", Number(latestCounts.warnings) || 0],
-      ["Duration", latestRun.duration_seconds == null ? "Unavailable" : `${Number(latestRun.duration_seconds).toFixed(1)}s`]
-    ].forEach(([label, value]) => {
-      const field = element("div", "latest-log-field");
-      field.append(element("dt", "", label), element("dd", "", String(value)));
-      latestFields.append(field);
+    let firstRow = null;
+    history.forEach((run) => {
+      const counts = run.counts || {};
+      const row = element("button", "email-list-row");
+      row.type = "button";
+      row.setAttribute("role", "option");
+      row.append(
+        element("strong", "email-row-title", formatDate(run.generated_at)),
+        element("span", "email-row-time", run.result === "clean" ? "Clean" : `${Number(counts.findings) || 0} findings`),
+        element("span", "email-row-summary", `${Number(counts.errors) || 0} errors · ${Number(counts.warnings) || 0} warnings`)
+      );
+      row.addEventListener("click", () => showRun(run, row));
+      list.append(row);
+      if (!firstRow) firstRow = row;
     });
-    latestCard.append(latestHeader, latestFields);
-
-    const earlierRuns = history.slice(1);
-    const nodes = [latestCard];
-    if (earlierRuns.length) {
-      const rows = element("div", "integrity-history-rows");
-      rows.append(...earlierRuns.map(renderRun));
-      nodes.push(logHistoryHeading("Earlier runs", earlierRuns.length, "run"), rows);
-    }
-    host.replaceChildren(...nodes);
+    workspace.append(list, preview);
+    host.replaceChildren(workspace);
+    showRun(history[0], firstRow);
   }
 
   function renderIntegrityComponents(feed = data.integrity) {
@@ -6371,7 +9128,7 @@
 
   function renderIntegrity(feed = data.integrity) {
     const current = feed && typeof feed.current === "object" ? feed.current : {};
-    const problems = allProblemRecords(feed);
+    const problems = exactIntegrityProblemRecords(feed);
     const ownerOptions = [...new Map(problems.map((finding) => [
       problemOwnerKey(finding),
       {
@@ -6407,6 +9164,16 @@
     const agentCount = problems.filter((finding) => finding.attention === "agent").length;
     const botCount = problems.filter((finding) => finding.attention === "bot").length;
     const observedCount = problems.filter((finding) => finding.attention === "observed").length;
+    const blockingProblems = problems.filter((finding) =>
+      finding.blocking === true
+      || finding.blocks_automation === true
+      || finding.release_blocker === true
+    );
+    setButtonBlockerFlag(
+      "tab-integrity",
+      blockingProblems.length > 0,
+      `${pluralizeWord(blockingProblems.length, "blocker")} represented in Integrity`
+    );
     byId("integrity-as-of").textContent = current.generated_at ? formatDate(current.generated_at) : "Not yet run";
     const status = byId("integrity-status");
     const contract = feedContractState(
@@ -6417,7 +9184,12 @@
     const feedAvailable = Boolean(current.generated_at)
       && structural.valid
       && !["unavailable", "incomplete"].includes(contract.state);
-    byId("tab-integrity-count").textContent = feedAvailable ? findingCount : "Unavailable";
+    setNavigationMarker(
+      "tab-integrity-count",
+      findingCount,
+      feedAvailable ? "" : "error",
+      "Integrity unavailable"
+    );
     byId("problem-visible").textContent = feedAvailable ? findings.length : "Unavailable";
     status.className = `status-badge ${!feedAvailable || allErrors + allWarnings ? "needs-review" : "ready"}`.trim();
     status.textContent = !feedAvailable
@@ -6491,7 +9263,16 @@
           if ((finding.affected_ids || []).length) {
             const affected = element("div", "problem-affected-records");
             affected.append(element("strong", "", "Affected records:"));
-            finding.affected_ids.forEach((identifier) => affected.append(element("span", "badge", identifier)));
+            finding.affected_ids.forEach((identifier) => {
+              const target = workbenchTargetForArtifact(identifier, {
+                source: "Integrity",
+                reference: finding.reference,
+                returnTarget: "integrity"
+              });
+              affected.append(target
+                ? internalInlineLink(`Open ${identifier} in Workbench`, target)
+                : element("span", "badge", identifier));
+            });
             record.append(affected);
           }
           const metadata = element("div", "problem-meta");
@@ -7342,6 +10123,19 @@
     const statusValue = (record) => text(record.workflowStatus, "Unassigned");
     const priorityValue = (record) => text(record.priority, "Unassigned");
     const ownerValue = (record) => text(record.owner || record.assignee, "Unassigned");
+    const actionableBlockers = records.filter((record) =>
+      !["Blocked", "Deferred"].includes(record.workflowStatus)
+    );
+    setButtonBlockerFlag(
+      "planning-tab-publication",
+      actionableBlockers.length > 0,
+      `${pluralizeWord(actionableBlockers.length, "blocker")} represented in Publication`
+    );
+    setButtonBlockerFlag(
+      "publication-tab-analysis",
+      actionableBlockers.length > 0,
+      `${pluralizeWord(actionableBlockers.length, "blocker")} represented in release analysis`
+    );
     const statuses = [...new Set(records.map(statusValue))];
     const priorities = [...new Set(records.map(priorityValue))];
     const owners = [...new Set(records.map(ownerValue))];
@@ -7377,6 +10171,12 @@
           dossierSection("Dependency", text(record.dependency || record.dependencies || record.blocker, "Unavailable")),
           dossierSection("Exact next action", text(record.exact_next_action || record.next_action || record.nextAudit, "Unavailable"))
         );
+        const workbenchTarget = workbenchTargetForArtifact(record.identifier, {
+          source: "Publication",
+          reference: record.identifier,
+          returnTarget: "planning:publication:analysis"
+        });
+        if (workbenchTarget) card.append(internalInlineLink("Open in Workbench", workbenchTarget));
         if (record.canonicalUrl) card.append(linkButton("Open canonical record ↗", record.canonicalUrl, true));
         return card;
       })
@@ -7643,6 +10443,7 @@
     const list = byId("preliminary-list");
     list.replaceChildren(...records.map(preliminaryCard));
     byId("preliminary-visible").textContent = records.length;
+    setButtonBlockerFlag("planning-tab-preliminary", false);
     byId("preliminary-empty").hidden = records.length !== 0;
     refreshDisclosurePreferences(list);
   }
@@ -7698,6 +10499,20 @@
       ? records.map(proposedCard)
       : [element("p", "empty-state compact-empty", "No formal candidates match the current filters.")]));
     byId("proposed-visible").textContent = records.length;
+    const blockers = records.filter((record) =>
+      !["Blocked", "Deferred"].includes(record.workflow_status)
+      && typedReleaseBlocker(record.release_blocker)
+    );
+    setButtonBlockerFlag(
+      "planning-tab-candidates",
+      blockers.length > 0,
+      `${pluralizeWord(blockers.length, "blocker")} represented in Candidates`
+    );
+    setButtonBlockerFlag(
+      "candidate-tab-formal",
+      blockers.length > 0,
+      `${pluralizeWord(blockers.length, "blocker")} represented in formal candidates`
+    );
     refreshDisclosurePreferences(byId("proposed-list"));
   }
 
@@ -7734,23 +10549,52 @@
         renderSourceView("sources", data.cited_sources, "type");
       });
     });
-    byId("progress-next-search").addEventListener("input", (event) => {
-      progressNextWorkState.search = event.target.value;
-      renderProgressNextWork(data.progress);
+    document.querySelectorAll("[data-pipeline-mode]").forEach((button) => {
+      button.addEventListener("click", () => {
+        resetPipelineMode(button.dataset.pipelineMode);
+        renderPipeline();
+        updatePipelineRoute();
+      });
+    });
+    byId("pipeline-search").addEventListener("input", (event) => {
+      pipelineState.search = event.target.value;
+      renderPipeline();
+      updatePipelineRoute();
     });
     [
-      ["cohort", "cohort"],
+      ["work-class", "workClass"],
+      ["scope", "scope"],
+      ["sort", "sort"],
       ["status", "status"],
-      ["priority", "priority"],
       ["development", "development"],
-      ["release-blocker", "releaseBlocker"],
       ["area", "area"],
-      ["owner", "owner"]
+      ["owner", "owner"],
+      ["priority", "priority"],
+      ["release-blocker", "releaseBlocker"]
     ].forEach(([id, key]) => {
-      byId(`progress-next-${id}`).addEventListener("change", (event) => {
-        progressNextWorkState[key] = event.target.value;
-        renderProgressNextWork(data.progress);
+      byId(`pipeline-${id}`).addEventListener("change", (event) => {
+        pipelineState[key] = event.target.value;
+        renderPipeline();
+        updatePipelineRoute();
       });
+    });
+    byId("pipeline-reset").addEventListener("click", () => {
+      resetPipelineMode();
+      renderPipeline();
+      updatePipelineRoute();
+    });
+    byId("pipeline-list").addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      const rows = [...byId("pipeline-list").querySelectorAll(".pipeline-row")];
+      if (!rows.length) return;
+      const current = event.target.closest(".pipeline-row");
+      let index = rows.indexOf(current);
+      if (event.key === "Home") index = 0;
+      else if (event.key === "End") index = rows.length - 1;
+      else if (event.key === "ArrowDown") index = Math.min(rows.length - 1, Math.max(0, index + 1));
+      else index = Math.max(0, index < 0 ? 0 : index - 1);
+      event.preventDefault();
+      selectPipelineItem(rows[index].dataset.pipelineId, true, true);
     });
     [
       ["status", "status"],
@@ -7870,7 +10714,8 @@
     byId("proposed-count").textContent = candidates.length;
     byId("candidate-formal-count").textContent = candidates.length;
     byId("candidate-preliminary-count").textContent = data.records.length;
-    byId("tab-candidates-count").textContent = candidates.length + data.records.length;
+    byId("planning-candidates-count").textContent = candidates.length;
+    byId("planning-preliminary-count").textContent = data.records.length;
     byId("attention-note").textContent = data.records.length
       ? `${pluralizeWord(data.records.length, "preliminary candidate")} require human review.`
       : "No preliminary candidates currently require review.";
@@ -7890,11 +10735,8 @@
     reviewSignals.directives.ids = new Set(changedDirectives.map((record) => record.id));
     byId("sources-count").textContent = data.cited_sources.length;
     byId("pending-count").textContent = data.pending_sources.length;
-    byId("source-catalog-count").textContent = data.cited_sources.length;
     byId("source-pending-count").textContent = data.pending_sources.length;
-    byId("tab-sources-count").textContent = data.cited_sources.length + data.pending_sources.length;
-    byId("court-watch-count").textContent = distinctSourceCount(data.court_watch_sources);
-    byId("directive-watch-count").textContent = data.presidential_directives.length;
+    byId("planning-sources-count").textContent = data.pending_sources.length;
     byId("manual-watch-count").textContent = data.monitoring_issues.length;
     byId("case-watcher-mode").textContent = `Current mode: ${(data.watcher_metadata.case_monitor || {}).mode || "Not configured"}.`;
     byId("directive-watcher-mode").textContent = `Current mode: ${(data.watcher_metadata.presidential_directives || {}).mode || "Not configured"}.`;
@@ -7928,7 +10770,6 @@
           sortDirection: (log.default_sort || {}).direction || "asc"
         };
       }
-      byId(`log-${log.id}-count`).textContent = log.entries.length;
       populateLogGroupSelect(log);
       const search = byId(`log-${log.id}-search`);
       const group = byId(`log-${log.id}-group`);
@@ -7966,7 +10807,6 @@
   function hydratePublicationData() {
     pageIndex = new Map(data.page_inventory.map((record) => [record.path, record]));
     byId("pages-count").textContent = data.page_inventory.length;
-    byId("publication-assignments-count").textContent = data.page_inventory.length;
     populateSelect(byId("pages-level"), [
       "__included", ...Object.keys(PRINT_LEVEL_LABELS), "__excluded", "__unclassified", "__conflict"
     ], "All publication dispositions");
@@ -8033,6 +10873,7 @@
     if (domain === "logs") {
       ensureLogStates();
       renderIntegrityHistory();
+      renderIncidentLog();
     }
     if (domain === "publication") hydratePublicationData();
     renderOverview();
@@ -8041,33 +10882,41 @@
   async function activateDomainForTab(tab, subtab = "") {
     const panel = byId(`panel-${tab}`);
     if (panel) panel.setAttribute("aria-busy", "true");
-    const dependencies = {
+    let dependencies = {
       overview: [],
       progress: ["candidates", "progress"],
       actions: ["candidates", "progress", "sources", "source-checker", "automation", "integrity", "publication"],
-      candidates: ["candidates", "progress"],
-      sources: ["sources", "source-checker"],
+      planning: ["candidates", "progress"],
       integrity: ["candidates", "progress", "sources", "source-checker", "automation", "integrity", "publication"],
       automation: ["automation"],
-      logs: ["logs", "integrity"],
-      pages: ["publication"],
-      publication: ["publication", "progress"]
     }[tab] || [];
+    if (tab === "planning") {
+      dependencies = {
+        workbench: ["candidates", "progress"],
+        candidates: ["candidates", "progress"],
+        preliminary: ["candidates", "progress"],
+        sources: ["sources", "source-checker", "automation"],
+        publication: ["publication", "progress"]
+      }[subtab || "workbench"] || ["candidates", "progress"];
+    }
+    if (tab === "automation" && subtab === "logs") {
+      dependencies = ["automation", "logs", "integrity"];
+    }
     if (tab === "overview") {
       await ensureDomain("overview", { optional: true });
       renderOverview();
     } else {
       await Promise.all(dependencies.map((domain) => ensureDomain(domain)));
     }
-    if (tab === "sources" && (subtab === "watchers"
-      || document.querySelector('[data-subtab-group="sources"][aria-selected="true"]')?.dataset.subtab === "watchers")
-      && document.querySelector('[data-watcher-tab][aria-selected="true"]')?.dataset.watcherTab === "source-checker") {
+    if (tab === "planning" && subtab === "sources"
+      && byId("source-workspace-selector")?.value === "source-checker") {
       await Promise.all([
         ensureDomain("source-checker"),
         ensureDomain("automation")
       ]);
     }
     if (tab === "actions") renderActionItems();
+    if (tab === "planning" && (subtab || "workbench") === "workbench") renderPipeline();
     if (panel) panel.setAttribute("aria-busy", "false");
     announce(`${document.querySelector(`[data-tab="${tab}"]`)?.textContent?.trim() || tab} data loaded.`);
   }
@@ -8075,28 +10924,30 @@
   function initialize() {
     byId("github-synced-at").textContent = formatDate(data.github_synced_at);
     byId("watchers-count").textContent = 3;
-    byId("source-watchers-count").textContent = 3;
     byId("preliminary-count").textContent = data.records.length;
     byId("proposed-count").textContent = data.active_horizon_records.length;
-    byId("tab-candidates-count").textContent = data.active_horizon_records.length + data.records.length;
+    byId("planning-candidates-count").textContent = data.active_horizon_records.length;
+    byId("planning-preliminary-count").textContent = data.records.length;
+    byId("tab-actions-count").textContent = data.overview?.queue_counts?.human_actions ?? 0;
     byId("manual-watch-count").textContent = data.monitoring_issues.length;
     initializeStaticControls();
     initializeActionInboxControls();
     initializeWorkflowSummary();
+    prepareConsolidatedNavigation();
     initializePersonalLayout();
     initializeTabs();
-    initializeSectionTabs("candidates", "formal");
-    initializeSectionTabs("sources", "catalog");
-    initializeSectionTabs("automation", "administration");
-    initializeSectionTabs("logs", "horizon");
-    initializeSectionTabs("publication", "assignments");
+    initializeSectionTabs("planning", "workbench");
+    initializeSectionTabs("automation", "overview");
     initializeWatcherTabs();
+    initializeLogMenu();
+    initializeIncidentLog();
+    initializeAutomationRoleMenu();
     initializeScrollToTop();
     window.addEventListener("hashchange", navigateFromHash);
     renderOverview();
     refreshLayoutZones();
     refreshBotReviewSignals();
-    refreshOpenAIStatus();
+    refreshPlatformStatus();
     const domCount = document.querySelectorAll("*").length;
     document.body.dataset.initialDomCount = String(domCount);
     const budget = Number(document.body.dataset.initialDomBudget || 1400);
@@ -8107,6 +10958,7 @@
     normalizeTerm,
     termLabel,
     parseTimestamp,
+    formatDate,
     scorePresentation,
     integrityComponentValue,
     sourceTypeFamily,
@@ -8118,11 +10970,18 @@
     reconcileRunChainSnapshot,
     domainGenerationStatus,
     hasNextLink,
+    exactIntegrityProblemRecords,
     allProblemRecords,
     repositorySpecialistRoute,
     repositoryAffectedSummary,
     explicitYes,
-    applyProgressNextWorkParameters,
+    applyPipelineParameters,
+    workbenchArtifactRecord,
+    workbenchTargetForArtifact,
+    structuredArtifactIdentifiers,
+    pipelineProjectionState,
+    pipelineDefaultSort,
+    filteredPipelineItems,
     groupAutomationIncidents,
     incidentHasHumanOwner,
     candidateProjectRecords,
@@ -8134,14 +10993,33 @@
     topicProducts,
     elimImprovementRecords,
     compactActivityPresentation,
+    priorityAttentionReasons,
+    priorityAttentionItems,
+    normalizeConsoleTarget,
+    safeConsoleTarget,
+    safePipelineExternalUrl,
     pluralizeWord,
+    overviewBriefVerification,
     overviewStagePresentation,
     elimRunChainPresentation,
-    localAutomationPresentation
+    localAutomationPresentation,
+    overviewBriefFactStates,
+    securityRemediationProjection,
+    effectiveAutomationRoleStatusProjection,
+    automationOutcomePresentation,
+    platformProviderObservation,
+    platformCellProjection,
+    platformStatusPresentation,
+    relevantPlatformIncidents,
+    operationalIncidentProjection,
+    unresolvedOperationalIncidents,
+    humanOwnsIncident,
+    incidentStatusPresentation
   });
   if (window.__ARRP_CONSOLE_TEST_MODE__) return;
   Promise.all([
     loadPrivateGitHubSecurity(),
+    loadPrivateOperations(),
     loadLocalAutomationStatus()
   ]).then(initialize);
 })();

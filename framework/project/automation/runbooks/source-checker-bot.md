@@ -2,6 +2,7 @@
 title: "Source Checker Bot Runbook"
 agent_id: source-checker-bot
 display_name: Source Checker Bot
+console_purpose: "Checks catalogued source URLs for availability and identity changes."
 agent_type: deterministic-bot
 status: report-only-enabled-local-stage
 trigger: local-chain-when-due
@@ -9,7 +10,7 @@ schedule: "Due every 168 hours within the 02:00 America/New_York local chain; no
 runtime_id: scripts/check_source_urls.py
 execution_environment: local-transaction-worktree
 runtime_config: .github/source-checker-bot.json
-log_path: framework/records/automation/agent-audit-log.md
+log_path: owner-local:records/automation/agent-audit-log.md
 current_report: framework/records/status/source-checker-report.md
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."

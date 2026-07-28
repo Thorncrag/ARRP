@@ -174,8 +174,7 @@ After each autonomous unit, validate:
 6. parsing and inclusion of every credited source under
    [ARRP Source Catalog and Adjudication](source-adjudication.md);
 7. whitespace and formatting;
-8. the required commit hash in
-   `framework/records/automation/agent-audit-log.md`;
+8. the required commit hash in the owner-local Agent Audit Log;
 9. the Review Ready local progress stage and generated readback when
    goal-relevant fields changed; and
 10. absence of unintended changed files, including generated exports unless

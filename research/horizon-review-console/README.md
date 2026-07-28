@@ -6,130 +6,208 @@ print_exclusion_reason: "Internal workflow or tool documentation."
 
 # ARRP Project Console
 
-This non-authoritative interface centralizes nine coordinated project areas:
+The Project Console is a read-only, nonauthoritative management and
+verification interface for ARRP. Its complete product and information-
+architecture contract is
+[`framework/project/interfaces/project-console.md`](../../framework/project/interfaces/project-console.md).
+This README is limited to implementation and operator guidance; it does not
+independently define screen meaning, authority, status, or data ownership.
 
-- **Overview** is the compact daily operations briefing, not a second Progress dashboard. **Manager focus** gathers administrative, technical, and release exceptions without duplicating the substantive issue-development worklist. Every worker portlet distinguishes the current-chain disposition from the latest successful execution; a stage that was not due is never reported as a current-chain success merely because an older result remains usable. Recent material activity includes both human and automated actors, outcome, affected scope, time, owning link, and any recorded manager-action effect; consecutive clean or no-op rows are collapsed without deleting retained history. Clean worker roles are likewise collapsed while exceptional or materially productive results remain explicit. The page also reports confirmed human actions, all Integrity findings, monitored issues, repository reviews, public intake, declared projection state, official OpenAI GPT/Codex/API service health, the latest private host-attested Codex usage posture, and an accessible line graph of Elim consumption by run. Producer-declared availability, completeness, generation, and revision fields govern data-state labels; the browser does not invent a universal age threshold. The complete queue directory presents every queue as its own portlet; a zero-count queue says **Empty**, while a failed or absent feed says **Unavailable** rather than inventing a zero. Alerts and portlets route to their complete owning view. Repository proposals route to the dedicated Action Items listing, which matches the live pull-request head to a checked-in Elim or interactive recommendation; GitHub is retained as secondary evidence.
+## Current interface map
 
-- **Progress** is the sole human-facing Review Ready planning view. Portfolio-architecture history explains the reason-coded `204 → 198 → 77 → 81` separately counted proposal changes independently from earned Review Ready movement. Forecast language always states that it applies to the current scope. Summary metrics are followed by the compact six-stage development-level board and a transparent **Next work** projection grouped from authoritative workflow, blocker, audit, rebaseline, maturity, and priority fields. That worklist can be filtered by cohort, Status, priority, Development level, release-blocker state, area or workstream, and owner, including through exact deep links from other Console views. The grouping is deterministic and inspectable; it does not claim to automate project-manager judgment. Schedule, trajectory, compact area coverage, workflow holds, and issue-level monitoring remain available as supporting sections. Monitoring records separately expose trigger, method, cadence, last checked, next due, change since the last pass, material relevance, coverage sources, coverage gaps, latest posture, and owner when supplied; absent values remain visibly unavailable. Formal candidates can be filtered independently by whether monitoring is required and whether a next trigger is recorded. The board treats numeric `0` as a valid score, `null` as unavailable, and Boolean or out-of-range values as Integrity defects. GitHub Project `Development level` remains the maturity authority and `Status` remains the workflow authority. The projected Status vocabulary is `Research`, `Development`, `Human decision needed`, `Audit needed`, `Audit in progress`, `External review`, `Publication approval`, `Deferred`, and `Blocked`; these describe repeatable workflow or hold categories rather than development stages or whether someone is actively working at that moment. The checked-in bundle is the current Console projection from the latest local transaction.
+The six primary screens are:
 
-- **Action Items**, immediately after Progress, is a nonauthoritative routing index split into **Assigned to you** and **Other assigned work to oversee**. Its cards route first to the owning specialist Console view; that view and its canonical record own evidence and disposition. Only proposal or candidate decisions, preliminary review, unresolved source routing, typed human-owned Integrity findings, grouped human recovery or credential actions, and exact-head repository recommendations whose recorded owner is Human enter the navigation count. Elim-, bot-, automation-, and other-owner obligations remain visible in the secondary section without transferring ownership or inflating the human inbox. Authenticated GitHub security alerts are supplied through a private, Git-ignored local snapshot: credential-owner actions enter the primary inbox, Elim-owned code or dependency remediation appears in the oversight section, GitHub remains authoritative, and snapshot unavailability never becomes a false zero. No alert detail enters the tracked Console bundle. Routine issue monitoring is excluded unless it produces a typed decision or exception requiring attention. Repository cards distinguish pull-request count from the complete structured enumeration of affected project records. Locally staged print-level changes remain exclusively in Publication.
+1. **Overview** — dated current project brief, seven-stage automation chain,
+   five operational indicators, work-only queue counters, and recent material
+   artifact changes.
+2. **Action Items** — deterministic Priority attention followed by the
+   complete unresolved human-owned decision and intervention inbox.
+3. **Progress** — current Review Ready measurement, development-level board,
+   trajectory, compact hold counts, and routine monitoring.
+4. **Planning** — Workbench, Preliminary Candidates, Candidates, Sources, and
+   Publication, without an aggregate main-tab count or new planning authority.
+5. **Integrity** — the exact current Project Integrity report and findings.
+6. **Operations** — Overview, Agents & Bots, Repository gates, Security,
+   Capacity, Platform, Data, and the compact horizontal-menu Logs workspace.
 
-- **Candidates** contains formal open `HOR-###` decision dossiers and a separate **Preliminary candidates** view for synthesized possible institutional defects that do not yet have a formal record.
-- **Sources** contains the cited bibliography, source-assurance summaries and filters, the deliberately small unresolved-routing queue, and **Source watchers and bots** for Court Cases, Presidential Directives, and URL source checks. The broad source families are Government, Judicial, Legislative, Scholarly, News, Advocacy, Tracker, and Other; the raw canonical type remains available as an advanced exact-type filter. Review state, reliability or identity class, monitoring state, and URL health remain separately filterable. Source Checker results are paginated at 50 rows and reconcile expected versus actual record coverage before claiming completeness. Issue-level monitoring is a project workflow concern and therefore appears only in Progress.
-- **Integrity** preserves the complete inspectable exception inventory, not just matters requiring human attention. Four component summaries keep Project consistency, source health, candidate completeness, and operational readiness distinct, each with state, checked time, revision, source, and owner. The view combines deterministic Integrity findings, actionable source-check exceptions, candidate-dossier completeness gaps, Project tracking and lifecycle warnings, publication metadata exceptions, invalid scores, and operational-readiness conditions. Human ownership is consumed only from typed responsibility fields; wording in a finding message never silently changes its owner. Source exceptions route first to their internal catalog context. The four current run-status portals live here beside the findings; complete historical runs remain under Logs. Problems are grouped first by the human, agent, bot, or observation state accountable for the next step, and every owner group shows its complete count. Filters select an accountable owner, severity, or state; only the typed human subset enters Action Items.
-- **Agents & Bots** opens to **Administration**, an overview of every registered automation role plus current run-chain health, declared queue counts and ownership, Elim's launch decision, Review Epoch, usage posture, per-stage latest-success and current-schedule details, and recovery state. Missing queue counts display **Unavailable**, not zero. Active incidents group repeated occurrences by a composite of root cause, failed prerequisite, and relevant checkout/runtime state while retaining current-chain and superseded occurrence history. Duplicate projections of one event across current failures and host action items are reconciled by chain, stage, timestamp, and normalized detail before occurrence totals are calculated; retries with different timestamps remain distinct. **Gap stewardship** exposes discovery revision, affected work, chronology, reasoning, actual owner, authority, repair or question, prohibition, next trigger, and validation proof. A specialist **Project governance review and discovery** status reports due/current posture, selection reason, domains, finding movement, documentation, validation, outcome, and next review. A failed chain with zero emitted stage rows remains a failed chain rather than being described as an absent baseline. Administration is read-only; manual runs use the installed local bootstrap and no localhost control service is part of the Console. The separate **Agents & Bots** detail view is generated from `framework/project/automation/runbooks/`; each authoritative runbook section is inserted only when first opened so closed sections do not inflate the DOM. The linked runbook remains controlling.
-- **Logs** provides searchable, sortable, groupable, paginated views labeled **Horizon**, **Elim**, **Bots**, **Sources**, **Integrity**, and **Changes**. Elim retains its dedicated run log; **Bots** presents the canonical bot and historical autonomous-action log; **Sources** presents material watcher-change history; and **Integrity** contains bounded run history while current run-status portals and unresolved findings remain in Integrity. The latest matching record is presented in a dedicated summary, while earlier records appear in 50-record pages as compact, full-width lines that expand on demand; canonical Markdown and generated feeds retain complete history and remain authoritative.
-- **Publication** contains one complete publication-disposition inventory, a separate non-proposal product-and-release delivery workbench, the complete typed release-blocker union across proposals, formal candidates, and delivery work, stable topic products linking crosswalks to published pages, edition-level composition and preflight analysis, release-readiness checks, and a section-by-section document builder with a generated table-of-contents preview. Release blockers are separately filterable by Status, priority, and owner and never change the Review Ready denominator. Delivery items likewise never enter the proposal/candidate portfolio. Topic-product identity is consumed only from the typed `publication.topic_products` projection, including an explicit empty array; a topic-page path alone cannot invent a product or crosswalk relationship. “Assembly structurally valid” is deliberately narrower than “Release ready”: audits, qualified review, rights and attribution, validation, export lineage, and the human go/no-go decision remain separate checks. The complete union of length, table-width, and heading-structure risks is shown independently from the 30-largest-pages planning view. Conflicting print metadata has explicit reversible resolution controls. The builder reports user operations separately from affected records and exports both counts; reloading clears those drafts, while page front matter and `framework/project/publication/print-assembly.json` remain authoritative.
+Logs defaults to Operational Incidents, followed by the retained specialist
+histories in one bounded newest-first master/detail surface. Incident view
+defaults to unresolved and retains complete history; the newest matching record
+is selected automatically. Source and action workflows use the same
+compact-list/adjacent-preview model where individual inspection is required.
+Publication concerns remain in Planning > Publication. Old
+Candidates, Sources, Publication, Planning > Next Work, Progress > Next Work,
+and Logs routes redirect semantically to their consolidated destinations.
 
-Every view is an assembled projection, not a new narrative or tracking authority. GitHub Issues and the ARRP Project remain authoritative for substantive development level and workflow state; the Horizon Scan Log remains authoritative for intake and disposition history; source inventories remain authoritative for retained external sources; page front matter controls edition inclusion or documented exclusion from print; and linked research files remain the project-authored analysis. Correct information at its owning record and rebuild the Console rather than editing generated JavaScript by hand.
+Planning > Workbench is the shared contextual action surface, with Pipeline as
+its default typed, read-only work-sequencing category. Active
+Pipeline orders preliminary candidates, formal candidates, and below-ready
+proposals deterministically; its alternate mode contains exact Blocked and
+Deferred records with audit-derived hold provenance. The browser does not
+invent membership, readiness gaps, hold facts, or dates from narrative text.
 
-## Data loading and performance budgets
+Design mode keeps its exit control in view while scrolling and lets compatible
+Overview portlets move among the main flow, Operational indicators, and the
+lower row. Navigation status conditions use fixed-size accessible colored dots
+instead of variable-width status text. A number appears only for an actionable
+queue owned by that destination; inventory, history, and role totals do not
+become navigation badges. Exact Blocked or Deferred workflow Status alone does
+not trigger the red blocker dot.
 
-Initial loading is Overview-first and works from `file://`. `index.html` synchronously loads only the bounded compatibility catalog and `app.js`. The application then attempts to inject the compact `data/overview.js` projection. Opening a primary screen injects only that screen's domain files and necessary dependencies; source and directive catalog chunks, full candidate dossiers, logs, and publication inventory are not transferred or rendered merely to display Overview. The complete Source Checker feed is a separate bounded domain loaded only with Sources and decision-support screens that require its exact exception rows; its full result table is rendered only when that watcher is selected. Deep links activate the same loader before their owning screen renders.
+The five Current Project Brief dates each carry their own accessible health
+dot. Green is healthy or ready, yellow is an exact intentional Pause, red is a
+confirmed failure or applicable blocker, and gray means the determination
+cannot be made reliably. The latest scheduled occurrence controls both its
+date dot and the general Current/Paused/Failed/Unknown badge; the Console never
+infers Paused merely because no run appeared.
 
-If a checkout predates `data/overview.js`, the loader keeps the bounded `catalog-data.js` summary usable and marks unavailable compact fields instead of synchronously restoring every legacy domain. This is a compatibility fallback, not a healthy steady state; rebuild the Console to restore the atomic Overview projection. Each loaded feed may declare `availability`, `completeness`, expected and actual counts, generation identity, revision, source hashes, pagination, and projection errors. The atomic generation manifest is also published at `data/generation-manifest.json`; every lazily loaded domain must declare the same generation and match its manifest hash and byte metadata before hydration. The interface validates live Source Checker, Progress, Integrity, and run-chain contracts and refuses malformed, completeness-regressing, incompatible, older, or authority-superseded feeds while preserving the valid checked-in projection.
+The Console reports automation state but does not directly control the runner.
+Operations Overview combines owner-only Run/Paused state, one compact
+seven-stage run strip, seven cadence-aware persistent-role cards, and current
+exceptions. Agents & Bots shows one role at a time through a compact horizontal
+menu and exposes concise purpose, execution, recovery, and
+browser-local non-secret configuration controls. Edited configuration is
+exported for review; it does not silently replace repository or installed host
+state. The
+ordinary user-facing vocabulary is `Run / Paused`; no user-facing `Disabled`
+state is defined. Any future control requires a separate authority and
+host-state implementation review.
 
-The measurable budgets are:
+Repository gates are produced once for both authenticated Console refresh and
+coordinator enforcement from the append-only typed gate declarations and a
+complete paginated live pull-request readback. Current future-run gates do not
+rewrite the historical latest attempt. Security remediation is a separate
+private authenticated Operations ledger and Action Items cross-index; it is
+not folded into the exact Project Integrity report.
 
-- no more than **512 KiB** of synchronous JavaScript in `index.html`, counting `catalog-data.js` and `app.js` but excluding the asynchronously injected Overview summary;
-- no more than **1,400 initial DOM elements** after the compact Overview shell renders;
-- at most **50 Source Checker rows** in the DOM at one time;
-- at most **50 court-watcher groups, publication-assignment rows, or earlier log records** in the DOM at one time per owning view;
-- no candidate, source-catalog, directive-catalog, log, page-inventory, or publication-analysis rows before its owning screen is activated.
+Platform status uses one shared provider-neutral projection on Overview and
+Operations. Its five compact cells cover GPTs, Codex, API platform, the
+registered Vercel dependencies for ARRP intake, and the exact Cloudflare
+Turnstile component. Each official provider refresh fails independently;
+missing registered components remain gray and retained observations are dated
+as last-valid rather than presented as current. Provider advisories do not by
+themselves establish an ARRP outage or Operational Incident.
 
-`index.html` records the first two thresholds in `data-initial-script-budget-kib` and `data-initial-dom-budget`; `app.js` records the observed initial DOM count as `data-initial-dom-count` and warns in the developer console on an overrun. The executable frontend test checks the synchronous script list and byte budget directly from the built files.
+The checked-in Console data is a minimized public operational summary. The
+builder gates the complete catalog and every domain file as one exact
+generation before replacement. Full runtime configuration and raw operational
+logs are written afterward to `data/private-operations.js`; authenticated
+GitHub security state remains in `data/private-github-security.js`. Both files
+are Git-ignored, secret-scanned before persistence, loaded only by the local
+Console origin, and excluded from the public generation manifest. The public
+bundle therefore remains useful without using browser hiding as a privacy
+boundary.
 
-## Personal layout
+Operational Incidents has one immutable structured event authority and one
+deterministic current projection. Operations, Logs, and Overview repeat the
+same deduplicated unresolved count as navigation cues. Every unresolved
+incident enters Action Items, but only incidents with explicit human ownership
+enter My items or the Human Action Items count; non-human and unassigned
+incidents remain under Oversight. Specialist links use producer-supplied typed
+incident IDs. Unavailable or incomplete incident data renders unknown, never
+zero or healthy.
 
-**Arrange layout** turns on direct reordering for main tabs, subtabs, major view sections, Overview sections and their principal cards and queue portlets, and agent/bot cards. Drag a highlighted item, use its arrow controls, or press Alt plus an arrow key while it is focused. **Done arranging** exits the mode. The × on the introductory workspace banner dismisses it across later sessions; **Show intro** in the header restores it. **Reset this view** restores the active screen's sections while preserving other preferences; **Reset all** restores every default, including the introductory banner.
+## Authority
 
-The selected order and each collapsible container's explicit default are device-local interface preferences stored in the browser and persist across Console reloads and later sessions. Every collapsible has a small **Default: open** or **Default: collapsed** button; activating it selects the saved loading state and immediately applies that state. Simply opening or closing a container for temporary inspection does not overwrite its selected default. Dense candidate dossiers, data tables, problem groups, individual runbook sections, and Progress supporting sections initially default to collapsed; queue portlets and the development board remain visible. These preferences never change GitHub, repository metadata, authoritative ordering, publication assembly, or another user's Console. Newly added sections remain visible even when an older saved order exists.
+Every view is an assembled projection:
 
-The **Action Inbox** uses a uniform email-style list rather than separately sized queue cards. It opens on **My items**, provides **Oversight** and **All open** filters without transferring ownership, and shows the selected item's complete routing brief in an adjacent preview. The preview may be placed on the right or below the list; that device-local preference persists, while narrow screens place the panes vertically. Search and arrow-key movement operate within the current filtered list. The inbox remains a nonauthoritative projection: every preview routes to the specialist Console view or canonical record that owns status and disposition.
+- GitHub Issues and the ARRP Project own lifecycle and workflow fields.
+- Candidate workflows and the Horizon Scan Log own intake and disposition.
+- Source inventories own bibliographic records.
+- Project Integrity output owns Integrity findings.
+- Automation runbooks and typed run records own execution meaning.
+- The Operational Incident event record owns incident identity, occurrences,
+  lifecycle, recovery evidence, and closure.
+- Canonical Markdown logs own retained histories.
+- Page front matter and print assembly configuration own publication.
+- The Console Development Log owns the human-readable index of material
+  Console product changes; Git owns exact diffs.
 
-The structural rule is: a **compact summary list**, **group of groups**, or **index of expandable records** normally remains visible when collapsing it would hide the available headings. Each **group or record containing a potentially long list or detailed body** is collapsible and initially collapsed, as is a large standalone dataset. An explicitly saved default may override that initial state. This makes the available list scannable at a glance without forcing the underlying data onto the page.
+Correct a discrepancy at its owning record or producer and rebuild. Do not edit
+generated JavaScript by hand.
 
-Every tabular view uses sortable column-header buttons. The active column exposes ascending or descending order to assistive technology and shows a direction indicator; each table retains a task-appropriate default order until another header is selected. Presidential directives therefore open with the most recent signed or published date first.
+## Data loading
 
-Neutral count badges report each genuine queue or inventory's complete size. The broad **Overview**, **Progress**, and **Publication** navigation tabs do not carry counts because no single number accurately describes those mixed-purpose workspaces. Gold `+N` badges appear only for preliminary intake or genuinely new or changed bot records. Whenever a `+N` badge represents only part of a larger list, the complete owning view must identify those records, place them first, and provide an updated-only filter; a parent badge may instead route to a child view that supplies those features. Queues in which every record awaits review, and findings views already composed entirely of the counted records, do not need a redundant filter. A collapsed dense-data container keeps its current filtered count visible in its summary so the user can understand the result set without opening it. The Console checks the public repository's complete open-pull-request queue when it loads, and separately classifies watcher update PRs, so the Action Items count and contents remain reconcilable without waiting for a full data rebuild; the checked-in data remains available if that live request fails.
+The interface is Overview-first and works from `file://`. The shell loads a
+bounded compatibility catalog and application script, then lazily injects
+`data/overview.js`. Opening a specialist screen loads only its required domain
+files.
 
-GitHub issue bodies are rendered during the rebuild through the console's dependency-free, allowlisted Markdown renderer. Source HTML is escaped, unsafe link protocols are discarded, and the generated console retains the original Markdown as a plain-text fallback. The browser therefore makes no live Markdown-service request and the console continues to work from `file://`.
+All generated domains declare a shared generation identity and are validated
+against `data/generation-manifest.json`. Required feeds fail closed on
+incompatible structure, mixed generations, hash mismatch, or declared
+incompleteness. Unavailable values remain unavailable rather than becoming
+zero.
 
-One canonical source row may support more than one proposed candidate by naming multiple stable identifiers in `Associated Record IDs`. The builder displays that same row in every applicable dossier; it does not duplicate the row in either source inventory.
+The normal initial budgets are:
 
-The cited and pending source views are streamlined catalog projections, not additional manually maintained ledgers. Every console view that presents source records sorts `Monitoring = Yes` entries first so changing records remain conspicuous; this presentation order does not rewrite either catalog. A pending row is incomplete unless it identifies the competing destinations, the reason the project cannot yet choose among them, and the next routing decision. Once ownership is clear, cite the source in the proposal's or candidate's substantive or internal source-development record and move the stable row into `sources.csv`, even if `Reviewed?` remains `No` or the source is still monitored. Irrelevant, political-only, redundant, and no-additional-value material receives a documented disposition and leaves temporary intake.
+- no more than 520 KiB of synchronous JavaScript;
+- no more than 1,500 initial DOM elements;
+- at most 50 Source Checker rows rendered at once;
+- no specialist catalog, dossier, log, or publication rows before activation.
 
-The **Source watchers and bots** view does not replace GitHub issue-level monitoring or source-level `Monitoring` designations. GitHub supplies the proposal and formal-candidate issues carrying `needs: monitoring`; this designation is independent of Status because monitoring can continue while the issue's ordinary workflow proceeds. Progress preserves each complete issue-wide review obligation, including active searches, tracker exclusions, new-case discovery, and unsupported sources. The two source catalogs identify changing sources, while the Court Cases view identifies cataloged records covered by the daily Just Security comparison and whether an accepted per-source baseline exists. Routine monitoring is reserved for LLM-assisted review rather than the human Action Items inbox. Material watcher changes appear as owner-assigned pull requests and stable-coded entries in the Source Monitor Log; the console itself remains non-mutating.
+## Rebuilding
 
-The Presidential Directives view is generated from `inventory/presidential-directives.csv`, the durable discovery-and-screening registry covering the first Trump administration, the Biden administration, and the second Trump administration. The baseline corpus has already been screened: `Routed` identifies directives cross-referenced to retained ARRP source-development records, while `Screened — no separate action` means the baseline pass selected no distinct project action or retained route. Registry inclusion is not a project finding or source citation. The scheduled watcher may discover, normalize, deduplicate, and detect changes in official instruments. Material deterministic metadata changes are proposed through an owner-assigned pull request and recorded in the Source Monitor Log; later LLM-assisted screening decides project relevance, routing, preliminary-candidate creation, deferral, or no project action.
-
-Open [`index.html`](index.html) in the Codex in-app browser. The separate [public interaction service](https://gab.durablerepublic.org/) remains the submission surface. The Console contains no promote, defer, reject, direct agent-invocation, runner-control, or GitHub-mutation controls. Its publication controls only produce a local change-list download. Conduct every candidate disposition and canonical metadata edit in Codex under the applicable workflow.
-
-The local-first runner may write the ignored optional feed
-`data/local-automation-status.js`. The Console reads that file directly, so no
-HTTP service is required. A missing feed is rendered as **Unavailable** and
-never as healthy or successful. The feed can show an active start, a preserved
-failure, a review-required stop, or a completed local transaction; it is an
-independent status projection, not repository authority.
-
-## Publication-disposition change export
-
-Use the × on an existing assignment to stage its removal, select **Add print level…** to stage an additional assignment, or choose **Exclude from print…** and a reason. The summary cards, filters, and inventory immediately reflect the proposed state. **Undo page changes** restores one page; **Reset** clears the full draft. **Export changes** downloads this schema:
-
-```json
-{
-  "schema_version": 2,
-  "purpose": "ARRP publication-disposition metadata changes",
-  "exported_at": "2026-07-21T00:00:00.000Z",
-  "changes": [
-    {
-      "path": "areas/AREA/ISSUE.md",
-      "title": "Page title",
-      "add": ["executive-summary"],
-      "remove": ["executive-summary"],
-      "print_status": "excluded",
-      "print_exclusion_reason": "Internal workflow or tool documentation."
-    }
-  ]
-}
-```
-
-Give the exported file to Codex. Before applying it, Codex must confirm that every path, print-level value, disposition, and exclusion reason is valid, preserve unrelated front matter, rebuild the Project Console, and run the ordinary consistency checks. Publication drafts are not saved in local storage and the browser does not modify the repository. Personal Console ordering and disclosure preferences are the sole local-storage exceptions.
-
-Assembly-order exports follow the same rule: they are complete proposed edition structures, not direct edits. Codex validates the page set and section routing before updating `framework/project/publication/print-assembly.json`.
-
-## Integrity feed
-
-The `Project Integrity Bot` is the final deterministic stage of every local transaction. Its checked-in projection retains the current detailed report and bounded run summaries. Integrity displays the current run portals and exception set, while Logs displays the bounded run history. The Project Integrity Bot runbook owns the plain-language check inventory, and the generated integrity report must project that same inventory rather than maintain a second list. Findings do not trigger automatic repairs; execution failures still fail the transaction.
-
-## Candidate lifecycle
-
-1. Source screening normalizes and clusters records describing the same episode or institutional weakness.
-2. Evidence fitting an existing issue is routed there; external predicates become GitHub monitors attached to their owning issue or candidate.
-3. A plausible distinct weakness with no existing owner automatically creates or updates one preliminary candidate, with its supporting sources attached.
-4. Human review in Codex promotes, merges, defers, or rejects the candidate.
-5. Promotion creates the formal `HOR-###` record and removes the preliminary row; every other final disposition likewise removes the resolved preliminary row.
-
-## Refreshing the data
-
-Rebuild all candidate and source views plus the public-input lookup with:
+Rebuild the complete projection:
 
 ```sh
 python3 scripts/build_horizon_review_console.py
 ```
 
-The ordinary build preserves the latest checked-in GitHub snapshot. Refresh formal proposed-candidate state in the approved host context where the Keychain-backed GitHub CLI credential is available:
+Refresh the authenticated GitHub snapshot only in the approved host context:
 
 ```sh
 python3 scripts/build_horizon_review_console.py --refresh-github
 ```
 
-For a deliberate local preview of a newly built progress feed before it is committed, set `ARRP_PROGRESS_SNAPSHOT` to that `progress.json` path for the console rebuild. The override is opt-in so an old local file cannot silently supersede the checked-in projection in later builds.
-
-The generated `catalog-data.js` is a bounded compatibility snapshot containing only the reader-safe candidate and monitoring fields used by public-site preparation. `data/overview.js` is the compact initial Console projection and bundle manifest. Full Console data is normalized into pretty-printed, lazily injected domain files under `data/`: candidates, sources and watchers, progress, integrity, automation and run-chain state, logs, and publication. Source and directive catalogs remain deterministic chunks so direct `file://` loading does not require a server or module loader. The enrichment is rebuilt from page metadata, `framework/project/publication/print-assembly.json`, `framework/project/automation/runbooks/`, current local transaction outputs, the canonical records, both source inventories, the presidential-directives registry, the GitHub issue registry, watcher configuration, and identifier-linked research. The integrity and run-chain histories remain direct projections of bounded local outputs rather than new canonical Markdown logs. Canonical logs and source records remain in their owning files; directive identity and review history remains in its registry; and issue-level monitoring workflow remains on the labeled parent issues and in the Project Monitoring view.
-
-For console-only presentation work that should not rewrite the separately deployed public-input lookup, use:
+For Console-only presentation changes that must not rewrite the separately
+deployed public-input lookup:
 
 ```sh
 python3 scripts/build_horizon_review_console.py --console-only
 ```
+
+The production transaction performs its final Project Integrity validation and
+feed generation after Elim, then builds the Console from that same final
+state. Prior bounded Integrity history is retained from the trusted generated
+local feed.
+
+## Local-only status and preferences
+
+The runner may write ignored `data/local-automation-status.js`. Its absence is
+shown as `Unavailable`, never as healthy. It is an independent status
+projection, not repository authority.
+
+Grid width and ordering, disclosure defaults, inbox pane placement, and intro
+visibility are device-local browser preferences. Design mode offers safe full,
+half, third, quarter, and compact widths where a section or card can resize
+without breaking its interaction model. Responsive safeguards may widen a
+personal choice on smaller screens. These preferences never alter canonical
+records or another user's Console; adopting a settled layout as the project or
+future public default requires a separate reviewed repository update.
+
+## Product change traceability
+
+Material Console changes receive a stable `CONSOLE-YYYY-NNN` ID and are
+recorded in
+[`console-development-log.md`](../../framework/records/automation/console-development-log.md).
+Semantic implementation commits use:
+
+```text
+Console-Change-ID: CONSOLE-YYYY-NNN
+```
+
+The log records full implementation commits, accepted/proposed state,
+validation, and rollback baseline. Routine generated data refreshes and
+ordinary operational status changes are excluded. Its source uses structured
+heading entries; same-day work in one change area is ordinarily consolidated
+unless it has a distinct review or rollback boundary.
+
+## Opening and validation
+
+Open [`index.html`](index.html) directly or through a temporary local static
+server for browser verification. Before accepting a material Console change,
+run the focused frontend/data-contract checks, deterministic Console build,
+full repository suite, consistency audit, diff validation, route checks,
+keyboard/focus checks, and desktop/mobile visual review required by the
+governing product contract.

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "inventory_id": "DISCLOSURE-INVENTORY-2026-07-28",
+  "checked_at": "2026-07-28",
+  "tracked_path_count": 556,
+  "unclassified_path_count": 0,
+  "prohibited_secret_finding_count": 0,
+  "category_counts": {
+    "public_by_design": 355,
+    "public_operational_summary": 83,
+    "restricted_operational": 117,
+    "private": 1,
+    "prohibited_secret": 0
+  },
+  "detail_authority": "owner-local",
+  "note": "This minimized public summary does not include the complete path inventory or restricted matched content."
+}

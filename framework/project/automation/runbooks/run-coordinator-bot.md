@@ -2,6 +2,7 @@
 title: "Run Coordinator Bot Runbook"
 agent_id: run-coordinator-bot
 display_name: Run Coordinator Bot
+console_purpose: "Orchestrates the local automation chain and its reviewed publication transaction."
 agent_type: deterministic-bot
 status: enabled
 trigger: scheduled-local-chain-or-owner-manual
@@ -9,7 +10,7 @@ schedule: "02:00 America/New_York through com.thorncrag.arrp-nightly, with RunAt
 runtime_id: scripts/arrp_nightly.py
 execution_environment: reviewed-local-runtime-and-transaction-worktree
 runtime_config: .github/run-coordinator-bot.json
-log_path: framework/records/automation/agent-audit-log.md
+log_path: owner-local:records/automation/agent-audit-log.md
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
 ---
@@ -55,8 +56,9 @@ artifacts are retired implementation history and are not runtime inputs.
 The coordinator reads the canonical repository and remote identity, fetched
 `origin/main`, current handoff, reviewed runtime manifest, stage
 configurations, prior `last-success.json`, current canonical records,
-deterministic Project snapshot, context registry, strict Elim result schema,
-and the exact transaction worktree delta.
+deterministic Project snapshot, governed append-only repository-gate
+declarations, a complete authenticated open-pull-request inventory, context
+registry, strict Elim result schema, and the exact transaction worktree delta.
 
 It writes owner-only atomic status and cadence state, one bounded run
 directory, typed stage outputs, queue/route/context artifacts, Elim JSONL and
@@ -67,14 +69,38 @@ exact pull request, perform a registered semantic action, or read back Pages
 and synchronization state. Retired workflow dispatch, data-branch
 publication, bot branches, and persistent control services have no authority.
 
+The reviewed runtime binds context generation to the exact matching
+`worktrees/<run-id>` and `runs/<run-id>` pair beneath the fixed owner-local
+state root. It does not pass a configurable production root through the
+environment. Repository, run, state, and fixture paths are distinct typed
+authorities; a mismatch, symlink, escape, unsafe owner-local mode, or fixture
+overlap fails before context or disclosure-sensitive state is read.
+
 ## Ordered work
 
 After lock, repository preflight, fetch, inventory, checkpoint, and transaction
-worktree creation, the coordinator runs the due deterministic stages in the
-order declared in `.github/run-coordinator-bot.json`. `not_due` requires a
-present, valid, hashable, in-cadence prior typed output; otherwise the stage is
-due. Blocking failure stops dependent work. A degraded stage may permit
-independent work, but becomes blocking when the selected unit depends on it.
+worktree creation, the coordinator uses the shared repository-gates producer
+to reconcile the complete live pull-request inventory with the governed
+declaration log. The current snapshot is schema-validated and hash-bound to the
+run manifest before any dependent stage begins. An incomplete inventory,
+invalid declaration, changed declared head, unavailable required check or
+review state, or other inability to prove completeness fails closed. A
+retained last-good snapshot may explain the prior trustworthy state, but it
+cannot supply a current zero or authorize execution.
+
+An active gate applies only to its declared run scope and affected stages.
+Applicable stages are stopped or skipped, and the exact gate ID is recorded in
+the attempt outcome. A gate affects the latest-attempt blocker count only when
+the coordinator actually applied it to that attempt; other active gates remain
+forward-looking repository gates. The historical run snapshot is immutable
+after the attempt. Later Console refreshes publish a separate current
+repository-gates snapshot and do not rewrite that historical outcome.
+
+The coordinator then runs the due deterministic stages in the order declared
+in `.github/run-coordinator-bot.json`. `not_due` requires a present, valid,
+hashable, in-cadence prior typed output; otherwise the stage is due. Blocking
+failure stops dependent work. A degraded stage may permit independent work,
+but becomes blocking when the selected unit depends on it.
 
 The coordinator then builds the integrity feed, current queue, selected
 context route, and hash-bound context packet. At most one work unit is
@@ -82,19 +108,23 @@ selected. If no ordinary unit exists, one bounded governance-discovery unit
 may be selected when due.
 
 Before Elim, it performs the official usage-reserve check once. A launch uses
-one fresh ephemeral Codex process with per-run SQLite/session storage. The
-client reads its exact owner-only OpenAI authentication home under
-`--ignore-user-config`; model tools run under the narrower `arrp_elim`
-permission profile, which denies that Codex home, the Keychain directory, and
-`/usr/bin/security`, disables network and login shells, and inherits no shell
-environment beyond a fixed system `PATH`. No GitHub, Project, SSH, API-key
-environment credential, configuration, rules, memories, hooks, plugins, MCP
-servers, subagents, web search, or shell network reaches Elim. The coordinator
-preserves JSONL before returning any process failure or timeout, terminates the
-timed-out process group, validates the strict result, and verifies the exact
-Elim-created path delta. Any `github_action_requests` entry must match the
+one fresh ephemeral Codex process with bounded per-run state. Reviewed
+owner-local controls isolate authentication, execution, tools, network, and
+host capabilities; Elim receives no GitHub credential or hosted mutation
+authority. The coordinator preserves result evidence before returning a
+process failure or timeout, terminates the timed-out process group, validates
+the strict result, and verifies the exact Elim-created path delta. Any
+`github_action_requests` entry must match the
 registered broker schema and remains subject to deterministic authorization,
 prior-state verification, execution, and exact readback.
+
+The strict Elim result also carries a required bounded `incident_reports`
+array. Elim reports are advisory; the coordinator independently validates,
+sanitizes, deduplicates, and appends accepted occurrences to the immutable
+Operational Incident event record. Typed failed or degraded run stages are
+recorded independently from the finalized run chain, preserving their exact
+run and role identities. A repeated typed failure joins an existing unresolved
+incident; it does not erase or replace the earlier occurrence.
 
 ## Stop and preservation rules
 
@@ -104,7 +134,12 @@ exposure, Git metadata mutation, protected Elim writes, strict-result failure,
 timeout, or post-lock canonical change fails closed. Preserve the branch,
 worktree, run directory, completed nonconflicting outputs, exact path-only
 evidence, and next action. Release all descriptors and the operating-system
-lock in `finally`. Never rerun Elim automatically.
+lock in `finally`. Never rerun Elim automatically. Elim timeout, crash, or
+invalid-result evidence is written in sanitized form to the owner-only
+failure-safe incident spool before the transaction returns. A later valid
+transaction reconciles that spool into the canonical incident record, so the
+signal does not depend on Elim producing a report or on generated-view
+completion.
 
 P4 and P5 proved the exact App-authored ordinary/protected PR,
 workflow-file exception, reversible Project-field, credential-failure, and

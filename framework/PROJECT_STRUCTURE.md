@@ -79,7 +79,7 @@ does not make them governing methodology or enlarge any actor's authority.
 | Path | Single purpose |
 | --- | --- |
 | [`framework/project/profile/`](project/profile/) | ARRP-specific scope, public-actor, scoring, and other adopted profile decisions. |
-| [`framework/project/github/`](project/github/) | Exact GitHub Issues and Project implementation used by ARRP. |
+| [`framework/project/github/`](project/github/) | Exact GitHub Issues and Project implementation plus the central outbound-disclosure category registry and enforcement boundary used by ARRP. |
 | [`framework/project/workflows/`](project/workflows/) | ARRP audit, candidate, navigation, source-adjudication, public-input, presidential-directive, and project-update procedures. |
 | [`framework/project/publication/`](project/publication/) | ARRP edition manifests and release-specific decisions. |
 | [`framework/project/interfaces/`](project/interfaces/) | ARRP visual identity and Project Console configuration. |
@@ -91,7 +91,7 @@ does not make them governing methodology or enlarge any actor's authority.
 | --- | --- |
 | [`framework/records/handoffs/`](records/handoffs/) | Mutable continuation state for unfinished work. |
 | [`framework/records/audits/`](records/audits/) | Preserved project-wide audit history. |
-| [`framework/records/automation/`](records/automation/) | Agent and run provenance. |
+| [`framework/records/automation/`](records/automation/) | Public-safe automation contracts and summaries, including Console development history and minimized disclosure classification. Complete agent/run, incident, gate, review-epoch, and active-operation authorities remain owner-local. |
 | [`framework/records/candidates/`](records/candidates/) | Candidate discovery and disposition history. |
 | [`framework/records/sources/`](records/sources/) | Source-monitoring event history and dispositions. |
 | [`framework/records/status/`](records/status/) | Current generated or overwritten status reports. |

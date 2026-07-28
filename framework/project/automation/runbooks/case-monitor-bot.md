@@ -2,6 +2,7 @@
 title: "Case Monitor Bot Runbook"
 agent_id: case-monitor-bot
 display_name: Case Monitor Bot
+console_purpose: "Checks monitored litigation sources for relevant case updates."
 agent_type: deterministic-bot
 status: enabled-local-stage
 trigger: local-chain-when-due
@@ -9,7 +10,7 @@ schedule: "Due every 24 hours within the 02:00 America/New_York local chain; no 
 runtime_id: scripts/check_case_updates.py
 execution_environment: local-transaction-worktree
 runtime_config: .github/case-monitor-bot.json
-log_path: framework/records/automation/agent-audit-log.md
+log_path: owner-local:records/automation/agent-audit-log.md
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
 ---

@@ -25,6 +25,7 @@ class ArrpStatusProjectionTests(unittest.TestCase):
                 root / "repo", root / "state", fixture_root=root
             )
             status = MODULE._base_status(config, "status-test")
+            self.assertEqual(status["control_state"], "run")
             MODULE.write_status(config, status, status="paused", stage="01_preflight")
             path = config.state_root / "status.json"
             saved = json.loads(path.read_text(encoding="utf-8"))
@@ -35,6 +36,21 @@ class ArrpStatusProjectionTests(unittest.TestCase):
             self.assertFalse(
                 (config.canonical_path / "research/horizon-review-console/data/local-automation-status.js").exists()
             )
+
+    def test_status_reads_only_the_authoritative_owner_only_pause_control(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config = MODULE.RunnerConfig(
+                root / "repo", root / "state", fixture_root=root
+            )
+            config.state_root.mkdir(mode=0o700)
+            pause_path = config.state_root / "PAUSED"
+            pause_path.write_text("paused\n", encoding="utf-8")
+            pause_path.chmod(0o600)
+
+            status = MODULE._base_status(config, "paused-status-test")
+
+            self.assertEqual(status["control_state"], "paused")
 
     def test_optional_projection_is_valid_javascript_assignment(self):
         with tempfile.TemporaryDirectory() as directory:

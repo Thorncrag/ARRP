@@ -11,6 +11,18 @@ import sys
 from pathlib import Path
 from urllib.parse import urlsplit
 
+try:
+    from github_disclosure_gate import (
+        DisclosureBlocked,
+        artifact_from_text,
+        require_outbound_bundle,
+    )
+except ModuleNotFoundError:
+    from scripts.github_disclosure_gate import (
+        DisclosureBlocked,
+        artifact_from_text,
+        require_outbound_bundle,
+    )
 
 ALLOWED_KEYS = {
     "submission_url",
@@ -162,6 +174,21 @@ def broker_intent(
         sort_keys=True,
         separators=(",", ":"),
     )
+    try:
+        require_outbound_bundle(
+            [
+                artifact_from_text(
+                    f"github/discussion/{discussion_number}/reply/{comment_id}",
+                    "arrp-semantic-broker",
+                    validated["validated_body"],
+                    family_id="github-discussion-text",
+                )
+            ],
+            operation="github_api_mutation",
+            source_revision=source_revision,
+        )
+    except DisclosureBlocked as error:
+        raise ReplyValidationError(str(error)) from error
     return {
         "operation_type": "post_discussion_reply",
         "repository": "Thorncrag/ARRP",

@@ -33,6 +33,54 @@ from pathlib import Path
 from typing import Any, Callable, Iterator, Mapping, Sequence
 from zoneinfo import ZoneInfo
 
+try:
+    from repository_gates import (
+        atomic_write as write_repository_gate_snapshot,
+        produce_repository_gate_snapshot,
+        read_json as read_repository_gate_snapshot,
+    )
+except ModuleNotFoundError:
+    from scripts.repository_gates import (
+        atomic_write as write_repository_gate_snapshot,
+        produce_repository_gate_snapshot,
+        read_json as read_repository_gate_snapshot,
+    )
+
+try:
+    from operational_incidents import (
+        IncidentContractError,
+        record_incident_occurrence,
+        record_incident_reports,
+        reconcile_failure_spool,
+        spool_failure_incident,
+        validate_incident_report,
+    )
+except ModuleNotFoundError:
+    from scripts.operational_incidents import (
+        IncidentContractError,
+        record_incident_occurrence,
+        record_incident_reports,
+        reconcile_failure_spool,
+        spool_failure_incident,
+        validate_incident_report,
+    )
+
+try:
+    from github_disclosure_gate import (
+        DisclosureBlocked,
+        OutboundArtifact,
+        artifact_from_text,
+        evaluate_outbound_bundle,
+        require_outbound_bundle,
+    )
+except ModuleNotFoundError:
+    from scripts.github_disclosure_gate import (
+        DisclosureBlocked,
+        OutboundArtifact,
+        artifact_from_text,
+        evaluate_outbound_bundle,
+        require_outbound_bundle,
+    )
 
 SCHEMA_VERSION = "1.0"
 APPROVED_ORIGINS = frozenset(
@@ -52,6 +100,7 @@ STATUS_FIELDS = (
     "updated_at",
     "completed_at",
     "status",
+    "control_state",
     "stage",
     "canonical_path",
     "starting_branch",
@@ -115,6 +164,10 @@ RUNTIME_FILES = (
     "scripts/arrp_nightly.py",
     "scripts/arrp_bootstrap.py",
     "scripts/arrp_context.py",
+    "scripts/path_authority.py",
+    "scripts/github_disclosure_gate.py",
+    "scripts/operational_incidents.py",
+    "scripts/repository_gates.py",
     "scripts/source_monitor_recommendations.py",
     "scripts/run_coordinator.py",
     "scripts/build_elim_work_queue.py",
@@ -123,6 +176,7 @@ RUNTIME_FILES = (
     "scripts/elim_execution.py",
     "scripts/check_codex_usage_reserve.py",
     "scripts/console_data_contracts.py",
+    "framework/project/github/disclosure-policy.json",
 )
 SAFE_RUN_ID = re.compile(r"^[A-Za-z0-9_.-]+$")
 LOCAL_STAGE_ORDER = (
@@ -279,6 +333,10 @@ class GitError(TransactionError):
 
 class GitHubBrokerError(TransactionError):
     """A fail-closed GitHub or semantic-broker error with redacted diagnostics."""
+
+
+class DisclosurePreventionError(GitHubBrokerError):
+    """A sanitized prevented-disclosure near miss."""
 
 
 class SensitiveValue:
@@ -745,6 +803,7 @@ def git_push_with_token(
     token: SensitiveValue,
     *,
     remote: str = "origin",
+    disclosure_decision: Mapping[str, Any] | None = None,
 ) -> None:
     """Push through a pipe-backed askpass helper; the token never enters argv or disk."""
 
@@ -756,6 +815,19 @@ def git_push_with_token(
         or not destination_ref.startswith("refs/heads/")
     ):
         raise GitHubBrokerError("authenticated push refspec is not an exact branch update")
+    if (
+        not isinstance(disclosure_decision, Mapping)
+        or disclosure_decision.get("allowed") is not True
+        or disclosure_decision.get("operation") != "git_push"
+    ):
+        raise GitHubBrokerError(
+            "authenticated push requires an exact successful disclosure decision"
+        )
+    expected_revision = git_text(repository, "rev-parse", source_ref)
+    if disclosure_decision.get("source_revision") != expected_revision:
+        raise GitHubBrokerError(
+            "authenticated push disclosure decision is bound to another revision"
+        )
     outgoing = git(
         repository,
         "diff",
@@ -954,6 +1026,62 @@ def validate_broker_intent(value: object, *, source_revision: str) -> dict[str, 
     return dict(value)
 
 
+def require_broker_content_disclosure(
+    intent: Mapping[str, Any],
+    *,
+    virtual_path: str,
+    content: str,
+    family_id: str,
+) -> dict[str, Any]:
+    """Independently gate exact broker content; privacy_class is not proof."""
+
+    try:
+        return require_outbound_bundle(
+            [
+                artifact_from_text(
+                    virtual_path,
+                    "arrp-semantic-broker",
+                    content,
+                    family_id=family_id,
+                )
+            ],
+            operation="github_api_mutation",
+            source_revision=str(intent.get("source_revision") or ""),
+        )
+    except DisclosureBlocked as error:
+        raise DisclosurePreventionError(str(error)) from error
+
+
+def require_pull_request_disclosure(
+    *,
+    branch: str,
+    expected_head: str,
+    title: str,
+    body: str,
+) -> dict[str, Any]:
+    try:
+        return require_outbound_bundle(
+            [
+                artifact_from_text(
+                    f"github/pull-request/{branch}/title",
+                    "arrp-nightly-pull-request",
+                    title,
+                    artifact_group=f"pull-request:{branch}",
+                ),
+                artifact_from_text(
+                    f"github/pull-request/{branch}/body",
+                    "arrp-nightly-pull-request",
+                    body,
+                    artifact_group=f"pull-request:{branch}",
+                ),
+            ],
+            operation="pull_request_mutation",
+            source_revision=expected_head,
+        )
+    except DisclosureBlocked as error:
+        raise DisclosurePreventionError(str(error)) from error
+
+
 def open_or_update_nightly_pull_request(
     token: SensitiveValue,
     *,
@@ -971,6 +1099,12 @@ def open_or_update_nightly_pull_request(
 
     if readback_timeout_seconds <= 0 or readback_poll_seconds < 0:
         raise GitHubBrokerError("invalid pull-request readback timing")
+    require_pull_request_disclosure(
+        branch=branch,
+        expected_head=expected_head,
+        title=title,
+        body=body,
+    )
     head = api_request(
         "GET",
         f"/repos/{GITHUB_REPOSITORY}/git/ref/heads/{branch}",
@@ -1128,6 +1262,29 @@ def merge_exact_head(
 ) -> str:
     """Fail closed on head/base movement, review holds, checks, or merge mismatch."""
 
+    try:
+        require_outbound_bundle(
+            [
+                artifact_from_text(
+                    f"github/control/pull-request/{pull_number}/merge",
+                    "arrp-nightly-publication",
+                    json.dumps(
+                        {
+                            "pull_number": pull_number,
+                            "expected_head": expected_head,
+                            "expected_base": expected_base,
+                            "protected": protected,
+                        },
+                        sort_keys=True,
+                    ),
+                    family_id="github-control-payload",
+                )
+            ],
+            operation="pull_request_merge",
+            source_revision=expected_head,
+        )
+    except DisclosureBlocked as error:
+        raise DisclosurePreventionError(str(error)) from error
     pull = api_request(
         "GET",
         f"/repos/{GITHUB_REPOSITORY}/pulls/{pull_number}",
@@ -1386,6 +1543,27 @@ def run_reversible_project_text_fixture(
     expected_old = fixture["expected_old_value"]
     if expected_old is not None and not isinstance(expected_old, str):
         raise GitHubBrokerError("Project fixture expected value is invalid")
+    try:
+        require_outbound_bundle(
+            [
+                artifact_from_text(
+                    f"github/project-field/{fixture['field_id']}/fixture",
+                    "arrp-semantic-broker",
+                    json.dumps(
+                        {
+                            "fixture_value": fixture["fixture_value"],
+                            "restore_value": expected_old,
+                        },
+                        sort_keys=True,
+                    ),
+                    family_id="github-project-field-text",
+                )
+            ],
+            operation="github_api_mutation",
+            source_revision="p5-supervised-fixture",
+        )
+    except DisclosureBlocked as error:
+        raise DisclosurePreventionError(str(error)) from error
     observed = read_field(fixture, token)
     if observed != expected_old:
         raise GitHubBrokerError("Project fixture prior-state check failed")
@@ -1425,8 +1603,14 @@ def execute_project_field_intent(
     target = decode_broker_target(
         "set_project_field", intent.get("target_node_or_number")
     )
-    observed = read_field(target, project_token)
     requested = intent.get("new_state_or_content")
+    require_broker_content_disclosure(
+        intent,
+        virtual_path=f"github/project-field/{target['field_id']}/value",
+        content=json.dumps(requested, sort_keys=True, ensure_ascii=False),
+        family_id="github-project-field-text",
+    )
+    observed = read_field(target, project_token)
     if observed == requested:
         return {
             "idempotency_key": intent["idempotency_key"],
@@ -1461,6 +1645,13 @@ def execute_issue_wrapper_intent(
     target = decode_broker_target(
         "update_issue_wrapper", intent.get("target_node_or_number")
     )
+    requested = intent["new_state_or_content"]["body"]
+    require_broker_content_disclosure(
+        intent,
+        virtual_path=f"github/issue/{target['issue_number']}/body",
+        content=requested,
+        family_id="github-issue-text",
+    )
     path = f"/repos/{GITHUB_REPOSITORY}/issues/{target['issue_number']}"
 
     def read_body() -> str | None:
@@ -1473,7 +1664,6 @@ def execute_issue_wrapper_intent(
         return body
 
     expected = intent["expected_old_state"]["body"]
-    requested = intent["new_state_or_content"]["body"]
     observed = read_body()
     if observed == requested:
         return {
@@ -1641,6 +1831,15 @@ def execute_discussion_reply_intent(
     )
     marker = intent["idempotency_key"]
     requested = intent["new_state_or_content"]["body"]
+    require_broker_content_disclosure(
+        intent,
+        virtual_path=(
+            f"github/discussion/{target['discussion_number']}/"
+            f"reply/{target['reply_to_comment_id']}"
+        ),
+        content=requested,
+        family_id="github-discussion-text",
+    )
     matches = discussion_reply_matches(
         target, marker, token, graphql_request=graphql_request
     )
@@ -1756,6 +1955,7 @@ def execute_semantic_broker_intent(
     """Validate and execute exactly one model-requestable broker operation."""
 
     accepted = validate_broker_intent(intent, source_revision=source_revision)
+    preflight_semantic_broker_disclosure(accepted)
     operation = accepted["operation_type"]
     if operation == "set_project_field":
         if project_token is None:
@@ -1784,6 +1984,48 @@ def execute_semantic_broker_intent(
         project_token=project_token,
         api_request=api_request,
         graphql_request=graphql_request,
+    )
+
+
+def preflight_semantic_broker_disclosure(
+    accepted: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Gate exact semantic content before any credential-backed access."""
+
+    operation = str(accepted.get("operation_type") or "")
+    target = decode_broker_target(
+        operation, accepted.get("target_node_or_number")
+    )
+    requested = accepted.get("new_state_or_content")
+    if operation == "set_project_field":
+        return require_broker_content_disclosure(
+            accepted,
+            virtual_path=f"github/project-field/{target['field_id']}/value",
+            content=json.dumps(requested, sort_keys=True, ensure_ascii=False),
+            family_id="github-project-field-text",
+        )
+    if operation == "update_issue_wrapper":
+        return require_broker_content_disclosure(
+            accepted,
+            virtual_path=f"github/issue/{target['issue_number']}/body",
+            content=str((requested or {}).get("body") or ""),
+            family_id="github-issue-text",
+        )
+    if operation == "post_discussion_reply":
+        return require_broker_content_disclosure(
+            accepted,
+            virtual_path=(
+                f"github/discussion/{target['discussion_number']}/"
+                f"reply/{target['reply_to_comment_id']}"
+            ),
+            content=str((requested or {}).get("body") or ""),
+            family_id="github-discussion-text",
+        )
+    return require_broker_content_disclosure(
+        accepted,
+        virtual_path="github/control/read-state",
+        content=json.dumps(target, sort_keys=True, ensure_ascii=False),
+        family_id="github-control-payload",
     )
 
 
@@ -1937,6 +2179,7 @@ def run_local_stages(
     now: datetime | None = None,
     runtime_root: Path | None = None,
     runtime_commit: str | None = None,
+    blocked_stages: Mapping[str, str] | None = None,
 ) -> list[LocalStageResult]:
     """Execute exact stage commands and write typed, hash-bound envelopes."""
 
@@ -1945,6 +2188,32 @@ def run_local_stages(
     baseline = last_success or {}
     results: list[LocalStageResult] = []
     for spec in specs:
+        blocked_reason = (blocked_stages or {}).get(spec.identifier)
+        if blocked_reason:
+            stage_dir = run_dir / "stages" / spec.identifier
+            ensure_owner_directory(stage_dir)
+            envelope_path = stage_dir / "stage-result.json"
+            atomic_write_json(
+                envelope_path,
+                {
+                    "schema_version": 1,
+                    "stage_id": spec.identifier,
+                    "status": "failed",
+                    "reason": blocked_reason,
+                    "returncode": None,
+                    "outputs": [],
+                },
+            )
+            results.append(
+                LocalStageResult(
+                    spec.identifier,
+                    "failed",
+                    blocked_reason,
+                    None,
+                    str(envelope_path),
+                )
+            )
+            continue
         due, reason = determine_stage_due(
             state_root, spec, baseline, now=current
         )
@@ -2284,12 +2553,80 @@ def validate_elim_result_boundary(
             raise TransactionError("broker-enabled result requires typed action requests and revision")
         for action in action_requests:
             validate_broker_intent(action, source_revision=source_revision)
+    incident_reports = value.get("incident_reports")
+    if not isinstance(incident_reports, list) or len(incident_reports) > 16:
+        raise TransactionError("Elim result requires a bounded incident_reports array")
+    try:
+        for report in incident_reports:
+            validate_incident_report(report)
+    except IncidentContractError as error:
+        raise TransactionError(f"Elim incident report is invalid: {error}") from error
     declared = value.get("files_touched")
     if not isinstance(declared, list) or sorted(declared) != sorted(files_touched):
         raise TransactionError("Elim files_touched does not equal the exact worktree delta")
     for path in declared:
         if not isinstance(path, str) or classify_path(path, None, tracked=True) != "ordinary":
             raise TransactionError(f"Elim touched a protected or prohibited path: {path}")
+
+
+def record_run_chain_incidents(
+    incident_path: Path,
+    chain: Mapping[str, Any],
+    *,
+    run_id: str,
+) -> list[dict[str, Any]]:
+    """Record typed failed/degraded occurrences without browser inference."""
+
+    recorded: list[dict[str, Any]] = []
+    for index, item in enumerate(
+        [
+            *[
+                {**row, "impact": "blocking"}
+                for row in chain.get("failures") or []
+                if isinstance(row, Mapping)
+            ],
+            *[
+                {**row, "impact": "degraded"}
+                for row in chain.get("degradations") or []
+                if isinstance(row, Mapping)
+            ],
+        ],
+        1,
+    ):
+        stage = str(item.get("stage") or "run-coordinator-bot")
+        failure_class = str(item.get("classification") or item["impact"])
+        diagnostic = str(item.get("message") or "No diagnostic was recorded.")
+        recorded.append(
+            record_incident_occurrence(
+                incident_path,
+                component=stage,
+                prerequisite=stage,
+                failure_class=failure_class,
+                impact=str(item["impact"]),
+                summary=(
+                    "Scheduled automation stage failed or was prevented."
+                    if item["impact"] == "blocking"
+                    else "Scheduled automation stage completed in degraded mode."
+                ),
+                reported_by="Run Coordinator",
+                owner=None,
+                recommended_owner=stage,
+                next_action="Inspect the exact run occurrence and restore the failed prerequisite.",
+                occurrence_id=f"{run_id}:chain:{index}:{stage}",
+                observed_at=str(
+                    item.get("recorded_at")
+                    or chain.get("completed_at")
+                    or chain.get("generated_at")
+                    or iso_utc()
+                ),
+                source_ref=f"run:{run_id}",
+                diagnostic=diagnostic,
+                run_id=run_id,
+                evidence_refs=[f"run:{run_id}"],
+                active_links=[f"automation-role:{stage}"],
+            )
+        )
+    return recorded
 
 
 def default_local_stage_specs(python: str | None = None) -> tuple[LocalStageSpec, ...]:
@@ -2398,6 +2735,31 @@ def default_post_elim_validation_specs(
     """Return the contract-bound local generation and validation command set."""
 
     return (
+        ValidationSpec(
+            "integrity-final-report",
+            (
+                python,
+                "scripts/audit_project_consistency.py",
+                "--json-output",
+                ".tmp/project-integrity-final.json",
+                "--markdown-output",
+                "framework/records/status/project-integrity-report.md",
+                "--exit-zero-on-findings",
+            ),
+        ),
+        ValidationSpec(
+            "integrity-final-feed",
+            (
+                python,
+                "scripts/build_project_integrity_feed.py",
+                "--report",
+                ".tmp/project-integrity-final.json",
+                "--existing-file",
+                "research/horizon-review-console/data/integrity.js",
+                "--output",
+                ".tmp/project-console-integrity.json",
+            ),
+        ),
         ValidationSpec(
             "console-build",
             (python, "scripts/build_horizon_review_console.py", "--refresh-github"),
@@ -2751,6 +3113,11 @@ def run_p2_fixture_cycle(
         unit_id=str(elim["unit_id"]),
         files_touched=touched,
     )
+    record_incident_reports(
+        config.state_root / "records" / "automation" / "operational-incidents.jsonl",
+        result["incident_reports"],
+        run_id=transaction.run_id,
+    )
     status_path = config.state_root / "status.json"
     if status_path.exists():
         status_document = read_json_object(status_path)
@@ -2964,6 +3331,12 @@ def execute_production_semantic_actions(
 ) -> list[dict[str, Any]]:
     """Execute validated intents after PR checks and before exact-head merge."""
 
+    accepted_requests = [
+        validate_broker_intent(request, source_revision=source_revision)
+        for request in requests
+    ]
+    for accepted in accepted_requests:
+        preflight_semantic_broker_disclosure(accepted)
     project_token = None
     if any(
         request.get("operation_type") == "set_project_field"
@@ -2974,7 +3347,7 @@ def execute_production_semantic_actions(
             ).get("kind")
             == "project_field"
         )
-        for request in requests
+        for request in accepted_requests
     ):
         project_token = read_keychain_secret(
             GITHUB_PROJECT_KEYCHAIN_SERVICE,
@@ -2987,7 +3360,7 @@ def execute_production_semantic_actions(
             github_token=github_token,
             project_token=project_token,
         )
-        for request in requests
+        for request in accepted_requests
     ]
 
 
@@ -3059,6 +3432,60 @@ def run_production_cycle(
         GITHUB_APP_KEYCHAIN_ACCOUNT,
     )
     app_token = mint_installation_token(app_identity, app_private_key)
+    repository_gate_last_good_path = (
+        config.state_root / "repository-gates-last-good.json"
+    )
+    repository_gate_last_good = read_repository_gate_snapshot(
+        repository_gate_last_good_path
+    )
+
+    def repository_gate_request(path: str) -> Any:
+        return github_api_request(
+            "GET",
+            f"/repos/Thorncrag/ARRP/{path.lstrip('/')}",
+            app_token,
+        )
+
+    repository_gates = produce_repository_gate_snapshot(
+        repository="Thorncrag/ARRP",
+        declarations_path=(
+            config.state_root / "records" / "automation" / "repository-gates.jsonl"
+        ),
+        token="",
+        last_good=repository_gate_last_good,
+        request=repository_gate_request,
+    )
+    repository_gate_path = run_dir / "repository-gates.json"
+    write_repository_gate_snapshot(repository_gate_path, repository_gates)
+    if repository_gates.get("complete") is not True:
+        raise TransactionError(
+            "repository-gate inventory is incomplete; future-run safety cannot be verified"
+        )
+    write_repository_gate_snapshot(
+        repository_gate_last_good_path,
+        repository_gates,
+    )
+    _run_production_command(
+        (
+            sys.executable,
+            str(coordinator),
+            "attach-repository-gates",
+            "--manifest",
+            str(chain),
+            "--repository-gates",
+            str(repository_gate_path),
+        ),
+        cwd=worktree,
+    )
+    attached_gate_snapshot = read_json_object(chain).get("repository_gates") or {}
+    blocked_stages: dict[str, str] = {}
+    for item in attached_gate_snapshot.get("items") or []:
+        if item.get("affected_latest_attempt") is not True:
+            continue
+        gate_id = str(item.get("gate_id") or "repository-gate")
+        reason = str(item.get("reason") or "Repository gate blocks this stage.")
+        for stage_id in item.get("affected_stages") or []:
+            blocked_stages[str(stage_id)] = f"Repository gate {gate_id}: {reason}"
     production_python = str(config.canonical_path / ".venv/bin/python")
     stage_specs = default_local_stage_specs(production_python)
     stage_environment = dict(os.environ)
@@ -3085,6 +3512,7 @@ def run_production_cycle(
         },
         runtime_root=runtime,
         runtime_commit=config.runtime_commit,
+        blocked_stages=blocked_stages,
     )
     for result in stages:
         command = [
@@ -3214,6 +3642,8 @@ def run_production_cycle(
         context_command = [
             sys.executable,
             str(runtime / "scripts/build_elim_context.py"),
+            "--path-authority",
+            "production-transaction",
             "--manifest",
             str(worktree / "framework/project/automation/context-routes.json"),
             "--input-root",
@@ -3257,6 +3687,14 @@ def run_production_cycle(
     _run_production_command(attach, cwd=worktree)
     _run_production_command(finalize, cwd=worktree)
     chain_value = read_json_object(chain)
+    incident_path = (
+        config.state_root / "records" / "automation" / "operational-incidents.jsonl"
+    )
+    record_run_chain_incidents(
+        incident_path,
+        chain_value,
+        run_id=transaction.run_id,
+    )
 
     elim_result: dict[str, Any] | None = None
     if (chain_value.get("elim_decision") or {}).get("launch_recommended"):
@@ -3331,6 +3769,11 @@ def run_production_cycle(
             source_revision=config.runtime_commit,
             allow_github_actions=True,
         )
+        record_incident_reports(
+            incident_path,
+            elim_result["incident_reports"],
+            run_id=transaction.run_id,
+        )
 
     validation_specs = default_post_elim_validation_specs(
         production_python,
@@ -3350,6 +3793,10 @@ def run_production_cycle(
         specs=validation_specs,
         environment=stage_environment,
         environment_by_spec={
+            "integrity-final-report": {
+                "ARRP_PROJECT_TOKEN": project_token.reveal(),
+                "GH_TOKEN": app_token.reveal(),
+            },
             "console-build": {
                 "ARRP_PROJECT_TOKEN": project_token.reveal(),
             },
@@ -3654,6 +4101,9 @@ def _base_status(config: RunnerConfig, run_id: str) -> dict[str, Any]:
             "started_at": iso_utc(),
             "updated_at": iso_utc(),
             "status": "running",
+            "control_state": (
+                "paused" if pause_requested(config.state_root) else "run"
+            ),
             "stage": "00_start",
             "canonical_path": str(config.canonical_path.resolve()),
             "preserved_paths": [],
@@ -3848,7 +4298,7 @@ def scan_staged_blobs(
     repository: Path,
     records: Sequence[IndexRecord],
 ) -> list[dict[str, Any]]:
-    """Scan staged blobs while returning only redacted path/line/type/digest evidence."""
+    """Legacy local-commit scan returning only safe path/line/detector evidence."""
 
     findings: list[dict[str, Any]] = []
     for record in records:
@@ -3861,7 +4311,7 @@ def scan_staged_blobs(
                     "path": record.path,
                     "line": 0,
                     "detector": "binary-content",
-                    "digest": hashlib.sha256(content).hexdigest(),
+                    "finding_id": "LOCAL-BINARY-CONTENT",
                 }
             )
             continue
@@ -3873,7 +4323,14 @@ def scan_staged_blobs(
                             "path": record.path,
                             "line": line_number,
                             "detector": detector,
-                            "digest": hashlib.sha256(line).hexdigest(),
+                            "finding_id": (
+                                "LOCAL-"
+                                + hashlib.sha256(
+                                    f"{record.path}\0{line_number}\0{detector}".encode(
+                                        "utf-8"
+                                    )
+                                ).hexdigest()[:12].upper()
+                            ),
                         }
                     )
     return findings
@@ -4071,6 +4528,27 @@ def classify_publication_range(
         for record in records
         if record.classification in {"prohibited", "unrecognized"}
     ]
+    try:
+        disclosure_decision = evaluate_outbound_bundle(
+            [
+                OutboundArtifact(
+                    path=record.path,
+                    producer="arrp-nightly-publication",
+                    content=(
+                        git(repository, "cat-file", "blob", record.blob).stdout
+                        if record.blob is not None
+                        else b""
+                    ),
+                    removal_only=record.blob is None,
+                )
+                for record in records
+            ],
+            operation="git_push",
+            source_revision=head_commit,
+            complete=True,
+        )
+    except DisclosureBlocked as error:
+        disclosure_decision = error.decision
     atomic_write_json(
         run_dir / "publication-manifest.json",
         {
@@ -4079,6 +4557,7 @@ def classify_publication_range(
             "head_commit": head_commit,
             "records": [record.as_dict() for record in records],
             "secret_private_findings": findings,
+            "disclosure_decision": disclosure_decision,
         },
     )
     if prohibited:
@@ -4086,9 +4565,14 @@ def classify_publication_range(
             "prohibited paths cannot enter publication: " + ", ".join(prohibited)
         )
     if findings:
-        raise TransactionError(
+        raise DisclosurePreventionError(
             "secret/private detector blocked publication; "
             "see redacted path-only manifest"
+        )
+    if disclosure_decision.get("allowed") is not True:
+        raise DisclosurePreventionError(
+            "GitHub disclosure gate blocked publication; "
+            "see the redacted disclosure decision in the publication manifest"
         )
     classification = {
         name: [record.path for record in records if record.classification == name]
@@ -4100,6 +4584,7 @@ def classify_publication_range(
         "classification": classification,
         "review_required": bool(classification["protected"]),
         "manifest": str(run_dir / "publication-manifest.json"),
+        "disclosure_decision": disclosure_decision,
     }
 
 
@@ -4253,7 +4738,12 @@ def publish_supervised_transaction(
         api_request=api_request,
     )
     refspec = f"{expected_head}:refs/heads/{transaction.branch}"
-    git_push_with_token(worktree, refspec, app_token)
+    git_push_with_token(
+        worktree,
+        refspec,
+        app_token,
+        disclosure_decision=publication_range["disclosure_decision"],
+    )
     pull = open_or_update_nightly_pull_request(
         app_token,
         branch=transaction.branch,
@@ -4428,6 +4918,18 @@ def publish_production_transaction(
     }
     if not isinstance(publication, dict) or set(publication) != required:
         raise TransactionError("production publication configuration is not exact")
+    require_pull_request_disclosure(
+        branch=transaction.branch,
+        expected_head=expected_head,
+        title=str(publication["pullRequestTitle"]),
+        body=str(publication["pullRequestBody"]),
+    )
+    for request in cycle_summary.get("semantic_action_requests") or []:
+        accepted = validate_broker_intent(
+            request,
+            source_revision=config.runtime_commit or transaction.fetched_origin_main,
+        )
+        preflight_semantic_broker_disclosure(accepted)
     identity = GitHubAppIdentity.from_json(config.state_root / "github-app.json")
     private_key = read_keychain_secret(
         GITHUB_APP_KEYCHAIN_SERVICE,
@@ -4442,6 +4944,7 @@ def publish_production_transaction(
         worktree,
         f"{expected_head}:refs/heads/{transaction.branch}",
         app_token,
+        disclosure_decision=publication_range["disclosure_decision"],
     )
     pull = open_or_update_nightly_pull_request(
         app_token,
@@ -4552,7 +5055,10 @@ def prepare_transaction(
     fetched: str | None = None
 
     def record_failure(error: BaseException) -> None:
-        if isinstance(error, KeyboardInterrupt):
+        prevented_disclosure = isinstance(error, DisclosurePreventionError)
+        if prevented_disclosure:
+            failure_class = "outbound-disclosure-prevented"
+        elif isinstance(error, KeyboardInterrupt):
             failure_class = "KeyboardInterrupt"
         else:
             failure_class = type(error).__name__
@@ -4568,15 +5074,57 @@ def prepare_transaction(
             ],
             exact_next_action="Inspect the exact failure and preserved local state; do not publish.",
         )
+        try:
+            spool_failure_incident(
+                config.state_root / "incident-spool.jsonl",
+                run_id=run_id,
+                component="run-coordinator-bot",
+                prerequisite=str(status.get("stage") or "transaction"),
+                failure_class=failure_class,
+                diagnostic=str(error),
+                observed_at=iso_utc(),
+                impact="near_miss" if prevented_disclosure else "blocking",
+                summary=(
+                    "A project-operated GitHub disclosure was prevented before transmission."
+                    if prevented_disclosure
+                    else "Automation transaction failed before normal incident reconciliation."
+                ),
+                reported_by="GitHub disclosure gate"
+                if prevented_disclosure
+                else "Run Coordinator failure spool",
+                recommended_owner="Project security governance"
+                if prevented_disclosure
+                else "Run Coordinator",
+                next_action=(
+                    "Review the opaque disclosure finding and classify or sanitize the preserved local artifact."
+                    if prevented_disclosure
+                    else "Inspect the preserved run status and reconcile the exact failure boundary."
+                ),
+                active_links=(
+                    ("log:incidents",)
+                    if prevented_disclosure
+                    else ("automation-role:run-coordinator-bot",)
+                ),
+            )
+        except (OSError, IncidentContractError):
+            # Status already preserves the primary failure. Do not mask it if
+            # the independent owner-only incident spool is also unavailable.
+            pass
 
     try:
         with exclusive_lock(config.state_root, run_id, on_error=record_failure):
-            write_status(config, status)
-            if pause_requested(config.state_root):
+            paused = pause_requested(config.state_root)
+            write_status(
+                config,
+                status,
+                control_state="paused" if paused else "run",
+            )
+            if paused:
                 write_status(
                     config,
                     status,
                     status="paused",
+                    control_state="paused",
                     stage="01_preflight",
                     completed_at=iso_utc(),
                     validation_summary={
@@ -4743,6 +5291,17 @@ def prepare_transaction(
             git(repository, "worktree", "add", str(worktree), branch)
             merge = git(worktree, "merge", "--no-edit", fetched, check=False)
             if merge.returncode:
+                spool_failure_incident(
+                    config.state_root / "incident-spool.jsonl",
+                    run_id=run_id,
+                    component="run-coordinator-bot",
+                    prerequisite="origin-main-merge",
+                    failure_class="origin_merge_conflict",
+                    diagnostic=(
+                        "origin/main merge failed; the worktree and branch are preserved"
+                    ),
+                    observed_at=iso_utc(),
+                )
                 write_status(
                     config,
                     status,
@@ -4766,6 +5325,13 @@ def prepare_transaction(
                     "origin_merge_conflict",
                 )
             assert_canonical_unchanged(repository, starting_head, clean_digest)
+            reconcile_failure_spool(
+                config.state_root / "incident-spool.jsonl",
+                config.state_root
+                / "records"
+                / "automation"
+                / "operational-incidents.jsonl",
+            )
             prepared = TransactionResult(
                 run_id, "completed", branch, checkpoint, str(worktree), fetched
             )

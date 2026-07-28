@@ -10,6 +10,7 @@ policy documented in website/README.md.
 from __future__ import annotations
 
 import json
+import hashlib
 import os
 import re
 import shutil
@@ -17,6 +18,21 @@ import subprocess
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
+
+try:
+    from github_disclosure_gate import (
+        DisclosureBlocked,
+        OutboundArtifact,
+        require_defense_in_depth_bundle,
+        require_outbound_bundle,
+    )
+except ModuleNotFoundError:
+    from scripts.github_disclosure_gate import (
+        DisclosureBlocked,
+        OutboundArtifact,
+        require_defense_in_depth_bundle,
+        require_outbound_bundle,
+    )
 
 try:
     from project_tree import iter_project_files
@@ -73,6 +89,16 @@ LEGISLATION_NAME = re.compile(r"^([A-Z]+-\d{3})(?:-(.+))?$")
 
 def relative(path: Path) -> Path:
     return path.resolve().relative_to(ROOT.resolve())
+
+
+def disclosure_revision(paths: list[Path]) -> str:
+    digest = hashlib.sha256()
+    for path in sorted((item.resolve() for item in paths), key=lambda item: relative(item).as_posix()):
+        digest.update(relative(path).as_posix().encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return "sha256:" + digest.hexdigest()
 
 
 def front_matter(text: str) -> str:
@@ -695,8 +721,61 @@ def prepare() -> dict[str, object]:
         "supportFiles": sorted(path.as_posix() for path in PUBLIC_SUPPORT_FILES),
         "demotedLinks": demoted_links,
     }
+    manifest_text = json.dumps(manifest, indent=2, ensure_ascii=False) + "\n"
+    source_paths = [
+        *public_markdown,
+        *(Path(path) for path in support_map),
+        *(ROOT / path for path in WEBSITE_FILES),
+        ROOT / "mkdocs.yml",
+    ]
+    group = "public-site-generation"
+    artifacts = [
+        OutboundArtifact(
+            path=relative(path).as_posix(),
+            producer="public-release-builder",
+            content=path.read_bytes(),
+            artifact_group=group,
+        )
+        for path in source_paths
+    ]
+    artifacts.extend(
+        OutboundArtifact(
+            path=f"site/{path.relative_to(BUILD_ROOT).as_posix()}",
+            producer="public-release-builder",
+            content=path.read_bytes(),
+            artifact_group=group,
+        )
+        for path in sorted(BUILD_ROOT.rglob("*"))
+        if path.is_file()
+    )
+    artifacts.append(
+        OutboundArtifact(
+            path="site/public-manifest.json",
+            producer="public-release-builder",
+            content=manifest_text.encode("utf-8"),
+            artifact_group=group,
+        )
+    )
+    try:
+        gate = (
+            require_defense_in_depth_bundle
+            if os.environ.get("GITHUB_ACTIONS") == "true"
+            else require_outbound_bundle
+        )
+        gate(
+            artifacts,
+            operation=(
+                "public_site_generation_defense_in_depth"
+                if gate is require_defense_in_depth_bundle
+                else "public_site_generation"
+            ),
+            source_revision=disclosure_revision(source_paths),
+            complete=True,
+        )
+    except DisclosureBlocked as error:
+        raise SystemExit(str(error)) from error
     (BUILD_ROOT / "public-manifest.json").write_text(
-        json.dumps(manifest, indent=2, ensure_ascii=False) + "\n",
+        manifest_text,
         encoding="utf-8",
     )
     return manifest

@@ -3,6 +3,9 @@ import json
 import sys
 import unittest
 from pathlib import Path
+from unittest import mock
+
+from tests.disclosure_test_support import install_test_control_pack
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,6 +16,7 @@ MODULE = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
 sys.modules[SPEC.name] = MODULE
 SPEC.loader.exec_module(MODULE)
+install_test_control_pack(MODULE)
 REVISION = "a" * 40
 
 
@@ -44,7 +48,14 @@ class BrokerSchemaTests(unittest.TestCase):
             ).read_text(encoding="utf-8")
         )
         requests = schema["properties"]["github_action_requests"]
+        incidents = schema["properties"]["incident_reports"]
         item = requests["items"]
+        self.assertIn("incident_reports", schema["required"])
+        self.assertEqual(schema["properties"]["schema_version"]["const"], 2)
+        self.assertEqual(incidents["maxItems"], 16)
+        self.assertFalse(incidents["items"]["additionalProperties"])
+        self.assertIn("closure_test", incidents["items"]["required"])
+        self.assertIn("recommended_owner", incidents["items"]["required"])
         self.assertEqual(requests["maxItems"], 128)
         self.assertFalse(item["additionalProperties"])
         self.assertEqual(set(item["required"]), MODULE.BROKER_INTENT_FIELDS)
@@ -81,6 +92,94 @@ class BrokerSchemaTests(unittest.TestCase):
 
 
 class BrokerExecutorTests(unittest.TestCase):
+    def test_production_semantic_preflight_precedes_project_credential_access(self):
+        prohibited_value = "api" + "_key=" + ("x" * 24)
+        value = broker_intent(
+            "set_project_field",
+            {
+                "project_id": "PVT_fixture",
+                "item_id": "PVTI_fixture",
+                "field_id": "PVTF_fixture",
+            },
+            "old",
+            prohibited_value,
+        )
+        with mock.patch.object(MODULE, "read_keychain_secret") as credential:
+            with self.assertRaisesRegex(
+                MODULE.DisclosurePreventionError,
+                "disclosure blocked",
+            ):
+                MODULE.execute_production_semantic_actions(
+                    [value],
+                    source_revision=REVISION,
+                    github_token=MODULE.SensitiveValue("fixture"),
+                )
+        credential.assert_not_called()
+
+    def test_project_field_disclosure_gate_runs_before_read_or_write(self):
+        calls = []
+        prohibited_value = "api" + "_key=" + ("x" * 24)
+        value = broker_intent(
+            "set_project_field",
+            {
+                "project_id": "PVT_fixture",
+                "item_id": "PVTI_fixture",
+                "field_id": "PVTF_fixture",
+            },
+            "old",
+            prohibited_value,
+        )
+
+        def unexpected(*args):
+            calls.append(args)
+            raise AssertionError("Project access must not occur")
+
+        with self.assertRaisesRegex(MODULE.GitHubBrokerError, "disclosure blocked"):
+            MODULE.execute_project_field_intent(
+                value,
+                MODULE.SensitiveValue("fixture"),
+                read_field=unexpected,
+                write_field=unexpected,
+            )
+        self.assertEqual(calls, [])
+
+    def test_issue_and_discussion_disclosure_gates_run_before_network(self):
+        calls = []
+        prohibited_value = "authorization" + ": " + "bearer " + ("x" * 24)
+
+        def unexpected(*args, **kwargs):
+            calls.append((args, kwargs))
+            raise AssertionError("Network access must not occur")
+
+        issue = broker_intent(
+            "update_issue_wrapper",
+            {
+                "issue_number": 17,
+                "marker": "<!-- ARRP-WRAPPER:fixture-1 -->",
+            },
+            {"body": "old"},
+            {"body": prohibited_value},
+        )
+        with self.assertRaisesRegex(MODULE.GitHubBrokerError, "disclosure blocked"):
+            MODULE.execute_issue_wrapper_intent(
+                issue,
+                MODULE.SensitiveValue("fixture"),
+                api_request=unexpected,
+            )
+        discussion = broker_intent(
+            "post_discussion_reply",
+            {"discussion_number": 12, "reply_to_comment_id": 345},
+            {"reply_absent": "fixture"},
+            {"body": prohibited_value},
+        )
+        with self.assertRaisesRegex(MODULE.GitHubBrokerError, "disclosure blocked"):
+            MODULE.execute_discussion_reply_intent(
+                discussion,
+                MODULE.SensitiveValue("fixture"),
+                graphql_request=unexpected,
+            )
+        self.assertEqual(calls, [])
+
     def test_project_field_requires_prior_state_and_is_idempotent(self):
         state = {"value": "old"}
         writes = []

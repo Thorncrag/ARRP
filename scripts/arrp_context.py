@@ -34,6 +34,11 @@ except ModuleNotFoundError:  # Imported as scripts.arrp_context.
         parse_source_monitor_recommendations,
     )
 
+try:
+    from path_authority import ProjectPathAuthority
+except ModuleNotFoundError:
+    from scripts.path_authority import ProjectPathAuthority
+
 
 ROOT = Path(__file__).resolve().parents[1]
 ISSUE_ID_RE = re.compile(r"\b(?:[A-Z][A-Z0-9]*-\d{3}|HOR-\d{3})\b")
@@ -902,6 +907,7 @@ def build_context_packet(
     work_item_id: str | None = None,
     work_kind: str | None = None,
     canonical_record: str | None = None,
+    path_authority: ProjectPathAuthority | None = None,
 ) -> dict[str, Any]:
     selection = context_packet_selection(
         root=root,
@@ -1067,15 +1073,46 @@ def build_context_packet(
         }
         total += len(canonical_json(dossier))
     logs: dict[str, Any] = {}
-    log_specs = (
-        ("elim_last_run", root / "framework/records/automation/elim-run-log.md", "## Runs", "newest-last"),
-        ("agent_last_entry", root / "framework/records/automation/agent-audit-log.md", "## Log", "newest-last"),
+    repository_log_root = within_root(root, "framework/records/automation")
+    use_owner_local_logs = (
+        path_authority is not None
+        and path_authority.mode
+        in {"production_canonical", "production_transaction"}
     )
-    for name, path, parent, order in log_specs:
+    log_root = (
+        path_authority.state_root / "records" / "automation"
+        if use_owner_local_logs
+        else repository_log_root
+    )
+    log_specs = (
+        (
+            "elim_last_run",
+            log_root / "elim-run-log.md",
+            (
+                "owner-local:records/automation/elim-run-log.md"
+                if use_owner_local_logs
+                else "framework/records/automation/elim-run-log.md"
+            ),
+            "## Runs",
+            "newest-last",
+        ),
+        (
+            "agent_last_entry",
+            log_root / "agent-audit-log.md",
+            (
+                "owner-local:records/automation/agent-audit-log.md"
+                if use_owner_local_logs
+                else "framework/records/automation/agent-audit-log.md"
+            ),
+            "## Log",
+            "newest-last",
+        ),
+    )
+    for name, path, display_path, parent, order in log_specs:
         if path.is_file():
             logs[name] = {
-                "path": path.relative_to(root).as_posix(),
-                "sha256": sha256_path(path, root),
+                "path": display_path,
+                "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
                 "entry": latest_markdown_entry(path, parent, 3, order),
             }
     total += len(canonical_json(logs))

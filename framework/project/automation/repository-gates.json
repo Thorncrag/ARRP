@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "authority": "owner-local:records/automation/repository-gates.jsonl",
+  "classification_field": "blocks_automation",
+  "required_value": true,
+  "event_types": [
+    "declared",
+    "resolved"
+  ],
+  "gate_classes": [
+    "repository_state",
+    "required_checks",
+    "required_review",
+    "mergeability",
+    "security"
+  ],
+  "next_run_scopes": [
+    "all",
+    "scheduled",
+    "manual",
+    "full_review"
+  ],
+  "policy": "Only an active declaration event with blocks_automation=true may stop a declared automation stage. Browser logic, source-monitor prose, and an untyped pull request cannot create a gate."
+}

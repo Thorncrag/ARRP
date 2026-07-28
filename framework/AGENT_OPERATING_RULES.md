@@ -33,7 +33,7 @@ Always load the smallest complete authoritative context, not merely the smallest
 | Research, source refresh, context selection, or a decision whether more investigation is useful | Reusable [`context-and-research.md`](standards/automation/context-and-research.md) and the ARRP [human-decision route](project/automation/agent-policy.md#arrp-human-decision-route) when a reserved choice is implicated |
 | Long work, interruption risk, context handoff, or a request to continue prior work | Reusable [`task-handoffs.md`](standards/automation/task-handoffs.md) and the exact [`ARRP Task Handoff`](project/automation/agent-policy.md#arrp-task-handoff) |
 | Beginning, selecting, advancing, batching, or resuming an issue-quality audit; a project-wide monitoring pass; or substantive review of a presidential-directive discovery batch | Reusable [`audit-execution.md`](standards/automation/audit-execution.md) and exact ARRP [`project/workflows/audit-execution.md`](project/workflows/audit-execution.md) |
-| Validation, preservation, synchronization, commit, push, generated-view readback, or task closeout | Reusable [`validation-and-closeout.md`](standards/automation/validation-and-closeout.md), plus exact ARRP [`project/workflows/audit-execution.md`](project/workflows/audit-execution.md) for audit units |
+| Validation, preservation, synchronization, commit, push, generated-view readback, or task closeout | Reusable [`validation-and-closeout.md`](standards/automation/validation-and-closeout.md), exact [`project/github/disclosure-boundary.md`](project/github/disclosure-boundary.md) before any GitHub-bound content, plus exact ARRP [`project/workflows/audit-execution.md`](project/workflows/audit-execution.md) for audit units |
 | Material autonomous work, source-record changes, persistent-agent runs, rollback, or log ownership | Reusable [`provenance-and-recovery.md`](standards/automation/provenance-and-recovery.md) and exact [`ARRP Provenance and Log Ownership`](project/automation/agent-policy.md#arrp-provenance-and-log-ownership) |
 | Delegation, subagents, concurrent work, or coordinated independent review | [`multi-agent.md`](standards/automation/multi-agent.md) |
 
@@ -58,6 +58,13 @@ registered in the [ARRP automation registry](project/automation/registry.md).
 The runbook records its stable identity, trigger, runtime, authority, inputs,
 work order, boundaries, validation, provenance, failure behavior, and outputs.
 Secrets and credentials never appear in a runbook.
+
+No agent or bot may treat a public path, a private repository, an owner-only
+label, or its own `privacy_class` assertion as authorization to transmit
+content to GitHub. Every project-operated GitHub-bound path consumes one
+complete deterministic disclosure decision for the exact artifact family,
+content, and revision. Unknown classification fails closed, and usable
+credentials or recoverable derivatives have no approval exception.
 
 Runbooks inherit this kernel, its implicated modules, and the Framework instead of repeating general rules. A runbook may narrow but may not enlarge them. Temporary task agents and one-off delegated subagents do not require individual runbooks unless they become persistent named roles.
 

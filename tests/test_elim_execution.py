@@ -187,7 +187,7 @@ class ExecutionHelperTests(unittest.TestCase):
 
     def test_closeout_preserves_authority_and_recovery_without_writing_logs(self):
         value = {
-            "schema_version": 1,
+            "schema_version": 2,
             "run_id": "R-1",
             "unit_id": "U-1",
             "work_type": "issue_development",
@@ -201,6 +201,7 @@ class ExecutionHelperTests(unittest.TestCase):
             "commit": None,
             "synchronization": [],
             "human_questions": [],
+            "incident_reports": [],
             "github_action_requests": [],
             "continuation": {"state": "retryable", "next_action": "Resume source review"},
             "discovered_work_units": [],
@@ -219,7 +220,7 @@ class ExecutionHelperTests(unittest.TestCase):
 
     def test_candidate_research_is_a_valid_single_work_unit_with_identity(self):
         value = {
-            "schema_version": 1,
+            "schema_version": 2,
             "run_id": "chain-1",
             "unit_id": "candidate-1",
             "work_type": "candidate_research",
@@ -236,6 +237,7 @@ class ExecutionHelperTests(unittest.TestCase):
             "commit": None,
             "synchronization": [],
             "human_questions": ["Review the proposed candidate disposition."],
+            "incident_reports": [],
             "github_action_requests": [],
             "continuation": {
                 "state": "human_required",
@@ -258,7 +260,7 @@ class ExecutionHelperTests(unittest.TestCase):
 
     def test_closeout_validator_requires_every_canonical_schema_field(self):
         value = {
-            "schema_version": 1,
+            "schema_version": 2,
             "run_id": "R-1",
             "unit_id": "U-1",
             "work_type": "integrity",
@@ -272,6 +274,7 @@ class ExecutionHelperTests(unittest.TestCase):
             "commit": None,
             "synchronization": [],
             "human_questions": [],
+            "incident_reports": [],
             "github_action_requests": [],
             "continuation": {"state": "complete", "next_action": None},
             "discovered_work_units": [],
@@ -284,6 +287,7 @@ class ExecutionHelperTests(unittest.TestCase):
             "commit",
             "synchronization",
             "human_questions",
+            "incident_reports",
             "github_action_requests",
         ):
             incomplete = dict(value)

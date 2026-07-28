@@ -14,7 +14,42 @@ The repository remains the authoritative substantive record. Proposal text, audi
 
 The project's local macOS GitHub CLI credential should have one authoritative copy in the macOS Keychain. Sandboxed commands cannot read that credential and may report that the active account or token is invalid even when host-context authentication is healthy. Run authenticated `gh` commands, `gh auth status` diagnostics, GitHub Project synchronization, and authenticated Git network operations in the approved host context. Treat the host-context result as authoritative; do not begin another device authorization solely because a sandboxed diagnostic fails.
 
-Do not use `--insecure-storage` as a workaround or retain a second token in `~/.config/gh/hosts.yml`. A duplicate file-stored token can become stale and recreate the apparent recurring failure. Reauthorize only if `gh auth status` fails in the host context. After authorization, verify that the account is reported as Keychain-backed, required scopes include `repo`, `workflow`, and `project`, `hosts.yml` contains account routing but no `oauth_token`, and a new process can read both the repository API and Project 2.
+Do not use `--insecure-storage` as a workaround or retain a second token in
+`~/.config/gh/hosts.yml`. A duplicate file-stored token can become stale and
+recreate the apparent recurring failure. Reauthorize only if `gh auth status`
+fails in the host context. After authorization, verify that the account is
+reported as Keychain-backed, its ordinary repository scopes include `repo`
+and `workflow`, `hosts.yml` contains account routing but no `oauth_token`, and
+a new process can read the repository API. Project 2 reads use the separate
+Project-only Keychain credential through the exact Project subprocess; absence
+of `read:project` or `project` on the general GitHub CLI token is not a Project
+failure and is not a reason to broaden that general credential.
+
+## GitHub disclosure boundary
+
+Every project-operated Git push and GitHub mutation must pass the exact
+outbound content and revision through the governing
+[GitHub Disclosure Boundary](disclosure-boundary.md) before transmission and,
+where possible, before credential access. The central
+[`disclosure-policy.json`](disclosure-policy.json) registry classifies artifact
+families without requiring a label on every file. Unknown or ambiguous
+families fail closed; an LLM-supplied `privacy_class: public` value is never
+independent proof.
+
+Prohibited secrets have no approval exception. Restricted or private material
+does not go to GitHub; public communication requires a separately reviewed
+sanitized derivative. The same rule applies to commits, pull requests, Issues,
+Discussions, Project fields, workflow payloads and output, releases, Pages,
+generated PDFs, and API or App mutations. GitHub-side checks are secondary
+because they occur after disclosure. Direct human credential use cannot be
+made technically impossible by repository code, so the interactive workflow
+must invoke the same pre-transmission gate.
+
+The production gate obtains its repository identity, policy, owner-local state
+root, and active control pack from the fixed reviewed runtime authority.
+Publishing callers cannot supply a replacement pack or root. Candidate-pack
+validation is explicitly nonpublishing and nonauthoritative; only the active
+owner-local pointer can supply a production authorization decision.
 
 ## Local-first automation publication boundary
 
@@ -37,7 +72,8 @@ Benjamin reviews and publishes workflow changes with his own credential.
 Elim may return only a typed request. The broker independently requires a
 registered operation, this repository, an exact source revision and prior
 state, recorded authority, public privacy class, non-human-reserved
-classification, idempotency key, correction rule, and exact readback. Before
+classification, idempotency key, correction rule, an exact disclosure-gate
+decision for the complete outbound content, and exact readback. Before
 an authenticated Git push, the broker compares the outgoing commit range to
 `origin/main` and rejects any `.github/workflows/**` path without presenting
 the App token. It
@@ -106,6 +142,15 @@ Use exactly these Project `Status` options as workflow states:
 
 No other Status values are authoritative. `Development level: In development` remains a separate substantive maturity value; it is not a workflow Status.
 
+Every transition to `Blocked` or `Deferred` must be recorded in the issue's
+canonical audit history and link to that audit entry. That transition entry is
+the authority for the hold date. A later hold-review entry is the authority for
+the last-review date, and only an explicit reconsideration date supplies the
+next review due date. Never substitute the issue's generic `updated_at`.
+Project Status `Blocked` or `Deferred` without a matching audit transition is
+an Integrity finding and must be corrected before the hold can be treated as
+fully evidenced.
+
 Do not confuse the GitHub Project `Status` field with lowercase `status` in canonical issue-page front matter. Every issue page must carry a nonblank front-matter `status` using the issue-page metadata vocabulary `awaiting-decision`, `awaiting-merits-adjudication`, `blocked`, `candidate`, `deferred`, `developed`, `in-development`, or `retired`. That field describes the page's substantive or disposition posture; it does not replace, duplicate, or expand the Project workflow vocabulary. Missing, blank, or non-standard issue-page values are integrity findings, and Project Status values should not be copied into the page field merely because their wording is similar.
 
 At the start of substantive work, read the current Project row, canonical page, linked vehicle, latest audit record, next step, any required `workflow_hold_reason`, and any `needs: monitoring` explanation. Do not change Status merely because a work session starts or stops. If ordinary development is next, use `Status: Development`. Do not reduce `Development level` merely because material revision begins; preserve its established maturity and set `Change audit needed` and the Status identifying the actual next action or hold until the targeted review is resolved.
@@ -145,13 +190,19 @@ audit-resolution cases map to `Blocked`.
 
 ## Project Console Progress
 
-The **Progress** tab in the internal [ARRP Project Console](../../../research/horizon-review-console/index.html) is the sole human-facing planning view derived from the GitHub Project. It measures proposal records in the issue registry against the Review Ready goal without closing issues, assigning artificial milestones, or adding daily generated commits to `main`. The local-first coordinator retains machine-readable progress and bounded history in owner-only successful-run state and refreshes the checked-in Console projection through the reviewed transaction; it does not publish a data branch or second Markdown dashboard.
+The **Progress** tab in the internal [ARRP Project Console](../../../research/horizon-review-console/index.html) is the sole Console progress and portfolio-measurement projection derived from the GitHub Project. It measures proposal records in the issue registry against the Review Ready goal without closing issues, assigning artificial milestones, or adding daily generated commits to `main`. **Planning > Workbench > Pipeline** is the distinct work-sequencing projection across preliminary candidates, formal candidates, and proposals. Progress may show compact hold counts that link to Workbench but does not duplicate its detailed hold inventory. The local-first coordinator retains machine-readable progress and bounded history in owner-only successful-run state and refreshes the checked-in Console projection through the reviewed transaction; it does not publish a data branch or second Markdown dashboard.
 
 The Project `Development level` field is the substantive maturity authority; `Status` remains the workflow authority. The dashboard requires both `Development level: Review ready` or `Release candidate` and a score of at least 75 for goal attainment, and it may detect but must not silently repair maturity/score drift. Governance, horizon, source-review, and other non-proposal items are excluded from the Review Ready denominator. Newly admitted proposal issues enlarge the tracked scope automatically and must be reported as scope change rather than hidden by resetting the baseline.
 
 The GitHub Project intentionally exposes separate **Development Level** and **Status** board views. The Development Level board and the Console development-level board group proposals across the six maturity values; the Status board groups current work across the nine workflow and hold values. Neither board redefines the other field, and a repeatable Status change is not movement to a new development stage.
 
 The progress view's registry-based eligibility rule, readiness statuses, baseline, target date, forecast window, and Project field mappings are maintained in [`project-console-progress.json`](../interfaces/project-console-progress.json). The proposal identifier in the built-in Project `Title` joins each active proposal to its registry record, with `Canonical page` used only as a unique fallback; unmatched or ambiguous proposals remain visible as tracking warnings. The governing definitions, metrics, data-only retention boundary, and change-control rules are documented in [`ARRP Project Console Progress`](../interfaces/project-console-progress.md). Changes to eligibility, the readiness rule, or the official target require a project-level Change Audit.
+
+Workbench and its Pipeline category do not alter the Progress denominator, readiness statuses, scoring,
+eligibility, baseline, target, or forecast rules. Its typed producer supplies
+work class, membership reason, exact next action, score state, hold fields and
+audit provenance, and deterministic sort inputs. The browser renders those
+facts and must not classify narrative text into planning or hold state.
 
 ## Public Website
 

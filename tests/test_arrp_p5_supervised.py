@@ -218,6 +218,25 @@ class P5GitHubWaitTests(unittest.TestCase):
             calls,
         )
 
+    def test_pull_request_disclosure_gate_runs_before_any_api_request(self):
+        calls = []
+        prohibited_value = "github" + "_pat_" + ("x" * 24)
+
+        def api(*args, **kwargs):
+            calls.append((args, kwargs))
+            raise AssertionError("API must not be called")
+
+        with self.assertRaisesRegex(MODULE.GitHubBrokerError, "disclosure blocked"):
+            MODULE.open_or_update_nightly_pull_request(
+                MODULE.SensitiveValue("fixture"),
+                branch="automation/nightly-fixture",
+                expected_head="a" * 40,
+                title="Fixture",
+                body=prohibited_value,
+                api_request=api,
+            )
+        self.assertEqual(calls, [])
+
     def test_pull_request_stale_head_fails_after_bounded_readback(self):
         expected_head = "a" * 40
         clock = iter([0.0, 1.0])
@@ -498,6 +517,11 @@ class P5CoordinatorIntegrationTests(unittest.TestCase):
                             "prohibited": [],
                         },
                         "review_required": False,
+                        "disclosure_decision": {
+                            "allowed": True,
+                            "operation": "git_push",
+                            "source_revision": "a" * 40,
+                        },
                     },
                 ),
                 mock.patch.object(
