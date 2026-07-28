@@ -2967,7 +2967,7 @@ def build_work_queue(
         "schema_version": 1,
         "item_schema_version": 1,
         "generated_at": now.isoformat(timespec="seconds"),
-        "repository_revision": git_revision(),
+        "repository_revision": git_revision(reviewed_repository_root),
         "ready_for_elim": ready,
         "launch_recommended": ready and any(item["eligible_for_elim"] for item in items),
         "selected_work_item_id": selected.get("id") if selected else None,

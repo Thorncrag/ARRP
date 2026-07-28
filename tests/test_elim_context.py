@@ -950,6 +950,53 @@ class QueueTests(unittest.TestCase):
         )
         self.assertTrue(queue["launch_recommended"])
 
+    def test_queue_revision_comes_from_explicit_repository_root(self):
+        integrity, progress, intake, chain = self.quiet_inputs()
+        subprocess.run(
+            ["git", "init", "-b", "main"],
+            cwd=self.root,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        subprocess.run(
+            ["git", "config", "user.name", "ARRP Queue Fixture"],
+            cwd=self.root,
+            check=True,
+        )
+        subprocess.run(
+            ["git", "config", "user.email", "queue@example.invalid"],
+            cwd=self.root,
+            check=True,
+        )
+        subprocess.run(["git", "add", "."], cwd=self.root, check=True)
+        subprocess.run(
+            ["git", "commit", "-m", "Queue fixture"],
+            cwd=self.root,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        revision = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=self.root,
+            check=True,
+            text=True,
+            stdout=subprocess.PIPE,
+        ).stdout.strip()
+
+        queue = build_work_queue(
+            integrity_path=integrity,
+            progress_path=progress,
+            intake_path=intake,
+            chain_path=chain,
+            now=self.now,
+            input_root=self.root,
+            repository_root=self.root,
+        )
+
+        self.assertEqual(queue["repository_revision"], revision)
+
     def test_clean_governance_review_is_visible_but_not_immediately_reselected(self):
         integrity, progress, intake, chain = self.quiet_inputs()
         gaps = self.path(
