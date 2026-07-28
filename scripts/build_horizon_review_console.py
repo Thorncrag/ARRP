@@ -1077,13 +1077,18 @@ def default_assembly_sections(
 def page_inventory_records() -> list[dict[str, object]]:
     """Return every publication-controlled Markdown page and its disposition."""
     excluded_roots = {".git", ".site-build", ".tmp", ".venv"}
+    local_only_roots = {Path("research/horizon-review-console/prototypes")}
     explicit_exceptions = {ROOT / "AGENTS.md", ROOT / "website" / "404.md"}
     records: list[dict[str, object]] = []
     manifest = publication_manifest()
     words_per_page = int(manifest.get("words_per_estimated_page", 650))
     for path in iter_project_files(ROOT, "*.md"):
         relative = path.relative_to(ROOT)
-        if excluded_roots.intersection(relative.parts) or path in explicit_exceptions:
+        if (
+            excluded_roots.intersection(relative.parts)
+            or any(relative.is_relative_to(root) for root in local_only_roots)
+            or path in explicit_exceptions
+        ):
             continue
         content = path.read_text(encoding="utf-8")
         metadata = markdown_front_matter(content)

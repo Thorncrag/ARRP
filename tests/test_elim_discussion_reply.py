@@ -1,12 +1,17 @@
 import unittest
 from pathlib import Path
 
+import scripts.validate_elim_discussion_reply as reply_module
 from scripts.validate_elim_discussion_reply import (
     ReplyValidationError,
     broker_intent,
     marker_for_submission,
     validate_reply,
 )
+from tests.disclosure_test_support import install_test_control_pack
+
+
+install_test_control_pack(reply_module)
 
 
 SUBMISSION_URL = (

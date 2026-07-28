@@ -38,7 +38,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "schema_version": 1,
       "availability": "current",
       "complete": true,
-      "checked_at": "2026-07-28T22:00:12Z",
+      "checked_at": "2026-07-28T22:14:14Z",
       "count": 1,
       "unresolved_count": 0,
       "impact_state": "green",
@@ -743,7 +743,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "publication_summary": {
       "disposition_counts": {
         "included": 138,
-        "excluded": 230,
+        "excluded": 226,
         "unclassified": 0,
         "conflict": 0
       },
@@ -935,6 +935,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-bdd0a74b09553f1feb9f"
+    "overview.js": "project-console-29196c24bdb1d7db30ce"
   }
 });

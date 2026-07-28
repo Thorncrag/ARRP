@@ -12286,56 +12286,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 57
     },
     {
-      "title": "ARRP Console Design Preference Profile",
-      "path": "research/horizon-review-console/prototypes/stage-1-review/CONSOLE_DESIGN_PREFERENCE_PROFILE.md",
-      "section": "Research",
-      "print_levels": [],
-      "print_level_labels": [],
-      "print_status": "excluded",
-      "print_exclusion_reason": "Internal interface design artifact.",
-      "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/research/horizon-review-console/prototypes/stage-1-review/CONSOLE_DESIGN_PREFERENCE_PROFILE.md",
-      "document_type": "research",
-      "print_metadata_present": true,
-      "invalid_print_levels": [],
-      "assembly_sections": {
-        "public-proposal": "appendix-c-research"
-      },
-      "assembly_sort_key": "research/horizon-review-console/prototypes/stage-1-review-arrp console design preference profile",
-      "internal_links": [],
-      "word_count": 1647,
-      "estimated_pages": 3,
-      "table_count": 6,
-      "max_table_columns": 4,
-      "heading_issue_count": 0,
-      "longest_unbroken_token": 21
-    },
-    {
-      "title": "ARRP Console Development Log — Stage 1 Design Draft",
-      "path": "research/horizon-review-console/prototypes/stage-1-review/CONSOLE_DEVELOPMENT_LOG_DRAFT.md",
-      "section": "Research",
-      "print_levels": [],
-      "print_level_labels": [],
-      "print_status": "excluded",
-      "print_exclusion_reason": "Internal interface design artifact.",
-      "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/research/horizon-review-console/prototypes/stage-1-review/CONSOLE_DEVELOPMENT_LOG_DRAFT.md",
-      "document_type": "research",
-      "print_metadata_present": true,
-      "invalid_print_levels": [],
-      "assembly_sections": {
-        "public-proposal": "appendix-c-research"
-      },
-      "assembly_sort_key": "research/horizon-review-console/prototypes/stage-1-review-arrp console development log — stage 1 design draft",
-      "internal_links": [],
-      "word_count": 1333,
-      "estimated_pages": 3,
-      "table_count": 2,
-      "max_table_columns": 2,
-      "heading_issue_count": 0,
-      "longest_unbroken_token": 66
-    },
-    {
       "title": "ARRP Project Console",
       "path": "research/horizon-review-console/README.md",
       "section": "Research",
@@ -12368,31 +12318,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "max_table_columns": 0,
       "heading_issue_count": 0,
       "longest_unbroken_token": 52
-    },
-    {
-      "title": "ARRP Project Console revision — Stage 1 review and plan",
-      "path": "research/horizon-review-console/prototypes/stage-1-review/STAGE_1_PLAN.md",
-      "section": "Research",
-      "print_levels": [],
-      "print_level_labels": [],
-      "print_status": "excluded",
-      "print_exclusion_reason": "Internal interface design artifact.",
-      "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/research/horizon-review-console/prototypes/stage-1-review/STAGE_1_PLAN.md",
-      "document_type": "research",
-      "print_metadata_present": true,
-      "invalid_print_levels": [],
-      "assembly_sections": {
-        "public-proposal": "appendix-c-research"
-      },
-      "assembly_sort_key": "research/horizon-review-console/prototypes/stage-1-review-arrp project console revision — stage 1 review and plan",
-      "internal_links": [],
-      "word_count": 3599,
-      "estimated_pages": 6,
-      "table_count": 3,
-      "max_table_columns": 3,
-      "heading_issue_count": 0,
-      "longest_unbroken_token": 49
     },
     {
       "title": "ARRP Project Console — Comprehensive Review and Assessment",
@@ -12502,31 +12427,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "max_table_columns": 0,
       "heading_issue_count": 0,
       "longest_unbroken_token": 73
-    },
-    {
-      "title": "ARRP Project Console — Whole-Console Design Specification (Stage 1 Draft)",
-      "path": "research/horizon-review-console/prototypes/stage-1-review/PROJECT_CONSOLE_DESIGN_SPEC_DRAFT.md",
-      "section": "Research",
-      "print_levels": [],
-      "print_level_labels": [],
-      "print_status": "excluded",
-      "print_exclusion_reason": "Internal interface design artifact.",
-      "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/research/horizon-review-console/prototypes/stage-1-review/PROJECT_CONSOLE_DESIGN_SPEC_DRAFT.md",
-      "document_type": "research",
-      "print_metadata_present": true,
-      "invalid_print_levels": [],
-      "assembly_sections": {
-        "public-proposal": "appendix-c-research"
-      },
-      "assembly_sort_key": "research/horizon-review-console/prototypes/stage-1-review-arrp project console — whole-console design specification (stage 1 draft)",
-      "internal_links": [],
-      "word_count": 5926,
-      "estimated_pages": 10,
-      "table_count": 3,
-      "max_table_columns": 3,
-      "heading_issue_count": 0,
-      "longest_unbroken_token": 66
     },
     {
       "title": "ARRP Research and Development Work Product",
@@ -15197,7 +15097,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "disposition_counts": {
       "included": 138,
-      "excluded": 230,
+      "excluded": 226,
       "unclassified": 0,
       "conflict": 0
     },
@@ -15229,7 +15129,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Replaceable internal automation report.": 1,
       "Internal drafting template.": 3,
       "Internal workflow documentation.": 1,
-      "Internal interface design artifact.": 4,
       "Nonauthoritative internal product review.": 1,
       "Nonauthoritative internal implementation handoff.": 1,
       "Nonauthoritative internal implementation and validation report.": 1,
@@ -15436,7 +15335,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "label": "Assembly structurally valid",
         "disposition_counts": {
           "included": 138,
-          "excluded": 230,
+          "excluded": 226,
           "unclassified": 0,
           "conflict": 0
         }
@@ -20032,6 +19931,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-bdd0a74b09553f1feb9f"
+    "publication.js": "project-console-29196c24bdb1d7db30ce"
   }
 });
