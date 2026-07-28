@@ -115,6 +115,7 @@ RUNTIME_FILES = (
     "scripts/arrp_nightly.py",
     "scripts/arrp_bootstrap.py",
     "scripts/arrp_context.py",
+    "scripts/source_monitor_recommendations.py",
     "scripts/run_coordinator.py",
     "scripts/build_elim_work_queue.py",
     "scripts/select_elim_context_route.py",

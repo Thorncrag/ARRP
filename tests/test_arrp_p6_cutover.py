@@ -110,6 +110,12 @@ class ArrpP6ProductionBootstrapTests(unittest.TestCase):
     def tearDown(self):
         self.temporary.cleanup()
 
+    def test_runtime_manifest_includes_arrp_context_import_closure(self):
+        self.assertIn(
+            "scripts/source_monitor_recommendations.py",
+            BOOTSTRAP.RUNTIME_FILES,
+        )
+
     def production_boundary(self):
         return (
             mock.patch.object(
