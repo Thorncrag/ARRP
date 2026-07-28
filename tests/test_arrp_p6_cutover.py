@@ -206,6 +206,7 @@ class ArrpP6ProductionBootstrapTests(unittest.TestCase):
         self.assertEqual(
             expected[1:],
             [
+                "-B",
                 str(runtime / "scripts/arrp_nightly.py"),
                 "--canonical-path",
                 str(BOOTSTRAP.CANONICAL_PATH),

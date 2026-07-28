@@ -1,5 +1,7 @@
 import importlib.util
 import io
+import subprocess
+import tempfile
 import unittest
 from contextlib import redirect_stdout
 from pathlib import Path
@@ -23,6 +25,7 @@ class ArrpBootstrapTests(unittest.TestCase):
         self.assertEqual(
             command[1:],
             [
+                "-B",
                 "/tmp/reviewed-runtime/scripts/arrp_nightly.py",
                 "--canonical-path",
                 str(MODULE.CANONICAL_PATH),
@@ -40,6 +43,26 @@ class ArrpBootstrapTests(unittest.TestCase):
         command = MODULE.build_command(runtime, revision, manual=True)
         self.assertEqual(command[-1], "--manual")
         self.assertNotIn("--scheduled", command)
+        self.assertEqual(command[1], "-B")
+
+    def test_reviewed_runner_does_not_create_bytecode_cache(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            runtime = Path(temporary)
+            scripts = runtime / "scripts"
+            scripts.mkdir()
+            (scripts / "helper.py").write_text("VALUE = 1\n", encoding="utf-8")
+            (scripts / "arrp_nightly.py").write_text(
+                "import helper\nassert helper.VALUE == 1\n",
+                encoding="utf-8",
+            )
+            subprocess.run(
+                MODULE.build_command(runtime, "e" * 40),
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+            self.assertFalse(any(runtime.rglob("__pycache__")))
+            self.assertFalse(any(runtime.rglob("*.pyc")))
 
     def test_dry_run_reports_without_invoking_runner(self):
         runtime = Path("/tmp/reviewed-runtime")
