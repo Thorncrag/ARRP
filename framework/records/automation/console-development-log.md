@@ -31,8 +31,8 @@ purpose, review decision, or rollback boundary.
 - Recorded: 2026-07-28
 - Lifecycle: Changed
 - Feature or component: Whole Console
-- State: Accepted / pending canonical synchronization
-- Implementation commits: Pending semantic implementation commit with `Console-Change-ID: CONSOLE-2026-001`
+- State: Committed / pending canonical synchronization
+- Implementation commits: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35` (`Console-Change-ID: CONSOLE-2026-001`)
 - Rollback baseline: `a47082d0a684de38626c68fec325337765f35b9a`
 
 ### User-visible change
@@ -182,8 +182,9 @@ change set with zero restricted or secret findings.
 
 Configuration exports are staged only. Applying them to the repository or host
 requires the ordinary reviewed change and immediate approval for persistent
-host state. Record the full semantic implementation commit below after it is
-created, then synchronize this entry on canonical `main`.
+host state. The full semantic implementation commit is recorded above.
+Synchronize this entry on canonical `main`; any later host-configuration
+application remains a separately approved change.
 
 ## Record requirements
 

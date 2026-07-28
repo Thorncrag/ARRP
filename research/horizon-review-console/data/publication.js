@@ -7616,7 +7616,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/automation-arrp console development log",
       "internal_links": [],
-      "word_count": 1576,
+      "word_count": 1578,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -16523,7 +16523,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "available": false,
         "artifact_path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "artifact_sha256": "sha256:96965f823bb003dfdf154fe6da604efb0b784da6f266a1642293ae397feb8e31",
-        "artifact_repository_revision": "e4e91363527ef360b2cc61e65861869a7f262953",
+        "artifact_repository_revision": "3f0f1d3d48b4aea148de9da92c946fe36f2c8a35",
         "build_source_revision": null,
         "input_hashes": null,
         "unavailable_reason": "The existing PDF has no recorded build source revision and complete input-hash manifest."
@@ -20032,6 +20032,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-cb6b329038ccd6dde399"
+    "publication.js": "project-console-bdd0a74b09553f1feb9f"
   }
 });
