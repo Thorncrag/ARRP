@@ -1,6 +1,6 @@
 ---
 title: "Current Task Handoff"
-status: paused
+status: inactive
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
