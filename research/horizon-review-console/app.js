@@ -3421,6 +3421,81 @@
     ) || null;
   }
 
+  function safeConsoleTarget(value, fallback = "overview") {
+    const raw = String(value || "").replace(/^#/, "");
+    if (raw.length > 2048 || /[\u0000-\u001f\u007f]/.test(raw)) return fallback;
+    try {
+      const target = normalizeConsoleTarget(raw);
+      if (
+        target.length > 2048
+        || !/^[A-Za-z0-9_.~%=&:+-]+$/.test(target)
+      ) return fallback;
+      const staticRoutes = new Set([
+        "overview",
+        "actions",
+        "progress",
+        "progress:monitoring",
+        "planning",
+        "planning:preliminary",
+        "planning:candidates",
+        "planning:sources",
+        "planning:publication",
+        "planning:publication:analysis",
+        "integrity",
+        "automation",
+        "automation:overview",
+        "automation:gates",
+        "automation:capacity",
+        "automation:platform",
+        "automation:data",
+        "automation:security"
+      ]);
+      if (staticRoutes.has(target)) return target;
+      if (/^planning:(?:preliminary|candidates):selected=[A-Za-z0-9._-]{1,128}$/.test(target)) {
+        return target;
+      }
+      if (/^planning:sources:[A-Za-z0-9._:+-]{1,256}$/.test(target)) return target;
+      if (/^automation:agents:[A-Za-z0-9._-]{1,128}$/.test(target)) return target;
+      if (/^automation:logs:[A-Za-z0-9._-]{1,128}$/.test(target)) return target;
+      if (target === "planning:workbench:pipeline") return target;
+      if (target.startsWith("planning:workbench:pipeline:")) {
+        const parameters = new URLSearchParams(
+          target.slice("planning:workbench:pipeline:".length)
+        );
+        const allowed = new Set([
+          "mode", "selected", "search", "gap", "work_class", "scope",
+          "sort", "status", "development", "release_blocker", "area",
+          "workstream", "owner", "priority", "source", "ref", "return", "focus"
+        ]);
+        if ([...parameters.keys()].every((key) => allowed.has(key))) return target;
+      }
+    } catch (_error) {
+      return fallback;
+    }
+    return fallback;
+  }
+
+  function safePipelineExternalUrl(value) {
+    try {
+      const target = new URL(String(value || ""));
+      const allowedPath = (
+        /^\/Thorncrag\/ARRP\/issues\/[1-9][0-9]*$/.test(target.pathname)
+        || /^\/Thorncrag\/ARRP\/blob\/(?:main|[0-9a-f]{40})\/[^?#]+$/.test(target.pathname)
+      );
+      if (
+        target.protocol !== "https:"
+        || target.hostname !== "github.com"
+        || target.port
+        || !allowedPath
+        || target.username
+        || target.password
+      ) return null;
+      return target.href;
+    } catch (_error) {
+      return null;
+    }
+  }
+
   function workbenchTargetForArtifact(identifier, context = {}) {
     const record = workbenchArtifactRecord(identifier);
     if (!record) return null;
@@ -3430,7 +3505,9 @@
     if (record.mode === "hold") parameters.set("mode", "hold");
     if (context.source) parameters.set("source", context.source);
     if (context.reference) parameters.set("ref", context.reference);
-    if (context.returnTarget) parameters.set("return", context.returnTarget);
+    if (context.returnTarget) {
+      parameters.set("return", safeConsoleTarget(context.returnTarget));
+    }
     return `planning:workbench:pipeline:${parameters.toString()}`;
   }
 
@@ -3472,7 +3549,12 @@
       return: "returnTarget"
     };
     Object.entries(keys).forEach(([parameter, stateKey]) => {
-      if (parameters.has(parameter)) pipelineState[stateKey] = parameters.get(parameter) || "all";
+      if (parameters.has(parameter)) {
+        const value = parameters.get(parameter) || "all";
+        pipelineState[stateKey] = stateKey === "returnTarget"
+          ? safeConsoleTarget(value)
+          : value;
+      }
     });
     pipelineState.mode = pipelineState.mode === "hold" ? "hold" : "active";
     pipelineState.focused = parameters.get("focus") === "1";
@@ -5249,14 +5331,25 @@
 
   function pipelineLink(label, route, external = false) {
     const link = element("a", external ? "record-link" : "record-link secondary", label);
-    link.href = external ? route : `#${route}`;
     if (external) {
+      const safeRoute = safePipelineExternalUrl(route);
+      if (!safeRoute) {
+        return element("span", "record-link unavailable", "Link unavailable");
+      }
+      const parsedRoute = new URL(safeRoute);
+      link.href = "https://github.com/Thorncrag/ARRP/";
+      link.pathname = parsedRoute.pathname;
+      link.search = parsedRoute.search;
+      link.hash = parsedRoute.hash;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
     } else {
+      const safeRoute = safeConsoleTarget(route);
+      link.href = "#";
+      link.hash = safeRoute;
       link.addEventListener("click", (event) => {
         event.preventDefault();
-        navigateToConsoleTarget(route);
+        navigateToConsoleTarget(safeRoute);
       });
     }
     return link;
@@ -5466,7 +5559,13 @@
       byId("workbench-context-copy").textContent =
         `Opened from ${source}${reference}; ${focusOutsideDefault ? "outside the current Pipeline mode or filters" : "also represented in the current Pipeline view"}.`;
       const returnLink = byId("workbench-context-return");
-      returnLink.href = `#${pipelineState.returnTarget || "overview"}`;
+      const returnTarget = safeConsoleTarget(pipelineState.returnTarget || "overview");
+      returnLink.href = "#";
+      returnLink.hash = returnTarget;
+      returnLink.onclick = (event) => {
+        event.preventDefault();
+        navigateToConsoleTarget(returnTarget);
+      };
       returnLink.textContent = `Return to ${source} →`;
     }
     const gaps = Array.isArray(projection.dataGaps) ? projection.dataGaps : [];
@@ -10897,6 +10996,8 @@
     priorityAttentionReasons,
     priorityAttentionItems,
     normalizeConsoleTarget,
+    safeConsoleTarget,
+    safePipelineExternalUrl,
     pluralizeWord,
     overviewBriefVerification,
     overviewStagePresentation,

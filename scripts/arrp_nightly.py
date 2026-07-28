@@ -164,6 +164,10 @@ RUNTIME_FILES = (
     "scripts/arrp_nightly.py",
     "scripts/arrp_bootstrap.py",
     "scripts/arrp_context.py",
+    "scripts/path_authority.py",
+    "scripts/github_disclosure_gate.py",
+    "scripts/operational_incidents.py",
+    "scripts/repository_gates.py",
     "scripts/source_monitor_recommendations.py",
     "scripts/run_coordinator.py",
     "scripts/build_elim_work_queue.py",
@@ -172,6 +176,7 @@ RUNTIME_FILES = (
     "scripts/elim_execution.py",
     "scripts/check_codex_usage_reserve.py",
     "scripts/console_data_contracts.py",
+    "framework/project/github/disclosure-policy.json",
 )
 SAFE_RUN_ID = re.compile(r"^[A-Za-z0-9_.-]+$")
 LOCAL_STAGE_ORDER = (
@@ -3637,6 +3642,8 @@ def run_production_cycle(
         context_command = [
             sys.executable,
             str(runtime / "scripts/build_elim_context.py"),
+            "--path-authority",
+            "production-transaction",
             "--manifest",
             str(worktree / "framework/project/automation/context-routes.json"),
             "--input-root",

@@ -27,6 +27,7 @@ from arrp_context import (  # noqa: E402
 )
 from select_elim_context_route import select_context_route  # noqa: E402
 from elim_execution import merge_gap_obligation_state  # noqa: E402
+from path_authority import ProjectPathAuthority  # noqa: E402
 
 
 def write_json(path: Path, value: object) -> None:
@@ -97,88 +98,100 @@ class ExactContextTests(unittest.TestCase):
         self.temp.cleanup()
 
     def test_context_cli_uses_exact_repository_and_output_roots(self):
-        with tempfile.TemporaryDirectory() as output_directory:
-            output_root = Path(output_directory)
-            output = output_root / "packet.json"
-            completed = subprocess.run(
-                [
-                    sys.executable,
-                    str(ROOT / "scripts/build_elim_context.py"),
-                    "--input-root",
-                    str(self.root),
-                    "--manifest",
-                    str(self.manifest),
-                    "--profile",
-                    "issue",
-                    "--output-root",
-                    str(output_root),
-                    "--output",
-                    str(output),
-                ],
-                cwd=ROOT,
-                check=False,
-                capture_output=True,
-                text=True,
-            )
-            self.assertEqual(completed.returncode, 0, completed.stderr)
-            self.assertEqual(completed.stdout, "")
-            packet = json.loads(output.read_text(encoding="utf-8"))
-            self.assertEqual(packet["profile"], "issue")
-            self.assertEqual(packet["manifest"]["path"], "manifest.json")
+        output_root = self.root / "output"
+        output_root.mkdir()
+        output = output_root / "packet.json"
+        completed = subprocess.run(
+            [
+                sys.executable,
+                str(ROOT / "scripts/build_elim_context.py"),
+                "--path-authority",
+                "fixture",
+                "--input-root",
+                str(self.root),
+                "--fixture-root",
+                str(self.root),
+                "--manifest",
+                str(self.manifest),
+                "--profile",
+                "issue",
+                "--output-root",
+                str(output_root),
+                "--output",
+                str(output),
+            ],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        self.assertEqual(completed.stdout, "")
+        packet = json.loads(output.read_text(encoding="utf-8"))
+        self.assertEqual(packet["profile"], "issue")
+        self.assertEqual(packet["manifest"]["path"], "manifest.json")
 
     def test_context_cli_rejects_output_outside_exact_output_root(self):
-        with tempfile.TemporaryDirectory() as output_directory:
-            output_root = Path(output_directory)
-            outside = self.root / "outside.json"
-            completed = subprocess.run(
-                [
-                    sys.executable,
-                    str(ROOT / "scripts/build_elim_context.py"),
-                    "--input-root",
-                    str(self.root),
-                    "--manifest",
-                    str(self.manifest),
-                    "--profile",
-                    "issue",
-                    "--output-root",
-                    str(output_root),
-                    "--output",
-                    str(outside),
-                ],
-                cwd=ROOT,
-                check=False,
-                capture_output=True,
-                text=True,
-            )
-            self.assertEqual(completed.returncode, 2)
-            self.assertFalse(outside.exists())
+        output_root = self.root / "output"
+        output_root.mkdir()
+        outside = self.root / "outside.json"
+        completed = subprocess.run(
+            [
+                sys.executable,
+                str(ROOT / "scripts/build_elim_context.py"),
+                "--path-authority",
+                "fixture",
+                "--input-root",
+                str(self.root),
+                "--fixture-root",
+                str(self.root),
+                "--manifest",
+                str(self.manifest),
+                "--profile",
+                "issue",
+                "--output-root",
+                str(output_root),
+                "--output",
+                str(outside),
+            ],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(completed.returncode, 2)
+        self.assertFalse(outside.exists())
 
     def test_context_cli_rejects_nested_output_under_exact_output_root(self):
-        with tempfile.TemporaryDirectory() as output_directory:
-            output_root = Path(output_directory)
-            nested = output_root / "nested" / "packet.json"
-            completed = subprocess.run(
-                [
-                    sys.executable,
-                    str(ROOT / "scripts/build_elim_context.py"),
-                    "--input-root",
-                    str(self.root),
-                    "--manifest",
-                    str(self.manifest),
-                    "--profile",
-                    "issue",
-                    "--output-root",
-                    str(output_root),
-                    "--output",
-                    str(nested),
-                ],
-                cwd=ROOT,
-                check=False,
-                capture_output=True,
-                text=True,
-            )
-            self.assertEqual(completed.returncode, 2)
-            self.assertFalse(nested.exists())
+        output_root = self.root / "output"
+        output_root.mkdir()
+        nested = output_root / "nested" / "packet.json"
+        completed = subprocess.run(
+            [
+                sys.executable,
+                str(ROOT / "scripts/build_elim_context.py"),
+                "--path-authority",
+                "fixture",
+                "--input-root",
+                str(self.root),
+                "--fixture-root",
+                str(self.root),
+                "--manifest",
+                str(self.manifest),
+                "--profile",
+                "issue",
+                "--output-root",
+                str(output_root),
+                "--output",
+                str(nested),
+            ],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(completed.returncode, 2)
+        self.assertFalse(nested.exists())
 
     def schema_two_manifest(self) -> Path:
         documents = {
@@ -274,6 +287,22 @@ class ExactContextTests(unittest.TestCase):
             packet["issue_dossier"]["linked_vehicles"][0]["content"],
         )
         self.assertLessEqual(packet["limits"]["actual_bytes"], packet["limits"]["max_bytes"])
+
+    def test_explicit_fixture_never_falls_back_to_owner_local_logs(self):
+        state = self.root / "fixture-state"
+        state.mkdir()
+        authority = ProjectPathAuthority.fixture(
+            self.root,
+            repository_root=self.root,
+            state_root=state,
+        )
+        packet = build_context_packet(
+            self.manifest,
+            "issue",
+            root=self.root,
+            path_authority=authority,
+        )
+        self.assertEqual(packet.get("logs", {}), {})
 
     def test_context_packet_preserves_exact_work_selection(self):
         packet = build_context_packet(

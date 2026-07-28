@@ -9,14 +9,29 @@ import hashlib
 import json
 import os
 import re
+import stat
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
+try:
+    from path_authority import (
+        APPROVED_STATE_ROOT,
+        PathAuthorityError,
+        ProjectPathAuthority,
+    )
+except ModuleNotFoundError:
+    from scripts.path_authority import (
+        APPROVED_STATE_ROOT,
+        PathAuthorityError,
+        ProjectPathAuthority,
+    )
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_POLICY = ROOT / "framework/project/github/disclosure-policy.json"
-DEFAULT_STATE_ROOT = Path.home() / "Library/Application Support/ARRP"
+DEFAULT_STATE_ROOT = APPROVED_STATE_ROOT
 CATEGORY_RANK = {
     "public_by_design": 0,
     "public_operational_summary": 1,
@@ -26,6 +41,7 @@ CATEGORY_RANK = {
 }
 PUBLIC_CATEGORIES = frozenset({"public_by_design", "public_operational_summary"})
 TEXT_LIMIT = 64 * 1024 * 1024
+CONTROL_FILE_LIMIT = 4 * 1024 * 1024
 
 SECRET_PATTERNS: tuple[tuple[str, re.Pattern[bytes]], ...] = (
     (
@@ -103,52 +119,212 @@ def load_policy(path: Path = DEFAULT_POLICY) -> dict[str, Any]:
     return value
 
 
+def _read_owner_json(path: Path) -> object:
+    flags = os.O_RDONLY
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    descriptor = os.open(path, flags)
+    try:
+        metadata = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(metadata.st_mode)
+            or metadata.st_uid != os.getuid()
+            or metadata.st_mode & 0o077
+            or metadata.st_size > CONTROL_FILE_LIMIT
+        ):
+            raise OSError("owner-local control file is unsafe")
+        with os.fdopen(descriptor, "r", encoding="utf-8") as handle:
+            descriptor = -1
+            return json.load(handle)
+    finally:
+        if descriptor >= 0:
+            os.close(descriptor)
+
+
 def load_control_pack(
-    path: Path | None = None,
     *,
     policy: Mapping[str, Any] | None = None,
-    allow_candidate: bool = False,
 ) -> dict[str, Any]:
-    """Load the required owner-local restricted controls without exposing them."""
+    """Load only the active pack from the fixed owner-local authority."""
 
     active_policy = dict(policy) if policy is not None else load_policy()
     contract = active_policy.get("control_pack_contract")
     if not isinstance(contract, Mapping) or contract.get("required") is not True:
         raise DisclosureBlocked(_unavailable_decision("control-pack-contract-unavailable"))
-    state_root = Path(
-        os.environ.get("ARRP_STATE_ROOT", str(DEFAULT_STATE_ROOT))
-    ).expanduser().resolve()
-    control_root = (state_root / "disclosure-control-packs").resolve()
-    if path is None:
-        pointer = control_root / "active.json"
-        try:
-            pointer_value = json.loads(pointer.read_text(encoding="utf-8"))
-            relative = str(pointer_value["control_pack"])
-        except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError) as error:
-            raise DisclosureBlocked(
-                _unavailable_decision("active-control-pack-unavailable")
-            ) from error
-        source = (control_root / relative).resolve()
-    else:
-        source = path.expanduser().resolve()
-    if source != control_root and control_root not in source.parents:
-        raise DisclosureBlocked(_unavailable_decision("control-pack-outside-owner-root"))
     try:
-        value = json.loads(source.read_text(encoding="utf-8"))
+        authority = ProjectPathAuthority.production()
+        control_root = (
+            authority.state_root / "disclosure-control-packs"
+        ).resolve(strict=True)
+        pointer = authority.state_path(
+            "disclosure-control-packs/active.json",
+            owner_only=True,
+        )
+        pointer_value = _read_owner_json(pointer)
+        relative = str(pointer_value["control_pack"])
+        source_relative = (
+            Path("disclosure-control-packs") / relative
+        ).as_posix()
+        source = authority.state_path(
+            source_relative,
+            owner_only=True,
+        )
+    except (
+        OSError,
+        KeyError,
+        TypeError,
+        ValueError,
+        json.JSONDecodeError,
+        PathAuthorityError,
+    ) as error:
+        raise DisclosureBlocked(
+            _unavailable_decision("active-control-pack-unavailable")
+        ) from error
+    try:
+        source.relative_to(control_root)
+    except ValueError as error:
+        raise DisclosureBlocked(
+            _unavailable_decision("control-pack-outside-owner-root")
+        ) from error
+    try:
+        value = _read_owner_json(source)
     except (OSError, ValueError, json.JSONDecodeError) as error:
         raise DisclosureBlocked(_unavailable_decision("control-pack-unreadable")) from error
     return validate_control_pack(
         value,
         policy=active_policy,
-        allow_candidate=allow_candidate,
     )
+
+
+def validate_candidate_control_pack(
+    path: Path,
+    *,
+    policy: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Validate a candidate for activation without authorizing transmission."""
+
+    active_policy = dict(policy) if policy is not None else load_policy()
+    try:
+        authority = ProjectPathAuthority.production()
+        candidates = (
+            authority.state_root / "disclosure-control-packs" / "candidates"
+        ).resolve(strict=True)
+        source = authority.requested_state_file(path, owner_only=True)
+        source.relative_to(candidates)
+        value = _read_owner_json(source)
+    except (
+        OSError,
+        TypeError,
+        ValueError,
+        json.JSONDecodeError,
+        PathAuthorityError,
+    ) as error:
+        raise DisclosureBlocked(
+            _unavailable_decision("candidate-control-pack-unavailable")
+        ) from error
+    return validate_control_pack(
+        value,
+        policy=active_policy,
+        allowed_statuses=frozenset({"candidate"}),
+    )
+
+
+def _owner_directory(path: Path) -> None:
+    if path.exists():
+        metadata = path.lstat()
+        if (
+            path.is_symlink()
+            or not stat.S_ISDIR(metadata.st_mode)
+            or metadata.st_uid != os.getuid()
+            or stat.S_IMODE(metadata.st_mode) != 0o700
+        ):
+            raise DisclosureBlocked(
+                _unavailable_decision("control-pack-activation-boundary-unsafe")
+            )
+        return
+    path.mkdir(mode=0o700)
+
+
+def _atomic_owner_json(path: Path, value: object) -> None:
+    _owner_directory(path.parent)
+    descriptor, temporary_name = tempfile.mkstemp(
+        prefix=f".{path.name}.",
+        dir=path.parent,
+    )
+    temporary = Path(temporary_name)
+    try:
+        os.fchmod(descriptor, 0o600)
+        with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
+            json.dump(value, handle, indent=2, sort_keys=True)
+            handle.write("\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
+        os.chmod(path, 0o600)
+    finally:
+        if temporary.exists():
+            temporary.unlink()
+
+
+def activate_candidate_control_pack(
+    candidate_id: str,
+    *,
+    policy: Mapping[str, Any] | None = None,
+) -> dict[str, str]:
+    """Atomically activate one validated owner-local candidate pack."""
+
+    if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", candidate_id) is None:
+        raise DisclosureBlocked(
+            _unavailable_decision("candidate-control-pack-id-invalid")
+        )
+    active_policy = dict(policy) if policy is not None else load_policy()
+    authority = ProjectPathAuthority.production()
+    candidate = authority.state_path(
+        (
+            "disclosure-control-packs/candidates/"
+            f"{candidate_id}/control-pack.json"
+        ),
+        owner_only=True,
+    )
+    value = validate_candidate_control_pack(
+        candidate,
+        policy=active_policy,
+    )
+    pack_id = str(value.get("pack_id") or "")
+    if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", pack_id) is None:
+        raise DisclosureBlocked(
+            _unavailable_decision("candidate-control-pack-id-invalid")
+        )
+    active_value = {**value, "status": "active"}
+    validate_control_pack(active_value, policy=active_policy)
+    active_parent = authority.state_output("disclosure-control-packs/active")
+    _owner_directory(active_parent)
+    active_root = active_parent / pack_id
+    _owner_directory(active_root)
+    destination = active_root / "control-pack.json"
+    _atomic_owner_json(destination, active_value)
+    pointer = authority.state_output("disclosure-control-packs/active.json")
+    _atomic_owner_json(
+        pointer,
+        {"control_pack": f"active/{pack_id}/control-pack.json"},
+    )
+    loaded = load_control_pack(policy=active_policy)
+    if loaded.get("pack_id") != pack_id:
+        raise DisclosureBlocked(
+            _unavailable_decision("active-control-pack-readback-failed")
+        )
+    return {
+        "pack_id": pack_id,
+        "control_version": str(loaded.get("control_version") or ""),
+        "status": "active",
+    }
 
 
 def validate_control_pack(
     value: object,
     *,
     policy: Mapping[str, Any],
-    allow_candidate: bool = False,
+    allowed_statuses: frozenset[str] = frozenset({"active"}),
 ) -> dict[str, Any]:
     """Validate a supplied pack; callers cannot self-assert compatibility."""
 
@@ -157,9 +333,7 @@ def validate_control_pack(
         raise DisclosureBlocked(_unavailable_decision("control-pack-contract-unavailable"))
     if not isinstance(value, dict):
         raise DisclosureBlocked(_unavailable_decision("control-pack-incompatible"))
-    valid_status = value.get("status") == "active" or (
-        allow_candidate and value.get("status") == "candidate"
-    )
+    valid_status = value.get("status") in allowed_statuses
     compatible = contract.get("compatible_control_versions") or []
     detectors = value.get("restricted_detectors")
     path_patterns = value.get("restricted_path_patterns")
@@ -350,8 +524,6 @@ def evaluate_outbound_bundle(
     operation: str,
     source_revision: str,
     policy: Mapping[str, Any] | None = None,
-    control_pack: Mapping[str, Any] | None = None,
-    allow_candidate_control_pack: bool = False,
     defense_in_depth_only: bool = False,
     complete: bool = True,
 ) -> dict[str, Any]:
@@ -366,15 +538,7 @@ def evaluate_outbound_bundle(
     active_policy = dict(policy) if policy is not None else load_policy()
     active_control_pack: Mapping[str, Any] | None = None
     if not defense_in_depth_only:
-        active_control_pack = (
-            validate_control_pack(
-                control_pack,
-                policy=active_policy,
-                allow_candidate=allow_candidate_control_pack,
-            )
-            if control_pack is not None
-            else load_control_pack(policy=active_policy)
-        )
+        active_control_pack = load_control_pack(policy=active_policy)
     rows = list(artifacts)
     findings: list[dict[str, str]] = []
     classified: list[dict[str, Any]] = []
@@ -587,31 +751,25 @@ def _cli() -> int:
     parser.add_argument("--operation", required=True)
     parser.add_argument("--source-revision", required=True)
     parser.add_argument("--producer", required=True)
-    parser.add_argument("--control-pack", type=Path)
-    parser.add_argument("--allow-candidate-control-pack", action="store_true")
     parser.add_argument("paths", nargs="+")
     args = parser.parse_args()
-    artifacts = [
-        OutboundArtifact(
-            path=path,
-            producer=args.producer,
-            content=(ROOT / path).read_bytes(),
+    authority = ProjectPathAuthority.production()
+    artifacts = []
+    for requested in args.paths:
+        source = authority.repository_path(requested)
+        artifacts.append(
+            OutboundArtifact(
+                path=source.relative_to(authority.repository_root).as_posix(),
+                producer=args.producer,
+                content=source.read_bytes(),
+            )
         )
-        for path in args.paths
-    ]
     policy = load_policy()
-    control_pack = load_control_pack(
-        args.control_pack,
-        policy=policy,
-        allow_candidate=args.allow_candidate_control_pack,
-    )
     decision = evaluate_outbound_bundle(
         artifacts,
         operation=args.operation,
         source_revision=args.source_revision,
         policy=policy,
-        control_pack=control_pack,
-        allow_candidate_control_pack=args.allow_candidate_control_pack,
     )
     print(json.dumps(decision, sort_keys=True, indent=2))
     return 0 if decision["allowed"] else 2

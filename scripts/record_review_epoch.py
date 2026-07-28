@@ -11,14 +11,20 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+try:
+    from path_authority import (
+        APPROVED_STATE_ROOT,
+        ProjectPathAuthority,
+    )
+except ModuleNotFoundError:
+    from scripts.path_authority import (
+        APPROVED_STATE_ROOT,
+        ProjectPathAuthority,
+    )
+
 
 ROOT = Path(__file__).resolve().parents[1]
-STATE_ROOT = Path(
-    os.environ.get(
-        "ARRP_STATE_ROOT",
-        str(Path.home() / "Library/Application Support/ARRP"),
-    )
-).expanduser()
+STATE_ROOT = APPROVED_STATE_ROOT
 SCRIPTS = Path(__file__).resolve().parent
 if str(SCRIPTS) not in sys.path:
     sys.path.insert(0, str(SCRIPTS))
@@ -553,14 +559,50 @@ def main() -> int:
     parser.add_argument(
         "--current", type=Path, default=Path(".tmp/run-coordinator/review-epoch.json")
     )
-    args = parser.parse_args()
-    record = validate(
-        json.loads(args.input.read_text()),
-        manifest_path=args.manifest,
-        context_packet=json.loads(args.context_packet.read_text()),
+    parser.add_argument(
+        "--fixture-root",
+        type=Path,
+        help="Explicit test-only path authority; never used for production.",
     )
-    validate_finding_continuity(_latest_epoch(args.ledger), record)
-    changed = append(args.ledger, args.current, record)
+    args = parser.parse_args()
+    if args.fixture_root is None:
+        authority = ProjectPathAuthority.production()
+        input_path = authority.requested_repository_file(args.input)
+        manifest_path = authority.requested_repository_file(args.manifest)
+        context_packet_path = authority.requested_repository_file(
+            args.context_packet
+        )
+        ledger = authority.state_path(
+            "records/automation/review-epochs.jsonl",
+            owner_only=True,
+        )
+        current = authority.repository_output(
+            ".tmp/run-coordinator/review-epoch.json"
+        )
+    else:
+        authority = ProjectPathAuthority.fixture(
+            args.fixture_root,
+            repository_root=args.fixture_root,
+            state_root=args.fixture_root,
+        )
+        input_path = authority.requested_repository_file(args.input)
+        manifest_path = authority.requested_repository_file(args.manifest)
+        context_packet_path = authority.requested_repository_file(
+            args.context_packet
+        )
+        ledger = authority.requested_state_file(
+            args.ledger, owner_only=False
+        )
+        current = authority.requested_repository_file(
+            args.current, required=False
+        )
+    record = validate(
+        json.loads(input_path.read_text()),
+        manifest_path=manifest_path,
+        context_packet=json.loads(context_packet_path.read_text()),
+    )
+    validate_finding_continuity(_latest_epoch(ledger), record)
+    changed = append(ledger, current, record)
     print(json.dumps({"recorded": changed, "epoch_id": record["epoch_id"]}))
     return 0
 

@@ -54,7 +54,7 @@
     },
     "github_disclosure_boundary": {
       "path": "framework/project/github/disclosure-boundary.md",
-      "sha256": "0b3c0be65ce48e3a25163afc36c2b31eac17ab060de226284a3f43781cc2d63b",
+      "sha256": "81ac1c116d03088435345461d7c00c30e0c3a56b6481a7a882a34eefe56e6296",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -101,7 +101,7 @@
     },
     "github_workflow": {
       "path": "framework/project/github/workflow.md",
-      "sha256": "83413fdab2fb44f2252135f5198afdad22270d0f931f14d091f5bbfdac2f6ada",
+      "sha256": "0c4261124b3ada6a0cff8db0069436d712aba6439a9c3f01dffb035df5af33b6",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -195,7 +195,7 @@
     },
     "project_autonomous_execution": {
       "path": "framework/project/automation/autonomous-execution.md",
-      "sha256": "0be60ce60bd0e89ea56d7f8213a46b3d222cd895d0e84d684df16d69aa26be7e",
+      "sha256": "410930ea2e0dbf9ca04f8b22fc3eabc5550d35072ba5bb214cf3a00dcd00b744",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -328,7 +328,7 @@
     },
     "runbook_run_coordinator_bot": {
       "path": "framework/project/automation/runbooks/run-coordinator-bot.md",
-      "sha256": "00add57558772389b97d0c0070bc455c21705eb74772c9fdc138c4bf52dfe22f",
+      "sha256": "a9a599ca37b2999cc090fbca5e2839c64df1aa44522524c9d5920a841b173894",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [

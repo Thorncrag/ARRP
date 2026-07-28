@@ -13,13 +13,21 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
-ROOT = Path(__file__).resolve().parents[1]
-STATE_ROOT = Path(
-    os.environ.get(
-        "ARRP_STATE_ROOT",
-        str(Path.home() / "Library/Application Support/ARRP"),
+try:
+    from path_authority import (
+        APPROVED_STATE_ROOT,
+        PathAuthorityError,
+        ProjectPathAuthority,
     )
-).expanduser()
+except ModuleNotFoundError:
+    from scripts.path_authority import (
+        APPROVED_STATE_ROOT,
+        PathAuthorityError,
+        ProjectPathAuthority,
+    )
+
+ROOT = Path(__file__).resolve().parents[1]
+STATE_ROOT = APPROVED_STATE_ROOT
 DEFAULT_DECLARATIONS = (
     STATE_ROOT / "records" / "automation" / "repository-gates.jsonl"
 )
@@ -375,25 +383,75 @@ def produce_repository_gate_snapshot(
 
 def parser() -> argparse.ArgumentParser:
     value = argparse.ArgumentParser(description=__doc__)
-    value.add_argument("--repository", default=DEFAULT_REPOSITORY)
-    value.add_argument("--declarations", type=Path, default=DEFAULT_DECLARATIONS)
-    value.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
-    value.add_argument("--last-good", type=Path)
-    value.add_argument("--token-env", default="GH_TOKEN")
+    value.add_argument(
+        "--repository",
+        default=DEFAULT_REPOSITORY,
+        choices=[DEFAULT_REPOSITORY],
+    )
+    value.add_argument("--declarations", default="repository-gates.jsonl")
+    value.add_argument("--output", default="repository-gates.json")
+    value.add_argument(
+        "--last-good",
+        default="repository-gates-last-good.json",
+    )
+    value.add_argument("--token-env", default="GH_TOKEN", choices=["GH_TOKEN"])
+    value.add_argument(
+        "--fixture-root",
+        type=Path,
+        help="Explicit test-only path authority; never used for production.",
+    )
     return value
+
+
+def _controlled_name(value: str | None, expected: str) -> str | None:
+    if value is None:
+        return None
+    name = os.path.basename(value)
+    if name != value or name != expected:
+        raise PathAuthorityError("unsupported repository-gate path")
+    return name
 
 
 def main() -> int:
     args = parser().parse_args()
+    declarations_name = _controlled_name(
+        args.declarations, "repository-gates.jsonl"
+    )
+    output_name = _controlled_name(args.output, "repository-gates.json")
+    last_good_name = _controlled_name(
+        args.last_good, "repository-gates-last-good.json"
+    )
+    if args.fixture_root is None:
+        authority = ProjectPathAuthority.production()
+    else:
+        authority = ProjectPathAuthority.fixture(
+            args.fixture_root,
+            repository_root=args.fixture_root,
+            state_root=args.fixture_root,
+        )
+    declarations_path = authority.state_path(
+        f"records/automation/{declarations_name}",
+        owner_only=authority.mode == "production_canonical",
+    )
+    output_path = authority.repository_output(f".tmp/{output_name}")
+    last_good_path = (
+        authority.state_path(
+            last_good_name,
+            required=False,
+            owner_only=authority.mode == "production_canonical",
+        )
+        if last_good_name is not None
+        else None
+    )
     token = os.environ.get(args.token_env, "")
-    last_good = read_json(args.last_good)
+    last_good = read_json(last_good_path)
     snapshot = produce_repository_gate_snapshot(
         repository=args.repository,
-        declarations_path=args.declarations,
+        declarations_path=declarations_path,
         token=token,
         last_good=last_good,
     )
-    atomic_write(args.output, snapshot)
+    atomic_write(output_path, snapshot)
     return 0 if snapshot.get("complete") is True else 2
 
 

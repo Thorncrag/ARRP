@@ -69,6 +69,13 @@ exact pull request, perform a registered semantic action, or read back Pages
 and synchronization state. Retired workflow dispatch, data-branch
 publication, bot branches, and persistent control services have no authority.
 
+The reviewed runtime binds context generation to the exact matching
+`worktrees/<run-id>` and `runs/<run-id>` pair beneath the fixed owner-local
+state root. It does not pass a configurable production root through the
+environment. Repository, run, state, and fixture paths are distinct typed
+authorities; a mismatch, symlink, escape, unsafe owner-local mode, or fixture
+overlap fails before context or disclosure-sensitive state is read.
+
 ## Ordered work
 
 After lock, repository preflight, fetch, inventory, checkpoint, and transaction

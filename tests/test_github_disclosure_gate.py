@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import importlib.util
 import json
+import os
 import subprocess
 import sys
 import tempfile
@@ -41,6 +42,10 @@ class GitHubDisclosureGateTests(unittest.TestCase):
             ],
             "restricted_path_patterns": ["restricted-local/**"],
         }
+        self.original_load_control_pack = MODULE.load_control_pack
+        self.original_activate_candidate_control_pack = (
+            MODULE.activate_candidate_control_pack
+        )
         loader = mock.patch.object(
             MODULE,
             "load_control_pack",
@@ -452,6 +457,91 @@ class GitHubDisclosureGateTests(unittest.TestCase):
                 policy=self.policy,
             )
         self.assertIn("active-control-pack-unavailable", str(caught.exception))
+
+    def test_production_api_rejects_caller_supplied_pack_substitution(self) -> None:
+        weaker = {
+            **self.control_pack,
+            "pack_id": "caller-selected-weaker-pack",
+            "restricted_detectors": [
+                {"id": "weaker", "pattern": "NEVER-MATCH-THIS"}
+            ],
+        }
+        with self.assertRaises(TypeError):
+            MODULE.evaluate_outbound_bundle(
+                [self.artifact("README.md", "Public project entry")],
+                operation="git_push",
+                source_revision=self.revision,
+                policy=self.policy,
+                control_pack=weaker,
+            )
+
+    def test_active_loader_does_not_accept_candidate_path_override(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            candidate = Path(temporary) / "control-pack.json"
+            candidate.write_text(json.dumps(self.control_pack), encoding="utf-8")
+            with self.assertRaises(TypeError):
+                self.original_load_control_pack(
+                    candidate,
+                    policy=self.policy,
+                )
+
+    def test_candidate_activation_is_atomic_and_preserves_candidate(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            repository = root / "repo"
+            state = root / "state"
+            candidate_root = (
+                state
+                / "disclosure-control-packs"
+                / "candidates"
+                / "candidate-1"
+            )
+            repository.mkdir()
+            candidate_root.mkdir(parents=True)
+            os.chmod(state, 0o700)
+            os.chmod(state / "disclosure-control-packs", 0o700)
+            candidate = {**self.control_pack, "status": "candidate"}
+            candidate_path = candidate_root / "control-pack.json"
+            candidate_path.write_text(json.dumps(candidate), encoding="utf-8")
+            os.chmod(candidate_path, 0o600)
+            fixture_authority = MODULE.ProjectPathAuthority.fixture(
+                root,
+                repository_root=repository,
+                state_root=state,
+            )
+            with (
+                mock.patch.object(
+                    MODULE.ProjectPathAuthority,
+                    "production",
+                    return_value=fixture_authority,
+                ),
+                mock.patch.object(
+                    MODULE,
+                    "load_control_pack",
+                    wraps=self.original_load_control_pack,
+                ),
+            ):
+                result = self.original_activate_candidate_control_pack(
+                    "candidate-1",
+                    policy=self.policy,
+                )
+            self.assertEqual(result["status"], "active")
+            self.assertEqual(
+                json.loads(candidate_path.read_text())["status"],
+                "candidate",
+            )
+            pointer = json.loads(
+                (
+                    state / "disclosure-control-packs" / "active.json"
+                ).read_text()
+            )
+            active = (
+                state
+                / "disclosure-control-packs"
+                / pointer["control_pack"]
+            )
+            self.assertEqual(json.loads(active.read_text())["status"], "active")
+            self.assertEqual(active.stat().st_mode & 0o777, 0o600)
 
     def test_github_actions_defense_check_is_explicitly_nonauthoritative(self) -> None:
         with mock.patch.object(

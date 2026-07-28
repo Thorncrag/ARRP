@@ -13,6 +13,17 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Mapping, Sequence
 
+try:
+    from path_authority import (
+        PathAuthorityError,
+        ProjectPathAuthority,
+    )
+except ModuleNotFoundError:
+    from scripts.path_authority import (
+        PathAuthorityError,
+        ProjectPathAuthority,
+    )
+
 
 SCHEMA_VERSION = 1
 PROJECTION_SCHEMA_VERSION = 1
@@ -830,14 +841,34 @@ def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
     project = commands.add_parser("project")
-    project.add_argument("--events", type=Path, required=True)
+    project.add_argument("--events", default="operational-incidents.jsonl")
+    project.add_argument(
+        "--fixture-root",
+        type=Path,
+        help="Explicit test-only path authority; never used for production.",
+    )
     return parser
 
 
 def main() -> int:
     args = _parser().parse_args()
     if args.command == "project":
-        print(json.dumps(project_incident_log(args.events), indent=2))
+        event_name = os.path.basename(args.events)
+        if event_name != args.events or event_name != "operational-incidents.jsonl":
+            raise PathAuthorityError("unsupported operational-incident path")
+        if args.fixture_root is None:
+            authority = ProjectPathAuthority.production()
+        else:
+            authority = ProjectPathAuthority.fixture(
+                args.fixture_root,
+                repository_root=args.fixture_root,
+                state_root=args.fixture_root,
+            )
+        events = authority.state_path(
+            f"records/automation/{event_name}",
+            owner_only=authority.mode == "production_canonical",
+        )
+        print(json.dumps(project_incident_log(events), indent=2))
         return 0
     raise AssertionError("unreachable")
 

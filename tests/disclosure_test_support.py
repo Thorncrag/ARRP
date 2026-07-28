@@ -7,7 +7,9 @@ owner-local production control pack.
 
 from __future__ import annotations
 
+import sys
 from typing import Any
+from unittest import mock
 
 
 TEST_CONTROL_PACK = {
@@ -32,17 +34,26 @@ def install_test_control_pack(module: Any) -> None:
 
     authoritative_require = module.require_outbound_bundle
     authoritative_evaluate = getattr(module, "evaluate_outbound_bundle", None)
+    gate = sys.modules[authoritative_require.__module__]
 
     def require_with_test_controls(*args: Any, **kwargs: Any) -> dict[str, Any]:
-        kwargs.setdefault("control_pack", TEST_CONTROL_PACK)
-        return authoritative_require(*args, **kwargs)
+        with mock.patch.object(
+            gate,
+            "load_control_pack",
+            return_value=TEST_CONTROL_PACK,
+        ):
+            return authoritative_require(*args, **kwargs)
 
     module.require_outbound_bundle = require_with_test_controls
     if authoritative_evaluate is not None:
         def evaluate_with_test_controls(
             *args: Any, **kwargs: Any
         ) -> dict[str, Any]:
-            kwargs.setdefault("control_pack", TEST_CONTROL_PACK)
-            return authoritative_evaluate(*args, **kwargs)
+            with mock.patch.object(
+                gate,
+                "load_control_pack",
+                return_value=TEST_CONTROL_PACK,
+            ):
+                return authoritative_evaluate(*args, **kwargs)
 
         module.evaluate_outbound_bundle = evaluate_with_test_controls

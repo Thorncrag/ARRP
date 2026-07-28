@@ -65,6 +65,38 @@ class HorizonIntakeTest(unittest.TestCase):
             participation_bundle.removeprefix(participation_prefix).removesuffix(";\n")
         )
 
+    def test_workbench_external_links_are_typed_at_the_producer(self) -> None:
+        valid = {
+            "issue": "https://github.com/Thorncrag/ARRP/issues/479",
+            "canonical": (
+                "https://github.com/Thorncrag/ARRP/blob/main/"
+                "areas/TEST/issues/TEST-001.md"
+            ),
+            "audit": (
+                "https://github.com/Thorncrag/ARRP/blob/"
+                + "a" * 40
+                + "/areas/TEST/issues/TEST-001.audit.md#entry"
+            ),
+        }
+        for kind, url in valid.items():
+            self.assertEqual(
+                console_builder.validated_workbench_external_url(url, kind=kind),
+                url,
+            )
+        for url in (
+            "javascript:alert(1)",
+            "https://github.com.evil.test/Thorncrag/ARRP/issues/479",
+            "https://github.com/Evil/ARRP/issues/479",
+            "https://user:password@github.com/Thorncrag/ARRP/issues/479",
+            "https://github.com:444/Thorncrag/ARRP/issues/479",
+        ):
+            self.assertIsNone(
+                console_builder.validated_workbench_external_url(
+                    url,
+                    kind="issue",
+                )
+            )
+
     @patch.object(console_builder, "run_gh_paginated_json")
     def test_private_github_security_snapshot_routes_alerts_by_required_owner(
         self, paginated: object

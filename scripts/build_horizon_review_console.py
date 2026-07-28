@@ -86,14 +86,14 @@ try:
 except ModuleNotFoundError:
     from scripts.operational_incidents import project_incident_log
 
+try:
+    from path_authority import APPROVED_STATE_ROOT
+except ModuleNotFoundError:
+    from scripts.path_authority import APPROVED_STATE_ROOT
+
 
 ROOT = Path(__file__).resolve().parents[1]
-STATE_ROOT = Path(
-    os.environ.get(
-        "ARRP_STATE_ROOT",
-        str(Path.home() / "Library/Application Support/ARRP"),
-    )
-).expanduser()
+STATE_ROOT = APPROVED_STATE_ROOT
 CANDIDATES = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
 HORIZON_LOG = ROOT / "framework" / "records" / "candidates" / "horizon-scan-log.md"
 CHANGE_AUDIT_LOG = ROOT / "framework" / "records" / "audits" / "change-audit-log.md"
@@ -134,6 +134,44 @@ OPERATIONAL_INCIDENT_LOG = (
 PARTICIPATION_OUTPUT = ROOT / "participate" / "intake-data.js"
 GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/"
 HORIZON_LOG_URL = GITHUB_BLOB_ROOT + "framework/records/candidates/horizon-scan-log.md#horizon-integration-log"
+
+
+def validated_workbench_external_url(
+    value: object,
+    *,
+    kind: str,
+) -> str | None:
+    """Return one typed ARRP GitHub link or an unavailable value."""
+
+    text = str(value or "").strip()
+    if not text or len(text) > 2048:
+        return None
+    try:
+        parsed = urllib.parse.urlsplit(text)
+        port = parsed.port
+    except ValueError:
+        return None
+    if (
+        parsed.scheme != "https"
+        or parsed.hostname != "github.com"
+        or port is not None
+        or parsed.username is not None
+        or parsed.password is not None
+        or parsed.query
+    ):
+        return None
+    if kind == "issue":
+        valid = re.fullmatch(r"/Thorncrag/ARRP/issues/[1-9][0-9]*", parsed.path)
+    elif kind in {"canonical", "audit"}:
+        valid = re.fullmatch(
+            r"/Thorncrag/ARRP/blob/(?:main|[0-9a-f]{40})/[^?#]+",
+            parsed.path,
+        )
+    else:
+        valid = None
+    return text if valid else None
+
+
 LOCAL_INTEGRITY_FEED = ROOT / ".tmp" / "project-console-integrity.json"
 LOCAL_RUN_CHAIN_FEED = ROOT / ".tmp" / "run-chain.json"
 SNAPSHOT_OVERRIDE_PATHS = {
@@ -5460,9 +5498,18 @@ def build_pipeline_projection(
                 "hold": hold,
                 "links": {
                     "dossier": source.get("dossierTarget"),
-                    "issue": source.get("url"),
-                    "canonical": canonical_url,
-                    "audit": hold.get("provenanceUrl") if hold else None,
+                    "issue": validated_workbench_external_url(
+                        source.get("url"),
+                        kind="issue",
+                    ),
+                    "canonical": validated_workbench_external_url(
+                        canonical_url,
+                        kind="canonical",
+                    ),
+                    "audit": validated_workbench_external_url(
+                        hold.get("provenanceUrl") if hold else None,
+                        kind="audit",
+                    ),
                 },
             }
         )

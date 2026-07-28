@@ -85,6 +85,16 @@ outbound operation. A missing, unreadable, stale, incompatible, or unbound pack
 fails closed. This separation permits public verification of the governing
 invariant without publishing the sensitive controls used to enforce it.
 
+Production authorization reads only the active pointer beneath the fixed
+approved owner-local state root. A caller may select the proposed outbound
+payload but may not select an authority root or substitute a control pack.
+Candidate packs have a separate validation-only path: a successful candidate
+check is nonauthoritative and cannot authorize any GitHub transmission.
+Activation is an owner-approved atomic state change after the candidate,
+public core, exact revision, and remote synchronization have been verified.
+Fixtures are explicit, contained, nonoverlapping with production, and cannot
+be selected through a production command or environment variable.
+
 ## Enforcement order and GitHub surfaces
 
 The gate validates the complete exact content and source revision before every

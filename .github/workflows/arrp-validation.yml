@@ -78,7 +78,10 @@ jobs:
       - name: Compile runtime and tests
         run: python -m compileall -q scripts tests
       - name: Validate context routes
-        run: python scripts/build_elim_context.py --print-hash-updates
+        run: >-
+          python scripts/build_elim_context.py
+          --path-authority repository-validation
+          --print-hash-updates
       - name: Reject tracked symlinks, submodules, and unexpected executables
         run: python scripts/arrp_nightly.py --validate-repository-policy
 

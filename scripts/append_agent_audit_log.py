@@ -5,22 +5,23 @@ from __future__ import annotations
 
 import argparse
 import os
+import stat
 from datetime import datetime, timezone
 from pathlib import Path
 
+try:
+    from path_authority import (
+        PathAuthorityError,
+        ProjectPathAuthority,
+    )
+except ModuleNotFoundError:
+    from scripts.path_authority import (
+        PathAuthorityError,
+        ProjectPathAuthority,
+    )
+
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_LOG = (
-    Path(
-        os.environ.get(
-            "ARRP_STATE_ROOT",
-            str(Path.home() / "Library/Application Support/ARRP"),
-        )
-    ).expanduser()
-    / "records"
-    / "automation"
-    / "agent-audit-log.md"
-)
 
 
 def entry(args: argparse.Namespace) -> str:
@@ -55,7 +56,12 @@ def entry(args: argparse.Namespace) -> str:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--log", type=Path, default=DEFAULT_LOG)
+    parser.add_argument("--log", default="agent-audit-log.md")
+    parser.add_argument(
+        "--fixture-root",
+        type=Path,
+        help="Explicit test-only path authority; never used for production.",
+    )
     parser.add_argument("--agent", required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--unit-id", default="N/A")
@@ -79,9 +85,30 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
-    if not args.log.exists():
-        raise FileNotFoundError(args.log)
-    with args.log.open("a", encoding="utf-8") as handle:
+    log_name = os.path.basename(args.log)
+    if log_name != args.log or log_name != "agent-audit-log.md":
+        raise PathAuthorityError("unsupported agent-audit path")
+    if args.fixture_root is None:
+        authority = ProjectPathAuthority.production()
+    else:
+        authority = ProjectPathAuthority.fixture(
+            args.fixture_root,
+            repository_root=args.fixture_root,
+            state_root=args.fixture_root,
+        )
+    log = authority.state_path(
+        f"records/automation/{log_name}",
+        owner_only=authority.mode == "production_canonical",
+    )
+    flags = os.O_WRONLY | os.O_APPEND
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    descriptor = os.open(log, flags)
+    metadata = os.fstat(descriptor)
+    if not stat.S_ISREG(metadata.st_mode) or metadata.st_uid != os.getuid():
+        os.close(descriptor)
+        raise PathAuthorityError("agent-audit destination is not owner-controlled")
+    with os.fdopen(descriptor, "a", encoding="utf-8") as handle:
         handle.write(entry(args))
     return 0
 

@@ -34,14 +34,13 @@ except ModuleNotFoundError:  # Imported as scripts.arrp_context.
         parse_source_monitor_recommendations,
     )
 
+try:
+    from path_authority import ProjectPathAuthority
+except ModuleNotFoundError:
+    from scripts.path_authority import ProjectPathAuthority
+
 
 ROOT = Path(__file__).resolve().parents[1]
-STATE_ROOT = Path(
-    os.environ.get(
-        "ARRP_STATE_ROOT",
-        str(Path.home() / "Library/Application Support/ARRP"),
-    )
-).expanduser()
 ISSUE_ID_RE = re.compile(r"\b(?:[A-Z][A-Z0-9]*-\d{3}|HOR-\d{3})\b")
 FORMAL_HORIZON_ID_RE = re.compile(r"^HOR-\d{3}$")
 HORIZON_ISSUE_URL_RE = re.compile(
@@ -908,6 +907,7 @@ def build_context_packet(
     work_item_id: str | None = None,
     work_kind: str | None = None,
     canonical_record: str | None = None,
+    path_authority: ProjectPathAuthority | None = None,
 ) -> dict[str, Any]:
     selection = context_packet_selection(
         root=root,
@@ -1073,18 +1073,14 @@ def build_context_packet(
         }
         total += len(canonical_json(dossier))
     logs: dict[str, Any] = {}
-    repository_log_root = root / "framework" / "records" / "automation"
-    fixture_logs_present = (
-        root.resolve() != ROOT.resolve()
-        and (repository_log_root / "elim-run-log.md").is_file()
-        and (repository_log_root / "agent-audit-log.md").is_file()
-    )
+    repository_log_root = within_root(root, "framework/records/automation")
     use_owner_local_logs = (
-        root.resolve() == ROOT.resolve()
-        or ((root / ".git").exists() and not fixture_logs_present)
+        path_authority is not None
+        and path_authority.mode
+        in {"production_canonical", "production_transaction"}
     )
     log_root = (
-        STATE_ROOT / "records" / "automation"
+        path_authority.state_root / "records" / "automation"
         if use_owner_local_logs
         else repository_log_root
     )

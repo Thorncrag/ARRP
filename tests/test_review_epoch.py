@@ -495,6 +495,8 @@ class ReviewEpochTests(unittest.TestCase):
                 str(ledger),
                 "--current",
                 str(current),
+                "--fixture-root",
+                str(root),
             ]
             next_record = {
                 "epoch_id": "next-epoch",

@@ -63,6 +63,15 @@ worktree is model-writable, but canonical Git metadata, linked-worktree
 administration, credentials, and the canonical checkout remain outside Elim's
 authority.
 
+Production path authority is typed rather than inferred from environment
+variables, `.git` presence, or nearby fixture files. The canonical checkout is
+the one fixed approved repository; owner-local state is the one fixed approved
+state root; a transaction repository must be a direct reviewed child of
+`worktrees/`; and its run output must be the matching direct child of `runs/`.
+The reviewed runtime supplies that explicit transaction authority to context
+generation. Test fixtures use a separate explicit contained authority that
+cannot overlap production and never falls back to owner-local logs.
+
 ## Deterministic pre-Elim stages
 
 The coordinator evaluates stages in this order:

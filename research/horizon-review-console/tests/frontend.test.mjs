@@ -1052,6 +1052,50 @@ test("Workbench links resolve only typed planning artifacts and retain source co
   );
 });
 
+test("Workbench navigation rejects hostile routes and external URLs", () => {
+  const { api } = loadApi();
+  assert.equal(api.safeConsoleTarget("integrity"), "integrity");
+  assert.equal(
+    api.safeConsoleTarget("planning:workbench:pipeline:status=Development"),
+    "planning:workbench:pipeline:status=Development"
+  );
+  for (const hostile of [
+    "javascript:alert(1)",
+    "data:text/html,boom",
+    "unknown:screen",
+    "planning:unknown",
+    "planning:workbench:pipeline:unknown=value",
+    "%E0%A4%A",
+    `planning:workbench:pipeline:search=${"a".repeat(2100)}`,
+    "integrity\u0000:overview"
+  ]) {
+    assert.equal(api.safeConsoleTarget(hostile), "overview");
+  }
+
+  assert.equal(
+    api.safePipelineExternalUrl("https://github.com/Thorncrag/ARRP/issues/479"),
+    "https://github.com/Thorncrag/ARRP/issues/479"
+  );
+  assert.equal(
+    api.safePipelineExternalUrl(
+      "https://github.com/Thorncrag/ARRP/blob/main/areas/TEST/issues/TEST-001.md#audit"
+    ),
+    "https://github.com/Thorncrag/ARRP/blob/main/areas/TEST/issues/TEST-001.md#audit"
+  );
+  for (const hostile of [
+    "javascript:alert(1)",
+    "data:text/html,boom",
+    "//github.com/Thorncrag/ARRP/issues/479",
+    "https://github.com.evil.test/Thorncrag/ARRP/issues/479",
+    "https://github.com/Evil/ARRP/issues/479",
+    "https://user:password@github.com/Thorncrag/ARRP/issues/479",
+    "https://github.com:444/Thorncrag/ARRP/issues/479",
+    "https://github.com/Thorncrag/ARRP/actions"
+  ]) {
+    assert.equal(api.safePipelineExternalUrl(hostile), null);
+  }
+});
+
 test("typed Pipeline fails closed, preserves precedence, and uses deterministic ordering", () => {
   const items = [
     {

@@ -45,6 +45,12 @@ because they occur after disclosure. Direct human credential use cannot be
 made technically impossible by repository code, so the interactive workflow
 must invoke the same pre-transmission gate.
 
+The production gate obtains its repository identity, policy, owner-local state
+root, and active control pack from the fixed reviewed runtime authority.
+Publishing callers cannot supply a replacement pack or root. Candidate-pack
+validation is explicitly nonpublishing and nonauthoritative; only the active
+owner-local pointer can supply a production authorization decision.
+
 ## Local-first automation publication boundary
 
 ARRP's disabled local-first runner uses a private, repository-selected GitHub
