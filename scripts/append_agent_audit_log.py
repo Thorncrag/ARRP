@@ -57,11 +57,6 @@ def entry(args: argparse.Namespace) -> str:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--log", default="agent-audit-log.md")
-    parser.add_argument(
-        "--fixture-root",
-        type=Path,
-        help="Explicit test-only path authority; never used for production.",
-    )
     parser.add_argument("--agent", required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--unit-id", default="N/A")
@@ -83,19 +78,22 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def main() -> int:
+def main(
+    *,
+    path_authority: ProjectPathAuthority | None = None,
+) -> int:
     args = parse_args()
     log_name = os.path.basename(args.log)
     if log_name != args.log or log_name != "agent-audit-log.md":
         raise PathAuthorityError("unsupported agent-audit path")
-    if args.fixture_root is None:
+    if path_authority is None:
         authority = ProjectPathAuthority.production()
     else:
-        authority = ProjectPathAuthority.fixture(
-            args.fixture_root,
-            repository_root=args.fixture_root,
-            state_root=args.fixture_root,
-        )
+        if path_authority.mode != "fixture":
+            raise PathAuthorityError(
+                "injected path authority is reserved for isolated tests"
+            )
+        authority = path_authority
     log = authority.state_path(
         f"records/automation/{log_name}",
         owner_only=authority.mode == "production_canonical",

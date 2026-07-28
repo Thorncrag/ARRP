@@ -1,9 +1,12 @@
 import hashlib
+import io
 import json
+import shutil
 import subprocess
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
@@ -27,6 +30,11 @@ from arrp_context import (  # noqa: E402
 )
 from select_elim_context_route import select_context_route  # noqa: E402
 from elim_execution import merge_gap_obligation_state  # noqa: E402
+from build_elim_context import (  # noqa: E402
+    main as build_elim_context_main,
+    parse_args as parse_build_elim_context_args,
+)
+import path_authority as path_authority_module  # noqa: E402
 from path_authority import ProjectPathAuthority  # noqa: E402
 
 
@@ -38,7 +46,7 @@ def write_json(path: Path, value: object) -> None:
 class ExactContextTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
-        self.root = Path(self.temp.name)
+        self.root = Path(self.temp.name).resolve()
         (self.root / "framework").mkdir()
         (self.root / "areas/TEST/issues").mkdir(parents=True)
         (self.root / "inventory").mkdir()
@@ -101,32 +109,27 @@ class ExactContextTests(unittest.TestCase):
         output_root = self.root / "output"
         output_root.mkdir()
         output = output_root / "packet.json"
-        completed = subprocess.run(
-            [
-                sys.executable,
-                str(ROOT / "scripts/build_elim_context.py"),
-                "--path-authority",
-                "fixture",
-                "--input-root",
-                str(self.root),
-                "--fixture-root",
-                str(self.root),
-                "--manifest",
-                str(self.manifest),
-                "--profile",
-                "issue",
-                "--output-root",
-                str(output_root),
-                "--output",
-                str(output),
-            ],
-            cwd=ROOT,
-            check=False,
-            capture_output=True,
-            text=True,
+        authority = ProjectPathAuthority.fixture(
+            self.root,
+            repository_root=self.root,
+            state_root=self.root,
+            output_root=output_root,
         )
-        self.assertEqual(completed.returncode, 0, completed.stderr)
-        self.assertEqual(completed.stdout, "")
+        stdout = io.StringIO()
+        with redirect_stdout(stdout):
+            return_code = build_elim_context_main(
+                [
+                    "--manifest",
+                    str(self.manifest),
+                    "--profile",
+                    "issue",
+                    "--output",
+                    str(output),
+                ],
+                path_authority=authority,
+            )
+        self.assertEqual(return_code, 0, stdout.getvalue())
+        self.assertEqual(stdout.getvalue(), "")
         packet = json.loads(output.read_text(encoding="utf-8"))
         self.assertEqual(packet["profile"], "issue")
         self.assertEqual(packet["manifest"]["path"], "manifest.json")
@@ -135,63 +138,140 @@ class ExactContextTests(unittest.TestCase):
         output_root = self.root / "output"
         output_root.mkdir()
         outside = self.root / "outside.json"
-        completed = subprocess.run(
-            [
-                sys.executable,
-                str(ROOT / "scripts/build_elim_context.py"),
-                "--path-authority",
-                "fixture",
-                "--input-root",
-                str(self.root),
-                "--fixture-root",
-                str(self.root),
-                "--manifest",
-                str(self.manifest),
-                "--profile",
-                "issue",
-                "--output-root",
-                str(output_root),
-                "--output",
-                str(outside),
-            ],
-            cwd=ROOT,
-            check=False,
-            capture_output=True,
-            text=True,
+        authority = ProjectPathAuthority.fixture(
+            self.root,
+            repository_root=self.root,
+            state_root=self.root,
+            output_root=output_root,
         )
-        self.assertEqual(completed.returncode, 2)
+        with redirect_stdout(io.StringIO()):
+            return_code = build_elim_context_main(
+                [
+                    "--manifest",
+                    str(self.manifest),
+                    "--profile",
+                    "issue",
+                    "--output",
+                    str(outside),
+                ],
+                path_authority=authority,
+            )
+        self.assertEqual(return_code, 2)
         self.assertFalse(outside.exists())
 
     def test_context_cli_rejects_nested_output_under_exact_output_root(self):
         output_root = self.root / "output"
         output_root.mkdir()
         nested = output_root / "nested" / "packet.json"
-        completed = subprocess.run(
-            [
-                sys.executable,
-                str(ROOT / "scripts/build_elim_context.py"),
-                "--path-authority",
-                "fixture",
-                "--input-root",
-                str(self.root),
-                "--fixture-root",
-                str(self.root),
-                "--manifest",
-                str(self.manifest),
-                "--profile",
-                "issue",
-                "--output-root",
-                str(output_root),
-                "--output",
-                str(nested),
-            ],
-            cwd=ROOT,
-            check=False,
-            capture_output=True,
-            text=True,
+        authority = ProjectPathAuthority.fixture(
+            self.root,
+            repository_root=self.root,
+            state_root=self.root,
+            output_root=output_root,
         )
-        self.assertEqual(completed.returncode, 2)
+        with redirect_stdout(io.StringIO()):
+            return_code = build_elim_context_main(
+                [
+                    "--manifest",
+                    str(self.manifest),
+                    "--profile",
+                    "issue",
+                    "--output",
+                    str(nested),
+                ],
+                path_authority=authority,
+            )
+        self.assertEqual(return_code, 2)
         self.assertFalse(nested.exists())
+
+    def test_context_cli_exposes_no_fixture_authority_switches(self):
+        for arguments in (
+            ["--fixture-root", str(self.root)],
+            ["--path-authority", "fixture"],
+        ):
+            with self.subTest(arguments=arguments), redirect_stderr(io.StringIO()):
+                with self.assertRaises(SystemExit):
+                    parse_build_elim_context_args(arguments)
+
+    def test_context_injection_rejects_production_selectors(self):
+        output_root = self.root / "output"
+        output_root.mkdir()
+        authority = ProjectPathAuthority.fixture(
+            self.root,
+            repository_root=self.root,
+            state_root=self.root,
+            output_root=output_root,
+        )
+        for arguments in (
+            ["--input-root", str(self.root)],
+            ["--output-root", str(output_root)],
+            ["--path-authority", "repository-validation"],
+        ):
+            with self.subTest(arguments=arguments), redirect_stdout(io.StringIO()):
+                self.assertEqual(
+                    build_elim_context_main(
+                        arguments,
+                        path_authority=authority,
+                    ),
+                    2,
+                )
+
+    def test_context_injection_accepts_only_fixture_authority(self):
+        authority = ProjectPathAuthority(
+            "repository_validation",
+            self.root,
+            self.root,
+            self.root,
+        )
+        with redirect_stdout(io.StringIO()):
+            self.assertEqual(
+                build_elim_context_main([], path_authority=authority),
+                2,
+            )
+
+    def test_production_transaction_cli_uses_matching_reviewed_roots(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary).resolve()
+            state = base / "state"
+            worktrees = state / "worktrees"
+            runs = state / "runs"
+            worktree = worktrees / "run-1"
+            run = runs / "run-1"
+            state.mkdir(mode=0o700)
+            worktrees.mkdir(mode=0o700)
+            runs.mkdir(mode=0o700)
+            shutil.copytree(self.root, worktree)
+            run.mkdir(mode=0o700)
+            output = run / "packet.json"
+            with (
+                patch.object(
+                    path_authority_module,
+                    "APPROVED_STATE_ROOT",
+                    state,
+                ),
+                redirect_stdout(io.StringIO()),
+            ):
+                return_code = build_elim_context_main(
+                    [
+                        "--path-authority",
+                        "production-transaction",
+                        "--input-root",
+                        str(worktree),
+                        "--output-root",
+                        str(run),
+                        "--manifest",
+                        str(worktree / "manifest.json"),
+                        "--profile",
+                        "issue",
+                        "--output",
+                        str(output),
+                    ]
+                )
+            self.assertEqual(return_code, 0)
+            self.assertEqual(
+                json.loads(output.read_text(encoding="utf-8"))["profile"],
+                "issue",
+            )
 
     def schema_two_manifest(self) -> Path:
         documents = {

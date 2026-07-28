@@ -842,28 +842,26 @@ def _parser() -> argparse.ArgumentParser:
     commands = parser.add_subparsers(dest="command", required=True)
     project = commands.add_parser("project")
     project.add_argument("--events", default="operational-incidents.jsonl")
-    project.add_argument(
-        "--fixture-root",
-        type=Path,
-        help="Explicit test-only path authority; never used for production.",
-    )
     return parser
 
 
-def main() -> int:
+def main(
+    *,
+    path_authority: ProjectPathAuthority | None = None,
+) -> int:
     args = _parser().parse_args()
     if args.command == "project":
         event_name = os.path.basename(args.events)
         if event_name != args.events or event_name != "operational-incidents.jsonl":
             raise PathAuthorityError("unsupported operational-incident path")
-        if args.fixture_root is None:
+        if path_authority is None:
             authority = ProjectPathAuthority.production()
         else:
-            authority = ProjectPathAuthority.fixture(
-                args.fixture_root,
-                repository_root=args.fixture_root,
-                state_root=args.fixture_root,
-            )
+            if path_authority.mode != "fixture":
+                raise PathAuthorityError(
+                    "injected path authority is reserved for isolated tests"
+                )
+            authority = path_authority
         events = authority.state_path(
             f"records/automation/{event_name}",
             owner_only=authority.mode == "production_canonical",

@@ -32,7 +32,7 @@ purpose, review decision, or rollback boundary.
 - Lifecycle: Changed
 - Feature or component: Whole Console
 - State: Committed / pending canonical synchronization
-- Implementation commits: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `cf5ca6a32c1eb2d604be278d3c7b0feccb3db97b`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `83a96daac1951c4379f3bbea069ddcb9e0cfb74a`, and `c1480889f0f02fbb09dd075b1cbbb87a0ad43226` (`Console-Change-ID: CONSOLE-2026-001`)
+- Implementation commits: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `cf5ca6a32c1eb2d604be278d3c7b0feccb3db97b`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `83a96daac1951c4379f3bbea069ddcb9e0cfb74a`, `c1480889f0f02fbb09dd075b1cbbb87a0ad43226`, and `9a387f8add96a6555fc60d1054b7699f69ff939e` (`Console-Change-ID: CONSOLE-2026-001`)
 - Rollback baseline: `a47082d0a684de38626c68fec325337765f35b9a`
 
 ### User-visible change
@@ -160,9 +160,10 @@ restricted originals are preserved locally and replaced only by minimized
 public contracts or summaries.
 
 The CodeQL remediation binds canonical repository, owner-local state,
-transaction worktree, matching run directory, and explicit fixture roots
-through one typed path authority. Environment variables, `.git` presence, and
-nearby fixture files no longer establish production authority. Sensitive
+transaction worktree, matching run directory, and explicitly injected test
+fixtures through one typed path authority. Production commands cannot select a
+fixture root. Environment variables, `.git` presence, and nearby fixture files
+no longer establish production authority. Sensitive
 control-pack reads use owner-only, non-symlink file-descriptor validation;
 publishing can consume only the fixed active pointer, while candidate controls
 remain validation-only until an owner-approved atomic activation. Runtime
@@ -184,12 +185,12 @@ nonpublishing control-pack activation path.
 
 ### Validation
 
-Validation includes 549 Python tests with 15 environment-dependent skips, 48
+Validation includes 555 Python tests with 15 environment-dependent skips, 48
 Console frontend tests, 25 public-intake tests, a strict 139-page public-site
 build, runtime-policy and context-hash validation, data-contract,
 accessibility, route, disclosure, incident, repository-gate, coordinator, and
-responsive-interface checks. The candidate disclosure controls approve all
-572 intended repository files and the exact staged change set with zero
+responsive-interface checks. The active owner-local disclosure controls
+approve all 572 intended repository files and the exact staged change set with zero
 restricted, private, or secret findings. GitHub CodeQL readback remains
 required on the exact pushed head before canonical synchronization.
 
@@ -197,9 +198,9 @@ required on the exact pushed head before canonical synchronization.
 
 Configuration exports are staged only. Applying them to the repository or host
 requires the ordinary reviewed change and immediate approval for persistent
-host state. Synchronize this entry on canonical `main`; activate the validated
-owner-local disclosure controls only through the approved atomic activation
-path, and require exact remote and CodeQL readback before final closeout.
+host state. Synchronize this entry on canonical `main`; retain the validated
+owner-local disclosure controls behind the approved atomic activation path,
+and require exact remote and CodeQL readback before final closeout.
 
 ## Record requirements
 

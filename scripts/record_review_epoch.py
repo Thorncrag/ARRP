@@ -14,11 +14,13 @@ from pathlib import Path
 try:
     from path_authority import (
         APPROVED_STATE_ROOT,
+        PathAuthorityError,
         ProjectPathAuthority,
     )
 except ModuleNotFoundError:
     from scripts.path_authority import (
         APPROVED_STATE_ROOT,
+        PathAuthorityError,
         ProjectPathAuthority,
     )
 
@@ -536,7 +538,10 @@ def _latest_epoch(ledger: Path) -> dict | None:
     return latest
 
 
-def main() -> int:
+def main(
+    *,
+    path_authority: ProjectPathAuthority | None = None,
+) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, required=True)
     parser.add_argument(
@@ -559,13 +564,8 @@ def main() -> int:
     parser.add_argument(
         "--current", type=Path, default=Path(".tmp/run-coordinator/review-epoch.json")
     )
-    parser.add_argument(
-        "--fixture-root",
-        type=Path,
-        help="Explicit test-only path authority; never used for production.",
-    )
     args = parser.parse_args()
-    if args.fixture_root is None:
+    if path_authority is None:
         authority = ProjectPathAuthority.production()
         input_path = authority.requested_repository_file(args.input)
         manifest_path = authority.requested_repository_file(args.manifest)
@@ -580,11 +580,11 @@ def main() -> int:
             ".tmp/run-coordinator/review-epoch.json"
         )
     else:
-        authority = ProjectPathAuthority.fixture(
-            args.fixture_root,
-            repository_root=args.fixture_root,
-            state_root=args.fixture_root,
-        )
+        if path_authority.mode != "fixture":
+            raise PathAuthorityError(
+                "injected path authority is reserved for isolated tests"
+            )
+        authority = path_authority
         input_path = authority.requested_repository_file(args.input)
         manifest_path = authority.requested_repository_file(args.manifest)
         context_packet_path = authority.requested_repository_file(

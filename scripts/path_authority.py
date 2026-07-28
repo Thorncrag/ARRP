@@ -65,7 +65,16 @@ def _owner_directory(path: Path) -> Path:
 
 
 def _direct_child(root: Path, path: Path, label: str) -> Path:
-    resolved = _resolved_directory(path)
+    normalized_root = os.path.normpath(os.path.abspath(os.fspath(root)))
+    normalized_path = os.path.normpath(
+        os.path.abspath(os.path.expanduser(os.fspath(path)))
+    )
+    if (
+        not normalized_path.startswith(normalized_root + os.sep)
+        or os.path.dirname(normalized_path) != normalized_root
+    ):
+        raise PathAuthorityError(f"{label} is outside its authorized boundary")
+    resolved = _resolved_directory(Path(normalized_path))
     if resolved.parent != root:
         raise PathAuthorityError(f"{label} is outside its authorized boundary")
     return resolved
@@ -73,11 +82,18 @@ def _direct_child(root: Path, path: Path, label: str) -> Path:
 
 def _contained(root: Path, relative: str) -> Path:
     parts = _relative_parts(relative)
-    candidate = root.joinpath(*parts)
-    resolved_parent = candidate.parent.resolve(strict=True)
-    if resolved_parent != root and root not in resolved_parent.parents:
-        raise PathAuthorityError("path escapes its authorized root")
-    return resolved_parent / candidate.name
+    parent = root
+    for part in parts[:-1]:
+        parent = parent / part
+        try:
+            metadata = parent.lstat()
+        except OSError as error:
+            raise PathAuthorityError("authorized parent is unavailable") from error
+        if stat.S_ISLNK(metadata.st_mode) or not stat.S_ISDIR(metadata.st_mode):
+            raise PathAuthorityError(
+                "authorized parent must be a non-symlink directory"
+            )
+    return parent / parts[-1]
 
 
 def _regular_owner_file(
@@ -108,16 +124,16 @@ def _requested_path(
     required: bool,
     owner_only: bool,
 ) -> Path:
-    expanded = requested.expanduser()
-    try:
-        if expanded.is_symlink():
-            raise PathAuthorityError("requested path must not be a symlink")
-        resolved = expanded.resolve(strict=required)
-    except OSError as error:
-        raise PathAuthorityError("requested path is unavailable") from error
-    if resolved != root and root not in resolved.parents:
+    normalized_root = os.path.normpath(os.path.abspath(os.fspath(root)))
+    normalized_path = os.path.normpath(
+        os.path.abspath(os.path.expanduser(os.fspath(requested)))
+    )
+    if (
+        normalized_path != normalized_root
+        and not normalized_path.startswith(normalized_root + os.sep)
+    ):
         raise PathAuthorityError("requested path escapes its authorized root")
-    relative = resolved.relative_to(root).as_posix()
+    relative = os.path.relpath(normalized_path, normalized_root)
     if not relative or relative == ".":
         raise PathAuthorityError("requested path must name a file")
     path = _contained(root, relative)

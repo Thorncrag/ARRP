@@ -8,6 +8,7 @@ import json
 import os
 import sys
 import tempfile
+from collections.abc import Sequence
 from pathlib import Path
 
 from arrp_context import (
@@ -33,16 +34,18 @@ def _resolved_requested_root(
     expected: Path,
     label: str,
 ) -> Path:
-    try:
-        resolved = requested.expanduser().resolve(strict=True)
-    except OSError as error:
-        raise PathAuthorityError(f"{label} is unavailable") from error
-    if resolved != expected:
+    normalized_requested = os.path.normpath(
+        os.path.abspath(os.path.expanduser(os.fspath(requested)))
+    )
+    normalized_expected = os.path.normpath(
+        os.path.abspath(os.fspath(expected))
+    )
+    if normalized_requested != normalized_expected:
         raise PathAuthorityError(f"{label} does not match its authority")
-    return resolved
+    return expected
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument(
@@ -56,13 +59,11 @@ def parse_args() -> argparse.Namespace:
         choices=(
             "production-canonical",
             "production-transaction",
-            "fixture",
             "repository-validation",
         ),
-        default="production-canonical",
+        default=None,
         help="Explicit trust boundary for every repository and output path.",
     )
-    parser.add_argument("--fixture-root", type=Path)
     parser.add_argument(
         "--review-epoch-root",
         type=Path,
@@ -104,7 +105,7 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Print document hashes for human-reviewed manifest integration; do not build context.",
     )
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
 
 def write_json(path: Path, value: object, root: Path) -> None:
@@ -146,21 +147,37 @@ def emit(
     sys.stdout.write("\n")
 
 
-def main() -> int:
-    args = parse_args()
+def main(
+    argv: Sequence[str] | None = None,
+    *,
+    path_authority: ProjectPathAuthority | None = None,
+) -> int:
+    args = parse_args(argv)
+    authority: ProjectPathAuthority | None = None
     try:
-        if args.path_authority == "production-canonical":
-            if args.fixture_root is not None:
+        if path_authority is not None:
+            if path_authority.mode != "fixture":
                 raise PathAuthorityError(
-                    "production authority does not accept a fixture root"
+                    "injected path authority is reserved for isolated tests"
                 )
+            if args.path_authority is not None:
+                raise PathAuthorityError(
+                    "injected tests cannot select a production path authority"
+                )
+            if args.input_root != ROOT or args.output_root is not None:
+                raise PathAuthorityError(
+                    "injected tests receive repository and output roots from their authority"
+                )
+            authority = path_authority
+        elif (args.path_authority or "production-canonical") == "production-canonical":
             authority = ProjectPathAuthority.production()
-            if args.input_root.resolve() != authority.repository_root:
-                raise PathAuthorityError(
-                    "production input root is not the approved repository"
-                )
+            _resolved_requested_root(
+                args.input_root,
+                authority.repository_root,
+                "production input root",
+            )
         elif args.path_authority == "production-transaction":
-            if args.fixture_root is not None or args.output_root is None:
+            if args.output_root is None:
                 raise PathAuthorityError(
                     "production transaction requires an exact run root"
                 )
@@ -168,25 +185,17 @@ def main() -> int:
                 repository_root=args.input_root,
                 run_root=args.output_root,
             )
-        elif args.path_authority == "fixture":
-            if args.fixture_root is None:
-                raise PathAuthorityError("fixture authority requires --fixture-root")
-            authority = ProjectPathAuthority.fixture(
-                args.fixture_root,
-                repository_root=args.input_root,
-                state_root=args.fixture_root,
-                output_root=args.output_root or args.input_root,
-            )
         else:
-            if not args.print_hash_updates or args.fixture_root is not None:
+            if not args.print_hash_updates:
                 raise PathAuthorityError(
                     "repository validation is limited to hash inspection"
                 )
             authority = ProjectPathAuthority.repository_validation(ROOT)
-            if args.input_root.resolve() != authority.repository_root:
-                raise PathAuthorityError(
-                    "repository validation cannot select another checkout"
-                )
+            _resolved_requested_root(
+                args.input_root,
+                authority.repository_root,
+                "repository validation root",
+            )
         input_root = authority.repository_root
         manifest_path = authority.requested_repository_file(args.manifest)
         if args.review_epoch_root is not None:
@@ -236,7 +245,11 @@ def main() -> int:
             emit(
                 value,
                 output=args.output,
-                output_root=args.output_root or args.input_root,
+                output_root=(
+                    authority.output_root
+                    if authority is not None
+                    else args.output_root or args.input_root
+                ),
             )
         except ContextError:
             json.dump(value, sys.stdout, indent=2, sort_keys=True)

@@ -487,7 +487,7 @@ class GitHubDisclosureGateTests(unittest.TestCase):
 
     def test_candidate_activation_is_atomic_and_preserves_candidate(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
+            root = Path(temporary).resolve()
             repository = root / "repo"
             state = root / "state"
             candidate_root = (

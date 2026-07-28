@@ -395,11 +395,6 @@ def parser() -> argparse.ArgumentParser:
         default="repository-gates-last-good.json",
     )
     value.add_argument("--token-env", default="GH_TOKEN", choices=["GH_TOKEN"])
-    value.add_argument(
-        "--fixture-root",
-        type=Path,
-        help="Explicit test-only path authority; never used for production.",
-    )
     return value
 
 
@@ -412,7 +407,10 @@ def _controlled_name(value: str | None, expected: str) -> str | None:
     return name
 
 
-def main() -> int:
+def main(
+    *,
+    path_authority: ProjectPathAuthority | None = None,
+) -> int:
     args = parser().parse_args()
     declarations_name = _controlled_name(
         args.declarations, "repository-gates.jsonl"
@@ -421,14 +419,14 @@ def main() -> int:
     last_good_name = _controlled_name(
         args.last_good, "repository-gates-last-good.json"
     )
-    if args.fixture_root is None:
+    if path_authority is None:
         authority = ProjectPathAuthority.production()
     else:
-        authority = ProjectPathAuthority.fixture(
-            args.fixture_root,
-            repository_root=args.fixture_root,
-            state_root=args.fixture_root,
-        )
+        if path_authority.mode != "fixture":
+            raise PathAuthorityError(
+                "injected path authority is reserved for isolated tests"
+            )
+        authority = path_authority
     declarations_path = authority.state_path(
         f"records/automation/{declarations_name}",
         owner_only=authority.mode == "production_canonical",

@@ -12,7 +12,7 @@ from scripts import path_authority as authority
 class ProjectPathAuthorityTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary = tempfile.TemporaryDirectory()
-        self.root = Path(self.temporary.name)
+        self.root = Path(self.temporary.name).resolve()
         self.repository = self.root / "canonical"
         self.state = self.root / "state"
         self.repository.mkdir()
@@ -69,6 +69,29 @@ class ProjectPathAuthorityTests(unittest.TestCase):
                 run_root=run,
             )
 
+    def test_outside_transaction_path_is_rejected_before_filesystem_probe(self) -> None:
+        worktrees = self.state / "worktrees"
+        for requested in (
+            self.root / "outside",
+            worktrees / "nested" / "run-1",
+            worktrees / ".." / "runs" / "run-1",
+        ):
+            with self.subTest(requested=requested), mock.patch.object(
+                authority,
+                "_resolved_directory",
+                side_effect=AssertionError("unexpected filesystem probe"),
+            ) as resolve:
+                with self.assertRaisesRegex(
+                    authority.PathAuthorityError,
+                    "outside its authorized boundary",
+                ):
+                    authority._direct_child(
+                        worktrees,
+                        requested,
+                        "transaction worktree",
+                    )
+                resolve.assert_not_called()
+
     def test_fixture_cannot_overlap_any_production_boundary(self) -> None:
         nested = self.state / "fixture"
         nested.mkdir(mode=0o700)
@@ -105,6 +128,19 @@ class ProjectPathAuthorityTests(unittest.TestCase):
         os.chmod(self.state, 0o755)
         with self.assertRaises(authority.PathAuthorityError):
             authority.ProjectPathAuthority.production()
+
+    def test_production_clis_expose_no_fixture_root_switch(self) -> None:
+        repository = Path(__file__).resolve().parents[1]
+        for relative in (
+            "scripts/append_agent_audit_log.py",
+            "scripts/build_elim_context.py",
+            "scripts/operational_incidents.py",
+            "scripts/record_review_epoch.py",
+            "scripts/repository_gates.py",
+        ):
+            with self.subTest(relative=relative):
+                source = (repository / relative).read_text(encoding="utf-8")
+                self.assertNotIn("--fixture-root", source)
 
 
 if __name__ == "__main__":

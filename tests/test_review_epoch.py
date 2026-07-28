@@ -463,7 +463,7 @@ class ReviewEpochTests(unittest.TestCase):
 
     def test_main_enforces_continuity_against_latest_historical_ledger_row(self):
         with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
+            root = Path(directory).resolve()
             input_path = root / "record.json"
             manifest = root / "manifest.json"
             packet_path = root / "packet.json"
@@ -495,9 +495,12 @@ class ReviewEpochTests(unittest.TestCase):
                 str(ledger),
                 "--current",
                 str(current),
-                "--fixture-root",
-                str(root),
             ]
+            path_authority = MODULE.ProjectPathAuthority.fixture(
+                root,
+                repository_root=root,
+                state_root=root,
+            )
             next_record = {
                 "epoch_id": "next-epoch",
                 "resolved_findings": [],
@@ -509,7 +512,7 @@ class ReviewEpochTests(unittest.TestCase):
                 return_value=next_record,
             ):
                 with self.assertRaisesRegex(ValueError, "LEGACY-FINDING"):
-                    MODULE.main()
+                    MODULE.main(path_authority=path_authority)
             self.assertEqual(len(ledger.read_text(encoding="utf-8").splitlines()), 1)
 
 
