@@ -9389,12 +9389,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 89,
+      "word_count": 102,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 13
+      "longest_unbroken_token": 51
     },
     {
       "title": "Current Task Handoff",
@@ -9412,12 +9412,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 855,
+      "word_count": 913,
       "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 61
+      "longest_unbroken_token": 43
     },
     {
       "title": "Elim Agent Runbook",
@@ -10087,6 +10087,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 38
     },
     {
+      "title": "P6 supervised cutover evidence",
+      "path": "framework/records/automation/p6-cutover-evidence.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal supervised local-first cutover evidence.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/automation/p6-cutover-evidence.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/records/automation-p6 supervised cutover evidence",
+      "internal_links": [],
+      "word_count": 69,
+      "estimated_pages": 1,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 43
+    },
+    {
       "title": "Presidential Directives Bot Runbook",
       "path": "framework/project/automation/runbooks/presidential-directives-bot.md",
       "section": "Framework and process",
@@ -10592,12 +10615,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/status-source checker bot current report",
       "internal_links": [],
-      "word_count": 57,
-      "estimated_pages": 1,
-      "table_count": 0,
-      "max_table_columns": 0,
+      "word_count": 6722,
+      "estimated_pages": 11,
+      "table_count": 2,
+      "max_table_columns": 4,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 22
+      "longest_unbroken_token": 126
     },
     {
       "title": "Source Checker Bot Runbook",
@@ -10638,9 +10661,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/sources-source monitor log",
       "internal_links": [],
-      "word_count": 1262,
-      "estimated_pages": 2,
-      "table_count": 2,
+      "word_count": 2760,
+      "estimated_pages": 5,
+      "table_count": 3,
       "max_table_columns": 6,
       "heading_issue_count": 0,
       "longest_unbroken_token": 64
@@ -13275,7 +13298,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/horizon-source-records-source development — hor-035",
       "internal_links": [],
-      "word_count": 14483,
+      "word_count": 14606,
       "estimated_pages": 23,
       "table_count": 0,
       "max_table_columns": 0,
@@ -15390,13 +15413,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
         "page_count": 490,
-        "modified_at": "2026-07-26T12:19:02+00:00",
+        "modified_at": "2026-07-28T02:07:40+00:00",
         "stale": true
       }
     ],
     "disposition_counts": {
       "included": 138,
-      "excluded": 223,
+      "excluded": 224,
       "unclassified": 0,
       "conflict": 0
     },
@@ -15416,6 +15439,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Internal operational report.": 1,
       "Internal scheduled-agent run history.": 1,
       "Internal record-directory guide.": 1,
+      "Internal supervised local-first cutover evidence.": 1,
       "Internal publication standard.": 2,
       "Historical implementation baseline retained for provenance.": 1,
       "Internal interface and safety documentation.": 1,
@@ -15631,7 +15655,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "label": "Assembly structurally valid",
         "disposition_counts": {
           "included": 138,
-          "excluded": 223,
+          "excluded": 224,
           "unclassified": 0,
           "conflict": 0
         }
@@ -20227,6 +20251,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-d24811e5a0b718794cb5"
+    "publication.js": "project-console-e40c9d8c4a02be3ee610"
   }
 });

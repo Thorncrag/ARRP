@@ -12,7 +12,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "source_hashes": {
       "project-integrity-raw.json": "sha256:3b8e3db37a8c30d94d9519c909d6ce5536032935bf3a2693dc314d6257390eea"
     },
-    "availability": "current",
+    "availability": "stale",
     "completeness": {
       "complete": true,
       "expected_count": 22,
@@ -30,9 +30,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         }
       ]
     },
-    "projection_errors": [],
+    "projection_errors": [
+      {
+        "code": "repository_revision_superseded",
+        "severity": "warning",
+        "message": "Integrity generation is not bound to the authoritative repository revision.",
+        "expected_source_revision": "93b15876e1c0dc1902ebf9caabce45552cb6714b",
+        "producer_source_revision": "e2415bf87d3a4b14dd1fb9e461f0575752069789"
+      }
+    ],
     "freshness": {
-      "status": "current",
+      "status": "stale",
       "basis": "authoritative repository revision",
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
     },
@@ -469,15 +477,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "currentness": {
       "authority": "repository_revision",
-      "status": "current",
-      "current": true,
-      "expected_source_revision": "e2415bf87d3a4b14dd1fb9e461f0575752069789",
+      "status": "stale",
+      "current": false,
+      "expected_source_revision": "93b15876e1c0dc1902ebf9caabce45552cb6714b",
       "producer_source_revision": "e2415bf87d3a4b14dd1fb9e461f0575752069789",
       "equivalent_inputs_established": false,
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
-    }
+    },
+    "producer_availability": "current"
   },
   "domain_generation": {
-    "integrity.js": "project-console-d24811e5a0b718794cb5"
+    "integrity.js": "project-console-e40c9d8c4a02be3ee610"
   }
 });

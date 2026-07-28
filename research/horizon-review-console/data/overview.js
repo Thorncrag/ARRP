@@ -179,6 +179,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items_available": true,
       "domain_attention": [
         {
+          "domain": "integrity",
+          "status": "stale",
+          "reason": "The feed does not completely cover its current authoritative source.",
+          "timestamp": "2026-07-27T23:24:27+00:00",
+          "route": "integrity"
+        },
+        {
           "domain": "source_checker",
           "status": "stale",
           "reason": "The feed does not completely cover its current authoritative source.",
@@ -197,9 +204,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "kind": "review_epoch",
           "label": "Comprehensive Review Epoch",
-          "due_at": "2026-08-10T08:10:38+00:00",
+          "due_at": "2026-08-10T23:33:11.967Z",
           "status": "drift-detected",
-          "trigger": "Off-cycle comprehensive review because the registered governing boundary changed after epoch-arrp-20260726T140914Z.",
+          "trigger": "Off-cycle comprehensive review required because P6 materially replaced the registered automation, runtime, interface, and publication governing boundary.",
           "route": "logs:agents"
         },
         {
@@ -343,6 +350,40 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "activity": [
       {
+        "id": "source-monitor-007",
+        "log": "source-monitor",
+        "date": "2026-07-28T02:07:43+00:00",
+        "record": null,
+        "title": "Source Monitor Log · Presidential directives watcher (PDM-A44F0C0C8B)",
+        "actor": "Source Monitor Log",
+        "source": "Source Monitor Log",
+        "outcome": "",
+        "affected_scope": null,
+        "summary": null,
+        "manager_effect": null,
+        "owner": null,
+        "kind": "project_log",
+        "route": "logs:source-monitor",
+        "collapsed_count": 1
+      },
+      {
+        "id": "source-monitor-006",
+        "log": "source-monitor",
+        "date": "2026-07-28T02:07:41+00:00",
+        "record": null,
+        "title": "Source Monitor Log · Case monitor bot",
+        "actor": "Source Monitor Log",
+        "source": "Source Monitor Log",
+        "outcome": "changes_detected",
+        "affected_scope": "SRC-0945, SRC-0965, SRC-0982, SRC-1004, SRC-1052, SRC-1056, SRC-1093, SRC-1929, SRC-1930, SRC-1932, SRC-1933, SRC-1934, SRC-1940, SRC-1941, SRC-1942, SRC-1943, SRC-1946, SRC-1952, SRC-1957, SRC-1973, SRC-1979, SRC-1982, SRC-2042, SRC-2080, SRC-2081, SRC-2105, SRC-2110, SRC-2136, SRC-2149, SRC-2183, SRC-2190, SRC-2192, SRC-2216, SRC-2221, SRC-2235, SRC-2238, SRC-2261, SRC-2351, SRC-2591",
+        "summary": "CASE-20260728020741-97DEA4A0",
+        "manager_effect": null,
+        "owner": null,
+        "kind": "project_log",
+        "route": "logs:source-monitor",
+        "collapsed_count": 1
+      },
+      {
         "id": "agent-096",
         "log": "agents",
         "date": "2026-07-27 04:10:38 -0400",
@@ -445,23 +486,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "collapsed_count": 1
       },
       {
-        "id": "elim-run-012",
-        "log": "elim",
-        "date": "2026-07-26 08:29:28 -0400",
-        "record": null,
-        "title": "Elim Run Log · Completed",
-        "actor": "Elim Run Log",
-        "source": "Elim Run Log",
-        "outcome": "Completed",
-        "affected_scope": null,
-        "summary": "Completed full-context Review Epoch epoch-arrp-20260726T122445Z at exact packet revision 6f3640e2e7a382e9f4763913a52463fc5242c66c. Verified the manifest, every preserved deterministic input, all 60 governing packet entries, the 64-file epoch delta, the protected-main and non-File-Provider production boundary, independent automation feeds, carried obligation continuity, cross-project invariants, and a five-record rotating sample. Recorded two confirmed connected gaps without starting their repairs: incomplete fail-closed proof in trusted-host closeout acceptance and the installed but unloaded periodic dispatcher LaunchAgent.",
-        "manager_effect": null,
-        "owner": null,
-        "kind": "project_log",
-        "route": "logs:elim",
-        "collapsed_count": 1
-      },
-      {
         "id": "SMR-20260725-PR381",
         "date": "2026-07-25T22:17:40Z",
         "kind": "repository_review_recommendation",
@@ -493,23 +517,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "affected_count": 43,
         "route": "logs:source-monitor",
         "tone": "warning",
-        "collapsed_count": 1
-      },
-      {
-        "id": "elim-run-011",
-        "log": "elim",
-        "date": "2026-07-25 04:07:39 -0400",
-        "record": null,
-        "title": "Elim Run Log · Failed before substantive work — false usage-window change and unavailable Git closeout",
-        "actor": "Elim Run Log",
-        "source": "Elim Run Log",
-        "outcome": "Failed before substantive work — false usage-window change and unavailable Git closeout",
-        "affected_scope": null,
-        "summary": "Performed read-only launch preflight only. Verified the exact manifest-selected comprehensive unit, clean synchronized baseline, workflow health, deterministic stage statuses, every locally preserved input hash and byte count, the pinned queue and comprehensive packet hashes, clean Integrity result, empty public intake, and the due governing-boundary review trigger. The comprehensive review, project-wide sampling, finding adjudication, Review Epoch record, and scripts/record_review_epoch.py did not begin.",
-        "manager_effect": null,
-        "owner": null,
-        "kind": "project_log",
-        "route": "logs:elim",
         "collapsed_count": 1
       }
     ],
@@ -553,7 +560,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "integrity_summary": {
       "generated_at": "2026-07-27T23:24:27+00:00",
       "source_revision": "e2415bf87d3a4b14dd1fb9e461f0575752069789",
-      "availability": "current",
+      "availability": "stale",
       "result": "clean",
       "counts": {
         "errors": 0,
@@ -572,7 +579,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "publication_summary": {
       "disposition_counts": {
         "included": 138,
-        "excluded": 223,
+        "excluded": 224,
         "unclassified": 0,
         "conflict": 0
       },
@@ -597,6 +604,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-d24811e5a0b718794cb5"
+    "overview.js": "project-console-e40c9d8c4a02be3ee610"
   }
 });

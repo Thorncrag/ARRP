@@ -10,15 +10,17 @@ print_exclusion_reason: "Internal operational report."
 
 ## Current Result
 
-- **Result:** Clean
+- **Result:** Findings require review
 - **Errors:** 0
-- **Warnings:** 0
+- **Warnings:** 1
 - **Issue pages checked:** 64
 - **Proposal pages checked:** 41
 
 ## Current Findings
 
-No repeatable integrity findings are currently reported.
+### Internal links
+
+- **WARNING:** orphaned Markdown page has no inbound project link: framework/records/automation/p6-cutover-evidence.md
 
 ## Checks Included
 

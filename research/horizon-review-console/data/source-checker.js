@@ -49,7 +49,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog": "inventory/sources.csv",
         "message": "Current catalog content differs from the checker generation.",
         "producer_hash": "sha256:97f65cc569bc87ca53c9312e31f9702675b2a272c60a38b2c89e4b8a76015b5d",
-        "current_hash": "sha256:00ad4c3c512016061d9b2ce05e10993e2dac62fbc40689b06c82660f17a8b761"
+        "current_hash": "sha256:763a125475a90c45b0b4277a26106d8f3861d3201e5bb6ee1ef9810dff006a50"
       }
     ],
     "freshness": {
@@ -38148,7 +38148,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "unexpected_ids": [],
       "source_hashes": {
         "inventory/sources-pending.csv": "sha256:c6eafc0d61b601ee1db9c12e9271797eba4c0abd3f7bf75021df916989f5433c",
-        "inventory/sources.csv": "sha256:00ad4c3c512016061d9b2ce05e10993e2dac62fbc40689b06c82660f17a8b761"
+        "inventory/sources.csv": "sha256:763a125475a90c45b0b4277a26106d8f3861d3201e5bb6ee1ef9810dff006a50"
       },
       "producer_source_hashes": {
         "inventory/sources-pending.csv": "sha256:c6eafc0d61b601ee1db9c12e9271797eba4c0abd3f7bf75021df916989f5433c",
@@ -38168,6 +38168,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "source-checker.js": "project-console-d24811e5a0b718794cb5"
+    "source-checker.js": "project-console-e40c9d8c4a02be3ee610"
   }
 });

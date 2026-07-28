@@ -100,3 +100,67 @@ Each repository-review recommendation must identify the recommendation ID, recor
 - Reassessment trigger: Any change to the pull-request head invalidates this recommendation and returns the complete proposal to Elim review.
 - Primary records checked: [Proclamation 11045](https://www.federalregister.gov/d/2026-14990), [Proclamation 11046](https://www.federalregister.gov/d/2026-14991), [Proclamation 11048](https://www.federalregister.gov/d/2026-14997), [Executive Order 14415](https://www.federalregister.gov/d/2026-15003), and [Mali emergency continuation](https://www.federalregister.gov/d/2026-15024).
 - Result: `recommendation_recorded`
+## 2026-07-28T02:07:41+00:00 — Case monitor bot
+
+- Activity code: `CASE-20260728020741-97DEA4A0`
+- Originating workflow run: Local or manually invoked run
+- Result: `changes_detected`
+- Affected source IDs: SRC-0945, SRC-0965, SRC-0982, SRC-1004, SRC-1052, SRC-1056, SRC-1093, SRC-1929, SRC-1930, SRC-1932, SRC-1933, SRC-1934, SRC-1940, SRC-1941, SRC-1942, SRC-1943, SRC-1946, SRC-1952, SRC-1957, SRC-1973, SRC-1979, SRC-1982, SRC-2042, SRC-2080, SRC-2081, SRC-2105, SRC-2110, SRC-2136, SRC-2149, SRC-2183, SRC-2190, SRC-2192, SRC-2216, SRC-2221, SRC-2235, SRC-2238, SRC-2261, SRC-2351, SRC-2591
+- Tracker changes: 0 added; 39 changed; 0 removed
+- Case baselines updated: 39
+- Coverage: 490 mapped monitored CourtListener rows; 7 monitored CourtListener rows outside tracker coverage
+- Targeted CourtListener checks: 0 queried; 0 failed; 39 unverified
+- Source-development modules changed: 1
+- Interpretation: source-change signal only; no legal significance or project disposition determined.
+- `judicial-review-disposition-signals` → `research/horizon-source-records/HOR-035-source-development.md`: 215 current unreviewed leads; 2 added; 0 removed.
+
+| Change | Case | Docket | Previous observation | Current observation | Catalog match |
+| --- | --- | --- | --- | --- | --- |
+| Changed | National Association for the Advancement of Colored People v\. United States Postal Service \(D\.D\.C\.\) | 1:20\-cv\-02295 | Government Action Blocked Pending Appeal; 2026\-07\-17 | Government Action Not Blocked \(Pending Appeal\); 2026\-07\-17 | SRC\-2190 |
+| Changed | Refugee and Immigrant Center for Education and Legal Services v\. Noem \(D\.D\.C\.\) | 1:25\-cv\-00306 | Government Action Blocked; 2026\-04\-24 | Government Action Blocked; 2026\-07\-23 | SRC\-1052 |
+| Changed | American Federation of Government Employees v\. Trump \(D\.D\.C\.\) | 1:25\-cv\-00352 | Government Action Not Blocked \(Pending Appeal\); 2025\-08\-05 | Government Action Not Blocked \(Pending Appeal\); 2025\-08\-05 | SRC\-0982 |
+| Changed | Center for Taxpayer Rights v\. IRS \(D\.D\.C\.\) | 1:25\-cv\-00457 | Government Action Temporarily Blocked; 2026\-04\-01 | Government Action Temporarily Blocked; 2026\-04\-01 | SRC\-2149 |
+| Changed | American Association of Colleges for Teacher Education v\. Carter \(D\. Md\.\) | 1:25\-cv\-00702 | Government Action Not Blocked \(Pending Appeal\); 2025\-10\-08 | Case Closed; 2026\-03\-17 | SRC\-1957 |
+| Changed | National Endowment for Democracy v\. United States \(D\.D\.C\.\) | 1:25\-cv\-00648 | Government Action Temporarily Blocked; 2026\-01\-15 | Government Action Temporarily Blocked; 2026\-01\-15 | SRC\-0965 |
+| Changed | Rhode Island Latino Arts v\. National Endowment for the Arts \(D\.R\.I\.\) | 1:25\-cv\-00079 | Government Action Blocked; 2025\-11\-17 | Government Action Blocked; 2025\-11\-17 | SRC\-1973 |
+| Changed | Woonasquatucket River Watershed Council v\. Department of Agriculture \(D\.R\.I\.\) | 1:25\-cv\-00097 | Government Action Temporarily Blocked; 2025\-11\-04 | Government Action Temporarily Blocked; 2025\-11\-04 | SRC\-2591 |
+| Changed | Suri v\. Trump \(E\.D\. Va\.\) | 1:25\-cv\-00480 | Government Action Blocked; 2025\-08\-05 | Government Action Blocked; 2026\-07\-23 | SRC\-2238 |
+| Changed | Radio Free Asia v\. United States \(D\.D\.C\.\) | 1:25\-cv\-00907 | Government Action Blocked Pending Appeal; 2025\-09\-22 | Government Action Blocked Pending Appeal; 2025\-09\-22 | SRC\-2221 |
+| Changed | Middle East Broadcasting Networks v\. United States \(D\.D\.C\.\) | 1:25\-cv\-00966 | Government Action Blocked Pending Appeal; 2025\-09\-22 | Government Action Blocked Pending Appeal; 2025\-09\-22 | SRC\-2216 |
+| Changed | G\.F\.F\. v\. Trump \(S\.D\.N\.Y\.\) | 1:25\-cv\-02886 | Government Action Temporarily Blocked; 2025\-07\-29 | Government Action Temporarily Blocked; 2025\-07\-29 | SRC\-1942 |
+| Changed | J\.A\.V\. v\. Trump \(S\.D\. Tex\.\) | 1:25\-cv\-00072 | Government Action Blocked; 2025\-07\-14 | Government Action Blocked; 2025\-07\-14 | SRC\-1943 |
+| Changed | American Association of University Professors \- Harvard Faculty Chapter v\. Department of Justice \(D\. Mass\.\) | 1:25\-cv\-10910 | Government Action Blocked; 2025\-12\-18 | Government Action Blocked; 2025\-12\-18 | SRC\-1929 |
+| Changed | D\.B\.U\. v\. Trump \(D\. Colo\.\) | 1:25\-cv\-01163 | Government Action Temporarily Blocked; 2025\-12\-09 | Government Action Temporarily Blocked; 2025\-12\-09 | SRC\-1940 |
+| Changed | Mahdawi v\. Trump \(D\. Vt\.\) | 2:25\-cv\-00389 | Government Action Not Blocked \(Pending Appeal\); 2026\-07\-21 | Government Action Not Blocked \(Pending Appeal\); 2026\-07\-21 | SRC\-2235 |
+| Changed | President and Fellows of Harvard College v\. US Department of Health and Human Services \(D\. Mass\.\) | 1:25\-cv\-11048 | Government Action Blocked; 2025\-10\-20 | Government Action Blocked; 2025\-07\-22 | SRC\-1933 |
+| Changed | M\.A\.P\.S\. v\. Garite \(W\.D\. Tex\.\) | 3:25\-cv\-00171 | Government Action Blocked; 2025\-08\-05 | Government Action Blocked; 2025\-08\-05 | SRC\-1946 |
+| Changed | State of Illinois v\. Federal Emergency Management Agency \(D\.R\.I\.\) | 1:25\-cv\-00206 | Government Action Blocked; 2025\-10\-14 | Government Action Blocked; 2025\-11\-21 | SRC\-2110 |
+| Changed | Darwin Antonio Arevalo Millan v\. Trump \(C\.D\. Cal\.\) | 5:25\-cv\-01207 | Government Action Temporarily Blocked; 2025\-10\-21 | Government Action Temporarily Blocked; 2025\-10\-21 | SRC\-1941 |
+| Changed | VERA Institute of Justice v\. U\.S\. Department of Justice \(D\.D\.C\.\) | 1:25\-cv\-01643 | Government Action Temporarily Blocked in Part; Temporary Block Denied in Part; 2025\-11\-25 | Government Action Temporarily Blocked in Part; Temporary Block Denied in Part; 2025\-11\-25 | SRC\-2136 |
+| Changed | President and Fellows of Harvard College v\. Department of Homeland Security \(D\. Mass\.\) | 1:25\-cv\-11472 | Government Action Temporarily Blocked; 2026\-03\-31 | Government Action Temporarily Blocked; 2026\-03\-31 | SRC\-1932 |
+| Changed | Shapiro v\. Department of Agriculture \(M\.D\. Pa\.\) | 1:25\-cv\-00998 | Government Action Not Blocked \(Pending Appeal\); 2026\-01\-02 | Government Action Not Blocked \(Pending Appeal\); 2026\-01\-02 | SRC\-2105 |
+| Changed | Thakur v\. Trump \(N\.D\. Cal\.\) | 3:25\-cv\-04737 | Government Action Blocked Pending Appeal; 2025\-12\-23 | Government Action Blocked Pending Appeal; 2025\-12\-23 | SRC\-1934 |
+| Changed | Newsom v\. Trump \(N\.D\. Cal\.\) | 3:25\-cv\-04870 | Government Action Temporarily Blocked; 2026\-01\-12 | Government Action Temporarily Blocked; 2026\-01\-12 | SRC\-1004 |
+| Changed | Appalachian Voices v\. United States Environmental Protection Agency \(D\.D\.C\.\) | 1:25\-cv\-01982 | Temporary Block of Government Action Denied; 2025\-09\-25 | Temporary Block of Government Action Denied; 2025\-09\-25 | SRC\-1093 |
+| Changed | American Academy of Pediatrics v\. Robert F\. Kennedy Jr\. \(D\. Mass\.\) | 1:25\-cv\-11916 | Government Action Temporarily Blocked; 2026\-03\-16 | Government Action Temporarily Blocked; 2026\-07\-23 | SRC\-0945 |
+| Changed | Neguse v\. U\.S\. Immigration and Customs Enforcement \(D\.D\.C\.\) | 1:25\-cv\-02463 | Government Action Blocked Pending Appeal; 2026\-05\-08 | Government Action Temporarily Blocked; 2026\-07\-27 | SRC\-2261 |
+| Changed | Lesly Miot v\. Trump \(D\.D\.C\.\) | 1:25\-cv\-02471 | Government Action Not Blocked \(Pending Appeal\); 2026\-06\-25 | Government Action Not Blocked \(Pending Appeal\); 2026\-07\-22 | SRC\-2042 |
+| Changed | American Association of University Professors v\. Trump \(N\.D\. Cal\.\) | 3:25\-cv\-07864 | Government Action Temporarily Blocked; 2026\-02\-06 | Government Action Temporarily Blocked; 2026\-02\-06 | SRC\-1930 |
+| Changed | State of Washington v\. Health and Human Services \(D\. Or\.\) | 6:25\-cv\-01748 | Government Action Temporarily Blocked; 2025\-10\-27 | Government Action Temporarily Blocked; 2025\-12\-26 | SRC\-1979 |
+| Changed | Housing Authority of the County of San Diego v\. Turner \(N\.D\. Cal\.\) | 4:25\-cv\-08859 | Government Action Temporarily Blocked; 2026\-01\-20 | Government Action Temporarily Blocked; 2026\-01\-20 | SRC\-2080 |
+| Changed | Jorge Lujan v\. FMCSA \(D\.C\. Cir\.\) | 26\-1032 | Case Pending; 2026\-02\-20 | Case Pending; 2026\-07\-22 | SRC\-1056 |
+| Changed | Institute for Applied Ecology v\. Burgum \(D\. Or\.\) | 6:25\-cv\-02364 | Government Action Blocked Pending Appeal; 2026\-05\-11 | Government Action Blocked Pending Appeal; 2026\-05\-11 | SRC\-2081 |
+| Changed | N\. v\. U\.S\. Department of Health and Human Services \(D\.D\.C\.\) | 1:26\-cv\-00577 | Temporary Block of Government Action Denied; 2026\-05\-08 | Temporary Block of Government Action Denied; 2026\-05\-08 | SRC\-2351 |
+| Changed | DSCC v\. Trump \(D\.D\.C\.\) | 1:26\-cv\-01114 | Government Action Not Blocked \(Pending Appeal\); 2026\-06\-01 | Government Action Not Blocked \(Pending Appeal\); 2026\-06\-01 | SRC\-2183 |
+| Changed | State of California v\. Trump \(D\. Mass\.\) | 1:26\-cv\-11581 | Government Action Blocked Pending Appeal; 2026\-07\-07 | Government Action Blocked Pending Appeal; 2026\-07\-25 | SRC\-2192 |
+| Changed | Coe v\. Blanche \(S\.D\.N\.Y\.\) | 1:26\-cv\-04641 | Government Action Temporarily Blocked; 2026\-07\-09 | Government Action Temporarily Blocked; 2026\-07\-17 | SRC\-1982 |
+| Changed | Venezuelan Association of Massachusetts v\. United States Citizenship and Immigration Services \(D\. Mass\.\) | 1:26\-cv\-13038 | Case Pending; 2026\-07\-21 | Government Action Temporarily Blocked in Part; Temporary Block Denied in Part; 2026\-07\-21 | SRC\-1952 |
+
+## 2026-07-28T02:07:43+00:00 — Presidential directives watcher (PDM-A44F0C0C8B)
+
+- Added directives: **8**
+- Changed directives: **2**
+- Added IDs: 2026\-14990, 2026\-14991, 2026\-14992, 2026\-14997, 2026\-14998, 2026\-14999, 2026\-15003, 2026\-15024
+- Changed IDs: 2019\-05370, 2019\-16383
+- Action: Updated machine-observed Federal Register metadata and per-row baselines for human review.
+- Boundary: No substantive ARRP classification or disposition was performed.
