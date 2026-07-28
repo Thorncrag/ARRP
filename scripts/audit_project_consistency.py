@@ -3696,7 +3696,7 @@ def check_agent_runbooks(failures: list[str], warnings: list[str]) -> None:
                 )
         if values["agent_type"] == "deterministic-bot" and not agent_id.endswith("-bot"):
             report("ERROR", f"deterministic Agent ID lacks required -bot designation: {agent_id}", failures, warnings)
-        if values["log_path"] != "framework/records/automation/agent-audit-log.md":
+        if values["log_path"] != "owner-local:records/automation/agent-audit-log.md":
             report("ERROR", f"agent runbook {path.relative_to(ROOT)} does not use the shared Agent Audit Log", failures, warnings)
         runtime = values["runtime_id"]
         workflow_text = ""

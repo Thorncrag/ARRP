@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "availability": "current",
+  "latest": {
+    "epoch_id": "epoch-p6-local-first-20260727",
+    "completed_at": "2026-07-27T23:33:11.967Z",
+    "next_due_at": "2026-08-10T23:33:11.967Z",
+    "cadence_status": "biweekly",
+    "stability_status": "drift-detected",
+    "triggering_reason": "Off-cycle comprehensive review followed a material automation and publication-boundary transition.",
+    "completion_commit": "bd6b175d9ce20f58280ba4fa06cce8588783401b"
+  },
+  "detail": "Complete Review Epoch evidence and history are retained in the owner-local operational authority."
+}

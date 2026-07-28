@@ -2,13 +2,14 @@
 title: "Project Integrity Bot Runbook"
 agent_id: project-integrity-bot
 display_name: Project Integrity Bot
+console_purpose: "Checks repository structure, metadata, links, lifecycle coherence, and record wiring."
 agent_type: deterministic-bot
 status: enabled-local-stage
 trigger: local-chain-after-other-inputs
 schedule: "Every local chain after other deterministic inputs; no independent schedule"
 runtime_id: scripts/audit_project_consistency.py
 execution_environment: local-transaction-worktree
-log_path: framework/records/automation/agent-audit-log.md
+log_path: owner-local:records/automation/agent-audit-log.md
 current_report: framework/records/status/project-integrity-report.md
 checks_included:
   - Issue and proposal structure, including Issue Snapshot concision

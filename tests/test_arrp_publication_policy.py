@@ -117,6 +117,8 @@ class PublicationPolicyTests(unittest.TestCase):
         self.assertEqual(
             identifiers,
             {
+                "integrity-final-report",
+                "integrity-final-feed",
                 "console-build",
                 "site-prepare",
                 "site-build",
@@ -236,7 +238,7 @@ class PublicationPolicyTests(unittest.TestCase):
         )
         self.assertEqual(
             set(manifest["secret_private_findings"][0]),
-            {"path", "line", "detector", "digest"},
+            {"path", "line", "detector", "finding_id"},
         )
 
     def test_commit_tree_exactly_matches_manifest(self):

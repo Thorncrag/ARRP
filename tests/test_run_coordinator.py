@@ -1837,6 +1837,71 @@ class RunCoordinatorTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "queue repository revision differs"):
                 MODULE.attach_context(args)
 
+    def test_attach_repository_gates_marks_only_applicable_gate_on_attempt(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            manifest_path = directory / "run-chain.json"
+            gate_path = directory / "repository-gates.json"
+            manifest_path.write_text(
+                json.dumps(
+                    {
+                        "trigger": "scheduled",
+                        "updated_at": "2026-07-28T00:00:00Z",
+                        "stages": [
+                            {"id": "project-console-progress-bot"},
+                            {"id": "project-integrity-bot"},
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            gate_path.write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "availability": "current",
+                        "complete": True,
+                        "count": 2,
+                        "items": [
+                            {
+                                "gate_id": "GATE-SCHEDULED",
+                                "blocks_automation": True,
+                                "affected_stages": ["project-console-progress-bot"],
+                                "next_run_scope": ["scheduled"],
+                            },
+                            {
+                                "gate_id": "GATE-MANUAL",
+                                "blocks_automation": True,
+                                "affected_stages": ["project-integrity-bot"],
+                                "next_run_scope": ["manual"],
+                            },
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            args = type(
+                "Args",
+                (),
+                {
+                    "manifest": manifest_path,
+                    "repository_gates": gate_path,
+                    "output": None,
+                },
+            )()
+            MODULE.attach_repository_gates(args)
+            attached = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(
+            attached["repository_gates"]["applied_gate_ids"],
+            ["GATE-SCHEDULED"],
+        )
+        by_id = {
+            item["gate_id"]: item["affected_latest_attempt"]
+            for item in attached["repository_gates"]["items"]
+        }
+        self.assertTrue(by_id["GATE-SCHEDULED"])
+        self.assertFalse(by_id["GATE-MANUAL"])
+
 
 if __name__ == "__main__":
     unittest.main()

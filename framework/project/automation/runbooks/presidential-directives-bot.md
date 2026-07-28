@@ -2,6 +2,7 @@
 title: "Presidential Directives Bot Runbook"
 agent_id: presidential-directives-bot
 display_name: Presidential Directives Bot
+console_purpose: "Checks official Federal Register records for changes to tracked presidential directives."
 agent_type: deterministic-bot
 status: enabled-local-stage
 trigger: local-chain-when-due
@@ -9,7 +10,7 @@ schedule: "Due every 24 hours within the 02:00 America/New_York local chain; no 
 runtime_id: scripts/check_presidential_directives.py
 execution_environment: local-transaction-worktree
 runtime_config: .github/presidential-directives-bot.json
-log_path: framework/records/automation/agent-audit-log.md
+log_path: owner-local:records/automation/agent-audit-log.md
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
 ---

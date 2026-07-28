@@ -264,6 +264,17 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
             ),
             mock.patch.object(
                 MODULE,
+                "produce_repository_gate_snapshot",
+                return_value={
+                    "schema_version": 1,
+                    "availability": "current",
+                    "complete": True,
+                    "count": 0,
+                    "items": [],
+                },
+            ),
+            mock.patch.object(
+                MODULE,
                 "create_local_final_commit",
                 return_value={
                     "commit": None,
@@ -331,6 +342,10 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
         self.assertEqual(
             validations.call_args.kwargs["environment_by_spec"],
             {
+                "integrity-final-report": {
+                    "ARRP_PROJECT_TOKEN": "project-token",
+                    "GH_TOKEN": "app-token",
+                },
                 "console-build": {
                     "ARRP_PROJECT_TOKEN": "project-token",
                 },

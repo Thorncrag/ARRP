@@ -10,6 +10,7 @@ from unittest.mock import patch
 import scripts.build_horizon_review_console as console_builder
 from scripts.build_horizon_review_console import (
     agent_audit_log_view,
+    console_development_log_view,
     existing_console_payload,
     generated_console_part,
     horizon_snapshot,
@@ -422,6 +423,15 @@ class HorizonIntakeTest(unittest.TestCase):
                 )
             )
             self.assertIn("window.ARRP_PRIVATE_GITHUB_SECURITY=", text)
+            with patch.object(
+                console_builder,
+                "PRIVATE_GITHUB_SECURITY_OUTPUT",
+                output,
+            ):
+                self.assertEqual(
+                    console_builder.read_private_github_security_actions(),
+                    snapshot,
+                )
         builder_source = (
             ROOT / "scripts" / "build_horizon_review_console.py"
         ).read_text(encoding="utf-8").split("def main() -> None:", 1)[1]
@@ -438,6 +448,101 @@ class HorizonIntakeTest(unittest.TestCase):
             "/research/horizon-review-console/data/private-github-security.js",
             ignored,
         )
+
+    def test_public_console_operations_projection_is_allowlisted(self) -> None:
+        registry = [{
+            "id": "elim",
+            "name": "Elim",
+            "type": "Agent",
+            "status": "active",
+            "trigger": "Scheduled",
+            "schedule": "Nightly",
+            "purpose": "Reviews governed work.",
+            "runtime_config": ".github/private.json",
+            "runtime_configuration": {"owner_only": True},
+            "runbook_path": "framework/project/automation/runbooks/elim.md",
+        }]
+        public_registry = console_builder.public_safe_agent_registry(registry)
+        self.assertEqual(
+            set(public_registry[0]),
+            {"id", "name", "type", "status", "trigger", "schedule", "purpose"},
+        )
+        logs = [
+            {"id": "horizon", "entries": []},
+            {"id": "changes", "entries": []},
+            {"id": "agents", "entries": [{"details_html": "raw"}]},
+            {"id": "console-development", "entries": [{"details_html": "internal"}]},
+        ]
+        self.assertEqual(
+            [item["id"] for item in console_builder.public_safe_project_logs(logs)],
+            ["horizon", "changes"],
+        )
+        public_integrity = console_builder.public_safe_integrity({
+            "availability": "current",
+            "current": {"finding_count": 2},
+            "history": [{"generation_id": "restricted-history"}],
+        })
+        self.assertEqual(public_integrity["history"], [])
+        self.assertEqual(public_integrity["current"]["finding_count"], 2)
+        public_chain = console_builder.public_safe_run_chain({
+            "chain_id": "CHAIN-1",
+            "status": "failed",
+            "context_packet": {"restricted": "detail"},
+            "failures": [{"diagnostic": "restricted"}],
+            "stages": [{
+                "id": "project-integrity-bot",
+                "status": "failed",
+                "details": "restricted detail",
+                "output": "/local/private/path",
+                "active_incident_ids": ["INC-2026-001"],
+            }],
+        })
+        self.assertNotIn("context_packet", public_chain)
+        self.assertNotIn("failures", public_chain)
+        self.assertNotIn("details", public_chain["stages"][0])
+        self.assertNotIn("output", public_chain["stages"][0])
+        self.assertEqual(
+            public_chain["stages"][0]["active_incident_ids"],
+            ["INC-2026-001"],
+        )
+
+    def test_private_operations_projection_is_ignored_and_secret_scanned(self) -> None:
+        ignored = (ROOT / ".gitignore").read_text(encoding="utf-8")
+        self.assertIn(
+            "/research/horizon-review-console/data/private-operations.js",
+            ignored,
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "private-operations.js"
+            with patch.object(console_builder, "PRIVATE_OPERATIONS_OUTPUT", output):
+                snapshot = console_builder.write_private_operations(
+                    agent_registry=[{"id": "elim", "purpose": "Review work."}],
+                    project_logs=[{"id": "agents", "entries": []}],
+                    integrity={"history": [{"generation_id": "local-history"}]},
+                    run_chain={"context_packet": {"scope": "local"}},
+                )
+                self.assertEqual(snapshot["availability"], "current")
+                self.assertEqual(
+                    snapshot["integrity"]["history"][0]["generation_id"],
+                    "local-history",
+                )
+                self.assertEqual(
+                    snapshot["run_chain"]["context_packet"]["scope"],
+                    "local",
+                )
+                self.assertTrue(output.is_file())
+                prohibited_value = "api" + "_key=" + ("x" * 24)
+                with self.assertRaisesRegex(RuntimeError, "not persisted"):
+                    console_builder.write_private_operations(
+                        agent_registry=[{"id": "elim", "purpose": prohibited_value}],
+                        project_logs=[],
+                        integrity={},
+                        run_chain={},
+                    )
+                self.assertNotIn(
+                    prohibited_value,
+                    output.read_text(encoding="utf-8"),
+                )
 
     def test_two_catalog_architecture_has_no_legacy_source_ledgers(self) -> None:
         legacy_files = {
@@ -576,7 +681,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertEqual(
             snapshot["work_queue"]["governance_discovery"]
                 ["last_review"]["canonical_detail"],
-            "framework/records/automation/elim-run-log.md",
+            "owner-local:records/automation/elim-run-log.md",
         )
 
     def test_progress_board_accounts_for_every_current_record_exactly_once(self) -> None:
@@ -821,7 +926,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
 
     def test_console_contains_candidate_and_source_views(self) -> None:
-        self.assertEqual(self.console["schema_version"], 27)
+        self.assertEqual(self.console["schema_version"], 28)
         self.assertEqual(
             set(self.console),
             {
@@ -862,6 +967,9 @@ class HorizonIntakeTest(unittest.TestCase):
                 "domain_generation",
                 "generation_manifest",
                 "overview",
+                "automation_role_status",
+                "repository_gates",
+                "operational_incidents",
                 "delivery_items",
                 "topic_products",
             },
@@ -903,6 +1011,16 @@ class HorizonIntakeTest(unittest.TestCase):
                 )
             )
             javascript_parts.remove(private_projection.name)
+        private_operations_projection = (
+            console_dir / "data" / "private-operations.js"
+        )
+        if private_operations_projection.exists():
+            self.assertTrue(
+                private_operations_projection.read_text(encoding="utf-8").startswith(
+                    "/* Private local projection; never commit or publish. */"
+                )
+            )
+            javascript_parts.remove(private_operations_projection.name)
         local_status_projection = (
             console_dir / "data" / "local-automation-status.js"
         )
@@ -920,6 +1038,7 @@ class HorizonIntakeTest(unittest.TestCase):
                 if path.name
                 not in {
                     private_projection.name,
+                    private_operations_projection.name,
                     local_status_projection.name,
                 }
             ),
@@ -957,25 +1076,23 @@ class HorizonIntakeTest(unittest.TestCase):
             },
         )
         self.assertTrue(all(record["runbook_url"] for record in self.console["agent_registry"]))
-        self.assertTrue(all(record["runbook_sections"] for record in self.console["agent_registry"]))
         self.assertTrue(
             all(
-                {"id", "title", "html", "text"} <= set(section)
+                record["purpose"]
+                and "Inputs and permitted writes" not in record["purpose"]
                 for record in self.console["agent_registry"]
-                for section in record["runbook_sections"]
             )
         )
         self.assertTrue(
             all(
-                "\x00" not in section["html"]
+                isinstance(record["runtime_configuration"], dict)
                 for record in self.console["agent_registry"]
-                for section in record["runbook_sections"]
             )
         )
         self.assertTrue(
             all(
                 "runtime_config" in record
-                and "runtime_config_url" in record
+                and "runtime_configuration" in record
                 and "model_policy" in record
                 for record in self.console["agent_registry"]
             )
@@ -985,8 +1102,11 @@ class HorizonIntakeTest(unittest.TestCase):
             for record in self.console["agent_registry"]
             if record["id"] == "elim"
         )
-        self.assertEqual(elim["run_log_path"], "framework/records/automation/elim-run-log.md")
-        self.assertTrue(elim["run_log_url"].endswith("/framework/records/automation/elim-run-log.md"))
+        self.assertEqual(
+            elim["run_log_path"],
+            "owner-local:records/automation/elim-run-log.md",
+        )
+        self.assertEqual(elim["run_log_url"], "")
         self.assertTrue(
             all(
                 record["id"].endswith("-bot")
@@ -1024,6 +1144,33 @@ class HorizonIntakeTest(unittest.TestCase):
                 for record in self.console["agent_registry"]
             )
         )
+
+    def test_console_development_log_uses_structured_heading_records(self) -> None:
+        errors: list[dict[str, object]] = []
+        view = console_development_log_view(errors)
+        source = (
+            ROOT
+            / "framework"
+            / "records"
+            / "automation"
+            / "console-development-log.md"
+        ).read_text(encoding="utf-8")
+
+        self.assertFalse(errors)
+        self.assertEqual(
+            view["projection"],
+            {"expected_rows": 1, "actual_rows": 1, "complete": True},
+        )
+        self.assertEqual(view["entries"][0]["id"], "CONSOLE-2026-001")
+        self.assertIn(
+            "<h2>CONSOLE-2026-001 — Adopt holistic Console design",
+            view["entries"][0]["details_html"],
+        )
+        self.assertIn(
+            "same-day Console work in the same change area is collapsed",
+            source,
+        )
+        self.assertNotIn("| Change ID | Recorded at |", source)
 
     def test_console_navigation_and_current_record_accounting_are_complete(self) -> None:
         html = (RESEARCH / "horizon-review-console" / "index.html").read_text(encoding="utf-8")
@@ -1085,13 +1232,25 @@ class HorizonIntakeTest(unittest.TestCase):
         )
         self.assertEqual(
             [record["id"] for record in self.console["project_logs"]],
-            ["horizon", "elim", "agents", "source-monitor", "changes"],
+            [
+                "horizon",
+                "elim",
+                "agents",
+                "source-monitor",
+                "changes",
+                "console-development",
+            ],
         )
         self.assertTrue(all(record["entries"] for record in self.console["project_logs"]))
-        self.assertTrue(
-            all(record["source_url"].startswith("https://github.com/Thorncrag/ARRP/blob/main/framework/records/")
-                for record in self.console["project_logs"])
-        )
+        for record in self.console["project_logs"]:
+            if record["id"] in {"elim", "agents"}:
+                self.assertIsNone(record["source_url"])
+            else:
+                self.assertTrue(
+                    record["source_url"].startswith(
+                        "https://github.com/Thorncrag/ARRP/blob/main/framework/records/"
+                    )
+                )
         for record in self.console["project_logs"]:
             self.assertTrue(record["columns"])
             self.assertTrue(record["entries"])
@@ -1633,9 +1792,9 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Candidates", console_html)
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
-        self.assertIn("catalog-data.js?v=45", console_html)
-        self.assertIn("app.js?v=48", console_html)
-        self.assertIn("styles.css?v=46", console_html)
+        self.assertIn("catalog-data.js?v=47", console_html)
+        self.assertIn("app.js?v=61", console_html)
+        self.assertIn("styles.css?v=55", console_html)
         self.assertEqual(
             re.findall(r'<script src="(data/[^"]+)"', console_html),
             [],
@@ -1645,30 +1804,38 @@ class HorizonIntakeTest(unittest.TestCase):
             console_app,
         )
         self.assertIn(
+            'const PRIVATE_OPERATIONS_PATH = "data/private-operations.js?v=1";',
+            console_app,
+        )
+        self.assertIn(
             "if (capturePrivateGitHubProblems() || !localConsoleOriginAllowed())",
             console_app,
         )
-        for tab in {"overview", "progress", "actions", "candidates", "sources", "integrity", "automation", "logs", "publication"}:
+        for tab in {"overview", "progress", "actions", "planning", "integrity", "automation"}:
             self.assertIn(f'id="tab-{tab}"', console_html)
             self.assertIn(f'id="panel-{tab}"', console_html)
-        for uncounted_tab in {"overview", "progress", "publication"}:
+        for uncounted_tab in {"overview", "progress", "planning"}:
             self.assertNotIn(f'id="tab-{uncounted_tab}-count"', console_html)
             self.assertNotIn(f'byId("tab-{uncounted_tab}-count")', console_app)
         self.assertIn("display: flex", console_css)
         self.assertIn("white-space: nowrap", console_css)
         for subtab in {"candidate-tab-formal", "candidate-tab-preliminary", "source-tab-catalog", "source-tab-pending", "source-tab-watchers"}:
             self.assertIn(f'id="{subtab}"', console_html)
-        self.assertIn("Project data and automation status remain read-only here", console_html)
-        self.assertIn('id="automation-tab-administration"', console_html)
+        for subtab in {"workbench", "candidates", "preliminary", "sources", "publication"}:
+            self.assertIn(f'data-subtab-group="planning" data-subtab="{subtab}"', console_html)
+        self.assertIn("Configuration edits are staged exports", console_html)
+        self.assertIn('id="automation-tab-overview"', console_html)
         self.assertIn('id="automation-tab-agents"', console_html)
-        self.assertIn('id="automation-panel-administration"', console_html)
+        self.assertIn('id="automation-tab-security"', console_html)
+        self.assertIn('id="automation-panel-overview"', console_html)
         self.assertIn('id="automation-panel-agents"', console_html)
+        self.assertIn('id="automation-panel-security"', console_html)
         self.assertIn('id="automation-overview-grid"', console_html)
         self.assertNotIn("How every run proceeds", console_html)
         self.assertNotIn("Administration rules", console_html)
         self.assertNotIn('id="automation-tab-workers"', console_html)
         self.assertNotIn('id="automation-panel-workers"', console_html)
-        self.assertIn("Read-only automation view", console_html)
+        self.assertIn("Current exceptions only", console_html)
         self.assertIn('id="automation-chain-summary"', console_html)
         self.assertNotIn('id="coordinator-request-run"', console_html)
         self.assertNotIn('id="coordinator-request-review"', console_html)
@@ -1684,11 +1851,17 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Presidential-directives watcher", console_html)
         self.assertIn("Central review inbox", console_html)
         self.assertIn('id="development-board"', console_html)
-        self.assertIn('id="progress-holds"', console_html)
-        self.assertIn('class="progress-disclosure progress-holds-section progress-group-index"', console_html)
-        self.assertNotIn('<details class="progress-disclosure progress-holds-section"', console_html)
-        self.assertIn('element("details", "progress-hold-group")', console_app)
-        self.assertIn('`progress-hold-list-${layoutSlug(status)}`', console_app)
+        self.assertIn('id="progress-holds-summary"', console_html)
+        self.assertIn('class="progress-disclosure progress-holds-summary progress-group-index"', console_html)
+        self.assertNotIn('id="progress-holds"', console_html)
+        self.assertNotIn('element("details", "progress-hold-group")', console_app)
+        self.assertIn('id="pipeline-workspace"', console_html)
+        self.assertIn('id="pipeline-list"', console_html)
+        self.assertIn('id="pipeline-preview"', console_html)
+        self.assertIn('data-pipeline-mode="active"', console_html)
+        self.assertIn('data-pipeline-mode="hold"', console_html)
+        self.assertNotIn('id="progress-next-work"', console_html)
+        self.assertNotIn("nextWorkCohort", console_app)
         self.assertIn('class="progress-disclosure progress-monitoring-section progress-group-index"', console_html)
         self.assertNotIn('<details class="progress-disclosure progress-monitoring-section"', console_html)
         self.assertNotIn('data-disclosure-id="sources-court-results"', console_html)
@@ -1704,7 +1877,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn('["Deferred", "Blocked", "Human decision needed"]', console_app)
         self.assertIn("APPROVED_WORKFLOW_STATUSES", console_app)
         self.assertIn("WORKFLOW_EXPLANATION_REQUIRED", console_app)
-        self.assertIn("Missing: no explanation", console_app)
+        self.assertIn("required hold reason is not recorded", console_app)
         self.assertIn("Development level", console_html)
         self.assertIn("workflowStatus", console_app)
         for log_id in {"horizon", "agents", "source-monitor", "changes"}:
@@ -1715,23 +1888,25 @@ class HorizonIntakeTest(unittest.TestCase):
             self.assertIn(f'id="log-{log_id}-table"', console_html)
         self.assertIn('id="log-tab-integrity"', console_html)
         self.assertIn('id="log-panel-integrity"', console_html)
-        self.assertIn('id="log-integrity-count"', console_html)
+        self.assertNotIn('id="log-integrity-count"', console_html)
         self.assertIn('id="log-integrity-visible"', console_html)
         self.assertIn('id="integrity-history"', console_html)
-        self.assertIn('id="integrity-run-portals"', console_html)
+        self.assertNotIn('id="integrity-run-portals"', console_html)
+        self.assertIn('id="log-panel-console-development"', console_html)
         self.assertIn('id="integrity-log-summary"', console_html)
         self.assertLess(
             console_html.index('id="integrity-log-summary"'),
             console_html.index('id="panel-logs"'),
         )
-        self.assertIn('data-subtab="elim" tabindex="-1">Elim ', console_html)
-        self.assertIn('data-subtab="agents" tabindex="-1">Bots ', console_html)
-        self.assertIn('data-subtab="source-monitor" tabindex="-1">Sources ', console_html)
+        self.assertIn('data-subtab="elim" tabindex="-1">Elim</button>', console_html)
+        self.assertIn('data-subtab="agents" tabindex="-1">Bots</button>', console_html)
+        self.assertIn('data-subtab="source-monitor" tabindex="-1">Sources</button>', console_html)
         self.assertNotIn("Elim Runs", console_html)
         self.assertNotIn("Source Logs", console_html)
         self.assertNotIn("Autonomous Action Ledger", console_html)
-        self.assertIn('"Latest log entry"', console_app)
-        self.assertIn('"Earlier entries"', console_app)
+        self.assertIn('"email-workspace log-email-workspace"', console_app)
+        self.assertIn('"Integrity runs, newest first"', console_app)
+        self.assertNotIn('"Latest log entry"', console_app)
         self.assertLess(
             console_html.index('id="log-panel-integrity"'),
             console_html.index('id="integrity-history"'),
@@ -1768,7 +1943,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn('id="directive-watch-update-banner"', console_html)
         self.assertIn('id="directive-watch-updated-only"', console_html)
         console_readme = (console_dir / "README.md").read_text(encoding="utf-8")
-        self.assertIn("Whenever a `+N` badge represents only part of a larger list", console_readme)
+        self.assertIn("bounded newest-first master/detail surface", console_readme)
         self.assertIn("Publication disposition", console_html)
         self.assertIn("Page print assignments", console_html)
         self.assertIn("Edition analysis", console_html)
@@ -1783,13 +1958,18 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn('id="overview-openai-status"', console_html)
         self.assertIn('id="overview-usage-trend"', console_html)
         self.assertIn('id="overview-queue-directory"', console_html)
+        self.assertIn('id="overview-daily-verification"', console_html)
         self.assertNotIn('id="overview-pipeline"', console_html)
         self.assertIn("OPENAI_STATUS_URL", console_app)
+        self.assertIn("VERCEL_STATUS_URL", console_app)
+        self.assertIn("CLOUDFLARE_COMPONENTS_URL", console_app)
+        self.assertIn("platformProviderObservation", console_app)
+        self.assertIn("Cloudflare Turnstile", console_app)
         self.assertIn("pullRequestsStatus", console_app)
         self.assertIn("actionItemSnapshot", console_app)
         self.assertIn("renderOverviewQueues", console_app)
         self.assertIn("elimUsageConsumption", console_app)
-        self.assertIn("Agents &amp; Bots", console_html)
+        self.assertIn(">Operations <span", console_html)
         self.assertIn("Recent material activity", console_html)
         self.assertIn("renderOverviewAutomationActivity", console_app)
         self.assertIn("captureSuccessfulStageHistory", console_app)
@@ -1800,13 +1980,16 @@ class HorizonIntakeTest(unittest.TestCase):
             "function renderOverviewRecentActivity()",
             1,
         )[1].split("function publicInputSnapshot", 1)[0]
-        self.assertIn('"elim", "source-monitor", "horizon", "changes"', recent_automation)
-        self.assertIn("Human project governance", recent_automation)
+        self.assertIn("touched artifacts", recent_automation)
+        self.assertIn("record.score_change", recent_automation)
         self.assertIn('document.createElementNS(namespace, "svg")', console_app)
         self.assertIn("usage-trend-line", console_css)
+        self.assertIn("grid-template-columns: repeat(5, minmax(0, 1fr))", console_css)
+        self.assertIn(".overview-queue-directory { display: grid; grid-template-columns: repeat(4", console_css)
         self.assertIn("queueDirectoryCard", console_app)
+        self.assertIn("overviewBriefVerification", console_app)
         self.assertNotIn("queueDirectoryRow", console_app)
-        self.assertIn('queue.count === 0 ? "Empty"', console_app)
+        self.assertIn("const empty = queues.filter((queue) => queue.count === 0)", console_app)
         self.assertNotIn("OPEN_PULL_REQUESTS_URL", console_app)
         self.assertIn("repository_review_recommendations", console_app)
         self.assertIn('setUpdateBadge("candidate-preliminary-update"', console_app)
@@ -1822,7 +2005,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn('element("button", "disclosure-default-toggle")', console_app)
         self.assertIn('button.textContent = `Default: ${defaultOpen ? "open" : "closed"}`', console_app)
         self.assertIn("current[key] = nextDefault", console_app)
-        self.assertIn('disclosure.addEventListener("toggle"', console_app)
+        self.assertIn('details.dataset.disclosurePreference = "true"', console_app)
         self.assertIn(".disclosure-default-toggle", console_css)
         self.assertIn('element("button", "action-inbox-row")', console_app)
         self.assertIn('id="action-item-preview"', console_html)
@@ -1907,9 +2090,20 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("GITHUB_BLOB_ROOT", console_app)
         self.assertIn("action-preview-section", console_css)
         self.assertIn("renderProjectLog", console_app)
-        self.assertIn("projectLogTable", console_app)
+        self.assertIn('"email-workspace log-email-workspace"', console_app)
+        self.assertNotIn("projectLogTable", console_app)
         self.assertIn("renderIntegrityHistory", console_app)
-        self.assertIn('initializeSectionTabs("logs", "horizon")', console_app)
+        self.assertIn("initializeLogMenu", console_app)
+        self.assertIn("operations-log-menu-button", console_app)
+        self.assertNotIn("operations-log-selector", console_app)
+        self.assertIn("setNavigationMarker", console_app)
+        self.assertIn(".tab-status-dot.error", console_css)
+        self.assertIn('initializeSectionTabs("planning", "workbench")', console_app)
+        self.assertIn('data-subtab-group="automation" data-subtab="logs"', console_html)
+        self.assertNotIn('data-tab="logs"', console_html)
+        self.assertNotIn('data-tab="candidates"', console_html)
+        self.assertNotIn('data-tab="sources"', console_html)
+        self.assertNotIn('data-tab="publication"', console_html)
         render_action_items = console_app.split("function renderActionItems()", 1)[1].split(
             "function parseCount", 1
         )[0]
@@ -1939,37 +2133,41 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("publication-builder-grid", console_css)
         self.assertIn("scroll-to-top", console_css)
         self.assertIn("integrity-finding-group", console_css)
-        self.assertIn('toggle.setAttribute("aria-expanded"', console_app)
-        self.assertIn('element("article", `automation-card${failure ? " has-error" : ""}`)', console_app)
-        self.assertIn('"Open filtered log →"', console_app)
-        self.assertIn('href="#logs:elim"', console_html)
+        self.assertIn('row.setAttribute("aria-selected"', console_app)
+        self.assertIn("automation-role-workspace", console_app)
+        self.assertIn('"View history →"', console_app)
+        self.assertIn('"#automation:logs:elim"', console_app)
         self.assertNotIn('element("details", "automation-checks")', console_app)
         self.assertNotIn("automation-schedule", console_app)
         self.assertNotIn("record.checks", console_app)
-        self.assertIn("record.runbook_sections", console_app)
-        self.assertIn("Complete runbook details", console_app)
-        self.assertIn("runtime_config_url", console_app)
-        self.assertIn('id="overview-bot-alert"', console_html)
+        self.assertNotIn("record.runbook_sections", console_app)
+        self.assertNotIn("Complete runbook details", console_app)
+        self.assertIn("automationConfigurationPanel", console_app)
+        self.assertIn("runtime_configuration", console_app)
+        self.assertNotIn('id="overview-bot-alert"', console_html)
+        self.assertIn('id="overview-chain-readiness"', console_html)
+        self.assertIn('id="action-priority-attention"', console_html)
+        self.assertIn("Priority attention", console_html)
+        self.assertIn("Five compact summaries", console_html)
+        self.assertIn("automation_readiness", console_app)
         self.assertIn("failedAutomationStages", console_app)
         self.assertIn('category: "Automation failure"', console_app)
         self.assertIn('attention: "human"', console_app)
-        self.assertIn('status-badge error automation-error-badge', console_app)
-        self.assertIn('errorBadge.setAttribute("aria-label"', console_app)
-        self.assertIn("botFailureSummary(failure)", console_app)
-        self.assertIn('card.id = `automation-card-${record.id}`', console_app)
-        self.assertIn('initializeSectionTabs("automation", "administration")', console_app)
+        self.assertIn("automationRoleProblem", console_app)
+        self.assertIn("effectiveAutomationRoleStatusProjection", console_app)
+        self.assertIn("operationalIncidentProjection", console_app)
+        self.assertNotIn("groupAutomationIncidents(chain)", console_app)
+        self.assertIn("renderAutomationRoleDetail", console_app)
+        self.assertIn('initializeSectionTabs("automation", "overview")', console_app)
         self.assertIn('`#automation:agents:${stage.id}`', console_app)
         self.assertIn("automation-error-alert", console_css)
-        self.assertIn("automation-card-error", console_css)
+        self.assertIn("automation-role-recovery", console_css)
         self.assertNotIn(".automation-cascade", console_css)
         self.assertNotIn(".automation-rule-grid", console_css)
         self.assertNotIn(".automation-checks", console_css)
-        self.assertRegex(
-            console_css,
-            r"\.automation-grid\s*\{[^}]*grid-template-columns:\s*1fr",
-        )
+        self.assertIn(".automation-role-strip", console_css)
         self.assertIn(".automation-overview-grid", console_css)
-        self.assertIn(".automation-runbook-section", console_css)
+        self.assertIn(".automation-config-panel", console_css)
         self.assertIn("updateDenseDisclosureSummary", console_app)
         source_catalog_disclosure = console_html.split(
             'data-disclosure-id="sources-catalog-results"',
@@ -1995,7 +2193,7 @@ class HorizonIntakeTest(unittest.TestCase):
             "Source Checker data is the checked-in projection from the latest local transaction.",
             console_app,
         )
-        self.assertIn('element("section", "log-group")', console_app)
+        self.assertIn('element("div", "email-list log-email-list")', console_app)
         self.assertNotIn('element("details", "log-group")', console_app)
         self.assertNotIn('id="tab-integrity-update"', console_html)
         self.assertIn("Pending sources", console_html)
@@ -2025,6 +2223,67 @@ class HorizonIntakeTest(unittest.TestCase):
         for variable in ("--ink:", "--blue:", "--gold:", "--green:", "--shadow:"):
             self.assertIn(variable, participation_css)
             self.assertIn(variable, console_css)
+
+    def test_typed_pipeline_projection_preserves_planning_precedence_and_gaps(self) -> None:
+        pipeline = self.console["progress"]["pipeline"]
+        self.assertEqual(pipeline["schemaVersion"], 1)
+        self.assertEqual(
+            pipeline["progressGenerationId"],
+            self.console["progress"]["generation_id"],
+        )
+        items = pipeline["items"]
+        active = [item for item in items if item["mode"] == "active"]
+        holds = [item for item in items if item["mode"] == "hold"]
+        human = [item for item in items if item["mode"] == "human_action"]
+        self.assertEqual([item["id"] for item in human], ["JUD-009"])
+        self.assertNotIn("JUD-009", {item["id"] for item in active + holds})
+        self.assertEqual(
+            {
+                item["id"]
+                for item in active
+                if item["workClass"] == "Formal candidate"
+                and item["nextActionState"] == "missing"
+            },
+            {"HOR-026", "HOR-027", "HOR-029", "HOR-039"},
+        )
+        self.assertEqual(pipeline["counts"]["planningDataGaps"], 4)
+        self.assertEqual(
+            {item["status"] for item in holds},
+            {"Blocked", "Deferred"},
+        )
+        self.assertTrue(
+            all(item["status"] in {"Blocked", "Deferred"} for item in holds)
+        )
+        candidate_hold = next(item for item in holds if item["id"] == "HOR-031")
+        self.assertTrue(candidate_hold["hold"]["reason"])
+        self.assertTrue(candidate_hold["hold"]["blockedAction"])
+        self.assertNotEqual(
+            candidate_hold["hold"]["reason"],
+            next(
+                record
+                for record in self.console["active_horizon_records"]
+                if record["id"] == "HOR-031"
+            )["horizon_history"]["rationale"],
+        )
+        verified = next(item for item in holds if item["id"] == "ELEC-015")
+        self.assertEqual(verified["hold"]["holdSince"], "2026-07-10")
+        self.assertEqual(verified["hold"]["provenanceState"], "verified")
+        mismatch = next(item for item in holds if item["id"] == "ELEC-014")
+        self.assertIsNone(mismatch["hold"]["holdSince"])
+        self.assertEqual(
+            mismatch["hold"]["provenanceState"],
+            "status_without_matching_transition",
+        )
+        fixed_zero = next(item for item in items if item["id"] == "DOJ-004")
+        self.assertEqual(fixed_zero["score"], 0)
+        self.assertEqual(fixed_zero["scoreState"], "valid")
+        self.assertTrue(
+            any(
+                finding["identifier"] == "ELEC-014"
+                and finding["code"] == "hold_transition_provenance_missing"
+                for finding in pipeline["integrityFindings"]
+            )
+        )
 
     def test_qualitatively_placed_sources_are_on_issue_pages(self) -> None:
         placements = {

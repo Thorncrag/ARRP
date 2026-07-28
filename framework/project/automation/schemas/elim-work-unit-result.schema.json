@@ -19,13 +19,14 @@
     "commit",
     "synchronization",
     "human_questions",
+    "incident_reports",
     "github_action_requests",
     "continuation",
     "discovered_work_units",
     "gap_obligation_updates"
   ],
   "properties": {
-    "schema_version": { "type": "integer", "const": 1 },
+    "schema_version": { "type": "integer", "const": 2 },
     "run_id": { "type": "string", "minLength": 1 },
     "unit_id": { "type": "string", "minLength": 1 },
     "work_type": {
@@ -86,6 +87,157 @@
     "commit": { "type": ["string", "null"] },
     "synchronization": { "type": "array", "items": { "type": "string" } },
     "human_questions": { "type": "array", "items": { "type": "string" } },
+    "incident_reports": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "component",
+          "prerequisite",
+          "failure_class",
+          "impact",
+          "summary",
+          "observed_at",
+          "observations",
+          "evidence_refs",
+          "checks_performed",
+          "ruled_out",
+          "hypotheses",
+          "attempted_remedies",
+          "unresolved_boundary",
+          "preferred_remedy",
+          "alternatives",
+          "recommended_owner",
+          "required_authority",
+          "next_action",
+          "risk_if_deferred",
+          "fallback",
+          "closure_test",
+          "active_links"
+        ],
+        "properties": {
+          "component": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "prerequisite": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "failure_class": { "type": "string", "minLength": 1, "maxLength": 256 },
+          "impact": {
+            "type": "string",
+            "enum": ["blocking", "disrupted", "degraded", "near_miss"]
+          },
+          "summary": { "type": "string", "minLength": 1, "maxLength": 2048 },
+          "observed_at": { "type": "string", "minLength": 1, "maxLength": 64 },
+          "observations": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 32,
+            "items": { "type": "string", "minLength": 1, "maxLength": 2048 }
+          },
+          "evidence_refs": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 32,
+            "items": {
+              "type": "string",
+              "pattern": "^(?:run|restricted|repository-gate|security|platform|data|automation-role|log|github|file):[A-Za-z0-9][A-Za-z0-9._:/#@+-]{0,511}$"
+            }
+          },
+          "checks_performed": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 32,
+            "items": { "type": "string", "minLength": 1, "maxLength": 2048 }
+          },
+          "ruled_out": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 32,
+            "items": { "type": "string", "minLength": 1, "maxLength": 2048 }
+          },
+          "hypotheses": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["hypothesis", "confidence"],
+              "properties": {
+                "hypothesis": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2048
+                },
+                "confidence": {
+                  "type": "string",
+                  "enum": ["low", "medium", "high"]
+                }
+              }
+            }
+          },
+          "attempted_remedies": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 32,
+            "items": { "type": "string", "minLength": 1, "maxLength": 2048 }
+          },
+          "unresolved_boundary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "preferred_remedy": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "alternatives": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": { "type": "string", "minLength": 1, "maxLength": 2048 }
+          },
+          "recommended_owner": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "required_authority": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "next_action": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "risk_if_deferred": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "fallback": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "closure_test": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "active_links": {
+            "type": "array",
+            "maxItems": 32,
+            "items": {
+              "type": "string",
+              "pattern": "^(?:repository-gate|security|platform|data|automation-role|github):[A-Za-z0-9][A-Za-z0-9._:/#@+-]{0,511}$"
+            }
+          }
+        }
+      }
+    },
     "github_action_requests": {
       "type": "array",
       "maxItems": 128,

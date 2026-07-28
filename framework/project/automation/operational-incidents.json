@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "event_authority": "owner-local:records/automation/operational-incidents.jsonl",
+  "projection_producer": "scripts/operational_incidents.py",
+  "lifecycle": [
+    "open",
+    "investigating",
+    "mitigated",
+    "monitoring",
+    "resolved"
+  ],
+  "unresolved_states": [
+    "open",
+    "investigating",
+    "mitigated",
+    "monitoring"
+  ],
+  "identity_fields": [
+    "component",
+    "prerequisite",
+    "failure_class"
+  ],
+  "authority": "Only validated immutable events determine incident identity, occurrence history, lifecycle, ownership, recovery evidence, and closure. Browser logic and narrative prose cannot create, group, resolve, or reassign incidents.",
+  "admission_boundary": "Admit genuine operational disruption, blockage, degradation, untrustworthy data, protective halt, or material near miss. An intentional pause, ordinary Integrity finding, proposal hold, routine remediation item, or declared gate is not an incident unless it meets that operational threshold.",
+  "privacy": "Repository-visible events contain only deterministically sanitized summaries and typed opaque evidence references. Restricted evidence remains outside the repository."
+}

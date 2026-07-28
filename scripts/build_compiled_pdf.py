@@ -11,6 +11,7 @@ the documented two-pass publication workflow.
 from __future__ import annotations
 
 import html
+import hashlib
 import os
 import re
 from dataclasses import dataclass
@@ -31,6 +32,19 @@ from reportlab.platypus import (
     Table,
     TableStyle,
 )
+
+try:
+    from github_disclosure_gate import (
+        DisclosureBlocked,
+        OutboundArtifact,
+        require_outbound_bundle,
+    )
+except ModuleNotFoundError:
+    from scripts.github_disclosure_gate import (
+        DisclosureBlocked,
+        OutboundArtifact,
+        require_outbound_bundle,
+    )
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -585,6 +599,41 @@ def build_story(styles: dict[str, ParagraphStyle]) -> list:
     return story
 
 
+def compiled_pdf_sources() -> list[Path]:
+    """Return the complete content-bearing family used by the PDF generator."""
+
+    areas = load_areas()
+    issue_order = load_issue_order(areas)
+    federal_bills, state_bills = legislation_files()
+    paths = {
+        ROOT / "ABOUT.md",
+        ROOT / "PRINT_READERS_GUIDE.md",
+        ROOT / "README.md",
+        ROOT / "SUBJECT_INDEX.md",
+        ROOT / "assets" / "branding" / "arrp-emblem-print.png",
+        *topic_files(),
+        *federal_bills,
+        *state_bills,
+    }
+    for area in areas:
+        paths.add(ROOT / "areas" / area.slug / "README.md")
+        paths.update(
+            ROOT / "areas" / area.slug / "issues" / f"{issue_id}.md"
+            for issue_id in issue_order.get(area.area_id, [])
+        )
+    return sorted(paths, key=lambda path: path.relative_to(ROOT).as_posix())
+
+
+def pdf_source_revision(paths: list[Path]) -> str:
+    digest = hashlib.sha256()
+    for path in paths:
+        digest.update(path.relative_to(ROOT).as_posix().encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return "sha256:" + digest.hexdigest()
+
+
 def draw_footer(canvas, doc) -> None:
     canvas.saveState()
     canvas.setFont("Times-Roman", 8)
@@ -600,9 +649,31 @@ def draw_cover(_canvas, _doc) -> None:
 
 def main() -> None:
     EXPORT_DIR.mkdir(parents=True, exist_ok=True)
+    source_paths = compiled_pdf_sources()
+    source_revision = pdf_source_revision(source_paths)
+    group = f"compiled-public-pdf:{source_revision}"
+    source_artifacts = [
+        OutboundArtifact(
+            path=path.relative_to(ROOT).as_posix(),
+            producer="public-release-builder",
+            content=path.read_bytes(),
+            artifact_group=group,
+        )
+        for path in source_paths
+    ]
+    try:
+        require_outbound_bundle(
+            source_artifacts,
+            operation="compiled_pdf_source_preflight",
+            source_revision=source_revision,
+            complete=True,
+        )
+    except DisclosureBlocked as error:
+        raise SystemExit(str(error)) from error
+    pending_output = OUTPUT.with_name(OUTPUT.stem + ".pending" + OUTPUT.suffix)
     styles = make_styles()
     doc = SimpleDocTemplate(
-        str(OUTPUT),
+        str(pending_output),
         pagesize=letter,
         rightMargin=0.72 * inch,
         leftMargin=0.72 * inch,
@@ -612,6 +683,26 @@ def main() -> None:
         author="Benjamin Smith",
     )
     doc.build(build_story(styles), onFirstPage=draw_cover, onLaterPages=draw_footer)
+    try:
+        require_outbound_bundle(
+            [
+                *source_artifacts,
+                OutboundArtifact(
+                    path="exports/pdf/ARRP-public-proposal-draft.pdf",
+                    producer="public-release-builder",
+                    content=pending_output.read_bytes(),
+                    artifact_group=group,
+                ),
+            ],
+            operation="compiled_pdf_generation",
+            source_revision=source_revision,
+            complete=True,
+        )
+    except DisclosureBlocked as error:
+        raise SystemExit(
+            f"{error}; candidate PDF preserved at {pending_output.relative_to(ROOT)}"
+        ) from error
+    os.replace(pending_output, OUTPUT)
     print(OUTPUT)
 
 

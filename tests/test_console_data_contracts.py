@@ -449,16 +449,21 @@ class ConsoleDataContractTests(unittest.TestCase):
                 expected_count=1,
                 actual_count=1,
             )
-            manifest = MODULE.write_console_bundle(
-                {"schema_version": 27, "overview": {"queue_counts": {}}},
-                {
-                    "overview.js": {"overview": {"queue_counts": {}}},
-                    "progress.js": {"progress": {"metrics": {"total": 1}}},
-                },
-                generation_contract=contract,
-                output=output,
-                data_dir=data,
-            )
+            with mock.patch.object(
+                MODULE,
+                "require_outbound_bundle",
+                return_value={"allowed": True, "complete": True},
+            ):
+                manifest = MODULE.write_console_bundle(
+                    {"schema_version": 27, "overview": {"queue_counts": {}}},
+                    {
+                        "overview.js": {"overview": {"queue_counts": {}}},
+                        "progress.js": {"progress": {"metrics": {"total": 1}}},
+                    },
+                    generation_contract=contract,
+                    output=output,
+                    data_dir=data,
+                )
             self.assertFalse((data / "stale.js").exists())
             self.assertTrue((data / "overview.js").is_file())
             self.assertEqual(
@@ -648,6 +653,20 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "checked_at": "2026-07-25T12:00:00+00:00",
                 "completeness": {"complete": False},
             },
+            operational_incidents={
+                "availability": "current",
+                "complete": True,
+                "unresolved_count": 1,
+                "impact_state": "red",
+                "items": [
+                    {
+                        "incident_id": "INC-2026-001",
+                        "status": "open",
+                        "impact": "blocking",
+                        "classification": "hold",
+                    }
+                ],
+            },
         )
         focus = overview["manager_focus"]
         self.assertEqual(focus["human_decisions"], 2)
@@ -689,6 +708,120 @@ class ConsoleDataContractTests(unittest.TestCase):
         focus = overview["manager_focus"]
         self.assertIsNone(focus["integrity_findings"])
         self.assertFalse(focus["integrity_findings_available"])
+
+    def test_overview_automation_readiness_owns_latest_blockers_and_future_gates(self):
+        readiness = MODULE.overview_automation_readiness(
+            {
+                "chain_id": "CHAIN-READINESS-1",
+                "status": "blocked",
+                "updated_at": "2026-07-28T13:00:00+00:00",
+                "failures": [
+                    {
+                        "id": "latest-source-failure",
+                        "stage": "source-checker",
+                        "message": "Source check could not complete.",
+                        "recorded_at": "2026-07-28T12:59:00+00:00",
+                    }
+                ],
+                "repository_gates": {
+                    "complete": True,
+                    "count": 2,
+                    "checked_at": "2026-07-28T12:58:00+00:00",
+                    "items": [
+                        {
+                            "id": "PR-501",
+                            "number": 501,
+                            "title": "Future automation contract",
+                        },
+                        {
+                            "id": "PR-502",
+                            "number": 502,
+                            "title": "Gate that affected the latest attempt",
+                            "affected_latest_attempt": True,
+                            "affected_stage": "project-integrity",
+                            "reason": "The latest Integrity stage was gated.",
+                        },
+                    ],
+                },
+            }
+        )
+        self.assertEqual(readiness["schema_version"], 1)
+        self.assertEqual(readiness["latest_attempt"]["chain_id"], "CHAIN-READINESS-1")
+        self.assertEqual(readiness["latest_attempt"]["blocker_count"], 2)
+        self.assertEqual(
+            {item["stage_id"] for item in readiness["latest_attempt"]["blockers"]},
+            {"source-checker-bot", "project-integrity-bot"},
+        )
+        self.assertTrue(readiness["future_run_gates"]["available"])
+        self.assertEqual(readiness["future_run_gates"]["count"], 2)
+
+    def test_overview_automation_readiness_fails_closed_on_untyped_gate_inventory(self):
+        readiness = MODULE.overview_automation_readiness(
+            {
+                "chain_id": "CHAIN-READINESS-2",
+                "status": "complete",
+                "repository_gates": {
+                    "complete": False,
+                    "count": 0,
+                },
+            }
+        )
+        self.assertFalse(readiness["future_run_gates"]["available"])
+        self.assertIsNone(readiness["future_run_gates"]["count"])
+        self.assertEqual(readiness["latest_attempt"]["blocker_count"], 0)
+
+    def test_current_future_gate_does_not_rewrite_latest_attempt_and_applied_gate_counts_once(self):
+        readiness = MODULE.overview_automation_readiness(
+            {
+                "chain_id": "CHAIN-GATED",
+                "status": "blocked",
+                "failures": [
+                    {
+                        "stage": "project-integrity-bot",
+                        "message": "Repository gate GATE-001 blocked this stage.",
+                    }
+                ],
+                "stages": [
+                    {
+                        "id": "project-integrity-bot",
+                        "status": "failed",
+                        "details": "Repository gate GATE-001 blocked this stage.",
+                    }
+                ],
+                "repository_gates": {
+                    "complete": True,
+                    "count": 1,
+                    "items": [
+                        {
+                            "gate_id": "GATE-001",
+                            "blocks_automation": True,
+                            "affected_stages": ["project-integrity-bot"],
+                            "affected_latest_attempt": True,
+                            "reason": "Exact-head gate applied.",
+                        }
+                    ],
+                },
+            },
+            {
+                "complete": True,
+                "count": 1,
+                "items": [
+                    {
+                        "gate_id": "GATE-002",
+                        "blocks_automation": True,
+                        "affected_stages": ["project-console-progress-bot"],
+                        "affected_latest_attempt": False,
+                        "reason": "Future run only.",
+                    }
+                ],
+            },
+        )
+        self.assertEqual(readiness["latest_attempt"]["blocker_count"], 1)
+        self.assertEqual(
+            readiness["latest_attempt"]["blockers"][0]["id"],
+            "GATE-001",
+        )
+        self.assertEqual(readiness["future_run_gates"]["count"], 1)
 
     def test_overview_activity_is_typed_deduplicated_and_collapses_clean_retries(self):
         overview = MODULE.overview_data(
@@ -767,7 +900,7 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertEqual(activity[1]["collapsed_count"], 2)
         self.assertEqual(activity[1]["affected_scope"], "2 retained log activities")
 
-    def test_overview_groups_branch_specific_retries_and_deduplicates_one_event(self):
+    def test_overview_uses_typed_incident_projection_without_regrouping_run_text(self):
         message_a = (
             "host-repository-preflight failed: canonical ARRP workspace is not "
             "reconciled with GitHub: current branch is codex/first instead of main."
@@ -811,6 +944,24 @@ class ConsoleDataContractTests(unittest.TestCase):
             agent_registry=[],
             watcher_metadata={},
             source_checker={},
+            operational_incidents={
+                "availability": "current",
+                "complete": True,
+                "unresolved_count": 1,
+                "impact_state": "red",
+                "items": [
+                    {
+                        "incident_id": "INC-2026-002",
+                        "status": "investigating",
+                        "impact": "blocking",
+                        "occurrence_count": 2,
+                        "root_cause": (
+                            "Canonical ARRP workspace is off main and not "
+                            "reconciled with GitHub."
+                        ),
+                    }
+                ],
+            },
         )
         incidents = overview["manager_focus"]["incidents"]
         self.assertEqual(len(incidents), 1)

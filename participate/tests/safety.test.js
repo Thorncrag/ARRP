@@ -28,9 +28,10 @@ test("payment-card detector uses checksum validation", () => {
 });
 
 test("public privacy screen blocks credentials and identifiers", () => {
+  const privateKeyMarker = ["-----BEGIN", "PRIVATE", "KEY-----"].join(" ");
   const result = screenPublicSubmission({
     title: "Private material",
-    body: "SSN 123-45-6789 and -----BEGIN PRIVATE KEY----- should never be public.",
+    body: `SSN 123-45-6789 and ${privateKeyMarker} should never be public.`,
   });
   assert.equal(result.allowed, false);
   assert.deepEqual(result.findings, ["government_identifier", "credential"]);

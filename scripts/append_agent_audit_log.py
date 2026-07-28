@@ -4,13 +4,22 @@
 from __future__ import annotations
 
 import argparse
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_LOG = (
-    ROOT / "framework" / "records" / "automation" / "agent-audit-log.md"
+    Path(
+        os.environ.get(
+            "ARRP_STATE_ROOT",
+            str(Path.home() / "Library/Application Support/ARRP"),
+        )
+    ).expanduser()
+    / "records"
+    / "automation"
+    / "agent-audit-log.md"
 )
 
 

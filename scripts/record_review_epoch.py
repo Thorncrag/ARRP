@@ -6,12 +6,19 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+STATE_ROOT = Path(
+    os.environ.get(
+        "ARRP_STATE_ROOT",
+        str(Path.home() / "Library/Application Support/ARRP"),
+    )
+).expanduser()
 SCRIPTS = Path(__file__).resolve().parent
 if str(SCRIPTS) not in sys.path:
     sys.path.insert(0, str(SCRIPTS))
@@ -539,7 +546,9 @@ def main() -> int:
         help="Complete comprehensive_review packet used for this Review Epoch.",
     )
     parser.add_argument(
-        "--ledger", type=Path, default=Path("research/review-epochs.jsonl")
+        "--ledger",
+        type=Path,
+        default=STATE_ROOT / "records/automation/review-epochs.jsonl",
     )
     parser.add_argument(
         "--current", type=Path, default=Path(".tmp/run-coordinator/review-epoch.json")

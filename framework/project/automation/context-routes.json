@@ -44,7 +44,27 @@
     },
     "agent_rules_kernel": {
       "path": "framework/AGENT_OPERATING_RULES.md",
-      "sha256": "b0ad3fbcc49b93e531fba8fbc06127c96a2cb4d575038fbb9c36eac74da7cf11",
+      "sha256": "0eaa1c9e304604b196864c0f6da878b7fb621754d1df9a8cb4f7b89ea11e4bc0",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "github_disclosure_boundary"
+      ]
+    },
+    "github_disclosure_boundary": {
+      "path": "framework/project/github/disclosure-boundary.md",
+      "sha256": "0b3c0be65ce48e3a25163afc36c2b31eac17ab060de226284a3f43781cc2d63b",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "framework_kernel",
+        "github_disclosure_policy"
+      ]
+    },
+    "github_disclosure_policy": {
+      "path": "framework/project/github/disclosure-policy.json",
+      "sha256": "e8b33779b9a6ca999796f6a41b0ec7800a163c641c3adb92015085ecdd2f54a2",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -72,7 +92,7 @@
     },
     "project_structure": {
       "path": "framework/PROJECT_STRUCTURE.md",
-      "sha256": "79c0fcc9a61f86c27eabc39671b86f0339faa9ab42e2b4c6d951dfb73dd415d0",
+      "sha256": "65d8593471c111d4d747ae2ad0c603835819afd16e14bee382f3eda97db7bf05",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -81,7 +101,7 @@
     },
     "github_workflow": {
       "path": "framework/project/github/workflow.md",
-      "sha256": "91cbceb8c369fac59e8fee999dc2dc04bf7da53fa0d4025554e00aaae33ddefd",
+      "sha256": "83413fdab2fb44f2252135f5198afdad22270d0f931f14d091f5bbfdac2f6ada",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -110,7 +130,7 @@
     },
     "public_release": {
       "path": "framework/project/publication/first-release.md",
-      "sha256": "98a7ef09c6abadf8f8b8728adfb7292e2c519fdd8dbab6f5363e538639b3e147",
+      "sha256": "6d9d1c0e98ce24688a6c5a0be140d6b71b35af5b865db140a3b65f6f67d383bb",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -120,7 +140,7 @@
     },
     "project_console_progress": {
       "path": "framework/project/interfaces/project-console-progress.md",
-      "sha256": "63e225c3bd0119ddb864262f47cdc2442b6354b29aa53a2eda4a2b873981aa8f",
+      "sha256": "bc06e3778db66b253766a92a8100d889fe969d8555ac33592e2220be0e32965a",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -132,7 +152,7 @@
     },
     "project_interface": {
       "path": "framework/project/interfaces/project-console.md",
-      "sha256": "e6e60058a7d34989708b0603bf326ce6b6b8fe13ce107dd0faae1c4668dd8e3e",
+      "sha256": "026a46a1af81c15c111af59dc01afeb02c98825f53b86882f2cd668e1dc06014",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -175,12 +195,22 @@
     },
     "project_autonomous_execution": {
       "path": "framework/project/automation/autonomous-execution.md",
-      "sha256": "b3641da918eda622fa64ba7334dd11447302468a8b3ac7af9eba9e00143b9882",
+      "sha256": "0be60ce60bd0e89ea56d7f8213a46b3d222cd895d0e84d684df16d69aa26be7e",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
         "agent_rules_kernel",
         "agent_autonomous_execution"
+      ]
+    },
+    "repository_gate_policy": {
+      "path": "framework/project/automation/repository-gates.json",
+      "sha256": "fb426720f24c6ed58de4f183548d8a464948828c1245e70b3c552a61226190b5",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "agent_rules_kernel",
+        "project_autonomous_execution"
       ]
     },
     "agent_context_research": {
@@ -203,7 +233,7 @@
     },
     "agent_issue_candidate_work": {
       "path": "framework/project/automation/agent-policy.md",
-      "sha256": "5a9f85119277dc86be827bbb74df88d322973f80e9475d4ce11d856ca5469fb6",
+      "sha256": "e5055697fd0def97309aceb7491b88ffd11d2d334f027045873d9769608cf6b0",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -241,7 +271,7 @@
     },
     "agent_registry": {
       "path": "framework/project/automation/registry.md",
-      "sha256": "907efb7ec0c58ae60ad035906b07405b6fb6b827b6a78caf931d6f511dc420ad",
+      "sha256": "7bccfc5a565475d2a88a67a37e125d2977c91558661ebb702939974b2064d342",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -250,7 +280,7 @@
     },
     "runbook_elim": {
       "path": "framework/project/automation/runbooks/elim.md",
-      "sha256": "895e48124549ded3d9908c77812b6c055a450aeb89a7b9fcd82ea98c73f80f96",
+      "sha256": "3b689843b98987fa7cdff240e1f2f3b9490337adf543a436b403384cc950e171",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -262,7 +292,7 @@
     },
     "runbook_case_monitor_bot": {
       "path": "framework/project/automation/runbooks/case-monitor-bot.md",
-      "sha256": "6ef5b0e7feefb7a45394f97400afd9e882ae4a7c2be570f1606d35756e48701f",
+      "sha256": "1501208165416eda9f03e3f6e3ccf2852ebdb556743c1d330b6f3751ce3b45f2",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -271,7 +301,7 @@
     },
     "runbook_presidential_directives_bot": {
       "path": "framework/project/automation/runbooks/presidential-directives-bot.md",
-      "sha256": "5dd5f946a09f00b3b88b1bbfea34d860d2318e324428fb15ffd643101e735f05",
+      "sha256": "453ce185e204666d47ef3c9099c6b7f7668f041c1a26174599b7b6f019190c26",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -280,7 +310,7 @@
     },
     "runbook_console_progress_bot": {
       "path": "framework/project/automation/runbooks/project-console-progress-bot.md",
-      "sha256": "20c009bc0b708a2b336e1d1ab1564bde867ef4031c158e6ca1a5073848ea7f56",
+      "sha256": "deace8499a79cc8c5a2b04f556fddf4cdbbbb2bfc717a625502be68fe4eca884",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -289,7 +319,7 @@
     },
     "runbook_integrity_bot": {
       "path": "framework/project/automation/runbooks/project-integrity-bot.md",
-      "sha256": "4e4b73683d63c5193ce7d60151ed01343fdf18489f04e84fb23f431fa07103f9",
+      "sha256": "aa63e6f18c5a49c0015da544c4d545cc0d317fb0f181993bcec40339e0f65736",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -298,17 +328,18 @@
     },
     "runbook_run_coordinator_bot": {
       "path": "framework/project/automation/runbooks/run-coordinator-bot.md",
-      "sha256": "33a1fd9d96ea6484fa874ec3ab17afa588a792f15872502e0379e141a6ff9026",
+      "sha256": "00add57558772389b97d0c0070bc455c21705eb74772c9fdc138c4bf52dfe22f",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
         "agent_registry",
-        "project_autonomous_execution"
+        "project_autonomous_execution",
+        "repository_gate_policy"
       ]
     },
     "runbook_source_checker_bot": {
       "path": "framework/project/automation/runbooks/source-checker-bot.md",
-      "sha256": "fd906569c4ad8360b58caf7c1ccdf6af64422a26935a0c6ce20cbab5d5b21812",
+      "sha256": "c2262640a1b50dd9691ac77bb560fb1ee3dab93b5e3fe699569c8159727f6f5c",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -639,7 +670,7 @@
         "print_assembly_standard",
         "agent_validation_closeout"
       ],
-      "sha256": "903f34930bba666fde157cc83a8ffdfd4c2c2c955ce1f1f9dae44e0ee94ed698"
+      "sha256": "069ddc9027ef042376da8a3d826de2c72fe5ec0cb6d34686591fcb66ddd27f66"
     },
     "interface_standard": {
       "path": "framework/standards/interfaces/standard.md",
@@ -648,7 +679,7 @@
       "requires": [
         "project_structure"
       ],
-      "sha256": "fd0bb42230c2fa7f5b01b06987e053c23d48741a86e62f98ca5b157fa95ad7e8"
+      "sha256": "b7300069538234b4bffc5d207977c29a32a5a3147f676bbdb8a6bc3e0a680def"
     },
     "progress_view_standard": {
       "path": "framework/standards/interfaces/progress-views.md",
@@ -706,7 +737,7 @@
       "path": "framework/project/automation/schemas/elim-work-unit-result.schema.json",
       "hash_policy": "pinned",
       "governing": true,
-      "sha256": "1fe4da2ff4ec8dddd63c33b1813e3bd13b8d4badcce55e63bb029d23ebedbea9"
+      "sha256": "265d3e603d5f4a547b35159d9fc1646cce747b472ca7772e2fa7ebc67c2d0cad"
     },
     "project_source_adjudication": {
       "path": "framework/project/workflows/source-adjudication.md",
@@ -751,7 +782,7 @@
         "project_interface",
         "project_console_progress"
       ],
-      "sha256": "eb22fa94941d3039bd024a419af5e1b85c82147412de86df26a287d96e74a4ad"
+      "sha256": "5a28f5867712d19955521c68940fb7c8f56a31bbd5ef1cb29637fae9d2e22296"
     }
   },
   "capabilities": {

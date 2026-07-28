@@ -163,13 +163,15 @@ the owning workflow status; it does not keep otherwise completed work open.
 
 ## ARRP Provenance and Log Ownership
 
-All persistent ARRP agents and bots use
-[`agent-audit-log.md`](../../records/automation/agent-audit-log.md) for material
+All persistent ARRP agents and bots use the owner-local
+`records/automation/agent-audit-log.md` authority for material
 operational provenance and rollback planning. Every material autonomous unit
 records its action under a stable Agent ID, Run ID, and Unit ID where
 applicable, using the fields required by the reusable
 [`provenance-and-recovery.md`](../../standards/automation/provenance-and-recovery.md)
-standard and the canonical prospective template maintained in the log.
+standard and the canonical prospective template maintained in that log. Its
+public retention contract is summarized in
+[`agent-audit-summary.md`](../../records/automation/agent-audit-summary.md).
 Ordinary human-invoked work does not append there unless the user expressly
 converts it into an autonomous, batched, or scheduled run.
 

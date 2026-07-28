@@ -14,10 +14,13 @@ print_exclusion_reason: "Internal interface configuration."
 
 # ARRP Project Console Progress Configuration
 
-The Project Console **Progress** tab is ARRP's sole human-facing
-proposal-development dashboard. It is a read-only projection of repository
-records, the issue registry, and authoritative GitHub Project fields. It does
-not replace them and does not repair them automatically.
+The Project Console **Progress** tab is ARRP's sole Console progress and
+portfolio-measurement projection. It is a read-only projection of repository
+records, the issue registry, and authoritative GitHub Project fields. It owns
+the development-level board, Review Ready coverage, trajectory and history,
+and routine issue monitoring. It does not replace or automatically repair its
+authoritative inputs. Planning > Workbench > Pipeline is the separate
+work-sequencing projection.
 
 ## Goal and eligibility
 
@@ -47,7 +50,9 @@ unassigned.
 
 The view reports eligible, ready, remaining, coverage, scope change, required
 and rolling pace, forecast completion, variance, area coverage, monitoring,
-holds, and tracking warnings. Governance discovery and automation gaps are not
+compact hold counts, and tracking warnings. Detailed Blocked and Deferred
+records live only in Planning > Workbench; Progress links there and does not
+duplicate the hold ledger. Governance discovery and automation gaps are not
 proposal progress unless an ordinary canonical lifecycle or audit update makes
 them so.
 

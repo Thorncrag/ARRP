@@ -2,6 +2,7 @@
 title: "Project Console Progress Bot Runbook"
 agent_id: project-console-progress-bot
 display_name: Project Console Progress Bot
+console_purpose: "Calculates Review Ready progress, the development board, metrics, and forecast."
 agent_type: deterministic-bot
 status: enabled-local-stage
 trigger: local-chain-when-due
@@ -9,7 +10,7 @@ schedule: "Due every 24 hours within the 02:00 America/New_York local chain; no 
 runtime_id: scripts/build_project_console_progress.py
 execution_environment: local-transaction-worktree
 runtime_config: framework/project/interfaces/project-console-progress.json
-log_path: framework/records/automation/agent-audit-log.md
+log_path: owner-local:records/automation/agent-audit-log.md
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
 ---

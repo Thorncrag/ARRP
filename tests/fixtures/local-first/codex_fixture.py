@@ -67,7 +67,7 @@ proof.write_text("sealed fixture result\n", encoding="utf-8")
     encoding="utf-8",
 )
 result = {
-    "schema_version": 1,
+    "schema_version": 2,
     "run_id": json.loads(prompt)["run_id"],
     "unit_id": "fixture-unit",
     "work_type": "integrity",
@@ -81,6 +81,7 @@ result = {
     "commit": None,
     "synchronization": [],
     "human_questions": [],
+    "incident_reports": [],
     "continuation": {"state": "complete", "next_action": "none"},
     "discovered_work_units": [],
     "gap_obligation_updates": [],

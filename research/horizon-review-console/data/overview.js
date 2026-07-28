@@ -2,6 +2,166 @@
 window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "overview": {
+    "automation_readiness": {
+      "schema_version": 1,
+      "latest_attempt": {
+        "available": true,
+        "chain_id": "arrp-20260727T082740Z",
+        "status": "complete",
+        "trigger": "push",
+        "checked_at": "2026-07-27T08:37:33+00:00",
+        "blocker_count": 0,
+        "blockers": [],
+        "reason": ""
+      },
+      "latest_scheduled_attempt": {
+        "available": false,
+        "chain_id": null,
+        "status": "unavailable",
+        "checked_at": null,
+        "failure_reason": null,
+        "reason": "No typed latest scheduled-attempt record is published."
+      },
+      "future_run_gates": {
+        "available": true,
+        "count": 0,
+        "checked_at": "2026-07-28T20:41:07+00:00",
+        "oldest_age": null,
+        "items": [],
+        "reason": "No complete typed automation-gate inventory is published.",
+        "availability": "current",
+        "trustworthy_through": null,
+        "known_blocker_count": 0
+      }
+    },
+    "operational_incidents": {
+      "schema_version": 1,
+      "availability": "current",
+      "complete": true,
+      "checked_at": "2026-07-28T21:56:49Z",
+      "count": 1,
+      "unresolved_count": 0,
+      "impact_state": "green",
+      "items": [
+        {
+          "incident_id": "INC-2026-001",
+          "identity_key": "sha256:6f9769dc6a13938846049be28cd85433d4dda4f9a1e1cbbfb51a454517908ec4",
+          "component": "Project Console public bundle",
+          "prerequisite": "GitHub disclosure boundary",
+          "failure_class": "restricted-operational-data-in-public-generation",
+          "summary": "The disclosure gate prevented a Console generation containing owner-only operational detail before repository-visible replacement.",
+          "status": "resolved",
+          "impact": "near_miss",
+          "reported_by": "Codex implementation",
+          "owner": "Project security governance",
+          "recommended_owner": "Project security governance",
+          "next_action": "Retain the public-owner projection split and disclosure-gate regression coverage.",
+          "first_observed": "2026-07-28T00:00:00Z",
+          "last_observed": "2026-07-28T00:00:00Z",
+          "occurrences": [
+            {
+              "diagnostic": "Restricted operational projection was detected in the staged public Console bundle; matched content was not retained.",
+              "observed_at": "2026-07-28T00:00:00Z",
+              "occurrence_id": "console-public-bundle:2026-07-28:prevention",
+              "run_id": null,
+              "source_ref": "restricted:disclosure-finding/console-public-bundle-2026-07-28"
+            }
+          ],
+          "affected_runs": [],
+          "active_links": [
+            "log:incidents"
+          ],
+          "evidence_refs": [
+            "restricted:disclosure-finding/console-public-bundle-2026-07-28"
+          ],
+          "recovery_evidence": [
+            {
+              "closure_test": "Rebuild the complete public Console generation and require one allowed disclosure decision across every public artifact.",
+              "evidence_refs": [
+                "file:research/horizon-review-console/data/generation-manifest.json"
+              ],
+              "recorded_by": "Codex implementation",
+              "result": "The rebuilt 43-artifact public Console generation passed; full operations remained in a secret-scanned Git-ignored local projection.",
+              "verified_at": "2026-07-28T00:00:00Z"
+            }
+          ],
+          "events": [
+            {
+              "active_links": [
+                "log:incidents"
+              ],
+              "affected_runs": [],
+              "component": "Project Console public bundle",
+              "event_id": "INC-2026-001:0001",
+              "event_sha256": "sha256:4eb3db879fb603c906d34b084d544d41cc96af357e5219ebccda8e63b20c92e9",
+              "event_type": "opened",
+              "evidence_refs": [
+                "restricted:disclosure-finding/console-public-bundle-2026-07-28"
+              ],
+              "failure_class": "restricted-operational-data-in-public-generation",
+              "identity_key": "sha256:6f9769dc6a13938846049be28cd85433d4dda4f9a1e1cbbfb51a454517908ec4",
+              "impact": "near_miss",
+              "incident_id": "INC-2026-001",
+              "next_action": "Separate public-safe summaries from owner-local operational projections and rerun the exact generation gate.",
+              "occurrence": {
+                "diagnostic": "Restricted operational projection was detected in the staged public Console bundle; matched content was not retained.",
+                "observed_at": "2026-07-28T00:00:00Z",
+                "occurrence_id": "console-public-bundle:2026-07-28:prevention",
+                "run_id": null,
+                "source_ref": "restricted:disclosure-finding/console-public-bundle-2026-07-28"
+              },
+              "owner": "Project security governance",
+              "prerequisite": "GitHub disclosure boundary",
+              "prior_incident_id": null,
+              "recommended_owner": "Project security governance",
+              "recorded_at": "2026-07-28T20:38:48Z",
+              "recovery": null,
+              "reported_by": "GitHub disclosure gate",
+              "schema_version": 1,
+              "status": "open",
+              "summary": "The disclosure gate prevented a Console generation containing owner-only operational detail before repository-visible replacement."
+            },
+            {
+              "active_links": [
+                "log:incidents"
+              ],
+              "affected_runs": [],
+              "component": "Project Console public bundle",
+              "event_id": "INC-2026-001:0002",
+              "event_sha256": "sha256:adc3d461f633784b2cfba750e99440783dddef31edc2ae138fce6a76f0ef6b84",
+              "event_type": "resolved",
+              "evidence_refs": [],
+              "failure_class": "restricted-operational-data-in-public-generation",
+              "identity_key": "sha256:6f9769dc6a13938846049be28cd85433d4dda4f9a1e1cbbfb51a454517908ec4",
+              "impact": "near_miss",
+              "incident_id": "INC-2026-001",
+              "next_action": "Retain the public-owner projection split and disclosure-gate regression coverage.",
+              "occurrence": null,
+              "owner": "Project security governance",
+              "prerequisite": "GitHub disclosure boundary",
+              "prior_incident_id": null,
+              "recommended_owner": "Project security governance",
+              "recorded_at": "2026-07-28T20:38:48Z",
+              "recovery": {
+                "closure_test": "Rebuild the complete public Console generation and require one allowed disclosure decision across every public artifact.",
+                "evidence_refs": [
+                  "file:research/horizon-review-console/data/generation-manifest.json"
+                ],
+                "recorded_by": "Codex implementation",
+                "result": "The rebuilt 43-artifact public Console generation passed; full operations remained in a secret-scanned Git-ignored local projection.",
+                "verified_at": "2026-07-28T00:00:00Z"
+              },
+              "reported_by": "Codex implementation",
+              "schema_version": 1,
+              "status": "resolved",
+              "summary": "The disclosure gate prevented a Console generation containing owner-only operational detail before repository-visible replacement."
+            }
+          ],
+          "prior_incident_id": null
+        }
+      ],
+      "active_links": {}
+    },
     "manager_focus": {
       "human_decisions": 3,
       "human_actions": [
@@ -26,7 +186,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "kind": "project_human_decision",
           "label": "JUD-009: Supreme Court Ethics, Recusal, and Transparency",
           "priority": "High",
-          "route": "progress",
+          "route": "actions",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/47"
         }
       ],
@@ -179,13 +339,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items_available": true,
       "domain_attention": [
         {
-          "domain": "integrity",
-          "status": "stale",
-          "reason": "The feed does not completely cover its current authoritative source.",
-          "timestamp": "2026-07-27T23:24:27+00:00",
-          "route": "integrity"
-        },
-        {
           "domain": "source_checker",
           "status": "stale",
           "reason": "The feed does not completely cover its current authoritative source.",
@@ -215,7 +368,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "due_at": null,
           "status": "Development",
           "trigger": "Source and boundary review of advice, representation, appointment status, supervision, ethics, records, security, and foreign-affairs limits",
-          "route": "progress",
+          "route": "planning:workbench:pipeline:selected=APPT-004",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/122"
         },
         {
@@ -224,7 +377,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "due_at": null,
           "status": "Development",
           "trigger": "Source development and initial vehicle drafting",
-          "route": "progress",
+          "route": "planning:workbench:pipeline:selected=CIV-001",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/86"
         },
         {
@@ -233,7 +386,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "due_at": null,
           "status": "Development",
           "trigger": "Source development and initial vehicle drafting",
-          "route": "progress",
+          "route": "planning:workbench:pipeline:selected=CIV-004",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/89"
         },
         {
@@ -242,7 +395,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "due_at": null,
           "status": "Development",
           "trigger": "Source development and initial vehicle drafting",
-          "route": "progress",
+          "route": "planning:workbench:pipeline:selected=CIV-005",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/90"
         },
         {
@@ -251,7 +404,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "due_at": null,
           "status": "Development",
           "trigger": "Source development and initial vehicle drafting",
-          "route": "progress",
+          "route": "planning:workbench:pipeline:selected=CIV-009",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/94"
         },
         {
@@ -260,7 +413,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "due_at": null,
           "status": "Development",
           "trigger": "Source development and initial vehicle drafting",
-          "route": "progress",
+          "route": "planning:workbench:pipeline:selected=CLASS-001",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/74"
         },
         {
@@ -269,7 +422,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "due_at": null,
           "status": "Development",
           "trigger": "Source development and initial vehicle drafting",
-          "route": "progress",
+          "route": "planning:workbench:pipeline:selected=CLASS-004",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/77"
         },
         {
@@ -278,7 +431,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "due_at": null,
           "status": "Development",
           "trigger": "Source development and initial vehicle drafting",
-          "route": "progress",
+          "route": "planning:workbench:pipeline:selected=CLASS-006",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/79"
         },
         {
@@ -287,7 +440,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "due_at": null,
           "status": "Development",
           "trigger": "Source development and initial vehicle drafting",
-          "route": "progress",
+          "route": "planning:workbench:pipeline:selected=CLASS-011",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/84"
         },
         {
@@ -296,7 +449,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "due_at": null,
           "status": "Development",
           "trigger": "Source development and initial vehicle drafting",
-          "route": "progress",
+          "route": "planning:workbench:pipeline:selected=CONG-001",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/144"
         },
         {
@@ -305,7 +458,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "due_at": null,
           "status": "Development",
           "trigger": "Source development and initial vehicle drafting",
-          "route": "progress",
+          "route": "planning:workbench:pipeline:selected=CONG-007",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/150"
         },
         {
@@ -314,7 +467,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "due_at": null,
           "status": "Blocked",
           "trigger": "When a merits ruling or other controlling authority resolves the Article II predicate, reassess the available statutory remedy",
-          "route": "progress",
+          "route": "planning:workbench:pipeline:selected=DOJ-004",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/25"
         },
         {
@@ -323,7 +476,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "due_at": null,
           "status": "Development",
           "trigger": "Source development and initial vehicle drafting",
-          "route": "progress",
+          "route": "planning:workbench:pipeline:selected=DOM-001",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/135"
         },
         {
@@ -332,7 +485,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "due_at": null,
           "status": "Development",
           "trigger": "Source development and initial vehicle drafting",
-          "route": "progress",
+          "route": "planning:workbench:pipeline:selected=DOM-007",
           "source_url": "https://github.com/Thorncrag/ARRP/issues/141"
         }
       ]
@@ -345,146 +498,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "repository_recommendations": 2,
       "delivery_items": 12,
       "human_actions": 3,
-      "active_incidents": 0,
+      "operational_incidents": 0,
+      "development": 52,
+      "research": 8,
+      "audits": 4,
+      "external_review": 25,
       "critical_high_release_blockers": 33
     },
     "activity": [
-      {
-        "id": "source-monitor-007",
-        "log": "source-monitor",
-        "date": "2026-07-28T02:07:43+00:00",
-        "record": null,
-        "title": "Source Monitor Log · Presidential directives watcher (PDM-A44F0C0C8B)",
-        "actor": "Source Monitor Log",
-        "source": "Source Monitor Log",
-        "outcome": "",
-        "affected_scope": null,
-        "summary": null,
-        "manager_effect": null,
-        "owner": null,
-        "kind": "project_log",
-        "route": "logs:source-monitor",
-        "collapsed_count": 1
-      },
-      {
-        "id": "source-monitor-006",
-        "log": "source-monitor",
-        "date": "2026-07-28T02:07:41+00:00",
-        "record": null,
-        "title": "Source Monitor Log · Case monitor bot",
-        "actor": "Source Monitor Log",
-        "source": "Source Monitor Log",
-        "outcome": "changes_detected",
-        "affected_scope": "SRC-0945, SRC-0965, SRC-0982, SRC-1004, SRC-1052, SRC-1056, SRC-1093, SRC-1929, SRC-1930, SRC-1932, SRC-1933, SRC-1934, SRC-1940, SRC-1941, SRC-1942, SRC-1943, SRC-1946, SRC-1952, SRC-1957, SRC-1973, SRC-1979, SRC-1982, SRC-2042, SRC-2080, SRC-2081, SRC-2105, SRC-2110, SRC-2136, SRC-2149, SRC-2183, SRC-2190, SRC-2192, SRC-2216, SRC-2221, SRC-2235, SRC-2238, SRC-2261, SRC-2351, SRC-2591",
-        "summary": "CASE-20260728020741-97DEA4A0",
-        "manager_effect": null,
-        "owner": null,
-        "kind": "project_log",
-        "route": "logs:source-monitor",
-        "collapsed_count": 1
-      },
-      {
-        "id": "agent-096",
-        "log": "agents",
-        "date": "2026-07-27 04:10:38 -0400",
-        "record": "Full-context project Review Epoch epoch-arrp-20260727T075310Z",
-        "title": "elim · Full-context project Review Epoch epoch-arrp-20260727T075310Z",
-        "actor": "elim",
-        "source": "Agent Audit Log",
-        "outcome": "Completed",
-        "affected_scope": "Full-context project Review Epoch epoch-arrp-20260727T075310Z",
-        "summary": "comprehensive-review",
-        "manager_effect": null,
-        "owner": "elim",
-        "kind": "project_log",
-        "route": "logs:agents",
-        "collapsed_count": 1
-      },
-      {
-        "id": "elim-run-014",
-        "log": "elim",
-        "date": "2026-07-27 03:59:53 -0400",
-        "record": null,
-        "title": "Elim Run Log · Completed",
-        "actor": "Elim Run Log",
-        "source": "Elim Run Log",
-        "outcome": "Completed",
-        "affected_scope": null,
-        "summary": "Completed full-context Review Epoch epoch-arrp-20260727T075310Z at exact packet revision 6d28e75c637660deea94a4bc925704b6ad82045c. Verified the manifest, all 13 preserved deterministic inputs, complete governing packet, 92-path/eight-merge delta, automation and publication controls, monitoring/source/public surfaces, and a five-record rotating sample. Repaired the sole deterministic Integrity error by removing the public/static Console's required dependency on an intentionally Git-ignored private security projection while preserving localhost-only private loading and the explicit unavailable fallback. Carried one automation gap open and recorded one new governing-hash prepublication gap.",
-        "manager_effect": null,
-        "owner": null,
-        "kind": "project_log",
-        "route": "logs:elim",
-        "collapsed_count": 1
-      },
-      {
-        "id": "agent-095",
-        "log": "agents",
-        "date": "2026-07-26 10:27:35 -0400",
-        "record": "Full-context project Review Epoch epoch-arrp-20260726T140914Z",
-        "title": "elim · Full-context project Review Epoch epoch-arrp-20260726T140914Z",
-        "actor": "elim",
-        "source": "Agent Audit Log",
-        "outcome": "Completed",
-        "affected_scope": "Full-context project Review Epoch epoch-arrp-20260726T140914Z",
-        "summary": "comprehensive-review",
-        "manager_effect": null,
-        "owner": "elim",
-        "kind": "project_log",
-        "route": "logs:agents",
-        "collapsed_count": 1
-      },
-      {
-        "id": "elim-run-013",
-        "log": "elim",
-        "date": "2026-07-26 10:12:50 -0400",
-        "record": null,
-        "title": "Elim Run Log · Completed",
-        "actor": "Elim Run Log",
-        "source": "Elim Run Log",
-        "outcome": "Completed",
-        "affected_scope": null,
-        "summary": "Completed full-context Review Epoch epoch-arrp-20260726T140914Z at exact packet revision cc018fac5cb5f15112d6c0e2cbbb85f7b4a3e184. Verified the manifest, all preserved deterministic inputs, the complete governing packet, the 53-path epoch delta, eight checked merges, cross-project invariants, and a five-record rotating sample. Verified and closed the two carried host-boundary obligations. Confirmed and reported one connected test-isolation and projection-freshness gap after focused dispatcher tests issued real synthetic GitHub events and overwrote the truthful current host-status feed; no separately queued repair was started.",
-        "manager_effect": null,
-        "owner": null,
-        "kind": "project_log",
-        "route": "logs:elim",
-        "collapsed_count": 1
-      },
-      {
-        "id": "agent-094",
-        "log": "agents",
-        "date": "2026-07-26 10:02:52 -0400",
-        "record": "Independent failure reporting, checked protected-main closeout, exact replay-safe recovery, non-File-Provider host deployment, and terminal control-state reconciliation",
-        "title": "Codex interactive session with trusted-host production verification · Independent failure reporting, checked protected-main closeout, exact replay-safe recovery, non-File-Provider host deployment, and terminal control-state reconciliation",
-        "actor": "Codex interactive session with trusted-host production verification",
-        "source": "Agent Audit Log",
-        "outcome": "Completed",
-        "affected_scope": "Independent failure reporting, checked protected-main closeout, exact replay-safe recovery, non-File-Provider host deployment, and terminal control-state reconciliation",
-        "summary": "automation-architecture",
-        "manager_effect": null,
-        "owner": "Codex interactive session with trusted-host production verification",
-        "kind": "project_log",
-        "route": "logs:agents",
-        "collapsed_count": 1
-      },
-      {
-        "id": "agent-093",
-        "log": "agents",
-        "date": "2026-07-26 08:39:29 -0400",
-        "record": "Full-context project Review Epoch epoch-arrp-20260726T122445Z",
-        "title": "elim · Full-context project Review Epoch epoch-arrp-20260726T122445Z",
-        "actor": "elim",
-        "source": "Agent Audit Log",
-        "outcome": "Completed",
-        "affected_scope": "Full-context project Review Epoch epoch-arrp-20260726T122445Z",
-        "summary": "comprehensive-review",
-        "manager_effect": null,
-        "owner": "elim",
-        "kind": "project_log",
-        "route": "logs:agents",
-        "collapsed_count": 1
-      },
       {
         "id": "SMR-20260725-PR381",
         "date": "2026-07-25T22:17:40Z",
@@ -518,6 +539,142 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "route": "logs:source-monitor",
         "tone": "warning",
         "collapsed_count": 1
+      },
+      {
+        "id": "HOR-045",
+        "log": "horizon",
+        "date": "2026-07-19",
+        "record": "HOR-045",
+        "title": "Human project governance · HOR-045",
+        "actor": "Human project governance",
+        "source": "Horizon Scan Log",
+        "outcome": null,
+        "affected_scope": "HOR-045",
+        "summary": null,
+        "manager_effect": null,
+        "owner": null,
+        "kind": "project_log",
+        "route": "logs:horizon",
+        "collapsed_count": 1
+      },
+      {
+        "id": "HOR-042",
+        "log": "horizon",
+        "date": "2026-07-18",
+        "record": "HOR-042",
+        "title": "Human project governance · HOR-042",
+        "actor": "Human project governance",
+        "source": "Horizon Scan Log",
+        "outcome": null,
+        "affected_scope": "HOR-042",
+        "summary": null,
+        "manager_effect": null,
+        "owner": null,
+        "kind": "project_log",
+        "route": "logs:horizon",
+        "collapsed_count": 1
+      },
+      {
+        "id": "HOR-043",
+        "log": "horizon",
+        "date": "2026-07-18",
+        "record": "HOR-043",
+        "title": "Human project governance · HOR-043",
+        "actor": "Human project governance",
+        "source": "Horizon Scan Log",
+        "outcome": null,
+        "affected_scope": "HOR-043",
+        "summary": null,
+        "manager_effect": null,
+        "owner": null,
+        "kind": "project_log",
+        "route": "logs:horizon",
+        "collapsed_count": 1
+      },
+      {
+        "id": "HOR-044",
+        "log": "horizon",
+        "date": "2026-07-18",
+        "record": "HOR-044",
+        "title": "Human project governance · HOR-044",
+        "actor": "Human project governance",
+        "source": "Horizon Scan Log",
+        "outcome": null,
+        "affected_scope": "HOR-044",
+        "summary": null,
+        "manager_effect": null,
+        "owner": null,
+        "kind": "project_log",
+        "route": "logs:horizon",
+        "collapsed_count": 1
+      },
+      {
+        "id": "change-037",
+        "log": "changes",
+        "date": "2026-06-27",
+        "record": null,
+        "title": "Human project governance · External Review Status and qualified reviewer scoring mechanism",
+        "actor": "Human project governance",
+        "source": "Change Audit Log",
+        "outcome": null,
+        "affected_scope": null,
+        "summary": "External Review Status and qualified reviewer scoring mechanism",
+        "manager_effect": null,
+        "owner": null,
+        "kind": "project_log",
+        "route": "logs:changes",
+        "collapsed_count": 1
+      },
+      {
+        "id": "change-038",
+        "log": "changes",
+        "date": "2026-06-27",
+        "record": null,
+        "title": "Human project governance · Institutional Self-Limitation Rule for adoption viability",
+        "actor": "Human project governance",
+        "source": "Change Audit Log",
+        "outcome": null,
+        "affected_scope": null,
+        "summary": "Institutional Self-Limitation Rule for adoption viability",
+        "manager_effect": null,
+        "owner": null,
+        "kind": "project_log",
+        "route": "logs:changes",
+        "collapsed_count": 1
+      },
+      {
+        "id": "change-039",
+        "log": "changes",
+        "date": "2026-06-27",
+        "record": null,
+        "title": "Human project governance · Proposal Scoring display, score descriptors, budget-note display, and coalition-estimate formatting",
+        "actor": "Human project governance",
+        "source": "Change Audit Log",
+        "outcome": null,
+        "affected_scope": null,
+        "summary": "Proposal Scoring display, score descriptors, budget-note display, and coalition-estimate formatting",
+        "manager_effect": null,
+        "owner": null,
+        "kind": "project_log",
+        "route": "logs:changes",
+        "collapsed_count": 1
+      },
+      {
+        "id": "change-040",
+        "log": "changes",
+        "date": "2026-06-27",
+        "record": null,
+        "title": "Human project governance · Framework hierarchy reorganization and neutrality/language guidelines",
+        "actor": "Human project governance",
+        "source": "Change Audit Log",
+        "outcome": null,
+        "affected_scope": null,
+        "summary": "Framework hierarchy reorganization and neutrality/language guidelines",
+        "manager_effect": null,
+        "owner": null,
+        "kind": "project_log",
+        "route": "logs:changes",
+        "collapsed_count": 1
       }
     ],
     "agents": {
@@ -548,8 +705,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "status": "unknown"
     },
     "progress_summary": {
-      "generated_at": "2026-07-27T08:27:57+00:00",
-      "source_revision": "be3ae39a0841c6072ca421916a5e37936504619e",
+      "generated_at": "2026-07-28T18:43:35+00:00",
+      "source_revision": "a47082d0a684de38626c68fec325337765f35b9a",
       "availability": "current",
       "ready": 27,
       "total": 81,
@@ -558,9 +715,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items": 12
     },
     "integrity_summary": {
-      "generated_at": "2026-07-27T23:24:27+00:00",
-      "source_revision": "e2415bf87d3a4b14dd1fb9e461f0575752069789",
-      "availability": "stale",
+      "generated_at": "2026-07-28T18:43:46+00:00",
+      "source_revision": "a47082d0a684de38626c68fec325337765f35b9a",
+      "availability": "current",
       "result": "clean",
       "counts": {
         "errors": 0,
@@ -579,7 +736,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "publication_summary": {
       "disposition_counts": {
         "included": 138,
-        "excluded": 224,
+        "excluded": 230,
         "unclassified": 0,
         "conflict": 0
       },
@@ -603,7 +760,174 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       }
     }
   },
+  "run_chain": {
+    "schema_version": 1,
+    "run_id": "https://github.com/Thorncrag/ARRP/actions/runs/30249971183",
+    "chain_id": "arrp-20260727T082740Z",
+    "bot_id": "run-coordinator-bot",
+    "status": "complete",
+    "trigger": "push",
+    "created_at": "2026-07-27T08:27:40+00:00",
+    "updated_at": "2026-07-27T08:37:33+00:00",
+    "completed_at": "2026-07-27T08:37:33+00:00",
+    "availability": "current",
+    "completeness": {
+      "complete": true,
+      "expected_count": 6,
+      "actual_count": 6,
+      "missing_count": 0
+    },
+    "expected_count": 6,
+    "actual_count": 6,
+    "baseline_commit": "be3ae39a0841c6072ca421916a5e37936504619e",
+    "repository": {
+      "branch": "main",
+      "head": "be3ae39a0841c6072ca421916a5e37936504619e",
+      "origin_main": "be3ae39a0841c6072ca421916a5e37936504619e",
+      "clean": true,
+      "dirty_paths": [],
+      "dirty_path_count": 0,
+      "ahead_of_origin_main": 0,
+      "behind_origin_main": 0,
+      "fresh": true
+    },
+    "queue_counts": {
+      "integrity": 0,
+      "monitoring": 0,
+      "sources": 0,
+      "intake": 0,
+      "total": 0
+    },
+    "workflow_health": {
+      "healthy": true,
+      "missing": [],
+      "checks": [
+        {
+          "stage": "case-monitor-bot",
+          "workflow": ".github/workflows/case-monitor-bot.yml",
+          "exists": true,
+          "sha256": "sha256:e007e3b1b332f1e623e3e16267d692b120e52163b1018bfae39670d0101b4001"
+        },
+        {
+          "stage": "presidential-directives-bot",
+          "workflow": ".github/workflows/presidential-directives-bot.yml",
+          "exists": true,
+          "sha256": "sha256:f015060695166dcfb3ffcae673639372076bd1cc833bd64c7137a5a5e520b44d"
+        },
+        {
+          "stage": "source-checker-bot",
+          "workflow": ".github/workflows/source-checker-bot.yml",
+          "exists": true,
+          "sha256": "sha256:215ebc77aa27987b20f2b52d84188a217e16cf4baa967e2ca9887d1a3eacfe41"
+        },
+        {
+          "stage": "project-console-progress-bot",
+          "workflow": ".github/workflows/project-console-progress.yml",
+          "exists": true,
+          "sha256": "sha256:1cc3fdc5491492a29407eb487ce155b708fe232a4a140ce5da6f1516d9917442"
+        },
+        {
+          "stage": "project-integrity-bot",
+          "workflow": ".github/workflows/project-integrity.yml",
+          "exists": true,
+          "sha256": "sha256:12181df885ff6d6faaa574e2773dcbd8546074febf7541cf1130eaf40c083b96"
+        }
+      ]
+    },
+    "stages": [
+      {
+        "id": "case-monitor-bot",
+        "order": 1,
+        "status": "not_due",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-28T07:55:25+00:00",
+        "started_at": null,
+        "completed_at": "2026-07-27T08:27:40+00:00",
+        "last_success_at": "2026-07-27T07:55:25+00:00",
+        "failure_class": "none",
+        "active_incident_ids": []
+      },
+      {
+        "id": "presidential-directives-bot",
+        "order": 2,
+        "status": "not_due",
+        "due": false,
+        "due_reason": "last success remains current until 2026-07-28T07:55:25+00:00",
+        "started_at": null,
+        "completed_at": "2026-07-27T08:27:40+00:00",
+        "last_success_at": "2026-07-27T07:55:25+00:00",
+        "failure_class": "none",
+        "active_incident_ids": []
+      },
+      {
+        "id": "source-checker-bot",
+        "order": 3,
+        "status": "not_due",
+        "due": false,
+        "due_reason": "last success remains current until 2026-08-02T10:32:24+00:00",
+        "started_at": null,
+        "completed_at": "2026-07-27T08:27:40+00:00",
+        "last_success_at": "2026-07-26T10:32:24+00:00",
+        "failure_class": "none",
+        "active_incident_ids": []
+      },
+      {
+        "id": "project-console-progress-bot",
+        "order": 4,
+        "status": "succeeded",
+        "due": true,
+        "due_reason": "forced",
+        "started_at": null,
+        "completed_at": "2026-07-27T08:28:50+00:00",
+        "last_success_at": "2026-07-27T08:28:50+00:00",
+        "failure_class": "none",
+        "active_incident_ids": []
+      },
+      {
+        "id": "public-intake",
+        "order": 5,
+        "status": "succeeded",
+        "due": true,
+        "due_reason": "required every chain",
+        "started_at": null,
+        "completed_at": "2026-07-27T08:28:50+00:00",
+        "last_success_at": "2026-07-27T08:28:50+00:00",
+        "failure_class": "none",
+        "active_incident_ids": []
+      },
+      {
+        "id": "project-integrity-bot",
+        "order": 6,
+        "status": "succeeded",
+        "due": true,
+        "due_reason": "forced",
+        "started_at": null,
+        "completed_at": "2026-07-27T08:28:50+00:00",
+        "last_success_at": "2026-07-27T08:28:50+00:00",
+        "failure_class": "none",
+        "active_incident_ids": []
+      }
+    ],
+    "review_epoch": {
+      "epoch_id": "epoch-arrp-20260727T075310Z",
+      "due": false,
+      "due_reason": "interval current",
+      "interval_days": 14,
+      "last_completed_at": "2026-07-27T08:10:38+00:00",
+      "next_due_at": "2026-08-10T08:10:38+00:00",
+      "stability_status": "drift-detected"
+    },
+    "usage": {
+      "hard_reserve_percent": 15,
+      "soft_run_target_percent": 10,
+      "remaining_percent": null,
+      "status": "unknown"
+    },
+    "elim_decision": {
+      "launch_recommended": false
+    }
+  },
   "domain_generation": {
-    "overview.js": "project-console-e40c9d8c4a02be3ee610"
+    "overview.js": "project-console-cb6b329038ccd6dde399"
   }
 });

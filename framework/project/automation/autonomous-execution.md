@@ -26,7 +26,7 @@ deterministic stages in a fixture transaction worktree, construct a current
 queue and hash-bound context packet, and perform one fresh sealed fixture Elim
 invocation. It may use provisioned credentials only through the P4
 deterministic broker for approved fixtures. It may not install or activate a
-LaunchAgent, run unattended against the canonical repository, reactivate
+persistent scheduler, run unattended against the canonical repository, reactivate
 retired workflows, deploy a service, give Elim a credential, bypass protected
 review, or execute an unregistered action.
 
@@ -41,13 +41,11 @@ or persistent Codex sessions after cutover.
 
 ## Local-first transaction boundary
 
-One operating-system `flock` serializes the chain. Owner-only state is written
-atomically under `~/Library/Application Support/ARRP`; `last-success.json`
-stores cadence evidence. Each run has an immutable run identity and a bounded
-run directory. The coordinator records the exact repository, approved remote,
-main-branch state, fetched `origin/main`, pre-lock and preexisting manifests,
-reviewed runtime, stage inputs, outputs, hashes, Elim unit and outcome, and
-next action.
+One operating-system lock serializes the chain. Owner-only state is written
+atomically within the verified local runtime boundary, and a typed last-success
+record stores cadence evidence. Each run has an immutable identity and bounded
+storage. The coordinator records revision identity, reviewed inputs and
+outputs, result hashes, selected work, outcome, and next action.
 
 Ordinary daytime work is checkpointed exactly before the canonical worktree
 returns to clean `main`. A linked transaction worktree is created from that
@@ -98,20 +96,12 @@ implementation authority.
 ## Elim seal
 
 Elim receives at most one selected unit. Each run creates fresh isolated
-Codex SQLite/session storage and an ephemeral process. The Codex client reads
-only its existing owner-only OpenAI authentication from Benjamin's exact
-Codex home; `--ignore-user-config` prevents that home's configuration from
-loading. The narrower `arrp_elim` permission profile extends workspace access
-but denies model-tool reads of the Codex home and Keychain directory, denies
-execution of `/usr/bin/security`, disables network, passes an empty inherited
-shell environment with a fixed system `PATH`, and disallows login shells. No
-GitHub, Project, SSH, API-key environment credential, user configuration,
-rules, memories, hooks, plugins, MCP servers, browser or computer-use tools,
-subagents, persistent session, or shell network is inherited. Approval policy
-remains `never`, web search remains disabled, and the strict result schema
-remains mandatory. Before launch, the coordinator runs the official usage
-reserve check once and skips Elim if the configured 15-percent reserve cannot
-be proved.
+session storage and an ephemeral process. Authentication, execution, and tool
+access are constrained by the reviewed owner-local runtime controls. Elim
+receives no GitHub credential, hosted mutation capability, persistent session,
+or unreviewed external tool access. The strict result schema remains mandatory.
+Before launch, the coordinator runs the official usage reserve check once and
+skips Elim when the configured reserve cannot be proved.
 
 The prompt binds the contract clause, run and unit identities, source and
 checkpoint commits, complete resolved governing packet, current canonical
@@ -187,6 +177,14 @@ for Benjamin to publish with his credential because the App has no workflow
 permission. Semantic actions are schema-registered, public,
 non-human-reserved, idempotent, prior-state checked, and read back exactly.
 
+Every push and semantic mutation also consumes the same deterministic
+[GitHub Disclosure Boundary](../github/disclosure-boundary.md) decision for
+the complete exact content and revision. A declared public privacy class is
+not proof. Unknown, restricted, private, secret-bearing, incomplete, or stale
+decisions stop before mutation and, where possible, before the relevant
+credential is read. GitHub-side validation remains defense in depth rather
+than the primary disclosure boundary.
+
 ## P5 supervised proof boundary
 
 Before scheduler installation, the reviewed coordinator may perform one
@@ -204,8 +202,8 @@ post-push head/base readback only within a short fixed bound; waits for CodeQL
 and ARRP Validation; performs and restores any exact Project fixture; merges
 only the unchanged head and base; requires a successful public-site workflow
 for the exact merge SHA; fast-forwards clean canonical `main`; and removes
-only the clean registered transaction worktree under the owner-only state
-root. A network, credential, check, Project, merge, Pages, synchronization, or
+only a clean registered transaction worktree inside the verified local runtime
+boundary. A network, credential, check, Project, merge, Pages, synchronization, or
 cleanup failure writes independent terminal status and preserves recoverable
 state.
 
@@ -230,12 +228,11 @@ outside this phase.
 
 ## P6 production boundary
 
-P6 enables one owner LaunchAgent, `com.thorncrag.arrp-nightly`, as the sole
-scheduled ARRP coordinator. Its calendar boundary is 02:00 local time in
-`America/New_York`; `RunAtLoad` performs one due and idempotency evaluation
-after login rather than replaying every powered-off interval. One
-operating-system lock remains the sole liveness authority, and duplicate,
-sleep-coalesced, or manual starts cannot create a second chain.
+P6 enables one owner-local scheduler as the sole scheduled ARRP coordinator.
+Its registered cadence and restart behavior are evaluated idempotently rather
+than replaying every powered-off interval. One operating-system lock remains
+the sole liveness authority, and duplicate or manual starts cannot create a
+second chain.
 
 The installed owner-only bootstrap invokes only the exact reviewed runtime
 materialized from the fetched `origin/main` boundary. The production chain may

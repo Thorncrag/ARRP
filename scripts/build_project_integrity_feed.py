@@ -31,11 +31,22 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--report", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--existing-url")
+    parser.add_argument(
+        "--existing-file",
+        type=Path,
+        help=(
+            "Optional trusted local JSON or generated Console integrity.js "
+            "whose bounded history should be retained."
+        ),
+    )
     parser.add_argument("--history-limit", type=int, default=DEFAULT_HISTORY_LIMIT)
     return parser.parse_args()
 
 
-def trusted_report_path(path: Path) -> tuple[Path, Path]:
+def trusted_report_path(
+    path: Path,
+    allowed_suffixes: tuple[str, ...] = (".json",),
+) -> tuple[Path, Path]:
     """Resolve an integrity report beneath the repository or system temp root."""
     resolved_path = os.path.realpath(os.fspath(path))
     for trusted_root in (REPOSITORY_ROOT, SYSTEM_TEMP_ROOT):
@@ -43,7 +54,7 @@ def trusted_report_path(path: Path) -> tuple[Path, Path]:
         root_prefix = resolved_root.rstrip(os.sep) + os.sep
         if (
             resolved_path.startswith(root_prefix)
-            and resolved_path.endswith(".json")
+            and resolved_path.endswith(allowed_suffixes)
             and os.path.isfile(resolved_path)
         ):
             return Path(resolved_path), Path(resolved_root)
@@ -93,6 +104,37 @@ def existing_feed(url: str | None) -> dict[str, Any]:
             "Existing integrity history could not be fetched and validated; "
             "refusing to replace it with an empty history."
         ) from exc
+
+
+def existing_feed_file(path: Path | None) -> dict[str, Any]:
+    """Read retained history from a trusted local JSON or Console domain file."""
+
+    if path is None:
+        return {}
+    trusted_path, _ = trusted_report_path(path, (".json", ".js"))
+    text = trusted_path.read_text(encoding="utf-8")
+    try:
+        payload = json.loads(text)
+    except json.JSONDecodeError:
+        marker = "Object.assign(window.ARRP_HORIZON_REVIEW_DATA,"
+        if marker not in text:
+            raise RuntimeError(
+                "Existing local integrity feed is neither JSON nor a generated "
+                "Console domain."
+            )
+        serialized = text.split(marker, 1)[1].strip()
+        if not serialized.endswith(");"):
+            raise RuntimeError("Existing Console integrity domain is malformed.")
+        try:
+            domain = json.loads(serialized[:-2])
+        except json.JSONDecodeError as exc:
+            raise RuntimeError(
+                "Existing Console integrity domain contains invalid JSON."
+            ) from exc
+        payload = domain.get("integrity") if isinstance(domain, dict) else None
+    if not isinstance(payload, dict):
+        raise RuntimeError("Existing local integrity feed is not an object.")
+    return payload
 
 
 def history_summary(report: dict[str, Any]) -> dict[str, Any]:
@@ -191,9 +233,16 @@ def main() -> int:
     if args.history_limit < 1:
         raise ValueError("--history-limit must be positive")
     report_path, _ = trusted_report_path(args.report)
+    if args.existing_url and args.existing_file:
+        raise ValueError("Select only one existing integrity-history source.")
+    existing = (
+        existing_feed_file(args.existing_file)
+        if args.existing_file
+        else existing_feed(args.existing_url)
+    )
     feed = build_feed(
         read_json(report_path),
-        existing_feed(args.existing_url),
+        existing,
         args.history_limit,
         report_path=report_path,
     )

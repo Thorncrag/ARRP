@@ -119,11 +119,19 @@ class GitHubAppCredentialTests(unittest.TestCase):
     def test_push_credential_never_enters_argv_or_environment_value(self):
         completed = mock.Mock(returncode=0, stdout=b"", stderr=b"")
         token = MODULE.SensitiveValue("push-fixture-token")
+        decision = {
+            "allowed": True,
+            "operation": "git_push",
+            "source_revision": "a" * 40,
+        }
         with tempfile.TemporaryDirectory() as directory, mock.patch.object(
             MODULE.subprocess, "run", return_value=completed
-        ) as run:
+        ) as run, mock.patch.object(MODULE, "git_text", return_value="a" * 40):
             MODULE.git_push_with_token(
-                Path(directory), "HEAD:refs/heads/fixture", token
+                Path(directory),
+                "HEAD:refs/heads/fixture",
+                token,
+                disclosure_decision=decision,
             )
         arguments = run.call_args.args[0]
         environment = run.call_args.kwargs["env"]
@@ -138,15 +146,23 @@ class GitHubAppCredentialTests(unittest.TestCase):
             stderr=b"",
             returncode=0,
         )
+        decision = {
+            "allowed": True,
+            "operation": "git_push",
+            "source_revision": "a" * 40,
+        }
         with tempfile.TemporaryDirectory() as directory, mock.patch.object(
             MODULE, "git", return_value=changed
-        ), mock.patch.object(MODULE.subprocess, "run") as run:
+        ), mock.patch.object(MODULE, "git_text", return_value="a" * 40), mock.patch.object(MODULE.subprocess, "run") as run:
             with self.assertRaisesRegex(
                 MODULE.GitHubBrokerError,
                 "workflow changes require Benjamin's credential",
             ):
                 MODULE.git_push_with_token(
-                    Path(directory), "HEAD:refs/heads/fixture", token
+                    Path(directory),
+                    "HEAD:refs/heads/fixture",
+                    token,
+                    disclosure_decision=decision,
                 )
         run.assert_not_called()
 

@@ -60,6 +60,42 @@ or schema failure is blocking or degraded exactly as listed in the
 coordinator configuration; findings produced by a successful detector are not
 execution failures.
 
+Before dependent stages, scheduled and manual production runs invoke the shared
+`scripts/repository_gates.py` producer with the GitHub App token. Its sole
+classification authority is the append-only
+[`repository-gates.jsonl`](../../records/automation/repository-gates.jsonl)
+event record governed by
+[`repository-gates.json`](repository-gates.json). A complete paginated open-PR
+scan and complete declaration scan are both required before the producer may
+emit `complete: true` or a zero count. Applicable gates are attached and
+hash-bound to the run chain, and only their declared dependent stages are
+stopped. Source Monitor recommendations, browser prose, and an untyped open
+pull request do not create a repository gate.
+
 All roles use the shared provenance and handoff rules in
 [`agent-policy.md`](agent-policy.md). The run directory is operational
 evidence, not a new source of substantive authority.
+
+## Operational Incident authority
+
+[`operational-incidents.json`](operational-incidents.json) governs the one
+project-wide Operational Incident event record at
+[`operational-incidents.jsonl`](../../records/automation/operational-incidents.jsonl).
+The deterministic `scripts/operational_incidents.py` module validates,
+sanitizes, deduplicates, appends immutable events, and produces the current
+projection. No persistent role, LLM result, browser calculation, run log, or
+specialist status feed is a competing incident authority.
+
+The coordinator records typed run failures and degradations and validates any
+bounded advisory `incident_reports` returned by Elim before recording them.
+If Elim fails, times out, or returns an invalid result, the transaction writes
+an owner-only sanitized failure event to the local spool independently of
+normal generated-view completion. The next valid transaction reconciles that
+event into the canonical record. Repeated typed occurrences preserve exact run
+identity under one unresolved incident; recurrence after exact verified
+resolution creates a new linked incident.
+
+Specialist producers retain their own state and may publish only typed
+`active_incident_ids`. Routine findings, remediation work, repository gates,
+and intentional Paused state do not become incidents merely because they
+exist.
