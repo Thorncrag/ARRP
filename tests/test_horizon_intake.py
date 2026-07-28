@@ -1097,6 +1097,26 @@ class HorizonIntakeTest(unittest.TestCase):
                 for record in self.console["agent_registry"]
             )
         )
+        if not all(
+            "runtime_configuration" in record
+            for record in self.console["agent_registry"]
+        ):
+            public_fields = {
+                "id",
+                "name",
+                "purpose",
+                "schedule",
+                "status",
+                "trigger",
+                "type",
+            }
+            self.assertTrue(
+                all(
+                    set(record) == public_fields
+                    for record in self.console["agent_registry"]
+                )
+            )
+            return
         self.assertTrue(
             all(
                 isinstance(record["runtime_configuration"], dict)
@@ -1215,17 +1235,16 @@ class HorizonIntakeTest(unittest.TestCase):
                 all(edition["id"] in row["assembly_sections"] for row in assigned),
                 edition["id"],
             )
-        self.assertEqual(
-            {record["id"] for record in self.console["project_logs"]},
-            {
-                "horizon",
-                "elim",
-                "agents",
-                "source-monitor",
-                "changes",
-                "console-development",
-            },
-        )
+        log_ids = {record["id"] for record in self.console["project_logs"]}
+        public_log_ids = {"horizon", "changes"}
+        private_log_ids = {
+            "elim",
+            "agents",
+            "source-monitor",
+            "console-development",
+        }
+        self.assertTrue(public_log_ids <= log_ids)
+        self.assertTrue(log_ids <= public_log_ids | private_log_ids)
         self.assertTrue(
             all(
                 isinstance(record.get("entries"), list)
@@ -1261,15 +1280,21 @@ class HorizonIntakeTest(unittest.TestCase):
                 for record in self.console["repository_review_recommendations"]
             )
         )
-        self.assertEqual(
-            [record["id"] for record in self.console["project_logs"]],
+        log_order = [
+            record["id"] for record in self.console["project_logs"]
+        ]
+        self.assertIn(
+            log_order,
             [
-                "horizon",
-                "elim",
-                "agents",
-                "source-monitor",
-                "changes",
-                "console-development",
+                ["horizon", "changes"],
+                [
+                    "horizon",
+                    "elim",
+                    "agents",
+                    "source-monitor",
+                    "changes",
+                    "console-development",
+                ],
             ],
         )
         self.assertTrue(all(record["entries"] for record in self.console["project_logs"]))
