@@ -333,7 +333,6 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
             {
                 "console-build": {
                     "ARRP_PROJECT_TOKEN": "project-token",
-                    "GH_TOKEN": "app-token",
                 },
             },
         )
