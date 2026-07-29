@@ -7616,7 +7616,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/automation-arrp console development log",
       "internal_links": [],
-      "word_count": 1091,
+      "word_count": 1092,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9157,12 +9157,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 805,
-      "estimated_pages": 2,
+      "word_count": 615,
+      "estimated_pages": 1,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 43
+      "longest_unbroken_token": 21
     },
     {
       "title": "Elim Agent Runbook",
@@ -18198,8 +18198,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "3ee638f796c4f266261f18d13344d80ef5669a8f",
-        "generated_at": "2026-07-29T02:48:49+00:00"
+        "revision": "fc68bb93b0d816a81d7a98b15896c690e38e56b3",
+        "generated_at": "2026-07-29T03:05:28+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -19955,6 +19955,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-b149f31e10ee98a223d9"
+    "publication.js": "project-console-4ef822315bfe271835ee"
   }
 });
