@@ -55,7 +55,7 @@
       "id": "public-governance-summary",
       "category": "public_operational_summary",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": ["framework/FRAMEWORK.md", "framework/PROJECT_STRUCTURE.md", "framework/standards/README.md", "framework/standards/interfaces/**", "framework/project/README.md", "framework/project/PROJECT_PROFILE.md", "framework/project/REPOSITORY_MAP.md", "framework/project/interfaces/**", "framework/records/README.md", "framework/records/baselines/**", "framework/records/status/**"]
+      "paths": ["framework/FRAMEWORK.md", "framework/PROJECT_STRUCTURE.md", "framework/standards/README.md", "framework/standards/interfaces/**", "framework/project/README.md", "framework/project/PROJECT_PROFILE.md", "framework/project/REPOSITORY_MAP.md", "framework/project/interfaces/**", "framework/records/README.md", "framework/records/baselines/**", "framework/records/governance/**", "framework/records/status/**"]
     },
     {
       "id": "public-participation",
@@ -111,7 +111,7 @@
       "id": "private-local-state",
       "category": "private",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": ["**/.env", "**/.env.*", "**/PAUSED", "data/private-*.js", "research/horizon-review-console/data/private-*.js"],
+      "paths": ["**/.env", "**/.env.*", "**/PAUSED", "**/governance-change-supplements.jsonl", "**/operational-incidents.jsonl", "**/security-incidents.jsonl", "**/incident-relations.jsonl", "data/private-*.js", "research/horizon-review-console/data/private-*.js"],
       "exclude_paths": ["participate/.env.example"]
     },
     {

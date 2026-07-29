@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "event_authority": "owner-local:records/automation/incident-relations.jsonl",
+  "projection_producer": "scripts/security_incidents.py",
+  "live_activation": false,
+  "relationship": "A validated append-only relationship event links exactly one INC identifier to exactly one SEC identifier through a registered relationship type.",
+  "cross_domain_index": "A complete relation projection may provide a union index solely for reciprocal navigation and safe aggregate inspection. It must preserve both source identifiers and separate per-domain counts; it is not a third incident ledger or lifecycle authority.",
+  "authority_boundary": "The relationship journal owns only the existence and history of typed reciprocal INC-to-SEC links. It owns no incident identity, admission, occurrence, lifecycle, ownership, count, recovery evidence, containment, remediation, or closure.",
+  "referential_integrity": "Every relation projection validates both identifiers against complete authoritative INC and SEC inventories. Missing, malformed, unavailable, or incomplete incident authority fails closed.",
+  "closure_independence": "Linking, unlinking, resolving, or reopening one domain never changes the lifecycle or closure state in the other domain.",
+  "privacy": "Relationship events carry only typed identifiers, a registered relationship type, and a safe summary. They contain no vulnerability evidence, operational diagnostic, credential material, or restricted path."
+}

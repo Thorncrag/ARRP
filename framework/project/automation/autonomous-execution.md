@@ -3,6 +3,7 @@ title: "ARRP Autonomous and Scheduled Execution"
 dependencies:
   - "../../AGENT_OPERATING_RULES.md"
   - "../../standards/automation/autonomous-execution.md"
+  - "owner-local-runtime.md"
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -16,9 +17,26 @@ worktree, local state, and eventual publication boundary. It supplements the
 [Agent Operating Rules](../../AGENT_OPERATING_RULES.md) and each applicable
 runbook. It does not create substantive or external authority.
 
+## Current production posture
+
+P6 is the installed local-first production architecture. The authoritative
+binary control is currently intentionally `Paused`; installed capability,
+registered cadence, retained success evidence, and a loaded scheduler do not
+authorize removal of the pause marker or a production run. The fixed
+Application Support state root remains production, while the named companion
+workspace remains an inactive protected staging descriptor under the [ARRP Owner-Local Runtime
+Authority](owner-local-runtime.md).
+
+All `owner-local:` paths, runtime artifact classes, current-versus-staged
+meaning, migration evidence, and cutover or retirement requirements resolve
+through that authority. The sections below describe execution semantics and
+the completed transition proofs; they do not create another storage or
+activation authority.
+
 ## Transition proof boundary
 
-P1–P3 implement a disabled, local-first, fixture-tested chain through exact
+P1–P5 are completed historical proof boundaries. P1–P3 implemented a disabled,
+local-first, fixture-tested chain through exact
 classification, local commit, result validation, and Console status. P4 adds
 protected CODEOWNERS and required-validation source plus a fixture-first
 GitHub App and deterministic semantic-action broker. The runner may run
@@ -35,9 +53,9 @@ fixture runs and explicit `--manual --dry-run` validation only. Repository
 configuration records the intended single nightly schedule, but configuration
 is not installation and creates no background service.
 
-Those phase-specific restrictions describe the completed proof sequence. They
-do not grant authority to retired workflows, data branches, host dispatchers,
-or persistent Codex sessions after cutover.
+Those phase-specific restrictions describe the completed proof sequence, not
+the current P6 control state. They do not grant authority to retired workflows,
+data branches, host dispatchers, or persistent Codex sessions after cutover.
 
 ## Local-first transaction boundary
 
@@ -63,7 +81,9 @@ worktree is model-writable, but canonical Git metadata, linked-worktree
 administration, credentials, and the canonical checkout remain outside Elim's
 authority.
 
-Production path authority is typed rather than inferred from environment
+Production path and artifact authority is governed by
+[`owner-local-runtime.md`](owner-local-runtime.md) and typed rather than
+inferred from environment
 variables, `.git` presence, or nearby fixture files. The canonical checkout is
 the one fixed approved repository; owner-local state is the one fixed approved
 state root; a transaction repository must be a direct reviewed child of

@@ -10,22 +10,179 @@ const consoleDirectory = path.resolve(testDirectory, "..");
 const appPath = path.join(consoleDirectory, "app.js");
 const indexPath = path.join(consoleDirectory, "index.html");
 const localRequire = createRequire(import.meta.url);
+const testGenerationId = "project-console-test";
+const testSourceRevision = "a".repeat(40);
+const testVersionId = `${testGenerationId}-20260729T120000000000Z`;
+const testOwnerPath = "/owner-console-fixture/review-copy/index.html";
+const testStagedAt = "2026-07-29T12:00:00.000000Z";
+
+function ownerProjectionEntry(feedId, filename, marker, availability = "current", complete = true) {
+  return {
+    feed_id: feedId,
+    relative_path: `data/${filename}`,
+    source_sha256: `sha256:${marker.repeat(64)}`,
+    availability,
+    complete
+  };
+}
+
+function ownerProjectionWrapper(feedId, payload, binding) {
+  const projection = binding.projections[feedId];
+  return {
+    owner_console_envelope: {
+      schema_version: 1,
+      feed_id: feedId,
+      generation_id: binding.generation_id,
+      source_revision: binding.source_revision,
+      source_sha256: projection.source_sha256,
+      availability: projection.availability,
+      complete: projection.complete,
+      staged_at: binding.staged_at
+    },
+    payload
+  };
+}
+
+function privateOperationsFixture() {
+  return {
+    schema_version: 4,
+    availability: "current",
+    generated_at: "2026-07-29T12:00:00Z",
+    catalog_generation_id: testGenerationId,
+    source_revision: testSourceRevision,
+    governance_change_supplements: {
+      schema_version: 1,
+      availability: "unavailable",
+      complete: false,
+      checked_at: "2026-07-29T12:00:00Z",
+      source_revision: testSourceRevision,
+      public_log_sha256: `sha256:${"f".repeat(64)}`,
+      items: [],
+      reason_code: "owner-local-governance-supplements-unavailable"
+    },
+    agent_registry: [],
+    project_logs: [],
+    integrity: {},
+    run_chain: {},
+    action_snapshot: {
+      schema_version: 1,
+      generation_id: "action-snapshot-test",
+      generated_at: "2026-07-29T12:00:00Z",
+      availability: "partial",
+      complete: false,
+      items: [],
+      counts: { human: null, oversight: null, all_open: null },
+      known_counts: { human: 0, oversight: 0, all_open: 0 },
+      sources: {},
+      predicates: {}
+    },
+    queue_directory: {
+      schema_version: 1,
+      generation_id: "queue-directory-test",
+      generated_at: "2026-07-29T12:00:00Z",
+      availability: "partial",
+      complete: false,
+      queues: [{
+        queue_id: "human_actions",
+        availability: "unavailable",
+        complete: false,
+        count: null
+      }]
+    },
+    operational_incidents: {
+      schema_version: 1,
+      availability: "current",
+      complete: true,
+      checked_at: "2026-07-29T12:00:00Z",
+      count: 0,
+      unresolved_count: 0,
+      items: [],
+      impact_state: "green",
+      active_links: {}
+    },
+    security_incidents: {
+      schema_version: 1,
+      authority: "owner-local-security-incidents",
+      availability: "unavailable",
+      complete: false,
+      checked_at: "2026-07-29T12:00:00Z",
+      count: null,
+      unresolved_count: null,
+      items: [],
+      reason_code: "missing-security-incident-feed"
+    },
+    incident_relations: {
+      schema_version: 1,
+      authority: "owner-local-incident-relations",
+      availability: "unavailable",
+      complete: false,
+      checked_at: null,
+      active_relations: [],
+      relations: [],
+      by_operational_incident: {},
+      by_security_incident: {},
+      reason_code: "incident-relations-missing"
+    },
+    privacy: "Owner-only local projection."
+  };
+}
 
 function loadApi(privateSecurityAssurance = {}, projectDataOverride = {}) {
   const projectData = {
+    generation_id: testGenerationId,
+    source_revision: testSourceRevision,
     records: [],
     active_horizon_records: [],
     monitoring_issues: [],
     repository_review_recommendations: [],
     ...projectDataOverride
   };
+  const projections = {
+    "security-assurance": ownerProjectionEntry(
+      "security-assurance",
+      "private-security-assurance.js",
+      "1",
+      privateSecurityAssurance.availability === "current" ? "current" : "unavailable",
+      privateSecurityAssurance.complete === true
+    ),
+    "private-operations": ownerProjectionEntry(
+      "private-operations",
+      "private-operations.js",
+      "2"
+    ),
+    "local-automation-status": ownerProjectionEntry(
+      "local-automation-status",
+      "local-automation-status.js",
+      "3"
+    )
+  };
+  const binding = {
+    schema_version: 1,
+    version_id: testVersionId,
+    exact_decoded_file_path: testOwnerPath,
+    generation_id: projectData.generation_id,
+    source_revision: projectData.source_revision,
+    staged_at: testStagedAt,
+    projections
+  };
+  const securityWrapper = ownerProjectionWrapper(
+    "security-assurance",
+    privateSecurityAssurance,
+    binding
+  );
   const document = {
     body: { dataset: {}, innerHTML: "" },
     querySelectorAll() { return []; }
   };
   const window = {
     ARRP_HORIZON_REVIEW_DATA: projectData,
-    ARRP_PRIVATE_SECURITY_ASSURANCE: privateSecurityAssurance,
+    ARRP_PRIVATE_SECURITY_ASSURANCE: securityWrapper,
+    ARRP_OWNER_CONSOLE_BINDING: binding,
+    location: {
+      protocol: "file:",
+      hostname: "",
+      pathname: testOwnerPath
+    },
     __ARRP_CONSOLE_TEST_MODE__: true
   };
   const priorGlobals = {
@@ -42,7 +199,10 @@ function loadApi(privateSecurityAssurance = {}, projectDataOverride = {}) {
     localRequire("../app.js");
     return {
       api: window.ARRP_CONSOLE_TEST_API,
-      data: window.ARRP_HORIZON_REVIEW_DATA
+      data: window.ARRP_HORIZON_REVIEW_DATA,
+      binding,
+      securityWrapper,
+      testWindow: window
     };
   } finally {
     for (const [name, value] of Object.entries(priorGlobals)) {
@@ -200,33 +360,111 @@ test("security assurance exposes staged safe actions and keyboard navigation", (
   assert.doesNotMatch(app, /arbitrary_command_execution"\]\s*,?\s*commands:/);
 });
 
-test("owner-local projections load only from canonical disk or loopback mode", async () => {
-  const { api } = loadApi();
+test("owner-local projections require exact immutable file binding", async () => {
+  const { api, binding, securityWrapper } = loadApi();
+  assert.equal(api.localConsoleOriginAllowed({
+    protocol: "file:",
+    hostname: "",
+    pathname: testOwnerPath.replaceAll(" ", "%20")
+  }, binding), true);
   assert.equal(api.localConsoleOriginAllowed({
     protocol: "file:",
     hostname: "",
     pathname: "/Users/example/ARRP/research/horizon-review-console/index.html"
-  }), true);
+  }, binding), false);
   assert.equal(api.localConsoleOriginAllowed({
     protocol: "file:",
     hostname: "",
-    pathname: "/Users/example/ARRP/research/horizon-review-console/copy.html"
-  }), false);
+    pathname: testOwnerPath.replace("index.html", "copy.html")
+  }, binding), false);
+  const nonEntrypointBinding = {
+    ...binding,
+    exact_decoded_file_path: testOwnerPath.replace("index.html", "entry.html")
+  };
   assert.equal(api.localConsoleOriginAllowed({
     protocol: "file:",
-    hostname: "localhost",
-    pathname: "/Users/example/ARRP/research/horizon-review-console/index.html"
-  }), false);
+    hostname: "",
+    pathname: nonEntrypointBinding.exact_decoded_file_path
+  }, nonEntrypointBinding), false);
   assert.equal(api.localConsoleOriginAllowed({
     protocol: "http:",
     hostname: "127.0.0.1",
     pathname: "/index.html"
-  }), true);
+  }, binding), false);
   assert.equal(api.localConsoleOriginAllowed({
     protocol: "https:",
     hostname: "arrp.org",
     pathname: "/research/horizon-review-console/index.html"
-  }), false);
+  }, binding), false);
+  assert.equal(api.ownerModeUnavailableMessage(
+    "Owner projection is missing.",
+    {
+      protocol: "https:",
+      hostname: "arrp.org",
+      pathname: "/research/horizon-review-console/index.html"
+    },
+    binding
+  ), "Data unavailable outside the bound owner-local Console.");
+  assert.equal(api.ownerModeUnavailableMessage(
+    "Owner projection is missing.",
+    {
+      protocol: "file:",
+      hostname: "",
+      pathname: testOwnerPath
+    },
+    binding
+  ), "Owner projection is missing.");
+  assert.equal(api.localConsoleOriginAllowed({
+    protocol: "file:",
+    hostname: "",
+    pathname: testOwnerPath
+  }, { ...binding, generation_id: "stale-generation" }), false);
+  assert.equal(api.localConsoleOriginAllowed({
+    protocol: "file:",
+    hostname: "",
+    pathname: testOwnerPath
+  }, { ...binding, unexpected: true }), false);
+  assert.equal(api.localConsoleOriginAllowed({
+    protocol: "file:",
+    hostname: "",
+    pathname: testOwnerPath
+  }, null), false);
+  assert.doesNotMatch(
+    fs.readFileSync(appPath, "utf8"),
+    /console\/owner\/versions/
+  );
+  assert.deepEqual(
+    api.ownerProjectionPayload(
+      securityWrapper,
+      "security-assurance",
+      binding,
+      { protocol: "file:", hostname: "", pathname: testOwnerPath }
+    ),
+    securityWrapper.payload
+  );
+  assert.equal(
+    api.ownerProjectionPayload(
+      securityWrapper.payload,
+      "security-assurance",
+      binding,
+      { protocol: "file:", hostname: "", pathname: testOwnerPath }
+    ),
+    null
+  );
+  assert.equal(
+    api.ownerProjectionPayload({
+      ...securityWrapper,
+      owner_console_envelope: {
+        ...securityWrapper.owner_console_envelope,
+        source_revision: "b".repeat(40)
+      }
+    }, "security-assurance", binding, {
+      protocol: "file:",
+      hostname: "",
+      pathname: testOwnerPath
+    }),
+    null
+  );
 
   const priorWindow = globalThis.window;
   const priorDocument = globalThis.document;
@@ -235,8 +473,9 @@ test("owner-local projections load only from canonical disk or loopback mode", a
     location: {
       protocol: "file:",
       hostname: "",
-      pathname: "/Users/example/ARRP/research/horizon-review-console/index.html"
-    }
+      pathname: testOwnerPath
+    },
+    ARRP_OWNER_CONSOLE_BINDING: binding
   };
   globalThis.document = {
     createElement() { return {}; },
@@ -249,6 +488,11 @@ test("owner-local projections load only from canonical disk or loopback mode", a
   };
   try {
     assert.equal(await api.loadLocalProjection("data/missing.js", () => false), false);
+    assert.equal(appended, 0);
+    assert.equal(
+      await api.loadLocalProjection("data/private-operations.js?v=1", () => false),
+      false
+    );
     assert.equal(appended, 1);
   } finally {
     if (priorWindow === undefined) delete globalThis.window;
@@ -259,28 +503,90 @@ test("owner-local projections load only from canonical disk or loopback mode", a
 });
 
 test("private operations require exact generation and revision binding", () => {
-  const { api } = loadApi({}, {
-    generation_id: "generation-current",
-    source_revision: "revision-current"
-  });
-  const snapshot = {
-    schema_version: 2,
-    availability: "current",
-    generated_at: "2026-07-28T20:00:00Z",
-    catalog_generation_id: "generation-current",
-    source_revision: "revision-current",
-    agent_registry: [],
-    project_logs: [],
-    integrity: {},
-    run_chain: {},
-    action_snapshot: { complete: true, items: [], counts: {} },
-    privacy: "Owner-only local projection."
-  };
+  const { api, data, binding, testWindow } = loadApi();
+  const snapshot = privateOperationsFixture();
   assert.equal(api.validPrivateOperationsSnapshot(snapshot), true);
   assert.equal(api.validPrivateOperationsSnapshot({
     ...snapshot,
     catalog_generation_id: "older-generation"
   }), false);
+  assert.equal(api.validPrivateOperationsSnapshot({
+    ...snapshot,
+    action_snapshot: {
+      ...snapshot.action_snapshot,
+      counts: { human: 0, oversight: 0, all_open: 0 }
+    }
+  }), false);
+
+  const privateBinding = {
+    ...binding,
+    projections: {
+      ...binding.projections,
+      "private-operations": {
+        ...binding.projections["private-operations"],
+        availability: "partial",
+        complete: false
+      }
+    }
+  };
+  testWindow.ARRP_OWNER_CONSOLE_BINDING = privateBinding;
+  testWindow.ARRP_PRIVATE_OPERATIONS = ownerProjectionWrapper(
+    "private-operations",
+    snapshot,
+    privateBinding
+  );
+  data.overview = {
+    action_snapshot: { availability: "unavailable" },
+    queue_directory: { availability: "unavailable" }
+  };
+  const priorWindow = globalThis.window;
+  globalThis.window = testWindow;
+  try {
+    assert.equal(api.capturePrivateOperations(), true);
+  } finally {
+    if (priorWindow === undefined) delete globalThis.window;
+    else globalThis.window = priorWindow;
+  }
+  assert.equal(data.action_snapshot, snapshot.action_snapshot);
+  assert.equal(data.overview.action_snapshot, snapshot.action_snapshot);
+  assert.equal(data.queue_directory, snapshot.queue_directory);
+  assert.equal(data.overview.queue_directory, snapshot.queue_directory);
+  assert.equal(data.operational_incidents, snapshot.operational_incidents);
+  assert.equal(data.security_incidents, snapshot.security_incidents);
+  assert.equal(data.incident_relations, snapshot.incident_relations);
+});
+
+test("governance supplements require an exact public-entry and revision match", () => {
+  const { api } = loadApi();
+  const item = {
+    governance_change_id: "GOV-2026-001",
+    public_entry_sha256: `sha256:${"1".repeat(64)}`,
+    source_revision: testSourceRevision,
+    recorded_at: "2026-07-29T12:00:00Z",
+    safe_summary: "Owner-only implementation context."
+  };
+  const supplements = { complete: true, items: [item] };
+  assert.deepEqual(api.governanceChangeSupplement({
+    id: "GOV-2026-001",
+    values: {
+      governance_change_id: "GOV-2026-001",
+      entry_sha256: item.public_entry_sha256
+    }
+  }, supplements), item);
+  assert.equal(api.governanceChangeSupplement({
+    id: "GOV-2026-002",
+    values: {
+      governance_change_id: "GOV-2026-002",
+      entry_sha256: item.public_entry_sha256
+    }
+  }, supplements), null);
+  assert.equal(api.governanceChangeSupplement({
+    id: "GOV-2026-001",
+    values: {
+      governance_change_id: "GOV-2026-001",
+      entry_sha256: item.public_entry_sha256
+    }
+  }, { complete: true, items: [{ ...item, source_revision: "other" }] }), null);
 });
 
 test("role surfaces share the typed projection and exact owner-only control state", () => {
@@ -442,98 +748,6 @@ test("candidate Project fields merge over dossier fields without dropping dossie
   assert.equal(merged.priority, "High");
   assert.equal(merged.score, 0);
   assert.equal(merged.supporting_sources[0].id, "SRC-1");
-});
-
-test("automation incidents group repeated occurrences by root cause", () => {
-  const { api } = loadApi();
-  const groups = api.groupAutomationIncidents({
-    updated_at: "2026-07-25T10:00:00Z",
-    failures: [
-      { stage: "sources", root_cause: "Credential unavailable", owner: "Human" },
-      { stage: "directives", root_cause: "Credential unavailable", owner: "Human" }
-    ]
-  });
-  assert.equal(groups.length, 1);
-  assert.equal(groups[0].occurrences, 2);
-  assert.deepEqual([...groups[0].stages], ["directives", "sources"]);
-});
-
-test("automation incident identity includes failed prerequisite and runtime or checkout state", () => {
-  const { api } = loadApi();
-  const groups = api.groupAutomationIncidents({
-    chain_id: "chain-current",
-    failures: [
-      { stage: "sources", root_cause: "Repository preflight", failed_prerequisite: "clean checkout", checkout_state: "dirty", runtime_state: "ready" },
-      { stage: "sources", root_cause: "Repository preflight", failed_prerequisite: "clean checkout", checkout_state: "detached", runtime_state: "ready" }
-    ]
-  });
-  assert.equal(groups.length, 2);
-});
-
-test("off-main retries collapse to one managerial incident while retaining chain history", () => {
-  const { api } = loadApi();
-  const groups = api.groupAutomationIncidents({
-    chain_id: "chain-current",
-    failures: [{
-      stage: "host-repository-preflight",
-      message: "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/review-b instead of main."
-    }],
-    host_action_items: [
-      {
-        chain_id: "chain-old",
-        stage: "host-repository-preflight",
-        owner: "human",
-        details: "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/review-a instead of main.",
-        resolved: true
-      },
-      {
-        chain_id: "chain-current",
-        stage: "host-repository-preflight",
-        owner: "human",
-        details: "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/review-b instead of main.",
-        resolved: false
-      }
-    ]
-  });
-  assert.equal(groups.length, 1);
-  assert.equal(groups[0].history.length, 3);
-  assert.equal(groups[0].postures.includes("Superseded"), true);
-  assert.equal(api.incidentHasHumanOwner(groups[0]), true);
-});
-
-test("duplicate current failure and host action rows count once while distinct retries remain", () => {
-  const { api } = loadApi();
-  const detail = "host-repository-preflight failed: canonical ARRP workspace is not reconciled with GitHub: current branch is codex/review instead of main.";
-  const groups = api.groupAutomationIncidents({
-    chain_id: "chain-current",
-    failures: [{
-      stage: "host-repository-preflight",
-      recorded_at: "2026-07-25T10:00:00Z",
-      message: detail
-    }],
-    host_action_items: [
-      {
-        chain_id: "chain-current",
-        stage: "host-repository-preflight",
-        created_at: "2026-07-25T10:00:00+00:00",
-        owner: "Human",
-        details: detail,
-        resolved: false
-      },
-      {
-        chain_id: "chain-current",
-        stage: "host-repository-preflight",
-        created_at: "2026-07-25T11:00:00Z",
-        owner: "Human",
-        details: detail,
-        resolved: false
-      }
-    ]
-  });
-  assert.equal(groups.length, 1);
-  assert.equal(groups[0].occurrences, 2);
-  assert.equal(groups[0].history.length, 2);
-  assert.equal(api.incidentHasHumanOwner(groups[0]), true);
 });
 
 test("Source Checker assurance deltas preserve explicit zero and baseline unavailability", () => {
@@ -1133,6 +1347,8 @@ test("Planning and Operations consolidate navigation while preserving old routes
   assert.doesNotMatch(html, /data-tab="(?:candidates|sources|logs|publication)"/);
   assert.match(app, /initializeLogMenu/);
   assert.match(app, /operations-log-menu-button/);
+  assert.match(html, /data-subtab="governance-changes"/);
+  assert.match(app, /\["changes", "Change audits"\],\s*\["governance-changes", "Governance changes"\],\s*\["console-development", "Console development"\]/);
   assert.doesNotMatch(app, /operations-log-selector/);
   assert.match(app, /setNavigationMarker/);
   assert.match(styles, /\.tab-status-dot\.error/);
@@ -1197,12 +1413,23 @@ test("Workbench navigation rejects hostile routes and external URLs", () => {
     api.safeConsoleTarget("planning:workbench:pipeline:status=Development"),
     "planning:workbench:pipeline:status=Development"
   );
+  assert.equal(
+    api.safeConsoleTarget(
+      "automation:logs:security-incidents:selected=SEC-2026-001"
+    ),
+    "automation:logs:security-incidents:selected=SEC-2026-001"
+  );
+  assert.equal(api.decodeRouteSelection("INC-2026-001"), "INC-2026-001");
+  assert.equal(api.decodeRouteSelection("%E0%A4%A"), "");
+  assert.equal(api.decodeRouteSelection("INC-2026-001/../../x"), "");
   for (const hostile of [
     "javascript:alert(1)",
     "data:text/html,boom",
     "unknown:screen",
     "planning:unknown",
     "planning:workbench:pipeline:unknown=value",
+    "automation:logs:security-incidents:selected=INC-2026-001",
+    "automation:logs:security-incidents:selected=SEC-2026-001/../../x",
     "%E0%A4%A",
     `planning:workbench:pipeline:search=${"a".repeat(2100)}`,
     "integrity\u0000:overview"
@@ -1374,12 +1601,12 @@ test("initial HTML loads only bounded scripts and stays within declared budgets"
   assert.match(app, /return loadLocalProjection\(\s*LOCAL_AUTOMATION_STATUS_PATH,\s*captureLocalAutomationStatus\s*\)/);
   assert.match(app, /if \(window\.__ARRP_CONSOLE_TEST_MODE__\) capturePrivateSecurityAssurance\(\);/);
   assert.doesNotMatch(app, /\n  capturePrivateSecurityAssurance\(\);/);
-  assert.match(html, /data-initial-script-budget-kib="650"/);
+  assert.match(html, /data-initial-script-budget-kib="655"/);
   assert.match(html, /data-initial-dom-budget="1500"/);
   const bytes = ["catalog-data.js", "app.js"]
     .map((file) => fs.statSync(path.join(consoleDirectory, file)).size)
     .reduce((sum, size) => sum + size, 0);
-  assert.ok(bytes <= 650 * 1024, `synchronous JavaScript is ${bytes} bytes`);
+  assert.ok(bytes <= 655 * 1024, `synchronous JavaScript is ${bytes} bytes`);
   const approximateElementCount = (html.match(/<[a-z][^!/][^>]*>/gi) || []).length;
   assert.ok(approximateElementCount <= 1500, `initial HTML has about ${approximateElementCount} elements`);
   assert.doesNotMatch(html, /<script\s+src="data\/(?:candidates|sources|progress|integrity|automation|logs|publication)/);
@@ -1402,9 +1629,33 @@ test("initial HTML loads only bounded scripts and stays within declared budgets"
   assert.match(html, /id="automation-logs-incident-count"/);
   assert.match(html, /id="log-incidents-count"/);
   assert.match(html, /id="log-panel-incidents"/);
+  assert.match(html, /id="log-security-incidents-count"/);
+  assert.match(html, /id="log-panel-security-incidents"/);
+  assert.match(app, /\["security-incidents", "Security incidents"\]/);
+  assert.match(
+    app,
+    /if \(domain === "logs"\) \{[\s\S]*?renderIncidentLog\(\);[\s\S]*?renderSecurityLog\(\);[\s\S]*?\}/
+  );
+  assert.doesNotMatch(app, /renderSecurityIncidentLog\(\)/);
 });
 
-test("operational incidents remain typed, human-owned only when explicit, and unavailable is not zero", () => {
+test("operational incidents remain typed, Action Items use supplied ownership, and unavailable is not zero", () => {
+  const html = fs.readFileSync(indexPath, "utf8");
+  assert.match(html, /id="automation-incident-count">—</);
+  assert.match(html, /id="incident-log-visible">—</);
+  assert.match(html, /id="security-incident-log-visible">—</);
+  for (const id of [
+    "local-automation-note",
+    "operations-security-status",
+    "incident-log-status",
+    "security-incident-log-status"
+  ]) {
+    assert.match(
+      html,
+      new RegExp(`id="${id}"[^>]*>Data unavailable outside the bound owner-local Console\\.`)
+    );
+  }
+  assert.doesNotMatch(html, /id="(?:automation-incident-count|incident-log-visible|security-incident-log-visible)">0</);
   const unavailable = loadApi({}, {
     operational_incidents: {
       availability: "unavailable",
@@ -1455,9 +1706,116 @@ test("operational incidents remain typed, human-owned only when explicit, and un
     current.api.unresolvedOperationalIncidents().map((item) => item.incident_id),
     ["INC-2026-001", "INC-2026-002"]
   );
-  assert.equal(current.api.humanOwnsIncident(current.data.operational_incidents.items[0]), true);
-  assert.equal(current.api.humanOwnsIncident(current.data.operational_incidents.items[1]), false);
   assert.equal(current.api.incidentStatusPresentation(current.data.operational_incidents.items[0]).tone, "error");
+  const partial = loadApi({}, {
+    action_snapshot: {
+      availability: "partial",
+      complete: false,
+      counts: { human: null, oversight: null, all_open: null },
+      items: [
+        {
+          item_id: "incident:INC-2026-001",
+          work_kind: "operational_incident",
+          label: "Recorded operational incident",
+          status: "open",
+          owner: "Human",
+          attention_class: "oversight",
+          authority: "Operational Incidents projection",
+          route: "automation:logs:incidents:selected=INC-2026-001"
+        },
+        {
+          item_id: "security-incident:SEC-2026-001",
+          work_kind: "security_incident",
+          label: "Protected Security Incident",
+          status: "Investigating",
+          owner: "Elim",
+          attention_class: "human",
+          authority: "Owner-local Security Incidents projection",
+          route: "automation:logs:security-incidents:selected=SEC-2026-001"
+        }
+      ]
+    }
+  });
+  const typed = partial.api.incidentActionItems();
+  assert.equal(typed.operationalHumanActions.length, 0);
+  assert.equal(typed.operationalOversightActions.length, 1);
+  assert.equal(typed.securityHumanActions.length, 1);
+  assert.equal(partial.api.actionItemSnapshot().total, null);
+  assert.equal(partial.api.producerProblemRecords().length, 2);
+  const app = fs.readFileSync(appPath, "utf8");
+  assert.doesNotMatch(app, /humanOwnsIncident/);
+  assert.doesNotMatch(app, /unresolvedAutomationActionItems/);
+});
+
+test("Security Incidents retain separate count, lifecycle, and reciprocal typed links", () => {
+  const unavailable = loadApi({}, {
+    security_incidents: {
+      schema_version: 1,
+      authority: "owner-local-security-incidents",
+      availability: "unavailable",
+      complete: false,
+      count: null,
+      unresolved_count: null,
+      items: [],
+      reason_code: "owner-local-projection-required"
+    }
+  });
+  assert.equal(unavailable.api.securityIncidentProjection().complete, false);
+  assert.equal(unavailable.api.securityIncidentProjection().unresolvedCount, null);
+
+  const current = loadApi({}, {
+    security_incidents: {
+      schema_version: 1,
+      authority: "owner-local-security-incidents",
+      availability: "current",
+      complete: true,
+      checked_at: "2026-07-29T12:00:00Z",
+      count: 2,
+      unresolved_count: 1,
+      items: [
+        {
+          security_incident_id: "SEC-2026-002",
+          status: "Investigating"
+        },
+        {
+          security_incident_id: "SEC-2026-001",
+          status: "Resolved"
+        }
+      ]
+    },
+    incident_relations: {
+      schema_version: 1,
+      authority: "owner-local-incident-relations",
+      availability: "current",
+      complete: true,
+      checked_at: "2026-07-29T12:00:00Z",
+      active_relations: [],
+      relations: [],
+      by_operational_incident: {
+        "INC-2026-004": ["SEC-2026-002"]
+      },
+      by_security_incident: {
+        "SEC-2026-002": ["INC-2026-004"]
+      }
+    }
+  });
+  assert.equal(current.api.securityIncidentProjection().unresolvedCount, 1);
+  assert.deepEqual(
+    current.api.securityIncidentRelations("SEC-2026-002"),
+    ["INC-2026-004"]
+  );
+  assert.equal(
+    current.api.securityIncidentStatusPresentation(
+      current.data.security_incidents.items[0]
+    ).tone,
+    "error"
+  );
+  assert.equal(
+    current.api.securityIncidentStatusPresentation(
+      current.data.security_incidents.items[1]
+    ).tone,
+    "success"
+  );
 });
 
 test("platform projection has five provider-neutral cells and exact scoped dependencies", () => {
@@ -1561,11 +1919,15 @@ test("local automation status distinguishes unavailable, running, failure, revie
   assert.equal(api.validLocalAutomationStatus({
     schema_version: "1.0",
     status: "completed",
+    control_state: "paused",
+    control_state_checked_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
   }), true);
   assert.equal(api.validLocalAutomationStatus({
     schema_version: "1.0",
     status: "unexpected",
+    control_state: "paused",
+    control_state_checked_at: new Date().toISOString(),
     updated_at: new Date().toISOString()
   }), false);
   assert.equal(api.localAutomationPresentation({

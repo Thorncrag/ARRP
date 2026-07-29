@@ -4,12 +4,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "overview": {
     "automation_occurrences": {
       "schema_version": 2,
-      "checked_at": "2026-07-29T06:21:38+00:00",
+      "checked_at": "2026-07-29T13:22:55+00:00",
       "occurrences": [
         {
           "occurrence_id": "arrp-20260729T060003Z",
           "schedule_identity": "owner-local-nightly",
-          "trigger": "scheduled",
           "status": "failed",
           "source_revision": null,
           "generation_id": null,
@@ -18,6 +17,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "completed_at": "2026-07-29T06:00:03.732284Z",
           "updated_at": "2026-07-29T06:00:03.732311Z",
           "scheduled_for": "2026-07-29T02:00:00-04:00",
+          "complete": true,
+          "control_state": "paused",
+          "control_state_checked_at": "2026-07-29T07:52:04.635054Z",
+          "trigger": "scheduled",
+          "reason": "This occurrence did not complete; protected diagnostic detail is owner-local.",
           "stages": [
             {
               "stage_id": "case-monitor-bot",
@@ -27,12 +31,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "status": "unavailable",
               "current_chain_label": "Unavailable",
               "due": null,
-              "reason": "The owner-local status did not publish stage-level results.",
               "started_at": null,
               "completed_at": null,
               "prior_success_at": null,
-              "failure_class": null,
-              "active_incident_ids": []
+              "reason": "This stage status is unavailable."
             },
             {
               "stage_id": "presidential-directives-bot",
@@ -42,12 +44,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "status": "unavailable",
               "current_chain_label": "Unavailable",
               "due": null,
-              "reason": "The owner-local status did not publish stage-level results.",
               "started_at": null,
               "completed_at": null,
               "prior_success_at": null,
-              "failure_class": null,
-              "active_incident_ids": []
+              "reason": "This stage status is unavailable."
             },
             {
               "stage_id": "source-checker-bot",
@@ -57,12 +57,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "status": "unavailable",
               "current_chain_label": "Unavailable",
               "due": null,
-              "reason": "The owner-local status did not publish stage-level results.",
               "started_at": null,
               "completed_at": null,
               "prior_success_at": null,
-              "failure_class": null,
-              "active_incident_ids": []
+              "reason": "This stage status is unavailable."
             },
             {
               "stage_id": "public-intake",
@@ -72,12 +70,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "status": "unavailable",
               "current_chain_label": "Unavailable",
               "due": null,
-              "reason": "The owner-local status did not publish stage-level results.",
               "started_at": null,
               "completed_at": null,
               "prior_success_at": null,
-              "failure_class": null,
-              "active_incident_ids": []
+              "reason": "This stage status is unavailable."
             },
             {
               "stage_id": "project-console-progress-bot",
@@ -87,12 +83,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "status": "unavailable",
               "current_chain_label": "Unavailable",
               "due": null,
-              "reason": "The owner-local status did not publish stage-level results.",
               "started_at": null,
               "completed_at": null,
               "prior_success_at": null,
-              "failure_class": null,
-              "active_incident_ids": []
+              "reason": "This stage status is unavailable."
             },
             {
               "stage_id": "project-integrity-bot",
@@ -102,12 +96,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "status": "unavailable",
               "current_chain_label": "Unavailable",
               "due": null,
-              "reason": "The owner-local status did not publish stage-level results.",
               "started_at": null,
               "completed_at": null,
               "prior_success_at": null,
-              "failure_class": null,
-              "active_incident_ids": []
+              "reason": "This stage status is unavailable."
             },
             {
               "stage_id": "elim",
@@ -117,30 +109,25 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "status": "unavailable",
               "current_chain_label": "Unavailable",
               "due": null,
-              "reason": "The owner-local status did not publish stage-level results.",
               "started_at": null,
               "completed_at": null,
               "prior_success_at": null,
-              "failure_class": null,
-              "active_incident_ids": []
+              "reason": "This stage status is unavailable."
             }
           ],
           "blockers": [
             {
-              "id": "arrp-20260729T060003Z-local-status",
+              "id": "arrp-20260729T060003Z-blocker-1",
               "stage_id": null,
-              "reason": "canonical repository is off main",
-              "recorded_at": "2026-07-29T06:00:03.732311Z"
+              "status": "blocked",
+              "recorded_at": "2026-07-29T06:00:03.732311Z",
+              "reason": "A recorded occurrence blocker is blocked; protected diagnostic detail is owner-local."
             }
-          ],
-          "complete": true,
-          "control_state": "run",
-          "control_state_checked_at": null
+          ]
         },
         {
           "occurrence_id": "https://github.com/Thorncrag/ARRP/actions/runs/30249971183",
           "schedule_identity": "event-driven",
-          "trigger": "push",
           "status": "complete",
           "source_revision": "be3ae39a0841c6072ca421916a5e37936504619e",
           "generation_id": null,
@@ -149,6 +136,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "completed_at": "2026-07-27T08:37:33+00:00",
           "updated_at": "2026-07-27T08:37:33+00:00",
           "scheduled_for": null,
+          "complete": true,
+          "trigger": "event",
+          "reason": "This occurrence status is unavailable.",
           "stages": [
             {
               "stage_id": "case-monitor-bot",
@@ -158,12 +148,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "status": "not_due",
               "current_chain_label": "Not due this chain",
               "due": false,
-              "reason": "last success remains current until 2026-07-28T07:55:25+00:00",
               "started_at": null,
               "completed_at": "2026-07-27T08:27:40+00:00",
               "prior_success_at": "2026-07-27T07:55:25+00:00",
-              "failure_class": "none",
-              "active_incident_ids": []
+              "reason": "This stage was not due for this occurrence."
             },
             {
               "stage_id": "presidential-directives-bot",
@@ -173,12 +161,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "status": "not_due",
               "current_chain_label": "Not due this chain",
               "due": false,
-              "reason": "last success remains current until 2026-07-28T07:55:25+00:00",
               "started_at": null,
               "completed_at": "2026-07-27T08:27:40+00:00",
               "prior_success_at": "2026-07-27T07:55:25+00:00",
-              "failure_class": "none",
-              "active_incident_ids": []
+              "reason": "This stage was not due for this occurrence."
             },
             {
               "stage_id": "source-checker-bot",
@@ -188,12 +174,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "status": "not_due",
               "current_chain_label": "Not due this chain",
               "due": false,
-              "reason": "last success remains current until 2026-08-02T10:32:24+00:00",
               "started_at": null,
               "completed_at": "2026-07-27T08:27:40+00:00",
               "prior_success_at": "2026-07-26T10:32:24+00:00",
-              "failure_class": "none",
-              "active_incident_ids": []
+              "reason": "This stage was not due for this occurrence."
             },
             {
               "stage_id": "public-intake",
@@ -203,12 +187,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "status": "succeeded",
               "current_chain_label": "Succeeded",
               "due": true,
-              "reason": "required every chain",
               "started_at": null,
               "completed_at": "2026-07-27T08:28:50+00:00",
               "prior_success_at": "2026-07-27T08:28:50+00:00",
-              "failure_class": "none",
-              "active_incident_ids": []
+              "reason": "This stage completed successfully."
             },
             {
               "stage_id": "project-console-progress-bot",
@@ -218,12 +200,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "status": "succeeded",
               "current_chain_label": "Succeeded",
               "due": true,
-              "reason": "forced",
               "started_at": null,
               "completed_at": "2026-07-27T08:28:50+00:00",
               "prior_success_at": "2026-07-27T08:28:50+00:00",
-              "failure_class": "none",
-              "active_incident_ids": []
+              "reason": "This stage completed successfully."
             },
             {
               "stage_id": "project-integrity-bot",
@@ -233,12 +213,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "status": "succeeded",
               "current_chain_label": "Succeeded",
               "due": true,
-              "reason": "forced",
               "started_at": null,
               "completed_at": "2026-07-27T08:28:50+00:00",
               "prior_success_at": "2026-07-27T08:28:50+00:00",
-              "failure_class": "none",
-              "active_incident_ids": []
+              "reason": "This stage completed successfully."
             },
             {
               "stage_id": "elim",
@@ -248,16 +226,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "status": "not_due",
               "current_chain_label": "Not due this chain",
               "due": false,
-              "reason": "Host dispatcher rejected an LLM launch from a deterministic-only or unspecified trigger.",
               "started_at": null,
               "completed_at": "2026-07-27T08:37:33+00:00",
               "prior_success_at": null,
-              "failure_class": null,
-              "active_incident_ids": []
+              "reason": "This stage was not due for this occurrence."
             }
           ],
-          "blockers": [],
-          "complete": true
+          "blockers": []
         }
       ],
       "latest_attempt_id": "arrp-20260729T060003Z",
@@ -288,18 +263,20 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "occurrence_id": "arrp-20260729T060003Z",
         "chain_id": "arrp-20260729T060003Z",
         "status": "failed",
-        "trigger": "scheduled",
         "checked_at": "2026-07-29T06:00:03.732311Z",
         "blocker_count": 1,
+        "trigger": "scheduled",
+        "reason": "The latest attempt did not complete; protected diagnostic detail is owner-local.",
+        "failure_reason": "The latest scheduled attempt did not complete; protected diagnostic detail is owner-local.",
         "blockers": [
           {
-            "id": "arrp-20260729T060003Z-local-status",
+            "id": "public-blocker-1",
             "stage_id": null,
-            "reason": "canonical repository is off main",
-            "recorded_at": "2026-07-29T06:00:03.732311Z"
+            "status": "blocked",
+            "recorded_at": "2026-07-29T06:00:03.732311Z",
+            "reason": "A recorded automation blocker is blocked; protected diagnostic detail is owner-local."
           }
-        ],
-        "reason": ""
+        ]
       },
       "latest_scheduled_attempt": {
         "available": true,
@@ -307,19 +284,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "chain_id": "arrp-20260729T060003Z",
         "status": "failed",
         "checked_at": "2026-07-29T02:00:00-04:00",
-        "failure_reason": "canonical repository is off main",
-        "reason": ""
+        "trigger": "unavailable",
+        "reason": "The latest attempt did not complete; protected diagnostic detail is owner-local.",
+        "failure_reason": "The latest scheduled attempt did not complete; protected diagnostic detail is owner-local.",
+        "blockers": []
       },
       "future_run_gates": {
         "available": true,
         "count": 0,
         "checked_at": "2026-07-29T06:21:37+00:00",
         "oldest_age": null,
-        "items": [],
-        "reason": "No complete typed automation-gate inventory is published.",
         "availability": "current",
         "trustworthy_through": null,
-        "known_blocker_count": 0
+        "known_blocker_count": 0,
+        "reason": "A complete typed automation-gate inventory is available.",
+        "items": []
       }
     },
     "data_current_through": {
@@ -334,8 +313,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         {
           "producer": "project-integrity-bot",
-          "value": "2026-07-29T06:21:29+00:00",
-          "availability": "current"
+          "value": "2026-07-29T13:12:20+00:00",
+          "availability": "stale"
         },
         {
           "producer": "source-checker-bot",
@@ -365,7 +344,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "data_directory": {
       "schema_version": 1,
-      "generated_at": "2026-07-29T06:21:38+00:00",
+      "generated_at": "2026-07-29T13:22:55+00:00",
       "rows": [
         {
           "feed_id": "progress",
@@ -427,24 +406,32 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "feed_id": "integrity",
           "label": "Integrity",
-          "availability": "current",
+          "availability": "stale",
           "complete": true,
           "reason": "The producer declares this projection complete.",
-          "trustworthy_through": "2026-07-29T06:21:29+00:00",
+          "trustworthy_through": "2026-07-29T13:12:20+00:00",
           "producer": "project-integrity-bot",
           "route": "integrity",
           "recovery_route": "automation:agents:project-integrity-bot",
-          "generation_id": "project-integrity-87e8925f985cd3b2c74d",
-          "schema_errors": []
+          "generation_id": "project-integrity-d116e5a0495d7afdaa8c",
+          "schema_errors": [
+            {
+              "code": "repository_revision_superseded",
+              "severity": "warning",
+              "message": "Integrity generation is not bound to the authoritative repository revision.",
+              "expected_source_revision": "6167fc3554af006091ecee7d62be5a26514f7237",
+              "producer_source_revision": "572e1db1ebfff49cc26004cced1d0933934fa4c6"
+            }
+          ]
         }
       ]
     },
     "action_snapshot": {
       "schema_version": 1,
-      "generation_id": "action-snapshot-6d163c4b1b54dca193bf",
-      "generated_at": "2026-07-29T06:21:38+00:00",
-      "availability": "current",
-      "complete": true,
+      "generation_id": "action-snapshot-116e982f66d87a0cedde",
+      "generated_at": "2026-07-29T13:22:55+00:00",
+      "availability": "partial",
+      "complete": false,
       "items": [
         {
           "item_id": "repository-decision:SMR-20260725-PR380",
@@ -468,7 +455,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Source Monitor recommendation",
           "message": "Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current main?",
           "source_url": "#logs:source-monitor",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "repository-decision:SMR-20260725-PR381",
@@ -492,7 +479,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Source Monitor recommendation",
           "message": "Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current main?",
           "source_url": "#logs:source-monitor",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "project-human-decision:JUD-009",
@@ -516,7 +503,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Status field",
           "message": "JUD-009: Supreme Court Ethics, Recusal, and Transparency",
           "source_url": "#actions",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:DOJ-004",
@@ -540,7 +527,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "DOJ-004 is Blocked but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:ELEC-014",
@@ -564,7 +551,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "ELEC-014 is Blocked but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-010",
@@ -588,7 +575,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-010 is Deferred but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-023",
@@ -612,7 +599,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-023 is Deferred but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-031",
@@ -636,7 +623,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-031 is Blocked but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-038",
@@ -660,7 +647,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-038 is Deferred but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-045",
@@ -684,7 +671,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-045 is Deferred but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "next-action-missing:HOR-026",
@@ -708,7 +695,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Next action field",
           "message": "HOR-026: Next action is not recorded",
           "source_url": "#integrity",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "next-action-missing:HOR-027",
@@ -732,7 +719,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Next action field",
           "message": "HOR-027: Next action is not recorded",
           "source_url": "#integrity",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "next-action-missing:HOR-029",
@@ -756,7 +743,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Next action field",
           "message": "HOR-029: Next action is not recorded",
           "source_url": "#integrity",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "next-action-missing:HOR-039",
@@ -780,13 +767,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Next action field",
           "message": "HOR-039: Next action is not recorded",
           "source_url": "#integrity",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         }
       ],
       "counts": {
+        "human": null,
+        "oversight": null,
+        "all_open": null
+      },
+      "known_counts": {
         "human": 3,
         "oversight": 11,
         "all_open": 14
+      },
+      "sources": {
+        "operational_incidents": {
+          "availability": "unavailable",
+          "complete": false
+        },
+        "security_incidents": {
+          "availability": "unavailable",
+          "complete": false
+        }
       },
       "predicates": {
         "human": {
@@ -804,10 +806,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "queue_directory": {
       "schema_version": 1,
-      "generation_id": "queue-directory-e00d15f706882966f380",
-      "generated_at": "2026-07-29T06:21:38+00:00",
-      "availability": "current",
-      "complete": true,
+      "generation_id": "queue-directory-a63b8704db761a66b4e0",
+      "generated_at": "2026-07-29T13:22:55+00:00",
+      "availability": "partial",
+      "complete": false,
       "queues": [
         {
           "queue_id": "candidate_intake",
@@ -820,8 +822,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "owner_writer": "preliminary-candidate-catalog",
           "route": "planning:workbench:pipeline:work_class=Preliminary%20candidate",
           "problem_route": "planning:preliminary",
-          "generation_id": "queue-directory-e00d15f706882966f380",
-          "current_through": "2026-07-29T06:21:38+00:00",
+          "generation_id": "queue-directory-a63b8704db761a66b4e0",
+          "current_through": "2026-07-29T13:22:55+00:00",
           "problem_state": "none",
           "impact_state": null
         },
@@ -836,7 +838,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "owner_writer": "GitHub Issues and Project candidate projection",
           "route": "planning:workbench:pipeline:work_class=Formal%20candidate",
           "problem_route": "planning:candidates",
-          "generation_id": "queue-directory-e00d15f706882966f380",
+          "generation_id": "queue-directory-a63b8704db761a66b4e0",
           "current_through": "2026-07-29T06:21:19+00:00",
           "problem_state": "none",
           "impact_state": null
@@ -852,7 +854,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "owner_writer": "typed Pipeline projection",
           "route": "planning:workbench:pipeline:status=Development",
           "problem_route": "integrity",
-          "generation_id": "queue-directory-e00d15f706882966f380",
+          "generation_id": "queue-directory-a63b8704db761a66b4e0",
           "current_through": "2026-07-29T06:21:19+00:00",
           "problem_state": "none",
           "impact_state": null
@@ -868,7 +870,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "owner_writer": "typed Pipeline projection",
           "route": "planning:workbench:pipeline:status=Research",
           "problem_route": "integrity",
-          "generation_id": "queue-directory-e00d15f706882966f380",
+          "generation_id": "queue-directory-a63b8704db761a66b4e0",
           "current_through": "2026-07-29T06:21:19+00:00",
           "problem_state": "none",
           "impact_state": null
@@ -884,7 +886,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "owner_writer": "typed Pipeline projection",
           "route": "planning:workbench:pipeline:status=Audit",
           "problem_route": "integrity",
-          "generation_id": "queue-directory-e00d15f706882966f380",
+          "generation_id": "queue-directory-a63b8704db761a66b4e0",
           "current_through": "2026-07-29T06:21:19+00:00",
           "problem_state": "none",
           "impact_state": null
@@ -900,7 +902,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "owner_writer": "typed Pipeline projection",
           "route": "planning:workbench:pipeline:scope=review-ready-plus",
           "problem_route": "integrity",
-          "generation_id": "queue-directory-e00d15f706882966f380",
+          "generation_id": "queue-directory-a63b8704db761a66b4e0",
           "current_through": "2026-07-29T06:21:19+00:00",
           "problem_state": "none",
           "impact_state": null
@@ -916,8 +918,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "owner_writer": "pending source catalog",
           "route": "planning:sources:status=pending",
           "problem_route": "planning:sources",
-          "generation_id": "queue-directory-e00d15f706882966f380",
-          "current_through": "2026-07-29T06:21:38+00:00",
+          "generation_id": "queue-directory-a63b8704db761a66b4e0",
+          "current_through": "2026-07-29T13:22:55+00:00",
           "problem_state": "none",
           "impact_state": null
         },
@@ -932,7 +934,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "owner_writer": "Source Monitor recommendation projection",
           "route": "automation:logs:sources",
           "problem_route": "automation:repository-gates",
-          "generation_id": "queue-directory-e00d15f706882966f380",
+          "generation_id": "queue-directory-a63b8704db761a66b4e0",
           "current_through": "2026-07-25T22:17:40Z",
           "problem_state": "none",
           "impact_state": null
@@ -940,167 +942,81 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "queue_id": "human_actions",
           "label": "Human action items",
-          "count": 3,
-          "availability": "current",
-          "complete": true,
+          "count": null,
+          "availability": "unavailable",
+          "complete": false,
           "predicate": "shared Action snapshot attention_class equals human",
           "authoritative_source": "typed Action snapshot",
           "owner_writer": "typed Action snapshot",
           "route": "actions:my-items",
           "problem_route": "integrity",
-          "generation_id": "queue-directory-e00d15f706882966f380",
-          "current_through": "2026-07-29T06:21:38+00:00",
-          "problem_state": "none",
+          "generation_id": "queue-directory-a63b8704db761a66b4e0",
+          "current_through": "2026-07-29T13:22:55+00:00",
+          "problem_state": "unavailable",
           "impact_state": null
         },
         {
           "queue_id": "operational_incidents",
           "label": "Operational incidents",
-          "count": 0,
-          "availability": "current",
-          "complete": true,
+          "count": null,
+          "availability": "unavailable",
+          "complete": false,
           "predicate": "unresolved Operational Incident lifecycle states",
           "authoritative_source": "Operational Incidents projection",
           "owner_writer": "Operational Incidents projection",
           "route": "automation:logs:incidents",
           "problem_route": "automation:logs:incidents",
-          "generation_id": "queue-directory-e00d15f706882966f380",
-          "current_through": "2026-07-29T06:21:29Z",
-          "problem_state": "none",
-          "impact_state": "green"
+          "generation_id": "queue-directory-a63b8704db761a66b4e0",
+          "current_through": "2026-07-29T13:22:55+00:00",
+          "problem_state": "unavailable",
+          "impact_state": "gray"
+        },
+        {
+          "queue_id": "security_incidents",
+          "label": "Security incidents",
+          "count": null,
+          "availability": "unavailable",
+          "complete": false,
+          "predicate": "unresolved owner-local Security Incident lifecycle states",
+          "authoritative_source": "Owner-local Security Incidents projection",
+          "owner_writer": "Owner-local Security Incidents projection",
+          "route": "automation:logs:security-incidents",
+          "problem_route": "automation:logs:security-incidents",
+          "generation_id": "queue-directory-a63b8704db761a66b4e0",
+          "current_through": null,
+          "problem_state": "unavailable",
+          "impact_state": "gray"
         }
       ]
     },
     "operational_incidents": {
       "schema_version": 1,
-      "availability": "current",
-      "complete": true,
-      "checked_at": "2026-07-29T06:21:29Z",
-      "count": 1,
-      "unresolved_count": 0,
-      "impact_state": "green",
-      "items": [
-        {
-          "incident_id": "INC-2026-001",
-          "identity_key": "sha256:6f9769dc6a13938846049be28cd85433d4dda4f9a1e1cbbfb51a454517908ec4",
-          "component": "Project Console public bundle",
-          "prerequisite": "GitHub disclosure boundary",
-          "failure_class": "restricted-operational-data-in-public-generation",
-          "summary": "The disclosure gate prevented a Console generation containing owner-only operational detail before repository-visible replacement.",
-          "status": "resolved",
-          "impact": "near_miss",
-          "reported_by": "Codex implementation",
-          "owner": "Project security governance",
-          "recommended_owner": "Project security governance",
-          "next_action": "Retain the public-owner projection split and disclosure-gate regression coverage.",
-          "first_observed": "2026-07-28T00:00:00Z",
-          "last_observed": "2026-07-28T00:00:00Z",
-          "occurrences": [
-            {
-              "diagnostic": "Restricted operational projection was detected in the staged public Console bundle; matched content was not retained.",
-              "observed_at": "2026-07-28T00:00:00Z",
-              "occurrence_id": "console-public-bundle:2026-07-28:prevention",
-              "run_id": null,
-              "source_ref": "restricted:disclosure-finding/console-public-bundle-2026-07-28"
-            }
-          ],
-          "affected_runs": [],
-          "active_links": [
-            "log:incidents"
-          ],
-          "evidence_refs": [
-            "restricted:disclosure-finding/console-public-bundle-2026-07-28"
-          ],
-          "recovery_evidence": [
-            {
-              "closure_test": "Rebuild the complete public Console generation and require one allowed disclosure decision across every public artifact.",
-              "evidence_refs": [
-                "file:research/horizon-review-console/data/generation-manifest.json"
-              ],
-              "recorded_by": "Codex implementation",
-              "result": "The rebuilt 43-artifact public Console generation passed; full operations remained in a secret-scanned Git-ignored local projection.",
-              "verified_at": "2026-07-28T00:00:00Z"
-            }
-          ],
-          "events": [
-            {
-              "active_links": [
-                "log:incidents"
-              ],
-              "affected_runs": [],
-              "component": "Project Console public bundle",
-              "event_id": "INC-2026-001:0001",
-              "event_sha256": "sha256:4eb3db879fb603c906d34b084d544d41cc96af357e5219ebccda8e63b20c92e9",
-              "event_type": "opened",
-              "evidence_refs": [
-                "restricted:disclosure-finding/console-public-bundle-2026-07-28"
-              ],
-              "failure_class": "restricted-operational-data-in-public-generation",
-              "identity_key": "sha256:6f9769dc6a13938846049be28cd85433d4dda4f9a1e1cbbfb51a454517908ec4",
-              "impact": "near_miss",
-              "incident_id": "INC-2026-001",
-              "next_action": "Separate public-safe summaries from owner-local operational projections and rerun the exact generation gate.",
-              "occurrence": {
-                "diagnostic": "Restricted operational projection was detected in the staged public Console bundle; matched content was not retained.",
-                "observed_at": "2026-07-28T00:00:00Z",
-                "occurrence_id": "console-public-bundle:2026-07-28:prevention",
-                "run_id": null,
-                "source_ref": "restricted:disclosure-finding/console-public-bundle-2026-07-28"
-              },
-              "owner": "Project security governance",
-              "prerequisite": "GitHub disclosure boundary",
-              "prior_incident_id": null,
-              "recommended_owner": "Project security governance",
-              "recorded_at": "2026-07-28T20:38:48Z",
-              "recovery": null,
-              "reported_by": "GitHub disclosure gate",
-              "schema_version": 1,
-              "status": "open",
-              "summary": "The disclosure gate prevented a Console generation containing owner-only operational detail before repository-visible replacement."
-            },
-            {
-              "active_links": [
-                "log:incidents"
-              ],
-              "affected_runs": [],
-              "component": "Project Console public bundle",
-              "event_id": "INC-2026-001:0002",
-              "event_sha256": "sha256:adc3d461f633784b2cfba750e99440783dddef31edc2ae138fce6a76f0ef6b84",
-              "event_type": "resolved",
-              "evidence_refs": [],
-              "failure_class": "restricted-operational-data-in-public-generation",
-              "identity_key": "sha256:6f9769dc6a13938846049be28cd85433d4dda4f9a1e1cbbfb51a454517908ec4",
-              "impact": "near_miss",
-              "incident_id": "INC-2026-001",
-              "next_action": "Retain the public-owner projection split and disclosure-gate regression coverage.",
-              "occurrence": null,
-              "owner": "Project security governance",
-              "prerequisite": "GitHub disclosure boundary",
-              "prior_incident_id": null,
-              "recommended_owner": "Project security governance",
-              "recorded_at": "2026-07-28T20:38:48Z",
-              "recovery": {
-                "closure_test": "Rebuild the complete public Console generation and require one allowed disclosure decision across every public artifact.",
-                "evidence_refs": [
-                  "file:research/horizon-review-console/data/generation-manifest.json"
-                ],
-                "recorded_by": "Codex implementation",
-                "result": "The rebuilt 43-artifact public Console generation passed; full operations remained in a secret-scanned Git-ignored local projection.",
-                "verified_at": "2026-07-28T00:00:00Z"
-              },
-              "reported_by": "Codex implementation",
-              "schema_version": 1,
-              "status": "resolved",
-              "summary": "The disclosure gate prevented a Console generation containing owner-only operational detail before repository-visible replacement."
-            }
-          ],
-          "prior_incident_id": null
-        }
-      ],
-      "active_links": {}
+      "incident_kind": "operational",
+      "availability": "unavailable",
+      "complete": false,
+      "checked_at": null,
+      "count": null,
+      "unresolved_count": null,
+      "items": [],
+      "impact_state": "gray",
+      "reason_code": "owner-local-projection-required",
+      "detail_mode": "owner-local-file-only"
+    },
+    "security_incidents": {
+      "schema_version": 1,
+      "incident_kind": "security",
+      "availability": "unavailable",
+      "complete": false,
+      "checked_at": null,
+      "count": null,
+      "unresolved_count": null,
+      "items": [],
+      "impact_state": "gray",
+      "reason_code": "owner-local-projection-required",
+      "detail_mode": "owner-local-file-only"
     },
     "manager_focus": {
-      "human_decisions": 3,
+      "human_decisions": null,
       "human_actions": [
         {
           "item_id": "repository-decision:SMR-20260725-PR380",
@@ -1124,7 +1040,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Source Monitor recommendation",
           "message": "Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current main?",
           "source_url": "#logs:source-monitor",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "repository-decision:SMR-20260725-PR381",
@@ -1148,7 +1064,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Source Monitor recommendation",
           "message": "Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current main?",
           "source_url": "#logs:source-monitor",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         },
         {
           "item_id": "project-human-decision:JUD-009",
@@ -1172,10 +1088,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Status field",
           "message": "JUD-009: Supreme Court Ethics, Recusal, and Transparency",
           "source_url": "#actions",
-          "checked_at": "2026-07-29T06:21:38+00:00"
+          "checked_at": "2026-07-29T13:22:55+00:00"
         }
       ],
-      "active_incidents": 0,
+      "active_incidents": null,
       "incidents": [],
       "release_blockers": 34,
       "release_blocker_fields_available": true,
@@ -1317,12 +1233,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "progress"
         }
       ],
-      "integrity_findings": 0,
+      "integrity_findings": 1,
       "integrity_findings_available": true,
       "source_checker_complete": true,
       "delivery_items": 12,
       "delivery_items_available": true,
       "domain_attention": [
+        {
+          "domain": "integrity",
+          "status": "stale",
+          "reason": "The feed does not completely cover its current authoritative source.",
+          "timestamp": "2026-07-29T13:12:20+00:00",
+          "route": "integrity"
+        },
         {
           "domain": "publication_release",
           "status": "not_determined",
@@ -1475,8 +1398,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "pending_sources": 0,
       "repository_recommendations": 2,
       "delivery_items": 12,
-      "human_actions": 3,
-      "operational_incidents": 0,
+      "human_actions": null,
+      "operational_incidents": null,
       "development": 52,
       "research": 8,
       "audits": 4,
@@ -1565,14 +1488,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items": 12
     },
     "integrity_summary": {
-      "generated_at": "2026-07-29T06:21:29+00:00",
-      "source_revision": "01f53d6cde85fa8fcae97672262bf8f33cf026e0",
-      "availability": "current",
-      "result": "clean",
+      "generated_at": "2026-07-29T13:12:20+00:00",
+      "source_revision": "572e1db1ebfff49cc26004cced1d0933934fa4c6",
+      "availability": "stale",
+      "result": "findings",
       "counts": {
         "errors": 0,
-        "warnings": 0,
-        "findings": 0,
+        "warnings": 1,
+        "findings": 1,
         "issue_pages": 64,
         "proposal_pages": 41
       }
@@ -1586,7 +1509,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "publication_summary": {
       "disposition_counts": {
         "included": 138,
-        "excluded": 227,
+        "excluded": 232,
         "unclassified": 0,
         "conflict": 0
       },
@@ -1647,120 +1570,77 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "intake": 0,
         "total": 0
       },
-      "workflow_health": {
-        "healthy": true,
-        "missing": [],
-        "checks": [
-          {
-            "stage": "case-monitor-bot",
-            "workflow": ".github/workflows/case-monitor-bot.yml",
-            "exists": true,
-            "sha256": "sha256:e007e3b1b332f1e623e3e16267d692b120e52163b1018bfae39670d0101b4001"
-          },
-          {
-            "stage": "presidential-directives-bot",
-            "workflow": ".github/workflows/presidential-directives-bot.yml",
-            "exists": true,
-            "sha256": "sha256:f015060695166dcfb3ffcae673639372076bd1cc833bd64c7137a5a5e520b44d"
-          },
-          {
-            "stage": "source-checker-bot",
-            "workflow": ".github/workflows/source-checker-bot.yml",
-            "exists": true,
-            "sha256": "sha256:215ebc77aa27987b20f2b52d84188a217e16cf4baa967e2ca9887d1a3eacfe41"
-          },
-          {
-            "stage": "project-console-progress-bot",
-            "workflow": ".github/workflows/project-console-progress.yml",
-            "exists": true,
-            "sha256": "sha256:1cc3fdc5491492a29407eb487ce155b708fe232a4a140ce5da6f1516d9917442"
-          },
-          {
-            "stage": "project-integrity-bot",
-            "workflow": ".github/workflows/project-integrity.yml",
-            "exists": true,
-            "sha256": "sha256:12181df885ff6d6faaa574e2773dcbd8546074febf7541cf1130eaf40c083b96"
-          }
-        ]
-      },
       "stages": [
         {
           "id": "case-monitor-bot",
           "order": 1,
           "status": "not_due",
           "due": false,
-          "due_reason": "last success remains current until 2026-07-28T07:55:25+00:00",
           "started_at": null,
           "completed_at": "2026-07-27T08:27:40+00:00",
           "last_success_at": "2026-07-27T07:55:25+00:00",
-          "failure_class": "none",
-          "active_incident_ids": []
+          "reason": "This stage was not due for this occurrence.",
+          "current_chain_label": "Not due this chain"
         },
         {
           "id": "presidential-directives-bot",
           "order": 2,
           "status": "not_due",
           "due": false,
-          "due_reason": "last success remains current until 2026-07-28T07:55:25+00:00",
           "started_at": null,
           "completed_at": "2026-07-27T08:27:40+00:00",
           "last_success_at": "2026-07-27T07:55:25+00:00",
-          "failure_class": "none",
-          "active_incident_ids": []
+          "reason": "This stage was not due for this occurrence.",
+          "current_chain_label": "Not due this chain"
         },
         {
           "id": "source-checker-bot",
           "order": 3,
           "status": "not_due",
           "due": false,
-          "due_reason": "last success remains current until 2026-08-02T10:32:24+00:00",
           "started_at": null,
           "completed_at": "2026-07-27T08:27:40+00:00",
           "last_success_at": "2026-07-26T10:32:24+00:00",
-          "failure_class": "none",
-          "active_incident_ids": []
+          "reason": "This stage was not due for this occurrence.",
+          "current_chain_label": "Not due this chain"
         },
         {
           "id": "project-console-progress-bot",
           "order": 4,
           "status": "succeeded",
           "due": true,
-          "due_reason": "forced",
           "started_at": null,
           "completed_at": "2026-07-27T08:28:50+00:00",
           "last_success_at": "2026-07-27T08:28:50+00:00",
-          "failure_class": "none",
-          "active_incident_ids": []
+          "reason": "This stage completed successfully.",
+          "current_chain_label": "Succeeded"
         },
         {
           "id": "public-intake",
           "order": 5,
           "status": "succeeded",
           "due": true,
-          "due_reason": "required every chain",
           "started_at": null,
           "completed_at": "2026-07-27T08:28:50+00:00",
           "last_success_at": "2026-07-27T08:28:50+00:00",
-          "failure_class": "none",
-          "active_incident_ids": []
+          "reason": "This stage completed successfully.",
+          "current_chain_label": "Succeeded"
         },
         {
           "id": "project-integrity-bot",
           "order": 6,
           "status": "succeeded",
           "due": true,
-          "due_reason": "forced",
           "started_at": null,
           "completed_at": "2026-07-27T08:28:50+00:00",
           "last_success_at": "2026-07-27T08:28:50+00:00",
-          "failure_class": "none",
-          "active_incident_ids": []
+          "reason": "This stage completed successfully.",
+          "current_chain_label": "Succeeded"
         }
       ],
       "review_epoch": {
         "epoch_id": "epoch-arrp-20260727T075310Z",
         "due": false,
-        "due_reason": "interval current",
         "interval_days": 14,
         "last_completed_at": "2026-07-27T08:10:38+00:00",
         "next_due_at": "2026-08-10T08:10:38+00:00",
@@ -1779,12 +1659,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   },
   "automation_occurrences": {
     "schema_version": 2,
-    "checked_at": "2026-07-29T06:21:38+00:00",
+    "checked_at": "2026-07-29T13:22:55+00:00",
     "occurrences": [
       {
         "occurrence_id": "arrp-20260729T060003Z",
         "schedule_identity": "owner-local-nightly",
-        "trigger": "scheduled",
         "status": "failed",
         "source_revision": null,
         "generation_id": null,
@@ -1793,6 +1672,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "completed_at": "2026-07-29T06:00:03.732284Z",
         "updated_at": "2026-07-29T06:00:03.732311Z",
         "scheduled_for": "2026-07-29T02:00:00-04:00",
+        "complete": true,
+        "control_state": "paused",
+        "control_state_checked_at": "2026-07-29T07:52:04.635054Z",
+        "trigger": "scheduled",
+        "reason": "This occurrence did not complete; protected diagnostic detail is owner-local.",
         "stages": [
           {
             "stage_id": "case-monitor-bot",
@@ -1802,12 +1686,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "status": "unavailable",
             "current_chain_label": "Unavailable",
             "due": null,
-            "reason": "The owner-local status did not publish stage-level results.",
             "started_at": null,
             "completed_at": null,
             "prior_success_at": null,
-            "failure_class": null,
-            "active_incident_ids": []
+            "reason": "This stage status is unavailable."
           },
           {
             "stage_id": "presidential-directives-bot",
@@ -1817,12 +1699,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "status": "unavailable",
             "current_chain_label": "Unavailable",
             "due": null,
-            "reason": "The owner-local status did not publish stage-level results.",
             "started_at": null,
             "completed_at": null,
             "prior_success_at": null,
-            "failure_class": null,
-            "active_incident_ids": []
+            "reason": "This stage status is unavailable."
           },
           {
             "stage_id": "source-checker-bot",
@@ -1832,12 +1712,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "status": "unavailable",
             "current_chain_label": "Unavailable",
             "due": null,
-            "reason": "The owner-local status did not publish stage-level results.",
             "started_at": null,
             "completed_at": null,
             "prior_success_at": null,
-            "failure_class": null,
-            "active_incident_ids": []
+            "reason": "This stage status is unavailable."
           },
           {
             "stage_id": "public-intake",
@@ -1847,12 +1725,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "status": "unavailable",
             "current_chain_label": "Unavailable",
             "due": null,
-            "reason": "The owner-local status did not publish stage-level results.",
             "started_at": null,
             "completed_at": null,
             "prior_success_at": null,
-            "failure_class": null,
-            "active_incident_ids": []
+            "reason": "This stage status is unavailable."
           },
           {
             "stage_id": "project-console-progress-bot",
@@ -1862,12 +1738,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "status": "unavailable",
             "current_chain_label": "Unavailable",
             "due": null,
-            "reason": "The owner-local status did not publish stage-level results.",
             "started_at": null,
             "completed_at": null,
             "prior_success_at": null,
-            "failure_class": null,
-            "active_incident_ids": []
+            "reason": "This stage status is unavailable."
           },
           {
             "stage_id": "project-integrity-bot",
@@ -1877,12 +1751,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "status": "unavailable",
             "current_chain_label": "Unavailable",
             "due": null,
-            "reason": "The owner-local status did not publish stage-level results.",
             "started_at": null,
             "completed_at": null,
             "prior_success_at": null,
-            "failure_class": null,
-            "active_incident_ids": []
+            "reason": "This stage status is unavailable."
           },
           {
             "stage_id": "elim",
@@ -1892,30 +1764,25 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "status": "unavailable",
             "current_chain_label": "Unavailable",
             "due": null,
-            "reason": "The owner-local status did not publish stage-level results.",
             "started_at": null,
             "completed_at": null,
             "prior_success_at": null,
-            "failure_class": null,
-            "active_incident_ids": []
+            "reason": "This stage status is unavailable."
           }
         ],
         "blockers": [
           {
-            "id": "arrp-20260729T060003Z-local-status",
+            "id": "arrp-20260729T060003Z-blocker-1",
             "stage_id": null,
-            "reason": "canonical repository is off main",
-            "recorded_at": "2026-07-29T06:00:03.732311Z"
+            "status": "blocked",
+            "recorded_at": "2026-07-29T06:00:03.732311Z",
+            "reason": "A recorded occurrence blocker is blocked; protected diagnostic detail is owner-local."
           }
-        ],
-        "complete": true,
-        "control_state": "run",
-        "control_state_checked_at": null
+        ]
       },
       {
         "occurrence_id": "https://github.com/Thorncrag/ARRP/actions/runs/30249971183",
         "schedule_identity": "event-driven",
-        "trigger": "push",
         "status": "complete",
         "source_revision": "be3ae39a0841c6072ca421916a5e37936504619e",
         "generation_id": null,
@@ -1924,6 +1791,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "completed_at": "2026-07-27T08:37:33+00:00",
         "updated_at": "2026-07-27T08:37:33+00:00",
         "scheduled_for": null,
+        "complete": true,
+        "trigger": "event",
+        "reason": "This occurrence status is unavailable.",
         "stages": [
           {
             "stage_id": "case-monitor-bot",
@@ -1933,12 +1803,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "status": "not_due",
             "current_chain_label": "Not due this chain",
             "due": false,
-            "reason": "last success remains current until 2026-07-28T07:55:25+00:00",
             "started_at": null,
             "completed_at": "2026-07-27T08:27:40+00:00",
             "prior_success_at": "2026-07-27T07:55:25+00:00",
-            "failure_class": "none",
-            "active_incident_ids": []
+            "reason": "This stage was not due for this occurrence."
           },
           {
             "stage_id": "presidential-directives-bot",
@@ -1948,12 +1816,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "status": "not_due",
             "current_chain_label": "Not due this chain",
             "due": false,
-            "reason": "last success remains current until 2026-07-28T07:55:25+00:00",
             "started_at": null,
             "completed_at": "2026-07-27T08:27:40+00:00",
             "prior_success_at": "2026-07-27T07:55:25+00:00",
-            "failure_class": "none",
-            "active_incident_ids": []
+            "reason": "This stage was not due for this occurrence."
           },
           {
             "stage_id": "source-checker-bot",
@@ -1963,12 +1829,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "status": "not_due",
             "current_chain_label": "Not due this chain",
             "due": false,
-            "reason": "last success remains current until 2026-08-02T10:32:24+00:00",
             "started_at": null,
             "completed_at": "2026-07-27T08:27:40+00:00",
             "prior_success_at": "2026-07-26T10:32:24+00:00",
-            "failure_class": "none",
-            "active_incident_ids": []
+            "reason": "This stage was not due for this occurrence."
           },
           {
             "stage_id": "public-intake",
@@ -1978,12 +1842,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "status": "succeeded",
             "current_chain_label": "Succeeded",
             "due": true,
-            "reason": "required every chain",
             "started_at": null,
             "completed_at": "2026-07-27T08:28:50+00:00",
             "prior_success_at": "2026-07-27T08:28:50+00:00",
-            "failure_class": "none",
-            "active_incident_ids": []
+            "reason": "This stage completed successfully."
           },
           {
             "stage_id": "project-console-progress-bot",
@@ -1993,12 +1855,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "status": "succeeded",
             "current_chain_label": "Succeeded",
             "due": true,
-            "reason": "forced",
             "started_at": null,
             "completed_at": "2026-07-27T08:28:50+00:00",
             "prior_success_at": "2026-07-27T08:28:50+00:00",
-            "failure_class": "none",
-            "active_incident_ids": []
+            "reason": "This stage completed successfully."
           },
           {
             "stage_id": "project-integrity-bot",
@@ -2008,12 +1868,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "status": "succeeded",
             "current_chain_label": "Succeeded",
             "due": true,
-            "reason": "forced",
             "started_at": null,
             "completed_at": "2026-07-27T08:28:50+00:00",
             "prior_success_at": "2026-07-27T08:28:50+00:00",
-            "failure_class": "none",
-            "active_incident_ids": []
+            "reason": "This stage completed successfully."
           },
           {
             "stage_id": "elim",
@@ -2023,16 +1881,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "status": "not_due",
             "current_chain_label": "Not due this chain",
             "due": false,
-            "reason": "Host dispatcher rejected an LLM launch from a deterministic-only or unspecified trigger.",
             "started_at": null,
             "completed_at": "2026-07-27T08:37:33+00:00",
             "prior_success_at": null,
-            "failure_class": null,
-            "active_incident_ids": []
+            "reason": "This stage was not due for this occurrence."
           }
         ],
-        "blockers": [],
-        "complete": true
+        "blockers": []
       }
     ],
     "latest_attempt_id": "arrp-20260729T060003Z",
@@ -2058,10 +1913,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   },
   "action_snapshot": {
     "schema_version": 1,
-    "generation_id": "action-snapshot-6d163c4b1b54dca193bf",
-    "generated_at": "2026-07-29T06:21:38+00:00",
-    "availability": "current",
-    "complete": true,
+    "generation_id": "action-snapshot-116e982f66d87a0cedde",
+    "generated_at": "2026-07-29T13:22:55+00:00",
+    "availability": "partial",
+    "complete": false,
     "items": [
       {
         "item_id": "repository-decision:SMR-20260725-PR380",
@@ -2085,7 +1940,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Source Monitor recommendation",
         "message": "Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current main?",
         "source_url": "#logs:source-monitor",
-        "checked_at": "2026-07-29T06:21:38+00:00"
+        "checked_at": "2026-07-29T13:22:55+00:00"
       },
       {
         "item_id": "repository-decision:SMR-20260725-PR381",
@@ -2109,7 +1964,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Source Monitor recommendation",
         "message": "Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current main?",
         "source_url": "#logs:source-monitor",
-        "checked_at": "2026-07-29T06:21:38+00:00"
+        "checked_at": "2026-07-29T13:22:55+00:00"
       },
       {
         "item_id": "project-human-decision:JUD-009",
@@ -2133,7 +1988,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Status field",
         "message": "JUD-009: Supreme Court Ethics, Recusal, and Transparency",
         "source_url": "#actions",
-        "checked_at": "2026-07-29T06:21:38+00:00"
+        "checked_at": "2026-07-29T13:22:55+00:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:DOJ-004",
@@ -2157,7 +2012,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "DOJ-004 is Blocked but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-29T06:21:38+00:00"
+        "checked_at": "2026-07-29T13:22:55+00:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:ELEC-014",
@@ -2181,7 +2036,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "ELEC-014 is Blocked but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-29T06:21:38+00:00"
+        "checked_at": "2026-07-29T13:22:55+00:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-010",
@@ -2205,7 +2060,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-010 is Deferred but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-29T06:21:38+00:00"
+        "checked_at": "2026-07-29T13:22:55+00:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-023",
@@ -2229,7 +2084,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-023 is Deferred but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-29T06:21:38+00:00"
+        "checked_at": "2026-07-29T13:22:55+00:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-031",
@@ -2253,7 +2108,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-031 is Blocked but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-29T06:21:38+00:00"
+        "checked_at": "2026-07-29T13:22:55+00:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-038",
@@ -2277,7 +2132,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-038 is Deferred but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-29T06:21:38+00:00"
+        "checked_at": "2026-07-29T13:22:55+00:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-045",
@@ -2301,7 +2156,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-045 is Deferred but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-29T06:21:38+00:00"
+        "checked_at": "2026-07-29T13:22:55+00:00"
       },
       {
         "item_id": "next-action-missing:HOR-026",
@@ -2325,7 +2180,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Next action field",
         "message": "HOR-026: Next action is not recorded",
         "source_url": "#integrity",
-        "checked_at": "2026-07-29T06:21:38+00:00"
+        "checked_at": "2026-07-29T13:22:55+00:00"
       },
       {
         "item_id": "next-action-missing:HOR-027",
@@ -2349,7 +2204,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Next action field",
         "message": "HOR-027: Next action is not recorded",
         "source_url": "#integrity",
-        "checked_at": "2026-07-29T06:21:38+00:00"
+        "checked_at": "2026-07-29T13:22:55+00:00"
       },
       {
         "item_id": "next-action-missing:HOR-029",
@@ -2373,7 +2228,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Next action field",
         "message": "HOR-029: Next action is not recorded",
         "source_url": "#integrity",
-        "checked_at": "2026-07-29T06:21:38+00:00"
+        "checked_at": "2026-07-29T13:22:55+00:00"
       },
       {
         "item_id": "next-action-missing:HOR-039",
@@ -2397,13 +2252,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Next action field",
         "message": "HOR-039: Next action is not recorded",
         "source_url": "#integrity",
-        "checked_at": "2026-07-29T06:21:38+00:00"
+        "checked_at": "2026-07-29T13:22:55+00:00"
       }
     ],
     "counts": {
+      "human": null,
+      "oversight": null,
+      "all_open": null
+    },
+    "known_counts": {
       "human": 3,
       "oversight": 11,
       "all_open": 14
+    },
+    "sources": {
+      "operational_incidents": {
+        "availability": "unavailable",
+        "complete": false
+      },
+      "security_incidents": {
+        "availability": "unavailable",
+        "complete": false
+      }
     },
     "predicates": {
       "human": {
@@ -2421,10 +2291,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   },
   "queue_directory": {
     "schema_version": 1,
-    "generation_id": "queue-directory-e00d15f706882966f380",
-    "generated_at": "2026-07-29T06:21:38+00:00",
-    "availability": "current",
-    "complete": true,
+    "generation_id": "queue-directory-a63b8704db761a66b4e0",
+    "generated_at": "2026-07-29T13:22:55+00:00",
+    "availability": "partial",
+    "complete": false,
     "queues": [
       {
         "queue_id": "candidate_intake",
@@ -2437,8 +2307,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "owner_writer": "preliminary-candidate-catalog",
         "route": "planning:workbench:pipeline:work_class=Preliminary%20candidate",
         "problem_route": "planning:preliminary",
-        "generation_id": "queue-directory-e00d15f706882966f380",
-        "current_through": "2026-07-29T06:21:38+00:00",
+        "generation_id": "queue-directory-a63b8704db761a66b4e0",
+        "current_through": "2026-07-29T13:22:55+00:00",
         "problem_state": "none",
         "impact_state": null
       },
@@ -2453,7 +2323,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "owner_writer": "GitHub Issues and Project candidate projection",
         "route": "planning:workbench:pipeline:work_class=Formal%20candidate",
         "problem_route": "planning:candidates",
-        "generation_id": "queue-directory-e00d15f706882966f380",
+        "generation_id": "queue-directory-a63b8704db761a66b4e0",
         "current_through": "2026-07-29T06:21:19+00:00",
         "problem_state": "none",
         "impact_state": null
@@ -2469,7 +2339,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "owner_writer": "typed Pipeline projection",
         "route": "planning:workbench:pipeline:status=Development",
         "problem_route": "integrity",
-        "generation_id": "queue-directory-e00d15f706882966f380",
+        "generation_id": "queue-directory-a63b8704db761a66b4e0",
         "current_through": "2026-07-29T06:21:19+00:00",
         "problem_state": "none",
         "impact_state": null
@@ -2485,7 +2355,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "owner_writer": "typed Pipeline projection",
         "route": "planning:workbench:pipeline:status=Research",
         "problem_route": "integrity",
-        "generation_id": "queue-directory-e00d15f706882966f380",
+        "generation_id": "queue-directory-a63b8704db761a66b4e0",
         "current_through": "2026-07-29T06:21:19+00:00",
         "problem_state": "none",
         "impact_state": null
@@ -2501,7 +2371,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "owner_writer": "typed Pipeline projection",
         "route": "planning:workbench:pipeline:status=Audit",
         "problem_route": "integrity",
-        "generation_id": "queue-directory-e00d15f706882966f380",
+        "generation_id": "queue-directory-a63b8704db761a66b4e0",
         "current_through": "2026-07-29T06:21:19+00:00",
         "problem_state": "none",
         "impact_state": null
@@ -2517,7 +2387,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "owner_writer": "typed Pipeline projection",
         "route": "planning:workbench:pipeline:scope=review-ready-plus",
         "problem_route": "integrity",
-        "generation_id": "queue-directory-e00d15f706882966f380",
+        "generation_id": "queue-directory-a63b8704db761a66b4e0",
         "current_through": "2026-07-29T06:21:19+00:00",
         "problem_state": "none",
         "impact_state": null
@@ -2533,8 +2403,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "owner_writer": "pending source catalog",
         "route": "planning:sources:status=pending",
         "problem_route": "planning:sources",
-        "generation_id": "queue-directory-e00d15f706882966f380",
-        "current_through": "2026-07-29T06:21:38+00:00",
+        "generation_id": "queue-directory-a63b8704db761a66b4e0",
+        "current_through": "2026-07-29T13:22:55+00:00",
         "problem_state": "none",
         "impact_state": null
       },
@@ -2549,7 +2419,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "owner_writer": "Source Monitor recommendation projection",
         "route": "automation:logs:sources",
         "problem_route": "automation:repository-gates",
-        "generation_id": "queue-directory-e00d15f706882966f380",
+        "generation_id": "queue-directory-a63b8704db761a66b4e0",
         "current_through": "2026-07-25T22:17:40Z",
         "problem_state": "none",
         "impact_state": null
@@ -2557,34 +2427,50 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       {
         "queue_id": "human_actions",
         "label": "Human action items",
-        "count": 3,
-        "availability": "current",
-        "complete": true,
+        "count": null,
+        "availability": "unavailable",
+        "complete": false,
         "predicate": "shared Action snapshot attention_class equals human",
         "authoritative_source": "typed Action snapshot",
         "owner_writer": "typed Action snapshot",
         "route": "actions:my-items",
         "problem_route": "integrity",
-        "generation_id": "queue-directory-e00d15f706882966f380",
-        "current_through": "2026-07-29T06:21:38+00:00",
-        "problem_state": "none",
+        "generation_id": "queue-directory-a63b8704db761a66b4e0",
+        "current_through": "2026-07-29T13:22:55+00:00",
+        "problem_state": "unavailable",
         "impact_state": null
       },
       {
         "queue_id": "operational_incidents",
         "label": "Operational incidents",
-        "count": 0,
-        "availability": "current",
-        "complete": true,
+        "count": null,
+        "availability": "unavailable",
+        "complete": false,
         "predicate": "unresolved Operational Incident lifecycle states",
         "authoritative_source": "Operational Incidents projection",
         "owner_writer": "Operational Incidents projection",
         "route": "automation:logs:incidents",
         "problem_route": "automation:logs:incidents",
-        "generation_id": "queue-directory-e00d15f706882966f380",
-        "current_through": "2026-07-29T06:21:29Z",
-        "problem_state": "none",
-        "impact_state": "green"
+        "generation_id": "queue-directory-a63b8704db761a66b4e0",
+        "current_through": "2026-07-29T13:22:55+00:00",
+        "problem_state": "unavailable",
+        "impact_state": "gray"
+      },
+      {
+        "queue_id": "security_incidents",
+        "label": "Security incidents",
+        "count": null,
+        "availability": "unavailable",
+        "complete": false,
+        "predicate": "unresolved owner-local Security Incident lifecycle states",
+        "authoritative_source": "Owner-local Security Incidents projection",
+        "owner_writer": "Owner-local Security Incidents projection",
+        "route": "automation:logs:security-incidents",
+        "problem_route": "automation:logs:security-incidents",
+        "generation_id": "queue-directory-a63b8704db761a66b4e0",
+        "current_through": null,
+        "problem_state": "unavailable",
+        "impact_state": "gray"
       }
     ]
   },
@@ -2626,120 +2512,77 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "intake": 0,
       "total": 0
     },
-    "workflow_health": {
-      "healthy": true,
-      "missing": [],
-      "checks": [
-        {
-          "stage": "case-monitor-bot",
-          "workflow": ".github/workflows/case-monitor-bot.yml",
-          "exists": true,
-          "sha256": "sha256:e007e3b1b332f1e623e3e16267d692b120e52163b1018bfae39670d0101b4001"
-        },
-        {
-          "stage": "presidential-directives-bot",
-          "workflow": ".github/workflows/presidential-directives-bot.yml",
-          "exists": true,
-          "sha256": "sha256:f015060695166dcfb3ffcae673639372076bd1cc833bd64c7137a5a5e520b44d"
-        },
-        {
-          "stage": "source-checker-bot",
-          "workflow": ".github/workflows/source-checker-bot.yml",
-          "exists": true,
-          "sha256": "sha256:215ebc77aa27987b20f2b52d84188a217e16cf4baa967e2ca9887d1a3eacfe41"
-        },
-        {
-          "stage": "project-console-progress-bot",
-          "workflow": ".github/workflows/project-console-progress.yml",
-          "exists": true,
-          "sha256": "sha256:1cc3fdc5491492a29407eb487ce155b708fe232a4a140ce5da6f1516d9917442"
-        },
-        {
-          "stage": "project-integrity-bot",
-          "workflow": ".github/workflows/project-integrity.yml",
-          "exists": true,
-          "sha256": "sha256:12181df885ff6d6faaa574e2773dcbd8546074febf7541cf1130eaf40c083b96"
-        }
-      ]
-    },
     "stages": [
       {
         "id": "case-monitor-bot",
         "order": 1,
         "status": "not_due",
         "due": false,
-        "due_reason": "last success remains current until 2026-07-28T07:55:25+00:00",
         "started_at": null,
         "completed_at": "2026-07-27T08:27:40+00:00",
         "last_success_at": "2026-07-27T07:55:25+00:00",
-        "failure_class": "none",
-        "active_incident_ids": []
+        "reason": "This stage was not due for this occurrence.",
+        "current_chain_label": "Not due this chain"
       },
       {
         "id": "presidential-directives-bot",
         "order": 2,
         "status": "not_due",
         "due": false,
-        "due_reason": "last success remains current until 2026-07-28T07:55:25+00:00",
         "started_at": null,
         "completed_at": "2026-07-27T08:27:40+00:00",
         "last_success_at": "2026-07-27T07:55:25+00:00",
-        "failure_class": "none",
-        "active_incident_ids": []
+        "reason": "This stage was not due for this occurrence.",
+        "current_chain_label": "Not due this chain"
       },
       {
         "id": "source-checker-bot",
         "order": 3,
         "status": "not_due",
         "due": false,
-        "due_reason": "last success remains current until 2026-08-02T10:32:24+00:00",
         "started_at": null,
         "completed_at": "2026-07-27T08:27:40+00:00",
         "last_success_at": "2026-07-26T10:32:24+00:00",
-        "failure_class": "none",
-        "active_incident_ids": []
+        "reason": "This stage was not due for this occurrence.",
+        "current_chain_label": "Not due this chain"
       },
       {
         "id": "project-console-progress-bot",
         "order": 4,
         "status": "succeeded",
         "due": true,
-        "due_reason": "forced",
         "started_at": null,
         "completed_at": "2026-07-27T08:28:50+00:00",
         "last_success_at": "2026-07-27T08:28:50+00:00",
-        "failure_class": "none",
-        "active_incident_ids": []
+        "reason": "This stage completed successfully.",
+        "current_chain_label": "Succeeded"
       },
       {
         "id": "public-intake",
         "order": 5,
         "status": "succeeded",
         "due": true,
-        "due_reason": "required every chain",
         "started_at": null,
         "completed_at": "2026-07-27T08:28:50+00:00",
         "last_success_at": "2026-07-27T08:28:50+00:00",
-        "failure_class": "none",
-        "active_incident_ids": []
+        "reason": "This stage completed successfully.",
+        "current_chain_label": "Succeeded"
       },
       {
         "id": "project-integrity-bot",
         "order": 6,
         "status": "succeeded",
         "due": true,
-        "due_reason": "forced",
         "started_at": null,
         "completed_at": "2026-07-27T08:28:50+00:00",
         "last_success_at": "2026-07-27T08:28:50+00:00",
-        "failure_class": "none",
-        "active_incident_ids": []
+        "reason": "This stage completed successfully.",
+        "current_chain_label": "Succeeded"
       }
     ],
     "review_epoch": {
       "epoch_id": "epoch-arrp-20260727T075310Z",
       "due": false,
-      "due_reason": "interval current",
       "interval_days": 14,
       "last_completed_at": "2026-07-27T08:10:38+00:00",
       "next_due_at": "2026-08-10T08:10:38+00:00",
@@ -2756,6 +2599,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-7b6e6607947040eac85b"
+    "overview.js": "project-console-4c179a05f1b0ff2bdd6e"
   }
 });

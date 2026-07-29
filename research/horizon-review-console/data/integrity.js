@@ -3,52 +3,12 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
-    "contract_schema_version": 1,
-    "generation_id": "project-integrity-87e8925f985cd3b2c74d",
-    "source_revision": "01f53d6cde85fa8fcae97672262bf8f33cf026e0",
-    "generated_at": "2026-07-29T06:21:29+00:00",
-    "expected_count": 22,
-    "actual_count": 22,
-    "source_hashes": {
-      "integrity-report.json": "sha256:a09df6943cc33f2037c76716843fe19338fc748e84170086c74c110e44857cf8"
-    },
-    "availability": "current",
-    "completeness": {
-      "complete": true,
-      "expected_count": 22,
-      "actual_count": 22,
-      "missing_count": 0
-    },
-    "pagination": {
-      "complete": true,
-      "sources": [
-        {
-          "source": "integrity-check-inventory",
-          "complete": true,
-          "expected_count": 22,
-          "actual_count": 22
-        }
-      ]
-    },
-    "projection_errors": [],
-    "freshness": {
-      "status": "current",
-      "basis": "authoritative repository revision",
-      "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
-    },
+    "availability": "stale",
+    "generated_at": "2026-07-29T13:12:20+00:00",
     "current": {
-      "schema_version": 2,
-      "generated_at": "2026-07-29T06:21:29+00:00",
-      "revision": "01f53d6cde85fa8fcae97672262bf8f33cf026e0",
-      "result": "clean",
-      "counts": {
-        "errors": 0,
-        "warnings": 0,
-        "findings": 0,
-        "issue_pages": 64,
-        "proposal_pages": 41
-      },
-      "duration_seconds": 10.128,
+      "result": "findings",
+      "generated_at": "2026-07-29T13:12:20+00:00",
+      "revision": "572e1db1ebfff49cc26004cced1d0933934fa4c6",
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -73,20 +33,20 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "Local-first source-monitoring and provenance wiring",
         "Structured-file and repository hygiene"
       ],
-      "findings": []
-    },
-    "currentness": {
-      "authority": "repository_revision",
-      "status": "current",
-      "current": true,
-      "expected_source_revision": "01f53d6cde85fa8fcae97672262bf8f33cf026e0",
-      "producer_source_revision": "01f53d6cde85fa8fcae97672262bf8f33cf026e0",
-      "equivalent_inputs_established": false,
-      "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
+      "findings": [
+        {
+          "finding_id": "INT-24b03488466c67d6",
+          "finding_code": null,
+          "severity": "warning",
+          "category": "GitHub records",
+          "status": "open",
+          "message": "A typed integrity finding requires review."
+        }
+      ]
     },
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-7b6e6607947040eac85b"
+    "integrity.js": "project-console-4c179a05f1b0ff2bdd6e"
   }
 });

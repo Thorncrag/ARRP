@@ -25,7 +25,7 @@ from scripts.build_horizon_review_console import (
     snapshot_time,
     source_checker_snapshot,
 )
-from scripts.build_project_integrity_feed import build_feed, existing_feed
+from scripts.build_project_integrity_feed import build_feed
 from scripts.project_tree import iter_project_files
 
 
@@ -626,9 +626,9 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertNotIn("failures", public_chain)
         self.assertNotIn("details", public_chain["stages"][0])
         self.assertNotIn("output", public_chain["stages"][0])
-        self.assertEqual(
-            public_chain["stages"][0]["active_incident_ids"],
-            ["INC-2026-001"],
+        self.assertNotIn(
+            "active_incident_ids",
+            public_chain["stages"][0],
         )
 
     def test_private_operations_projection_is_ignored_and_secret_scanned(self) -> None:
@@ -647,10 +647,31 @@ class HorizonIntakeTest(unittest.TestCase):
                     project_logs=[{"id": "agents", "entries": []}],
                     integrity={"history": [{"generation_id": "local-history"}]},
                     run_chain={"context_packet": {"scope": "local"}},
-                    action_snapshot={"complete": True, "items": [], "counts": {}},
+                    action_snapshot={
+                        "complete": False,
+                        "availability": "partial",
+                        "items": [],
+                        "counts": {},
+                    },
+                    queue_directory={"complete": False, "queues": []},
+                    operational_incidents={"complete": True, "items": []},
+                    security_incidents={"complete": False, "items": []},
+                    incident_relations={"complete": False, "relations": []},
+                    governance_change_supplements={
+                        "schema_version": 1,
+                        "availability": "unavailable",
+                        "complete": False,
+                        "checked_at": "2026-07-29T12:00:00Z",
+                        "source_revision": "revision-test",
+                        "public_log_sha256": "sha256:" + "f" * 64,
+                        "items": [],
+                        "reason_code": (
+                            "owner-local-governance-supplements-unavailable"
+                        ),
+                    },
                 )
                 self.assertEqual(snapshot["availability"], "current")
-                self.assertEqual(snapshot["schema_version"], 2)
+                self.assertEqual(snapshot["schema_version"], 4)
                 self.assertTrue(
                     console_builder.valid_private_operations(
                         snapshot,
@@ -684,6 +705,22 @@ class HorizonIntakeTest(unittest.TestCase):
                         integrity={},
                         run_chain={},
                         action_snapshot={"complete": True, "items": [], "counts": {}},
+                        queue_directory={"complete": True, "queues": []},
+                        operational_incidents={"complete": True, "items": []},
+                        security_incidents={"complete": True, "items": []},
+                        incident_relations={"complete": True, "relations": []},
+                        governance_change_supplements={
+                            "schema_version": 1,
+                            "availability": "unavailable",
+                            "complete": False,
+                            "checked_at": "2026-07-29T12:00:00Z",
+                            "source_revision": "revision-test",
+                            "public_log_sha256": "sha256:" + "f" * 64,
+                            "items": [],
+                            "reason_code": (
+                                "owner-local-governance-supplements-unavailable"
+                            ),
+                        },
                     )
                 self.assertNotIn(
                     prohibited_value,
@@ -843,17 +880,6 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertEqual(len(records), 98)
         self.assertEqual(len(identifiers), len(set(identifiers)))
         self.assertTrue(set(levels) <= expected_levels)
-
-    def test_integrity_history_rejects_unapproved_network_locations(self) -> None:
-        self.assertEqual(existing_feed(None), {})
-        for url in (
-            "http://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/integrity.json",
-            "https://example.com/integrity.json",
-            "https://raw.githubusercontent.com/Other/Repo/project-console-data/integrity.json",
-            "https://raw.githubusercontent.com/Thorncrag/ARRP/project-console-data/integrity.json?redirect=1",
-        ):
-            with self.subTest(url=url), self.assertRaises(ValueError):
-                existing_feed(url)
 
     def test_source_checker_snapshot_prefers_explicit_offline_cache(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -1134,6 +1160,8 @@ class HorizonIntakeTest(unittest.TestCase):
                 "queue_directory",
                 "repository_gates",
                 "operational_incidents",
+                "security_incidents",
+                "incident_relations",
                 "security_assurance",
                 "delivery_items",
                 "topic_products",
@@ -1218,6 +1246,53 @@ class HorizonIntakeTest(unittest.TestCase):
             self.assertLess(path.stat().st_size, 4_000_000, path)
             self.assertGreater(text.count("\n"), 10, path)
             self.assertLess(max(map(len, text.splitlines())), 250_000, path)
+
+        for key in ("operational_incidents", "security_incidents"):
+            projection = self.console[key]
+            self.assertEqual(projection["availability"], "unavailable")
+            self.assertFalse(projection["complete"])
+            self.assertIsNone(projection["count"])
+            self.assertIsNone(projection["unresolved_count"])
+            self.assertEqual(projection["items"], [])
+        self.assertEqual(
+            self.console["incident_relations"]["availability"],
+            "unavailable",
+        )
+        self.assertFalse(self.console["incident_relations"]["complete"])
+        self.assertEqual(
+            self.console["incident_relations"]["relations"],
+            [],
+        )
+        public_data_text = "\n".join(
+            path.read_text(encoding="utf-8")
+            for path in [
+                compatibility,
+                *sorted((console_dir / "data").glob("*.js")),
+            ]
+            if path.name
+            not in {
+                private_projection.name,
+                legacy_private_projection.name,
+                private_operations_projection.name,
+                local_status_projection.name,
+            }
+        )
+        self.assertIsNone(
+            re.search(r"\b(?:INC|SEC)-20\d{2}-\d{3,}\b", public_data_text)
+        )
+
+        paused_marker = (
+            Path.home() / "Library/Application Support/ARRP/PAUSED"
+        )
+        if paused_marker.is_file() and not paused_marker.is_symlink():
+            occurrences = self.console["automation_occurrences"]
+            latest_id = occurrences["latest_scheduled_attempt_id"]
+            latest = next(
+                item
+                for item in occurrences["occurrences"]
+                if item["occurrence_id"] == latest_id
+            )
+            self.assertEqual(latest["control_state"], "paused")
         sources_projection = generated_console_part(
             (console_dir / "data" / "sources.js").read_text(encoding="utf-8")
         )
@@ -1349,14 +1424,12 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertFalse(errors)
         self.assertEqual(
             view["projection"],
-            {"expected_rows": 8, "actual_rows": 8, "complete": True},
+            {"expected_rows": 13, "actual_rows": 13, "complete": True},
         )
         self.assertEqual(
-            [entry["values"]["category"] for entry in view["entries"]],
+            [entry["values"]["category"] for entry in view["entries"][:6]],
             [
-                "Security, privacy & disclosure",
                 "Interface & information architecture",
-                "Planning & work management",
                 "Operations & automation",
                 "Data, provenance & integrity",
                 "Security, privacy & disclosure",
@@ -1366,38 +1439,45 @@ class HorizonIntakeTest(unittest.TestCase):
         )
         self.assertEqual(
             view["entries"][0]["id"],
-            "console-development-2026-07-29-security_privacy_disclosure",
+            "console-development-2026-07-29-interface_information_architecture",
         )
-        self.assertEqual(
-            view["entries"][1]["id"],
-            "console-development-2026-07-28-interface_information_architecture",
-        )
+        self.assertEqual(len({entry["id"] for entry in view["entries"]}), 13)
         self.assertEqual(
             view["entries"][0]["values"]["date"],
             "2026-07-29",
         )
         self.assertEqual(
             view["entries"][0]["values"]["change"],
-            "CONSOLE-2026-002",
+            "CONSOLE-2026-003",
         )
         self.assertTrue(
             all(
                 entry["values"]["date"] == "2026-07-28"
                 and entry["values"]["change"] == "CONSOLE-2026-001"
-                for entry in view["entries"][1:]
+                for entry in view["entries"][6:]
             )
         )
         self.assertIn(
-            "<h2>2026-07-29 — Security, privacy &amp; disclosure",
+            "<h2>2026-07-29 — Interface &amp; information architecture",
             view["entries"][0]["details_html"],
         )
         self.assertIn(
-            "<h2>2026-07-28 — Interface &amp; information architecture",
-            view["entries"][1]["details_html"],
+            "CONSOLE-2026-002",
+            view["entries"][3]["values"]["change"],
         )
-        self.assertNotIn(
-            "Planning &amp; work management",
-            view["entries"][1]["details_html"],
+        self.assertIn(
+            "CONSOLE-2026-003",
+            view["entries"][3]["values"]["change"],
+        )
+        self.assertIn(
+            "<h2>2026-07-28 — Interface &amp; information architecture",
+            view["entries"][6]["details_html"],
+        )
+        self.assertTrue(
+            all(
+                entry["values"]["category"] != "Planning & work management"
+                for entry in view["entries"][:6]
+            )
         )
         self.assertIn(
             "Each date uses one canonical umbrella divided into the registered",
@@ -1439,7 +1519,7 @@ class HorizonIntakeTest(unittest.TestCase):
                 edition["id"],
             )
         log_ids = {record["id"] for record in self.console["project_logs"]}
-        public_log_ids = {"horizon", "changes"}
+        public_log_ids = {"horizon", "changes", "governance-changes"}
         private_log_ids = {
             "elim",
             "agents",
@@ -1489,13 +1569,14 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn(
             log_order,
             [
-                ["horizon", "changes"],
+                ["horizon", "changes", "governance-changes"],
                 [
                     "horizon",
                     "elim",
                     "agents",
                     "source-monitor",
                     "changes",
+                    "governance-changes",
                     "console-development",
                 ],
             ],
@@ -2329,8 +2410,10 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Exclude from print…", console_app)
         self.assertIn("exportPrintLevelChanges", console_app)
         self.assertIn("renderActionItems", console_app)
-        self.assertIn("groupAutomationIncidents", console_app)
-        self.assertIn("automationIncidentEventKey", console_app)
+        self.assertNotIn("groupAutomationIncidents", console_app)
+        self.assertNotIn("automationIncidentEventKey", console_app)
+        self.assertIn("operationalIncidentProjection", console_app)
+        self.assertIn("securityIncidentProjection", console_app)
         self.assertIn("reconcileRunChainSnapshot", console_app)
         self.assertIn('cloud.status = "host_pending"', console_app)
         self.assertIn('source === "local" ? "local-host" : "published-host"', console_app)
@@ -2339,7 +2422,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("matchingElimRuntime", console_app)
         self.assertIn("Cloud ${cloudStatus} · Host ${hostStatus}", console_app)
         self.assertNotIn("data.run_chain = snapshot;", console_app)
-        self.assertIn('record.chain_id || (currentSource ? chain.chain_id : "")', console_app)
+        self.assertNotIn("__incidentSource", console_app)
+        self.assertIn("active_incident_ids", console_app)
         self.assertNotIn('id="coordinator-resolve-action"', console_html)
         self.assertIn('label: "Integrity decisions requiring you"', console_app)
         self.assertIn('label: "Human decisions"', console_app)

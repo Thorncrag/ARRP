@@ -945,6 +945,10 @@ class RunCoordinatorTests(unittest.TestCase):
         self.assertFalse(reserved["elim_decision"]["launch_recommended"])
         self.assertTrue(available["elim_decision"]["launch_recommended"])
         self.assertTrue(available["elim_decision"]["last_substantive_stage"])
+        self.assertEqual(
+            available["next_action"],
+            "The governed local production cycle may launch Elim.",
+        )
 
     def test_failed_bot_authorizes_only_selected_safety_zero_repair(self):
         failed_stage = "source-checker-bot"

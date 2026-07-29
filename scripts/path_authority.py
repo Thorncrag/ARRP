@@ -3,8 +3,12 @@
 
 from __future__ import annotations
 
+import errno
+import json
 import os
+import re
 import stat
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
 
@@ -14,6 +18,36 @@ APPROVED_REPOSITORY_ROOT = Path(
 )
 APPROVED_STATE_ROOT = Path(
     "/Users/benjaminsmith/Library/Application Support/ARRP"
+)
+APPROVED_PRIVATE_STAGING_ROOT = (
+    APPROVED_REPOSITORY_ROOT.parent / "ARRP Private"
+)
+APPROVED_PRIVATE_STAGING_DESCRIPTOR = (
+    APPROVED_PRIVATE_STAGING_ROOT / ".arrp-private-staging-authority.json"
+)
+FILE_PROVIDER_XATTR = "com.apple.file-provider-domain-id"
+PRIVATE_AUTHORITY_SCHEMA_VERSION = 1
+PRIVATE_AUTHORITY_ID_PATTERN = re.compile(
+    r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$"
+)
+PRIVATE_AUTHORITY_KEYS = frozenset(
+    {
+        "schema_version",
+        "authority_id",
+        "authority_mode",
+        "activation_authorized",
+        "private_root",
+        "roles",
+    }
+)
+PRIVATE_AUTHORITY_ROLE_KEYS = frozenset(
+    {
+        "runtime",
+        "records",
+        "owner_console_versions",
+        "migration",
+        "disclosure_control_packs",
+    }
 )
 
 
@@ -62,6 +96,93 @@ def _owner_directory(path: Path) -> Path:
     ):
         raise PathAuthorityError("owner-local root permissions are unsafe")
     return resolved
+
+
+def _reject_symlink_ancestors(path: Path, *, floor: Path) -> None:
+    """Reject a successor root whose governed ancestry contains a symlink."""
+
+    normalized_floor = Path(os.path.abspath(os.fspath(floor)))
+    normalized_path = Path(os.path.abspath(os.fspath(path)))
+    if (
+        normalized_path != normalized_floor
+        and normalized_floor not in normalized_path.parents
+    ):
+        raise PathAuthorityError("authorized path is outside its storage floor")
+    current = normalized_path
+    governed: list[Path] = []
+    while True:
+        governed.append(current)
+        if current == normalized_floor:
+            break
+        current = current.parent
+    for candidate in reversed(governed):
+        try:
+            metadata = candidate.lstat()
+        except OSError as error:
+            raise PathAuthorityError(
+                "authorized storage ancestry is unavailable"
+            ) from error
+        if stat.S_ISLNK(metadata.st_mode) or not stat.S_ISDIR(metadata.st_mode):
+            raise PathAuthorityError(
+                "authorized storage ancestry must contain only directories"
+            )
+
+
+def _file_provider_domain(path: Path) -> bytes | None:
+    if hasattr(os, "listxattr"):
+        try:
+            names = os.listxattr(path)
+        except OSError as error:
+            no_attribute = {
+                errno.ENODATA,
+                getattr(errno, "ENOATTR", errno.ENODATA),
+            }
+            if error.errno in no_attribute:
+                return None
+            raise PathAuthorityError(
+                "storage synchronization boundary cannot be verified"
+            ) from error
+    else:
+        try:
+            result = subprocess.run(
+                ["/usr/bin/xattr", os.fspath(path)],
+                check=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                timeout=5,
+            )
+        except (OSError, subprocess.SubprocessError) as error:
+            raise PathAuthorityError(
+                "storage synchronization boundary cannot be verified"
+            ) from error
+        if result.returncode != 0:
+            raise PathAuthorityError(
+                "storage synchronization boundary cannot be verified"
+            )
+        names = result.stdout.splitlines()
+    return b"present" if FILE_PROVIDER_XATTR in names else None
+
+
+def _reject_file_provider_boundary(path: Path, *, floor: Path) -> None:
+    normalized_floor = Path(os.path.abspath(os.fspath(floor)))
+    normalized_path = Path(os.path.abspath(os.fspath(path)))
+    current = normalized_path
+    governed: list[Path] = []
+    while True:
+        governed.append(current)
+        if current == normalized_floor:
+            break
+        if normalized_floor not in current.parents:
+            raise PathAuthorityError(
+                "authorized path is outside its storage floor"
+            )
+        current = current.parent
+    for candidate in governed:
+        if _file_provider_domain(candidate):
+            raise PathAuthorityError(
+                "authorized storage must not use a File Provider boundary"
+            )
 
 
 def _direct_child(root: Path, path: Path, label: str) -> Path:
@@ -211,7 +332,10 @@ class ProjectPathAuthority:
                 raise PathAuthorityError("fixture path escapes the explicit fixture root")
         approved_repository = APPROVED_REPOSITORY_ROOT.resolve()
         approved_state = APPROVED_STATE_ROOT.resolve()
-        production_roots = (approved_repository, approved_state)
+        production_roots = (
+            approved_repository,
+            approved_state,
+        )
         if any(
             candidate == production
             or candidate in production.parents
@@ -296,4 +420,236 @@ class ProjectPathAuthority:
             requested,
             required=required,
             owner_only=owner_only,
+        )
+
+
+@dataclass(frozen=True)
+class PrivateProjectAuthority:
+    """Validated inactive successor roles from an owner-only descriptor."""
+
+    authority_id: str
+    descriptor_path: Path
+    private_root: Path
+    runtime_root: Path
+    records_root: Path
+    owner_console_versions_root: Path
+    migration_root: Path
+    control_pack_root: Path
+
+    @classmethod
+    def production_staging(cls) -> "PrivateProjectAuthority":
+        """Load the one fixed non-publishing successor staging authority."""
+
+        return cls._from_descriptor(
+            APPROVED_PRIVATE_STAGING_DESCRIPTOR,
+            expected_private_root=APPROVED_PRIVATE_STAGING_ROOT,
+            fixture_floor=None,
+        )
+
+    @classmethod
+    def fixture_staging(
+        cls,
+        descriptor_path: Path,
+        *,
+        fixture_root: Path,
+    ) -> "PrivateProjectAuthority":
+        """Load one explicitly contained test fixture authority.
+
+        This entrypoint is for direct fixture injection only. Production CLIs
+        and environment state cannot select it.
+        """
+
+        fixture_floor = _owner_directory(Path(fixture_root))
+        for forbidden in (
+            APPROVED_REPOSITORY_ROOT.resolve(),
+            APPROVED_STATE_ROOT.resolve(),
+            APPROVED_PRIVATE_STAGING_ROOT.resolve(),
+        ):
+            if (
+                fixture_floor == forbidden
+                or fixture_floor in forbidden.parents
+                or forbidden in fixture_floor.parents
+            ):
+                raise PathAuthorityError(
+                    "fixture authority overlaps an approved production boundary"
+                )
+        descriptor_candidate = Path(
+            os.path.abspath(os.fspath(descriptor_path))
+        )
+        if (
+            descriptor_candidate == fixture_floor
+            or fixture_floor not in descriptor_candidate.parents
+        ):
+            raise PathAuthorityError(
+                "fixture descriptor is outside its explicit fixture authority"
+            )
+        _reject_symlink_ancestors(
+            descriptor_candidate.parent,
+            floor=fixture_floor,
+        )
+        return cls._from_descriptor(
+            descriptor_candidate,
+            expected_private_root=None,
+            fixture_floor=fixture_floor,
+        )
+
+    @classmethod
+    def _from_descriptor(
+        cls,
+        descriptor_path: Path,
+        *,
+        expected_private_root: Path | None,
+        fixture_floor: Path | None,
+    ) -> "PrivateProjectAuthority":
+        """Validate one fixed production or explicitly contained fixture descriptor.
+
+        The descriptor can identify an inactive candidate layout, but it can
+        never establish production authority or authorize activation.
+        """
+
+        descriptor = _regular_owner_file(
+            Path(descriptor_path),
+            required=True,
+            owner_only=True,
+        )
+        try:
+            value = json.loads(descriptor.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError) as error:
+            raise PathAuthorityError(
+                "private staging authority descriptor is invalid"
+            ) from error
+        if not isinstance(value, dict) or set(value) != PRIVATE_AUTHORITY_KEYS:
+            raise PathAuthorityError(
+                "private staging authority descriptor has unknown or missing fields"
+            )
+        if (
+            value.get("schema_version") != PRIVATE_AUTHORITY_SCHEMA_VERSION
+            or value.get("authority_mode") != "inactive_successor_staging"
+            or value.get("activation_authorized") is not False
+            or not isinstance(value.get("authority_id"), str)
+            or not PRIVATE_AUTHORITY_ID_PATTERN.fullmatch(
+                value["authority_id"]
+            )
+            or not isinstance(value.get("private_root"), str)
+            or not value["private_root"].startswith("/")
+            or "\x00" in value["private_root"]
+            or os.path.normpath(value["private_root"]) != value["private_root"]
+            or not isinstance(value.get("roles"), dict)
+            or set(value["roles"]) != PRIVATE_AUTHORITY_ROLE_KEYS
+        ):
+            raise PathAuthorityError(
+                "private staging authority descriptor is unsupported"
+            )
+        private_candidate = Path(value["private_root"])
+        if (
+            expected_private_root is not None
+            and private_candidate != expected_private_root
+        ):
+            raise PathAuthorityError(
+                "private staging descriptor does not match the approved authority"
+            )
+        if fixture_floor is not None and (
+            private_candidate == fixture_floor
+            or fixture_floor not in private_candidate.parents
+        ):
+            raise PathAuthorityError(
+                "fixture private root is outside its explicit fixture authority"
+            )
+        _reject_symlink_ancestors(private_candidate, floor=Path("/"))
+        _reject_file_provider_boundary(private_candidate, floor=Path("/"))
+        private_root = _owner_directory(private_candidate)
+        descriptor_resolved = descriptor.resolve(strict=True)
+        if descriptor_resolved.parent != private_root:
+            raise PathAuthorityError(
+                "private staging descriptor must be the fixed root authority file"
+            )
+        _reject_symlink_ancestors(
+            descriptor_resolved.parent,
+            floor=private_root,
+        )
+        for production in (
+            APPROVED_REPOSITORY_ROOT.resolve(),
+            APPROVED_STATE_ROOT.resolve(),
+        ):
+            if (
+                private_root == production
+                or private_root in production.parents
+                or production in private_root.parents
+            ):
+                raise PathAuthorityError(
+                    "private staging authority overlaps production"
+                )
+        role_roots: dict[str, Path] = {}
+        for role, relative in value["roles"].items():
+            if not isinstance(relative, str):
+                raise PathAuthorityError(
+                    "private staging role path is invalid"
+                )
+            role_roots[role] = _owner_directory(
+                _contained(private_root, relative)
+            )
+        role_values = tuple(role_roots.values())
+        if len(set(role_values)) != len(role_values) or any(
+            left in right.parents or right in left.parents
+            for index, left in enumerate(role_values)
+            for right in role_values[index + 1 :]
+        ):
+            raise PathAuthorityError(
+                "private staging roles must resolve to disjoint directories"
+            )
+        roots = {
+            "runtime_root": role_roots["runtime"],
+            "records_root": role_roots["records"],
+            "owner_console_versions_root": role_roots[
+                "owner_console_versions"
+            ],
+            "migration_root": role_roots["migration"],
+            "control_pack_root": role_roots["disclosure_control_packs"],
+        }
+        for root in roots.values():
+            if root == private_root or private_root not in root.parents:
+                raise PathAuthorityError(
+                    "private staging role escapes its declared authority"
+                )
+        return cls(
+            authority_id=value["authority_id"].strip(),
+            descriptor_path=descriptor_resolved,
+            private_root=private_root,
+            **roots,
+        )
+
+    def runtime_output(self, relative: str) -> Path:
+        return _contained(self.runtime_root, relative)
+
+    def records_output(self, relative: str) -> Path:
+        return _contained(self.records_root, relative)
+
+    def records_path(
+        self,
+        relative: str,
+        *,
+        required: bool = True,
+    ) -> Path:
+        """Read one owner-only supplement from inactive successor records."""
+
+        path = _contained(self.records_root, relative)
+        return _regular_owner_file(path, required=required, owner_only=True)
+
+    def console_version_output(self, relative: str) -> Path:
+        return _contained(self.owner_console_versions_root, relative)
+
+    def migration_output(self, relative: str) -> Path:
+        return _contained(self.migration_root, relative)
+
+    def control_pack_path(
+        self,
+        relative: str,
+        *,
+        required: bool = True,
+    ) -> Path:
+        path = _contained(self.control_pack_root, relative)
+        return _regular_owner_file(
+            path,
+            required=required,
+            owner_only=True,
         )

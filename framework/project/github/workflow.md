@@ -1,5 +1,9 @@
 ---
 title: "GitHub Workflow"
+dependencies:
+  - "../../FRAMEWORK.md"
+  - "disclosure-boundary.md"
+  - "../automation/owner-local-runtime.md"
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -49,12 +53,16 @@ The production gate obtains its repository identity, policy, owner-local state
 root, and active control pack from the fixed reviewed runtime authority.
 Publishing callers cannot supply a replacement pack or root. Candidate-pack
 validation is explicitly nonpublishing and nonauthoritative; only the active
-owner-local pointer can supply a production authorization decision.
+owner-local pointer can supply a production authorization decision. Exact
+current-versus-staged path resolution is governed by the [ARRP Owner-Local
+Runtime Authority](../automation/owner-local-runtime.md).
 
 ## Local-first automation publication boundary
 
-ARRP's disabled local-first runner uses a private, repository-selected GitHub
-App only through its deterministic broker. Installation tokens are minted per
+ARRP's installed local-first runner is currently intentionally `Paused`; that
+control suppresses new production work without retiring the runner. When an
+authorized run is permitted, it uses a private, repository-selected GitHub App
+only through its deterministic broker. Installation tokens are minted per
 transaction, downscoped to `Thorncrag/ARRP` and the registered permission
 subset, and never supplied to Elim. A separate Project-only Keychain
 credential may enter only the exact Project subprocess.

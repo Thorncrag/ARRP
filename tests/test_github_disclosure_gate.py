@@ -406,6 +406,51 @@ class GitHubDisclosureGateTests(unittest.TestCase):
         self.assertFalse(live["allowed"])
         self.assertEqual(live["category"], "private")
 
+    def test_governance_supplement_is_private_while_public_log_and_registry_are_permitted(self) -> None:
+        public = MODULE.evaluate_outbound_bundle(
+            [
+                self.artifact(
+                    "framework/records/governance/governance-change-log.md",
+                    "# Public governance change log\n",
+                    producer="interactive-reviewed-github",
+                ),
+                self.artifact(
+                    "framework/project/workflows/governance-change-registry.json",
+                    '{"schema_version":1}\n',
+                    producer="interactive-reviewed-github",
+                ),
+            ],
+            operation="git_push",
+            source_revision=self.revision,
+            policy=self.policy,
+        )
+        self.assertTrue(public["allowed"])
+        self.assertEqual(
+            {
+                item["artifact_family"] for item in public["artifacts"]
+            },
+            {"public-governance-summary", "public-methodology"},
+        )
+
+        supplement = MODULE.evaluate_outbound_bundle(
+            [
+                self.artifact(
+                    "owner-local/records/governance/governance-change-supplements.jsonl",
+                    '{"schema_version":1}\n',
+                    producer="interactive-reviewed-github",
+                )
+            ],
+            operation="git_push",
+            source_revision=self.revision,
+            policy=self.policy,
+        )
+        self.assertFalse(supplement["allowed"])
+        self.assertEqual(supplement["category"], "private")
+        self.assertEqual(
+            supplement["artifacts"][0]["artifact_family"],
+            "private-local-state",
+        )
+
     def test_unrelated_members_of_one_family_do_not_inherit_by_default(self) -> None:
         policy = copy.deepcopy(self.policy)
         policy["artifact_families"].append(

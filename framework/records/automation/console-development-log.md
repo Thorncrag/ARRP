@@ -48,30 +48,80 @@ confidence; commit subjects alone are insufficient evidence.
 
 ## 2026-07-29
 
-- Console Change IDs: `CONSOLE-2026-002`
-- Title: Restore authenticated Project readback for owner Console refresh
-- Lifecycle: Introduced
-- Feature or component: Authenticated owner refresh
-- State: Canonical through PR #485 and merge commit `10ec1342713e11543377b89de5f5ffc8cf5ddf8d`
-- Implementation commits: `8eae5943551ffe471dd9f53a30dd309e890dc360`, `fef0beacf4277b68c0164337b82344b1e56df8ae`, `fcf430a065e02e8c65c00290bec2193949319720`, `71e547155ce3b9c81972a50e9e9e8a0b493d0cbc`, `e1f7d37b95502ee590a324a6b5294082605703ac`, `8c1eb765ace51edd4f9782cf26692bad4b6e6a2f`, `15657d443f1a054fac42e8b5bc1c794c3b9935e7`, `d44cef748fff9f18abfada7466b8d5e0646bc224`, and `78381a335f16d9e2e4e16a9b4dcbd6f627da33c3`
-- Rollback baseline: `4e6f2c293daf47a4584d1c25866cb6fc4f4e36ac`
+- Console Change IDs: `CONSOLE-2026-002`; `CONSOLE-2026-003`
+- Title: Authenticated owner refresh and private-runtime/dual-incident Console architecture
+- Lifecycle: `CONSOLE-2026-002` introduced; `CONSOLE-2026-003` introduced
+- Feature or component: Authenticated owner refresh; private-runtime and dual-incident Console boundary
+- State: `CONSOLE-2026-002` canonical through PR #485 and merge commit `10ec1342713e1154337b89de5f5ffc8cf5ddf8d`; `CONSOLE-2026-003` Proposed / unmerged
+- Implementation commits: `CONSOLE-2026-002`: `8eae5943551ffe471dd9f53a30dd309e890dc360`, `fef0beacf4277b68c0164337b82344b1e56df8ae`, `fcf430a065e02e8c65c00290bec2193949319720`, `71e547155ce3b9c81972a50e9e9e8a0b493d0cbc`, `e1f7d37b95502ee590a324a6b5294082605703ac`, `8c1eb765ace51edd4f9782cf26692bad4b6e6a2f`, `15657d443f1a054fac42e8b5bc1c794c3b9935e7`, `d44cef748fff9f18abfada7466b8d5e0646bc224`, and `78381a335f16d9e2e4e16a9b4dcbd6f627da33c3`; `CONSOLE-2026-003`: Pending final commit
+- Rollback baseline: `CONSOLE-2026-002`: `4e6f2c293daf47a4584d1c25866cb6fc4f4e36ac`; `CONSOLE-2026-003`: pending final commit and human-approved cutover baseline
+
+### Interface & information architecture
+
+- Category ID: `interface_information_architecture`
+- Change ID: `CONSOLE-2026-003`
+- Commit IDs: Pending final commit
+- Material change: Made the exact owner-file Console the sole owner-mode consumer of the bound private projection. Repository-source direct-disk, hosted, and loopback Console modes retain a public-only shell; the owner Console may show only approved private projections bound to their exact public generation, source revision, and integrity digests.
+- Validation: Owner-file binding, public-shell exclusion, unavailable-state, and stale or malformed projection tests are available in the Console frontend suite.
+
+### Operations & automation
+
+- Category ID: `operations_automation`
+- Change ID: `CONSOLE-2026-003`
+- Commit IDs: Pending final commit
+- Material change: Implemented a proposed, unmerged separate-authority contract for immutable Operational Incident (`INC`) and Security Incident (`SEC`) records with independently typed lifecycle and closure responsibility. Public shells expose neither incident ledger nor count; unavailable protected data cannot appear as zero. The intentional binary `Paused` status remains preserved and is not itself an incident. Runtime location and activation posture remain solely with the linked governance authorities rather than this Console product log.
+- Validation: Incident-authority, lifecycle, relation-integrity, path-authority, and private-migration validation are available in the named incident and migration test suites.
+
+### Data, provenance & integrity
+
+- Category ID: `data_provenance_integrity`
+- Change ID: `CONSOLE-2026-003`
+- Commit IDs: Pending final commit
+- Material change: Corrected stale or generated-data handling so unavailable, stale, malformed, or revision-mismatched data cannot appear current or healthy. Added typed classifications and context pins for incident, projection, and authority routing; public and private projections remain separate and retain their exact generation and revision relationship.
+- Validation: Typed-classification, context-routing, generation-binding, stale-data, and unavailable-state checks are available in the contract and frontend test suites.
 
 ### Security, privacy & disclosure
 
 - Category ID: `security_privacy_disclosure`
-- Change ID: `CONSOLE-2026-002`
-- Commit IDs: `8eae5943551ffe471dd9f53a30dd309e890dc360`, `fef0beacf4277b68c0164337b82344b1e56df8ae`, `fcf430a065e02e8c65c00290bec2193949319720`, `71e547155ce3b9c81972a50e9e9e8a0b493d0cbc`, `e1f7d37b95502ee590a324a6b5294082605703ac`, and `78381a335f16d9e2e4e16a9b4dcbd6f627da33c3`
-- Material change: Added a fixed-authority owner refresh that requires the
-  clean canonical checkout, obtains the dedicated read-only Project
-  credential from its approved Keychain boundary, removes inherited GitHub
-  token variables, and supplies the Project credential only to the exact
-  producer subprocesses that require it. The static Console remains
-  credential-free and cannot initiate the refresh.
-- Validation: A protected read-only check retrieved all 110 Project items; the
-  complete brokered refresh produced current and complete Progress, Integrity,
-  and Console projections with zero Integrity warnings. Credential-confinement,
-  dirty-tree, safe-failure, virtual-environment, data-contract, and frontend
-  regressions passed.
+- Change ID: `CONSOLE-2026-002`; `CONSOLE-2026-003`
+- Commit IDs: `CONSOLE-2026-002`: `8eae5943551ffe471dd9f53a30dd309e890dc360`, `fef0beacf4277b68c0164337b82344b1e56df8ae`, `fcf430a065e02e8c65c00290bec2193949319720`, `71e547155ce3b9c81972a50e9e9e8a0b493d0cbc`, `e1f7d37b95502ee590a324a6b5294082605703ac`, and `78381a335f16d9e2e4e16a9b4dcbd6f627da33c3`; `CONSOLE-2026-003`: Pending final commit
+- Material change: `CONSOLE-2026-002` separated an owner-invoked authenticated
+  refresh from the static Console, which remains unable to initiate that
+  refresh. `CONSOLE-2026-003`
+  preserved the public/private projection split: public surfaces report
+  both incident ledgers and their counts only as unavailable, while the
+  exact-bound owner-file Console can consume active, complete minimized
+  owner-local projections. `SEC` and its relation authority remain inactive
+  pending separate approval; this public record contains no protected evidence
+  or incident detail.
+- Validation: The authenticated owner refresh completed its credential-
+  confinement and data-contract checks. Disclosure-boundary, public-bundle
+  allowlist, protected-field rejection, and private-projection binding checks
+  cover the proposed dual-incident change.
+
+### Reliability, accessibility & performance
+
+- Category ID: `reliability_accessibility_performance`
+- Change ID: `CONSOLE-2026-003`
+- Commit IDs: Pending final commit
+- Material change: Retained the deliberate initial synchronous JavaScript ceiling of 655 KiB while adding the owner-mode boundary and fail-closed projection behavior; unavailable data remains visible rather than silently substituted or treated as a zero result.
+  Public shells use the single explanation `Data unavailable outside the bound
+  owner-local Console.`, and incident-related static counters initialize as
+  unavailable rather than briefly presenting a false zero.
+  The public-site preparer now also fails closed when a prior staging tree
+  exists instead of destructively replacing that tree; clean CI and governed
+  transaction worktrees remain the supported preparation surfaces.
+- Validation: Resource-budget, direct-disk and public-shell mode,
+  stale/malformed feed, fresh-site-staging, and retained-sentinel regressions
+  cover the change.
+
+### Governance & documentation
+
+- Category ID: `governance_documentation`
+- Change ID: `CONSOLE-2026-003`
+- Commit IDs: Pending final commit
+- Material change: Added the Operations > Logs Governance changes selector and the bounded projection of registered public `GOV` entries. The Console preserves a Governance Change entry's stable identity and public-safe summary, routes to its complete record, and exposes an allowlisted owner-mode supplement summary only when the exact binding validates. This is a Console provenance feature, not a second governance ledger; governing decisions and their adoption or activation posture remain in the Governance Change Log and linked authorities.
+- Validation: Governance Change Log parser, projection, selection, binding, and unavailable-state checks provide the Console-specific traceability.
 
 ## 2026-07-28
 

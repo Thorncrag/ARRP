@@ -32,9 +32,14 @@ The six primary screens are:
 
 Logs defaults to Operational Incidents, followed by the retained specialist
 histories in one bounded newest-first master/detail surface. Incident view
-defaults to unresolved and retains complete history; the newest matching record
-is selected automatically. Source and action workflows use the same
+defaults to unresolved and retains complete history when its owner projection
+is complete; public shells retain the route but show incident feeds and counts
+as unavailable. The newest matching record is selected automatically. Source
+and action workflows use the same
 compact-list/adjacent-preview model where individual inspection is required.
+Those public shells use one concise explanation:
+`Data unavailable outside the bound owner-local Console.` Detailed feed
+diagnostics remain confined to a valid owner Console.
 Publication concerns remain in Planning > Publication. Old
 Candidates, Sources, Publication, Planning > Next Work, Progress > Next Work,
 and Logs routes redirect semantically to their consolidated destinations.
@@ -134,24 +139,45 @@ exact-revision owner-local join containing generic protected Security actions.
 The browser filters and formats these records; it does not invent queues,
 categories, identities, owners, routes, activity, or capacity from prose.
 
-The supported owner mode is opening the canonical
-`research/horizon-review-console/index.html` directly with `file://`; no local
-web server is required. That exact entrypoint may load the ignored sibling
-Security assurance, private Operations, and local automation-status scripts.
-Loopback HTTP(S) is supported for development. Hosted/public HTTPS never
-requests those files. A future hosted private Console would require a separate
-authenticated, deny-by-default service; authentication does not place private
-operational state in GitHub. Private Operations is accepted only when its
-schema, Console generation, and source revision match the loaded public shell.
+Operations > Logs keeps **Governance changes** separate from historical
+**Change audits** and **Console development**. Governance Change Log entries
+remain public-safe in every Console mode. Only the exact-bound owner-file
+Console may join an optional allowlisted safe summary from a matching
+owner-local supplement for a selected entry; absent or mismatched supplements
+remain unavailable and do not alter or conceal the public entry.
 
-Operational Incidents has one immutable structured event authority and one
-deterministic current projection. Operations, Logs, and Overview repeat the
-same deduplicated unresolved count as navigation cues. Every unresolved
-incident enters Action Items, but only incidents with explicit human ownership
-enter My items or the Human Action Items count; non-human and unassigned
-incidents remain under Oversight. Specialist links use producer-supplied typed
-incident IDs. Unavailable or incomplete incident data renders unknown, never
-zero or healthy.
+The supported owner mode is an immutable, generation-bound Console copy in the
+verified companion workspace's protected owner-Console role, opened directly
+with `file://`; no local web server is required. Its exact `index.html` path is
+bound to one public Console generation and one source revision. Its binding
+also records each copied private projection's SHA-256 digest, availability,
+and completeness, and the loader verifies that exact envelope before joining
+the data. Only that entrypoint may load the copied, individually enveloped
+Security assurance, private Operations, and local automation-status
+projections. The repository source Console remains public-only even when it is
+opened from disk. Loopback HTTP(S) is supported for public-shell and fixture
+development, but it does not load owner projections. Hosted/public HTTPS
+likewise never requests those files. A future hosted private Console would
+require a separate authenticated, deny-by-default service; authentication does
+not place private operational state in GitHub.
+
+Operational Incidents and Security Incidents have separate immutable event
+authorities and separate deterministic projections. `INC-…` owns operational
+impact and recovery; `SEC-…` owns protected security investigation,
+containment, remediation, verification, and closure. A typed owner-local
+relation journal may connect them for navigation but cannot merge their
+identity, lifecycle, counts, evidence, or closure. The owner-file Console
+can render each active, complete history in its own Logs view. Public,
+repository-source, loopback, and hosted modes show both incident feeds as
+unavailable rather than zero. The Security Incident and relation contracts are
+currently inactive, so those owner-file feeds also remain unavailable until a
+separately activated, complete compatible projection exists. Every unresolved
+incident from a complete owner projection enters Action Items, but only
+incidents with explicit human ownership enter My items or the Human Action
+Items count; non-human and unassigned incidents remain under Oversight.
+The public-shell message is
+`Data unavailable outside the bound owner-local Console.` It describes the
+delivery boundary rather than a remote-service error.
 
 ## Authority
 
@@ -162,8 +188,15 @@ Every view is an assembled projection:
 - Source inventories own bibliographic records.
 - Project Integrity output owns Integrity findings.
 - Automation runbooks and typed run records own execution meaning.
-- The Operational Incident event record owns incident identity, occurrences,
-  lifecycle, recovery evidence, and closure.
+- The [ARRP Owner-Local Runtime
+  Authority](../../framework/project/automation/owner-local-runtime.md) owns
+  current and staged path resolution, artifact classes, and cutover meaning.
+- The Operational Incident event record owns operational identity,
+  occurrences, impact, recovery evidence, and operational closure.
+- The Security Incident event record owns security identity, investigation,
+  containment, remediation, verification, and security closure.
+- The incident-relation journal owns only typed reciprocal `INC`/`SEC`
+  navigation.
 - Canonical Markdown logs own retained histories.
 - Page front matter and print assembly configuration own publication.
 - The Console Development Log owns the human-readable index of material
@@ -174,8 +207,10 @@ generated JavaScript by hand.
 
 ## Data loading
 
-The interface is Overview-first and works from `file://`. The shell loads a
-bounded compatibility catalog and application script, then lazily injects
+The interface is Overview-first and works from `file://`. The repository
+source opened that way remains a public shell; only an immutable owner version
+at its exact bound entrypoint is owner mode. The shell loads a bounded
+compatibility catalog and application script, then lazily injects
 `data/overview.js`. Opening a specialist screen loads only its required domain
 files.
 
@@ -187,7 +222,7 @@ zero.
 
 The normal initial budgets are:
 
-- no more than 650 KiB of synchronous JavaScript;
+- no more than 655 KiB of synchronous JavaScript;
 - no more than 1,500 initial DOM elements;
 - at most 50 Source Checker rows rendered at once;
 - no specialist catalog, dossier, log, or publication rows before activation.
@@ -213,6 +248,19 @@ deployed public-input lookup:
 python3 scripts/build_horizon_review_console.py --console-only
 ```
 
+After a successful public rebuild has restored the ignored owner-only source
+projections, stage a new immutable owner Console version:
+
+```sh
+python3 scripts/build_owner_console.py
+```
+
+The staging command never overwrites an existing owner version or activates a
+host service. Its JSON result identifies the new version directory; open that
+directory's `index.html` directly. Missing, malformed, stale, partial, or
+generation-incompatible private feeds fail closed and remain visibly
+unavailable.
+
 The production transaction performs its final Project Integrity validation and
 feed generation after Elim, then builds the Console from that same final
 state. Prior bounded Integrity history is retained from the trusted generated
@@ -220,9 +268,12 @@ local feed.
 
 ## Local-only status and preferences
 
-The runner may write ignored `data/local-automation-status.js`. Its absence is
-shown as `Unavailable`, never as healthy. It is an independent status
-projection, not repository authority.
+The runner may write ignored `data/local-automation-status.js`. It preserves
+the latest occurrence outcome while refreshing the current binary `Run /
+Paused` posture from the authoritative owner-only marker. Its absence is shown
+as `Unavailable`, never as healthy. It is an owner-staging input, not
+repository authority and not a private-data entitlement for the repository
+source Console.
 
 Grid width and ordering, disclosure defaults, inbox pane placement, and intro
 visibility are device-local browser preferences. Design mode offers safe full,

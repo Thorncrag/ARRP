@@ -50,6 +50,12 @@ scripts/bootstrap_local_tools.sh
 The bootstrap uses a stable host Python installation and does not depend on packages bundled inside the Codex application. On macOS it also identifies any missing Homebrew commands required for PDF extraction and rendering, OCR, document conversion, local JavaScript tests, and repository search. Sandboxed document commands should put `/opt/homebrew/bin` first and set `XDG_CACHE_HOME="$PWD/.tmp/cache"` so they use the stable host tools and keep Fontconfig's writable cache inside the ignored workspace. GitHub Actions independently installs `requirements-pages.txt` in a fresh environment before publication.
 
 The generated source tree, manifest, MkDocs configuration, and output site live under `.site-build/`, which is ignored by Git. The manifest records every canonical Markdown source admitted to the build and every internal link demoted because its target is outside the publication boundary.
+Preparation requires that staging path to be absent. CI and production
+automation therefore run it only in a fresh checkout or governed transaction
+worktree. A local rerun fails closed when prior staging exists; it does not
+erase or replace the prior tree. Retire that exact ignored staging tree through
+the governed recoverable-removal workflow, or use a fresh governed worktree,
+before preparing again.
 
 Published pages display a localized **Last modified** date in the page footer. The revision-date plugin reads the most recent commit affecting each canonical Markdown source; `website/git_revision_dates.py` temporarily maps the allowlisted staging copy back to that source during the build and supplies the visible label. The generated legislation index uses the newest committed revision among the legislation pages it lists. The deployment checkout must retain full Git history so these dates remain accurate.
 

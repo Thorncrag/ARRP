@@ -870,7 +870,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "schema_errors": [],
       "current_through": null,
       "producer": "elim-log-projection",
-      "reason": "Owner-only log data is unavailable in the public Console mode."
+      "reason": "Data unavailable outside the bound owner-local Console."
     },
     {
       "id": "agents",
@@ -936,7 +936,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "schema_errors": [],
       "current_through": null,
       "producer": "agents-log-projection",
-      "reason": "Owner-only log data is unavailable in the public Console mode."
+      "reason": "Data unavailable outside the bound owner-local Console."
     },
     {
       "id": "source-monitor",
@@ -1849,6 +1849,433 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "reason": ""
     },
     {
+      "id": "governance-changes",
+      "title": "Governance Change Log",
+      "description": "Public-safe provenance for material project-governance decisions.",
+      "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/governance/governance-change-log.md",
+      "columns": [
+        {
+          "key": "date",
+          "label": "Decision date"
+        },
+        {
+          "key": "decision_class",
+          "label": "Decision class"
+        },
+        {
+          "key": "status",
+          "label": "Status"
+        },
+        {
+          "key": "policy_adoption",
+          "label": "Policy adoption"
+        },
+        {
+          "key": "live_activation",
+          "label": "Live activation"
+        },
+        {
+          "key": "supplement",
+          "label": "Protected supplement"
+        }
+      ],
+      "group_options": [
+        {
+          "key": "decision_class",
+          "label": "Decision class"
+        },
+        {
+          "key": "status",
+          "label": "Status"
+        },
+        {
+          "key": "date",
+          "label": "Decision date"
+        }
+      ],
+      "default_sort": {
+        "key": "governance_change_id",
+        "direction": "desc"
+      },
+      "projection": {
+        "expected_rows": 14,
+        "actual_rows": 14,
+        "complete": true
+      },
+      "entries": [
+        {
+          "id": "GOV-2026-014",
+          "values": {
+            "governance_change_id": "GOV-2026-014",
+            "entry_sha256": "sha256:e383ef2ca2c60c8e0e10047affd8b55068cf4d2948b5f5e0b30c2fe272c88767",
+            "date": "2026-07-29",
+            "status": "Proposed / unmerged",
+            "decision_class": "security_privacy_disclosure",
+            "policy_adoption": "Not adopted; exact owner approval of the replacement text remains required.",
+            "live_activation": "No directive or runtime change is activated.",
+            "supplement": "Required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-014",
+            "entry_sha256": "sha256:e383ef2ca2c60c8e0e10047affd8b55068cf4d2948b5f5e0b30c2fe272c88767",
+            "date": "2026-07-29",
+            "status": "Proposed / unmerged",
+            "decision_class": "security<em>privacy<\/em>disclosure",
+            "policy_adoption": "Not adopted; exact owner approval of the replacement text remains required.",
+            "live_activation": "No directive or runtime change is activated.",
+            "supplement": "Required"
+          },
+          "details_html": "<h2>GOV-2026-014 — Owner-local preservation-boundary proposal<\/h2>\n<ul><li><strong>Decision class:<\/strong> security<em>privacy<\/em>disclosure<\/li><li><strong>Authorities:<\/strong> ARRP Private owner directives<\/li><li><strong>Decision:<\/strong> Records the unresolved proposal to narrow the exceptional preservation and policy-change boundary within the owner-local workspace; it does not change the current directive.<\/li><li><strong>Evidence:<\/strong> Reviewed owner-local proposal; no canonical Git decision or exact owner approval.<\/li><li><strong>Policy adoption:<\/strong> Not adopted; exact owner approval of the replacement text remains required.<\/li><li><strong>Live activation:<\/strong> No directive or runtime change is activated.<\/li><li><strong>Relationships:<\/strong> Additive; the current owner directive remains controlling.<\/li><li><strong>Validation:<\/strong> Current-directive preservation, candidate isolation, and no-activation checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-014 GOV-2026-014 sha256:e383ef2ca2c60c8e0e10047affd8b55068cf4d2948b5f5e0b30c2fe272c88767 2026-07-29 Proposed / unmerged security_privacy_disclosure Not adopted; exact owner approval of the replacement text remains required. No directive or runtime change is activated. Required GOV-2026-014 sha256:e383ef2ca2c60c8e0e10047affd8b55068cf4d2948b5f5e0b30c2fe272c88767 2026-07-29 Proposed / unmerged security_privacy_disclosure Not adopted; exact owner approval of the replacement text remains required. No directive or runtime change is activated. Required",
+          "title": "Owner-local preservation-boundary proposal"
+        },
+        {
+          "id": "GOV-2026-013",
+          "values": {
+            "governance_change_id": "GOV-2026-013",
+            "entry_sha256": "sha256:4ef284209a1fb3fbd5772870d1051ce8ef7e18614d0921994523624dbdcadc7e",
+            "date": "2026-07-29",
+            "status": "Proposed / unmerged",
+            "decision_class": "governance_documentation",
+            "policy_adoption": "Not adopted on canonical history.",
+            "live_activation": "No live activation applies.",
+            "supplement": "Not required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-013",
+            "entry_sha256": "sha256:4ef284209a1fb3fbd5772870d1051ce8ef7e18614d0921994523624dbdcadc7e",
+            "date": "2026-07-29",
+            "status": "Proposed / unmerged",
+            "decision_class": "governance_documentation",
+            "policy_adoption": "Not adopted on canonical history.",
+            "live_activation": "No live activation applies.",
+            "supplement": "Not required"
+          },
+          "details_html": "<h2>GOV-2026-013 — Governance Change Recording authority<\/h2>\n<ul><li><strong>Decision class:<\/strong> governance_documentation<\/li><li><strong>Authorities:<\/strong> framework/project/workflows/governance-change-recording.md; framework/project/workflows/governance-change-registry.json<\/li><li><strong>Decision:<\/strong> Proposes this public GOV index and strict provenance workflow; it does not create a private record or alter another governing authority.<\/li><li><strong>Evidence:<\/strong> Current worktree only; no canonical commit or pull request.<\/li><li><strong>Policy adoption:<\/strong> Not adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No live activation applies.<\/li><li><strong>Relationships:<\/strong> Additive; no recorded supersession or refinement.<\/li><li><strong>Validation:<\/strong> Registry, heading, parser, Console, and Markdown checks remain pending canonical reconciliation.<\/li><li><strong>Owner-local supplement:<\/strong> Not required.<\/li><\/ul>",
+          "search_text": "GOV-2026-013 GOV-2026-013 sha256:4ef284209a1fb3fbd5772870d1051ce8ef7e18614d0921994523624dbdcadc7e 2026-07-29 Proposed / unmerged governance_documentation Not adopted on canonical history. No live activation applies. Not required GOV-2026-013 sha256:4ef284209a1fb3fbd5772870d1051ce8ef7e18614d0921994523624dbdcadc7e 2026-07-29 Proposed / unmerged governance_documentation Not adopted on canonical history. No live activation applies. Not required",
+          "title": "Governance Change Recording authority"
+        },
+        {
+          "id": "GOV-2026-012",
+          "values": {
+            "governance_change_id": "GOV-2026-012",
+            "entry_sha256": "sha256:94921f1b37ca157b82d2d0d505245a8679522b1a364263d37f75dee7991f2110",
+            "date": "2026-07-29",
+            "status": "Proposed / unmerged",
+            "decision_class": "security_privacy_disclosure",
+            "policy_adoption": "Not adopted on canonical history.",
+            "live_activation": "Not activated; the proposed security authority remains unavailable.",
+            "supplement": "Required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-012",
+            "entry_sha256": "sha256:94921f1b37ca157b82d2d0d505245a8679522b1a364263d37f75dee7991f2110",
+            "date": "2026-07-29",
+            "status": "Proposed / unmerged",
+            "decision_class": "security<em>privacy<\/em>disclosure",
+            "policy_adoption": "Not adopted on canonical history.",
+            "live_activation": "Not activated; the proposed security authority remains unavailable.",
+            "supplement": "Required"
+          },
+          "details_html": "<h2>GOV-2026-012 — Separate operational and security incident authorities<\/h2>\n<ul><li><strong>Decision class:<\/strong> security<em>privacy<\/em>disclosure<\/li><li><strong>Authorities:<\/strong> framework/project/automation/security-incidents.json; framework/project/automation/incident-relations.json<\/li><li><strong>Decision:<\/strong> Proposes separate operational and security incident authorities with a typed relation only; neither lifecycle is merged.<\/li><li><strong>Evidence:<\/strong> Current worktree only; no canonical commit or pull request.<\/li><li><strong>Policy adoption:<\/strong> Not adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> Not activated; the proposed security authority remains unavailable.<\/li><li><strong>Relationships:<\/strong> Would refine GOV-2026-004 if adopted; the operational authority remains canonical.<\/li><li><strong>Validation:<\/strong> Incident-authority, relation, privacy, and Console contract checks remain pending canonical reconciliation.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-012 GOV-2026-012 sha256:94921f1b37ca157b82d2d0d505245a8679522b1a364263d37f75dee7991f2110 2026-07-29 Proposed / unmerged security_privacy_disclosure Not adopted on canonical history. Not activated; the proposed security authority remains unavailable. Required GOV-2026-012 sha256:94921f1b37ca157b82d2d0d505245a8679522b1a364263d37f75dee7991f2110 2026-07-29 Proposed / unmerged security_privacy_disclosure Not adopted on canonical history. Not activated; the proposed security authority remains unavailable. Required",
+          "title": "Separate operational and security incident authorities"
+        },
+        {
+          "id": "GOV-2026-011",
+          "values": {
+            "governance_change_id": "GOV-2026-011",
+            "entry_sha256": "sha256:121bb201a0532222c41001ee436c02b5c7234501acc51351f0559e6f5dc08691",
+            "date": "2026-07-29",
+            "status": "Proposed / unmerged",
+            "decision_class": "operations_automation",
+            "policy_adoption": "Not adopted on canonical history.",
+            "live_activation": "Not activated; existing production posture and pause state remain separately governed.",
+            "supplement": "Required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-011",
+            "entry_sha256": "sha256:121bb201a0532222c41001ee436c02b5c7234501acc51351f0559e6f5dc08691",
+            "date": "2026-07-29",
+            "status": "Proposed / unmerged",
+            "decision_class": "operations_automation",
+            "policy_adoption": "Not adopted on canonical history.",
+            "live_activation": "Not activated; existing production posture and pause state remain separately governed.",
+            "supplement": "Required"
+          },
+          "details_html": "<h2>GOV-2026-011 — Owner-local runtime authority<\/h2>\n<ul><li><strong>Decision class:<\/strong> operations_automation<\/li><li><strong>Authorities:<\/strong> framework/project/automation/owner-local-runtime.md<\/li><li><strong>Decision:<\/strong> Proposes a single current-versus-successor runtime, migration, cutover, rollback, and retirement authority.<\/li><li><strong>Evidence:<\/strong> Current worktree only; no canonical commit or pull request.<\/li><li><strong>Policy adoption:<\/strong> Not adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> Not activated; existing production posture and pause state remain separately governed.<\/li><li><strong>Relationships:<\/strong> Would refine location aspects of GOV-2026-002, GOV-2026-003, GOV-2026-005, and GOV-2026-010 if adopted.<\/li><li><strong>Validation:<\/strong> Runtime documentation, migration, path-authority, and disclosure checks remain pending canonical reconciliation.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-011 GOV-2026-011 sha256:121bb201a0532222c41001ee436c02b5c7234501acc51351f0559e6f5dc08691 2026-07-29 Proposed / unmerged operations_automation Not adopted on canonical history. Not activated; existing production posture and pause state remain separately governed. Required GOV-2026-011 sha256:121bb201a0532222c41001ee436c02b5c7234501acc51351f0559e6f5dc08691 2026-07-29 Proposed / unmerged operations_automation Not adopted on canonical history. Not activated; existing production posture and pause state remain separately governed. Required",
+          "title": "Owner-local runtime authority"
+        },
+        {
+          "id": "GOV-2026-010",
+          "values": {
+            "governance_change_id": "GOV-2026-010",
+            "entry_sha256": "sha256:950503a50edd1f65c792d52d3e6dbe85befdf3da71c0fdb323a25fce36a27538",
+            "date": "2026-07-29",
+            "status": "Canonical",
+            "decision_class": "security_privacy_disclosure",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host service is activated by this record.",
+            "supplement": "Required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-010",
+            "entry_sha256": "sha256:950503a50edd1f65c792d52d3e6dbe85befdf3da71c0fdb323a25fce36a27538",
+            "date": "2026-07-29",
+            "status": "Canonical",
+            "decision_class": "security<em>privacy<\/em>disclosure",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host service is activated by this record.",
+            "supplement": "Required"
+          },
+          "details_html": "<h2>GOV-2026-010 — Authenticated owner refresh boundary<\/h2>\n<ul><li><strong>Decision class:<\/strong> security<em>privacy<\/em>disclosure<\/li><li><strong>Authorities:<\/strong> framework/project/interfaces/project-console.md; scripts/refresh<em>horizon<\/em>review_console.py<\/li><li><strong>Decision:<\/strong> Separates owner-invoked authenticated refresh from a credential-free static Console that cannot initiate refresh.<\/li><li><strong>Evidence:<\/strong> PRs #485–486; merges <code>10ec1342713e11543377b89de5f5ffc8cf5ddf8d<\/code> and <code>572e1db1ebfff49cc26004cced1d0933934fa4c6<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host service is activated by this record.<\/li><li><strong>Relationships:<\/strong> Refines GOV-2026-003; proposed GOV-2026-011 may later refine the owner-local location boundary.<\/li><li><strong>Validation:<\/strong> Authenticated-refresh, credential-confinement, data-contract, and closeout checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-010 GOV-2026-010 sha256:950503a50edd1f65c792d52d3e6dbe85befdf3da71c0fdb323a25fce36a27538 2026-07-29 Canonical security_privacy_disclosure Adopted on canonical history. No host service is activated by this record. Required GOV-2026-010 sha256:950503a50edd1f65c792d52d3e6dbe85befdf3da71c0fdb323a25fce36a27538 2026-07-29 Canonical security_privacy_disclosure Adopted on canonical history. No host service is activated by this record. Required",
+          "title": "Authenticated owner refresh boundary"
+        },
+        {
+          "id": "GOV-2026-009",
+          "values": {
+            "governance_change_id": "GOV-2026-009",
+            "entry_sha256": "sha256:1f97bf774a117793ad836e8f548e58227cf89fdabbd11da09dae44916db119ec",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "data_provenance_integrity",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-009",
+            "entry_sha256": "sha256:1f97bf774a117793ad836e8f548e58227cf89fdabbd11da09dae44916db119ec",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "data<em>provenance<\/em>integrity",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Required"
+          },
+          "details_html": "<h2>GOV-2026-009 — Typed classifications and unavailable-state discipline<\/h2>\n<ul><li><strong>Decision class:<\/strong> data<em>provenance<\/em>integrity<\/li><li><strong>Authorities:<\/strong> framework/project/interfaces/project-console-classifications.json; framework/project/interfaces/project-console.md<\/li><li><strong>Decision:<\/strong> Makes typed classification enforceable and requires unavailable, rather than zero or healthy, treatment for missing or protected data.<\/li><li><strong>Evidence:<\/strong> PRs #483–484; merges <code>1da18c49db38d4f6d6bc50fe1f5d21d46ac9f5e3<\/code> and <code>4e6f2c293daf47a4584d1c25866cb6fc4f4e36ac<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Refines GOV-2026-001 and GOV-2026-006 without replacing their independent authorities.<\/li><li><strong>Validation:<\/strong> Classification, consistency, stale-feed, public-bundle, and frontend checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-009 GOV-2026-009 sha256:1f97bf774a117793ad836e8f548e58227cf89fdabbd11da09dae44916db119ec 2026-07-28 Canonical data_provenance_integrity Adopted on canonical history. No host activation is represented. Required GOV-2026-009 sha256:1f97bf774a117793ad836e8f548e58227cf89fdabbd11da09dae44916db119ec 2026-07-28 Canonical data_provenance_integrity Adopted on canonical history. No host activation is represented. Required",
+          "title": "Typed classifications and unavailable-state discipline"
+        },
+        {
+          "id": "GOV-2026-008",
+          "values": {
+            "governance_change_id": "GOV-2026-008",
+            "entry_sha256": "sha256:76e71741cf6c9a0d127d92046da71b493c1c798769a9b492de12e3ada8966e92",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "public_input_transparency",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No activation claim is made by this notice record.",
+            "supplement": "Not required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-008",
+            "entry_sha256": "sha256:76e71741cf6c9a0d127d92046da71b493c1c798769a9b492de12e3ada8966e92",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "public<em>input<\/em>transparency",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No activation claim is made by this notice record.",
+            "supplement": "Not required"
+          },
+          "details_html": "<h2>GOV-2026-008 — Participation-site analytics transparency<\/h2>\n<ul><li><strong>Decision class:<\/strong> public<em>input<\/em>transparency<\/li><li><strong>Authorities:<\/strong> participate/README.md; participate/SECURITY.md<\/li><li><strong>Decision:<\/strong> Adds a visible analytics notice that remains present across form modes.<\/li><li><strong>Evidence:<\/strong> PR #482; merge <code>5672b158a9cdfda4ca754ddcaa939bd0b26509f2<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No activation claim is made by this notice record.<\/li><li><strong>Relationships:<\/strong> No recorded supersession or refinement.<\/li><li><strong>Validation:<\/strong> Participation analytics and safety checks.<\/li><li><strong>Owner-local supplement:<\/strong> Not required.<\/li><\/ul>",
+          "search_text": "GOV-2026-008 GOV-2026-008 sha256:76e71741cf6c9a0d127d92046da71b493c1c798769a9b492de12e3ada8966e92 2026-07-28 Canonical public_input_transparency Adopted on canonical history. No activation claim is made by this notice record. Not required GOV-2026-008 sha256:76e71741cf6c9a0d127d92046da71b493c1c798769a9b492de12e3ada8966e92 2026-07-28 Canonical public_input_transparency Adopted on canonical history. No activation claim is made by this notice record. Not required",
+          "title": "Participation-site analytics transparency"
+        },
+        {
+          "id": "GOV-2026-007",
+          "values": {
+            "governance_change_id": "GOV-2026-007",
+            "entry_sha256": "sha256:0df9566d51f72ecf5177858b6ef6b28a04a2406ca3dc20fb56dc1734fc07e583",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "governance_documentation",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Not required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-007",
+            "entry_sha256": "sha256:0df9566d51f72ecf5177858b6ef6b28a04a2406ca3dc20fb56dc1734fc07e583",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "governance_documentation",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Not required"
+          },
+          "details_html": "<h2>GOV-2026-007 — Console Development Log governance<\/h2>\n<ul><li><strong>Decision class:<\/strong> governance_documentation<\/li><li><strong>Authorities:<\/strong> framework/records/automation/console-development-log.md<\/li><li><strong>Decision:<\/strong> Establishes stable Console Change IDs and dated, category-based provenance entries without making the Console log a governing authority.<\/li><li><strong>Evidence:<\/strong> PR #481; merge <code>a0dd9516a427299accd7de7ede944ae8d39a6d77<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Additive; no recorded supersession or refinement.<\/li><li><strong>Validation:<\/strong> Category and frontend projection checks.<\/li><li><strong>Owner-local supplement:<\/strong> Not required.<\/li><\/ul>",
+          "search_text": "GOV-2026-007 GOV-2026-007 sha256:0df9566d51f72ecf5177858b6ef6b28a04a2406ca3dc20fb56dc1734fc07e583 2026-07-28 Canonical governance_documentation Adopted on canonical history. No host activation is represented. Not required GOV-2026-007 sha256:0df9566d51f72ecf5177858b6ef6b28a04a2406ca3dc20fb56dc1734fc07e583 2026-07-28 Canonical governance_documentation Adopted on canonical history. No host activation is represented. Not required",
+          "title": "Console Development Log governance"
+        },
+        {
+          "id": "GOV-2026-006",
+          "values": {
+            "governance_change_id": "GOV-2026-006",
+            "entry_sha256": "sha256:7b35d52d7a51939f8d128f386601a4cd3c6f89c7b7799aefa8350d3f54ea87a8",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "security_privacy_disclosure",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-006",
+            "entry_sha256": "sha256:7b35d52d7a51939f8d128f386601a4cd3c6f89c7b7799aefa8350d3f54ea87a8",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "security<em>privacy<\/em>disclosure",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Required"
+          },
+          "details_html": "<h2>GOV-2026-006 — Public-safe security assurance<\/h2>\n<ul><li><strong>Decision class:<\/strong> security<em>privacy<\/em>disclosure<\/li><li><strong>Authorities:<\/strong> framework/project/interfaces/project-console-classifications.json; framework/standards/interfaces/standard.md<\/li><li><strong>Decision:<\/strong> Adopts allowlisted security-assurance presentation while excluding protected evidence and operational detail from public surfaces.<\/li><li><strong>Evidence:<\/strong> PR #480; merge <code>6e0b4708cd714f39c1a5b7c9f3bcd3405a72431d<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Refined by GOV-2026-009 for typed display discipline.<\/li><li><strong>Validation:<\/strong> Assurance allowlist, no-detail, and frontend checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-006 GOV-2026-006 sha256:7b35d52d7a51939f8d128f386601a4cd3c6f89c7b7799aefa8350d3f54ea87a8 2026-07-28 Canonical security_privacy_disclosure Adopted on canonical history. No host activation is represented. Required GOV-2026-006 sha256:7b35d52d7a51939f8d128f386601a4cd3c6f89c7b7799aefa8350d3f54ea87a8 2026-07-28 Canonical security_privacy_disclosure Adopted on canonical history. No host activation is represented. Required",
+          "title": "Public-safe security assurance"
+        },
+        {
+          "id": "GOV-2026-005",
+          "values": {
+            "governance_change_id": "GOV-2026-005",
+            "entry_sha256": "sha256:bfcdebcfe3fc60f10f8cfd95ca52b8469019997eb882a960e60173bc8526b739",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "operations_automation",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-005",
+            "entry_sha256": "sha256:bfcdebcfe3fc60f10f8cfd95ca52b8469019997eb882a960e60173bc8526b739",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "operations_automation",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Required"
+          },
+          "details_html": "<h2>GOV-2026-005 — Repository-gate authority<\/h2>\n<ul><li><strong>Decision class:<\/strong> operations_automation<\/li><li><strong>Authorities:<\/strong> framework/project/automation/repository-gates.json<\/li><li><strong>Decision:<\/strong> Establishes typed repository-gate declarations as the sole gate authority for a declared automation stage.<\/li><li><strong>Evidence:<\/strong> PR #479; merge <code>93a01eb24dfb94c848a1f937e9e1bdfeea72c74d<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Proposed GOV-2026-011 may refine path location only; the gate authority remains canonical.<\/li><li><strong>Validation:<\/strong> Repository-gate and run-chain checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-005 GOV-2026-005 sha256:bfcdebcfe3fc60f10f8cfd95ca52b8469019997eb882a960e60173bc8526b739 2026-07-28 Canonical operations_automation Adopted on canonical history. No host activation is represented. Required GOV-2026-005 sha256:bfcdebcfe3fc60f10f8cfd95ca52b8469019997eb882a960e60173bc8526b739 2026-07-28 Canonical operations_automation Adopted on canonical history. No host activation is represented. Required",
+          "title": "Repository-gate authority"
+        },
+        {
+          "id": "GOV-2026-004",
+          "values": {
+            "governance_change_id": "GOV-2026-004",
+            "entry_sha256": "sha256:76002165c762f85cbfc35425e4318c2f1c7b58a2f23c86c5d90cd5ccd8786502",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "operations_automation",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-004",
+            "entry_sha256": "sha256:76002165c762f85cbfc35425e4318c2f1c7b58a2f23c86c5d90cd5ccd8786502",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "operations_automation",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Required"
+          },
+          "details_html": "<h2>GOV-2026-004 — Operational Incident authority<\/h2>\n<ul><li><strong>Decision class:<\/strong> operations_automation<\/li><li><strong>Authorities:<\/strong> framework/project/automation/operational-incidents.json<\/li><li><strong>Decision:<\/strong> Establishes validated operational incident identity, admission, lifecycle, recovery evidence, and closure authority.<\/li><li><strong>Evidence:<\/strong> PR #479; merge <code>93a01eb24dfb94c848a1f937e9e1bdfeea72c74d<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Proposed GOV-2026-012 separates security investigation; the operational authority remains canonical.<\/li><li><strong>Validation:<\/strong> Operational-incident and path-authority checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-004 GOV-2026-004 sha256:76002165c762f85cbfc35425e4318c2f1c7b58a2f23c86c5d90cd5ccd8786502 2026-07-28 Canonical operations_automation Adopted on canonical history. No host activation is represented. Required GOV-2026-004 sha256:76002165c762f85cbfc35425e4318c2f1c7b58a2f23c86c5d90cd5ccd8786502 2026-07-28 Canonical operations_automation Adopted on canonical history. No host activation is represented. Required",
+          "title": "Operational Incident authority"
+        },
+        {
+          "id": "GOV-2026-003",
+          "values": {
+            "governance_change_id": "GOV-2026-003",
+            "entry_sha256": "sha256:24a2d11ab352d2a842decaf4c78c4657299d635a975211d9243b73bd15edb536",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "security_privacy_disclosure",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-003",
+            "entry_sha256": "sha256:24a2d11ab352d2a842decaf4c78c4657299d635a975211d9243b73bd15edb536",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "security<em>privacy<\/em>disclosure",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Required"
+          },
+          "details_html": "<h2>GOV-2026-003 — Owner-local protected operational records<\/h2>\n<ul><li><strong>Decision class:<\/strong> security<em>privacy<\/em>disclosure<\/li><li><strong>Authorities:<\/strong> framework/project/github/disclosure-boundary.md; framework/PROJECT_STRUCTURE.md<\/li><li><strong>Decision:<\/strong> Preserves restricted operational records owner-locally while using public-safe summaries and projections without creating a second authority.<\/li><li><strong>Evidence:<\/strong> PR #479; merge <code>93a01eb24dfb94c848a1f937e9e1bdfeea72c74d<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Refined separately by GOV-2026-010; proposed GOV-2026-011 may refine the owner-local location boundary.<\/li><li><strong>Validation:<\/strong> Disclosure, path-authority, and projection checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-003 GOV-2026-003 sha256:24a2d11ab352d2a842decaf4c78c4657299d635a975211d9243b73bd15edb536 2026-07-28 Canonical security_privacy_disclosure Adopted on canonical history. No host activation is represented. Required GOV-2026-003 sha256:24a2d11ab352d2a842decaf4c78c4657299d635a975211d9243b73bd15edb536 2026-07-28 Canonical security_privacy_disclosure Adopted on canonical history. No host activation is represented. Required",
+          "title": "Owner-local protected operational records"
+        },
+        {
+          "id": "GOV-2026-002",
+          "values": {
+            "governance_change_id": "GOV-2026-002",
+            "entry_sha256": "sha256:3d52606cd50fa8aa632f9549888d6490587e8570e44f1cba11bc949dfb4e3b2d",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "security_privacy_disclosure",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-002",
+            "entry_sha256": "sha256:3d52606cd50fa8aa632f9549888d6490587e8570e44f1cba11bc949dfb4e3b2d",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "security<em>privacy<\/em>disclosure",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Required"
+          },
+          "details_html": "<h2>GOV-2026-002 — GitHub disclosure boundary<\/h2>\n<ul><li><strong>Decision class:<\/strong> security<em>privacy<\/em>disclosure<\/li><li><strong>Authorities:<\/strong> framework/project/github/disclosure-boundary.md; framework/project/github/disclosure-policy.json<\/li><li><strong>Decision:<\/strong> Establishes artifact classification, a fail-closed outbound gate, and the no-secret public-transmission rule.<\/li><li><strong>Evidence:<\/strong> PR #479; merge <code>93a01eb24dfb94c848a1f937e9e1bdfeea72c74d<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Proposed GOV-2026-011 may refine location only; disclosure authority remains canonical.<\/li><li><strong>Validation:<\/strong> Disclosure-gate, public-bundle, and secret-sanitization checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-002 GOV-2026-002 sha256:3d52606cd50fa8aa632f9549888d6490587e8570e44f1cba11bc949dfb4e3b2d 2026-07-28 Canonical security_privacy_disclosure Adopted on canonical history. No host activation is represented. Required GOV-2026-002 sha256:3d52606cd50fa8aa632f9549888d6490587e8570e44f1cba11bc949dfb4e3b2d 2026-07-28 Canonical security_privacy_disclosure Adopted on canonical history. No host activation is represented. Required",
+          "title": "GitHub disclosure boundary"
+        },
+        {
+          "id": "GOV-2026-001",
+          "values": {
+            "governance_change_id": "GOV-2026-001",
+            "entry_sha256": "sha256:f1be38bf8919c49c5e5ab9f46d07faf8a2fff9af548ea6c6ecc98f07b0b55ecc",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "interface_information_architecture",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Not required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-001",
+            "entry_sha256": "sha256:f1be38bf8919c49c5e5ab9f46d07faf8a2fff9af548ea6c6ecc98f07b0b55ecc",
+            "date": "2026-07-28",
+            "status": "Canonical",
+            "decision_class": "interface<em>information<\/em>architecture",
+            "policy_adoption": "Adopted on canonical history.",
+            "live_activation": "No host activation is represented.",
+            "supplement": "Not required"
+          },
+          "details_html": "<h2>GOV-2026-001 — Console information architecture<\/h2>\n<ul><li><strong>Decision class:<\/strong> interface<em>information<\/em>architecture<\/li><li><strong>Authorities:<\/strong> framework/project/interfaces/project-console.md<\/li><li><strong>Decision:<\/strong> Establishes the compact six-tab Console architecture and bounded, nonauthoritative specialist projections.<\/li><li><strong>Evidence:<\/strong> PR #479; merge <code>93a01eb24dfb94c848a1f937e9e1bdfeea72c74d<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Refined by GOV-2026-009 only for data-state display.<\/li><li><strong>Validation:<\/strong> Navigation, bounded-workspace, and frontend interaction checks.<\/li><li><strong>Owner-local supplement:<\/strong> Not required.<\/li><\/ul>",
+          "search_text": "GOV-2026-001 GOV-2026-001 sha256:f1be38bf8919c49c5e5ab9f46d07faf8a2fff9af548ea6c6ecc98f07b0b55ecc 2026-07-28 Canonical interface_information_architecture Adopted on canonical history. No host activation is represented. Not required GOV-2026-001 sha256:f1be38bf8919c49c5e5ab9f46d07faf8a2fff9af548ea6c6ecc98f07b0b55ecc 2026-07-28 Canonical interface_information_architecture Adopted on canonical history. No host activation is represented. Not required",
+          "title": "Console information architecture"
+        }
+      ],
+      "availability": "current",
+      "complete": true,
+      "schema_errors": [],
+      "current_through": "2026-07-29",
+      "producer": "governance-changes-log-projection",
+      "reason": ""
+    },
+    {
       "id": "console-development",
       "title": "Console Development Log",
       "description": "Material Project Console feature and contract history.",
@@ -1898,33 +2325,148 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "direction": "desc"
       },
       "projection": {
-        "expected_rows": 8,
-        "actual_rows": 8,
+        "expected_rows": 13,
+        "actual_rows": 13,
         "complete": true
       },
       "entries": [
+        {
+          "id": "console-development-2026-07-29-interface_information_architecture",
+          "values": {
+            "date": "2026-07-29",
+            "category": "Interface & information architecture",
+            "change": "CONSOLE-2026-003",
+            "lifecycle": "CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced",
+            "state": "CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged",
+            "commit": "Pending final commit",
+            "title": "Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+          },
+          "values_html": {
+            "date": "2026-07-29",
+            "category": "Interface &amp; information architecture",
+            "change": "<code>CONSOLE-2026-003<\/code>",
+            "lifecycle": "<code>CONSOLE-2026-002<\/code> introduced; <code>CONSOLE-2026-003<\/code> introduced",
+            "state": "<code>CONSOLE-2026-002<\/code> canonical through PR #485 and merge commit <code>10ec1342713e1154337b89de5f5ffc8cf5ddf8d<\/code>; <code>CONSOLE-2026-003<\/code> Proposed / unmerged",
+            "commit": "Pending final commit",
+            "title": "Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+          },
+          "details_html": "<h2>2026-07-29 — Interface &amp; information architecture<\/h2>\n<p><strong>Authenticated owner refresh and private-runtime/dual-incident Console architecture<\/strong><\/p>\n<ul><li>Category ID: <code>interface_information_architecture<\/code><\/li><li>Change ID: <code>CONSOLE-2026-003<\/code><\/li><li>Commit IDs: Pending final commit<\/li><li>Material change: Made the exact owner-file Console the sole owner-mode consumer of the bound private projection. Repository-source direct-disk, hosted, and loopback Console modes retain a public-only shell; the owner Console may show only approved private projections bound to their exact public generation, source revision, and integrity digests.<\/li><li>Validation: Owner-file binding, public-shell exclusion, unavailable-state, and stale or malformed projection tests are available in the Console frontend suite.<\/li><\/ul>",
+          "search_text": "console-development-2026-07-29-interface_information_architecture 2026-07-29 Interface & information architecture CONSOLE-2026-003 CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged Pending final commit Authenticated owner refresh and private-runtime/dual-incident Console architecture 2026-07-29 Interface & information architecture CONSOLE-2026-003 CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged Pending final commit Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+        },
+        {
+          "id": "console-development-2026-07-29-operations_automation",
+          "values": {
+            "date": "2026-07-29",
+            "category": "Operations & automation",
+            "change": "CONSOLE-2026-003",
+            "lifecycle": "CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced",
+            "state": "CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged",
+            "commit": "Pending final commit",
+            "title": "Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+          },
+          "values_html": {
+            "date": "2026-07-29",
+            "category": "Operations &amp; automation",
+            "change": "<code>CONSOLE-2026-003<\/code>",
+            "lifecycle": "<code>CONSOLE-2026-002<\/code> introduced; <code>CONSOLE-2026-003<\/code> introduced",
+            "state": "<code>CONSOLE-2026-002<\/code> canonical through PR #485 and merge commit <code>10ec1342713e1154337b89de5f5ffc8cf5ddf8d<\/code>; <code>CONSOLE-2026-003<\/code> Proposed / unmerged",
+            "commit": "Pending final commit",
+            "title": "Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+          },
+          "details_html": "<h2>2026-07-29 — Operations &amp; automation<\/h2>\n<p><strong>Authenticated owner refresh and private-runtime/dual-incident Console architecture<\/strong><\/p>\n<ul><li>Category ID: <code>operations_automation<\/code><\/li><li>Change ID: <code>CONSOLE-2026-003<\/code><\/li><li>Commit IDs: Pending final commit<\/li><li>Material change: Implemented a proposed, unmerged separate-authority contract for immutable Operational Incident (<code>INC<\/code>) and Security Incident (<code>SEC<\/code>) records with independently typed lifecycle and closure responsibility. Public shells expose neither incident ledger nor count; unavailable protected data cannot appear as zero. The intentional binary <code>Paused<\/code> status remains preserved and is not itself an incident. Runtime location and activation posture remain solely with the linked governance authorities rather than this Console product log.<\/li><li>Validation: Incident-authority, lifecycle, relation-integrity, path-authority, and private-migration validation are available in the named incident and migration test suites.<\/li><\/ul>",
+          "search_text": "console-development-2026-07-29-operations_automation 2026-07-29 Operations & automation CONSOLE-2026-003 CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged Pending final commit Authenticated owner refresh and private-runtime/dual-incident Console architecture 2026-07-29 Operations & automation CONSOLE-2026-003 CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged Pending final commit Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+        },
+        {
+          "id": "console-development-2026-07-29-data_provenance_integrity",
+          "values": {
+            "date": "2026-07-29",
+            "category": "Data, provenance & integrity",
+            "change": "CONSOLE-2026-003",
+            "lifecycle": "CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced",
+            "state": "CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged",
+            "commit": "Pending final commit",
+            "title": "Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+          },
+          "values_html": {
+            "date": "2026-07-29",
+            "category": "Data, provenance &amp; integrity",
+            "change": "<code>CONSOLE-2026-003<\/code>",
+            "lifecycle": "<code>CONSOLE-2026-002<\/code> introduced; <code>CONSOLE-2026-003<\/code> introduced",
+            "state": "<code>CONSOLE-2026-002<\/code> canonical through PR #485 and merge commit <code>10ec1342713e1154337b89de5f5ffc8cf5ddf8d<\/code>; <code>CONSOLE-2026-003<\/code> Proposed / unmerged",
+            "commit": "Pending final commit",
+            "title": "Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+          },
+          "details_html": "<h2>2026-07-29 — Data, provenance &amp; integrity<\/h2>\n<p><strong>Authenticated owner refresh and private-runtime/dual-incident Console architecture<\/strong><\/p>\n<ul><li>Category ID: <code>data_provenance_integrity<\/code><\/li><li>Change ID: <code>CONSOLE-2026-003<\/code><\/li><li>Commit IDs: Pending final commit<\/li><li>Material change: Corrected stale or generated-data handling so unavailable, stale, malformed, or revision-mismatched data cannot appear current or healthy. Added typed classifications and context pins for incident, projection, and authority routing; public and private projections remain separate and retain their exact generation and revision relationship.<\/li><li>Validation: Typed-classification, context-routing, generation-binding, stale-data, and unavailable-state checks are available in the contract and frontend test suites.<\/li><\/ul>",
+          "search_text": "console-development-2026-07-29-data_provenance_integrity 2026-07-29 Data, provenance & integrity CONSOLE-2026-003 CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged Pending final commit Authenticated owner refresh and private-runtime/dual-incident Console architecture 2026-07-29 Data, provenance & integrity CONSOLE-2026-003 CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged Pending final commit Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+        },
         {
           "id": "console-development-2026-07-29-security_privacy_disclosure",
           "values": {
             "date": "2026-07-29",
             "category": "Security, privacy & disclosure",
-            "change": "CONSOLE-2026-002",
-            "lifecycle": "Introduced",
-            "state": "Canonical through PR #485 and merge commit 10ec1342713e11543377b89de5f5ffc8cf5ddf8d",
-            "commit": "8eae5943551ffe471dd9f53a30dd309e890dc360, fef0beacf4277b68c0164337b82344b1e56df8ae, fcf430a065e02e8c65c00290bec2193949319720, 71e547155ce3b9c81972a50e9e9e8a0b493d0cbc, e1f7d37b95502ee590a324a6b5294082605703ac, and 78381a335f16d9e2e4e16a9b4dcbd6f627da33c3",
-            "title": "Restore authenticated Project readback for owner Console refresh"
+            "change": "CONSOLE-2026-002, CONSOLE-2026-003",
+            "lifecycle": "CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced",
+            "state": "CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged",
+            "commit": "CONSOLE-2026-002: 8eae5943551ffe471dd9f53a30dd309e890dc360, fef0beacf4277b68c0164337b82344b1e56df8ae, fcf430a065e02e8c65c00290bec2193949319720, 71e547155ce3b9c81972a50e9e9e8a0b493d0cbc, e1f7d37b95502ee590a324a6b5294082605703ac, and 78381a335f16d9e2e4e16a9b4dcbd6f627da33c3; CONSOLE-2026-003: Pending final commit",
+            "title": "Authenticated owner refresh and private-runtime/dual-incident Console architecture"
           },
           "values_html": {
             "date": "2026-07-29",
             "category": "Security, privacy &amp; disclosure",
-            "change": "<code>CONSOLE-2026-002<\/code>",
-            "lifecycle": "Introduced",
-            "state": "Canonical through PR #485 and merge commit <code>10ec1342713e11543377b89de5f5ffc8cf5ddf8d<\/code>",
-            "commit": "<code>8eae5943551ffe471dd9f53a30dd309e890dc360<\/code>, <code>fef0beacf4277b68c0164337b82344b1e56df8ae<\/code>, <code>fcf430a065e02e8c65c00290bec2193949319720<\/code>, <code>71e547155ce3b9c81972a50e9e9e8a0b493d0cbc<\/code>, <code>e1f7d37b95502ee590a324a6b5294082605703ac<\/code>, and <code>78381a335f16d9e2e4e16a9b4dcbd6f627da33c3<\/code>",
-            "title": "Restore authenticated Project readback for owner Console refresh"
+            "change": "<code>CONSOLE-2026-002<\/code>; <code>CONSOLE-2026-003<\/code>",
+            "lifecycle": "<code>CONSOLE-2026-002<\/code> introduced; <code>CONSOLE-2026-003<\/code> introduced",
+            "state": "<code>CONSOLE-2026-002<\/code> canonical through PR #485 and merge commit <code>10ec1342713e1154337b89de5f5ffc8cf5ddf8d<\/code>; <code>CONSOLE-2026-003<\/code> Proposed / unmerged",
+            "commit": "<code>CONSOLE-2026-002<\/code>: <code>8eae5943551ffe471dd9f53a30dd309e890dc360<\/code>, <code>fef0beacf4277b68c0164337b82344b1e56df8ae<\/code>, <code>fcf430a065e02e8c65c00290bec2193949319720<\/code>, <code>71e547155ce3b9c81972a50e9e9e8a0b493d0cbc<\/code>, <code>e1f7d37b95502ee590a324a6b5294082605703ac<\/code>, and <code>78381a335f16d9e2e4e16a9b4dcbd6f627da33c3<\/code>; <code>CONSOLE-2026-003<\/code>: Pending final commit",
+            "title": "Authenticated owner refresh and private-runtime/dual-incident Console architecture"
           },
-          "details_html": "<h2>2026-07-29 — Security, privacy &amp; disclosure<\/h2>\n<p><strong>Restore authenticated Project readback for owner Console refresh<\/strong><\/p>\n<ul><li>Category ID: <code>security_privacy_disclosure<\/code><\/li><li>Change ID: <code>CONSOLE-2026-002<\/code><\/li><li>Commit IDs: <code>8eae5943551ffe471dd9f53a30dd309e890dc360<\/code>, <code>fef0beacf4277b68c0164337b82344b1e56df8ae<\/code>, <code>fcf430a065e02e8c65c00290bec2193949319720<\/code>, <code>71e547155ce3b9c81972a50e9e9e8a0b493d0cbc<\/code>, <code>e1f7d37b95502ee590a324a6b5294082605703ac<\/code>, and <code>78381a335f16d9e2e4e16a9b4dcbd6f627da33c3<\/code><\/li><li>Material change: Added a fixed-authority owner refresh that requires the<\/li><\/ul>\n<p>clean canonical checkout, obtains the dedicated read-only Project credential from its approved Keychain boundary, removes inherited GitHub token variables, and supplies the Project credential only to the exact producer subprocesses that require it. The static Console remains credential-free and cannot initiate the refresh.<\/p>\n<ul><li>Validation: A protected read-only check retrieved all 110 Project items; the<\/li><\/ul>\n<p>complete brokered refresh produced current and complete Progress, Integrity, and Console projections with zero Integrity warnings. Credential-confinement, dirty-tree, safe-failure, virtual-environment, data-contract, and frontend regressions passed.<\/p>",
-          "search_text": "console-development-2026-07-29-security_privacy_disclosure 2026-07-29 Security, privacy & disclosure CONSOLE-2026-002 Introduced Canonical through PR #485 and merge commit 10ec1342713e11543377b89de5f5ffc8cf5ddf8d 8eae5943551ffe471dd9f53a30dd309e890dc360, fef0beacf4277b68c0164337b82344b1e56df8ae, fcf430a065e02e8c65c00290bec2193949319720, 71e547155ce3b9c81972a50e9e9e8a0b493d0cbc, e1f7d37b95502ee590a324a6b5294082605703ac, and 78381a335f16d9e2e4e16a9b4dcbd6f627da33c3 Restore authenticated Project readback for owner Console refresh 2026-07-29 Security, privacy & disclosure CONSOLE-2026-002 Introduced Canonical through PR #485 and merge commit 10ec1342713e11543377b89de5f5ffc8cf5ddf8d 8eae5943551ffe471dd9f53a30dd309e890dc360, fef0beacf4277b68c0164337b82344b1e56df8ae, fcf430a065e02e8c65c00290bec2193949319720, 71e547155ce3b9c81972a50e9e9e8a0b493d0cbc, e1f7d37b95502ee590a324a6b5294082605703ac, and 78381a335f16d9e2e4e16a9b4dcbd6f627da33c3 Restore authenticated Project readback for owner Console refresh"
+          "details_html": "<h2>2026-07-29 — Security, privacy &amp; disclosure<\/h2>\n<p><strong>Authenticated owner refresh and private-runtime/dual-incident Console architecture<\/strong><\/p>\n<ul><li>Category ID: <code>security_privacy_disclosure<\/code><\/li><li>Change ID: <code>CONSOLE-2026-002<\/code>; <code>CONSOLE-2026-003<\/code><\/li><li>Commit IDs: <code>CONSOLE-2026-002<\/code>: <code>8eae5943551ffe471dd9f53a30dd309e890dc360<\/code>, <code>fef0beacf4277b68c0164337b82344b1e56df8ae<\/code>, <code>fcf430a065e02e8c65c00290bec2193949319720<\/code>, <code>71e547155ce3b9c81972a50e9e9e8a0b493d0cbc<\/code>, <code>e1f7d37b95502ee590a324a6b5294082605703ac<\/code>, and <code>78381a335f16d9e2e4e16a9b4dcbd6f627da33c3<\/code>; <code>CONSOLE-2026-003<\/code>: Pending final commit<\/li><li>Material change: <code>CONSOLE-2026-002<\/code> separated an owner-invoked authenticated<\/li><\/ul>\n<p>refresh from the static Console, which remains unable to initiate that refresh. <code>CONSOLE-2026-003<\/code> preserved the public/private projection split: public surfaces report both incident ledgers and their counts only as unavailable, while the exact-bound owner-file Console can consume active, complete minimized owner-local projections. <code>SEC<\/code> and its relation authority remain inactive pending separate approval; this public record contains no protected evidence or incident detail.<\/p>\n<ul><li>Validation: The authenticated owner refresh completed its credential-<\/li><\/ul>\n<p>confinement and data-contract checks. Disclosure-boundary, public-bundle allowlist, protected-field rejection, and private-projection binding checks cover the proposed dual-incident change.<\/p>",
+          "search_text": "console-development-2026-07-29-security_privacy_disclosure 2026-07-29 Security, privacy & disclosure CONSOLE-2026-002, CONSOLE-2026-003 CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged CONSOLE-2026-002: 8eae5943551ffe471dd9f53a30dd309e890dc360, fef0beacf4277b68c0164337b82344b1e56df8ae, fcf430a065e02e8c65c00290bec2193949319720, 71e547155ce3b9c81972a50e9e9e8a0b493d0cbc, e1f7d37b95502ee590a324a6b5294082605703ac, and 78381a335f16d9e2e4e16a9b4dcbd6f627da33c3; CONSOLE-2026-003: Pending final commit Authenticated owner refresh and private-runtime/dual-incident Console architecture 2026-07-29 Security, privacy & disclosure CONSOLE-2026-002; CONSOLE-2026-003 CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged CONSOLE-2026-002: 8eae5943551ffe471dd9f53a30dd309e890dc360, fef0beacf4277b68c0164337b82344b1e56df8ae, fcf430a065e02e8c65c00290bec2193949319720, 71e547155ce3b9c81972a50e9e9e8a0b493d0cbc, e1f7d37b95502ee590a324a6b5294082605703ac, and 78381a335f16d9e2e4e16a9b4dcbd6f627da33c3; CONSOLE-2026-003: Pending final commit Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+        },
+        {
+          "id": "console-development-2026-07-29-reliability_accessibility_performance",
+          "values": {
+            "date": "2026-07-29",
+            "category": "Reliability, accessibility & performance",
+            "change": "CONSOLE-2026-003",
+            "lifecycle": "CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced",
+            "state": "CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged",
+            "commit": "Pending final commit",
+            "title": "Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+          },
+          "values_html": {
+            "date": "2026-07-29",
+            "category": "Reliability, accessibility &amp; performance",
+            "change": "<code>CONSOLE-2026-003<\/code>",
+            "lifecycle": "<code>CONSOLE-2026-002<\/code> introduced; <code>CONSOLE-2026-003<\/code> introduced",
+            "state": "<code>CONSOLE-2026-002<\/code> canonical through PR #485 and merge commit <code>10ec1342713e1154337b89de5f5ffc8cf5ddf8d<\/code>; <code>CONSOLE-2026-003<\/code> Proposed / unmerged",
+            "commit": "Pending final commit",
+            "title": "Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+          },
+          "details_html": "<h2>2026-07-29 — Reliability, accessibility &amp; performance<\/h2>\n<p><strong>Authenticated owner refresh and private-runtime/dual-incident Console architecture<\/strong><\/p>\n<ul><li>Category ID: <code>reliability_accessibility_performance<\/code><\/li><li>Change ID: <code>CONSOLE-2026-003<\/code><\/li><li>Commit IDs: Pending final commit<\/li><li>Material change: Retained the deliberate initial synchronous JavaScript ceiling of 655 KiB while adding the owner-mode boundary and fail-closed projection behavior; unavailable data remains visible rather than silently substituted or treated as a zero result.<\/li><\/ul>\n<p>Public shells use the single explanation <code>Data unavailable outside the bound owner-local Console.<\/code>, and incident-related static counters initialize as unavailable rather than briefly presenting a false zero. The public-site preparer now also fails closed when a prior staging tree exists instead of destructively replacing that tree; clean CI and governed transaction worktrees remain the supported preparation surfaces.<\/p>\n<ul><li>Validation: Resource-budget, direct-disk and public-shell mode,<\/li><\/ul>\n<p>stale/malformed feed, fresh-site-staging, and retained-sentinel regressions cover the change.<\/p>",
+          "search_text": "console-development-2026-07-29-reliability_accessibility_performance 2026-07-29 Reliability, accessibility & performance CONSOLE-2026-003 CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged Pending final commit Authenticated owner refresh and private-runtime/dual-incident Console architecture 2026-07-29 Reliability, accessibility & performance CONSOLE-2026-003 CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged Pending final commit Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+        },
+        {
+          "id": "console-development-2026-07-29-governance_documentation",
+          "values": {
+            "date": "2026-07-29",
+            "category": "Governance & documentation",
+            "change": "CONSOLE-2026-003",
+            "lifecycle": "CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced",
+            "state": "CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged",
+            "commit": "Pending final commit",
+            "title": "Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+          },
+          "values_html": {
+            "date": "2026-07-29",
+            "category": "Governance &amp; documentation",
+            "change": "<code>CONSOLE-2026-003<\/code>",
+            "lifecycle": "<code>CONSOLE-2026-002<\/code> introduced; <code>CONSOLE-2026-003<\/code> introduced",
+            "state": "<code>CONSOLE-2026-002<\/code> canonical through PR #485 and merge commit <code>10ec1342713e1154337b89de5f5ffc8cf5ddf8d<\/code>; <code>CONSOLE-2026-003<\/code> Proposed / unmerged",
+            "commit": "Pending final commit",
+            "title": "Authenticated owner refresh and private-runtime/dual-incident Console architecture"
+          },
+          "details_html": "<h2>2026-07-29 — Governance &amp; documentation<\/h2>\n<p><strong>Authenticated owner refresh and private-runtime/dual-incident Console architecture<\/strong><\/p>\n<ul><li>Category ID: <code>governance_documentation<\/code><\/li><li>Change ID: <code>CONSOLE-2026-003<\/code><\/li><li>Commit IDs: Pending final commit<\/li><li>Material change: Added the Operations &gt; Logs Governance changes selector and the bounded projection of registered public <code>GOV<\/code> entries. The Console preserves a Governance Change entry&#x27;s stable identity and public-safe summary, routes to its complete record, and exposes an allowlisted owner-mode supplement summary only when the exact binding validates. This is a Console provenance feature, not a second governance ledger; governing decisions and their adoption or activation posture remain in the Governance Change Log and linked authorities.<\/li><li>Validation: Governance Change Log parser, projection, selection, binding, and unavailable-state checks provide the Console-specific traceability.<\/li><\/ul>",
+          "search_text": "console-development-2026-07-29-governance_documentation 2026-07-29 Governance & documentation CONSOLE-2026-003 CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged Pending final commit Authenticated owner refresh and private-runtime/dual-incident Console architecture 2026-07-29 Governance & documentation CONSOLE-2026-003 CONSOLE-2026-002 introduced; CONSOLE-2026-003 introduced CONSOLE-2026-002 canonical through PR #485 and merge commit 10ec1342713e1154337b89de5f5ffc8cf5ddf8d; CONSOLE-2026-003 Proposed / unmerged Pending final commit Authenticated owner refresh and private-runtime/dual-incident Console architecture"
         },
         {
           "id": "console-development-2026-07-28-interface_information_architecture",
@@ -2547,6 +3089,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "logs.js": "project-console-7b6e6607947040eac85b"
+    "logs.js": "project-console-4c179a05f1b0ff2bdd6e"
   }
 });

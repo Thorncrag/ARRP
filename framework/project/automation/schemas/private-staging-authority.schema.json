@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arrp.org/schemas/private-staging-authority.schema.json",
+  "title": "ARRP Private Staging Authority Descriptor",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authority_id",
+    "authority_mode",
+    "activation_authorized",
+    "private_root",
+    "roles"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "authority_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "authority_mode": {
+      "const": "inactive_successor_staging"
+    },
+    "activation_authorized": {
+      "const": false
+    },
+    "private_root": {
+      "type": "string",
+      "minLength": 2,
+      "pattern": "^/"
+    },
+    "roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runtime",
+        "records",
+        "owner_console_versions",
+        "migration",
+        "disclosure_control_packs"
+      ],
+      "properties": {
+        "runtime": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "records": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "owner_console_versions": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "migration": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "disclosure_control_packs": {
+          "$ref": "#/$defs/relativePath"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*//)[^\\\\\\u0000]+$"
+    }
+  }
+}

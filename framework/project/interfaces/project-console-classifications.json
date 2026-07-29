@@ -174,14 +174,26 @@
       {
         "id": "operational_incident",
         "label": "Operational incident",
-        "meaning": "An incident in Open, Investigating, Mitigated, or Monitoring state.",
-        "inclusion_predicate": "Operational Incidents current projection reports an unresolved lifecycle state.",
-        "authoritative_source": "Operational Incidents event authority",
-        "producer": "project-console-action-snapshot",
+        "meaning": "An owner-local Operational Incident in Open, Investigating, Mitigated, or Monitoring state.",
+        "inclusion_predicate": "The complete exact-bound owner-local Operational Incidents projection reports an unresolved lifecycle state.",
+        "authoritative_source": "Owner-local Operational Incidents event authority",
+        "producer": "project-console-private-action-snapshot",
         "lifecycle_owner": "Recorded incident owner",
         "destination": "automation:logs:incidents",
         "resolution_rule": "The incident authority records exact recovery evidence and Resolved status.",
         "allowed_consumers": ["action_items", "overview", "operations"]
+      },
+      {
+        "id": "security_incident",
+        "label": "Security incident",
+        "meaning": "A protected owner-local Security Incident in an unresolved lifecycle state.",
+        "inclusion_predicate": "The complete exact-bound owner-local Security Incidents projection reports an unresolved SEC lifecycle state.",
+        "authoritative_source": "Owner-local Security Incidents event authority",
+        "producer": "project-console-private-action-snapshot",
+        "lifecycle_owner": "Recorded Security Incident owner",
+        "destination": "automation:logs:security-incidents",
+        "resolution_rule": "The Security Incident authority records its own required security closure proof and Resolved status.",
+        "allowed_consumers": ["action_items", "operations", "operations_security"]
       },
       {
         "id": "security_protected_action",
@@ -292,7 +304,8 @@
       {"id": "pending_sources", "label": "Pending sources", "meaning": "Sources awaiting verification or placement.", "inclusion_predicate": "Pending source catalog membership.", "authoritative_source": "Pending source catalog", "producer": "project-console-queue-directory", "lifecycle_owner": "Elim", "destination": "planning:sources:status=pending", "resolution_rule": "Source is accepted, rejected, or otherwise leaves the pending catalog.", "allowed_consumers": ["overview", "sources"]},
       {"id": "repository_reviews", "label": "Repository reviews", "meaning": "Exact-head Source Monitor recommendations.", "inclusion_predicate": "Typed recommendation for an exact pull-request head.", "authoritative_source": "Source Monitor recommendation projection", "producer": "project-console-queue-directory", "lifecycle_owner": "Recorded action owner", "destination": "automation:logs:sources", "resolution_rule": "Recommendation is disposed or superseded by a new exact-head review.", "allowed_consumers": ["overview", "operations"]},
       {"id": "human_actions", "label": "Human action items", "meaning": "Unresolved action records with exact human attention ownership.", "inclusion_predicate": "Shared Action snapshot attention_class equals human.", "authoritative_source": "Typed Action snapshot", "producer": "project-console-queue-directory", "lifecycle_owner": "Human", "destination": "actions:my-items", "resolution_rule": "Owning authority resolves or reassigns the underlying record.", "allowed_consumers": ["overview", "action_items"]},
-      {"id": "operational_incidents", "label": "Operational incidents", "meaning": "Unresolved Operational Incidents.", "inclusion_predicate": "Incident lifecycle is Open, Investigating, Mitigated, or Monitoring.", "authoritative_source": "Operational Incidents projection", "producer": "project-console-queue-directory", "lifecycle_owner": "Recorded incident owner", "destination": "automation:logs:incidents", "resolution_rule": "Incident authority records exact recovery evidence and Resolved state.", "allowed_consumers": ["overview", "operations", "logs"]}
+      {"id": "operational_incidents", "label": "Operational incidents", "meaning": "Unresolved Operational Incidents; unavailable outside the exact bound owner-local Console projection.", "inclusion_predicate": "Complete exact-bound owner-local Operational Incidents projection reports lifecycle Open, Investigating, Mitigated, or Monitoring.", "authoritative_source": "Owner-local Operational Incidents projection", "producer": "project-console-private-queue-directory", "lifecycle_owner": "Recorded incident owner", "destination": "automation:logs:incidents", "resolution_rule": "Incident authority records exact recovery evidence and Resolved state.", "allowed_consumers": ["overview", "operations", "logs"]},
+      {"id": "security_incidents", "label": "Security incidents", "meaning": "Unresolved protected Security Incidents; unavailable outside the exact bound owner-local Console projection.", "inclusion_predicate": "Complete exact-bound owner-local Security Incidents projection reports SEC lifecycle Open, Investigating, Contained, Remediating, or Monitoring.", "authoritative_source": "Owner-local Security Incidents projection", "producer": "project-console-private-queue-directory", "lifecycle_owner": "Recorded Security Incident owner", "destination": "automation:logs:security-incidents", "resolution_rule": "Security Incident authority records required security closure proof and Resolved state.", "allowed_consumers": ["action_items", "operations", "operations_security", "logs"]}
     ],
     "workflow_view": [
       {"id": "workbench_active_pipeline", "label": "Active Pipeline", "meaning": "Active lifecycle-eligible Workbench items below the default Review Ready scope.", "inclusion_predicate": "Pipeline mode active and selected scope predicate.", "authoritative_source": "Typed Pipeline projection", "producer": "project-console-pipeline-projection", "lifecycle_owner": "Planning", "destination": "planning:workbench:pipeline", "resolution_rule": "View membership changes with the authoritative lifecycle predicate.", "allowed_consumers": ["workbench", "overview"]},

@@ -66,9 +66,24 @@ operational picture. Restricted or private originals require separately
 reviewed sanitized derivatives; relabeling the original is insufficient.
 
 The repository-visible Console bundle contains only allowlisted public-safe
-projections. Complete runtime configuration, authenticated security state, and
-detailed operational history remain in secret-scanned, Git-ignored owner-local
-feeds and are not members of the public generation manifest.
+projections. Complete runtime configuration, authenticated security state,
+Security Incident records/evidence, and detailed operational history remain in
+secret-scanned, Git-ignored owner-local feeds and are not members of the public
+generation manifest. An owner-file Console copy may render an exact bound
+owner-local projection, but this does not make the projection a repository,
+GitHub, public-bundle, or DOM artifact outside that local copy.
+
+The public Governance Change Log is a `public_operational_summary`: it may
+identify the approved decision, public rationale, governing authorities,
+effective revisions, validation, supersession, activation posture, and whether
+a protected supplement exists. Its owner-local supplement is not a public
+artifact. Restricted decision context, security evidence, exact private
+topology, diagnostics, credential or account detail, and protected conclusions
+remain under the private supplement contract and may not be copied into the
+public log, its Console projection, GitHub metadata, or another public record.
+Both records use the same stable `GOV` identity, but neither the public index
+nor its supplement replaces the governing authority that owns the current
+rule.
 
 ## Public core and owner-local controls
 
@@ -86,8 +101,12 @@ fails closed. This separation permits public verification of the governing
 invariant without publishing the sensitive controls used to enforce it.
 
 Production authorization reads only the active pointer beneath the fixed
-approved owner-local state root. A caller may select the proposed outbound
-payload but may not select an authority root or substitute a control pack.
+approved owner-local state root resolved by the [ARRP Owner-Local Runtime
+Authority](../automation/owner-local-runtime.md). The inactive protected
+successor staging descriptor and any candidate control pack cannot authorize production before a
+separately approved activation and cutover. A caller may select the proposed
+outbound payload but may not select an authority root or substitute a control
+pack.
 Candidate packs have a separate validation-only path: a successful candidate
 check is nonauthoritative and cannot authorize any GitHub transmission.
 Activation is an owner-approved atomic state change after the candidate,
@@ -111,9 +130,13 @@ and every automated publisher or broker must fail closed when its decision is
 missing, incomplete, stale, or bound to different content or revision.
 
 Blocked local artifacts are preserved. A material prevented disclosure is
-recorded as a sanitized near-miss Operational Incident; a confirmed disclosure
-is an Operational Incident. Incident, Action Item, and Console projections
-must never reproduce restricted evidence.
+recorded as a sanitized near-miss Operational Incident and may be linked to a
+separate owner-local Security Incident when its security admission boundary is
+also met. A confirmed disclosure is an Operational Incident and may likewise
+have a typed cross-domain relation. Neither ledger substitutes for the other:
+operational recovery does not close security investigation, and security
+containment does not establish operational recovery. Incident, Action Item, and
+Console projections must never reproduce restricted evidence.
 
 No ARRP-authored GitHub Issue, pull-request body, repository document, log,
 audit record, Console-development entry, generated Console artifact, workflow
@@ -125,6 +148,12 @@ analysis remain owner-local or in GitHub's provider-native private Security
 surfaces. Project records may retain only a safe typed posture, opaque
 protected-action identity, and protected route. Unknown classification fails
 closed rather than being copied for later review.
+
+That prohibition applies equally to Governance Change Log entries. A
+governance decision prompted by protected security or runtime evidence receives
+a public-safe summary and supplement posture only. The matching owner-local
+supplement uses opaque protected references rather than reproducing secrets or
+raw vulnerability evidence and never authorizes a GitHub transmission.
 
 ## Inventory and historical disclosure
 

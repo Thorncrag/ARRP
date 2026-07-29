@@ -1,6 +1,7 @@
 import importlib.util
 import json
 import re
+import tempfile
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -22,8 +23,17 @@ install_test_control_pack(MODULE)
 class PublicSitePreparationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        cls.temporary = tempfile.TemporaryDirectory()
+        cls.build_root = Path(cls.temporary.name) / ".site-build"
+        MODULE.BUILD_ROOT = cls.build_root
+        MODULE.DOCS_ROOT = cls.build_root / "docs"
+        MODULE.SITE_ROOT = cls.build_root / "site"
         cls.manifest = MODULE.prepare()
-        cls.docs = ROOT / ".site-build" / "docs"
+        cls.docs = MODULE.DOCS_ROOT
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.temporary.cleanup()
 
     def test_public_corpus_is_allowlisted(self):
         sources = self.manifest["canonicalSources"]
@@ -79,7 +89,7 @@ class PublicSitePreparationTests(unittest.TestCase):
         self.assertNotIn("project-console-data", staged_text)
 
     def test_reader_navigation_is_generated(self):
-        config = (ROOT / ".site-build" / "mkdocs.yml").read_text(encoding="utf-8")
+        config = (self.build_root / "mkdocs.yml").read_text(encoding="utf-8")
         self.assertIn('"Topics"', config)
         self.assertIn('"Under Review": UNDER_REVIEW.md', config)
         self.assertIn('"About the Project": ABOUT.md', config)
@@ -424,8 +434,15 @@ class PublicSitePreparationTests(unittest.TestCase):
                     self.assertNotIn(disallowed, guide)
 
     def test_manifest_is_written(self):
-        written = json.loads((ROOT / ".site-build" / "public-manifest.json").read_text())
+        written = json.loads((self.build_root / "public-manifest.json").read_text())
         self.assertEqual(written["canonicalSources"], self.manifest["canonicalSources"])
+
+    def test_existing_staging_fails_closed_without_replacement(self):
+        sentinel = self.build_root / "retained-sentinel.txt"
+        sentinel.write_text("retained\n", encoding="utf-8")
+        with self.assertRaisesRegex(SystemExit, "staging already exists"):
+            MODULE.prepare()
+        self.assertEqual(sentinel.read_text(encoding="utf-8"), "retained\n")
 
 
 if __name__ == "__main__":

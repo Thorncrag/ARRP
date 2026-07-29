@@ -89,9 +89,49 @@ except ModuleNotFoundError:
     from scripts.operational_incidents import project_incident_log
 
 try:
-    from path_authority import APPROVED_STATE_ROOT
+    from security_incidents import (
+        SecurityIncidentContractError,
+        project_security_incident_log,
+        read_relation_events,
+        relationship_projection,
+        unavailable_security_projection,
+    )
 except ModuleNotFoundError:
-    from scripts.path_authority import APPROVED_STATE_ROOT
+    from scripts.security_incidents import (
+        SecurityIncidentContractError,
+        project_security_incident_log,
+        read_relation_events,
+        relationship_projection,
+        unavailable_security_projection,
+    )
+
+try:
+    from governance_changes import (
+        GovernanceChange,
+        GovernanceChangeError,
+        parse_public_changes,
+        project_private_supplements,
+    )
+except ModuleNotFoundError:
+    from scripts.governance_changes import (
+        GovernanceChange,
+        GovernanceChangeError,
+        parse_public_changes,
+        project_private_supplements,
+    )
+
+try:
+    from path_authority import (
+        APPROVED_STATE_ROOT,
+        PathAuthorityError,
+        PrivateProjectAuthority,
+    )
+except ModuleNotFoundError:
+    from scripts.path_authority import (
+        APPROVED_STATE_ROOT,
+        PathAuthorityError,
+        PrivateProjectAuthority,
+    )
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -99,6 +139,14 @@ STATE_ROOT = APPROVED_STATE_ROOT
 CANDIDATES = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
 HORIZON_LOG = ROOT / "framework" / "records" / "candidates" / "horizon-scan-log.md"
 CHANGE_AUDIT_LOG = ROOT / "framework" / "records" / "audits" / "change-audit-log.md"
+GOVERNANCE_CHANGE_LOG = (
+    ROOT / "framework" / "records" / "governance"
+    / "governance-change-log.md"
+)
+GOVERNANCE_CHANGE_REGISTRY = (
+    ROOT / "framework" / "project" / "workflows"
+    / "governance-change-registry.json"
+)
 CONSOLE_DEVELOPMENT_LOG = (
     ROOT / "framework" / "records" / "automation" / "console-development-log.md"
 )
@@ -141,6 +189,14 @@ REPOSITORY_GATE_DECLARATIONS = (
 )
 OPERATIONAL_INCIDENT_LOG = (
     STATE_ROOT / "records" / "automation" / "operational-incidents.jsonl"
+)
+SECURITY_INCIDENT_RELATIVE = "automation/security-incidents.jsonl"
+INCIDENT_RELATIONS_RELATIVE = "automation/incident-relations.jsonl"
+GOVERNANCE_SUPPLEMENTS_RELATIVE = (
+    "governance/governance-change-supplements.jsonl"
+)
+OWNER_MODE_UNAVAILABLE_MESSAGE = (
+    "Data unavailable outside the bound owner-local Console."
 )
 PARTICIPATION_OUTPUT = ROOT / "participate" / "intake-data.js"
 GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/"
@@ -544,7 +600,13 @@ def public_safe_project_logs(
 ) -> list[dict[str, object]]:
     """Retain public project-history ledgers; keep raw operations owner-local."""
 
-    public_ids = {"horizon", "source-monitor", "changes", "console-development"}
+    public_ids = {
+        "horizon",
+        "source-monitor",
+        "changes",
+        "governance-changes",
+        "console-development",
+    }
     projected: list[dict[str, object]] = []
     for record in records:
         if not isinstance(record, dict):
@@ -569,9 +631,7 @@ def public_safe_project_logs(
                 "schema_errors": [],
                 "current_through": None,
                 "producer": record.get("producer"),
-                "reason": (
-                    "Owner-only log data is unavailable in the public Console mode."
-                ),
+                "reason": OWNER_MODE_UNAVAILABLE_MESSAGE,
             }
         )
     return projected
@@ -580,15 +640,88 @@ def public_safe_project_logs(
 def public_safe_integrity(
     integrity: dict[str, object],
 ) -> dict[str, object]:
-    """Publish current Integrity status while retaining history owner-locally."""
+    """Publish only typed Integrity posture; detailed diagnostics stay local."""
 
     if not isinstance(integrity, dict):
         return {}
-    return {
-        key: value
-        for key, value in integrity.items()
-        if key != "history"
-    } | {"history": []}
+    safe = {
+        key: integrity.get(key)
+        for key in (
+            "schema_version",
+            "availability",
+            "complete",
+            "generated_at",
+            "revision",
+            "current_through",
+            "trustworthy_through",
+        )
+        if key in integrity
+    }
+    current = integrity.get("current")
+    if isinstance(current, dict):
+        safe_current = {
+            key: current.get(key)
+            for key in (
+                "finding_count",
+                "result",
+                "checked_at",
+                "generated_at",
+                "revision",
+                "scope",
+                "availability",
+                "complete",
+            )
+            if key in current
+        }
+        findings = current.get("findings")
+        if isinstance(findings, list):
+            safe_current["findings"] = [
+                {
+                    "finding_id": item.get("finding_id"),
+                    "finding_code": item.get("finding_code"),
+                    "severity": item.get("severity"),
+                    "category": item.get("category"),
+                    "status": item.get("status"),
+                    "message": "A typed integrity finding requires review.",
+                }
+                for item in findings
+                if isinstance(item, dict)
+            ]
+        safe["current"] = safe_current
+    safe["history"] = []
+    return safe
+
+
+def safe_automation_explanation(status: object, *, subject: str) -> str:
+    """Return a generic, status-derived explanation suitable for public data."""
+
+    normalized = str(status or "unavailable").strip().casefold().replace("-", "_")
+    messages = {
+        "succeeded": f"{subject} completed successfully.",
+        "completed": f"{subject} completed successfully.",
+        "running": f"{subject} is in progress.",
+        "pending": f"{subject} is pending.",
+        "not_due": f"{subject} was not due for this occurrence.",
+        "skipped": f"{subject} was intentionally skipped.",
+        "blocked": f"{subject} is blocked; protected diagnostic detail is owner-local.",
+        "failed": f"{subject} did not complete; protected diagnostic detail is owner-local.",
+        "degraded": f"{subject} completed with a degraded result.",
+        "unavailable": f"{subject} status is unavailable.",
+    }
+    return messages.get(normalized, f"{subject} status is unavailable.")
+
+
+def public_safe_trigger(value: object) -> str:
+    """Keep trigger class, never host dispatcher or command detail."""
+
+    text = str(value or "").casefold()
+    if re.search(r"schedule|launchd|nightly|timer", text):
+        return "scheduled"
+    if re.search(r"manual|interactive", text):
+        return "manual"
+    if re.search(r"push|pull.request|workflow|event", text):
+        return "event"
+    return "unavailable"
 
 
 def public_safe_run_chain(
@@ -615,7 +748,6 @@ def public_safe_run_chain(
         "baseline_commit",
         "repository",
         "queue_counts",
-        "workflow_health",
     )
     projection = {
         key: chain.get(key)
@@ -628,20 +760,27 @@ def public_safe_run_chain(
         "order",
         "status",
         "due",
-        "due_reason",
         "started_at",
         "updated_at",
         "completed_at",
         "last_success_at",
         "current_chain_label",
-        "failure_class",
-        "active_incident_ids",
     )
     projection["stages"] = [
         {
             key: stage.get(key)
             for key in stage_fields
             if key in stage
+        }
+        | {
+            "reason": safe_automation_explanation(
+                stage.get("status"), subject="This stage"
+            ),
+            "current_chain_label": (
+                "Not due this chain"
+                if str(stage.get("status") or "").strip() == "not_due"
+                else str(stage.get("status") or "unavailable").replace("_", " ").title()
+            ),
         }
         for stage in chain.get("stages") or []
         if isinstance(stage, dict)
@@ -652,7 +791,6 @@ def public_safe_run_chain(
             "epoch_id",
             "review_id",
             "due",
-            "due_reason",
             "interval_days",
             "last_completed_at",
             "next_due_at",
@@ -679,6 +817,159 @@ def public_safe_run_chain(
             if key in decision
         }
     return projection
+
+
+def unavailable_incident_projection(
+    incident_kind: str,
+    *,
+    reason_code: str = "owner-local-projection-required",
+) -> dict[str, object]:
+    """Return the only incident representation allowed in the public bundle."""
+
+    if incident_kind not in {"operational", "security"}:
+        raise RuntimeError("Unknown private incident projection kind.")
+    return {
+        "schema_version": 1,
+        "incident_kind": incident_kind,
+        "availability": "unavailable",
+        "complete": False,
+        "checked_at": None,
+        "count": None,
+        "unresolved_count": None,
+        "items": [],
+        "impact_state": "gray",
+        "reason_code": reason_code,
+        "detail_mode": "owner-local-file-only",
+    }
+
+
+def unavailable_incident_relations(
+    reason_code: str = "owner-local-projection-required",
+) -> dict[str, object]:
+    return {
+        "schema_version": 1,
+        "authority": "owner-local-incident-relations",
+        "availability": "unavailable",
+        "complete": False,
+        "checked_at": None,
+        "active_relations": [],
+        "relations": [],
+        "by_operational_incident": {},
+        "by_security_incident": {},
+        "reason_code": reason_code,
+    }
+
+
+def public_safe_automation_role_status(
+    projection: dict[str, object],
+) -> dict[str, object]:
+    """Remove owner-local incident relationships from public role status."""
+
+    safe = copy.deepcopy(projection)
+    safe["roles"] = [
+        {
+            key: value
+            for key, value in role.items()
+            if key != "active_incident_ids"
+        }
+        for role in safe.get("roles") or []
+        if isinstance(role, dict)
+    ]
+    return safe
+
+
+def public_safe_repository_gates(
+    projection: dict[str, object],
+) -> dict[str, object]:
+    """Keep governed gate status public without exposing private incident links."""
+
+    safe = copy.deepcopy(projection)
+    safe["items"] = [
+        {
+            key: value
+            for key, value in item.items()
+            if key != "active_incident_ids"
+        }
+        for item in safe.get("items") or []
+        if isinstance(item, dict)
+    ]
+    return safe
+
+
+def public_safe_automation_occurrences(
+    projection: dict[str, object],
+) -> dict[str, object]:
+    """Retain occurrence posture without exporting operational diagnostics."""
+
+    safe = copy.deepcopy(projection)
+    safe["occurrences"] = [
+        {
+            **{
+                key: occurrence.get(key)
+                for key in (
+                    "occurrence_id",
+                    "schedule_identity",
+                    "status",
+                    "source_revision",
+                    "generation_id",
+                    "created_at",
+                    "started_at",
+                    "completed_at",
+                    "updated_at",
+                    "scheduled_for",
+                    "complete",
+                    "control_state",
+                    "control_state_checked_at",
+                )
+                if key in occurrence
+            },
+            "trigger": public_safe_trigger(occurrence.get("trigger")),
+            "reason": safe_automation_explanation(
+                occurrence.get("status"), subject="This occurrence"
+            ),
+            "stages": [
+                {
+                    key: stage.get(key)
+                    for key in (
+                        "stage_id",
+                        "label",
+                        "order",
+                        "occurrence_id",
+                        "status",
+                        "current_chain_label",
+                        "due",
+                        "started_at",
+                        "completed_at",
+                        "prior_success_at",
+                    )
+                    if key in stage
+                }
+                | {
+                    "reason": safe_automation_explanation(
+                        stage.get("status"), subject="This stage"
+                    )
+                }
+                for stage in occurrence.get("stages") or []
+                if isinstance(stage, dict)
+            ],
+            "blockers": [
+                {
+                    "id": f"{occurrence.get('occurrence_id')}-blocker-{index}",
+                    "stage_id": blocker.get("stage_id"),
+                    "status": "blocked",
+                    "recorded_at": blocker.get("recorded_at"),
+                    "reason": safe_automation_explanation(
+                        "blocked", subject="A recorded occurrence blocker"
+                    ),
+                }
+                for index, blocker in enumerate(occurrence.get("blockers") or [], start=1)
+                if isinstance(blocker, dict)
+            ],
+        }
+        for occurrence in safe.get("occurrences") or []
+        if isinstance(occurrence, dict)
+    ]
+    return safe
 
 
 AUTOMATION_ROLE_CONTRACTS: tuple[dict[str, object], ...] = (
@@ -2052,6 +2343,112 @@ def change_audit_log_view(
     }
 
 
+def governance_change_log_view(
+    projection_errors: list[dict[str, object]] | None = None,
+) -> dict[str, object]:
+    """Project the registry-bound public Governance Change Log."""
+
+    try:
+        changes = parse_public_changes(
+            GOVERNANCE_CHANGE_LOG,
+            GOVERNANCE_CHANGE_REGISTRY,
+        )
+    except GovernanceChangeError as error:
+        if projection_errors is not None:
+            projection_errors.append(
+                {
+                    "code": "governance_change_log_contract",
+                    "severity": "error",
+                    "source": GOVERNANCE_CHANGE_LOG.relative_to(ROOT).as_posix(),
+                    "message": str(error),
+                }
+            )
+        changes = {}
+
+    entries: list[dict[str, object]] = []
+    for change in changes.values():
+        supplement = (
+            "Required"
+            if change.private_supplement_required
+            else "Not required"
+        )
+        values = {
+            "governance_change_id": change.id,
+            "entry_sha256": change.entry_sha256,
+            "date": change.date,
+            "status": change.status,
+            "decision_class": change.decision_class,
+            "policy_adoption": change.policy_adoption,
+            "live_activation": change.live_activation,
+            "supplement": supplement,
+        }
+        details = "\n".join(
+            (
+                f"## {change.id} — {change.title}",
+                "",
+                f"- **Decision class:** {change.decision_class}",
+                f"- **Authorities:** {'; '.join(change.authorities)}",
+                f"- **Decision:** {change.decision}",
+                f"- **Evidence:** {change.evidence}",
+                f"- **Policy adoption:** {change.policy_adoption}",
+                f"- **Live activation:** {change.live_activation}",
+                f"- **Relationships:** {change.relationships}",
+                f"- **Validation:** {change.validation}",
+                f"- **Owner-local supplement:** {supplement}.",
+            )
+        )
+        entries.append(
+            log_entry(
+                change.id,
+                values,
+                {
+                    "governance_change_id": change.id,
+                    "entry_sha256": change.entry_sha256,
+                    "date": change.date,
+                    "status": change.status,
+                    "decision_class": change.decision_class,
+                    "policy_adoption": change.policy_adoption,
+                    "live_activation": change.live_activation,
+                    "supplement": supplement,
+                },
+                details,
+            )
+        )
+        entries[-1]["title"] = change.title
+
+    return {
+        "id": "governance-changes",
+        "title": "Governance Change Log",
+        "description": (
+            "Public-safe provenance for material project-governance decisions."
+        ),
+        "source_url": (
+            GITHUB_BLOB_ROOT
+            + "framework/records/governance/governance-change-log.md"
+        ),
+        "columns": [
+            {"key": "date", "label": "Decision date"},
+            {"key": "decision_class", "label": "Decision class"},
+            {"key": "status", "label": "Status"},
+            {"key": "policy_adoption", "label": "Policy adoption"},
+            {"key": "live_activation", "label": "Live activation"},
+            {"key": "supplement", "label": "Protected supplement"},
+        ],
+        "group_options": [
+            {"key": "decision_class", "label": "Decision class"},
+            {"key": "status", "label": "Status"},
+            {"key": "date", "label": "Decision date"},
+        ],
+        "default_sort": {"key": "governance_change_id", "direction": "desc"},
+        "projection": {
+            "expected_rows": len(changes),
+            "actual_rows": len(entries),
+            "complete": len(changes) == len(entries),
+        },
+        "entries": entries,
+    }
+
+
 def console_development_log_view(
     projection_errors: list[dict[str, object]] | None = None,
 ) -> dict[str, object]:
@@ -2613,6 +3010,7 @@ def project_log_views(
         ("agents", agent_audit_log_view),
         ("source-monitor", source_monitor_log_view),
         ("changes", change_audit_log_view),
+        ("governance-changes", governance_change_log_view),
         ("console-development", console_development_log_view),
     )
     logs: list[dict[str, object]] = []
@@ -3534,6 +3932,196 @@ def read_private_security_assurance() -> dict[str, object] | None:
     return value
 
 
+def unavailable_governance_supplements(
+    *,
+    source_revision: str,
+    checked_at: str,
+    reason_code: str,
+) -> dict[str, object]:
+    return {
+        "schema_version": 1,
+        "availability": "unavailable",
+        "complete": False,
+        "checked_at": checked_at,
+        "source_revision": source_revision,
+        "public_log_sha256": file_sha256(ROOT, GOVERNANCE_CHANGE_LOG),
+        "items": [],
+        "reason_code": reason_code,
+    }
+
+
+def owner_governance_supplements(
+    *,
+    source_revision: str,
+    checked_at: str,
+    private_authority: PrivateProjectAuthority | None = None,
+) -> dict[str, object]:
+    """Project only Console-safe summaries from the fixed private authority."""
+
+    try:
+        public_changes = parse_public_changes(
+            GOVERNANCE_CHANGE_LOG,
+            GOVERNANCE_CHANGE_REGISTRY,
+        )
+        if private_authority is None:
+            raise PathAuthorityError(
+                "private staging authority is unavailable"
+            )
+        path = private_authority.records_path(
+            GOVERNANCE_SUPPLEMENTS_RELATIVE,
+            required=False,
+        )
+    except (GovernanceChangeError, OSError, PathAuthorityError):
+        return unavailable_governance_supplements(
+            source_revision=source_revision,
+            checked_at=checked_at,
+            reason_code="owner-local-governance-supplements-unavailable",
+        )
+    projection = project_private_supplements(path, public_changes)
+    if (
+        projection.get("availability") != "current"
+        or projection.get("complete") is not True
+        or not isinstance(projection.get("items"), list)
+    ):
+        return unavailable_governance_supplements(
+            source_revision=source_revision,
+            checked_at=checked_at,
+            reason_code=str(
+                projection.get("reason_code")
+                or "owner-local-governance-supplements-unavailable"
+            ),
+        )
+    items = [
+        {
+            "governance_change_id": str(event["governance_id"]),
+            "public_entry_sha256": str(event["public_entry_sha256"]),
+            "source_revision": source_revision,
+            "recorded_at": str(event["recorded_at"]),
+            "safe_summary": str(event["safe_summary"]),
+        }
+        for event in projection["items"]
+        if isinstance(event, dict)
+    ]
+    return {
+        "schema_version": 1,
+        "availability": "current",
+        "complete": True,
+        "checked_at": checked_at,
+        "source_revision": source_revision,
+        "public_log_sha256": file_sha256(ROOT, GOVERNANCE_CHANGE_LOG),
+        "items": items,
+        "reason_code": None,
+    }
+
+
+def valid_private_governance_supplements(
+    projection: object,
+    *,
+    source_revision: str,
+    project_logs: list[dict[str, object]],
+) -> bool:
+    top_fields = {
+        "schema_version",
+        "availability",
+        "complete",
+        "checked_at",
+        "source_revision",
+        "public_log_sha256",
+        "items",
+        "reason_code",
+    }
+    item_fields = {
+        "governance_change_id",
+        "public_entry_sha256",
+        "source_revision",
+        "recorded_at",
+        "safe_summary",
+    }
+    if (
+        not isinstance(projection, dict)
+        or set(projection) != top_fields
+        or projection.get("schema_version") != 1
+        or projection.get("source_revision") != source_revision
+        or not re.fullmatch(
+            r"sha256:[0-9a-f]{64}",
+            str(projection.get("public_log_sha256") or ""),
+        )
+        or not isinstance(projection.get("items"), list)
+    ):
+        return False
+    try:
+        datetime.fromisoformat(
+            str(projection.get("checked_at") or "").replace("Z", "+00:00")
+        )
+    except ValueError:
+        return False
+    if projection.get("complete") is not True:
+        return bool(
+            projection.get("availability") == "unavailable"
+            and projection.get("items") == []
+            and isinstance(projection.get("reason_code"), str)
+            and projection.get("reason_code")
+        )
+    if (
+        projection.get("availability") != "current"
+        or projection.get("reason_code") is not None
+    ):
+        return False
+    governance_log = next(
+        (
+            log
+            for log in project_logs
+            if isinstance(log, dict)
+            and log.get("id") == "governance-changes"
+        ),
+        None,
+    )
+    if not isinstance(governance_log, dict):
+        return False
+    entries = governance_log.get("entries")
+    if not isinstance(entries, list):
+        return False
+    public_entries = {
+        str(entry.get("id") or ""): entry
+        for entry in entries
+        if isinstance(entry, dict)
+    }
+    required_ids = {
+        identifier
+        for identifier, entry in public_entries.items()
+        if isinstance(entry.get("values"), dict)
+        and entry["values"].get("supplement") == "Required"
+    }
+    observed: set[str] = set()
+    for item in projection["items"]:
+        if (
+            not isinstance(item, dict)
+            or set(item) != item_fields
+            or item.get("source_revision") != source_revision
+            or not isinstance(item.get("safe_summary"), str)
+            or not item["safe_summary"].strip()
+        ):
+            return False
+        identifier = str(item.get("governance_change_id") or "")
+        public_entry = public_entries.get(identifier)
+        if identifier in observed or not isinstance(public_entry, dict):
+            return False
+        values = public_entry.get("values")
+        if (
+            not isinstance(values, dict)
+            or item.get("public_entry_sha256") != values.get("entry_sha256")
+        ):
+            return False
+        try:
+            datetime.fromisoformat(
+                str(item.get("recorded_at") or "").replace("Z", "+00:00")
+            )
+        except ValueError:
+            return False
+        observed.add(identifier)
+    return observed == required_ids
+
+
 def valid_private_operations(
     snapshot: object,
     *,
@@ -3551,12 +4139,17 @@ def valid_private_operations(
         "integrity",
         "run_chain",
         "action_snapshot",
+        "queue_directory",
+        "operational_incidents",
+        "security_incidents",
+        "incident_relations",
+        "governance_change_supplements",
         "privacy",
     }
     return bool(
         isinstance(snapshot, dict)
         and set(snapshot) == expected_fields
-        and snapshot.get("schema_version") == 2
+        and snapshot.get("schema_version") == 4
         and snapshot.get("availability") == "current"
         and snapshot.get("catalog_generation_id") == catalog_generation_id
         and snapshot.get("source_revision") == source_revision
@@ -3566,8 +4159,19 @@ def valid_private_operations(
         and isinstance(snapshot.get("integrity"), dict)
         and isinstance(snapshot.get("run_chain"), dict)
         and isinstance(snapshot.get("action_snapshot"), dict)
-        and snapshot["action_snapshot"].get("complete") is True
         and isinstance(snapshot["action_snapshot"].get("items"), list)
+        and isinstance(snapshot.get("queue_directory"), dict)
+        and isinstance(snapshot["queue_directory"].get("queues"), list)
+        and isinstance(snapshot.get("operational_incidents"), dict)
+        and isinstance(snapshot["operational_incidents"].get("items"), list)
+        and isinstance(snapshot.get("security_incidents"), dict)
+        and isinstance(snapshot["security_incidents"].get("items"), list)
+        and isinstance(snapshot.get("incident_relations"), dict)
+        and valid_private_governance_supplements(
+            snapshot.get("governance_change_supplements"),
+            source_revision=source_revision,
+            project_logs=snapshot["project_logs"],
+        )
     )
 
 
@@ -3580,11 +4184,16 @@ def write_private_operations(
     integrity: dict[str, object],
     run_chain: dict[str, object],
     action_snapshot: dict[str, object],
+    queue_directory: dict[str, object],
+    operational_incidents: dict[str, object],
+    security_incidents: dict[str, object],
+    incident_relations: dict[str, object],
+    governance_change_supplements: dict[str, object],
 ) -> dict[str, object]:
     """Persist the complete owner-only Console operations projection safely."""
 
     snapshot = {
-        "schema_version": 2,
+        "schema_version": 4,
         "availability": "current",
         "generated_at": utc_timestamp(),
         "catalog_generation_id": catalog_generation_id,
@@ -3594,6 +4203,11 @@ def write_private_operations(
         "integrity": integrity,
         "run_chain": run_chain,
         "action_snapshot": action_snapshot,
+        "queue_directory": queue_directory,
+        "operational_incidents": operational_incidents,
+        "security_incidents": security_incidents,
+        "incident_relations": incident_relations,
+        "governance_change_supplements": governance_change_supplements,
         "privacy": (
             "Owner-only local projection. This file is Git-ignored and must "
             "not be committed or published."
@@ -6355,7 +6969,9 @@ def build_action_snapshot(
     integrity: dict[str, object],
     review_recommendations: list[dict[str, object]],
     operational_incidents: dict[str, object],
+    security_incidents: dict[str, object] | None = None,
     generated_at: str,
+    require_private_incident_completeness: bool = False,
 ) -> dict[str, object]:
     """Assemble one typed cross-screen work snapshot.
 
@@ -6635,6 +7251,62 @@ def build_action_snapshot(
             }
         )
 
+    unresolved_security_states = {
+        "open",
+        "investigating",
+        "contained",
+        "remediating",
+        "monitoring",
+    }
+    security_projection = security_incidents or unavailable_incident_projection(
+        "security",
+        reason_code="security-incident-projection-not-supplied",
+    )
+    for incident in security_projection.get("items") or []:
+        if (
+            not isinstance(incident, dict)
+            or str(incident.get("status") or "").casefold()
+            not in unresolved_security_states
+        ):
+            continue
+        incident_id = str(
+            incident.get("security_incident_id") or ""
+        ).strip()
+        if not incident_id:
+            continue
+        owner = str(incident.get("owner") or "Unassigned")
+        add(
+            {
+                "item_id": f"security-incident:{incident_id}",
+                "work_kind": "security_incident",
+                "finding_code": None,
+                "label": incident.get("safe_summary") or incident_id,
+                "status": incident.get("status"),
+                "owner": owner,
+                "attention_class": (
+                    "human"
+                    if normalize_console_owner(owner) == "human"
+                    else "oversight"
+                ),
+                "authority": "Owner-local Security Incidents projection",
+                "source_record_id": incident_id,
+                "detected_at": incident.get("first_observed"),
+                "next_action": incident.get("next_action"),
+                "route": (
+                    "automation:logs:security-incidents:selected="
+                    f"{urllib.parse.quote(incident_id)}"
+                ),
+                "specialist_route": (
+                    "automation:logs:security-incidents:selected="
+                    f"{urllib.parse.quote(incident_id)}"
+                ),
+                "resolution_predicate": (
+                    "The Security Incident authority records exact "
+                    "security-specific closure proof and Resolved status."
+                ),
+            }
+        )
+
     items.sort(
         key=lambda item: (
             0 if item.get("attention_class") == "human" else 1,
@@ -6645,20 +7317,58 @@ def build_action_snapshot(
     human_items = [
         item for item in items if item.get("attention_class") == "human"
     ]
+    incident_sources_complete = (
+        operational_incidents.get("complete") is True
+        and security_projection.get("complete") is True
+    )
+    complete = (
+        incident_sources_complete
+        if require_private_incident_completeness
+        else True
+    )
+    exact_counts = {
+        "human": len(human_items),
+        "oversight": len(items) - len(human_items),
+        "all_open": len(items),
+    }
     generation_id = "action-snapshot-" + hashlib.sha256(
-        json.dumps(items, sort_keys=True, ensure_ascii=False).encode("utf-8")
+        json.dumps(
+            {
+                "items": items,
+                "complete": complete,
+                "operational_incidents_complete": (
+                    operational_incidents.get("complete") is True
+                ),
+                "security_incidents_complete": (
+                    security_projection.get("complete") is True
+                ),
+            },
+            sort_keys=True,
+            ensure_ascii=False,
+        ).encode("utf-8")
     ).hexdigest()[:20]
     return {
         "schema_version": 1,
         "generation_id": generation_id,
         "generated_at": generated_at,
-        "availability": "current",
-        "complete": True,
+        "availability": "current" if complete else "partial",
+        "complete": complete,
         "items": items,
-        "counts": {
-            "human": len(human_items),
-            "oversight": len(items) - len(human_items),
-            "all_open": len(items),
+        "counts": exact_counts if complete else {
+            "human": None,
+            "oversight": None,
+            "all_open": None,
+        },
+        "known_counts": exact_counts,
+        "sources": {
+            "operational_incidents": {
+                "availability": operational_incidents.get("availability"),
+                "complete": operational_incidents.get("complete") is True,
+            },
+            "security_incidents": {
+                "availability": security_projection.get("availability"),
+                "complete": security_projection.get("complete") is True,
+            },
         },
         "predicates": {
             "human": {"attention_class": "human", "status": "unresolved"},
@@ -6681,6 +7391,10 @@ def join_private_security_actions(
         if isinstance(item, dict)
     ]
     if not valid_private_security_assurance(security_snapshot):
+        projected["private_join"] = {
+            "security_assurance": "unavailable",
+            "checked_at": None,
+        }
         return projected
     for tool in security_snapshot.get("tools") or []:
         if (
@@ -6741,14 +7455,21 @@ def join_private_security_actions(
     human_count = sum(
         item.get("attention_class") == "human" for item in items
     )
+    known_counts = {
+        "human": human_count,
+        "oversight": len(items) - human_count,
+        "all_open": len(items),
+    }
+    complete = projected.get("complete") is True
     projected.update(
         {
             "items": items,
-            "counts": {
-                "human": human_count,
-                "oversight": len(items) - human_count,
-                "all_open": len(items),
+            "counts": known_counts if complete else {
+                "human": None,
+                "oversight": None,
+                "all_open": None,
             },
+            "known_counts": known_counts,
             "private_join": {
                 "security_assurance": "complete",
                 "checked_at": security_snapshot.get("checked_at"),
@@ -6768,6 +7489,7 @@ def build_queue_directory(
     action_snapshot: dict[str, object],
     operational_incidents: dict[str, object],
     generated_at: str,
+    security_incidents: dict[str, object] | None = None,
 ) -> dict[str, object]:
     pipeline = (
         progress.get("pipeline")
@@ -6785,6 +7507,11 @@ def build_queue_directory(
         else {}
     )
     incident_complete = operational_incidents.get("complete") is True
+    security_projection = security_incidents or unavailable_incident_projection(
+        "security",
+        reason_code="security-incident-projection-not-supplied",
+    )
+    security_incident_complete = security_projection.get("complete") is True
     definitions = [
         (
             "candidate_intake",
@@ -6883,6 +7610,19 @@ def build_queue_directory(
             "automation:logs:incidents",
             "Operational Incidents projection",
         ),
+        (
+            "security_incidents",
+            (
+                security_projection.get("unresolved_count")
+                if security_incident_complete
+                else None
+            ),
+            security_incident_complete,
+            "unresolved owner-local Security Incident lifecycle states",
+            "automation:logs:security-incidents",
+            "automation:logs:security-incidents",
+            "Owner-local Security Incidents projection",
+        ),
     ]
     queue_generation_id = "queue-directory-" + hashlib.sha256(
         json.dumps(definitions, sort_keys=True, ensure_ascii=False).encode(
@@ -6905,6 +7645,11 @@ def build_queue_directory(
                 operational_incidents.get("checked_at")
                 or operational_incidents.get("trustworthy_through")
                 or generated_at
+            )
+        elif queue_id == "security_incidents":
+            current_through = (
+                security_projection.get("checked_at")
+                or security_projection.get("trustworthy_through")
             )
         elif queue_id == "human_actions":
             current_through = action_snapshot.get("generated_at") or generated_at
@@ -6948,7 +7693,10 @@ def build_queue_directory(
                 "problem_state": (
                     "problem"
                     if complete and isinstance(count, int) and count > 0
-                    and queue_id in {"operational_incidents"}
+                    and queue_id in {
+                        "operational_incidents",
+                        "security_incidents",
+                    }
                     else "none"
                     if complete
                     else "unavailable"
@@ -6956,16 +7704,28 @@ def build_queue_directory(
                 "impact_state": (
                     operational_incidents.get("impact_state")
                     if queue_id == "operational_incidents"
-                    else None
+                    else (
+                        "yellow"
+                        if queue_id == "security_incidents"
+                        and complete
+                        and isinstance(count, int)
+                        and count > 0
+                        else "green"
+                        if queue_id == "security_incidents" and complete
+                        else "gray"
+                        if queue_id == "security_incidents"
+                        else None
+                    )
                 ),
             }
         )
+    directory_complete = all(item["complete"] for item in queues)
     return {
         "schema_version": 1,
         "generation_id": queue_generation_id,
         "generated_at": generated_at,
-        "availability": "current",
-        "complete": all(item["complete"] for item in queues),
+        "availability": "current" if directory_complete else "partial",
+        "complete": directory_complete,
         "queues": queues,
     }
 
@@ -7290,6 +8050,86 @@ def overview_automation_readiness(
     return result
 
 
+def public_safe_automation_readiness(
+    projection: dict[str, object],
+) -> dict[str, object]:
+    """Keep readiness counts and timestamps while redacting diagnostic payloads."""
+
+    safe = copy.deepcopy(projection)
+    for key in ("latest_attempt", "latest_scheduled_attempt"):
+        item = safe.get(key)
+        if not isinstance(item, dict):
+            continue
+        status = item.get("status")
+        safe_item = {
+            field: item.get(field)
+            for field in (
+                "available",
+                "occurrence_id",
+                "chain_id",
+                "status",
+                "checked_at",
+                "blocker_count",
+            )
+            if field in item
+        }
+        safe_item["trigger"] = public_safe_trigger(item.get("trigger"))
+        safe_item["reason"] = safe_automation_explanation(
+            status, subject="The latest attempt"
+        )
+        safe_item["failure_reason"] = (
+            safe_automation_explanation(status, subject="The latest scheduled attempt")
+            if status in {"failed", "blocked", "degraded"}
+            else None
+        )
+        safe_item["blockers"] = [
+            {
+                "id": f"public-blocker-{index}",
+                "stage_id": blocker.get("stage_id"),
+                "status": str(blocker.get("status") or "blocked"),
+                "recorded_at": blocker.get("recorded_at"),
+                "reason": safe_automation_explanation(
+                    blocker.get("status") or "blocked",
+                    subject="A recorded automation blocker",
+                ),
+            }
+            for index, blocker in enumerate(item.get("blockers") or [], start=1)
+            if isinstance(blocker, dict)
+        ]
+        safe[key] = safe_item
+    gates = safe.get("future_run_gates")
+    if isinstance(gates, dict):
+        safe["future_run_gates"] = {
+            field: gates.get(field)
+            for field in (
+                "available",
+                "count",
+                "checked_at",
+                "oldest_age",
+                "availability",
+                "trustworthy_through",
+                "known_blocker_count",
+            )
+            if field in gates
+        } | {
+            "reason": (
+                "A complete typed automation-gate inventory is available."
+                if gates.get("available") is True
+                else "A complete typed automation-gate inventory is unavailable."
+            ),
+            "items": [
+                {
+                    "id": f"public-gate-{index}",
+                    "affected_stages": item.get("affected_stages"),
+                    "affected_latest_attempt": item.get("affected_latest_attempt"),
+                }
+                for index, item in enumerate(gates.get("items") or [], start=1)
+                if isinstance(item, dict)
+            ],
+        }
+    return safe
+
+
 def overview_data(
     *,
     candidates: list[dict[str, object]],
@@ -7310,6 +8150,7 @@ def overview_data(
     queue_directory: dict[str, object] | None = None,
     repository_gates: dict[str, object] | None = None,
     operational_incidents: dict[str, object] | None = None,
+    security_incidents: dict[str, object] | None = None,
 ) -> dict[str, object]:
     action_snapshot_supplied = action_snapshot is not None
     automation_occurrences = automation_occurrences or {
@@ -7343,8 +8184,10 @@ def overview_data(
         if isinstance(integrity.get("current"), dict)
         else {}
     )
-    automation_readiness = overview_automation_readiness(
-        run_chain, repository_gates or {}, automation_occurrences
+    automation_readiness = public_safe_automation_readiness(
+        overview_automation_readiness(
+            run_chain, repository_gates or {}, automation_occurrences
+        )
     )
     recommendation_ids = {
         str(item.get("id") or "").strip()
@@ -7540,6 +8383,13 @@ def overview_data(
         "impact_state": "gray",
         "reason": "Operational incident projection was not supplied.",
     }
+    security_incident_projection = (
+        security_incidents
+        or unavailable_incident_projection(
+            "security",
+            reason_code="security-incident-projection-not-supplied",
+        )
+    )
     incident_complete = incident_projection.get("complete") is True
     active_incidents = [
         item
@@ -7997,6 +8847,7 @@ def overview_data(
         "action_snapshot": action_snapshot,
         "queue_directory": queue_directory,
         "operational_incidents": incident_projection,
+        "security_incidents": security_incident_projection,
         "manager_focus": {
             "human_decisions": (
                 (action_snapshot.get("counts") or {}).get("human")
@@ -8217,11 +9068,90 @@ def repository_gate_snapshot(refresh: bool) -> dict[str, object]:
     }
 
 
+def owner_incident_snapshots(
+    private_authority: PrivateProjectAuthority | None = None,
+) -> tuple[
+    dict[str, object],
+    dict[str, object],
+    dict[str, object],
+]:
+    """Load private incident authorities without granting successor activation."""
+
+    operational = project_incident_log(OPERATIONAL_INCIDENT_LOG)
+    try:
+        if private_authority is None:
+            raise PathAuthorityError(
+                "private staging authority is unavailable"
+            )
+    except PathAuthorityError:
+        return (
+            operational,
+            unavailable_security_projection("private-authority-unavailable"),
+            unavailable_incident_relations("private-authority-unavailable"),
+        )
+
+    security_path = private_authority.records_output(
+        SECURITY_INCIDENT_RELATIVE
+    )
+    security = project_security_incident_log(security_path)
+    if (
+        operational.get("complete") is not True
+        or security.get("complete") is not True
+    ):
+        return (
+            operational,
+            security,
+            unavailable_incident_relations("incident-authority-incomplete"),
+        )
+
+    relation_path = private_authority.records_output(
+        INCIDENT_RELATIONS_RELATIVE
+    )
+    if not relation_path.exists():
+        return (
+            operational,
+            security,
+            unavailable_incident_relations("incident-relations-missing"),
+        )
+    try:
+        relations = relationship_projection(
+            read_relation_events(relation_path),
+            known_operational_ids={
+                str(item.get("incident_id") or "")
+                for item in operational.get("items") or []
+                if isinstance(item, dict)
+            },
+            known_security_ids={
+                str(item.get("security_incident_id") or "")
+                for item in security.get("items") or []
+                if isinstance(item, dict)
+            },
+        )
+    except (OSError, SecurityIncidentContractError):
+        relations = unavailable_incident_relations(
+            "incident-relations-invalid"
+        )
+    return operational, security, relations
+
+
 def main() -> None:
     args = parse_args()
+    try:
+        private_authority = PrivateProjectAuthority.production_staging()
+    except PathAuthorityError:
+        private_authority = None
     validate_console_development_log_categories()
     projection_errors: list[dict[str, object]] = []
-    operational_incidents = project_incident_log(OPERATIONAL_INCIDENT_LOG)
+    (
+        operational_incidents,
+        security_incidents,
+        incident_relations,
+    ) = owner_incident_snapshots(private_authority)
+    public_operational_incidents = unavailable_incident_projection(
+        "operational"
+    )
+    public_security_incidents = unavailable_incident_projection("security")
+    public_incident_relations = unavailable_incident_relations()
     candidates = candidate_records()
     cited_sources = catalog_source_records(CITED_SOURCES, "Relied upon")
     pending_sources = catalog_source_records(
@@ -8343,15 +9273,33 @@ def main() -> None:
     )
     publication["delivery_items"] = delivery_items
     generated_at = utc_timestamp()
+    repository_revision = source_revision(ROOT)
+    governance_change_supplements = owner_governance_supplements(
+        source_revision=repository_revision,
+        checked_at=generated_at,
+        private_authority=private_authority,
+    )
+    public_integrity = public_safe_integrity(integrity)
     action_snapshot = build_action_snapshot(
+        progress=progress,
+        integrity=public_integrity,
+        review_recommendations=review_recommendations,
+        operational_incidents=public_operational_incidents,
+        security_incidents=public_security_incidents,
+        generated_at=generated_at,
+        require_private_incident_completeness=True,
+    )
+    private_action_snapshot = build_action_snapshot(
         progress=progress,
         integrity=integrity,
         review_recommendations=review_recommendations,
         operational_incidents=operational_incidents,
+        security_incidents=security_incidents,
         generated_at=generated_at,
+        require_private_incident_completeness=True,
     )
     private_action_snapshot = join_private_security_actions(
-        action_snapshot,
+        private_action_snapshot,
         private_security_assurance,
     )
     queue_directory = build_queue_directory(
@@ -8361,7 +9309,19 @@ def main() -> None:
         pending_sources=pending_sources,
         review_recommendations=review_recommendations,
         action_snapshot=action_snapshot,
+        operational_incidents=public_operational_incidents,
+        security_incidents=public_security_incidents,
+        generated_at=generated_at,
+    )
+    private_queue_directory = build_queue_directory(
+        progress=progress,
+        preliminary_records=candidates,
+        formal_candidates=active_horizon_records,
+        pending_sources=pending_sources,
+        review_recommendations=review_recommendations,
+        action_snapshot=private_action_snapshot,
         operational_incidents=operational_incidents,
+        security_incidents=security_incidents,
         generated_at=generated_at,
     )
     local_automation_status = local_automation_status_snapshot(
@@ -8371,6 +9331,9 @@ def main() -> None:
         run_chain,
         local_automation_status,
         checked_at=generated_at,
+    )
+    public_automation_occurrences = public_safe_automation_occurrences(
+        automation_occurrences
     )
     automation_role_status = automation_role_status_projection(
         agent_registry=agent_registry,
@@ -8391,6 +9354,12 @@ def main() -> None:
         for item in automation_role_status.get("roles") or []
         if isinstance(item, dict)
     ]
+    public_automation_role_status = public_safe_automation_role_status(
+        automation_role_status
+    )
+    public_repository_gates = public_safe_repository_gates(
+        repository_gates
+    )
     watcher_metadata = {
         "case_monitor": case_watcher_metadata,
         "presidential_directives": directive_watcher_metadata(),
@@ -8404,14 +9373,15 @@ def main() -> None:
         progress=progress,
         integrity=integrity,
         run_chain=run_chain,
-        repository_gates=repository_gates,
-        operational_incidents=operational_incidents,
+        repository_gates=public_repository_gates,
+        operational_incidents=public_operational_incidents,
+        security_incidents=public_security_incidents,
         publication=publication,
         project_logs=public_project_logs,
         agent_registry=public_agent_registry,
         watcher_metadata=watcher_metadata,
         source_checker=source_checker,
-        automation_occurrences=automation_occurrences,
+        automation_occurrences=public_automation_occurrences,
         action_snapshot=action_snapshot,
         queue_directory=queue_directory,
     )
@@ -8420,6 +9390,8 @@ def main() -> None:
         CANDIDATES,
         HORIZON_LOG,
         CHANGE_AUDIT_LOG,
+        GOVERNANCE_CHANGE_LOG,
+        GOVERNANCE_CHANGE_REGISTRY,
         CONSOLE_DEVELOPMENT_LOG,
         SOURCE_MONITOR_LOG,
         SOURCE_CHECKER_CONFIG,
@@ -8437,7 +9409,6 @@ def main() -> None:
         ("progress", progress),
         ("integrity", integrity),
         ("run_chain", run_chain),
-        ("operational_incidents", operational_incidents),
         ("source_checker", source_checker),
     ):
         if feed:
@@ -8456,7 +9427,6 @@ def main() -> None:
         + sum(len(log.get("entries") or []) for log in public_project_logs)
         + len(review_recommendations)
         + len(delivery_items)
-        + int(operational_incidents.get("count") or 0)
     )
     pagination_sources: list[dict[str, object]] = [
         {
@@ -8499,7 +9469,7 @@ def main() -> None:
         feed_name="project-console",
         timestamp_field="generated_at",
         timestamp=generated_at,
-        revision=source_revision(ROOT),
+        revision=repository_revision,
         hashes=hashes,
         expected_count=actual_count,
         actual_count=actual_count,
@@ -8532,14 +9502,16 @@ def main() -> None:
         "project_logs": public_project_logs,
         "repository_review_recommendations": review_recommendations,
         "progress": progress,
-        "integrity": integrity,
-        "run_chain": run_chain,
-        "repository_gates": repository_gates,
-        "operational_incidents": operational_incidents,
+        "integrity": public_safe_integrity(integrity),
+        "run_chain": public_safe_run_chain(run_chain),
+        "repository_gates": public_repository_gates,
+        "operational_incidents": public_operational_incidents,
+        "security_incidents": public_security_incidents,
+        "incident_relations": public_incident_relations,
         "source_checker": source_checker,
         "agent_registry": public_agent_registry,
-        "automation_role_status": automation_role_status,
-        "automation_occurrences": automation_occurrences,
+        "automation_role_status": public_automation_role_status,
+        "automation_occurrences": public_automation_occurrences,
         "action_snapshot": action_snapshot,
         "queue_directory": queue_directory,
         "security_assurance": public_security_assurance,
@@ -8578,12 +9550,14 @@ def main() -> None:
             for record in monitoring_issues
         ],
         "overview": overview,
-        "automation_role_status": automation_role_status,
-        "automation_occurrences": automation_occurrences,
+        "automation_role_status": public_automation_role_status,
+        "automation_occurrences": public_automation_occurrences,
         "action_snapshot": action_snapshot,
         "queue_directory": queue_directory,
-        "repository_gates": repository_gates,
-        "operational_incidents": operational_incidents,
+        "repository_gates": public_repository_gates,
+        "operational_incidents": public_operational_incidents,
+        "security_incidents": public_security_incidents,
+        "incident_relations": public_incident_relations,
         "security_assurance": public_security_assurance,
     }
     source_chunk_count = 16
@@ -8610,12 +9584,11 @@ def main() -> None:
         }
         for bucket in range(directive_chunk_count)
     }
-    public_integrity = public_safe_integrity(integrity)
     public_run_chain = public_safe_run_chain(run_chain)
     parts = {
         "overview.js": {
             "overview": overview,
-            "automation_occurrences": automation_occurrences,
+            "automation_occurrences": public_automation_occurrences,
             "action_snapshot": action_snapshot,
             "queue_directory": queue_directory,
             # The Overview must remain an atomic verification surface. Include
@@ -8644,9 +9617,11 @@ def main() -> None:
         "automation.js": {
             "agent_registry": public_agent_registry,
             "run_chain": public_run_chain,
-            "automation_role_status": automation_role_status,
-            "repository_gates": repository_gates,
-            "operational_incidents": operational_incidents,
+            "automation_role_status": public_automation_role_status,
+            "repository_gates": public_repository_gates,
+            "operational_incidents": public_operational_incidents,
+            "security_incidents": public_security_incidents,
+            "incident_relations": public_incident_relations,
             "security_assurance": public_security_assurance,
             "repository_review_recommendations": review_recommendations,
         },
@@ -8678,6 +9653,11 @@ def main() -> None:
         integrity=integrity,
         run_chain=run_chain,
         action_snapshot=private_action_snapshot,
+        queue_directory=private_queue_directory,
+        operational_incidents=operational_incidents,
+        security_incidents=security_incidents,
+        incident_relations=incident_relations,
+        governance_change_supplements=governance_change_supplements,
     )
     if private_security_assurance is not None:
         # The public bundle replaces the complete data directory atomically.

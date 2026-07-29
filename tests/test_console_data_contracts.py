@@ -1036,6 +1036,100 @@ class ConsoleDataContractTests(unittest.TestCase):
         )
         self.assertEqual(expired["role_currentness"]["state"], "stale")
 
+    def test_public_automation_and_integrity_projections_redact_diagnostics(self):
+        marker = "ARRP_STATE_ROOT=/Users/owner/private GH_TOKEN=credential_value"
+        occurrences = MODULE.public_safe_automation_occurrences(
+            {
+                "occurrences": [
+                    {
+                        "occurrence_id": "scheduled-20260729",
+                        "trigger": "launchd host dispatcher command",
+                        "status": "failed",
+                        "blockers": [
+                            {
+                                "id": "INC-private",
+                                "reason": marker,
+                                "stage_id": "run-coordinator-bot",
+                            }
+                        ],
+                        "stages": [
+                            {
+                                "stage_id": "run-coordinator-bot",
+                                "status": "failed",
+                                "reason": marker,
+                                "active_incident_ids": ["INC-private"],
+                            }
+                        ],
+                    }
+                ]
+            }
+        )
+        safe_occurrence = occurrences["occurrences"][0]
+        self.assertEqual(safe_occurrence["trigger"], "scheduled")
+        self.assertEqual(safe_occurrence["status"], "failed")
+        self.assertEqual(safe_occurrence["stages"][0]["status"], "failed")
+        rendered = json.dumps(occurrences)
+        for forbidden in ("ARRP_STATE_ROOT", "/Users/owner", "GH_TOKEN", "credential_value", "INC-private"):
+            self.assertNotIn(forbidden, rendered)
+
+        integrity = MODULE.public_safe_integrity(
+            {
+                "availability": "current",
+                "current": {
+                    "finding_count": 1,
+                    "findings": [
+                        {
+                            "finding_id": "INT-001",
+                            "finding_code": "project_integrity_condition",
+                            "message": marker,
+                            "route": "file:///Users/owner/private/report",
+                        }
+                    ],
+                },
+            }
+        )
+        self.assertEqual(
+            integrity["current"]["findings"][0]["finding_code"],
+            "project_integrity_condition",
+        )
+        self.assertEqual(
+            integrity["current"]["findings"][0]["message"],
+            "A typed integrity finding requires review.",
+        )
+        self.assertNotIn(marker, json.dumps(integrity))
+        action_snapshot = MODULE.build_action_snapshot(
+            progress={"proposals": [], "candidates": [], "pipeline": {}},
+            integrity=integrity,
+            review_recommendations=[],
+            operational_incidents={
+                "availability": "unavailable",
+                "complete": False,
+                "items": [],
+            },
+            security_incidents={
+                "availability": "unavailable",
+                "complete": False,
+                "items": [],
+            },
+            generated_at="2026-07-29T12:00:00+00:00",
+            require_private_incident_completeness=True,
+        )
+        self.assertNotIn(marker, json.dumps(action_snapshot))
+
+        readiness = MODULE.public_safe_automation_readiness(
+            {
+                "latest_attempt": {
+                    "available": True,
+                    "status": "failed",
+                    "trigger": "launchd host dispatch",
+                    "blockers": [{"id": "GATE-private", "reason": marker}],
+                }
+            }
+        )
+        self.assertEqual(readiness["latest_attempt"]["trigger"], "scheduled")
+        self.assertNotIn(marker, json.dumps(readiness))
+        self.assertNotIn("GATE-private", json.dumps(readiness))
+
     def test_queue_directory_and_action_snapshot_share_exact_counts(self):
         action_snapshot = MODULE.build_action_snapshot(
             progress={"proposals": [], "candidates": [], "pipeline": {}},
@@ -1046,7 +1140,13 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "complete": True,
                 "items": [],
             },
+            security_incidents={
+                "availability": "current",
+                "complete": True,
+                "items": [],
+            },
             generated_at="2026-07-28T12:00:00+00:00",
+            require_private_incident_completeness=True,
         )
         directory = MODULE.build_queue_directory(
             progress={"pipeline": {"items": []}},
@@ -1060,6 +1160,11 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "complete": True,
                 "unresolved_count": 0,
             },
+            security_incidents={
+                "availability": "current",
+                "complete": True,
+                "unresolved_count": 0,
+            },
             generated_at="2026-07-28T12:00:00+00:00",
         )
         queues = {item["queue_id"]: item for item in directory["queues"]}
@@ -1069,6 +1174,39 @@ class ConsoleDataContractTests(unittest.TestCase):
             action_snapshot["counts"]["human"],
         )
         self.assertEqual(queues["operational_incidents"]["count"], 0)
+        self.assertEqual(queues["security_incidents"]["count"], 0)
+
+    def test_public_incident_projection_is_unavailable_without_private_ids(self):
+        operational = MODULE.unavailable_incident_projection("operational")
+        security = MODULE.unavailable_incident_projection("security")
+        action_snapshot = MODULE.build_action_snapshot(
+            progress={"proposals": [], "candidates": [], "pipeline": {}},
+            integrity={},
+            review_recommendations=[],
+            operational_incidents=operational,
+            security_incidents=security,
+            generated_at="2026-07-29T12:00:00+00:00",
+            require_private_incident_completeness=True,
+        )
+        directory = MODULE.build_queue_directory(
+            progress={"pipeline": {"items": []}},
+            preliminary_records=[],
+            formal_candidates=[],
+            pending_sources=[],
+            review_recommendations=[],
+            action_snapshot=action_snapshot,
+            operational_incidents=operational,
+            security_incidents=security,
+            generated_at="2026-07-29T12:00:00+00:00",
+        )
+        queues = {item["queue_id"]: item for item in directory["queues"]}
+        self.assertFalse(action_snapshot["complete"])
+        self.assertEqual(action_snapshot["availability"], "partial")
+        self.assertIsNone(action_snapshot["counts"]["human"])
+        self.assertIsNone(queues["operational_incidents"]["count"])
+        self.assertIsNone(queues["security_incidents"]["count"])
+        self.assertEqual(operational["items"], [])
+        self.assertEqual(security["items"], [])
 
     def test_unknown_console_classification_fails_closed(self):
         with self.assertRaisesRegex(RuntimeError, "Unregistered"):

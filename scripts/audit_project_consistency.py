@@ -1476,18 +1476,17 @@ def check_embedded_repository_links(failures: list[str], warnings: list[str]) ->
 
 
 def run_gh_json(command: list[str]) -> tuple[object | None, str]:
-    """Run a read-only gh command and return parsed JSON plus a concise failure."""
+    """Run a read-only gh command and return parsed JSON plus a safe failure."""
     try:
         completed = subprocess.run(command, capture_output=True, text=True, check=False)
     except FileNotFoundError:
         return None, "the gh CLI is unavailable"
     if completed.returncode:
-        detail = completed.stderr.strip().splitlines()
-        return None, detail[-1] if detail else "the GitHub query failed"
+        return None, "the GitHub query did not complete"
     try:
         return json.loads(completed.stdout), ""
-    except json.JSONDecodeError as error:
-        return None, f"GitHub returned invalid JSON: {error}"
+    except json.JSONDecodeError:
+        return None, "GitHub returned an unreadable response"
 
 
 def fetch_github_issues(failures: list[str], warnings: list[str]) -> list[dict[str, object]] | None:
@@ -1523,7 +1522,8 @@ def fetch_github_project_items(failures: list[str], warnings: list[str]) -> list
     if not token:
         report(
             "WARNING",
-            "GitHub Project synchronization check skipped; ARRP_PROJECT_TOKEN is unavailable",
+            "GitHub Project synchronization check skipped; required "
+            "authenticated project access is unavailable",
             failures,
             warnings,
         )
@@ -1535,10 +1535,11 @@ def fetch_github_project_items(failures: list[str], warnings: list[str]) -> list
     )
     try:
         project = fetch_project(config, token)
-    except (OSError, RuntimeError, ValueError) as error:
+    except (OSError, RuntimeError, ValueError):
         report(
             "WARNING",
-            "GitHub Project synchronization check skipped; " + str(error),
+            "GitHub Project synchronization check skipped; the authenticated "
+            "project readback did not complete",
             failures,
             warnings,
         )
@@ -4148,6 +4149,15 @@ def git_revision() -> str:
         return ""
 
 
+def console_safe_finding_summary(finding: dict[str, object]) -> str:
+    """Return the public Console summary without repeating diagnostic prose."""
+
+    severity = str(finding.get("severity") or "warning").strip().casefold()
+    if severity == "error":
+        return "A typed integrity error requires review."
+    return "A typed integrity finding requires review."
+
+
 def structured_report(
     failures: list[str],
     warnings: list[str],
@@ -4169,6 +4179,8 @@ def structured_report(
         raise RuntimeError(
             "Project Integrity received untyped findings outside registered check sites."
         )
+    for finding in findings:
+        finding["console_safe_summary"] = console_safe_finding_summary(finding)
     return {
         "schema_version": 2,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -4201,7 +4213,7 @@ def markdown_report(report_data: dict[str, object]) -> str:
         "# Current Project Integrity Report",
         "",
         "> This file is an overwritten current-state snapshot, not a running log or an audit tier. "
-        "GitHub Actions and the Project Console retain the latest run time and bounded run history. "
+        "The owner-local run record and bound owner Console retain the latest run time and bounded run history. "
         "The file changes only when the finding set, checked-page counts, or check scope changes.",
         "",
         "## Current Result",
@@ -4225,7 +4237,10 @@ def markdown_report(report_data: dict[str, object]) -> str:
             lines.extend([f"### {category}", ""])
             for finding in grouped[category]:
                 severity = str(finding.get("severity", "warning")).upper()
-                message = str(finding.get("message", "Unspecified finding"))
+                message = str(
+                    finding.get("console_safe_summary")
+                    or "A typed integrity finding requires review."
+                )
                 lines.append(f"- **{severity}:** {message}")
             lines.append("")
     lines.extend([

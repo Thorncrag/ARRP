@@ -668,8 +668,12 @@ def validate_staged_site() -> None:
 
 def prepare() -> dict[str, object]:
     public_markdown = discover_public_markdown()
-    if BUILD_ROOT.exists():
-        shutil.rmtree(BUILD_ROOT)
+    if BUILD_ROOT.exists() or BUILD_ROOT.is_symlink():
+        raise SystemExit(
+            "Public-site staging already exists. Use a fresh transaction "
+            "worktree or retire the exact prior staging root through the "
+            "governed recoverable-removal workflow before rebuilding."
+        )
     DOCS_ROOT.mkdir(parents=True)
 
     markdown_map = {path.resolve(): staged_markdown_path(path) for path in public_markdown}

@@ -7233,7 +7233,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 162,
+      "word_count": 194,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7289,7 +7289,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2762,
+      "word_count": 2861,
       "estimated_pages": 5,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7401,6 +7401,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
+          "path": "framework/project/automation/owner-local-runtime.md",
+          "exists": true
+        },
+        {
           "path": "framework/project/automation/runbooks/run-coordinator-bot.md",
           "exists": true
         },
@@ -7433,7 +7437,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 762,
+      "word_count": 1026,
       "estimated_pages": 2,
       "table_count": 1,
       "max_table_columns": 5,
@@ -7533,11 +7537,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
+          "path": "framework/project/automation/owner-local-runtime.md",
+          "exists": true
+        },
+        {
           "path": "framework/project/github/disclosure-boundary.md",
           "exists": true
         }
       ],
-      "word_count": 1956,
+      "word_count": 2088,
       "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7616,8 +7624,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/automation-arrp console development log",
       "internal_links": [],
-      "word_count": 1262,
-      "estimated_pages": 2,
+      "word_count": 1873,
+      "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -7639,7 +7647,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/automation-arrp elim run summary",
       "internal_links": [],
-      "word_count": 130,
+      "word_count": 162,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7689,6 +7697,70 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "max_table_columns": 0,
       "heading_issue_count": 0,
       "longest_unbroken_token": 27
+    },
+    {
+      "title": "ARRP Governance Change Log",
+      "path": "framework/records/governance/governance-change-log.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal governance and provenance record.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/governance/governance-change-log.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/records/governance-arrp governance change log",
+      "internal_links": [
+        {
+          "path": "framework/project/workflows/governance-change-recording.md",
+          "exists": true
+        },
+        {
+          "path": "framework/records/audits/change-audit-log.md",
+          "exists": true
+        }
+      ],
+      "word_count": 1345,
+      "estimated_pages": 3,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 66
+    },
+    {
+      "title": "ARRP Governance Change Recording",
+      "path": "framework/project/workflows/governance-change-recording.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal governance and provenance workflow.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/workflows/governance-change-recording.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/project/workflows-arrp governance change recording",
+      "internal_links": [
+        {
+          "path": "framework/records/governance/governance-change-log.md",
+          "exists": true
+        },
+        {
+          "path": "framework/records/audits/change-audit-log.md",
+          "exists": true
+        }
+      ],
+      "word_count": 876,
+      "estimated_pages": 2,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 45
     },
     {
       "title": "ARRP Maturity Profile",
@@ -7799,6 +7871,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 49
     },
     {
+      "title": "ARRP Owner-Local Runtime Authority",
+      "path": "framework/project/automation/owner-local-runtime.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal runtime and storage authority.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/owner-local-runtime.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/project/automation-arrp owner-local runtime authority",
+      "internal_links": [],
+      "word_count": 1618,
+      "estimated_pages": 3,
+      "table_count": 2,
+      "max_table_columns": 3,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 42
+    },
+    {
       "title": "ARRP Print Assembly Configuration",
       "path": "framework/project/publication/print-assembly.md",
       "section": "Framework and process",
@@ -7881,9 +7976,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "framework/project/profile/maturity-profile.md",
           "exists": true
+        },
+        {
+          "path": "framework/project/workflows/governance-change-recording.md",
+          "exists": true
         }
       ],
-      "word_count": 85,
+      "word_count": 127,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7971,8 +8070,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 6821,
-      "estimated_pages": 11,
+      "word_count": 7775,
+      "estimated_pages": 12,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -8071,6 +8170,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
+          "path": "framework/project/workflows/governance-change-recording.md",
+          "exists": true
+        },
+        {
           "path": "framework/records/candidates/horizon-scan-log.md",
           "exists": true
         },
@@ -8083,7 +8186,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1359,
+      "word_count": 1435,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8251,16 +8354,20 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
+          "path": "framework/project/workflows/governance-change-recording.md",
+          "exists": true
+        },
+        {
           "path": "framework/project/workflows/navigation-sync.md",
           "exists": true
         }
       ],
-      "word_count": 411,
+      "word_count": 503,
       "estimated_pages": 1,
       "table_count": 3,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 39
+      "longest_unbroken_token": 55
     },
     {
       "title": "ARRP Source Catalog and Adjudication Workflow",
@@ -8687,6 +8794,18 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
+          "path": "framework/project/automation/owner-local-runtime.md",
+          "exists": true
+        },
+        {
+          "path": "framework/project/github/disclosure-boundary.md",
+          "exists": true
+        },
+        {
+          "path": "framework/project/workflows/governance-change-recording.md",
+          "exists": true
+        },
+        {
           "path": "framework/standards/interfaces/standard.md",
           "exists": true
         },
@@ -8707,7 +8826,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3498,
+      "word_count": 3598,
       "estimated_pages": 6,
       "table_count": 5,
       "max_table_columns": 2,
@@ -8996,7 +9115,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 955,
+      "word_count": 1024,
       "estimated_pages": 2,
       "table_count": 1,
       "max_table_columns": 2,
@@ -9134,7 +9253,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 89,
+      "word_count": 96,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9157,12 +9276,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 615,
-      "estimated_pages": 1,
+      "word_count": 975,
+      "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 21
+      "longest_unbroken_token": 50
     },
     {
       "title": "Elim Agent Runbook",
@@ -9250,9 +9369,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "framework/records/handoffs/current-task.md",
           "exists": true
+        },
+        {
+          "path": "framework/records/governance/README.md",
+          "exists": true
         }
       ],
-      "word_count": 73,
+      "word_count": 102,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9275,7 +9398,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/github-github disclosure boundary",
       "internal_links": [],
-      "word_count": 976,
+      "word_count": 1247,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9335,12 +9458,44 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4811,
+      "word_count": 4847,
       "estimated_pages": 8,
       "table_count": 1,
       "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 40
+    },
+    {
+      "title": "Governance Records",
+      "path": "framework/records/governance/README.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal governance and provenance records.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/governance/README.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/records/governance-governance records",
+      "internal_links": [
+        {
+          "path": "framework/records/governance/governance-change-log.md",
+          "exists": true
+        },
+        {
+          "path": "framework/records/audits/change-audit-log.md",
+          "exists": true
+        }
+      ],
+      "word_count": 67,
+      "estimated_pages": 1,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 13
     },
     {
       "title": "Governing Context Routing",
@@ -9371,7 +9526,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1443,
+      "word_count": 1479,
       "estimated_pages": 3,
       "table_count": 1,
       "max_table_columns": 2,
@@ -9892,6 +10047,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 17
     },
     {
+      "title": "Private runtime and dual-incident design closure matrix",
+      "path": "framework/records/audits/private-runtime-dual-incident-design-2026-07-29.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal governance and validation record.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/audits/private-runtime-dual-incident-design-2026-07-29.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/records/audits-private runtime and dual-incident design closure matrix",
+      "internal_links": [],
+      "word_count": 626,
+      "estimated_pages": 1,
+      "table_count": 1,
+      "max_table_columns": 5,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 74
+    },
+    {
       "title": "Progress View Standard",
       "path": "framework/standards/interfaces/progress-views.md",
       "section": "Framework and process",
@@ -10044,7 +10222,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/standards/interfaces-project interface standard",
       "internal_links": [],
-      "word_count": 923,
+      "word_count": 1070,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -10205,7 +10383,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1017,
+      "word_count": 1247,
       "estimated_pages": 2,
       "table_count": 6,
       "max_table_columns": 3,
@@ -10256,7 +10434,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation/runbooks-run coordinator bot runbook",
       "internal_links": [],
-      "word_count": 1106,
+      "word_count": 1149,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -12335,8 +12513,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1781,
-      "estimated_pages": 3,
+      "word_count": 2204,
+      "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -14962,7 +15140,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1131,
+      "word_count": 1194,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -15120,7 +15298,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "disposition_counts": {
       "included": 138,
-      "excluded": 227,
+      "excluded": 232,
       "unclassified": 0,
       "conflict": 0
     },
@@ -15134,7 +15312,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Internal project workflow.": 1,
       "Online technical framework and methodology.": 25,
       "Internal interface-development history.": 1,
+      "Internal governance and provenance record.": 1,
+      "Internal governance and provenance workflow.": 1,
       "Internal project configuration.": 4,
+      "Internal runtime and storage authority.": 1,
       "Internal project-configuration directory guide.": 1,
       "Internal interface configuration.": 2,
       "Internal interface-governance documentation.": 3,
@@ -15143,8 +15324,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Internal operational report.": 1,
       "Internal record-directory guide.": 1,
       "Online repository-governance summary.": 1,
+      "Internal governance and provenance records.": 1,
       "Internal supervised local-first cutover evidence.": 1,
       "Internal publication standard.": 2,
+      "Internal governance and validation record.": 1,
       "Historical implementation baseline retained for provenance.": 1,
       "Internal interface and safety documentation.": 1,
       "Online technical or workflow documentation.": 1,
@@ -15359,7 +15542,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "label": "Assembly structurally valid",
         "disposition_counts": {
           "included": 138,
-          "excluded": 227,
+          "excluded": 232,
           "unclassified": 0,
           "conflict": 0
         }
@@ -16435,7 +16618,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "link_export_validation": {
         "link_inventory_available": true,
-        "internal_link_count": 1272,
+        "internal_link_count": 1287,
         "missing_link_count": 0,
         "missing_links": [],
         "export_validation_available": false,
@@ -18190,16 +18373,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "integrity_validation": {
         "available": true,
-        "result": "clean",
+        "result": "findings",
         "counts": {
           "errors": 0,
-          "warnings": 0,
-          "findings": 0,
+          "warnings": 1,
+          "findings": 1,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "01f53d6cde85fa8fcae97672262bf8f33cf026e0",
-        "generated_at": "2026-07-29T06:21:29+00:00"
+        "revision": "572e1db1ebfff49cc26004cced1d0933934fa4c6",
+        "generated_at": "2026-07-29T13:12:20+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -19955,6 +20138,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-7b6e6607947040eac85b"
+    "publication.js": "project-console-4c179a05f1b0ff2bdd6e"
   }
 });

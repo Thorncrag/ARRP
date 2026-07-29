@@ -1,8 +1,10 @@
+import contextlib
 import importlib.util
+import io
 import json
+import sys
 import tempfile
 import unittest
-import urllib.error
 from pathlib import Path
 from unittest import mock
 
@@ -63,18 +65,25 @@ class ProjectIntegrityFeedContractTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "non-object"):
             MODULE.build_feed(self.report(), {"history": ["invalid"]}, 3)
 
-    def test_network_failure_does_not_erase_integrity_history(self):
-        url = (
-            "https://raw.githubusercontent.com/Thorncrag/ARRP/"
-            "project-console-data/integrity.json"
-        )
-        with mock.patch.object(
-            MODULE.urllib.request,
-            "urlopen",
-            side_effect=urllib.error.URLError("offline"),
+    def test_retired_remote_history_option_is_rejected(self):
+        with (
+            mock.patch.object(
+                sys,
+                "argv",
+                [
+                    str(SCRIPT),
+                    "--report",
+                    "report.json",
+                    "--output",
+                    "integrity.json",
+                    "--existing-url",
+                    "https://example.test/integrity.json",
+                ],
+            ),
+            contextlib.redirect_stderr(io.StringIO()),
         ):
-            with self.assertRaisesRegex(RuntimeError, "refusing to replace"):
-                MODULE.existing_feed(url)
+            with self.assertRaises(SystemExit):
+                MODULE.parse_args()
 
     def test_integrity_report_rejects_paths_outside_trusted_roots(self):
         with self.assertRaisesRegex(ValueError, "repository or system temporary"):

@@ -7,9 +7,6 @@ import argparse
 import json
 import os
 import tempfile
-import urllib.error
-import urllib.parse
-import urllib.request
 from pathlib import Path
 from typing import Any
 
@@ -20,8 +17,6 @@ except ModuleNotFoundError:
 
 
 DEFAULT_HISTORY_LIMIT = 30
-ALLOWED_HISTORY_HOST = "raw.githubusercontent.com"
-ALLOWED_HISTORY_PATH = "/Thorncrag/ARRP/project-console-data/integrity.json"
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 SYSTEM_TEMP_ROOT = Path(tempfile.gettempdir()).resolve()
 
@@ -30,7 +25,6 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--report", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
-    parser.add_argument("--existing-url")
     parser.add_argument(
         "--existing-file",
         type=Path,
@@ -71,39 +65,6 @@ def read_json(path: Path) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise ValueError(f"Expected a JSON object in {trusted_path}")
     return payload
-
-
-def existing_feed(url: str | None) -> dict[str, Any]:
-    if not url:
-        return {}
-    parsed = urllib.parse.urlsplit(url)
-    if (
-        parsed.scheme != "https"
-        or parsed.hostname != ALLOWED_HISTORY_HOST
-        or parsed.port is not None
-        or parsed.username is not None
-        or parsed.password is not None
-        or parsed.path != ALLOWED_HISTORY_PATH
-        or parsed.query
-        or parsed.fragment
-    ):
-        raise ValueError("Existing integrity feed URL is not the approved ARRP history endpoint")
-    request = urllib.request.Request(url, headers={"User-Agent": "ARRP-integrity-feed/1.0"})
-    try:
-        with urllib.request.urlopen(request, timeout=20) as response:
-            payload = json.load(response)
-            if not isinstance(payload, dict):
-                raise RuntimeError(
-                    "Existing integrity history endpoint returned a non-object payload."
-                )
-            return payload
-    except RuntimeError:
-        raise
-    except (OSError, ValueError, urllib.error.HTTPError, urllib.error.URLError) as exc:
-        raise RuntimeError(
-            "Existing integrity history could not be fetched and validated; "
-            "refusing to replace it with an empty history."
-        ) from exc
 
 
 def existing_feed_file(path: Path | None) -> dict[str, Any]:
@@ -247,13 +208,7 @@ def main() -> int:
     if args.history_limit < 1:
         raise ValueError("--history-limit must be positive")
     report_path, _ = trusted_report_path(args.report)
-    if args.existing_url and args.existing_file:
-        raise ValueError("Select only one existing integrity-history source.")
-    existing = (
-        existing_feed_file(args.existing_file)
-        if args.existing_file
-        else existing_feed(args.existing_url)
-    )
+    existing = existing_feed_file(args.existing_file)
     feed = build_feed(
         read_json(report_path),
         existing,

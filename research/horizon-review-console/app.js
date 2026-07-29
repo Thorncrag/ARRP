@@ -59,6 +59,14 @@
           active_links: {},
           reason: "Operational incident feed is unavailable."
         };
+    data.security_incidents = data.security_incidents && typeof data.security_incidents === "object" ? data.security_incidents : {
+      authority: "owner-local-security-incidents", availability: "unavailable", complete: false, count: null,
+      unresolved_count: null, items: [], reason_code: "owner-local-projection-required"
+    };
+    data.incident_relations = data.incident_relations && typeof data.incident_relations === "object" ? data.incident_relations : {
+      authority: "owner-local-incident-relations", availability: "unavailable", complete: false, active_relations: [],
+      relations: [], by_operational_incident: {}, by_security_incident: {}, reason_code: "owner-local-projection-required"
+    };
     data.agent_registry = Array.isArray(data.agent_registry) ? data.agent_registry : [];
     data.automation_role_status = data.automation_role_status
       && typeof data.automation_role_status === "object"
@@ -74,88 +82,138 @@
       : [];
   }
   normalizeLoadedData();
+  const catalogGenerationId = String(data.generation_id || data.generation_manifest?.generation_id || "");
   const PRIVATE_SECURITY_ASSURANCE_PATH = "data/private-security-assurance.js?v=1";
   const PRIVATE_OPERATIONS_PATH = "data/private-operations.js?v=1";
   const LOCAL_AUTOMATION_STATUS_PATH = "data/local-automation-status.js";
-  const SECURITY_TOOL_FIELDS = new Set([
-    "tool_id", "label", "availability", "last_checked", "next_due",
-    "source_revision", "coverage_state", "private_attention", "owner_class",
-    "destination_class", "active_incident", "public_intake_state"
-  ]);
+  const OWNER_MODE_UNAVAILABLE_MESSAGE = "Data unavailable outside the bound owner-local Console.";
+  const fieldSet = (value) => new Set(value.split(" "));
+  const OWNER_FEEDS = fieldSet("security-assurance private-operations local-automation-status");
+  const OWNER_WRAPPER_FIELDS = fieldSet("owner_console_envelope payload");
+  const OWNER_BINDING_FIELDS = fieldSet("schema_version version_id exact_decoded_file_path generation_id source_revision staged_at projections");
+  const FEED_KEYS = fieldSet("feed_id relative_path source_sha256 availability complete");
+  const OWNER_ENVELOPE_FIELDS = fieldSet("schema_version feed_id generation_id source_revision source_sha256 availability complete staged_at");
+  const GOVERNANCE_SUPPLEMENT_FIELDS = fieldSet("governance_change_id public_entry_sha256 source_revision recorded_at safe_summary");
+  const GOVERNANCE_SUPPLEMENT_PROJECTION_FIELDS = fieldSet("schema_version availability complete checked_at source_revision public_log_sha256 items reason_code");
+  function hasExactFields(value, fields) {
+    const keys = value && typeof value === "object" ? Object.keys(value) : [];
+    return keys.length === fields.size && keys.every((key) => fields.has(key));
+  }
+  const SECURITY_TOOL_FIELDS = fieldSet("tool_id label availability last_checked next_due source_revision coverage_state private_attention owner_class destination_class active_incident public_intake_state");
   let privateSecurityAssuranceSnapshot = null;
+  function ownerProjectionPayload(wrapper, feedId, binding = window.ARRP_OWNER_CONSOLE_BINDING, location = window.location) {
+    if (!validOwnerConsoleBinding(binding, location) || !OWNER_FEEDS.has(feedId) || !hasExactFields(wrapper, OWNER_WRAPPER_FIELDS) || !wrapper.payload || typeof wrapper.payload !== "object") return null;
+    const envelope = wrapper.owner_console_envelope;
+    const expected = binding.projections[feedId];
+    if (!envelope || !hasExactFields(envelope, OWNER_ENVELOPE_FIELDS) || envelope.schema_version !== 1 || envelope.feed_id !== feedId || envelope.generation_id !== binding.generation_id || envelope.source_revision !== binding.source_revision || envelope.source_sha256 !== expected.source_sha256 || envelope.availability !== expected.availability || envelope.complete !== expected.complete || envelope.staged_at !== binding.staged_at) return null;
+    return wrapper.payload;
+  }
   function validPrivateSecuritySnapshot(snapshot) {
     if (!snapshot || snapshot.schema_version !== 2 || !Array.isArray(snapshot.tools)) return false;
-    const topFields = [
-      "schema_version", "availability", "complete", "checked_at",
-      "public_intake_state", "private_attention", "active_incident", "tools"
-    ];
-    if (Object.keys(snapshot).length !== topFields.length
-      || Object.keys(snapshot).some((key) => !topFields.includes(key))) return false;
-    if (!["current", "unavailable"].includes(snapshot.availability)
-      || typeof snapshot.complete !== "boolean"
-      || !["live", "paused", "unverified"].includes(snapshot.public_intake_state)
-      || !["required", "none_reported", "unavailable"].includes(snapshot.private_attention)
-      || typeof snapshot.active_incident !== "boolean") return false;
-    const publicDefinitions = new Map((data.security_assurance.tools || []).map((tool) => [
-      String(tool.tool_id || ""),
-      tool
-    ]));
+    const topFields = fieldSet("schema_version availability complete checked_at public_intake_state private_attention active_incident tools");
+    if (!hasExactFields(snapshot, topFields)) return false;
+    if (!["current", "unavailable"].includes(snapshot.availability) || typeof snapshot.complete !== "boolean" || !["live", "paused", "unverified"].includes(snapshot.public_intake_state) || !["required", "none_reported", "unavailable"].includes(snapshot.private_attention) || typeof snapshot.active_incident !== "boolean") return false;
+    const publicDefinitions = new Map((data.security_assurance.tools || []).map((tool) => [String(tool.tool_id || ""), tool]));
     const observed = new Set();
     for (const tool of snapshot.tools) {
       if (!tool || typeof tool !== "object") return false;
-      if (Object.keys(tool).length !== SECURITY_TOOL_FIELDS.size
-        || Object.keys(tool).some((key) => !SECURITY_TOOL_FIELDS.has(key))) return false;
+      if (!hasExactFields(tool, SECURITY_TOOL_FIELDS)) return false;
       const toolId = String(tool.tool_id || "");
       const definition = publicDefinitions.get(toolId);
       if (!toolId || observed.has(toolId) || !definition) return false;
-      if (tool.label !== definition.label
-        || tool.owner_class !== definition.owner_class
-        || tool.destination_class !== definition.destination_class
-        || !["current", "unavailable"].includes(tool.availability)
-        || !["current", "stale", "incomplete", "unavailable"].includes(tool.coverage_state)
-        || !["yes", "no", "unknown"].includes(tool.private_attention)
-        || typeof tool.active_incident !== "boolean"
-        || ![null, "live", "paused", "unverified"].includes(tool.public_intake_state)) return false;
+      if (tool.label !== definition.label || tool.owner_class !== definition.owner_class || tool.destination_class !== definition.destination_class || !["current", "unavailable"].includes(tool.availability) || !["current", "stale", "incomplete", "unavailable"].includes(tool.coverage_state) || !["yes", "no", "unknown"].includes(tool.private_attention) || typeof tool.active_incident !== "boolean" || ![null, "live", "paused", "unverified"].includes(tool.public_intake_state)) return false;
       observed.add(toolId);
     }
     return observed.size === publicDefinitions.size;
   }
   function capturePrivateSecurityAssurance() {
-    const snapshot = window.ARRP_PRIVATE_SECURITY_ASSURANCE;
+    const snapshot = ownerProjectionPayload(window.ARRP_PRIVATE_SECURITY_ASSURANCE, "security-assurance");
     if (!validPrivateSecuritySnapshot(snapshot)) return false;
     privateSecurityAssuranceSnapshot = snapshot;
     return true;
   }
   let privateOperationsSnapshot = null;
+  const ACTION_COUNT_KEYS = ["human", "oversight", "all_open"];
+  function exactPrivateActionCounts(items) {
+    if (!Array.isArray(items)) return null;
+    const ids = items.map((item) => String(item?.item_id || ""));
+    if (ids.some((id) => !id) || new Set(ids).size !== items.length) return null;
+    const human = items.filter((item) => item.attention_class === "human").length;
+    return { human, oversight: items.length - human, all_open: items.length };
+  }
+  function validPrivateActionSnapshot(snapshot) {
+    if (snapshot?.schema_version !== 1 || typeof snapshot.complete !== "boolean" || !["current", "partial"].includes(snapshot.availability) || !snapshot.counts || !snapshot.known_counts) return false;
+    const exact = exactPrivateActionCounts(snapshot.items);
+    if (!exact || ACTION_COUNT_KEYS.some((key) => snapshot.known_counts[key] !== exact[key])) return false;
+    if (snapshot.complete) return snapshot.availability === "current" && ACTION_COUNT_KEYS.every((key) => snapshot.counts[key] === exact[key]);
+    return snapshot.availability === "partial" && ACTION_COUNT_KEYS.every((key) => snapshot.counts[key] === null);
+  }
+  function validPrivateQueueDirectory(directory) {
+    if (directory?.schema_version !== 1 || typeof directory.complete !== "boolean" || !Array.isArray(directory.queues)) return false;
+    const ids = new Set();
+    for (const queue of directory.queues) {
+      const queueId = String(queue?.queue_id || "");
+      if (!queueId || ids.has(queueId) || typeof queue.complete !== "boolean") return false;
+      if (queue.complete ? queue.availability !== "current" || !Number.isInteger(queue.count) || queue.count < 0 : queue.availability !== "unavailable" || queue.count !== null) return false;
+      ids.add(queueId);
+    }
+    const full = directory.queues.every((queue) => queue.complete);
+    return directory.complete === full && directory.availability === (full ? "current" : "partial");
+  }
+  function validPrivateIncidentProjection(projection, kind) {
+    if (projection?.schema_version !== 1 || typeof projection.complete !== "boolean" || !Array.isArray(projection.items)
+      || (kind === "security" && projection.authority !== "owner-local-security-incidents")) return false;
+    return projection.complete
+      ? projection.availability === "current" && Number.isInteger(projection.count)
+        && projection.count === projection.items.length && Number.isInteger(projection.unresolved_count)
+        && projection.unresolved_count >= 0 && projection.unresolved_count <= projection.count
+      : projection.availability === "unavailable" && projection.count === null
+        && projection.unresolved_count === null && projection.items.length === 0;
+  }
+  function validPrivateIncidentRelations(projection) {
+    if (projection?.schema_version !== 1 || projection.authority !== "owner-local-incident-relations"
+      || typeof projection.complete !== "boolean" || !Array.isArray(projection.active_relations)
+      || !Array.isArray(projection.relations) || !projection.by_operational_incident
+      || !projection.by_security_incident) return false;
+    return projection.availability === (projection.complete ? "current" : "unavailable");
+  }
+  function validGovernanceChangeSupplements(projection, projectLogs) {
+    if (!hasExactFields(projection, GOVERNANCE_SUPPLEMENT_PROJECTION_FIELDS) || projection.schema_version !== 1 || projection.source_revision !== String(data.source_revision || "") || !/^sha256:[0-9a-f]{64}$/.test(projection.public_log_sha256 || "") || parseTimestamp(projection.checked_at) === null || !Array.isArray(projection.items)) return false;
+    if (!projection.complete) return projection.availability === "unavailable" && projection.items.length === 0 && Boolean(String(projection.reason_code || ""));
+    if (projection.availability !== "current" || projection.reason_code !== null) return false;
+    const privateLog = (projectLogs || []).find((log) => log?.id === "governance-changes");
+    const publicLog = data.project_logs.find((log) => log?.id === "governance-changes");
+    if (!privateLog || !publicLog) return false;
+    const publicEntries = new Map((publicLog.entries || []).map((entry) => [String(entry.id || ""), entry]));
+    const privateEntries = new Map((privateLog.entries || []).map((entry) => [String(entry.id || ""), entry]));
+    if (publicEntries.size !== privateEntries.size || [...publicEntries].some(([id, entry]) => privateEntries.get(id)?.values?.entry_sha256 !== entry.values?.entry_sha256)) return false;
+    const required = new Set([...privateEntries].filter(([, entry]) => entry.values?.supplement === "Required").map(([id]) => id));
+    const observed = new Set();
+    for (const item of projection.items) {
+      const id = String(item?.governance_change_id || "");
+      const entry = privateEntries.get(id);
+      if (!hasExactFields(item, GOVERNANCE_SUPPLEMENT_FIELDS) || !entry || observed.has(id) || item.public_entry_sha256 !== entry.values?.entry_sha256 || item.source_revision !== String(data.source_revision || "") || parseTimestamp(item.recorded_at) === null || !String(item.safe_summary || "").trim()) return false;
+      observed.add(id);
+    }
+    return observed.size === required.size && [...required].every((id) => observed.has(id));
+  }
   function validPrivateOperationsSnapshot(snapshot) {
-    const fields = [
-      "schema_version", "availability", "generated_at", "catalog_generation_id",
-      "source_revision", "agent_registry", "project_logs", "integrity",
-      "run_chain", "action_snapshot", "privacy"
-    ];
-    return Boolean(
-      snapshot
-      && typeof snapshot === "object"
-      && Object.keys(snapshot).length === fields.length
-      && Object.keys(snapshot).every((key) => fields.includes(key))
-      && snapshot.schema_version === 2
-      && snapshot.availability === "current"
-      && snapshot.catalog_generation_id === catalogGenerationId
-      && snapshot.source_revision === String(data.source_revision || "")
-      && parseTimestamp(snapshot.generated_at) !== null
-      && Array.isArray(snapshot.agent_registry)
-      && Array.isArray(snapshot.project_logs)
-      && snapshot.integrity && typeof snapshot.integrity === "object"
-      && snapshot.run_chain && typeof snapshot.run_chain === "object"
-      && snapshot.action_snapshot && typeof snapshot.action_snapshot === "object"
-      && snapshot.action_snapshot.complete === true
-      && Array.isArray(snapshot.action_snapshot.items)
-    );
+    const fields = fieldSet("schema_version availability generated_at catalog_generation_id source_revision agent_registry project_logs integrity run_chain action_snapshot queue_directory operational_incidents security_incidents incident_relations governance_change_supplements privacy");
+    return Boolean(snapshot && typeof snapshot === "object" && hasExactFields(snapshot, fields)
+      && snapshot.schema_version === 4 && snapshot.availability === "current"
+      && snapshot.catalog_generation_id === catalogGenerationId && snapshot.source_revision === String(data.source_revision || "")
+      && parseTimestamp(snapshot.generated_at) !== null && Array.isArray(snapshot.agent_registry)
+      && Array.isArray(snapshot.project_logs) && snapshot.integrity && typeof snapshot.integrity === "object"
+      && snapshot.run_chain && typeof snapshot.run_chain === "object" && validPrivateActionSnapshot(snapshot.action_snapshot)
+      && validPrivateQueueDirectory(snapshot.queue_directory) && validPrivateIncidentProjection(snapshot.operational_incidents, "operational")
+      && validPrivateIncidentProjection(snapshot.security_incidents, "security") && validPrivateIncidentRelations(snapshot.incident_relations)
+      && validGovernanceChangeSupplements(snapshot.governance_change_supplements, snapshot.project_logs));
   }
   function capturePrivateOperations() {
-    const snapshot = window.ARRP_PRIVATE_OPERATIONS;
+    const snapshot = ownerProjectionPayload(window.ARRP_PRIVATE_OPERATIONS, "private-operations");
     if (!validPrivateOperationsSnapshot(snapshot)) return false;
     privateOperationsSnapshot = snapshot;
+    data.private_operations = snapshot;
     data.agent_registry = snapshot.agent_registry;
     data.project_logs = snapshot.project_logs;
     if (snapshot.integrity && typeof snapshot.integrity === "object") {
@@ -165,23 +223,37 @@
       data.run_chain = snapshot.run_chain;
     }
     data.action_snapshot = snapshot.action_snapshot;
+    data.queue_directory = snapshot.queue_directory;
+    data.operational_incidents = snapshot.operational_incidents;
+    data.security_incidents = snapshot.security_incidents;
+    data.incident_relations = snapshot.incident_relations;
+    if (data.overview && typeof data.overview === "object") {
+      data.overview.action_snapshot = snapshot.action_snapshot;
+      data.overview.queue_directory = snapshot.queue_directory;
+    }
     return true;
   }
   function validLocalAutomationStatus(status) {
-    const allowedStatuses = new Set([
-      "completed", "review-required", "failed", "blocked",
-      "usage-stopped", "missed", "running"
-    ]);
+    const allowedStatuses = fieldSet("completed review-required failed blocked usage-stopped missed running");
     return Boolean(
       status
       && typeof status === "object"
       && status.schema_version === "1.0"
       && allowedStatuses.has(String(status.status || "").toLowerCase())
+      && ["run", "paused", "unavailable"].includes(status.control_state)
+      && parseTimestamp(status.control_state_checked_at) !== null
       && parseTimestamp(status.updated_at || status.completed_at || status.started_at) !== null
     );
   }
   function captureLocalAutomationStatus() {
-    if (validLocalAutomationStatus(window.ARRP_LOCAL_AUTOMATION_STATUS)) return true;
+    const status = ownerProjectionPayload(
+      window.ARRP_LOCAL_AUTOMATION_STATUS,
+      "local-automation-status"
+    );
+    if (validLocalAutomationStatus(status)) {
+      window.ARRP_LOCAL_AUTOMATION_STATUS = status;
+      return true;
+    }
     window.ARRP_LOCAL_AUTOMATION_STATUS = null;
     return false;
   }
@@ -213,9 +285,6 @@
     };
   }
   if (window.__ARRP_CONSOLE_TEST_MODE__) capturePrivateSecurityAssurance();
-  const catalogGenerationId = String(
-    data.generation_id || data.generation_manifest?.generation_id || ""
-  );
   const consoleOpenedAt = new Date().toISOString();
 
   const byId = (id) => document.getElementById(id);
@@ -288,9 +357,15 @@
     search: "",
     layout: "right",
     selectedId: "",
+    complete: false,
     items: []
   };
   const incidentLogState = {
+    scope: "unresolved",
+    search: "",
+    selectedId: ""
+  };
+  const securityLogState = {
     scope: "unresolved",
     search: "",
     selectedId: ""
@@ -867,8 +942,6 @@
           validateLoadedDomainScript(source);
         }
         normalizeLoadedData();
-        // Public domain files carry only safe summaries. Restore the complete
-        // ignored owner-local projection after a domain assignment replaces it.
         if (privateOperationsSnapshot) capturePrivateOperations();
         loadedDomains.add(domain);
         hydrateLoadedDomain(domain);
@@ -943,7 +1016,6 @@
   function renderedIssueBody(html, fallbackText) {
     if (!html) return element("pre", "issue-body issue-body-plain", fallbackText);
     const node = element("div", "issue-body markdown-body");
-    // The build script escapes all source HTML and emits only allowlisted markup.
     node.innerHTML = html;
     return node;
   }
@@ -1322,7 +1394,7 @@
   function writeDisclosurePreferences(preferences) {
     try {
       window.localStorage.setItem(DISCLOSURE_STORAGE_KEY, JSON.stringify(preferences));
-    } catch (_error) { /* the disclosure state remains valid until reload */ }
+    } catch (_error) {}
   }
 
   function disclosureIdentity(details) {
@@ -1743,14 +1815,14 @@
     try {
       if (hidden) window.localStorage.setItem(WORKFLOW_SUMMARY_STORAGE_KEY, "true");
       else window.localStorage.removeItem(WORKFLOW_SUMMARY_STORAGE_KEY);
-    } catch (_error) { /* the banner remains dismissed or restored until reload */ }
+    } catch (_error) {}
   }
 
   function initializeWorkflowSummary() {
     let hidden = false;
     try {
       hidden = window.localStorage.getItem(WORKFLOW_SUMMARY_STORAGE_KEY) === "true";
-    } catch (_error) { /* use the visible default */ }
+    } catch (_error) {}
     setWorkflowSummaryHidden(hidden, false);
     byId("workflow-summary-dismiss").addEventListener("click", () => setWorkflowSummaryHidden(true));
     byId("workflow-summary-restore").addEventListener("click", () => setWorkflowSummaryHidden(false));
@@ -1819,13 +1891,15 @@
       menu.setAttribute("aria-label", "Project logs");
       const menuList = element("div", "compact-specialist-menu-list operations-log-menu-list");
       [
-        ["incidents", "Incidents"],
+        ["incidents", "Operational incidents"],
+        ["security-incidents", "Security incidents"],
         ["horizon", "Horizon"],
         ["elim", "Elim"],
         ["agents", "Bots"],
         ["source-monitor", "Sources"],
         ["integrity", "Integrity"],
         ["changes", "Change audits"],
+        ["governance-changes", "Governance changes"],
         ["console-development", "Console development"]
       ].forEach(([value, label]) => {
         const button = element("a", "compact-specialist-menu-item operations-log-menu-button", label);
@@ -1835,6 +1909,11 @@
         if (value === "incidents") {
           const count = element("span", "tab-count", "—");
           count.id = "operations-log-menu-incident-count";
+          button.append(count);
+        }
+        if (value === "security-incidents") {
+          const count = element("span", "tab-count", "—");
+          count.id = "operations-log-menu-security-incident-count";
           button.append(count);
         }
         menuList.append(button);
@@ -1927,7 +2006,7 @@
         window.localStorage.removeItem(LAYOUT_STORAGE_KEY);
         window.localStorage.removeItem(DISCLOSURE_STORAGE_KEY);
         window.localStorage.removeItem(WORKFLOW_SUMMARY_STORAGE_KEY);
-      } catch (_error) { /* no-op */ }
+      } catch (_error) {}
       window.location.reload();
     });
   }
@@ -2150,6 +2229,7 @@
       void activateDomainForTab("automation", "logs");
     }
     if (selectedName === "incidents") renderIncidentLog();
+    if (selectedName === "security-incidents") renderSecurityLog();
   }
 
   function initializeLogMenu() {
@@ -2221,12 +2301,6 @@
       && ["open", "investigating"].includes(incident.status));
   }
 
-  function humanOwnsIncident(incident) {
-    return ["human", "benjamin", "benjamin smith", "you"].includes(
-      String(incident?.owner || "").trim().toLowerCase()
-    );
-  }
-
   function incidentStatusPresentation(incident) {
     const status = String(incident?.status || "unavailable");
     if (status === "resolved") return { tone: "success", label: "Resolved" };
@@ -2266,213 +2340,128 @@
     return null;
   }
 
+  function previewFields(rows) {
+    const fields = element("dl", "email-preview-fields incident-preview-fields");
+    rows.forEach(([label, value]) => {
+      const field = element("div", "email-preview-field");
+      field.append(element("dt", "", label), element("dd", "", value || "Unavailable"));
+      fields.append(field);
+    });
+    return fields;
+  }
+
+  function previewTimeline(occurrences, heading, observation, context) {
+    const timeline = element("section", "incident-occurrence-timeline");
+    timeline.append(element("h4", "", heading), element("p", "micro-note", `${pluralizeWord(occurrences.length, "exact occurrence")} retained`));
+    const list = element("ol", "incident-occurrence-list");
+    [...occurrences].sort((a, b) => String(b.observed_at || "").localeCompare(String(a.observed_at || ""))).forEach((record) => {
+      const row = element("li", "");
+      row.append(element("strong", "", formatOperationalDate(record.observed_at)), element("span", "", observation(record)), element("span", "micro-note", context(record)));
+      list.append(row);
+    });
+    timeline.append(list); return timeline;
+  }
+
   function renderIncidentPreview(incident, preview) {
     if (!incident) {
       preview.replaceChildren(element("p", "empty-state", "No incident is selected."));
       return;
     }
-    const presentation = incidentStatusPresentation(incident);
-    const header = element("div", "email-preview-heading");
-    const title = element("div");
-    title.append(
-      element("span", "eyebrow", incident.incident_id),
-      element("h3", "", incident.summary || "Operational incident")
-    );
-    header.append(
-      title,
-      element("span", `status-badge ${presentation.tone}`, presentation.label)
-    );
-    const fields = element("dl", "email-preview-fields incident-preview-fields");
-    [
-      ["Component", incident.component],
-      ["Prerequisite", incident.prerequisite],
-      ["Failure class", incident.failure_class],
-      ["Impact", humanizeKey(incident.impact)],
-      ["Owner", incident.owner || "Unassigned"],
-      ["Recommended owner", incident.recommended_owner],
-      ["Reported by", incident.reported_by],
-      ["First observed", formatOperationalDate(incident.first_observed)],
-      ["Last observed", formatOperationalDate(incident.last_observed)],
-      ["Next action", incident.next_action]
-    ].forEach(([label, value]) => {
-      const field = element("div", "email-preview-field");
-      field.append(element("dt", "", label), element("dd", "", value || "Unavailable"));
-      fields.append(field);
-    });
-    const timeline = element("section", "incident-occurrence-timeline");
-    timeline.append(
-      element("h4", "", "Occurrence timeline"),
-      element(
-        "p",
-        "micro-note",
-        `${pluralizeWord((incident.occurrences || []).length, "exact occurrence")} retained`
-      )
-    );
-    const occurrenceList = element("ol", "incident-occurrence-list");
-    [...(incident.occurrences || [])]
-      .sort((left, right) => String(right.observed_at || "").localeCompare(String(left.observed_at || "")))
-      .forEach((occurrence) => {
-        const row = element("li", "");
-        row.append(
-          element("strong", "", formatOperationalDate(occurrence.observed_at)),
-          element("span", "", occurrence.diagnostic || "No diagnostic recorded."),
-          element("span", "micro-note", [
-            occurrence.run_id ? `Run ${occurrence.run_id}` : "",
-            occurrence.source_ref || ""
-          ].filter(Boolean).join(" · "))
-        );
-        occurrenceList.append(row);
-      });
-    timeline.append(occurrenceList);
+    const i = incident, presentation = incidentStatusPresentation(i), header = element("div", "email-preview-heading"), title = element("div");
+    title.append(element("span", "eyebrow", i.incident_id), element("h3", "", i.summary || "Operational incident"));
+    header.append(title, element("span", `status-badge ${presentation.tone}`, presentation.label));
+    const fields = previewFields([
+      ["Component", i.component], ["Prerequisite", i.prerequisite], ["Failure class", i.failure_class],
+      ["Impact", humanizeKey(i.impact)], ["Owner", i.owner || "Unassigned"], ["Recommended owner", i.recommended_owner],
+      ["Reported by", i.reported_by], ["First observed", formatOperationalDate(i.first_observed)], ["Last observed", formatOperationalDate(i.last_observed)], ["Next action", i.next_action]
+    ]);
+    const timeline = previewTimeline(i.occurrences || [], "Occurrence timeline", (record) => record.diagnostic || "No diagnostic recorded.", (record) => [record.run_id ? `Run ${record.run_id}` : "", record.source_ref || ""].filter(Boolean).join(" · "));
     const recovery = element("section", "incident-recovery-evidence");
     recovery.append(element("h4", "", "Recovery and closure evidence"));
-    if ((incident.recovery_evidence || []).length) {
+    if ((i.recovery_evidence || []).length) {
       const list = element("ul", "");
-      incident.recovery_evidence.forEach((item) => {
-        list.append(element(
-          "li",
-          "",
-          `${item.result} · ${item.closure_test} · verified ${formatOperationalDate(item.verified_at)}`
-        ));
+      i.recovery_evidence.forEach((item) => {
+        list.append(element("li", "", `${item.result} · ${item.closure_test} · verified ${formatOperationalDate(item.verified_at)}`));
       });
       recovery.append(list);
     } else {
       recovery.append(element("p", "micro-note", "No exact recovery evidence has been recorded."));
     }
     const links = element("div", "source-list dossier-actions");
-    (incident.active_links || []).map(incidentTypedLink).filter(Boolean).forEach((link) => {
-      links.append(actionInboxLink(link.label, link.route, link.external));
-    });
+    (i.active_links || []).map(incidentTypedLink).filter(Boolean).forEach((link) => links.append(actionInboxLink(link.label, link.route, link.external)));
     preview.replaceChildren(header, fields, timeline, recovery, links);
   }
 
   function updateIncidentNavigationCounts() {
     const projection = operationalIncidentProjection();
     const display = projection.complete ? String(projection.unresolvedCount) : "—";
-    [
-      "tab-automation-count",
-      "automation-logs-incident-count",
-      "log-incidents-count",
-      "operations-log-menu-incident-count"
-    ].forEach((id) => {
-      if (byId(id)) byId(id).textContent = display;
-    });
+    ["tab-automation-count", "automation-logs-incident-count", "log-incidents-count", "operations-log-menu-incident-count"].forEach((id) => { if (byId(id)) byId(id).textContent = display; });
   }
 
-  function renderIncidentLog() {
-    const projection = operationalIncidentProjection();
-    const status = byId("incident-log-status");
-    const host = byId("incident-log-workspace");
-    if (!status || !host) return;
-    updateIncidentNavigationCounts();
-    if (!projection.complete) {
-      status.textContent = `${projection.reason || "Operational incident feed is unavailable."} Unresolved count is not inferred.`;
-      byId("incident-log-visible").textContent = "—";
-      host.replaceChildren(element("p", "empty-state", "Incident history is unavailable; zero incidents cannot be established."));
-      return;
+  function renderIncidentList(c) {
+    const p = c.projection();
+    const status = byId(c.statusId), host = byId(c.hostId), visible = byId(c.visibleId);
+    if (!status || !host || !visible) return;
+    c.updateCounts();
+    if (!p.complete) {
+      const message = ownerModeUnavailableMessage(c.unavailable(p));
+      status.textContent = message; visible.textContent = "—";
+      host.replaceChildren(element("p", "empty-state", message)); return;
     }
-    const query = incidentLogState.search.trim().toLowerCase();
-    const items = projection.items
-      .filter((incident) => incidentLogState.scope === "all"
-        || ["open", "investigating", "mitigated", "monitoring"].includes(incident.status))
-      .filter((incident) => !query || [
-        incident.incident_id,
-        incident.summary,
-        incident.component,
-        incident.prerequisite,
-        incident.failure_class,
-        incident.owner,
-        incident.recommended_owner,
-        incident.next_action,
-        ...(incident.occurrences || []).map((row) => row.diagnostic)
-      ].filter(Boolean).join(" ").toLowerCase().includes(query))
-      .sort((left, right) =>
-        String(right.last_observed || "").localeCompare(String(left.last_observed || ""))
-        || String(right.incident_id || "").localeCompare(String(left.incident_id || "")));
-    const selectedFromRoute = decodeURIComponent(
-      window.location.hash.split(":").find((part) => part.startsWith("selected="))?.slice(9) || ""
+    const q = c.state.search.trim().toLowerCase();
+    const items = p.items.filter((record) => c.state.scope === "all" || c.unresolved(record))
+      .filter((record) => !q || c.search(record).filter(Boolean).join(" ").toLowerCase().includes(q))
+      .sort((a, b) => String(b.last_observed || "").localeCompare(String(a.last_observed || "")) || String(c.id(b)).localeCompare(String(c.id(a))));
+    const fromRoute = decodeRouteSelection(
+      window.location.hash.split(":").find((part) => part.startsWith("selected="))?.slice(9)
     );
-    if (selectedFromRoute && items.some((item) => item.incident_id === selectedFromRoute)) {
-      incidentLogState.selectedId = selectedFromRoute;
-    }
-    if (!items.some((item) => item.incident_id === incidentLogState.selectedId)) {
-      incidentLogState.selectedId = items[0]?.incident_id || "";
-    }
-    byId("incident-log-visible").textContent = items.length;
-    status.textContent = `${pluralizeWord(projection.unresolvedCount, "unresolved incident")} · checked ${formatOperationalDate(projection.checked_at)} · ${projection.impactState} impact posture`;
-    if (!items.length) {
-      host.replaceChildren(element(
-        "p",
-        "empty-state",
-        incidentLogState.scope === "unresolved"
-          ? "No unresolved operational incidents are recorded."
-          : "No incidents match the current search."
-      ));
-      return;
-    }
+    if (fromRoute && items.some((record) => c.id(record) === fromRoute)) c.state.selectedId = fromRoute;
+    if (!items.some((record) => c.id(record) === c.state.selectedId)) c.state.selectedId = c.id(items[0] || {});
+    visible.textContent = items.length; status.textContent = c.status(p);
+    if (!items.length) return host.replaceChildren(element("p", "empty-state", c.empty(c.state)));
     const workspace = element("div", "email-workspace log-email-workspace incident-email-workspace");
     const list = element("div", "email-list log-email-list incident-email-list");
-    list.setAttribute("role", "listbox");
-    list.setAttribute("aria-label", "Operational incidents, newest occurrence first");
+    list.setAttribute("role", "listbox"); list.setAttribute("aria-label", c.aria);
     const preview = element("article", "email-preview log-email-preview incident-email-preview");
-    const select = (incident, focus = false) => {
-      incidentLogState.selectedId = incident.incident_id;
-      list.querySelectorAll(".email-list-row").forEach((row) => {
-        const selected = row.dataset.entryId === incident.incident_id;
-        row.classList.toggle("selected", selected);
-        row.setAttribute("aria-selected", String(selected));
-      });
-      renderIncidentPreview(incident, preview);
-      window.history.replaceState(
-        null,
-        "",
-        `#automation:logs:incidents:selected=${encodeURIComponent(incident.incident_id)}`
-      );
-      if (focus) list.querySelector(`[data-entry-id="${incident.incident_id}"]`)?.focus();
+    const select = (record, focus = false) => {
+      const id = c.id(record); c.state.selectedId = id;
+      list.querySelectorAll(".email-list-row").forEach((row) => { const selected = row.dataset.entryId === id; row.classList.toggle("selected", selected); row.setAttribute("aria-selected", String(selected)); });
+      c.preview(record, preview);
+      window.history.replaceState(null, "", `#automation:logs:${c.route}:selected=${encodeURIComponent(id)}`);
+      if (focus) list.querySelector(`[data-entry-id="${id}"]`)?.focus();
     };
-    items.forEach((incident) => {
-      const presentation = incidentStatusPresentation(incident);
+    items.forEach((record) => {
+      const id = c.id(record), presentation = c.presentation(record);
       const row = element("button", "email-list-row log-email-row");
-      row.type = "button";
-      row.dataset.entryId = incident.incident_id;
-      row.setAttribute("role", "option");
-      row.setAttribute("aria-selected", String(incident.incident_id === incidentLogState.selectedId));
-      if (incident.incident_id === incidentLogState.selectedId) row.classList.add("selected");
+      row.type = "button"; row.dataset.entryId = id; row.setAttribute("role", "option");
+      row.setAttribute("aria-selected", String(id === c.state.selectedId));
+      if (id === c.state.selectedId) row.classList.add("selected");
       const copy = element("span", "email-list-copy");
-      copy.append(
-        element("strong", "", `${incident.incident_id} · ${incident.summary}`),
-        element("span", "", `${incident.component} · ${incident.owner || "Unassigned owner"}`)
-      );
-      row.append(
-        element("span", `status-dot ${presentation.tone}`, ""),
-        copy,
-        element("span", "email-list-meta", `${pluralizeWord((incident.occurrences || []).length, "occurrence")} · ${formatOperationalDate(incident.last_observed)}`)
-      );
-      row.addEventListener("click", () => select(incident));
-      list.append(row);
+      copy.append(element("strong", "", c.title(record)), element("span", "", c.subtitle(record)));
+      row.append(element("span", `status-dot ${presentation.tone}`, ""), copy, element("span", "email-list-meta", `${pluralizeWord((record.occurrences || []).length, "occurrence")} · ${formatOperationalDate(record.last_observed)}`));
+      row.addEventListener("click", () => select(record)); list.append(row);
     });
     list.addEventListener("keydown", (event) => {
       if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
-      const currentIndex = Math.max(
-        0,
-        items.findIndex((item) => item.incident_id === incidentLogState.selectedId)
-      );
-      const nextIndex = event.key === "Home"
-        ? 0
-        : event.key === "End"
-          ? items.length - 1
-          : event.key === "ArrowDown"
-            ? Math.min(items.length - 1, currentIndex + 1)
-            : Math.max(0, currentIndex - 1);
-      event.preventDefault();
-      select(items[nextIndex], true);
+      const current = Math.max(0, items.findIndex((record) => c.id(record) === c.state.selectedId));
+      const next = event.key === "Home" ? 0 : event.key === "End" ? items.length - 1 : event.key === "ArrowDown" ? Math.min(items.length - 1, current + 1) : Math.max(0, current - 1);
+      event.preventDefault(); select(items[next], true);
     });
-    workspace.append(list, preview);
-    host.replaceChildren(workspace);
-    renderIncidentPreview(
-      items.find((item) => item.incident_id === incidentLogState.selectedId),
-      preview
-    );
+    workspace.append(list, preview); host.replaceChildren(workspace);
+    c.preview(items.find((record) => c.id(record) === c.state.selectedId), preview);
+  }
+
+  function renderIncidentLog() {
+    renderIncidentList({
+      projection: operationalIncidentProjection, state: incidentLogState, statusId: "incident-log-status", hostId: "incident-log-workspace", visibleId: "incident-log-visible", route: "incidents", aria: "Operational incidents, newest occurrence first", updateCounts: updateIncidentNavigationCounts,
+      id: (r) => String(r.incident_id || ""), unresolved: (r) => ["open", "investigating", "mitigated", "monitoring"].includes(r.status),
+      search: (r) => [r.incident_id, r.summary, r.component, r.prerequisite, r.failure_class, r.owner, r.recommended_owner, r.next_action, ...(r.occurrences || []).map((row) => row.diagnostic)],
+      unavailable: (p) => `${p.reason || "Operational incident feed is unavailable."} Unresolved count is not inferred.`,
+      status: (p) => `${pluralizeWord(p.unresolvedCount, "unresolved incident")} · checked ${formatOperationalDate(p.checked_at)} · ${p.impactState} impact posture`,
+      empty: (state) => state.scope === "unresolved" ? "No unresolved operational incidents are recorded." : "No incidents match the current search.",
+      presentation: incidentStatusPresentation, preview: renderIncidentPreview,
+      title: (r) => `${r.incident_id} · ${r.summary}`, subtitle: (r) => `${r.component} · ${r.owner || "Unassigned owner"}`
+    });
   }
 
   function initializeIncidentLog() {
@@ -2480,15 +2469,80 @@
     const scope = byId("incident-log-scope");
     if (!search || !scope || search.dataset.bound) return;
     search.dataset.bound = "true";
-    search.addEventListener("input", (event) => {
-      incidentLogState.search = event.target.value;
-      renderIncidentLog();
-    });
-    scope.addEventListener("change", (event) => {
-      incidentLogState.scope = event.target.value;
-      renderIncidentLog();
-    });
+    search.addEventListener("input", (event) => { incidentLogState.search = event.target.value; renderIncidentLog(); });
+    scope.addEventListener("change", (event) => { incidentLogState.scope = event.target.value; renderIncidentLog(); });
     renderIncidentLog();
+  }
+
+  function securityProjection() {
+    const projection = data.security_incidents || {};
+    const complete = projection.authority === "owner-local-security-incidents" && projection.availability === "current" && projection.complete === true && Number.isInteger(projection.count) && Number.isInteger(projection.unresolved_count) && projection.count >= projection.unresolved_count && Array.isArray(projection.items) && projection.count === projection.items.length;
+    return { ...projection, complete, count: complete ? projection.count : null, unresolvedCount: complete ? projection.unresolved_count : null, items: complete ? projection.items : [] };
+  }
+
+  function securityIncidentStatus(incident) {
+    const status = String(incident?.status || "Unavailable");
+    if (status === "Resolved") return { tone: "success", label: status };
+    return { tone: ["Contained", "Remediating", "Monitoring"].includes(status) ? "warning" : "error", label: status };
+  }
+
+  function securityRelations(incidentId) {
+    const p=data.incident_relations || {}, ids = p.by_security_incident?.[incidentId];
+    return p.authority === "owner-local-incident-relations" && p.availability === "current" && p.complete === true && Array.isArray(ids) ? ids : [];
+  }
+
+  function renderSecurityPreview(incident, preview) {
+    if (!incident) return preview.replaceChildren(element("p", "empty-state", "No Security Incident is selected."));
+    const i=incident;
+    const presentation = securityIncidentStatus(i), header = element("div", "email-preview-heading"), title = element("div");
+    title.append(element("span", "eyebrow", i.security_incident_id), element("h3", "", i.safe_summary || "Protected Security Incident"));
+    header.append(title, element("span", `status-badge ${presentation.tone}`, presentation.label));
+    const fields = previewFields([
+      ["Security domain", humanizeKey(i.security_domain)], ["Protected surface", humanizeKey(i.protected_surface)],
+      ["Event class", humanizeKey(i.event_class)], ["Owner", i.owner || "Unassigned"], ["Recommended owner", i.recommended_owner],
+      ["Reported by", i.reported_by], ["First observed", formatOperationalDate(i.first_observed)], ["Last observed", formatOperationalDate(i.last_observed)], ["Next action", i.next_action]
+    ]);
+    const timeline = previewTimeline(i.occurrences || [], "Protected occurrence timeline", (record) => record.safe_observation || "No safe observation recorded.", (record) => record.source_ref ? `Protected reference ${record.source_ref}` : "Protected evidence reference unavailable");
+    const closure = element("section", "incident-recovery-evidence");
+    closure.append(element("h4", "", "Security verification and closure"));
+    if (i.closure_evidence) closure.append(element("p", "", `${i.closure_evidence.result} · ${i.closure_evidence.closure_test}`), element("p", "micro-note", `Verified ${formatOperationalDate(i.closure_evidence.verified_at)} by ${i.closure_evidence.recorded_by}`));
+    else closure.append(element("p", "micro-note", "No exact security-closure evidence has been recorded."));
+    if ((i.restricted_evidence_refs || []).length) closure.append(element("p", "micro-note", `${pluralizeWord(i.restricted_evidence_refs.length, "protected evidence reference")} retained outside this view.`));
+    const links = element("div", "source-list dossier-actions");
+    securityRelations(i.security_incident_id).forEach((operationalId) => links.append(actionInboxLink(`View related ${operationalId}`, `automation:logs:incidents:selected=${encodeURIComponent(operationalId)}`, false)));
+    if (i.prior_security_incident_id) {
+      links.append(actionInboxLink(`View prior ${i.prior_security_incident_id}`, `automation:logs:security-incidents:selected=${encodeURIComponent(i.prior_security_incident_id)}`, false));
+    }
+    preview.replaceChildren(header, fields, timeline, closure, links);
+  }
+
+  function updateSecurityCounts() {
+    const projection = securityProjection();
+    const display = projection.complete ? String(projection.unresolvedCount) : "—";
+    ["log-security-incidents-count", "operations-log-menu-security-incident-count"].forEach((id) => { if (byId(id)) byId(id).textContent = display; });
+  }
+
+  function renderSecurityLog() {
+    renderIncidentList({
+      projection: securityProjection, state: securityLogState, statusId: "security-incident-log-status", hostId: "security-incident-log-workspace", visibleId: "security-incident-log-visible", route: "security-incidents", aria: "Security Incidents, newest occurrence first", updateCounts: updateSecurityCounts,
+      id: (r) => String(r.security_incident_id || ""), unresolved: (r) => r.status !== "Resolved",
+      search: (r) => [r.security_incident_id, r.safe_summary, r.security_domain, r.protected_surface, r.event_class, r.owner, r.recommended_owner, r.next_action, ...(r.occurrences || []).map((row) => row.safe_observation)],
+      unavailable: (p) => `${humanizeKey(p.reason_code || "Security Incident feed unavailable")}. Unresolved count is not inferred.`,
+      status: (p) => `${pluralizeWord(p.unresolvedCount, "unresolved Security Incident")} · checked ${formatOperationalDate(p.checked_at)} · protected owner-local authority`,
+      empty: (state) => state.scope === "unresolved" ? "No unresolved Security Incidents are recorded." : "No Security Incidents match the current search.",
+      presentation: securityIncidentStatus, preview: renderSecurityPreview,
+      title: (r) => `${r.security_incident_id} · ${r.safe_summary}`, subtitle: (r) => `${humanizeKey(r.security_domain)} · ${r.owner || "Unassigned owner"}`
+    });
+  }
+
+  function initializeSecurityLog() {
+    const search = byId("security-incident-log-search");
+    const scope = byId("security-incident-log-scope");
+    if (!search || !scope || search.dataset.bound) return;
+    search.dataset.bound = "true";
+    search.addEventListener("input", (event) => { securityLogState.search = event.target.value; renderSecurityLog(); });
+    scope.addEventListener("change", (event) => { securityLogState.scope = event.target.value; renderSecurityLog(); });
+    renderSecurityLog();
   }
 
   function sourceSearchText(record) {
@@ -2863,7 +2917,7 @@
     return (Array.isArray(data.source_checker.results) ? data.source_checker.results : []).map((record) => {
       const source = sourceIndex.get(record.source_id) || {};
       let domain = "Unknown domain";
-      try { domain = new URL(record.requested_url || record.final_url).hostname; } catch (_error) { /* keep fallback */ }
+      try { domain = new URL(record.requested_url || record.final_url).hostname; } catch (_error) {}
       return { ...record, domain, publisher: source.publisher || "", owner_ids: source.record_ids || [] };
     });
   }
@@ -3154,7 +3208,6 @@
 
   function logEntryBody(entry) {
     const body = element("div", "log-entry-body markdown-body");
-    // The generated payload uses the same escaped, allowlisted Markdown renderer as candidate dossiers.
     body.innerHTML = entry.details_html || "<p>No additional detail is recorded.</p>";
     return body;
   }
@@ -3321,7 +3374,18 @@
         });
         if (target) actions.append(internalInlineLink(`Open ${identifier} in Workbench`, target));
       });
-      preview.replaceChildren(heading, fields, logEntryBody(entry), actions);
+      const previewParts = [heading, fields, logEntryBody(entry), actions];
+      if (logId === "governance-changes") {
+        const supplementPanel = element("section", "email-preview-supplement");
+        const supplement = governanceChangeSupplement(entry);
+        supplementPanel.append(
+          element("h4", "", "Protected supplement"),
+          element("p", supplement ? "" : "method-note", supplement?.safe_summary || "No supplement is available."),
+          ...(supplement ? [element("p", "method-note", `Updated ${formatDate(supplement.recorded_at)}.`)] : [])
+        );
+        previewParts.push(supplementPanel);
+      }
+      preview.replaceChildren(...previewParts);
     };
 
     const rowBindings = [];
@@ -3564,6 +3628,10 @@
       if (/^planning:sources:[A-Za-z0-9._:+-]{1,256}$/.test(target)) return target;
       if (/^automation:agents:[A-Za-z0-9._-]{1,128}$/.test(target)) return target;
       if (/^automation:logs:[A-Za-z0-9._-]{1,128}$/.test(target)) return target;
+      if (
+        /^automation:logs:incidents:selected=INC-\d{4}-\d{3,}$/.test(target)
+        || /^automation:logs:security-incidents:selected=SEC-\d{4}-\d{3,}$/.test(target)
+      ) return target;
       if (target === "planning:workbench:pipeline") return target;
       if (target.startsWith("planning:workbench:pipeline:")) {
         const parameters = new URLSearchParams(
@@ -3580,6 +3648,15 @@
       return fallback;
     }
     return fallback;
+  }
+
+  function decodeRouteSelection(value) {
+    try {
+      const decoded = decodeURIComponent(String(value || ""));
+      return /^[A-Za-z0-9._-]{1,128}$/.test(decoded) ? decoded : "";
+    } catch (_error) {
+      return "";
+    }
   }
 
   function safePipelineExternalUrl(value) {
@@ -4140,9 +4217,10 @@
       : [element("p", "action-inbox-empty", "No action items match this view.")]));
     const filterLabels = { mine: "My items", oversight: "Oversight", all: "All open" };
     byId("action-inbox-list-heading").textContent = filterLabels[actionInboxState.filter];
+    const itemLabel = actionInboxState.complete ? "open item" : "known item";
     byId("action-inbox-result-summary").textContent = actionInboxState.search
-      ? `${pluralizeWord(items.length, "matching item")} · ${pluralizeWord(actionInboxState.items.length, "open item")} total`
-      : pluralizeWord(items.length, "open item");
+      ? `${pluralizeWord(items.length, "matching item")} · ${pluralizeWord(actionInboxState.items.length, itemLabel)}${actionInboxState.complete ? " total" : "; counts unavailable"}`
+      : pluralizeWord(items.length, itemLabel);
     renderActionInboxPreview(
       actionInboxState.items.find((item) => item.id === actionInboxState.selectedId)
     );
@@ -4157,7 +4235,7 @@
     if (!persist) return;
     try {
       window.localStorage.setItem(ACTION_INBOX_LAYOUT_STORAGE_KEY, actionInboxState.layout);
-    } catch (_error) { /* keep the selected layout until reload */ }
+    } catch (_error) {}
   }
 
   function initializeActionInboxControls() {
@@ -4180,7 +4258,7 @@
     let savedLayout = "right";
     try {
       savedLayout = window.localStorage.getItem(ACTION_INBOX_LAYOUT_STORAGE_KEY) || "right";
-    } catch (_error) { /* use the right-side default */ }
+    } catch (_error) {}
     applyActionInboxLayout(savedLayout, false);
     byId("action-items-grid").addEventListener("keydown", (event) => {
       if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
@@ -4230,8 +4308,7 @@
   function producerProblemRecords() {
     const snapshot = data.action_snapshot || data.overview?.action_snapshot || {};
     if (
-      snapshot.availability !== "current"
-      || snapshot.complete !== true
+      !["current", "partial"].includes(snapshot.availability)
       || !Array.isArray(snapshot.items)
     ) {
       return [];
@@ -4450,7 +4527,7 @@
     return `${pluralizeWord(Number(count || 0), "affected record")} in the complete exact-head enumeration`;
   }
 
-  function unresolvedAutomationActionItems(problemRecords = producerProblemRecords()) {
+  function incidentActionItems(problemRecords = producerProblemRecords()) {
     const integrityHumanFindings = problemRecords
       .filter((finding) => finding.attention === "human")
       .filter((finding) => ![
@@ -4460,33 +4537,28 @@
         "security_protected_action"
       ].includes(finding.work_kind))
       .sort((left, right) => String(left.message || "").localeCompare(String(right.message || "")));
-    const automationActions = unresolvedOperationalIncidents().map((incident) => ({
-      id: incident.incident_id,
-      stage: incident.component,
-      summary: incident.summary,
-      occurrences: (incident.occurrences || []).length,
-      owners: incident.owner ? [incident.owner] : [],
-      humanOwned: humanOwnsIncident(incident),
-      recovery: incident.next_action,
-      firstSeen: incident.first_observed,
-      lastSeen: incident.last_observed,
-      impact: incident.impact,
-      status: incident.status,
-      recommendedOwner: incident.recommended_owner,
-      source_url: `#automation:logs:incidents:selected=${encodeURIComponent(incident.incident_id)}`
-    }));
+    const actionItems = (workKind) => problemRecords
+      .filter((item) => item.work_kind === workKind)
+      .map((item) => ({ ...item }));
+    const operational = actionItems("operational_incident");
+    const security = [
+      ...actionItems("security_incident"),
+      ...actionItems("security_protected_action")
+    ];
     return {
       integrityHumanFindings,
-      automationActions,
-      automationHumanActions: automationActions.filter((item) => item.humanOwned),
-      automationOversightActions: automationActions.filter((item) => !item.humanOwned)
+      operationalHumanActions: operational.filter((item) => item.attention_class === "human"),
+      operationalOversightActions: operational.filter((item) => item.attention_class !== "human"),
+      securityHumanActions: security.filter((item) => item.attention_class === "human"),
+      securityOversightActions: security.filter((item) => item.attention_class !== "human")
     };
   }
 
   function actionItemSnapshot() {
     const problemRecords = producerProblemRecords();
     const typedSnapshot = data.action_snapshot || data.overview?.action_snapshot || {};
-    const typedItems = typedSnapshot.complete === true && Array.isArray(typedSnapshot.items)
+    const typedItems = Array.isArray(typedSnapshot.items)
+      && ["current", "partial"].includes(typedSnapshot.availability)
       ? typedSnapshot.items
       : [];
     const decisionRecords = typedItems
@@ -4496,10 +4568,11 @@
       .filter(Boolean);
     const {
       integrityHumanFindings,
-      automationActions,
-      automationHumanActions,
-      automationOversightActions
-    } = unresolvedAutomationActionItems(problemRecords);
+      operationalHumanActions,
+      operationalOversightActions,
+      securityHumanActions,
+      securityOversightActions
+    } = incidentActionItems(problemRecords);
     const pullRequestsKnown = reviewSignals.pullRequestsStatus === "current";
     const openPullRequests = pullRequestsKnown ? reviewSignals.pullRequests : [];
     const repositoryReviews = openPullRequests.map(repositoryReviewEntry);
@@ -4522,12 +4595,7 @@
         due: item.detected_at ? `Recorded ${formatDate(item.detected_at)}` : "Date unavailable"
       }));
     const repositoryElimActions = [];
-    const securityProblems = problemRecords.filter((item) =>
-      item.reported_by === "Security assurance projection");
-    const securityHumanActions = securityProblems.filter((item) =>
-      item.attention === "human" || String(item.owner || "").toLowerCase() === "human");
-    const securityOversightActions = securityProblems.filter((item) =>
-      !securityHumanActions.includes(item));
+    const complete = typedSnapshot.complete === true && typedSnapshot.availability === "current";
     return {
       decisionRecords,
       decisions: decisionRecords.length,
@@ -4536,9 +4604,8 @@
       problemRecords,
       integrityHumanFindings,
       integrityHuman: integrityHumanFindings.length,
-      automationActions,
-      automationHumanActions,
-      automationOversightActions,
+      operationalHumanActions,
+      operationalOversightActions,
       pullRequests: openPullRequests.length,
       pullRequestsKnown,
       repositoryReviews,
@@ -4546,7 +4613,10 @@
       repositoryElimActions,
       securityHumanActions,
       securityOversightActions,
-      total: Number(typedSnapshot.counts?.human || 0)
+      complete,
+      total: complete && Number.isInteger(typedSnapshot.counts?.human)
+        ? typedSnapshot.counts.human
+        : null
     };
   }
 
@@ -4559,9 +4629,8 @@
       problemRecords,
       integrityHumanFindings,
       integrityHuman,
-      automationActions,
-      automationHumanActions,
-      automationOversightActions,
+      operationalHumanActions,
+      operationalOversightActions,
       pullRequests,
       pullRequestsKnown,
       repositoryReviews,
@@ -4569,7 +4638,8 @@
       repositoryElimActions,
       securityHumanActions,
       securityOversightActions,
-      total
+      total,
+      complete
     } = actionItemSnapshot();
     const oversightProblems = problemRecords
       .filter((finding) => finding.attention !== "human")
@@ -4578,37 +4648,38 @@
         "integrity_obligation"
       ].includes(finding.work_kind))
       .filter((finding) => !/resolved|closed|complete/i.test(String(finding.status || "")));
-    const oversightCount = repositoryElimActions.length
-      + securityOversightActions.length
-      + automationOversightActions.length
-      + oversightProblems.length;
-    byId("tab-actions-count").textContent = total;
-    byId("assigned-actions-count").textContent = total;
-    byId("oversight-actions-count").textContent = oversightCount;
-    byId("action-items-note").textContent = total
+    const oversightCount = complete
+      ? repositoryElimActions.length
+        + securityOversightActions.length
+        + operationalOversightActions.length
+        + oversightProblems.length
+      : null;
+    const countDisplay = total === null ? "—" : String(total);
+    byId("tab-actions-count").textContent = countDisplay;
+    byId("assigned-actions-count").textContent = countDisplay;
+    byId("oversight-actions-count").textContent = oversightCount === null ? "—" : String(oversightCount);
+    byId("action-items-note").textContent = !complete
+      ? "Known action records are shown from a partial snapshot; queue counts are unavailable."
+      : total
       ? `${total} confirmed item${total === 1 ? "" : "s"} assigned to you, all listed below.${repositoryElimActions.length ? ` ${repositoryElimActions.length} repository proposal${repositoryElimActions.length === 1 ? " remains" : "s remain"} with Elim and do not count as your action.` : ""}${pullRequestsKnown ? "" : " Live pull-request status is unavailable."}`
       : repositoryElimActions.length
         ? `No confirmed human action is pending; ${repositoryElimActions.length} repository proposal${repositoryElimActions.length === 1 ? " awaits" : "s await"} Elim's recommendation.`
         : "No items currently await a human review or decision.";
-    const automationItem = (item, humanOwned) => ({
-      label: `${item.id || "Automation"}: ${item.stage || "run coordinator"} — ${item.summary || item.details || "Review the recorded failure."}`,
-      href: item.source_url || "#automation:logs:incidents",
-      route: String(item.source_url || "").replace(/^#/, "") || "automation:logs:incidents",
-      owner: item.owners?.join(", ") || `Unassigned · recommended ${item.recommendedOwner || "owner unavailable"}`,
-      status: humanOwned ? "Human resolution required" : humanizeKey(item.status || "Open"),
-      tone: ["blocking", "disrupted"].includes(item.impact) ? "error" : "warning",
-      question: item.recovery || (humanOwned
-        ? "Complete the recorded next action and attach exact closure evidence."
-        : "The accountable specialist must complete the recorded next action; unassigned ownership remains an oversight problem."),
-      recommendation: humanOwned
-        ? "Open the authoritative incident record, preserve every occurrence, and resolve only after its exact closure test passes."
-        : "Open the authoritative incident record and correct its typed ownership or recovery state without inventing a browser disposition.",
-      whyNow: `${pluralizeWord(item.occurrences || 1, "occurrence")} · latest ${item.lastSeen ? formatDate(item.lastSeen) : "time unavailable"}`,
-      consequence: humanOwned
-        ? "The affected run-chain work remains blocked or untrustworthy until repair and validation are recorded."
-        : "The failure remains active but is not counted as a project-manager action until Human ownership is explicit.",
-      due: item.firstSeen ? `Open since ${formatDate(item.firstSeen)}` : "First detection unavailable",
-      blockingEffect: humanOwned && ["blocking", "disrupted"].includes(item.impact)
+    const typedActionItem = (item) => ({
+      label: item.label || item.item_id || "Recorded action",
+      href: item.source_url || `#${item.route || "actions"}`,
+      route: item.route || "actions",
+      owner: item.owner || "Unassigned",
+      status: item.status || "Open",
+      tone: item.severity || "warning",
+      question: item.next_action || "",
+      recommendation: item.resolution_predicate || "",
+      whyNow: item.authority || "",
+      due: item.detected_at ? `Recorded ${formatDate(item.detected_at)}` : "",
+      dueAt: item.due_at || "",
+      priority: item.priority || "",
+      blockingEffect: item.blocking_effect === true,
+      consequentialDecision: item.consequential_decision === true
     });
     const groups = [
       {
@@ -4618,7 +4689,7 @@
         status: "Human security action",
         tone: "error",
         detail: "A credential, secret, or other security action is explicitly assigned to you.",
-        items: securityHumanActions.map(integrityActionLink)
+        items: securityHumanActions.map(typedActionItem)
       },
       {
         scope: "mine",
@@ -4636,7 +4707,7 @@
         status: "Human resolution required",
         tone: "error",
         detail: "An unresolved host or run-chain failure requires explicit human resolution.",
-        items: automationHumanActions.map((item) => automationItem(item, true))
+        items: operationalHumanActions.map(typedActionItem)
       },
       {
         scope: "mine",
@@ -4683,7 +4754,7 @@
         status: "Owned by Elim",
         tone: "error",
         detail: "Protected security-assurance work remains with Elim; details stay at the authorized source.",
-        items: securityOversightActions.map(integrityActionLink)
+        items: securityOversightActions.map(typedActionItem)
       },
       {
         scope: "oversight",
@@ -4703,7 +4774,7 @@
         status: "Owned elsewhere",
         tone: "error",
         detail: "An active incident family remains assigned outside the Human action queue.",
-        items: automationOversightActions.map((item) => automationItem(item, false))
+        items: operationalOversightActions.map(typedActionItem)
       },
       {
         scope: "oversight",
@@ -4715,6 +4786,7 @@
         items: oversightProblems.map(integrityActionLink)
       }
     ];
+    actionInboxState.complete = complete;
     actionInboxState.items = groups.flatMap((group) =>
       group.items.map((item, index) => actionInboxItem(group, item, index))
     );
@@ -4724,7 +4796,9 @@
       blockingItems.length > 0,
       `${pluralizeWord(blockingItems.length, "blocker")} represented in Action Items`
     );
-    byId("all-actions-count").textContent = actionInboxState.items.length;
+    byId("all-actions-count").textContent = complete
+      ? String(actionInboxState.items.length)
+      : "—";
     renderPriorityAttention();
     renderActionInboxRows();
   }
@@ -5865,6 +5939,20 @@
     return data.project_logs.find((log) => log.id === logId);
   }
 
+  function governanceChangeSupplement(entry, projection = data.private_operations?.governance_change_supplements) {
+    if (projection?.complete !== true || !Array.isArray(projection.items)
+      || !entry || typeof entry !== "object") return null;
+    const changeId = String((entry.values || {}).governance_change_id || entry.id || "");
+    const matches = projection.items.filter((supplement) =>
+      supplement?.governance_change_id === changeId
+      && supplement.public_entry_sha256 === entry.values?.entry_sha256);
+    const supplement = matches.length === 1 ? matches[0] : null;
+    return supplement && hasExactFields(supplement, GOVERNANCE_SUPPLEMENT_FIELDS)
+      && supplement.source_revision === String(data.source_revision || "")
+      && parseTimestamp(supplement.recorded_at) !== null
+      && typeof supplement.safe_summary === "string" ? supplement : null;
+  }
+
   function latestLogEntry(logId) {
     const log = projectLog(logId);
     return [...(log?.entries || [])].sort((left, right) =>
@@ -5901,6 +5989,7 @@
     if (log.id === "agents") return `${values.record || "Project"} · ${values.task || "agent activity"}`;
     if (log.id === "source-monitor") return `${values.watcher || "Source monitor"} · ${String(values.result || "result").replaceAll("_", " ")}`;
     if (log.id === "changes") return values.change || entry.id;
+    if (log.id === "governance-changes") return entry.title || values.governance_change_id || entry.id;
     if (log.id === "console-development") return values.category || values.change || entry.id;
     return `${values.record || entry.id} · ${values.disposition || "decision"}`;
   }
@@ -5911,6 +6000,7 @@
     if (log.id === "agents") return `${values.agent || "Agent"} recorded ${values.outcome || "an outcome"} for run ${values.run || "not identified"}.`;
     if (log.id === "source-monitor") return `Affected: ${values.affected || "not recorded"} · Activity: ${values.activity || "not recorded"}.`;
     if (log.id === "changes") return `${values.scope || ""} ${values.effect || ""}`.trim();
+    if (log.id === "governance-changes") return `${values.governance_change_id || "GOV identity unavailable"} · ${values.status || "status unavailable"} · ${values.supplement || "supplement posture unavailable"}`;
     if (log.id === "console-development") return `${values.change || "Change ID unavailable"} · ${values.lifecycle || "Changed"} · ${values.state || "state unavailable"}`;
     return values.destination || values.disposition;
   }
@@ -7054,236 +7144,6 @@
       || `${String(stage.status || "Error").replaceAll("_", " ")} in the current run chain.`;
   }
 
-  function automationIncidentIdentity(record, index) {
-    const rawCause = String(
-      record.root_cause || record.failed_prerequisite || record.prerequisite
-        || record.failure_class || record.classification || botFailureSummary(record)
-        || `unclassified-${index}`
-    ).trim();
-    const compact = rawCause.toLowerCase().replace(/\s+/g, " ");
-    if (
-      /canonical arrp workspace is not reconciled with github/.test(compact)
-      || /current branch (?:is )?.+ instead of main/.test(compact)
-    ) {
-      return {
-        rootCause: "Canonical ARRP workspace is off main and not reconciled with GitHub.",
-        failedPrerequisite: "host-repository-preflight",
-        checkoutState: "off-main canonical checkout",
-        runtimeState: "dispatch blocked before launch"
-      };
-    }
-    if (/isolated elim checkout contains a prior unsynchronized baseline/.test(compact)) {
-      return {
-        rootCause: "The isolated Elim checkout contains a prior unsynchronized baseline.",
-        failedPrerequisite: "elim-isolated-checkout",
-        checkoutState: "unsynchronized isolated checkout",
-        runtimeState: "Elim launch blocked"
-      };
-    }
-    return {
-      rootCause: rawCause,
-      failedPrerequisite: String(record.failed_prerequisite || record.prerequisite || ""),
-      checkoutState: String(
-        record.checkout_state || record.worktree_state
-          || record.repository_state || record.checkout || ""
-      ),
-      runtimeState: String(
-        record.runtime_state || record.host_state
-          || record.execution_state || record.runtime || ""
-      )
-    };
-  }
-
-  function incidentHasHumanOwner(incident) {
-    return (incident.owners || []).some((owner) =>
-      /^(?:human|you|project manager|human project owner)$/i.test(String(owner).trim()));
-  }
-
-  function automationIncidentRecordResolved(record) {
-    return record.resolved === true
-      || /^(?:resolved|closed|superseded|complete)$/i.test(String(record.status || ""));
-  }
-
-  function automationIncidentObserved(record, chain = {}) {
-    return record.recorded_at || record.detected_at || record.created_at
-      || record.updated_at || record.completed_at || chain.updated_at || "";
-  }
-
-  function automationIncidentEventKey(record, chain = {}, index = 0) {
-    const normalizeKey = (value) => String(value || "").trim().toLowerCase().replace(/\s+/g, " ");
-    const observed = automationIncidentObserved(record, chain);
-    const parsedObserved = parseTimestamp(observed);
-    if (!observed) {
-      // A missing timestamp cannot safely establish that two otherwise similar rows are one event.
-      return JSON.stringify(["undated", record.__incidentSource || "incident", index]);
-    }
-    const chainId = record.chain_id || record.review_epoch
-      || chain.chain_id || chain.review_epoch || "current-chain-unavailable";
-    const stage = record.stage_id || record.stage || record.bot_id || record.id || "stage-unavailable";
-    const detail = record.details || record.message || record.summary || record.root_cause
-      || record.failed_prerequisite || record.prerequisite || "detail-unavailable";
-    return JSON.stringify([
-      normalizeKey(chainId),
-      normalizeKey(stage),
-      parsedObserved === null ? normalizeKey(observed) : String(parsedObserved),
-      normalizeKey(detail)
-    ]);
-  }
-
-  function deduplicateAutomationIncidentRecords(records, chain = {}) {
-    const events = new Map();
-    const sourceRank = {
-      "current-failure": 0,
-      "current-degradation": 1,
-      "host-action": 2,
-      incident: 3
-    };
-    records.forEach((record, index) => {
-      const key = automationIncidentEventKey(record, chain, index);
-      if (!events.has(key)) {
-        const currentSource = ["current-failure", "current-degradation"].includes(record.__incidentSource);
-        events.set(key, {
-          ...record,
-          chain_id: record.chain_id || (currentSource ? chain.chain_id : "") || "",
-          __incidentSources: [record.__incidentSource || "incident"]
-        });
-        return;
-      }
-      const previous = events.get(key);
-      const sources = [...new Set([
-        ...(previous.__incidentSources || [previous.__incidentSource]),
-        record.__incidentSource || "incident"
-      ].filter(Boolean))];
-      const preferredSource = [...sources].sort((left, right) =>
-        (sourceRank[left] ?? 9) - (sourceRank[right] ?? 9))[0];
-      const previousCount = Number(previous.occurrences || previous.failure_count || 1);
-      const recordCount = Number(record.occurrences || record.failure_count || 1);
-      events.set(key, {
-        ...previous,
-        ...record,
-        chain_id: record.chain_id || previous.chain_id
-          || (sources.some((source) => ["current-failure", "current-degradation"].includes(source))
-            ? chain.chain_id
-            : "") || "",
-        owner: record.owner || previous.owner,
-        action_owner: record.action_owner || previous.action_owner,
-        assigned_to: record.assigned_to || previous.assigned_to,
-        recorded_at: record.recorded_at || previous.recorded_at,
-        detected_at: record.detected_at || previous.detected_at,
-        created_at: record.created_at || previous.created_at,
-        updated_at: record.updated_at || previous.updated_at,
-        completed_at: record.completed_at || previous.completed_at,
-        details: record.details || previous.details,
-        message: record.message || previous.message,
-        recovery: record.recovery || previous.recovery,
-        next_action: record.next_action || previous.next_action,
-        occurrences: Math.max(
-          Number.isFinite(previousCount) ? previousCount : 1,
-          Number.isFinite(recordCount) ? recordCount : 1
-        ),
-        resolved: automationIncidentRecordResolved(previous)
-          && automationIncidentRecordResolved(record),
-        __incidentSource: preferredSource,
-        __incidentSources: sources
-      });
-    });
-    return [...events.values()];
-  }
-
-  function groupAutomationIncidents(chain = data.run_chain || {}) {
-    const records = deduplicateAutomationIncidentRecords([
-      ...(Array.isArray(chain.incidents) ? chain.incidents.map((record) => ({ ...record, __incidentSource: "incident" })) : []),
-      ...(Array.isArray(chain.failures) ? chain.failures.map((record) => ({ ...record, __incidentSource: "current-failure" })) : []),
-      ...(Array.isArray(chain.degradations) ? chain.degradations.map((record) => ({ ...record, __incidentSource: "current-degradation" })) : []),
-      ...(Array.isArray(chain.host_action_items) ? chain.host_action_items.map((record) => ({ ...record, __incidentSource: "host-action" })) : [])
-    ], chain);
-    const groups = new Map();
-    records.forEach((record, index) => {
-      const identity = automationIncidentIdentity(record, index);
-      const {
-        rootCause,
-        failedPrerequisite,
-        checkoutState,
-        runtimeState
-      } = identity;
-      const normalizeKey = (value) => String(value || "").trim().toLowerCase().replace(/\s+/g, " ");
-      const key = JSON.stringify([
-        normalizeKey(rootCause || `unclassified-${index}`),
-        normalizeKey(failedPrerequisite),
-        normalizeKey(checkoutState),
-        normalizeKey(runtimeState)
-      ]);
-      if (!groups.has(key)) {
-        groups.set(key, {
-          rootCause: String(rootCause || "Unclassified automation incident"),
-          failedPrerequisite: String(failedPrerequisite || "Not recorded"),
-          checkoutState: String(checkoutState || "Not recorded"),
-          runtimeState: String(runtimeState || "Not recorded"),
-          occurrences: 0,
-          history: [],
-          stages: new Set(),
-          activeOwners: new Set(),
-          historicalOwners: new Set(),
-          postures: new Set(),
-          active: false,
-          activeOccurrences: 0,
-          firstSeen: null,
-          lastSeen: null,
-          recovery: record.recovery || record.next_action || record.resolution || ""
-        });
-      }
-      const group = groups.get(key);
-      const occurrenceCount = Number(record.occurrences || record.failure_count || 1);
-      const resolved = automationIncidentRecordResolved(record);
-      const active = !resolved;
-      group.occurrences += occurrenceCount;
-      if (active) {
-        group.active = true;
-        group.activeOccurrences += occurrenceCount;
-      }
-      const stage = record.stage_id || record.stage || record.bot_id || record.id;
-      if (stage) group.stages.add(String(stage));
-      const owner = record.owner || record.action_owner || record.assigned_to;
-      if (owner) {
-        if (active) group.activeOwners.add(String(owner));
-        else group.historicalOwners.add(String(owner));
-      }
-      const observed = automationIncidentObserved(record, chain);
-      const timestamp = parseTimestamp(observed);
-      const posture = record.superseded === true || resolved
-        ? "Superseded"
-        : record.__incidentSource === "current-failure"
-          || record.__incidentSource === "current-degradation"
-          || String(record.chain_id || record.review_epoch || "") === String(chain.chain_id || chain.review_epoch || "")
-          ? "Current chain"
-          : record.posture || record.status || "Historical";
-      group.postures.add(posture);
-      group.history.push({
-        observed,
-        stage: stage || "unavailable",
-        status: record.status || record.outcome || "unavailable",
-        posture,
-        chainId: record.chain_id || "",
-        details: record.details || record.message || record.summary || "",
-        checkoutState: record.checkout_state || record.worktree_state
-          || record.repository_state || record.checkout || ""
-      });
-      if (timestamp !== null && (group.firstSeen === null || timestamp < group.firstSeen)) group.firstSeen = timestamp;
-      if (timestamp !== null && (group.lastSeen === null || timestamp > group.lastSeen)) group.lastSeen = timestamp;
-      if (!group.recovery) group.recovery = record.recovery || record.next_action || record.resolution || "";
-    });
-    return [...groups.values()].map((group) => ({
-      ...group,
-      stages: [...group.stages].sort(),
-      owners: [...group.activeOwners].sort(),
-      historicalOwners: [...group.historicalOwners].sort(),
-      postures: [...group.postures].sort(),
-      history: [...group.history].sort((left, right) =>
-        (parseTimestamp(right.observed) || 0) - (parseTimestamp(left.observed) || 0))
-    })).filter((group) => group.active)
-      .sort((left, right) => right.occurrences - left.occurrences || left.rootCause.localeCompare(right.rootCause));
-  }
-
   function runChainQueue(chain) {
     return chain.work_queue?.counts || chain.queue_counts || chain.queue || {};
   }
@@ -7650,7 +7510,9 @@
     const currentChecks = projection.tools.filter((tool) => tool.coverage_state === "current").length;
     status.textContent = projection.available
       ? `Authenticated assurance checked ${formatOperationalDate(projection.checkedAt)}. Check completion is not a claim that no vulnerability exists.`
-      : "Authenticated security assurance is unavailable; absence of private findings is not inferred.";
+      : ownerModeUnavailableMessage(
+          "Authenticated security assurance is unavailable; absence of private findings is not inferred."
+        );
     const summaryValues = [
       ["Public intake", projection.publicIntakeState === "live" ? "Live" : projection.publicIntakeState === "paused" ? "Paused" : "Unverified"],
       ["Check coverage", projection.available ? `${currentChecks} of ${projection.tools.length} current` : "Unavailable"],
@@ -8564,7 +8426,14 @@
     });
     byId("automation-incidents").replaceChildren(...(
       exceptionCount == null
-        ? [element("p", "empty-state compact-empty", incidentProjection.reason || "Operational incident feed is unavailable; zero incidents cannot be inferred.")]
+        ? [element(
+            "p",
+            "empty-state compact-empty",
+            ownerModeUnavailableMessage(
+              incidentProjection.reason
+                || "Operational incident feed is unavailable; zero incidents cannot be inferred."
+            )
+          )]
         : exceptionCount
         ? [...incidentRows, ...roleRows]
         : [element("p", "empty-state compact-empty", "No current operational exception is represented in the loaded typed projection.")]
@@ -8755,31 +8624,94 @@
       "Run-chain state is the checked-in projection from the latest local transaction.";
   }
 
-  function canonicalFileConsolePath(pathname) {
+  function decodedFileConsolePath(pathname) {
     try {
       const decoded = decodeURIComponent(String(pathname || ""));
-      return !decoded.includes("\0")
+      return decoded.startsWith("/")
+        && !decoded.includes("\0")
         && !decoded.includes("\\")
         && !/(?:^|\/)\.{1,2}(?:\/|$)/.test(decoded)
-        && decoded.endsWith("/research/horizon-review-console/index.html");
+        ? decoded
+        : "";
     } catch (_error) {
-      return false;
+      return "";
     }
   }
 
-  function localConsoleOriginAllowed(location = window.location) {
+  function validOwnerConsoleBinding(
+    binding = window.ARRP_OWNER_CONSOLE_BINDING,
+    location = window.location
+  ) {
     const protocol = String(location?.protocol || "");
     const hostname = String(location?.hostname || "");
-    if (["http:", "https:"].includes(protocol)) {
-      return ["127.0.0.1", "localhost", "::1", "[::1]"].includes(hostname);
+    const decoded = decodedFileConsolePath(location?.pathname);
+    if (protocol !== "file:" || hostname !== "" || !decoded
+      || !hasExactFields(binding, OWNER_BINDING_FIELDS)
+      || binding.schema_version !== 1
+      || !/^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/.test(String(binding.generation_id || ""))
+      || !/^[0-9a-f]{40}(?:[0-9a-f]{24})?$/.test(String(binding.source_revision || ""))
+      || !/^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$/.test(String(binding.version_id || ""))
+      || !binding.version_id.startsWith(`${binding.generation_id}-`)
+      || binding.generation_id !== catalogGenerationId
+      || binding.source_revision !== String(data.source_revision || "")
+      || parseTimestamp(binding.staged_at) === null
+      || binding.exact_decoded_file_path !== decoded
+      || !decoded.endsWith("/index.html")
+      || !binding.projections
+      || typeof binding.projections !== "object"
+      || Array.isArray(binding.projections)
+      || Object.keys(binding.projections).length !== OWNER_FEEDS.size
+      || Object.keys(binding.projections).some((key) => !OWNER_FEEDS.has(key))) {
+      return false;
     }
-    return protocol === "file:"
-      && hostname === ""
-      && canonicalFileConsolePath(location?.pathname);
+    const paths = new Set();
+    for (const feedId of OWNER_FEEDS) {
+      const projection = binding.projections[feedId];
+      if (!projection
+        || !hasExactFields(projection, FEED_KEYS)
+        || projection.feed_id !== feedId
+        || !/^data\/[a-z0-9-]+\.js$/.test(String(projection.relative_path || ""))
+        || paths.has(projection.relative_path)
+        || !/^sha256:[0-9a-f]{64}$/.test(String(projection.source_sha256 || ""))
+        || !["current", "partial", "unavailable"].includes(projection.availability)
+        || typeof projection.complete !== "boolean"
+        || (projection.availability === "current" && projection.complete !== true)
+        || (["partial", "unavailable"].includes(projection.availability)
+          && projection.complete !== false)) {
+        return false;
+      }
+      paths.add(projection.relative_path);
+    }
+    return true;
+  }
+
+  function localConsoleOriginAllowed(location = window.location,
+    binding = window.ARRP_OWNER_CONSOLE_BINDING) { return validOwnerConsoleBinding(binding, location); }
+
+  function ownerModeUnavailableMessage(
+    ownerModeDetail,
+    location = window.location,
+    binding = window.ARRP_OWNER_CONSOLE_BINDING
+  ) {
+    return localConsoleOriginAllowed(location, binding)
+      ? ownerModeDetail
+      : OWNER_MODE_UNAVAILABLE_MESSAGE;
+  }
+
+  function ownerProjectionPathAllowed(path) {
+    const binding = window.ARRP_OWNER_CONSOLE_BINDING;
+    if (!validOwnerConsoleBinding(binding, window.location)) return false;
+    const normalized = String(path || "").split("?", 1)[0];
+    if (!/^data\/[a-z0-9-]+\.js$/.test(normalized)) return false;
+    return Object.values(binding.projections).some(
+      (projection) => projection.relative_path === normalized
+    );
   }
 
   function loadLocalProjection(path, capture) {
-    if (!localConsoleOriginAllowed()) return Promise.resolve(false);
+    if (!localConsoleOriginAllowed() || !ownerProjectionPathAllowed(path)) {
+      return Promise.resolve(false);
+    }
     if (capture()) return Promise.resolve(true);
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -10806,6 +10738,7 @@
       ensureLogStates();
       renderIntegrityHistory();
       renderIncidentLog();
+      renderSecurityLog();
     }
     if (domain === "publication") hydratePublicationData();
     renderOverview();
@@ -10878,6 +10811,7 @@
     initializeWatcherTabs();
     initializeLogMenu();
     initializeIncidentLog();
+    initializeSecurityLog();
     initializeAutomationRoleMenu();
     initializeScrollToTop();
     window.addEventListener("hashchange", navigateFromHash);
@@ -10920,8 +10854,6 @@
     pipelineProjectionState,
     pipelineDefaultSort,
     filteredPipelineItems,
-    groupAutomationIncidents,
-    incidentHasHumanOwner,
     candidateProjectRecords,
     deliveryItems,
     deliveryProjectionState,
@@ -10934,6 +10866,7 @@
     priorityAttentionItems,
     normalizeConsoleTarget,
     safeConsoleTarget,
+    decodeRouteSelection,
     safePipelineExternalUrl,
     pluralizeWord,
     overviewBriefVerification,
@@ -10951,11 +10884,20 @@
     relevantPlatformIncidents,
     operationalIncidentProjection,
     unresolvedOperationalIncidents,
-    humanOwnsIncident,
+    securityIncidentProjection: securityProjection,
+    securityIncidentRelations: securityRelations,
+    securityIncidentStatusPresentation: securityIncidentStatus,
+    producerProblemRecords,
+    incidentActionItems,
+    actionItemSnapshot,
     incidentStatusPresentation,
-    canonicalFileConsolePath,
+    validOwnerConsoleBinding,
+    ownerProjectionPayload,
     localConsoleOriginAllowed,
+    ownerModeUnavailableMessage,
     validPrivateOperationsSnapshot,
+    capturePrivateOperations,
+    governanceChangeSupplement,
     validLocalAutomationStatus,
     loadLocalProjection
   });
