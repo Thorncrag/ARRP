@@ -145,6 +145,12 @@
       "paths": ["github/release/**"]
     },
     {
+      "id": "github-branch-ref-delete-control",
+      "category": "public_operational_summary",
+      "producers": ["interactive-reviewed-github"],
+      "paths": ["github/control/branch-ref-delete"]
+    },
+    {
       "id": "github-control-payload",
       "category": "public_operational_summary",
       "producers": ["arrp-nightly-publication", "arrp-semantic-broker"],

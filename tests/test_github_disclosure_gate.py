@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import importlib.util
 import json
 import os
@@ -115,6 +116,45 @@ class GitHubDisclosureGateTests(unittest.TestCase):
             text=True,
         ).stdout.strip()
         return temporary, repository, base, head
+
+    def git_remote_fixture(
+        self,
+    ) -> tuple[
+        tempfile.TemporaryDirectory,
+        MODULE.ProjectPathAuthority,
+        Path,
+        str,
+        str,
+        Path,
+    ]:
+        temporary, repository, base, head = self.git_fixture()
+        state = Path(temporary.name) / "state"
+        state.mkdir()
+        remote_temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(remote_temporary.cleanup)
+        remote = Path(remote_temporary.name) / "remote.git"
+        subprocess.run(
+            ["git", "init", "--bare", remote],
+            check=True,
+            capture_output=True,
+        )
+        subprocess.run(
+            ["git", "remote", "add", "origin", str(remote)],
+            cwd=repository,
+            check=True,
+        )
+        subprocess.run(
+            ["git", "push", "origin", f"{head}:refs/heads/fixture"],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+        )
+        authority = MODULE.ProjectPathAuthority.fixture(
+            Path(temporary.name),
+            repository_root=repository,
+            state_root=state,
+        )
+        return temporary, authority, repository, base, head, remote
 
     def test_git_push_authorization_binds_exact_committed_range(self) -> None:
         _, repository, base, head = self.git_fixture()
@@ -240,6 +280,285 @@ class GitHubDisclosureGateTests(unittest.TestCase):
                 target_ref="refs/heads/fixture",
                 producer="interactive-reviewed-github",
                 policy=self.policy,
+            )
+
+    def test_branch_ref_delete_authorization_is_exact_and_deterministic(self) -> None:
+        _, authority, _, _, head, _ = self.git_remote_fixture()
+        first = MODULE.authorize_git_branch_ref_delete(
+            authority,
+            source_revision=head,
+            target_ref="refs/heads/fixture",
+            producer="interactive-reviewed-github",
+            policy=self.policy,
+        )
+        second = MODULE.authorize_git_branch_ref_delete(
+            authority,
+            source_revision=head,
+            target_ref="refs/heads/fixture",
+            producer="interactive-reviewed-github",
+            policy=self.policy,
+        )
+        self.assertTrue(first["allowed"])
+        self.assertTrue(first["authoritative"])
+        self.assertEqual(first["operation"], "git_branch_ref_delete")
+        self.assertEqual(
+            first["artifacts"][0]["artifact_family"],
+            "github-branch-ref-delete-control",
+        )
+        self.assertEqual(first["source_revision"], head)
+        self.assertEqual(first["authorized_remote"], "origin")
+        self.assertEqual(
+            first["authorized_refspec"],
+            ":refs/heads/fixture",
+        )
+        self.assertEqual(
+            first["authorized_lease"],
+            f"refs/heads/fixture:{head}",
+        )
+        self.assertEqual(first["new_oid"], "0" * 40)
+        self.assertEqual(first["payload_sha256"], second["payload_sha256"])
+
+    def test_branch_ref_delete_executes_with_lease_and_reads_back_absence(self) -> None:
+        _, authority, repository, _, head, _ = self.git_remote_fixture()
+        decision = MODULE.authorize_git_branch_ref_delete(
+            authority,
+            source_revision=head,
+            target_ref="refs/heads/fixture",
+            producer="interactive-reviewed-github",
+            policy=self.policy,
+        )
+        MODULE.execute_authorized_git_branch_ref_delete(
+            authority,
+            decision,
+            policy=self.policy,
+        )
+        observed = subprocess.run(
+            [
+                "git",
+                "ls-remote",
+                "--refs",
+                "origin",
+                "refs/heads/fixture",
+            ],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+        ).stdout
+        self.assertEqual(observed, b"")
+
+    def test_branch_ref_delete_lease_preserves_a_moved_remote_head(self) -> None:
+        _, authority, repository, _, head, _ = self.git_remote_fixture()
+        decision = MODULE.authorize_git_branch_ref_delete(
+            authority,
+            source_revision=head,
+            target_ref="refs/heads/fixture",
+            producer="interactive-reviewed-github",
+            policy=self.policy,
+        )
+        path = repository / "areas" / "CONGRESS" / "issues" / "CON-001.md"
+        path.write_text("# Moved\n", encoding="utf-8")
+        subprocess.run(["git", "add", "."], cwd=repository, check=True)
+        subprocess.run(
+            ["git", "commit", "-m", "move fixture"],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+        )
+        moved = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        subprocess.run(
+            ["git", "push", "origin", "HEAD:refs/heads/fixture"],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+        )
+        with self.assertRaises(MODULE.DisclosureBlocked):
+            MODULE.execute_authorized_git_branch_ref_delete(
+                authority,
+                decision,
+                policy=self.policy,
+            )
+        observed = subprocess.run(
+            [
+                "git",
+                "ls-remote",
+                "--refs",
+                "origin",
+                "refs/heads/fixture",
+            ],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.split()[0]
+        self.assertEqual(observed, moved)
+
+    def test_branch_ref_delete_rejects_a_fabricated_decision(self) -> None:
+        _, authority, repository, _, head, _ = self.git_remote_fixture()
+        fabricated = {
+            "allowed": True,
+            "authoritative": True,
+            "operation": "git_branch_ref_delete",
+            "repository": "Thorncrag/ARRP",
+            "authority_mode": "fixture",
+            "authorized_remote": "origin",
+            "target_ref": "refs/heads/fixture",
+            "expected_old_oid": head,
+            "source_revision": head,
+            "new_oid": "0" * 40,
+            "payload_sha256": MODULE._branch_ref_delete_payload(
+                target_ref="refs/heads/fixture",
+                expected_old_oid=head,
+            )[1],
+            "authorized_refspec": ":refs/heads/fixture",
+            "authorized_lease": f"refs/heads/fixture:{head}",
+        }
+        fabricated["payload_sha256"] = (
+            "sha256:"
+            + hashlib.sha256(fabricated["payload_sha256"]).hexdigest()
+        )
+        with self.assertRaises(MODULE.DisclosureBlocked):
+            MODULE.execute_authorized_git_branch_ref_delete(
+                authority,
+                fabricated,
+                policy=self.policy,
+            )
+        observed = subprocess.run(
+            [
+                "git",
+                "ls-remote",
+                "--refs",
+                "origin",
+                "refs/heads/fixture",
+            ],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.split()[0]
+        self.assertEqual(observed, head)
+
+    def test_branch_ref_delete_rejects_invalid_or_substituted_inputs(self) -> None:
+        _, authority, _, _, head, _ = self.git_remote_fixture()
+        sensitive_marker = "SENSITIVE" + "-MARKER"
+        invalid = (
+            "refs/heads/main",
+            "refs/tags/fixture",
+            "refs/heads/*",
+            "refs/heads/fixture..other",
+            f"refs/heads/{sensitive_marker}",
+        )
+        for target_ref in invalid:
+            with self.subTest(target_ref=target_ref):
+                with self.assertRaises(MODULE.DisclosureBlocked) as raised:
+                    MODULE.authorize_git_branch_ref_delete(
+                        authority,
+                        source_revision=head,
+                        target_ref=target_ref,
+                        producer="interactive-reviewed-github",
+                        policy=self.policy,
+                    )
+                self.assertNotIn(sensitive_marker, str(raised.exception))
+                self.assertNotIn(
+                    sensitive_marker,
+                    json.dumps(raised.exception.decision),
+                )
+        for source_revision in (head[:12], "f" * 40):
+            with self.subTest(source_revision=source_revision):
+                with self.assertRaises(MODULE.DisclosureBlocked):
+                    MODULE.authorize_git_branch_ref_delete(
+                        authority,
+                        source_revision=source_revision,
+                        target_ref="refs/heads/fixture",
+                        producer="interactive-reviewed-github",
+                        policy=self.policy,
+                    )
+        with self.assertRaises(MODULE.DisclosureBlocked):
+            MODULE.authorize_git_branch_ref_delete(
+                authority,
+                source_revision=head,
+                target_ref="refs/heads/fixture",
+                producer="arrp-semantic-broker",
+                policy=self.policy,
+            )
+        with self.assertRaises(MODULE.DisclosureBlocked):
+            MODULE.authorize_git_branch_ref_delete(
+                authority,
+                source_revision=head,
+                target_ref="refs/heads/missing",
+                producer="interactive-reviewed-github",
+                policy=self.policy,
+            )
+
+    def test_branch_ref_delete_rejects_substituted_production_authority(self) -> None:
+        _, authority, repository, _, head, _ = self.git_remote_fixture()
+        substituted = MODULE.ProjectPathAuthority(
+            mode="production_canonical",
+            repository_root=repository,
+            state_root=authority.state_root,
+            output_root=repository,
+        )
+        with self.assertRaises(MODULE.DisclosureBlocked):
+            MODULE.authorize_git_branch_ref_delete(
+                substituted,
+                source_revision=head,
+                target_ref="refs/heads/fixture",
+                producer="interactive-reviewed-github",
+            )
+        with self.assertRaises(MODULE.DisclosureBlocked):
+            MODULE.authorize_git_branch_ref_delete(
+                authority,
+                source_revision=head,
+                target_ref="refs/heads/fixture",
+                producer="interactive-reviewed-github",
+            )
+
+    def test_branch_ref_delete_does_not_widen_generic_control_payloads(self) -> None:
+        with self.assertRaises(MODULE.DisclosureBlocked) as raised:
+            MODULE.evaluate_outbound_bundle(
+                [
+                    MODULE.OutboundArtifact(
+                        path="github/control/arbitrary",
+                        producer="interactive-reviewed-github",
+                        content=b"{}",
+                    )
+                ],
+                operation="git_branch_ref_delete",
+                source_revision=self.revision,
+                policy=self.policy,
+            )
+        self.assertFalse(raised.exception.decision["allowed"])
+
+    def test_git_push_empty_range_and_app_delete_refspec_remain_blocked(self) -> None:
+        _, repository, _, head = self.git_fixture()
+        with self.assertRaises(MODULE.DisclosureBlocked):
+            MODULE.authorize_git_push(
+                repository,
+                base_revision=head,
+                source_revision=head,
+                head_ref="HEAD",
+                target_ref="refs/heads/fixture",
+                producer="interactive-reviewed-github",
+                policy=self.policy,
+            )
+        from scripts import arrp_nightly
+
+        with self.assertRaises(arrp_nightly.GitHubBrokerError):
+            arrp_nightly.git_push_with_token(
+                repository,
+                ":refs/heads/fixture",
+                arrp_nightly.SensitiveValue("fixture-token"),
+                disclosure_decision={
+                    "allowed": True,
+                    "authoritative": True,
+                    "operation": "git_branch_ref_delete",
+                    "source_revision": head,
+                },
             )
 
     def test_known_public_family_passes_without_per_file_label(self) -> None:

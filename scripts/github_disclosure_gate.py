@@ -46,6 +46,12 @@ CONTROL_FILE_LIMIT = 4 * 1024 * 1024
 FULL_COMMIT_OID = re.compile(r"^[0-9a-f]{40}$")
 LOCAL_HEAD_REF = re.compile(r"^(?:HEAD|refs/heads/[A-Za-z0-9._/-]+)$")
 REMOTE_HEAD_REF = re.compile(r"^refs/heads/[A-Za-z0-9._/-]+$")
+ZERO_COMMIT_OID = "0" * 40
+GITHUB_REPOSITORY = "Thorncrag/ARRP"
+GITHUB_REMOTE = "origin"
+GITHUB_REMOTE_URL = "https://github.com/Thorncrag/ARRP.git"
+BRANCH_REF_DELETE_PATH = "github/control/branch-ref-delete"
+BRANCH_REF_DELETE_PRODUCER = "interactive-reviewed-github"
 
 SECRET_PATTERNS: tuple[tuple[str, re.Pattern[bytes]], ...] = (
     (
@@ -941,6 +947,247 @@ def authorize_git_push(
     return decision
 
 
+def _validate_branch_ref_delete_authority(
+    authority: ProjectPathAuthority,
+    *,
+    policy: Mapping[str, Any] | None,
+) -> Path:
+    if authority.mode == "production_canonical":
+        try:
+            production = ProjectPathAuthority.production()
+        except PathAuthorityError as error:
+            raise DisclosureBlocked(
+                _unavailable_decision("git-ref-delete-authority-invalid")
+            ) from error
+        if (
+            authority.repository_root != production.repository_root
+            or authority.state_root != production.state_root
+            or policy is not None
+        ):
+            raise DisclosureBlocked(
+                _unavailable_decision("git-ref-delete-authority-invalid")
+            )
+        repository = production.repository_root
+        for remote_argument in (
+            ("remote", "get-url", GITHUB_REMOTE),
+            ("remote", "get-url", "--push", GITHUB_REMOTE),
+        ):
+            remote_urls = _git_output(
+                repository,
+                *remote_argument,
+            ).decode("utf-8").splitlines()
+            if remote_urls != [GITHUB_REMOTE_URL]:
+                raise DisclosureBlocked(
+                    _unavailable_decision("git-remote-identity-invalid")
+                )
+        return repository
+    if (
+        authority.mode == "fixture"
+        and authority.fixture_root is not None
+        and policy is not None
+    ):
+        return authority.repository_root
+    raise DisclosureBlocked(
+        _unavailable_decision("git-ref-delete-authority-invalid")
+    )
+
+
+def _remote_ref_oid(repository: Path, target_ref: str) -> str | None:
+    raw = _git_output(
+        repository,
+        "ls-remote",
+        "--refs",
+        GITHUB_REMOTE,
+        target_ref,
+    )
+    if not raw:
+        return None
+    lines = raw.decode("ascii").splitlines()
+    if len(lines) != 1:
+        raise DisclosureBlocked(
+            _unavailable_decision("git-remote-ref-ambiguous")
+        )
+    oid, separator, observed_ref = lines[0].partition("\t")
+    if (
+        not separator
+        or observed_ref != target_ref
+        or FULL_COMMIT_OID.fullmatch(oid) is None
+    ):
+        raise DisclosureBlocked(
+            _unavailable_decision("git-remote-ref-invalid")
+        )
+    return oid
+
+
+def _branch_ref_delete_payload(
+    *,
+    target_ref: str,
+    expected_old_oid: str,
+) -> tuple[dict[str, str | int], bytes]:
+    payload: dict[str, str | int] = {
+        "schema_version": 1,
+        "operation": "git_branch_ref_delete",
+        "repository": GITHUB_REPOSITORY,
+        "remote": GITHUB_REMOTE,
+        "target_ref": target_ref,
+        "expected_old_oid": expected_old_oid,
+        "new_oid": ZERO_COMMIT_OID,
+    }
+    content = json.dumps(
+        payload,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return payload, content
+
+
+def authorize_git_branch_ref_delete(
+    authority: ProjectPathAuthority,
+    *,
+    source_revision: str,
+    target_ref: str,
+    producer: str,
+    policy: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Authorize deletion of one exact remote branch at one exact old OID."""
+
+    repository = _validate_branch_ref_delete_authority(
+        authority,
+        policy=policy,
+    )
+    expected_old_oid = _canonical_commit(repository, source_revision)
+    remote_ref = _validated_ref(target_ref, remote=True)
+    if remote_ref == "refs/heads/main":
+        raise DisclosureBlocked(
+            _unavailable_decision("git-default-branch-delete-forbidden")
+        )
+    if producer != BRANCH_REF_DELETE_PRODUCER:
+        raise DisclosureBlocked(
+            _unavailable_decision("git-ref-delete-producer-invalid")
+        )
+    observed_oid = _remote_ref_oid(repository, remote_ref)
+    if observed_oid is None:
+        raise DisclosureBlocked(
+            _unavailable_decision("git-remote-ref-missing")
+        )
+    if observed_oid != expected_old_oid:
+        raise DisclosureBlocked(
+            _unavailable_decision("git-remote-ref-moved")
+        )
+    payload, content = _branch_ref_delete_payload(
+        target_ref=remote_ref,
+        expected_old_oid=expected_old_oid,
+    )
+    decision = require_outbound_bundle(
+        [
+            OutboundArtifact(
+                path=BRANCH_REF_DELETE_PATH,
+                producer=producer,
+                content=content,
+            )
+        ],
+        operation="git_branch_ref_delete",
+        source_revision=expected_old_oid,
+        policy=policy,
+        complete=True,
+    )
+    decision.update(
+        {
+            "repository": GITHUB_REPOSITORY,
+            "authority_mode": authority.mode,
+            "authorized_remote": GITHUB_REMOTE,
+            "target_ref": remote_ref,
+            "expected_old_oid": expected_old_oid,
+            "new_oid": ZERO_COMMIT_OID,
+            "payload_sha256": (
+                "sha256:" + hashlib.sha256(content).hexdigest()
+            ),
+            "authorized_refspec": f":{remote_ref}",
+            "authorized_lease": f"{remote_ref}:{expected_old_oid}",
+        }
+    )
+    return decision
+
+
+def execute_authorized_git_branch_ref_delete(
+    authority: ProjectPathAuthority,
+    decision: Mapping[str, Any],
+    *,
+    policy: Mapping[str, Any] | None = None,
+) -> None:
+    """Execute and read back one exact lease-protected deletion decision."""
+
+    repository = _validate_branch_ref_delete_authority(
+        authority,
+        policy=policy,
+    )
+    target_ref = _validated_ref(str(decision.get("target_ref") or ""), remote=True)
+    expected_old_oid = str(decision.get("expected_old_oid") or "")
+    if FULL_COMMIT_OID.fullmatch(expected_old_oid) is None:
+        raise DisclosureBlocked(
+            _unavailable_decision("git-full-commit-required")
+        )
+    _, content = _branch_ref_delete_payload(
+        target_ref=target_ref,
+        expected_old_oid=expected_old_oid,
+    )
+    current_decision = authorize_git_branch_ref_delete(
+        authority,
+        source_revision=expected_old_oid,
+        target_ref=target_ref,
+        producer=BRANCH_REF_DELETE_PRODUCER,
+        policy=policy,
+    )
+    expected_payload_sha256 = "sha256:" + hashlib.sha256(content).hexdigest()
+    expected_refspec = f":{target_ref}"
+    expected_lease = f"{target_ref}:{expected_old_oid}"
+    if (
+        decision.get("allowed") is not True
+        or decision.get("authoritative") is not True
+        or decision.get("operation") != "git_branch_ref_delete"
+        or decision.get("repository") != GITHUB_REPOSITORY
+        or decision.get("authority_mode") != authority.mode
+        or decision.get("authorized_remote") != GITHUB_REMOTE
+        or decision.get("source_revision") != expected_old_oid
+        or decision.get("new_oid") != ZERO_COMMIT_OID
+        or decision.get("payload_sha256") != expected_payload_sha256
+        or decision.get("authorized_refspec") != expected_refspec
+        or decision.get("authorized_lease") != expected_lease
+        or target_ref == "refs/heads/main"
+        or dict(decision) != current_decision
+    ):
+        raise DisclosureBlocked(
+            _unavailable_decision("git-ref-delete-decision-invalid")
+        )
+    if _remote_ref_oid(repository, target_ref) != expected_old_oid:
+        raise DisclosureBlocked(
+            _unavailable_decision("git-remote-ref-moved")
+        )
+    result = subprocess.run(
+        [
+            "git",
+            "-C",
+            os.fspath(repository),
+            "push",
+            GITHUB_REMOTE,
+            f"--force-with-lease={expected_lease}",
+            expected_refspec,
+        ],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+        timeout=30,
+    )
+    if result.returncode:
+        raise DisclosureBlocked(
+            _unavailable_decision("git-ref-delete-lease-failed")
+        )
+    if _remote_ref_oid(repository, target_ref) is not None:
+        raise DisclosureBlocked(
+            _unavailable_decision("git-ref-delete-readback-failed")
+        )
+
+
 def _cli() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--operation", required=True)
@@ -968,6 +1215,25 @@ def _cli() -> int:
             base_revision=args.base_revision,
             source_revision=args.source_revision,
             head_ref=args.head_ref,
+            target_ref=args.target_ref,
+            producer=args.producer,
+        )
+        print(json.dumps(decision, sort_keys=True, indent=2))
+        return 0
+    if args.operation == "git_branch_ref_delete":
+        if (
+            args.paths
+            or args.base_revision
+            or args.head_ref
+            or not args.target_ref
+        ):
+            parser.error(
+                "git_branch_ref_delete requires --target-ref and "
+                "--source-revision only"
+            )
+        decision = authorize_git_branch_ref_delete(
+            authority,
+            source_revision=args.source_revision,
             target_ref=args.target_ref,
             producer=args.producer,
         )
