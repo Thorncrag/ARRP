@@ -9253,12 +9253,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 105,
+      "word_count": 92,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 15
+      "longest_unbroken_token": 13
     },
     {
       "title": "Current Task Handoff",
@@ -18373,16 +18373,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "integrity_validation": {
         "available": true,
-        "result": "findings",
+        "result": "clean",
         "counts": {
           "errors": 0,
-          "warnings": 1,
-          "findings": 1,
+          "warnings": 0,
+          "findings": 0,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "fa324b83ad4e787b9ac7497e59c632e222eed9d3",
-        "generated_at": "2026-07-29T14:29:25+00:00"
+        "revision": "f234812661605d1f1e3776fd8835fb96b6e09ab3",
+        "generated_at": "2026-07-29T14:30:52+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20138,6 +20138,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-2a920265970a102b8ac4"
+    "publication.js": "project-console-d3a38436bf222570c64b"
   }
 });
