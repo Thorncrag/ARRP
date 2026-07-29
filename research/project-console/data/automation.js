@@ -360,7 +360,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "current",
-          "checked_at": "2026-07-29T14:35:28+00:00",
+          "checked_at": "2026-07-29T15:07:11+00:00",
           "reason": ""
         },
         "checked_at": "2026-07-27T08:37:33+00:00"
@@ -393,7 +393,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "current",
-          "checked_at": "2026-07-29T14:35:39+00:00",
+          "checked_at": "2026-07-29T15:07:22+00:00",
           "reason": ""
         },
         "checked_at": "2026-07-27T08:37:33+00:00"
@@ -425,7 +425,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "unavailable",
-          "checked_at": "2026-07-29T14:35:48+00:00",
+          "checked_at": "2026-07-29T15:07:31+00:00",
           "reason": "No typed currentness record is published for this role."
         },
         "checked_at": "2026-07-27T08:37:33+00:00"
@@ -435,8 +435,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "repository_gates": {
     "schema_version": 1,
     "repository": "Thorncrag/ARRP",
-    "source_revision": "2026-07-29T14:35:47+00:00",
-    "checked_at": "2026-07-29T14:35:47+00:00",
+    "source_revision": "2026-07-29T15:07:30+00:00",
+    "checked_at": "2026-07-29T15:07:30+00:00",
     "availability": "current",
     "complete": true,
     "count": 0,
@@ -453,8 +453,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "declaration_errors": [],
     "validation_errors": [],
     "last_good_identity": {
-      "checked_at": "2026-07-29T14:31:01+00:00",
-      "source_revision": "2026-07-29T14:31:01+00:00"
+      "checked_at": "2026-07-29T14:35:47+00:00",
+      "source_revision": "2026-07-29T14:35:47+00:00"
     },
     "items": []
   },
@@ -1063,6 +1063,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "automation.js": "project-console-d66528e479c640df5b6b"
+    "automation.js": "project-console-6e1c1b50dbc22cef7400"
   }
 });

@@ -7624,7 +7624,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/automation-arrp console development log",
       "internal_links": [],
-      "word_count": 1986,
+      "word_count": 2032,
       "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8070,7 +8070,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 7801,
+      "word_count": 7831,
       "estimated_pages": 13,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9253,7 +9253,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 92,
+      "word_count": 103,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9276,12 +9276,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 857,
+      "word_count": 773,
       "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 50
+      "longest_unbroken_token": 46
     },
     {
       "title": "Elim Agent Runbook",
@@ -10153,7 +10153,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1599,
+      "word_count": 1598,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -12488,21 +12488,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     {
       "title": "ARRP Project Console",
-      "path": "research/horizon-review-console/README.md",
+      "path": "research/project-console/README.md",
       "section": "Research",
       "print_levels": [],
       "print_level_labels": [],
       "print_status": "excluded",
       "print_exclusion_reason": "Internal workflow or tool documentation.",
       "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/research/horizon-review-console/README.md",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/research/project-console/README.md",
       "document_type": "research",
       "print_metadata_present": true,
       "invalid_print_levels": [],
       "assembly_sections": {
         "public-proposal": "appendix-c-research"
       },
-      "assembly_sort_key": "research/horizon-review-console-arrp project console",
+      "assembly_sort_key": "research/project-console-arrp project console",
       "internal_links": [
         {
           "path": "framework/project/interfaces/project-console.md",
@@ -12513,7 +12513,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2204,
+      "word_count": 2207,
       "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
@@ -18373,16 +18373,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "integrity_validation": {
         "available": true,
-        "result": "clean",
+        "result": "findings",
         "counts": {
-          "errors": 0,
-          "warnings": 0,
-          "findings": 0,
+          "errors": 1,
+          "warnings": 1,
+          "findings": 2,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "1d6e533688c8b2bdabfe3f06322ce4dbc5432abc",
-        "generated_at": "2026-07-29T14:35:39+00:00"
+        "revision": "5d1632e2a8e8f0eec809903ddb53db10f1c0d515",
+        "generated_at": "2026-07-29T15:07:22+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20138,6 +20138,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-d66528e479c640df5b6b"
+    "publication.js": "project-console-6e1c1b50dbc22cef7400"
   }
 });

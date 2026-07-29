@@ -10,15 +10,18 @@ print_exclusion_reason: "Internal operational report."
 
 ## Current Result
 
-- **Result:** Clean
-- **Errors:** 0
-- **Warnings:** 0
+- **Result:** Findings require review
+- **Errors:** 1
+- **Warnings:** 1
 - **Issue pages checked:** 64
 - **Proposal pages checked:** 41
 
 ## Current Findings
 
-No repeatable integrity findings are currently reported.
+### Internal links
+
+- **ERROR:** A typed integrity error requires review.
+- **WARNING:** A typed integrity finding requires review.
 
 ## Checks Included
 
