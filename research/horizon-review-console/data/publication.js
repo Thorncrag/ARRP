@@ -7616,7 +7616,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/automation-arrp console development log",
       "internal_links": [],
-      "word_count": 1092,
+      "word_count": 1251,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7971,7 +7971,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 6678,
+      "word_count": 6821,
       "estimated_pages": 11,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9134,12 +9134,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 97,
+      "word_count": 89,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 18
+      "longest_unbroken_token": 13
     },
     {
       "title": "Current Task Handoff",
@@ -9157,12 +9157,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 615,
-      "estimated_pages": 1,
+      "word_count": 781,
+      "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 21
+      "longest_unbroken_token": 58
     },
     {
       "title": "Elim Agent Runbook",
@@ -12335,7 +12335,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1679,
+      "word_count": 1781,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -18190,16 +18190,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "integrity_validation": {
         "available": true,
-        "result": "findings",
+        "result": "clean",
         "counts": {
           "errors": 0,
-          "warnings": 1,
-          "findings": 1,
+          "warnings": 0,
+          "findings": 0,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "fc68bb93b0d816a81d7a98b15896c690e38e56b3",
-        "generated_at": "2026-07-29T03:05:28+00:00"
+        "revision": "15657d443f1a054fac42e8b5bc1c794c3b9935e7",
+        "generated_at": "2026-07-29T06:09:39+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -19955,6 +19955,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-4ef822315bfe271835ee"
+    "publication.js": "project-console-4257e99bb624c9ea556a"
   }
 });

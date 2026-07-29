@@ -4,13 +4,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
     "contract_schema_version": 1,
-    "generation_id": "project-integrity-3ea3691707a9624bc3e0",
-    "source_revision": "fc68bb93b0d816a81d7a98b15896c690e38e56b3",
-    "generated_at": "2026-07-29T03:05:28+00:00",
+    "generation_id": "project-integrity-ffa9ca27ed0803041b95",
+    "source_revision": "15657d443f1a054fac42e8b5bc1c794c3b9935e7",
+    "generated_at": "2026-07-29T06:09:39+00:00",
     "expected_count": 22,
     "actual_count": 22,
     "source_hashes": {
-      "project-console-integrity.json": "sha256:e8695555d722c2384018eb5dc235361c615d7b2fe2c403b1633a02bbb7e96e40"
+      "integrity-report.json": "sha256:e08cd89b5485569d10f2f68505653a295445b55d13abe5b4e9a8f91d8f126bc6"
     },
     "availability": "current",
     "completeness": {
@@ -38,17 +38,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "current": {
       "schema_version": 2,
-      "generated_at": "2026-07-29T03:05:28+00:00",
-      "revision": "fc68bb93b0d816a81d7a98b15896c690e38e56b3",
-      "result": "findings",
+      "generated_at": "2026-07-29T06:09:39+00:00",
+      "revision": "15657d443f1a054fac42e8b5bc1c794c3b9935e7",
+      "result": "clean",
       "counts": {
         "errors": 0,
-        "warnings": 1,
-        "findings": 1,
+        "warnings": 0,
+        "findings": 0,
         "issue_pages": 64,
         "proposal_pages": 41
       },
-      "duration_seconds": 6.495,
+      "duration_seconds": 10.573,
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -73,40 +73,20 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "Local-first source-monitoring and provenance wiring",
         "Structured-file and repository hygiene"
       ],
-      "findings": [
-        {
-          "finding_id": "INT-24b03488466c67d6",
-          "check_id": "fetch_github_project_items",
-          "condition_code": "project_integrity_condition",
-          "canonical_target": "fetch_github_project_items",
-          "severity": "warning",
-          "category": "GitHub records",
-          "attention": "agent",
-          "owner": "Elim",
-          "status": "open",
-          "message": "GitHub Project synchronization check skipped; ARRP_PROJECT_TOKEN is unavailable",
-          "path": "",
-          "affected_ids": [
-            "fetch_github_project_items"
-          ],
-          "occurrence_count": 1,
-          "next_action": "Resolve the registered check condition at its canonical target.",
-          "resolution_predicate": "A newer complete Project Integrity report no longer emits this check-site, target, and condition identity."
-        }
-      ]
+      "findings": []
     },
     "currentness": {
       "authority": "repository_revision",
       "status": "current",
       "current": true,
-      "expected_source_revision": "fc68bb93b0d816a81d7a98b15896c690e38e56b3",
-      "producer_source_revision": "fc68bb93b0d816a81d7a98b15896c690e38e56b3",
+      "expected_source_revision": "15657d443f1a054fac42e8b5bc1c794c3b9935e7",
+      "producer_source_revision": "15657d443f1a054fac42e8b5bc1c794c3b9935e7",
       "equivalent_inputs_established": false,
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
     },
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-4ef822315bfe271835ee"
+    "integrity.js": "project-console-4257e99bb624c9ea556a"
   }
 });

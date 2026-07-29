@@ -99,6 +99,19 @@ publication presentations are generated views. A rebuild refreshes those views
 but does not create another workflow, source, candidate, log, or publication
 authority.
 
+An owner-initiated authenticated refresh uses
+`scripts/refresh_horizon_review_console.py`. That entry point has no
+caller-selected root or credential: it requires the clean canonical checkout,
+reads the dedicated Project-only credential from the fixed macOS Keychain
+authority, removes inherited GitHub-token variables, and supplies
+`ARRP_PROJECT_TOKEN` only to the exact read-only Progress, Integrity, feed, and
+Console producer subprocesses. It performs no GitHub mutation. Missing,
+expired, or insufficient Project access fails closed without printing provider
+diagnostics or credential material. The ordinary GitHub CLI credential must
+not be broadened to satisfy this route. Generated tracked changes still follow
+the normal exact-revision commit, regeneration, disclosure, and review
+workflow.
+
 ## Pending Source Presentation
 
 The **Pending** tab is a small routing-decision view, not a development or monitoring backlog. Each retained row must identify the plausible competing destinations, explain why the project cannot yet choose among them, and state the exact source-specific review needed to decide ownership. Do not group pending records as citation-ready, litigation, monitoring, or general project development: once any one of those records has a clear owner, it belongs in that owner's source-development record and `sources.csv`. The tab projects `sources-pending.csv`; it does not duplicate or supersede the underlying record.
@@ -445,6 +458,10 @@ and source-revision binding before its records can join the public shell. Its
 owner-only Action snapshot is part of that same binding, so private Security
 attention cannot alter one surface without reconciling all shared Action
 counts.
+
+Opening the static `file://` Console never reads a credential or initiates a
+network request. Authenticated refresh is a separate owner-invoked local
+operation completed before the static files are opened or reloaded.
 
 Security accepts only `Open protected source`, `Refresh authenticated status`,
 `Prepare read-only review`, and the separately reviewed public-intake
