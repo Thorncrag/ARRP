@@ -52,8 +52,8 @@ confidence; commit subjects alone are insufficient evidence.
 - Title: Adopt holistic Console design and operational information architecture
 - Lifecycle: Changed
 - Feature or component: Whole Console
-- State: Committed through PR #482; consistency repair `3ee638f796c4f266261f18d13344d80ef5669a8f` proposed / unmerged
-- Implementation commits: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `cf5ca6a32c1eb2d604be278d3c7b0feccb3db97b`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `83a96daac1951c4379f3bbea069ddcb9e0cfb74a`, `c1480889f0f02fbb09dd075b1cbbb87a0ad43226`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`, `5e674630a41c91a0391af596c4c2f66324debe06`, `bb8a4e89c0ff2583f1317a669ceba6d8c710633b`, `35c78fa35b4f51123ab14dc5007f56856befe7f5`, `12a48c8d37cbf7455d6cc6368b91d54f5a76bdc8`, and `3ee638f796c4f266261f18d13344d80ef5669a8f`
+- State: Canonical through PR #483 and merge commit `1da18c49db38d4f6d6bc50fe1f5d21d46ac9f5e3`
+- Implementation commits: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `cf5ca6a32c1eb2d604be278d3c7b0feccb3db97b`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `83a96daac1951c4379f3bbea069ddcb9e0cfb74a`, `c1480889f0f02fbb09dd075b1cbbb87a0ad43226`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`, `5e674630a41c91a0391af596c4c2f66324debe06`, `bb8a4e89c0ff2583f1317a669ceba6d8c710633b`, `35c78fa35b4f51123ab14dc5007f56856befe7f5`, `12a48c8d37cbf7455d6cc6368b91d54f5a76bdc8`, `3ee638f796c4f266261f18d13344d80ef5669a8f`, `b5133fc543121d884c91c0df3dcf752480f7c162`, and `d6077638eec28f3c1056382f9cd7d95708e53911`
 - Rollback baseline: `a47082d0a684de38626c68fec325337765f35b9a`
 
 ### Interface & information architecture
