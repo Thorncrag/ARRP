@@ -1,6 +1,6 @@
 ---
 title: "Current Task Handoff"
-status: inactive
+status: active
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Handoff state | Inactive |
-| Active issue/task | None. |
-| Audit type/tier | None. |
-| Started | None. |
-| Last checkpoint | 2026-07-28 23:03:31 -0400 |
-| User request | None. |
-| Scope | None. |
-| Files touched | None. |
-| Completed steps | None. |
-| Next step | None. |
+| Handoff state | Open |
+| Active issue/task | Console Project-readback refresh repair |
+| Audit type/tier | Project interface reliability and credential routing |
+| Started | 2026-07-29 01:53:43 -0400 |
+| Last checkpoint | 2026-07-29 01:53:43 -0400 |
+| User request | Correct the reported GitHub Project readback limitation. |
+| Scope | Read-only Project credential health check; owner-only manual Console refresh broker; exact Project/Integrity/Console regeneration; tests, documentation, and governed synchronization. |
+| Files touched | `scripts/refresh_horizon_review_console.py`; `tests/test_console_authenticated_refresh.py`; `framework/project/interfaces/project-console.md`; `framework/project/automation/context-routes.json`; `research/horizon-review-console/README.md`; `framework/records/handoffs/current-task.md`. |
+| Completed steps | Confirmed the dedicated Project-only Keychain credential is available and completed a read-only fetch of all 110 Project items; implemented a fixed-authority owner refresh that confines the credential to exact read-only producer subprocesses. |
+| Next step | Run focused validation, commit the broker repair, then execute it from the clean exact revision and reconcile the refreshed Console projections. |
 | Blockers/questions | None. |
-| Validation status | Not applicable. |
+| Validation status | In progress. |
 
 ## Handoff Rules
 

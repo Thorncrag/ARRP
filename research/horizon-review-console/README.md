@@ -81,6 +81,23 @@ ordinary user-facing vocabulary is `Run / Paused`; no user-facing `Disabled`
 state is defined. Any future control requires a separate authority and
 host-state implementation review.
 
+## Authenticated owner refresh
+
+From a clean canonical checkout, refresh current GitHub Project, Integrity,
+repository, and Console projections with:
+
+```text
+python3 scripts/refresh_horizon_review_console.py
+```
+
+The command reads the separate Project-only credential from its fixed macOS
+Keychain entry and injects it only into the exact read-only producer
+subprocesses. It does not expose the credential to the Console, broaden the
+ordinary GitHub CLI credential, or mutate GitHub. It fails before Keychain
+access when tracked files are already modified. Any generated tracked changes
+must still be committed, regenerated against the exact source revision, passed
+through the disclosure gate, and reviewed normally.
+
 Repository gates are produced once for both authenticated Console refresh and
 coordinator enforcement from the append-only typed gate declarations and a
 complete paginated live pull-request readback. Current future-run gates do not
