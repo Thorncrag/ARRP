@@ -7624,8 +7624,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/automation-arrp console development log",
       "internal_links": [],
-      "word_count": 1873,
-      "estimated_pages": 3,
+      "word_count": 1986,
+      "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -7723,7 +7723,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1345,
+      "word_count": 1405,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7755,7 +7755,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 876,
+      "word_count": 893,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7886,7 +7886,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation-arrp owner-local runtime authority",
       "internal_links": [],
-      "word_count": 1618,
+      "word_count": 1655,
       "estimated_pages": 3,
       "table_count": 2,
       "max_table_columns": 3,
@@ -8070,8 +8070,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 7775,
-      "estimated_pages": 12,
+      "word_count": 7801,
+      "estimated_pages": 13,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -9253,12 +9253,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 96,
+      "word_count": 105,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 13
+      "longest_unbroken_token": 15
     },
     {
       "title": "Current Task Handoff",
@@ -9276,12 +9276,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 975,
+      "word_count": 1071,
       "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 50
+      "longest_unbroken_token": 62
     },
     {
       "title": "Elim Agent Runbook",
@@ -10062,8 +10062,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/audits-private runtime and dual-incident design closure matrix",
       "internal_links": [],
-      "word_count": 626,
-      "estimated_pages": 1,
+      "word_count": 682,
+      "estimated_pages": 2,
       "table_count": 1,
       "max_table_columns": 5,
       "heading_issue_count": 0,
@@ -18381,8 +18381,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "572e1db1ebfff49cc26004cced1d0933934fa4c6",
-        "generated_at": "2026-07-29T13:12:20+00:00"
+        "revision": "fa324b83ad4e787b9ac7497e59c632e222eed9d3",
+        "generated_at": "2026-07-29T14:29:25+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20138,6 +20138,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-4c179a05f1b0ff2bdd6e"
+    "publication.js": "project-console-2a920265970a102b8ac4"
   }
 });

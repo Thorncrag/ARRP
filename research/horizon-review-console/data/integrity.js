@@ -3,12 +3,12 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
-    "availability": "stale",
-    "generated_at": "2026-07-29T13:12:20+00:00",
+    "availability": "current",
+    "generated_at": "2026-07-29T14:29:25+00:00",
     "current": {
       "result": "findings",
-      "generated_at": "2026-07-29T13:12:20+00:00",
-      "revision": "572e1db1ebfff49cc26004cced1d0933934fa4c6",
+      "generated_at": "2026-07-29T14:29:25+00:00",
+      "revision": "fa324b83ad4e787b9ac7497e59c632e222eed9d3",
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -35,18 +35,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       ],
       "findings": [
         {
-          "finding_id": "INT-24b03488466c67d6",
-          "finding_code": null,
+          "finding_id": "INT-c8c79404280b5748",
+          "finding_code": "github_project_access_unavailable",
           "severity": "warning",
           "category": "GitHub records",
           "status": "open",
-          "message": "A typed integrity finding requires review."
+          "owner": "Elim",
+          "route": "integrity",
+          "next_action": "Rerun Project Integrity through the registered authenticated Console refresh.",
+          "message": "GitHub Project synchronization could not be verified because the registered read-only access was unavailable."
         }
       ]
     },
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-4c179a05f1b0ff2bdd6e"
+    "integrity.js": "project-console-2a920265970a102b8ac4"
   }
 });

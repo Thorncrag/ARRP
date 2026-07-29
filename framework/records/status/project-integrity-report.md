@@ -20,7 +20,7 @@ print_exclusion_reason: "Internal operational report."
 
 ### GitHub records
 
-- **WARNING:** A typed integrity finding requires review.
+- **WARNING:** GitHub Project synchronization could not be verified because the registered read-only access was unavailable.
 
 ## Checks Included
 
