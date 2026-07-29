@@ -62,8 +62,8 @@ link the others. Do not duplicate protected material while cross-referencing.
 Every entry must state:
 
 1. stable GOV identity and concise title;
-2. decision date and status (`Canonical`, `Proposed / unmerged`, `Superseded`,
-   or `Retired`);
+2. decision date and status (`Canonical`, `Proposed / unmerged`,
+   `Proposed / not adopted`, `Superseded`, or `Retired`);
 3. public-safe decision statement and affected authority families;
 4. exact Git evidence, including full commit identities and, when available,
    pull-request evidence;
@@ -79,10 +79,11 @@ disposition, and required readers deterministic without turning the registry
 into a second narrative ledger.
 
 `Canonical` means the decision is present on canonical history, not that a
-host control, private policy, scheduler, or runtime is active. A proposed
-entry must remain explicitly proposed until its exact evidence reaches
-canonical history. A live-activation field may never be inferred from a merge,
-test result, staged file, or availability of credentials.
+host control, private policy, scheduler, or runtime is active. `Proposed /
+unmerged` is reserved for a proposal not yet present on canonical history; a
+proposal preserved on canonical history without the exact required approval
+is `Proposed / not adopted`. A live-activation field may never be inferred
+from a merge, test result, staged file, or availability of credentials.
 
 ## Public-safety boundary
 

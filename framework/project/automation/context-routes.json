@@ -672,7 +672,7 @@
     },
     "operation_governance_change_recording": {
       "path": "framework/project/workflows/governance-change-recording.md",
-      "sha256": "157983a905990c9f03393cc85ac6a184140f7aeb8b07a011c9bc726a19ff7f27",
+      "sha256": "fd532a20a9f9a9915a99efc90ba536b50aeec964594d3e15e271e5426d418176",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -684,7 +684,7 @@
     },
     "governance_change_registry": {
       "path": "framework/project/workflows/governance-change-registry.json",
-      "sha256": "9ddea06fad81298b13c8b07fb2e56e68a5c6c3e18b74252f8611ee2f6d5550ff",
+      "sha256": "1a3c2f20db8089fd584793af0e0eea055f0b6fa4041e50aebb3b4a2e4be9cb2a",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
