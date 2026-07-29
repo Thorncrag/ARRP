@@ -26,3 +26,9 @@ Material governance decisions are recorded through the
 [Governance Change Recording](workflows/governance-change-recording.md)
 workflow and its stable registry; the changed governing document remains the
 current-rule authority.
+
+Complete Git, runtime-transaction, automation-posture, pull-request, and hosted
+surface closeout is governed by the
+[Project-Wide Reconciliation policy](automation/project-wide-reconciliation.json)
+specification. It is an operational synchronization check, not a content or
+editorial classification.

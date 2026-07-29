@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "policy_id": "project-wide-reconciliation",
+  "status": "active",
+  "purpose": "Read-only, fail-closed verification of a fully reconciled operational state.",
+  "scope_boundary": {
+    "meaning": "Operational synchronization and retained-state disposition only.",
+    "excluded_meanings": [
+      "content neutrality",
+      "editorial neutrality",
+      "methodological neutrality",
+      "political neutrality"
+    ],
+    "verifier_authority": [
+      "read local Git state",
+      "read fixed owner-local runtime state",
+      "validate a fixed owner-local disposition ledger",
+      "validate an authenticated hosted readback"
+    ],
+    "forbidden_authority": [
+      "network access",
+      "credential access",
+      "Git mutation",
+      "GitHub mutation",
+      "host-configuration mutation",
+      "background-service mutation",
+      "runtime remediation"
+    ]
+  },
+  "fixed_owner_local_inputs": {
+    "ledger": "records/reconciliation/project-reconciliation.json",
+    "hosted_readback": "records/reconciliation/live-readback.json",
+    "caller_substitution": false
+  },
+  "ledger_schema": "framework/project/automation/project-wide-reconciliation.schema.json",
+  "required_inventories": [
+    "canonical_checkout",
+    "remote_revision",
+    "registered_worktrees",
+    "local_branches",
+    "remote_branches",
+    "stashes_operations",
+    "runtime_runs",
+    "runtime_worktrees",
+    "incident_spool",
+    "handoff_state",
+    "current_runtime_status",
+    "operational_incidents",
+    "control_state",
+    "active_writer_lock_posture"
+  ],
+  "hosted_readback": {
+    "must_be_complete": true,
+    "must_match_origin_main": true,
+    "required_surfaces": [
+      "default branch",
+      "open project pull requests",
+      "in-progress Actions",
+      "required Actions",
+      "Pages",
+      "Vercel"
+    ]
+  },
+  "status_rules": {
+    "clear": "Reconciled only when current.",
+    "paused": "Allowed only for the intentional binary PAUSED control and is not itself an incident.",
+    "retained": "Requires one exact eligible ledger entry with a matching identity binding.",
+    "historical_symlink": "Bind as inert link metadata and never follow it.",
+    "unreconciled": [
+      "active",
+      "unknown",
+      "missing",
+      "stale",
+      "pending",
+      "mismatched",
+      "malformed",
+      "duplicate",
+      "orphaned"
+    ],
+    "absence_is_zero_or_clear": false
+  },
+  "public_result_allowlist": [
+    "schema_version",
+    "fully_reconciled",
+    "reason_codes",
+    "inventories_checked",
+    "local_snapshot_digest"
+  ],
+  "implementation": "scripts/verify_project_reconciliation.py"
+}

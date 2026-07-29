@@ -92,7 +92,7 @@
     },
     "project_structure": {
       "path": "framework/PROJECT_STRUCTURE.md",
-      "sha256": "cabe0b506d358f314efad52b232124a284d93a1bb09dbf1151f06dcf21ba9772",
+      "sha256": "7694a438ba422127691a387411c12222915f903c8b106599085cb6c490bf7bf8",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -224,6 +224,25 @@
         "github_disclosure_boundary",
         "private_staging_authority_schema"
       ]
+    },
+    "project_reconciliation": {
+      "path": "framework/project/automation/project-wide-reconciliation.json",
+      "sha256": "4231907b94a51cb7bb574a96c935b1d3ff6b9d4dcd9142a5e6e96a9224fb9c71",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "project_runtime_authority",
+        "github_workflow",
+        "operation_project_update",
+        "agent_validation_closeout",
+        "project_reconciliation_schema"
+      ]
+    },
+    "project_reconciliation_schema": {
+      "path": "framework/project/automation/project-wide-reconciliation.schema.json",
+      "sha256": "c618cebecf6f98bfc730f073fc35fa6bad19ac2f9b841b6d3b56957f96869294",
+      "hash_policy": "pinned",
+      "governing": true
     },
     "project_autonomous_execution": {
       "path": "framework/project/automation/autonomous-execution.md",
@@ -656,7 +675,7 @@
     },
     "operation_project_update": {
       "path": "framework/project/workflows/project-update.md",
-      "sha256": "0094b0c27bb3aa508fa5488f3575e777c02e068b76d200639e8638584995ea80",
+      "sha256": "c2390d2fce075a3b2b8c4b522abdebe0bcf9cc802e64a52440970afa57d4836e",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -684,7 +703,7 @@
     },
     "governance_change_registry": {
       "path": "framework/project/workflows/governance-change-registry.json",
-      "sha256": "1a7aa95700eb32f08985c342e9fc992c9244d898bdd5b07049b31c75285f3270",
+      "sha256": "41a6c7018480c79c3cf4dc16325008b1ce8e10a4def67302c54fd6cca5123be7",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -943,6 +962,9 @@
       "agent_handoff",
       "agent_provenance_logging",
       "agent_validation_closeout"
+    ],
+    "project_reconciliation": [
+      "project_reconciliation"
     ],
     "multi_agent_execution": [
       "agent_multi_agent"

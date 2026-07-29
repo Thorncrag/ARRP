@@ -14,6 +14,29 @@ Current governing documents remain authoritative; Git remains the exact-diff
 authority. The historical [Change Audit Log](../audits/change-audit-log.md)
 remains separate and unchanged.
 
+## GOV-2026-016 — Project-wide operational reconciliation boundary
+
+- Date: 2026-07-29
+- Status: Proposed / unmerged
+- Decision class: operations_automation
+- Authorities: framework/project/automation/project-wide-reconciliation.json; framework/project/workflows/project-update.md; framework/project/automation/owner-local-runtime.md
+- Decision: Defines complete project-wide operational reconciliation across
+  canonical and remote Git, retained local transaction state, active writers
+  and handoffs, automation posture, project-created pull requests, and affected
+  hosted readbacks. Every retained state requires an exact bound disposition;
+  pending or unknown state cannot be reported as fully reconciled. This
+  decision has no content, editorial, methodological, or political-neutrality
+  meaning.
+- Evidence: Current reviewed worktree; exact commit and pull-request evidence
+  remain pending.
+- Policy adoption: Proposed for canonical adoption; not yet merged.
+- Live activation: The verifier is read-only. Automation remains intentionally
+  Paused, and no host or background-service state is changed.
+- Relationships: Additive; no recorded supersession or refinement.
+- Validation: Focused verifier tests pass; complete repository, disclosure,
+  hosted-readback, and canonical-history validation remain pending.
+- Owner-local supplement: Required.
+
 ## GOV-2026-015 — Rule reconciliation and usage-aware agent delegation
 
 - Date: 2026-07-29

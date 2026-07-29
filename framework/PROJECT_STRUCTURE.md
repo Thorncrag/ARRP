@@ -85,6 +85,11 @@ does not make them governing methodology or enlarge any actor's authority.
 | [`framework/project/interfaces/`](project/interfaces/) | ARRP visual identity and Project Console configuration. |
 | [`framework/project/automation/`](project/automation/) | ARRP agent policy, owner-local runtime authority, context registry, named runbooks, and exact automation schemas. |
 
+Project-wide reconciliation uses the public
+[`policy`](project/automation/project-wide-reconciliation.json) and
+[`ledger schema`](project/automation/project-wide-reconciliation.schema.json);
+complete evidence remains owner-local.
+
 ## Record families
 
 | Path | Single purpose |

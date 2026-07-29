@@ -318,6 +318,22 @@
       "live_activation": "Global local guidance is active and the project delegation rule is canonical. No background service is changed.",
       "relationships": {"supersedes": [], "refines": [], "refined_by": [], "proposed_refinements": []},
       "private_supplement_required": false
+    },
+    {
+      "id": "GOV-2026-016",
+      "date": "2026-07-29",
+      "title": "Project-wide operational reconciliation boundary",
+      "decision_class": "operations_automation",
+      "authority": ["framework/project/automation/project-wide-reconciliation.json", "framework/project/workflows/project-update.md", "framework/project/automation/owner-local-runtime.md"],
+      "source": {"kind": "current_worktree", "commits": [], "pull_requests": []},
+      "destination": "framework/records/governance/governance-change-log.md#gov-2026-016",
+      "resolution": "Proposed exact operational-reconciliation boundary; no content-neutrality or runtime-activation meaning.",
+      "consumers": ["project_update_closeout", "runtime_migration_review", "automation_governance_review"],
+      "status": "Proposed / unmerged",
+      "policy_adoption": "Proposed for canonical adoption; not yet merged.",
+      "live_activation": "The verifier is read-only. Automation remains intentionally Paused, and no host or background-service state is changed.",
+      "relationships": {"supersedes": [], "refines": [], "refined_by": [], "proposed_refinements": []},
+      "private_supplement_required": true
     }
   ]
 }
