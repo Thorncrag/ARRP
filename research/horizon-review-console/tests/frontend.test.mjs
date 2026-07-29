@@ -61,6 +61,18 @@ test("term normalization uses the canonical Trump I and Trump II vocabulary", ()
   assert.equal(api.termLabel("unknown"), "Term not recorded");
 });
 
+test("Console development categories render as separate readable log entries", () => {
+  const app = fs.readFileSync(appPath, "utf8");
+  assert.match(
+    app,
+    /if \(log\.id === "console-development"\) return values\.category \|\| values\.change \|\| entry\.id;/
+  );
+  assert.doesNotMatch(
+    app,
+    /log\.id === "console-development"[^;]+values\.feature/
+  );
+});
+
 test("date-only audit provenance preserves its recorded calendar day", () => {
   const { api } = loadApi();
   assert.equal(api.formatDate("2026-07-10"), "Jul 10, 2026");

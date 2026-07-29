@@ -7616,7 +7616,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/automation-arrp console development log",
       "internal_links": [],
-      "word_count": 881,
+      "word_count": 936,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7971,7 +7971,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 5919,
+      "word_count": 5999,
       "estimated_pages": 10,
       "table_count": 0,
       "max_table_columns": 0,
@@ -15091,7 +15091,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
         "page_count": 505,
-        "modified_at": "2026-07-28T21:50:31+00:00",
+        "modified_at": "2026-07-29T00:35:06+00:00",
         "stale": false
       }
     ],
@@ -19931,6 +19931,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-e6f02f9b46ebe2e7472b"
+    "publication.js": "project-console-513c97bda0b2ea432bf2"
   }
 });
