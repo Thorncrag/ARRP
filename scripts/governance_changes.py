@@ -82,7 +82,13 @@ RELATIONSHIP_KEYS = frozenset(
     {"supersedes", "refines", "refined_by", "proposed_refinements"}
 )
 GOVERNANCE_STATUSES = frozenset(
-    {"Canonical", "Proposed / unmerged", "Superseded", "Retired"}
+    {
+        "Canonical",
+        "Proposed / unmerged",
+        "Proposed / not adopted",
+        "Superseded",
+        "Retired",
+    }
 )
 SUPPLEMENT_KEYS = frozenset(
     {
@@ -380,6 +386,16 @@ def _read_registry(
         if status not in GOVERNANCE_STATUSES:
             raise GovernanceChangeError(
                 "governance registry status is invalid"
+            )
+        if (
+            status == "Proposed / unmerged"
+            and kind != "current_worktree"
+        ) or (
+            status != "Proposed / unmerged"
+            and kind == "current_worktree"
+        ):
+            raise GovernanceChangeError(
+                "governance registry status disagrees with source evidence"
             )
         for field in ("policy_adoption", "live_activation"):
             _require_text(raw.get(field), f"registry {field}")

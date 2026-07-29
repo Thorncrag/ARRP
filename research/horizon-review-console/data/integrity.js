@@ -3,12 +3,12 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
-    "availability": "stale",
-    "generated_at": "2026-07-29T13:12:20+00:00",
+    "availability": "current",
+    "generated_at": "2026-07-29T14:35:39+00:00",
     "current": {
-      "result": "findings",
-      "generated_at": "2026-07-29T13:12:20+00:00",
-      "revision": "572e1db1ebfff49cc26004cced1d0933934fa4c6",
+      "result": "clean",
+      "generated_at": "2026-07-29T14:35:39+00:00",
+      "revision": "1d6e533688c8b2bdabfe3f06322ce4dbc5432abc",
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -33,20 +33,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "Local-first source-monitoring and provenance wiring",
         "Structured-file and repository hygiene"
       ],
-      "findings": [
-        {
-          "finding_id": "INT-24b03488466c67d6",
-          "finding_code": null,
-          "severity": "warning",
-          "category": "GitHub records",
-          "status": "open",
-          "message": "A typed integrity finding requires review."
-        }
-      ]
+      "findings": []
     },
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-4c179a05f1b0ff2bdd6e"
+    "integrity.js": "project-console-d66528e479c640df5b6b"
   }
 });

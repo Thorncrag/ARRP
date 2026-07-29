@@ -69,6 +69,13 @@ RUN_COORDINATOR_CONFIG = ROOT / ".github" / "run-coordinator-bot.json"
 CONTEXT_MANIFEST = (
     ROOT / "framework" / "project" / "automation" / "context-routes.json"
 )
+CONSOLE_CLASSIFICATION_REGISTRY = (
+    ROOT
+    / "framework"
+    / "project"
+    / "interfaces"
+    / "project-console-classifications.json"
+)
 CONTEXT_MANAGED_DIRECTORIES = ("standards", "project")
 CANONICAL_RUN_CHAIN_STAGE_ORDER = (
     "case-monitor-bot",
@@ -441,6 +448,39 @@ INTEGRITY_CHECK_DEFINITIONS = {
     "check_agent_runbooks": "Automation governance",
     "check_source_domain_event_pipeline": "Automation governance",
 }
+
+
+def integrity_condition_definitions() -> dict[str, dict[str, object]]:
+    """Load Project Integrity condition authority from the Console registry."""
+
+    registry = json.loads(
+        CONSOLE_CLASSIFICATION_REGISTRY.read_text(encoding="utf-8")
+    )
+    namespaces = registry.get("namespaces")
+    entries = namespaces.get("finding_code") if isinstance(namespaces, dict) else None
+    if not isinstance(entries, list):
+        raise RuntimeError("Console finding-code registry is unavailable.")
+    definitions: dict[str, dict[str, object]] = {}
+    for entry in entries:
+        if (
+            not isinstance(entry, dict)
+            or entry.get("producer") != "project-integrity-report"
+        ):
+            continue
+        condition_code = str(entry.get("id") or "").strip()
+        if not condition_code or condition_code in definitions:
+            raise RuntimeError(
+                "Project Integrity finding-code registry is invalid."
+            )
+        definitions[condition_code] = entry
+    if "project_integrity_condition" not in definitions:
+        raise RuntimeError(
+            "Default Project Integrity finding code is unregistered."
+        )
+    return definitions
+
+
+INTEGRITY_CONDITION_DEFINITIONS = integrity_condition_definitions()
 STRUCTURED_FINDINGS: dict[str, dict[str, object]] = {}
 
 
@@ -478,7 +518,14 @@ def registered_check_target(
     return check_name
 
 
-def report(category: str, message: str, failures: list[str], warnings: list[str]) -> None:
+def report(
+    category: str,
+    message: str,
+    failures: list[str],
+    warnings: list[str],
+    *,
+    condition_code: str = "project_integrity_condition",
+) -> None:
     """Record one finding from a registered check site and preserve CLI prose."""
 
     (failures if category == "ERROR" else warnings).append(f"{category}: {message}")
@@ -491,7 +538,15 @@ def report(category: str, message: str, failures: list[str], warnings: list[str]
         check_name,
         caller.f_locals if caller is not None else {},
     )
-    condition_code = "project_integrity_condition"
+    condition_definition = INTEGRITY_CONDITION_DEFINITIONS.get(condition_code)
+    if (
+        condition_code != "project_integrity_condition"
+        and condition_definition is None
+    ):
+        raise RuntimeError(
+            f"Unregistered Project Integrity condition: {condition_code}"
+        )
+    condition_definition = condition_definition or {}
     identity = f"{check_id}|{target}|{condition_code}"
     finding_id = "INT-" + hashlib.sha256(identity.encode("utf-8")).hexdigest()[:16]
     existing = STRUCTURED_FINDINGS.get(finding_id)
@@ -505,17 +560,20 @@ def report(category: str, message: str, failures: list[str], warnings: list[str]
         "finding_id": finding_id,
         "check_id": check_id,
         "condition_code": condition_code,
+        "finding_code": condition_code,
         "canonical_target": target,
         "severity": "error" if category == "ERROR" else "warning",
         "category": INTEGRITY_CHECK_DEFINITIONS[check_name],
         "attention": "agent",
-        "owner": "Elim",
+        "owner": condition_definition.get("lifecycle_owner") or "Elim",
         "status": "open",
         "message": message,
         "path": target if "/" in target else "",
         "affected_ids": [target],
         "occurrence_count": 1,
-        "next_action": "Resolve the registered check condition at its canonical target.",
+        "next_action": condition_definition.get("next_action")
+        or "Resolve the registered check condition at its canonical target.",
+        "route": condition_definition.get("destination") or "integrity",
         "resolution_predicate": (
             "A newer complete Project Integrity report no longer emits this "
             "check-site, target, and condition identity."
@@ -1510,6 +1568,7 @@ def fetch_github_issues(failures: list[str], warnings: list[str]) -> list[dict[s
             "GitHub issue synchronization check skipped; rerun in the authenticated host context: " + error,
             failures,
             warnings,
+            condition_code="github_issues_readback_unavailable",
         )
         return None
     return list(payload) if isinstance(payload, list) else []
@@ -1526,6 +1585,7 @@ def fetch_github_project_items(failures: list[str], warnings: list[str]) -> list
             "authenticated project access is unavailable",
             failures,
             warnings,
+            condition_code="github_project_access_unavailable",
         )
         return None
     config = json.loads(
@@ -1542,6 +1602,7 @@ def fetch_github_project_items(failures: list[str], warnings: list[str]) -> list
             "project readback did not complete",
             failures,
             warnings,
+            condition_code="github_project_readback_unavailable",
         )
         return None
     items: list[dict[str, object]] = []
@@ -2384,6 +2445,7 @@ def check_github_pages_deployment(failures: list[str], warnings: list[str]) -> N
             "GitHub Pages synchronization check skipped; rerun in the authenticated host context: " + error,
             failures,
             warnings,
+            condition_code="github_pages_readback_unavailable",
         )
         return
     if not isinstance(deployments, list) or not deployments:
@@ -2415,6 +2477,7 @@ def check_github_pages_deployment(failures: list[str], warnings: list[str]) -> N
             "GitHub Pages deployment-status check skipped: " + status_error,
             failures,
             warnings,
+            condition_code="github_pages_readback_unavailable",
         )
     elif not statuses:
         report("ERROR", "latest GitHub Pages deployment is not successful: missing", failures, warnings)
@@ -4152,6 +4215,14 @@ def git_revision() -> str:
 def console_safe_finding_summary(finding: dict[str, object]) -> str:
     """Return the public Console summary without repeating diagnostic prose."""
 
+    condition_code = str(
+        finding.get("finding_code")
+        or finding.get("condition_code")
+        or ""
+    ).strip()
+    condition_definition = INTEGRITY_CONDITION_DEFINITIONS.get(condition_code)
+    if condition_definition and condition_definition.get("public_summary"):
+        return str(condition_definition["public_summary"])
     severity = str(finding.get("severity") or "warning").strip().casefold()
     if severity == "error":
         return "A typed integrity error requires review."

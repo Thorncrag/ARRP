@@ -52,6 +52,38 @@ class GovernanceChangeTests(unittest.TestCase):
         self.assertEqual(first.record_class, "governance_change")
         self.assertRegex(first.entry_sha256, r"^sha256:[0-9a-f]{64}$")
 
+    def test_proposed_not_adopted_is_merged_but_not_active(self) -> None:
+        public = self.public()
+        proposal = public["GOV-2026-014"]
+        registry = json.loads(self.registry.read_text(encoding="utf-8"))
+        registered = next(
+            entry
+            for entry in registry["entries"]
+            if entry["id"] == proposal.id
+        )
+        self.assertEqual(proposal.status, "Proposed / not adopted")
+        self.assertEqual(registered["source"]["kind"], "git_merge")
+        self.assertEqual(
+            registered["policy_adoption"],
+            "Not adopted; exact owner approval of the replacement text remains required.",
+        )
+        self.assertEqual(
+            registered["live_activation"],
+            "No directive or runtime change is activated.",
+        )
+
+        registered["source"] = {
+            "kind": "current_worktree",
+            "commits": [],
+            "pull_requests": [],
+        }
+        self.registry.write_text(json.dumps(registry), encoding="utf-8")
+        with self.assertRaisesRegex(
+            changes.GovernanceChangeError,
+            "status disagrees with source evidence",
+        ):
+            self.public()
+
     def test_public_unknown_duplicate_and_registry_mismatch_fail_closed(self) -> None:
         self.log.write_text(
             self.log.read_text(encoding="utf-8").replace(

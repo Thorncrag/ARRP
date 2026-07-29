@@ -17,14 +17,15 @@ remains separate and unchanged.
 ## GOV-2026-014 — Owner-local preservation-boundary proposal
 
 - Date: 2026-07-29
-- Status: Proposed / unmerged
+- Status: Proposed / not adopted
 - Decision class: security_privacy_disclosure
 - Authorities: ARRP Private owner directives
 - Decision: Records the unresolved proposal to narrow the exceptional
   preservation and policy-change boundary within the owner-local workspace;
   it does not change the current directive.
-- Evidence: Reviewed owner-local proposal; no canonical Git decision or exact
-  owner approval.
+- Evidence: Proposal preserved through PR #487 and merge commit
+  ea57c9826270a12ae6e0275390a2c9555169f43d; no exact owner approval of
+  replacement text.
 - Policy adoption: Not adopted; exact owner approval of the replacement text remains required.
 - Live activation: No directive or runtime change is activated.
 - Relationships: Additive; the current owner directive remains controlling.
@@ -35,52 +36,66 @@ remains separate and unchanged.
 ## GOV-2026-013 — Governance Change Recording authority
 
 - Date: 2026-07-29
-- Status: Proposed / unmerged
+- Status: Canonical
 - Decision class: governance_documentation
 - Authorities: framework/project/workflows/governance-change-recording.md; framework/project/workflows/governance-change-registry.json
-- Decision: Proposes this public GOV index and strict provenance workflow; it
+- Decision: Establishes this public GOV index and strict provenance workflow; it
   does not create a private record or alter another governing authority.
-- Evidence: Current worktree only; no canonical commit or pull request.
-- Policy adoption: Not adopted on canonical history.
+- Evidence: Implementation commits
+  6167fc3554af006091ecee7d62be5a26514f7237,
+  8306f07e96302afdca6ba85eae105905fc18cb60, and
+  754efbacf7f578b74823dc91a2e71a63cae42ecd; PR #487; merge commit
+  ea57c9826270a12ae6e0275390a2c9555169f43d.
+- Policy adoption: Adopted on canonical history through PR #487.
 - Live activation: No live activation applies.
 - Relationships: Additive; no recorded supersession or refinement.
-- Validation: Registry, heading, parser, Console, and Markdown checks remain
-  pending canonical reconciliation.
+- Validation: Registry, heading, parser, Console, Markdown, full test, and
+  disclosure checks passed; exact canonical evidence is reconciled here.
 - Owner-local supplement: Not required.
 
 ## GOV-2026-012 — Separate operational and security incident authorities
 
 - Date: 2026-07-29
-- Status: Proposed / unmerged
+- Status: Canonical
 - Decision class: security_privacy_disclosure
 - Authorities: framework/project/automation/security-incidents.json; framework/project/automation/incident-relations.json
-- Decision: Proposes separate operational and security incident authorities
+- Decision: Establishes separate operational and security incident authorities
   with a typed relation only; neither lifecycle is merged.
-- Evidence: Current worktree only; no canonical commit or pull request.
-- Policy adoption: Not adopted on canonical history.
-- Live activation: Not activated; the proposed security authority remains unavailable.
-- Relationships: Would refine GOV-2026-004 if adopted; the operational
-  authority remains canonical.
-- Validation: Incident-authority, relation, privacy, and Console contract
-  checks remain pending canonical reconciliation.
+- Evidence: Implementation commits
+  6167fc3554af006091ecee7d62be5a26514f7237,
+  8306f07e96302afdca6ba85eae105905fc18cb60, and
+  754efbacf7f578b74823dc91a2e71a63cae42ecd; PR #487; merge commit
+  ea57c9826270a12ae6e0275390a2c9555169f43d.
+- Policy adoption: Adopted on canonical history through PR #487.
+- Live activation: The protected Security Incident and relation authorities
+  remain inactive and unavailable pending separate exact approval.
+- Relationships: Refines GOV-2026-004 by separating protected security
+  investigation from operational disruption and recovery.
+- Validation: Incident-authority, relation, privacy, Console, full test, and
+  disclosure checks passed; all PR CodeQL checks passed with no open alerts.
 - Owner-local supplement: Required.
 
 ## GOV-2026-011 — Owner-local runtime authority
 
 - Date: 2026-07-29
-- Status: Proposed / unmerged
+- Status: Canonical
 - Decision class: operations_automation
 - Authorities: framework/project/automation/owner-local-runtime.md
-- Decision: Proposes a single current-versus-successor runtime, migration,
+- Decision: Establishes a single current-versus-successor runtime, migration,
   cutover, rollback, and retirement authority.
-- Evidence: Current worktree only; no canonical commit or pull request.
-- Policy adoption: Not adopted on canonical history.
-- Live activation: Not activated; existing production posture and pause state
-  remain separately governed.
-- Relationships: Would refine location aspects of GOV-2026-002, GOV-2026-003,
-  GOV-2026-005, and GOV-2026-010 if adopted.
-- Validation: Runtime documentation, migration, path-authority, and disclosure
-  checks remain pending canonical reconciliation.
+- Evidence: Implementation commits
+  6167fc3554af006091ecee7d62be5a26514f7237,
+  8306f07e96302afdca6ba85eae105905fc18cb60, and
+  754efbacf7f578b74823dc91a2e71a63cae42ecd; PR #487; merge commit
+  ea57c9826270a12ae6e0275390a2c9555169f43d.
+- Policy adoption: Adopted on canonical history through PR #487.
+- Live activation: No cutover is activated; the current production authority
+  and intentional pause remain unchanged.
+- Relationships: Refines the location aspects of GOV-2026-002,
+  GOV-2026-003, GOV-2026-005, and GOV-2026-010 without changing their
+  disclosure, record, gate, or refresh semantics.
+- Validation: Runtime documentation, migration, fixed path-authority,
+  no-caller-substitution, full test, CodeQL, and disclosure checks passed.
 - Owner-local supplement: Required.
 
 ## GOV-2026-010 — Authenticated owner refresh boundary
@@ -96,8 +111,8 @@ remains separate and unchanged.
   `572e1db1ebfff49cc26004cced1d0933934fa4c6`.
 - Policy adoption: Adopted on canonical history.
 - Live activation: No host service is activated by this record.
-- Relationships: Refines GOV-2026-003; proposed GOV-2026-011 may later refine
-  the owner-local location boundary.
+- Relationships: Refines GOV-2026-003; refined by GOV-2026-011 for
+  owner-local location resolution only.
 - Validation: Authenticated-refresh, credential-confinement, data-contract,
   and closeout checks.
 - Owner-local supplement: Required.
@@ -176,8 +191,8 @@ remains separate and unchanged.
 - Evidence: PR #479; merge `93a01eb24dfb94c848a1f937e9e1bdfeea72c74d`.
 - Policy adoption: Adopted on canonical history.
 - Live activation: No host activation is represented.
-- Relationships: Proposed GOV-2026-011 may refine path location only; the gate
-  authority remains canonical.
+- Relationships: Refined by GOV-2026-011 for path resolution only; the gate
+  identity and enforcement authority remain canonical.
 - Validation: Repository-gate and run-chain checks.
 - Owner-local supplement: Required.
 
@@ -192,8 +207,8 @@ remains separate and unchanged.
 - Evidence: PR #479; merge `93a01eb24dfb94c848a1f937e9e1bdfeea72c74d`.
 - Policy adoption: Adopted on canonical history.
 - Live activation: No host activation is represented.
-- Relationships: Proposed GOV-2026-012 separates security investigation; the
-  operational authority remains canonical.
+- Relationships: Refined by GOV-2026-012, which separates protected security
+  investigation while leaving the operational lifecycle canonical.
 - Validation: Operational-incident and path-authority checks.
 - Owner-local supplement: Required.
 
@@ -208,8 +223,8 @@ remains separate and unchanged.
 - Evidence: PR #479; merge `93a01eb24dfb94c848a1f937e9e1bdfeea72c74d`.
 - Policy adoption: Adopted on canonical history.
 - Live activation: No host activation is represented.
-- Relationships: Refined separately by GOV-2026-010; proposed GOV-2026-011 may
-  refine the owner-local location boundary.
+- Relationships: Refined separately by GOV-2026-010 and GOV-2026-011; their
+  refresh and owner-local location scopes remain distinct.
 - Validation: Disclosure, path-authority, and projection checks.
 - Owner-local supplement: Required.
 
@@ -224,8 +239,8 @@ remains separate and unchanged.
 - Evidence: PR #479; merge `93a01eb24dfb94c848a1f937e9e1bdfeea72c74d`.
 - Policy adoption: Adopted on canonical history.
 - Live activation: No host activation is represented.
-- Relationships: Proposed GOV-2026-011 may refine location only; disclosure
-  authority remains canonical.
+- Relationships: Refined by GOV-2026-011 for owner-local location only;
+  disclosure authority remains canonical.
 - Validation: Disclosure-gate, public-bundle, and secret-sanitization checks.
 - Owner-local supplement: Required.
 

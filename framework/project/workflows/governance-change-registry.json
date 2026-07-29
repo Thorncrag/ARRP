@@ -108,7 +108,7 @@
       "status": "Canonical",
       "policy_adoption": "Adopted on canonical history.",
       "live_activation": "No host activation is represented.",
-      "relationships": {"supersedes": [], "refines": [], "refined_by": [], "proposed_refinements": ["GOV-2026-011"]},
+      "relationships": {"supersedes": [], "refines": [], "refined_by": ["GOV-2026-011"], "proposed_refinements": []},
       "private_supplement_required": true
     },
     {
@@ -124,7 +124,7 @@
       "status": "Canonical",
       "policy_adoption": "Adopted on canonical history.",
       "live_activation": "No host activation is represented.",
-      "relationships": {"supersedes": [], "refines": [], "refined_by": ["GOV-2026-010"], "proposed_refinements": ["GOV-2026-011"]},
+      "relationships": {"supersedes": [], "refines": [], "refined_by": ["GOV-2026-010", "GOV-2026-011"], "proposed_refinements": []},
       "private_supplement_required": true
     },
     {
@@ -140,7 +140,7 @@
       "status": "Canonical",
       "policy_adoption": "Adopted on canonical history.",
       "live_activation": "No host activation is represented.",
-      "relationships": {"supersedes": [], "refines": [], "refined_by": [], "proposed_refinements": ["GOV-2026-012"]},
+      "relationships": {"supersedes": [], "refines": [], "refined_by": ["GOV-2026-012"], "proposed_refinements": []},
       "private_supplement_required": true
     },
     {
@@ -156,7 +156,7 @@
       "status": "Canonical",
       "policy_adoption": "Adopted on canonical history.",
       "live_activation": "No host activation is represented.",
-      "relationships": {"supersedes": [], "refines": [], "refined_by": [], "proposed_refinements": ["GOV-2026-011"]},
+      "relationships": {"supersedes": [], "refines": [], "refined_by": ["GOV-2026-011"], "proposed_refinements": []},
       "private_supplement_required": true
     },
     {
@@ -236,7 +236,7 @@
       "status": "Canonical",
       "policy_adoption": "Adopted on canonical history.",
       "live_activation": "No host service is activated by this record.",
-      "relationships": {"supersedes": [], "refines": ["GOV-2026-003"], "refined_by": [], "proposed_refinements": ["GOV-2026-011"]},
+      "relationships": {"supersedes": [], "refines": ["GOV-2026-003"], "refined_by": ["GOV-2026-011"], "proposed_refinements": []},
       "private_supplement_required": true
     },
     {
@@ -245,14 +245,14 @@
       "title": "Owner-local runtime authority",
       "decision_class": "operations_automation",
       "authority": ["framework/project/automation/owner-local-runtime.md"],
-      "source": {"kind": "current_worktree", "commits": [], "pull_requests": []},
+      "source": {"kind": "git_merge", "commits": ["ea57c9826270a12ae6e0275390a2c9555169f43d"], "pull_requests": [487]},
       "destination": "framework/records/governance/governance-change-log.md#gov-2026-011",
-      "resolution": "Proposed refinement of runtime-location boundaries; no canonical adoption.",
+      "resolution": "Canonical refinement of runtime-location boundaries; live cutover remains separately reserved.",
       "consumers": ["runtime_migration_review", "project_update_closeout"],
-      "status": "Proposed / unmerged",
-      "policy_adoption": "Not adopted on canonical history.",
-      "live_activation": "Not activated; existing production posture and pause state remain separately governed.",
-      "relationships": {"supersedes": [], "refines": [], "refined_by": [], "proposed_refinements": []},
+      "status": "Canonical",
+      "policy_adoption": "Adopted on canonical history through PR #487.",
+      "live_activation": "No cutover is activated; the current production authority and intentional pause remain unchanged.",
+      "relationships": {"supersedes": [], "refines": ["GOV-2026-002", "GOV-2026-003", "GOV-2026-005", "GOV-2026-010"], "refined_by": [], "proposed_refinements": []},
       "private_supplement_required": true
     },
     {
@@ -261,14 +261,14 @@
       "title": "Separate operational and security incident authorities",
       "decision_class": "security_privacy_disclosure",
       "authority": ["framework/project/automation/security-incidents.json", "framework/project/automation/incident-relations.json"],
-      "source": {"kind": "current_worktree", "commits": [], "pull_requests": []},
+      "source": {"kind": "git_merge", "commits": ["ea57c9826270a12ae6e0275390a2c9555169f43d"], "pull_requests": [487]},
       "destination": "framework/records/governance/governance-change-log.md#gov-2026-012",
-      "resolution": "Proposed refinement of operational incident boundaries; no canonical adoption.",
+      "resolution": "Canonical separation of operational recovery from protected security investigation; Security Incident activation remains separately reserved.",
       "consumers": ["incident_governance_review", "owner_console"],
-      "status": "Proposed / unmerged",
-      "policy_adoption": "Not adopted on canonical history.",
-      "live_activation": "Not activated; the proposed security authority remains unavailable.",
-      "relationships": {"supersedes": [], "refines": [], "refined_by": [], "proposed_refinements": []},
+      "status": "Canonical",
+      "policy_adoption": "Adopted on canonical history through PR #487.",
+      "live_activation": "The protected Security Incident and relation authorities remain inactive and unavailable pending separate exact approval.",
+      "relationships": {"supersedes": [], "refines": ["GOV-2026-004"], "refined_by": [], "proposed_refinements": []},
       "private_supplement_required": true
     },
     {
@@ -277,12 +277,12 @@
       "title": "Governance Change Recording authority",
       "decision_class": "governance_documentation",
       "authority": ["framework/project/workflows/governance-change-recording.md", "framework/project/workflows/governance-change-registry.json"],
-      "source": {"kind": "current_worktree", "commits": [], "pull_requests": []},
+      "source": {"kind": "git_merge", "commits": ["ea57c9826270a12ae6e0275390a2c9555169f43d"], "pull_requests": [487]},
       "destination": "framework/records/governance/governance-change-log.md#gov-2026-013",
-      "resolution": "Proposed public governance index and recording workflow; it does not create owner-local supplements.",
+      "resolution": "Canonical public governance index and recording workflow; it does not create owner-local supplements.",
       "consumers": ["project_update_closeout", "change_audit_review"],
-      "status": "Proposed / unmerged",
-      "policy_adoption": "Not adopted on canonical history.",
+      "status": "Canonical",
+      "policy_adoption": "Adopted on canonical history through PR #487.",
       "live_activation": "No live activation applies.",
       "relationships": {"supersedes": [], "refines": [], "refined_by": [], "proposed_refinements": []},
       "private_supplement_required": false
@@ -293,11 +293,11 @@
       "title": "Owner-local preservation-boundary proposal",
       "decision_class": "security_privacy_disclosure",
       "authority": ["ARRP Private owner directives"],
-      "source": {"kind": "current_worktree", "commits": [], "pull_requests": []},
+      "source": {"kind": "git_merge", "commits": ["ea57c9826270a12ae6e0275390a2c9555169f43d"], "pull_requests": [487]},
       "destination": "framework/records/governance/governance-change-log.md#gov-2026-014",
       "resolution": "Proposed owner decision; the current directive remains controlling until Benjamin approves the exact replacement text.",
       "consumers": ["project_update_closeout", "disclosure_review"],
-      "status": "Proposed / unmerged",
+      "status": "Proposed / not adopted",
       "policy_adoption": "Not adopted; exact owner approval of the replacement text remains required.",
       "live_activation": "No directive or runtime change is activated.",
       "relationships": {"supersedes": [], "refines": [], "refined_by": [], "proposed_refinements": []},
