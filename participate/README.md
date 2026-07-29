@@ -39,6 +39,23 @@ The custom domain is attached to the Vercel Production environment through the G
 
 `intake-runtime.js` contains no secret. Leave its endpoint blank when Vercel serves this folder itself. If an approved future GitHub Pages page uses this backend from a separate origin, set `window.ARRP_INTAKE_ENDPOINT` to the Vercel deployment origin and include that Pages origin in `ARRP_ALLOWED_ORIGINS`.
 
+### Cloudflare Web Analytics
+
+Cloudflare Web Analytics is configured for the exact canonical hostname
+`gab.durablerepublic.org` through Cloudflare's manual JavaScript installation.
+The beacon token in `index.html` is an intentionally public site identifier,
+not a credential. The integration is cookie-free and measures aggregate visits,
+page views, browser performance, and related page-level context. It is separate
+from Turnstile Analytics, which reports challenge outcomes.
+
+The page does not send form-field values through the analytics integration.
+Keep private message and public-submission content exclusively within their
+existing endpoint flows. Do not add event tracking, session replay, advertising
+identifiers, another analytics tag, or a tag manager without a separate privacy
+and security review. The Content Security Policy permits only Cloudflare's
+beacon script host and its analytics collection endpoint in addition to the
+existing Turnstile hosts.
+
 ### Emergency pause controls
 
 For an immediate, reversible service pause, change the relevant **Production** environment variable in Vercel and redeploy the current production deployment:
