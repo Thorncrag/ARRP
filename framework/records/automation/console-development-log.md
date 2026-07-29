@@ -32,8 +32,8 @@ commit, and do not collapse the entire day into one oversized narrative.
 - Recorded: 2026-07-28
 - Lifecycle: Changed
 - Feature or component: Whole Console
-- State: Committed on reviewed branch / pending canonical synchronization
-- Implementation commits: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `cf5ca6a32c1eb2d604be278d3c7b0feccb3db97b`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `83a96daac1951c4379f3bbea069ddcb9e0cfb74a`, `c1480889f0f02fbb09dd075b1cbbb87a0ad43226`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, and `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`
+- State: Committed; canonical synchronization through PRs #479 and #480
+- Implementation commits: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `cf5ca6a32c1eb2d604be278d3c7b0feccb3db97b`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `83a96daac1951c4379f3bbea069ddcb9e0cfb74a`, `c1480889f0f02fbb09dd075b1cbbb87a0ad43226`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`, and `5e674630a41c91a0391af596c4c2f66324debe06`
 - Rollback baseline: `a47082d0a684de38626c68fec325337765f35b9a`
 
 ### Interface & information architecture
@@ -117,7 +117,7 @@ commit, and do not collapse the entire day into one oversized narrative.
 
 - Category ID: `governance_documentation`
 - Change ID: `CONSOLE-2026-001`
-- Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`
+- Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`, `5e674630a41c91a0391af596c4c2f66324debe06`
 - Material change: Established the comprehensive Console contract,
   heading-based Development Log, stable Change IDs, public/private data
   boundary, and registered development-log categories. Configuration exports
