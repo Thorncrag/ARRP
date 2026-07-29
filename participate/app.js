@@ -40,6 +40,7 @@
 
   const submissionContext = { title: "", url: "", proposal: "" };
   const intake = { mode: "preview", route: "input", turnstileWidgetId: null, emailEnabled: true, contactEnabled: true };
+  const analyticsPrivacyNote = " This page uses cookie-free Cloudflare Web Analytics for aggregate use and performance measurement; the form fields are not part of that analytics integration.";
 
   function isContactRoute() {
     return intake.route === "contact";
@@ -81,9 +82,9 @@
     elements.emailHelp.textContent = contact
       ? "By entering an email address, you agree that the author may contact you about this message. Leave it blank if you do not want to be contacted."
       : "By entering an email address, you agree that ARRP may contact you privately about this submission. Leave it blank if you do not want to be contacted. Your address will not be posted publicly.";
-    elements.privacyNote.textContent = contact
+    elements.privacyNote.textContent = (contact
       ? "Private message: it is sent to the author and is not posted publicly. Do not include sensitive information."
-      : "Public post: do not include personal or sensitive information. Optional email is private, is not posted to GitHub, and is used only for follow-up about this submission.";
+      : "Public post: do not include personal or sensitive information. Optional email is private, is not posted to GitHub, and is used only for follow-up about this submission.") + analyticsPrivacyNote;
     setEmailFields();
     setSubmitting(false);
   }

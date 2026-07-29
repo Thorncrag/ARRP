@@ -7,6 +7,7 @@ const path = require("node:path");
 
 const PARTICIPATE_ROOT = path.resolve(__dirname, "..");
 const indexHtml = fs.readFileSync(path.join(PARTICIPATE_ROOT, "index.html"), "utf8");
+const appJavaScript = fs.readFileSync(path.join(PARTICIPATE_ROOT, "app.js"), "utf8");
 const vercelConfig = JSON.parse(
   fs.readFileSync(path.join(PARTICIPATE_ROOT, "vercel.json"), "utf8"),
 );
@@ -48,4 +49,6 @@ test("permits only the required Cloudflare analytics origins", () => {
 test("publishes the analytics privacy boundary", () => {
   assert.match(indexHtml, /cookie-free Cloudflare Web Analytics/);
   assert.match(indexHtml, /form fields are not part of that analytics integration/);
+  assert.match(appJavaScript, /privacyNote\.textContent = \(contact/);
+  assert.match(appJavaScript, /\+ analyticsPrivacyNote/);
 });
