@@ -17,7 +17,7 @@ remains separate and unchanged.
 ## GOV-2026-018 — Transaction lifecycle, retry, and recovery authority
 
 - Date: 2026-07-29
-- Status: Proposed / unmerged
+- Status: Canonical
 - Decision class: operations_automation
 - Authorities: framework/project/automation/transaction-lifecycle.md;
   framework/project/automation/project-wide-reconciliation.json;
@@ -27,45 +27,52 @@ remains separate and unchanged.
   one-use digest-bound retry authorization, preserves failed work through
   non-checkout recovery packages, and prevents a retained transaction from
   becoming reconciled merely because it is listed in a ledger.
-- Evidence: Current reviewed worktree; owner-local migration evidence, exact
-  retirement approvals, and final Git provenance remain pending.
-- Policy adoption: Proposed for canonical adoption; not yet merged.
-- Live activation: Source implementation is under validation. Automation
-  remains intentionally Paused; no production run or host/background-service
-  mutation is authorized.
+- Evidence: Implementation commit
+  e7be3ec12c09139c07959db7e25e2146b1f91a55; PR #494; merge commit
+  f39fb6b7ea4e43fe12099c022d50a5c0bd3db7da; owner-local transaction
+  migration and exact recoverable-retirement receipts.
+- Policy adoption: Adopted on canonical history through PR #494.
+- Live activation: The owner-local transaction lifecycle and recovery
+  authority is active. Automation remains intentionally Paused; no production
+  run or host/background-service mutation was performed.
 - Relationships: Refines GOV-2026-016 and the transaction-recovery portion of
   GOV-2026-011 without changing the active runtime location.
-- Validation: Lifecycle, retry, recovery-package, coordinator, Console, and
-  false-neutral regression tests pass in focused suites; complete validation
-  and one-time migration remain pending.
+- Validation: The complete 687-test Python suite, 52 frontend tests,
+  transaction and reconciliation regressions, consistency audit, strict site
+  build, disclosure gate, CodeQL, GitHub Actions, and Vercel checks passed.
+  Twelve immutable recovery packages and their retirement receipts were
+  independently reconciled, and no live runtime transaction worktree remains.
 - Owner-local supplement: Required.
 
 ## GOV-2026-017 — Exact Git-push revision binding
 
 - Date: 2026-07-29
-- Status: Proposed / unmerged
+- Status: Canonical
 - Decision class: security_privacy_disclosure
 - Authorities: framework/project/github/disclosure-boundary.md; framework/project/github/workflow.md; scripts/github_disclosure_gate.py
 - Decision: Requires Git-push disclosure authorization to derive the complete
   committed base-to-head manifest and bind one exact full-OID refspec. Caller
   metadata, selected paths, working-tree bytes, abbreviated identities, and
   later validation cannot substitute for pre-transmission binding.
-- Evidence: Current reviewed worktree; exact commit and pull-request evidence
-  remain pending.
-- Policy adoption: Proposed for canonical adoption; not yet merged.
-- Live activation: The current draft pull request remains frozen until this
-  repair has passed its exact committed-range validation.
+- Evidence: Implementation commit
+  e7be3ec12c09139c07959db7e25e2146b1f91a55; PR #494; merge commit
+  f39fb6b7ea4e43fe12099c022d50a5c0bd3db7da.
+- Policy adoption: Adopted on canonical history through PR #494.
+- Live activation: The exact committed-range gate authorized the complete
+  77-artifact range and full-OID refspec before transmission. The remote branch
+  and merged pull request were read back at the authorized revision.
 - Relationships: Refines GOV-2026-002 without changing its classification or
   no-secret boundary.
-- Validation: Focused exact-range, nonexistent-revision, wrong-head,
-  dirty-worktree, removal, and ref-movement tests pass; complete validation
-  remains pending.
+- Validation: Exact-range, nonexistent-revision, wrong-head, dirty-worktree,
+  removal, and ref-movement tests passed; the active owner-local control pack
+  returned a complete authoritative decision with zero findings; all GitHub
+  Actions and CodeQL checks passed with no open PR alerts.
 - Owner-local supplement: Required.
 
 ## GOV-2026-016 — Project-wide operational reconciliation boundary
 
 - Date: 2026-07-29
-- Status: Proposed / unmerged
+- Status: Canonical
 - Decision class: operations_automation
 - Authorities: framework/project/automation/project-wide-reconciliation.json; framework/project/workflows/project-update.md; framework/project/automation/owner-local-runtime.md
 - Decision: Defines complete project-wide operational reconciliation across
@@ -75,14 +82,18 @@ remains separate and unchanged.
   pending or unknown state cannot be reported as fully reconciled. This
   decision has no content, editorial, methodological, or political-neutrality
   meaning.
-- Evidence: Current reviewed worktree; exact commit and pull-request evidence
-  remain pending.
-- Policy adoption: Proposed for canonical adoption; not yet merged.
+- Evidence: Implementation commit
+  e7be3ec12c09139c07959db7e25e2146b1f91a55; PR #494; merge commit
+  f39fb6b7ea4e43fe12099c022d50a5c0bd3db7da.
+- Policy adoption: Adopted on canonical history through PR #494.
 - Live activation: The verifier is read-only. Automation remains intentionally
   Paused, and no host or background-service state is changed.
-- Relationships: Additive; no recorded supersession or refinement.
-- Validation: Focused verifier tests pass; complete repository, disclosure,
-  hosted-readback, and canonical-history validation remain pending.
+- Relationships: Additive and refined by GOV-2026-018; no recorded
+  supersession.
+- Validation: The verifier's false-neutral, retained-state, exact-proof,
+  stale-readback, and lock-posture regressions passed together with the
+  complete repository suite. Final operational certification remains an
+  owner-local readback rather than a public governance claim.
 - Owner-local supplement: Required.
 
 ## GOV-2026-015 — Rule reconciliation and usage-aware agent delegation
