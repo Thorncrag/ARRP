@@ -144,6 +144,29 @@ producing layer. The browser must not guess away a contradiction.
   identity, routing, taxonomy, or authority that makes the Console untruthful
   is corrected within the owning project layer.
 
+### Console Development Log classification
+
+Each calendar date uses one `##` umbrella entry in the Console Development Log.
+Within it, every material change has exactly one primary `###` category drawn
+from the registered `console_development_category` namespace in
+[`project-console-classifications.json`](project-console-classifications.json):
+Interface & information architecture; Planning & work management; Operations &
+automation; Data, provenance & integrity; Security, privacy & disclosure;
+Reliability, accessibility & performance; and Governance & documentation.
+Only categories changed on that date appear.
+
+Rapid-fire revisions collapse only when they belong to the same coherent
+category and change set. Independent architectural, security, operational,
+data-contract, or user-facing work remains separately traceable under its
+registered category even when completed on the same day. Each category section
+records its stable category ID, applicable Console Change ID, applicable commit
+IDs, a concise material-change account, and validation. UI or log code may not
+invent an additional category or use a display heading as a new classification.
+Cross-references do not duplicate a change or its count. GitHub-bound
+development records remain public operational summaries and never contain
+vulnerability evidence, credential detail, or restricted operational
+diagnostics.
+
 ## Overview Contract
 
 An item belongs on Overview only when it materially improves current

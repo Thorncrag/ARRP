@@ -527,6 +527,42 @@ class HorizonIntakeTest(unittest.TestCase):
             ignored,
         )
 
+    def test_console_development_log_uses_registered_categories(self) -> None:
+        categories = console_builder.console_development_category_registry()
+        self.assertEqual(
+            [category["label"] for category in categories],
+            [
+                "Interface & information architecture",
+                "Planning & work management",
+                "Operations & automation",
+                "Data, provenance & integrity",
+                "Security, privacy & disclosure",
+                "Reliability, accessibility & performance",
+                "Governance & documentation",
+            ],
+        )
+        self.assertIsNone(
+            console_builder.validate_console_development_log_categories()
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            invalid = Path(temporary) / "console-development-log.md"
+            invalid.write_text(
+                "## CONSOLE-TEST\n\n"
+                "### Ad hoc category\n\n"
+                "- Category ID: `ad_hoc`\n"
+                "- Change ID: `CONSOLE-TEST`\n"
+                "- Commit IDs: `deadbeef`\n"
+                "- Validation: unavailable\n",
+                encoding="utf-8",
+            )
+            with patch.object(
+                console_builder,
+                "CONSOLE_DEVELOPMENT_LOG",
+                invalid,
+            ):
+                with self.assertRaisesRegex(RuntimeError, "Unregistered"):
+                    console_builder.validate_console_development_log_categories()
+
     def test_public_console_operations_projection_is_allowlisted(self) -> None:
         registry = [{
             "id": "elim",
@@ -1305,7 +1341,7 @@ class HorizonIntakeTest(unittest.TestCase):
             view["entries"][0]["details_html"],
         )
         self.assertIn(
-            "same-day Console work in the same change area is collapsed",
+            "Each date uses one umbrella entry divided into the registered",
             source,
         )
         self.assertNotIn("| Change ID | Recorded at |", source)

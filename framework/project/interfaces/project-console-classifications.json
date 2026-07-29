@@ -73,6 +73,50 @@
         "destination_class": "incident_ledger",
         "allowed_consumers": ["operations_security"]
       }
+    ],
+    "console_development_category": [
+      {
+        "id": "interface_information_architecture",
+        "label": "Interface & information architecture",
+        "meaning": "Navigation, screen composition, specialist homes, shared interaction patterns, and visible information hierarchy.",
+        "allowed_consumers": ["console_development_log"]
+      },
+      {
+        "id": "planning_work_management",
+        "label": "Planning & work management",
+        "meaning": "Workbench, Pipeline, Action Items, queues, lifecycle routing, and human work-sequencing behavior.",
+        "allowed_consumers": ["console_development_log"]
+      },
+      {
+        "id": "operations_automation",
+        "label": "Operations & automation",
+        "meaning": "Run-chain, agents and bots, schedules, operational controls, incidents, gates, capacity, and platform or data operations.",
+        "allowed_consumers": ["console_development_log"]
+      },
+      {
+        "id": "data_provenance_integrity",
+        "label": "Data, provenance & integrity",
+        "meaning": "Typed projections, generation binding, dates, completeness, source identity, Integrity ownership, and fail-closed data semantics.",
+        "allowed_consumers": ["console_development_log"]
+      },
+      {
+        "id": "security_privacy_disclosure",
+        "label": "Security, privacy & disclosure",
+        "meaning": "Security assurance, private/public boundaries, credential-safe handling, disclosure controls, and protected evidence routing.",
+        "allowed_consumers": ["console_development_log"]
+      },
+      {
+        "id": "reliability_accessibility_performance",
+        "label": "Reliability, accessibility & performance",
+        "meaning": "Failure recovery, compatibility, direct-disk or hosted modes, accessibility, responsive behavior, and bounded resource budgets.",
+        "allowed_consumers": ["console_development_log"]
+      },
+      {
+        "id": "governance_documentation",
+        "label": "Governance & documentation",
+        "meaning": "Console contracts, registered classifications, development history, change procedures, validation records, and governing documentation.",
+        "allowed_consumers": ["console_development_log"]
+      }
     ]
   }
 }

@@ -126,6 +126,10 @@ CONSOLE_CLASSIFICATION_REGISTRY = (
     ROOT / "framework" / "project" / "interfaces"
     / "project-console-classifications.json"
 )
+CONSOLE_DEVELOPMENT_LOG = (
+    ROOT / "framework" / "records" / "automation"
+    / "console-development-log.md"
+)
 PRIVATE_OPERATIONS_OUTPUT = CONSOLE_DATA_DIR / "private-operations.js"
 REPOSITORY_GATES_SNAPSHOT = ROOT / ".tmp" / "repository-gates.json"
 REPOSITORY_GATES_LAST_GOOD = ROOT / ".tmp" / "repository-gates-last-good.json"
@@ -2987,14 +2991,24 @@ SECURITY_ASSURANCE_FIELDS = {
 }
 
 
-def security_tool_registry() -> list[dict[str, object]]:
+def console_classification_registry() -> dict[str, object]:
     registry = json.loads(
         CONSOLE_CLASSIFICATION_REGISTRY.read_text(encoding="utf-8")
     )
+    if (
+        not isinstance(registry, dict)
+        or registry.get("schema_version") != 1
+        or registry.get("registry_id") != "arrp-project-console-classifications"
+        or not isinstance(registry.get("namespaces"), dict)
+    ):
+        raise RuntimeError("Console classification registry is invalid.")
+    return registry
+
+
+def security_tool_registry() -> list[dict[str, object]]:
+    registry = console_classification_registry()
     tools = (
         registry.get("namespaces", {}).get("security_tool")
-        if isinstance(registry, dict)
-        else None
     )
     if not isinstance(tools, list) or len(tools) != 7:
         raise RuntimeError("Security assurance tool registry is unavailable.")
@@ -3019,6 +3033,61 @@ def security_tool_registry() -> list[dict[str, object]]:
     if len(ids) != len(set(ids)):
         raise RuntimeError("Security assurance tool registry has duplicate IDs.")
     return tools
+
+
+def console_development_category_registry() -> list[dict[str, object]]:
+    categories = console_classification_registry()["namespaces"].get(
+        "console_development_category"
+    )
+    required = {"id", "label", "meaning", "allowed_consumers"}
+    if (
+        not isinstance(categories, list)
+        or len(categories) != 7
+        or any(
+            not isinstance(category, dict)
+            or set(category) != required
+            or category.get("allowed_consumers") != ["console_development_log"]
+            for category in categories
+        )
+    ):
+        raise RuntimeError("Console Development Log category registry is invalid.")
+    ids = [str(category["id"]) for category in categories]
+    labels = [str(category["label"]) for category in categories]
+    if len(ids) != len(set(ids)) or len(labels) != len(set(labels)):
+        raise RuntimeError(
+            "Console Development Log category registry has duplicate identities."
+        )
+    return categories
+
+
+def validate_console_development_log_categories() -> None:
+    text = CONSOLE_DEVELOPMENT_LOG.read_text(encoding="utf-8")
+    registered = {
+        str(category["label"]): str(category["id"])
+        for category in console_development_category_registry()
+    }
+    headings = list(re.finditer(r"(?m)^### (.+?)\s*$", text))
+    if not headings:
+        raise RuntimeError("Console Development Log has no category sections.")
+    for index, match in enumerate(headings):
+        label = match.group(1)
+        category_id = registered.get(label)
+        if category_id is None:
+            raise RuntimeError(
+                f"Unregistered Console Development Log category: {label}"
+            )
+        end = headings[index + 1].start() if index + 1 < len(headings) else len(text)
+        section = text[match.end():end]
+        required_lines = (
+            f"- Category ID: `{category_id}`",
+            "- Change ID:",
+            "- Commit IDs:",
+            "- Validation:",
+        )
+        if any(line not in section for line in required_lines):
+            raise RuntimeError(
+                f"Console Development Log category metadata is incomplete: {label}"
+            )
 
 
 def public_security_assurance_projection() -> dict[str, object]:
@@ -6505,6 +6574,7 @@ def repository_gate_snapshot(refresh: bool) -> dict[str, object]:
 
 def main() -> None:
     args = parse_args()
+    validate_console_development_log_categories()
     projection_errors: list[dict[str, object]] = []
     operational_incidents = project_incident_log(OPERATIONAL_INCIDENT_LOG)
     candidates = candidate_records()

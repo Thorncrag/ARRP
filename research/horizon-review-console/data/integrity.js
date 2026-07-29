@@ -35,7 +35,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "code": "repository_revision_superseded",
         "severity": "warning",
         "message": "Integrity generation is not bound to the authoritative repository revision.",
-        "expected_source_revision": "93a01eb24dfb94c848a1f937e9e1bdfeea72c74d",
+        "expected_source_revision": "3b8ce0199619ad56ecc563cb49ca6e18ebe6c176",
         "producer_source_revision": "a47082d0a684de38626c68fec325337765f35b9a"
       }
     ],
@@ -87,7 +87,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "authority": "repository_revision",
       "status": "stale",
       "current": false,
-      "expected_source_revision": "93a01eb24dfb94c848a1f937e9e1bdfeea72c74d",
+      "expected_source_revision": "3b8ce0199619ad56ecc563cb49ca6e18ebe6c176",
       "producer_source_revision": "a47082d0a684de38626c68fec325337765f35b9a",
       "equivalent_inputs_established": false,
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
@@ -96,6 +96,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-121ddd808418a73c5e88"
+    "integrity.js": "project-console-c53d05adfb4721e0d8bf"
   }
 });

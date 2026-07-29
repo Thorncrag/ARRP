@@ -20,209 +20,123 @@ or accepted on canonical `main` is explicitly labeled `Proposed / unmerged`.
 Full 40-character Git identities are retained; the interface may abbreviate
 them for display.
 
-As a general rule, same-day Console work in the same change area is collapsed
-into one entry. This includes rapid edits, review refinements, and related
-technical repairs; do not create an entry for each message, file save, or
-commit. Begin a separate change ID only when the work has a materially distinct
-purpose, review decision, or rollback boundary.
+Each date uses one umbrella entry divided into the registered broad-category
+subheadings in the Console classification authority. Rapid-fire revisions are
+consolidated only when they belong to the same coherent category and change
+set. Independent architectural, security, operational, data-contract, or
+user-facing work remains separately traceable. Do not create one entry per
+commit, and do not collapse the entire day into one oversized narrative.
 
 ## CONSOLE-2026-001 — Adopt holistic Console design and operational information architecture
 
 - Recorded: 2026-07-28
 - Lifecycle: Changed
 - Feature or component: Whole Console
-- State: Committed / pending canonical synchronization
-- Implementation commits: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `cf5ca6a32c1eb2d604be278d3c7b0feccb3db97b`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `83a96daac1951c4379f3bbea069ddcb9e0cfb74a`, `c1480889f0f02fbb09dd075b1cbbb87a0ad43226`, and `9a387f8add96a6555fc60d1054b7699f69ff939e` (`Console-Change-ID: CONSOLE-2026-001`)
+- State: Committed on reviewed branch / pending canonical synchronization
+- Implementation commits: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `cf5ca6a32c1eb2d604be278d3c7b0feccb3db97b`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `83a96daac1951c4379f3bbea069ddcb9e0cfb74a`, `c1480889f0f02fbb09dd075b1cbbb87a0ad43226`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, and `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`
 - Rollback baseline: `a47082d0a684de38626c68fec325337765f35b9a`
 
-### User-visible change
+### Interface & information architecture
 
-Establishes a compact dated Overview, seven-stage chain, five operational
-indicators with specialist homes, work-only queue counters, bounded
-master/detail logs, exact Integrity ownership, and a Console Development
-sub-tab under Logs.
+- Category ID: `interface_information_architecture`
+- Change ID: `CONSOLE-2026-001`
+- Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `9a387f8add96a6555fc60d1054b7699f69ff939e`
+- Material change: Consolidated the six-tab architecture; compacted Overview
+  into dated verification, work queues, automation readiness, status, and
+  material activity; standardized bounded master/detail workspaces and compact
+  specialist menus; and added browser-local grid Design mode without creating
+  duplicate ledgers.
+- Validation: Route-alias, responsive-layout, navigation-count, bounded-list,
+  and frontend interaction tests passed.
 
-Same-day Overview refinements keep the five brief facts and eight work queues
-compact, pair Work queues with Recent material activity, use narrower
-at-a-glance Platform and Project data indicators, separate the
-latest-scheduled `Current`/`Paused`/`Failed`/`Unknown` badge from strict
-loaded-snapshot verification, expose the verification basis on every access,
-and use `Notice` rather than `Warning` for ordinary unresolved human work. The
-former Current Attention region moves to a deterministic, human-owned Priority
-attention lead-in above the complete Action Inbox.
+### Planning & work management
 
-Latest-attempt blockers and future repository gates now share one typed
-automation-readiness projection inside the seven-stage chain. The separate
-Automation blockers Overview indicator and duplicate top-level failure alert
-are retired; affected gates appear on their typed stage and the chain links to
-the complete Repository gates ledger.
+- Category ID: `planning_work_management`
+- Change ID: `CONSOLE-2026-001`
+- Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `9a387f8add96a6555fc60d1054b7699f69ff939e`
+- Material change: Replaced Next Work with Planning > Workbench > Pipeline,
+  retained Progress as measurement, moved deterministic human Priority
+  attention above the complete Action Inbox, and kept Blocked/Deferred hold
+  evidence and human decisions in their authoritative homes.
+- Validation: Inclusion, precedence, score-zero, missing-next-step, hold
+  provenance, count/route, legacy-route, keyboard, and responsive tests passed.
 
-Console-wide Design mode adds safe grid widths and reordering where cards or
-sections can resize without breaking a specialist interaction. Experimental
-layouts remain browser-local until a later explicit reviewed change adopts one
-as the project or public default. Design controls are mounted only while Design
-mode is active so ordinary Console use stays within its initial page-complexity
-budget. The exit control remains fixed while scrolling, and compatible
-Overview portlets can move among the main flow, Operational indicators, and
-the lower row with browser-local placement persistence.
+### Operations & automation
 
-Main navigation is consolidated to Overview, Action Items, Progress, Planning,
-Integrity, and Operations. Planning defaults to Workbench, followed by
-Preliminary Candidates, Candidates, Sources, and Publication, without creating
-a combined ledger. Workbench uses Pipeline as its default category and replaces
-the incident-style Next Work view with a
-typed, deterministic, bounded master/detail work-sequencing projection.
-Progress retains current-state measurement, trajectory, and monitoring, with
-compact hold counts linking to Workbench instead of a duplicate detailed hold
-inventory. Blocked and Deferred records use dedicated hold facts and audit
-transition provenance; candidate Horizon rationale and generic issue update
-dates no longer stand in for hold evidence. Operations owns Logs through one
-compact horizontal menu above the existing bounded master/detail workspace.
-Navigation numbers are reserved for actionable queues owned by their
-destination. Accessible fixed-size red dots independently mark typed blockers,
-excluding records whose only condition is Blocked or Deferred workflow Status.
-Legacy routes semantically redirect to their new destinations and filters.
+- Category ID: `operations_automation`
+- Change ID: `CONSOLE-2026-001`
+- Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`
+- Material change: Made Operations Overview the compact manager surface;
+  separated the latest seven-stage run from seven cadence-aware role cards;
+  added typed repository gates, provider-neutral platform status, and one
+  event-backed Operational Incidents ledger; and moved complete history under
+  Operations > Logs.
+- Validation: Run-chain, role-status, repository-gate, incident,
+  platform-adapter, and current-exception tests passed.
 
-Agents & Bots now uses single-row card headers without repeated machine names,
-one concise producer-authored purpose statement, no embedded complete-runbook
-transcript, and an editable non-secret configuration control panel that exports
-the canonical JSON for review without mutating repository or host state.
-Compact portal groups prefer one deliberate desktop row; the Local nightly
-transaction metrics no longer spill into an accidental second row.
+### Data, provenance & integrity
 
-Operations now defaults to a compact manager Overview rather than a long Run
-chain page. It separates the latest seven-stage serialized run from seven
-cadence-aware persistent-role cards, retains only current exceptions, and moves
-governance discovery to Elim detail. Agents & Bots uses the shared compact
-horizontal specialist menu and one role workspace at a time; staged
-configuration remains browser-local for the current session. Source Checker
-crawl-specific configuration remains intentionally deferred.
+- Category ID: `data_provenance_integrity`
+- Change ID: `CONSOLE-2026-001`
+- Commit IDs: `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`
+- Material change: Preserved Integrity as the exact report, added per-fact
+  currentness and outcome provenance, made unavailable data nonzero and
+  nonhealthy, refreshed the Console from authenticated Project data, and bound
+  private Operations to the exact public generation and source revision.
+- Validation: Data-contract, generation-manifest, exact-count, stale-feed,
+  same-run Integrity, and private-generation-binding tests passed.
 
-Security is now a minimized operational-assurance workspace rather than a
-GitHub-alert inventory. Seven registered checks expose only currentness,
-coverage, private-attention posture, safe review scheduling, intake posture,
-and protected destinations. Provider-native alert titles, messages, rules,
-locations, credential metadata, evidence, and remediation detail no longer
-enter Console persistence or the DOM. Human-versus-Elim Action Items
-cross-index only generic protected actions without altering the exact
-Integrity report or publishing private counts. Repository gates now have an
-append-only declaration authority and one reusable fail-closed producer used by
-both authenticated Console refresh and scheduled/manual coordinator
-enforcement. Exact-head changes and incomplete pagination cannot become zero;
-last-good evidence is labeled as retained, and latest-attempt blockers remain
-separate from current future-run gates.
+### Security, privacy & disclosure
 
-The canonical direct-disk Console is restored as a first-class owner mode:
-`file://` at the exact Console entrypoint and loopback development may load the
-three ignored local projections, while hosted HTTPS remains public-only.
-Security assurance keeps its strict allowlist, local automation status requires
-a valid typed status record, and private Operations now requires exact schema,
-Console-generation, and source-revision binding before joining the public
-shell. Missing, malformed, or mismatched files remain unavailable.
+- Category ID: `security_privacy_disclosure`
+- Change ID: `CONSOLE-2026-001`
+- Commit IDs: `83a96daac1951c4379f3bbea069ddcb9e0cfb74a`, `c1480889f0f02fbb09dd075b1cbbb87a0ad43226`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`
+- Material change: Replaced the alert inventory with seven registered,
+  allowlisted Security assurance checks; kept detailed evidence at protected
+  authorities; made protected Action Items generic; and established one
+  public enforcement core with a required owner-local disclosure control pack.
+- Validation: The active control pack approved the exact 573-artifact commit
+  tree and 56-artifact outgoing change with zero findings. Security allowlist,
+  no-detail, path-authority, route-validation, and secret-sanitization tests
+  passed.
 
-Each Current project brief date now has an accessible green, yellow, red, or
-gray status dot driven by its own predicate. Latest scheduled attempt and the
-general Current badge share one authoritative helper; intentional Pause is
-yellow, confirmed failure or blocker is red, and upcoming ordinary/full-review
-readiness uses separately scoped blocker predicates.
+### Reliability, accessibility & performance
 
-The existing Platform status indicator now uses one provider-neutral typed
-projection shared with Operations > Platform. Its compact divided row contains
-GPTs, Codex, API platform, the registered Vercel dependencies for ARRP public
-intake, and the exact Cloudflare Turnstile component. Provider refreshes fail
-independently; mismatched or missing registrations remain gray, last-valid
-observations retain their own times, and unrelated provider incidents are
-excluded. Advisory provider status does not create an ARRP incident without
-independently established project impact.
+- Category ID: `reliability_accessibility_performance`
+- Change ID: `CONSOLE-2026-001`
+- Commit IDs: `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`
+- Material change: Restored the canonical direct-disk Console as a supported
+  owner mode, gated all ignored local feeds to canonical `file://` or loopback,
+  kept hosted HTTPS public-only, added accessible fact dots and keyboard list
+  selection, and retained bounded DOM and script budgets.
+- Validation: Canonical/unrelated file-path, loopback/public-host, missing and
+  malformed local-feed, accessibility, strict public-site, and resource-budget
+  tests passed.
 
-Operational Incidents is now the first/default Logs ledger and the persistent
-cross-domain recovery roll-up. One immutable typed event record preserves
-stable incident identity, exact occurrences, lifecycle, recovery evidence, and
-closure; the Console consumes one deterministic projection rather than
-inventing incidents in browser code. The Operations badge, Incidents log
-badge, and Overview queue reuse the exact unresolved count. Action Items
-includes every unresolved incident while preserving human-only My items,
-Priority attention, and Human Action Items counts. Typed incident IDs connect
-run stages, roles, repository gates, security, platform, and data without
-duplicating lifecycle calculations. Unavailable or incomplete incident data
-remains unknown rather than zero or healthy.
+### Governance & documentation
 
-The repository-visible Console generation is now explicitly public-safe.
-Allowlisted role summaries and public project-history logs remain in the
-checked-in bundle, while complete runtime configuration, authenticated
-security observations, and raw operational histories are written only after a
-successful disclosure-gated build to secret-scanned, Git-ignored owner-local
-projections. The public manifest and browser DOM never contain those local
-details. The disclosure gate's initial prevention of an unsafe mixed bundle is
-retained as resolved near-miss incident `INC-2026-001`.
-
-The outbound boundary now uses a portable public enforcement core plus a
-required versioned owner-local control pack. Portable credential-free source,
-tests, workflows, repository administration, and high-level governance are
-public operational material; exact environment-specific detectors, sensitive
-runtime topology, full operational journals, active handoff detail, and raw
-incident, repository-gate, review-epoch, and agent-audit authorities remain
-owner-local. Default disclosure grouping is per artifact, with coupling only
-through registered group identities. The empty participation environment
-template is a distinct public family; live environment files remain private.
-Missing or incompatible local controls, unknown families, incomplete evidence,
-or any secret finding stop before a project-operated GitHub mutation. The
-complete public tree and exact outgoing change set are both classified, while
-restricted originals are preserved locally and replaced only by minimized
-public contracts or summaries.
-
-The CodeQL remediation binds canonical repository, owner-local state,
-transaction worktree, matching run directory, and explicitly injected test
-fixtures through one typed path authority. Production commands cannot select a
-fixture root. Environment variables, `.git` presence, and nearby fixture files
-no longer establish production authority. Sensitive
-control-pack reads use owner-only, non-symlink file-descriptor validation;
-publishing can consume only the fixed active pointer, while candidate controls
-remain validation-only until an owner-approved atomic activation. Runtime
-snapshots now contain the complete import closure. Workbench navigation uses a
-bounded typed route allowlist and separately validates exact ARRP GitHub issue
-and canonical-record links in both producer and browser; invalid links remain
-inert without sacrificing ordinary hash deep links.
-
-### Implementation and producer effects
-
-Establishes same-run final Integrity generation, atomic Overview projections,
-specialist Operations ledgers, a shared record-inspection pattern, a
-comprehensive governing Console contract, typed automation-readiness
-projection, typed Workbench Pipeline projection, typed Operational Incident
-event/projection contracts, browser-local grid layout preferences, and
-Git-backed product traceability. It also establishes a reusable typed
-repository/state/run/fixture path authority and an owner-approved,
-nonpublishing control-pack activation path.
-
-### Validation
-
-Validation includes 555 Python tests with 15 environment-dependent skips, 48
-Console frontend tests, 25 public-intake tests, a strict 139-page public-site
-build, runtime-policy and context-hash validation, data-contract,
-accessibility, route, disclosure, incident, repository-gate, coordinator, and
-responsive-interface checks. The active owner-local disclosure controls
-approve all 572 intended repository files and the exact staged change set with zero
-restricted, private, or secret findings. GitHub CodeQL readback remains
-required on the exact pushed head before canonical synchronization.
-
-### Known limitations and follow-up
-
-Configuration exports are staged only. Applying them to the repository or host
-requires the ordinary reviewed change and immediate approval for persistent
-host state. Synchronize this entry on canonical `main`; retain the validated
-owner-local disclosure controls behind the approved atomic activation path,
-and require exact remote and CodeQL readback before final closeout.
+- Category ID: `governance_documentation`
+- Change ID: `CONSOLE-2026-001`
+- Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`
+- Material change: Established the comprehensive Console contract,
+  heading-based Development Log, stable Change IDs, public/private data
+  boundary, and registered development-log categories. Configuration exports
+  remain staged only and persistent host changes still require immediate
+  approval.
+- Validation: Context-route hashes, classification registry, development-log
+  category metadata, governing documentation, and full regression suites
+  passed.
 
 ## Record requirements
 
-Each entry is an `##` heading containing the stable change ID and title,
-followed by the fixed metadata list shown above. Narrative `###` sections
-preserve the user-visible effect, implementation or producer effects,
-validation/readback, governing references where useful, and known limitations
-or follow-up. A retirement names its replacement or states that no replacement
-exists. A restoration or reversion identifies its related change IDs. History
-is never rewritten.
+Each date has one `##` umbrella heading containing the stable change ID and
+title, followed by the fixed metadata list. Its `###` sections use only
+registered Console Development Log categories and include Category ID, Change
+ID, applicable commit IDs, material change, and validation. Only categories
+changed that day appear. A retirement names its replacement or states that no
+replacement exists. A restoration or reversion identifies its related change
+IDs. GitHub-bound entries contain no vulnerability evidence or restricted
+operational detail. History is never rewritten.
 
 Historical reconstruction before `CONSOLE-2026-001` is permitted only from
 verified diffs and records. Reconstructed entries must say so and state their
