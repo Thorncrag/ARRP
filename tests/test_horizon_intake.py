@@ -547,11 +547,14 @@ class HorizonIntakeTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             invalid = Path(temporary) / "console-development-log.md"
             invalid.write_text(
-                "## CONSOLE-TEST\n\n"
+                "## 2026-07-29\n\n"
+                "- Console Change IDs: `CONSOLE-2026-999`\n"
+                "- Title: Invalid category fixture\n"
                 "### Ad hoc category\n\n"
                 "- Category ID: `ad_hoc`\n"
-                "- Change ID: `CONSOLE-TEST`\n"
+                "- Change ID: `CONSOLE-2026-999`\n"
                 "- Commit IDs: `deadbeef`\n"
+                "- Material change: Invalid fixture\n"
                 "- Validation: unavailable\n",
                 encoding="utf-8",
             )
@@ -1337,7 +1340,7 @@ class HorizonIntakeTest(unittest.TestCase):
         )
         self.assertEqual(view["entries"][0]["id"], "CONSOLE-2026-001")
         self.assertIn(
-            "<h2>CONSOLE-2026-001 — Adopt holistic Console design",
+            "<h2>2026-07-28 — Adopt holistic Console design",
             view["entries"][0]["details_html"],
         )
         self.assertIn(

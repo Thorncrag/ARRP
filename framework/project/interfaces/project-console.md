@@ -146,9 +146,12 @@ producing layer. The browser must not guess away a contradiction.
 
 ### Console Development Log classification
 
-Each calendar date uses one `##` umbrella entry in the Console Development Log.
-Within it, every material change has exactly one primary `###` category drawn
-from the registered `console_development_category` namespace in
+Each calendar date uses one ISO-date `##` umbrella heading in the Console
+Development Log; a Console Change ID or commit subject may not replace the date
+as that heading. The umbrella metadata retains every applicable Console Change
+ID, title, and relevant implementation commit. Within it, every material change
+has exactly one primary `###` category drawn from the registered
+`console_development_category` namespace in
 [`project-console-classifications.json`](project-console-classifications.json):
 Interface & information architecture; Planning & work management; Operations &
 automation; Data, provenance & integrity; Security, privacy & disclosure;

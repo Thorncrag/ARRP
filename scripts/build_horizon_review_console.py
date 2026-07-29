@@ -2019,7 +2019,8 @@ def console_development_log_view(
     projection_errors: list[dict[str, object]] | None = None,
 ) -> dict[str, object]:
     required_fields = (
-        "Recorded",
+        "Console Change IDs",
+        "Title",
         "Lifecycle",
         "Feature or component",
         "State",
@@ -2028,24 +2029,24 @@ def console_development_log_view(
     )
     entries: list[dict[str, object]] = []
     content = CONSOLE_DEVELOPMENT_LOG.read_text(encoding="utf-8")
-    records: list[tuple[str, str, re.Match[str]]] = []
+    records: list[tuple[str, str]] = []
     for title, body in section_records(content, 2):
-        match = re.fullmatch(
-            r"(CONSOLE-\d{4}-\d{3})\s+—\s+(.+)",
-            strip_markdown(title),
-        )
-        if match:
-            records.append((title, body, match))
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", strip_markdown(title)):
+            records.append((title, body))
 
     seen_ids: set[str] = set()
-    for title, body, match in records:
-        change_id, change_title = match.groups()
+    for title, body in records:
+        recorded_date = strip_markdown(title)
         fields = bullet_fields(body)
+        change_ids = re.findall(
+            r"CONSOLE-\d{4}-\d{3}",
+            str(fields.get("Console Change IDs") or ""),
+        )
         missing = [
             field for field in required_fields
             if not str(fields.get(field) or "").strip()
         ]
-        duplicate = change_id in seen_ids
+        duplicate = any(change_id in seen_ids for change_id in change_ids)
         if (missing or duplicate) and projection_errors is not None:
             projection_errors.append(
                 {
@@ -2063,23 +2064,29 @@ def console_development_log_view(
             )
         if missing or duplicate:
             continue
-        seen_ids.add(change_id)
+        seen_ids.update(change_ids)
+        entry_id = (
+            change_ids[0]
+            if len(change_ids) == 1
+            else f"console-development-{recorded_date}"
+        )
+        change_title = strip_markdown(fields["Title"])
         values = {
-            "date": strip_markdown(fields["Recorded"]),
-            "change": change_id,
+            "date": recorded_date,
+            "change": ", ".join(change_ids),
             "lifecycle": strip_markdown(fields["Lifecycle"]),
             "feature": strip_markdown(fields["Feature or component"]),
             "state": strip_markdown(fields["State"]),
             "commit": strip_markdown(fields["Implementation commits"]),
         }
-        entries.append(log_entry(values["change"], values, {
-            "date": fields["Recorded"],
-            "change": change_id,
+        entries.append(log_entry(entry_id, values, {
+            "date": recorded_date,
+            "change": fields["Console Change IDs"],
             "lifecycle": fields["Lifecycle"],
             "feature": fields["Feature or component"],
             "state": fields["State"],
             "commit": fields["Implementation commits"],
-        }, f"## {change_id} — {change_title}\n\n{body}"))
+        }, f"## {recorded_date} — {change_title}\n\n{body}"))
     return {
         "id": "console-development",
         "title": "Console Development Log",
@@ -3066,28 +3073,79 @@ def validate_console_development_log_categories() -> None:
         str(category["label"]): str(category["id"])
         for category in console_development_category_registry()
     }
-    headings = list(re.finditer(r"(?m)^### (.+?)\s*$", text))
-    if not headings:
-        raise RuntimeError("Console Development Log has no category sections.")
-    for index, match in enumerate(headings):
-        label = match.group(1)
-        category_id = registered.get(label)
-        if category_id is None:
+    umbrellas = section_records(text, 2)
+    if not umbrellas:
+        raise RuntimeError("Console Development Log has no dated umbrella entries.")
+    dates: set[str] = set()
+    for heading, body in umbrellas:
+        date = strip_markdown(heading)
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", date):
             raise RuntimeError(
-                f"Unregistered Console Development Log category: {label}"
+                f"Console Development Log umbrella is not an ISO date: {date}"
             )
-        end = headings[index + 1].start() if index + 1 < len(headings) else len(text)
-        section = text[match.end():end]
-        required_lines = (
-            f"- Category ID: `{category_id}`",
-            "- Change ID:",
-            "- Commit IDs:",
-            "- Validation:",
+        if date in dates:
+            raise RuntimeError(
+                f"Console Development Log repeats a dated umbrella: {date}"
+            )
+        dates.add(date)
+        fields = bullet_fields(body)
+        change_ids = set(
+            re.findall(
+                r"CONSOLE-\d{4}-\d{3}",
+                str(fields.get("Console Change IDs") or ""),
+            )
         )
-        if any(line not in section for line in required_lines):
+        if not change_ids or not str(fields.get("Title") or "").strip():
             raise RuntimeError(
-                f"Console Development Log category metadata is incomplete: {label}"
+                f"Console Development Log umbrella metadata is incomplete: {date}"
             )
+        categories = list(re.finditer(r"(?m)^### (.+?)\s*$", body))
+        if not categories:
+            raise RuntimeError(
+                f"Console Development Log has no category sections: {date}"
+            )
+        seen_categories: set[str] = set()
+        for index, match in enumerate(categories):
+            label = match.group(1)
+            category_id = registered.get(label)
+            if category_id is None:
+                raise RuntimeError(
+                    f"Unregistered Console Development Log category: {label}"
+                )
+            if category_id in seen_categories:
+                raise RuntimeError(
+                    f"Console Development Log repeats category {label}: {date}"
+                )
+            seen_categories.add(category_id)
+            end = (
+                categories[index + 1].start()
+                if index + 1 < len(categories)
+                else len(body)
+            )
+            section = body[match.end():end]
+            required_lines = (
+                f"- Category ID: `{category_id}`",
+                "- Change ID:",
+                "- Commit IDs:",
+                "- Material change:",
+                "- Validation:",
+            )
+            if any(line not in section for line in required_lines):
+                raise RuntimeError(
+                    "Console Development Log category metadata is incomplete: "
+                    f"{label}"
+                )
+            section_change_ids = set(
+                re.findall(
+                    r"CONSOLE-\d{4}-\d{3}",
+                    str(bullet_fields(section).get("Change ID") or ""),
+                )
+            )
+            if not section_change_ids or not section_change_ids <= change_ids:
+                raise RuntimeError(
+                    "Console Development Log category has an unbound Change ID: "
+                    f"{label}"
+                )
 
 
 def public_security_assurance_projection() -> dict[str, object]:
