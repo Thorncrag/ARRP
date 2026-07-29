@@ -592,8 +592,16 @@ class HorizonIntakeTest(unittest.TestCase):
         ]
         self.assertEqual(
             [item["id"] for item in console_builder.public_safe_project_logs(logs)],
-            ["horizon", "changes"],
+            ["horizon", "changes", "agents", "console-development"],
         )
+        owner_log = next(
+            item
+            for item in console_builder.public_safe_project_logs(logs)
+            if item["id"] == "agents"
+        )
+        self.assertEqual(owner_log["availability"], "unavailable")
+        self.assertIsNone(owner_log["entry_count"])
+        self.assertFalse(owner_log["complete"])
         public_integrity = console_builder.public_safe_integrity({
             "availability": "current",
             "current": {"finding_count": 2},
@@ -639,6 +647,7 @@ class HorizonIntakeTest(unittest.TestCase):
                     project_logs=[{"id": "agents", "entries": []}],
                     integrity={"history": [{"generation_id": "local-history"}]},
                     run_chain={"context_packet": {"scope": "local"}},
+                    action_snapshot={"complete": True, "items": [], "counts": {}},
                 )
                 self.assertEqual(snapshot["availability"], "current")
                 self.assertEqual(snapshot["schema_version"], 2)
@@ -674,6 +683,7 @@ class HorizonIntakeTest(unittest.TestCase):
                         project_logs=[],
                         integrity={},
                         run_chain={},
+                        action_snapshot={"complete": True, "items": [], "counts": {}},
                     )
                 self.assertNotIn(
                     prohibited_value,
@@ -1119,6 +1129,9 @@ class HorizonIntakeTest(unittest.TestCase):
                 "generation_manifest",
                 "overview",
                 "automation_role_status",
+                "automation_occurrences",
+                "action_snapshot",
+                "queue_directory",
                 "repository_gates",
                 "operational_incidents",
                 "security_assurance",
@@ -2162,8 +2175,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("grid-template-columns: repeat(4, minmax(0, 1fr))", console_css)
         self.assertIn(".watcher-tab-list button", console_css)
         self.assertNotIn("LIVE_SOURCE_CHECKER_URL", console_app)
-        self.assertIn('category: "Source integrity"', console_app)
-        self.assertIn('["broken", "identity mismatch", "review required"]', console_app)
+        self.assertIn("producerProblemRecords", console_app)
         self.assertIn("Complete exception inventory", console_html)
         self.assertIn('id="progress-sections"', console_html)
         self.assertLess(console_html.index('id="progress-summary-grid"'), console_html.index('id="progress-development-board"'))
@@ -2205,7 +2217,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("pullRequestsStatus", console_app)
         self.assertIn("actionItemSnapshot", console_app)
         self.assertIn("renderOverviewQueues", console_app)
-        self.assertIn("elimUsageConsumption", console_app)
+        self.assertNotIn("elimUsageConsumption", console_app)
         self.assertIn(">Operations <span", console_html)
         self.assertIn("Recent material activity", console_html)
         self.assertIn("renderOverviewAutomationActivity", console_app)
@@ -2250,8 +2262,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("ACTION_INBOX_LAYOUT_STORAGE_KEY", console_app)
         self.assertIn(".action-inbox-workspace", console_css)
         self.assertIn('.action-inbox-row[aria-pressed="true"]', console_css)
-        self.assertIn('category: "Workflow explanation"', console_app)
-        self.assertIn("has no recorded explanation or reason", console_app)
+        self.assertIn("workflow_status_invalid", console_app)
         self.assertIn("dense-data-disclosure", console_html)
         for summary_id in {
             "sources-results-summary",
@@ -2260,8 +2271,8 @@ class HorizonIntakeTest(unittest.TestCase):
             "pages-results-summary",
         }:
             self.assertIn(f'id="{summary_id}"', console_html)
-        self.assertIn("allProblemRecords", console_app)
-        self.assertIn("stableProblemReference", console_app)
+        self.assertNotIn("allProblemRecords", console_app)
+        self.assertNotIn("stableProblemReference", console_app)
         self.assertNotIn("Latest consistency audit", console_html)
         self.assertNotIn('id="consistency-audit-findings"', console_html)
         self.assertNotIn("consistency_audit", console_app)
@@ -2315,7 +2326,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("openPullRequests.map(repositoryReviewEntry)", console_app)
         self.assertIn("The Action Inbox is a nonauthoritative routing index", console_html)
         self.assertIn("specialist Console views and canonical records own status and disposition", console_html)
-        self.assertIn("repositoryHumanActions.length", console_app)
+        self.assertIn("producerProblemRecords", console_app)
+        self.assertNotIn("repositoryHumanActions.length", console_app)
         self.assertIn("Open specialist administration", console_app)
         self.assertIn('record.workflowStatus === "Human decision needed"', console_app)
         self.assertIn("integrityFindingNeedsHuman", console_app)
@@ -2388,8 +2400,6 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Five compact summaries", console_html)
         self.assertIn("automation_readiness", console_app)
         self.assertIn("failedAutomationStages", console_app)
-        self.assertIn('category: "Automation failure"', console_app)
-        self.assertIn('attention: "human"', console_app)
         self.assertIn("automationRoleProblem", console_app)
         self.assertIn("effectiveAutomationRoleStatusProjection", console_app)
         self.assertIn("operationalIncidentProjection", console_app)
@@ -2419,11 +2429,6 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn(
             'projectionStatusCard("Source checks", sourceCheckerFeed, '
             '"sources:watchers:source-checker"',
-            console_app,
-        )
-        self.assertIn(
-            "detected_at: data.source_checker.checked_at || "
-            "data.source_checker.generated_at",
             console_app,
         )
         self.assertIn(
@@ -2483,7 +2488,8 @@ class HorizonIntakeTest(unittest.TestCase):
             },
             {"HOR-026", "HOR-027", "HOR-029", "HOR-039"},
         )
-        self.assertEqual(pipeline["counts"]["planningDataGaps"], 4)
+        self.assertEqual(pipeline["counts"]["nextStepsMissing"], 4)
+        self.assertEqual(pipeline["counts"]["workflowStatusExceptions"], 0)
         self.assertEqual(
             {item["status"] for item in holds},
             {"Blocked", "Deferred"},
@@ -2517,7 +2523,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(
             any(
                 finding["identifier"] == "ELEC-014"
-                and finding["code"] == "hold_transition_provenance_missing"
+                and finding["finding_code"] == "hold_transition_provenance_missing"
                 for finding in pipeline["integrityFindings"]
             )
         )

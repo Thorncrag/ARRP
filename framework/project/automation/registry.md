@@ -63,8 +63,7 @@ execution failures.
 Before dependent stages, scheduled and manual production runs invoke the shared
 `scripts/repository_gates.py` producer with the GitHub App token. Its sole
 classification authority is the append-only
-[`repository-gates.jsonl`](../../records/automation/repository-gates.jsonl)
-event record governed by
+owner-local `records/automation/repository-gates.jsonl` event record governed by
 [`repository-gates.json`](repository-gates.json). A complete paginated open-PR
 scan and complete declaration scan are both required before the producer may
 emit `complete: true` or a zero count. Applicable gates are attached and
@@ -79,8 +78,8 @@ evidence, not a new source of substantive authority.
 ## Operational Incident authority
 
 [`operational-incidents.json`](operational-incidents.json) governs the one
-project-wide Operational Incident event record at
-[`operational-incidents.jsonl`](../../records/automation/operational-incidents.jsonl).
+project-wide Operational Incident event record at the owner-local path
+`records/automation/operational-incidents.jsonl`.
 The deterministic `scripts/operational_incidents.py` module validates,
 sanitizes, deduplicates, appends immutable events, and produces the current
 projection. No persistent role, LLM result, browser calculation, run log, or

@@ -372,8 +372,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "pause_state": "unavailable",
         "current_blocker": null,
         "data_currentness": {
-          "state": "stale",
-          "checked_at": "2026-07-26T10:27:00+00:00",
+          "state": "current",
+          "checked_at": "2026-07-29T02:16:48+00:00",
           "reason": ""
         },
         "checked_at": "2026-07-27T08:37:33+00:00",
@@ -440,8 +440,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "pause_state": "unavailable",
         "current_blocker": null,
         "data_currentness": {
-          "state": "stale",
-          "checked_at": "2026-07-28T18:43:46+00:00",
+          "state": "current",
+          "checked_at": "2026-07-29T02:25:56+00:00",
           "reason": ""
         },
         "checked_at": "2026-07-27T08:37:33+00:00",
@@ -474,7 +474,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "unavailable",
-          "checked_at": "2026-07-29T00:54:55+00:00",
+          "checked_at": "2026-07-29T02:39:37+00:00",
           "reason": "No typed currentness record is published for this role."
         },
         "checked_at": "2026-07-27T08:37:33+00:00",
@@ -485,34 +485,31 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "repository_gates": {
     "schema_version": 1,
     "repository": "Thorncrag/ARRP",
-    "source_revision": "2026-07-28T23:59:13+00:00",
-    "checked_at": "2026-07-28T23:59:13+00:00",
-    "availability": "unavailable",
-    "complete": false,
-    "count": null,
+    "source_revision": "2026-07-29T02:26:25+00:00",
+    "checked_at": "2026-07-29T02:26:25+00:00",
+    "availability": "current",
+    "complete": true,
+    "count": 0,
     "known_blocker_count": 0,
     "pagination": {
       "open_pull_requests": {
-        "complete": false
+        "complete": true,
+        "pages": 1,
+        "actual_count": 5,
+        "page_size": 100
       },
       "declarations_complete": true
     },
     "declaration_errors": [],
-    "validation_errors": [
-      "HTTP Error 401: Unauthorized"
-    ],
-    "last_good_identity": {
-      "checked_at": "2026-07-28T20:41:07+00:00",
-      "source_revision": "2026-07-28T20:41:07+00:00"
-    },
-    "trustworthy_through": "2026-07-28T20:41:07+00:00",
+    "validation_errors": [],
+    "last_good_identity": null,
     "items": []
   },
   "operational_incidents": {
     "schema_version": 1,
     "availability": "current",
     "complete": true,
-    "checked_at": "2026-07-29T00:54:53Z",
+    "checked_at": "2026-07-29T02:39:36Z",
     "count": 1,
     "unresolved_count": 0,
     "impact_state": "green",
@@ -1203,6 +1200,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "automation.js": "project-console-513c97bda0b2ea432bf2"
+    "automation.js": "project-console-5b7a323b413bf73e5749"
   }
 });

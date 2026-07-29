@@ -61,6 +61,14 @@ cannot be made reliably. The latest scheduled occurrence controls both its
 date dot and the general Current/Paused/Failed/Unknown badge; the Console never
 infers Paused merely because no run appeared.
 
+The brief and Operations chain consume one versioned occurrence directory.
+Each occurrence keeps its trigger, schedule identity, status, revision,
+timestamps, blockers, and seven ordered stage results together. The current
+scheduled occurrence is never combined with an older push run, and `Not due
+this chain` never becomes `Succeeded` merely because a prior run succeeded.
+Next-run, full-Review-Epoch, valid-until, and trustworthy-through facts are
+producer supplied.
+
 The Console reports automation state but does not directly control the runner.
 Operations Overview combines owner-only Run/Paused state, one compact
 seven-stage run strip, seven cadence-aware persistent-role cards, and current
@@ -100,6 +108,14 @@ that Console projection. Both files are Git-ignored, secret-scanned before
 persistence, loaded only by the local Console origin, and excluded from the
 public generation manifest. The public bundle therefore remains useful
 without using browser hiding as a privacy boundary.
+
+The generated Overview also carries a registered queue directory, one public
+Action snapshot, a typed Operations Data directory, typed artifact-change
+events, and typed capacity points. The bound private Operations projection may
+replace the public Action snapshot only with an exact-generation,
+exact-revision owner-local join containing generic protected Security actions.
+The browser filters and formats these records; it does not invent queues,
+categories, identities, owners, routes, activity, or capacity from prose.
 
 The supported owner mode is opening the canonical
 `research/horizon-review-console/index.html` directly with `file://`; no local
@@ -154,7 +170,7 @@ zero.
 
 The normal initial budgets are:
 
-- no more than 520 KiB of synchronous JavaScript;
+- no more than 650 KiB of synchronous JavaScript;
 - no more than 1,500 initial DOM elements;
 - at most 50 Source Checker rows rendered at once;
 - no specialist catalog, dossier, log, or publication rows before activation.

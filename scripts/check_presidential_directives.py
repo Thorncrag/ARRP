@@ -499,6 +499,7 @@ def render_log_entry(report: dict[str, Any], run_url: str = "") -> str:
         lines.append(f"- Workflow run: {run_url}")
     lines.extend(
         [
+            "- Result: catalog_updated",
             "- Action: Updated machine-observed Federal Register metadata and per-row baselines for human review.",
             "- Boundary: No substantive ARRP classification or disposition was performed.",
             "",

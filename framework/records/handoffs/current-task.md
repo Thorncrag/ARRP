@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Handoff state | Inactive |
-| Active issue/task | None. |
-| Audit type/tier | None. |
-| Started | None. |
-| Last checkpoint | 2026-07-28 17:10:22 -0400 |
-| User request | None. |
-| Scope | None. |
-| Files touched | None. |
-| Completed steps | None. |
-| Next step | None. |
-| Blockers/questions | None. |
-| Validation status | Not applicable. |
+| Handoff state | Open |
+| Active issue/task | Console consistency-audit remedy |
+| Audit type/tier | Project interface consistency implementation |
+| Started | 2026-07-28 21:39:41 -0400 |
+| Last checkpoint | 2026-07-28 21:39:41 -0400 |
+| User request | Implement the approved seven-package Console consistency remedy and close every audit finding with deterministic tests. |
+| Scope | Automation occurrence and Overview contracts; queue/action/activity/capacity projections; specialist screens and navigation; producer/feed/link repairs; transactional regeneration; validation and governed GitHub reconciliation. |
+| Files touched | `framework/records/handoffs/current-task.md`; `AGENTS.md` safeguard preserved from the approved concurrent security work. |
+| Completed steps | Re-established the merged production baseline, preserved the concurrent safeguard, loaded mandatory governance, created the scoped implementation branch, and opened this checkpoint. |
+| Next step | Inventory current producers, generated contracts, browser reconstruction, tests, stale feeds, and the three broken links into the finding-to-change-to-test matrix. |
+| Blockers/questions | None. GitHub Project mutation remains fail-closed unless governance and high-confidence evidence both pass. |
+| Validation status | In progress. |
 
 ## Handoff Rules
 

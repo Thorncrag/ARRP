@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import csv
 import functools
 import hashlib
@@ -16,8 +17,9 @@ import shutil
 import subprocess
 import tempfile
 import urllib.parse
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 try:
     from github_disclosure_gate import (
@@ -111,6 +113,7 @@ PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
 DIRECTIVES = ROOT / "inventory" / "presidential-directives.csv"
 CASE_MONITOR_CONFIG = ROOT / ".github" / "case-monitor-bot.json"
 DIRECTIVE_MONITOR_CONFIG = ROOT / ".github" / "presidential-directives-bot.json"
+RUN_COORDINATOR_CONFIG = ROOT / ".github" / "run-coordinator-bot.json"
 PRINT_ASSEMBLY_MANIFEST = (
     ROOT / "framework" / "project" / "publication" / "print-assembly.json"
 )
@@ -231,6 +234,15 @@ PUBLIC_RUN_CHAIN_FIELDS = frozenset({
     "work_queue",
     "workflow_health",
 })
+AUTOMATION_OCCURRENCE_STAGE_SPECS: tuple[tuple[str, str], ...] = (
+    ("case-monitor-bot", "Cases"),
+    ("presidential-directives-bot", "Presidential directives"),
+    ("source-checker-bot", "Sources"),
+    ("public-intake", "Public input"),
+    ("project-console-progress-bot", "Progress"),
+    ("project-integrity-bot", "Integrity"),
+    ("elim", "Elim"),
+)
 LOCAL_RUN_CHAIN_PATH_FIELDS = frozenset({
     "baselinePath",
     "baseline_path",
@@ -532,12 +544,37 @@ def public_safe_project_logs(
 ) -> list[dict[str, object]]:
     """Retain public project-history ledgers; keep raw operations owner-local."""
 
-    public_ids = {"horizon", "changes"}
-    return [
-        record
-        for record in records
-        if isinstance(record, dict) and record.get("id") in public_ids
-    ]
+    public_ids = {"horizon", "source-monitor", "changes", "console-development"}
+    projected: list[dict[str, object]] = []
+    for record in records:
+        if not isinstance(record, dict):
+            continue
+        if record.get("id") in public_ids:
+            projected.append(record)
+            continue
+        projected.append(
+            {
+                "id": record.get("id"),
+                "title": record.get("title"),
+                "description": record.get("description"),
+                "source_url": None,
+                "columns": record.get("columns") or [],
+                "group_options": record.get("group_options") or [],
+                "default_sort": record.get("default_sort")
+                or {"key": "date", "direction": "desc"},
+                "entries": [],
+                "entry_count": None,
+                "availability": "unavailable",
+                "complete": False,
+                "schema_errors": [],
+                "current_through": None,
+                "producer": record.get("producer"),
+                "reason": (
+                    "Owner-only log data is unavailable in the public Console mode."
+                ),
+            }
+        )
+    return projected
 
 
 def public_safe_integrity(
@@ -2570,14 +2607,68 @@ def repository_review_recommendations(
 def project_log_views(
     projection_errors: list[dict[str, object]] | None = None,
 ) -> list[dict[str, object]]:
-    return [
-        horizon_log_view(projection_errors),
-        elim_run_log_view(projection_errors),
-        agent_audit_log_view(projection_errors),
-        source_monitor_log_view(projection_errors),
-        change_audit_log_view(projection_errors),
-        console_development_log_view(projection_errors),
-    ]
+    definitions = (
+        ("horizon", horizon_log_view),
+        ("elim", elim_run_log_view),
+        ("agents", agent_audit_log_view),
+        ("source-monitor", source_monitor_log_view),
+        ("changes", change_audit_log_view),
+        ("console-development", console_development_log_view),
+    )
+    logs: list[dict[str, object]] = []
+    for log_id, builder in definitions:
+        local_errors: list[dict[str, object]] = []
+        try:
+            record = builder(local_errors)
+        except OSError:
+            record = {
+                "id": log_id,
+                "title": log_id.replace("-", " ").title(),
+                "description": "The owning log is unavailable in this Console mode.",
+                "source_url": None,
+                "columns": [],
+                "group_options": [],
+                "default_sort": {"key": "date", "direction": "desc"},
+                "entries": [],
+            }
+            local_errors.append(
+                {
+                    "code": "log_source_unavailable",
+                    "severity": "error",
+                    "log_id": log_id,
+                    "message": "The owning log source is unavailable.",
+                }
+            )
+        entries = (
+            record.get("entries")
+            if isinstance(record.get("entries"), list)
+            else []
+        )
+        dates = [
+            str((entry.get("values") or {}).get("date") or "")
+            for entry in entries
+            if isinstance(entry, dict)
+            and isinstance(entry.get("values"), dict)
+            and str((entry.get("values") or {}).get("date") or "")
+        ]
+        record.update(
+            {
+                "availability": "current" if not local_errors else "stale",
+                "complete": not local_errors,
+                "schema_errors": local_errors,
+                "current_through": max(dates) if dates else None,
+                "producer": f"{log_id}-log-projection",
+                "reason": (
+                    ""
+                    if not local_errors
+                    else "The log projection has source or schema errors."
+                ),
+            }
+        )
+        if projection_errors is not None:
+            projection_errors.extend(local_errors)
+        logs.append(record)
+    return logs
 
 
 def is_markdown_table_separator(line: str) -> bool:
@@ -3069,6 +3160,38 @@ def console_classification_registry() -> dict[str, object]:
         or not isinstance(registry.get("namespaces"), dict)
     ):
         raise RuntimeError("Console classification registry is invalid.")
+    required = {
+        "id",
+        "label",
+        "meaning",
+        "inclusion_predicate",
+        "authoritative_source",
+        "producer",
+        "lifecycle_owner",
+        "destination",
+        "resolution_rule",
+        "allowed_consumers",
+    }
+    for namespace in ("work_kind", "finding_code", "queue_id", "workflow_view"):
+        entries = registry["namespaces"].get(namespace)
+        if not isinstance(entries, list) or not entries:
+            raise RuntimeError(
+                f"Console classification namespace {namespace} is unavailable."
+            )
+        for entry in entries:
+            if (
+                not isinstance(entry, dict)
+                or not required.issubset(entry)
+                or not all(
+                    str(entry.get(field) or "").strip()
+                    for field in required - {"allowed_consumers"}
+                )
+                or not isinstance(entry.get("allowed_consumers"), list)
+                or not entry["allowed_consumers"]
+            ):
+                raise RuntimeError(
+                    f"Console classification namespace {namespace} has an incomplete entry."
+                )
     return registry
 
 
@@ -3427,6 +3550,7 @@ def valid_private_operations(
         "project_logs",
         "integrity",
         "run_chain",
+        "action_snapshot",
         "privacy",
     }
     return bool(
@@ -3441,6 +3565,9 @@ def valid_private_operations(
         and isinstance(snapshot.get("project_logs"), list)
         and isinstance(snapshot.get("integrity"), dict)
         and isinstance(snapshot.get("run_chain"), dict)
+        and isinstance(snapshot.get("action_snapshot"), dict)
+        and snapshot["action_snapshot"].get("complete") is True
+        and isinstance(snapshot["action_snapshot"].get("items"), list)
     )
 
 
@@ -3452,6 +3579,7 @@ def write_private_operations(
     project_logs: list[dict[str, object]],
     integrity: dict[str, object],
     run_chain: dict[str, object],
+    action_snapshot: dict[str, object],
 ) -> dict[str, object]:
     """Persist the complete owner-only Console operations projection safely."""
 
@@ -3465,6 +3593,7 @@ def write_private_operations(
         "project_logs": project_logs,
         "integrity": integrity,
         "run_chain": run_chain,
+        "action_snapshot": action_snapshot,
         "privacy": (
             "Owner-only local projection. This file is Git-ignored and must "
             "not be committed or published."
@@ -3690,6 +3819,393 @@ def validated_local_automation_projection(path: Path) -> str | None:
     if not isinstance(value, dict) or not isinstance(value.get("status"), str):
         return None
     return text
+
+
+def local_automation_status_snapshot(path: Path) -> dict[str, object]:
+    """Read the ignored owner-local status without making it a public authority."""
+
+    text = validated_local_automation_projection(path)
+    if text is None:
+        return {}
+    prefix = "window.ARRP_LOCAL_AUTOMATION_STATUS = "
+    value = json.loads(text.removeprefix(prefix).removesuffix(";\n"))
+    return value if isinstance(value, dict) else {}
+
+
+def parsed_utc(value: object) -> datetime | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    try:
+        parsed = datetime.fromisoformat(text.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def normalized_occurrence_stage(
+    *,
+    stage_id: str,
+    label: str,
+    source: dict[str, object] | None,
+    occurrence_id: str,
+    default_status: str = "unavailable",
+    default_reason: str = "No stage result was published for this occurrence.",
+) -> dict[str, object]:
+    raw = source or {}
+    status = str(
+        raw.get("status")
+        or ("not_due" if raw.get("due") is False else default_status)
+    ).strip()
+    if status not in {
+        "pending",
+        "running",
+        "succeeded",
+        "failed",
+        "degraded",
+        "not_due",
+        "skipped",
+        "blocked",
+        "unavailable",
+    }:
+        status = "unavailable"
+    current_label = (
+        "Not due this chain"
+        if status == "not_due"
+        else str(raw.get("current_chain_label") or status.replace("_", " ").title())
+    )
+    return {
+        "stage_id": stage_id,
+        "label": label,
+        "order": next(
+            index
+            for index, (registered_id, _) in enumerate(
+                AUTOMATION_OCCURRENCE_STAGE_SPECS, start=1
+            )
+            if registered_id == stage_id
+        ),
+        "occurrence_id": occurrence_id,
+        "status": status,
+        "current_chain_label": current_label,
+        "due": raw.get("due"),
+        "reason": str(
+            raw.get("due_reason")
+            or raw.get("details")
+            or raw.get("reason")
+            or default_reason
+        ).strip(),
+        "started_at": raw.get("started_at"),
+        "completed_at": raw.get("completed_at") or raw.get("updated_at"),
+        "prior_success_at": raw.get("last_success_at"),
+        "failure_class": raw.get("failure_class"),
+        "active_incident_ids": (
+            list(raw.get("active_incident_ids") or [])
+            if isinstance(raw.get("active_incident_ids"), list)
+            else []
+        ),
+    }
+
+
+def chain_occurrence(run_chain: dict[str, object]) -> dict[str, object] | None:
+    if not run_chain:
+        return None
+    occurrence_id = str(
+        run_chain.get("run_id") or run_chain.get("chain_id") or ""
+    ).strip()
+    if not occurrence_id:
+        return None
+    stages_by_id = {
+        str(stage.get("id") or stage.get("stage_id") or ""): stage
+        for stage in run_chain.get("stages") or []
+        if isinstance(stage, dict)
+    }
+    decision = (
+        run_chain.get("elim_decision")
+        if isinstance(run_chain.get("elim_decision"), dict)
+        else {}
+    )
+    if decision.get("launched") is True:
+        elim_status = "succeeded" if decision.get("outcome") == "succeeded" else "running"
+    elif decision.get("launch_recommended") is True:
+        elim_status = "pending"
+    elif decision:
+        elim_status = "not_due"
+    else:
+        elim_status = "unavailable"
+    stages_by_id["elim"] = {
+        "status": elim_status,
+        "due": decision.get("launch_recommended"),
+        "due_reason": decision.get("reason") or "No Elim decision was published.",
+        "completed_at": run_chain.get("completed_at"),
+    }
+    stages = [
+        normalized_occurrence_stage(
+            stage_id=stage_id,
+            label=label,
+            source=stages_by_id.get(stage_id),
+            occurrence_id=occurrence_id,
+        )
+        for stage_id, label in AUTOMATION_OCCURRENCE_STAGE_SPECS
+    ]
+    blockers = [
+        {
+            "id": str(
+                item.get("id")
+                or item.get("failure_id")
+                or f"{occurrence_id}-{index}"
+            ),
+            "stage_id": overview_automation_stage_id(
+                item.get("stage") or item.get("stage_id")
+            ),
+            "reason": str(
+                item.get("reason")
+                or item.get("message")
+                or "Occurrence blocker recorded without safe detail."
+            ),
+            "recorded_at": item.get("recorded_at") or run_chain.get("updated_at"),
+        }
+        for index, item in enumerate(run_chain.get("failures") or [], start=1)
+        if isinstance(item, dict)
+    ]
+    return {
+        "occurrence_id": occurrence_id,
+        "schedule_identity": (
+            str(run_chain.get("schedule_identity") or "")
+            or (
+                "owner-local-nightly"
+                if re.search(
+                    r"schedule|launchd|nightly",
+                    str(run_chain.get("trigger") or ""),
+                    re.IGNORECASE,
+                )
+                else "event-driven"
+            )
+        ),
+        "trigger": run_chain.get("trigger"),
+        "status": run_chain.get("status") or "unavailable",
+        "source_revision": (
+            run_chain.get("final_revision") or run_chain.get("baseline_commit")
+        ),
+        "generation_id": run_chain.get("generation_id"),
+        "created_at": run_chain.get("created_at"),
+        "started_at": run_chain.get("started_at") or run_chain.get("created_at"),
+        "completed_at": run_chain.get("completed_at"),
+        "updated_at": run_chain.get("updated_at"),
+        "scheduled_for": run_chain.get("scheduled_for"),
+        "stages": stages,
+        "blockers": blockers,
+        "complete": len(stages) == len(AUTOMATION_OCCURRENCE_STAGE_SPECS),
+    }
+
+
+def local_status_occurrence(
+    local_status: dict[str, object],
+) -> dict[str, object] | None:
+    if not local_status:
+        return None
+    occurrence_id = str(local_status.get("run_id") or "").strip()
+    if not occurrence_id:
+        return None
+    validation = (
+        local_status.get("validation_summary")
+        if isinstance(local_status.get("validation_summary"), dict)
+        else {}
+    )
+    no_run_reason = str(validation.get("reason") or "").strip()
+    duplicate_claim = no_run_reason == "scheduled_slot_already_claimed"
+    default_status = "not_due" if duplicate_claim else "unavailable"
+    default_reason = (
+        "The scheduled slot was already claimed; no duplicate chain was run."
+        if duplicate_claim
+        else "The owner-local status did not publish stage-level results."
+    )
+    stages = [
+        normalized_occurrence_stage(
+            stage_id=stage_id,
+            label=label,
+            source=None,
+            occurrence_id=occurrence_id,
+            default_status=default_status,
+            default_reason=default_reason,
+        )
+        for stage_id, label in AUTOMATION_OCCURRENCE_STAGE_SPECS
+    ]
+    raw_status = str(local_status.get("status") or "unavailable")
+    occurrence_status = "not_due" if duplicate_claim else raw_status
+    blockers = []
+    if occurrence_status in {"failed", "blocked", "usage-stopped", "missed"}:
+        blockers.append(
+            {
+                "id": f"{occurrence_id}-local-status",
+                "stage_id": None,
+                "reason": str(
+                    local_status.get("failure_reason")
+                    or "The owner-local occurrence did not complete successfully."
+                ),
+                "recorded_at": local_status.get("updated_at"),
+            }
+        )
+    return {
+        "occurrence_id": occurrence_id,
+        "schedule_identity": "owner-local-nightly",
+        "trigger": local_status.get("trigger"),
+        "status": occurrence_status,
+        "source_revision": (
+            local_status.get("runtime_commit")
+            or local_status.get("starting_local_head")
+        ),
+        "generation_id": None,
+        "created_at": local_status.get("started_at"),
+        "started_at": local_status.get("started_at"),
+        "completed_at": local_status.get("completed_at"),
+        "updated_at": local_status.get("updated_at"),
+        "scheduled_for": local_status.get("scheduled_for"),
+        "stages": stages,
+        "blockers": blockers,
+        "complete": True,
+        "control_state": local_status.get("control_state"),
+        "control_state_checked_at": local_status.get("control_state_checked_at"),
+    }
+
+
+def next_local_schedule(
+    after: datetime,
+    *,
+    local_time: str = "02:00",
+    time_zone: str = "America/New_York",
+) -> datetime:
+    hour_text, minute_text = local_time.split(":", 1)
+    local_zone = ZoneInfo(time_zone)
+    local_after = after.astimezone(local_zone)
+    candidate = local_after.replace(
+        hour=int(hour_text),
+        minute=int(minute_text),
+        second=0,
+        microsecond=0,
+    )
+    if candidate <= local_after:
+        candidate += timedelta(days=1)
+    return candidate.astimezone(timezone.utc)
+
+
+def automation_occurrence_projection(
+    run_chain: dict[str, object],
+    local_status: dict[str, object],
+    *,
+    checked_at: str,
+) -> dict[str, object]:
+    """Build one typed occurrence directory without mixing exact runs."""
+
+    checked = parsed_utc(checked_at) or datetime.now(timezone.utc)
+    occurrences = [
+        item
+        for item in (
+            chain_occurrence(run_chain),
+            local_status_occurrence(local_status),
+        )
+        if item is not None
+    ]
+    occurrences.sort(
+        key=lambda item: (
+            parsed_utc(
+                item.get("scheduled_for")
+                or item.get("started_at")
+                or item.get("updated_at")
+            )
+            or datetime.min.replace(tzinfo=timezone.utc)
+        ),
+        reverse=True,
+    )
+    latest = occurrences[0] if occurrences else None
+    latest_scheduled = next(
+        (
+            item
+            for item in occurrences
+            if item.get("schedule_identity") == "owner-local-nightly"
+        ),
+        None,
+    )
+    explicit_full_success = (
+        run_chain.get("last_fully_successful_occurrence")
+        if isinstance(run_chain.get("last_fully_successful_occurrence"), dict)
+        else None
+    )
+    local_checked_at = parsed_utc(
+        local_status.get("updated_at")
+        or local_status.get("completed_at")
+        or local_status.get("started_at")
+    )
+    valid_until = (
+        local_checked_at + timedelta(hours=36)
+        if local_checked_at is not None
+        else None
+    )
+    currentness = (
+        "current"
+        if valid_until is not None and valid_until >= checked
+        else "stale"
+        if valid_until is not None
+        else "unavailable"
+    )
+    config = json.loads(RUN_COORDINATOR_CONFIG.read_text(encoding="utf-8"))
+    schedule = config.get("schedule") or {}
+    next_run = next_local_schedule(
+        checked,
+        local_time=str(schedule.get("localTime") or "02:00"),
+        time_zone=str(schedule.get("timeZone") or "America/New_York"),
+    )
+    epoch = (
+        run_chain.get("review_epoch")
+        if isinstance(run_chain.get("review_epoch"), dict)
+        else {}
+    )
+    epoch_due = parsed_utc(epoch.get("next_due_at"))
+    next_epoch = (
+        next_local_schedule(
+            epoch_due - timedelta(seconds=1),
+            local_time=str(schedule.get("localTime") or "02:00"),
+            time_zone=str(schedule.get("timeZone") or "America/New_York"),
+        )
+        if epoch_due is not None
+        else None
+    )
+    return {
+        "schema_version": 2,
+        "checked_at": checked_at,
+        "occurrences": occurrences,
+        "latest_attempt_id": latest.get("occurrence_id") if latest else None,
+        "latest_scheduled_attempt_id": (
+            latest_scheduled.get("occurrence_id") if latest_scheduled else None
+        ),
+        "last_fully_successful_occurrence": explicit_full_success,
+        "next_ordinary_run": {
+            "available": True,
+            "scheduled_for": next_run.isoformat(),
+            "schedule_identity": "owner-local-nightly",
+        },
+        "next_full_review_epoch": {
+            "available": next_epoch is not None,
+            "scheduled_for": next_epoch.isoformat() if next_epoch else None,
+            "epoch_id": epoch.get("epoch_id") or epoch.get("review_id"),
+            "reason": (
+                ""
+                if next_epoch is not None
+                else "No typed next Review Epoch is published."
+            ),
+        },
+        "role_currentness": {
+            "state": currentness,
+            "checked_at": (
+                local_checked_at.isoformat() if local_checked_at else None
+            ),
+            "valid_until": valid_until.isoformat() if valid_until else None,
+        },
+        "trustworthy_through": (
+            local_checked_at.isoformat() if local_checked_at else None
+        ),
+    }
 
 
 def write_console_bundle(
@@ -5560,13 +6076,19 @@ def build_pipeline_projection(
             )
             data_gaps.append(
                 {
+                    "gap_id": f"workflow-status-invalid:{identifier}",
                     "identifier": identifier,
-                    "code": "unclassified_workflow_status",
-                    "message": (
-                        f"{identifier} has no recognized Pipeline classification "
-                        f"for Status {status or 'not recorded'}."
+                    "finding_code": "workflow_status_invalid",
+                    "missing_field": "Status",
+                    "recorded_value": status or None,
+                    "owner": "Elim",
+                    "detected_at": progress.get("generatedAt")
+                    or progress.get("generated_at"),
+                    "authority": "GitHub Project Status field",
+                    "route": "integrity",
+                    "remediation_route": (
+                        source.get("dossierTarget") or "integrity"
                     ),
-                    "route": source.get("dossierTarget") or "integrity",
                 }
             )
         else:
@@ -5596,6 +6118,7 @@ def build_pipeline_projection(
             "Formal candidate": "formal_candidate",
             "Proposal": "proposal",
         }.get(work_class, "unclassified")
+        require_registered_classification("work_kind", class_key)
         sort_inputs = {
             "classRank": PIPELINE_WORK_CLASS_ORDER.get(class_key, 99),
             "scoreValid": bool(valid_score and work_class == "Proposal"),
@@ -5631,10 +6154,21 @@ def build_pipeline_projection(
         if mode == "active" and not next_action:
             data_gaps.append(
                 {
+                    "gap_id": f"next-action-missing:{identifier}",
                     "identifier": identifier,
-                    "code": "next_step_missing",
-                    "message": f"{identifier}: Next step not recorded.",
-                    "route": source.get("dossierTarget")
+                    "finding_code": "next_action_missing",
+                    "missing_field": "Next action",
+                    "recorded_value": None,
+                    "owner": source.get("owner") or "Elim",
+                    "detected_at": progress.get("generatedAt")
+                    or progress.get("generated_at"),
+                    "authority": "GitHub Project Next action field",
+                    "route": (
+                        source.get("dossierTarget")
+                        or source.get("url")
+                        or "planning:workbench:pipeline"
+                    ),
+                    "remediation_route": source.get("dossierTarget")
                     or source.get("url")
                     or "planning:workbench:pipeline",
                 }
@@ -5643,10 +6177,18 @@ def build_pipeline_projection(
             for message in readiness["gaps"]:
                 integrity_findings.append(
                     {
+                        "finding_id": (
+                            f"readiness-conflict:{identifier}:"
+                            f"{hashlib.sha256(message.encode('utf-8')).hexdigest()[:10]}"
+                        ),
                         "identifier": identifier,
-                        "code": "readiness_conflict",
+                        "finding_code": "readiness_conflict",
                         "severity": "warning",
                         "message": message,
+                        "owner": "Elim",
+                        "detected_at": progress.get("generatedAt")
+                        or progress.get("generated_at"),
+                        "authority": "typed Pipeline readiness predicate",
                         "route": source.get("dossierTarget")
                         or source.get("url")
                         or "integrity",
@@ -5666,12 +6208,17 @@ def build_pipeline_projection(
                     continue
                 integrity_findings.append(
                     {
+                        "finding_id": f"{code.replace('_', '-')}:{identifier}",
                         "identifier": identifier,
-                        "code": code,
+                        "finding_code": code,
                         "severity": "warning",
                         "message": (
                             f"{identifier} is {status} but lacks {label}."
                         ),
+                        "owner": "Elim",
+                        "detected_at": progress.get("generatedAt")
+                        or progress.get("generated_at"),
+                        "authority": "typed Blocked/Deferred hold contract",
                         "route": source.get("dossierTarget")
                         or source.get("url")
                         or "integrity",
@@ -5688,6 +6235,7 @@ def build_pipeline_projection(
                 "id": identifier,
                 "title": source.get("title"),
                 "workClass": work_class,
+                "workKind": class_key,
                 "mode": mode,
                 "membershipReason": membership_reason,
                 "status": status,
@@ -5738,6 +6286,12 @@ def build_pipeline_projection(
         "asOf": progress.get("asOf"),
         "availability": progress.get("availability", "unavailable"),
         "defaultMode": "active",
+        "defaultViewId": require_registered_classification(
+            "workflow_view", "workbench_active_pipeline"
+        ),
+        "holdViewId": require_registered_classification(
+            "workflow_view", "workbench_blocked_deferred"
+        ),
         "items": items,
         "counts": {
             "active": len(active_items),
@@ -5748,7 +6302,14 @@ def build_pipeline_projection(
             "unclassified": sum(
                 item["mode"] == "unclassified" for item in items
             ),
-            "planningDataGaps": len(data_gaps),
+            "nextStepsMissing": sum(
+                item.get("finding_code") == "next_action_missing"
+                for item in data_gaps
+            ),
+            "workflowStatusExceptions": sum(
+                item.get("finding_code") == "workflow_status_invalid"
+                for item in data_gaps
+            ),
         },
         "sourceCounts": {
             "preliminaryCandidates": len(preliminary_records),
@@ -5757,6 +6318,655 @@ def build_pipeline_projection(
         },
         "dataGaps": data_gaps,
         "integrityFindings": integrity_findings,
+    }
+
+
+def registered_classification_ids(namespace: str) -> set[str]:
+    entries = (
+        console_classification_registry().get("namespaces", {}).get(namespace)
+        or []
+    )
+    if not isinstance(entries, list):
+        raise RuntimeError(f"Console classification namespace {namespace} is invalid.")
+    identifiers = {
+        str(entry.get("id") or "")
+        for entry in entries
+        if isinstance(entry, dict) and str(entry.get("id") or "")
+    }
+    if len(identifiers) != len(entries):
+        raise RuntimeError(
+            f"Console classification namespace {namespace} has invalid identities."
+        )
+    return identifiers
+
+
+def require_registered_classification(namespace: str, identifier: object) -> str:
+    exact = str(identifier or "").strip()
+    if exact not in registered_classification_ids(namespace):
+        raise RuntimeError(
+            f"Unregistered Console classification {namespace}:{exact or '<missing>'}."
+        )
+    return exact
+
+
+def build_action_snapshot(
+    *,
+    progress: dict[str, object],
+    integrity: dict[str, object],
+    review_recommendations: list[dict[str, object]],
+    operational_incidents: dict[str, object],
+    generated_at: str,
+) -> dict[str, object]:
+    """Assemble one typed cross-screen work snapshot.
+
+    The browser may filter and format this list. It may not originate an item,
+    category, owner, actionability decision, or route.
+    """
+
+    items: list[dict[str, object]] = []
+    seen: set[str] = set()
+
+    def add(item: dict[str, object]) -> None:
+        item_id = str(item.get("item_id") or "").strip()
+        if not item_id or item_id in seen:
+            raise RuntimeError("Action snapshot contains a missing or duplicate item ID.")
+        require_registered_classification("work_kind", item.get("work_kind"))
+        if item.get("finding_code"):
+            require_registered_classification(
+                "finding_code", item.get("finding_code")
+            )
+        work_label = next(
+            str(entry.get("label"))
+            for entry in console_classification_registry()["namespaces"][
+                "work_kind"
+            ]
+            if entry.get("id") == item.get("work_kind")
+        )
+        item.update(
+            {
+                "reference": item_id,
+                "category": work_label,
+                "severity": item.get("severity") or "warning",
+                "attention": item.get("attention_class"),
+                "reported_by": item.get("authority"),
+                "message": item.get("label"),
+                "source_url": (
+                    item.get("route")
+                    if str(item.get("route") or "").startswith("http")
+                    else f"#{item.get('route')}"
+                ),
+                "checked_at": generated_at,
+            }
+        )
+        seen.add(item_id)
+        items.append(item)
+
+    for item in review_recommendations:
+        if normalize_console_owner(item.get("action_owner")) != "human":
+            continue
+        recommendation_id = str(item.get("id") or "").strip()
+        if not recommendation_id:
+            continue
+        add(
+            {
+                "item_id": f"repository-decision:{recommendation_id}",
+                "work_kind": "repository_human_decision",
+                "finding_code": None,
+                "label": item.get("human_question")
+                or "Review the recorded repository recommendation.",
+                "status": "open",
+                "owner": "Human",
+                "attention_class": "human",
+                "authority": "typed Source Monitor recommendation",
+                "source_record_id": recommendation_id,
+                "detected_at": item.get("recorded_at"),
+                "next_action": item.get("human_question"),
+                "route": item.get("console_target") or "actions",
+                "specialist_route": item.get("console_target")
+                or "automation:logs:sources",
+                "resolution_predicate": (
+                    "The exact-head recommendation records a non-human disposition "
+                    "or the pull request closes."
+                ),
+            }
+        )
+
+    progress_items = [
+        item
+        for collection in (
+            progress.get("proposals") or [],
+            progress.get("candidates") or [],
+            progress.get("delivery_items") or [],
+        )
+        for item in collection
+        if isinstance(item, dict)
+    ]
+    for item in progress_items:
+        if str(item.get("workflowStatus") or "") != "Human decision needed":
+            continue
+        identifier = str(
+            item.get("identifier") or item.get("projectItemId") or ""
+        ).strip()
+        if not identifier:
+            continue
+        add(
+            {
+                "item_id": f"project-human-decision:{identifier}",
+                "work_kind": "project_human_decision",
+                "finding_code": None,
+                "label": item.get("title") or identifier,
+                "status": "open",
+                "owner": "Human",
+                "attention_class": "human",
+                "authority": "GitHub Project Status field",
+                "source_record_id": identifier,
+                "detected_at": progress.get("generatedAt")
+                or progress.get("generated_at"),
+                "next_action": item.get("nextAction")
+                or "Record the exact human decision.",
+                "route": "actions",
+                "specialist_route": (
+                    f"planning:workbench:pipeline:selected={identifier}"
+                ),
+                "resolution_predicate": (
+                    "Authoritative Project Status no longer equals Human decision needed."
+                ),
+            }
+        )
+
+    pipeline = (
+        progress.get("pipeline")
+        if isinstance(progress.get("pipeline"), dict)
+        else {}
+    )
+    for gap in pipeline.get("dataGaps") or []:
+        if not isinstance(gap, dict):
+            continue
+        finding_code = require_registered_classification(
+            "finding_code", gap.get("finding_code")
+        )
+        identifier = str(gap.get("identifier") or "").strip()
+        add(
+            {
+                "item_id": str(gap.get("gap_id") or f"{finding_code}:{identifier}"),
+                "work_kind": "producer_contract_exception",
+                "finding_code": finding_code,
+                "label": (
+                    f"{identifier}: {gap.get('missing_field')} is not recorded"
+                ),
+                "status": "open",
+                "owner": gap.get("owner") or "Elim",
+                "attention_class": (
+                    "human"
+                    if normalize_console_owner(gap.get("owner")) == "human"
+                    else "oversight"
+                ),
+                "authority": gap.get("authority"),
+                "source_record_id": identifier,
+                "detected_at": gap.get("detected_at"),
+                "next_action": (
+                    f"Record the authoritative {gap.get('missing_field')} value."
+                ),
+                "route": "integrity",
+                "specialist_route": gap.get("remediation_route") or gap.get("route"),
+                "resolution_predicate": (
+                    f"The authoritative {gap.get('missing_field')} value is present "
+                    "and accepted by the producing schema."
+                ),
+            }
+        )
+    for finding in pipeline.get("integrityFindings") or []:
+        if not isinstance(finding, dict):
+            continue
+        code = require_registered_classification(
+            "finding_code", finding.get("finding_code")
+        )
+        add(
+            {
+                "item_id": str(finding.get("finding_id")),
+                "work_kind": "integrity_obligation",
+                "finding_code": code,
+                "label": finding.get("message"),
+                "status": "open",
+                "owner": finding.get("owner") or "Elim",
+                "attention_class": "oversight",
+                "authority": finding.get("authority"),
+                "source_record_id": finding.get("identifier"),
+                "detected_at": finding.get("detected_at"),
+                "next_action": "Resolve the typed Integrity condition at its owner.",
+                "route": "integrity",
+                "specialist_route": finding.get("route") or "integrity",
+                "resolution_predicate": (
+                    "The producing typed predicate no longer emits this finding ID."
+                ),
+            }
+        )
+
+    current_integrity = (
+        integrity.get("current")
+        if isinstance(integrity.get("current"), dict)
+        else {}
+    )
+    for finding in current_integrity.get("findings") or []:
+        if not isinstance(finding, dict):
+            continue
+        finding_id = str(
+            finding.get("finding_id") or finding.get("reference") or ""
+        ).strip()
+        finding_code = str(
+            finding.get("finding_code")
+            or finding.get("condition_code")
+            or ""
+        ).strip()
+        if not finding_id or not finding_code:
+            continue
+        require_registered_classification("finding_code", finding_code)
+        owner = str(finding.get("owner") or "Elim")
+        add(
+            {
+                "item_id": f"integrity:{finding_id}",
+                "work_kind": "integrity_obligation",
+                "finding_code": finding_code,
+                "label": finding.get("message") or finding_id,
+                "status": finding.get("status") or "open",
+                "owner": owner,
+                "attention_class": (
+                    "human"
+                    if normalize_console_owner(owner) == "human"
+                    else "oversight"
+                ),
+                "authority": "Project Integrity report",
+                "source_record_id": finding_id,
+                "detected_at": finding.get("detected_at")
+                or current_integrity.get("generated_at"),
+                "next_action": finding.get("next_action")
+                or "Open the Integrity finding and follow its recorded remediation.",
+                "route": "integrity",
+                "specialist_route": "integrity",
+                "resolution_predicate": (
+                    "The same stable finding identity is absent from a newer complete report."
+                ),
+            }
+        )
+
+    unresolved_incident_states = {
+        "open",
+        "investigating",
+        "mitigated",
+        "monitoring",
+    }
+    for incident in operational_incidents.get("items") or []:
+        if (
+            not isinstance(incident, dict)
+            or str(incident.get("status") or "").casefold()
+            not in unresolved_incident_states
+        ):
+            continue
+        incident_id = str(incident.get("incident_id") or "").strip()
+        if not incident_id:
+            continue
+        owner = str(incident.get("owner") or "Unassigned")
+        add(
+            {
+                "item_id": f"incident:{incident_id}",
+                "work_kind": "operational_incident",
+                "finding_code": None,
+                "label": incident.get("summary") or incident_id,
+                "status": incident.get("status"),
+                "owner": owner,
+                "attention_class": (
+                    "human"
+                    if normalize_console_owner(owner) == "human"
+                    else "oversight"
+                ),
+                "authority": "Operational Incidents projection",
+                "source_record_id": incident_id,
+                "detected_at": incident.get("first_observed"),
+                "next_action": incident.get("next_action"),
+                "route": (
+                    f"automation:logs:incidents:selected={urllib.parse.quote(incident_id)}"
+                ),
+                "specialist_route": (
+                    f"automation:logs:incidents:selected={urllib.parse.quote(incident_id)}"
+                ),
+                "resolution_predicate": (
+                    "The incident authority records exact recovery proof and Resolved status."
+                ),
+            }
+        )
+
+    items.sort(
+        key=lambda item: (
+            0 if item.get("attention_class") == "human" else 1,
+            str(item.get("detected_at") or ""),
+            str(item.get("item_id") or ""),
+        )
+    )
+    human_items = [
+        item for item in items if item.get("attention_class") == "human"
+    ]
+    generation_id = "action-snapshot-" + hashlib.sha256(
+        json.dumps(items, sort_keys=True, ensure_ascii=False).encode("utf-8")
+    ).hexdigest()[:20]
+    return {
+        "schema_version": 1,
+        "generation_id": generation_id,
+        "generated_at": generated_at,
+        "availability": "current",
+        "complete": True,
+        "items": items,
+        "counts": {
+            "human": len(human_items),
+            "oversight": len(items) - len(human_items),
+            "all_open": len(items),
+        },
+        "predicates": {
+            "human": {"attention_class": "human", "status": "unresolved"},
+            "oversight": {"attention_class": "oversight", "status": "unresolved"},
+            "all_open": {"status": "unresolved"},
+        },
+    }
+
+
+def join_private_security_actions(
+    action_snapshot: dict[str, object],
+    security_snapshot: dict[str, object] | None,
+) -> dict[str, object]:
+    """Join minimized protected actions into one owner-local typed snapshot."""
+
+    projected = copy.deepcopy(action_snapshot)
+    items = [
+        dict(item)
+        for item in projected.get("items") or []
+        if isinstance(item, dict)
+    ]
+    if not valid_private_security_assurance(security_snapshot):
+        return projected
+    for tool in security_snapshot.get("tools") or []:
+        if (
+            not isinstance(tool, dict)
+            or tool.get("private_attention") != "yes"
+            or tool.get("owner_class") not in {"Human", "Elim"}
+        ):
+            continue
+        require_registered_classification(
+            "work_kind", "security_protected_action"
+        )
+        tool_id = str(tool.get("tool_id") or "")
+        human = tool.get("owner_class") == "Human"
+        items.append(
+            {
+                "item_id": f"security-action:{tool_id}",
+                "reference": f"security-action:{tool_id}",
+                "work_kind": "security_protected_action",
+                "finding_code": None,
+                "label": (
+                    "Review private security action"
+                    if human
+                    else "Private security remediation requires review"
+                ),
+                "category": "Protected security action",
+                "severity": "warning",
+                "status": "open",
+                "owner": tool.get("owner_class"),
+                "attention_class": "human" if human else "oversight",
+                "attention": "human" if human else "oversight",
+                "authority": "Owner-local security assurance projection",
+                "reported_by": "Owner-local security assurance projection",
+                "source_record_id": tool_id,
+                "detected_at": tool.get("last_checked")
+                or security_snapshot.get("checked_at"),
+                "checked_at": security_snapshot.get("checked_at"),
+                "next_action": (
+                    "Open the protected security source and complete the "
+                    "authorized review."
+                ),
+                "route": "automation:security",
+                "specialist_route": "automation:security",
+                "source_url": "#automation:security",
+                "message": (
+                    "Review private security action"
+                    if human
+                    else "Private security remediation requires review"
+                ),
+                "resolution_predicate": (
+                    "A newer complete private security projection records "
+                    "private_attention other than yes for this tool ID."
+                ),
+            }
+        )
+    item_ids = [str(item.get("item_id") or "") for item in items]
+    if len(item_ids) != len(set(item_ids)):
+        raise RuntimeError("Private Action snapshot contains duplicate item IDs.")
+    human_count = sum(
+        item.get("attention_class") == "human" for item in items
+    )
+    projected.update(
+        {
+            "items": items,
+            "counts": {
+                "human": human_count,
+                "oversight": len(items) - human_count,
+                "all_open": len(items),
+            },
+            "private_join": {
+                "security_assurance": "complete",
+                "checked_at": security_snapshot.get("checked_at"),
+            },
+        }
+    )
+    return projected
+
+
+def build_queue_directory(
+    *,
+    progress: dict[str, object],
+    preliminary_records: list[dict[str, object]],
+    formal_candidates: list[dict[str, object]],
+    pending_sources: list[dict[str, object]],
+    review_recommendations: list[dict[str, object]],
+    action_snapshot: dict[str, object],
+    operational_incidents: dict[str, object],
+    generated_at: str,
+) -> dict[str, object]:
+    pipeline = (
+        progress.get("pipeline")
+        if isinstance(progress.get("pipeline"), dict)
+        else {}
+    )
+    active = [
+        item
+        for item in pipeline.get("items") or []
+        if isinstance(item, dict) and item.get("mode") == "active"
+    ]
+    action_counts = (
+        action_snapshot.get("counts")
+        if isinstance(action_snapshot.get("counts"), dict)
+        else {}
+    )
+    incident_complete = operational_incidents.get("complete") is True
+    definitions = [
+        (
+            "candidate_intake",
+            len(preliminary_records),
+            True,
+            "preliminary candidate catalog membership",
+            "planning:workbench:pipeline:work_class=Preliminary%20candidate",
+            "planning:preliminary",
+            "preliminary-candidate-catalog",
+        ),
+        (
+            "formal_candidates",
+            len(formal_candidates),
+            True,
+            "formal candidate dossier membership",
+            "planning:workbench:pipeline:work_class=Formal%20candidate",
+            "planning:candidates",
+            "GitHub Issues and Project candidate projection",
+        ),
+        (
+            "development",
+            sum(item.get("status") == "Development" for item in active),
+            True,
+            "active Pipeline records with exact Status Development",
+            "planning:workbench:pipeline:status=Development",
+            "integrity",
+            "typed Pipeline projection",
+        ),
+        (
+            "research",
+            sum(item.get("status") == "Research" for item in active),
+            True,
+            "active Pipeline records with exact Status Research",
+            "planning:workbench:pipeline:status=Research",
+            "integrity",
+            "typed Pipeline projection",
+        ),
+        (
+            "audits",
+            sum(
+                item.get("status") in {"Audit needed", "Audit in progress"}
+                for item in active
+            ),
+            True,
+            "active Pipeline records with an exact Audit Status",
+            "planning:workbench:pipeline:status=Audit",
+            "integrity",
+            "typed Pipeline projection",
+        ),
+        (
+            "external_review",
+            sum(item.get("status") == "External review" for item in active),
+            True,
+            "Pipeline records in exact External review Status",
+            "planning:workbench:pipeline:scope=review-ready-plus",
+            "integrity",
+            "typed Pipeline projection",
+        ),
+        (
+            "pending_sources",
+            len(pending_sources),
+            True,
+            "pending source catalog membership",
+            "planning:sources:status=pending",
+            "planning:sources",
+            "pending source catalog",
+        ),
+        (
+            "repository_reviews",
+            len(review_recommendations),
+            True,
+            "typed exact-head Source Monitor recommendation",
+            "automation:logs:sources",
+            "automation:repository-gates",
+            "Source Monitor recommendation projection",
+        ),
+        (
+            "human_actions",
+            action_counts.get("human"),
+            action_snapshot.get("complete") is True,
+            "shared Action snapshot attention_class equals human",
+            "actions:my-items",
+            "integrity",
+            "typed Action snapshot",
+        ),
+        (
+            "operational_incidents",
+            (
+                operational_incidents.get("unresolved_count")
+                if incident_complete
+                else None
+            ),
+            incident_complete,
+            "unresolved Operational Incident lifecycle states",
+            "automation:logs:incidents",
+            "automation:logs:incidents",
+            "Operational Incidents projection",
+        ),
+    ]
+    queue_generation_id = "queue-directory-" + hashlib.sha256(
+        json.dumps(definitions, sort_keys=True, ensure_ascii=False).encode(
+            "utf-8"
+        )
+    ).hexdigest()[:20]
+    queues: list[dict[str, object]] = []
+    for (
+        queue_id,
+        count,
+        complete,
+        predicate,
+        route,
+        problem_route,
+        authority,
+    ) in definitions:
+        require_registered_classification("queue_id", queue_id)
+        if queue_id == "operational_incidents":
+            current_through = (
+                operational_incidents.get("checked_at")
+                or operational_incidents.get("trustworthy_through")
+                or generated_at
+            )
+        elif queue_id == "human_actions":
+            current_through = action_snapshot.get("generated_at") or generated_at
+        elif queue_id == "repository_reviews":
+            current_through = max(
+                (
+                    str(item.get("recorded_at") or "")
+                    for item in review_recommendations
+                    if isinstance(item, dict)
+                ),
+                default="",
+            ) or generated_at
+        elif queue_id in {"candidate_intake", "pending_sources"}:
+            current_through = generated_at
+        else:
+            current_through = (
+                progress.get("generatedAt")
+                or progress.get("generated_at")
+                or generated_at
+            )
+        queues.append(
+            {
+                "queue_id": queue_id,
+                "label": next(
+                    str(entry.get("label"))
+                    for entry in console_classification_registry()[
+                        "namespaces"
+                    ]["queue_id"]
+                    if entry.get("id") == queue_id
+                ),
+                "count": int(count) if complete and count is not None else None,
+                "availability": "current" if complete else "unavailable",
+                "complete": complete,
+                "predicate": predicate,
+                "authoritative_source": authority,
+                "owner_writer": authority,
+                "route": route,
+                "problem_route": problem_route,
+                "generation_id": queue_generation_id,
+                "current_through": current_through,
+                "problem_state": (
+                    "problem"
+                    if complete and isinstance(count, int) and count > 0
+                    and queue_id in {"operational_incidents"}
+                    else "none"
+                    if complete
+                    else "unavailable"
+                ),
+                "impact_state": (
+                    operational_incidents.get("impact_state")
+                    if queue_id == "operational_incidents"
+                    else None
+                ),
+            }
+        )
+    return {
+        "schema_version": 1,
+        "generation_id": queue_generation_id,
+        "generated_at": generated_at,
+        "availability": "current",
+        "complete": all(item["complete"] for item in queues),
+        "queues": queues,
     }
 
 
@@ -5808,6 +7018,7 @@ def overview_automation_stage_id(value: object) -> str | None:
 def overview_automation_readiness(
     run_chain: dict[str, object],
     current_repository_gates: dict[str, object] | None = None,
+    occurrence_projection: dict[str, object] | None = None,
 ) -> dict[str, object]:
     declared_repository_gates = (
         current_repository_gates
@@ -6002,7 +7213,7 @@ def overview_automation_readiness(
         ),
     }
 
-    return {
+    result = {
         "schema_version": 1,
         "latest_attempt": {
             "available": bool(run_chain),
@@ -6025,6 +7236,58 @@ def overview_automation_readiness(
         "latest_scheduled_attempt": latest_scheduled_attempt,
         "future_run_gates": future_run_gates,
     }
+    occurrences = (
+        occurrence_projection.get("occurrences")
+        if isinstance(occurrence_projection, dict)
+        and isinstance(occurrence_projection.get("occurrences"), list)
+        else []
+    )
+    by_id = {
+        str(item.get("occurrence_id") or ""): item
+        for item in occurrences
+        if isinstance(item, dict) and str(item.get("occurrence_id") or "")
+    }
+    latest = by_id.get(
+        str((occurrence_projection or {}).get("latest_attempt_id") or "")
+    )
+    latest_scheduled = by_id.get(
+        str((occurrence_projection or {}).get("latest_scheduled_attempt_id") or "")
+    )
+    if latest:
+        result["latest_attempt"] = {
+            "available": True,
+            "occurrence_id": latest.get("occurrence_id"),
+            "chain_id": latest.get("occurrence_id"),
+            "status": latest.get("status"),
+            "trigger": latest.get("trigger"),
+            "checked_at": (
+                latest.get("updated_at")
+                or latest.get("completed_at")
+                or latest.get("started_at")
+            ),
+            "blocker_count": len(latest.get("blockers") or []),
+            "blockers": latest.get("blockers") or [],
+            "reason": "",
+        }
+    if latest_scheduled:
+        result["latest_scheduled_attempt"] = {
+            "available": True,
+            "occurrence_id": latest_scheduled.get("occurrence_id"),
+            "chain_id": latest_scheduled.get("occurrence_id"),
+            "status": latest_scheduled.get("status"),
+            "checked_at": (
+                latest_scheduled.get("scheduled_for")
+                or latest_scheduled.get("updated_at")
+                or latest_scheduled.get("completed_at")
+            ),
+            "failure_reason": (
+                (latest_scheduled.get("blockers") or [{}])[0].get("reason")
+                if latest_scheduled.get("blockers")
+                else None
+            ),
+            "reason": "",
+        }
+    return result
 
 
 def overview_data(
@@ -6042,9 +7305,36 @@ def overview_data(
     agent_registry: list[dict[str, object]],
     watcher_metadata: dict[str, object],
     source_checker: dict[str, object],
+    automation_occurrences: dict[str, object] | None = None,
+    action_snapshot: dict[str, object] | None = None,
+    queue_directory: dict[str, object] | None = None,
     repository_gates: dict[str, object] | None = None,
     operational_incidents: dict[str, object] | None = None,
 ) -> dict[str, object]:
+    action_snapshot_supplied = action_snapshot is not None
+    automation_occurrences = automation_occurrences or {
+        "schema_version": 2,
+        "checked_at": None,
+        "occurrences": [],
+        "latest_attempt_id": None,
+        "latest_scheduled_attempt_id": None,
+        "last_fully_successful_occurrence": None,
+        "next_ordinary_run": {"available": False, "scheduled_for": None},
+        "next_full_review_epoch": {"available": False, "scheduled_for": None},
+        "role_currentness": {"state": "unavailable"},
+        "trustworthy_through": None,
+    }
+    action_snapshot = action_snapshot or {
+        "availability": "unavailable",
+        "complete": False,
+        "items": [],
+        "counts": {"human": None, "oversight": None, "all_open": None},
+    }
+    queue_directory = queue_directory or {
+        "availability": "unavailable",
+        "complete": False,
+        "queues": [],
+    }
     progress_metrics = (
         progress.get("metrics") if isinstance(progress.get("metrics"), dict) else {}
     )
@@ -6054,7 +7344,7 @@ def overview_data(
         else {}
     )
     automation_readiness = overview_automation_readiness(
-        run_chain, repository_gates or {}
+        run_chain, repository_gates or {}, automation_occurrences
     )
     recommendation_ids = {
         str(item.get("id") or "").strip()
@@ -6257,6 +7547,20 @@ def overview_data(
         if isinstance(item, dict)
         and item.get("status") in {"open", "investigating", "mitigated", "monitoring"}
     ]
+    if not action_snapshot_supplied:
+        action_snapshot = {
+            "availability": "stale",
+            "complete": False,
+            "items": human_actions,
+            "counts": {
+                "human": len(human_actions),
+                "oversight": None,
+                "all_open": None,
+            },
+            "reason": (
+                "Compatibility-only overview call did not supply the typed Action snapshot."
+            ),
+        }
     domain_signals = []
     for domain, payload, timestamp, route in (
         (
@@ -6343,25 +7647,22 @@ def overview_data(
         )
     material_changes: list[dict[str, object]] = [
         {
-            "id": item.get("id"),
-            "date": item.get("recorded_at"),
-            "kind": "repository_review_recommendation",
-            "title": (
+            "event_id": item.get("id"),
+            "occurred_at": item.get("recorded_at"),
+            "event_code": "repository_review_recorded",
+            "artifact_label": (
                 f"{item.get('reviewer') or 'Repository reviewer'} · "
                 f"PR #{item.get('pull_request_number')}"
             ),
-            "actor": item.get("reviewer") or "Repository reviewer",
-            "source": "Source Monitor Log",
-            "outcome": "Recommendation recorded",
-            "affected_scope": item.get("affected_records")
+            "artifact_ids": item.get("affected_records")
             or (
-                f"{(item.get('affected') or {}).get('total_count')} affected records"
+                (item.get("affected") or {}).get("record_ids")
                 if isinstance(item.get("affected"), dict)
-                and (item.get("affected") or {}).get("total_count") is not None
                 else None
-            ),
-            "summary": item.get("recommendation"),
-            "manager_effect": item.get("human_question"),
+            )
+            or [],
+            "change_descriptor": "Repository review recommendation recorded",
+            "score_change": None,
             "owner": item.get("action_owner"),
             "affected_count": (
                 (item.get("affected") or {}).get("total_count")
@@ -6369,73 +7670,37 @@ def overview_data(
                 else None
             ),
             "route": item.get("console_target") or "logs:source-monitor",
-            "tone": "warning",
+            "producer": "source-monitor-recommendation-projection",
+            "source_record_id": item.get("id"),
         }
         for item in review_recommendations
     ]
-    material_changes.extend(activity[:8])
-    material_changes.sort(
-        key=lambda item: str(item.get("date") or ""), reverse=True
+    material_changes.extend(
+        {
+            "event_id": item.get("id"),
+            "occurred_at": item.get("date"),
+            "event_code": "project_log_artifact_changed",
+            "artifact_label": item.get("record") or item.get("title"),
+            "artifact_ids": (
+                [item.get("record")] if item.get("record") else []
+            ),
+            "change_descriptor": item.get("outcome") or item.get("summary"),
+            "score_change": None,
+            "owner": item.get("owner"),
+            "affected_count": None,
+            "route": item.get("route"),
+            "producer": item.get("source"),
+            "source_record_id": item.get("id"),
+        }
+        for item in activity
+        if item.get("id")
+        and item.get("date")
+        and (item.get("outcome") or item.get("summary"))
+        and (item.get("record") or item.get("affected_scope"))
     )
-    collapsed_material_changes: list[dict[str, object]] = []
-    for item in material_changes:
-        outcome_summary = " ".join(
-            str(item.get(key) or "") for key in ("outcome", "summary")
-        )
-        clean_noop = bool(
-            re.search(
-                r"clean|no.?op|no material|no change|unchanged|succeed|complete",
-                outcome_summary,
-                re.IGNORECASE,
-            )
-        ) and not bool(
-            re.search(
-                r"fail|error|block|warn|finding|changed|update",
-                outcome_summary,
-                re.IGNORECASE,
-            )
-        )
-        collapse_identity = (
-            str(item.get("log") or ""),
-            str(item.get("actor") or ""),
-            str(item.get("outcome") or ""),
-            str(item.get("affected_scope") or ""),
-        )
-        prior = collapsed_material_changes[-1] if collapsed_material_changes else None
-        if (
-            clean_noop
-            and prior
-            and prior.get("_collapse_identity") == collapse_identity
-        ):
-            count = int(prior.get("collapsed_count") or 1) + 1
-            prior.update(
-                {
-                    "kind": "collapsed_activity",
-                    "collapsed_count": count,
-                    "title": f"{count} consecutive clean / no-op activities",
-                    "affected_scope": f"{count} retained log activities",
-                    "summary": (
-                        "Consecutive identical routine outcomes are collapsed "
-                        "here; the owning log retains every entry."
-                    ),
-                    "manager_effect": (
-                        "No manager action is recorded; open the owning log for "
-                        "complete retained history."
-                    ),
-                }
-            )
-            continue
-        collapsed_material_changes.append(
-            {
-                **item,
-                "collapsed_count": 1,
-                "_collapse_identity": collapse_identity if clean_noop else None,
-            }
-        )
-    material_changes = [
-        {key: value for key, value in item.items() if key != "_collapse_identity"}
-        for item in collapsed_material_changes
-    ]
+    material_changes.sort(
+        key=lambda item: str(item.get("occurred_at") or ""), reverse=True
+    )
     next_reviews: list[dict[str, object]] = []
     if REVIEW_EPOCHS.is_file():
         epoch_rows = [
@@ -6495,12 +7760,255 @@ def overview_data(
         and isinstance(integrity_findings_value, (int, float))
         and not isinstance(integrity_findings_value, bool)
     )
+    current_through_sources = [
+        {
+            "producer": "project-console-progress-bot",
+            "value": progress.get("trustworthy_through")
+            or progress.get("generated_at")
+            or progress.get("generatedAt"),
+            "availability": progress.get("availability"),
+        },
+        {
+            "producer": "project-integrity-bot",
+            "value": integrity.get("trustworthy_through")
+            or integrity.get("generated_at")
+            or integrity_current.get("generated_at"),
+            "availability": integrity.get("availability"),
+        },
+        {
+            "producer": "source-checker-bot",
+            "value": source_checker.get("trustworthy_through")
+            or source_checker.get("checked_at"),
+            "availability": source_checker.get("availability"),
+        },
+        {
+            "producer": "run-coordinator-bot",
+            "value": automation_occurrences.get("trustworthy_through"),
+            "availability": (
+                (automation_occurrences.get("role_currentness") or {}).get("state")
+                if isinstance(
+                    automation_occurrences.get("role_currentness"), dict
+                )
+                else "unavailable"
+            ),
+        },
+    ]
+    parsed_current_through = [
+        parsed_utc(item["value"])
+        for item in current_through_sources
+        if str(item.get("availability") or "")
+        in {"current", "available", "stale"}
+    ]
+    parsed_current_through = [
+        value for value in parsed_current_through if value is not None
+    ]
+    data_current_through = {
+        "available": (
+            len(parsed_current_through) == len(current_through_sources)
+        ),
+        "value": (
+            min(parsed_current_through).isoformat()
+            if len(parsed_current_through) == len(current_through_sources)
+            else None
+        ),
+        "basis": "producer-declared trustworthy-through boundaries",
+        "sources": current_through_sources,
+        "reason": (
+            ""
+            if len(parsed_current_through) == len(current_through_sources)
+            else "One or more required producers did not declare a trustworthy-through boundary."
+        ),
+    }
+    def data_row(
+        *,
+        feed_id: str,
+        label: str,
+        producer: str,
+        feed: dict[str, object],
+        checked: object,
+        route: str,
+        recovery_route: str,
+    ) -> dict[str, object]:
+        completeness = (
+            feed.get("completeness")
+            if isinstance(feed.get("completeness"), dict)
+            else {}
+        )
+        availability = str(feed.get("availability") or "unavailable")
+        complete = completeness.get("complete") is True
+        return {
+            "feed_id": feed_id,
+            "label": label,
+            "availability": availability,
+            "complete": complete,
+            "reason": (
+                feed.get("availability_reason")
+                or feed.get("reason")
+                or (
+                    "The producer declares this projection complete."
+                    if complete
+                    else "The producer does not establish complete current coverage."
+                )
+            ),
+            "trustworthy_through": feed.get("trustworthy_through") or checked,
+            "producer": producer,
+            "route": route,
+            "recovery_route": recovery_route,
+            "generation_id": feed.get("generation_id"),
+            "schema_errors": feed.get("projection_errors") or [],
+        }
+
+    occurrence_currentness = (
+        automation_occurrences.get("role_currentness")
+        if isinstance(automation_occurrences.get("role_currentness"), dict)
+        else {}
+    )
+    data_directory = {
+        "schema_version": 1,
+        "generated_at": automation_occurrences.get("checked_at"),
+        "rows": [
+            data_row(
+                feed_id="progress",
+                label="Progress",
+                producer="project-console-progress-bot",
+                feed=progress,
+                checked=progress.get("generatedAt")
+                or progress.get("generated_at"),
+                route="progress",
+                recovery_route="automation:agents:project-console-progress-bot",
+            ),
+            data_row(
+                feed_id="sources",
+                label="Sources",
+                producer="source-checker-bot",
+                feed=source_checker,
+                checked=source_checker.get("checked_at"),
+                route="planning:sources",
+                recovery_route="automation:agents:source-checker-bot",
+            ),
+            {
+                "feed_id": "automation_occurrences",
+                "label": "Operations overview",
+                "availability": occurrence_currentness.get("state")
+                or "unavailable",
+                "complete": bool(automation_occurrences.get("occurrences")),
+                "reason": (
+                    ""
+                    if occurrence_currentness.get("state") == "current"
+                    else "The authoritative occurrence projection is stale or unavailable."
+                ),
+                "trustworthy_through": automation_occurrences.get(
+                    "trustworthy_through"
+                ),
+                "producer": "run-coordinator-occurrence-projection",
+                "route": "automation:overview",
+                "recovery_route": "automation:agents:run-coordinator-bot",
+                "generation_id": None,
+                "schema_errors": [],
+            },
+            {
+                "feed_id": "candidates",
+                "label": "Candidates",
+                "availability": "current",
+                "complete": True,
+                "reason": "The current Console generation includes the complete candidate inputs.",
+                "trustworthy_through": progress.get("generatedAt")
+                or progress.get("generated_at"),
+                "producer": "project-console-candidate-projection",
+                "route": "planning:candidates",
+                "recovery_route": "integrity",
+                "generation_id": progress.get("generation_id"),
+                "schema_errors": [],
+                "new_updated_signal": {
+                    "available": False,
+                    "count": None,
+                    "reason": "The candidate producer does not publish a typed new/updated signal.",
+                },
+            },
+            data_row(
+                feed_id="integrity",
+                label="Integrity",
+                producer="project-integrity-bot",
+                feed=integrity,
+                checked=integrity.get("generated_at")
+                or integrity_current.get("generated_at"),
+                route="integrity",
+                recovery_route="automation:agents:project-integrity-bot",
+            ),
+        ],
+    }
+    usage_points = (
+        run_chain.get("usage_points")
+        if isinstance(run_chain.get("usage_points"), list)
+        else []
+    )
+    typed_usage_points = [
+        {
+            "point_id": item.get("point_id"),
+            "window_id": item.get("window_id"),
+            "recorded_at": item.get("recorded_at"),
+            "consumed_percent": item.get("consumed_percent"),
+            "remaining_percent": item.get("remaining_percent"),
+            "source_occurrence_id": item.get("source_occurrence_id"),
+        }
+        for item in usage_points
+        if isinstance(item, dict)
+        and str(item.get("point_id") or "").strip()
+        and parsed_utc(item.get("recorded_at")) is not None
+        and isinstance(item.get("consumed_percent"), (int, float))
+        and not isinstance(item.get("consumed_percent"), bool)
+    ]
+    review_epoch = (
+        run_chain.get("review_epoch")
+        if isinstance(run_chain.get("review_epoch"), dict)
+        else {}
+    )
+    capacity_history = {
+        "schema_version": 1,
+        "availability": "current" if typed_usage_points else "unavailable",
+        "complete": bool(typed_usage_points),
+        "points": typed_usage_points,
+        "review_epochs": (
+            [
+                {
+                    "epoch_id": review_epoch.get("epoch_id")
+                    or review_epoch.get("review_id"),
+                    "completed_at": review_epoch.get("last_completed_at"),
+                }
+            ]
+            if (
+                (review_epoch.get("epoch_id") or review_epoch.get("review_id"))
+                and parsed_utc(review_epoch.get("last_completed_at")) is not None
+            )
+            else []
+        ),
+        "reason": (
+            ""
+            if typed_usage_points
+            else "No typed usage points are published; narrative Elim prose is not parsed."
+        ),
+    }
     return {
+        "automation_occurrences": automation_occurrences,
         "automation_readiness": automation_readiness,
+        "data_current_through": data_current_through,
+        "capacity_history": capacity_history,
+        "data_directory": data_directory,
+        "action_snapshot": action_snapshot,
+        "queue_directory": queue_directory,
         "operational_incidents": incident_projection,
         "manager_focus": {
-            "human_decisions": len(human_actions),
-            "human_actions": human_actions[:20],
+            "human_decisions": (
+                (action_snapshot.get("counts") or {}).get("human")
+                if isinstance(action_snapshot.get("counts"), dict)
+                else None
+            ),
+            "human_actions": [
+                item
+                for item in action_snapshot.get("items") or []
+                if isinstance(item, dict)
+                and item.get("attention_class") == "human"
+            ][:20],
             "active_incidents": (
                 int(incident_projection.get("unresolved_count") or 0)
                 if incident_complete
@@ -6534,7 +8042,11 @@ def overview_data(
             "pending_sources": len(pending_sources),
             "repository_recommendations": len(review_recommendations),
             "delivery_items": len(delivery_items) if delivery_available else None,
-            "human_actions": len(human_actions),
+            "human_actions": (
+                (action_snapshot.get("counts") or {}).get("human")
+                if isinstance(action_snapshot.get("counts"), dict)
+                else None
+            ),
             "operational_incidents": (
                 int(incident_projection.get("unresolved_count") or 0)
                 if incident_complete
@@ -6661,14 +8173,29 @@ def repository_gate_snapshot(refresh: bool) -> dict[str, object]:
 
     last_good = loaded(REPOSITORY_GATES_LAST_GOOD)
     if refresh:
+        token = (
+            os.environ.get("GH_TOKEN")
+            or os.environ.get("GITHUB_TOKEN")
+            or ""
+        )
+        if not token:
+            credential = subprocess.run(
+                ["gh", "auth", "token"],
+                cwd=ROOT,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.DEVNULL,
+                check=False,
+            )
+            if credential.returncode == 0:
+                token = credential.stdout.strip()
         snapshot = produce_repository_gate_snapshot(
             repository="Thorncrag/ARRP",
             declarations_path=REPOSITORY_GATE_DECLARATIONS,
-            token=os.environ.get("GH_TOKEN")
-            or os.environ.get("GITHUB_TOKEN")
-            or "",
+            token=token,
             last_good=last_good,
         )
+        token = ""
         atomic_write_text(
             REPOSITORY_GATES_SNAPSHOT,
             json.dumps(snapshot, indent=2, ensure_ascii=False) + "\n",
@@ -6816,6 +8343,35 @@ def main() -> None:
     )
     publication["delivery_items"] = delivery_items
     generated_at = utc_timestamp()
+    action_snapshot = build_action_snapshot(
+        progress=progress,
+        integrity=integrity,
+        review_recommendations=review_recommendations,
+        operational_incidents=operational_incidents,
+        generated_at=generated_at,
+    )
+    private_action_snapshot = join_private_security_actions(
+        action_snapshot,
+        private_security_assurance,
+    )
+    queue_directory = build_queue_directory(
+        progress=progress,
+        preliminary_records=candidates,
+        formal_candidates=active_horizon_records,
+        pending_sources=pending_sources,
+        review_recommendations=review_recommendations,
+        action_snapshot=action_snapshot,
+        operational_incidents=operational_incidents,
+        generated_at=generated_at,
+    )
+    local_automation_status = local_automation_status_snapshot(
+        CONSOLE_DATA_DIR / "local-automation-status.js"
+    )
+    automation_occurrences = automation_occurrence_projection(
+        run_chain,
+        local_automation_status,
+        checked_at=generated_at,
+    )
     automation_role_status = automation_role_status_projection(
         agent_registry=agent_registry,
         run_chain=run_chain,
@@ -6855,7 +8411,11 @@ def main() -> None:
         agent_registry=public_agent_registry,
         watcher_metadata=watcher_metadata,
         source_checker=source_checker,
+        automation_occurrences=automation_occurrences,
+        action_snapshot=action_snapshot,
+        queue_directory=queue_directory,
     )
+    overview["run_chain"] = public_safe_run_chain(run_chain)
     input_paths = [
         CANDIDATES,
         HORIZON_LOG,
@@ -6979,6 +8539,9 @@ def main() -> None:
         "source_checker": source_checker,
         "agent_registry": public_agent_registry,
         "automation_role_status": automation_role_status,
+        "automation_occurrences": automation_occurrences,
+        "action_snapshot": action_snapshot,
+        "queue_directory": queue_directory,
         "security_assurance": public_security_assurance,
         "overview": overview,
         # The full snapshot is retained only so an ordinary rebuild can preserve
@@ -7016,6 +8579,9 @@ def main() -> None:
         ],
         "overview": overview,
         "automation_role_status": automation_role_status,
+        "automation_occurrences": automation_occurrences,
+        "action_snapshot": action_snapshot,
+        "queue_directory": queue_directory,
         "repository_gates": repository_gates,
         "operational_incidents": operational_incidents,
         "security_assurance": public_security_assurance,
@@ -7049,6 +8615,9 @@ def main() -> None:
     parts = {
         "overview.js": {
             "overview": overview,
+            "automation_occurrences": automation_occurrences,
+            "action_snapshot": action_snapshot,
+            "queue_directory": queue_directory,
             # The Overview must remain an atomic verification surface. Include
             # the same compact typed chain record used by its seven-stage
             # summary so opening Operations cannot change its rendered claim.
@@ -7108,6 +8677,7 @@ def main() -> None:
         project_logs=project_logs,
         integrity=integrity,
         run_chain=run_chain,
+        action_snapshot=private_action_snapshot,
     )
     if private_security_assurance is not None:
         # The public bundle replaces the complete data directory atomically.

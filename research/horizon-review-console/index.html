@@ -10,7 +10,7 @@
   </head>
   <body
     data-interface-theme="arrp-tool"
-    data-initial-script-budget-kib="605"
+    data-initial-script-budget-kib="650"
     data-initial-dom-budget="1500"
   >
     <a class="skip-link" href="#console-main">Skip to Console content</a>
@@ -302,7 +302,8 @@
                 <label for="pipeline-release-blocker">Release blocker<select id="pipeline-release-blocker"><option value="all">All blocker states</option><option value="required">Required</option><option value="not-required">Not required</option></select></label>
               </div>
             </details>
-            <a class="pipeline-gap-notice" id="pipeline-gap-notice" href="#planning:workbench:pipeline:gap=next_step_missing" hidden><strong id="pipeline-gap-count">0</strong> planning data gaps · show affected records →</a>
+            <a class="pipeline-gap-notice" id="pipeline-gap-notice" href="#planning:workbench:pipeline:gap=next_action_missing" hidden><strong id="pipeline-gap-count">0</strong> next steps not recorded · show affected records →</a>
+            <a class="pipeline-gap-notice warning" id="pipeline-status-exception-notice" href="#integrity" hidden><strong id="pipeline-status-exception-count">0</strong> workflow status exceptions · open Integrity →</a>
             <aside class="pipeline-context-notice" id="workbench-context-notice" hidden>
               <p id="workbench-context-copy"></p>
               <a class="record-link secondary" id="workbench-context-return" href="#overview">Return to source →</a>

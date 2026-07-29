@@ -823,7 +823,7 @@ class ConsoleDataContractTests(unittest.TestCase):
         )
         self.assertEqual(readiness["future_run_gates"]["count"], 1)
 
-    def test_overview_activity_is_typed_deduplicated_and_collapses_clean_retries(self):
+    def test_overview_activity_preserves_typed_artifact_change_events(self):
         overview = MODULE.overview_data(
             candidates=[],
             active_horizon_records=[],
@@ -892,13 +892,21 @@ class ConsoleDataContractTests(unittest.TestCase):
             source_checker={},
         )
         activity = overview["activity"]
-        self.assertEqual(len(activity), 2)
-        self.assertEqual(activity[0]["kind"], "repository_review_recommendation")
-        self.assertEqual(activity[0]["actor"], "Interactive Codex")
+        self.assertEqual(len(activity), 3)
+        self.assertEqual(activity[0]["event_code"], "repository_review_recorded")
+        self.assertEqual(
+            activity[0]["producer"],
+            "source-monitor-recommendation-projection",
+        )
         self.assertEqual(activity[0]["route"], "sources:watchers:directives")
-        self.assertEqual(activity[1]["kind"], "collapsed_activity")
-        self.assertEqual(activity[1]["collapsed_count"], 2)
-        self.assertEqual(activity[1]["affected_scope"], "2 retained log activities")
+        self.assertEqual(
+            [item["event_code"] for item in activity[1:]],
+            ["project_log_artifact_changed", "project_log_artifact_changed"],
+        )
+        self.assertEqual(
+            [item["source_record_id"] for item in activity[1:]],
+            ["agent-1", "agent-2"],
+        )
 
     def test_overview_uses_typed_incident_projection_without_regrouping_run_text(self):
         message_a = (
@@ -970,6 +978,104 @@ class ConsoleDataContractTests(unittest.TestCase):
             incidents[0]["root_cause"],
             "Canonical ARRP workspace is off main and not reconciled with GitHub.",
         )
+
+    def test_occurrence_directory_never_combines_distinct_runs(self):
+        run_chain = {
+            "chain_id": "push-20260727",
+            "trigger": "push",
+            "status": "succeeded",
+            "completed_at": "2026-07-27T12:00:00+00:00",
+            "stages": [
+                {
+                    "id": "case-monitor-bot",
+                    "status": "succeeded",
+                    "completed_at": "2026-07-27T11:55:00+00:00",
+                }
+            ],
+            "elim_decision": {"launch_recommended": False, "reason": "Not due."},
+        }
+        local_status = {
+            "run_id": "scheduled-20260728",
+            "trigger": "scheduled",
+            "status": "completed",
+            "scheduled_for": "2026-07-28T02:00:00-04:00",
+            "started_at": "2026-07-28T08:55:33+00:00",
+            "completed_at": "2026-07-28T08:55:34+00:00",
+            "updated_at": "2026-07-28T08:55:34+00:00",
+            "control_state": "run",
+            "validation_summary": {
+                "reason": "scheduled_slot_already_claimed",
+            },
+        }
+        projection = MODULE.automation_occurrence_projection(
+            run_chain,
+            local_status,
+            checked_at="2026-07-28T12:00:00+00:00",
+        )
+        self.assertEqual(projection["latest_attempt_id"], "scheduled-20260728")
+        self.assertEqual(
+            projection["latest_scheduled_attempt_id"],
+            "scheduled-20260728",
+        )
+        self.assertEqual(
+            [item["occurrence_id"] for item in projection["occurrences"]],
+            ["scheduled-20260728", "push-20260727"],
+        )
+        current = projection["occurrences"][0]
+        self.assertEqual(len(current["stages"]), 7)
+        self.assertEqual(
+            {stage["status"] for stage in current["stages"]},
+            {"not_due"},
+        )
+        self.assertIsNone(projection["last_fully_successful_occurrence"])
+
+        expired = MODULE.automation_occurrence_projection(
+            run_chain,
+            local_status,
+            checked_at="2026-07-31T12:00:00+00:00",
+        )
+        self.assertEqual(expired["role_currentness"]["state"], "stale")
+
+    def test_queue_directory_and_action_snapshot_share_exact_counts(self):
+        action_snapshot = MODULE.build_action_snapshot(
+            progress={"proposals": [], "candidates": [], "pipeline": {}},
+            integrity={},
+            review_recommendations=[],
+            operational_incidents={
+                "availability": "current",
+                "complete": True,
+                "items": [],
+            },
+            generated_at="2026-07-28T12:00:00+00:00",
+        )
+        directory = MODULE.build_queue_directory(
+            progress={"pipeline": {"items": []}},
+            preliminary_records=[{"id": "PRE-001"}],
+            formal_candidates=[],
+            pending_sources=[],
+            review_recommendations=[],
+            action_snapshot=action_snapshot,
+            operational_incidents={
+                "availability": "current",
+                "complete": True,
+                "unresolved_count": 0,
+            },
+            generated_at="2026-07-28T12:00:00+00:00",
+        )
+        queues = {item["queue_id"]: item for item in directory["queues"]}
+        self.assertEqual(queues["candidate_intake"]["count"], 1)
+        self.assertEqual(
+            queues["human_actions"]["count"],
+            action_snapshot["counts"]["human"],
+        )
+        self.assertEqual(queues["operational_incidents"]["count"], 0)
+
+    def test_unknown_console_classification_fails_closed(self):
+        with self.assertRaisesRegex(RuntimeError, "Unregistered"):
+            MODULE.require_registered_classification(
+                "queue_id",
+                "browser_invented_queue",
+            )
 
 
 if __name__ == "__main__":

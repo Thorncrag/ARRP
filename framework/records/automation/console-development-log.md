@@ -64,8 +64,9 @@ confidence; commit subjects alone are insufficient evidence.
 - Material change: Consolidated the six-tab architecture; compacted Overview
   into dated verification, work queues, automation readiness, status, and
   material activity; standardized bounded master/detail workspaces and compact
-  specialist menus; and added browser-local grid Design mode without creating
-  duplicate ledgers.
+  specialist menus; added browser-local grid Design mode without creating
+  duplicate ledgers; and made the Overview projection immutable within one
+  exact generated snapshot.
 - Validation: Route-alias, responsive-layout, navigation-count, bounded-list,
   and frontend interaction tests passed.
 
@@ -77,7 +78,9 @@ confidence; commit subjects alone are insufficient evidence.
 - Material change: Replaced Next Work with Planning > Workbench > Pipeline,
   retained Progress as measurement, moved deterministic human Priority
   attention above the complete Action Inbox, and kept Blocked/Deferred hold
-  evidence and human decisions in their authoritative homes.
+  evidence and human decisions in their authoritative homes. Replaced the
+  vague planning-gap total with separate typed next-action and workflow-status
+  conditions.
 - Validation: Inclusion, precedence, score-zero, missing-next-step, hold
   provenance, count/route, legacy-route, keyboard, and responsive tests passed.
 
@@ -90,7 +93,9 @@ confidence; commit subjects alone are insufficient evidence.
   separated the latest seven-stage run from seven cadence-aware role cards;
   added typed repository gates, provider-neutral platform status, and one
   event-backed Operational Incidents ledger; and moved complete history under
-  Operations > Logs.
+  Operations > Logs. Added one exact occurrence directory so a scheduled local
+  occurrence cannot be combined with an older push chain, and refreshed the
+  current repository-gate inventory through its authenticated producer.
 - Validation: Run-chain, role-status, repository-gate, incident,
   platform-adapter, and current-exception tests passed.
 
@@ -103,6 +108,10 @@ confidence; commit subjects alone are insufficient evidence.
   currentness and outcome provenance, made unavailable data nonzero and
   nonhealthy, refreshed the Console from authenticated Project data, and bound
   private Operations to the exact public generation and source revision.
+  Added registered queue, shared Action, Operations Data, typed activity, and
+  typed capacity projections; refreshed all 2,055 Source Checker records; and
+  retained a current Integrity report with explicit Project-readback
+  unavailability rather than a false clean result.
 - Validation: Data-contract, generation-manifest, exact-count, stale-feed,
   same-run Integrity, and private-generation-binding tests passed.
 
@@ -115,6 +124,8 @@ confidence; commit subjects alone are insufficient evidence.
   allowlisted Security assurance checks; kept detailed evidence at protected
   authorities; made protected Action Items generic; and established one
   public enforcement core with a required owner-local disclosure control pack.
+  Moved the generic protected-action mapping into the exact-bound owner-local
+  Action producer so the browser cannot originate Security work taxonomy.
 - Validation: The active control pack approved the exact 573-artifact commit
   tree and 56-artifact outgoing change with zero findings. Security allowlist,
   no-detail, path-authority, route-validation, and secret-sanitization tests
@@ -128,7 +139,8 @@ confidence; commit subjects alone are insufficient evidence.
 - Material change: Restored the canonical direct-disk Console as a supported
   owner mode, gated all ignored local feeds to canonical `file://` or loopback,
   kept hosted HTTPS public-only, added accessible fact dots and keyboard list
-  selection, and retained bounded DOM and script budgets.
+  selection, applied route state only after required data readiness, and
+  retained bounded DOM and script budgets.
 - Validation: Canonical/unrelated file-path, loopback/public-host, missing and
   malformed local-feed, accessibility, strict public-site, and resource-budget
   tests passed.
@@ -143,6 +155,9 @@ confidence; commit subjects alone are insufficient evidence.
   boundary, and registered development-log categories whose materially changed
   sections render as separate selectable entries. Configuration exports remain
   staged only and persistent host changes still require immediate approval.
+  Made typed classification authority an executable build rule, added a
+  finding-to-change-to-test closure matrix, and preserved the approved
+  no-duplicate-checkout safeguard.
 - Validation: Context-route hashes, classification registry, development-log
   category metadata, seven-entry category projection, governing documentation,
   and full regression suites passed.

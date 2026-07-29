@@ -4,15 +4,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
     "contract_schema_version": 1,
-    "generation_id": "project-integrity-00df1e12be8028e70ecb",
-    "source_revision": "a47082d0a684de38626c68fec325337765f35b9a",
-    "generated_at": "2026-07-28T18:43:46+00:00",
+    "generation_id": "project-integrity-d2e0958ae78d2cabc896",
+    "source_revision": "5672b158a9cdfda4ca754ddcaa939bd0b26509f2",
+    "generated_at": "2026-07-29T02:25:56+00:00",
     "expected_count": 22,
     "actual_count": 22,
     "source_hashes": {
-      "integrity.json": "sha256:ee19d8ba52a255a02fe75beeb9807ad7d7fa9129bd505397aa7b4e9840a4deed"
+      "integrity.json": "sha256:28e89fdfa3fb3fc2e972cee2838de6cde650532e269a613361b3f0332b7f87c5"
     },
-    "availability": "stale",
+    "availability": "current",
     "completeness": {
       "complete": true,
       "expected_count": 22,
@@ -30,33 +30,25 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         }
       ]
     },
-    "projection_errors": [
-      {
-        "code": "repository_revision_superseded",
-        "severity": "warning",
-        "message": "Integrity generation is not bound to the authoritative repository revision.",
-        "expected_source_revision": "12a48c8d37cbf7455d6cc6368b91d54f5a76bdc8",
-        "producer_source_revision": "a47082d0a684de38626c68fec325337765f35b9a"
-      }
-    ],
+    "projection_errors": [],
     "freshness": {
-      "status": "stale",
+      "status": "current",
       "basis": "authoritative repository revision",
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
     },
     "current": {
-      "schema_version": 1,
-      "generated_at": "2026-07-28T18:43:46+00:00",
-      "revision": "a47082d0a684de38626c68fec325337765f35b9a",
-      "result": "clean",
+      "schema_version": 2,
+      "generated_at": "2026-07-29T02:25:56+00:00",
+      "revision": "5672b158a9cdfda4ca754ddcaa939bd0b26509f2",
+      "result": "findings",
       "counts": {
         "errors": 0,
-        "warnings": 0,
-        "findings": 0,
+        "warnings": 1,
+        "findings": 1,
         "issue_pages": 64,
         "proposal_pages": 41
       },
-      "duration_seconds": 10.919,
+      "duration_seconds": 6.619,
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -81,21 +73,40 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "Local-first source-monitoring and provenance wiring",
         "Structured-file and repository hygiene"
       ],
-      "findings": []
+      "findings": [
+        {
+          "finding_id": "INT-24b03488466c67d6",
+          "check_id": "fetch_github_project_items",
+          "condition_code": "project_integrity_condition",
+          "canonical_target": "fetch_github_project_items",
+          "severity": "warning",
+          "category": "GitHub records",
+          "attention": "agent",
+          "owner": "Elim",
+          "status": "open",
+          "message": "GitHub Project synchronization check skipped; ARRP_PROJECT_TOKEN is unavailable",
+          "path": "",
+          "affected_ids": [
+            "fetch_github_project_items"
+          ],
+          "occurrence_count": 1,
+          "next_action": "Resolve the registered check condition at its canonical target.",
+          "resolution_predicate": "A newer complete Project Integrity report no longer emits this check-site, target, and condition identity."
+        }
+      ]
     },
     "currentness": {
       "authority": "repository_revision",
-      "status": "stale",
-      "current": false,
-      "expected_source_revision": "12a48c8d37cbf7455d6cc6368b91d54f5a76bdc8",
-      "producer_source_revision": "a47082d0a684de38626c68fec325337765f35b9a",
+      "status": "current",
+      "current": true,
+      "expected_source_revision": "5672b158a9cdfda4ca754ddcaa939bd0b26509f2",
+      "producer_source_revision": "5672b158a9cdfda4ca754ddcaa939bd0b26509f2",
       "equivalent_inputs_established": false,
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
     },
-    "producer_availability": "current",
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-513c97bda0b2ea432bf2"
+    "integrity.js": "project-console-5b7a323b413bf73e5749"
   }
 });

@@ -18,9 +18,9 @@ print_exclusion_reason: "Internal operational report."
 
 ## Current Findings
 
-### Internal links
+### GitHub records
 
-- **WARNING:** orphaned Markdown page has no inbound project link: framework/records/automation/p6-cutover-evidence.md
+- **WARNING:** GitHub Project synchronization check skipped; ARRP_PROJECT_TOKEN is unavailable
 
 ## Checks Included
 

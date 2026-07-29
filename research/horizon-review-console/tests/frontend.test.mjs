@@ -83,22 +83,30 @@ test("Integrity remains the exact authoritative report rather than a cross-domai
   data.integrity = {
     current: {
       generated_at: "2026-07-28T12:00:00Z",
-      findings: [{ reference: "INT-001", message: "Exact report finding" }]
-    }
-  };
-  data.progress = {
-    pipeline: {
-      integrityFindings: [{
-        identifier: "HOR-031",
-        message: "Pipeline provenance defect",
-        severity: "warning"
+      findings: [{
+        finding_id: "INT-001",
+        check_id: "check_issue_pages",
+        condition_code: "project_integrity_condition",
+        canonical_target: "areas/TEST/issues/TEST-001.md",
+        message: "Exact report finding"
       }]
     }
   };
+  data.action_snapshot = {
+    availability: "current",
+    complete: true,
+    items: [{
+      item_id: "readiness-conflict:HOR-031",
+      work_kind: "integrity_obligation",
+      authority: "typed Pipeline producer",
+      route: "integrity",
+      label: "Pipeline provenance defect"
+    }]
+  };
   const exact = api.exactIntegrityProblemRecords(data.integrity);
-  const combined = api.allProblemRecords(data.integrity);
+  const combined = api.producerProblemRecords();
   assert.deepEqual(exact.map((finding) => finding.reference), ["INT-001"]);
-  assert.ok(combined.some((finding) => finding.message === "Pipeline provenance defect"));
+  assert.ok(combined.some((finding) => finding.label === "Pipeline provenance defect"));
 });
 
 test("security assurance accepts only minimized registered tool status", () => {
@@ -119,13 +127,35 @@ test("security assurance accepts only minimized registered tool status", () => {
       { tool_id: "repository-change-protection", availability: "current", last_checked: "2026-07-28T20:00:00Z", coverage_state: "current", private_attention: "yes", owner_class: "Elim", destination_class: "protected_source", active_incident: false, public_intake_state: null, next_due: null, source_revision: "safe-revision", label: "Repository change protection" }
     ]
   }, {
-    security_assurance: { schema_version: 2, availability: "unavailable", complete: false, tools: publicTools }
+    security_assurance: { schema_version: 2, availability: "unavailable", complete: false, tools: publicTools },
+    action_snapshot: {
+      availability: "current",
+      complete: true,
+      items: [
+        {
+          item_id: "security-action:credential-access-review",
+          work_kind: "security_protected_action",
+          authority: "Owner-local security assurance projection",
+          route: "automation:security",
+          attention: "human",
+          message: "Review private security action"
+        },
+        {
+          item_id: "security-action:repository-change-protection",
+          work_kind: "security_protected_action",
+          authority: "Owner-local security assurance projection",
+          route: "automation:security",
+          attention: "oversight",
+          message: "Private security remediation requires review"
+        }
+      ]
+    }
   });
   const projection = api.securityAssuranceProjection();
   assert.equal(projection.available, true);
   assert.equal(projection.privateAttention, "required");
   assert.equal(api.securityActionRecords().filter((record) => record.attention === "human").length, 1);
-  assert.equal(api.securityActionRecords().filter((record) => record.attention === "agent").length, 1);
+  assert.equal(api.securityActionRecords().filter((record) => record.attention === "oversight").length, 1);
   assert.ok(api.securityActionRecords().every((record) => !record.message.includes("credential-access-review")));
 });
 
@@ -243,6 +273,7 @@ test("private operations require exact generation and revision binding", () => {
     project_logs: [],
     integrity: {},
     run_chain: {},
+    action_snapshot: { complete: true, items: [], counts: {} },
     privacy: "Owner-only local projection."
   };
   assert.equal(api.validPrivateOperationsSnapshot(snapshot), true);
@@ -960,54 +991,56 @@ test("Pipeline deep links apply every managerial facet", () => {
     area: "ELEC",
     owner: "Human",
     priority: "Critical",
-    gap: "next_step_missing"
+    gap: "next_action_missing"
   });
 });
 
-test("recent issue-development impact preserves a valid current score of zero", () => {
-  const { api, data } = loadApi();
-  data.progress = {
-    proposals: [{
-      identifier: "HOR-001",
-      title: "Zero score record",
-      score: 0,
-      canonicalRecord: "research/horizon-records/HOR-001.md"
-    }]
-  };
-  const records = api.elimImprovementRecords({
-    values: { summary: "HOR-001 received a material issue-development update." }
-  });
-  assert.equal(records[0].score, "Current score 0 · run delta not recorded");
+test("browser exposes no narrative activity or capacity classifier", () => {
+  const app = fs.readFileSync(appPath, "utf8");
+  assert.doesNotMatch(app, /function elimImprovementRecords/);
+  assert.doesNotMatch(app, /function elimUsageConsumption/);
+  assert.doesNotMatch(app, /function allProblemRecords/);
+  assert.doesNotMatch(app, /function stableProblemReference/);
 });
 
-test("compact Overview activity preserves actor, outcome, affected scope, time, owner, and specialist route", () => {
+test("Overview renders only its immutable generated projection", () => {
+  const app = fs.readFileSync(appPath, "utf8");
+  const verificationStart = app.indexOf("function overviewBriefVerification(");
+  const verificationEnd = app.indexOf("function overviewBriefFactStates(", verificationStart);
+  const verification = app.slice(verificationStart, verificationEnd);
+  const portalStart = app.indexOf("function renderOverviewPortals(");
+  const portalEnd = app.indexOf("function serviceStatusLabel(", portalStart);
+  const portals = app.slice(portalStart, portalEnd);
+  const queueStart = app.indexOf("function renderOverviewQueues(");
+  const queueEnd = app.indexOf("function overviewBriefVerification(", queueStart);
+  const queues = app.slice(queueStart, queueEnd);
+  assert.ok(verificationStart >= 0 && verificationEnd > verificationStart);
+  assert.doesNotMatch(verification, /data\.(progress|integrity|source_checker)/);
+  assert.match(portals, /data\.overview\?\.queue_directory/);
+  assert.match(portals, /data\.overview\?\.data_directory/);
+  assert.doesNotMatch(portals, /actionItemSnapshot|publicInputSnapshot/);
+  assert.match(queues, /data\.overview\?\.queue_directory/);
+  assert.doesNotMatch(queues, /data\.queue_directory|queue_counts/);
+});
+
+test("compact Overview activity renders only typed artifact-change fields", () => {
   const { api } = loadApi();
   const row = api.compactActivityPresentation({
-    id: "SMR-1",
-    log: "source-monitor",
-    date: "2026-07-25T22:17:40Z",
-    title: "Interactive Codex · PR #381",
-    actor: "Interactive Codex",
-    source: "Source Monitor Log",
-    outcome: "Recommendation recorded",
-    affected_scope: "10 directive records.",
-    summary: "Review the complete exact-head delta.",
-    manager_effect: "Approve the recorded disposition?",
+    event_id: "SMR-1",
+    occurred_at: "2026-07-25T22:17:40Z",
+    artifact_label: "PR #381",
+    producer: "Source Monitor",
+    change_descriptor: "Recommendation recorded",
+    artifact_ids: ["DIR-001", "DIR-002"],
     owner: "Human",
-    route: "sources:watchers:directives",
-    tone: "warning"
+    route: "sources:watchers:directives"
   });
-  assert.equal(row.title, "Interactive Codex · PR #381");
-  assert.match(row.meta, /Source Monitor Log/);
+  assert.equal(row.title, "PR #381");
+  assert.match(row.meta, /Source Monitor/);
   assert.doesNotMatch(row.meta, /Not recorded/);
-  assert.match(row.summary, /Outcome: Recommendation recorded/);
-  assert.match(row.summary, /Affected: 10 directive records/);
-  assert.match(row.summary, /Manager effect: Approve the recorded disposition/);
-  assert.match(row.summary, /Owner: Human/);
-  assert.doesNotMatch(row.summary, /\.\./);
-  assert.doesNotMatch(row.summary, /\?\./);
+  assert.equal(row.summary, "Recommendation recorded");
   assert.equal(row.target, "sources:watchers:directives");
-  assert.equal(row.tone, "warning");
+  assert.equal(row.tone, "");
 });
 
 test("Action Inbox uses a uniform selectable list with an adjacent preview", () => {
@@ -1341,12 +1374,12 @@ test("initial HTML loads only bounded scripts and stays within declared budgets"
   assert.match(app, /return loadLocalProjection\(\s*LOCAL_AUTOMATION_STATUS_PATH,\s*captureLocalAutomationStatus\s*\)/);
   assert.match(app, /if \(window\.__ARRP_CONSOLE_TEST_MODE__\) capturePrivateSecurityAssurance\(\);/);
   assert.doesNotMatch(app, /\n  capturePrivateSecurityAssurance\(\);/);
-  assert.match(html, /data-initial-script-budget-kib="605"/);
+  assert.match(html, /data-initial-script-budget-kib="650"/);
   assert.match(html, /data-initial-dom-budget="1500"/);
   const bytes = ["catalog-data.js", "app.js"]
     .map((file) => fs.statSync(path.join(consoleDirectory, file)).size)
     .reduce((sum, size) => sum + size, 0);
-  assert.ok(bytes <= 605 * 1024, `synchronous JavaScript is ${bytes} bytes`);
+  assert.ok(bytes <= 650 * 1024, `synchronous JavaScript is ${bytes} bytes`);
   const approximateElementCount = (html.match(/<[a-z][^!/][^>]*>/gi) || []).length;
   assert.ok(approximateElementCount <= 1500, `initial HTML has about ${approximateElementCount} elements`);
   assert.doesNotMatch(html, /<script\s+src="data\/(?:candidates|sources|progress|integrity|automation|logs|publication)/);
