@@ -4,11 +4,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
     "availability": "current",
-    "generated_at": "2026-07-29T15:10:15+00:00",
+    "generated_at": "2026-07-29T15:14:23+00:00",
     "current": {
-      "result": "findings",
-      "generated_at": "2026-07-29T15:10:15+00:00",
-      "revision": "e834a381f5ee45254cd9e6eddd95c94a16c7a987",
+      "result": "clean",
+      "generated_at": "2026-07-29T15:14:23+00:00",
+      "revision": "46d8300bb5b2cf8c2520eab2991a5196977366ae",
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -33,23 +33,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "Local-first source-monitoring and provenance wiring",
         "Structured-file and repository hygiene"
       ],
-      "findings": [
-        {
-          "finding_id": "INT-f60f9e125efbc01d",
-          "finding_code": "project_integrity_condition",
-          "severity": "error",
-          "category": "Internal links",
-          "status": "open",
-          "owner": "Elim",
-          "route": "integrity",
-          "next_action": "Open Integrity and resolve the registered producer condition.",
-          "message": "A typed integrity error requires review."
-        }
-      ]
+      "findings": []
     },
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-83ffa343f806107bf109"
+    "integrity.js": "project-console-0b02f55cc0fec2795e38"
   }
 });
