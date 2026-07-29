@@ -1,8 +1,10 @@
 import inspect
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from scripts.arrp_nightly import SensitiveValue
 from scripts.refresh_horizon_review_console import (
@@ -11,8 +13,6 @@ from scripts.refresh_horizon_review_console import (
     _refresh_console,
     refresh_console,
 )
-
-ROOT = Path(__file__).resolve().parents[1]
 
 
 class FakeAuthority:
@@ -205,10 +205,20 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
         self.assertEqual(dict(inspect.signature(refresh_console).parameters), {})
 
     def test_production_interpreter_preserves_verified_venv_launcher(self) -> None:
-        self.assertEqual(
-            _production_interpreter(ROOT),
-            ROOT / ".venv/bin/python",
-        )
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            bin_directory = root / ".venv/bin"
+            bin_directory.mkdir(parents=True)
+            interpreter = bin_directory / "python"
+            interpreter.symlink_to(Path(sys.executable).resolve())
+            with patch(
+                "scripts.refresh_horizon_review_console.sys.prefix",
+                str(root / ".venv"),
+            ):
+                self.assertEqual(
+                    _production_interpreter(root),
+                    interpreter,
+                )
 
 
 if __name__ == "__main__":
