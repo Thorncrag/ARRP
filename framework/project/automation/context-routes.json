@@ -25,7 +25,7 @@
     },
     "codex_bootstrap": {
       "path": "AGENTS.md",
-      "sha256": "8abad6d9f5dbe54cb6bb1563773ac858fa783e69c2710cd82e76aed651ae9a9d",
+      "sha256": "465045945823c6e8a25ad8363c14d8f34de201fc351c00dba46b17bb44d94d80",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -308,7 +308,7 @@
     },
     "agent_multi_agent": {
       "path": "framework/standards/automation/multi-agent.md",
-      "sha256": "701057ad8c4e51bd990639dfc58411c2bb06fd443564c3ab426935a2952b5c28",
+      "sha256": "f338dceba793ef58793282d434483a5f427877764b70889a9ae039dfb24211eb",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -684,7 +684,7 @@
     },
     "governance_change_registry": {
       "path": "framework/project/workflows/governance-change-registry.json",
-      "sha256": "1a3c2f20db8089fd584793af0e0eea055f0b6fa4041e50aebb3b4a2e4be9cb2a",
+      "sha256": "9f4d8fda613173a23956c28a60c6ef719db603eb8a3f45819cf4790431c7a924",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
