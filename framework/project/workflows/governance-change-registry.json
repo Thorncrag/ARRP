@@ -302,6 +302,22 @@
       "live_activation": "No directive or runtime change is activated.",
       "relationships": {"supersedes": [], "refines": [], "refined_by": [], "proposed_refinements": []},
       "private_supplement_required": true
+    },
+    {
+      "id": "GOV-2026-015",
+      "date": "2026-07-29",
+      "title": "Rule reconciliation and usage-aware agent delegation",
+      "decision_class": "governance_documentation",
+      "authority": ["AGENTS.md", "framework/standards/automation/multi-agent.md", "Global Codex guidance"],
+      "source": {"kind": "current_worktree", "commits": [], "pull_requests": []},
+      "destination": "framework/records/governance/governance-change-log.md#gov-2026-015",
+      "resolution": "Proposed / unmerged; owner-approved project adoption awaits canonical synchronization while global local guidance is active.",
+      "consumers": ["project_update_closeout", "governance_change_review"],
+      "status": "Proposed / unmerged",
+      "policy_adoption": "Approved by Benjamin; canonical project adoption is pending commit.",
+      "live_activation": "Global local guidance is active; the project rule remains current-worktree only until canonical synchronization. No background service is changed.",
+      "relationships": {"supersedes": [], "refines": [], "refined_by": [], "proposed_refinements": []},
+      "private_supplement_required": false
     }
   ]
 }

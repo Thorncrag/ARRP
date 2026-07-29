@@ -14,6 +14,29 @@ Current governing documents remain authoritative; Git remains the exact-diff
 authority. The historical [Change Audit Log](../audits/change-audit-log.md)
 remains separate and unchanged.
 
+## GOV-2026-015 — Rule reconciliation and usage-aware agent delegation
+
+- Date: 2026-07-29
+- Status: Proposed / unmerged
+- Decision class: governance_documentation
+- Authorities: AGENTS.md; framework/standards/automation/multi-agent.md; Global Codex guidance
+- Decision: Requires task-appropriate lower-reasoning delegation for bounded,
+  verifiable work without reducing coverage, and requires reconciliation before
+  persistent rules or memories are added or materially revised. An actual
+  conflict among active user-controlled rules stops affected work for Benjamin
+  rather than receiving inferred precedence.
+- Evidence: Approved by Benjamin and implemented in the current worktree;
+  canonical commit evidence remains pending.
+- Policy adoption: Approved by Benjamin; canonical project adoption is pending
+  commit.
+- Live activation: Global local guidance is active; the project rule remains
+  current-worktree only until canonical synchronization. No background service
+  is changed.
+- Relationships: Additive; no recorded supersession or refinement.
+- Validation: Governance parser, focused tests, instruction-consistency review,
+  and diff validation.
+- Owner-local supplement: Not required.
+
 ## GOV-2026-014 — Owner-local preservation-boundary proposal
 
 - Date: 2026-07-29

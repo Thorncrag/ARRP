@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Handoff state | Inactive |
-| Active issue/task | None. |
-| Audit type/tier | None. |
-| Started | None. |
-| Last checkpoint | 2026-07-29 11:25:00 -0400 |
-| User request | None. |
-| Scope | None. |
-| Files touched | None. |
-| Completed steps | None. |
-| Next step | None. |
+| Handoff state | Open |
+| Active issue/task | GOV-2026-015 rule reconciliation and usage-aware agent delegation |
+| Audit type/tier | Project-level Change Audit |
+| Started | 2026-07-29 12:17:38 -0400 |
+| Last checkpoint | 2026-07-29 12:17:38 -0400 |
+| User request | Reconcile the approved uncommitted GOV-2026-015 work as a separate reviewed change and restore a neutral repository state. |
+| Scope | Project agent guidance, multi-agent standard, context-route hashes, Governance Change Registry and Log, exact Git provenance, and closeout synchronization. |
+| Files touched | `AGENTS.md`; `framework/standards/automation/multi-agent.md`; `framework/project/automation/context-routes.json`; `framework/project/workflows/governance-change-registry.json`; `framework/records/governance/governance-change-log.md`; `framework/records/handoffs/current-task.md` |
+| Completed steps | Confirmed the pre-existing five-file GOV-2026-015 diff, loaded governing routes, recorded the implementation contract, and isolated the work on a dedicated branch. |
+| Next step | Run the bounded Change Audit and validation, then publish the proposal for review. |
 | Blockers/questions | None. |
-| Validation status | Not applicable. |
+| Validation status | In progress. |
 
 ## Handoff Rules
 

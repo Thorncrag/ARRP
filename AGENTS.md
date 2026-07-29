@@ -14,7 +14,15 @@ Before substantive ARRP work, read the compact mandatory kernels in [`framework/
 
 Use the module route table in the Framework and the routing rules in [`framework/CONTEXT_ROUTING.md`](framework/CONTEXT_ROUTING.md) to load the additive union of every operation and capability implicated by the work, together with each selected module's dependencies. Expand context before taking an action that newly implicates another authority. Read [`framework/project/github/workflow.md`](framework/project/github/workflow.md) whenever GitHub issues, Project fields, lifecycle status, or authenticated synchronization may be affected.
 
-Use parallel agents by default when work divides into independent, non-overlapping responsibilities and the expected gain exceeds coordination risk. The coordinating agent owns reconciliation, validation, and closeout.
+Use parallel agents by default when work divides into independent,
+non-overlapping responsibilities and the expected gain exceeds coordination
+risk. Prefer lower-reasoning subagents for bounded, routine, mechanical, or
+independently verifiable subtasks when that setting is sufficient, conserving
+token usage without reducing required context, coverage, evidence, audit depth,
+or validation. Retain the coordinating thread's reasoning level for
+architecture, security, governance, ambiguity resolution, reconciliation, and
+final acceptance. The coordinating agent owns reconciliation, validation, and
+closeout.
 
 On this macOS workspace, GitHub CLI credentials are stored in the macOS Keychain. Run authenticated `gh` commands and authenticated Git network operations in the approved host context; do not treat a sandbox-only credential failure as revocation or create a plaintext fallback token.
 

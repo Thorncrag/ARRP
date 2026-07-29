@@ -20,6 +20,15 @@ Use multiple agents by default when work can be separated into non-overlapping r
    issue-to-vehicle alignment; or
 3. one agent validating links while another prepares a narrow issue-page cleanup.
 
+Reasoning effort is task-scaled rather than uniform across the team. Prefer a
+lower-reasoning subagent for bounded, routine, mechanical, or independently
+verifiable work when the coordinator can reliably inspect its result. Retain
+the coordinating thread's reasoning level for architecture, security,
+governance, authority interpretation, material ambiguity, reconciliation, and
+final acceptance. Token conservation may guide task-appropriate reasoning
+selection, but it may not narrow governing context, evidence, required
+coverage, audit depth, or validation.
+
 Agents should not edit the same file set at the same time unless a coordinator
 assigns a clear merge responsibility. A coordinating agent remains responsible
 for reconciling findings, reviewing all edits, resolving conflicts, running
