@@ -20,12 +20,31 @@ or accepted on canonical `main` is explicitly labeled `Proposed / unmerged`.
 Full 40-character Git identities are retained; the interface may abbreviate
 them for display.
 
-Each date uses one umbrella entry divided into the registered broad-category
-subheadings in the Console classification authority. Rapid-fire revisions are
-consolidated only when they belong to the same coherent category and change
-set. Independent architectural, security, operational, data-contract, or
-user-facing work remains separately traceable. Do not create one entry per
-commit, and do not collapse the entire day into one oversized narrative.
+Each date uses one canonical umbrella divided into the registered broad-category
+subheadings in the Console classification authority. The Console renders each
+materially changed category as a separate selectable entry while retaining the
+date and shared provenance from that umbrella. Rapid-fire revisions are
+consolidated only when they belong to the same coherent category and change set.
+Independent architectural, security, operational, data-contract, or user-facing
+work remains separately traceable. Do not create one entry per commit, and do
+not collapse the entire day into one oversized interface entry.
+
+**Record requirements.**
+
+Each date has one ISO-date `##` umbrella heading followed by the fixed metadata
+list, including every applicable Console Change ID and the umbrella title. Its
+`###` sections use only registered Console Development Log categories and
+include Category ID, Change ID, applicable commit IDs, material change, and
+validation. Only categories changed that day appear. Each category section
+projects as one Console entry; the umbrella is not itself an additional entry.
+A retirement names its replacement or states that no replacement exists. A
+restoration or reversion identifies its related change IDs. GitHub-bound entries
+contain no vulnerability evidence or restricted operational detail. History is
+never rewritten.
+
+Historical reconstruction before `CONSOLE-2026-001` is permitted only from
+verified diffs and records. Reconstructed entries must say so and state their
+confidence; commit subjects alone are insufficient evidence.
 
 ## 2026-07-28
 
@@ -121,24 +140,9 @@ commit, and do not collapse the entire day into one oversized narrative.
 - Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`, `5e674630a41c91a0391af596c4c2f66324debe06`, `bb8a4e89c0ff2583f1317a669ceba6d8c710633b`, `35c78fa35b4f51123ab14dc5007f56856befe7f5`
 - Material change: Established the comprehensive Console contract,
   heading-based Development Log, stable Change IDs, public/private data
-  boundary, and registered development-log categories. Configuration exports
-  remain staged only and persistent host changes still require immediate
-  approval.
+  boundary, and registered development-log categories whose materially changed
+  sections render as separate selectable entries. Configuration exports remain
+  staged only and persistent host changes still require immediate approval.
 - Validation: Context-route hashes, classification registry, development-log
-  category metadata, governing documentation, and full regression suites
-  passed.
-
-**Record requirements.**
-
-Each date has one ISO-date `##` umbrella heading followed by the fixed metadata
-list, including every applicable Console Change ID and the umbrella title. Its
-`###` sections use only registered Console Development Log categories and
-include Category ID, Change ID, applicable commit IDs, material change, and
-validation. Only categories changed that day appear. A retirement names its
-replacement or states that no replacement exists. A restoration or reversion
-identifies its related change IDs. GitHub-bound entries contain no vulnerability
-evidence or restricted operational detail. History is never rewritten.
-
-Historical reconstruction before `CONSOLE-2026-001` is permitted only from
-verified diffs and records. Reconstructed entries must say so and state their
-confidence; commit subjects alone are insufficient evidence.
+  category metadata, seven-entry category projection, governing documentation,
+  and full regression suites passed.

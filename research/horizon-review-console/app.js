@@ -6124,7 +6124,7 @@
     if (log.id === "agents") return `${values.record || "Project"} · ${values.task || "agent activity"}`;
     if (log.id === "source-monitor") return `${values.watcher || "Source monitor"} · ${String(values.result || "result").replaceAll("_", " ")}`;
     if (log.id === "changes") return values.change || entry.id;
-    if (log.id === "console-development") return `${values.change || entry.id} · ${values.feature || "Console"}`;
+    if (log.id === "console-development") return values.category || values.change || entry.id;
     return `${values.record || entry.id} · ${values.disposition || "decision"}`;
   }
 
@@ -6134,7 +6134,7 @@
     if (log.id === "agents") return `${values.agent || "Agent"} recorded ${values.outcome || "an outcome"} for run ${values.run || "not identified"}.`;
     if (log.id === "source-monitor") return `Affected: ${values.affected || "not recorded"} · Activity: ${values.activity || "not recorded"}.`;
     if (log.id === "changes") return `${values.scope || ""} ${values.effect || ""}`.trim();
-    if (log.id === "console-development") return `${values.lifecycle || "Changed"} · ${values.state || "state unavailable"} · ${values.commit || "commit pending"}`;
+    if (log.id === "console-development") return `${values.change || "Change ID unavailable"} · ${values.lifecycle || "Changed"} · ${values.state || "state unavailable"}`;
     return values.destination || values.disposition;
   }
 

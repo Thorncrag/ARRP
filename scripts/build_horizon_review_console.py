@@ -2018,7 +2018,7 @@ def change_audit_log_view(
 def console_development_log_view(
     projection_errors: list[dict[str, object]] | None = None,
 ) -> dict[str, object]:
-    required_fields = (
+    required_umbrella_fields = (
         "Console Change IDs",
         "Title",
         "Lifecycle",
@@ -2034,20 +2034,25 @@ def console_development_log_view(
         if re.fullmatch(r"\d{4}-\d{2}-\d{2}", strip_markdown(title)):
             records.append((title, body))
 
-    seen_ids: set[str] = set()
+    categories_by_label = {
+        str(category["label"]): str(category["id"])
+        for category in console_development_category_registry()
+    }
+    expected_rows = 0
     for title, body in records:
         recorded_date = strip_markdown(title)
-        fields = bullet_fields(body)
-        change_ids = re.findall(
+        umbrella_fields = bullet_fields(body)
+        umbrella_change_ids = re.findall(
             r"CONSOLE-\d{4}-\d{3}",
-            str(fields.get("Console Change IDs") or ""),
+            str(umbrella_fields.get("Console Change IDs") or ""),
         )
         missing = [
-            field for field in required_fields
-            if not str(fields.get(field) or "").strip()
+            field for field in required_umbrella_fields
+            if not str(umbrella_fields.get(field) or "").strip()
         ]
-        duplicate = any(change_id in seen_ids for change_id in change_ids)
-        if (missing or duplicate) and projection_errors is not None:
+        category_sections = section_records(body, 3)
+        expected_rows += len(category_sections)
+        if (missing or not umbrella_change_ids) and projection_errors is not None:
             projection_errors.append(
                 {
                     "code": "console_development_entry_schema",
@@ -2055,38 +2060,93 @@ def console_development_log_view(
                     "source": CONSOLE_DEVELOPMENT_LOG.relative_to(ROOT).as_posix(),
                     "heading": strip_markdown(title),
                     "missing_fields": missing,
-                    "duplicate_change_id": duplicate,
+                    "missing_change_id": not umbrella_change_ids,
                     "message": (
-                        "Console Development entry is missing governed fields "
-                        "or repeats a change ID."
+                        "Console Development umbrella is missing governed fields "
+                        "or a registered Change ID."
                     ),
                 }
             )
-        if missing or duplicate:
+        if missing or not umbrella_change_ids:
             continue
-        seen_ids.update(change_ids)
-        entry_id = (
-            change_ids[0]
-            if len(change_ids) == 1
-            else f"console-development-{recorded_date}"
-        )
-        change_title = strip_markdown(fields["Title"])
-        values = {
-            "date": recorded_date,
-            "change": ", ".join(change_ids),
-            "lifecycle": strip_markdown(fields["Lifecycle"]),
-            "feature": strip_markdown(fields["Feature or component"]),
-            "state": strip_markdown(fields["State"]),
-            "commit": strip_markdown(fields["Implementation commits"]),
-        }
-        entries.append(log_entry(entry_id, values, {
-            "date": recorded_date,
-            "change": fields["Console Change IDs"],
-            "lifecycle": fields["Lifecycle"],
-            "feature": fields["Feature or component"],
-            "state": fields["State"],
-            "commit": fields["Implementation commits"],
-        }, f"## {recorded_date} — {change_title}\n\n{body}"))
+        change_title = strip_markdown(umbrella_fields["Title"])
+        for category_label, category_body in category_sections:
+            category_id = categories_by_label.get(strip_markdown(category_label))
+            category_fields = bullet_fields(category_body)
+            category_change_ids = re.findall(
+                r"CONSOLE-\d{4}-\d{3}",
+                str(category_fields.get("Change ID") or ""),
+            )
+            missing_category_fields = [
+                field
+                for field in (
+                    "Category ID",
+                    "Change ID",
+                    "Commit IDs",
+                    "Material change",
+                    "Validation",
+                )
+                if not str(category_fields.get(field) or "").strip()
+            ]
+            category_valid = (
+                category_id is not None
+                and strip_markdown(category_fields.get("Category ID", ""))
+                == category_id
+                and bool(category_change_ids)
+                and set(category_change_ids) <= set(umbrella_change_ids)
+                and not missing_category_fields
+            )
+            if not category_valid:
+                if projection_errors is not None:
+                    projection_errors.append(
+                        {
+                            "code": "console_development_category_schema",
+                            "severity": "error",
+                            "source": (
+                                CONSOLE_DEVELOPMENT_LOG.relative_to(ROOT).as_posix()
+                            ),
+                            "heading": strip_markdown(category_label),
+                            "date": recorded_date,
+                            "missing_fields": missing_category_fields,
+                            "message": (
+                                "Console Development category is unregistered, "
+                                "incomplete, or not bound to its dated umbrella."
+                            ),
+                        }
+                    )
+                continue
+            entry_id = (
+                f"console-development-{recorded_date}-{category_id}"
+            )
+            values = {
+                "date": recorded_date,
+                "category": strip_markdown(category_label),
+                "change": ", ".join(category_change_ids),
+                "lifecycle": strip_markdown(umbrella_fields["Lifecycle"]),
+                "state": strip_markdown(umbrella_fields["State"]),
+                "commit": strip_markdown(category_fields["Commit IDs"]),
+                "title": change_title,
+            }
+            entries.append(
+                log_entry(
+                    entry_id,
+                    values,
+                    {
+                        "date": recorded_date,
+                        "category": category_label,
+                        "change": category_fields["Change ID"],
+                        "lifecycle": umbrella_fields["Lifecycle"],
+                        "state": umbrella_fields["State"],
+                        "commit": category_fields["Commit IDs"],
+                        "title": umbrella_fields["Title"],
+                    },
+                    (
+                        f"## {recorded_date} — {category_label}\n\n"
+                        f"**{umbrella_fields['Title']}**\n\n"
+                        f"{category_body}"
+                    ),
+                )
+            )
     return {
         "id": "console-development",
         "title": "Console Development Log",
@@ -2095,22 +2155,22 @@ def console_development_log_view(
         + "framework/records/automation/console-development-log.md",
         "columns": [
             {"key": "date", "label": "Recorded"},
+            {"key": "category", "label": "Category"},
             {"key": "change", "label": "Change ID"},
             {"key": "lifecycle", "label": "Lifecycle"},
-            {"key": "feature", "label": "Feature"},
             {"key": "state", "label": "State"},
-            {"key": "commit", "label": "Implementation commit"},
+            {"key": "commit", "label": "Category commits"},
         ],
         "group_options": [
+            {"key": "category", "label": "Category"},
             {"key": "lifecycle", "label": "Lifecycle"},
-            {"key": "feature", "label": "Feature"},
             {"key": "state", "label": "State"},
         ],
         "default_sort": {"key": "date", "direction": "desc"},
         "projection": {
-            "expected_rows": len(records),
+            "expected_rows": expected_rows,
             "actual_rows": len(entries),
-            "complete": len(records) == len(entries),
+            "complete": expected_rows == len(entries),
         },
         "entries": entries,
     }

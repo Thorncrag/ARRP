@@ -170,6 +170,14 @@ development records remain public operational summaries and never contain
 vulnerability evidence, credential detail, or restricted operational
 diagnostics.
 
+The canonical Markdown retains one dated umbrella so shared provenance is
+recorded once. The Console projects each materially changed registered category
+under that date as a separate selectable log entry and preview, using a stable
+date-plus-category identity. It does not collapse the date into one interface
+row, duplicate the umbrella metadata into new canonical records, or create one
+entry per commit. Category entries retain the date, applicable Change ID,
+category-specific commits, lifecycle, state, material change, and validation.
+
 ## Overview Contract
 
 An item belongs on Overview only when it materially improves current

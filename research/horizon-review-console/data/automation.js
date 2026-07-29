@@ -474,7 +474,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "unavailable",
-          "checked_at": "2026-07-29T00:30:09+00:00",
+          "checked_at": "2026-07-29T00:50:18+00:00",
           "reason": "No typed currentness record is published for this role."
         },
         "checked_at": "2026-07-27T08:37:33+00:00",
@@ -512,7 +512,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 1,
     "availability": "current",
     "complete": true,
-    "checked_at": "2026-07-29T00:30:07Z",
+    "checked_at": "2026-07-29T00:50:16Z",
     "count": 1,
     "unresolved_count": 0,
     "impact_state": "green",
@@ -1203,6 +1203,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "automation.js": "project-console-e6f02f9b46ebe2e7472b"
+    "automation.js": "project-console-3e437ddd4faddd7c7b93"
   }
 });

@@ -152,7 +152,7 @@
     },
     "project_interface": {
       "path": "framework/project/interfaces/project-console.md",
-      "sha256": "4fedfcbcf527ecf1eb9cb6a774fb71d17c44589a75acdfc51dc38fc54045626f",
+      "sha256": "f7e10c62754c946284b973cb4eff0ed2ebf6747a7b64c4fa470fb06251551ceb",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [

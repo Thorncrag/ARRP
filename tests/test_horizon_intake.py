@@ -1336,15 +1336,45 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertFalse(errors)
         self.assertEqual(
             view["projection"],
-            {"expected_rows": 1, "actual_rows": 1, "complete": True},
+            {"expected_rows": 7, "actual_rows": 7, "complete": True},
         )
-        self.assertEqual(view["entries"][0]["id"], "CONSOLE-2026-001")
+        self.assertEqual(
+            [entry["values"]["category"] for entry in view["entries"]],
+            [
+                "Interface & information architecture",
+                "Planning & work management",
+                "Operations & automation",
+                "Data, provenance & integrity",
+                "Security, privacy & disclosure",
+                "Reliability, accessibility & performance",
+                "Governance & documentation",
+            ],
+        )
+        self.assertEqual(
+            view["entries"][0]["id"],
+            "console-development-2026-07-28-interface_information_architecture",
+        )
+        self.assertTrue(
+            all(
+                entry["values"]["date"] == "2026-07-28"
+                and entry["values"]["change"] == "CONSOLE-2026-001"
+                for entry in view["entries"]
+            )
+        )
         self.assertIn(
-            "<h2>2026-07-28 — Adopt holistic Console design",
+            "<h2>2026-07-28 — Interface &amp; information architecture",
+            view["entries"][0]["details_html"],
+        )
+        self.assertNotIn(
+            "Planning &amp; work management",
             view["entries"][0]["details_html"],
         )
         self.assertIn(
-            "Each date uses one umbrella entry divided into the registered",
+            "Each date uses one canonical umbrella divided into the registered",
+            source,
+        )
+        self.assertIn(
+            "The Console renders each\nmaterially changed category as a separate selectable entry",
             source,
         )
         self.assertNotIn("| Change ID | Recorded at |", source)
