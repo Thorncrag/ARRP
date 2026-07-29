@@ -4,13 +4,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
     "contract_schema_version": 1,
-    "generation_id": "project-integrity-ffa9ca27ed0803041b95",
-    "source_revision": "15657d443f1a054fac42e8b5bc1c794c3b9935e7",
-    "generated_at": "2026-07-29T06:09:39+00:00",
+    "generation_id": "project-integrity-87e8925f985cd3b2c74d",
+    "source_revision": "01f53d6cde85fa8fcae97672262bf8f33cf026e0",
+    "generated_at": "2026-07-29T06:21:29+00:00",
     "expected_count": 22,
     "actual_count": 22,
     "source_hashes": {
-      "integrity-report.json": "sha256:e08cd89b5485569d10f2f68505653a295445b55d13abe5b4e9a8f91d8f126bc6"
+      "integrity-report.json": "sha256:a09df6943cc33f2037c76716843fe19338fc748e84170086c74c110e44857cf8"
     },
     "availability": "current",
     "completeness": {
@@ -38,8 +38,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "current": {
       "schema_version": 2,
-      "generated_at": "2026-07-29T06:09:39+00:00",
-      "revision": "15657d443f1a054fac42e8b5bc1c794c3b9935e7",
+      "generated_at": "2026-07-29T06:21:29+00:00",
+      "revision": "01f53d6cde85fa8fcae97672262bf8f33cf026e0",
       "result": "clean",
       "counts": {
         "errors": 0,
@@ -48,7 +48,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "issue_pages": 64,
         "proposal_pages": 41
       },
-      "duration_seconds": 10.573,
+      "duration_seconds": 10.128,
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -79,14 +79,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "authority": "repository_revision",
       "status": "current",
       "current": true,
-      "expected_source_revision": "15657d443f1a054fac42e8b5bc1c794c3b9935e7",
-      "producer_source_revision": "15657d443f1a054fac42e8b5bc1c794c3b9935e7",
+      "expected_source_revision": "01f53d6cde85fa8fcae97672262bf8f33cf026e0",
+      "producer_source_revision": "01f53d6cde85fa8fcae97672262bf8f33cf026e0",
       "equivalent_inputs_established": false,
       "supersession_rule": "A different authoritative repository revision supersedes this integrity generation immediately, regardless of elapsed time."
     },
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-4257e99bb624c9ea556a"
+    "integrity.js": "project-console-7b6e6607947040eac85b"
   }
 });
