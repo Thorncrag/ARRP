@@ -52,8 +52,8 @@ confidence; commit subjects alone are insufficient evidence.
 - Title: Authenticated owner refresh and private-runtime/dual-incident Console architecture
 - Lifecycle: `CONSOLE-2026-002` introduced; `CONSOLE-2026-003` introduced
 - Feature or component: Authenticated owner refresh; private-runtime and dual-incident Console boundary
-- State: `CONSOLE-2026-002` canonical through PR #485 and merge commit `10ec1342713e1154337b89de5f5ffc8cf5ddf8d`; `CONSOLE-2026-003` canonical through PR #487 and merge commit `ea57c9826270a12ae6e0275390a2c9555169f43d`
-- Implementation commits: `CONSOLE-2026-002`: `8eae5943551ffe471dd9f53a30dd309e890dc360`, `fef0beacf4277b68c0164337b82344b1e56df8ae`, `fcf430a065e02e8c65c00290bec2193949319720`, `71e547155ce3b9c81972a50e9e9e8a0b493d0cbc`, `e1f7d37b95502ee590a324a6b5294082605703ac`, `8c1eb765ace51edd4f9782cf26692bad4b6e6a2f`, `15657d443f1a054fac42e8b5bc1c794c3b9935e7`, `d44cef748fff9f18abfada7466b8d5e0646bc224`, and `78381a335f16d9e2e4e16a9b4dcbd6f627da33c3`; `CONSOLE-2026-003`: `6167fc3554af006091ecee7d62be5a26514f7237`, `8306f07e96302afdca6ba85eae105905fc18cb60`, and `754efbacf7f578b74823dc91a2e71a63cae42ecd`
+- State: `CONSOLE-2026-002` canonical through PR #485 and merge commit `10ec1342713e1154337b89de5f5ffc8cf5ddf8d`; `CONSOLE-2026-003` canonical through PR #487 and merge commit `ea57c9826270a12ae6e0275390a2c9555169f43d`, with the post-merge provenance and Integrity-classification closeout proposed / unmerged
+- Implementation commits: `CONSOLE-2026-002`: `8eae5943551ffe471dd9f53a30dd309e890dc360`, `fef0beacf4277b68c0164337b82344b1e56df8ae`, `fcf430a065e02e8c65c00290bec2193949319720`, `71e547155ce3b9c81972a50e9e9e8a0b493d0cbc`, `e1f7d37b95502ee590a324a6b5294082605703ac`, `8c1eb765ace51edd4f9782cf26692bad4b6e6a2f`, `15657d443f1a054fac42e8b5bc1c794c3b9935e7`, `d44cef748fff9f18abfada7466b8d5e0646bc224`, and `78381a335f16d9e2e4e16a9b4dcbd6f627da33c3`; `CONSOLE-2026-003`: `6167fc3554af006091ecee7d62be5a26514f7237`, `8306f07e96302afdca6ba85eae105905fc18cb60`, `754efbacf7f578b74823dc91a2e71a63cae42ecd`, `d81c688ccf84b61951852320c64d6da10d567039`, and `7ca28d49940447caf46f00e04682a9af5053eb67`
 - Rollback baseline: `CONSOLE-2026-002`: `4e6f2c293daf47a4584d1c25866cb6fc4f4e36ac`; `CONSOLE-2026-003`: `572e1db1ebfff49cc26004cced1d0933934fa4c6`
 
 ### Interface & information architecture
@@ -76,9 +76,9 @@ confidence; commit subjects alone are insufficient evidence.
 
 - Category ID: `data_provenance_integrity`
 - Change ID: `CONSOLE-2026-003`
-- Commit IDs: `6167fc3554af006091ecee7d62be5a26514f7237`, `8306f07e96302afdca6ba85eae105905fc18cb60`, and `754efbacf7f578b74823dc91a2e71a63cae42ecd`
-- Material change: Corrected stale or generated-data handling so unavailable, stale, malformed, or revision-mismatched data cannot appear current or healthy. Added typed classifications and context pins for incident, projection, and authority routing; public and private projections remain separate and retain their exact generation and revision relationship.
-- Validation: Typed-classification, context-routing, generation-binding, stale-data, and unavailable-state checks are available in the contract and frontend test suites.
+- Commit IDs: `6167fc3554af006091ecee7d62be5a26514f7237`, `8306f07e96302afdca6ba85eae105905fc18cb60`, `754efbacf7f578b74823dc91a2e71a63cae42ecd`, and proposed / unmerged `7ca28d49940447caf46f00e04682a9af5053eb67`
+- Material change: Corrected stale or generated-data handling so unavailable, stale, malformed, or revision-mismatched data cannot appear current or healthy. Added typed classifications and context pins for incident, projection, and authority routing; public and private projections remain separate and retain their exact generation and revision relationship. Registered distinct unavailable-readback conditions for GitHub Issues, Project access, Project readback, and Pages so each Integrity finding retains a stable code, safe explanation, owner, next action, and destination rather than collapsing into indistinguishable generic findings.
+- Validation: Typed-classification, context-routing, generation-binding, stale-data, unavailable-state, registered-code, public-safe projection, and unknown-code fail-closed checks are available in the producer, contract, and frontend test suites.
 
 ### Security, privacy & disclosure
 
@@ -119,9 +119,9 @@ confidence; commit subjects alone are insufficient evidence.
 
 - Category ID: `governance_documentation`
 - Change ID: `CONSOLE-2026-003`
-- Commit IDs: `6167fc3554af006091ecee7d62be5a26514f7237`, `8306f07e96302afdca6ba85eae105905fc18cb60`, and `754efbacf7f578b74823dc91a2e71a63cae42ecd`
-- Material change: Added the Operations > Logs Governance changes selector and the bounded projection of registered public `GOV` entries. The Console preserves a Governance Change entry's stable identity and public-safe summary, routes to its complete record, and exposes an allowlisted owner-mode supplement summary only when the exact binding validates. This is a Console provenance feature, not a second governance ledger; governing decisions and their adoption or activation posture remain in the Governance Change Log and linked authorities.
-- Validation: Governance Change Log parser, projection, selection, binding, and unavailable-state checks provide the Console-specific traceability.
+- Commit IDs: `6167fc3554af006091ecee7d62be5a26514f7237`, `8306f07e96302afdca6ba85eae105905fc18cb60`, `754efbacf7f578b74823dc91a2e71a63cae42ecd`, and proposed / unmerged `d81c688ccf84b61951852320c64d6da10d567039`
+- Material change: Added the Operations > Logs Governance changes selector and the bounded projection of registered public `GOV` entries. The Console preserves a Governance Change entry's stable identity and public-safe summary, routes to its complete record, and exposes an allowlisted owner-mode supplement summary only when the exact binding validates. This is a Console provenance feature, not a second governance ledger; governing decisions and their adoption or activation posture remain in the Governance Change Log and linked authorities. Reconciled the post-merge public governance evidence, including the canonical versus proposed status boundary, while keeping protected supplements in the bound owner-local projection.
+- Validation: Governance Change Log parser, canonical-source/status consistency, projection, selection, exact supplement binding, and unavailable-state checks provide the Console-specific traceability.
 
 ## 2026-07-28
 
