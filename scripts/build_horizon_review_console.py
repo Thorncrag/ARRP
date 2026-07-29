@@ -168,8 +168,8 @@ PRINT_ASSEMBLY_MANIFEST = (
 REVIEW_EPOCHS = STATE_ROOT / "records" / "automation" / "review-epochs.jsonl"
 PUBLIC_REVIEW_EPOCH_SUMMARY = ROOT / "research" / "review-epochs-summary.json"
 PUBLIC_PROPOSAL_PDF = ROOT / "exports" / "pdf" / "ARRP-public-proposal-draft.pdf"
-OUTPUT = ROOT / "research" / "horizon-review-console" / "catalog-data.js"
-CONSOLE_DATA_DIR = ROOT / "research" / "horizon-review-console" / "data"
+OUTPUT = ROOT / "research" / "project-console" / "catalog-data.js"
+CONSOLE_DATA_DIR = ROOT / "research" / "project-console" / "data"
 PRIVATE_SECURITY_ASSURANCE_OUTPUT = (
     CONSOLE_DATA_DIR / "private-security-assurance.js"
 )
@@ -1485,7 +1485,7 @@ def default_assembly_sections(
 def page_inventory_records() -> list[dict[str, object]]:
     """Return every publication-controlled Markdown page and its disposition."""
     excluded_roots = {".git", ".site-build", ".tmp", ".venv"}
-    local_only_roots = {Path("research/horizon-review-console/prototypes")}
+    local_only_roots = {Path("research/project-console/prototypes")}
     explicit_exceptions = {ROOT / "AGENTS.md", ROOT / "website" / "404.md"}
     records: list[dict[str, object]] = []
     manifest = publication_manifest()
@@ -3360,7 +3360,7 @@ def research_for_record(record_id: str) -> list[dict[str, str]]:
     identifier = re.compile(rf"(?<![A-Z0-9-]){re.escape(record_id)}(?![A-Z0-9-])")
     for path in research_markdown_files():
         relative = path.relative_to(ROOT)
-        if "horizon-review-console" in relative.parts or relative.name == "README.md":
+        if "project-console" in relative.parts or relative.name == "README.md":
             continue
         content = path.read_text(encoding="utf-8")
         if not identifier.search(content):
@@ -3928,7 +3928,7 @@ def write_private_security_assurance(
         f"window.ARRP_PRIVATE_SECURITY_ASSURANCE={serialized};\n"
     )
     secret_findings = prohibited_secret_findings(
-        "research/horizon-review-console/data/private-security-assurance.js",
+        "research/project-console/data/private-security-assurance.js",
         text.encode("utf-8"),
     )
     if secret_findings:
@@ -4261,7 +4261,7 @@ def write_private_operations(
         f"window.ARRP_PRIVATE_OPERATIONS={serialized};\n"
     )
     secret_findings = prohibited_secret_findings(
-        "research/horizon-review-console/data/private-operations.js",
+        "research/project-console/data/private-operations.js",
         text.encode("utf-8"),
     )
     if secret_findings:
@@ -4956,9 +4956,9 @@ def write_console_bundle(
                 [
                     OutboundArtifact(
                         path=(
-                            f"research/horizon-review-console/data/{path.name}"
+                            f"research/project-console/data/{path.name}"
                             if path.parent == stage_data
-                            else "research/horizon-review-console/catalog-data.js"
+                            else "research/project-console/catalog-data.js"
                         ),
                         producer="console-public-bundle",
                         content=path.read_bytes(),

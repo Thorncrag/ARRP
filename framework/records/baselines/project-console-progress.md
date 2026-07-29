@@ -16,7 +16,7 @@ print_exclusion_reason: "Historical implementation baseline retained for provena
 > and bot execution belongs to the named project runbook. This baseline is not
 > current governing authority.
 
-The **Progress** tab in the internal [ARRP Project Console](../../../research/horizon-review-console/index.html) is the project's sole human-facing proposal-development progress dashboard. It visualizes the goal of bringing every eligible proposal to at least **Review Ready** by **December 31, 2026** and includes a compact six-stage development board. It does not replace the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2), whose `Development level` and `Status` fields remain authoritative, or repository issue pages and audit sidecars, which remain the substantive and audit authorities. Governance-discovery findings and gap obligations do not enter its target numerator, denominator, attainment velocity, or development backlog; the Console presents them in Integrity or Agents & Bots and routes only actual human-required decisions or interventions to Action Items.
+The **Progress** tab in the internal [ARRP Project Console](../../../research/project-console/project-console.html) is the project's sole human-facing proposal-development progress dashboard. It visualizes the goal of bringing every eligible proposal to at least **Review Ready** by **December 31, 2026** and includes a compact six-stage development board. It does not replace the [ARRP GitHub Project](https://github.com/users/Thorncrag/projects/2), whose `Development level` and `Status` fields remain authoritative, or repository issue pages and audit sidecars, which remain the substantive and audit authorities. Governance-discovery findings and gap obligations do not enter its target numerator, denominator, attainment velocity, or development backlog; the Console presents them in Integrity or Agents & Bots and routes only actual human-required decisions or interventions to Action Items.
 
 ARRP does not maintain a second Markdown dashboard on GitHub. Automation publishes only `progress.json` and `history.json` to the data-only `project-console-data` branch. The console consumes that feed and retains a checked-in offline snapshot. The data branch is infrastructure, not a second reader interface, and must not contain a rendered dashboard, narrative page, or chart files.
 
@@ -91,7 +91,7 @@ If the secret is absent, expired, or revoked, the workflow fails closed with a v
 - Retired `scripts/publish_project_console_progress.py` updated the independent
   data branch and is preserved in Git history.
 - [`tests/test_project_console_progress.py`](../../../tests/test_project_console_progress.py) covers eligibility, authority, history, forecast inputs, data-only output, and branch publication.
-- [`research/horizon-review-console/`](../../../research/horizon-review-console/) owns the sole human-facing visualization, including the trajectory graph.
+- [`research/project-console/`](../../../research/project-console/) owns the sole human-facing visualization, including the trajectory graph.
 
 ## Local validation
 

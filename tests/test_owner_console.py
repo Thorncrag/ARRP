@@ -52,7 +52,7 @@ class OwnerConsoleTests(unittest.TestCase):
         self.root = Path(self.temporary.name).resolve()
         self.repository = self.root / "ARRP"
         self.console = (
-            self.repository / "research" / "horizon-review-console"
+            self.repository / "research" / "project-console"
         )
         self.data = self.console / "data"
         self.data.mkdir(parents=True)
@@ -166,7 +166,7 @@ class OwnerConsoleTests(unittest.TestCase):
         (self.console / "catalog-data.js").write_bytes(
             assignment(owner_console.CATALOG_PREFIX, catalog)
         )
-        (self.console / "index.html").write_text(
+        (self.console / "project-console.html").write_text(
             "<!doctype html>\n"
             '<script src="catalog-data.js?v=48"></script>\n'
             '<script src="app.js?v=65"></script>\n',
@@ -332,7 +332,7 @@ class OwnerConsoleTests(unittest.TestCase):
             os.chmod(path, 0o600)
 
     def test_builds_immutable_generation_bound_owner_snapshot(self) -> None:
-        source_index = (self.console / "index.html").read_bytes()
+        source_entrypoint = (self.console / "project-console.html").read_bytes()
 
         version = self.build()
 
@@ -342,13 +342,13 @@ class OwnerConsoleTests(unittest.TestCase):
             self.private_versions,
         )
         self.assertEqual(
-            (self.console / "index.html").read_bytes(),
-            source_index,
+            (self.console / "project-console.html").read_bytes(),
+            source_entrypoint,
         )
-        index = (version / "index.html").read_text(encoding="utf-8")
+        entrypoint = (version / "project-console.html").read_text(encoding="utf-8")
         self.assertLess(
-            index.index('src="owner-console-binding.js"'),
-            index.index('src="app.js?v=65"'),
+            entrypoint.index('src="owner-console-binding.js"'),
+            entrypoint.index('src="app.js?v=65"'),
         )
         binding = parsed_assignment(
             version / "owner-console-binding.js",
@@ -356,7 +356,7 @@ class OwnerConsoleTests(unittest.TestCase):
         )
         self.assertEqual(
             binding["exact_decoded_file_path"],
-            str(version / "index.html"),
+            str(version / "project-console.html"),
         )
         self.assertEqual(binding["generation_id"], GENERATION_ID)
         self.assertEqual(binding["source_revision"], SOURCE_REVISION)
@@ -420,7 +420,7 @@ class OwnerConsoleTests(unittest.TestCase):
 
     def test_existing_version_is_never_overwritten(self) -> None:
         version = self.build()
-        original = (version / "index.html").read_bytes()
+        original = (version / "project-console.html").read_bytes()
 
         with self.assertRaisesRegex(
             owner_console.OwnerConsoleBuildError,
@@ -428,7 +428,7 @@ class OwnerConsoleTests(unittest.TestCase):
         ):
             self.build()
 
-        self.assertEqual((version / "index.html").read_bytes(), original)
+        self.assertEqual((version / "project-console.html").read_bytes(), original)
 
     def test_incomplete_or_hash_mismatched_public_generation_fails_closed(self) -> None:
         manifest_path = self.data / "generation-manifest.json"

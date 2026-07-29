@@ -37,7 +37,7 @@ def corpus_paths(root: Path) -> list[Path]:
             path.resolve()
             for path in paths
             if path.is_file()
-            and "horizon-review-console" not in path.parts
+            and "project-console" not in path.parts
             and not path.name.startswith(".")
         }
     )

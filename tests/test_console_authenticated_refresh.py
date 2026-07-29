@@ -98,7 +98,7 @@ def fixture_authority(root: Path) -> FakeAuthority:
         "scripts/build_horizon_review_console.py",
         "framework/project/interfaces/project-console-progress.json",
         "inventory/github_issue_registry.csv",
-        "research/horizon-review-console/data/integrity.js",
+        "research/project-console/data/integrity.js",
         "framework/records/status/project-integrity-report.md",
     ):
         path = root / relative

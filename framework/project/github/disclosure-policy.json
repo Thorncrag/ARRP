@@ -37,7 +37,7 @@
       "category": "public_by_design",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github", "public-release-builder"],
       "paths": ["areas/**", "legislation/**", "topics/**", "research/**"],
-      "exclude_paths": ["research/horizon-review-console/**"]
+      "exclude_paths": ["research/project-console/**"]
     },
     {
       "id": "public-source-and-workflow-records",
@@ -74,8 +74,8 @@
       "id": "public-interface-assets",
       "category": "public_operational_summary",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github", "console-public-bundle", "public-release-builder"],
-      "paths": ["website/**", "assets/branding/**", "research/horizon-review-console/**"],
-      "exclude_paths": ["research/horizon-review-console/data/private-*.js", "research/horizon-review-console/prototypes/**"]
+      "paths": ["website/**", "assets/branding/**", "research/project-console/**"],
+      "exclude_paths": ["research/project-console/data/private-*.js", "research/project-console/prototypes/**"]
     },
     {
       "id": "public-release-artifacts",
@@ -105,13 +105,13 @@
       "id": "restricted-console-prototypes",
       "category": "restricted_operational",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": ["research/horizon-review-console/prototypes/**"]
+      "paths": ["research/project-console/prototypes/**"]
     },
     {
       "id": "private-local-state",
       "category": "private",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": ["**/.env", "**/.env.*", "**/PAUSED", "**/governance-change-supplements.jsonl", "**/operational-incidents.jsonl", "**/security-incidents.jsonl", "**/incident-relations.jsonl", "data/private-*.js", "research/horizon-review-console/data/private-*.js"],
+      "paths": ["**/.env", "**/.env.*", "**/PAUSED", "**/governance-change-supplements.jsonl", "**/operational-incidents.jsonl", "**/security-incidents.jsonl", "**/incident-relations.jsonl", "data/private-*.js", "research/project-console/data/private-*.js"],
       "exclude_paths": ["participate/.env.example"]
     },
     {

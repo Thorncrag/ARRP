@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Handoff state | Inactive |
-| Active issue/task | None. |
-| Audit type/tier | None. |
-| Started | None. |
-| Last checkpoint | 2026-07-29 10:43:21 -0400 |
-| User request | None. |
-| Scope | None. |
-| Files touched | None. |
-| Completed steps | None. |
-| Next step | None. |
+| Handoff state | Open |
+| Active issue/task | ARRP-PROJECT-CONSOLE-CANONICAL-NAME-2026-07-29 |
+| Audit type/tier | Change Audit and package-path consistency correction |
+| Started | 2026-07-29 10:53:13 -0400 |
+| Last checkpoint | 2026-07-29 11:02:37 -0400 |
+| User request | Rename the Project Console file and directory to the canonical Project Console name for consistency and future template reuse. |
+| Scope | Rename `research/horizon-review-console` to `research/project-console` and its entrypoint to `project-console.html`; reconcile all producers, tests, documentation, owner Console binding, public-site paths, and generated references without changing Console semantics. |
+| Files touched | Project Console source package; Console producers and tests; repository ignore, ownership, disclosure, context-routing, workflow, and documentation surfaces; this handoff |
+| Completed steps | Recorded the design-locked implementation contract; completed read-only reference and hosting inventories; renamed the canonical package to `research/project-console` and entrypoint to `project-console.html`; updated current references and owner binding; verified private projections and prototypes remain ignored; focused owner and frontend suites pass. |
+| Next step | Complete the full consistency and disclosure validation, commit the semantic rename, regenerate exact-bound Console outputs and owner snapshot, synchronize GitHub, then clear this handoff. |
 | Blockers/questions | None. |
-| Validation status | Not applicable. |
+| Validation status | In progress. |
 
 ## Handoff Rules
 

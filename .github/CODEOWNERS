@@ -16,8 +16,8 @@
 /framework/project/ @Thorncrag
 /participate/ @Thorncrag
 /website/ @Thorncrag
-/research/horizon-review-console/README.md @Thorncrag
-/research/horizon-review-console/index.html @Thorncrag
-/research/horizon-review-console/app.js @Thorncrag
-/research/horizon-review-console/styles.css @Thorncrag
-/research/horizon-review-console/tests/ @Thorncrag
+/research/project-console/README.md @Thorncrag
+/research/project-console/project-console.html @Thorncrag
+/research/project-console/app.js @Thorncrag
+/research/project-console/styles.css @Thorncrag
+/research/project-console/tests/ @Thorncrag

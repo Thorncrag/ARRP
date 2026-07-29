@@ -236,7 +236,7 @@ def validation_plan(files: list[str], task_type: str) -> dict[str, Any]:
             ["python3", "scripts/audit_project_consistency.py", "--exit-zero-on-findings"],
             "repository structure and metadata",
         )
-    if any(path.startswith("research/horizon-review-console/") for path in normalized):
+    if any(path.startswith("research/project-console/") for path in normalized):
         add(
             "console_tests",
             ["python3", "-m", "unittest", "tests.test_horizon_intake"],

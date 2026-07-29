@@ -495,7 +495,11 @@ generation passes the project-wide disclosure gate and are absent from its
 manifest, catalog, DOM, exports, and GitHub-bound bundle. Unavailable local
 detail is never represented as a public zero or healthy state.
 
-The Console supports three explicit delivery modes. The ordinary owner-local
+The maintained source package has one canonical repository home,
+`research/project-console/`, and one canonical entrypoint,
+`project-console.html`; compatibility aliases may not create a second source
+directory or entrypoint. The Console supports three explicit delivery modes.
+The ordinary owner-local
 mode is an exact generation-bound Console copy opened directly with `file://`;
 it may load only its bound owner-local Security assurance, private Operations
 including any active incident projections, and local automation-status
