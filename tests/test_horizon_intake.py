@@ -1349,11 +1349,12 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertFalse(errors)
         self.assertEqual(
             view["projection"],
-            {"expected_rows": 7, "actual_rows": 7, "complete": True},
+            {"expected_rows": 8, "actual_rows": 8, "complete": True},
         )
         self.assertEqual(
             [entry["values"]["category"] for entry in view["entries"]],
             [
+                "Security, privacy & disclosure",
                 "Interface & information architecture",
                 "Planning & work management",
                 "Operations & automation",
@@ -1365,22 +1366,38 @@ class HorizonIntakeTest(unittest.TestCase):
         )
         self.assertEqual(
             view["entries"][0]["id"],
+            "console-development-2026-07-29-security_privacy_disclosure",
+        )
+        self.assertEqual(
+            view["entries"][1]["id"],
             "console-development-2026-07-28-interface_information_architecture",
+        )
+        self.assertEqual(
+            view["entries"][0]["values"]["date"],
+            "2026-07-29",
+        )
+        self.assertEqual(
+            view["entries"][0]["values"]["change"],
+            "CONSOLE-2026-002",
         )
         self.assertTrue(
             all(
                 entry["values"]["date"] == "2026-07-28"
                 and entry["values"]["change"] == "CONSOLE-2026-001"
-                for entry in view["entries"]
+                for entry in view["entries"][1:]
             )
         )
         self.assertIn(
-            "<h2>2026-07-28 — Interface &amp; information architecture",
+            "<h2>2026-07-29 — Security, privacy &amp; disclosure",
             view["entries"][0]["details_html"],
+        )
+        self.assertIn(
+            "<h2>2026-07-28 — Interface &amp; information architecture",
+            view["entries"][1]["details_html"],
         )
         self.assertNotIn(
             "Planning &amp; work management",
-            view["entries"][0]["details_html"],
+            view["entries"][1]["details_html"],
         )
         self.assertIn(
             "Each date uses one canonical umbrella divided into the registered",
