@@ -644,6 +644,12 @@ def public_safe_integrity(
 
     if not isinstance(integrity, dict):
         return {}
+    registry = console_classification_registry()
+    finding_definitions = {
+        str(entry.get("id")): entry
+        for entry in registry.get("namespaces", {}).get("finding_code", [])
+        if isinstance(entry, dict)
+    }
     safe = {
         key: integrity.get(key)
         for key in (
@@ -675,18 +681,46 @@ def public_safe_integrity(
         }
         findings = current.get("findings")
         if isinstance(findings, list):
-            safe_current["findings"] = [
-                {
-                    "finding_id": item.get("finding_id"),
-                    "finding_code": item.get("finding_code"),
-                    "severity": item.get("severity"),
-                    "category": item.get("category"),
-                    "status": item.get("status"),
-                    "message": "A typed integrity finding requires review.",
-                }
-                for item in findings
-                if isinstance(item, dict)
-            ]
+            safe_findings: list[dict[str, object]] = []
+            for item in findings:
+                if not isinstance(item, dict):
+                    continue
+                finding_code = str(
+                    item.get("finding_code")
+                    or item.get("condition_code")
+                    or ""
+                ).strip()
+                definition = finding_definitions.get(finding_code)
+                if not finding_code or definition is None:
+                    raise RuntimeError(
+                        "Integrity projection contains an unregistered finding code."
+                    )
+                severity = str(
+                    item.get("severity") or "warning"
+                ).strip().casefold()
+                safe_findings.append(
+                    {
+                        "finding_id": item.get("finding_id"),
+                        "finding_code": finding_code,
+                        "severity": severity,
+                        "category": item.get("category"),
+                        "status": item.get("status"),
+                        "owner": definition.get("lifecycle_owner"),
+                        "route": definition.get("destination"),
+                        "next_action": definition.get("next_action")
+                        or (
+                            "Open Integrity and resolve the registered "
+                            "producer condition."
+                        ),
+                        "message": definition.get("public_summary")
+                        or (
+                            "A typed integrity error requires review."
+                            if severity == "error"
+                            else "A typed integrity finding requires review."
+                        ),
+                    }
+                )
+            safe_current["findings"] = safe_findings
         safe["current"] = safe_current
     safe["history"] = []
     return safe

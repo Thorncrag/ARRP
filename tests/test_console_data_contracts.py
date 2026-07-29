@@ -1097,6 +1097,49 @@ class ConsoleDataContractTests(unittest.TestCase):
             "A typed integrity finding requires review.",
         )
         self.assertNotIn(marker, json.dumps(integrity))
+        typed_integrity = MODULE.public_safe_integrity(
+            {
+                "availability": "current",
+                "current": {
+                    "finding_count": 1,
+                    "findings": [
+                        {
+                            "finding_id": "INT-GITHUB-PROJECT",
+                            "condition_code": (
+                                "github_project_access_unavailable"
+                            ),
+                            "severity": "warning",
+                            "category": "GitHub records",
+                            "status": "open",
+                            "message": marker,
+                            "route": "file:///Users/owner/private/report",
+                        }
+                    ],
+                },
+            }
+        )
+        typed_finding = typed_integrity["current"]["findings"][0]
+        self.assertEqual(
+            typed_finding["finding_code"],
+            "github_project_access_unavailable",
+        )
+        self.assertEqual(
+            typed_finding["message"],
+            (
+                "GitHub Project synchronization could not be verified because "
+                "the registered read-only access was unavailable."
+            ),
+        )
+        self.assertEqual(typed_finding["owner"], "Elim")
+        self.assertEqual(typed_finding["route"], "integrity")
+        self.assertEqual(
+            typed_finding["next_action"],
+            (
+                "Rerun Project Integrity through the registered "
+                "authenticated Console refresh."
+            ),
+        )
+        self.assertNotIn(marker, json.dumps(typed_integrity))
         action_snapshot = MODULE.build_action_snapshot(
             progress={"proposals": [], "candidates": [], "pipeline": {}},
             integrity=integrity,

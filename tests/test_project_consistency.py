@@ -1498,6 +1498,134 @@ class GitHubIssueLinkTests(unittest.TestCase):
             consistency.INTEGRITY_CHECK_DEFINITIONS.update(prior_definitions)
             consistency.STRUCTURED_FINDINGS.clear()
 
+    def test_authenticated_readback_gaps_emit_distinct_typed_findings(self):
+        cases: list[tuple[str, str, str]] = []
+
+        consistency.STRUCTURED_FINDINGS.clear()
+        with patch.object(
+            consistency,
+            "run_gh_json",
+            return_value=(None, "provider diagnostic must remain private"),
+        ):
+            consistency.fetch_github_issues([], [])
+        issue_finding = next(iter(consistency.STRUCTURED_FINDINGS.values()))
+        cases.append(
+            (
+                str(issue_finding["finding_code"]),
+                str(issue_finding["console_safe_summary"])
+                if "console_safe_summary" in issue_finding
+                else consistency.console_safe_finding_summary(issue_finding),
+                "GitHub Issues synchronization could not be verified.",
+            )
+        )
+
+        consistency.STRUCTURED_FINDINGS.clear()
+        with patch.dict(
+            consistency.os.environ,
+            {"ARRP_PROJECT_TOKEN": ""},
+        ):
+            consistency.fetch_github_project_items([], [])
+        project_access_finding = next(
+            iter(consistency.STRUCTURED_FINDINGS.values())
+        )
+        cases.append(
+            (
+                str(project_access_finding["finding_code"]),
+                consistency.console_safe_finding_summary(
+                    project_access_finding
+                ),
+                (
+                    "GitHub Project synchronization could not be verified "
+                    "because the registered read-only access was unavailable."
+                ),
+            )
+        )
+
+        consistency.STRUCTURED_FINDINGS.clear()
+        with (
+            patch.dict(
+                consistency.os.environ,
+                {"ARRP_PROJECT_TOKEN": "fixture-token"},
+            ),
+            patch.object(
+                consistency,
+                "fetch_project",
+                side_effect=RuntimeError("private provider diagnostic"),
+            ),
+        ):
+            consistency.fetch_github_project_items([], [])
+        project_readback_finding = next(
+            iter(consistency.STRUCTURED_FINDINGS.values())
+        )
+        cases.append(
+            (
+                str(project_readback_finding["finding_code"]),
+                consistency.console_safe_finding_summary(
+                    project_readback_finding
+                ),
+                (
+                    "GitHub Project synchronization could not be verified "
+                    "because the registered readback did not complete."
+                ),
+            )
+        )
+
+        consistency.STRUCTURED_FINDINGS.clear()
+        with patch.object(
+            consistency,
+            "run_gh_json",
+            return_value=(None, "provider diagnostic must remain private"),
+        ):
+            check_github_pages_deployment([], [])
+        pages_finding = next(iter(consistency.STRUCTURED_FINDINGS.values()))
+        cases.append(
+            (
+                str(pages_finding["finding_code"]),
+                consistency.console_safe_finding_summary(pages_finding),
+                "GitHub Pages deployment synchronization could not be verified.",
+            )
+        )
+
+        self.assertEqual(
+            [code for code, _, _ in cases],
+            [
+                "github_issues_readback_unavailable",
+                "github_project_access_unavailable",
+                "github_project_readback_unavailable",
+                "github_pages_readback_unavailable",
+            ],
+        )
+        for code, summary, expected_summary in cases:
+            with self.subTest(condition_code=code):
+                self.assertEqual(summary, expected_summary)
+                self.assertNotIn("provider diagnostic", summary)
+        for finding in (
+            issue_finding,
+            project_access_finding,
+            project_readback_finding,
+            pages_finding,
+        ):
+            self.assertEqual(finding["owner"], "Elim")
+            self.assertEqual(finding["route"], "integrity")
+            self.assertTrue(str(finding["finding_id"]).startswith("INT-"))
+        registry = consistency.json.loads(
+            (
+                ROOT
+                / "framework/project/interfaces/project-console-classifications.json"
+            ).read_text(encoding="utf-8")
+        )
+        registered_findings = {
+            entry["id"]: entry
+            for entry in registry["namespaces"]["finding_code"]
+        }
+        for code, definition in (
+            consistency.INTEGRITY_CONDITION_DEFINITIONS.items()
+        ):
+            with self.subTest(registered_condition=code):
+                registered = registered_findings[code]
+                self.assertEqual(registered, definition)
+        consistency.STRUCTURED_FINDINGS.clear()
+
     def test_monitoring_wrapper_requires_all_four_governance_components(self):
         generic_wrapper = (
             "## Workflow Purpose\n\n"
