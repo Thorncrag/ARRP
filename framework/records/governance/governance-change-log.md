@@ -17,7 +17,7 @@ remains separate and unchanged.
 ## GOV-2026-015 — Rule reconciliation and usage-aware agent delegation
 
 - Date: 2026-07-29
-- Status: Proposed / unmerged
+- Status: Canonical
 - Decision class: governance_documentation
 - Authorities: AGENTS.md; framework/standards/automation/multi-agent.md; Global Codex guidance
 - Decision: Requires task-appropriate lower-reasoning delegation for bounded,
@@ -25,16 +25,16 @@ remains separate and unchanged.
   persistent rules or memories are added or materially revised. An actual
   conflict among active user-controlled rules stops affected work for Benjamin
   rather than receiving inferred precedence.
-- Evidence: Approved by Benjamin and implemented in the current worktree;
-  canonical commit evidence remains pending.
-- Policy adoption: Approved by Benjamin; canonical project adoption is pending
-  commit.
-- Live activation: Global local guidance is active; the project rule remains
-  current-worktree only until canonical synchronization. No background service
-  is changed.
+- Evidence: Implementation commit
+  41c5a906a08179f284efb6a9f74bb48781d7aa8d; PR #492; merge commit
+  231b9031c7f8e1575f01ec6adab8d8563dc415c0.
+- Policy adoption: Adopted on canonical history through PR #492.
+- Live activation: Global local guidance is active and the project delegation
+  rule is canonical. No background service is changed.
 - Relationships: Additive; no recorded supersession or refinement.
-- Validation: Governance parser, focused tests, instruction-consistency review,
-  and diff validation.
+- Validation: Governance parser, 637-test Python suite, project consistency
+  review, disclosure gate, repository validation, site, Console, participation,
+  runtime-policy, CodeQL, and Vercel checks passed.
 - Owner-local supplement: Not required.
 
 ## GOV-2026-014 — Owner-local preservation-boundary proposal
