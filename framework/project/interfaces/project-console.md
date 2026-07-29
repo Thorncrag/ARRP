@@ -520,6 +520,9 @@ binding, so private Security attention cannot alter one surface without
 reconciling all shared Action counts. The current production runtime remains at
 the fixed Application Support authority; the companion's protected staging
 descriptor remains inactive until separately approved host cutover.
+Owner-Console generation resolves that one fixed owner-only descriptor through
+the path authority; a CLI argument, environment value, or requested output
+cannot substitute another authority.
 
 Opening the static `file://` Console never reads a credential or initiates a
 network request. Authenticated refresh is a separate owner-invoked local

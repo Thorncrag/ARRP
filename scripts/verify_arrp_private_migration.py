@@ -218,7 +218,7 @@ def _lock_is_free(path: Path) -> bool:
 
 def build_manifest(
     *,
-    private_authority_descriptor: Path,
+    private_authority: PrivateProjectAuthority | None = None,
     deep: bool,
 ) -> dict[str, Any]:
     """Inventory the legacy runtime against one explicit inactive successor."""
@@ -228,7 +228,11 @@ def build_manifest(
         raise MigrationVerificationError(
             "current runtime authority is not the approved production authority"
         )
-    successor = PrivateProjectAuthority.staging(private_authority_descriptor)
+    successor = (
+        private_authority
+        if private_authority is not None
+        else PrivateProjectAuthority.production_staging()
+    )
     pause = _regular_owner_control(current.state_root / "PAUSED", required=True)
     lock = _regular_owner_control(current.state_root / "run.lock", required=True)
     lock["free"] = _lock_is_free(current.state_root / "run.lock")
@@ -291,15 +295,6 @@ def _write_new_private_manifest(path: Path, value: dict[str, Any]) -> None:
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--private-authority-descriptor",
-        type=Path,
-        required=True,
-        help=(
-            "Owner-only descriptor for the inactive private staging layout. "
-            "It cannot authorize activation."
-        ),
-    )
-    parser.add_argument(
         "--deep",
         action="store_true",
         help="Hash every regular file into the private migration manifest.",
@@ -316,12 +311,9 @@ def _parser() -> argparse.ArgumentParser:
 
 def main() -> int:
     args = _parser().parse_args()
-    manifest = build_manifest(
-        private_authority_descriptor=args.private_authority_descriptor,
-        deep=args.deep,
-    )
+    successor = PrivateProjectAuthority.production_staging()
+    manifest = build_manifest(private_authority=successor, deep=args.deep)
     if args.output_relative:
-        successor = PrivateProjectAuthority.staging(args.private_authority_descriptor)
         output = successor.migration_output(args.output_relative)
         _write_new_private_manifest(output, manifest)
         summary = {

@@ -79,13 +79,20 @@ class PrivateMigrationVerifierTests(unittest.TestCase):
         for patch in patches:
             patch.start()
             self.addCleanup(patch.stop)
+        self.private_authority = (
+            path_authority.PrivateProjectAuthority.fixture_staging(
+                self.descriptor,
+                fixture_root=self.storage,
+            )
+        )
 
     def tearDown(self) -> None:
         self.temporary.cleanup()
 
     def test_manifest_proves_pause_and_free_lock_without_activation(self) -> None:
         manifest = migration.build_manifest(
-            private_authority_descriptor=self.descriptor, deep=True
+            private_authority=self.private_authority,
+            deep=True,
         )
 
         self.assertEqual(
@@ -117,7 +124,8 @@ class PrivateMigrationVerifierTests(unittest.TestCase):
             "required runtime control",
         ):
             migration.build_manifest(
-                private_authority_descriptor=self.descriptor, deep=False
+                private_authority=self.private_authority,
+                deep=False,
             )
 
         os.rename(self.legacy / "pause-preserved", self.legacy / "PAUSED")
@@ -127,12 +135,14 @@ class PrivateMigrationVerifierTests(unittest.TestCase):
                 "currently owned",
             ):
                 migration.build_manifest(
-                    private_authority_descriptor=self.descriptor, deep=False
+                    private_authority=self.private_authority,
+                    deep=False,
                 )
 
     def test_private_manifest_is_new_owner_only_and_never_replaced(self) -> None:
         manifest = migration.build_manifest(
-            private_authority_descriptor=self.descriptor, deep=False
+            private_authority=self.private_authority,
+            deep=False,
         )
         output = self.migration / "review" / "inventory.json"
 
@@ -160,19 +170,28 @@ class PrivateMigrationVerifierTests(unittest.TestCase):
         self.assertEqual(linked["type"], "symlink")
         self.assertEqual(linked["target"], str(outside))
 
-    def test_descriptor_is_required_and_a_missing_descriptor_fails_closed(self) -> None:
+    def test_production_cli_exposes_no_descriptor_switch_and_fails_closed(
+        self,
+    ) -> None:
         parser = migration._parser()
-        descriptor_action = next(
-            action
-            for action in parser._actions
-            if action.dest == "private_authority_descriptor"
+        self.assertNotIn(
+            "private_authority_descriptor",
+            {
+                action.dest
+                for action in parser._actions
+            },
         )
-        self.assertTrue(descriptor_action.required)
-        with self.assertRaises(path_authority.PathAuthorityError):
-            migration.build_manifest(
-                private_authority_descriptor=self.private / "missing.json",
-                deep=False,
-            )
+        with (
+            mock.patch.object(
+                migration.PrivateProjectAuthority,
+                "production_staging",
+                side_effect=path_authority.PathAuthorityError(
+                    "fixed descriptor unavailable"
+                ),
+            ),
+            self.assertRaises(path_authority.PathAuthorityError),
+        ):
+            migration.build_manifest(deep=False)
 
 
 if __name__ == "__main__":

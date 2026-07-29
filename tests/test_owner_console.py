@@ -60,7 +60,6 @@ class OwnerConsoleTests(unittest.TestCase):
         self.private_versions.mkdir(parents=True, mode=0o700)
         os.chmod(self.private_versions.parent, 0o700)
         os.chmod(self.private_versions, 0o700)
-        self.authority_descriptor = self.root / "authority.json"
         self.security_tool = {
             "tool_id": "credential-access-review",
             "label": "Credential and access review",
@@ -96,14 +95,7 @@ class OwnerConsoleTests(unittest.TestCase):
             "APPROVED_REPOSITORY_ROOT",
             self.repository,
         )
-        self.patch_staging = mock.patch.object(
-            owner_console.PrivateProjectAuthority,
-            "staging",
-            return_value=self.authority,
-        )
-        self.staging_mock = self.patch_staging.start()
         self.patch_repository.start()
-        self.addCleanup(self.patch_staging.stop)
         self.addCleanup(self.patch_repository.stop)
 
     def tearDown(self) -> None:
@@ -111,7 +103,7 @@ class OwnerConsoleTests(unittest.TestCase):
 
     def build(self) -> Path:
         return owner_console.build_owner_console(
-            authority_descriptor=self.authority_descriptor,
+            private_authority=self.authority,
             now=STAGED_AT,
         )
 
@@ -344,9 +336,6 @@ class OwnerConsoleTests(unittest.TestCase):
 
         version = self.build()
 
-        self.staging_mock.assert_called_once_with(
-            self.authority_descriptor
-        )
         self.assertEqual(version.name, VERSION_ID)
         self.assertEqual(
             version.parent,
@@ -468,6 +457,103 @@ class OwnerConsoleTests(unittest.TestCase):
             self.build()
 
         self.assertFalse(any(self.private_versions.iterdir()))
+
+    def test_manifest_cannot_select_an_unobserved_domain_path(self) -> None:
+        manifest_path = self.data / "generation-manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        metadata = dict(manifest["files"]["overview.js"])
+        row = {
+            key: value
+            for key, value in metadata.items()
+            if key != "generation_id"
+        }
+        row["file"] = "not-present.js"
+        manifest["files"]["not-present.js"] = metadata
+        manifest["domains"].append(row)
+        manifest["domain_count"] = 2
+        manifest["completeness"].update(
+            {
+                "actual_count": 2,
+                "expected_count": 2,
+            }
+        )
+        manifest_path.write_text(
+            json.dumps(manifest),
+            encoding="utf-8",
+        )
+
+        with mock.patch.object(
+            owner_console,
+            "_read_regular",
+            wraps=owner_console._read_regular,
+        ) as read_regular:
+            with self.assertRaisesRegex(
+                owner_console.OwnerConsoleBuildError,
+                "canonical data inventory disagree",
+            ):
+                self.build()
+        self.assertNotIn(
+            "not-present.js",
+            {
+                call.args[0].name
+                for call in read_regular.call_args_list
+                if call.args
+            },
+        )
+
+    def test_unmanifested_or_symlinked_public_domain_fails_closed(
+        self,
+    ) -> None:
+        extra = self.data / "unexpected-domain.js"
+        extra.write_text("/* not in the manifest */\n", encoding="utf-8")
+        with self.assertRaisesRegex(
+            owner_console.OwnerConsoleBuildError,
+            "canonical data inventory disagree",
+        ):
+            self.build()
+        extra.rename(self.root / "unexpected-domain.preserved")
+
+        domain = self.data / "overview.js"
+        preserved = self.root / "overview.preserved"
+        domain.rename(preserved)
+        domain.symlink_to(preserved)
+        with self.assertRaisesRegex(
+            owner_console.OwnerConsoleBuildError,
+            "unsafe domain",
+        ):
+            self.build()
+
+    def test_private_projection_cannot_become_a_public_manifest_domain(
+        self,
+    ) -> None:
+        manifest_path = self.data / "generation-manifest.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        metadata = dict(manifest["files"]["overview.js"])
+        row = {
+            key: value
+            for key, value in metadata.items()
+            if key != "generation_id"
+        }
+        row["file"] = "private-operations.js"
+        manifest["files"]["private-operations.js"] = metadata
+        manifest["domains"].append(row)
+        manifest["domain_count"] = 2
+        manifest["completeness"].update(
+            {
+                "actual_count": 2,
+                "expected_count": 2,
+            }
+        )
+        manifest_path.write_text(
+            json.dumps(manifest),
+            encoding="utf-8",
+        )
+
+        with self.assertRaisesRegex(
+            owner_console.OwnerConsoleBuildError,
+            "canonical data inventory disagree",
+        ):
+            self.build()
 
     def test_stale_private_operations_binding_fails_closed(self) -> None:
         path = self.data / "private-operations.js"

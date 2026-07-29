@@ -79,6 +79,9 @@ OWNER_BINDING_FILE = "owner-console-binding.js"
 GENERATION_ID_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
 SOURCE_REVISION_PATTERN = re.compile(r"^[0-9a-f]{40}(?:[0-9a-f]{24})?$")
 SHA256_PATTERN = re.compile(r"^sha256:[0-9a-f]{64}$")
+PUBLIC_DOMAIN_NAME_PATTERN = re.compile(
+    r"^[a-z0-9]+(?:-[a-z0-9]+)*\.js$"
+)
 STATUS_VALUES = frozenset(
     {
         "completed",
@@ -450,18 +453,47 @@ def _validate_manifest(
         "generation-manifest.json",
         *(spec[0] for spec in PRIVATE_PROJECTION_SPECS.values()),
     }
-    observed = {
-        path.name
-        for path in data_dir.iterdir()
-        if path.is_file() or path.is_symlink()
-    }
-    unexpected = observed - set(files) - allowed_unmanifested
-    if unexpected:
+    try:
+        data_metadata = data_dir.lstat()
+        candidates = tuple(data_dir.iterdir())
+    except OSError as error:
         raise OwnerConsoleBuildError(
-            "public Console data directory contains an unmanifested domain"
+            "public Console data directory is unavailable"
+        ) from error
+    if stat.S_ISLNK(data_metadata.st_mode) or not stat.S_ISDIR(
+        data_metadata.st_mode
+    ):
+        raise OwnerConsoleBuildError(
+            "public Console data directory must be a non-symlink directory"
+        )
+    observed_paths: dict[str, Path] = {}
+    for candidate in candidates:
+        name = candidate.name
+        try:
+            candidate_metadata = candidate.lstat()
+        except OSError as error:
+            raise OwnerConsoleBuildError(
+                "public Console data inventory is unavailable"
+            ) from error
+        if name in allowed_unmanifested:
+            continue
+        if (
+            not PUBLIC_DOMAIN_NAME_PATTERN.fullmatch(name)
+            or stat.S_ISLNK(candidate_metadata.st_mode)
+            or not stat.S_ISREG(candidate_metadata.st_mode)
+            or name in observed_paths
+        ):
+            raise OwnerConsoleBuildError(
+                "public Console data directory contains an unsafe domain"
+            )
+        observed_paths[name] = candidate
+    if set(observed_paths) != set(files):
+        raise OwnerConsoleBuildError(
+            "public Console manifest and canonical data inventory disagree"
         )
     domain_contents: dict[str, bytes] = {}
-    for name, raw_metadata in files.items():
+    for name, safe_path in sorted(observed_paths.items()):
+        raw_metadata = files[name]
         if not isinstance(raw_metadata, dict):
             raise OwnerConsoleBuildError(
                 "public Console file metadata is malformed"
@@ -481,7 +513,7 @@ def _validate_manifest(
             raise OwnerConsoleBuildError(
                 f"public Console metadata disagrees for {name}"
             )
-        content = _read_regular(data_dir / name, owner_only=False)
+        content = _read_regular(safe_path, owner_only=False)
         if len(content) != metadata["bytes"] or _sha256(content) != metadata["sha256"]:
             raise OwnerConsoleBuildError(
                 f"public Console hash verification failed for {name}"
@@ -1119,12 +1151,16 @@ def _injected_index(source: bytes) -> bytes:
 
 def build_owner_console(
     *,
-    authority_descriptor: Path,
+    private_authority: PrivateProjectAuthority | None = None,
     now: datetime | None = None,
 ) -> Path:
     """Build and return one immutable owner-only Console version directory."""
 
-    authority = PrivateProjectAuthority.staging(authority_descriptor)
+    authority = (
+        private_authority
+        if private_authority is not None
+        else PrivateProjectAuthority.production_staging()
+    )
     repository_root = Path(APPROVED_REPOSITORY_ROOT)
     try:
         repository_metadata = repository_root.lstat()
@@ -1297,19 +1333,8 @@ def build_owner_console(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--private-authority-descriptor",
-        type=Path,
-        required=True,
-        help=(
-            "Owner-only inactive staging descriptor. It identifies the "
-            "destination but never authorizes runtime activation."
-        ),
-    )
-    args = parser.parse_args()
-    version = build_owner_console(
-        authority_descriptor=args.private_authority_descriptor
-    )
+    parser.parse_args()
+    version = build_owner_console()
     print(
         json.dumps(
             {

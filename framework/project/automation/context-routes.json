@@ -163,7 +163,7 @@
     },
     "project_interface": {
       "path": "framework/project/interfaces/project-console.md",
-      "sha256": "2e7a9fce32faf8654b6b8af5005262167182a9181da8bf41ca5b08096a10a50a",
+      "sha256": "640b6e14a6f984763eb2d641ae61fe6d27b8629d628bab52b1d40bf0027802ed",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -214,7 +214,7 @@
     },
     "project_runtime_authority": {
       "path": "framework/project/automation/owner-local-runtime.md",
-      "sha256": "cc964cb7be58ef500841ef62e5b37a720671e2cdec7a56057cd9ef8632c52201",
+      "sha256": "49c58fbaf78caaf05a4bd92bb40bdc28553d34b0ff430ff6625544454684e746",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [

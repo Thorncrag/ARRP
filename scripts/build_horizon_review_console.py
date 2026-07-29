@@ -329,15 +329,6 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Rebuild the ARRP Project Console without rewriting the public-input lookup.",
     )
-    parser.add_argument(
-        "--private-authority-descriptor",
-        type=Path,
-        help=(
-            "Validate an owner-only inactive staging descriptor for private "
-            "supplements and projections. This non-publishing input never "
-            "authorizes production activation."
-        ),
-    )
     return parser.parse_args()
 
 
@@ -3963,23 +3954,20 @@ def owner_governance_supplements(
     *,
     source_revision: str,
     checked_at: str,
-    private_authority_descriptor: Path | None = None,
+    private_authority: PrivateProjectAuthority | None = None,
 ) -> dict[str, object]:
-    """Project only Console-safe summaries from an exact private descriptor."""
+    """Project only Console-safe summaries from the fixed private authority."""
 
     try:
         public_changes = parse_public_changes(
             GOVERNANCE_CHANGE_LOG,
             GOVERNANCE_CHANGE_REGISTRY,
         )
-        if private_authority_descriptor is None:
+        if private_authority is None:
             raise PathAuthorityError(
-                "private staging authority descriptor was not supplied"
+                "private staging authority is unavailable"
             )
-        authority = PrivateProjectAuthority.staging(
-            private_authority_descriptor
-        )
-        path = authority.records_path(
+        path = private_authority.records_path(
             GOVERNANCE_SUPPLEMENTS_RELATIVE,
             required=False,
         )
@@ -9081,7 +9069,7 @@ def repository_gate_snapshot(refresh: bool) -> dict[str, object]:
 
 
 def owner_incident_snapshots(
-    private_authority_descriptor: Path | None = None,
+    private_authority: PrivateProjectAuthority | None = None,
 ) -> tuple[
     dict[str, object],
     dict[str, object],
@@ -9091,13 +9079,10 @@ def owner_incident_snapshots(
 
     operational = project_incident_log(OPERATIONAL_INCIDENT_LOG)
     try:
-        if private_authority_descriptor is None:
+        if private_authority is None:
             raise PathAuthorityError(
-                "private staging authority descriptor was not supplied"
+                "private staging authority is unavailable"
             )
-        private = PrivateProjectAuthority.staging(
-            private_authority_descriptor
-        )
     except PathAuthorityError:
         return (
             operational,
@@ -9105,7 +9090,9 @@ def owner_incident_snapshots(
             unavailable_incident_relations("private-authority-unavailable"),
         )
 
-    security_path = private.records_output(SECURITY_INCIDENT_RELATIVE)
+    security_path = private_authority.records_output(
+        SECURITY_INCIDENT_RELATIVE
+    )
     security = project_security_incident_log(security_path)
     if (
         operational.get("complete") is not True
@@ -9117,7 +9104,9 @@ def owner_incident_snapshots(
             unavailable_incident_relations("incident-authority-incomplete"),
         )
 
-    relation_path = private.records_output(INCIDENT_RELATIONS_RELATIVE)
+    relation_path = private_authority.records_output(
+        INCIDENT_RELATIONS_RELATIVE
+    )
     if not relation_path.exists():
         return (
             operational,
@@ -9147,13 +9136,17 @@ def owner_incident_snapshots(
 
 def main() -> None:
     args = parse_args()
+    try:
+        private_authority = PrivateProjectAuthority.production_staging()
+    except PathAuthorityError:
+        private_authority = None
     validate_console_development_log_categories()
     projection_errors: list[dict[str, object]] = []
     (
         operational_incidents,
         security_incidents,
         incident_relations,
-    ) = owner_incident_snapshots(args.private_authority_descriptor)
+    ) = owner_incident_snapshots(private_authority)
     public_operational_incidents = unavailable_incident_projection(
         "operational"
     )
@@ -9284,7 +9277,7 @@ def main() -> None:
     governance_change_supplements = owner_governance_supplements(
         source_revision=repository_revision,
         checked_at=generated_at,
-        private_authority_descriptor=args.private_authority_descriptor,
+        private_authority=private_authority,
     )
     public_integrity = public_safe_integrity(integrity)
     action_snapshot = build_action_snapshot(

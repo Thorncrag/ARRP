@@ -89,17 +89,21 @@ them.
 The path-authority implementation must:
 
 1. resolve the exact canonical repository and current production state root;
-2. require owner-only modes and the expected owner for protected files and
+2. resolve successor staging through one fixed owner-only descriptor at the
+   named companion root; its declared root must equal the descriptor's parent,
+   and no production CLI, environment value, or caller-selected path may
+   substitute another descriptor;
+3. require owner-only modes and the expected owner for protected files and
    directories;
-3. reject absolute child names, traversal, symlink ancestors, escapes,
+4. reject absolute child names, traversal, symlink ancestors, escapes,
    unsupported file types, mismatched run/worktree identities, and unsafe
    permissions;
-4. reject a File Provider storage boundary for the named companion workspace;
-5. permit fixture paths only through an explicit contained fixture authority
+5. reject a File Provider storage boundary for the named companion workspace;
+6. permit fixture paths only through an explicit contained fixture authority
    that cannot overlap the repository, current state root, or named companion workspace;
-6. keep candidate disclosure-control validation nonpublishing and unable to
+7. keep candidate disclosure-control validation nonpublishing and unable to
    authorize production; and
-7. return safe reason codes or descriptions to public projections without
+8. return safe reason codes or descriptions to public projections without
    exposing absolute paths or restricted diagnostics.
 
 Production publishers may choose the proposed outbound payload. They may not

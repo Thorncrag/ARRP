@@ -19,6 +19,12 @@ APPROVED_REPOSITORY_ROOT = Path(
 APPROVED_STATE_ROOT = Path(
     "/Users/benjaminsmith/Library/Application Support/ARRP"
 )
+APPROVED_PRIVATE_STAGING_ROOT = (
+    APPROVED_REPOSITORY_ROOT.parent / "ARRP Private"
+)
+APPROVED_PRIVATE_STAGING_DESCRIPTOR = (
+    APPROVED_PRIVATE_STAGING_ROOT / ".arrp-private-staging-authority.json"
+)
 FILE_PROVIDER_XATTR = "com.apple.file-provider-domain-id"
 PRIVATE_AUTHORITY_SCHEMA_VERSION = 1
 PRIVATE_AUTHORITY_ID_PATTERN = re.compile(
@@ -431,8 +437,71 @@ class PrivateProjectAuthority:
     control_pack_root: Path
 
     @classmethod
-    def staging(cls, descriptor_path: Path) -> "PrivateProjectAuthority":
-        """Validate one explicitly selected non-publishing staging descriptor.
+    def production_staging(cls) -> "PrivateProjectAuthority":
+        """Load the one fixed non-publishing successor staging authority."""
+
+        return cls._from_descriptor(
+            APPROVED_PRIVATE_STAGING_DESCRIPTOR,
+            expected_private_root=APPROVED_PRIVATE_STAGING_ROOT,
+            fixture_floor=None,
+        )
+
+    @classmethod
+    def fixture_staging(
+        cls,
+        descriptor_path: Path,
+        *,
+        fixture_root: Path,
+    ) -> "PrivateProjectAuthority":
+        """Load one explicitly contained test fixture authority.
+
+        This entrypoint is for direct fixture injection only. Production CLIs
+        and environment state cannot select it.
+        """
+
+        fixture_floor = _owner_directory(Path(fixture_root))
+        for forbidden in (
+            APPROVED_REPOSITORY_ROOT.resolve(),
+            APPROVED_STATE_ROOT.resolve(),
+            APPROVED_PRIVATE_STAGING_ROOT.resolve(),
+        ):
+            if (
+                fixture_floor == forbidden
+                or fixture_floor in forbidden.parents
+                or forbidden in fixture_floor.parents
+            ):
+                raise PathAuthorityError(
+                    "fixture authority overlaps an approved production boundary"
+                )
+        descriptor_candidate = Path(
+            os.path.abspath(os.fspath(descriptor_path))
+        )
+        if (
+            descriptor_candidate == fixture_floor
+            or fixture_floor not in descriptor_candidate.parents
+        ):
+            raise PathAuthorityError(
+                "fixture descriptor is outside its explicit fixture authority"
+            )
+        _reject_symlink_ancestors(
+            descriptor_candidate.parent,
+            floor=fixture_floor,
+        )
+        return cls._from_descriptor(
+            descriptor_candidate,
+            expected_private_root=None,
+            fixture_floor=fixture_floor,
+        )
+
+    @classmethod
+    def _from_descriptor(
+        cls,
+        descriptor_path: Path,
+        *,
+        expected_private_root: Path | None,
+        fixture_floor: Path | None,
+    ) -> "PrivateProjectAuthority":
+        """Validate one fixed production or explicitly contained fixture descriptor.
 
         The descriptor can identify an inactive candidate layout, but it can
         never establish production authority or authorize activation.
@@ -472,13 +541,27 @@ class PrivateProjectAuthority:
                 "private staging authority descriptor is unsupported"
             )
         private_candidate = Path(value["private_root"])
+        if (
+            expected_private_root is not None
+            and private_candidate != expected_private_root
+        ):
+            raise PathAuthorityError(
+                "private staging descriptor does not match the approved authority"
+            )
+        if fixture_floor is not None and (
+            private_candidate == fixture_floor
+            or fixture_floor not in private_candidate.parents
+        ):
+            raise PathAuthorityError(
+                "fixture private root is outside its explicit fixture authority"
+            )
         _reject_symlink_ancestors(private_candidate, floor=Path("/"))
         _reject_file_provider_boundary(private_candidate, floor=Path("/"))
         private_root = _owner_directory(private_candidate)
         descriptor_resolved = descriptor.resolve(strict=True)
-        if descriptor_resolved != private_root and private_root not in descriptor_resolved.parents:
+        if descriptor_resolved.parent != private_root:
             raise PathAuthorityError(
-                "private staging descriptor is outside its declared authority"
+                "private staging descriptor must be the fixed root authority file"
             )
         _reject_symlink_ancestors(
             descriptor_resolved.parent,

@@ -25,9 +25,9 @@ class ProjectPathAuthorityTests(unittest.TestCase):
         self.private_control_packs = (
             self.private / "role-e"
         )
-        self.repository.mkdir()
+        self.repository.mkdir(mode=0o700)
         self.state.mkdir(mode=0o700)
-        self.storage_floor.mkdir()
+        self.storage_floor.mkdir(mode=0o700)
         self.private.mkdir(mode=0o700)
         for path in (
             self.private_runtime,
@@ -173,8 +173,9 @@ class ProjectPathAuthorityTests(unittest.TestCase):
             authority.ProjectPathAuthority.production()
 
     def test_successor_private_layout_is_validated_without_activation(self) -> None:
-        selected = authority.PrivateProjectAuthority.staging(
-            self.private_descriptor
+        selected = authority.PrivateProjectAuthority.fixture_staging(
+            self.private_descriptor,
+            fixture_root=self.storage_floor,
         )
 
         self.assertEqual(selected.private_root, self.private.resolve())
@@ -221,8 +222,9 @@ class ProjectPathAuthorityTests(unittest.TestCase):
                 authority.PathAuthorityError,
                 "File Provider",
             ):
-                authority.PrivateProjectAuthority.staging(
-                    self.private_descriptor
+                authority.PrivateProjectAuthority.fixture_staging(
+                    self.private_descriptor,
+                    fixture_root=self.storage_floor,
                 )
 
         real_private = self.private
@@ -242,7 +244,10 @@ class ProjectPathAuthorityTests(unittest.TestCase):
             authority.PathAuthorityError,
             "only directories",
         ):
-            authority.PrivateProjectAuthority.staging(linked_descriptor)
+            authority.PrivateProjectAuthority.fixture_staging(
+                linked_descriptor,
+                fixture_root=self.storage_floor,
+            )
 
     def test_successor_rejects_unsafe_subroot_permissions(self) -> None:
         os.chmod(self.private_runtime, 0o755)
@@ -250,8 +255,9 @@ class ProjectPathAuthorityTests(unittest.TestCase):
             authority.PathAuthorityError,
             "permissions are unsafe",
         ):
-            authority.PrivateProjectAuthority.staging(
-                self.private_descriptor
+            authority.PrivateProjectAuthority.fixture_staging(
+                self.private_descriptor,
+                fixture_root=self.storage_floor,
             )
 
     def test_private_staging_descriptor_cannot_overlap_production(self) -> None:
@@ -273,9 +279,12 @@ class ProjectPathAuthorityTests(unittest.TestCase):
         os.chmod(descriptor, 0o600)
         with self.assertRaisesRegex(
             authority.PathAuthorityError,
-            "overlaps production",
+            "overlaps an approved production boundary",
         ):
-            authority.PrivateProjectAuthority.staging(descriptor)
+            authority.PrivateProjectAuthority.fixture_staging(
+                descriptor,
+                fixture_root=self.state,
+            )
 
     def test_private_staging_descriptor_contract_fails_closed(self) -> None:
         original = json.loads(
@@ -311,7 +320,10 @@ class ProjectPathAuthorityTests(unittest.TestCase):
                     authority.PathAuthorityError,
                     message,
                 ):
-                    authority.PrivateProjectAuthority.staging(descriptor)
+                    authority.PrivateProjectAuthority.fixture_staging(
+                        descriptor,
+                        fixture_root=self.storage_floor,
+                    )
 
     def test_private_staging_roles_must_be_disjoint(self) -> None:
         nested = self.private_runtime / "nested"
@@ -330,20 +342,75 @@ class ProjectPathAuthorityTests(unittest.TestCase):
             authority.PathAuthorityError,
             "disjoint",
         ):
-            authority.PrivateProjectAuthority.staging(descriptor)
+            authority.PrivateProjectAuthority.fixture_staging(
+                descriptor,
+                fixture_root=self.storage_floor,
+            )
+
+    def test_production_private_staging_uses_only_the_fixed_descriptor(
+        self,
+    ) -> None:
+        with (
+            mock.patch.object(
+                authority,
+                "APPROVED_PRIVATE_STAGING_ROOT",
+                self.private,
+            ),
+            mock.patch.object(
+                authority,
+                "APPROVED_PRIVATE_STAGING_DESCRIPTOR",
+                self.private_descriptor,
+            ),
+        ):
+            selected = authority.PrivateProjectAuthority.production_staging()
+        self.assertEqual(selected.private_root, self.private.resolve())
+        with self.assertRaises(TypeError):
+            authority.PrivateProjectAuthority.production_staging(  # type: ignore[call-arg]
+                self.private_descriptor
+            )
+
+    def test_fixture_private_authority_cannot_target_production_or_escape(
+        self,
+    ) -> None:
+        with self.assertRaisesRegex(
+            authority.PathAuthorityError,
+            "overlaps an approved production boundary",
+        ):
+            authority.PrivateProjectAuthority.fixture_staging(
+                self.private_descriptor,
+                fixture_root=self.repository,
+            )
+        outside = self.root / "outside-authority.json"
+        outside.write_text(
+            self.private_descriptor.read_text(encoding="utf-8"),
+            encoding="utf-8",
+        )
+        os.chmod(outside, 0o600)
+        with self.assertRaisesRegex(
+            authority.PathAuthorityError,
+            "outside its explicit fixture authority",
+        ):
+            authority.PrivateProjectAuthority.fixture_staging(
+                outside,
+                fixture_root=self.storage_floor,
+            )
 
     def test_production_clis_expose_no_fixture_root_switch(self) -> None:
         repository = Path(__file__).resolve().parents[1]
         for relative in (
             "scripts/append_agent_audit_log.py",
             "scripts/build_elim_context.py",
+            "scripts/build_horizon_review_console.py",
+            "scripts/build_owner_console.py",
             "scripts/operational_incidents.py",
             "scripts/record_review_epoch.py",
             "scripts/repository_gates.py",
+            "scripts/verify_arrp_private_migration.py",
         ):
             with self.subTest(relative=relative):
                 source = (repository / relative).read_text(encoding="utf-8")
                 self.assertNotIn("--fixture-root", source)
+                self.assertNotIn("--private-authority-descriptor", source)
 
 
 if __name__ == "__main__":
