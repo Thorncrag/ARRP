@@ -1,11 +1,13 @@
 import subprocess
 import tempfile
 import unittest
+import inspect
 from pathlib import Path
 
 from scripts.arrp_nightly import SensitiveValue
 from scripts.refresh_horizon_review_console import (
     ConsoleRefreshError,
+    _refresh_console,
     refresh_console,
 )
 
@@ -114,8 +116,9 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
                 keychain_calls.append((service, account))
                 return SensitiveValue("secret-canary")
 
-            result = refresh_console(
+            result = _refresh_console(
                 authority=authority,
+                interpreter=root / ".venv/bin/python",
                 run=runner,
                 secret_reader=read_secret,
                 base_environment={
@@ -164,8 +167,9 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
                 ConsoleRefreshError,
                 "tracked tree must be clean",
             ):
-                refresh_console(
+                _refresh_console(
                     authority=authority,
+                    interpreter=Path(temporary) / ".venv/bin/python",
                     run=runner,
                     secret_reader=read_secret,
                 )
@@ -180,8 +184,9 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
                 failed_script="build_project_console_progress.py"
             )
             with self.assertRaises(ConsoleRefreshError) as raised:
-                refresh_console(
+                _refresh_console(
                     authority=authority,
+                    interpreter=Path(temporary) / ".venv/bin/python",
                     run=runner,
                     secret_reader=lambda service, account: SensitiveValue(
                         "secret-canary"
@@ -192,6 +197,9 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
         self.assertIn("Authenticated Project projection failed", message)
         self.assertNotIn("secret-canary", message)
         self.assertNotIn("provider detail", message)
+
+    def test_production_entry_point_has_no_caller_selected_authority(self) -> None:
+        self.assertEqual(dict(inspect.signature(refresh_console).parameters), {})
 
 
 if __name__ == "__main__":

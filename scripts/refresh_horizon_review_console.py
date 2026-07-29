@@ -7,6 +7,7 @@ import json
 import os
 import shutil
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 from typing import Callable, Mapping
@@ -102,9 +103,10 @@ def _copy_progress_snapshot(source: Path, destination: Path) -> None:
     os.replace(temporary, destination)
 
 
-def refresh_console(
+def _refresh_console(
     *,
-    authority: ProjectPathAuthority | None = None,
+    authority: ProjectPathAuthority,
+    interpreter: Path,
     run: RunFunction = subprocess.run,
     secret_reader: SecretReader = read_keychain_secret,
     base_environment: Mapping[str, str] | None = None,
@@ -116,43 +118,41 @@ def refresh_console(
     producer subprocesses and is never placed in an argument or persisted.
     """
 
-    selected_authority = authority or ProjectPathAuthority.production()
-    if selected_authority.mode != "production_canonical":
+    if authority.mode != "production_canonical":
         raise ConsoleRefreshError(
             "Authenticated Console refresh requires the canonical production authority."
         )
-    repository = selected_authority.repository_root
-    interpreter = selected_authority.repository_path(".venv/bin/python")
-    progress_builder = selected_authority.repository_path(
+    repository = authority.repository_root
+    progress_builder = authority.repository_path(
         "scripts/build_project_console_progress.py"
     )
-    integrity_auditor = selected_authority.repository_path(
+    integrity_auditor = authority.repository_path(
         "scripts/audit_project_consistency.py"
     )
-    integrity_builder = selected_authority.repository_path(
+    integrity_builder = authority.repository_path(
         "scripts/build_project_integrity_feed.py"
     )
-    console_builder = selected_authority.repository_path(
+    console_builder = authority.repository_path(
         "scripts/build_horizon_review_console.py"
     )
-    progress_config = selected_authority.repository_path(
+    progress_config = authority.repository_path(
         "framework/project/interfaces/project-console-progress.json"
     )
-    registry = selected_authority.repository_path(
+    registry = authority.repository_path(
         "inventory/github_issue_registry.csv"
     )
-    integrity_history = selected_authority.repository_path(
+    integrity_history = authority.repository_path(
         "research/horizon-review-console/data/integrity.js"
     )
-    integrity_markdown = selected_authority.repository_path(
+    integrity_markdown = authority.repository_path(
         "framework/records/status/project-integrity-report.md"
     )
-    temporary_root = selected_authority.repository_output(".tmp")
+    temporary_root = authority.repository_output(".tmp")
     temporary_root.mkdir(mode=0o700, exist_ok=True)
-    progress_snapshot = selected_authority.repository_output(
+    progress_snapshot = authority.repository_output(
         ".tmp/project-console-progress-snapshot.json"
     )
-    integrity_snapshot = selected_authority.repository_output(
+    integrity_snapshot = authority.repository_output(
         ".tmp/project-console-integrity.json"
     )
 
@@ -261,10 +261,34 @@ def refresh_console(
     return {
         "schema_version": 1,
         "status": "refreshed",
-        "authority": selected_authority.mode,
+        "authority": authority.mode,
         "project_access": "read-only Keychain credential",
         "console": "research/horizon-review-console/index.html",
     }
+
+
+def _production_interpreter(repository: Path) -> Path:
+    expected_prefix = (repository / ".venv").resolve(strict=True)
+    if Path(sys.prefix).resolve() != expected_prefix:
+        raise ConsoleRefreshError(
+            "Authenticated Console refresh must run with the project virtual environment."
+        )
+    interpreter = Path(sys.executable).resolve(strict=True)
+    if not interpreter.is_file():
+        raise ConsoleRefreshError(
+            "The project virtual-environment interpreter is unavailable."
+        )
+    return interpreter
+
+
+def refresh_console() -> dict[str, object]:
+    """Run the production refresh with no caller-selected trust authority."""
+
+    authority = ProjectPathAuthority.production()
+    return _refresh_console(
+        authority=authority,
+        interpreter=_production_interpreter(authority.repository_root),
+    )
 
 
 def main() -> int:
