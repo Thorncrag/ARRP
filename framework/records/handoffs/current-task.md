@@ -1,6 +1,6 @@
 ---
 title: "Current Task Handoff"
-status: inactive
+status: active
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -17,14 +17,14 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Active issue/task | Console consistency-audit remedy |
 | Audit type/tier | Project interface consistency implementation |
 | Started | 2026-07-28 21:39:41 -0400 |
-| Last checkpoint | 2026-07-28 21:39:41 -0400 |
+| Last checkpoint | 2026-07-28 22:52:15 -0400 |
 | User request | Implement the approved seven-package Console consistency remedy and close every audit finding with deterministic tests. |
 | Scope | Automation occurrence and Overview contracts; queue/action/activity/capacity projections; specialist screens and navigation; producer/feed/link repairs; transactional regeneration; validation and governed GitHub reconciliation. |
-| Files touched | `framework/records/handoffs/current-task.md`; `AGENTS.md` safeguard preserved from the approved concurrent security work. |
-| Completed steps | Re-established the merged production baseline, preserved the concurrent safeguard, loaded mandatory governance, created the scoped implementation branch, and opened this checkpoint. |
-| Next step | Inventory current producers, generated contracts, browser reconstruction, tests, stale feeds, and the three broken links into the finding-to-change-to-test matrix. |
-| Blockers/questions | None. GitHub Project mutation remains fail-closed unless governance and high-confidence evidence both pass. |
-| Validation status | In progress. |
+| Files touched | Console builder, browser, typed classification registry, interface standards and contract, automation/source writers, Integrity producer, generated Console projections, focused and whole-project tests, current reports, development log, closure matrix, and this checkpoint. |
+| Completed steps | Implemented and committed the seven approved consistency packages as `3ee638f796c4f266261f18d13344d80ef5669a8f`; refreshed all 2,055 Source Checker records and the authenticated repository-gate inventory; rebound Integrity and Console generation to that commit; passed 562 Python and 53 frontend tests, zero-error consistency validation, strict public build, and complete-tree/outgoing disclosure checks. |
+| Next step | Commit the revision-bound generated projections and closure records, push the governed branch, open and validate the pull request, then synchronize and clear this handoff. |
+| Blockers/questions | GitHub Project readback is explicitly unavailable because the existing credential lacks `read:project`; the latest complete Project snapshot is retained and no credential or Project field change is authorized or needed. |
+| Validation status | Passed locally; governed GitHub synchronization pending. |
 
 ## Handoff Rules
 

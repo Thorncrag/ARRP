@@ -52,15 +52,15 @@ confidence; commit subjects alone are insufficient evidence.
 - Title: Adopt holistic Console design and operational information architecture
 - Lifecycle: Changed
 - Feature or component: Whole Console
-- State: Committed; canonical synchronization through PRs #479, #480, and #481
-- Implementation commits: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `cf5ca6a32c1eb2d604be278d3c7b0feccb3db97b`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `83a96daac1951c4379f3bbea069ddcb9e0cfb74a`, `c1480889f0f02fbb09dd075b1cbbb87a0ad43226`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`, `5e674630a41c91a0391af596c4c2f66324debe06`, `bb8a4e89c0ff2583f1317a669ceba6d8c710633b`, `35c78fa35b4f51123ab14dc5007f56856befe7f5`, and `12a48c8d37cbf7455d6cc6368b91d54f5a76bdc8`
+- State: Committed through PR #482; consistency repair `3ee638f796c4f266261f18d13344d80ef5669a8f` proposed / unmerged
+- Implementation commits: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `cf5ca6a32c1eb2d604be278d3c7b0feccb3db97b`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `83a96daac1951c4379f3bbea069ddcb9e0cfb74a`, `c1480889f0f02fbb09dd075b1cbbb87a0ad43226`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`, `5e674630a41c91a0391af596c4c2f66324debe06`, `bb8a4e89c0ff2583f1317a669ceba6d8c710633b`, `35c78fa35b4f51123ab14dc5007f56856befe7f5`, `12a48c8d37cbf7455d6cc6368b91d54f5a76bdc8`, and `3ee638f796c4f266261f18d13344d80ef5669a8f`
 - Rollback baseline: `a47082d0a684de38626c68fec325337765f35b9a`
 
 ### Interface & information architecture
 
 - Category ID: `interface_information_architecture`
 - Change ID: `CONSOLE-2026-001`
-- Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `9a387f8add96a6555fc60d1054b7699f69ff939e`
+- Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3ee638f796c4f266261f18d13344d80ef5669a8f`
 - Material change: Consolidated the six-tab architecture; compacted Overview
   into dated verification, work queues, automation readiness, status, and
   material activity; standardized bounded master/detail workspaces and compact
@@ -74,7 +74,7 @@ confidence; commit subjects alone are insufficient evidence.
 
 - Category ID: `planning_work_management`
 - Change ID: `CONSOLE-2026-001`
-- Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `9a387f8add96a6555fc60d1054b7699f69ff939e`
+- Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `35e6e37203ccb117910360618c05362b91d3f06a`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3ee638f796c4f266261f18d13344d80ef5669a8f`
 - Material change: Replaced Next Work with Planning > Workbench > Pipeline,
   retained Progress as measurement, moved deterministic human Priority
   attention above the complete Action Inbox, and kept Blocked/Deferred hold
@@ -88,7 +88,7 @@ confidence; commit subjects alone are insufficient evidence.
 
 - Category ID: `operations_automation`
 - Change ID: `CONSOLE-2026-001`
-- Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`
+- Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`, `3ee638f796c4f266261f18d13344d80ef5669a8f`
 - Material change: Made Operations Overview the compact manager surface;
   separated the latest seven-stage run from seven cadence-aware role cards;
   added typed repository gates, provider-neutral platform status, and one
@@ -103,7 +103,7 @@ confidence; commit subjects alone are insufficient evidence.
 
 - Category ID: `data_provenance_integrity`
 - Change ID: `CONSOLE-2026-001`
-- Commit IDs: `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`
+- Commit IDs: `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`, `3ee638f796c4f266261f18d13344d80ef5669a8f`
 - Material change: Preserved Integrity as the exact report, added per-fact
   currentness and outcome provenance, made unavailable data nonzero and
   nonhealthy, refreshed the Console from authenticated Project data, and bound
@@ -119,15 +119,16 @@ confidence; commit subjects alone are insufficient evidence.
 
 - Category ID: `security_privacy_disclosure`
 - Change ID: `CONSOLE-2026-001`
-- Commit IDs: `83a96daac1951c4379f3bbea069ddcb9e0cfb74a`, `c1480889f0f02fbb09dd075b1cbbb87a0ad43226`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`
+- Commit IDs: `83a96daac1951c4379f3bbea069ddcb9e0cfb74a`, `c1480889f0f02fbb09dd075b1cbbb87a0ad43226`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`, `3ee638f796c4f266261f18d13344d80ef5669a8f`
 - Material change: Replaced the alert inventory with seven registered,
   allowlisted Security assurance checks; kept detailed evidence at protected
   authorities; made protected Action Items generic; and established one
   public enforcement core with a required owner-local disclosure control pack.
   Moved the generic protected-action mapping into the exact-bound owner-local
   Action producer so the browser cannot originate Security work taxonomy.
-- Validation: The active control pack approved the exact 573-artifact commit
-  tree and 56-artifact outgoing change with zero findings. Security allowlist,
+- Validation: The active control pack approved the complete 575-artifact
+  prospective tree and exact 67-artifact outgoing change with zero findings.
+  Security allowlist,
   no-detail, path-authority, route-validation, and secret-sanitization tests
   passed.
 
@@ -135,7 +136,7 @@ confidence; commit subjects alone are insufficient evidence.
 
 - Category ID: `reliability_accessibility_performance`
 - Change ID: `CONSOLE-2026-001`
-- Commit IDs: `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`
+- Commit IDs: `c134191a6b440a979fea0f6049376ba9b0a66c8e`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`, `3ee638f796c4f266261f18d13344d80ef5669a8f`
 - Material change: Restored the canonical direct-disk Console as a supported
   owner mode, gated all ignored local feeds to canonical `file://` or loopback,
   kept hosted HTTPS public-only, added accessible fact dots and keyboard list
@@ -149,7 +150,7 @@ confidence; commit subjects alone are insufficient evidence.
 
 - Category ID: `governance_documentation`
 - Change ID: `CONSOLE-2026-001`
-- Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`, `5e674630a41c91a0391af596c4c2f66324debe06`, `bb8a4e89c0ff2583f1317a669ceba6d8c710633b`, `35c78fa35b4f51123ab14dc5007f56856befe7f5`, `12a48c8d37cbf7455d6cc6368b91d54f5a76bdc8`
+- Commit IDs: `3f0f1d3d48b4aea148de9da92c946fe36f2c8a35`, `9a387f8add96a6555fc60d1054b7699f69ff939e`, `3b8ce0199619ad56ecc563cb49ca6e18ebe6c176`, `5e674630a41c91a0391af596c4c2f66324debe06`, `bb8a4e89c0ff2583f1317a669ceba6d8c710633b`, `35c78fa35b4f51123ab14dc5007f56856befe7f5`, `12a48c8d37cbf7455d6cc6368b91d54f5a76bdc8`, `3ee638f796c4f266261f18d13344d80ef5669a8f`
 - Material change: Established the comprehensive Console contract,
   heading-based Development Log, stable Change IDs, public/private data
   boundary, and registered development-log categories whose materially changed
