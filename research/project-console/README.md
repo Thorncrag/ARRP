@@ -148,8 +148,9 @@ remain unavailable and do not alter or conceal the public entry.
 
 The supported owner mode is an immutable, generation-bound Console copy in the
 verified companion workspace's protected owner-Console role, opened directly
-with `file://`; no local web server is required. Its exact `index.html` path is
-bound to one public Console generation and one source revision. Its binding
+with `file://`; no local web server is required. Its exact
+`project-console.html` path is bound to one public Console generation and one
+source revision. Its binding
 also records each copied private projection's SHA-256 digest, availability,
 and completeness, and the loader verifies that exact envelope before joining
 the data. Only that entrypoint may load the copied, individually enveloped
@@ -257,7 +258,7 @@ python3 scripts/build_owner_console.py
 
 The staging command never overwrites an existing owner version or activates a
 host service. Its JSON result identifies the new version directory; open that
-directory's `index.html` directly. Missing, malformed, stale, partial, or
+directory's `project-console.html` directly. Missing, malformed, stale, partial, or
 generation-incompatible private feeds fail closed and remain visibly
 unavailable.
 
@@ -302,8 +303,9 @@ unless it has a distinct review or rollback boundary.
 
 ## Opening and validation
 
-Open [`index.html`](index.html) directly or through a temporary local static
-server for browser verification. Before accepting a material Console change,
+Open [`project-console.html`](project-console.html) directly or through a
+temporary local static server for browser verification. Before accepting a
+material Console change,
 run the focused frontend/data-contract checks, deterministic Console build,
 full repository suite, consistency audit, diff validation, route checks,
 keyboard/focus checks, and desktop/mobile visual review required by the

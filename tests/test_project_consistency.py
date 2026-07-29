@@ -112,9 +112,9 @@ class GitHubIssueLinkTests(unittest.TestCase):
     def test_ignored_private_console_projection_is_an_optional_html_asset(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            console = root / "research" / "horizon-review-console"
+            console = root / "research" / "project-console"
             console.mkdir(parents=True)
-            page = console / "index.html"
+            page = console / "project-console.html"
             page.write_text(
                 '<script src="data/private-github-security.js?v=1"></script>\n',
                 encoding="utf-8",
@@ -863,7 +863,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertEqual(warnings, [])
 
     def test_local_link_queries_do_not_change_filesystem_target(self):
-        source = ROOT / "research" / "horizon-review-console" / "index.html"
+        source = ROOT / "research" / "project-console" / "project-console.html"
         self.assertEqual(
             local_target(source, "app.js?v=20"),
             (source.parent / "app.js").resolve(),

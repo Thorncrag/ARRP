@@ -2494,8 +2494,8 @@ class ContextRouteTests(unittest.TestCase):
 class RepositorySearchBoundaryTests(unittest.TestCase):
     def test_generated_console_and_local_artifacts_are_excluded_from_ordinary_search(self):
         policy = (ROOT / ".rgignore").read_text(encoding="utf-8")
-        self.assertIn("research/horizon-review-console/catalog-data.js", policy)
-        self.assertIn("research/horizon-review-console/data/", policy)
+        self.assertIn("research/project-console/catalog-data.js", policy)
+        self.assertIn("research/project-console/data/", policy)
         self.assertIn(".site-build/", policy)
         self.assertIn(".tmp/", policy)
         self.assertIn(".venv/", policy)

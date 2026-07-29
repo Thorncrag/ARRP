@@ -34,7 +34,10 @@ class ArrpStatusProjectionTests(unittest.TestCase):
             self.assertEqual(path.stat().st_mode & 0o777, 0o600)
             self.assertEqual(config.state_root.stat().st_mode & 0o777, 0o700)
             self.assertFalse(
-                (config.canonical_path / "research/horizon-review-console/data/local-automation-status.js").exists()
+                (
+                    config.canonical_path
+                    / "research/project-console/data/local-automation-status.js"
+                ).exists()
             )
 
     def test_status_reads_only_the_authoritative_owner_only_pause_control(self):

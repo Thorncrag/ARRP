@@ -143,7 +143,7 @@ def _refresh_console(
         "inventory/github_issue_registry.csv"
     )
     integrity_history = authority.repository_path(
-        "research/horizon-review-console/data/integrity.js"
+        "research/project-console/data/integrity.js"
     )
     integrity_markdown = authority.repository_path(
         "framework/records/status/project-integrity-report.md"
@@ -264,7 +264,7 @@ def _refresh_console(
         "status": "refreshed",
         "authority": authority.mode,
         "project_access": "read-only Keychain credential",
-        "console": "research/horizon-review-console/index.html",
+        "console": "research/project-console/project-console.html",
     }
 
 

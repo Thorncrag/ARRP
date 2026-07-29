@@ -1,7 +1,7 @@
 # Generated and local-only artifacts are excluded from ordinary repository searches.
 # Tools that intentionally inspect one of these paths may still address it explicitly.
-research/horizon-review-console/catalog-data.js
-research/horizon-review-console/data/
+research/project-console/catalog-data.js
+research/project-console/data/
 .site-build/
 .tmp/
 .venv/

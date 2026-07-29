@@ -523,7 +523,7 @@ class HorizonIntakeTest(unittest.TestCase):
     def test_private_security_assurance_projection_is_git_ignored(self) -> None:
         ignored = (ROOT / ".gitignore").read_text(encoding="utf-8")
         self.assertIn(
-            "/research/horizon-review-console/data/private-security-assurance.js",
+            "/research/project-console/data/private-security-assurance.js",
             ignored,
         )
 
@@ -634,7 +634,7 @@ class HorizonIntakeTest(unittest.TestCase):
     def test_private_operations_projection_is_ignored_and_secret_scanned(self) -> None:
         ignored = (ROOT / ".gitignore").read_text(encoding="utf-8")
         self.assertIn(
-            "/research/horizon-review-console/data/private-operations.js",
+            "/research/project-console/data/private-operations.js",
             ignored,
         )
         with tempfile.TemporaryDirectory() as temporary:
@@ -1177,7 +1177,7 @@ class HorizonIntakeTest(unittest.TestCase):
         )
 
     def test_console_projection_is_split_and_diff_bounded(self) -> None:
-        console_dir = RESEARCH / "horizon-review-console"
+        console_dir = RESEARCH / "project-console"
         compatibility = console_dir / "catalog-data.js"
         parts = {
             "overview.js",
@@ -1490,7 +1490,9 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertNotIn("| Change ID | Recorded at |", source)
 
     def test_console_navigation_and_current_record_accounting_are_complete(self) -> None:
-        html = (RESEARCH / "horizon-review-console" / "index.html").read_text(encoding="utf-8")
+        html = (RESEARCH / "project-console" / "project-console.html").read_text(
+            encoding="utf-8"
+        )
         identifiers = re.findall(r'\sid="([^"]+)"', html)
         self.assertEqual(len(identifiers), len(set(identifiers)), "Console element IDs must be unique")
         controlled = set(re.findall(r'\saria-controls="([^"]+)"', html))
@@ -1650,7 +1652,7 @@ class HorizonIntakeTest(unittest.TestCase):
 
     def test_print_level_inventory_matches_compiled_markdown_pages(self) -> None:
         excluded_roots = {".git", ".site-build", ".tmp", ".venv"}
-        local_only_roots = {Path("research/horizon-review-console/prototypes")}
+        local_only_roots = {Path("research/project-console/prototypes")}
         explicit_exceptions = {ROOT / "AGENTS.md", ROOT / "website" / "404.md"}
         expected = {
             path.relative_to(ROOT).as_posix()
@@ -1727,7 +1729,7 @@ class HorizonIntakeTest(unittest.TestCase):
             ROOT / "framework" / "standards" / "interfaces" / "public-input.md",
             ROOT / "framework" / "project" / "workflows" / "public-input-review.md",
             ROOT / "participate" / "README.md",
-            ROOT / "research" / "horizon-review-console" / "README.md",
+            ROOT / "research" / "project-console" / "README.md",
             ROOT / "research" / "trump-administration-legal-review-summary.md",
             ROOT / "website" / "README.md",
         )
@@ -2134,8 +2136,10 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("max-width: 1.2rem", participation_css)
         self.assertIn("overflow-wrap: anywhere", participation_css)
 
-        console_dir = RESEARCH / "horizon-review-console"
-        console_html = (console_dir / "index.html").read_text(encoding="utf-8")
+        console_dir = RESEARCH / "project-console"
+        console_html = (console_dir / "project-console.html").read_text(
+            encoding="utf-8"
+        )
         console_app = (console_dir / "app.js").read_text(encoding="utf-8")
         console_css = (console_dir / "styles.css").read_text(encoding="utf-8")
         self.assertNotIn("../../participate/index.html", console_html)
@@ -2811,7 +2815,7 @@ class HorizonIntakeTest(unittest.TestCase):
             lifecycle,
         )
         console = (
-            ROOT / "research" / "horizon-review-console" / "index.html"
+            ROOT / "research" / "project-console" / "project-console.html"
         ).read_text(encoding="utf-8")
         self.assertIn("Development-level board", console)
 

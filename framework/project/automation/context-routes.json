@@ -7,8 +7,8 @@
     "__pycache__",
     "exports",
     "node_modules",
-    "research/horizon-review-console/catalog-data.js",
-    "research/horizon-review-console/data",
+    "research/project-console/catalog-data.js",
+    "research/project-console/data",
     "site"
   ],
   "required_modules": [
@@ -64,7 +64,7 @@
     },
     "github_disclosure_policy": {
       "path": "framework/project/github/disclosure-policy.json",
-      "sha256": "b88f8de4fb2f758a67c5818e8db53a5a2bf30216788b12d9b5fd12c0e1fd930d",
+      "sha256": "47e17d33f97ed4b0fb1f1a66a524a6fcebb6a8b36a9c89efa39d032090815564",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -101,7 +101,7 @@
     },
     "github_workflow": {
       "path": "framework/project/github/workflow.md",
-      "sha256": "e7f012d14292b5dc2d158b60de53b87bc5e91879c36542393931baa799122743",
+      "sha256": "119b3beed224c82f214d04519be5047ad6bd9a7bbd4cd7f70dcd58d8915c8f55",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -163,7 +163,7 @@
     },
     "project_interface": {
       "path": "framework/project/interfaces/project-console.md",
-      "sha256": "640b6e14a6f984763eb2d641ae61fe6d27b8629d628bab52b1d40bf0027802ed",
+      "sha256": "86d40294e3a21d3c4a9d71818dc6ac1b04ca4befefa2064a7db239bc60ee3d27",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [

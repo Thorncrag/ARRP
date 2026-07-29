@@ -8,12 +8,12 @@ import { fileURLToPath } from "node:url";
 const testDirectory = path.dirname(fileURLToPath(import.meta.url));
 const consoleDirectory = path.resolve(testDirectory, "..");
 const appPath = path.join(consoleDirectory, "app.js");
-const indexPath = path.join(consoleDirectory, "index.html");
+const entrypointPath = path.join(consoleDirectory, "project-console.html");
 const localRequire = createRequire(import.meta.url);
 const testGenerationId = "project-console-test";
 const testSourceRevision = "a".repeat(40);
 const testVersionId = `${testGenerationId}-20260729T120000000000Z`;
-const testOwnerPath = "/owner-console-fixture/review-copy/index.html";
+const testOwnerPath = "/owner-console-fixture/review-copy/project-console.html";
 const testStagedAt = "2026-07-29T12:00:00.000000Z";
 
 function ownerProjectionEntry(feedId, filename, marker, availability = "current", complete = true) {
@@ -351,7 +351,7 @@ test("security assurance fails closed on vulnerability-shaped or unknown fields"
 
 test("security assurance exposes staged safe actions and keyboard navigation", () => {
   const app = fs.readFileSync(appPath, "utf8");
-  const html = fs.readFileSync(indexPath, "utf8");
+  const html = fs.readFileSync(entrypointPath, "utf8");
   assert.match(html, /id="refresh-security-status"/);
   assert.match(app, /prepare_public_intake_state_request/);
   assert.match(app, /execution: "staged_request_only"/);
@@ -370,16 +370,16 @@ test("owner-local projections require exact immutable file binding", async () =>
   assert.equal(api.localConsoleOriginAllowed({
     protocol: "file:",
     hostname: "",
-    pathname: "/Users/example/ARRP/research/horizon-review-console/index.html"
+    pathname: "/Users/example/ARRP/research/project-console/project-console.html"
   }, binding), false);
   assert.equal(api.localConsoleOriginAllowed({
     protocol: "file:",
     hostname: "",
-    pathname: testOwnerPath.replace("index.html", "copy.html")
+    pathname: testOwnerPath.replace("project-console.html", "copy.html")
   }, binding), false);
   const nonEntrypointBinding = {
     ...binding,
-    exact_decoded_file_path: testOwnerPath.replace("index.html", "entry.html")
+    exact_decoded_file_path: testOwnerPath.replace("project-console.html", "entry.html")
   };
   assert.equal(api.localConsoleOriginAllowed({
     protocol: "file:",
@@ -389,19 +389,19 @@ test("owner-local projections require exact immutable file binding", async () =>
   assert.equal(api.localConsoleOriginAllowed({
     protocol: "http:",
     hostname: "127.0.0.1",
-    pathname: "/index.html"
+    pathname: "/project-console.html"
   }, binding), false);
   assert.equal(api.localConsoleOriginAllowed({
     protocol: "https:",
     hostname: "arrp.org",
-    pathname: "/research/horizon-review-console/index.html"
+    pathname: "/research/project-console/project-console.html"
   }, binding), false);
   assert.equal(api.ownerModeUnavailableMessage(
     "Owner projection is missing.",
     {
       protocol: "https:",
       hostname: "arrp.org",
-      pathname: "/research/horizon-review-console/index.html"
+      pathname: "/research/project-console/project-console.html"
     },
     binding
   ), "Data unavailable outside the bound owner-local Console.");
@@ -1259,7 +1259,7 @@ test("compact Overview activity renders only typed artifact-change fields", () =
 
 test("Action Inbox uses a uniform selectable list with an adjacent preview", () => {
   const app = fs.readFileSync(appPath, "utf8");
-  const html = fs.readFileSync(indexPath, "utf8");
+  const html = fs.readFileSync(entrypointPath, "utf8");
   const styles = fs.readFileSync(path.join(consoleDirectory, "styles.css"), "utf8");
   const start = app.indexOf("function actionInboxRow(");
   const end = app.indexOf("function integrityFindingNeedsHuman(", start);
@@ -1301,7 +1301,7 @@ test("Priority attention is deterministic, human-owned, and capped at five", () 
 
 test("Console-wide Design mode offers safe grid widths stored separately from project defaults", () => {
   const app = fs.readFileSync(appPath, "utf8");
-  const html = fs.readFileSync(indexPath, "utf8");
+  const html = fs.readFileSync(entrypointPath, "utf8");
   const styles = fs.readFileSync(path.join(consoleDirectory, "styles.css"), "utf8");
   assert.match(html, /id="layout-edit-toggle"[^>]*>Design layout</);
   assert.match(app, /const LAYOUT_WIDTHS = Object\.freeze/);
@@ -1322,7 +1322,7 @@ test("Console-wide Design mode offers safe grid widths stored separately from pr
 
 test("Planning and Operations consolidate navigation while preserving old routes", () => {
   const { api } = loadApi();
-  const html = fs.readFileSync(indexPath, "utf8");
+  const html = fs.readFileSync(entrypointPath, "utf8");
   const app = fs.readFileSync(appPath, "utf8");
   const styles = fs.readFileSync(path.join(consoleDirectory, "styles.css"), "utf8");
   const mainTabs = [...html.matchAll(/data-tab="([^"]+)"/g)].map((match) => match[1]);
@@ -1586,7 +1586,7 @@ test("typed Pipeline fails closed, preserves precedence, and uses deterministic 
 });
 
 test("initial HTML loads only bounded scripts and stays within declared budgets", () => {
-  const html = fs.readFileSync(indexPath, "utf8");
+  const html = fs.readFileSync(entrypointPath, "utf8");
   const app = fs.readFileSync(appPath, "utf8");
   const scriptSources = [...html.matchAll(/<script\s+src="([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(scriptSources, [
@@ -1640,7 +1640,7 @@ test("initial HTML loads only bounded scripts and stays within declared budgets"
 });
 
 test("operational incidents remain typed, Action Items use supplied ownership, and unavailable is not zero", () => {
-  const html = fs.readFileSync(indexPath, "utf8");
+  const html = fs.readFileSync(entrypointPath, "utf8");
   assert.match(html, /id="automation-incident-count">—</);
   assert.match(html, /id="incident-log-visible">—</);
   assert.match(html, /id="security-incident-log-visible">—</);

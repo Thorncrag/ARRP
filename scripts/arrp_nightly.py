@@ -145,10 +145,10 @@ PROTECTED_EXACT = frozenset(
         "framework/AGENT_OPERATING_RULES.md",
         "framework/CONTEXT_ROUTING.md",
         "framework/PROJECT_STRUCTURE.md",
-        "research/horizon-review-console/README.md",
-        "research/horizon-review-console/index.html",
-        "research/horizon-review-console/app.js",
-        "research/horizon-review-console/styles.css",
+        "research/project-console/README.md",
+        "research/project-console/project-console.html",
+        "research/project-console/app.js",
+        "research/project-console/styles.css",
     }
 )
 RECOGNIZED_NEW_PREFIXES = (
@@ -2755,7 +2755,7 @@ def default_post_elim_validation_specs(
                 "--report",
                 ".tmp/project-integrity-final.json",
                 "--existing-file",
-                "research/horizon-review-console/data/integrity.js",
+                "research/project-console/data/integrity.js",
                 "--output",
                 ".tmp/project-console-integrity.json",
             ),
@@ -2786,7 +2786,7 @@ def default_post_elim_validation_specs(
         ),
         ValidationSpec(
             "console-tests",
-            ("node", "--test", "research/horizon-review-console/tests/frontend.test.mjs"),
+            ("node", "--test", "research/project-console/tests/frontend.test.mjs"),
         ),
         ValidationSpec(
             "participation-tests",
@@ -5583,7 +5583,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         scheduled_for=scheduled_slot() if args.scheduled else None,
         console_projection=(
             canonical
-            / "research/horizon-review-console/data/local-automation-status.js"
+            / "research/project-console/data/local-automation-status.js"
         ),
         supervised_live=supervised_plan is not None,
         runtime_commit=str(args.runtime_commit) if production else None,

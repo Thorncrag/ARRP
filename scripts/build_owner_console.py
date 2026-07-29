@@ -36,9 +36,9 @@ except ModuleNotFoundError:
     )
 
 
-PUBLIC_CONSOLE_RELATIVE = Path("research/horizon-review-console")
+PUBLIC_CONSOLE_RELATIVE = Path("research/project-console")
 PUBLIC_SHELL_FILES = (
-    "index.html",
+    "project-console.html",
     "styles.css",
     "app.js",
     "catalog-data.js",
@@ -1127,12 +1127,12 @@ def _write_new_file(path: Path, content: bytes) -> None:
         os.close(descriptor)
 
 
-def _injected_index(source: bytes) -> bytes:
+def _injected_entrypoint(source: bytes) -> bytes:
     try:
         text = source.decode("utf-8")
     except UnicodeError as error:
         raise OwnerConsoleBuildError(
-            "public Console index is not valid UTF-8"
+            "public Console entrypoint is not valid UTF-8"
         ) from error
     pattern = re.compile(
         r'(?P<script><script\s+src="app\.js(?:\?[^"]*)?"\s*></script>)'
@@ -1140,7 +1140,7 @@ def _injected_index(source: bytes) -> bytes:
     matches = list(pattern.finditer(text))
     if len(matches) != 1 or OWNER_BINDING_FILE in text:
         raise OwnerConsoleBuildError(
-            "public Console index has an unsupported script layout"
+            "public Console entrypoint has an unsupported script layout"
         )
     replacement = (
         f'<script src="{OWNER_BINDING_FILE}"></script>\n'
@@ -1273,11 +1273,11 @@ def build_owner_console(
     versions_root = authority.owner_console_versions_root
     final_root = versions_root / version_id
     temporary_root = versions_root / f".staging-{version_id}"
-    exact_index_path = str(final_root / "index.html")
+    exact_entrypoint_path = str(final_root / "project-console.html")
     binding = {
         "schema_version": 1,
         "version_id": version_id,
-        "exact_decoded_file_path": exact_index_path,
+        "exact_decoded_file_path": exact_entrypoint_path,
         "generation_id": generation_id,
         "source_revision": source_revision,
         "staged_at": staged_at_text,
@@ -1304,7 +1304,9 @@ def build_owner_console(
 
     output_shell = {
         **shell_contents,
-        "index.html": _injected_index(shell_contents["index.html"]),
+        "project-console.html": _injected_entrypoint(
+            shell_contents["project-console.html"]
+        ),
         OWNER_BINDING_FILE: binding_content,
     }
     _secure_directory(versions_root)
@@ -1340,7 +1342,7 @@ def main() -> int:
             {
                 "status": "staged",
                 "version_id": version.name,
-                "entrypoint": "index.html",
+                "entrypoint": "project-console.html",
             },
             sort_keys=True,
         )

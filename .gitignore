@@ -13,11 +13,11 @@ Thumbs.db
 .site-build/
 __pycache__/
 *.pyc
-/research/horizon-review-console/data/private-github-security.js
-/research/horizon-review-console/data/private-security-assurance.js
-/research/horizon-review-console/data/private-operations.js
-/research/horizon-review-console/data/local-automation-status.js
-/research/horizon-review-console/prototypes/
+/research/project-console/data/private-github-security.js
+/research/project-console/data/private-security-assurance.js
+/research/project-console/data/private-operations.js
+/research/project-console/data/local-automation-status.js
+/research/project-console/prototypes/
 /research/review-epochs.jsonl
 /framework/records/automation/disclosure-inventory-*.json
 /framework/records/automation/operational-incidents.jsonl

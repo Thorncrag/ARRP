@@ -294,7 +294,7 @@ class P3FixtureTransactionTests(unittest.TestCase):
             gitignore = fixture.repo / ".gitignore"
             gitignore.write_text(
                 gitignore.read_text(encoding="utf-8")
-                + "/research/horizon-review-console/data/local-automation-status.js\n",
+                + "/research/project-console/data/local-automation-status.js\n",
                 encoding="utf-8",
             )
             run("git", "add", str(schema.relative_to(fixture.repo)), cwd=fixture.repo)
@@ -366,7 +366,7 @@ class P3FixtureTransactionTests(unittest.TestCase):
                 runtime_files=(),
                 console_projection=(
                     fixture.repo
-                    / "research/horizon-review-console/data/local-automation-status.js"
+                    / "research/project-console/data/local-automation-status.js"
                 ),
             )
 
@@ -395,7 +395,7 @@ class P3FixtureTransactionTests(unittest.TestCase):
             self.assertIsNone(status["merge_commit"])
             projection = (
                 fixture.repo
-                / "research/horizon-review-console/data/local-automation-status.js"
+                / "research/project-console/data/local-automation-status.js"
             )
             self.assertTrue(projection.is_file())
             self.assertIn('"status":"completed"', projection.read_text(encoding="utf-8"))

@@ -243,8 +243,8 @@ AUTHORITATIVE_SOURCE_RECORDS = (
 )
 TOOL_INTERFACES = (
     (
-        ROOT / "research" / "horizon-review-console" / "index.html",
-        ROOT / "research" / "horizon-review-console" / "styles.css",
+        ROOT / "research" / "project-console" / "project-console.html",
+        ROOT / "research" / "project-console" / "styles.css",
     ),
     (ROOT / "participate" / "index.html", ROOT / "participate" / "styles.css"),
 )
@@ -257,7 +257,7 @@ CURRENT_INTAKE_WORKFLOW_FILES = (
     ROOT / "participate" / "README.md",
     ROOT / "participate" / "SECURITY.md",
     ROOT / "research" / "README.md",
-    ROOT / "research" / "horizon-review-console" / "README.md",
+    ROOT / "research" / "project-console" / "README.md",
     ROOT / "research" / "trump-administration-legal-review-summary.md",
     ROOT / "website" / "README.md",
 )
@@ -297,7 +297,7 @@ REPOSITORY_LINK_TEXT_SUFFIXES = {
     ".yml",
 }
 OPTIONAL_LOCAL_HTML_ASSETS = {
-    Path("research/horizon-review-console/data/private-github-security.js"),
+    Path("research/project-console/data/private-github-security.js"),
 }
 
 REQUIRED_ISSUE_HEADINGS = (
@@ -386,7 +386,7 @@ def active_project_files(*suffixes: str) -> list[Path]:
         and path.suffix.lower() in allowed
         and not ACTIVE_TREE_EXCLUSIONS.intersection(path.relative_to(ROOT).parts)
         and not path.is_relative_to(
-            ROOT / "research" / "horizon-review-console" / "prototypes"
+            ROOT / "research" / "project-console" / "prototypes"
         )
     )
 
@@ -403,7 +403,7 @@ def research_files(*suffixes: str) -> list[Path]:
         for path in (ROOT / "research").rglob("*")
         if path.is_file()
         and path.suffix.lower() in allowed
-        and "horizon-review-console" not in path.relative_to(ROOT).parts
+        and "project-console" not in path.relative_to(ROOT).parts
     ]
     paths.extend(
         path

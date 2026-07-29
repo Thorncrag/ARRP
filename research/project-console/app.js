@@ -8656,7 +8656,7 @@
       || binding.source_revision !== String(data.source_revision || "")
       || parseTimestamp(binding.staged_at) === null
       || binding.exact_decoded_file_path !== decoded
-      || !decoded.endsWith("/index.html")
+      || !decoded.endsWith("/project-console.html")
       || !binding.projections
       || typeof binding.projections !== "object"
       || Array.isArray(binding.projections)
