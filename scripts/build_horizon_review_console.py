@@ -166,6 +166,10 @@ PRINT_ASSEMBLY_MANIFEST = (
     ROOT / "framework" / "project" / "publication" / "print-assembly.json"
 )
 REVIEW_EPOCHS = STATE_ROOT / "records" / "automation" / "review-epochs.jsonl"
+TRANSACTION_RECOVERY_CONSOLE_PROJECTION = (
+    STATE_ROOT / "records" / "reconciliation" / "transaction-recovery"
+    / "console-projection.json"
+)
 PUBLIC_REVIEW_EPOCH_SUMMARY = ROOT / "research" / "review-epochs-summary.json"
 PUBLIC_PROPOSAL_PDF = ROOT / "exports" / "pdf" / "ARRP-public-proposal-draft.pdf"
 OUTPUT = ROOT / "research" / "project-console" / "catalog-data.js"
@@ -4156,6 +4160,133 @@ def valid_private_governance_supplements(
     return observed == required_ids
 
 
+TRANSACTION_RECOVERY_STATES = {
+    "active",
+    "failed_preserved",
+    "recovery_pending",
+    "reconciled_or_superseded",
+    "recovery_packaged",
+    "recoverably_retired",
+}
+TRANSACTION_RECOVERY_ITEM_FIELDS = {
+    "run_id",
+    "attempt_group_id",
+    "lifecycle_state",
+    "preserved",
+    "retirement_proof",
+    "owner",
+    "age_label",
+    "failure_class",
+    "next_action",
+    "specialist_route",
+}
+
+
+def unavailable_transaction_recovery_projection(
+    reason_code: str = "owner-local-transaction-recovery-projection-required",
+) -> dict[str, object]:
+    """Return a safe no-count projection when the owner binding is absent."""
+
+    return {
+        "schema_version": 1,
+        "availability": "unavailable",
+        "complete": False,
+        "generated_at": None,
+        "items": [],
+        "reason_code": reason_code,
+    }
+
+
+def transaction_recovery_unresolved(item: dict[str, object]) -> bool:
+    """Apply the fixed queue predicate; producers cannot self-authorize closure."""
+
+    return bool(
+        item.get("preserved") is True
+        and item.get("lifecycle_state") != "recoverably_retired"
+        and item.get("retirement_proof") != "recoverably_retired"
+    )
+
+
+def valid_transaction_recovery_projection(snapshot: object) -> bool:
+    """Validate the minimized owner-only transaction-recovery Console feed."""
+
+    expected = {
+        "schema_version",
+        "availability",
+        "complete",
+        "generated_at",
+        "items",
+        "reason_code",
+    }
+    if not isinstance(snapshot, dict) or set(snapshot) != expected:
+        return False
+    if snapshot.get("schema_version") != 1 or not isinstance(
+        snapshot.get("complete"), bool
+    ) or not isinstance(snapshot.get("items"), list):
+        return False
+    complete = snapshot.get("complete") is True
+    if complete != (snapshot.get("availability") == "current"):
+        return False
+    if complete and snapshot.get("reason_code") is not None:
+        return False
+    if not complete and (
+        snapshot.get("availability") != "unavailable"
+        or snapshot.get("items")
+        or not isinstance(snapshot.get("reason_code"), str)
+    ):
+        return False
+    if snapshot.get("generated_at") is not None:
+        try:
+            datetime.fromisoformat(
+                str(snapshot["generated_at"]).replace("Z", "+00:00")
+            )
+        except ValueError:
+            return False
+    seen: set[str] = set()
+    for item in snapshot["items"]:
+        if not isinstance(item, dict) or set(item) != TRANSACTION_RECOVERY_ITEM_FIELDS:
+            return False
+        run_id = str(item.get("run_id") or "").strip()
+        if not run_id or run_id in seen:
+            return False
+        if (
+            not str(item.get("attempt_group_id") or "").strip()
+            or item.get("lifecycle_state") not in TRANSACTION_RECOVERY_STATES
+            or not isinstance(item.get("preserved"), bool)
+            or item.get("retirement_proof")
+            not in {"not_retired", "recoverably_retired"}
+            or not str(item.get("owner") or "").strip()
+            or not str(item.get("age_label") or "").strip()
+            or not str(item.get("failure_class") or "").strip()
+            or not str(item.get("next_action") or "").strip()
+            or item.get("specialist_route") != "automation:agents:run-coordinator-bot"
+        ):
+            return False
+        retired = item.get("lifecycle_state") == "recoverably_retired"
+        if retired != (item.get("retirement_proof") == "recoverably_retired"):
+            return False
+        seen.add(run_id)
+    return True
+
+
+def transaction_recovery_console_projection() -> dict[str, object]:
+    """Read only a strict, minimized producer projection from owner-local state."""
+
+    try:
+        raw = json.loads(
+            TRANSACTION_RECOVERY_CONSOLE_PROJECTION.read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError):
+        return unavailable_transaction_recovery_projection()
+    return (
+        raw
+        if valid_transaction_recovery_projection(raw)
+        else unavailable_transaction_recovery_projection(
+            "owner-local-transaction-recovery-projection-invalid"
+        )
+    )
+
+
 def valid_private_operations(
     snapshot: object,
     *,
@@ -4177,6 +4308,7 @@ def valid_private_operations(
         "operational_incidents",
         "security_incidents",
         "incident_relations",
+        "transaction_recovery",
         "governance_change_supplements",
         "privacy",
     }
@@ -4201,6 +4333,9 @@ def valid_private_operations(
         and isinstance(snapshot.get("security_incidents"), dict)
         and isinstance(snapshot["security_incidents"].get("items"), list)
         and isinstance(snapshot.get("incident_relations"), dict)
+        and valid_transaction_recovery_projection(
+            snapshot.get("transaction_recovery")
+        )
         and valid_private_governance_supplements(
             snapshot.get("governance_change_supplements"),
             source_revision=source_revision,
@@ -4223,6 +4358,7 @@ def write_private_operations(
     security_incidents: dict[str, object],
     incident_relations: dict[str, object],
     governance_change_supplements: dict[str, object],
+    transaction_recovery: dict[str, object] | None = None,
 ) -> dict[str, object]:
     """Persist the complete owner-only Console operations projection safely."""
 
@@ -4241,6 +4377,11 @@ def write_private_operations(
         "operational_incidents": operational_incidents,
         "security_incidents": security_incidents,
         "incident_relations": incident_relations,
+        "transaction_recovery": (
+            transaction_recovery
+            if valid_transaction_recovery_projection(transaction_recovery)
+            else unavailable_transaction_recovery_projection()
+        ),
         "governance_change_supplements": governance_change_supplements,
         "privacy": (
             "Owner-only local projection. This file is Git-ignored and must "
@@ -7524,6 +7665,7 @@ def build_queue_directory(
     operational_incidents: dict[str, object],
     generated_at: str,
     security_incidents: dict[str, object] | None = None,
+    transaction_recovery: dict[str, object] | None = None,
 ) -> dict[str, object]:
     pipeline = (
         progress.get("pipeline")
@@ -7546,6 +7688,21 @@ def build_queue_directory(
         reason_code="security-incident-projection-not-supplied",
     )
     security_incident_complete = security_projection.get("complete") is True
+    transaction_projection = (
+        transaction_recovery
+        if valid_transaction_recovery_projection(transaction_recovery)
+        else unavailable_transaction_recovery_projection()
+    )
+    transaction_complete = transaction_projection.get("complete") is True
+    preserved_transaction_count = (
+        sum(
+            transaction_recovery_unresolved(item)
+            for item in transaction_projection.get("items") or []
+            if isinstance(item, dict)
+        )
+        if transaction_complete
+        else None
+    )
     definitions = [
         (
             "candidate_intake",
@@ -7657,6 +7814,15 @@ def build_queue_directory(
             "automation:logs:security-incidents",
             "Owner-local Security Incidents projection",
         ),
+        (
+            "preserved_transactions",
+            preserved_transaction_count,
+            transaction_complete,
+            "preserved transaction lacks recoverable-retirement proof",
+            "automation:agents:run-coordinator-bot",
+            "automation:agents:run-coordinator-bot",
+            "Owner-local transaction lifecycle and recovery projection",
+        ),
     ]
     queue_generation_id = "queue-directory-" + hashlib.sha256(
         json.dumps(definitions, sort_keys=True, ensure_ascii=False).encode(
@@ -7685,6 +7851,8 @@ def build_queue_directory(
                 security_projection.get("checked_at")
                 or security_projection.get("trustworthy_through")
             )
+        elif queue_id == "preserved_transactions":
+            current_through = transaction_projection.get("generated_at")
         elif queue_id == "human_actions":
             current_through = action_snapshot.get("generated_at") or generated_at
         elif queue_id == "repository_reviews":
@@ -7730,6 +7898,7 @@ def build_queue_directory(
                     and queue_id in {
                         "operational_incidents",
                         "security_incidents",
+                        "preserved_transactions",
                     }
                     else "none"
                     if complete
@@ -7748,6 +7917,15 @@ def build_queue_directory(
                         if queue_id == "security_incidents" and complete
                         else "gray"
                         if queue_id == "security_incidents"
+                        else "yellow"
+                        if queue_id == "preserved_transactions"
+                        and complete
+                        and isinstance(count, int)
+                        and count > 0
+                        else "green"
+                        if queue_id == "preserved_transactions" and complete
+                        else "gray"
+                        if queue_id == "preserved_transactions"
                         else None
                     )
                 ),
@@ -9314,6 +9492,8 @@ def main() -> None:
         private_authority=private_authority,
     )
     public_integrity = public_safe_integrity(integrity)
+    transaction_recovery = transaction_recovery_console_projection()
+    public_transaction_recovery = unavailable_transaction_recovery_projection()
     action_snapshot = build_action_snapshot(
         progress=progress,
         integrity=public_integrity,
@@ -9345,6 +9525,7 @@ def main() -> None:
         action_snapshot=action_snapshot,
         operational_incidents=public_operational_incidents,
         security_incidents=public_security_incidents,
+        transaction_recovery=public_transaction_recovery,
         generated_at=generated_at,
     )
     private_queue_directory = build_queue_directory(
@@ -9356,6 +9537,7 @@ def main() -> None:
         action_snapshot=private_action_snapshot,
         operational_incidents=operational_incidents,
         security_incidents=security_incidents,
+        transaction_recovery=transaction_recovery,
         generated_at=generated_at,
     )
     local_automation_status = local_automation_status_snapshot(
@@ -9691,6 +9873,7 @@ def main() -> None:
         operational_incidents=operational_incidents,
         security_incidents=security_incidents,
         incident_relations=incident_relations,
+        transaction_recovery=transaction_recovery,
         governance_change_supplements=governance_change_supplements,
     )
     if private_security_assurance is not None:

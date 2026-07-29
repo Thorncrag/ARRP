@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arrp.org/schemas/transaction-lifecycle.schema.json",
+  "title": "ARRP owner-local transaction lifecycle event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "event_id", "run_id", "attempt_group_id", "attempt_number", "event_type", "recorded_at", "state", "trigger", "branch", "head", "base", "logical_worktree_id", "logical_run_id", "delta_digest", "package_digest", "failure_code", "incident_id", "owner", "next_action", "evidence_refs", "predecessor_run_id", "predecessor_terminal_digest", "retry_authorization", "terminal_proof", "recovery_proof", "migration_batch_id", "migration_member_count", "migration_member_digest", "migration_source_slots", "event_sha256"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "event_id": {"type": "string", "pattern": "^[a-z0-9_.:-]+:[0-9]{4,}$"},
+    "run_id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"},
+    "attempt_group_id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"},
+    "attempt_number": {"type": "integer", "minimum": 1},
+    "event_type": {"enum": ["started", "state_changed", "retry_authorized", "retry_claimed", "abandoned", "historical_imported"]},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "state": {"enum": ["active", "failed_preserved", "recovery_pending", "reconciled_or_superseded", "recovery_packaged", "recoverably_retired", "completed_noop", "completed_published"]},
+    "trigger": {"type": "string"},
+    "branch": {"type": "string"}, "head": {"type": "string"}, "base": {"type": "string"},
+    "logical_worktree_id": {"type": ["string", "null"]}, "logical_run_id": {"type": "string"},
+    "delta_digest": {"type": "string"}, "package_digest": {"type": ["string", "null"]},
+    "failure_code": {"type": ["string", "null"]}, "incident_id": {"type": ["string", "null"]},
+    "owner": {"type": "string"}, "next_action": {"type": "string"}, "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "predecessor_run_id": {"type": ["string", "null"]}, "predecessor_terminal_digest": {"type": ["string", "null"]},
+    "retry_authorization": {"type": ["object", "null"]}, "terminal_proof": {"type": ["object", "null"]}, "recovery_proof": {"type": ["object", "null"]},
+    "migration_batch_id": {"type": ["string", "null"]},
+    "migration_member_count": {"type": ["integer", "null"], "minimum": 1},
+    "migration_member_digest": {"type": ["string", "null"], "pattern": "^sha256:[0-9a-f]{64}$"},
+    "migration_source_slots": {"type": "array", "maxItems": 8, "items": {"type": "string"}},
+    "event_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

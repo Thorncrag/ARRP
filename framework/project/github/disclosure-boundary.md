@@ -129,6 +129,15 @@ impossible. The documented interactive workflow must invoke the same gate,
 and every automated publisher or broker must fail closed when its decision is
 missing, incomplete, stale, or bound to different content or revision.
 
+For a Git push, the authoritative path derives both full commit identities,
+the complete base-to-head manifest including removals, and every outbound byte
+from committed Git objects. A caller-supplied revision, abbreviated or
+nonexistent identity, selected path list, or working-tree byte cannot establish
+the binding. The decision records the exact base, head, manifest digest, and
+authorized full-OID refspec. The subsequent push must use that exact refspec;
+a moved source ref requires a new decision. A later successful decision never
+retroactively authorizes an earlier transmission.
+
 Blocked local artifacts are preserved. A material prevented disclosure is
 recorded as a sanitized near-miss Operational Incident and may be linked to a
 separate owner-local Security Incident when its security admission boundary is

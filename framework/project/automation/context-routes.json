@@ -38,7 +38,7 @@
     },
     "framework_kernel": {
       "path": "framework/FRAMEWORK.md",
-      "sha256": "127785bc42e03a67a173014d36d3e95ec29f97cbccfcf970f3d3bbb70b3efe2c",
+      "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
       "hash_policy": "pinned",
       "governing": true
     },
@@ -54,7 +54,7 @@
     },
     "github_disclosure_boundary": {
       "path": "framework/project/github/disclosure-boundary.md",
-      "sha256": "dd42ef20d27fa114aa7a0e15181ed6a615629d0046725ed4e58a05370d1377b7",
+      "sha256": "ac9922ab09aa4fa588ff0071987d23ada10e7536542cd8cdf310b0bb002553a8",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -92,7 +92,7 @@
     },
     "project_structure": {
       "path": "framework/PROJECT_STRUCTURE.md",
-      "sha256": "cabe0b506d358f314efad52b232124a284d93a1bb09dbf1151f06dcf21ba9772",
+      "sha256": "80a47369e58ad8dec8512cff4cb9d5543df4582ee9dad557f8410cfcfe33e089",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -101,7 +101,7 @@
     },
     "github_workflow": {
       "path": "framework/project/github/workflow.md",
-      "sha256": "119b3beed224c82f214d04519be5047ad6bd9a7bbd4cd7f70dcd58d8915c8f55",
+      "sha256": "e8b24cb96c6b647c95a82e6d6dfe1a4d7ae4b3e8e9b7720d85ac42d414a14299",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -154,7 +154,7 @@
     },
     "project_console_classifications": {
       "path": "framework/project/interfaces/project-console-classifications.json",
-      "sha256": "d18f5b41292853e29b166da457e0122d67a02718a9457f89fb9697930272fd2f",
+      "sha256": "f7ac80994ee82d8576dcac6dcc4fcf53d4edb34a45475991b05ab5b62a9e6ec5",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -163,7 +163,7 @@
     },
     "project_interface": {
       "path": "framework/project/interfaces/project-console.md",
-      "sha256": "86d40294e3a21d3c4a9d71818dc6ac1b04ca4befefa2064a7db239bc60ee3d27",
+      "sha256": "2d8750d7ca894b8a9aa94fc44962f7c5e5a7ce75bf4781107b04a0cc6ad2bd60",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -225,15 +225,60 @@
         "private_staging_authority_schema"
       ]
     },
+    "transaction_lifecycle": {
+      "path": "framework/project/automation/transaction-lifecycle.md",
+      "sha256": "488b4091d5b0674bed29b6c58ec9098520905eb25c0a93cfd2239c117862e6ba",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "project_runtime_authority",
+        "operational_incident_policy",
+        "transaction_lifecycle_schema",
+        "transaction_recovery_package_schema"
+      ]
+    },
+    "transaction_lifecycle_schema": {
+      "path": "framework/project/automation/transaction-lifecycle.schema.json",
+      "sha256": "eaa56321ab626bb6b7d453d5b07704936263830b9c7175cded6ce7d58244bd11",
+      "hash_policy": "pinned",
+      "governing": true
+    },
+    "transaction_recovery_package_schema": {
+      "path": "framework/project/automation/transaction-recovery-package.schema.json",
+      "sha256": "d1f274027e0361fffe2a428c7d610a8ba9287fd67791017d65ee3de38eb63a53",
+      "hash_policy": "pinned",
+      "governing": true
+    },
+    "project_reconciliation": {
+      "path": "framework/project/automation/project-wide-reconciliation.json",
+      "sha256": "61705f5162218a11d206a2c13a57299e92c720ff0e3a0575a5eaad98611e470c",
+      "hash_policy": "pinned",
+      "governing": true,
+      "requires": [
+        "project_runtime_authority",
+        "github_workflow",
+        "operation_project_update",
+        "agent_validation_closeout",
+        "project_reconciliation_schema",
+        "transaction_lifecycle"
+      ]
+    },
+    "project_reconciliation_schema": {
+      "path": "framework/project/automation/project-wide-reconciliation.schema.json",
+      "sha256": "64bdcc9bb4ff573af30f5156ed1d15466cbfa3ac88ccca1a006ccf676eba7cbd",
+      "hash_policy": "pinned",
+      "governing": true
+    },
     "project_autonomous_execution": {
       "path": "framework/project/automation/autonomous-execution.md",
-      "sha256": "35ecb055a3860c57cf8a09527b27879541dc9cc8dcc883f79be9811eaa3dbbe7",
+      "sha256": "29b87c459f73f4645a2fac15b09cc20cc17e968012d9b8f88669ec7a9c13e30e",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
         "agent_rules_kernel",
         "agent_autonomous_execution",
-        "project_runtime_authority"
+        "project_runtime_authority",
+        "transaction_lifecycle"
       ]
     },
     "repository_gate_policy": {
@@ -656,7 +701,7 @@
     },
     "operation_project_update": {
       "path": "framework/project/workflows/project-update.md",
-      "sha256": "0094b0c27bb3aa508fa5488f3575e777c02e068b76d200639e8638584995ea80",
+      "sha256": "c2390d2fce075a3b2b8c4b522abdebe0bcf9cc802e64a52440970afa57d4836e",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -684,7 +729,7 @@
     },
     "governance_change_registry": {
       "path": "framework/project/workflows/governance-change-registry.json",
-      "sha256": "1a7aa95700eb32f08985c342e9fc992c9244d898bdd5b07049b31c75285f3270",
+      "sha256": "1f89e7dcdd937c8330f09acb257b449cc3a14739cb923516ec08fda2ae1d5149",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -943,6 +988,9 @@
       "agent_handoff",
       "agent_provenance_logging",
       "agent_validation_closeout"
+    ],
+    "project_reconciliation": [
+      "project_reconciliation"
     ],
     "multi_agent_execution": [
       "agent_multi_agent"
@@ -1207,7 +1255,7 @@
       ]
     },
     "github_sync": {
-      "max_bytes": 450000,
+      "max_bytes": 500000,
       "modules": [
         "navigation_project_sync",
         "project_autonomous_execution",

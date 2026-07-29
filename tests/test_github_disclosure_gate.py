@@ -62,6 +62,186 @@ class GitHubDisclosureGateTests(unittest.TestCase):
             **kwargs,
         )
 
+    def git_fixture(self) -> tuple[tempfile.TemporaryDirectory, Path, str, str]:
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        repository = Path(temporary.name)
+        subprocess.run(
+            ["git", "init", "-b", "main"],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+        )
+        subprocess.run(
+            ["git", "config", "user.name", "ARRP Fixture"],
+            cwd=repository,
+            check=True,
+        )
+        subprocess.run(
+            ["git", "config", "user.email", "fixture@example.invalid"],
+            cwd=repository,
+            check=True,
+        )
+        path = repository / "areas" / "CONGRESS" / "issues" / "CON-001.md"
+        path.parent.mkdir(parents=True)
+        path.write_text("# Base\n", encoding="utf-8")
+        subprocess.run(["git", "add", "."], cwd=repository, check=True)
+        subprocess.run(
+            ["git", "commit", "-m", "base"],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+        )
+        base = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        path.write_text("# Head\n", encoding="utf-8")
+        subprocess.run(["git", "add", "."], cwd=repository, check=True)
+        subprocess.run(
+            ["git", "commit", "-m", "head"],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+        )
+        head = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        return temporary, repository, base, head
+
+    def test_git_push_authorization_binds_exact_committed_range(self) -> None:
+        _, repository, base, head = self.git_fixture()
+        decision = MODULE.authorize_git_push(
+            repository,
+            base_revision=base,
+            source_revision=head,
+            head_ref="HEAD",
+            target_ref="refs/heads/fixture",
+            producer="interactive-reviewed-github",
+            policy=self.policy,
+        )
+        self.assertTrue(decision["allowed"])
+        self.assertEqual(decision["source_revision"], head)
+        self.assertEqual(
+            decision["authorized_refspec"],
+            f"{head}:refs/heads/fixture",
+        )
+        self.assertRegex(
+            decision["manifest_sha256"],
+            r"^sha256:[0-9a-f]{64}$",
+        )
+
+    def test_git_push_rejects_fabricated_abbreviated_and_wrong_head(self) -> None:
+        _, repository, base, head = self.git_fixture()
+        for revision in ("f" * 40, head[:12], base):
+            with self.subTest(revision=revision):
+                with self.assertRaises(MODULE.DisclosureBlocked):
+                    MODULE.authorize_git_push(
+                        repository,
+                        base_revision=base,
+                        source_revision=revision,
+                        head_ref="HEAD",
+                        target_ref="refs/heads/fixture",
+                        producer="interactive-reviewed-github",
+                        policy=self.policy,
+                    )
+
+    def test_git_push_reads_commit_blobs_not_dirty_worktree(self) -> None:
+        _, repository, base, head = self.git_fixture()
+        path = repository / "areas" / "CONGRESS" / "issues" / "CON-001.md"
+        path.write_text("OWNER-LOCAL-CONTROL-CANARY\n", encoding="utf-8")
+        decision = MODULE.authorize_git_push(
+            repository,
+            base_revision=base,
+            source_revision=head,
+            head_ref="HEAD",
+            target_ref="refs/heads/fixture",
+            producer="interactive-reviewed-github",
+            policy=self.policy,
+        )
+        self.assertTrue(decision["allowed"])
+        self.assertEqual(decision["artifacts"][0]["category"], "public_by_design")
+
+    def test_git_push_manifest_includes_removals(self) -> None:
+        _, repository, _, head = self.git_fixture()
+        base = head
+        subprocess.run(
+            [
+                "git",
+                "update-index",
+                "--force-remove",
+                "areas/CONGRESS/issues/CON-001.md",
+            ],
+            cwd=repository,
+            check=True,
+        )
+        subprocess.run(
+            ["git", "commit", "-m", "remove"],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+        )
+        removed_head = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        decision = MODULE.authorize_git_push(
+            repository,
+            base_revision=base,
+            source_revision=removed_head,
+            head_ref="HEAD",
+            target_ref="refs/heads/fixture",
+            producer="interactive-reviewed-github",
+            policy=self.policy,
+        )
+        self.assertTrue(decision["allowed"])
+        self.assertTrue(decision["artifacts"][0]["removal_only"])
+
+    def test_git_push_ref_movement_invalidates_stale_authorization_input(self) -> None:
+        _, repository, base, head = self.git_fixture()
+        first = MODULE.authorize_git_push(
+            repository,
+            base_revision=base,
+            source_revision=head,
+            head_ref="HEAD",
+            target_ref="refs/heads/fixture",
+            producer="interactive-reviewed-github",
+            policy=self.policy,
+        )
+        path = repository / "areas" / "CONGRESS" / "issues" / "CON-001.md"
+        path.write_text("# Later\n", encoding="utf-8")
+        subprocess.run(["git", "add", "."], cwd=repository, check=True)
+        subprocess.run(
+            ["git", "commit", "-m", "later"],
+            cwd=repository,
+            check=True,
+            capture_output=True,
+        )
+        self.assertEqual(
+            first["authorized_refspec"],
+            f"{head}:refs/heads/fixture",
+        )
+        with self.assertRaises(MODULE.DisclosureBlocked):
+            MODULE.authorize_git_push(
+                repository,
+                base_revision=base,
+                source_revision=head,
+                head_ref="HEAD",
+                target_ref="refs/heads/fixture",
+                producer="interactive-reviewed-github",
+                policy=self.policy,
+            )
+
     def test_known_public_family_passes_without_per_file_label(self) -> None:
         decision = MODULE.evaluate_outbound_bundle(
             [self.artifact("areas/CONGRESS/issues/CON-001.md", "# Public proposal")],

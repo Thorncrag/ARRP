@@ -4,6 +4,7 @@ dependencies:
   - "../../AGENT_OPERATING_RULES.md"
   - "../../standards/automation/autonomous-execution.md"
   - "owner-local-runtime.md"
+  - "transaction-lifecycle.md"
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -91,6 +92,16 @@ state root; a transaction repository must be a direct reviewed child of
 The reviewed runtime supplies that explicit transaction authority to context
 generation. Test fixtures use a separate explicit contained authority that
 cannot overlap production and never falls back to owner-local logs.
+
+Every attempt also writes to the owner-local append-only
+[Transaction Lifecycle and Recovery Authority](transaction-lifecycle.md).
+That event history, rather than `status.json` or
+`last-scheduled-slot.json`, owns attempt identity, terminal outcome, retry
+authorization, and recovery posture. A released lock with an unterminated
+attempt becomes recovery-pending. A retry is one-use, expiring, and bound to
+the prior attempt's exact terminal digest; moving or recreating a schedule
+projection cannot authorize it. No second worktree may be created for an
+attempt group while an earlier registered worktree remains live.
 
 ## Deterministic pre-Elim stages
 

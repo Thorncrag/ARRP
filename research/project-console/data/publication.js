@@ -7541,16 +7541,20 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
+          "path": "framework/project/automation/transaction-lifecycle.md",
+          "exists": true
+        },
+        {
           "path": "framework/project/github/disclosure-boundary.md",
           "exists": true
         }
       ],
-      "word_count": 2088,
+      "word_count": 2176,
       "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 26
+      "longest_unbroken_token": 27
     },
     {
       "title": "ARRP Candidate Discovery and Adjudication",
@@ -7624,7 +7628,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/automation-arrp console development log",
       "internal_links": [],
-      "word_count": 2084,
+      "word_count": 2152,
       "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7723,8 +7727,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1405,
-      "estimated_pages": 3,
+      "word_count": 2059,
+      "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -7982,12 +7986,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 127,
+      "word_count": 190,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 18
+      "longest_unbroken_token": 20
     },
     {
       "title": "ARRP Project Console Progress Configuration",
@@ -8070,7 +8074,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 7831,
+      "word_count": 7947,
       "estimated_pages": 13,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8186,7 +8190,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1435,
+      "word_count": 1544,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8445,6 +8449,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 34
     },
     {
+      "title": "ARRP Transaction Lifecycle and Recovery Authority",
+      "path": "framework/project/automation/transaction-lifecycle.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal workflow or tool documentation.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/transaction-lifecycle.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/project/automation-arrp transaction lifecycle and recovery authority",
+      "internal_links": [],
+      "word_count": 467,
+      "estimated_pages": 1,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 57
+    },
+    {
       "title": "Adoption and Enactment Pathway Analysis",
       "path": "framework/standards/audits/adoption-and-pathways.md",
       "section": "Framework and process",
@@ -8555,7 +8582,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/standards/automation-agent rules — multi-agent work",
       "internal_links": [],
-      "word_count": 251,
+      "word_count": 323,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8802,6 +8829,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
+          "path": "framework/project/automation/transaction-lifecycle.md",
+          "exists": true
+        },
+        {
           "path": "framework/project/workflows/governance-change-recording.md",
           "exists": true
         },
@@ -8826,7 +8857,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3598,
+      "word_count": 3613,
       "estimated_pages": 6,
       "table_count": 5,
       "max_table_columns": 2,
@@ -9276,12 +9307,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 615,
-      "estimated_pages": 1,
+      "word_count": 784,
+      "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 21
+      "longest_unbroken_token": 22
     },
     {
       "title": "Elim Agent Runbook",
@@ -9398,8 +9429,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/github-github disclosure boundary",
       "internal_links": [],
-      "word_count": 1247,
-      "estimated_pages": 2,
+      "word_count": 1334,
+      "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -9458,7 +9489,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4847,
+      "word_count": 4933,
       "estimated_pages": 8,
       "table_count": 1,
       "max_table_columns": 2,
@@ -10381,9 +10412,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "framework/PROJECT_STRUCTURE.md",
           "exists": true
+        },
+        {
+          "path": "framework/project/automation/transaction-lifecycle.md",
+          "exists": true
         }
       ],
-      "word_count": 1247,
+      "word_count": 1288,
       "estimated_pages": 2,
       "table_count": 6,
       "max_table_columns": 3,
@@ -15302,7 +15337,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "disposition_counts": {
       "included": 138,
-      "excluded": 232,
+      "excluded": 233,
       "unclassified": 0,
       "conflict": 0
     },
@@ -15310,7 +15345,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Internal proposal-review history retained in the GitHub technical record.": 49,
       "Internal source-development record.": 62,
       "Supporting research retained in the GitHub technical record.": 13,
-      "Internal workflow or tool documentation.": 27,
+      "Internal workflow or tool documentation.": 28,
       "Online operational summary.": 2,
       "Internal automation configuration.": 8,
       "Internal project workflow.": 1,
@@ -15546,7 +15581,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "label": "Assembly structurally valid",
         "disposition_counts": {
           "included": 138,
-          "excluded": 232,
+          "excluded": 233,
           "unclassified": 0,
           "conflict": 0
         }
@@ -16622,7 +16657,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "link_export_validation": {
         "link_inventory_available": true,
-        "internal_link_count": 1288,
+        "internal_link_count": 1291,
         "missing_link_count": 0,
         "missing_links": [],
         "export_validation_available": false,
@@ -20142,6 +20177,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-2115ee48ecf01ba6d71c"
+    "publication.js": "project-console-111648aecd9ce6a0676a"
   }
 });

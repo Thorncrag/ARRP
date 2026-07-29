@@ -82,6 +82,25 @@ except ModuleNotFoundError:
         require_outbound_bundle,
     )
 
+try:
+    from transaction_lifecycle import (
+        TransactionLifecycleError,
+        current_transaction_states,
+        mark_abandoned_transactions,
+        read_events as read_transaction_events,
+        start_transaction,
+        transition_transaction,
+    )
+except ModuleNotFoundError:
+    from scripts.transaction_lifecycle import (
+        TransactionLifecycleError,
+        current_transaction_states,
+        mark_abandoned_transactions,
+        read_events as read_transaction_events,
+        start_transaction,
+        transition_transaction,
+    )
+
 SCHEMA_VERSION = "1.0"
 APPROVED_ORIGINS = frozenset(
     {
@@ -432,6 +451,10 @@ class RunnerConfig:
     console_projection: Path | None = None
     supervised_live: bool = False
     runtime_commit: str | None = None
+    attempt_group_id: str | None = None
+    retry_attempt_number: int = 1
+    retry_authorization: Mapping[str, str] | None = None
+    retry_mode: str | None = None
 
     def validate(self) -> None:
         canonical = self.canonical_path.resolve()
@@ -460,6 +483,17 @@ class RunnerConfig:
                 raise TransactionError("fixture mode cannot target Benjamin's canonical repository")
             if self.supervised_live:
                 raise TransactionError("fixture mode cannot claim live supervision")
+        if self.retry_attempt_number < 1:
+            raise TransactionError("retry attempt number must be positive")
+        if self.retry_attempt_number == 1 and self.retry_authorization is not None:
+            raise TransactionError("primary transaction cannot claim retry authorization")
+        if self.retry_attempt_number > 1:
+            if self.trigger != "manual-retry" or self.retry_authorization is None:
+                raise TransactionError(
+                    "linked retry requires the exact manual-retry trigger and authorization"
+                )
+            if self.retry_mode not in {"deterministic-recovery", None}:
+                raise TransactionError("linked retry has an unsupported retry mode")
 
 
 @dataclass(frozen=True)
@@ -4162,7 +4196,12 @@ def write_console_status_projection(status_path: Path, output: Path | None = Non
 
 
 def claim_scheduled_slot(state_root: Path, scheduled_for: str) -> bool:
-    """Claim one exact scheduled slot while the caller holds the run lock."""
+    """Update the nonauthoritative scheduled-slot compatibility projection.
+
+    Lifecycle records, not this replaceable projection, determine whether a
+    scheduled occurrence has already been attempted.  This helper remains for
+    compatibility with existing status consumers only.
+    """
 
     try:
         parsed = datetime.fromisoformat(scheduled_for.replace("Z", "+00:00"))
@@ -4185,6 +4224,118 @@ def claim_scheduled_slot(state_root: Path, scheduled_for: str) -> bool:
         },
     )
     return True
+
+
+def transaction_events_path(config: RunnerConfig) -> Path:
+    """Return the one owner-local lifecycle authority for this state root."""
+
+    return config.state_root / "records" / "automation" / "transaction-events.jsonl"
+
+
+def _scheduled_attempt_group(scheduled_for: str) -> str:
+    try:
+        parsed = datetime.fromisoformat(scheduled_for.replace("Z", "+00:00"))
+    except ValueError as error:
+        raise TransactionError("scheduled_for is not a valid timestamp") from error
+    if parsed.tzinfo is None:
+        raise TransactionError("scheduled_for must include a timezone")
+    normalized = parsed.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+    # Lifecycle identities are deliberately lower-case and opaque.
+    return "scheduled:" + normalized.lower()
+
+
+def _attempt_group(config: RunnerConfig, run_id: str) -> str:
+    if config.attempt_group_id is not None:
+        return config.attempt_group_id
+    if config.scheduled_for is not None:
+        return _scheduled_attempt_group(config.scheduled_for)
+    return run_id
+
+
+def _lifecycle_proof(run_id: str, kind: str, material: Mapping[str, Any]) -> dict[str, str]:
+    digest = "sha256:" + hashlib.sha256(
+        json.dumps(material, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    ).hexdigest()
+    return {
+        "proof_digest": digest,
+        "evidence_ref": f"owner-local:transaction-evidence/{run_id}:{kind}",
+    }
+
+
+def scheduled_occurrence_exists(events_path: Path, attempt_group_id: str) -> bool:
+    """Fail closed if immutable lifecycle history already names this slot."""
+
+    try:
+        return any(
+            event["attempt_group_id"] == attempt_group_id
+            and event["event_type"] != "retry_authorized"
+            for event in read_transaction_events(events_path)
+        )
+    except TransactionLifecycleError as error:
+        raise TransactionError("scheduled lifecycle history is unavailable") from error
+
+
+def _start_lifecycle_attempt(
+    config: RunnerConfig,
+    *,
+    run_id: str,
+    branch: str,
+    head: str,
+    base: str,
+) -> str:
+    """Append the independent start record before transaction work begins."""
+
+    events_path = transaction_events_path(config)
+    attempt_group_id = _attempt_group(config, run_id)
+    try:
+        start_transaction(
+            events_path,
+            run_id=run_id,
+            attempt_group_id=attempt_group_id,
+            attempt_number=config.retry_attempt_number,
+            trigger=config.trigger,
+            branch=branch,
+            head=head,
+            base=base,
+            logical_worktree_id=run_id,
+            logical_run_id=run_id,
+            delta_digest="sha256:" + "0" * 64,
+            owner="run-coordinator",
+            next_action="Run the bounded transaction or preserve its exact failure state.",
+            retry_authorization=config.retry_authorization,
+        )
+    except TransactionLifecycleError as error:
+        raise TransactionError("transaction lifecycle start was rejected") from error
+    return attempt_group_id
+
+
+def _transition_lifecycle_failure(config: RunnerConfig, run_id: str, error: BaseException) -> None:
+    """Record preservation/recovery without masking the original failure."""
+
+    failure_code = type(error).__name__.lower()
+    events_path = transaction_events_path(config)
+    current = current_transaction_states(events_path).get(run_id)
+    if current is None or current["state"] in {"recoverably_retired", "completed_noop", "completed_published"}:
+        return
+    if current["state"] == "active":
+        transition_transaction(
+            events_path,
+            run_id=run_id,
+            state="failed_preserved",
+            owner="run-coordinator",
+            next_action="Inspect and preserve the exact failed transaction material.",
+            failure_code=failure_code,
+        )
+        current = {"state": "failed_preserved"}
+    if current["state"] == "failed_preserved":
+        transition_transaction(
+            events_path,
+            run_id=run_id,
+            state="recovery_pending",
+            owner="run-coordinator",
+            next_action="Classify, reconcile, or package preserved transaction material.",
+            failure_code=failure_code,
+        )
 
 
 def explicit_stage(repository: Path, paths: Sequence[str]) -> None:
@@ -5052,6 +5203,14 @@ def prepare_transaction(
     | None = None,
 ) -> TransactionResult:
     config.validate()
+    if config.retry_attempt_number > 1 and publication_cycle is not None:
+        raise TransactionError(
+            "linked retry may not automatically reattempt publication"
+        )
+    if config.retry_attempt_number > 1 and local_cycle is not None and config.retry_mode != "deterministic-recovery":
+        raise TransactionError(
+            "linked retry local work must be an explicit deterministic recovery cycle"
+        )
     run_id = run_id or make_run_id()
     if not SAFE_RUN_ID.fullmatch(run_id):
         raise TransactionError("unsafe run ID")
@@ -5061,6 +5220,18 @@ def prepare_transaction(
     checkpoint: str | None = None
     worktree: Path | None = None
     fetched: str | None = None
+    lifecycle_started = False
+    lifecycle_branch = BRANCH_PREFIX + utc_now().strftime("%Y%m%dT%H%M%SZ")
+    previous_owner_run_id: str | None = None
+    owner_path = config.state_root / "run-owner.json"
+    if owner_path.is_file():
+        try:
+            owner = read_json_object(owner_path)
+            candidate = owner.get("run_id")
+            if isinstance(candidate, str) and SAFE_RUN_ID.fullmatch(candidate):
+                previous_owner_run_id = candidate
+        except (OSError, ValueError, json.JSONDecodeError, TransactionError):
+            raise TransactionError("previous run owner record is unavailable or invalid")
 
     def record_failure(error: BaseException) -> None:
         prevented_disclosure = isinstance(error, DisclosurePreventionError)
@@ -5118,9 +5289,63 @@ def prepare_transaction(
             # Status already preserves the primary failure. Do not mask it if
             # the independent owner-only incident spool is also unavailable.
             pass
+        if lifecycle_started:
+            _transition_lifecycle_failure(config, run_id, error)
 
     try:
         with exclusive_lock(config.state_root, run_id, on_error=record_failure):
+            events_path = transaction_events_path(config)
+            try:
+                if previous_owner_run_id is not None and previous_owner_run_id != run_id:
+                    mark_abandoned_transactions(
+                        events_path,
+                        released_lock_run_ids=[previous_owner_run_id],
+                        owner="run-coordinator",
+                    )
+            except TransactionLifecycleError as error:
+                raise TransactionError(
+                    "prior transaction lifecycle cannot be recovered deterministically"
+                ) from error
+            if config.scheduled_for is not None and scheduled_occurrence_exists(
+                events_path,
+                _attempt_group(config, run_id),
+            ):
+                # The status is only a latest projection.  This immutable log
+                # check is the authority; changing last-scheduled-slot cannot
+                # replay an occurrence.
+                write_status(
+                    config,
+                    status,
+                    status="completed",
+                    stage="20_finish",
+                    completed_at=iso_utc(),
+                    validation_summary={
+                        "phase": "due-check",
+                        "due": False,
+                        "reason": "scheduled_occurrence_already_recorded",
+                    },
+                    exact_next_action="No duplicate scheduled occurrence was started.",
+                )
+                return TransactionResult(run_id, "completed", None, None, None, None)
+            repository = config.canonical_path.resolve()
+            if not (repository / ".git").exists():
+                raise TransactionError("canonical path is not a Git worktree")
+            starting_branch = git_text(repository, "rev-parse", "--abbrev-ref", "HEAD")
+            starting_head = git_text(repository, "rev-parse", "HEAD")
+            base_head = git_text(repository, "rev-parse", "refs/remotes/origin/main")
+            origin = git_text(repository, "remote", "get-url", "origin")
+            if config.fixture_root is None and origin not in APPROVED_ORIGINS:
+                raise TransactionError("canonical origin is not approved")
+            if starting_branch != "main":
+                raise TransactionError("canonical repository is off main")
+            _start_lifecycle_attempt(
+                config,
+                run_id=run_id,
+                branch=lifecycle_branch,
+                head=starting_head,
+                base=base_head,
+            )
+            lifecycle_started = True
             paused = pause_requested(config.state_root)
             write_status(
                 config,
@@ -5145,6 +5370,18 @@ def prepare_transaction(
                         "reviewed bootstrap manually or wait for the next schedule."
                     ),
                 )
+                transition_transaction(
+                    events_path,
+                    run_id=run_id,
+                    state="completed_noop",
+                    owner="run-coordinator",
+                    next_action="Remain paused until the owner separately resumes automation.",
+                    terminal_proof=_lifecycle_proof(
+                        run_id,
+                        "paused",
+                        {"control_state": "paused", "status": "paused"},
+                    ),
+                )
                 return TransactionResult(
                     run_id,
                     "paused",
@@ -5153,41 +5390,8 @@ def prepare_transaction(
                     None,
                     None,
                 )
-            if config.scheduled_for is not None and not claim_scheduled_slot(
-                config.state_root,
-                config.scheduled_for,
-            ):
-                write_status(
-                    config,
-                    status,
-                    status="completed",
-                    stage="20_finish",
-                    completed_at=iso_utc(),
-                    validation_summary={
-                        "phase": "due-check",
-                        "due": False,
-                        "reason": "scheduled_slot_already_claimed",
-                    },
-                    exact_next_action="No duplicate catch-up run was started.",
-                )
-                return TransactionResult(
-                    run_id,
-                    "completed",
-                    None,
-                    None,
-                    None,
-                    None,
-                )
-            repository = config.canonical_path.resolve()
-            if not (repository / ".git").exists():
-                raise TransactionError("canonical path is not a Git worktree")
-            starting_branch = git_text(repository, "rev-parse", "--abbrev-ref", "HEAD")
-            starting_head = git_text(repository, "rev-parse", "HEAD")
-            origin = git_text(repository, "remote", "get-url", "origin")
-            if config.fixture_root is None and origin not in APPROVED_ORIGINS:
-                raise TransactionError("canonical origin is not approved")
-            if starting_branch != "main":
-                raise TransactionError("canonical repository is off main")
+            if config.scheduled_for is not None:
+                claim_scheduled_slot(config.state_root, config.scheduled_for)
             dynamic_protected = governing_protected_paths(
                 repository,
                 config.runtime_files,
@@ -5243,7 +5447,7 @@ def prepare_transaction(
                 fetched_origin_main=fetched,
                 runtime_commit=fetched,
             )
-            branch = BRANCH_PREFIX + utc_now().strftime("%Y%m%dT%H%M%SZ")
+            branch = lifecycle_branch
             git(repository, "switch", "-c", branch)
             stage_paths = manifest_stage_paths(preexisting)
             explicit_stage(repository, stage_paths)
@@ -5284,6 +5488,22 @@ def prepare_transaction(
                     failure_reason="protected work was checkpointed but will not be executed",
                     exact_next_action="Benjamin reviews the protected checkpoint before any runtime execution.",
                 )
+                transition_transaction(
+                    events_path,
+                    run_id=run_id,
+                    state="failed_preserved",
+                    owner="run-coordinator",
+                    next_action="Preserve the protected checkpoint pending recovery classification.",
+                    failure_code="protected-runtime-at-start",
+                )
+                transition_transaction(
+                    events_path,
+                    run_id=run_id,
+                    state="recovery_pending",
+                    owner="run-coordinator",
+                    next_action="Reconcile the preserved protected checkpoint before any retry.",
+                    failure_code="protected-runtime-at-start",
+                )
                 return TransactionResult(
                     run_id,
                     "review-required",
@@ -5321,6 +5541,22 @@ def prepare_transaction(
                     failure_class="origin_merge_conflict",
                     failure_reason="origin/main merge failed; the worktree and branch are preserved",
                     exact_next_action="Inspect the preserved merge conflict without changing canonical main.",
+                )
+                transition_transaction(
+                    events_path,
+                    run_id=run_id,
+                    state="failed_preserved",
+                    owner="run-coordinator",
+                    next_action="Inspect the preserved merge conflict without changing canonical main.",
+                    failure_code="origin-merge-conflict",
+                )
+                transition_transaction(
+                    events_path,
+                    run_id=run_id,
+                    state="recovery_pending",
+                    owner="run-coordinator",
+                    next_action="Classify, reconcile, or package the preserved merge-conflict material.",
+                    failure_code="origin-merge-conflict",
                 )
                 return TransactionResult(
                     run_id,
@@ -5452,6 +5688,31 @@ def prepare_transaction(
                     else "P2 may add deterministic local stages after protected review and integration."
                 ),
             )
+            if publication_summary is not None and publication_summary.get("worktree_removed") is True:
+                transition_transaction(
+                    events_path,
+                    run_id=run_id,
+                    state="completed_published",
+                    owner="run-coordinator",
+                    next_action="Published transaction has exact readback evidence.",
+                    terminal_proof=_lifecycle_proof(
+                        run_id,
+                        "published",
+                        {
+                            "merge_commit": publication_summary.get("merge_commit"),
+                            "worktree_removed": True,
+                        },
+                    ),
+                )
+            else:
+                transition_transaction(
+                    events_path,
+                    run_id=run_id,
+                    state="recovery_pending",
+                    owner="run-coordinator",
+                    next_action="Reconcile or package the retained transaction worktree before retry or retirement.",
+                    failure_code="retained-live-worktree",
+                )
             return prepared
     except Exception:
         raise

@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Handoff state | Inactive |
-| Active issue/task | None. |
-| Audit type/tier | None. |
-| Started | None. |
-| Last checkpoint | 2026-07-29 12:24:11 -0400 |
-| User request | None. |
-| Scope | None. |
-| Files touched | None. |
-| Completed steps | None. |
-| Next step | None. |
-| Blockers/questions | None. |
-| Validation status | Not applicable. |
+| Handoff state | Open |
+| Active issue/task | ARRP project-wide operational reconciliation and transaction-recovery implementation |
+| Audit type/tier | Project consistency / operational reconciliation |
+| Started | 2026-07-29 16:23:19 -0400 |
+| Last checkpoint | 2026-07-29 17:33:00 -0400 |
+| User request | Synchronize all project-operated Git and hosted state, reconcile every retained local transaction, and reach a verified operationally neutral state without discarding material. |
+| Scope | Project-wide reconciliation verifier; GitHub disclosure revision binding; owner-local transaction lifecycle and recovery; Run Coordinator integration; Project Console preserved-transactions projection; exact retained-state inventory and closeout. |
+| Files touched | Project reconciliation, transaction lifecycle, GitHub disclosure, automation, Console, governance, documentation, and test surfaces within the approved implementation contracts. |
+| Completed steps | Corrected the false-neutral verifier; implemented exact committed-range Git-push authorization and the durable transaction lifecycle; created and verified owner-only recovery packages; recoverably retired all 13 approved noncanonical worktrees while retaining their branches and commits; imported the remaining exact legacy terminal outcomes; resolved the transaction-accumulation incident; regenerated the public Console; and passed the complete 687-test Python suite, 52 frontend tests, consistency audit, and strict site build. |
+| Next step | Commit the reviewed implementation, run the disclosure gate against that exact commit, synchronize draft PR #494, complete hosted checks and merge, read back canonical Git and hosted state, resolve the remaining synchronization incidents from exact evidence, and issue the final reconciliation certification. |
+| Blockers/questions | None at this checkpoint; final certification remains fail-closed until the exact commit, merge, hosted readbacks, and owner-local reconciliation evidence are complete. |
+| Validation status | Main deterministic validation passed; exact committed-range disclosure, GitHub checks, merge, and final hosted/local reconciliation remain pending. |
 
 ## Handoff Rules
 
