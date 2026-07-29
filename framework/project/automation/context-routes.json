@@ -684,7 +684,7 @@
     },
     "governance_change_registry": {
       "path": "framework/project/workflows/governance-change-registry.json",
-      "sha256": "9f4d8fda613173a23956c28a60c6ef719db603eb8a3f45819cf4790431c7a924",
+      "sha256": "1a7aa95700eb32f08985c342e9fc992c9244d898bdd5b07049b31c75285f3270",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
