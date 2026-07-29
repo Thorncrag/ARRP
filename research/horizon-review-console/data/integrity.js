@@ -3,7 +3,7 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
-    "availability": "current",
+    "availability": "stale",
     "generated_at": "2026-07-29T13:12:20+00:00",
     "current": {
       "result": "findings",
@@ -47,6 +47,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-6daa1e1d01ae8b3ae48e"
+    "integrity.js": "project-console-4c179a05f1b0ff2bdd6e"
   }
 });
