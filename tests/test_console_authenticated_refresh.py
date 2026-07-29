@@ -1,15 +1,18 @@
+import inspect
 import subprocess
 import tempfile
 import unittest
-import inspect
 from pathlib import Path
 
 from scripts.arrp_nightly import SensitiveValue
 from scripts.refresh_horizon_review_console import (
     ConsoleRefreshError,
+    _production_interpreter,
     _refresh_console,
     refresh_console,
 )
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 class FakeAuthority:
@@ -200,6 +203,12 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
 
     def test_production_entry_point_has_no_caller_selected_authority(self) -> None:
         self.assertEqual(dict(inspect.signature(refresh_console).parameters), {})
+
+    def test_production_interpreter_preserves_verified_venv_launcher(self) -> None:
+        self.assertEqual(
+            _production_interpreter(ROOT),
+            ROOT / ".venv/bin/python",
+        )
 
 
 if __name__ == "__main__":

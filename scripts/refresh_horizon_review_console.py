@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import os
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -273,11 +274,32 @@ def _production_interpreter(repository: Path) -> Path:
         raise ConsoleRefreshError(
             "Authenticated Console refresh must run with the project virtual environment."
         )
-    interpreter = Path(sys.executable).resolve(strict=True)
-    if not interpreter.is_file():
+    bin_directory = repository / ".venv/bin"
+    for directory in (repository / ".venv", bin_directory):
+        metadata = directory.lstat()
+        if stat.S_ISLNK(metadata.st_mode) or not stat.S_ISDIR(metadata.st_mode):
+            raise ConsoleRefreshError(
+                "The project virtual-environment boundary is invalid."
+            )
+    interpreter = bin_directory / "python"
+    metadata = interpreter.lstat()
+    if not (
+        stat.S_ISREG(metadata.st_mode)
+        or stat.S_ISLNK(metadata.st_mode)
+    ):
+        raise ConsoleRefreshError(
+            "The project virtual-environment interpreter is invalid."
+        )
+    resolved_interpreter = interpreter.resolve(strict=True)
+    if not resolved_interpreter.is_file() or not os.access(
+        resolved_interpreter,
+        os.X_OK,
+    ):
         raise ConsoleRefreshError(
             "The project virtual-environment interpreter is unavailable."
         )
+    # Preserve the verified venv launcher path. Executing its resolved Homebrew
+    # target directly would discard the venv prefix and dependency context.
     return interpreter
 
 
