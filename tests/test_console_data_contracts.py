@@ -1134,10 +1134,7 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertEqual(typed_finding["route"], "integrity")
         self.assertEqual(
             typed_finding["next_action"],
-            (
-                "Rerun Project Integrity through the registered "
-                "authenticated Console refresh."
-            ),
+            "Run the registered authenticated Console refresh.",
         )
         self.assertNotIn(marker, json.dumps(typed_integrity))
         action_snapshot = MODULE.build_action_snapshot(

@@ -154,7 +154,7 @@
     },
     "project_console_classifications": {
       "path": "framework/project/interfaces/project-console-classifications.json",
-      "sha256": "549a9a79b3dea35f852cbdc9a0efaf884f328538da8fe1417798d37950f0600f",
+      "sha256": "d18f5b41292853e29b166da457e0122d67a02718a9457f89fb9697930272fd2f",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
