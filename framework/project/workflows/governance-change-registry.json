@@ -108,7 +108,7 @@
       "status": "Canonical",
       "policy_adoption": "Adopted on canonical history.",
       "live_activation": "No host activation is represented.",
-      "relationships": {"supersedes": [], "refines": [], "refined_by": ["GOV-2026-011", "GOV-2026-017"], "proposed_refinements": []},
+      "relationships": {"supersedes": [], "refines": [], "refined_by": ["GOV-2026-011", "GOV-2026-017"], "proposed_refinements": ["GOV-2026-019"]},
       "private_supplement_required": true
     },
     {
@@ -348,7 +348,7 @@
       "status": "Canonical",
       "policy_adoption": "Adopted on canonical history through PR #494.",
       "live_activation": "The exact committed-range gate authorized the complete 77-artifact range and full-OID refspec before transmission. The remote branch and merged pull request were read back at the authorized revision.",
-      "relationships": {"supersedes": [], "refines": ["GOV-2026-002"], "refined_by": [], "proposed_refinements": []},
+      "relationships": {"supersedes": [], "refines": ["GOV-2026-002"], "refined_by": [], "proposed_refinements": ["GOV-2026-019"]},
       "private_supplement_required": true
     },
     {
@@ -365,6 +365,22 @@
       "policy_adoption": "Adopted on canonical history through PR #494.",
       "live_activation": "The owner-local transaction lifecycle and recovery authority is active. Automation remains intentionally Paused; no production run or host/background-service mutation was performed.",
       "relationships": {"supersedes": [], "refines": ["GOV-2026-011", "GOV-2026-016"], "refined_by": [], "proposed_refinements": []},
+      "private_supplement_required": true
+    },
+    {
+      "id": "GOV-2026-019",
+      "date": "2026-07-29",
+      "title": "Lease-bound GitHub branch retirement",
+      "decision_class": "security_privacy_disclosure",
+      "authority": ["framework/project/github/disclosure-boundary.md", "framework/project/github/disclosure-policy.json", "framework/project/github/workflow.md", "scripts/github_disclosure_gate.py"],
+      "source": {"kind": "current_worktree", "commits": [], "pull_requests": []},
+      "destination": "framework/records/governance/governance-change-log.md#gov-2026-019",
+      "resolution": "Approved implementation pending canonical merge; ordinary content publication and App authority remain unchanged.",
+      "consumers": ["project_update_closeout", "disclosure_review", "github_publisher"],
+      "status": "Proposed / unmerged",
+      "policy_adoption": "Approved by Benjamin; implementation remains pending canonical merge.",
+      "live_activation": "No remote branch retirement is active until canonical merge and an exact decision, lease-bound execution, and absence readback.",
+      "relationships": {"supersedes": [], "refines": ["GOV-2026-002", "GOV-2026-017"], "refined_by": [], "proposed_refinements": []},
       "private_supplement_required": true
     }
   ]

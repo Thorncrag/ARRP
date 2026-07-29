@@ -65,6 +65,25 @@ owner-local pointer can supply a production authorization decision. Exact
 current-versus-staged path resolution is governed by the [ARRP Owner-Local
 Runtime Authority](../automation/owner-local-runtime.md).
 
+### Remote branch retirement
+
+A human-approved remote branch retirement uses the disclosure gate's
+`git_branch_ref_delete` operation. The request names one exact non-default
+`refs/heads/...` target and its complete current expected-old object ID.
+Production obtains the canonical checkout, `origin`, repository identity,
+policy, and active owner-local controls from the fixed runtime authority; the
+caller cannot substitute any of them. A successful decision authorizes only
+the returned contentless refspec and expected-old lease.
+
+Immediately before execution, verify that the remote target still resolves to
+the authorized object ID. Execute only the exact lease-bound refspec and then
+read back the target's absence. Any movement, missing authority, malformed or
+batched target, default-branch request, control mismatch, or failed readback
+stops the retirement. Do not use a REST deletion or an unbound
+`git push --delete`. The ordinary `git_push` path continues to reject an empty
+committed range, and the GitHub App publisher cannot perform branch-ref
+deletion.
+
 ## Local-first automation publication boundary
 
 ARRP's installed local-first runner is currently intentionally `Paused`; that

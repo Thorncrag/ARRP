@@ -138,11 +138,24 @@ authorized full-OID refspec. The subsequent push must use that exact refspec;
 a moved source ref requires a new decision. A later successful decision never
 retroactively authorizes an earlier transmission.
 
+Deleting a remote branch is a distinct contentless Git control mutation, not
+an empty content push. It requires a registered branch-ref deletion payload
+from the interactive reviewed GitHub producer, the fixed `Thorncrag/ARRP`
+repository and exact `origin` identity, one normalized `refs/heads/...` target,
+and the complete current expected-old object ID. The decision binds that
+payload, the all-zero new object ID, the exact deletion refspec, and an
+expected-old lease. The default branch, wildcard or batched targets,
+abbreviated or missing objects, caller-selected repositories or remotes, and
+substituted policy or control sources fail closed. Execution must use the exact
+lease-bound refspec and verify that the remote branch is absent afterward.
+Neither a REST deletion nor a plain `git push --delete` is an authorized
+project path.
+
 Blocked local artifacts are preserved. A material prevented disclosure is
 recorded as a sanitized near-miss Operational Incident and may be linked to a
 separate owner-local Security Incident when its security admission boundary is
 also met. A confirmed disclosure is an Operational Incident and may likewise
-have a typed cross-domain relation. Neither ledger substitutes for the other:
+have a typed cross-domain relation. Neither log substitutes for the other:
 operational recovery does not close security investigation, and security
 containment does not establish operational recovery. Incident, Action Item, and
 Console projections must never reproduce restricted evidence.

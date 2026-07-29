@@ -54,7 +54,7 @@
     },
     "github_disclosure_boundary": {
       "path": "framework/project/github/disclosure-boundary.md",
-      "sha256": "ac9922ab09aa4fa588ff0071987d23ada10e7536542cd8cdf310b0bb002553a8",
+      "sha256": "e90882f9503b9477f6218433cc4fc4c6cdcb5b59370611bc19974b3150470a68",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -64,7 +64,7 @@
     },
     "github_disclosure_policy": {
       "path": "framework/project/github/disclosure-policy.json",
-      "sha256": "47e17d33f97ed4b0fb1f1a66a524a6fcebb6a8b36a9c89efa39d032090815564",
+      "sha256": "980bd31592f2b372031ed0710386ea801870658d4fa95b3501a93b61c7771e99",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -101,7 +101,7 @@
     },
     "github_workflow": {
       "path": "framework/project/github/workflow.md",
-      "sha256": "e8b24cb96c6b647c95a82e6d6dfe1a4d7ae4b3e8e9b7720d85ac42d414a14299",
+      "sha256": "33f9ba122a36d62c4bfb1db3d5cbad15c83f41518b363cd6606ce0ddf9fc76b7",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -729,7 +729,7 @@
     },
     "governance_change_registry": {
       "path": "framework/project/workflows/governance-change-registry.json",
-      "sha256": "c33807d65f58359642e26633b87c41ba8e78f81315de88d76d6a6cbb2ce7ed94",
+      "sha256": "eeab7a81d6432bc82a9a5e7cadbce08c13639bdf7b273f04a02e52e23decf843",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
