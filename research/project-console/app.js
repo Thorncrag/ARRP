@@ -67,6 +67,10 @@
       authority: "owner-local-incident-relations", availability: "unavailable", complete: false, active_relations: [],
       relations: [], by_operational_incident: {}, by_security_incident: {}, reason_code: "owner-local-projection-required"
     };
+    data.transaction_recovery = data.transaction_recovery && typeof data.transaction_recovery === "object" ? data.transaction_recovery : {
+      schema_version: 1, availability: "unavailable", complete: false, generated_at: null,
+      items: [], reason_code: "owner-local-transaction-recovery-projection-required"
+    };
     data.agent_registry = Array.isArray(data.agent_registry) ? data.agent_registry : [];
     data.automation_role_status = data.automation_role_status
       && typeof data.automation_role_status === "object"
@@ -177,6 +181,32 @@
       || !projection.by_security_incident) return false;
     return projection.availability === (projection.complete ? "current" : "unavailable");
   }
+  const TRANSACTION_RECOVERY_FIELDS = fieldSet("run_id attempt_group_id lifecycle_state preserved retirement_proof owner age_label failure_class next_action specialist_route");
+  const TRANSACTION_RECOVERY_STATES = fieldSet("active failed_preserved recovery_pending reconciled_or_superseded recovery_packaged recoverably_retired");
+  function transactionRecoveryUnresolved(item) {
+    return item?.preserved === true && item.lifecycle_state !== "recoverably_retired"
+      && item.retirement_proof !== "recoverably_retired";
+  }
+  function validPrivateTransactionRecovery(projection) {
+    const fields = fieldSet("schema_version availability complete generated_at items reason_code");
+    if (!hasExactFields(projection, fields) || projection.schema_version !== 1 || typeof projection.complete !== "boolean" || !Array.isArray(projection.items)) return false;
+    if (projection.complete !== (projection.availability === "current")) return false;
+    if (projection.complete ? projection.reason_code !== null : projection.availability !== "unavailable" || projection.items.length !== 0 || !String(projection.reason_code || "")) return false;
+    if (projection.generated_at !== null && parseTimestamp(projection.generated_at) === null) return false;
+    const ids = new Set();
+    return projection.items.every((item) => {
+      const runId = String(item?.run_id || "");
+      const retired = item?.lifecycle_state === "recoverably_retired";
+      if (!hasExactFields(item, TRANSACTION_RECOVERY_FIELDS) || !runId || ids.has(runId)
+        || !String(item.attempt_group_id || "") || !TRANSACTION_RECOVERY_STATES.has(item.lifecycle_state)
+        || typeof item.preserved !== "boolean" || !["not_retired", "recoverably_retired"].includes(item.retirement_proof)
+        || !String(item.owner || "") || !String(item.age_label || "") || !String(item.failure_class || "")
+        || !String(item.next_action || "") || item.specialist_route !== "automation:agents:run-coordinator-bot"
+        || retired !== (item.retirement_proof === "recoverably_retired")) return false;
+      ids.add(runId);
+      return true;
+    });
+  }
   function validGovernanceChangeSupplements(projection, projectLogs) {
     if (!hasExactFields(projection, GOVERNANCE_SUPPLEMENT_PROJECTION_FIELDS) || projection.schema_version !== 1 || projection.source_revision !== String(data.source_revision || "") || !/^sha256:[0-9a-f]{64}$/.test(projection.public_log_sha256 || "") || parseTimestamp(projection.checked_at) === null || !Array.isArray(projection.items)) return false;
     if (!projection.complete) return projection.availability === "unavailable" && projection.items.length === 0 && Boolean(String(projection.reason_code || ""));
@@ -198,7 +228,7 @@
     return observed.size === required.size && [...required].every((id) => observed.has(id));
   }
   function validPrivateOperationsSnapshot(snapshot) {
-    const fields = fieldSet("schema_version availability generated_at catalog_generation_id source_revision agent_registry project_logs integrity run_chain action_snapshot queue_directory operational_incidents security_incidents incident_relations governance_change_supplements privacy");
+    const fields = fieldSet("schema_version availability generated_at catalog_generation_id source_revision agent_registry project_logs integrity run_chain action_snapshot queue_directory operational_incidents security_incidents incident_relations transaction_recovery governance_change_supplements privacy");
     return Boolean(snapshot && typeof snapshot === "object" && hasExactFields(snapshot, fields)
       && snapshot.schema_version === 4 && snapshot.availability === "current"
       && snapshot.catalog_generation_id === catalogGenerationId && snapshot.source_revision === String(data.source_revision || "")
@@ -207,6 +237,7 @@
       && snapshot.run_chain && typeof snapshot.run_chain === "object" && validPrivateActionSnapshot(snapshot.action_snapshot)
       && validPrivateQueueDirectory(snapshot.queue_directory) && validPrivateIncidentProjection(snapshot.operational_incidents, "operational")
       && validPrivateIncidentProjection(snapshot.security_incidents, "security") && validPrivateIncidentRelations(snapshot.incident_relations)
+      && validPrivateTransactionRecovery(snapshot.transaction_recovery)
       && validGovernanceChangeSupplements(snapshot.governance_change_supplements, snapshot.project_logs));
   }
   function capturePrivateOperations() {
@@ -227,6 +258,7 @@
     data.operational_incidents = snapshot.operational_incidents;
     data.security_incidents = snapshot.security_incidents;
     data.incident_relations = snapshot.incident_relations;
+    data.transaction_recovery = snapshot.transaction_recovery;
     if (data.overview && typeof data.overview === "object") {
       data.overview.action_snapshot = snapshot.action_snapshot;
       data.overview.queue_directory = snapshot.queue_directory;
@@ -8339,6 +8371,16 @@
     );
   }
 
+  function preservedTransactionProjection() {
+    const projection = data.transaction_recovery || {};
+    const complete = validPrivateTransactionRecovery(projection) && projection.complete === true;
+    return {
+      ...projection,
+      complete,
+      items: complete ? projection.items.filter(transactionRecoveryUnresolved) : []
+    };
+  }
+
   function renderAutomation() {
     const chain = data.run_chain || {};
     captureSuccessfulStageHistory(chain);
@@ -8388,6 +8430,8 @@
 
     const incidentProjection = operationalIncidentProjection();
     const incidents = unresolvedOperationalIncidents();
+    const transactionProjection = preservedTransactionProjection();
+    const preservedTransactions = transactionProjection.items;
     const representedRoleIds = new Set(
       roles
         .filter((role) => (role.active_incident_ids || []).length)
@@ -8395,8 +8439,8 @@
     );
     const roleExceptions = roles.filter((role) =>
       automationRoleProblem(role) && !representedRoleIds.has(role.id));
-    const exceptionCount = incidentProjection.complete
-      ? incidents.length + roleExceptions.length
+    const exceptionCount = incidentProjection.complete && transactionProjection.complete
+      ? incidents.length + roleExceptions.length + preservedTransactions.length
       : null;
     byId("automation-incident-count").textContent = exceptionCount == null ? "—" : exceptionCount;
     const incidentRows = incidents.map((incident) => {
@@ -8424,18 +8468,30 @@
       row.append(consoleLinkButton("View details →", `#automation:agents:${role.id}`));
       return row;
     });
+    const transactionRows = preservedTransactions.map((transaction) => {
+      const row = element("article", "automation-incident-card warning");
+      row.append(
+        element("strong", "", `Preserved transaction · ${transaction.run_id}`),
+        element("p", "", `${transaction.owner} · ${transaction.age_label} · ${transaction.failure_class}`),
+        element("p", "warning-text", transaction.next_action)
+      );
+      row.append(consoleLinkButton("Open Run Coordinator →", `#${transaction.specialist_route}`));
+      return row;
+    });
     byId("automation-incidents").replaceChildren(...(
       exceptionCount == null
         ? [element(
             "p",
             "empty-state compact-empty",
             ownerModeUnavailableMessage(
-              incidentProjection.reason
-                || "Operational incident feed is unavailable; zero incidents cannot be inferred."
+              transactionProjection.reason_code
+                ? "Preserved transactions are unavailable; zero transactions cannot be inferred."
+                : incidentProjection.reason
+                  || "Operational incident feed is unavailable; zero incidents cannot be inferred."
             )
           )]
         : exceptionCount
-        ? [...incidentRows, ...roleRows]
+        ? [...transactionRows, ...incidentRows, ...roleRows]
         : [element("p", "empty-state compact-empty", "No current operational exception is represented in the loaded typed projection.")]
     ));
     updateIncidentNavigationCounts();
@@ -10896,6 +10952,8 @@
     localConsoleOriginAllowed,
     ownerModeUnavailableMessage,
     validPrivateOperationsSnapshot,
+    validPrivateTransactionRecovery,
+    transactionRecoveryUnresolved,
     capturePrivateOperations,
     governanceChangeSupplement,
     validLocalAutomationStatus,

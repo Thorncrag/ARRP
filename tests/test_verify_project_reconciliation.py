@@ -11,6 +11,11 @@ import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from scripts.transaction_lifecycle import (
+    start_transaction,
+    transition_transaction,
+)
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("project_reconciliation", ROOT / "scripts" / "verify_project_reconciliation.py")
@@ -62,6 +67,9 @@ class VerifyProjectReconciliationTests(unittest.TestCase):
             '{"schema_version":1,"event_type":"registry_initialized"}\n',
             encoding="utf-8",
         )
+        (incidents / "transaction-events.jsonl").write_text(
+            "", encoding="utf-8"
+        )
         (self.state / "incident-spool.jsonl").write_text("", encoding="utf-8")
         (self.state / "status.json").write_text(
             '{"schema_version":"1.0","run_id":"none","status":"idle"}\n',
@@ -104,6 +112,27 @@ class VerifyProjectReconciliationTests(unittest.TestCase):
                     continue
                 key = (item["kind"], item["id"])
                 is_pending = key in pending_keys
+                if item["kind"] in {"local_branch", "remote_branch"}:
+                    remote = snapshot["inventory"]["remote_revision"][0][
+                        "revision"
+                    ]
+                    proof = {
+                        "proof_type": "git_ancestor",
+                        "authority": "local-git-ancestry",
+                        "proof_digest": MODULE._digest(
+                            {
+                                "proof_type": "git_ancestor",
+                                "revision": item.get("revision"),
+                                "origin_main": remote,
+                            }
+                        ),
+                    }
+                else:
+                    proof = {
+                        "proof_type": "registered_fixture",
+                        "authority": "fixture",
+                        "proof_digest": item["identity_binding"]["sha256"],
+                    }
                 rows.append(
                     {
                         "id": item["id"],
@@ -117,11 +146,11 @@ class VerifyProjectReconciliationTests(unittest.TestCase):
                         "evidence_refs": ["fixture:evidence"],
                         "reviewed_at": self.now.isoformat(),
                         "next_action": "Retain for fixture verification.",
-                        "reconciliation_eligible": not is_pending,
+                        "reconciliation_proof": None if is_pending else proof,
                     }
                 )
         return {
-            "schema_version": 1,
+            "schema_version": MODULE.SCHEMA_VERSION,
             "ledger_id": "fixture-ledger",
             "reviewed_at": self.now.isoformat(),
             "local_snapshot_digest": snapshot["inventory_digest"],
@@ -131,13 +160,14 @@ class VerifyProjectReconciliationTests(unittest.TestCase):
     def live(self, snapshot, *, checked_at=None, revision=None, **overrides):
         remote = snapshot["inventory"]["remote_revision"][0]["revision"]
         value = {
-            "schema_version": 1,
+            "schema_version": MODULE.SCHEMA_VERSION,
             "complete": True,
             "checked_at": (checked_at or self.now).isoformat(),
             "max_age_seconds": 1800,
             "origin_main_revision": revision or remote,
             "default_branch": "main",
             "open_pull_requests": [],
+            "closed_pull_requests": [],
             "in_progress_actions": [],
             "required_actions_status": "success",
             "required_actions_revision": remote,
@@ -186,16 +216,57 @@ class VerifyProjectReconciliationTests(unittest.TestCase):
             )["reason_codes"],
         )
 
+    def test_ledger_cannot_self_authorize_retained_branch(self):
+        self.git("branch", "preserved")
+        current = self.collect()
+        ledger = self.ledger(current)
+        branch = next(
+            item
+            for item in ledger["retained_states"]
+            if item["kind"] == "local_branch" and item["id"] == "preserved"
+        )
+        branch["reconciliation_proof"]["proof_digest"] = "sha256:" + "0" * 64
+
+        result = MODULE.verify(
+            ledger, current, self.live(current), now=self.now
+        )
+
+        self.assertIn("RETAINED_STATE_INELIGIBLE", result["reason_codes"])
+
+    def test_malformed_remote_inventory_cannot_crash_or_authorize_branch(self):
+        self.git("branch", "preserved")
+        current = self.collect()
+        live = self.live(current)
+        ledger = self.ledger(current)
+        current["inventory"]["remote_revision"] = {
+            "kind": "remote_revision",
+            "revision": self.git("rev-parse", "HEAD"),
+        }
+        current["inventory_digest"] = MODULE._digest(current["inventory"])
+        ledger["local_snapshot_digest"] = current["inventory_digest"]
+
+        result = MODULE.verify(ledger, current, live, now=self.now)
+
+        self.assertFalse(result["fully_reconciled"])
+        self.assertIn("RETAINED_STATE_INELIGIBLE", result["reason_codes"])
+
     def test_dirty_worktree_binding_drift_is_detected(self):
         worktree = self.state / "worktrees" / "run-1"
         self.git("worktree", "add", "-b", "run-1", str(worktree))
         (worktree / "README.md").write_text("first\n", encoding="utf-8")
         current = self.collect()
         ledger = self.ledger(current)
-        self.assertTrue(
-            MODULE.verify(
-                ledger, current, self.live(current), now=self.now
-            )["fully_reconciled"]
+        for entry in ledger["retained_states"]:
+            entry["reconciliation_eligible"] = True
+        first = MODULE.verify(
+            ledger, current, self.live(current), now=self.now
+        )
+        self.assertFalse(first["fully_reconciled"])
+        self.assertTrue(first["inventory_accounted_for"])
+        self.assertIn("DIRTY_WORKTREE", first["reason_codes"])
+        self.assertIn(
+            "PRESERVED_TRANSACTION_UNRESOLVED",
+            first["reason_codes"],
         )
         (worktree / "README.md").write_text("second\n", encoding="utf-8")
         changed = self.collect()
@@ -204,6 +275,24 @@ class VerifyProjectReconciliationTests(unittest.TestCase):
         )
         self.assertIn("LEDGER_INVALID", result["reason_codes"])
         self.assertIn("RETAINED_STATE_UNBOUND", result["reason_codes"])
+
+    def test_clean_runtime_worktree_remains_unresolved(self):
+        worktree = self.state / "worktrees" / "run-clean"
+        self.git("worktree", "add", "-b", "run-clean", str(worktree))
+        current = self.collect()
+        result = MODULE.verify(
+            self.ledger(current),
+            current,
+            self.live(current),
+            now=self.now,
+        )
+        self.assertTrue(result["inventory_accounted_for"])
+        self.assertFalse(result["fully_reconciled"])
+        self.assertNotIn("DIRTY_WORKTREE", result["reason_codes"])
+        self.assertIn(
+            "PRESERVED_TRANSACTION_UNRESOLVED",
+            result["reason_codes"],
+        )
 
     def test_new_runtime_run_is_not_silently_clear(self):
         run = self.state / "runs" / "run-2"
@@ -222,6 +311,69 @@ class VerifyProjectReconciliationTests(unittest.TestCase):
                 ledger, current, self.live(current), now=self.now
             )["reason_codes"],
         )
+
+    def test_terminal_transaction_proof_can_reconcile_retained_run(self):
+        run_id = "run-terminal"
+        run = self.state / "runs" / run_id
+        run.mkdir()
+        (run / "result.json").write_text(
+            '{"status":"published"}\n', encoding="utf-8"
+        )
+        events = (
+            self.state
+            / "records"
+            / "automation"
+            / "transaction-events.jsonl"
+        )
+        start_transaction(
+            events,
+            run_id=run_id,
+            attempt_group_id="group-terminal",
+            attempt_number=1,
+            trigger="fixture",
+            branch="automation/nightly-run-terminal",
+            head=self.git("rev-parse", "HEAD"),
+            base=self.git("rev-parse", "HEAD"),
+            logical_worktree_id=None,
+            logical_run_id=run_id,
+            delta_digest="sha256:" + "0" * 64,
+            owner="fixture",
+            next_action="Retain exact terminal history.",
+            now=self.now,
+        )
+        terminal = transition_transaction(
+            events,
+            run_id=run_id,
+            state="completed_published",
+            owner="fixture",
+            next_action="Retain exact terminal history.",
+            terminal_proof={
+                "proof_digest": "sha256:" + "1" * 64,
+                "evidence_ref": (
+                    "owner-local:transaction-evidence/"
+                    "run-terminal:published"
+                ),
+            },
+            now=self.now,
+        )
+        current = self.collect()
+        ledger = self.ledger(current)
+        retained_run = next(
+            item
+            for item in ledger["retained_states"]
+            if item["kind"] == "runtime_run" and item["id"] == run_id
+        )
+        retained_run["reconciliation_proof"] = {
+            "proof_type": "transaction_terminal",
+            "authority": "transaction-lifecycle",
+            "proof_digest": terminal["event_sha256"],
+        }
+
+        result = MODULE.verify(
+            ledger, current, self.live(current), now=self.now
+        )
+
+        self.assertTrue(result["fully_reconciled"])
 
     def test_retained_run_symlink_is_bound_without_being_followed(self):
         run = self.state / "runs" / "run-symlink"
@@ -302,6 +454,67 @@ class VerifyProjectReconciliationTests(unittest.TestCase):
                 now=self.now,
             )["reason_codes"],
         )
+
+    def test_read_only_collection_does_not_create_runtime_lock(self):
+        lock = self.state / "run.lock"
+        preserved = self.state / "run.lock-preserved"
+        lock.rename(preserved)
+        self.assertFalse(lock.exists())
+
+        self.collect()
+
+        self.assertFalse(lock.exists())
+        self.assertTrue(preserved.exists())
+
+    def test_failed_latest_status_is_clear_only_with_exact_terminal_event(self):
+        status = self.state / "status.json"
+        status.write_text(
+            '{"schema_version":"1.0","run_id":"run-terminal",'
+            '"status":"failed","stage":"00_start"}\n',
+            encoding="utf-8",
+        )
+        os.chmod(status, 0o600)
+        events = (
+            self.state
+            / "records"
+            / "automation"
+            / "transaction-events.jsonl"
+        )
+
+        unresolved = self.collect()["inventory"]["current_runtime_status"][0]
+        self.assertEqual(unresolved["status"], "retained")
+
+        start_transaction(
+            events,
+            run_id="run-terminal",
+            attempt_group_id="scheduled-terminal",
+            attempt_number=1,
+            trigger="historical-migration",
+            branch="main",
+            head=self.git("rev-parse", "HEAD"),
+            base=self.git("rev-parse", "HEAD"),
+            logical_worktree_id=None,
+            logical_run_id="run-terminal",
+            delta_digest="sha256:" + "0" * 64,
+            owner="owner",
+            next_action="Record exact terminal outcome.",
+            now=self.now,
+        )
+        transition_transaction(
+            events,
+            run_id="run-terminal",
+            state="completed_noop",
+            owner="owner",
+            next_action="Retain immutable terminal history.",
+            terminal_proof={
+                "proof_digest": "sha256:" + "1" * 64,
+                "evidence_ref": "owner-local:transaction-evidence/run-terminal",
+            },
+            now=self.now,
+        )
+
+        reconciled = self.collect()["inventory"]["current_runtime_status"][0]
+        self.assertEqual(reconciled["status"], "clear")
 
     def test_cli_has_no_root_or_owner_file_substitution(self):
         with contextlib.redirect_stderr(io.StringIO()):

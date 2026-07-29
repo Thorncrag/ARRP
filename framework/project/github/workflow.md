@@ -49,6 +49,14 @@ because they occur after disclosure. Direct human credential use cannot be
 made technically impossible by repository code, so the interactive workflow
 must invoke the same pre-transmission gate.
 
+An interactive Git push must use the gate's Git-range mode after committing:
+provide the exact full base and head commit identities, the current local head
+ref, and the intended `refs/heads/...` destination. The gate derives the
+complete committed range rather than accepting a caller path list. Push only
+the returned full-OID `authorized_refspec`; do not substitute the branch name,
+working tree, abbreviated SHA, or a later commit. If the local ref moves,
+discard the decision and evaluate the new exact range before credential use.
+
 The production gate obtains its repository identity, policy, owner-local state
 root, and active control pack from the fixed reviewed runtime authority.
 Publishing callers cannot supply a replacement pack or root. Candidate-pack

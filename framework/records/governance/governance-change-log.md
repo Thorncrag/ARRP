@@ -14,6 +14,54 @@ Current governing documents remain authoritative; Git remains the exact-diff
 authority. The historical [Change Audit Log](../audits/change-audit-log.md)
 remains separate and unchanged.
 
+## GOV-2026-018 — Transaction lifecycle, retry, and recovery authority
+
+- Date: 2026-07-29
+- Status: Proposed / unmerged
+- Decision class: operations_automation
+- Authorities: framework/project/automation/transaction-lifecycle.md;
+  framework/project/automation/project-wide-reconciliation.json;
+  framework/project/automation/autonomous-execution.md
+- Decision: Establishes one owner-local append-only attempt history, makes
+  status and scheduled-slot files nonauthoritative projections, requires
+  one-use digest-bound retry authorization, preserves failed work through
+  non-checkout recovery packages, and prevents a retained transaction from
+  becoming reconciled merely because it is listed in a ledger.
+- Evidence: Current reviewed worktree; owner-local migration evidence, exact
+  retirement approvals, and final Git provenance remain pending.
+- Policy adoption: Proposed for canonical adoption; not yet merged.
+- Live activation: Source implementation is under validation. Automation
+  remains intentionally Paused; no production run or host/background-service
+  mutation is authorized.
+- Relationships: Refines GOV-2026-016 and the transaction-recovery portion of
+  GOV-2026-011 without changing the active runtime location.
+- Validation: Lifecycle, retry, recovery-package, coordinator, Console, and
+  false-neutral regression tests pass in focused suites; complete validation
+  and one-time migration remain pending.
+- Owner-local supplement: Required.
+
+## GOV-2026-017 — Exact Git-push revision binding
+
+- Date: 2026-07-29
+- Status: Proposed / unmerged
+- Decision class: security_privacy_disclosure
+- Authorities: framework/project/github/disclosure-boundary.md; framework/project/github/workflow.md; scripts/github_disclosure_gate.py
+- Decision: Requires Git-push disclosure authorization to derive the complete
+  committed base-to-head manifest and bind one exact full-OID refspec. Caller
+  metadata, selected paths, working-tree bytes, abbreviated identities, and
+  later validation cannot substitute for pre-transmission binding.
+- Evidence: Current reviewed worktree; exact commit and pull-request evidence
+  remain pending.
+- Policy adoption: Proposed for canonical adoption; not yet merged.
+- Live activation: The current draft pull request remains frozen until this
+  repair has passed its exact committed-range validation.
+- Relationships: Refines GOV-2026-002 without changing its classification or
+  no-secret boundary.
+- Validation: Focused exact-range, nonexistent-revision, wrong-head,
+  dirty-worktree, removal, and ref-movement tests pass; complete validation
+  remains pending.
+- Owner-local supplement: Required.
+
 ## GOV-2026-016 — Project-wide operational reconciliation boundary
 
 - Date: 2026-07-29

@@ -2677,7 +2677,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         for profile_name in profiles:
             self.assertEqual(
                 manifest["profiles"][profile_name]["max_bytes"],
-                900000 if profile_name == "integrity_reconciliation" else 450000,
+                900000 if profile_name == "integrity_reconciliation" else 500000,
             )
             for capability in capabilities:
                 with self.subTest(profile=profile_name, capability=capability):

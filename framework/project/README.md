@@ -32,3 +32,7 @@ surface closeout is governed by the
 [Project-Wide Reconciliation policy](automation/project-wide-reconciliation.json)
 specification. It is an operational synchronization check, not a content or
 editorial classification.
+The owner-local [Transaction Lifecycle and Recovery
+Authority](automation/transaction-lifecycle.md) separately preserves every
+runtime attempt, terminal outcome, retry authorization, and recovery-package
+proof; its safe Console projection is not the lifecycle authority.

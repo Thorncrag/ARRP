@@ -25,12 +25,14 @@ from typing import Any, Iterable, Mapping
 try:
     from path_authority import PathAuthorityError, ProjectPathAuthority
     from operational_incidents import project_incident_log
+    from transaction_lifecycle import current_transaction_states
 except ModuleNotFoundError:
     from scripts.path_authority import PathAuthorityError, ProjectPathAuthority
     from scripts.operational_incidents import project_incident_log
+    from scripts.transaction_lifecycle import current_transaction_states
 
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 LEDGER_RELATIVE_PATH = "records/reconciliation/project-reconciliation.json"
 LIVE_READBACK_RELATIVE_PATH = "records/reconciliation/live-readback.json"
 REQUIRED_INVENTORIES = (
@@ -42,6 +44,7 @@ REQUIRED_INVENTORIES = (
     "stashes_operations",
     "runtime_runs",
     "runtime_worktrees",
+    "transaction_lifecycle",
     "incident_spool",
     "handoff_state",
     "current_runtime_status",
@@ -54,6 +57,7 @@ SAFE_CODES = frozenset(
         "ACTIVE_LOCK",
         "AUTHORITY_UNAVAILABLE",
         "CANONICAL_DRIFT",
+        "DIRTY_WORKTREE",
         "INCOMPLETE_GIT_OPERATION",
         "INVENTORY_INCOMPLETE",
         "LEDGER_INVALID",
@@ -63,6 +67,7 @@ SAFE_CODES = frozenset(
         "LIVE_READBACK_STALE",
         "LOCAL_DISCOVERY_FAILED",
         "PENDING_REVIEW",
+        "PRESERVED_TRANSACTION_UNRESOLVED",
         "RETAINED_STATE_INELIGIBLE",
         "RETAINED_STATE_ORPHANED",
         "RETAINED_STATE_UNBOUND",
@@ -92,6 +97,9 @@ GIT_OPERATION_MARKERS = (
     "sequencer",
 )
 MAX_LIVE_AGE_SECONDS = 3600
+TRANSACTION_TERMINAL_STATES = frozenset(
+    {"recoverably_retired", "completed_noop", "completed_published"}
+)
 
 
 def _digest(value: Any) -> str:
@@ -139,6 +147,27 @@ def _git_bytes(repo: Path, *args: str) -> bytes:
 
 def _git(repo: Path, *args: str) -> str:
     return _git_bytes(repo, *args).decode("utf-8").strip()
+
+
+def _is_ancestor(repo: Path, older: str, newer: str) -> bool:
+    result = subprocess.run(
+        [
+            "git",
+            "-C",
+            os.fspath(repo),
+            "merge-base",
+            "--is-ancestor",
+            older,
+            newer,
+        ],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+        timeout=20,
+    )
+    if result.returncode not in {0, 1}:
+        raise ValueError("local Git ancestry discovery failed")
+    return result.returncode == 0
 
 
 def _item(
@@ -280,6 +309,7 @@ def _worktree_rows(authority: ProjectPathAuthority) -> list[dict[str, Any]]:
                 "clear"
                 if state_id == "canonical" and delta["clean"]
                 else "retained",
+                clean=delta["clean"],
             )
         )
     return rows
@@ -318,7 +348,7 @@ def _locked(path: Path) -> bool:
     metadata = path.lstat()
     if stat.S_ISLNK(metadata.st_mode) or not stat.S_ISREG(metadata.st_mode):
         raise ValueError("runtime lock is not a regular file")
-    with path.open("a+") as stream:
+    with path.open("rb") as stream:
         try:
             fcntl.flock(stream, fcntl.LOCK_EX | fcntl.LOCK_NB)
             fcntl.flock(stream, fcntl.LOCK_UN)
@@ -388,6 +418,7 @@ def collect_local(
                 {"name": name, "revision": revision},
                 "clear" if name == "main" and revision == head else "retained",
                 revision=revision,
+                merged_into_origin_main=_is_ancestor(repo, revision, remote),
             )
         )
     for line in _git(
@@ -404,6 +435,7 @@ def collect_local(
                 {"name": name, "revision": revision},
                 "clear" if name in {"origin", "origin/HEAD", "origin/main"} else "retained",
                 revision=revision,
+                merged_into_origin_main=_is_ancestor(repo, revision, remote),
             )
         )
 
@@ -451,9 +483,19 @@ def collect_local(
                 {
                     "registered_binding": _binding(registered_runtime[name])
                     if name in registered_runtime
-                    else None
+                    else None,
+                    "clean": (
+                        registered_runtime[name].get("clean")
+                        if name in registered_runtime
+                        else None
+                    ),
                 },
                 "retained" if name in registered_runtime else "unknown",
+                clean=(
+                    registered_runtime[name].get("clean")
+                    if name in registered_runtime
+                    else None
+                ),
             )
             for name in runtime_names
         ]
@@ -470,6 +512,55 @@ def collect_local(
         if not inv["runtime_worktrees"]:
             inv["runtime_worktrees"] = [
                 _item("runtime_worktree", "none", "empty")
+            ]
+
+    transaction_events = (
+        state / "records" / "automation" / "transaction-events.jsonl"
+    )
+    transaction_states: dict[str, dict[str, Any]] = {}
+    if not transaction_events.exists():
+        inv["transaction_lifecycle"] = [
+            _item(
+                "transaction_lifecycle",
+                "authority-unavailable",
+                "missing",
+                "unknown",
+            )
+        ]
+    else:
+        transaction_states = current_transaction_states(transaction_events)
+        if not transaction_states:
+            inv["transaction_lifecycle"] = [
+                _item(
+                    "transaction_lifecycle",
+                    "none",
+                    {"event_log_sha256": _regular_file_digest(transaction_events)},
+                )
+            ]
+        else:
+            inv["transaction_lifecycle"] = [
+                _item(
+                    "transaction_lifecycle",
+                    run_id,
+                    {
+                        "event_sha256": event["event_sha256"],
+                        "state": event["state"],
+                        "branch": event["branch"],
+                        "head": event["head"],
+                        "package_digest": event["package_digest"],
+                    },
+                    (
+                        "clear"
+                        if event["state"] in TRANSACTION_TERMINAL_STATES
+                        else "retained"
+                    ),
+                    event_sha256=event["event_sha256"],
+                    lifecycle_state=event["state"],
+                    branch=event["branch"],
+                    revision=event["head"],
+                    package_digest=event["package_digest"],
+                )
+                for run_id, event in sorted(transaction_states.items())
             ]
 
     spool = state / "incident-spool.jsonl"
@@ -509,6 +600,11 @@ def collect_local(
         status_value = _load_json(status_path)
         status_name = str(status_value.get("status") or "unknown")
         run_id = str(status_value.get("run_id") or "unknown")
+        terminal_event = transaction_states.get(run_id)
+        terminal_status_bound = bool(
+            terminal_event
+            and terminal_event.get("state") in TRANSACTION_TERMINAL_STATES
+        )
         inv["current_runtime_status"] = [
             _item(
                 "runtime_status",
@@ -517,8 +613,17 @@ def collect_local(
                     "sha256": _regular_file_digest(status_path),
                     "status": status_name,
                     "stage": status_value.get("stage"),
+                    "transaction_event_sha256": (
+                        terminal_event.get("event_sha256")
+                        if terminal_status_bound
+                        else None
+                    ),
                 },
-                "retained" if status_name not in {"idle", "ready"} else "clear",
+                (
+                    "clear"
+                    if status_name in {"idle", "ready"} or terminal_status_bound
+                    else "retained"
+                ),
             )
         ]
     else:
@@ -586,6 +691,24 @@ def collect_local(
 
 
 def _validate_entry(entry: Any) -> bool:
+    proof = entry.get("reconciliation_proof") if isinstance(entry, dict) else None
+    proof_valid = (
+        proof is None
+        if isinstance(entry, dict)
+        and entry.get("disposition") == "pending_human_review"
+        else isinstance(proof, dict)
+        and proof.get("proof_type")
+        in {
+            "git_ancestor",
+            "transaction_terminal",
+            "hosted_closed_request",
+            "registered_fixture",
+        }
+        and _is_nonempty_text(proof.get("authority"))
+        and isinstance(proof.get("proof_digest"), str)
+        and proof["proof_digest"].startswith("sha256:")
+        and len(proof["proof_digest"]) == 71
+    )
     return bool(
         isinstance(entry, dict)
         and _identity_key(entry) is not None
@@ -596,8 +719,134 @@ def _validate_entry(entry: Any) -> bool:
         and all(_is_nonempty_text(ref) for ref in entry["evidence_refs"])
         and _is_nonempty_text(entry.get("reviewed_at"))
         and _is_nonempty_text(entry.get("next_action"))
-        and isinstance(entry.get("reconciliation_eligible"), bool)
+        and proof_valid
     )
+
+
+def _transaction_proofs(
+    inventory: Mapping[str, Any],
+) -> dict[str, dict[str, Any]]:
+    rows = inventory.get("transaction_lifecycle")
+    if not isinstance(rows, list):
+        return {}
+    return {
+        str(row["id"]): row
+        for row in rows
+        if isinstance(row, dict)
+        and row.get("kind") == "transaction_lifecycle"
+        and _is_nonempty_text(row.get("event_sha256"))
+    }
+
+
+def _hosted_closed_proof(
+    item: Mapping[str, Any],
+    proof: Mapping[str, Any],
+    live_readback: Any,
+) -> bool:
+    if not isinstance(live_readback, dict):
+        return False
+    rows = live_readback.get("closed_pull_requests")
+    if not isinstance(rows, list):
+        return False
+    branch = str(item.get("id") or "").removeprefix("origin/")
+    revision = item.get("revision")
+    matches = [
+        row
+        for row in rows
+        if isinstance(row, dict)
+        and row.get("head_ref") == branch
+        and row.get("head_revision") == revision
+        and row.get("state") in {"closed", "merged"}
+        and isinstance(row.get("number"), int)
+    ]
+    if len(matches) != 1:
+        return False
+    expected = _digest(
+        {
+            "proof_type": "hosted_closed_request",
+            "number": matches[0]["number"],
+            "state": matches[0]["state"],
+            "head_ref": branch,
+            "head_revision": revision,
+        }
+    )
+    return (
+        proof.get("authority") == "github-authenticated-readback"
+        and proof.get("proof_digest") == expected
+    )
+
+
+def _retained_state_is_eligible(
+    item: Mapping[str, Any],
+    entry: Mapping[str, Any],
+    inventory: Mapping[str, Any],
+    live_readback: Any,
+) -> bool:
+    """Derive eligibility from current typed evidence, never a ledger flag."""
+
+    proof = entry.get("reconciliation_proof")
+    if not isinstance(proof, dict):
+        return False
+    kind = item.get("kind")
+    if kind in {"worktree", "runtime_worktree"}:
+        return False
+    if proof.get("proof_type") == "git_ancestor":
+        if kind not in {"local_branch", "remote_branch"}:
+            return False
+        remote_rows = inventory.get("remote_revision")
+        origin_main = (
+            remote_rows[0].get("revision")
+            if isinstance(remote_rows, list)
+            and len(remote_rows) == 1
+            and isinstance(remote_rows[0], dict)
+            else None
+        )
+        if not _is_nonempty_text(origin_main):
+            return False
+        expected = _digest(
+            {
+                "proof_type": "git_ancestor",
+                "revision": item.get("revision"),
+                "origin_main": origin_main,
+            }
+        )
+        return (
+            item.get("merged_into_origin_main") is True
+            and proof.get("authority") == "local-git-ancestry"
+            and proof.get("proof_digest") == expected
+        )
+    if proof.get("proof_type") == "transaction_terminal":
+        run_id = (
+            str(item.get("id") or "")
+            if kind in {"runtime_run", "transaction_lifecycle"}
+            else None
+        )
+        if kind in {"local_branch", "remote_branch"}:
+            branch = str(item.get("id") or "").removeprefix("origin/")
+            transaction = next(
+                (
+                    row
+                    for row in _transaction_proofs(inventory).values()
+                    if row.get("branch") == branch
+                    and row.get("revision") == item.get("revision")
+                ),
+                None,
+            )
+        else:
+            transaction = _transaction_proofs(inventory).get(str(run_id))
+        if not transaction:
+            return False
+        return (
+            transaction.get("lifecycle_state")
+            in TRANSACTION_TERMINAL_STATES
+            and proof.get("authority") == "transaction-lifecycle"
+            and proof.get("proof_digest") == transaction.get("event_sha256")
+        )
+    if proof.get("proof_type") == "hosted_closed_request":
+        return kind in {"local_branch", "remote_branch"} and _hosted_closed_proof(
+            item, proof, live_readback
+        )
+    return False
 
 
 def verify(
@@ -610,6 +859,7 @@ def verify(
     """Verify exact local discovery, retained dispositions, and hosted readback."""
 
     codes: set[str] = set()
+    accounting_codes: set[str] = set()
     now = now or datetime.now(timezone.utc)
     if (
         not isinstance(local_snapshot, dict)
@@ -619,6 +869,7 @@ def verify(
         or not isinstance(local_snapshot.get("inventory"), dict)
     ):
         codes.add("LOCAL_DISCOVERY_FAILED")
+        accounting_codes.add("LOCAL_DISCOVERY_FAILED")
         inventory: dict[str, Any] = {}
     else:
         inventory = local_snapshot["inventory"]
@@ -638,11 +889,13 @@ def verify(
         != local_snapshot.get("inventory_digest")
     ):
         codes.add("LEDGER_INVALID")
+        accounting_codes.add("LEDGER_INVALID")
     bound: dict[tuple[str, str], dict[str, Any]] = {}
     for entry in entries:
         key = _identity_key(entry)
         if not _validate_entry(entry) or key is None or key in bound:
             codes.add("LEDGER_INVALID")
+            accounting_codes.add("LEDGER_INVALID")
             continue
         bound[key] = entry
 
@@ -651,11 +904,13 @@ def verify(
         items = inventory.get(category)
         if not isinstance(items, list) or not items:
             codes.add("INVENTORY_INCOMPLETE")
+            accounting_codes.add("INVENTORY_INCOMPLETE")
             continue
         for item in items:
             key = _identity_key(item)
             if key is None or _binding(item) is None:
                 codes.add("INVENTORY_INCOMPLETE")
+                accounting_codes.add("INVENTORY_INCOMPLETE")
                 continue
             status = item.get("status")
             if status == "drifted":
@@ -674,16 +929,32 @@ def verify(
             entry = bound.get(key)
             if entry is None:
                 codes.add("UNREGISTERED_STATE")
+                accounting_codes.add("UNREGISTERED_STATE")
                 continue
             seen.add(key)
             if _binding(entry) != _binding(item):
                 codes.add("RETAINED_STATE_UNBOUND")
+                accounting_codes.add("RETAINED_STATE_UNBOUND")
             elif entry["disposition"] == "pending_human_review":
                 codes.add("PENDING_REVIEW")
-            elif entry["reconciliation_eligible"] is not True:
+            elif not _retained_state_is_eligible(
+                item,
+                entry,
+                inventory,
+                live_readback,
+            ):
                 codes.add("RETAINED_STATE_INELIGIBLE")
+            if item["kind"] in {"worktree", "runtime_worktree"}:
+                if item.get("clean") is False:
+                    codes.add("DIRTY_WORKTREE")
+                if (
+                    item["kind"] == "runtime_worktree"
+                    or item["id"].startswith("runtime:")
+                ):
+                    codes.add("PRESERVED_TRANSACTION_UNRESOLVED")
     if set(bound) - seen:
         codes.add("RETAINED_STATE_ORPHANED")
+        accounting_codes.add("RETAINED_STATE_ORPHANED")
 
     remote_rows = inventory.get("remote_revision") or []
     remote_revision = (
@@ -733,6 +1004,7 @@ def verify(
     safe_codes = sorted(codes & SAFE_CODES)
     return {
         "schema_version": SCHEMA_VERSION,
+        "inventory_accounted_for": not accounting_codes,
         "fully_reconciled": not safe_codes,
         "reason_codes": safe_codes,
         "inventories_checked": list(REQUIRED_INVENTORIES),
@@ -767,6 +1039,7 @@ def main(argv: list[str] | None = None) -> int:
     ):
         result = {
             "schema_version": SCHEMA_VERSION,
+            "inventory_accounted_for": False,
             "fully_reconciled": False,
             "reason_codes": ["AUTHORITY_UNAVAILABLE"],
             "inventories_checked": [],

@@ -208,6 +208,18 @@ their count; the exact bound owner-file projection may expose the separate SEC
 ledger. Partial or missing inputs make the relevant count unavailable rather
 than zero.
 
+`preserved_transactions` is a separate registered owner-local queue. Its
+transaction lifecycle and recovery projection—not the Console—owns each run's
+disposition. In the exact bound owner Console only, a complete current
+projection may render the safe run ID, recorded owner, producer-supplied age,
+failure class, exact next action, and Run Coordinator route. Its count is
+derived only from records where `preserved` is true and neither
+`lifecycle_state` nor `retirement_proof` is `recoverably_retired`; a producer
+boolean cannot mark a transaction resolved. The public bundle contains no
+transaction records or count. A missing, stale, malformed, incomplete, or
+unbound projection is unavailable, never zero, and exposes no local path,
+delta, raw diagnostic, recovery-package, or incident evidence.
+
 `next_action_missing` and `workflow_status_invalid` are separate registered
 conditions. The former alone supplies the Workbench `Next steps not recorded`
 count and filter; the latter routes to Integrity while the affected artifact

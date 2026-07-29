@@ -89,6 +89,10 @@ Project-wide reconciliation uses the public
 [`policy`](project/automation/project-wide-reconciliation.json) and
 [`ledger schema`](project/automation/project-wide-reconciliation.schema.json);
 complete evidence remains owner-local.
+Runtime attempts and preserved-work recovery use the public
+[transaction-lifecycle authority](project/automation/transaction-lifecycle.md)
+and schemas, while the append-only event log and recovery packages remain
+owner-local.
 
 ## Record families
 

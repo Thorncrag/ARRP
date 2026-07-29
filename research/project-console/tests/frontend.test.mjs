@@ -123,9 +123,43 @@ function privateOperationsFixture() {
       by_security_incident: {},
       reason_code: "incident-relations-missing"
     },
+    transaction_recovery: {
+      schema_version: 1,
+      availability: "unavailable",
+      complete: false,
+      generated_at: null,
+      items: [],
+      reason_code: "owner-local-transaction-recovery-projection-required"
+    },
     privacy: "Owner-only local projection."
   };
 }
+
+test("preserved transaction projection derives unresolved membership from retirement proof", () => {
+  const { api } = loadApi();
+  const current = {
+    schema_version: 1,
+    availability: "current",
+    complete: true,
+    generated_at: "2026-07-29T12:00:00Z",
+    reason_code: null,
+    items: [{
+      run_id: "run-001", attempt_group_id: "scheduled-001", lifecycle_state: "failed_preserved",
+      preserved: true, retirement_proof: "not_retired", owner: "Run Coordinator",
+      age_label: "2 days", failure_class: "validation_failed", next_action: "Package and retire after approval.",
+      specialist_route: "automation:agents:run-coordinator-bot"
+    }, {
+      run_id: "run-002", attempt_group_id: "scheduled-001", lifecycle_state: "recoverably_retired",
+      preserved: true, retirement_proof: "recoverably_retired", owner: "Run Coordinator",
+      age_label: "1 day", failure_class: "superseded", next_action: "Retained as recovery evidence.",
+      specialist_route: "automation:agents:run-coordinator-bot"
+    }]
+  };
+  assert.equal(api.validPrivateTransactionRecovery(current), true);
+  assert.equal(api.transactionRecoveryUnresolved(current.items[0]), true);
+  assert.equal(api.transactionRecoveryUnresolved(current.items[1]), false);
+  assert.equal(api.validPrivateTransactionRecovery({ ...current, items: [{ ...current.items[0], retirement_proof: "recoverably_retired" }] }), false);
+});
 
 function loadApi(privateSecurityAssurance = {}, projectDataOverride = {}) {
   const projectData = {

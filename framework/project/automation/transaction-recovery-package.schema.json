@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arrp.org/schemas/transaction-recovery-package.schema.json",
+  "title": "ARRP owner-local non-checkout transaction recovery package manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "recovery_package_id", "run_id", "created_at", "branch", "head", "base", "commit_digest", "diff_digest", "untracked_digest", "package_digest", "manifest_sha256"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "recovery_package_id": {"type": "string", "pattern": "^trp:[A-Za-z][A-Za-z0-9_.:-]*$"},
+    "run_id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "branch": {"type": "string"},
+    "head": {"type": "string"},
+    "base": {"type": "string"},
+    "commit_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "diff_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "untracked_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "package_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "manifest_sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  },
+  "description": "The package is owner-only, immutable, and non-checkout. This public schema intentionally contains no filesystem path, raw diff, untracked content, or diagnostic text."
+}

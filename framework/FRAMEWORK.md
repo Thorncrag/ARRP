@@ -164,6 +164,7 @@ The following routes are cumulative. Each linked module states its own load trig
 | Owner-local runtime paths, state classes, Application Support authority, `ARRP Private` staging, migration, cutover, rollback, or retirement | [`ARRP Owner-Local Runtime Authority`](project/automation/owner-local-runtime.md) |
 | GitHub-bound disclosure, public/private artifact families, secret exclusion, or owner-local disclosure controls | [`GitHub Disclosure Boundary`](project/github/disclosure-boundary.md) and [`disclosure-policy.json`](project/github/disclosure-policy.json) |
 | Operational Incident identity, admission, recurrence, recovery, or closure | [`operational-incidents.json`](project/automation/operational-incidents.json) |
+| Runtime transaction attempt identity, retry authority, recovery proof, and recoverable-retirement posture | [`transaction-lifecycle.md`](project/automation/transaction-lifecycle.md) |
 | Security Incident identity, protected investigation, containment, verification, or closure | [`security-incidents.json`](project/automation/security-incidents.json) |
 | Reciprocal `INC`/`SEC` relationship identity or navigation | [`incident-relations.json`](project/automation/incident-relations.json) |
 | Material governance-decision identity, public provenance, adoption, supersession, validation, activation posture, or protected-supplement requirement | [`ARRP Governance Change Recording`](project/workflows/governance-change-recording.md) and [`governance-change-registry.json`](project/workflows/governance-change-registry.json) |

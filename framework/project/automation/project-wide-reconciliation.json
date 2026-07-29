@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "policy_id": "project-wide-reconciliation",
   "status": "active",
   "purpose": "Read-only, fail-closed verification of a fully reconciled operational state.",
@@ -30,6 +30,8 @@
   "fixed_owner_local_inputs": {
     "ledger": "records/reconciliation/project-reconciliation.json",
     "hosted_readback": "records/reconciliation/live-readback.json",
+    "transaction_lifecycle": "records/automation/transaction-events.jsonl",
+    "transaction_recovery": "records/reconciliation/transaction-recovery",
     "caller_substitution": false
   },
   "ledger_schema": "framework/project/automation/project-wide-reconciliation.schema.json",
@@ -42,6 +44,7 @@
     "stashes_operations",
     "runtime_runs",
     "runtime_worktrees",
+    "transaction_lifecycle",
     "incident_spool",
     "handoff_state",
     "current_runtime_status",
@@ -64,7 +67,10 @@
   "status_rules": {
     "clear": "Reconciled only when current.",
     "paused": "Allowed only for the intentional binary PAUSED control and is not itself an incident.",
-    "retained": "Requires one exact eligible ledger entry with a matching identity binding.",
+    "retained": "A matching ledger entry proves accounting only. Reconciliation eligibility is derived by the verifier from the state type and authoritative proof.",
+    "proof": "Every eligible retained state requires a typed proof reproduced from current Git ancestry, exact hosted closed-request readback, or the owner-local transaction lifecycle. A caller-authored disposition or digest is not proof.",
+    "runtime_transaction_worktree": "Unresolved while any registered runtime transaction worktree remains, even when clean and exactly bound.",
+    "dirty_worktree": "Always unresolved.",
     "historical_symlink": "Bind as inert link metadata and never follow it.",
     "unreconciled": [
       "active",
@@ -81,6 +87,7 @@
   },
   "public_result_allowlist": [
     "schema_version",
+    "inventory_accounted_for",
     "fully_reconciled",
     "reason_codes",
     "inventories_checked",

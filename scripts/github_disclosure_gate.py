@@ -10,6 +10,7 @@ import json
 import os
 import re
 import stat
+import subprocess
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
@@ -42,6 +43,9 @@ CATEGORY_RANK = {
 PUBLIC_CATEGORIES = frozenset({"public_by_design", "public_operational_summary"})
 TEXT_LIMIT = 64 * 1024 * 1024
 CONTROL_FILE_LIMIT = 4 * 1024 * 1024
+FULL_COMMIT_OID = re.compile(r"^[0-9a-f]{40}$")
+LOCAL_HEAD_REF = re.compile(r"^(?:HEAD|refs/heads/[A-Za-z0-9._/-]+)$")
+REMOTE_HEAD_REF = re.compile(r"^refs/heads/[A-Za-z0-9._/-]+$")
 
 SECRET_PATTERNS: tuple[tuple[str, re.Pattern[bytes]], ...] = (
     (
@@ -746,14 +750,236 @@ def artifact_from_text(
     )
 
 
+def _git_output(repository: Path, *args: str) -> bytes:
+    result = subprocess.run(
+        ["git", "-C", os.fspath(repository), *args],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        check=False,
+        timeout=30,
+    )
+    if result.returncode:
+        raise DisclosureBlocked(
+            _unavailable_decision("git-revision-binding-unavailable")
+        )
+    return result.stdout
+
+
+def _validated_ref(value: str, *, remote: bool = False) -> str:
+    pattern = REMOTE_HEAD_REF if remote else LOCAL_HEAD_REF
+    if (
+        not pattern.fullmatch(value)
+        or ".." in value
+        or "//" in value
+        or value.endswith(("/", ".lock"))
+        or "@{" in value
+    ):
+        raise DisclosureBlocked(_unavailable_decision("git-ref-invalid"))
+    return value
+
+
+def _canonical_commit(repository: Path, revision: str) -> str:
+    if not FULL_COMMIT_OID.fullmatch(revision):
+        raise DisclosureBlocked(
+            _unavailable_decision("git-full-commit-required")
+        )
+    resolved = _git_output(
+        repository,
+        "rev-parse",
+        "--verify",
+        "--end-of-options",
+        f"{revision}^{{commit}}",
+    ).decode("ascii").strip()
+    if resolved != revision:
+        raise DisclosureBlocked(
+            _unavailable_decision("git-revision-mismatch")
+        )
+    return resolved
+
+
+def _blob(repository: Path, revision: str, path: str) -> bytes:
+    entry = _git_output(
+        repository,
+        "ls-tree",
+        "-z",
+        revision,
+        "--",
+        path,
+    )
+    if not entry.endswith(b"\0") or entry.count(b"\0") != 1:
+        raise DisclosureBlocked(
+            _unavailable_decision("git-manifest-incomplete")
+        )
+    metadata, separator, encoded_path = entry[:-1].partition(b"\t")
+    fields = metadata.split(b" ")
+    if (
+        not separator
+        or len(fields) != 3
+        or fields[1] != b"blob"
+        or encoded_path.decode("utf-8") != path
+    ):
+        raise DisclosureBlocked(
+            _unavailable_decision("git-manifest-incomplete")
+        )
+    return _git_output(repository, "cat-file", "blob", fields[2].decode("ascii"))
+
+
+def authorize_git_push(
+    repository: Path,
+    *,
+    base_revision: str,
+    source_revision: str,
+    head_ref: str,
+    target_ref: str,
+    producer: str,
+    policy: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Authorize one complete committed Git range and exact push refspec."""
+
+    repository = repository.resolve(strict=True)
+    base = _canonical_commit(repository, base_revision)
+    head = _canonical_commit(repository, source_revision)
+    local_ref = _validated_ref(head_ref)
+    remote_ref = _validated_ref(target_ref, remote=True)
+    resolved_ref = _git_output(
+        repository,
+        "rev-parse",
+        "--verify",
+        "--end-of-options",
+        f"{local_ref}^{{commit}}",
+    ).decode("ascii").strip()
+    if resolved_ref != head:
+        raise DisclosureBlocked(
+            _unavailable_decision("git-revision-mismatch")
+        )
+    ancestor = subprocess.run(
+        ["git", "-C", os.fspath(repository), "merge-base", "--is-ancestor", base, head],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+        timeout=30,
+    )
+    if ancestor.returncode != 0:
+        raise DisclosureBlocked(
+            _unavailable_decision("git-range-invalid")
+        )
+    raw = _git_output(
+        repository,
+        "diff",
+        "--name-status",
+        "-z",
+        "--no-renames",
+        base,
+        head,
+        "--",
+    )
+    tokens = raw.split(b"\0")
+    if tokens and tokens[-1] == b"":
+        tokens.pop()
+    if len(tokens) % 2:
+        raise DisclosureBlocked(
+            _unavailable_decision("git-manifest-incomplete")
+        )
+    artifacts: list[OutboundArtifact] = []
+    manifest: list[dict[str, Any]] = []
+    for offset in range(0, len(tokens), 2):
+        status_value = tokens[offset].decode("ascii")
+        path = tokens[offset + 1].decode("utf-8")
+        status_code = status_value[:1]
+        if status_code not in {"A", "C", "D", "M", "T", "U", "X", "B"}:
+            raise DisclosureBlocked(
+                _unavailable_decision("git-manifest-incomplete")
+            )
+        removal_only = status_code == "D"
+        content = b"" if removal_only else _blob(repository, head, path)
+        prior = b"" if status_code == "A" else _blob(repository, base, path)
+        manifest.append(
+            {
+                "path": path,
+                "status": status_code,
+                "prior_sha256": (
+                    "sha256:" + hashlib.sha256(prior).hexdigest()
+                    if status_code != "A"
+                    else None
+                ),
+                "content_sha256": (
+                    "sha256:" + hashlib.sha256(content).hexdigest()
+                    if not removal_only
+                    else None
+                ),
+            }
+        )
+        artifacts.append(
+            OutboundArtifact(
+                path=path,
+                producer=producer,
+                content=content,
+                removal_only=removal_only,
+            )
+        )
+    manifest_digest = "sha256:" + hashlib.sha256(
+        json.dumps(
+            manifest,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+    decision = require_outbound_bundle(
+        artifacts,
+        operation="git_push",
+        source_revision=head,
+        policy=policy,
+        complete=True,
+    )
+    decision.update(
+        {
+            "base_revision": base,
+            "manifest_sha256": manifest_digest,
+            "authorized_refspec": f"{head}:{remote_ref}",
+        }
+    )
+    return decision
+
+
 def _cli() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--operation", required=True)
     parser.add_argument("--source-revision", required=True)
+    parser.add_argument("--base-revision")
+    parser.add_argument("--head-ref")
+    parser.add_argument("--target-ref")
     parser.add_argument("--producer", required=True)
-    parser.add_argument("paths", nargs="+")
+    parser.add_argument("paths", nargs="*")
     args = parser.parse_args()
     authority = ProjectPathAuthority.production()
+    if args.operation == "git_push":
+        if (
+            args.paths
+            or not args.base_revision
+            or not args.head_ref
+            or not args.target_ref
+        ):
+            parser.error(
+                "git_push requires --base-revision, --head-ref, and "
+                "--target-ref and derives the complete artifact range"
+            )
+        decision = authorize_git_push(
+            authority.repository_root,
+            base_revision=args.base_revision,
+            source_revision=args.source_revision,
+            head_ref=args.head_ref,
+            target_ref=args.target_ref,
+            producer=args.producer,
+        )
+        print(json.dumps(decision, sort_keys=True, indent=2))
+        return 0
+    if not args.paths or any(
+        value is not None
+        for value in (args.base_revision, args.head_ref, args.target_ref)
+    ):
+        parser.error(
+            "non-git operations require paths and do not accept Git range arguments"
+        )
     artifacts = []
     for requested in args.paths:
         source = authority.repository_path(requested)
