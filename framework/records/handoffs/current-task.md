@@ -17,12 +17,12 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Active issue/task | Console Project-readback refresh repair |
 | Audit type/tier | Project interface reliability and credential routing |
 | Started | 2026-07-29 01:53:43 -0400 |
-| Last checkpoint | 2026-07-29 01:53:43 -0400 |
+| Last checkpoint | 2026-07-29 02:06:28 -0400 |
 | User request | Correct the reported GitHub Project readback limitation. |
 | Scope | Read-only Project credential health check; owner-only manual Console refresh broker; exact Project/Integrity/Console regeneration; tests, documentation, and governed synchronization. |
-| Files touched | `scripts/refresh_horizon_review_console.py`; `tests/test_console_authenticated_refresh.py`; `framework/project/interfaces/project-console.md`; `framework/project/automation/context-routes.json`; `research/horizon-review-console/README.md`; `framework/records/handoffs/current-task.md`. |
-| Completed steps | Confirmed the dedicated Project-only Keychain credential is available and completed a read-only fetch of all 110 Project items; implemented a fixed-authority owner refresh that confines the credential to exact read-only producer subprocesses. |
-| Next step | Run focused validation, commit the broker repair, then execute it from the clean exact revision and reconcile the refreshed Console projections. |
+| Files touched | `scripts/refresh_horizon_review_console.py`; `tests/test_console_authenticated_refresh.py`; `framework/project/interfaces/project-console.md`; `framework/project/automation/context-routes.json`; `research/horizon-review-console/README.md`; `framework/records/status/project-integrity-report.md`; `framework/records/automation/console-development-log.md`; generated Console projections; `framework/records/handoffs/current-task.md`. |
+| Completed steps | Confirmed the dedicated Project-only Keychain credential is healthy and read all 110 Project items; implemented and tested a fixed-authority owner refresh; completed the live brokered refresh; removed the prior Project-readback warning through a current zero-warning Integrity observation; generated complete current Progress and Console projections. |
+| Next step | Commit the development-log/checkpoint record, regenerate the Console against that exact revision, run complete validation and disclosure checks, then publish and merge the governed change. |
 | Blockers/questions | None. |
 | Validation status | In progress. |
 

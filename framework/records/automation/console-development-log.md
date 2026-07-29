@@ -46,6 +46,33 @@ Historical reconstruction before `CONSOLE-2026-001` is permitted only from
 verified diffs and records. Reconstructed entries must say so and state their
 confidence; commit subjects alone are insufficient evidence.
 
+## 2026-07-29
+
+- Console Change IDs: `CONSOLE-2026-002`
+- Title: Restore authenticated Project readback for owner Console refresh
+- Lifecycle: Introduced
+- Feature or component: Authenticated owner refresh
+- State: Proposed / unmerged
+- Implementation commits: `8eae5943551ffe471dd9f53a30dd309e890dc360`, `fef0beacf4277b68c0164337b82344b1e56df8ae`, `fcf430a065e02e8c65c00290bec2193949319720`, `71e547155ce3b9c81972a50e9e9e8a0b493d0cbc`, and `e1f7d37b95502ee590a324a6b5294082605703ac`
+- Rollback baseline: `4e6f2c293daf47a4584d1c25866cb6fc4f4e36ac`
+
+### Security, privacy & disclosure
+
+- Category ID: `security_privacy_disclosure`
+- Change ID: `CONSOLE-2026-002`
+- Commit IDs: `8eae5943551ffe471dd9f53a30dd309e890dc360`, `fef0beacf4277b68c0164337b82344b1e56df8ae`, `fcf430a065e02e8c65c00290bec2193949319720`, `71e547155ce3b9c81972a50e9e9e8a0b493d0cbc`, and `e1f7d37b95502ee590a324a6b5294082605703ac`
+- Material change: Added a fixed-authority owner refresh that requires the
+  clean canonical checkout, obtains the dedicated read-only Project
+  credential from its approved Keychain boundary, removes inherited GitHub
+  token variables, and supplies the Project credential only to the exact
+  producer subprocesses that require it. The static Console remains
+  credential-free and cannot initiate the refresh.
+- Validation: A protected read-only check retrieved all 110 Project items; the
+  complete brokered refresh produced current and complete Progress, Integrity,
+  and Console projections with zero Integrity warnings. Credential-confinement,
+  dirty-tree, safe-failure, virtual-environment, data-contract, and frontend
+  regressions passed.
+
 ## 2026-07-28
 
 - Console Change IDs: `CONSOLE-2026-001`
