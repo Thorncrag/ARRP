@@ -20,6 +20,8 @@ On this macOS workspace, GitHub CLI credentials are stored in the macOS Keychain
 
 Use the project-local `.venv` and host tools provisioned by [`scripts/bootstrap_local_tools.sh`](scripts/bootstrap_local_tools.sh) for reproducible website, PDF, OCR, and document validation. GitHub Actions remains the publication authority.
 
+When the local Codex project includes the owner-local sibling folder `ARRP Private` as a secondary folder, keep this ARRP repository as the primary folder for chats and Git operations. Before reading or changing anything in the secondary folder, read and obey its `OWNER_DIRECTIVE.md` and `AGENTS.md`. Treat all of its contents as owner-local restricted material: never copy them into this repository, the public Console bundle, GitHub, or another external service unless Benjamin expressly approves the exact transfer and the governing disclosure control separately authorizes it.
+
 Any substantive issue work invokes the issue-development lifecycle check in the Framework and GitHub workflow even when the user does not mention status or audit work. Read and synchronize both `Development level` (substantive maturity) and `Status` (current workflow action or hold); never use one as a substitute for the other. Do not change `Score` or `Runs` for research, drafting, source development, Change Audits, or other non-T-audit work.
 
 Apply neutral characterization and reader-friendly language in project-authored public prose. Preserve exact internal terminology in technical records, machine-readable metadata, and attributed source material.

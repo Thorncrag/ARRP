@@ -131,7 +131,7 @@
     const fields = [
       "schema_version", "availability", "generated_at", "catalog_generation_id",
       "source_revision", "agent_registry", "project_logs", "integrity",
-      "run_chain", "privacy"
+      "run_chain", "action_snapshot", "privacy"
     ];
     return Boolean(
       snapshot
@@ -147,6 +147,9 @@
       && Array.isArray(snapshot.project_logs)
       && snapshot.integrity && typeof snapshot.integrity === "object"
       && snapshot.run_chain && typeof snapshot.run_chain === "object"
+      && snapshot.action_snapshot && typeof snapshot.action_snapshot === "object"
+      && snapshot.action_snapshot.complete === true
+      && Array.isArray(snapshot.action_snapshot.items)
     );
   }
   function capturePrivateOperations() {
@@ -161,6 +164,7 @@
     if (snapshot.run_chain && typeof snapshot.run_chain === "object") {
       data.run_chain = snapshot.run_chain;
     }
+    data.action_snapshot = snapshot.action_snapshot;
     return true;
   }
   function validLocalAutomationStatus(status) {
@@ -1971,7 +1975,7 @@
     node.textContent = `${pluralizeWord(Number(count), singular)}${detail ? ` · ${detail}` : ""}`;
   }
 
-  function activateTab(name, focus = false) {
+  function activateTab(name, focus = false, hydrate = true) {
     const tabs = [...document.querySelectorAll('[role="tab"][data-tab]')];
     const selected = tabs.find((tab) => tab.dataset.tab === name) || tabs[0];
     tabs.forEach((tab) => {
@@ -1987,7 +1991,7 @@
     const selectedSubtab = document.querySelector(
       `[data-subtab-group="${selected.dataset.tab}"][aria-selected="true"]`
     )?.dataset.subtab || "";
-    void activateDomainForTab(selected.dataset.tab, selectedSubtab);
+    if (hydrate) void activateDomainForTab(selected.dataset.tab, selectedSubtab);
   }
 
   function initializeTabs() {
@@ -2013,10 +2017,14 @@
       window.history.replaceState(null, "", `#${normalizedTarget}`);
     }
     const requested = normalizedTarget.split(":", 1)[0];
-    activateTab(tabs.some((tab) => tab.dataset.tab === requested) ? requested : "overview");
+    activateTab(
+      tabs.some((tab) => tab.dataset.tab === requested) ? requested : "overview",
+      false,
+      false
+    );
   }
 
-  function activateSectionTab(group, name, focus = false) {
+  function activateSectionTab(group, name, focus = false, hydrate = true) {
     const tabs = [...document.querySelectorAll(`[role="tab"][data-subtab-group="${group}"]`)];
     const selected = tabs.find((tab) => tab.dataset.subtab === name) || tabs[0];
     tabs.forEach((tab) => {
@@ -2030,7 +2038,9 @@
     if (activeTopLevel === group && !window.location.hash.startsWith(`#${group}:${selected.dataset.subtab}`)) {
       window.history.replaceState(null, "", `#${group}:${selected.dataset.subtab}`);
     }
-    if (activeTopLevel === group) void activateDomainForTab(group, selected.dataset.subtab);
+    if (activeTopLevel === group && hydrate) {
+      void activateDomainForTab(group, selected.dataset.subtab);
+    }
   }
 
   function initializeSectionTabs(group, fallback) {
@@ -3205,10 +3215,55 @@
     select.value = [...select.options].some((option) => option.value === selected) ? selected : "all";
   }
 
+  function bindMasterDetailSelection(list, rows, activate) {
+    const selectAt = (index, { focus = false } = {}) => {
+      if (!rows.length) return;
+      const bounded = Math.max(0, Math.min(rows.length - 1, index));
+      const row = rows[bounded];
+      activate(row.record);
+      rows.forEach((item, itemIndex) => {
+        item.node.tabIndex = itemIndex === bounded ? 0 : -1;
+      });
+      if (focus) row.node.focus();
+    };
+    rows.forEach((row, index) => {
+      row.node.addEventListener("click", () => selectAt(index));
+    });
+    list.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const current = Math.max(
+        0,
+        rows.findIndex((row) => row.node.getAttribute("aria-selected") === "true")
+      );
+      const next = event.key === "Home"
+        ? 0
+        : event.key === "End"
+          ? rows.length - 1
+          : event.key === "ArrowDown"
+            ? Math.min(rows.length - 1, current + 1)
+            : Math.max(0, current - 1);
+      selectAt(next, { focus: true });
+    });
+    return selectAt;
+  }
+
   function renderProjectLog(logId) {
     const log = data.project_logs.find((record) => record.id === logId);
     const state = logStates[logId];
     if (!log || !state) return;
+    const container = byId(`log-${logId}-table`);
+    if (log.complete !== true || log.availability === "unavailable") {
+      byId(`log-${logId}-visible`).textContent = "—";
+      container.replaceChildren(
+        element(
+          "p",
+          "empty-state",
+          `${log.reason || "This log is unavailable in the current Console mode"} No zero-entry conclusion is inferred.`
+        )
+      );
+      return;
+    }
     const query = state.search.toLowerCase();
     const filtered = log.entries.filter((entry) => {
       if (query && !String(entry.search_text || "").toLowerCase().includes(query)) return false;
@@ -3218,7 +3273,6 @@
     const ordered = [...filtered].sort((left, right) =>
       logEntryLatestValue(right) - logEntryLatestValue(left));
     byId(`log-${logId}-visible`).textContent = ordered.length;
-    const container = byId(`log-${logId}-table`);
     if (!ordered.length) {
       container.replaceChildren(element("p", "empty-state", "No log entries match the current filters."));
       return;
@@ -3270,6 +3324,7 @@
       preview.replaceChildren(heading, fields, logEntryBody(entry), actions);
     };
 
+    const rowBindings = [];
     ordered.forEach((entry) => {
       const values = entry.values || {};
       const row = element("button", "email-list-row");
@@ -3284,12 +3339,17 @@
       if (state.groupKey !== "all") {
         row.append(element("span", "email-row-group", text(values[state.groupKey], "Not recorded")));
       }
-      row.addEventListener("click", () => showEntry(entry));
       list.append(row);
+      rowBindings.push({ node: row, record: entry });
     });
     workspace.append(list, preview);
     container.replaceChildren(workspace);
-    showEntry(ordered.find((entry) => entry.id === state.selectedId) || ordered[0]);
+    const selectedIndex = Math.max(
+      0,
+      ordered.findIndex((entry) => entry.id === state.selectedId)
+    );
+    const selectAt = bindMasterDetailSelection(list, rowBindings, showEntry);
+    selectAt(selectedIndex);
   }
 
   function renderDirectives() {
@@ -3604,6 +3664,9 @@
       }
     });
     pipelineState.mode = pipelineState.mode === "hold" ? "hold" : "active";
+    if (pipelineState.gap === "next_step_missing") {
+      pipelineState.gap = "next_action_missing";
+    }
     pipelineState.focused = parameters.get("focus") === "1";
     if (pipelineState.mode === "hold") pipelineState.scope = "all";
     return { ...pipelineState };
@@ -3683,17 +3746,29 @@
     return parts.join(":");
   }
 
-  function navigateToConsoleTarget(target) {
+  async function navigateToConsoleTarget(target) {
     const normalizedTarget = normalizeConsoleTarget(target);
     const parts = normalizedTarget.split(":");
     if (normalizedTarget !== String(target || "").replace(/^#/, "")) {
       window.history.replaceState(null, "", `#${normalizedTarget}`);
     }
     const automationSubviews = ["overview", "agents", "gates", "security", "capacity", "platform", "data", "logs"];
-    activateTab(parts[0]);
-    if (parts[0] === "planning" && parts[1]) activateSectionTab("planning", parts[1]);
+    const selectedSubtab = parts[1] || (
+      parts[0] === "planning"
+        ? "workbench"
+        : parts[0] === "automation"
+          ? "overview"
+          : ""
+    );
+    activateTab(parts[0], false, false);
+    if (parts[0] === "planning" && parts[1]) {
+      activateSectionTab("planning", parts[1], false, false);
+    }
+    if (parts[0] === "automation" && automationSubviews.includes(parts[1])) {
+      activateSectionTab("automation", parts[1], false, false);
+    }
+    await activateDomainForTab(parts[0], selectedSubtab);
     if (parts[0] === "automation" && parts[1] === "logs") {
-      activateSectionTab("automation", "logs");
       activateLogView(parts[2] || "incidents");
       if (parts[2] === "agents" && parts[3]) {
         const record = data.agent_registry.find((agent) => agent.id === parts[3]);
@@ -3712,9 +3787,6 @@
       resetPipelineMode("active");
       if (parts[3]) applyPipelineParameters(parts.slice(3).join(":"));
       if (loadedDomains.has("progress")) renderPipeline();
-    }
-    if (parts[0] === "automation" && automationSubviews.includes(parts[1])) {
-      activateSectionTab("automation", parts[1]);
     }
     if (parts[0] === "planning" && parts[1] === "sources"
       && parts[2] === "watchers" && parts[3]) activateWatcherTab(parts[3]);
@@ -3756,10 +3828,10 @@
   }
 
   function navigateFromHash() {
-    const target = window.location.hash.replace(/^#/, "");
+    const target = window.location.hash.replace(/^#/, "") || "overview";
     const normalized = normalizeConsoleTarget(target);
     if (!normalized || !byId(`panel-${normalized.split(":")[0]}`)) return;
-    navigateToConsoleTarget(target);
+    void navigateToConsoleTarget(target);
   }
 
   function actionInboxIdentity(value) {
@@ -4134,277 +4206,52 @@
       ["Deferred", "Blocked", "Human decision needed"].includes(record.workflowStatus));
   }
 
-  function stableProblemReference(problem) {
-    const identity = [problem.category, problem.path, problem.source_id, problem.owner_ids, problem.message]
-      .flat().filter(Boolean).join("|");
-    let hash = 2166136261;
-    for (let index = 0; index < identity.length; index += 1) {
-      hash ^= identity.charCodeAt(index);
-      hash = Math.imul(hash, 16777619);
-    }
-    return `PRB-${(hash >>> 0).toString(16).toUpperCase().padStart(8, "0")}`;
-  }
-
   function exactIntegrityProblemRecords(feed = data.integrity) {
     const current = feed && typeof feed.current === "object" ? feed.current : {};
-    return (Array.isArray(current.findings) ? current.findings : []).map((finding) => {
-      const human = integrityFindingNeedsHuman(finding);
-      const normalized = {
-        category: finding.category || "Project structure",
-        severity: finding.severity || "warning",
-        attention: human ? "human" : (finding.attention || "agent"),
-        owner: human ? "Human" : (finding.owner || "Elim"),
+    return (Array.isArray(current.findings) ? current.findings : [])
+      .filter((finding) =>
+        finding
+        && typeof finding === "object"
+        && String(finding.finding_id || "")
+        && String(finding.check_id || "")
+        && String(finding.condition_code || "")
+        && String(finding.canonical_target || "")
+      )
+      .map((finding) => ({
+        ...finding,
+        reference: finding.finding_id,
         reported_by: "Project Integrity Bot",
-        status: finding.status || "Open",
-        detected_at: finding.detected_at || current.generated_at || data.generated_at,
-        checked_at: finding.checked_at || current.generated_at || data.generated_at,
-        ...finding
-      };
-      normalized.affected_ids = finding.affected_ids || finding.owner_ids || [];
-      normalized.reference = finding.reference || stableProblemReference(normalized);
-      return normalized;
-    });
+        detected_at: finding.detected_at || current.generated_at,
+        checked_at: finding.checked_at || current.generated_at,
+        affected_ids: Array.isArray(finding.affected_ids) ? finding.affected_ids : []
+      }));
+  }
+
+  function producerProblemRecords() {
+    const snapshot = data.action_snapshot || data.overview?.action_snapshot || {};
+    if (
+      snapshot.availability !== "current"
+      || snapshot.complete !== true
+      || !Array.isArray(snapshot.items)
+    ) {
+      return [];
+    }
+    return snapshot.items
+      .filter((item) =>
+        item
+        && typeof item === "object"
+        && String(item.item_id || "")
+        && String(item.work_kind || "")
+        && String(item.authority || "")
+        && String(item.route || "")
+      )
+      .map((item) => ({ ...item }));
   }
 
   function securityActionRecords() {
-    const projection = securityAssuranceProjection();
-    return projection.tools
-      .filter((tool) => tool.private_attention === "yes")
-      .filter((tool) => ["Human", "Elim"].includes(tool.owner_class))
-      .map((tool) => ({
-        reference: `SECURITY-${String(tool.tool_id).toUpperCase()}`,
-        category: "Protected security action",
-        severity: "warning",
-        attention: tool.owner_class === "Human" ? "human" : "agent",
-        owner: tool.owner_class,
-        reported_by: "Security assurance projection",
-        status: "Protected review required",
-        message: tool.owner_class === "Human"
-          ? "Review private security action"
-          : "Private security remediation requires review",
-        source_url: "#automation:security",
-        checked_at: tool.last_checked || projection.checkedAt,
-        security_tool_id: tool.tool_id
-      }));
-  }
-
-  function allProblemRecords(feed = data.integrity) {
-    const current = feed && typeof feed.current === "object" ? feed.current : {};
-    const problems = [];
-    const add = (problem) => {
-      const normalized = {
-        category: problem.category || "Project structure",
-        severity: problem.severity || "warning",
-        attention: problem.attention || "agent",
-        owner: problem.owner || (problem.attention === "human" ? "Human" : "Elim"),
-        reported_by: problem.reported_by || "Project Console",
-        status: problem.status || "Open",
-        detected_at: problem.detected_at || current.generated_at || data.generated_at,
-        checked_at: problem.checked_at || current.generated_at || data.generated_at,
-        ...problem
-      };
-      normalized.affected_ids = problem.affected_ids || problem.owner_ids || [];
-      normalized.reference = problem.reference || stableProblemReference(normalized);
-      problems.push(normalized);
-    };
-
-    (Array.isArray(current.findings) ? current.findings : []).forEach((finding) => add({
-      ...finding,
-      attention: integrityFindingNeedsHuman(finding) ? "human" : (finding.attention || "agent"),
-      owner: integrityFindingNeedsHuman(finding) ? "Human" : (finding.owner || "Elim"),
-      reported_by: "Project Integrity Bot",
-      status: finding.status || "Open"
-    }));
-
-    sourceCheckerRecords()
-      .filter((record) => ["broken", "identity mismatch", "review required"].includes(record.classification))
-      .forEach((record) => add({
-        category: "Source integrity",
-        severity: ["broken", "identity mismatch"].includes(record.classification) ? "error" : "warning",
-        attention: "agent",
-        owner: "Elim",
-        reported_by: "Source Checker Bot",
-        status: "Pending remediation",
-        source_id: record.source_id,
-        source_url: "#sources:catalog",
-        observed_url: record.final_url || record.requested_url || "",
-        owner_ids: record.owner_ids || [],
-        message: `${record.classification}: ${record.error || "the observed URL or identity requires review against the cataloged source."}`,
-        detected_at: data.source_checker.checked_at || data.source_checker.generated_at,
-        checked_at: data.source_checker.checked_at || data.source_checker.generated_at
-      }));
-
-    (data.active_horizon_records || []).forEach((record) => {
-      (record.dossier_gaps || []).forEach((gap) => add({
-        category: "Candidate dossier completeness",
-        severity: "info",
-        attention: "agent",
-        owner: "Elim",
-        reported_by: "Project Console",
-        status: "Pending candidate work",
-        owner_ids: [record.id],
-        source_url: record.issue_url,
-        message: `${record.id}: ${gap}`,
-        detected_at: data.github_synced_at,
-        checked_at: data.github_synced_at
-      }));
-    });
-
-    currentLifecycleRecords()
-      .map((record) => ({ record, score: scorePresentation(record.score) }))
-      .filter(({ score }) => !score.valid)
-      .forEach(({ record, score }) => add({
-        category: "Project consistency",
-        severity: "error",
-        attention: "agent",
-        owner: "Elim",
-        reported_by: "Project Console score check",
-        status: "Correction required",
-        owner_ids: [record.identifier],
-        message: `${record.identifier} has ${score.label}; scores must be numeric values from 0 through 100 or explicitly unavailable.`,
-        source_url: record.canonicalRecord ? `${GITHUB_BLOB_ROOT}${record.canonicalRecord}` : record.url
-      }));
-
-    (Array.isArray(data.progress?.warnings) ? data.progress.warnings : []).forEach((warning) => add({
-      category: "Project tracking",
-      severity: "warning",
-      attention: "agent",
-      owner: "Elim",
-      reported_by: "Project Console progress snapshot",
-      status: "Open",
-      message: typeof warning === "string" ? warning : (warning.message || JSON.stringify(warning)),
-      source_url: "https://github.com/users/Thorncrag/projects/2",
-      detected_at: data.progress.generatedAt || data.progress.asOf,
-      checked_at: data.progress.generatedAt || data.progress.asOf
-    }));
-    (Array.isArray(data.progress?.pipeline?.integrityFindings)
-      ? data.progress.pipeline.integrityFindings
-      : []).forEach((finding) => add({
-      category: "Pipeline integrity",
-      severity: finding.severity || "warning",
-      attention: "agent",
-      owner: "Elim",
-      reported_by: "Project Console Pipeline projection",
-      status: "Correction required",
-      owner_ids: [finding.identifier].filter(Boolean),
-      message: finding.message,
-      source_url: finding.route?.startsWith("http")
-        ? finding.route
-        : `#${finding.route || "planning:workbench:pipeline"}`,
-      detected_at: data.progress.pipeline.generatedAt,
-      checked_at: data.progress.pipeline.generatedAt
-    }));
-
-    const approvedWorkflowStatuses = new Set(APPROVED_WORKFLOW_STATUSES);
-    const progressStatusWarnings = new Set(
-      (Array.isArray(data.progress?.warnings) ? data.progress.warnings : [])
-        .filter((warning) => /not an approved workflow status|Project Status is missing/i.test(
-          typeof warning === "string" ? warning : warning.message || ""
-        ))
-        .map((warning) => String(
-          typeof warning === "string" ? "" : warning.identifier || ""
-        ))
-        .filter(Boolean)
+    return producerProblemRecords().filter(
+      (record) => record.work_kind === "security_protected_action"
     );
-    currentLifecycleRecords()
-      .filter((record) => !approvedWorkflowStatuses.has(record.workflowStatus))
-      .filter((record) => !progressStatusWarnings.has(String(record.identifier)))
-      .forEach((record) => add({
-        category: "Lifecycle classification",
-        severity: "warning",
-        attention: "agent",
-        owner: "Elim",
-        reported_by: "Project Console lifecycle projection",
-        status: "Status correction required",
-        owner_ids: [record.identifier],
-        message: `${record.identifier} has an unrecognized or missing workflow Status (${text(record.workflowStatus, "not recorded")}); assign one of the approved Status values. Monitoring remains an independent issue designation.`,
-        source_url: record.canonicalRecord ? `${GITHUB_BLOB_ROOT}${record.canonicalRecord}` : record.url,
-        detected_at: data.progress.generatedAt || data.progress.asOf,
-        checked_at: data.progress.generatedAt || data.progress.asOf
-      }));
-
-    const currentFindingText = (Array.isArray(current.findings) ? current.findings : [])
-      .map((finding) => String(finding.message || "").toLowerCase());
-    workflowHoldRecords()
-      .filter((record) => WORKFLOW_EXPLANATION_REQUIRED.has(record.workflowStatus))
-      .filter((record) => !String(record.explanation || "").trim())
-      .filter((record) => !currentFindingText.some((message) =>
-        message.includes(String(record.identifier).toLowerCase())
-          && /workflow_hold_reason|explanation|reason/.test(message)))
-      .forEach((record) => add({
-        category: "Workflow explanation",
-        severity: "warning",
-        attention: "human",
-        owner: "Human",
-        reported_by: "Project Console workflow check",
-        status: "Explanation required",
-        owner_ids: [record.identifier],
-        message: `${record.identifier} is ${record.workflowStatus} but has no recorded explanation or reason; the project must not infer one.`,
-        source_url: record.canonicalRecord ? `${GITHUB_BLOB_ROOT}${record.canonicalRecord}` : record.url,
-        detected_at: data.progress.generatedAt || data.progress.asOf,
-        checked_at: data.progress.generatedAt || data.progress.asOf
-      }));
-
-    const dispositions = data.publication?.disposition_counts || {};
-    if (Number(dispositions.unclassified || 0)) add({
-      category: "Publication metadata",
-      severity: "error",
-      attention: "agent",
-      owner: "Elim",
-      reported_by: "Project Console publication check",
-      status: "Open",
-      message: `${dispositions.unclassified} publication-controlled page${dispositions.unclassified === 1 ? " is" : "s are"} unclassified.`,
-      source_url: "#publication:assignments"
-    });
-    if (Number(dispositions.conflict || 0)) add({
-      category: "Publication metadata",
-      severity: "error",
-      attention: "agent",
-      owner: "Elim",
-      reported_by: "Project Console publication check",
-      status: "Open",
-      message: `${dispositions.conflict} page${dispositions.conflict === 1 ? " has" : "s have"} conflicting publication metadata.`,
-      source_url: "#publication:assignments"
-    });
-
-    failedAutomationStages().forEach((stage) => {
-      const record = data.agent_registry.find((agent) => agent.id === stage.id);
-      add({
-        category: "Automation failure",
-        severity: "error",
-        attention: "human",
-        owner: "Human",
-        reported_by: "Run Coordinator Bot",
-        status: String(stage.status || "Error").replaceAll("_", " "),
-        owner_ids: [stage.id],
-        message: `${record?.name || stage.id}: ${botFailureSummary(stage)}`,
-        source_url: `#automation:agents:${stage.id}`,
-        detected_at: stage.completed_at || stage.updated_at || data.run_chain?.updated_at,
-        checked_at: data.run_chain?.updated_at || data.generated_at
-      });
-    });
-
-    securityActionRecords().forEach((problem) => add(problem));
-
-    data.agent_registry
-      .filter((agent) => !/^enabled$/i.test(agent.status || ""))
-      .forEach((agent) => add({
-        category: "Operational readiness",
-        severity: "info",
-        attention: "observed",
-        owner: agent.id,
-        reported_by: "Agent runbook registry",
-        status: agent.status,
-        message: `${agent.name} is ${String(agent.status).replaceAll("-", " ")}.`,
-        source_url: agent.runbook_url
-      }));
-
-    return problems.sort((left, right) => {
-      const severityOrder = { error: 0, warning: 1, info: 2 };
-      return (severityOrder[left.severity] ?? 3) - (severityOrder[right.severity] ?? 3)
-        || left.category.localeCompare(right.category)
-        || left.reference.localeCompare(right.reference);
-    });
   }
 
   function integrityActionLink(finding) {
@@ -4603,11 +4450,15 @@
     return `${pluralizeWord(Number(count || 0), "affected record")} in the complete exact-head enumeration`;
   }
 
-  function unresolvedAutomationActionItems(problemRecords = allProblemRecords()) {
+  function unresolvedAutomationActionItems(problemRecords = producerProblemRecords()) {
     const integrityHumanFindings = problemRecords
       .filter((finding) => finding.attention === "human")
-      .filter((finding) => finding.category !== "Automation failure")
-      .filter((finding) => finding.reported_by !== "Security assurance projection")
+      .filter((finding) => ![
+        "operational_incident",
+        "project_human_decision",
+        "repository_human_decision",
+        "security_protected_action"
+      ].includes(finding.work_kind))
       .sort((left, right) => String(left.message || "").localeCompare(String(right.message || "")));
     const automationActions = unresolvedOperationalIncidents().map((incident) => ({
       id: incident.incident_id,
@@ -4633,8 +4484,16 @@
   }
 
   function actionItemSnapshot() {
-    const decisionRecords = humanDecisionRecords();
-    const problemRecords = allProblemRecords();
+    const problemRecords = producerProblemRecords();
+    const typedSnapshot = data.action_snapshot || data.overview?.action_snapshot || {};
+    const typedItems = typedSnapshot.complete === true && Array.isArray(typedSnapshot.items)
+      ? typedSnapshot.items
+      : [];
+    const decisionRecords = typedItems
+      .filter((item) => item.work_kind === "project_human_decision")
+      .map((item) => currentLifecycleRecords().find((record) =>
+        String(record.identifier) === String(item.source_record_id)))
+      .filter(Boolean);
     const {
       integrityHumanFindings,
       automationActions,
@@ -4644,10 +4503,25 @@
     const pullRequestsKnown = reviewSignals.pullRequestsStatus === "current";
     const openPullRequests = pullRequestsKnown ? reviewSignals.pullRequests : [];
     const repositoryReviews = openPullRequests.map(repositoryReviewEntry);
-    const repositoryHumanActions = repositoryReviews.filter((item) => item.countsAsHuman);
-    const repositoryElimActions = repositoryReviews.filter(
-      (item) => item.actionOwner === "Elim"
-    );
+    const repositoryHumanActions = typedItems
+      .filter((item) => item.work_kind === "repository_human_decision")
+      .map((item) => ({
+        label: item.label,
+        status: item.status,
+        tone: item.severity,
+        owner: item.owner,
+        actionOwner: item.owner,
+        countsAsHuman: item.attention_class === "human",
+        recommendation: item.next_action,
+        rationale: item.authority,
+        humanQuestion: item.next_action,
+        evidenceUrl: item.source_url,
+        specialistTarget: item.specialist_route,
+        specialistLabel: "Open specialist ledger",
+        consequence: "The repository decision remains unresolved.",
+        due: item.detected_at ? `Recorded ${formatDate(item.detected_at)}` : "Date unavailable"
+      }));
+    const repositoryElimActions = [];
     const securityProblems = problemRecords.filter((item) =>
       item.reported_by === "Security assurance projection");
     const securityHumanActions = securityProblems.filter((item) =>
@@ -4657,8 +4531,8 @@
     return {
       decisionRecords,
       decisions: decisionRecords.length,
-      preliminary: data.records.length,
-      pending: data.pending_sources.length,
+      preliminary: 0,
+      pending: 0,
       problemRecords,
       integrityHumanFindings,
       integrityHuman: integrityHumanFindings.length,
@@ -4672,13 +4546,7 @@
       repositoryElimActions,
       securityHumanActions,
       securityOversightActions,
-      total: decisionRecords.length
-        + data.records.length
-        + data.pending_sources.length
-        + repositoryHumanActions.length
-        + securityHumanActions.length
-        + integrityHumanFindings.length
-        + automationHumanActions.length
+      total: Number(typedSnapshot.counts?.human || 0)
     };
   }
 
@@ -4703,10 +4571,12 @@
       securityOversightActions,
       total
     } = actionItemSnapshot();
-    const newOrUpdated = preliminary;
     const oversightProblems = problemRecords
       .filter((finding) => finding.attention !== "human")
-      .filter((finding) => finding.reported_by !== "Security assurance projection")
+      .filter((finding) => [
+        "producer_contract_exception",
+        "integrity_obligation"
+      ].includes(finding.work_kind))
       .filter((finding) => !/resolved|closed|complete/i.test(String(finding.status || "")));
     const oversightCount = repositoryElimActions.length
       + securityOversightActions.length
@@ -4716,7 +4586,7 @@
     byId("assigned-actions-count").textContent = total;
     byId("oversight-actions-count").textContent = oversightCount;
     byId("action-items-note").textContent = total
-      ? `${total} confirmed item${total === 1 ? "" : "s"} assigned to you, all listed below; ${newOrUpdated} new or updated.${repositoryElimActions.length ? ` ${repositoryElimActions.length} repository proposal${repositoryElimActions.length === 1 ? " remains" : "s remain"} with Elim and do not count as your action.` : ""}${pullRequestsKnown ? "" : " Live pull-request status is unavailable."}`
+      ? `${total} confirmed item${total === 1 ? "" : "s"} assigned to you, all listed below.${repositoryElimActions.length ? ` ${repositoryElimActions.length} repository proposal${repositoryElimActions.length === 1 ? " remains" : "s remain"} with Elim and do not count as your action.` : ""}${pullRequestsKnown ? "" : " Live pull-request status is unavailable."}`
       : repositoryElimActions.length
         ? `No confirmed human action is pending; ${repositoryElimActions.length} repository proposal${repositoryElimActions.length === 1 ? " awaits" : "s await"} Elim's recommendation.`
         : "No items currently await a human review or decision.";
@@ -4805,45 +4675,6 @@
         tone: "warning",
         detail: "A current repository recommendation assigns the decision to you.",
         items: repositoryHumanActions
-      },
-      {
-        scope: "mine",
-        label: "Preliminary candidates",
-        target: "candidates:preliminary",
-        status: "Intake review",
-        tone: "warning",
-        updated: true,
-        detail: "A synthesized institutional question awaits human intake review.",
-        items: data.records.map((record) => ({
-          label: `ACT-${record.id}: ${record.title}`,
-          artifact_id: record.id,
-          href: "#candidates:preliminary",
-          owner: "You",
-          question: record.unresolved || "Admit, merge, defer, or reject this preliminary candidate.",
-          recommendation: "Review its distinctness, coverage, counterargument, and evidence links before recording an intake disposition.",
-          whyNow: `Preliminary intake candidate · ${termLabel(record.term)}`,
-          consequence: "The question remains outside the formal portfolio and cannot enter issue development until disposition.",
-          due: record.created_at ? `Created ${formatDate(record.created_at)}` : "Intake age unavailable"
-        }))
-      },
-      {
-        scope: "mine",
-        label: "Pending source routing",
-        target: "sources:pending",
-        status: "Routing decision",
-        tone: "info",
-        detail: "A retained source still requires a choice among plausible project destinations.",
-        items: data.pending_sources.map((record) => ({
-          label: `ACT-${record.id}: ${record.title}`,
-          record_ids: record.record_ids || [],
-          href: "#sources:pending",
-          owner: "You",
-          question: `Choose the appropriate project destination${record.record_ids?.length ? ` among ${record.record_ids.join(", ")}` : ""}.`,
-          recommendation: "Inspect provenance, proposition, candidate destinations, and monitoring relevance in Pending source routing.",
-          whyNow: "The source is retained but not yet assigned to an authoritative project record.",
-          consequence: "Evidence coverage and downstream monitoring remain incomplete until a destination is recorded.",
-          due: record.date ? `Source dated ${formatDate(record.date)}` : "Routing age unavailable"
-        }))
       },
       {
         scope: "oversight",
@@ -5347,7 +5178,7 @@
       const releaseRequired = typedReleaseBlocker(record.releaseBlocker);
       if (pipelineState.releaseBlocker === "required" && !releaseRequired) return false;
       if (pipelineState.releaseBlocker === "not-required" && releaseRequired) return false;
-      if (pipelineState.gap === "next_step_missing" && record.nextActionState !== "missing") return false;
+      if (pipelineState.gap === "next_action_missing" && record.nextActionState !== "missing") return false;
       return !query || [
         record.id,
         record.title,
@@ -5638,8 +5469,12 @@
       returnLink.textContent = `Return to ${source} →`;
     }
     const gaps = Array.isArray(projection.dataGaps) ? projection.dataGaps : [];
-    byId("pipeline-gap-count").textContent = gaps.length;
-    byId("pipeline-gap-notice").hidden = gaps.length === 0;
+    const nextActionGaps = gaps.filter((gap) => gap.finding_code === "next_action_missing");
+    const statusExceptions = gaps.filter((gap) => gap.finding_code === "workflow_status_invalid");
+    byId("pipeline-gap-count").textContent = nextActionGaps.length;
+    byId("pipeline-gap-notice").hidden = nextActionGaps.length === 0;
+    byId("pipeline-status-exception-count").textContent = statusExceptions.length;
+    byId("pipeline-status-exception-notice").hidden = statusExceptions.length === 0;
     const appliedAdvanced = ["status", "development", "area", "owner", "priority", "releaseBlocker"]
       .filter((key) => pipelineState[key] !== "all").length;
     byId("pipeline-advanced-summary").textContent = appliedAdvanced
@@ -5816,7 +5651,7 @@
         currentChainLabel: explicitCurrentChainLabel || "Not due this chain",
         lastSuccessAt,
         scheduleDetail: stage.due_reason || "The latest successful result remains current.",
-        ...overviewStagePresentation("succeeded")
+        ...overviewStagePresentation("not_due")
       };
     }
     return {
@@ -5830,6 +5665,32 @@
   }
 
   function overviewRunChainStages(chain) {
+    const occurrenceDirectory = data.overview?.automation_occurrences
+      || data.automation_occurrences
+      || {};
+    const occurrence = (occurrenceDirectory.occurrences || []).find((item) =>
+      item.occurrence_id === occurrenceDirectory.latest_attempt_id);
+    if (occurrence && Array.isArray(occurrence.stages)) {
+      return occurrence.stages.map((stage) => {
+        const presentation = stageExecutionPresentation({
+          ...stage,
+          id: stage.stage_id,
+          last_success_at: stage.prior_success_at,
+          due_reason: stage.reason
+        });
+        return {
+          id: stage.stage_id,
+          label: stage.label,
+          status: presentation.rawStatus || "unavailable",
+          detail: stage.reason || "No detail recorded",
+          completedAt: stage.completed_at || stage.prior_success_at,
+          activeIncidentIds: Array.isArray(stage.active_incident_ids)
+            ? stage.active_incident_ids
+            : [],
+          ...presentation
+        };
+      });
+    }
     const stages = new Map(runChainStages(chain).map((stage) => [stage.id, stage]));
     const stageForAgent = (id) => {
       const record = data.agent_registry.find((agent) => agent.id === id);
@@ -6010,50 +5871,6 @@
       dateTimestamp(right.values?.date) - dateTimestamp(left.values?.date))[0] || null;
   }
 
-  function elimUsageConsumption(entry) {
-    const usage = String(entry?.values?.usage || "");
-    const patterns = [
-      /highest valid consumption was\s+(\d+(?:\.\d+)?)\s+percentage points?/i,
-      /(\d+(?:\.\d+)?)\s+percentage points?\s+as (?:the )?highest consumption/i,
-      /for\s+(\d+(?:\.\d+)?)\s+percentage points? consumed/i,
-      /for\s+(\d+(?:\.\d+)?)\s+recorded percentage points? consumed/i,
-      /(\d+(?:\.\d+)?)\s+percentage points? consumed/i
-    ];
-    for (const pattern of patterns) {
-      const match = usage.match(pattern);
-      if (match) return Number(match[1]);
-    }
-    return null;
-  }
-
-  function elimImprovementRecords(entry) {
-    const summary = String(entry?.values?.summary || "");
-    if (!summary || /preflight only|did not begin|no .* (?:change|completed|performed)|no substantive/i.test(summary)) return [];
-    const identifiers = [...new Set(summary.match(/\b(?:HOR|[A-Z]{2,})-\d{3}\b/g) || [])];
-    const sentences = summary.match(/[^.!?]+[.!?]+|[^.!?]+$/g) || [summary];
-    const scoreMatch = summary.match(/\b(?:at|to)\s+(\d{1,3})\/100\b/i);
-    const deltaMatch = summary.match(/\bfrom\s+(\d{1,3})(?:\/100)?\s+to\s+(\d{1,3})\/100\b/i);
-    return identifiers.map((identifier) => {
-      const record = currentLifecycleRecords().find((candidate) => candidate.identifier === identifier);
-      const impact = sentences
-        .filter((sentence) => sentence.includes(identifier))
-        .slice(0, 2)
-        .join(" ")
-        .trim() || "The run summary identifies this record but does not isolate its impact.";
-      let score = "Score effect not recorded";
-      if (/no score|score .* unchanged|preserved .* score/i.test(summary)) score = "Score unchanged";
-      else if (deltaMatch && identifiers.length === 1) score = `Score ${deltaMatch[1]} → ${deltaMatch[2]} (${Number(deltaMatch[2]) - Number(deltaMatch[1]) >= 0 ? "+" : ""}${Number(deltaMatch[2]) - Number(deltaMatch[1])})`;
-      else if (scoreMatch && identifiers.length === 1) score = `Score ${scoreMatch[1]} · change not separately recorded`;
-      else {
-        const currentScore = scorePresentation(record?.score);
-        if (currentScore.available && currentScore.valid) {
-          score = `Current score ${currentScore.value} · run delta not recorded`;
-        }
-      }
-      return { identifier, impact, score, href: record?.canonicalRecord ? `${GITHUB_BLOB_ROOT}${record.canonicalRecord}` : record?.url };
-    });
-  }
-
   function overviewLogRow({ title, meta, summary, target, tone = "" }) {
     const row = element("details", `overview-expandable-row ${tone}`.trim());
     row.dataset.disclosureId = `overview-log-${layoutSlug(`${target}-${title}`)}`;
@@ -6069,52 +5886,12 @@
   }
 
   function compactActivityPresentation(activity = {}) {
-    const logLabels = {
-      agents: "Agents & Bots",
-      elim: "Elim",
-      horizon: "Horizon",
-      "source-monitor": "Source monitoring",
-      integrity: "Integrity",
-      changes: "Change Audit"
-    };
-    const actor = activity.actor || logLabels[activity.log] || activity.source || "Project activity";
-    const headline = activity.record || activity.label || activity.outcome || activity.id || "Activity";
-    const title = activity.title || `${actor} · ${headline}`;
-    const source = activity.source || logLabels[activity.log] || activity.kind || "Overview projection";
-    const occurredAt = activity.at || activity.date || activity.generated_at;
-    const outcome = activity.outcome || activity.result;
-    const affected = activity.affected_scope || activity.affected || activity.affected_count;
-    const detail = activity.summary || activity.detail || activity.label;
-    const managerEffect = activity.manager_effect || activity.manager_action || activity.next_action;
-    const owner = activity.owner;
-    const labeledSentence = (label, value) => {
-      const rendered = String(value ?? "").trim();
-      if (!rendered) return "";
-      return `${label}: ${rendered}${/[.!?]$/.test(rendered) ? "" : "."}`;
-    };
-    const summary = [
-      labeledSentence("Outcome", outcome),
-      affected !== undefined && affected !== null && String(affected).trim()
-        ? labeledSentence("Affected", affected)
-        : "",
-      detail || "",
-      labeledSentence("Manager effect", managerEffect || "No manager action recorded"),
-      labeledSentence("Owner", owner)
-    ].filter(Boolean).join(" ");
-    const outcomeText = `${outcome || ""} ${activity.tone || ""} ${activity.severity || ""}`;
-    const tone = activity.tone
-      || activity.severity
-      || (/fail|error|block/i.test(outcomeText)
-        ? "error"
-        : /warn|attention|recommendation/i.test(outcomeText)
-          ? "warning"
-          : "");
     return {
-      title,
-      meta: `${source} · ${overviewDisplayDate(occurredAt)}`,
-      summary: summary || "No summary recorded.",
+      title: activity.artifact_label || activity.event_id || "Typed artifact change",
+      meta: `${activity.producer || "Registered producer"} · ${overviewDisplayDate(activity.occurred_at)}`,
+      summary: activity.score_change || activity.change_descriptor || "Change recorded.",
       target: String(activity.route || activity.target || "logs").replace(/^#/, ""),
-      tone
+      tone: ""
     };
   }
 
@@ -6144,22 +5921,20 @@
       const target = String(record.route || record.target || "logs").replace(/^#/, "");
       const row = element("a", "overview-material-row");
       row.href = target.startsWith("http") ? target : `#${target}`;
-      const rawArtifact = text(record.affected_scope || record.title || record.id, "Project artifact");
-      const affectedItems = String(record.affected_scope || "").split(",").map((item) => item.trim()).filter(Boolean);
+      const rawArtifact = text(record.artifact_label || record.event_id, "Project artifact");
+      const affectedItems = Array.isArray(record.artifact_ids) ? record.artifact_ids : [];
       const artifact = rawArtifact.length > 96 && affectedItems.length > 1
         ? `${affectedItems.length} touched artifacts`
         : rawArtifact;
       const descriptor = text(
         record.score_change
-          || record.delta
-          || record.outcome
-          || record.summary,
+          || record.change_descriptor,
         "Change recorded"
       );
       row.append(
         element("strong", "", artifact),
         element("span", "overview-material-change", descriptor),
-        element("time", "", overviewDisplayDate(record.date || record.recorded_at))
+        element("time", "", overviewDisplayDate(record.occurred_at))
       );
       return row;
     });
@@ -6189,9 +5964,14 @@
     return { count: null, available: false, checkedAt: null, detail: "no current intake count is published" };
   }
 
-  function renderOverviewPortals(snapshot, chain) {
-    const intake = publicInputSnapshot(chain);
-    const humanActionCount = data.overview?.queue_counts?.human_actions ?? snapshot.total;
+  function renderOverviewPortals() {
+    const queueDirectory = data.overview?.queue_directory || {};
+    const queueById = new Map(
+      (Array.isArray(queueDirectory.queues) ? queueDirectory.queues : [])
+        .map((queue) => [queue.queue_id, queue])
+    );
+    const intake = queueById.get("candidate_intake") || {};
+    const humanActions = queueById.get("human_actions") || {};
     const makeCard = (title, value, detail, target, tone = "") => {
       const card = element("article", `overview-indicator-card ${tone}`.trim());
       card.dataset.layoutId = `overview-portlet-${layoutSlug(title)}`;
@@ -6211,17 +5991,27 @@
     };
     const publicCard = makeCard(
       "Public intake",
-      intake.available ? `${intake.count} unresolved` : "Unavailable",
-      `${intake.detail}${intake.checkedAt ? ` · checked ${formatOperationalDate(intake.checkedAt)}` : ""}`,
-      "planning:preliminary",
-      intake.available && intake.count ? "notice" : intake.available ? "" : "unavailable"
+      intake.complete === true ? `${intake.count} unresolved` : "Unavailable",
+      intake.inclusion_predicate || "Typed candidate-intake queue unavailable.",
+      intake.route || "planning:preliminary",
+      intake.complete === true && intake.count
+        ? "notice"
+        : intake.complete === true
+          ? ""
+          : "unavailable"
     );
     const humanCard = makeCard(
       "Human action items",
-      `${humanActionCount} unresolved`,
-      `${snapshot.decisions} decisions · ${snapshot.repositoryHumanActions.length} repository reviews · ${snapshot.automationHumanActions.length} technical interventions`,
-      "actions",
-      humanActionCount ? "notice" : "success"
+      humanActions.complete === true
+        ? `${humanActions.count} unresolved`
+        : "Unavailable",
+      humanActions.inclusion_predicate || "Typed Human Action snapshot unavailable.",
+      humanActions.route || "actions",
+      humanActions.complete === true && humanActions.count
+        ? "notice"
+        : humanActions.complete === true
+          ? "success"
+          : "unavailable"
     );
     const capacityCard = element("article", "overview-indicator-card overview-capacity-indicator");
     capacityCard.dataset.layoutId = "overview-portlet-codex-capacity";
@@ -6253,42 +6043,30 @@
     dataCard.dataset.layoutId = "overview-portlet-project-data";
     dataCard.dataset.layoutTransferGroup = "overview-portlet";
     const dataHeading = element("div", "overview-card-heading");
-    const progressFeed = Object.keys(data.progress || {}).length ? data.progress : data.overview?.progress_summary;
-    const sourceFeed = Object.keys(data.source_checker || {}).length ? data.source_checker : data.overview?.source_checker_summary;
-    const integrityFeed = Object.keys(data.integrity || {}).length ? data.integrity : data.overview?.integrity_summary;
-    const feedSpecs = [
-      ["Progress", progressFeed, progressFeed?.generated_at || progressFeed?.generatedAt],
-      ["Sources", sourceFeed, sourceFeed?.checked_at],
-      ["Chain", chain, chain.updated_at || chain.completed_at],
-      ["Candidates", { availability: "current", completeness: { complete: true } }, data.generated_at],
-      ["Public input", { availability: intake.available ? "current" : "unavailable" }, intake.checkedAt],
-      ["Integrity", integrityFeed, integrityFeed?.current?.generated_at || integrityFeed?.generated_at]
-    ];
-    const feedStates = feedSpecs.map(([label, feed, timestamp]) => ({
-      label,
-      state: feedContractState(feed || {}, timestamp)
-    }));
-    const problemFeeds = feedStates.filter(({ state }) =>
-      !state.complete || state.state === "stale");
-    dataHeading.append(
-      element("h4", "", "Project data"),
-      element(
-        "span",
-        `status-badge ${problemFeeds.length ? "warning" : "success"}`,
-        problemFeeds.length ? "Problem" : "Current"
-      )
-    );
+    const dataDirectory = data.overview?.data_directory || {};
+    const feedRows = Array.isArray(dataDirectory.rows)
+      ? dataDirectory.rows
+      : [];
+    const problemFeeds = feedRows.filter((row) =>
+      row.complete !== true || row.availability !== "current");
+    dataHeading.append(element("h4", "", "Project data"));
     const dataGrid = element("div", "overview-status-grid");
-    dataGrid.append(...feedStates.map(({ label, state }) => {
-      const tone = state.complete && state.state !== "stale"
+    dataGrid.append(...feedRows.map((row) => {
+      const tone = row.complete === true && row.availability === "current"
         ? "success"
-        : state.state === "unavailable"
+        : row.availability === "unavailable"
           ? "unavailable"
-          : "error";
+          : "warning";
       const cell = element("div", "overview-status-cell");
-      cell.setAttribute("aria-label", `${label}: ${state.label}`);
-      cell.title = state.reason || state.label;
-      cell.append(element("span", `health-dot ${tone}`, ""), element("strong", "", label));
+      const stateLabel = row.complete === true
+        ? serviceStatusLabel(row.availability)
+        : "Incomplete";
+      cell.setAttribute("aria-label", `${row.label}: ${stateLabel}`);
+      cell.title = row.reason || stateLabel;
+      cell.append(
+        element("span", `health-dot ${tone}`, ""),
+        element("strong", "", row.label)
+      );
       return cell;
     }));
     const dataLink = internalInlineLink(
@@ -6484,7 +6262,7 @@
     const unavailableCount = Object.values(platformSignals.providers)
       .filter((provider) => !provider.complete).length;
     byId("overview-openai-checked").textContent = currentChecks.length
-      ? `Official provider observations checked independently${unavailableCount ? ` · ${unavailableCount} unavailable` : ""}`
+      ? `Live provider observations checked after opening${unavailableCount ? ` · ${unavailableCount} unavailable` : ""}`
       : "Checking independent official provider feeds…";
     renderOperationsLedgers(data.run_chain || {});
   }
@@ -6529,11 +6307,12 @@
   }
 
   function renderUsageTrend() {
-    const log = projectLog("elim");
-    const points = (log?.entries || []).map((entry) => ({
-      id: entry.id,
-      date: entry.values?.date,
-      value: elimUsageConsumption(entry)
+    const history = data.overview?.capacity_history || {};
+    const points = (Array.isArray(history.points) ? history.points : []).map((point) => ({
+      id: point.point_id,
+      date: point.recorded_at,
+      value: point.consumed_percent,
+      windowId: point.window_id
     })).slice(-10);
     const measured = points.filter((point) => Number.isFinite(point.value));
     const host = byId("overview-usage-trend");
@@ -6587,8 +6366,8 @@
       chart.append(label);
     });
 
-    const epoch = data.run_chain?.review_epoch;
-    const epochAt = Date.parse(String(epoch?.last_completed_at || ""));
+    const epoch = Array.isArray(history.review_epochs) ? history.review_epochs[0] : null;
+    const epochAt = Date.parse(String(epoch?.completed_at || ""));
     if (Number.isFinite(epochAt)) {
       const dated = points
         .map((point, index) => ({ index, distance: Math.abs(Date.parse(String(point.date || "")) - epochAt) }))
@@ -6598,7 +6377,7 @@
         const epochX = xFor(dated.index);
         chart.append(svgNode("line", { x1: epochX, x2: epochX, y1: top, y2: top + height }, "usage-trend-epoch"));
         const epochLabel = svgNode("text", { x: epochX + 5, y: top + 10 }, "usage-trend-epoch-label");
-        epochLabel.textContent = "Review Epoch";
+        epochLabel.textContent = epoch.epoch_id || "Review Epoch";
         chart.append(epochLabel);
       }
     }
@@ -6721,96 +6500,28 @@
     return card;
   }
 
-  function renderOverviewQueues(snapshot, chain) {
-    const lifecycle = currentLifecycleRecords();
-    const workflowCount = (...statuses) => lifecycle.filter((record) => statuses.includes(record.workflowStatus)).length;
-    const intake = publicInputSnapshot(chain);
-    const incidentProjection = operationalIncidentProjection();
-    const configuredQueues = Array.isArray(data.overview?.queue_counts)
-      ? data.overview.queue_counts
-      : data.overview?.queue_counts && typeof data.overview.queue_counts === "object"
-        ? Object.entries(data.overview.queue_counts).map(([label, value]) => ({
-            label,
-            ...(value && typeof value === "object" ? value : { count: value })
-          }))
-        : [];
-    const queueTarget = (label, target) => {
-      const normalized = String(label || "").toLowerCase();
-      if (normalized === "development") return "planning:workbench:pipeline:status=Development";
-      if (normalized === "research") return "planning:workbench:pipeline:status=Research";
-      if (normalized === "audits") return "planning:workbench:pipeline:status=Audit%20work";
-      if (normalized === "external review") return "planning:workbench:pipeline:status=External%20review&scope=review-ready";
-      if (["candidate intake", "preliminary intake"].includes(normalized)) {
-        return "planning:workbench:pipeline:work_class=Preliminary%20candidate";
-      }
-      if (target && target !== "progress") return target;
-      return target || "overview";
-    };
-    const allowedQueues = new Set([
-      "Human actions", "Development", "Research", "Audits", "External review",
-      "Candidate intake", "Preliminary intake", "Source routing", "Pending source routing",
-      "Operational incidents", "Security remediation"
-    ]);
-    const configuredActiveQueues = configuredQueues.filter((queue) =>
-      allowedQueues.has(queue.label || queue.name || queue.id));
-    const compactCounts = data.overview?.queue_counts || {};
-    const queues = configuredActiveQueues.length ? configuredActiveQueues.map((queue) => ({
-      label: queue.label || queue.name || queue.id,
-      count: queue.available === false ? null : queue.count,
-      target: queueTarget(queue.label || queue.name || queue.id, queue.target || queue.route),
-      tone: queue.tone || "",
-      problemTarget: queue.problem_target || queue.log_route
-    })) : [
-      { label: "Human actions", count: compactCounts.human_actions ?? snapshot.total, target: "actions", problemTarget: "logs:integrity" },
-      { label: "Development", count: compactCounts.development ?? workflowCount("Development"), target: "planning:workbench:pipeline:status=Development" },
-      { label: "Research", count: compactCounts.research ?? workflowCount("Research"), target: "planning:workbench:pipeline:status=Research" },
-      { label: "Audits", count: compactCounts.audits ?? workflowCount("Audit needed", "Audit in progress"), target: "planning:workbench:pipeline:status=Audit%20work" },
-      { label: "External review", count: compactCounts.external_review ?? workflowCount("External review"), target: "planning:workbench:pipeline:status=External%20review&scope=review-ready" },
-      { label: "Candidate intake", count: compactCounts.preliminary_candidates ?? data.records.length, target: "planning:workbench:pipeline:work_class=Preliminary%20candidate" },
-      { label: "Source routing", count: compactCounts.pending_sources ?? data.pending_sources.length, target: "sources:pending" },
-      {
-        label: "Operational incidents",
-        count: incidentProjection.unresolvedCount,
-        target: "automation:logs:incidents",
-        tone: incidentProjection.complete
-          ? incidentProjection.impactState === "red"
+  function renderOverviewQueues() {
+    const directory = data.overview?.queue_directory || {};
+    const queues = (Array.isArray(directory.queues) ? directory.queues : []).map((queue) => ({
+      label: queue.label,
+      count: queue.complete === true ? queue.count : null,
+      target: queue.route,
+      tone: queue.complete !== true
+        ? "unavailable"
+        : queue.queue_id === "operational_incidents"
+          ? queue.impact_state === "red"
             ? "error"
-            : incidentProjection.impactState === "yellow"
+            : queue.impact_state === "yellow"
               ? "warning"
               : ""
-          : "unavailable",
-        problemTarget: "automation:logs:incidents",
-        problemLabel: incidentProjection.complete
-          ? "Open incident ledger →"
-          : "Incident feed unavailable →"
-      }
-    ];
-    if (!queues.some((queue) => queue.label === "Security remediation")) {
-      const security = securityAssuranceProjection();
-      const protectedActions = security.available
-        ? security.tools.filter((tool) => tool.private_attention === "yes").length
-        : null;
-      queues.push({
-        label: "Security remediation",
-        count: protectedActions,
-        target: "automation:security",
-        tone: security.available ? (protectedActions ? "warning" : "") : "unavailable",
-        problemTarget: "automation:security",
-        problemLabel: security.available
-          ? "Open protected review →"
-          : "Private feed unavailable →"
-      });
-    }
-    queues.forEach((queue) => {
-      if (queue.count == null) queue.tone = "unavailable";
-      else if (queue.label === "Operational incidents") {
-        queue.tone = incidentProjection.impactState === "red"
-          ? "error"
-          : incidentProjection.impactState === "yellow"
+          : queue.problem_state === "problem"
             ? "warning"
-            : "";
-      }
-    });
+            : "",
+      problemTarget: queue.problem_route,
+      problemLabel: queue.complete === true
+        ? "Open specialist ledger →"
+        : "Producer unavailable →"
+    }));
     const active = queues.filter((queue) => queue.count != null && queue.count > 0);
     const empty = queues.filter((queue) => queue.count === 0);
     const unavailable = queues.filter((queue) => queue.count == null);
@@ -6819,15 +6530,9 @@
   }
 
   function overviewBriefVerification(chain) {
-    const progressFeed = Object.keys(data.progress || {}).length
-      ? data.progress
-      : data.overview?.progress_summary || {};
-    const integrityFeed = Object.keys(data.integrity || {}).length
-      ? data.integrity
-      : data.overview?.integrity_summary || {};
-    const sourceFeed = Object.keys(data.source_checker || {}).length
-      ? data.source_checker
-      : data.overview?.source_checker_summary || {};
+    const progressFeed = data.overview?.progress_summary || {};
+    const integrityFeed = data.overview?.integrity_summary || {};
+    const sourceFeed = data.overview?.source_checker_summary || {};
     const required = [
       {
         label: "Progress",
@@ -7073,11 +6778,16 @@
   }
 
   function renderOverviewDaily(
-    snapshot,
     chain,
     readiness = data.overview?.automation_readiness || {}
   ) {
-    const humanActionCount = data.overview?.queue_counts?.human_actions ?? snapshot.total;
+    const humanQueue = (data.overview?.queue_directory?.queues || []).find(
+      (queue) => queue.queue_id === "human_actions"
+    ) || {};
+    const humanActionCount = humanQueue.complete === true
+      ? humanQueue.count
+      : null;
+    const integrityFeed = data.overview?.integrity_summary || {};
     const stages = overviewRunChainStages(chain);
     const failed = stages.filter((stage) => stage.tone === "error").length;
     const degraded = stages.filter((stage) => stage.tone === "warning").length;
@@ -7118,39 +6828,58 @@
       unavailable: "Unknown"
     }[factStates.latest.tone];
     badge.title = factStates.latest.label;
-    const attemptAt = attemptRecordedAt(factStates.latestAttempt)
-      || chain.host_updated_at
-      || chain.completed_at
-      || chain.updated_at
-      || chain.created_at;
-    const successfulTimes = overviewRunChainStages(chain)
-      .map((stage) => parseTimestamp(stage.lastSuccessAt))
-      .filter((value) => value !== null);
-    const lastFullySuccessfulAt = chain.last_successful_at
-      || chain.last_success_at
-      || (successfulTimes.length ? new Date(Math.min(...successfulTimes)).toISOString() : null);
-    const progressFeed = Object.keys(data.progress || {}).length ? data.progress : data.overview?.progress_summary;
-    const integrityFeed = Object.keys(data.integrity || {}).length ? data.integrity : data.overview?.integrity_summary;
-    const sourceFeed = Object.keys(data.source_checker || {}).length ? data.source_checker : data.overview?.source_checker_summary;
-    const feedTimes = [
-      progressFeed?.generated_at || progressFeed?.generatedAt,
-      integrityFeed?.current?.generated_at || integrityFeed?.generated_at,
-      sourceFeed?.checked_at,
-      chain.updated_at || chain.completed_at
-    ].map(parseTimestamp).filter((value) => value !== null);
-    const currentThrough = feedTimes.length ? new Date(Math.min(...feedTimes)).toISOString() : null;
+    const occurrenceDirectory = data.overview?.automation_occurrences || {};
+    const occurrences = Array.isArray(occurrenceDirectory.occurrences)
+      ? occurrenceDirectory.occurrences
+      : [];
+    const latestScheduledOccurrence = occurrences.find((item) =>
+      item.occurrence_id === occurrenceDirectory.latest_scheduled_attempt_id);
+    const attemptAt = latestScheduledOccurrence?.scheduled_for
+      || latestScheduledOccurrence?.updated_at
+      || latestScheduledOccurrence?.completed_at
+      || null;
+    const lastFullySuccessful = occurrenceDirectory.last_fully_successful_occurrence;
+    const lastFullySuccessfulAt = lastFullySuccessful?.completed_at
+      || lastFullySuccessful?.updated_at
+      || null;
+    const currentThrough = data.overview?.data_current_through?.value || null;
     const asOf = attemptAt || data.generated_at;
     byId("overview-daily-summary").textContent =
-      `As of ${formatOperationalDate(asOf)}, ${summary} ${humanActionCount} confirmed human action${humanActionCount === 1 ? "" : "s"} remain${humanActionCount === 1 ? "s" : ""}.`;
-    const epoch = chain.review_epoch || {};
+      `As of ${formatOperationalDate(asOf)}, ${summary} ${
+        humanActionCount == null
+          ? "The Human Action count is unavailable."
+          : `${humanActionCount} confirmed human action${humanActionCount === 1 ? "" : "s"} remain${humanActionCount === 1 ? "s" : ""}.`
+      }`;
+    const nextRun = occurrenceDirectory.next_ordinary_run || {};
+    const nextEpoch = occurrenceDirectory.next_full_review_epoch || {};
     const facts = [
       ["Data current through", formatOperationalDate(currentThrough), factStates.data],
       ["Latest scheduled attempt", formatOperationalDate(attemptAt), factStates.latest],
-      ["Last fully successful", formatOperationalDate(lastFullySuccessfulAt), factStates.lastSuccessful],
-      ["Next scheduled run", formatOperationalDate(chain.next_scheduled_at || nextScheduledCoordinatorRun()), factStates.nextRun],
-      ["Next full Review Epoch", epoch.next_due_at
-        ? formatOperationalDate(nextScheduledCoordinatorRun(epoch.next_due_at))
-        : "No review boundary recorded", factStates.nextEpoch]
+      [
+        "Last fully successful",
+        formatOperationalDate(lastFullySuccessfulAt),
+        lastFullySuccessfulAt
+          ? factStates.lastSuccessful
+          : {
+              tone: "unavailable",
+              label: "No typed fully successful occurrence is published",
+              route: "automation:overview"
+            }
+      ],
+      [
+        "Next scheduled run",
+        nextRun.available === true
+          ? formatOperationalDate(nextRun.scheduled_for)
+          : "Schedule unavailable",
+        factStates.nextRun
+      ],
+      [
+        "Next full Review Epoch",
+        nextEpoch.available === true
+          ? formatOperationalDate(nextEpoch.scheduled_for)
+          : "No review boundary recorded",
+        factStates.nextEpoch
+      ]
     ];
     byId("overview-daily-facts").replaceChildren(...facts.map(([label, value, state]) => {
       const fact = element("div", "overview-daily-fact");
@@ -7223,26 +6952,20 @@
 
   function renderOverview() {
     if (!byId("overview-daily-section")) return;
-    const chain = Object.keys(data.run_chain || {}).length
-      ? data.run_chain
-      : data.overview?.automation_summary?.run_chain || data.overview?.automation_summary || {};
+    const chain = data.overview?.run_chain
+      || data.overview?.automation_summary?.run_chain
+      || data.overview?.automation_summary
+      || {};
     captureSuccessfulStageHistory(chain);
-    const snapshot = actionItemSnapshot();
     const readiness = data.overview?.automation_readiness || {};
     byId("overview-generated-at").textContent = formatDate(data.generated_at);
-    renderOverviewDaily(snapshot, chain, readiness);
+    renderOverviewDaily(chain, readiness);
     renderOverviewAutomationActivity(chain, readiness);
-    renderOverviewPortals(snapshot, chain);
+    renderOverviewPortals();
     renderOverviewRecentActivity();
-    const progressFeed = Object.keys(data.progress || {}).length
-      ? data.progress
-      : data.overview?.progress_summary || {};
-    const integrityFeed = Object.keys(data.integrity || {}).length
-      ? data.integrity
-      : data.overview?.integrity_summary || {};
-    const sourceCheckerFeed = Object.keys(data.source_checker || {}).length
-      ? data.source_checker
-      : data.overview?.source_checker_summary || {};
+    const progressFeed = data.overview?.progress_summary || {};
+    const integrityFeed = data.overview?.integrity_summary || {};
+    const sourceCheckerFeed = data.overview?.source_checker_summary || {};
     byId("overview-freshness").replaceChildren(
       projectionStatusCard("Console bundle", data, "overview", data.generated_at),
       projectionStatusCard("GitHub Project", data.overview?.progress_summary || {}, "progress", data.github_synced_at),
@@ -7253,7 +6976,7 @@
     );
     renderPlatformStatus();
     renderOverviewUsage(chain);
-    renderOverviewQueues(snapshot, chain);
+    renderOverviewQueues();
     refreshLayoutZones();
   }
 
@@ -8141,19 +7864,25 @@
     }
     const capacityHistory = byId("operations-capacity-history");
     if (capacityHistory) {
-      const points = (projectLog("elim")?.entries || []).map((entry) => ({
-        id: entry.id,
-        date: entry.values?.date,
-        value: elimUsageConsumption(entry)
+      const history = data.overview?.capacity_history || {};
+      const points = (Array.isArray(history.points) ? history.points : []).map((point) => ({
+        id: point.point_id,
+        date: point.recorded_at,
+        value: point.consumed_percent
       })).filter((point) => Number.isFinite(point.value)).slice(-12).reverse();
       capacityHistory.replaceChildren(
-        logHistoryHeading("Measured consumption history", points.length, "run"),
+        history.availability === "current" && history.complete === true
+          ? logHistoryHeading("Measured consumption history", points.length, "run")
+          : element(
+            "p",
+            "empty-state compact-empty",
+            history.reason || "Typed capacity history is unavailable."
+          ),
         ...points.map((point) => operationsLedgerRow(
           point.id,
           { tone: "success", label: `${point.value} points` },
-          "Measured Elim consumption for this run.",
-          point.date,
-          "logs:elim"
+          "Producer-recorded consumption for this run.",
+          point.date
         ))
       );
     }
@@ -8207,20 +7936,12 @@
 
     const intake = publicInputSnapshot(chain);
     const operationsProgressFeed = Object.keys(data.progress || {}).length ? data.progress : data.overview?.progress_summary;
-    const operationsSourceFeed = Object.keys(data.source_checker || {}).length ? data.source_checker : data.overview?.source_checker_summary;
-    const operationsIntegrityFeed = Object.keys(data.integrity || {}).length ? data.integrity : data.overview?.integrity_summary;
-    const feedSpecs = [
-      ["Progress", operationsProgressFeed, operationsProgressFeed?.generated_at || operationsProgressFeed?.generatedAt, "progress"],
-      ["Sources", operationsSourceFeed, operationsSourceFeed?.checked_at, "sources:watchers"],
-      ["Operations overview", chain, chain.updated_at || chain.completed_at, "automation:overview"],
-      ["Candidates", { availability: "current", completeness: { complete: true } }, data.generated_at, "candidates"],
-      ["Public input", { availability: intake.available ? "current" : "unavailable" }, intake.checkedAt, "candidates:public"],
-      ["Integrity", operationsIntegrityFeed, operationsIntegrityFeed?.current?.generated_at || operationsIntegrityFeed?.generated_at, "integrity"]
-    ];
-    const dataBlocked = feedSpecs.some(([, feed, timestamp]) => {
-      const state = feedContractState(feed || {}, timestamp);
-      return !state.complete || ["unavailable", "incomplete"].includes(state.state);
-    });
+    const feedSpecs = Array.isArray(data.overview?.data_directory?.rows)
+      ? data.overview.data_directory.rows
+      : [];
+    const dataBlocked = feedSpecs.some((feed) =>
+      feed.complete !== true
+      || ["unavailable", "incomplete", "stale"].includes(feed.availability));
     setButtonBlockerFlag(
       "automation-tab-data",
       dataBlocked,
@@ -8236,23 +7957,27 @@
     );
     const dataHost = byId("operations-data-list");
     if (dataHost) {
-      dataHost.replaceChildren(...feedSpecs.map(([label, feed, timestamp, route]) => {
-        const state = feedContractState(feed || {}, timestamp);
+      dataHost.replaceChildren(...feedSpecs.map((feed) => {
+        const healthy = feed.complete === true
+          && ["current", "available"].includes(feed.availability);
         const row = operationsLedgerRow(
-          label,
+          feed.label,
           {
-            tone: state.complete && state.state !== "stale"
+            tone: healthy
               ? "success"
-              : state.state === "unavailable"
+              : feed.availability === "unavailable"
                 ? "unavailable"
                 : "error",
-            label: state.label
+            label: humanizeKey(feed.availability || "unavailable")
           },
-          state.reason || (state.complete ? "The producer declares this projection complete." : "The producer does not establish a complete current projection."),
-          state.timestamp || timestamp,
-          route
+          `${feed.reason || "No producer reason supplied"} · Complete: ${feed.complete === true ? "yes" : "no"} · Producer: ${feed.producer || "unavailable"} · Trustworthy through: ${formatDate(feed.trustworthy_through)}`,
+          feed.trustworthy_through,
+          feed.route
         );
-        activeIncidentIdsForTypedLink(`data:${layoutSlug(label)}`).forEach((incidentId) => {
+        if (feed.recovery_route) {
+          row.append(consoleLinkButton("Recovery →", `#${feed.recovery_route}`));
+        }
+        activeIncidentIdsForTypedLink(`data:${feed.feed_id}`).forEach((incidentId) => {
           row.append(consoleLinkButton(
             `${incidentId} →`,
             `#automation:logs:incidents:selected=${encodeURIComponent(incidentId)}`
@@ -9361,19 +9086,26 @@
       current.generated_at
     );
     const structural = validateLivePayload("integrity", feed);
-    const feedAvailable = Boolean(current.generated_at)
-      && structural.valid
-      && !["unavailable", "incomplete"].includes(contract.state);
+    const historicalInspectable = Boolean(current.generated_at) && structural.valid;
+    const feedAvailable = historicalInspectable
+      && !["stale", "unavailable", "incomplete"].includes(contract.state);
+    const feedStale = historicalInspectable && contract.state === "stale";
     setNavigationMarker(
       "tab-integrity-count",
       findingCount,
       feedAvailable ? "" : "error",
       "Integrity unavailable"
     );
-    byId("problem-visible").textContent = feedAvailable ? findings.length : "Unavailable";
+    byId("problem-visible").textContent = feedAvailable
+      ? findings.length
+      : feedStale
+        ? findings.length
+        : "Unavailable";
     status.className = `status-badge ${!feedAvailable || allErrors + allWarnings ? "needs-review" : "ready"}`.trim();
-    status.textContent = !feedAvailable
-      ? "Integrity feed unavailable"
+    status.textContent = feedStale
+      ? `Last valid report found ${findingCount} as of ${formatDate(current.generated_at)}`
+      : !feedAvailable
+        ? "Integrity feed unavailable"
       : findingCount
         ? `${findingCount} current problem${findingCount === 1 ? "" : "s"}`
         : "No current problems";
@@ -9392,7 +9124,7 @@
       grouped.get(ownerKey).push(finding);
     });
     const findingHost = byId("integrity-findings");
-    if (!feedAvailable) {
+    if (!feedAvailable && !feedStale) {
       const unavailable = element("div", "empty-state compact-empty");
       unavailable.append(
         element("h3", "", "No valid Integrity feed is available"),
@@ -9401,7 +9133,27 @@
       findingHost.replaceChildren(unavailable);
     } else if (!findings.length) {
       const empty = element("div", "empty-state compact-empty");
-      empty.append(element("span", "", "✓"), element("h3", "", problems.length ? "No problems match these filters" : "No current problems"), element("p", "", problems.length ? "Change or clear the filters to inspect the complete problem inventory." : "No current exception is represented in the available Console data."));
+      empty.append(
+        element("span", "", feedStale ? "—" : "✓"),
+        element(
+          "h3",
+          "",
+          problems.length
+            ? "No problems match these filters"
+            : feedStale
+              ? `Last valid report found 0 as of ${formatDate(current.generated_at)}`
+              : "No current problems"
+        ),
+        element(
+          "p",
+          "",
+          problems.length
+            ? "Change or clear the filters to inspect the complete problem inventory."
+            : feedStale
+              ? "The historical report remains inspectable, but it cannot support a current clean conclusion."
+              : "No current exception is represented in the available Console data."
+        )
+      );
       findingHost.replaceChildren(empty);
     } else {
       findingHost.replaceChildren(...[...grouped.entries()]
@@ -11108,7 +10860,12 @@
     byId("proposed-count").textContent = data.active_horizon_records.length;
     byId("planning-candidates-count").textContent = data.active_horizon_records.length;
     byId("planning-preliminary-count").textContent = data.records.length;
-    byId("tab-actions-count").textContent = data.overview?.queue_counts?.human_actions ?? 0;
+    const initialHumanQueue = (data.overview?.queue_directory?.queues || []).find(
+      (queue) => queue.queue_id === "human_actions"
+    );
+    byId("tab-actions-count").textContent = initialHumanQueue?.complete === true
+      ? initialHumanQueue.count
+      : "—";
     byId("manual-watch-count").textContent = data.monitoring_issues.length;
     initializeStaticControls();
     initializeActionInboxControls();
@@ -11124,6 +10881,7 @@
     initializeAutomationRoleMenu();
     initializeScrollToTop();
     window.addEventListener("hashchange", navigateFromHash);
+    void navigateFromHash();
     renderOverview();
     refreshLayoutZones();
     refreshBotReviewSignals();
@@ -11151,7 +10909,7 @@
     domainGenerationStatus,
     hasNextLink,
     exactIntegrityProblemRecords,
-    allProblemRecords,
+    producerProblemRecords,
     repositorySpecialistRoute,
     repositoryAffectedSummary,
     explicitYes,
@@ -11171,7 +10929,6 @@
     releaseBlockerRecords,
     releaseBlockerProjectionState,
     topicProducts,
-    elimImprovementRecords,
     compactActivityPresentation,
     priorityAttentionReasons,
     priorityAttentionItems,

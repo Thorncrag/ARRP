@@ -13,6 +13,8 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
+import inspect
 import json
 import os
 import re
@@ -376,6 +378,9 @@ def active_project_files(*suffixes: str) -> list[Path]:
         if path.is_file()
         and path.suffix.lower() in allowed
         and not ACTIVE_TREE_EXCLUSIONS.intersection(path.relative_to(ROOT).parts)
+        and not path.is_relative_to(
+            ROOT / "research" / "horizon-review-console" / "prototypes"
+        )
     )
 
 
@@ -401,8 +406,121 @@ def research_files(*suffixes: str) -> list[Path]:
     return sorted(set(paths))
 
 
+INTEGRITY_CHECK_DEFINITIONS = {
+    "check_issue_pages": "Issue structure",
+    "check_markdown_fragment": "Internal links",
+    "check_legislation": "Issue structure",
+    "check_area_indexes": "Research placement",
+    "check_issue_layout": "Issue structure",
+    "check_topic_pages": "Topic guides",
+    "check_markdown_links": "Internal links",
+    "check_html_links": "Internal links",
+    "check_orphaned_markdown_pages": "Internal links",
+    "check_markdown_metadata_and_headings": "Issue structure",
+    "check_reader_navigation_coverage": "Reader navigation",
+    "check_cross_issue_links": "Internal links",
+    "check_embedded_repository_links": "Internal links",
+    "check_github_issue_links": "GitHub records",
+    "fetch_github_issues": "GitHub records",
+    "fetch_github_project_items": "GitHub records",
+    "check_github_synchrony": "GitHub records",
+    "check_github_pages_deployment": "GitHub records",
+    "check_research_placement": "Research placement",
+    "check_registry_and_sources": "Sources and citations",
+    "structured_source_citation_ids": "Sources and citations",
+    "check_reader_language": "Reader-facing language",
+    "check_tool_interface_theme": "Tool interfaces",
+    "check_duplicate_copy_artifacts": "Project structure",
+    "check_intake_workflow_language": "Intake workflow",
+    "check_retired_monitor_identifiers": "Project structure",
+    "check_print_assignment_metadata": "Print metadata",
+    "check_front_door_routes": "Reader navigation",
+    "check_structured_files_and_repository_hygiene": "Project structure",
+    "check_print_assembly_configuration": "Print metadata",
+    "check_context_registry": "Project structure",
+    "check_agent_runbooks": "Automation governance",
+    "check_source_domain_event_pipeline": "Automation governance",
+}
+STRUCTURED_FINDINGS: dict[str, dict[str, object]] = {}
+
+
+def registered_check_target(
+    check_name: str,
+    local_values: dict[str, object],
+) -> str:
+    """Select a stable typed target from check inputs, never from message prose."""
+
+    target_keys = (
+        "path",
+        "page",
+        "issue_path",
+        "proposal_path",
+        "source_path",
+        "target_path",
+        "relative_path",
+        "object_id",
+        "issue_id",
+        "identifier",
+        "record_id",
+        "route",
+    )
+    for key in target_keys:
+        value = local_values.get(key)
+        if isinstance(value, Path):
+            try:
+                return value.resolve().relative_to(ROOT.resolve()).as_posix()
+            except ValueError:
+                return f"{check_name}:{key}"
+        if isinstance(value, (str, int)) and str(value).strip():
+            candidate = str(value).strip()
+            if len(candidate) <= 240 and "\n" not in candidate:
+                return candidate
+    return check_name
+
+
 def report(category: str, message: str, failures: list[str], warnings: list[str]) -> None:
+    """Record one finding from a registered check site and preserve CLI prose."""
+
     (failures if category == "ERROR" else warnings).append(f"{category}: {message}")
+    caller = inspect.currentframe().f_back
+    check_name = caller.f_code.co_name if caller is not None else ""
+    if check_name not in INTEGRITY_CHECK_DEFINITIONS:
+        raise RuntimeError(f"Unregistered Project Integrity check: {check_name}")
+    check_id = check_name
+    target = registered_check_target(
+        check_name,
+        caller.f_locals if caller is not None else {},
+    )
+    condition_code = "project_integrity_condition"
+    identity = f"{check_id}|{target}|{condition_code}"
+    finding_id = "INT-" + hashlib.sha256(identity.encode("utf-8")).hexdigest()[:16]
+    existing = STRUCTURED_FINDINGS.get(finding_id)
+    if existing:
+        existing["occurrence_count"] = int(existing["occurrence_count"]) + 1
+        existing["message"] = message
+        if category == "ERROR":
+            existing["severity"] = "error"
+        return
+    STRUCTURED_FINDINGS[finding_id] = {
+        "finding_id": finding_id,
+        "check_id": check_id,
+        "condition_code": condition_code,
+        "canonical_target": target,
+        "severity": "error" if category == "ERROR" else "warning",
+        "category": INTEGRITY_CHECK_DEFINITIONS[check_name],
+        "attention": "agent",
+        "owner": "Elim",
+        "status": "open",
+        "message": message,
+        "path": target if "/" in target else "",
+        "affected_ids": [target],
+        "occurrence_count": 1,
+        "next_action": "Resolve the registered check condition at its canonical target.",
+        "resolution_predicate": (
+            "A newer complete Project Integrity report no longer emits this "
+            "check-site, target, and condition identity."
+        ),
+    }
 
 
 def normalized_text(value: object) -> str:
@@ -4006,60 +4124,12 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def finding_category(message: str) -> str:
-    lowered = message.lower()
-    categories = (
-        (
-            "Lifecycle",
-            (
-                "project status",
-                "uses status",
-                "development level",
-                "project workstream",
-                "recorded foundation",
-                "next audit",
-                "issue-admission",
-            ),
-        ),
-        ("Internal links", ("broken local link", "repository link", "orphaned markdown")),
-        ("Sources and citations", ("source", "citation", "bibliograph")),
-        ("GitHub records", ("github issue", "github pages", "project object", "registry", "deployment")),
-        ("Print metadata", ("print_levels", "print level", "print_status", "publication disposition", "print exclusion")),
-        ("Issue structure", ("issue page", "required heading", "heading level", "h1 headings", "audit-history", "title metadata")),
-        ("Topic guides", ("topic", "applicable proposals", "related ideas", "subject_index")),
-        ("Research placement", ("research", "source-development")),
-        ("Reader-facing language", ("reader-facing", "sham", "audit-tier", "rebaseline")),
-        ("Tool interfaces", ("interface", "theme", "console", "participat")),
-        ("Intake workflow", ("intake", "candidate", "horizon")),
-    )
-    for label, signals in categories:
-        if any(signal in lowered for signal in signals):
-            return label
-    return "Project structure"
-
-
 def finding_path(message: str) -> str:
     match = re.search(
         r"(?<![\w.-])((?:areas|framework|inventory|legislation|participate|research|scripts|tests|topics|website)/[^\s:,)]+)",
         message,
     )
     return match.group(1).rstrip(".\"'") if match else ""
-
-
-def finding_attention_owner(message: str) -> str:
-    """Route reserved decisions to the human inbox; other findings remain agent work."""
-    lowered = message.casefold()
-    human_signals = (
-        "workflow_hold_reason",
-        "missing explanation",
-        "lacks an explanation",
-        "missing reason",
-        "lacks a reason",
-        "human approval",
-        "human-reserved decision",
-        "human review required",
-    )
-    return "human" if any(signal in lowered for signal in human_signals) else "agent"
 
 
 def git_revision() -> str:
@@ -4088,22 +4158,19 @@ def structured_report(
     check_scope = front_matter_list(PROJECT_INTEGRITY_RUNBOOK, "checks_included")
     if not check_scope:
         raise RuntimeError("Project Integrity Bot runbook lacks checks_included configuration")
-    findings = []
-    for severity, messages in (("error", failures), ("warning", warnings)):
-        for position, message in enumerate(messages, start=1):
-            clean = re.sub(r"^(?:ERROR|WARNING):\s*", "", message)
-            findings.append(
-                {
-                    "id": f"{severity}-{position:04d}",
-                    "severity": severity,
-                    "category": finding_category(clean),
-                    "attention": finding_attention_owner(clean),
-                    "message": clean,
-                    "path": finding_path(clean),
-                }
-            )
+    findings = sorted(
+        (dict(item) for item in STRUCTURED_FINDINGS.values()),
+        key=lambda item: (
+            str(item.get("severity") or ""),
+            str(item.get("finding_id") or ""),
+        ),
+    )
+    if not findings and (failures or warnings):
+        raise RuntimeError(
+            "Project Integrity received untyped findings outside registered check sites."
+        )
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "revision": git_revision(),
         "result": "findings" if findings else "clean",
@@ -4172,6 +4239,7 @@ def markdown_report(report_data: dict[str, object]) -> str:
 
 def main() -> int:
     args = parse_args()
+    STRUCTURED_FINDINGS.clear()
     started = time.monotonic()
     failures: list[str] = []
     warnings: list[str] = []

@@ -74,6 +74,230 @@
         "allowed_consumers": ["operations_security"]
       }
     ],
+    "work_kind": [
+      {
+        "id": "preliminary_candidate",
+        "label": "Preliminary candidate",
+        "meaning": "A candidate retained in the preliminary intake catalog.",
+        "inclusion_predicate": "Preliminary candidate catalog membership.",
+        "authoritative_source": "Preliminary candidate catalog",
+        "producer": "project-console-pipeline-projection",
+        "lifecycle_owner": "Human",
+        "destination": "planning:preliminary",
+        "resolution_rule": "The candidate leaves the preliminary catalog through a governed disposition.",
+        "allowed_consumers": ["workbench", "preliminary_candidates", "overview"]
+      },
+      {
+        "id": "formal_candidate",
+        "label": "Formal candidate",
+        "meaning": "A candidate admitted to the formal candidate lifecycle.",
+        "inclusion_predicate": "Formal candidate dossier and Project identity match.",
+        "authoritative_source": "GitHub candidate dossier and Project fields",
+        "producer": "project-console-pipeline-projection",
+        "lifecycle_owner": "Recorded artifact owner",
+        "destination": "planning:candidates",
+        "resolution_rule": "The record leaves the formal-candidate lifecycle.",
+        "allowed_consumers": ["workbench", "candidates", "overview"]
+      },
+      {
+        "id": "proposal",
+        "label": "Proposal",
+        "meaning": "An established proposal governed by Project lifecycle and readiness fields.",
+        "inclusion_predicate": "Proposal registry and Project identity match.",
+        "authoritative_source": "Proposal registry and GitHub Project fields",
+        "producer": "project-console-pipeline-projection",
+        "lifecycle_owner": "Recorded artifact owner",
+        "destination": "planning:workbench:pipeline",
+        "resolution_rule": "The proposal leaves the active portfolio.",
+        "allowed_consumers": ["workbench", "progress", "overview"]
+      },
+      {
+        "id": "unclassified",
+        "label": "Classification unavailable",
+        "meaning": "The producing records do not establish a registered work kind.",
+        "inclusion_predicate": "No registered work-kind mapping accepts the authoritative source identity.",
+        "authoritative_source": "Registered producer mapping",
+        "producer": "project-console-pipeline-projection",
+        "lifecycle_owner": "Elim",
+        "destination": "integrity",
+        "resolution_rule": "A newer complete source record maps to exactly one registered work kind.",
+        "allowed_consumers": ["integrity", "workbench"]
+      },
+      {
+        "id": "repository_human_decision",
+        "label": "Repository human decision",
+        "meaning": "An exact-head repository recommendation whose recorded action owner is Human.",
+        "inclusion_predicate": "Source Monitor recommendation action_owner equals Human for the exact current head.",
+        "authoritative_source": "Source Monitor recommendation projection",
+        "producer": "project-console-action-snapshot",
+        "lifecycle_owner": "Human",
+        "destination": "actions:my-items",
+        "resolution_rule": "The exact-head recommendation records a non-human disposition or the pull request closes.",
+        "allowed_consumers": ["action_items", "overview"]
+      },
+      {
+        "id": "project_human_decision",
+        "label": "Project human decision",
+        "meaning": "A project artifact whose authoritative workflow Status is Human decision needed.",
+        "inclusion_predicate": "GitHub Project Status equals Human decision needed.",
+        "authoritative_source": "GitHub Project Status field",
+        "producer": "project-console-action-snapshot",
+        "lifecycle_owner": "Human",
+        "destination": "actions:my-items",
+        "resolution_rule": "Authoritative Status no longer equals Human decision needed.",
+        "allowed_consumers": ["action_items", "overview", "workbench"]
+      },
+      {
+        "id": "producer_contract_exception",
+        "label": "Producer contract exception",
+        "meaning": "A required typed source field or classification is missing, invalid, or unavailable.",
+        "inclusion_predicate": "A registered producer emits a registered contract-exception finding code.",
+        "authoritative_source": "Registered typed producer",
+        "producer": "project-console-action-snapshot",
+        "lifecycle_owner": "Elim",
+        "destination": "integrity",
+        "resolution_rule": "A newer complete producer snapshot no longer emits the stable exception identity.",
+        "allowed_consumers": ["action_items_oversight", "integrity", "workbench"]
+      },
+      {
+        "id": "integrity_obligation",
+        "label": "Integrity obligation",
+        "meaning": "A durably unresolved registered Integrity condition.",
+        "inclusion_predicate": "A complete typed Integrity producer emits the stable finding identity.",
+        "authoritative_source": "Project Integrity or registered specialist producer",
+        "producer": "project-console-action-snapshot",
+        "lifecycle_owner": "Elim",
+        "destination": "integrity",
+        "resolution_rule": "A newer complete authoritative report omits the same stable finding identity with closure proof retained by its owner.",
+        "allowed_consumers": ["action_items_oversight", "integrity"]
+      },
+      {
+        "id": "operational_incident",
+        "label": "Operational incident",
+        "meaning": "An incident in Open, Investigating, Mitigated, or Monitoring state.",
+        "inclusion_predicate": "Operational Incidents current projection reports an unresolved lifecycle state.",
+        "authoritative_source": "Operational Incidents event authority",
+        "producer": "project-console-action-snapshot",
+        "lifecycle_owner": "Recorded incident owner",
+        "destination": "automation:logs:incidents",
+        "resolution_rule": "The incident authority records exact recovery evidence and Resolved status.",
+        "allowed_consumers": ["action_items", "overview", "operations"]
+      },
+      {
+        "id": "security_protected_action",
+        "label": "Protected security action",
+        "meaning": "A minimized owner-local security assurance projection records a generic protected action without vulnerability detail.",
+        "inclusion_predicate": "A registered security tool declares private_attention=yes and an authorized Human or Elim owner class.",
+        "authoritative_source": "Owner-local security assurance projection",
+        "producer": "project-console-private-action-snapshot",
+        "lifecycle_owner": "Recorded security tool owner class",
+        "destination": "automation:security",
+        "resolution_rule": "A newer complete owner-local security assurance projection no longer declares private attention for the same registered tool ID.",
+        "allowed_consumers": ["action_items", "operations_security"]
+      }
+    ],
+    "finding_code": [
+      {
+        "id": "project_integrity_condition",
+        "label": "Project Integrity condition",
+        "meaning": "A registered deterministic Project Integrity check reports a condition at its canonical target.",
+        "inclusion_predicate": "A registered check site emits its stable check identity, canonical target, and condition code.",
+        "authoritative_source": "Project Integrity Bot",
+        "producer": "project-integrity-report",
+        "lifecycle_owner": "Elim",
+        "destination": "integrity",
+        "resolution_rule": "A newer complete report no longer emits the same check-site, target, and condition identity.",
+        "allowed_consumers": ["integrity", "action_items_oversight"]
+      },
+      {
+        "id": "next_action_missing",
+        "label": "Next action missing",
+        "meaning": "A lifecycle-eligible Workbench artifact has no authoritative next action.",
+        "inclusion_predicate": "Pipeline item is active and its typed next-action state is missing.",
+        "authoritative_source": "GitHub Project Next action field",
+        "producer": "project-console-pipeline-projection",
+        "lifecycle_owner": "Recorded artifact owner",
+        "destination": "planning:workbench:pipeline:gap=next_action_missing",
+        "resolution_rule": "The authoritative next action is present in a newer complete Pipeline projection.",
+        "allowed_consumers": ["workbench", "integrity", "action_items_oversight"]
+      },
+      {
+        "id": "workflow_status_invalid",
+        "label": "Workflow status exception",
+        "meaning": "A lifecycle artifact has a missing or unregistered authoritative Status.",
+        "inclusion_predicate": "Status is absent or is not an approved workflow value.",
+        "authoritative_source": "GitHub Project Status field",
+        "producer": "project-console-pipeline-projection",
+        "lifecycle_owner": "Elim",
+        "destination": "integrity",
+        "resolution_rule": "A newer complete Project snapshot supplies an approved Status.",
+        "allowed_consumers": ["workbench", "integrity", "action_items_oversight"]
+      },
+      {
+        "id": "readiness_conflict",
+        "label": "Readiness conflict",
+        "meaning": "Typed Development level and Development Score do not satisfy the same readiness state.",
+        "inclusion_predicate": "The complete readiness predicate reports a level/score conflict.",
+        "authoritative_source": "GitHub Project Development level and Development Score fields",
+        "producer": "project-console-pipeline-projection",
+        "lifecycle_owner": "Elim",
+        "destination": "integrity",
+        "resolution_rule": "A newer complete readiness evaluation reports no conflict.",
+        "allowed_consumers": ["workbench", "integrity", "action_items_oversight"]
+      },
+      {
+        "id": "hold_reason_missing",
+        "label": "Hold reason missing",
+        "meaning": "A Blocked or Deferred record lacks its dedicated typed hold reason.",
+        "inclusion_predicate": "Status is Blocked or Deferred and workflow_hold_reason is absent.",
+        "authoritative_source": "Project workflow hold record",
+        "producer": "project-console-pipeline-projection",
+        "lifecycle_owner": "Elim",
+        "destination": "integrity",
+        "resolution_rule": "A dedicated hold reason is recorded and accepted by the producer.",
+        "allowed_consumers": ["workbench", "integrity", "action_items_oversight"]
+      },
+      {
+        "id": "hold_trigger_missing",
+        "label": "Hold trigger missing",
+        "meaning": "A Blocked or Deferred record lacks an unblock or reconsideration trigger.",
+        "inclusion_predicate": "Status is Blocked or Deferred and its typed trigger is absent.",
+        "authoritative_source": "Project workflow hold record",
+        "producer": "project-console-pipeline-projection",
+        "lifecycle_owner": "Elim",
+        "destination": "integrity",
+        "resolution_rule": "The typed trigger is recorded and accepted by the producer.",
+        "allowed_consumers": ["workbench", "integrity", "action_items_oversight"]
+      },
+      {
+        "id": "hold_transition_provenance_missing",
+        "label": "Hold transition provenance missing",
+        "meaning": "Blocked or Deferred Status lacks its matching audit transition.",
+        "inclusion_predicate": "Status is Blocked or Deferred and no matching stable audit transition is found.",
+        "authoritative_source": "Issue audit log",
+        "producer": "project-console-pipeline-projection",
+        "lifecycle_owner": "Elim",
+        "destination": "integrity",
+        "resolution_rule": "A matching transition event with stable provenance is available.",
+        "allowed_consumers": ["workbench", "integrity", "action_items_oversight"]
+      }
+    ],
+    "queue_id": [
+      {"id": "candidate_intake", "label": "Candidate intake", "meaning": "Complete preliminary-candidate intake catalog.", "inclusion_predicate": "Preliminary candidate catalog membership.", "authoritative_source": "Preliminary candidate catalog", "producer": "project-console-queue-directory", "lifecycle_owner": "Human", "destination": "planning:workbench:pipeline:work_class=Preliminary%20candidate", "resolution_rule": "Record leaves preliminary intake through its governed lifecycle.", "allowed_consumers": ["overview", "workbench"]},
+      {"id": "formal_candidates", "label": "Formal candidates", "meaning": "Open formal candidate dossiers.", "inclusion_predicate": "Formal candidate dossier membership.", "authoritative_source": "GitHub Issues and Project candidate projection", "producer": "project-console-queue-directory", "lifecycle_owner": "Elim", "destination": "planning:workbench:pipeline:work_class=Formal%20candidate", "resolution_rule": "Candidate leaves the formal-candidate lifecycle.", "allowed_consumers": ["overview", "workbench"]},
+      {"id": "development", "label": "Development", "meaning": "Active Pipeline artifacts in Development.", "inclusion_predicate": "Pipeline mode active and Status Development.", "authoritative_source": "Typed Pipeline projection", "producer": "project-console-queue-directory", "lifecycle_owner": "Recorded artifact owner", "destination": "planning:workbench:pipeline:status=Development", "resolution_rule": "Artifact leaves Development Status or active Pipeline membership.", "allowed_consumers": ["overview", "workbench"]},
+      {"id": "research", "label": "Research", "meaning": "Active Pipeline artifacts in Research.", "inclusion_predicate": "Pipeline mode active and Status Research.", "authoritative_source": "Typed Pipeline projection", "producer": "project-console-queue-directory", "lifecycle_owner": "Recorded artifact owner", "destination": "planning:workbench:pipeline:status=Research", "resolution_rule": "Artifact leaves Research Status or active Pipeline membership.", "allowed_consumers": ["overview", "workbench"]},
+      {"id": "audits", "label": "Audits", "meaning": "Active Pipeline artifacts in an audit Status.", "inclusion_predicate": "Pipeline mode active and Status Audit needed or Audit in progress.", "authoritative_source": "Typed Pipeline projection", "producer": "project-console-queue-directory", "lifecycle_owner": "Recorded artifact owner", "destination": "planning:workbench:pipeline:status=Audit", "resolution_rule": "Artifact leaves an audit Status or active Pipeline membership.", "allowed_consumers": ["overview", "workbench"]},
+      {"id": "external_review", "label": "External review", "meaning": "Artifacts in External review.", "inclusion_predicate": "Exact Status External review.", "authoritative_source": "Typed Pipeline projection", "producer": "project-console-queue-directory", "lifecycle_owner": "Human", "destination": "planning:workbench:pipeline:scope=review-ready-plus", "resolution_rule": "Artifact leaves External review Status.", "allowed_consumers": ["overview", "workbench"]},
+      {"id": "pending_sources", "label": "Pending sources", "meaning": "Sources awaiting verification or placement.", "inclusion_predicate": "Pending source catalog membership.", "authoritative_source": "Pending source catalog", "producer": "project-console-queue-directory", "lifecycle_owner": "Elim", "destination": "planning:sources:status=pending", "resolution_rule": "Source is accepted, rejected, or otherwise leaves the pending catalog.", "allowed_consumers": ["overview", "sources"]},
+      {"id": "repository_reviews", "label": "Repository reviews", "meaning": "Exact-head Source Monitor recommendations.", "inclusion_predicate": "Typed recommendation for an exact pull-request head.", "authoritative_source": "Source Monitor recommendation projection", "producer": "project-console-queue-directory", "lifecycle_owner": "Recorded action owner", "destination": "automation:logs:sources", "resolution_rule": "Recommendation is disposed or superseded by a new exact-head review.", "allowed_consumers": ["overview", "operations"]},
+      {"id": "human_actions", "label": "Human action items", "meaning": "Unresolved action records with exact human attention ownership.", "inclusion_predicate": "Shared Action snapshot attention_class equals human.", "authoritative_source": "Typed Action snapshot", "producer": "project-console-queue-directory", "lifecycle_owner": "Human", "destination": "actions:my-items", "resolution_rule": "Owning authority resolves or reassigns the underlying record.", "allowed_consumers": ["overview", "action_items"]},
+      {"id": "operational_incidents", "label": "Operational incidents", "meaning": "Unresolved Operational Incidents.", "inclusion_predicate": "Incident lifecycle is Open, Investigating, Mitigated, or Monitoring.", "authoritative_source": "Operational Incidents projection", "producer": "project-console-queue-directory", "lifecycle_owner": "Recorded incident owner", "destination": "automation:logs:incidents", "resolution_rule": "Incident authority records exact recovery evidence and Resolved state.", "allowed_consumers": ["overview", "operations", "logs"]}
+    ],
+    "workflow_view": [
+      {"id": "workbench_active_pipeline", "label": "Active Pipeline", "meaning": "Active lifecycle-eligible Workbench items below the default Review Ready scope.", "inclusion_predicate": "Pipeline mode active and selected scope predicate.", "authoritative_source": "Typed Pipeline projection", "producer": "project-console-pipeline-projection", "lifecycle_owner": "Planning", "destination": "planning:workbench:pipeline", "resolution_rule": "View membership changes with the authoritative lifecycle predicate.", "allowed_consumers": ["workbench", "overview"]},
+      {"id": "workbench_blocked_deferred", "label": "Blocked & deferred", "meaning": "Artifacts with exact Blocked or Deferred Status.", "inclusion_predicate": "Status equals Blocked or Deferred.", "authoritative_source": "GitHub Project Status field", "producer": "project-console-pipeline-projection", "lifecycle_owner": "Planning", "destination": "planning:workbench:pipeline:mode=hold", "resolution_rule": "Artifact leaves Blocked or Deferred Status.", "allowed_consumers": ["workbench", "progress"]}
+    ],
     "console_development_category": [
       {
         "id": "interface_information_architecture",

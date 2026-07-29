@@ -19,7 +19,6 @@ from scripts.audit_project_consistency import (
     external_review_action_missing_components,
     expected_project_development_level,
     expected_project_workflow_status,
-    finding_attention_owner,
     github_repository_targets,
     is_recognized_issue_page_status,
     is_recognized_project_status,
@@ -33,6 +32,7 @@ from scripts.audit_project_consistency import (
     project_lifecycle_findings,
     project_status_reason_missing_components,
     project_status_reason_is_present,
+    report,
     research_files,
     requires_workflow_hold_reason,
     source_citation_corpus,
@@ -1366,12 +1366,6 @@ class GitHubIssueLinkTests(unittest.TestCase):
                     ),
                     findings,
                 )
-                missing_message = next(
-                    message
-                    for _, message in findings
-                    if "lacks an explanation or reason" in message
-                )
-                self.assertEqual(finding_attention_owner(missing_message), "human")
 
         self.assertTrue(
             project_status_reason_is_present(
@@ -1470,29 +1464,29 @@ class GitHubIssueLinkTests(unittest.TestCase):
             incomplete_block,
         )
 
-    def test_integrity_findings_route_only_reserved_decisions_to_human_attention(self):
-        self.assertEqual(
-            finding_attention_owner("APPT-001 lacks a machine-readable foundation decision"),
-            "agent",
-        )
-        self.assertEqual(
-            finding_attention_owner("issue page X lacks nonblank workflow_hold_reason metadata"),
-            "human",
-        )
-        self.assertEqual(
-            finding_attention_owner("issue X lacks an explanation or reason for its hold"),
-            "human",
-        )
-        self.assertEqual(
-            finding_attention_owner("research record contains generic source-development propositions"),
-            "agent",
-        )
-        self.assertEqual(
-            finding_attention_owner(
-                "Project Status for APPT-001 differs; repository metadata implies Human decision needed"
-            ),
-            "agent",
-        )
+    def test_integrity_finding_identity_does_not_depend_on_wording(self):
+        failures: list[str] = []
+        warnings: list[str] = []
+        prior_definitions = dict(consistency.INTEGRITY_CHECK_DEFINITIONS)
+        consistency.STRUCTURED_FINDINGS.clear()
+
+        def registered_wording_check(message: str) -> None:
+            path = ROOT / "framework" / "FRAMEWORK.md"
+            report("WARNING", message, failures, warnings)
+
+        try:
+            consistency.INTEGRITY_CHECK_DEFINITIONS[
+                "registered_wording_check"
+            ] = "Test check"
+            registered_wording_check("First presentation wording")
+            first_ids = set(consistency.STRUCTURED_FINDINGS)
+            consistency.STRUCTURED_FINDINGS.clear()
+            registered_wording_check("Completely different presentation wording")
+            self.assertEqual(set(consistency.STRUCTURED_FINDINGS), first_ids)
+        finally:
+            consistency.INTEGRITY_CHECK_DEFINITIONS.clear()
+            consistency.INTEGRITY_CHECK_DEFINITIONS.update(prior_definitions)
+            consistency.STRUCTURED_FINDINGS.clear()
 
     def test_monitoring_wrapper_requires_all_four_governance_components(self):
         generic_wrapper = (

@@ -7433,12 +7433,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 752,
+      "word_count": 762,
       "estimated_pages": 2,
       "table_count": 1,
       "max_table_columns": 5,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 43
+      "longest_unbroken_token": 49
     },
     {
       "title": "ARRP Audit Execution and Closeout",
@@ -7616,7 +7616,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/automation-arrp console development log",
       "internal_links": [],
-      "word_count": 936,
+      "word_count": 1091,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7971,8 +7971,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 5999,
-      "estimated_pages": 10,
+      "word_count": 6678,
+      "estimated_pages": 11,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -9004,6 +9004,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 23
     },
     {
+      "title": "Console consistency remedy closure matrix",
+      "path": "framework/records/audits/console-consistency-remedy-2026-07-28.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal interface validation record.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/audits/console-consistency-remedy-2026-07-28.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/records/audits-console consistency remedy closure matrix",
+      "internal_links": [],
+      "word_count": 867,
+      "estimated_pages": 2,
+      "table_count": 1,
+      "max_table_columns": 5,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 43
+    },
+    {
       "title": "Content Maturity and Development Gates",
       "path": "framework/standards/content/maturity-and-gates.md",
       "section": "Framework and process",
@@ -9111,12 +9134,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 102,
+      "word_count": 97,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 51
+      "longest_unbroken_token": 18
     },
     {
       "title": "Current Task Handoff",
@@ -9134,12 +9157,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 615,
-      "estimated_pages": 1,
+      "word_count": 805,
+      "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 21
+      "longest_unbroken_token": 43
     },
     {
       "title": "Elim Agent Runbook",
@@ -10021,8 +10044,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/standards/interfaces-project interface standard",
       "internal_links": [],
-      "word_count": 622,
-      "estimated_pages": 1,
+      "word_count": 923,
+      "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -10284,8 +10307,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/status-source checker bot current report",
       "internal_links": [],
-      "word_count": 6722,
-      "estimated_pages": 11,
+      "word_count": 6441,
+      "estimated_pages": 10,
       "table_count": 2,
       "max_table_columns": 4,
       "heading_issue_count": 0,
@@ -10330,7 +10353,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/sources-source monitor log",
       "internal_links": [],
-      "word_count": 2760,
+      "word_count": 2763,
       "estimated_pages": 5,
       "table_count": 3,
       "max_table_columns": 6,
@@ -12242,8 +12265,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 622,
-      "estimated_pages": 1,
+      "word_count": 695,
+      "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -12278,7 +12301,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1403,
+      "word_count": 1537,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -12312,7 +12335,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1539,
+      "word_count": 1679,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -15097,7 +15120,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "disposition_counts": {
       "included": 138,
-      "excluded": 226,
+      "excluded": 227,
       "unclassified": 0,
       "conflict": 0
     },
@@ -15116,6 +15139,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Internal interface configuration.": 2,
       "Internal interface-governance documentation.": 3,
       "Internal operational log.": 3,
+      "Internal interface validation record.": 1,
       "Internal operational report.": 1,
       "Internal record-directory guide.": 1,
       "Online repository-governance summary.": 1,
@@ -15335,7 +15359,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "label": "Assembly structurally valid",
         "disposition_counts": {
           "included": 138,
-          "excluded": 226,
+          "excluded": 227,
           "unclassified": 0,
           "conflict": 0
         }
@@ -18166,16 +18190,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "integrity_validation": {
         "available": true,
-        "result": "clean",
+        "result": "findings",
         "counts": {
           "errors": 0,
-          "warnings": 0,
-          "findings": 0,
+          "warnings": 1,
+          "findings": 1,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "a47082d0a684de38626c68fec325337765f35b9a",
-        "generated_at": "2026-07-28T18:43:46+00:00"
+        "revision": "3ee638f796c4f266261f18d13344d80ef5669a8f",
+        "generated_at": "2026-07-29T02:48:49+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -19931,6 +19955,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-513c97bda0b2ea432bf2"
+    "publication.js": "project-console-b149f31e10ee98a223d9"
   }
 });

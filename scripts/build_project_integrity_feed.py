@@ -117,21 +117,35 @@ def existing_feed_file(path: Path | None) -> dict[str, Any]:
         payload = json.loads(text)
     except json.JSONDecodeError:
         marker = "Object.assign(window.ARRP_HORIZON_REVIEW_DATA,"
-        if marker not in text:
+        private_marker = "window.ARRP_PRIVATE_OPERATIONS="
+        if marker in text:
+            serialized = text.split(marker, 1)[1].strip()
+            if not serialized.endswith(");"):
+                raise RuntimeError("Existing Console integrity domain is malformed.")
+            serialized = serialized[:-2]
+            container_key = "integrity"
+        elif private_marker in text:
+            serialized = text.split(private_marker, 1)[1].strip()
+            if not serialized.endswith(";"):
+                raise RuntimeError(
+                    "Existing private operations projection is malformed."
+                )
+            serialized = serialized[:-1]
+            container_key = "integrity"
+        else:
             raise RuntimeError(
                 "Existing local integrity feed is neither JSON nor a generated "
                 "Console domain."
             )
-        serialized = text.split(marker, 1)[1].strip()
-        if not serialized.endswith(");"):
-            raise RuntimeError("Existing Console integrity domain is malformed.")
         try:
-            domain = json.loads(serialized[:-2])
+            domain = json.loads(serialized)
         except json.JSONDecodeError as exc:
             raise RuntimeError(
                 "Existing Console integrity domain contains invalid JSON."
             ) from exc
-        payload = domain.get("integrity") if isinstance(domain, dict) else None
+        payload = (
+            domain.get(container_key) if isinstance(domain, dict) else None
+        )
     if not isinstance(payload, dict):
         raise RuntimeError("Existing local integrity feed is not an object.")
     return payload

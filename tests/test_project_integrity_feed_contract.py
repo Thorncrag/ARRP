@@ -122,6 +122,28 @@ class ProjectIntegrityFeedContractTests(unittest.TestCase):
                 retained,
             )
 
+    def test_private_operations_projection_retains_owner_local_history(self):
+        retained = {
+            "history": [
+                {
+                    "generated_at": "2026-07-24T12:00:00Z",
+                    "revision": "prior",
+                    "result": "findings",
+                    "counts": {"findings": 2},
+                }
+            ]
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "private-operations.js"
+            path.write_text(
+                "/* Private local projection; never commit or publish. */\n"
+                "window.ARRP_PRIVATE_OPERATIONS="
+                + json.dumps({"integrity": retained})
+                + ";\n",
+                encoding="utf-8",
+            )
+            self.assertEqual(MODULE.existing_feed_file(path), retained)
+
 
 if __name__ == "__main__":
     unittest.main()

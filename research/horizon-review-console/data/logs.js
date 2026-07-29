@@ -810,7 +810,316 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "details_html": "<ul><li><strong>Original concern:<\/strong> Immigration-enforcement vehicle stops may lack sufficiently durable and measurable safeguards for particularized suspicion, target verification, documentation, signaling, de-escalation, and public reporting.<\/li><li><strong>Decision:<\/strong> Retained as a deferred proposed candidate; static HOR ID tracked through GitHub issue <a href=\"https://github.com/Thorncrag/ARRP/issues/311\" target=\"_blank\" rel=\"noopener noreferrer\">#311<\/a>. This disposition does not conclude that the Biddeford stop or shooting was unlawful or admit an area-specific proposal.<\/li><li><strong>Integrated into:<\/strong> Provisionally <a href=\"../../../areas/DOM/README.md\" target=\"_blank\" rel=\"noopener noreferrer\">A-14<\/a>; boundary review with <a href=\"../../../areas/DOM/issues/DOM-005.md\" target=\"_blank\" rel=\"noopener noreferrer\">DOM-005<\/a>, its <a href=\"https://github.com/Thorncrag/ARRP/issues/139\" target=\"_blank\" rel=\"noopener noreferrer\">proposal issue carrying the monitoring designation<\/a>, and immigration due-process and federal-law-enforcement records.<\/li><li><strong>Rationale:<\/strong> <a href=\"https://www.govinfo.gov/content/pkg/USREPORTS-422/pdf/USREPORTS-422-873.pdf\" target=\"_blank\" rel=\"noopener noreferrer\"><em>United States v. Brignoni-Ponce<\/em><\/a> and <a href=\"https://www.ecfr.gov/current/title-8/part-287/section-287.8\" target=\"_blank\" rel=\"noopener noreferrer\">8 C.F.R. § 287.8<\/a> supply a reasonable-suspicion baseline. A <a href=\"https://www.ice.gov/doclib/legalNotice/220527castanonSettlement_attA.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">2022 ICE settlement policy<\/a> required specific supporting facts and documentation, but its current nationwide status and implementation require verification. The unresolved question is whether the safeguards are current, durable, operationalized, reviewable, and measurable. The July 2026 Biddeford and Houston shootings involved vehicle stops of people reportedly not targeted by the underlying operations, but the public record does not yet establish the complete pre-stop facts or a sufficiently broad pattern to justify an independent remedy.<\/li><li><strong>Follow-up:<\/strong> Monitor official Maine investigative findings, records, litigation, and policy changes. Source-develop other DHS immigration-enforcement vehicle stops involving mistaken or non-target occupants, disputed authority, collision, injury, or force; determine what stop-level data DHS collects and publishes; compare state and local reporting systems; then recommend admission, merger, or retirement.<\/li><\/ul>",
           "search_text": "HOR-045 HOR-045 2026-07-19 Deferred or monitoring Provisionally A-14; boundary review with DOM-005, its proposal issue carrying the monitoring designation, and immigration due-process and federal-law-enforcement records. HOR-045 2026-07-19 Deferred or monitoring Provisionally A-14; boundary review with DOM-005, its proposal issue carrying the monitoring designation, and immigration due-process and federal-law-enforcement records."
         }
-      ]
+      ],
+      "availability": "current",
+      "complete": true,
+      "schema_errors": [],
+      "current_through": "2026-07-21",
+      "producer": "horizon-log-projection",
+      "reason": ""
+    },
+    {
+      "id": "elim",
+      "title": "Elim Run Log",
+      "description": "Complete per-run operational reports for ARRP's scheduled LLM agent.",
+      "source_url": null,
+      "columns": [
+        {
+          "key": "date",
+          "label": "Started"
+        },
+        {
+          "key": "outcome",
+          "label": "Outcome"
+        },
+        {
+          "key": "trigger",
+          "label": "Trigger"
+        },
+        {
+          "key": "summary",
+          "label": "Work summary"
+        },
+        {
+          "key": "usage",
+          "label": "Usage"
+        },
+        {
+          "key": "next",
+          "label": "Exact next action"
+        }
+      ],
+      "group_options": [
+        {
+          "key": "outcome",
+          "label": "Outcome"
+        },
+        {
+          "key": "trigger",
+          "label": "Trigger"
+        }
+      ],
+      "default_sort": {
+        "key": "date",
+        "direction": "desc"
+      },
+      "entries": [],
+      "entry_count": null,
+      "availability": "unavailable",
+      "complete": false,
+      "schema_errors": [],
+      "current_through": null,
+      "producer": "elim-log-projection",
+      "reason": "Owner-only log data is unavailable in the public Console mode."
+    },
+    {
+      "id": "agents",
+      "title": "Agent Audit Log",
+      "description": "Autonomous, batched, and scheduled agent-run provenance and rollback records.",
+      "source_url": null,
+      "columns": [
+        {
+          "key": "date",
+          "label": "Date and time"
+        },
+        {
+          "key": "record",
+          "label": "Issue or task"
+        },
+        {
+          "key": "task",
+          "label": "Task type"
+        },
+        {
+          "key": "agent",
+          "label": "Agent"
+        },
+        {
+          "key": "run",
+          "label": "Run ID"
+        },
+        {
+          "key": "outcome",
+          "label": "Outcome"
+        }
+      ],
+      "group_options": [
+        {
+          "key": "task",
+          "label": "Task type"
+        },
+        {
+          "key": "record",
+          "label": "Issue or task"
+        },
+        {
+          "key": "agent",
+          "label": "Agent"
+        },
+        {
+          "key": "run",
+          "label": "Run ID"
+        },
+        {
+          "key": "outcome",
+          "label": "Outcome"
+        }
+      ],
+      "default_sort": {
+        "key": "date",
+        "direction": "desc"
+      },
+      "entries": [],
+      "entry_count": null,
+      "availability": "unavailable",
+      "complete": false,
+      "schema_errors": [],
+      "current_through": null,
+      "producer": "agents-log-projection",
+      "reason": "Owner-only log data is unavailable in the public Console mode."
+    },
+    {
+      "id": "source-monitor",
+      "title": "Source Monitor Log",
+      "description": "Material watcher changes and exact-head repository disposition recommendations.",
+      "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/sources/source-monitor-log.md",
+      "columns": [
+        {
+          "key": "date",
+          "label": "Date and time"
+        },
+        {
+          "key": "watcher",
+          "label": "Watcher"
+        },
+        {
+          "key": "result",
+          "label": "Result"
+        },
+        {
+          "key": "affected",
+          "label": "Affected records"
+        },
+        {
+          "key": "activity",
+          "label": "Activity or recommendation"
+        }
+      ],
+      "group_options": [
+        {
+          "key": "watcher",
+          "label": "Watcher"
+        },
+        {
+          "key": "result",
+          "label": "Result"
+        }
+      ],
+      "default_sort": {
+        "key": "date",
+        "direction": "desc"
+      },
+      "entries": [
+        {
+          "id": "source-monitor-001",
+          "values": {
+            "date": "2026-07-21T19:25:58+00:00",
+            "watcher": "Case monitor bot",
+            "result": "changes_detected",
+            "affected": "SRC-2009",
+            "activity": "CASE-20260721192558-9736B480"
+          },
+          "values_html": {
+            "date": "2026-07-21T19:25:58+00:00",
+            "watcher": "Case monitor bot",
+            "result": "<code>changes_detected<\/code>",
+            "affected": "SRC-2009",
+            "activity": "<code>CASE-20260721192558-9736B480<\/code>"
+          },
+          "details_html": "<ul><li>Activity code: <code>CASE-20260721192558-9736B480<\/code><\/li><li>Originating workflow run: <a href=\"https://github.com/Thorncrag/ARRP/actions/runs/29861467767\" target=\"_blank\" rel=\"noopener noreferrer\">29861467767<\/a><\/li><li>Result: <code>changes_detected<\/code><\/li><li>Affected source IDs: SRC-2009<\/li><li>Tracker changes: 1 added; 0 changed; 1 removed<\/li><li>Case baselines updated: 1<\/li><li>Coverage: 493 mapped monitored CourtListener rows; 7 monitored CourtListener rows outside tracker coverage<\/li><li>Targeted CourtListener checks: 0 queried; 0 failed; 1 unverified<\/li><li>Interpretation: source-change signal only; no legal significance or project disposition determined.<\/li><\/ul>\n<div class=\"markdown-table-wrap\"><table><thead><tr><th>Change<\/th><th>Case<\/th><th>Docket<\/th><th>Previous observation<\/th><th>Current observation<\/th><th>Catalog match<\/th><\/tr><\/thead><tbody><tr><td>Added<\/td><td>State of California v\\. Zeldin \\(N\\.D\\. Cal\\.\\)<\/td><td>4:26\\-cv\\-03500<\/td><td>Not present<\/td><td>Case Pending; 2026\\-04\\-24<\/td><td>SRC\\-2009<\/td><\/tr><tr><td>Removed<\/td><td>State of California v\\. Zeldin \\(N\\.D\\. Cal\\.\\)<\/td><td>3:26\\-cv\\-03500<\/td><td>Case Pending; 2026\\-04\\-24<\/td><td>Not present<\/td><td>SRC\\-2009<\/td><\/tr><\/tbody><\/table><\/div>",
+          "search_text": "source-monitor-001 2026-07-21T19:25:58+00:00 Case monitor bot changes_detected SRC-2009 CASE-20260721192558-9736B480 2026-07-21T19:25:58+00:00 Case monitor bot changes_detected SRC-2009 CASE-20260721192558-9736B480"
+        },
+        {
+          "id": "source-monitor-002",
+          "values": {
+            "date": "2026-07-22T06:42:26+00:00",
+            "watcher": "Case monitor bot",
+            "result": "changes_detected",
+            "affected": "SRC-1952, SRC-2017, SRC-2038, SRC-2039, SRC-2235",
+            "activity": "CASE-20260722064226-33462621"
+          },
+          "values_html": {
+            "date": "2026-07-22T06:42:26+00:00",
+            "watcher": "Case monitor bot",
+            "result": "<code>changes_detected<\/code>",
+            "affected": "SRC-1952, SRC-2017, SRC-2038, SRC-2039, SRC-2235",
+            "activity": "<code>CASE-20260722064226-33462621<\/code>"
+          },
+          "details_html": "<ul><li>Activity code: <code>CASE-20260722064226-33462621<\/code><\/li><li>Originating workflow run: <a href=\"https://github.com/Thorncrag/ARRP/actions/runs/29897609217\" target=\"_blank\" rel=\"noopener noreferrer\">29897609217<\/a><\/li><li>Result: <code>changes_detected<\/code><\/li><li>Affected source IDs: SRC-1952, SRC-2017, SRC-2038, SRC-2039, SRC-2235<\/li><li>Tracker changes: 0 added; 5 changed; 0 removed<\/li><li>Case baselines updated: 5<\/li><li>Coverage: 493 mapped monitored CourtListener rows; 7 monitored CourtListener rows outside tracker coverage<\/li><li>Targeted CourtListener checks: 0 queried; 0 failed; 5 unverified<\/li><li>Interpretation: source-change signal only; no legal significance or project disposition determined.<\/li><\/ul>\n<div class=\"markdown-table-wrap\"><table><thead><tr><th>Change<\/th><th>Case<\/th><th>Docket<\/th><th>Previous observation<\/th><th>Current observation<\/th><th>Catalog match<\/th><\/tr><\/thead><tbody><tr><td>Changed<\/td><td>Mahdawi v\\. Trump \\(D\\. Vt\\.\\)<\/td><td>2:25\\-cv\\-00389<\/td><td>Government Action Blocked Pending Appeal; 2025\\-09\\-29<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-07\\-21<\/td><td>SRC\\-2235<\/td><\/tr><tr><td>Changed<\/td><td>Doe v\\. Noem \\(S\\.D\\.N\\.Y\\.\\)<\/td><td>1:26\\-cv\\-02103<\/td><td>Government Action Temporarily Blocked; 2026\\-05\\-01<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-07\\-20<\/td><td>SRC\\-2038<\/td><\/tr><tr><td>Changed<\/td><td>Doe v\\. Noem \\(S\\.D\\.N\\.Y\\.\\)<\/td><td>1:26\\-cv\\-02280<\/td><td>Government Action Temporarily Blocked; 2026\\-05\\-01<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-07\\-20<\/td><td>SRC\\-2039<\/td><\/tr><tr><td>Changed<\/td><td>National Parks Conservation Association v\\. Burgum \\(D\\.D\\.C\\.\\)<\/td><td>1:26\\-cv\\-02103<\/td><td>Case Pending; 2026\\-06\\-15<\/td><td>Case Pending; 2026\\-07\\-20<\/td><td>SRC\\-2017<\/td><\/tr><tr><td>Changed<\/td><td>Venezuelan Association of Massachusetts v\\. United States Citizenship and Immigration Services \\(D\\. Mass\\.\\)<\/td><td>1:26\\-cv\\-13038<\/td><td>Case Pending; 2026\\-07\\-01<\/td><td>Case Pending; 2026\\-07\\-21<\/td><td>SRC\\-1952<\/td><\/tr><\/tbody><\/table><\/div>",
+          "search_text": "source-monitor-002 2026-07-22T06:42:26+00:00 Case monitor bot changes_detected SRC-1952, SRC-2017, SRC-2038, SRC-2039, SRC-2235 CASE-20260722064226-33462621 2026-07-22T06:42:26+00:00 Case monitor bot changes_detected SRC-1952, SRC-2017, SRC-2038, SRC-2039, SRC-2235 CASE-20260722064226-33462621"
+        },
+        {
+          "id": "source-monitor-003",
+          "values": {
+            "date": "2026-07-23T17:06:07+00:00",
+            "watcher": "Case monitor bot",
+            "result": "changes_detected",
+            "affected": "None",
+            "activity": "CASE-20260723170607-BF336059"
+          },
+          "values_html": {
+            "date": "2026-07-23T17:06:07+00:00",
+            "watcher": "Case monitor bot",
+            "result": "<code>changes_detected<\/code>",
+            "affected": "None",
+            "activity": "<code>CASE-20260723170607-BF336059<\/code>"
+          },
+          "details_html": "<ul><li>Activity code: <code>CASE-20260723170607-BF336059<\/code><\/li><li>Originating workflow run: Local or manually invoked run<\/li><li>Result: <code>changes_detected<\/code><\/li><li>Affected source IDs: None<\/li><li>Tracker changes: 0 added; 0 changed; 0 removed<\/li><li>Case baselines updated: 0<\/li><li>Coverage: 0 mapped monitored CourtListener rows; 0 monitored CourtListener rows outside tracker coverage<\/li><li>Targeted CourtListener checks: 0 queried; 0 failed; 0 unverified<\/li><li>Source-development modules changed: 1<\/li><li>Interpretation: source-change signal only; no legal significance or project disposition determined.<\/li><li><code>judicial-review-disposition-signals<\/code> → <code>research/horizon-source-records/HOR-035-source-development.md<\/code>: 213 current unreviewed leads; 213 added; 0 removed.<\/li><li>Review handoff: each disposition token binds the stable lead ID to the observed fingerprint so later material changes re-queue the case.<\/li><\/ul>",
+          "search_text": "source-monitor-003 2026-07-23T17:06:07+00:00 Case monitor bot changes_detected None CASE-20260723170607-BF336059 2026-07-23T17:06:07+00:00 Case monitor bot changes_detected None CASE-20260723170607-BF336059"
+        },
+        {
+          "id": "source-monitor-004",
+          "values": {
+            "date": "2026-07-25T22:17:39Z",
+            "watcher": "Repository review recommendation SMR-20260725-PR380",
+            "result": "recommendation_recorded",
+            "affected": "43 records in the bound event: HOR-035 and 42 source records, including SRC-2238.",
+            "activity": "SMR-20260725-PR380"
+          },
+          "values_html": {
+            "date": "2026-07-25T22:17:39Z",
+            "watcher": "Repository review recommendation SMR-20260725-PR380",
+            "result": "<code>recommendation_recorded<\/code>",
+            "affected": "43 records in the bound event: HOR-035 and 42 source records, including SRC-2238.",
+            "activity": "<code>SMR-20260725-PR380<\/code>"
+          },
+          "details_html": "<ul><li>Recommendation ID: <code>SMR-20260725-PR380<\/code><\/li><li>Recorded at: <code>2026-07-25T22:17:39Z<\/code><\/li><li>Reviewer: Interactive Codex<\/li><li>Pull request number: <code>380<\/code><\/li><li>Pull request URL: <code>https://github.com/Thorncrag/ARRP/pull/380<\/code><\/li><li>Head revision: <code>ba3dc636710633c25c1f4776cc67059e96d02478<\/code><\/li><li>Proposal event ID: <code>SDE-93345EDC1D1AC55F8CFA3E44<\/code><\/li><li>Recommended disposition: Close without merge; after the complete-delta correction reaches <code>main<\/code>, rerun Case Monitor from current <code>main<\/code> and review the regenerated, fully itemized proposal. Separately route the July 23 Suri appellate decision to RIGHTS-002 and assess it as a possible control example for HOR-035.<\/li><li>Rationale: The pull-request narrative reports one changed source, SRC-2238, while the exact pending head changes 42 source records plus the HOR-035 generated lead set. The July 23 Suri opinion preserves habeas jurisdiction and identifies disagreement among circuits; the watcher&#x27;s settlement-token match does not describe that holding. The present narrative therefore cannot support informed acceptance of the complete branch.<\/li><li>Affected records: 43 records in the bound event: HOR-035 and 42 source records, including SRC-2238.<\/li><li>Confidence and uncertainty: High confidence that the pull-request narrative materially underreports its exact-head delta and that Suri requires substantive review; the final project characterization and any source integration remain subject to ordinary issue-development review.<\/li><li>Action owner: Human<\/li><li>Human question: Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current <code>main<\/code>?<\/li><li>Reassessment trigger: Any change to the pull-request head invalidates this recommendation and returns the complete proposal to Elim review.<\/li><li>Primary record checked: <a href=\"https://www.ca4.uscourts.gov/opinions/251560.P.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">Suri v. Trump, No. 25-1560 (4th Cir. July 23, 2026)<\/a>.<\/li><li>Result: <code>recommendation_recorded<\/code><\/li><\/ul>",
+          "search_text": "source-monitor-004 2026-07-25T22:17:39Z Repository review recommendation SMR-20260725-PR380 recommendation_recorded 43 records in the bound event: HOR-035 and 42 source records, including SRC-2238. SMR-20260725-PR380 2026-07-25T22:17:39Z Repository review recommendation SMR-20260725-PR380 recommendation_recorded 43 records in the bound event: HOR-035 and 42 source records, including SRC-2238. SMR-20260725-PR380"
+        },
+        {
+          "id": "source-monitor-005",
+          "values": {
+            "date": "2026-07-25T22:17:40Z",
+            "watcher": "Repository review recommendation SMR-20260725-PR381",
+            "result": "recommendation_recorded",
+            "affected": "10 directives in the bound event: 2019-05370, 2019-16383, 2026-14990, 2026-14991, 2026-14992, 2026-14997, 2026-14998, 2026-14999, 2026-15003, and 2026-15024.",
+            "activity": "SMR-20260725-PR381"
+          },
+          "values_html": {
+            "date": "2026-07-25T22:17:40Z",
+            "watcher": "Repository review recommendation SMR-20260725-PR381",
+            "result": "<code>recommendation_recorded<\/code>",
+            "affected": "10 directives in the bound event: 2019-05370, 2019-16383, 2026-14990, 2026-14991, 2026-14992, 2026-14997, 2026-14998, 2026-14999, 2026-15003, and 2026-15024.",
+            "activity": "<code>SMR-20260725-PR381<\/code>"
+          },
+          "details_html": "<ul><li>Recommendation ID: <code>SMR-20260725-PR381<\/code><\/li><li>Recorded at: <code>2026-07-25T22:17:40Z<\/code><\/li><li>Reviewer: Interactive Codex<\/li><li>Pull request number: <code>381<\/code><\/li><li>Pull request URL: <code>https://github.com/Thorncrag/ARRP/pull/381<\/code><\/li><li>Head revision: <code>71525e1d2bc27c31a5c1b455243259b1b541adff<\/code><\/li><li>Proposal event ID: <code>SDE-578F200E8E9344ADF613CA76<\/code><\/li><li>Recommended disposition: Close without merge; after the complete-delta correction reaches <code>main<\/code>, rerun the Presidential Directives Bot and screen the regenerated full proposal. Route the four trade proclamations to HOR-040 source development, route Executive Order 14415 to FACT-009 source development, and record no separate project action for the two ceremonial proclamations, the Mali continuation, or the two relationship-only metadata updates unless later evidence changes that assessment.<\/li><li>Rationale: The pull-request narrative says <code>New: 0<\/code> and <code>Changed: 2<\/code>, while the exact pending head contains eight new directives and two changed relationship fields. Four new proclamations invoke tariff authorities already owned by HOR-040, and Executive Order 14415 repeatedly uses the disputed Department of War terminology already owned by FACT-009. The other records are ceremonial or continuation metadata on the presently reviewed evidence. The current narrative omits most of the actual acceptance boundary.<\/li><li>Affected records: 10 directives in the bound event: 2019-05370, 2019-16383, 2026-14990, 2026-14991, 2026-14992, 2026-14997, 2026-14998, 2026-14999, 2026-15003, and 2026-15024.<\/li><li>Confidence and uncertainty: High confidence in the incomplete-delta diagnosis and the existing HOR-040 and FACT-009 routes; ordinary source-development review must still determine what propositions, if any, warrant integration.<\/li><li>Action owner: Human<\/li><li>Human question: Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current <code>main<\/code>?<\/li><li>Reassessment trigger: Any change to the pull-request head invalidates this recommendation and returns the complete proposal to Elim review.<\/li><li>Primary records checked: <a href=\"https://www.federalregister.gov/d/2026-14990\" target=\"_blank\" rel=\"noopener noreferrer\">Proclamation 11045<\/a>, <a href=\"https://www.federalregister.gov/d/2026-14991\" target=\"_blank\" rel=\"noopener noreferrer\">Proclamation 11046<\/a>, <a href=\"https://www.federalregister.gov/d/2026-14997\" target=\"_blank\" rel=\"noopener noreferrer\">Proclamation 11048<\/a>, <a href=\"https://www.federalregister.gov/d/2026-15003\" target=\"_blank\" rel=\"noopener noreferrer\">Executive Order 14415<\/a>, and <a href=\"https://www.federalregister.gov/d/2026-15024\" target=\"_blank\" rel=\"noopener noreferrer\">Mali emergency continuation<\/a>.<\/li><li>Result: <code>recommendation_recorded<\/code><\/li><\/ul>",
+          "search_text": "source-monitor-005 2026-07-25T22:17:40Z Repository review recommendation SMR-20260725-PR381 recommendation_recorded 10 directives in the bound event: 2019-05370, 2019-16383, 2026-14990, 2026-14991, 2026-14992, 2026-14997, 2026-14998, 2026-14999, 2026-15003, and 2026-15024. SMR-20260725-PR381 2026-07-25T22:17:40Z Repository review recommendation SMR-20260725-PR381 recommendation_recorded 10 directives in the bound event: 2019-05370, 2019-16383, 2026-14990, 2026-14991, 2026-14992, 2026-14997, 2026-14998, 2026-14999, 2026-15003, and 2026-15024. SMR-20260725-PR381"
+        },
+        {
+          "id": "source-monitor-006",
+          "values": {
+            "date": "2026-07-28T02:07:41+00:00",
+            "watcher": "Case monitor bot",
+            "result": "changes_detected",
+            "affected": "SRC-0945, SRC-0965, SRC-0982, SRC-1004, SRC-1052, SRC-1056, SRC-1093, SRC-1929, SRC-1930, SRC-1932, SRC-1933, SRC-1934, SRC-1940, SRC-1941, SRC-1942, SRC-1943, SRC-1946, SRC-1952, SRC-1957, SRC-1973, SRC-1979, SRC-1982, SRC-2042, SRC-2080, SRC-2081, SRC-2105, SRC-2110, SRC-2136, SRC-2149, SRC-2183, SRC-2190, SRC-2192, SRC-2216, SRC-2221, SRC-2235, SRC-2238, SRC-2261, SRC-2351, SRC-2591",
+            "activity": "CASE-20260728020741-97DEA4A0"
+          },
+          "values_html": {
+            "date": "2026-07-28T02:07:41+00:00",
+            "watcher": "Case monitor bot",
+            "result": "<code>changes_detected<\/code>",
+            "affected": "SRC-0945, SRC-0965, SRC-0982, SRC-1004, SRC-1052, SRC-1056, SRC-1093, SRC-1929, SRC-1930, SRC-1932, SRC-1933, SRC-1934, SRC-1940, SRC-1941, SRC-1942, SRC-1943, SRC-1946, SRC-1952, SRC-1957, SRC-1973, SRC-1979, SRC-1982, SRC-2042, SRC-2080, SRC-2081, SRC-2105, SRC-2110, SRC-2136, SRC-2149, SRC-2183, SRC-2190, SRC-2192, SRC-2216, SRC-2221, SRC-2235, SRC-2238, SRC-2261, SRC-2351, SRC-2591",
+            "activity": "<code>CASE-20260728020741-97DEA4A0<\/code>"
+          },
+          "details_html": "<ul><li>Activity code: <code>CASE-20260728020741-97DEA4A0<\/code><\/li><li>Originating workflow run: Local or manually invoked run<\/li><li>Result: <code>changes_detected<\/code><\/li><li>Affected source IDs: SRC-0945, SRC-0965, SRC-0982, SRC-1004, SRC-1052, SRC-1056, SRC-1093, SRC-1929, SRC-1930, SRC-1932, SRC-1933, SRC-1934, SRC-1940, SRC-1941, SRC-1942, SRC-1943, SRC-1946, SRC-1952, SRC-1957, SRC-1973, SRC-1979, SRC-1982, SRC-2042, SRC-2080, SRC-2081, SRC-2105, SRC-2110, SRC-2136, SRC-2149, SRC-2183, SRC-2190, SRC-2192, SRC-2216, SRC-2221, SRC-2235, SRC-2238, SRC-2261, SRC-2351, SRC-2591<\/li><li>Tracker changes: 0 added; 39 changed; 0 removed<\/li><li>Case baselines updated: 39<\/li><li>Coverage: 490 mapped monitored CourtListener rows; 7 monitored CourtListener rows outside tracker coverage<\/li><li>Targeted CourtListener checks: 0 queried; 0 failed; 39 unverified<\/li><li>Source-development modules changed: 1<\/li><li>Interpretation: source-change signal only; no legal significance or project disposition determined.<\/li><li><code>judicial-review-disposition-signals<\/code> → <code>research/horizon-source-records/HOR-035-source-development.md<\/code>: 215 current unreviewed leads; 2 added; 0 removed.<\/li><\/ul>\n<div class=\"markdown-table-wrap\"><table><thead><tr><th>Change<\/th><th>Case<\/th><th>Docket<\/th><th>Previous observation<\/th><th>Current observation<\/th><th>Catalog match<\/th><\/tr><\/thead><tbody><tr><td>Changed<\/td><td>National Association for the Advancement of Colored People v\\. United States Postal Service \\(D\\.D\\.C\\.\\)<\/td><td>1:20\\-cv\\-02295<\/td><td>Government Action Blocked Pending Appeal; 2026\\-07\\-17<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-07\\-17<\/td><td>SRC\\-2190<\/td><\/tr><tr><td>Changed<\/td><td>Refugee and Immigrant Center for Education and Legal Services v\\. Noem \\(D\\.D\\.C\\.\\)<\/td><td>1:25\\-cv\\-00306<\/td><td>Government Action Blocked; 2026\\-04\\-24<\/td><td>Government Action Blocked; 2026\\-07\\-23<\/td><td>SRC\\-1052<\/td><\/tr><tr><td>Changed<\/td><td>American Federation of Government Employees v\\. Trump \\(D\\.D\\.C\\.\\)<\/td><td>1:25\\-cv\\-00352<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2025\\-08\\-05<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2025\\-08\\-05<\/td><td>SRC\\-0982<\/td><\/tr><tr><td>Changed<\/td><td>Center for Taxpayer Rights v\\. IRS \\(D\\.D\\.C\\.\\)<\/td><td>1:25\\-cv\\-00457<\/td><td>Government Action Temporarily Blocked; 2026\\-04\\-01<\/td><td>Government Action Temporarily Blocked; 2026\\-04\\-01<\/td><td>SRC\\-2149<\/td><\/tr><tr><td>Changed<\/td><td>American Association of Colleges for Teacher Education v\\. Carter \\(D\\. Md\\.\\)<\/td><td>1:25\\-cv\\-00702<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2025\\-10\\-08<\/td><td>Case Closed; 2026\\-03\\-17<\/td><td>SRC\\-1957<\/td><\/tr><tr><td>Changed<\/td><td>National Endowment for Democracy v\\. United States \\(D\\.D\\.C\\.\\)<\/td><td>1:25\\-cv\\-00648<\/td><td>Government Action Temporarily Blocked; 2026\\-01\\-15<\/td><td>Government Action Temporarily Blocked; 2026\\-01\\-15<\/td><td>SRC\\-0965<\/td><\/tr><tr><td>Changed<\/td><td>Rhode Island Latino Arts v\\. National Endowment for the Arts \\(D\\.R\\.I\\.\\)<\/td><td>1:25\\-cv\\-00079<\/td><td>Government Action Blocked; 2025\\-11\\-17<\/td><td>Government Action Blocked; 2025\\-11\\-17<\/td><td>SRC\\-1973<\/td><\/tr><tr><td>Changed<\/td><td>Woonasquatucket River Watershed Council v\\. Department of Agriculture \\(D\\.R\\.I\\.\\)<\/td><td>1:25\\-cv\\-00097<\/td><td>Government Action Temporarily Blocked; 2025\\-11\\-04<\/td><td>Government Action Temporarily Blocked; 2025\\-11\\-04<\/td><td>SRC\\-2591<\/td><\/tr><tr><td>Changed<\/td><td>Suri v\\. Trump \\(E\\.D\\. Va\\.\\)<\/td><td>1:25\\-cv\\-00480<\/td><td>Government Action Blocked; 2025\\-08\\-05<\/td><td>Government Action Blocked; 2026\\-07\\-23<\/td><td>SRC\\-2238<\/td><\/tr><tr><td>Changed<\/td><td>Radio Free Asia v\\. United States \\(D\\.D\\.C\\.\\)<\/td><td>1:25\\-cv\\-00907<\/td><td>Government Action Blocked Pending Appeal; 2025\\-09\\-22<\/td><td>Government Action Blocked Pending Appeal; 2025\\-09\\-22<\/td><td>SRC\\-2221<\/td><\/tr><tr><td>Changed<\/td><td>Middle East Broadcasting Networks v\\. United States \\(D\\.D\\.C\\.\\)<\/td><td>1:25\\-cv\\-00966<\/td><td>Government Action Blocked Pending Appeal; 2025\\-09\\-22<\/td><td>Government Action Blocked Pending Appeal; 2025\\-09\\-22<\/td><td>SRC\\-2216<\/td><\/tr><tr><td>Changed<\/td><td>G\\.F\\.F\\. v\\. Trump \\(S\\.D\\.N\\.Y\\.\\)<\/td><td>1:25\\-cv\\-02886<\/td><td>Government Action Temporarily Blocked; 2025\\-07\\-29<\/td><td>Government Action Temporarily Blocked; 2025\\-07\\-29<\/td><td>SRC\\-1942<\/td><\/tr><tr><td>Changed<\/td><td>J\\.A\\.V\\. v\\. Trump \\(S\\.D\\. Tex\\.\\)<\/td><td>1:25\\-cv\\-00072<\/td><td>Government Action Blocked; 2025\\-07\\-14<\/td><td>Government Action Blocked; 2025\\-07\\-14<\/td><td>SRC\\-1943<\/td><\/tr><tr><td>Changed<\/td><td>American Association of University Professors \\- Harvard Faculty Chapter v\\. Department of Justice \\(D\\. Mass\\.\\)<\/td><td>1:25\\-cv\\-10910<\/td><td>Government Action Blocked; 2025\\-12\\-18<\/td><td>Government Action Blocked; 2025\\-12\\-18<\/td><td>SRC\\-1929<\/td><\/tr><tr><td>Changed<\/td><td>D\\.B\\.U\\. v\\. Trump \\(D\\. Colo\\.\\)<\/td><td>1:25\\-cv\\-01163<\/td><td>Government Action Temporarily Blocked; 2025\\-12\\-09<\/td><td>Government Action Temporarily Blocked; 2025\\-12\\-09<\/td><td>SRC\\-1940<\/td><\/tr><tr><td>Changed<\/td><td>Mahdawi v\\. Trump \\(D\\. Vt\\.\\)<\/td><td>2:25\\-cv\\-00389<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-07\\-21<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-07\\-21<\/td><td>SRC\\-2235<\/td><\/tr><tr><td>Changed<\/td><td>President and Fellows of Harvard College v\\. US Department of Health and Human Services \\(D\\. Mass\\.\\)<\/td><td>1:25\\-cv\\-11048<\/td><td>Government Action Blocked; 2025\\-10\\-20<\/td><td>Government Action Blocked; 2025\\-07\\-22<\/td><td>SRC\\-1933<\/td><\/tr><tr><td>Changed<\/td><td>M\\.A\\.P\\.S\\. v\\. Garite \\(W\\.D\\. Tex\\.\\)<\/td><td>3:25\\-cv\\-00171<\/td><td>Government Action Blocked; 2025\\-08\\-05<\/td><td>Government Action Blocked; 2025\\-08\\-05<\/td><td>SRC\\-1946<\/td><\/tr><tr><td>Changed<\/td><td>State of Illinois v\\. Federal Emergency Management Agency \\(D\\.R\\.I\\.\\)<\/td><td>1:25\\-cv\\-00206<\/td><td>Government Action Blocked; 2025\\-10\\-14<\/td><td>Government Action Blocked; 2025\\-11\\-21<\/td><td>SRC\\-2110<\/td><\/tr><tr><td>Changed<\/td><td>Darwin Antonio Arevalo Millan v\\. Trump \\(C\\.D\\. Cal\\.\\)<\/td><td>5:25\\-cv\\-01207<\/td><td>Government Action Temporarily Blocked; 2025\\-10\\-21<\/td><td>Government Action Temporarily Blocked; 2025\\-10\\-21<\/td><td>SRC\\-1941<\/td><\/tr><tr><td>Changed<\/td><td>VERA Institute of Justice v\\. U\\.S\\. Department of Justice \\(D\\.D\\.C\\.\\)<\/td><td>1:25\\-cv\\-01643<\/td><td>Government Action Temporarily Blocked in Part; Temporary Block Denied in Part; 2025\\-11\\-25<\/td><td>Government Action Temporarily Blocked in Part; Temporary Block Denied in Part; 2025\\-11\\-25<\/td><td>SRC\\-2136<\/td><\/tr><tr><td>Changed<\/td><td>President and Fellows of Harvard College v\\. Department of Homeland Security \\(D\\. Mass\\.\\)<\/td><td>1:25\\-cv\\-11472<\/td><td>Government Action Temporarily Blocked; 2026\\-03\\-31<\/td><td>Government Action Temporarily Blocked; 2026\\-03\\-31<\/td><td>SRC\\-1932<\/td><\/tr><tr><td>Changed<\/td><td>Shapiro v\\. Department of Agriculture \\(M\\.D\\. Pa\\.\\)<\/td><td>1:25\\-cv\\-00998<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-01\\-02<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-01\\-02<\/td><td>SRC\\-2105<\/td><\/tr><tr><td>Changed<\/td><td>Thakur v\\. Trump \\(N\\.D\\. Cal\\.\\)<\/td><td>3:25\\-cv\\-04737<\/td><td>Government Action Blocked Pending Appeal; 2025\\-12\\-23<\/td><td>Government Action Blocked Pending Appeal; 2025\\-12\\-23<\/td><td>SRC\\-1934<\/td><\/tr><tr><td>Changed<\/td><td>Newsom v\\. Trump \\(N\\.D\\. Cal\\.\\)<\/td><td>3:25\\-cv\\-04870<\/td><td>Government Action Temporarily Blocked; 2026\\-01\\-12<\/td><td>Government Action Temporarily Blocked; 2026\\-01\\-12<\/td><td>SRC\\-1004<\/td><\/tr><tr><td>Changed<\/td><td>Appalachian Voices v\\. United States Environmental Protection Agency \\(D\\.D\\.C\\.\\)<\/td><td>1:25\\-cv\\-01982<\/td><td>Temporary Block of Government Action Denied; 2025\\-09\\-25<\/td><td>Temporary Block of Government Action Denied; 2025\\-09\\-25<\/td><td>SRC\\-1093<\/td><\/tr><tr><td>Changed<\/td><td>American Academy of Pediatrics v\\. Robert F\\. Kennedy Jr\\. \\(D\\. Mass\\.\\)<\/td><td>1:25\\-cv\\-11916<\/td><td>Government Action Temporarily Blocked; 2026\\-03\\-16<\/td><td>Government Action Temporarily Blocked; 2026\\-07\\-23<\/td><td>SRC\\-0945<\/td><\/tr><tr><td>Changed<\/td><td>Neguse v\\. U\\.S\\. Immigration and Customs Enforcement \\(D\\.D\\.C\\.\\)<\/td><td>1:25\\-cv\\-02463<\/td><td>Government Action Blocked Pending Appeal; 2026\\-05\\-08<\/td><td>Government Action Temporarily Blocked; 2026\\-07\\-27<\/td><td>SRC\\-2261<\/td><\/tr><tr><td>Changed<\/td><td>Lesly Miot v\\. Trump \\(D\\.D\\.C\\.\\)<\/td><td>1:25\\-cv\\-02471<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-06\\-25<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-07\\-22<\/td><td>SRC\\-2042<\/td><\/tr><tr><td>Changed<\/td><td>American Association of University Professors v\\. Trump \\(N\\.D\\. Cal\\.\\)<\/td><td>3:25\\-cv\\-07864<\/td><td>Government Action Temporarily Blocked; 2026\\-02\\-06<\/td><td>Government Action Temporarily Blocked; 2026\\-02\\-06<\/td><td>SRC\\-1930<\/td><\/tr><tr><td>Changed<\/td><td>State of Washington v\\. Health and Human Services \\(D\\. Or\\.\\)<\/td><td>6:25\\-cv\\-01748<\/td><td>Government Action Temporarily Blocked; 2025\\-10\\-27<\/td><td>Government Action Temporarily Blocked; 2025\\-12\\-26<\/td><td>SRC\\-1979<\/td><\/tr><tr><td>Changed<\/td><td>Housing Authority of the County of San Diego v\\. Turner \\(N\\.D\\. Cal\\.\\)<\/td><td>4:25\\-cv\\-08859<\/td><td>Government Action Temporarily Blocked; 2026\\-01\\-20<\/td><td>Government Action Temporarily Blocked; 2026\\-01\\-20<\/td><td>SRC\\-2080<\/td><\/tr><tr><td>Changed<\/td><td>Jorge Lujan v\\. FMCSA \\(D\\.C\\. Cir\\.\\)<\/td><td>26\\-1032<\/td><td>Case Pending; 2026\\-02\\-20<\/td><td>Case Pending; 2026\\-07\\-22<\/td><td>SRC\\-1056<\/td><\/tr><tr><td>Changed<\/td><td>Institute for Applied Ecology v\\. Burgum \\(D\\. Or\\.\\)<\/td><td>6:25\\-cv\\-02364<\/td><td>Government Action Blocked Pending Appeal; 2026\\-05\\-11<\/td><td>Government Action Blocked Pending Appeal; 2026\\-05\\-11<\/td><td>SRC\\-2081<\/td><\/tr><tr><td>Changed<\/td><td>N\\. v\\. U\\.S\\. Department of Health and Human Services \\(D\\.D\\.C\\.\\)<\/td><td>1:26\\-cv\\-00577<\/td><td>Temporary Block of Government Action Denied; 2026\\-05\\-08<\/td><td>Temporary Block of Government Action Denied; 2026\\-05\\-08<\/td><td>SRC\\-2351<\/td><\/tr><tr><td>Changed<\/td><td>DSCC v\\. Trump \\(D\\.D\\.C\\.\\)<\/td><td>1:26\\-cv\\-01114<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-06\\-01<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-06\\-01<\/td><td>SRC\\-2183<\/td><\/tr><tr><td>Changed<\/td><td>State of California v\\. Trump \\(D\\. Mass\\.\\)<\/td><td>1:26\\-cv\\-11581<\/td><td>Government Action Blocked Pending Appeal; 2026\\-07\\-07<\/td><td>Government Action Blocked Pending Appeal; 2026\\-07\\-25<\/td><td>SRC\\-2192<\/td><\/tr><tr><td>Changed<\/td><td>Coe v\\. Blanche \\(S\\.D\\.N\\.Y\\.\\)<\/td><td>1:26\\-cv\\-04641<\/td><td>Government Action Temporarily Blocked; 2026\\-07\\-09<\/td><td>Government Action Temporarily Blocked; 2026\\-07\\-17<\/td><td>SRC\\-1982<\/td><\/tr><tr><td>Changed<\/td><td>Venezuelan Association of Massachusetts v\\. United States Citizenship and Immigration Services \\(D\\. Mass\\.\\)<\/td><td>1:26\\-cv\\-13038<\/td><td>Case Pending; 2026\\-07\\-21<\/td><td>Government Action Temporarily Blocked in Part; Temporary Block Denied in Part; 2026\\-07\\-21<\/td><td>SRC\\-1952<\/td><\/tr><\/tbody><\/table><\/div>",
+          "search_text": "source-monitor-006 2026-07-28T02:07:41+00:00 Case monitor bot changes_detected SRC-0945, SRC-0965, SRC-0982, SRC-1004, SRC-1052, SRC-1056, SRC-1093, SRC-1929, SRC-1930, SRC-1932, SRC-1933, SRC-1934, SRC-1940, SRC-1941, SRC-1942, SRC-1943, SRC-1946, SRC-1952, SRC-1957, SRC-1973, SRC-1979, SRC-1982, SRC-2042, SRC-2080, SRC-2081, SRC-2105, SRC-2110, SRC-2136, SRC-2149, SRC-2183, SRC-2190, SRC-2192, SRC-2216, SRC-2221, SRC-2235, SRC-2238, SRC-2261, SRC-2351, SRC-2591 CASE-20260728020741-97DEA4A0 2026-07-28T02:07:41+00:00 Case monitor bot changes_detected SRC-0945, SRC-0965, SRC-0982, SRC-1004, SRC-1052, SRC-1056, SRC-1093, SRC-1929, SRC-1930, SRC-1932, SRC-1933, SRC-1934, SRC-1940, SRC-1941, SRC-1942, SRC-1943, SRC-1946, SRC-1952, SRC-1957, SRC-1973, SRC-1979, SRC-1982, SRC-2042, SRC-2080, SRC-2081, SRC-2105, SRC-2110, SRC-2136, SRC-2149, SRC-2183, SRC-2190, SRC-2192, SRC-2216, SRC-2221, SRC-2235, SRC-2238, SRC-2261, SRC-2351, SRC-2591 CASE-20260728020741-97DEA4A0"
+        },
+        {
+          "id": "source-monitor-007",
+          "values": {
+            "date": "2026-07-28T02:07:43+00:00",
+            "watcher": "Presidential directives watcher (PDM-A44F0C0C8B)",
+            "result": "catalog_updated",
+            "affected": "",
+            "activity": ""
+          },
+          "values_html": {
+            "date": "2026-07-28T02:07:43+00:00",
+            "watcher": "Presidential directives watcher (PDM-A44F0C0C8B)",
+            "result": "catalog_updated",
+            "affected": "",
+            "activity": ""
+          },
+          "details_html": "<ul><li>Added directives: <strong>8<\/strong><\/li><li>Changed directives: <strong>2<\/strong><\/li><li>Added IDs: 2026\\-14990, 2026\\-14991, 2026\\-14992, 2026\\-14997, 2026\\-14998, 2026\\-14999, 2026\\-15003, 2026\\-15024<\/li><li>Changed IDs: 2019\\-05370, 2019\\-16383<\/li><li>Result: catalog_updated<\/li><li>Action: Updated machine-observed Federal Register metadata and per-row baselines for human review.<\/li><li>Boundary: No substantive ARRP classification or disposition was performed.<\/li><\/ul>",
+          "search_text": "source-monitor-007 2026-07-28T02:07:43+00:00 Presidential directives watcher (PDM-A44F0C0C8B) catalog_updated   2026-07-28T02:07:43+00:00 Presidential directives watcher (PDM-A44F0C0C8B) catalog_updated  "
+        }
+      ],
+      "availability": "current",
+      "complete": true,
+      "schema_errors": [],
+      "current_through": "2026-07-28T02:07:43+00:00",
+      "producer": "source-monitor-log-projection",
+      "reason": ""
     },
     {
       "id": "changes",
@@ -1531,7 +1840,237 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "details_html": "<ul><li><strong>Change audited:<\/strong> Framework hierarchy reorganization and neutrality/language guidelines<\/li><li><strong>Scope:<\/strong> Project-wide Markdown and CSV sweep for duplicated framework sections, broken framework links, stale architecture references, and obvious project-authored language conflicts with the new neutrality rules.<\/li><li><strong>Score/rebaseline effect:<\/strong> No score or rubric rebaseline effect. The change clarified structure and language conventions but did not alter the proposal-quality scoring formula, required audit fields, or issue-page scoring template. Existing hard-rebaseline queue remains unchanged.<\/li><li><strong>Findings and corrections:<\/strong> Consolidated <code>FRAMEWORK.md<\/code> hierarchy; confirmed no duplicate framework headings or broken framework links; corrected two project-authored wording issues (<code>radically<\/code> to more precise neutral phrasing) in source-development and ELEC-006. Remaining flagged terms were legal/statutory uses, source titles, framework examples, or ordinary institutional terminology.<\/li><\/ul>",
           "search_text": "change-040 2026-06-27 Framework hierarchy reorganization and neutrality/language guidelines Project-wide Markdown and CSV sweep for duplicated framework sections, broken framework links, stale architecture references, and obvious project-authored language conflicts with the new neutrality rules. No score or rubric rebaseline effect. The change clarified structure and language conventions but did not alter the proposal-quality scoring formula, required audit fields, or issue-page scoring template. Existing hard-rebaseline queue remains unchanged. 2026-06-27 Framework hierarchy reorganization and neutrality/language guidelines Project-wide Markdown and CSV sweep for duplicated framework sections, broken framework links, stale architecture references, and obvious project-authored language conflicts with the new neutrality rules. No score or rubric rebaseline effect. The change clarified structure and language conventions but did not alter the proposal-quality scoring formula, required audit fields, or issue-page scoring template. Existing hard-rebaseline queue remains unchanged."
         }
-      ]
+      ],
+      "availability": "current",
+      "complete": true,
+      "schema_errors": [],
+      "current_through": "2026-07-24",
+      "producer": "changes-log-projection",
+      "reason": ""
+    },
+    {
+      "id": "console-development",
+      "title": "Console Development Log",
+      "description": "Material Project Console feature and contract history.",
+      "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/records/automation/console-development-log.md",
+      "columns": [
+        {
+          "key": "date",
+          "label": "Recorded"
+        },
+        {
+          "key": "category",
+          "label": "Category"
+        },
+        {
+          "key": "change",
+          "label": "Change ID"
+        },
+        {
+          "key": "lifecycle",
+          "label": "Lifecycle"
+        },
+        {
+          "key": "state",
+          "label": "State"
+        },
+        {
+          "key": "commit",
+          "label": "Category commits"
+        }
+      ],
+      "group_options": [
+        {
+          "key": "category",
+          "label": "Category"
+        },
+        {
+          "key": "lifecycle",
+          "label": "Lifecycle"
+        },
+        {
+          "key": "state",
+          "label": "State"
+        }
+      ],
+      "default_sort": {
+        "key": "date",
+        "direction": "desc"
+      },
+      "projection": {
+        "expected_rows": 7,
+        "actual_rows": 7,
+        "complete": true
+      },
+      "entries": [
+        {
+          "id": "console-development-2026-07-28-interface_information_architecture",
+          "values": {
+            "date": "2026-07-28",
+            "category": "Interface & information architecture",
+            "change": "CONSOLE-2026-001",
+            "lifecycle": "Changed",
+            "state": "Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged",
+            "commit": "3f0f1d3d48b4aea148de9da92c946fe36f2c8a35, 35e6e37203ccb117910360618c05362b91d3f06a, c134191a6b440a979fea0f6049376ba9b0a66c8e, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3ee638f796c4f266261f18d13344d80ef5669a8f",
+            "title": "Adopt holistic Console design and operational information architecture"
+          },
+          "values_html": {
+            "date": "2026-07-28",
+            "category": "Interface &amp; information architecture",
+            "change": "<code>CONSOLE-2026-001<\/code>",
+            "lifecycle": "Changed",
+            "state": "Committed through PR #482; consistency repair <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code> proposed / unmerged",
+            "commit": "<code>3f0f1d3d48b4aea148de9da92c946fe36f2c8a35<\/code>, <code>35e6e37203ccb117910360618c05362b91d3f06a<\/code>, <code>c134191a6b440a979fea0f6049376ba9b0a66c8e<\/code>, <code>9a387f8add96a6555fc60d1054b7699f69ff939e<\/code>, <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code>",
+            "title": "Adopt holistic Console design and operational information architecture"
+          },
+          "details_html": "<h2>2026-07-28 — Interface &amp; information architecture<\/h2>\n<p><strong>Adopt holistic Console design and operational information architecture<\/strong><\/p>\n<ul><li>Category ID: <code>interface_information_architecture<\/code><\/li><li>Change ID: <code>CONSOLE-2026-001<\/code><\/li><li>Commit IDs: <code>3f0f1d3d48b4aea148de9da92c946fe36f2c8a35<\/code>, <code>35e6e37203ccb117910360618c05362b91d3f06a<\/code>, <code>c134191a6b440a979fea0f6049376ba9b0a66c8e<\/code>, <code>9a387f8add96a6555fc60d1054b7699f69ff939e<\/code>, <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code><\/li><li>Material change: Consolidated the six-tab architecture; compacted Overview<\/li><\/ul>\n<p>into dated verification, work queues, automation readiness, status, and material activity; standardized bounded master/detail workspaces and compact specialist menus; added browser-local grid Design mode without creating duplicate ledgers; and made the Overview projection immutable within one exact generated snapshot.<\/p>\n<ul><li>Validation: Route-alias, responsive-layout, navigation-count, bounded-list,<\/li><\/ul>\n<p>and frontend interaction tests passed.<\/p>",
+          "search_text": "console-development-2026-07-28-interface_information_architecture 2026-07-28 Interface & information architecture CONSOLE-2026-001 Changed Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged 3f0f1d3d48b4aea148de9da92c946fe36f2c8a35, 35e6e37203ccb117910360618c05362b91d3f06a, c134191a6b440a979fea0f6049376ba9b0a66c8e, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3ee638f796c4f266261f18d13344d80ef5669a8f Adopt holistic Console design and operational information architecture 2026-07-28 Interface & information architecture CONSOLE-2026-001 Changed Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged 3f0f1d3d48b4aea148de9da92c946fe36f2c8a35, 35e6e37203ccb117910360618c05362b91d3f06a, c134191a6b440a979fea0f6049376ba9b0a66c8e, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3ee638f796c4f266261f18d13344d80ef5669a8f Adopt holistic Console design and operational information architecture"
+        },
+        {
+          "id": "console-development-2026-07-28-planning_work_management",
+          "values": {
+            "date": "2026-07-28",
+            "category": "Planning & work management",
+            "change": "CONSOLE-2026-001",
+            "lifecycle": "Changed",
+            "state": "Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged",
+            "commit": "3f0f1d3d48b4aea148de9da92c946fe36f2c8a35, 35e6e37203ccb117910360618c05362b91d3f06a, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3ee638f796c4f266261f18d13344d80ef5669a8f",
+            "title": "Adopt holistic Console design and operational information architecture"
+          },
+          "values_html": {
+            "date": "2026-07-28",
+            "category": "Planning &amp; work management",
+            "change": "<code>CONSOLE-2026-001<\/code>",
+            "lifecycle": "Changed",
+            "state": "Committed through PR #482; consistency repair <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code> proposed / unmerged",
+            "commit": "<code>3f0f1d3d48b4aea148de9da92c946fe36f2c8a35<\/code>, <code>35e6e37203ccb117910360618c05362b91d3f06a<\/code>, <code>9a387f8add96a6555fc60d1054b7699f69ff939e<\/code>, <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code>",
+            "title": "Adopt holistic Console design and operational information architecture"
+          },
+          "details_html": "<h2>2026-07-28 — Planning &amp; work management<\/h2>\n<p><strong>Adopt holistic Console design and operational information architecture<\/strong><\/p>\n<ul><li>Category ID: <code>planning_work_management<\/code><\/li><li>Change ID: <code>CONSOLE-2026-001<\/code><\/li><li>Commit IDs: <code>3f0f1d3d48b4aea148de9da92c946fe36f2c8a35<\/code>, <code>35e6e37203ccb117910360618c05362b91d3f06a<\/code>, <code>9a387f8add96a6555fc60d1054b7699f69ff939e<\/code>, <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code><\/li><li>Material change: Replaced Next Work with Planning &gt; Workbench &gt; Pipeline,<\/li><\/ul>\n<p>retained Progress as measurement, moved deterministic human Priority attention above the complete Action Inbox, and kept Blocked/Deferred hold evidence and human decisions in their authoritative homes. Replaced the vague planning-gap total with separate typed next-action and workflow-status conditions.<\/p>\n<ul><li>Validation: Inclusion, precedence, score-zero, missing-next-step, hold<\/li><\/ul>\n<p>provenance, count/route, legacy-route, keyboard, and responsive tests passed.<\/p>",
+          "search_text": "console-development-2026-07-28-planning_work_management 2026-07-28 Planning & work management CONSOLE-2026-001 Changed Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged 3f0f1d3d48b4aea148de9da92c946fe36f2c8a35, 35e6e37203ccb117910360618c05362b91d3f06a, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3ee638f796c4f266261f18d13344d80ef5669a8f Adopt holistic Console design and operational information architecture 2026-07-28 Planning & work management CONSOLE-2026-001 Changed Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged 3f0f1d3d48b4aea148de9da92c946fe36f2c8a35, 35e6e37203ccb117910360618c05362b91d3f06a, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3ee638f796c4f266261f18d13344d80ef5669a8f Adopt holistic Console design and operational information architecture"
+        },
+        {
+          "id": "console-development-2026-07-28-operations_automation",
+          "values": {
+            "date": "2026-07-28",
+            "category": "Operations & automation",
+            "change": "CONSOLE-2026-001",
+            "lifecycle": "Changed",
+            "state": "Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged",
+            "commit": "3f0f1d3d48b4aea148de9da92c946fe36f2c8a35, c134191a6b440a979fea0f6049376ba9b0a66c8e, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 3ee638f796c4f266261f18d13344d80ef5669a8f",
+            "title": "Adopt holistic Console design and operational information architecture"
+          },
+          "values_html": {
+            "date": "2026-07-28",
+            "category": "Operations &amp; automation",
+            "change": "<code>CONSOLE-2026-001<\/code>",
+            "lifecycle": "Changed",
+            "state": "Committed through PR #482; consistency repair <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code> proposed / unmerged",
+            "commit": "<code>3f0f1d3d48b4aea148de9da92c946fe36f2c8a35<\/code>, <code>c134191a6b440a979fea0f6049376ba9b0a66c8e<\/code>, <code>9a387f8add96a6555fc60d1054b7699f69ff939e<\/code>, <code>3b8ce0199619ad56ecc563cb49ca6e18ebe6c176<\/code>, <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code>",
+            "title": "Adopt holistic Console design and operational information architecture"
+          },
+          "details_html": "<h2>2026-07-28 — Operations &amp; automation<\/h2>\n<p><strong>Adopt holistic Console design and operational information architecture<\/strong><\/p>\n<ul><li>Category ID: <code>operations_automation<\/code><\/li><li>Change ID: <code>CONSOLE-2026-001<\/code><\/li><li>Commit IDs: <code>3f0f1d3d48b4aea148de9da92c946fe36f2c8a35<\/code>, <code>c134191a6b440a979fea0f6049376ba9b0a66c8e<\/code>, <code>9a387f8add96a6555fc60d1054b7699f69ff939e<\/code>, <code>3b8ce0199619ad56ecc563cb49ca6e18ebe6c176<\/code>, <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code><\/li><li>Material change: Made Operations Overview the compact manager surface;<\/li><\/ul>\n<p>separated the latest seven-stage run from seven cadence-aware role cards; added typed repository gates, provider-neutral platform status, and one event-backed Operational Incidents ledger; and moved complete history under Operations &gt; Logs. Added one exact occurrence directory so a scheduled local occurrence cannot be combined with an older push chain, and refreshed the current repository-gate inventory through its authenticated producer.<\/p>\n<ul><li>Validation: Run-chain, role-status, repository-gate, incident,<\/li><\/ul>\n<p>platform-adapter, and current-exception tests passed.<\/p>",
+          "search_text": "console-development-2026-07-28-operations_automation 2026-07-28 Operations & automation CONSOLE-2026-001 Changed Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged 3f0f1d3d48b4aea148de9da92c946fe36f2c8a35, c134191a6b440a979fea0f6049376ba9b0a66c8e, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 3ee638f796c4f266261f18d13344d80ef5669a8f Adopt holistic Console design and operational information architecture 2026-07-28 Operations & automation CONSOLE-2026-001 Changed Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged 3f0f1d3d48b4aea148de9da92c946fe36f2c8a35, c134191a6b440a979fea0f6049376ba9b0a66c8e, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 3ee638f796c4f266261f18d13344d80ef5669a8f Adopt holistic Console design and operational information architecture"
+        },
+        {
+          "id": "console-development-2026-07-28-data_provenance_integrity",
+          "values": {
+            "date": "2026-07-28",
+            "category": "Data, provenance & integrity",
+            "change": "CONSOLE-2026-001",
+            "lifecycle": "Changed",
+            "state": "Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged",
+            "commit": "c134191a6b440a979fea0f6049376ba9b0a66c8e, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 3ee638f796c4f266261f18d13344d80ef5669a8f",
+            "title": "Adopt holistic Console design and operational information architecture"
+          },
+          "values_html": {
+            "date": "2026-07-28",
+            "category": "Data, provenance &amp; integrity",
+            "change": "<code>CONSOLE-2026-001<\/code>",
+            "lifecycle": "Changed",
+            "state": "Committed through PR #482; consistency repair <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code> proposed / unmerged",
+            "commit": "<code>c134191a6b440a979fea0f6049376ba9b0a66c8e<\/code>, <code>9a387f8add96a6555fc60d1054b7699f69ff939e<\/code>, <code>3b8ce0199619ad56ecc563cb49ca6e18ebe6c176<\/code>, <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code>",
+            "title": "Adopt holistic Console design and operational information architecture"
+          },
+          "details_html": "<h2>2026-07-28 — Data, provenance &amp; integrity<\/h2>\n<p><strong>Adopt holistic Console design and operational information architecture<\/strong><\/p>\n<ul><li>Category ID: <code>data_provenance_integrity<\/code><\/li><li>Change ID: <code>CONSOLE-2026-001<\/code><\/li><li>Commit IDs: <code>c134191a6b440a979fea0f6049376ba9b0a66c8e<\/code>, <code>9a387f8add96a6555fc60d1054b7699f69ff939e<\/code>, <code>3b8ce0199619ad56ecc563cb49ca6e18ebe6c176<\/code>, <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code><\/li><li>Material change: Preserved Integrity as the exact report, added per-fact<\/li><\/ul>\n<p>currentness and outcome provenance, made unavailable data nonzero and nonhealthy, refreshed the Console from authenticated Project data, and bound private Operations to the exact public generation and source revision. Added registered queue, shared Action, Operations Data, typed activity, and typed capacity projections; refreshed all 2,055 Source Checker records; and retained a current Integrity report with explicit Project-readback unavailability rather than a false clean result.<\/p>\n<ul><li>Validation: Data-contract, generation-manifest, exact-count, stale-feed,<\/li><\/ul>\n<p>same-run Integrity, and private-generation-binding tests passed.<\/p>",
+          "search_text": "console-development-2026-07-28-data_provenance_integrity 2026-07-28 Data, provenance & integrity CONSOLE-2026-001 Changed Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged c134191a6b440a979fea0f6049376ba9b0a66c8e, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 3ee638f796c4f266261f18d13344d80ef5669a8f Adopt holistic Console design and operational information architecture 2026-07-28 Data, provenance & integrity CONSOLE-2026-001 Changed Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged c134191a6b440a979fea0f6049376ba9b0a66c8e, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 3ee638f796c4f266261f18d13344d80ef5669a8f Adopt holistic Console design and operational information architecture"
+        },
+        {
+          "id": "console-development-2026-07-28-security_privacy_disclosure",
+          "values": {
+            "date": "2026-07-28",
+            "category": "Security, privacy & disclosure",
+            "change": "CONSOLE-2026-001",
+            "lifecycle": "Changed",
+            "state": "Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged",
+            "commit": "83a96daac1951c4379f3bbea069ddcb9e0cfb74a, c1480889f0f02fbb09dd075b1cbbb87a0ad43226, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 3ee638f796c4f266261f18d13344d80ef5669a8f",
+            "title": "Adopt holistic Console design and operational information architecture"
+          },
+          "values_html": {
+            "date": "2026-07-28",
+            "category": "Security, privacy &amp; disclosure",
+            "change": "<code>CONSOLE-2026-001<\/code>",
+            "lifecycle": "Changed",
+            "state": "Committed through PR #482; consistency repair <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code> proposed / unmerged",
+            "commit": "<code>83a96daac1951c4379f3bbea069ddcb9e0cfb74a<\/code>, <code>c1480889f0f02fbb09dd075b1cbbb87a0ad43226<\/code>, <code>9a387f8add96a6555fc60d1054b7699f69ff939e<\/code>, <code>3b8ce0199619ad56ecc563cb49ca6e18ebe6c176<\/code>, <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code>",
+            "title": "Adopt holistic Console design and operational information architecture"
+          },
+          "details_html": "<h2>2026-07-28 — Security, privacy &amp; disclosure<\/h2>\n<p><strong>Adopt holistic Console design and operational information architecture<\/strong><\/p>\n<ul><li>Category ID: <code>security_privacy_disclosure<\/code><\/li><li>Change ID: <code>CONSOLE-2026-001<\/code><\/li><li>Commit IDs: <code>83a96daac1951c4379f3bbea069ddcb9e0cfb74a<\/code>, <code>c1480889f0f02fbb09dd075b1cbbb87a0ad43226<\/code>, <code>9a387f8add96a6555fc60d1054b7699f69ff939e<\/code>, <code>3b8ce0199619ad56ecc563cb49ca6e18ebe6c176<\/code>, <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code><\/li><li>Material change: Replaced the alert inventory with seven registered,<\/li><\/ul>\n<p>allowlisted Security assurance checks; kept detailed evidence at protected authorities; made protected Action Items generic; and established one public enforcement core with a required owner-local disclosure control pack. Moved the generic protected-action mapping into the exact-bound owner-local Action producer so the browser cannot originate Security work taxonomy.<\/p>\n<ul><li>Validation: The active control pack approved the complete 575-artifact<\/li><\/ul>\n<p>prospective tree and exact 67-artifact outgoing change with zero findings. Security allowlist, no-detail, path-authority, route-validation, and secret-sanitization tests passed.<\/p>",
+          "search_text": "console-development-2026-07-28-security_privacy_disclosure 2026-07-28 Security, privacy & disclosure CONSOLE-2026-001 Changed Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged 83a96daac1951c4379f3bbea069ddcb9e0cfb74a, c1480889f0f02fbb09dd075b1cbbb87a0ad43226, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 3ee638f796c4f266261f18d13344d80ef5669a8f Adopt holistic Console design and operational information architecture 2026-07-28 Security, privacy & disclosure CONSOLE-2026-001 Changed Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged 83a96daac1951c4379f3bbea069ddcb9e0cfb74a, c1480889f0f02fbb09dd075b1cbbb87a0ad43226, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 3ee638f796c4f266261f18d13344d80ef5669a8f Adopt holistic Console design and operational information architecture"
+        },
+        {
+          "id": "console-development-2026-07-28-reliability_accessibility_performance",
+          "values": {
+            "date": "2026-07-28",
+            "category": "Reliability, accessibility & performance",
+            "change": "CONSOLE-2026-001",
+            "lifecycle": "Changed",
+            "state": "Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged",
+            "commit": "c134191a6b440a979fea0f6049376ba9b0a66c8e, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 3ee638f796c4f266261f18d13344d80ef5669a8f",
+            "title": "Adopt holistic Console design and operational information architecture"
+          },
+          "values_html": {
+            "date": "2026-07-28",
+            "category": "Reliability, accessibility &amp; performance",
+            "change": "<code>CONSOLE-2026-001<\/code>",
+            "lifecycle": "Changed",
+            "state": "Committed through PR #482; consistency repair <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code> proposed / unmerged",
+            "commit": "<code>c134191a6b440a979fea0f6049376ba9b0a66c8e<\/code>, <code>9a387f8add96a6555fc60d1054b7699f69ff939e<\/code>, <code>3b8ce0199619ad56ecc563cb49ca6e18ebe6c176<\/code>, <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code>",
+            "title": "Adopt holistic Console design and operational information architecture"
+          },
+          "details_html": "<h2>2026-07-28 — Reliability, accessibility &amp; performance<\/h2>\n<p><strong>Adopt holistic Console design and operational information architecture<\/strong><\/p>\n<ul><li>Category ID: <code>reliability_accessibility_performance<\/code><\/li><li>Change ID: <code>CONSOLE-2026-001<\/code><\/li><li>Commit IDs: <code>c134191a6b440a979fea0f6049376ba9b0a66c8e<\/code>, <code>9a387f8add96a6555fc60d1054b7699f69ff939e<\/code>, <code>3b8ce0199619ad56ecc563cb49ca6e18ebe6c176<\/code>, <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code><\/li><li>Material change: Restored the canonical direct-disk Console as a supported<\/li><\/ul>\n<p>owner mode, gated all ignored local feeds to canonical <code>file://<\/code> or loopback, kept hosted HTTPS public-only, added accessible fact dots and keyboard list selection, applied route state only after required data readiness, and retained bounded DOM and script budgets.<\/p>\n<ul><li>Validation: Canonical/unrelated file-path, loopback/public-host, missing and<\/li><\/ul>\n<p>malformed local-feed, accessibility, strict public-site, and resource-budget tests passed.<\/p>",
+          "search_text": "console-development-2026-07-28-reliability_accessibility_performance 2026-07-28 Reliability, accessibility & performance CONSOLE-2026-001 Changed Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged c134191a6b440a979fea0f6049376ba9b0a66c8e, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 3ee638f796c4f266261f18d13344d80ef5669a8f Adopt holistic Console design and operational information architecture 2026-07-28 Reliability, accessibility & performance CONSOLE-2026-001 Changed Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged c134191a6b440a979fea0f6049376ba9b0a66c8e, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 3ee638f796c4f266261f18d13344d80ef5669a8f Adopt holistic Console design and operational information architecture"
+        },
+        {
+          "id": "console-development-2026-07-28-governance_documentation",
+          "values": {
+            "date": "2026-07-28",
+            "category": "Governance & documentation",
+            "change": "CONSOLE-2026-001",
+            "lifecycle": "Changed",
+            "state": "Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged",
+            "commit": "3f0f1d3d48b4aea148de9da92c946fe36f2c8a35, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 5e674630a41c91a0391af596c4c2f66324debe06, bb8a4e89c0ff2583f1317a669ceba6d8c710633b, 35c78fa35b4f51123ab14dc5007f56856befe7f5, 12a48c8d37cbf7455d6cc6368b91d54f5a76bdc8, 3ee638f796c4f266261f18d13344d80ef5669a8f",
+            "title": "Adopt holistic Console design and operational information architecture"
+          },
+          "values_html": {
+            "date": "2026-07-28",
+            "category": "Governance &amp; documentation",
+            "change": "<code>CONSOLE-2026-001<\/code>",
+            "lifecycle": "Changed",
+            "state": "Committed through PR #482; consistency repair <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code> proposed / unmerged",
+            "commit": "<code>3f0f1d3d48b4aea148de9da92c946fe36f2c8a35<\/code>, <code>9a387f8add96a6555fc60d1054b7699f69ff939e<\/code>, <code>3b8ce0199619ad56ecc563cb49ca6e18ebe6c176<\/code>, <code>5e674630a41c91a0391af596c4c2f66324debe06<\/code>, <code>bb8a4e89c0ff2583f1317a669ceba6d8c710633b<\/code>, <code>35c78fa35b4f51123ab14dc5007f56856befe7f5<\/code>, <code>12a48c8d37cbf7455d6cc6368b91d54f5a76bdc8<\/code>, <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code>",
+            "title": "Adopt holistic Console design and operational information architecture"
+          },
+          "details_html": "<h2>2026-07-28 — Governance &amp; documentation<\/h2>\n<p><strong>Adopt holistic Console design and operational information architecture<\/strong><\/p>\n<ul><li>Category ID: <code>governance_documentation<\/code><\/li><li>Change ID: <code>CONSOLE-2026-001<\/code><\/li><li>Commit IDs: <code>3f0f1d3d48b4aea148de9da92c946fe36f2c8a35<\/code>, <code>9a387f8add96a6555fc60d1054b7699f69ff939e<\/code>, <code>3b8ce0199619ad56ecc563cb49ca6e18ebe6c176<\/code>, <code>5e674630a41c91a0391af596c4c2f66324debe06<\/code>, <code>bb8a4e89c0ff2583f1317a669ceba6d8c710633b<\/code>, <code>35c78fa35b4f51123ab14dc5007f56856befe7f5<\/code>, <code>12a48c8d37cbf7455d6cc6368b91d54f5a76bdc8<\/code>, <code>3ee638f796c4f266261f18d13344d80ef5669a8f<\/code><\/li><li>Material change: Established the comprehensive Console contract,<\/li><\/ul>\n<p>heading-based Development Log, stable Change IDs, public/private data boundary, and registered development-log categories whose materially changed sections render as separate selectable entries. Configuration exports remain staged only and persistent host changes still require immediate approval. Made typed classification authority an executable build rule, added a finding-to-change-to-test closure matrix, and preserved the approved no-duplicate-checkout safeguard.<\/p>\n<ul><li>Validation: Context-route hashes, classification registry, development-log<\/li><\/ul>\n<p>category metadata, seven-entry category projection, governing documentation, and full regression suites passed.<\/p>",
+          "search_text": "console-development-2026-07-28-governance_documentation 2026-07-28 Governance & documentation CONSOLE-2026-001 Changed Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged 3f0f1d3d48b4aea148de9da92c946fe36f2c8a35, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 5e674630a41c91a0391af596c4c2f66324debe06, bb8a4e89c0ff2583f1317a669ceba6d8c710633b, 35c78fa35b4f51123ab14dc5007f56856befe7f5, 12a48c8d37cbf7455d6cc6368b91d54f5a76bdc8, 3ee638f796c4f266261f18d13344d80ef5669a8f Adopt holistic Console design and operational information architecture 2026-07-28 Governance & documentation CONSOLE-2026-001 Changed Committed through PR #482; consistency repair 3ee638f796c4f266261f18d13344d80ef5669a8f proposed / unmerged 3f0f1d3d48b4aea148de9da92c946fe36f2c8a35, 9a387f8add96a6555fc60d1054b7699f69ff939e, 3b8ce0199619ad56ecc563cb49ca6e18ebe6c176, 5e674630a41c91a0391af596c4c2f66324debe06, bb8a4e89c0ff2583f1317a669ceba6d8c710633b, 35c78fa35b4f51123ab14dc5007f56856befe7f5, 12a48c8d37cbf7455d6cc6368b91d54f5a76bdc8, 3ee638f796c4f266261f18d13344d80ef5669a8f Adopt holistic Console design and operational information architecture"
+        }
+      ],
+      "availability": "current",
+      "complete": true,
+      "schema_errors": [],
+      "current_through": "2026-07-28",
+      "producer": "console-development-log-projection",
+      "reason": ""
     }
   ],
   "repository_review_recommendations": [
@@ -1985,6 +2524,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "logs.js": "project-console-513c97bda0b2ea432bf2"
+    "logs.js": "project-console-b149f31e10ee98a223d9"
   }
 });

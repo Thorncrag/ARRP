@@ -25,7 +25,7 @@
     },
     "codex_bootstrap": {
       "path": "AGENTS.md",
-      "sha256": "c51069c33ae05b5970d019c8b89670e675c1016e4c5dc1f2c4a78b2e5d8c26f7",
+      "sha256": "f6d22561b4054eb0beae0fe9b82e7c50b1ec87aea550b30eb1717cadb7dfb4fc",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -152,7 +152,7 @@
     },
     "project_interface": {
       "path": "framework/project/interfaces/project-console.md",
-      "sha256": "f7e10c62754c946284b973cb4eff0ed2ebf6747a7b64c4fa470fb06251551ceb",
+      "sha256": "32dd2f8c14ca95f3a3bb826c2671a9812c13ce48007f44b0dce1c9969666b8cb",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -271,7 +271,7 @@
     },
     "agent_registry": {
       "path": "framework/project/automation/registry.md",
-      "sha256": "7bccfc5a565475d2a88a67a37e125d2977c91558661ebb702939974b2064d342",
+      "sha256": "0807c2050dcaa6e80f891450c50f4ba4eb96b4c98dfbfbd9c9a9a0e2a3dfea0f",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -679,7 +679,7 @@
       "requires": [
         "project_structure"
       ],
-      "sha256": "f09caa48c5b6c6ecc70ca27c666e810e9bfd68f8378fd5fcb53fc4cd5b076213"
+      "sha256": "02ecf0f823b95bfcd47a457da1cf739ca519e7240887d0f1c0ce6763dfd1163b"
     },
     "progress_view_standard": {
       "path": "framework/standards/interfaces/progress-views.md",
