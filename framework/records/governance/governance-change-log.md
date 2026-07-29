@@ -17,7 +17,7 @@ remains separate and unchanged.
 ## GOV-2026-019 — Lease-bound GitHub branch retirement
 
 - Date: 2026-07-29
-- Status: Proposed / unmerged
+- Status: Canonical
 - Decision class: security_privacy_disclosure
 - Authorities: framework/project/github/disclosure-boundary.md;
   framework/project/github/disclosure-policy.json;
@@ -27,18 +27,21 @@ remains separate and unchanged.
   expected-old object ID, the all-zero new object ID, a single deletion
   refspec, and an expected-old lease. It does not broaden ordinary publishing
   or GitHub App authority.
-- Evidence: Benjamin approved the bounded design and implementation in the
-  current worktree; canonical commit and pull-request evidence are pending.
-- Policy adoption: Approved by Benjamin; implementation remains pending
-  canonical merge.
-- Live activation: No remote branch retirement is active until canonical
-  merge and an exact decision, lease-bound execution, and absence readback.
+- Evidence: Implementation commit
+  4d9e595962c2cbfab58e4822144fc60f7939ac35; PR #496; merge commit
+  a8dac880e7c65250fd6ab4ec5bc30135cf39934e; four distinct public-safe
+  authorization digests and remote absence readbacks.
+- Policy adoption: Adopted on canonical history through PR #496.
+- Live activation: The four approved obsolete remote branches were
+  individually retired at their exact expected object IDs with lease-bound
+  execution and absence readback.
 - Relationships: Refines GOV-2026-002 and GOV-2026-017; no supersession.
 - Validation: Focused authorization, lease, moved-ref, fabricated-decision,
   invalid-input, policy-isolation, and App non-expansion checks passed; the
   complete 694-test Python suite, 52 frontend tests, project consistency
   review, context-hash verification, and a read-only production authorization
-  also passed.
+  also passed. All PR validation, CodeQL, and Vercel checks passed before
+  merge.
 - Owner-local supplement: Required.
 
 ## GOV-2026-018 — Transaction lifecycle, retry, and recovery authority
