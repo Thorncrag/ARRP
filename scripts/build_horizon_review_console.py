@@ -119,8 +119,16 @@ PUBLIC_REVIEW_EPOCH_SUMMARY = ROOT / "research" / "review-epochs-summary.json"
 PUBLIC_PROPOSAL_PDF = ROOT / "exports" / "pdf" / "ARRP-public-proposal-draft.pdf"
 OUTPUT = ROOT / "research" / "horizon-review-console" / "catalog-data.js"
 CONSOLE_DATA_DIR = ROOT / "research" / "horizon-review-console" / "data"
-PRIVATE_GITHUB_SECURITY_OUTPUT = (
-    CONSOLE_DATA_DIR / "private-github-security.js"
+PRIVATE_SECURITY_ASSURANCE_OUTPUT = (
+    CONSOLE_DATA_DIR / "private-security-assurance.js"
+)
+CONSOLE_CLASSIFICATION_REGISTRY = (
+    ROOT / "framework" / "project" / "interfaces"
+    / "project-console-classifications.json"
+)
+CONSOLE_DEVELOPMENT_LOG = (
+    ROOT / "framework" / "records" / "automation"
+    / "console-development-log.md"
 )
 PRIVATE_OPERATIONS_OUTPUT = CONSOLE_DATA_DIR / "private-operations.js"
 REPOSITORY_GATES_SNAPSHOT = ROOT / ".tmp" / "repository-gates.json"
@@ -2011,7 +2019,8 @@ def console_development_log_view(
     projection_errors: list[dict[str, object]] | None = None,
 ) -> dict[str, object]:
     required_fields = (
-        "Recorded",
+        "Console Change IDs",
+        "Title",
         "Lifecycle",
         "Feature or component",
         "State",
@@ -2020,24 +2029,24 @@ def console_development_log_view(
     )
     entries: list[dict[str, object]] = []
     content = CONSOLE_DEVELOPMENT_LOG.read_text(encoding="utf-8")
-    records: list[tuple[str, str, re.Match[str]]] = []
+    records: list[tuple[str, str]] = []
     for title, body in section_records(content, 2):
-        match = re.fullmatch(
-            r"(CONSOLE-\d{4}-\d{3})\s+—\s+(.+)",
-            strip_markdown(title),
-        )
-        if match:
-            records.append((title, body, match))
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", strip_markdown(title)):
+            records.append((title, body))
 
     seen_ids: set[str] = set()
-    for title, body, match in records:
-        change_id, change_title = match.groups()
+    for title, body in records:
+        recorded_date = strip_markdown(title)
         fields = bullet_fields(body)
+        change_ids = re.findall(
+            r"CONSOLE-\d{4}-\d{3}",
+            str(fields.get("Console Change IDs") or ""),
+        )
         missing = [
             field for field in required_fields
             if not str(fields.get(field) or "").strip()
         ]
-        duplicate = change_id in seen_ids
+        duplicate = any(change_id in seen_ids for change_id in change_ids)
         if (missing or duplicate) and projection_errors is not None:
             projection_errors.append(
                 {
@@ -2055,23 +2064,29 @@ def console_development_log_view(
             )
         if missing or duplicate:
             continue
-        seen_ids.add(change_id)
+        seen_ids.update(change_ids)
+        entry_id = (
+            change_ids[0]
+            if len(change_ids) == 1
+            else f"console-development-{recorded_date}"
+        )
+        change_title = strip_markdown(fields["Title"])
         values = {
-            "date": strip_markdown(fields["Recorded"]),
-            "change": change_id,
+            "date": recorded_date,
+            "change": ", ".join(change_ids),
             "lifecycle": strip_markdown(fields["Lifecycle"]),
             "feature": strip_markdown(fields["Feature or component"]),
             "state": strip_markdown(fields["State"]),
             "commit": strip_markdown(fields["Implementation commits"]),
         }
-        entries.append(log_entry(values["change"], values, {
-            "date": fields["Recorded"],
-            "change": change_id,
+        entries.append(log_entry(entry_id, values, {
+            "date": recorded_date,
+            "change": fields["Console Change IDs"],
             "lifecycle": fields["Lifecycle"],
             "feature": fields["Feature or component"],
             "state": fields["State"],
             "commit": fields["Implementation commits"],
-        }, f"## {change_id} — {change_title}\n\n{body}"))
+        }, f"## {recorded_date} — {change_title}\n\n{body}"))
     return {
         "id": "console-development",
         "title": "Console Development Log",
@@ -2936,315 +2951,443 @@ def run_gh_paginated_json(endpoint: str) -> list[dict[str, object]]:
     return records
 
 
-def github_security_action_snapshot() -> dict[str, object]:
-    """Build a private local projection of authenticated GitHub security alerts."""
+def _github_security_provider_snapshot() -> dict[str, object]:
+    """Read only the minimum provider posture needed for local minimization."""
     repository = "Thorncrag/ARRP"
     checked_at = utc_timestamp()
-    alerts: list[dict[str, object]] = []
-
-    code_scanning = run_gh_paginated_json(
-        f"repos/{repository}/code-scanning/alerts?state=open&per_page=100"
-    )
-    for record in code_scanning:
-        rule = record.get("rule") if isinstance(record.get("rule"), dict) else {}
-        instance = (
-            record.get("most_recent_instance")
-            if isinstance(record.get("most_recent_instance"), dict)
-            else {}
+    try:
+        code_scanning = run_gh_paginated_json(
+            f"repos/{repository}/code-scanning/alerts?state=open&per_page=100"
         )
-        location = (
-            instance.get("location")
-            if isinstance(instance.get("location"), dict)
-            else {}
+        dependabot = run_gh_paginated_json(
+            f"repos/{repository}/dependabot/alerts?state=open&per_page=100"
         )
-        path = str(location.get("path") or "")
-        line = location.get("start_line")
-        location_label = f"{path}:{line}" if path and line else path
-        title = str(
-            rule.get("name") or rule.get("id") or "Code scanning alert"
+        secret_scanning = run_gh_paginated_json(
+            f"repos/{repository}/secret-scanning/alerts?state=open&per_page=100"
         )
-        url = str(record.get("html_url") or "")
-        next_action = (
-            "Reproduce and triage the alert, repair confirmed unsafe path "
-            "handling, add focused regression coverage, and close the GitHub "
-            "alert only after validated remediation."
-        )
-        consequence = (
-            "An unresolved code-scanning finding can conceal an exploitable "
-            "path boundary or a recurring unsafe pattern."
-        )
-        alerts.append(
-            {
-                "id": f"code-scanning-{record.get('number')}",
-                "kind": "code_scanning",
-                "category": "Code scanning",
-                "severity": str(
-                    rule.get("security_severity_level") or "warning"
-                ).lower(),
-                "title": title,
-                "rule_id": str(rule.get("id") or ""),
-                "owner": "Elim",
-                "status": "Open",
-                "location": location_label,
-                "url": url,
-                "created_at": record.get("created_at"),
-                "updated_at": record.get("updated_at"),
-                "next_action": next_action,
-                "consequence": consequence,
-                "label": (
-                    f"code-scanning-{record.get('number')}: Code scanning - "
-                    f"{title}{f' ({location_label})' if location_label else ''}"
-                ),
-                "href": url,
-                "question": next_action,
-                "recommendation": (
-                    "Have Elim triage and repair the alert; retain it here "
-                    "until GitHub records a validated disposition."
-                ),
-                "whyNow": (
-                    f"Open {str(rule.get('security_severity_level') or 'warning').lower()} "
-                    "GitHub security alert"
-                ),
-                "due": (
-                    f"Open since {record.get('created_at')}"
-                    if record.get("created_at")
-                    else "Alert age unavailable"
-                ),
-            }
-        )
-
-    dependabot = run_gh_paginated_json(
-        f"repos/{repository}/dependabot/alerts?state=open&per_page=100"
-    )
-    for record in dependabot:
-        advisory = (
-            record.get("security_advisory")
-            if isinstance(record.get("security_advisory"), dict)
-            else {}
-        )
-        dependency = (
-            record.get("dependency")
-            if isinstance(record.get("dependency"), dict)
-            else {}
-        )
-        package = (
-            dependency.get("package")
-            if isinstance(dependency.get("package"), dict)
-            else {}
-        )
-        title = str(
-            advisory.get("summary")
-            or package.get("name")
-            or "Dependabot alert"
-        )
-        url = str(record.get("html_url") or "")
-        next_action = (
-            "Assess the affected dependency and reachable behavior, apply the "
-            "smallest compatible update, and validate the complete affected "
-            "workflow before closing the alert."
-        )
-        consequence = (
-            "A vulnerable dependency remains available to any reachable "
-            "project execution path until it is upgraded or proved inapplicable."
-        )
-        alerts.append(
-            {
-                "id": f"dependabot-{record.get('number')}",
-                "kind": "dependabot",
-                "category": "Dependency security",
-                "severity": str(advisory.get("severity") or "warning").lower(),
-                "title": title,
-                "owner": "Elim",
-                "status": "Open",
-                "location": str(package.get("name") or ""),
-                "url": url,
-                "created_at": record.get("created_at"),
-                "updated_at": record.get("updated_at"),
-                "next_action": next_action,
-                "consequence": consequence,
-                "label": (
-                    f"dependabot-{record.get('number')}: Dependency security - "
-                    f"{title}"
-                ),
-                "href": url,
-                "question": next_action,
-                "recommendation": (
-                    "Have Elim assess and update the dependency; retain the "
-                    "alert until GitHub records a validated disposition."
-                ),
-                "whyNow": (
-                    f"Open {str(advisory.get('severity') or 'warning').lower()} "
-                    "GitHub security alert"
-                ),
-                "due": (
-                    f"Open since {record.get('created_at')}"
-                    if record.get("created_at")
-                    else "Alert age unavailable"
-                ),
-            }
-        )
-
-    secret_scanning = run_gh_paginated_json(
-        f"repos/{repository}/secret-scanning/alerts?state=open&per_page=100"
-    )
-    for record in secret_scanning:
-        title = str(
-            record.get("secret_type_display_name")
-            or record.get("secret_type")
-            or "Secret-scanning alert"
-        )
-        url = str(record.get("html_url") or "")
-        next_action = (
-            "Open the authoritative GitHub alert, revoke or rotate the "
-            "credential through its provider, then remove the exposed value "
-            "and validate replacement access."
-        )
-        consequence = (
-            "A still-valid exposed credential may permit unauthorized access "
-            "outside the repository."
-        )
-        alerts.append(
-            {
-                "id": f"secret-scanning-{record.get('number')}",
-                "kind": "secret_scanning",
-                "category": "Exposed credential",
-                "severity": "high",
-                "title": title,
-                "owner": "Human",
-                "status": "Open",
-                "location": "GitHub secret-scanning alert",
-                "url": url,
-                "created_at": record.get("created_at"),
-                "updated_at": record.get("updated_at"),
-                "next_action": next_action,
-                "consequence": consequence,
-                "label": (
-                    f"secret-scanning-{record.get('number')}: "
-                    f"Exposed credential - {title}"
-                ),
-                "href": url,
-                "question": next_action,
-                "recommendation": (
-                    "Complete the provider-side credential action first, then "
-                    "have Elim validate repository cleanup and closeout."
-                ),
-                "whyNow": "Open high GitHub security alert",
-                "due": (
-                    f"Open since {record.get('created_at')}"
-                    if record.get("created_at")
-                    else "Alert age unavailable"
-                ),
-            }
-        )
-
-    severity_order = {
-        "critical": 0,
-        "high": 1,
-        "medium": 2,
-        "moderate": 2,
-        "low": 3,
-        "warning": 4,
-    }
-    alerts.sort(
-        key=lambda record: (
-            severity_order.get(str(record.get("severity")), 5),
-            str(record.get("category")),
-            str(record.get("id")),
-        )
-    )
-    problems = [
-        {
-            "reference": f"GHSEC-{str(alert.get('id') or 'ALERT').upper()}",
-            "category": alert.get("category") or "GitHub security",
-            "severity": (
-                "error"
-                if str(alert.get("severity") or "").lower()
-                in {"critical", "high"}
-                else "warning"
-            ),
-            "attention": (
-                "human"
-                if str(alert.get("owner") or "").lower() == "human"
-                else "agent"
-            ),
-            "owner": alert.get("owner") or "Elim",
-            "reported_by": "GitHub Security",
-            "status": alert.get("status") or "Open",
-            "message": alert.get("label") or alert.get("title"),
-            "source_url": alert.get("href") or alert.get("url"),
-            "next_action": alert.get("next_action") or alert.get("question"),
-            "recommendation": alert.get("recommendation"),
-            "consequence_of_delay": alert.get("consequence"),
-            "detected_at": alert.get("created_at") or checked_at,
+    except Exception:
+        return {
             "checked_at": checked_at,
+            "availability": "unavailable",
+            "complete": False,
+            "human_attention": None,
+            "elim_attention": None,
         }
-        for alert in alerts
-    ]
     return {
-        "schema_version": 1,
-        "repository": repository,
-        "generated_at": checked_at,
+        "checked_at": checked_at,
         "availability": "current",
-        "completeness": {
-            "complete": True,
-            "open_alert_count": len(alerts),
-            "sources": [
-                "GitHub code scanning",
-                "GitHub Dependabot",
-                "GitHub secret scanning",
-            ],
-        },
-        "alerts": alerts,
-        "problems": problems,
-        "authoritative_url": f"https://github.com/{repository}/security",
-        "privacy": (
-            "Local authenticated projection. This file is Git-ignored and "
-            "must not be committed or published."
-        ),
+        "complete": True,
+        "human_attention": bool(secret_scanning),
+        "elim_attention": bool(code_scanning or dependabot),
     }
 
 
-def write_private_github_security_actions(
+SECURITY_ASSURANCE_FIELDS = {
+    "tool_id",
+    "label",
+    "availability",
+    "last_checked",
+    "next_due",
+    "source_revision",
+    "coverage_state",
+    "private_attention",
+    "owner_class",
+    "destination_class",
+    "active_incident",
+    "public_intake_state",
+}
+
+
+def console_classification_registry() -> dict[str, object]:
+    registry = json.loads(
+        CONSOLE_CLASSIFICATION_REGISTRY.read_text(encoding="utf-8")
+    )
+    if (
+        not isinstance(registry, dict)
+        or registry.get("schema_version") != 1
+        or registry.get("registry_id") != "arrp-project-console-classifications"
+        or not isinstance(registry.get("namespaces"), dict)
+    ):
+        raise RuntimeError("Console classification registry is invalid.")
+    return registry
+
+
+def security_tool_registry() -> list[dict[str, object]]:
+    registry = console_classification_registry()
+    tools = (
+        registry.get("namespaces", {}).get("security_tool")
+    )
+    if not isinstance(tools, list) or len(tools) != 7:
+        raise RuntimeError("Security assurance tool registry is unavailable.")
+    required = {
+        "id",
+        "label",
+        "purpose",
+        "authoritative_source",
+        "producer",
+        "lifecycle_owner",
+        "destination_class",
+        "allowed_consumers",
+    }
+    if any(
+        not isinstance(tool, dict)
+        or set(tool) != required
+        or tool.get("producer") != "security-assurance-projection"
+        for tool in tools
+    ):
+        raise RuntimeError("Security assurance tool registry is invalid.")
+    ids = [str(tool["id"]) for tool in tools]
+    if len(ids) != len(set(ids)):
+        raise RuntimeError("Security assurance tool registry has duplicate IDs.")
+    return tools
+
+
+def console_development_category_registry() -> list[dict[str, object]]:
+    categories = console_classification_registry()["namespaces"].get(
+        "console_development_category"
+    )
+    required = {"id", "label", "meaning", "allowed_consumers"}
+    if (
+        not isinstance(categories, list)
+        or len(categories) != 7
+        or any(
+            not isinstance(category, dict)
+            or set(category) != required
+            or category.get("allowed_consumers") != ["console_development_log"]
+            for category in categories
+        )
+    ):
+        raise RuntimeError("Console Development Log category registry is invalid.")
+    ids = [str(category["id"]) for category in categories]
+    labels = [str(category["label"]) for category in categories]
+    if len(ids) != len(set(ids)) or len(labels) != len(set(labels)):
+        raise RuntimeError(
+            "Console Development Log category registry has duplicate identities."
+        )
+    return categories
+
+
+def validate_console_development_log_categories() -> None:
+    text = CONSOLE_DEVELOPMENT_LOG.read_text(encoding="utf-8")
+    registered = {
+        str(category["label"]): str(category["id"])
+        for category in console_development_category_registry()
+    }
+    umbrellas = section_records(text, 2)
+    if not umbrellas:
+        raise RuntimeError("Console Development Log has no dated umbrella entries.")
+    dates: set[str] = set()
+    for heading, body in umbrellas:
+        date = strip_markdown(heading)
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", date):
+            raise RuntimeError(
+                f"Console Development Log umbrella is not an ISO date: {date}"
+            )
+        if date in dates:
+            raise RuntimeError(
+                f"Console Development Log repeats a dated umbrella: {date}"
+            )
+        dates.add(date)
+        fields = bullet_fields(body)
+        change_ids = set(
+            re.findall(
+                r"CONSOLE-\d{4}-\d{3}",
+                str(fields.get("Console Change IDs") or ""),
+            )
+        )
+        if not change_ids or not str(fields.get("Title") or "").strip():
+            raise RuntimeError(
+                f"Console Development Log umbrella metadata is incomplete: {date}"
+            )
+        categories = list(re.finditer(r"(?m)^### (.+?)\s*$", body))
+        if not categories:
+            raise RuntimeError(
+                f"Console Development Log has no category sections: {date}"
+            )
+        seen_categories: set[str] = set()
+        for index, match in enumerate(categories):
+            label = match.group(1)
+            category_id = registered.get(label)
+            if category_id is None:
+                raise RuntimeError(
+                    f"Unregistered Console Development Log category: {label}"
+                )
+            if category_id in seen_categories:
+                raise RuntimeError(
+                    f"Console Development Log repeats category {label}: {date}"
+                )
+            seen_categories.add(category_id)
+            end = (
+                categories[index + 1].start()
+                if index + 1 < len(categories)
+                else len(body)
+            )
+            section = body[match.end():end]
+            required_lines = (
+                f"- Category ID: `{category_id}`",
+                "- Change ID:",
+                "- Commit IDs:",
+                "- Material change:",
+                "- Validation:",
+            )
+            if any(line not in section for line in required_lines):
+                raise RuntimeError(
+                    "Console Development Log category metadata is incomplete: "
+                    f"{label}"
+                )
+            section_change_ids = set(
+                re.findall(
+                    r"CONSOLE-\d{4}-\d{3}",
+                    str(bullet_fields(section).get("Change ID") or ""),
+                )
+            )
+            if not section_change_ids or not section_change_ids <= change_ids:
+                raise RuntimeError(
+                    "Console Development Log category has an unbound Change ID: "
+                    f"{label}"
+                )
+
+
+def public_security_assurance_projection() -> dict[str, object]:
+    tools = security_tool_registry()
+    return {
+        "schema_version": 2,
+        "availability": "unavailable",
+        "complete": False,
+        "checked_at": None,
+        "public_intake_state": "unverified",
+        "private_attention": "unavailable",
+        "active_incident": False,
+        "tools": [
+            {
+                "tool_id": tool["id"],
+                "label": tool["label"],
+                "purpose": tool["purpose"],
+                "availability": "unavailable",
+                "last_checked": None,
+                "next_due": None,
+                "source_revision": None,
+                "coverage_state": "unavailable",
+                "private_attention": "unknown",
+                "owner_class": tool["lifecycle_owner"],
+                "destination_class": tool["destination_class"],
+                "active_incident": False,
+                "public_intake_state": (
+                    "unverified"
+                    if tool["id"] == "public-intake-protection"
+                    else None
+                ),
+            }
+            for tool in tools
+        ],
+    }
+
+
+def security_assurance_snapshot() -> dict[str, object]:
+    """Minimize authenticated security state before any Console persistence."""
+
+    provider = _github_security_provider_snapshot()
+    checked_at = provider.get("checked_at")
+    public = public_security_assurance_projection()
+    if (
+        provider.get("availability") != "current"
+        or provider.get("complete") is not True
+    ):
+        return {
+            "schema_version": 2,
+            "availability": "unavailable",
+            "complete": False,
+            "checked_at": checked_at,
+            "public_intake_state": "unverified",
+            "private_attention": "unavailable",
+            "active_incident": False,
+            "tools": [
+                {
+                    key: value for key, value in tool.items()
+                    if key in SECURITY_ASSURANCE_FIELDS
+                }
+                for tool in public["tools"]
+            ],
+        }
+    human_required = provider.get("human_attention") is True
+    elim_required = provider.get("elim_attention") is True
+    tool_attention = {
+        "credential-access-review": "yes" if human_required else "no",
+        "repository-change-protection": "yes" if elim_required else "no",
+    }
+    tools = []
+    for tool in public["tools"]:
+        minimized = {
+            key: value for key, value in tool.items()
+            if key in SECURITY_ASSURANCE_FIELDS
+        }
+        minimized["last_checked"] = checked_at
+        minimized["private_attention"] = tool_attention.get(
+            str(tool["tool_id"]), "unknown"
+        )
+        tools.append(minimized)
+    return {
+        "schema_version": 2,
+        "availability": "current",
+        "complete": True,
+        "checked_at": checked_at,
+        "public_intake_state": "unverified",
+        "private_attention": (
+            "required" if human_required or elim_required else "none_reported"
+        ),
+        "active_incident": False,
+        "tools": tools,
+    }
+
+
+def valid_private_security_assurance(snapshot: object) -> bool:
+    if not isinstance(snapshot, dict) or set(snapshot) != {
+        "schema_version",
+        "availability",
+        "complete",
+        "checked_at",
+        "public_intake_state",
+        "private_attention",
+        "active_incident",
+        "tools",
+    }:
+        return False
+    if snapshot.get("schema_version") != 2 or not isinstance(
+        snapshot.get("tools"), list
+    ):
+        return False
+    if (
+        snapshot.get("availability") not in {"current", "unavailable"}
+        or not isinstance(snapshot.get("complete"), bool)
+        or snapshot.get("public_intake_state")
+        not in {"live", "paused", "unverified"}
+        or snapshot.get("private_attention")
+        not in {"required", "none_reported", "unavailable"}
+        or not isinstance(snapshot.get("active_incident"), bool)
+    ):
+        return False
+    registered = {
+        str(tool["id"]): tool for tool in security_tool_registry()
+    }
+    expected_ids = set(registered)
+    observed_ids: set[str] = set()
+    for tool in snapshot["tools"]:
+        if not isinstance(tool, dict) or set(tool) != SECURITY_ASSURANCE_FIELDS:
+            return False
+        tool_id = str(tool.get("tool_id") or "")
+        if not tool_id or tool_id in observed_ids:
+            return False
+        definition = registered.get(tool_id)
+        if (
+            definition is None
+            or tool.get("label") != definition["label"]
+            or tool.get("owner_class") != definition["lifecycle_owner"]
+            or tool.get("destination_class") != definition["destination_class"]
+            or tool.get("availability") not in {"current", "unavailable"}
+            or tool.get("coverage_state")
+            not in {"current", "stale", "incomplete", "unavailable"}
+            or tool.get("private_attention") not in {"yes", "no", "unknown"}
+            or not isinstance(tool.get("active_incident"), bool)
+            or tool.get("public_intake_state")
+            not in {None, "live", "paused", "unverified"}
+        ):
+            return False
+        observed_ids.add(tool_id)
+    return observed_ids == expected_ids
+
+
+def write_private_security_assurance(
     snapshot: dict[str, object] | None = None,
 ) -> dict[str, object]:
     if snapshot is None:
-        snapshot = github_security_action_snapshot()
+        snapshot = security_assurance_snapshot()
+    if not valid_private_security_assurance(snapshot):
+        raise RuntimeError(
+            "Private security-assurance projection violates its field allowlist."
+        )
     serialized = json.dumps(
         snapshot, ensure_ascii=False, separators=(",", ":")
     ).replace("</", "<\\/")
-    atomic_write_text(
-        PRIVATE_GITHUB_SECURITY_OUTPUT,
+    text = (
         "/* Private local projection; never commit or publish. */\n"
-        f"window.ARRP_PRIVATE_GITHUB_SECURITY={serialized};\n",
+        f"window.ARRP_PRIVATE_SECURITY_ASSURANCE={serialized};\n"
+    )
+    secret_findings = prohibited_secret_findings(
+        "research/horizon-review-console/data/private-security-assurance.js",
+        text.encode("utf-8"),
+    )
+    if secret_findings:
+        finding_ids = ",".join(
+            str(item.get("finding_id") or "DISC-UNKNOWN")
+            for item in secret_findings
+        )
+        raise RuntimeError(
+            "Private security-assurance projection contains prohibited secret "
+            f"material and was not persisted ({finding_ids})."
+        )
+    atomic_write_text(
+        PRIVATE_SECURITY_ASSURANCE_OUTPUT,
+        text,
     )
     return snapshot
 
 
-def read_private_github_security_actions() -> dict[str, object] | None:
-    if not PRIVATE_GITHUB_SECURITY_OUTPUT.exists():
+def read_private_security_assurance() -> dict[str, object] | None:
+    if not PRIVATE_SECURITY_ASSURANCE_OUTPUT.exists():
         return None
     prefix = (
         "/* Private local projection; never commit or publish. */\n"
-        "window.ARRP_PRIVATE_GITHUB_SECURITY="
+        "window.ARRP_PRIVATE_SECURITY_ASSURANCE="
     )
-    text = PRIVATE_GITHUB_SECURITY_OUTPUT.read_text(encoding="utf-8")
+    text = PRIVATE_SECURITY_ASSURANCE_OUTPUT.read_text(encoding="utf-8")
     if not text.startswith(prefix):
         return None
     try:
         value = json.loads(text.removeprefix(prefix).removesuffix(";\n"))
     except json.JSONDecodeError:
         return None
-    if not isinstance(value, dict):
-        return None
-    if not isinstance(value.get("alerts"), list) or not isinstance(
-        value.get("problems"), list
-    ):
+    if not valid_private_security_assurance(value):
         return None
     return value
 
 
+def valid_private_operations(
+    snapshot: object,
+    *,
+    catalog_generation_id: str,
+    source_revision: str,
+) -> bool:
+    expected_fields = {
+        "schema_version",
+        "availability",
+        "generated_at",
+        "catalog_generation_id",
+        "source_revision",
+        "agent_registry",
+        "project_logs",
+        "integrity",
+        "run_chain",
+        "privacy",
+    }
+    return bool(
+        isinstance(snapshot, dict)
+        and set(snapshot) == expected_fields
+        and snapshot.get("schema_version") == 2
+        and snapshot.get("availability") == "current"
+        and snapshot.get("catalog_generation_id") == catalog_generation_id
+        and snapshot.get("source_revision") == source_revision
+        and isinstance(snapshot.get("generated_at"), str)
+        and isinstance(snapshot.get("agent_registry"), list)
+        and isinstance(snapshot.get("project_logs"), list)
+        and isinstance(snapshot.get("integrity"), dict)
+        and isinstance(snapshot.get("run_chain"), dict)
+    )
+
+
 def write_private_operations(
     *,
+    catalog_generation_id: str,
+    source_revision: str,
     agent_registry: list[dict[str, object]],
     project_logs: list[dict[str, object]],
     integrity: dict[str, object],
@@ -3253,8 +3396,11 @@ def write_private_operations(
     """Persist the complete owner-only Console operations projection safely."""
 
     snapshot = {
-        "schema_version": 1,
+        "schema_version": 2,
         "availability": "current",
+        "generated_at": utc_timestamp(),
+        "catalog_generation_id": catalog_generation_id,
+        "source_revision": source_revision,
         "agent_registry": agent_registry,
         "project_logs": project_logs,
         "integrity": integrity,
@@ -3264,6 +3410,12 @@ def write_private_operations(
             "not be committed or published."
         ),
     }
+    if not valid_private_operations(
+        snapshot,
+        catalog_generation_id=catalog_generation_id,
+        source_revision=source_revision,
+    ):
+        raise RuntimeError("Private Console operations binding is invalid.")
     serialized = json.dumps(
         snapshot, ensure_ascii=False, separators=(",", ":")
     ).replace("</", "<\\/")
@@ -3361,10 +3513,13 @@ def existing_console_payload() -> dict[str, object]:
                 )
             except json.JSONDecodeError:
                 private_payload = {}
-            if isinstance(private_payload, dict):
+            if valid_private_operations(
+                private_payload,
+                catalog_generation_id=str(payload.get("generation_id") or ""),
+                source_revision=str(payload.get("source_revision") or ""),
+            ):
                 for key in ("agent_registry", "project_logs"):
-                    if isinstance(private_payload.get(key), list):
-                        payload[key] = private_payload[key]
+                    payload[key] = private_payload[key]
     source_chunk_keys = sorted(
         key for key in payload if key.startswith("cited_sources_chunk_")
     )
@@ -6477,6 +6632,7 @@ def repository_gate_snapshot(refresh: bool) -> dict[str, object]:
 
 def main() -> None:
     args = parse_args()
+    validate_console_development_log_categories()
     projection_errors: list[dict[str, object]] = []
     operational_incidents = project_incident_log(OPERATIONAL_INCIDENT_LOG)
     candidates = candidate_records()
@@ -6486,23 +6642,12 @@ def main() -> None:
     )
     presidential_directives = presidential_directive_records()
     horizon_records, github_synced_at = horizon_snapshot(args.refresh_github)
-    private_github_security = (
-        github_security_action_snapshot()
+    private_security_assurance = (
+        security_assurance_snapshot()
         if args.refresh_github
-        else read_private_github_security_actions()
+        else read_private_security_assurance()
     )
-    if private_github_security is not None:
-        private_github_security["alerts"] = [
-            {
-                **alert,
-                "active_incident_ids": linked_incident_ids(
-                    operational_incidents,
-                    f"security:{alert.get('id')}",
-                ),
-            }
-            for alert in private_github_security.get("alerts") or []
-            if isinstance(alert, dict)
-        ]
+    public_security_assurance = public_security_assurance_projection()
     monitoring_issues = monitoring_issue_snapshot(args.refresh_github, horizon_records)
     court_watch_sources, case_watcher_metadata = case_watcher_snapshot()
     page_inventory = page_inventory_records()
@@ -6747,7 +6892,7 @@ def main() -> None:
         projection_errors=projection_errors,
     )
     payload = {
-        "schema_version": 28,
+        "schema_version": 29,
         **generation_contract,
         "github_synced_at": github_synced_at,
         "candidate_questions": len(candidates),
@@ -6774,6 +6919,7 @@ def main() -> None:
         "source_checker": source_checker,
         "agent_registry": public_agent_registry,
         "automation_role_status": automation_role_status,
+        "security_assurance": public_security_assurance,
         "overview": overview,
         # The full snapshot is retained only so an ordinary rebuild can preserve
         # authoritative GitHub state without requiring Keychain access.
@@ -6812,6 +6958,7 @@ def main() -> None:
         "automation_role_status": automation_role_status,
         "repository_gates": repository_gates,
         "operational_incidents": operational_incidents,
+        "security_assurance": public_security_assurance,
     }
     source_chunk_count = 16
     source_chunk_size = max(1, math.ceil(len(cited_sources) / source_chunk_count))
@@ -6871,6 +7018,7 @@ def main() -> None:
             "automation_role_status": automation_role_status,
             "repository_gates": repository_gates,
             "operational_incidents": operational_incidents,
+            "security_assurance": public_security_assurance,
             "repository_review_recommendations": review_recommendations,
         },
         "logs.js": {
@@ -6894,24 +7042,25 @@ def main() -> None:
     # Restore complete owner-only operations after the public generation swap.
     # This ignored projection is not part of the public manifest or catalog.
     write_private_operations(
+        catalog_generation_id=str(generation_contract["generation_id"]),
+        source_revision=str(generation_contract["source_revision"]),
         agent_registry=agent_registry,
         project_logs=project_logs,
         integrity=integrity,
         run_chain=run_chain,
     )
-    if private_github_security is not None:
+    if private_security_assurance is not None:
         # The public bundle replaces the complete data directory atomically.
         # Write the ignored authenticated projection only after that swap so
         # the local file:// Console keeps it without admitting it to the
         # public generation manifest or repository.
-        write_private_github_security_actions(private_github_security)
+        write_private_security_assurance(private_security_assurance)
 
     if args.console_only:
         private_security_note = (
-            f" Private GitHub security snapshot: "
-            f"{len(private_github_security.get('alerts') or [])} open alerts."
-            if private_github_security is not None
-            else ""
+            " Minimized private security assurance refreshed."
+            if private_security_assurance is not None
+            else " Private security assurance unavailable."
         )
         print(
             f"Wrote {OUTPUT.relative_to(ROOT)} with {len(candidates)} preliminary "

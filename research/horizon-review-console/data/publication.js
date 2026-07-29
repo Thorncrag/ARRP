@@ -7537,8 +7537,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1866,
-      "estimated_pages": 3,
+      "word_count": 1956,
+      "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -7616,12 +7616,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/automation-arrp console development log",
       "internal_links": [],
-      "word_count": 1578,
-      "estimated_pages": 3,
+      "word_count": 881,
+      "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 42
+      "longest_unbroken_token": 43
     },
     {
       "title": "ARRP Elim Run Summary",
@@ -7971,12 +7971,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 5285,
-      "estimated_pages": 9,
+      "word_count": 5919,
+      "estimated_pages": 10,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 33
+      "longest_unbroken_token": 44
     },
     {
       "title": "ARRP Project Profile",
@@ -9252,7 +9252,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/github-github disclosure boundary",
       "internal_links": [],
-      "word_count": 785,
+      "word_count": 976,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9312,7 +9312,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4760,
+      "word_count": 4811,
       "estimated_pages": 8,
       "table_count": 1,
       "max_table_columns": 2,
@@ -10021,7 +10021,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/standards/interfaces-project interface standard",
       "internal_links": [],
-      "word_count": 461,
+      "word_count": 622,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -10233,7 +10233,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation/runbooks-run coordinator bot runbook",
       "internal_links": [],
-      "word_count": 1044,
+      "word_count": 1106,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -12312,7 +12312,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1417,
+      "word_count": 1539,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -19931,6 +19931,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-29196c24bdb1d7db30ce"
+    "publication.js": "project-console-e6f02f9b46ebe2e7472b"
   }
 });

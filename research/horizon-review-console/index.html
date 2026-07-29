@@ -10,7 +10,7 @@
   </head>
   <body
     data-interface-theme="arrp-tool"
-    data-initial-script-budget-kib="590"
+    data-initial-script-budget-kib="605"
     data-initial-dom-budget="1500"
   >
     <a class="skip-link" href="#console-main">Skip to Console content</a>
@@ -664,14 +664,22 @@
           <section class="queue-view operations-ledger" aria-labelledby="operations-security-heading">
             <div class="queue-view-header">
               <div>
-                <span class="eyebrow">Complete private authenticated snapshot</span>
-                <h2 id="operations-security-heading">Security remediation</h2>
-                <p>One actionable remediation work unit per open security alert unless the producer supplies an explicit stable remediation-group identity. Raw alerts, ownership, next action, source, completeness, and checked time remain visible.</p>
+                <span class="eyebrow">Safe operational assurance</span>
+                <h2 id="operations-security-heading">Security</h2>
+                <p>Currentness, protected-surface review, and private-attention posture without vulnerability details or credential metadata.</p>
               </div>
-              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/security" target="_blank" rel="noopener noreferrer">Open GitHub Security ↗</a>
+              <div class="source-list compact-links">
+                <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/security" target="_blank" rel="noopener noreferrer">Open protected source ↗</a>
+                <button type="button" class="record-link secondary" id="refresh-security-status">Refresh authenticated status</button>
+                <button type="button" class="record-link secondary" id="prepare-security-review">Prepare security review</button>
+              </div>
             </div>
-            <p id="operations-security-status" class="method-note">Private GitHub security status is unavailable.</p>
-            <div id="operations-security-list" class="operations-ledger-list"></div>
+            <div id="operations-security-summary" class="metric-strip compact-status-strip" aria-label="Security assurance summary"></div>
+            <p id="operations-security-status" class="method-note">Security assurance is unavailable.</p>
+            <div class="email-workspace" id="operations-security-workspace">
+              <div class="email-list" id="operations-security-list" role="listbox" aria-label="Security checks"></div>
+              <div class="email-preview" id="operations-security-preview" aria-live="polite"></div>
+            </div>
           </section>
         </div>
         <div class="section-panel" id="automation-panel-capacity" role="tabpanel" aria-labelledby="automation-tab-capacity" hidden>
@@ -920,7 +928,7 @@
 
     <button type="button" id="scroll-to-top" class="scroll-to-top" aria-label="Back to top" hidden>↑ <span>Back to top</span></button>
 
-    <script src="catalog-data.js?v=47"></script>
-    <script src="app.js?v=61"></script>
+    <script src="catalog-data.js?v=48"></script>
+    <script src="app.js?v=65"></script>
   </body>
 </html>

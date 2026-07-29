@@ -474,7 +474,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "unavailable",
-          "checked_at": "2026-07-28T22:14:16+00:00",
+          "checked_at": "2026-07-29T00:30:09+00:00",
           "reason": "No typed currentness record is published for this role."
         },
         "checked_at": "2026-07-27T08:37:33+00:00",
@@ -485,34 +485,34 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "repository_gates": {
     "schema_version": 1,
     "repository": "Thorncrag/ARRP",
-    "source_revision": "2026-07-28T20:41:07+00:00",
-    "checked_at": "2026-07-28T20:41:07+00:00",
-    "availability": "current",
-    "complete": true,
-    "count": 0,
+    "source_revision": "2026-07-28T23:59:13+00:00",
+    "checked_at": "2026-07-28T23:59:13+00:00",
+    "availability": "unavailable",
+    "complete": false,
+    "count": null,
     "known_blocker_count": 0,
     "pagination": {
       "open_pull_requests": {
-        "complete": true,
-        "pages": 1,
-        "actual_count": 5,
-        "page_size": 100
+        "complete": false
       },
       "declarations_complete": true
     },
     "declaration_errors": [],
-    "validation_errors": [],
+    "validation_errors": [
+      "HTTP Error 401: Unauthorized"
+    ],
     "last_good_identity": {
-      "checked_at": "2026-07-28T19:51:07+00:00",
-      "source_revision": "2026-07-28T19:51:07+00:00"
+      "checked_at": "2026-07-28T20:41:07+00:00",
+      "source_revision": "2026-07-28T20:41:07+00:00"
     },
+    "trustworthy_through": "2026-07-28T20:41:07+00:00",
     "items": []
   },
   "operational_incidents": {
     "schema_version": 1,
     "availability": "current",
     "complete": true,
-    "checked_at": "2026-07-28T22:14:14Z",
+    "checked_at": "2026-07-29T00:30:07Z",
     "count": 1,
     "unresolved_count": 0,
     "impact_state": "green",
@@ -635,6 +635,122 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       }
     ],
     "active_links": {}
+  },
+  "security_assurance": {
+    "schema_version": 2,
+    "availability": "unavailable",
+    "complete": false,
+    "checked_at": null,
+    "public_intake_state": "unverified",
+    "private_attention": "unavailable",
+    "active_incident": false,
+    "tools": [
+      {
+        "tool_id": "public-intake-protection",
+        "label": "Public-intake protection",
+        "purpose": "Verifies the recorded intake posture and high-level perimeter, privacy, header, Turnstile, firewall, and prompt-injection test coverage.",
+        "availability": "unavailable",
+        "last_checked": null,
+        "next_due": null,
+        "source_revision": null,
+        "coverage_state": "unavailable",
+        "private_attention": "unknown",
+        "owner_class": "Human",
+        "destination_class": "protected_source",
+        "active_incident": false,
+        "public_intake_state": "unverified"
+      },
+      {
+        "tool_id": "repository-change-protection",
+        "label": "Repository change protection",
+        "purpose": "Verifies CODEOWNERS coverage, authenticated branch or ruleset enforcement, and workflow-permission confinement.",
+        "availability": "unavailable",
+        "last_checked": null,
+        "next_due": null,
+        "source_revision": null,
+        "coverage_state": "unavailable",
+        "private_attention": "unknown",
+        "owner_class": "Elim",
+        "destination_class": "protected_source",
+        "active_incident": false,
+        "public_intake_state": null
+      },
+      {
+        "tool_id": "protected-surface-change-review",
+        "label": "Protected-surface change review",
+        "purpose": "States whether a registered security-sensitive surface changed after its latest completed security review without identifying the surface.",
+        "availability": "unavailable",
+        "last_checked": null,
+        "next_due": null,
+        "source_revision": null,
+        "coverage_state": "unavailable",
+        "private_attention": "unknown",
+        "owner_class": "Elim",
+        "destination_class": "owner_local_review",
+        "active_incident": false,
+        "public_intake_state": null
+      },
+      {
+        "tool_id": "automation-isolation",
+        "label": "Automation isolation",
+        "purpose": "Verifies owner-only runtime boundaries, Elim isolation, and credential-broker confinement at a high level.",
+        "availability": "unavailable",
+        "last_checked": null,
+        "next_due": null,
+        "source_revision": null,
+        "coverage_state": "unavailable",
+        "private_attention": "unknown",
+        "owner_class": "Elim",
+        "destination_class": "owner_local_review",
+        "active_incident": false,
+        "public_intake_state": null
+      },
+      {
+        "tool_id": "credential-access-review",
+        "label": "Credential and access review",
+        "purpose": "Reports review currentness and whether a protected human action is required without exposing credential inventory or metadata.",
+        "availability": "unavailable",
+        "last_checked": null,
+        "next_due": null,
+        "source_revision": null,
+        "coverage_state": "unavailable",
+        "private_attention": "unknown",
+        "owner_class": "Human",
+        "destination_class": "owner_local_review",
+        "active_incident": false,
+        "public_intake_state": null
+      },
+      {
+        "tool_id": "disclosure-boundary-verification",
+        "label": "Disclosure-boundary verification",
+        "purpose": "Reports disclosure-gate availability, last completed validation, and its safe source revision.",
+        "availability": "unavailable",
+        "last_checked": null,
+        "next_due": null,
+        "source_revision": null,
+        "coverage_state": "unavailable",
+        "private_attention": "unknown",
+        "owner_class": "Elim",
+        "destination_class": "owner_local_review",
+        "active_incident": false,
+        "public_intake_state": null
+      },
+      {
+        "tool_id": "recovery-readiness",
+        "label": "Recovery readiness",
+        "purpose": "Reports whether rollback and restore assurance has been verified within its governing review period.",
+        "availability": "unavailable",
+        "last_checked": null,
+        "next_due": null,
+        "source_revision": null,
+        "coverage_state": "unavailable",
+        "private_attention": "unknown",
+        "owner_class": "Human",
+        "destination_class": "incident_ledger",
+        "active_incident": false,
+        "public_intake_state": null
+      }
+    ]
   },
   "repository_review_recommendations": [
     {
@@ -1087,6 +1203,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "automation.js": "project-console-29196c24bdb1d7db30ce"
+    "automation.js": "project-console-e6f02f9b46ebe2e7472b"
   }
 });
