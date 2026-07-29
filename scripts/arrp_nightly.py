@@ -4132,6 +4132,14 @@ def write_status(
 
 def write_console_status_projection(status_path: Path, output: Path | None = None) -> Path:
     value = json.loads(status_path.read_text(encoding="utf-8"))
+    # The occurrence document preserves the control posture that existed when
+    # that occurrence was recorded.  The owner Console needs the current
+    # authoritative posture as a separate access-time fact, so refresh only
+    # the projection from the exact state authority without rewriting history.
+    value["control_state"] = (
+        "paused" if pause_requested(status_path.parent) else "run"
+    )
+    value["control_state_checked_at"] = iso_utc()
     target = output or status_path.parent / "console/local-automation-status.js"
     ensure_owner_directory(target.parent)
     material = "window.ARRP_LOCAL_AUTOMATION_STATUS = " + json.dumps(

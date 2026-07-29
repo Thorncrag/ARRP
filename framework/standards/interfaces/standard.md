@@ -125,3 +125,22 @@ use registered stable machine identities and deny-by-default field allowlists.
 Browser code may filter, sort, and render those records but may not infer a
 finding, category, ownership, action, route, or clean result from prose or the
 absence of private data.
+
+## Separate protected incident authorities
+
+Operational disruption and security investigation are related but distinct
+interface subjects. A registered Operational Incident (`INC`) owns only its
+operational identity, occurrence history, impact, recovery evidence, and
+operational closure. A registered owner-local Security Incident (`SEC`) owns
+only its security identity, investigation, containment, remediation, restricted
+evidence, security verification, and security closure. A typed reciprocal
+relation may support navigation between them, but it cannot merge their
+lifecycle, ownership, evidence, closure, or count.
+
+Public and hosted interfaces render Security Incident data unavailable unless a
+separately authorized delivery mechanism supplies an allowlisted projection.
+An exact bound owner-file interface may render the protected ledger locally;
+it must not copy details, counts, or evidence into a repository-visible bundle,
+DOM export, or GitHub record. A generic protected-security indicator may never
+be represented as a clean state when the underlying projection is missing,
+stale, incomplete, or incompatible.

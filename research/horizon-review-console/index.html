@@ -10,7 +10,7 @@
   </head>
   <body
     data-interface-theme="arrp-tool"
-    data-initial-script-budget-kib="650"
+    data-initial-script-budget-kib="655"
     data-initial-dom-budget="1500"
   >
     <a class="skip-link" href="#console-main">Skip to Console content</a>
@@ -590,7 +590,7 @@
                 <p>The owner-only local feed reports Run or Paused, scheduling, and currentness. This display does not operate the host service.</p>
               </div>
             </div>
-            <p class="attention-note" id="local-automation-note">Local automation status is unavailable.</p>
+            <p class="attention-note" id="local-automation-note">Data unavailable outside the bound owner-local Console.</p>
             <div class="automation-chain-summary" id="local-automation-summary"></div>
           </section>
 
@@ -632,7 +632,7 @@
                 <h3 id="automation-incidents-heading">Needs attention</h3>
                 <p>Only active incidents, blockers, and unavailable operational data appear here. Complete evidence and history remain in their specialist homes.</p>
               </div>
-              <span class="count-pill" id="automation-incident-count">0</span>
+              <span class="count-pill" id="automation-incident-count">—</span>
             </div>
             <div id="automation-incidents" class="automation-incidents"></div>
           </section>
@@ -676,7 +676,7 @@
               </div>
             </div>
             <div id="operations-security-summary" class="metric-strip compact-status-strip" aria-label="Security assurance summary"></div>
-            <p id="operations-security-status" class="method-note">Security assurance is unavailable.</p>
+            <p id="operations-security-status" class="method-note">Data unavailable outside the bound owner-local Console.</p>
             <div class="email-workspace" id="operations-security-workspace">
               <div class="email-list" id="operations-security-list" role="listbox" aria-label="Security checks"></div>
               <div class="email-preview" id="operations-security-preview" aria-live="polite"></div>
@@ -708,13 +708,15 @@
       <section class="legacy-route-panel" id="panel-logs" aria-hidden="true" hidden>
         <nav class="section-tabs" aria-label="Project log views">
           <div class="section-tab-list" role="tablist" aria-label="Project logs">
-            <button type="button" id="log-tab-incidents" role="tab" aria-selected="true" aria-controls="log-panel-incidents" data-subtab-group="logs" data-subtab="incidents">Incidents <span class="tab-count" id="log-incidents-count">—</span></button>
+            <button type="button" id="log-tab-incidents" role="tab" aria-selected="true" aria-controls="log-panel-incidents" data-subtab-group="logs" data-subtab="incidents">Operational incidents <span class="tab-count" id="log-incidents-count">—</span></button>
+            <button type="button" id="log-tab-security-incidents" role="tab" aria-selected="false" aria-controls="log-panel-security-incidents" data-subtab-group="logs" data-subtab="security-incidents" tabindex="-1">Security incidents <span class="tab-count" id="log-security-incidents-count">—</span></button>
             <button type="button" id="log-tab-horizon" role="tab" aria-selected="false" aria-controls="log-panel-horizon" data-subtab-group="logs" data-subtab="horizon" tabindex="-1">Horizon</button>
             <button type="button" id="log-tab-elim" role="tab" aria-selected="false" aria-controls="log-panel-elim" data-subtab-group="logs" data-subtab="elim" tabindex="-1">Elim</button>
             <button type="button" id="log-tab-agents" role="tab" aria-selected="false" aria-controls="log-panel-agents" data-subtab-group="logs" data-subtab="agents" tabindex="-1">Bots</button>
             <button type="button" id="log-tab-source-monitor" role="tab" aria-selected="false" aria-controls="log-panel-source-monitor" data-subtab-group="logs" data-subtab="source-monitor" tabindex="-1">Sources</button>
             <button type="button" id="log-tab-integrity" role="tab" aria-selected="false" aria-controls="log-panel-integrity" data-subtab-group="logs" data-subtab="integrity" tabindex="-1">Integrity</button>
             <button type="button" id="log-tab-changes" role="tab" aria-selected="false" aria-controls="log-panel-changes" data-subtab-group="logs" data-subtab="changes" tabindex="-1">Change audits</button>
+            <button type="button" id="log-tab-governance-changes" role="tab" aria-selected="false" aria-controls="log-panel-governance-changes" data-subtab-group="logs" data-subtab="governance-changes" tabindex="-1">Governance changes</button>
             <button type="button" id="log-tab-console-development" role="tab" aria-selected="false" aria-controls="log-panel-console-development" data-subtab-group="logs" data-subtab="console-development" tabindex="-1">Console development</button>
           </div>
         </nav>
@@ -733,9 +735,29 @@
               <label for="incident-log-search">Search<input id="incident-log-search" type="search" placeholder="Incident, component, owner, prerequisite, or diagnostic…"></label>
               <label for="incident-log-scope">Lifecycle<select id="incident-log-scope"><option value="unresolved">Unresolved</option><option value="all">Complete retained history</option></select></label>
             </div>
-            <p id="incident-log-status" class="method-note">Operational incident data is loading.</p>
-            <p class="result-count"><b id="incident-log-visible">0</b> incidents match</p>
+            <p id="incident-log-status" class="method-note">Data unavailable outside the bound owner-local Console.</p>
+            <p class="result-count"><b id="incident-log-visible">—</b> incidents match</p>
             <div id="incident-log-workspace"></div>
+          </section>
+        </div>
+
+        <div class="section-panel" id="log-panel-security-incidents" role="tabpanel" aria-labelledby="log-tab-security-incidents" hidden>
+          <section class="queue-view log-view incident-log-view" aria-labelledby="log-security-incidents-heading">
+            <div class="queue-view-header">
+              <div>
+                <span class="eyebrow">Protected security lifecycle history</span>
+                <h2 id="log-security-incidents-heading">Security incidents</h2>
+                <p>Owner-local investigation, containment, remediation, verification, and security-specific closure. Operational impact and recovery remain in Operational incidents.</p>
+              </div>
+              <span class="record-source-note">Protected owner-local event authority</span>
+            </div>
+            <div class="queue-controls">
+              <label for="security-incident-log-search">Search<input id="security-incident-log-search" type="search" placeholder="Incident, security domain, protected surface, owner, or safe summary…"></label>
+              <label for="security-incident-log-scope">Lifecycle<select id="security-incident-log-scope"><option value="unresolved">Unresolved</option><option value="all">Complete retained history</option></select></label>
+            </div>
+            <p id="security-incident-log-status" class="method-note">Data unavailable outside the bound owner-local Console.</p>
+            <p class="result-count"><b id="security-incident-log-visible">—</b> Security Incidents match</p>
+            <div id="security-incident-log-workspace"></div>
           </section>
         </div>
 
@@ -819,6 +841,18 @@
             <div class="queue-controls"><label for="log-changes-search">Search<input id="log-changes-search" type="search" placeholder="Date, change, scope, effect, or correction…"></label><label for="log-changes-group">Group by<select id="log-changes-group"><option value="all">No grouping</option></select></label></div>
             <p class="result-count"><b id="log-changes-visible">0</b> entries match</p>
             <div id="log-changes-table"></div>
+          </section>
+        </div>
+
+        <div class="section-panel" id="log-panel-governance-changes" role="tabpanel" aria-labelledby="log-tab-governance-changes" hidden>
+          <section class="queue-view log-view" aria-labelledby="log-governance-changes-heading">
+            <div class="queue-view-header">
+              <div><span class="eyebrow">Governance implementation history</span><h2 id="log-governance-changes-heading">Governance Change Log</h2><p>Public-safe summaries of adopted governance changes. Change audits and Console development remain separate histories.</p></div>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/records/governance/governance-change-log.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
+            </div>
+            <div class="queue-controls"><label for="log-governance-changes-search">Search<input id="log-governance-changes-search" type="search" placeholder="Change ID, authority, status, or public summary…"></label><label for="log-governance-changes-group">Group by<select id="log-governance-changes-group"><option value="all">No grouping</option></select></label></div>
+            <p class="result-count"><b id="log-governance-changes-visible">0</b> entries match</p>
+            <div id="log-governance-changes-table"></div>
           </section>
         </div>
       </section>

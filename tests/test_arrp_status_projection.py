@@ -65,8 +65,42 @@ class ArrpStatusProjectionTests(unittest.TestCase):
             payload = text.removeprefix(
                 "window.ARRP_LOCAL_AUTOMATION_STATUS = "
             ).removesuffix(";\n")
-            self.assertEqual(json.loads(payload)["status"], "completed")
+            parsed = json.loads(payload)
+            self.assertEqual(parsed["status"], "completed")
+            self.assertEqual(parsed["control_state"], "run")
+            self.assertRegex(
+                parsed["control_state_checked_at"],
+                r"^\d{4}-\d{2}-\d{2}T",
+            )
             self.assertEqual(output.stat().st_mode & 0o777, 0o600)
+
+    def test_projection_refreshes_current_pause_without_rewriting_occurrence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            status = root / "status.json"
+            status.write_text(
+                '{"status":"failed","control_state":"run","run_id":"fixture"}\n',
+                encoding="utf-8",
+            )
+            pause = root / "PAUSED"
+            pause.write_text("paused\n", encoding="utf-8")
+            pause.chmod(0o600)
+
+            output = MODULE.write_console_status_projection(
+                status, root / "projection/local-automation-status.js"
+            )
+            payload = json.loads(
+                output.read_text(encoding="utf-8")
+                .removeprefix("window.ARRP_LOCAL_AUTOMATION_STATUS = ")
+                .removesuffix(";\n")
+            )
+
+            self.assertEqual(payload["status"], "failed")
+            self.assertEqual(payload["control_state"], "paused")
+            self.assertEqual(
+                json.loads(status.read_text(encoding="utf-8"))["control_state"],
+                "run",
+            )
 
     def test_atomic_rewrite_never_changes_file_mode(self):
         with tempfile.TemporaryDirectory() as directory:

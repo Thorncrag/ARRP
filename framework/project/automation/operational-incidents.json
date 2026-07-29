@@ -2,6 +2,8 @@
   "schema_version": 1,
   "event_authority": "owner-local:records/automation/operational-incidents.jsonl",
   "projection_producer": "scripts/operational_incidents.py",
+  "live_activation": true,
+  "incident_id_pattern": "INC-YYYY-NNN",
   "lifecycle": [
     "open",
     "investigating",
@@ -22,5 +24,8 @@
   ],
   "authority": "Only validated immutable events determine incident identity, occurrence history, lifecycle, ownership, recovery evidence, and closure. Browser logic and narrative prose cannot create, group, resolve, or reassign incidents.",
   "admission_boundary": "Admit genuine operational disruption, blockage, degradation, untrustworthy data, protective halt, or material near miss. An intentional pause, ordinary Integrity finding, proposal hold, routine remediation item, or declared gate is not an incident unless it meets that operational threshold.",
-  "privacy": "Repository-visible events contain only deterministically sanitized summaries and typed opaque evidence references. Restricted evidence remains outside the repository."
+  "recurrence": "Repeated typed occurrences attach to one unresolved INC. Recurrence after verified resolution creates a new INC linked to the prior INC without rewriting either history.",
+  "closure": "Resolved is terminal and requires exact recovery proof containing a verified time, closure test, result, and recorder. A later generally healthy run never closes an unrelated incident, and Security Incident containment or closure never establishes operational recovery.",
+  "privacy": "The complete event record is owner-local and no incident event or unresolved count enters the public Console bundle. An exact bound owner projection may contain only deterministically sanitized summaries and typed opaque evidence references. Restricted evidence remains in its narrower owner-local authority.",
+  "security_relation_boundary": "A typed relation may link this INC to a separately authoritative owner-local SEC through incident-relations.json. The relation does not disclose security evidence and does not alter either incident lifecycle, ownership, count, recovery proof, containment, remediation, or closure."
 }

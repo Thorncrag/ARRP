@@ -924,6 +924,16 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertTrue(requires_workflow_hold_reason({"status": "awaiting-merits-adjudication"}))
         self.assertFalse(requires_workflow_hold_reason({"status": "developed"}))
 
+    def test_console_safe_integrity_summary_never_repeats_diagnostic_prose(self):
+        finding = {
+            "severity": "ERROR",
+            "message": "ARRP_STATE_ROOT=/Users/owner/private GH_TOKEN=credential_value",
+        }
+        summary = consistency.console_safe_finding_summary(finding)
+        self.assertEqual(summary, "A typed integrity error requires review.")
+        self.assertNotIn("ARRP_STATE_ROOT", summary)
+        self.assertNotIn("credential_value", summary)
+
     def test_project_status_vocabulary_is_exact_and_excludes_superseded_values(self):
         self.assertEqual(
             PROJECT_WORKFLOW_STATUSES,
@@ -1562,6 +1572,40 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertNotIn("- Internal repository links", report)
         self.assertNotIn("2026-07-21T12:00:00", report)
         self.assertNotIn("abc123", report)
+
+    def test_integrity_markdown_uses_only_console_safe_finding_text(self):
+        diagnostic = (
+            "ARRP_PROJECT_TOKEN failed at "
+            "file:///Users/example/private/report.json"
+        )
+        report = markdown_report(
+            {
+                "counts": {
+                    "errors": 0,
+                    "warnings": 1,
+                    "issue_pages": 64,
+                    "proposal_pages": 41,
+                },
+                "findings": [
+                    {
+                        "category": "GitHub records",
+                        "severity": "warning",
+                        "message": diagnostic,
+                        "console_safe_summary": (
+                            "A typed integrity finding requires review."
+                        ),
+                    }
+                ],
+            }
+        )
+
+        self.assertIn(
+            "A typed integrity finding requires review.",
+            report,
+        )
+        self.assertNotIn("ARRP_PROJECT_TOKEN", report)
+        self.assertNotIn("file:///", report)
+        self.assertNotIn("/Users/", report)
 
     def test_extracts_main_branch_blob_target(self):
         body = (

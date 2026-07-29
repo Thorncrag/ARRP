@@ -59,6 +59,9 @@ configurations, prior `last-success.json`, current canonical records,
 deterministic Project snapshot, governed append-only repository-gate
 declarations, a complete authenticated open-pull-request inventory, context
 registry, strict Elim result schema, and the exact transaction worktree delta.
+Every `owner-local:` input and output resolves through the [ARRP Owner-Local
+Runtime Authority](../owner-local-runtime.md); neither a runbook value nor a
+caller-selected path can redefine the production state root.
 
 It writes owner-only atomic status and cadence state, one bounded run
 directory, typed stage outputs, queue/route/context artifacts, Elim JSONL and
@@ -75,6 +78,8 @@ state root. It does not pass a configurable production root through the
 environment. Repository, run, state, and fixture paths are distinct typed
 authorities; a mismatch, symlink, escape, unsafe owner-local mode, or fixture
 overlap fails before context or disclosure-sensitive state is read.
+The named companion workspace remains protected inactive staging and is not a production
+fallback.
 
 ## Ordered work
 

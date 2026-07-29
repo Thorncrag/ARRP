@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "event_authority": "owner-local:records/automation/security-incidents.jsonl",
+  "projection_producer": "scripts/security_incidents.py",
+  "live_activation": false,
+  "incident_id_pattern": "SEC-YYYY-NNN",
+  "lifecycle": [
+    "Open",
+    "Investigating",
+    "Contained",
+    "Remediating",
+    "Monitoring",
+    "Resolved"
+  ],
+  "unresolved_states": [
+    "Open",
+    "Investigating",
+    "Contained",
+    "Remediating",
+    "Monitoring"
+  ],
+  "identity_fields": [
+    "security_domain",
+    "protected_surface",
+    "event_class"
+  ],
+  "authority": "Only validated append-only Security Incident events determine SEC identity, occurrence history, lifecycle, containment, remediation, security verification, and security-specific closure. Narrative prose, browser logic, an LLM recommendation, an Operational Incident, and the relationship journal are not Security Incident authority.",
+  "admission_boundary": "Admit a credible suspected or confirmed security event, or a material security near miss, that requires investigation or containment. Routine alerts, ordinary hardening, stale reviews, intentional pause, and operational disruption without a security event do not enter this ledger solely because they exist.",
+  "recurrence": "Repeated typed occurrences attach to one unresolved SEC. Recurrence after verified resolution creates a new SEC linked to the prior SEC without rewriting either history.",
+  "closure": "Resolved is terminal and requires an exact closure test, result, disposition code, verifier, verified time, and one or more opaque restricted evidence references. Operational recovery never closes a Security Incident.",
+  "privacy": "The event ledger stores only safe summaries, typed identities, and opaque restricted evidence references. It rejects secret-shaped material and deny-by-default unknown fields. Detailed evidence remains in the separate owner-local restricted evidence authority and no usable credential or secret may enter the ledger.",
+  "allocation": "SEC identifiers are allocated independently from INC identifiers and from every other project sequence."
+}

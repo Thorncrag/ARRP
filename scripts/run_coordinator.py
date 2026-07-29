@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Plan, update, and finalize the deterministic ARRP run chain.
 
-The coordinator never performs LLM work.  It creates the durable decision record
-that a separate, explicitly activated host dispatcher may use to decide whether
-Elim should be invoked.
+The coordinator is the planning substage invoked by ``arrp_nightly.py`` as part
+of the local production cycle. It never performs LLM work; it records the
+deterministic decision that the same governed cycle consumes before invoking
+Elim.
 """
 
 from __future__ import annotations
@@ -1814,7 +1815,7 @@ def finalize(args: argparse.Namespace) -> int:
         else "complete"
     )
     manifest["next_action"] = (
-        "Authorized host dispatcher may launch Elim."
+        "The governed local production cycle may launch Elim."
         if decision
         else "Resolve the blocking run-chain or Context Gateway condition."
         if blockers

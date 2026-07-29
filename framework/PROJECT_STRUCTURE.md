@@ -83,7 +83,7 @@ does not make them governing methodology or enlarge any actor's authority.
 | [`framework/project/workflows/`](project/workflows/) | ARRP audit, candidate, navigation, source-adjudication, public-input, presidential-directive, and project-update procedures. |
 | [`framework/project/publication/`](project/publication/) | ARRP edition manifests and release-specific decisions. |
 | [`framework/project/interfaces/`](project/interfaces/) | ARRP visual identity and Project Console configuration. |
-| [`framework/project/automation/`](project/automation/) | ARRP agent policy, context registry, named runbooks, and exact automation schemas. |
+| [`framework/project/automation/`](project/automation/) | ARRP agent policy, owner-local runtime authority, context registry, named runbooks, and exact automation schemas. |
 
 ## Record families
 
@@ -92,6 +92,7 @@ does not make them governing methodology or enlarge any actor's authority.
 | [`framework/records/handoffs/`](records/handoffs/) | Mutable continuation state for unfinished work. |
 | [`framework/records/audits/`](records/audits/) | Preserved project-wide audit history. |
 | [`framework/records/automation/`](records/automation/) | Public-safe automation contracts and summaries, including Console development history and minimized disclosure classification. Complete agent/run, incident, gate, review-epoch, and active-operation authorities remain owner-local. |
+| [`framework/records/governance/`](records/governance/) | Public-safe provenance for material governance decisions, including stable identity, Git evidence, validation, supersession, and separate adoption/activation posture. It does not replace governing authority, Change Audit history, or owner-local supplements. |
 | [`framework/records/candidates/`](records/candidates/) | Candidate discovery and disposition history. |
 | [`framework/records/sources/`](records/sources/) | Source-monitoring event history and dispositions. |
 | [`framework/records/status/`](records/status/) | Current generated or overwritten status reports. |
@@ -113,6 +114,30 @@ does not make them governing methodology or enlarge any actor's authority.
 | `tests/` | Regression tests for automation and repository conventions. |
 | `exports/` | Generated PDF, DOCX, XLSX, and related export artifacts. |
 | `.github/` | GitHub-native community, security, workflow, and automation configuration required at GitHub-recognized paths. |
+
+## Owner-local companion authority
+
+`ARRP Private`, when present beside this repository in the verified local
+Automation Workspaces boundary, is the sole owner-local companion workspace and
+inactive successor staging authority. It is not a Git checkout, publication
+source, second project authority, or current production runtime. It stages the
+successor layout for restricted runtime state, private records, Security
+Incident evidence and ledger, control packs, local Console
+copies/projections, migration manifests, and recoverable quarantine material.
+Its `OWNER_DIRECTIVE.md` and `AGENTS.md` govern access before any read or
+change.
+
+The current production runtime remains at the fixed Application Support
+authority. The companion workspace has an inactive protected staging descriptor
+with five logical roles: runtime state, durable records, owner Console copies,
+security controls/evidence, and migration evidence. It does not become a live
+runtime layout until Benjamin separately approves a host cutover with an exact
+baseline and reconciliation plan. Exact path roles, logical `owner-local:`
+resolution, and cutover requirements are governed by the [ARRP Owner-Local
+Runtime Authority](project/automation/owner-local-runtime.md). Public
+repository contracts may name owner-local authorities and schemas, but never
+copy restricted records, evidence, or private topology into Git, the public
+Console, or GitHub.
 
 ## Content placement rules
 

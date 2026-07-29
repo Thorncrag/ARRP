@@ -23,6 +23,13 @@ through one local-first source chain in `scripts/arrp_nightly.py`, with typed st
 outputs under a transaction run directory and cadence evidence in owner-only
 `~/Library/Application Support/ARRP/last-success.json`.
 
+The [ARRP Owner-Local Runtime Authority](owner-local-runtime.md) owns exact
+logical-path resolution, artifact classes, and the distinction between the
+current Application Support runtime and inactive protected successor staging
+descriptor. A logical `owner-local:` record path resolves to the current
+production root until the separately approved cutover is completed and read
+back.
+
 One owner LaunchAgent, `com.thorncrag.arrp-nightly`, is the only scheduled
 ARRP coordinator. It runs at 02:00 local time in `America/New_York` and uses
 `RunAtLoad` only for due evaluation. The protected `CODEOWNERS`,
@@ -30,6 +37,12 @@ required-validation workflow, GitHub App exact-PR boundary, and registered
 semantic-action broker remain controlling. Retired maintenance workflows,
 bot branches, and `project-console-data` are not runtime or publication
 surfaces.
+
+The authoritative binary automation control is currently intentionally
+`Paused`. The pause marker suppresses new production automation work; it is not
+an Operational Incident by itself and does not change any role's declared
+authority, cadence, or retained history. No document in this staged change
+authorizes removal of that marker or a production run.
 
 | Agent ID | Type | P6 status | Authoritative runbook | Local runtime |
 | --- | --- | --- | --- | --- |
@@ -75,7 +88,7 @@ All roles use the shared provenance and handoff rules in
 [`agent-policy.md`](agent-policy.md). The run directory is operational
 evidence, not a new source of substantive authority.
 
-## Operational Incident authority
+## Incident authorities and relation boundary
 
 [`operational-incidents.json`](operational-incidents.json) governs the one
 project-wide Operational Incident event record at the owner-local path
@@ -98,3 +111,23 @@ Specialist producers retain their own state and may publish only typed
 `active_incident_ids`. Routine findings, remediation work, repository gates,
 and intentional Paused state do not become incidents merely because they
 exist.
+
+[`security-incidents.json`](security-incidents.json) separately governs the
+owner-local Security Incident record at
+`records/automation/security-incidents.jsonl`. Its `SEC-…` identifiers own a
+security event's investigation, containment, remediation, restricted evidence,
+security verification, and security-specific closure. Security evidence is
+never a repository, GitHub, public-Console, or DOM record. A security event
+with no verified operational impact may have only a `SEC`; an operational
+disruption with no security event may have only an `INC`.
+
+When one event has both effects, the append-only owner-local
+[`incident-relations.json`](incident-relations.json) journal records an exact
+typed `INC`/`SEC` relation. The relation is a cross-domain index only: it may
+not create, merge, resolve, reopen, count, or close either authority. A later
+operational recovery therefore never closes a Security Incident, and security
+containment never claims operational recovery. The current production
+authority remains the fixed Application Support runtime root; the protected
+successor staging descriptor is inactive until the separately approved
+cutover governed by
+[`owner-local-runtime.md`](owner-local-runtime.md).

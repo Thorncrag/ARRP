@@ -10,9 +10,11 @@ dependencies:
   - "../../standards/interfaces/standard.md"
   - "../../standards/interfaces/progress-views.md"
   - "visual-identity.md"
+  - "project-console-classifications.json"
   - "project-console-progress.md"
   - "../workflows/candidate-review.md"
   - "../workflows/source-adjudication.md"
+  - "../automation/owner-local-runtime.md"
 ---
 
 # ARRP Project Console and Interface Configuration
@@ -53,14 +55,22 @@ aliases to the corresponding Planning destination and meaningful filter.
 
 Operations > Logs uses one compact horizontal log menu immediately above the
 shared bounded newest-first master/detail workspace. It defaults to Operational
-Incidents, then retains Horizon, Elim, Bots, Sources, Integrity history, Change
-audits, and Console development. Logs is not a main tab and does not introduce
+Incidents, then offers owner-local Security Incidents in owner file mode only,
+and retains Horizon, Elim, Bots, Sources, Integrity history, Change audits, and
+Governance changes, then Console development. Repository-source direct-disk,
+loopback, and hosted/public
+modes render both owner-local incident ledgers as unavailable rather than an
+empty ledger or zero count. Logs is not a main tab and does not introduce
 another nested full tab hierarchy.
+The visible public-shell explanation is the single concise sentence
+`Data unavailable outside the bound owner-local Console.` Detailed missing,
+stale, malformed, or incompatible-feed reasons appear only inside a valid
+owner Console.
 Legacy log routes
 redirect to Operations > Logs. Integrity remains the exact current report;
 Integrity under Logs remains retained history.
 
-Those views are nonauthoritative projections: lifecycle and candidate authority remains in GitHub, bibliographic authority remains in the two source catalogs, canonical Markdown logs remain authoritative for their named histories, and the immutable validated Operational Incident event record is the sole authority for incident identity, occurrence history, lifecycle, recovery evidence, and closure. Committed Elim Run Log discovery markers remain the durable gap-reconstruction authority, presidential-directive identity and review history remains in the directive registry, and print disposition and assembly authority remain in page front matter and [`print-assembly.json`](../publication/print-assembly.json). The Publication assignment view must make included, explicitly excluded, unclassified, and conflicting outcomes independently visible. Routine issue monitoring remains in Progress and does not count as a human Action Item unless it produces an exception or decision requiring attention; automated watcher and source-bot operations remain in Sources. Routine Elim-owned gap review, and retained `forbidden`, `unsafe`, `out_of_scope`, or `uncertain` observations that do not require a human act, remain in Integrity or Agents & Bots. They enter Action Items only when an exact human judgment, credential, unsafe external action, owner-gated decision, or intervention is required. Locally staged publication changes remain in Publication and likewise do not count as Action Items. The Action Items view must route each count to its complete owning view and must not duplicate narrative workflow records. The Logs view is read-only, retains complete entries without pagination, and links to each authoritative log or retained bounded feed; it must not become a separately maintained ledger. Publication controls may stage and export instruction lists for Codex, but do not persist drafts or edit canonical files.
+Those views are nonauthoritative projections: lifecycle and candidate authority remains in GitHub, bibliographic authority remains in the two source catalogs, canonical Markdown logs remain authoritative for their named histories, the immutable validated Operational Incident record is the sole authority for `INC` identity, occurrence history, operational recovery, and closure, and the distinct owner-local Security Incident record is the sole authority for `SEC` identity, investigation, containment, remediation, restricted evidence, security verification, and closure. A typed relation journal may link one `INC` and one `SEC` without changing either authority or lifecycle. Committed Elim Run Log discovery markers remain the durable gap-reconstruction authority, presidential-directive identity and review history remains in the directive registry, and print disposition and assembly authority remain in page front matter and [`print-assembly.json`](../publication/print-assembly.json). The Publication assignment view must make included, explicitly excluded, unclassified, and conflicting outcomes independently visible. Routine issue monitoring remains in Progress and does not count as a human Action Item unless it produces an exception or decision requiring attention; automated watcher and source-bot operations remain in Sources. Routine Elim-owned gap review, and retained `forbidden`, `unsafe`, `out_of_scope`, or `uncertain` observations that do not require a human act, remain in Integrity or Agents & Bots. They enter Action Items only when an exact human judgment, credential, unsafe external action, owner-gated decision, or intervention is required. Locally staged publication changes remain in Publication and likewise do not count as Action Items. The Action Items view must route each count to its complete owning view and must not duplicate narrative workflow records. The Logs view is read-only, retains complete entries without pagination, and links to each authoritative log or retained bounded feed; it must not become a separately maintained ledger. Publication controls may stage and export instruction lists for Codex, but do not persist drafts or edit canonical files.
 
 ### Governance discovery and gap obligations
 
@@ -189,8 +199,14 @@ and generation identity. The builder also publishes one typed Action snapshot
 used by Overview counts, Action Items groups, Workbench cross-indexes, and
 navigation badges. Owner-local Security actions may join only in the
 generation-and-revision-bound private Operations projection; the join emits
-generic registered Action records and never vulnerability detail. Partial or
-missing inputs make the relevant count unavailable rather than zero.
+generic registered Action records and never vulnerability detail. Operational
+Incident and Security Incident queues/actions retain separate stable IDs and
+predicates. A typed cross-domain relation index may support navigation between
+them, but it may not produce a combined lifecycle or a silently combined count.
+Public Console output exposes neither private Security Incident records nor
+their count; the exact bound owner-file projection may expose the separate SEC
+ledger. Partial or missing inputs make the relevant count unavailable rather
+than zero.
 
 `next_action_missing` and `workflow_status_invalid` are separate registered
 conditions. The former alone supplies the Workbench `Next steps not recorded`
@@ -225,6 +241,15 @@ Cross-references do not duplicate a change or its count. GitHub-bound
 development records remain public operational summaries and never contain
 vulnerability evidence, credential detail, or restricted operational
 diagnostics.
+
+The Console Development Log is the primary product-history record only for a
+Console-facing effect. When a Console change implements or presents a material
+governance decision, its category entry states the interface consequence and
+links to the stable `GOV` identity; the Governance Change Log remains primary
+for the decision, adoption, supersession, validation, and activation posture.
+Change Audits and product histories remain primary for their own reviewed
+content, while Git remains exact-diff authority. A Console entry may not
+restate another record's governing narrative or create a second lifecycle.
 
 The canonical Markdown retains one dated umbrella so shared provenance is
 recorded once. The Console projects each materially changed registered category
@@ -387,9 +412,13 @@ Operations owns:
 7. Data — one row per principal feed with availability, completeness, reason,
    trustworthy-through boundary, producer, and recovery route.
 8. Logs — one compact horizontal menu defaulting to Operational Incidents,
-   followed by Horizon, Elim, Bots, Sources, retained Integrity history, Change
-   audits, and Console development above the shared bounded master/detail
-   workspace.
+   followed in owner-file mode by Security Incidents, Horizon, Elim, Bots,
+   Sources, retained Integrity history, Change audits, Governance changes, and
+   Console development above the shared bounded master/detail workspace.
+   Operational and Security
+   ledgers never share a lifecycle/count authority; their typed relation index
+   only provides reciprocal navigation. Both incident ledgers are owner-local;
+   a public shell retains their routes but renders their feeds unavailable.
 
 Operational Incidents is the persistent cross-domain recovery ledger for
 genuine disruption, blockage, degradation, untrustworthy data, protective
@@ -403,6 +432,11 @@ preserving exact run and occurrence identity. A recurrence after verified
 resolution creates a new linked incident. A generally healthy later run never
 closes an unrelated incident; `Resolved` requires exact typed closure proof.
 
+The Console renders the Operational Incident ledger only from a complete,
+generation- and revision-bound owner projection. The checked-in public bundle
+contains no incident events, occurrence timeline, or unresolved count; every
+public-shell mode shows the ledger and its navigation count as unavailable.
+
 An intentional Pause, an ordinary Integrity finding, proposal
 Blocked/Deferred status, routine security remediation, or a declared
 repository gate is not itself an incident. It becomes incident-linked only
@@ -413,6 +447,25 @@ browser never infers incident linkage or lifecycle from narrative text.
 Provider advisories are likewise explanatory observations rather than proof
 that ARRP intake or automation failed. They create no Operational Incident
 unless independent ARRP impact satisfies the incident admission contract.
+
+Security Incidents are a separate protected ledger for credible security events
+or material security near misses that need investigation or containment. They
+use independently allocated `SEC-YYYY-NNN` identifiers and own their own
+security lifecycle. The Console may show the owner-local Security Incidents
+ledger only from the exact generation- and revision-bound direct-disk file
+projection. That protected log is limited to the validated `SEC` identifier,
+safe summary, typed domain/surface/event class, lifecycle, owner classes,
+dates, exact safe occurrence observations, opaque protected references, next
+action, security-closure proof, recurrence identity, and reciprocal typed
+`INC` links. It never receives or renders vulnerability detail, affected paths,
+raw evidence, credential metadata, exploit conditions, scanner output, or
+unknown fields. Outside that log, the Console may show only a generic
+protected-security indicator and protected route; no public/private aggregate
+count is created. The current Security Incident and relation contracts declare
+`live_activation: false`, so they remain unavailable even in owner mode until
+a complete compatible projection is separately activated. An `INC`/`SEC`
+relationship is typed and reciprocal only; each ledger closes only on its own
+required proof.
 
 The Overview role cards, role-menu exception markers, and role detail consume
 one typed role-status projection containing stable identity/order, latest
@@ -434,30 +487,39 @@ not Console controls and are not reproduced.
 The repository-visible Console generation is a public operational summary, not
 an owner-only data store. It contains only allowlisted role summaries and
 public project-history ledgers. Complete runtime configuration, authenticated
-security observations, and raw automation, integrity, source-monitor,
-incident-evidence, and Console-development history remain in separately
-secret-scanned, Git-ignored local projections. Those local files are restored
-only after the public generation passes the project-wide disclosure gate and
-are absent from its manifest, catalog, DOM, exports, and GitHub-bound bundle.
-Unavailable local detail is never represented as a public zero or healthy
-state.
+security observations, both incident projections and their relation index, and
+raw automation, integrity, source-monitor, incident-evidence, and
+Console-development history remain in separately secret-scanned, Git-ignored
+local projections. Those local files are restored only after the public
+generation passes the project-wide disclosure gate and are absent from its
+manifest, catalog, DOM, exports, and GitHub-bound bundle. Unavailable local
+detail is never represented as a public zero or healthy state.
 
 The Console supports three explicit delivery modes. The ordinary owner-local
-mode is the canonical `research/horizon-review-console/index.html` opened
-directly with `file://`; it may load the ignored sibling Security assurance,
-private Operations, and local automation-status scripts. Loopback HTTP(S) on
-`localhost`, `127.0.0.1`, or the IPv6 loopback is the development mode and may
-load the same ignored files. Hosted/public HTTPS is public-only and must not
-request any local projection. A future hosted private mode requires a
-separately designed authenticated service with deny-by-default field
-allowlists; authentication never means storing private operational data in
-GitHub. The direct-disk gate requires an empty file hostname and the canonical
+mode is an exact generation-bound Console copy opened directly with `file://`;
+it may load only its bound owner-local Security assurance, private Operations
+including any active incident projections, and local automation-status
+scripts. The repository source Console opened through `file://` is a
+public-only source shell, not a private-data endpoint or owner mode. Loopback HTTP(S) on
+`localhost`, `127.0.0.1`, or the IPv6 loopback is a public-shell and fixture
+development mode only: it must not request or load ignored private projections.
+Hosted/public HTTPS is likewise public-only. A future hosted private mode
+requires a separately designed authenticated service with deny-by-default
+field allowlists; authentication never means storing private operational data
+in GitHub. Only the direct-disk owner Console may load bound private
+projections, and its gate requires an empty file hostname and the canonical
 Console entrypoint suffix. Missing or malformed files remain unavailable.
+Public-only modes explain this boundary as
+`Data unavailable outside the bound owner-local Console.` They do not expose
+internal reason codes, infer a zero count, or suggest that a provider request
+failed.
 Private Operations additionally requires an exact schema, Console generation,
 and source-revision binding before its records can join the public shell. Its
-owner-only Action snapshot is part of that same binding, so private Security
-attention cannot alter one surface without reconciling all shared Action
-counts.
+owner-only Action snapshot and both incident projections are part of that same
+binding, so private Security attention cannot alter one surface without
+reconciling all shared Action counts. The current production runtime remains at
+the fixed Application Support authority; the companion's protected staging
+descriptor remains inactive until separately approved host cutover.
 
 Opening the static `file://` Console never reads a credential or initiates a
 network request. Authenticated refresh is a separate owner-invoked local
@@ -614,12 +676,19 @@ Portlets do not move across main screens or into specialist ledgers.
 
 Every log uses the shared newest-first master/detail surface. Operational
 Incidents is the first and default log and defaults to unresolved incidents,
-with complete retained history available. Its list has one row per incident;
-the preview preserves the exact occurrence timeline and recovery evidence.
-Every other log uses the same surface. The newest
-matching entry is selected automatically; filtering that removes it selects
-the first remaining entry. The list and preview scroll independently inside a
-bounded workspace and stack on narrow screens. There is no duplicate
+with complete retained history available when the owner projection is current
+and complete. Its list has one row per incident; the preview preserves the
+exact occurrence timeline and recovery evidence. Security Incidents is a
+distinct owner-file log with separate `SEC` identity, count, lifecycle, and
+protected preview. Repository-source direct-disk, loopback, and hosted/public
+modes render both incident logs unavailable. During the current inactive
+Security Incident and relation staging state, the owner Console renders the
+Security Incident feed and relation feed unavailable rather than zero. The
+incident logs' only shared surface is the
+typed reciprocal relation link. Every other log uses the same surface. The
+newest matching entry is selected automatically; filtering that removes it
+selects the first remaining entry. The list and preview scroll independently
+inside a bounded workspace and stack on narrow screens. There is no duplicate
 `Latest entry` card. Logs remain projections of their canonical records and do
 not become independently edited ledgers.
 
@@ -632,18 +701,39 @@ ready, including initial load, reload, same-hash activation, aliases, filters,
 and stable selected-record deep links.
 
 Logs distinguish historical project **Change audits** from **Console
-development**. Console development records product feature lifecycle and exact
-Git traceability; it does not contain ordinary data refreshes or operational
-state transitions.
+development**, and both from **Governance changes**. Change audits retain the
+historical methodology and consistency record; Console development records
+product feature lifecycle and exact Git traceability; Governance changes
+records public-safe adoption, refinement, supersession, validation, and
+activation posture for material governance decisions. None contains ordinary
+data refreshes or operational state transitions. The Governance Change Log is
+provenance only: its listed governing document remains current-rule authority
+and Git remains exact-diff authority.
+
+Governance-change entries are generated from the exact registered `GOV`
+identity and strict public log parser. A protected supplement never replaces
+or edits that entry. The exact bound owner-file Console may join only its
+allowlisted safe summary when the supplement's GOV identity, public-entry
+digest, Console source revision, and complete projection all match. Protected
+decision context, evidence references, validation references, private paths,
+and private counts never enter the Console projection or DOM. Missing,
+malformed, duplicate, or mismatched required supplements remain unavailable.
 
 The Operations main-tab badge, Logs > Incidents badge, and Overview
 Operational incidents queue are the same typed unresolved count, deduplicated
-by incident ID. They are navigation cues, not separate calculations. Red means
+by incident ID when the owner projection is complete; outside that mode all
+three show unavailable rather than a number. They are navigation cues, not
+separate calculations. Red means
 an unresolved incident currently blocks or disrupts operation; yellow means
 the unresolved set is degraded, mitigated, or monitoring only; green requires
 zero unresolved incidents and a complete feed; gray means the feed is
 unavailable or incomplete. An unavailable feed is never rendered as zero or
 green.
+
+Security Incidents do not alter that Operational Incident badge or queue.
+Their owner-file count is separately typed and unavailable outside a compatible
+owner-local projection; no browser or public projection may derive a combined
+incident total from the relation journal.
 
 ## Dates, Counts, and State
 
@@ -705,6 +795,12 @@ known limitations, and full rollback baseline. A rename or move retains its
 feature identity; a replacement records supersession. Retirements, restorations,
 and reversions append history rather than rewriting it. Git remains the exact
 diff authority.
+
+For a governance-backed change, this record keeps only the Console feature,
+route or projection consequence, and GOV cross-reference. The Governance
+Change Log owns the governing decision and its adoption/activation posture;
+the corresponding governing document owns the current rule. This boundary
+prevents the Console log from becoming a duplicate governance ledger.
 
 Each change is a heading-based structured record rather than a table row. The
 dated umbrella and category-specific entry rules are defined once under

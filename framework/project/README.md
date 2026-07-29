@@ -18,4 +18,11 @@ without being a reusable standard.
 Begin with the [ARRP Project Profile](PROJECT_PROFILE.md) for the installation
 choices and the [ARRP Repository Map](REPOSITORY_MAP.md) for the exact content,
 configuration, and record surfaces. Exact maturity values and thresholds are
-maintained in the [ARRP Maturity Profile](profile/maturity-profile.md).
+maintained in the [ARRP Maturity Profile](profile/maturity-profile.md). The
+current and staged owner-local runtime boundary is governed separately by the
+[ARRP Owner-Local Runtime
+Authority](automation/owner-local-runtime.md).
+Material governance decisions are recorded through the
+[Governance Change Recording](workflows/governance-change-recording.md)
+workflow and its stable registry; the changed governing document remains the
+current-rule authority.

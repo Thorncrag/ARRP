@@ -4,6 +4,7 @@ dependencies:
   - "../../AGENT_OPERATING_RULES.md"
   - "../../standards/automation/task-handoffs.md"
   - "../../standards/automation/provenance-and-recovery.md"
+  - "owner-local-runtime.md"
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -175,8 +176,15 @@ public retention contract is summarized in
 Ordinary human-invoked work does not append there unless the user expressly
 converts it into an autonomous, batched, or scheduled run.
 
-A clean no-change run remains in bounded GitHub Actions or Console history and
-does not append a material-work entry. A material finding, repository change,
+A logical `owner-local:` path resolves through the [ARRP Owner-Local Runtime
+Authority](owner-local-runtime.md); it currently means the fixed Application
+Support production root, not the inactive protected successor staging
+descriptor.
+
+A clean no-change run remains in bounded local run or Console history and does
+not append a material-work entry. Historical GitHub Actions records may remain
+as retained evidence, but they are not current runtime history. A material
+finding, repository change,
 or external-state change must be logged. A source-changing pull request appends
 its source IDs, action and reason, accountable destination and proposition,
 originating run, validation, commit and push status, and rollback reference in
@@ -184,6 +192,14 @@ that same change. The log is append-only; a revert adds a new entry identifying
 the original and reversing commits rather than erasing history. Preserve
 historical generic labels and schemas, and do not retroactively attribute an
 older run to a newly named agent without reliable evidence.
+
+A material governance decision additionally receives its public-safe `GOV`
+entry under the [Governance Change Recording
+workflow](../workflows/governance-change-recording.md). That entry is
+decision provenance, not automation execution history. The Agent Audit Log
+must not substitute for it, and protected operational or security context
+must remain in the required owner-local supplement rather than the public
+entry.
 
 A persistent scheduled LLM agent may also have the dedicated `run_log_path`
 registered by its authoritative runbook. That run log accounts for every

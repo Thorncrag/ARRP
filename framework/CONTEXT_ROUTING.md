@@ -68,6 +68,11 @@ Routing is reevaluated when the task changes or the selected context exposes:
 
 Load the newly implicated module or capability before taking the action that depends on it. This includes adding the multi-agent capability before delegation and adding candidate, source, evidence, scoring, publication, interface, or GitHub capabilities when the work crosses those boundaries. Preserve provenance for the expanded packet or added source. Bounded context is permission to defer irrelevant material, never permission to ignore a material rule.
 
+Recording or reconciling a material governance decision additionally loads the
+Governance Change Recording workflow and its registry. That provenance step
+does not replace the Change Audit route required to analyze or propagate the
+underlying governing change.
+
 ## Interactive and Automated Use
 
 For an interactive Codex agent working directly with the user, a route is the minimum complete starting context, not a ceiling. Interactive work remains comprehensive: the agent should inspect additional canonical records, pursue connected questions, and use independent review whenever that improves the requested result.

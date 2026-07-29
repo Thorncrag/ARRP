@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import tempfile
 import unittest
@@ -15,10 +16,52 @@ class ProjectPathAuthorityTests(unittest.TestCase):
         self.root = Path(self.temporary.name).resolve()
         self.repository = self.root / "canonical"
         self.state = self.root / "state"
+        self.storage_floor = self.root / "storage"
+        self.private = self.storage_floor / "private-staging"
+        self.private_runtime = self.private / "role-a"
+        self.private_records = self.private / "role-b"
+        self.private_console_versions = self.private / "role-c"
+        self.private_migration = self.private / "role-d"
+        self.private_control_packs = (
+            self.private / "role-e"
+        )
         self.repository.mkdir()
         self.state.mkdir(mode=0o700)
+        self.storage_floor.mkdir()
+        self.private.mkdir(mode=0o700)
+        for path in (
+            self.private_runtime,
+            self.private_records,
+            self.private_console_versions,
+            self.private_migration,
+            self.private_control_packs,
+        ):
+            path.mkdir(mode=0o700, parents=True)
+        (self.private_records / "automation").mkdir(mode=0o700)
         (self.state / "worktrees").mkdir(mode=0o700)
         (self.state / "runs").mkdir(mode=0o700)
+        self.private_descriptor = self.private / "authority.json"
+        self.private_descriptor.write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "authority_id": "fixture-private-staging",
+                    "authority_mode": "inactive_successor_staging",
+                    "activation_authorized": False,
+                    "private_root": str(self.private),
+                    "roles": {
+                        "runtime": "role-a",
+                        "records": "role-b",
+                        "owner_console_versions": "role-c",
+                        "migration": "role-d",
+                        "disclosure_control_packs": "role-e",
+                    },
+                }
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        os.chmod(self.private_descriptor, 0o600)
         self.patch_repository = mock.patch.object(
             authority, "APPROVED_REPOSITORY_ROOT", self.repository
         )
@@ -128,6 +171,166 @@ class ProjectPathAuthorityTests(unittest.TestCase):
         os.chmod(self.state, 0o755)
         with self.assertRaises(authority.PathAuthorityError):
             authority.ProjectPathAuthority.production()
+
+    def test_successor_private_layout_is_validated_without_activation(self) -> None:
+        selected = authority.PrivateProjectAuthority.staging(
+            self.private_descriptor
+        )
+
+        self.assertEqual(selected.private_root, self.private.resolve())
+        self.assertEqual(selected.runtime_root, self.private_runtime.resolve())
+        self.assertEqual(selected.records_root, self.private_records.resolve())
+        self.assertEqual(
+            selected.owner_console_versions_root,
+            self.private_console_versions.resolve(),
+        )
+        self.assertEqual(
+            selected.migration_root,
+            self.private_migration.resolve(),
+        )
+        self.assertEqual(
+            selected.control_pack_root,
+            self.private_control_packs.resolve(),
+        )
+        self.assertEqual(
+            selected.records_output("automation/security-incidents.jsonl"),
+            self.private_records
+            / "automation"
+            / "security-incidents.jsonl",
+        )
+        supplement = self.private_records / "governance" / "supplements.jsonl"
+        supplement.parent.mkdir(mode=0o700)
+        supplement.write_text("{}\n", encoding="utf-8")
+        os.chmod(supplement, 0o600)
+        self.assertEqual(
+            selected.records_path("governance/supplements.jsonl"),
+            supplement,
+        )
+        with self.assertRaises(authority.PathAuthorityError):
+            selected.records_path("../outside.jsonl")
+
+    def test_successor_rejects_file_provider_and_symlink_boundaries(self) -> None:
+        with mock.patch.object(
+            authority,
+            "_file_provider_domain",
+            side_effect=lambda path: (
+                b"provider" if path == self.private else None
+            ),
+        ):
+            with self.assertRaisesRegex(
+                authority.PathAuthorityError,
+                "File Provider",
+            ):
+                authority.PrivateProjectAuthority.staging(
+                    self.private_descriptor
+                )
+
+        real_private = self.private
+        linked = self.storage_floor / "linked-private"
+        linked.symlink_to(real_private, target_is_directory=True)
+        payload = json.loads(
+            self.private_descriptor.read_text(encoding="utf-8")
+        )
+        payload["private_root"] = str(linked)
+        linked_descriptor = self.private / "linked-authority.json"
+        linked_descriptor.write_text(
+            json.dumps(payload) + "\n",
+            encoding="utf-8",
+        )
+        os.chmod(linked_descriptor, 0o600)
+        with self.assertRaisesRegex(
+            authority.PathAuthorityError,
+            "only directories",
+        ):
+            authority.PrivateProjectAuthority.staging(linked_descriptor)
+
+    def test_successor_rejects_unsafe_subroot_permissions(self) -> None:
+        os.chmod(self.private_runtime, 0o755)
+        with self.assertRaisesRegex(
+            authority.PathAuthorityError,
+            "permissions are unsafe",
+        ):
+            authority.PrivateProjectAuthority.staging(
+                self.private_descriptor
+            )
+
+    def test_private_staging_descriptor_cannot_overlap_production(self) -> None:
+        payload = json.loads(
+            self.private_descriptor.read_text(encoding="utf-8")
+        )
+        payload["private_root"] = str(self.state)
+        payload["roles"] = {
+            "runtime": "worktrees",
+            "records": "runs",
+            "owner_console_versions": "role-c",
+            "migration": "role-d",
+            "disclosure_control_packs": "role-e",
+        }
+        for role in ("role-c", "role-d", "role-e"):
+            (self.state / role).mkdir(mode=0o700)
+        descriptor = self.state / "authority.json"
+        descriptor.write_text(json.dumps(payload) + "\n", encoding="utf-8")
+        os.chmod(descriptor, 0o600)
+        with self.assertRaisesRegex(
+            authority.PathAuthorityError,
+            "overlaps production",
+        ):
+            authority.PrivateProjectAuthority.staging(descriptor)
+
+    def test_private_staging_descriptor_contract_fails_closed(self) -> None:
+        original = json.loads(
+            self.private_descriptor.read_text(encoding="utf-8")
+        )
+        cases = (
+            ("unknown", {**original, "unexpected": True}, "unknown or missing"),
+            (
+                "invalid-id",
+                {**original, "authority_id": "unsafe authority"},
+                "unsupported",
+            ),
+            (
+                "activation",
+                {**original, "activation_authorized": True},
+                "unsupported",
+            ),
+            (
+                "unnormalized-root",
+                {**original, "private_root": f"{self.private}/../private-staging"},
+                "unsupported",
+            ),
+        )
+        for name, payload, message in cases:
+            with self.subTest(name=name):
+                descriptor = self.private / f"{name}.json"
+                descriptor.write_text(
+                    json.dumps(payload) + "\n",
+                    encoding="utf-8",
+                )
+                os.chmod(descriptor, 0o600)
+                with self.assertRaisesRegex(
+                    authority.PathAuthorityError,
+                    message,
+                ):
+                    authority.PrivateProjectAuthority.staging(descriptor)
+
+    def test_private_staging_roles_must_be_disjoint(self) -> None:
+        nested = self.private_runtime / "nested"
+        nested.mkdir(mode=0o700)
+        payload = json.loads(
+            self.private_descriptor.read_text(encoding="utf-8")
+        )
+        payload["roles"]["records"] = "role-a/nested"
+        descriptor = self.private / "overlapping-roles.json"
+        descriptor.write_text(
+            json.dumps(payload) + "\n",
+            encoding="utf-8",
+        )
+        os.chmod(descriptor, 0o600)
+        with self.assertRaisesRegex(
+            authority.PathAuthorityError,
+            "disjoint",
+        ):
+            authority.PrivateProjectAuthority.staging(descriptor)
 
     def test_production_clis_expose_no_fixture_root_switch(self) -> None:
         repository = Path(__file__).resolve().parents[1]

@@ -38,6 +38,7 @@ in [`../PROJECT_STRUCTURE.md`](../PROJECT_STRUCTURE.md).
 | `inventory/sources-pending.csv` | Temporary unresolved-source routing catalog. |
 | `inventory/presidential-directives.csv` | Directive discovery and screening registry. |
 | `inventory/github_issue_registry.csv` | Stable GitHub-item-to-canonical-page registry. |
+| `framework/records/governance/governance-change-log.md` | Public-safe provenance index for material governance decisions; it does not replace the governing document, Change Audit history, or Git evidence. |
 
 ## ARRP governing configuration
 
@@ -48,15 +49,21 @@ in [`../PROJECT_STRUCTURE.md`](../PROJECT_STRUCTURE.md).
 | [`profile/`](profile/) | Additional ARRP-specific scoring, maturity, and public-actor conventions. |
 | [`github/workflow.md`](github/workflow.md) | Exact GitHub lifecycle, field, and synchronization implementation. |
 | [`workflows/`](workflows/) | ARRP-specific review and reconciliation procedures. |
+| [`workflows/governance-change-recording.md`](workflows/governance-change-recording.md) | Public-safe material governance-decision provenance and protected-supplement posture. |
 | [`workflows/navigation-sync.md`](workflows/navigation-sync.md) | Exact ARRP navigation, area-list, topic-guide, and synchronization implementation. |
 | [`publication/`](publication/) | Exact edition manifests and release decisions. |
 | [`interfaces/`](interfaces/) | Project Console and visual-identity configuration. |
-| [`automation/`](automation/) | Context registry, named runbooks, and exact agent/bot configuration. |
+| [`automation/`](automation/) | Owner-local runtime authority, context registry, named runbooks, and exact agent/bot configuration. |
 
 ## Local-first runtime
 
-The reviewed `scripts/arrp_bootstrap.py` and `scripts/arrp_nightly.py` source
-implements the enabled local-first chain. One owner LaunchAgent,
+The [ARRP Owner-Local Runtime
+Authority](automation/owner-local-runtime.md) governs the current Application
+Support state root, the inactive protected successor staging descriptor, and
+every logical `owner-local:` path. The reviewed `scripts/arrp_bootstrap.py` and
+`scripts/arrp_nightly.py` source implements the installed local-first chain.
+The chain is currently intentionally `Paused`; installed capability does not
+authorize a production run or removal of the pause marker. One owner LaunchAgent,
 `com.thorncrag.arrp-nightly`, is the sole scheduled coordinator and evaluates
 the chain at 02:00 `America/New_York`, with `RunAtLoad` due evaluation.
 Protected ownership and validation policy remain under `.github/`, and

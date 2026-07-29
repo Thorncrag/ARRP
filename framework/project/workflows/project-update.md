@@ -34,7 +34,7 @@ the change requires a Change Audit.
 
 ## Load When
 
-Load this file at closeout whenever a project change adds, moves, renames, promotes, retires, merges, audits, materially revises, or republishes an area, issue, proposal vehicle, source, candidate, research record, topic guide, or governing rule.
+Load this file at closeout whenever a project change adds, moves, renames, promotes, retires, merges, audits, materially revises, or republishes an area, issue, proposal vehicle, source, candidate, research record, topic guide, or governing rule. For a material governing decision, also load the [Governance Change Recording](governance-change-recording.md) workflow.
 
 ## Project-Update Checklist
 
@@ -62,6 +62,7 @@ When updating the project, check whether the change requires inventory maintenan
 14. If a roadmap, governance, audit, release, or publication task has meaningful child tasks, use GitHub native sub-issues rather than Markdown-only checklist substitutes.
 15. If proposal development, horizon integration, or a material source update introduces a department, agency, office, court, other institutional body, acronym, alias, or plain-language subject that would help readers find the relevant work, add or revise the corresponding route under the canonical [Indexing and Contents Synchronization Standard](../../../SUBJECT_INDEX.md#indexing-and-contents-synchronization-standard). If the preferred destination changes, update the canonical entry, all affected **See** references, and the affected contents page in the same change.
 16. If a change creates, moves, retitles, or materially reroutes a public topic guide, update the guide, root discovery text, Subject and Institution Index, site navigation and allowlist, GitHub registry and Project canonical-page field when applicable, print assignment, and every affected internal reference in the same navigation-synchronization pass.
+17. If a material governance boundary is adopted, revised, superseded, retired, or proposed for canonical adoption, reconcile the public-safe Governance Change Log and its registry with the governing authority, exact Git evidence, validation, supersession, policy-adoption posture, live-activation posture, and any required owner-local supplement. Do not use the governance record to replace a Change Audit, issue audit history, or protected record.
 
 ## Audit Closeout and Preservation
 

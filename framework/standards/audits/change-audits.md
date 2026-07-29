@@ -50,6 +50,13 @@ transaction history. Do not create or append a cumulative project-wide Change
 Audit ledger merely for a new live review. Preserve existing historical
 records read-only for provenance.
 
+The public-safe Governance Change Log may separately record the provenance of
+a material governance decision, its exact Git evidence, supersession,
+validation, and activation posture. It is not a Change Audit, does not create
+an audit run, and may not alter a score, rubric, rebaseline marker, or the
+historical Change Audit Log. Use its project workflow only after the governing
+authority and any required Change Audit have been determined.
+
 Related substantive edits or clarifications made in rapid succession may be
 consolidated into one coherent proposal-sidecar entry or one bounded governing
 change only when the canonical record and committed change still preserve the

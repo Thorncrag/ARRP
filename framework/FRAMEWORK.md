@@ -161,6 +161,12 @@ The following routes are cumulative. Each linked module states its own load trig
 | Agent or bot behavior | [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md), reusable [`standards/automation/`](standards/automation/) rules, and applicable [`project/automation/`](project/automation/) policy or runbook |
 | Context selection, manifest maintenance, or comprehensive-review coverage | [`CONTEXT_ROUTING.md`](CONTEXT_ROUTING.md) and [`context-routes.json`](project/automation/context-routes.json) |
 | Repository placement | [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md) |
+| Owner-local runtime paths, state classes, Application Support authority, `ARRP Private` staging, migration, cutover, rollback, or retirement | [`ARRP Owner-Local Runtime Authority`](project/automation/owner-local-runtime.md) |
+| GitHub-bound disclosure, public/private artifact families, secret exclusion, or owner-local disclosure controls | [`GitHub Disclosure Boundary`](project/github/disclosure-boundary.md) and [`disclosure-policy.json`](project/github/disclosure-policy.json) |
+| Operational Incident identity, admission, recurrence, recovery, or closure | [`operational-incidents.json`](project/automation/operational-incidents.json) |
+| Security Incident identity, protected investigation, containment, verification, or closure | [`security-incidents.json`](project/automation/security-incidents.json) |
+| Reciprocal `INC`/`SEC` relationship identity or navigation | [`incident-relations.json`](project/automation/incident-relations.json) |
+| Material governance-decision identity, public provenance, adoption, supersession, validation, activation posture, or protected-supplement requirement | [`ARRP Governance Change Recording`](project/workflows/governance-change-recording.md) and [`governance-change-registry.json`](project/workflows/governance-change-registry.json) |
 | Project-operated interface layout and behavior | [`standards/interfaces/standard.md`](standards/interfaces/standard.md) and [`project/interfaces/project-console.md`](project/interfaces/project-console.md) |
 | Console progress calculation and display | [`standards/interfaces/progress-views.md`](standards/interfaces/progress-views.md) and [`project/interfaces/project-console-progress.md`](project/interfaces/project-console-progress.md) |
 | Publication and compiled editions | [`standards/publication/`](standards/publication/), [`project/publication/`](project/publication/), and [`project/publication/print-assembly.json`](project/publication/print-assembly.json) |
