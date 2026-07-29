@@ -52,15 +52,15 @@ confidence; commit subjects alone are insufficient evidence.
 - Title: Restore authenticated Project readback for owner Console refresh
 - Lifecycle: Introduced
 - Feature or component: Authenticated owner refresh
-- State: Proposed / unmerged
-- Implementation commits: `8eae5943551ffe471dd9f53a30dd309e890dc360`, `fef0beacf4277b68c0164337b82344b1e56df8ae`, `fcf430a065e02e8c65c00290bec2193949319720`, `71e547155ce3b9c81972a50e9e9e8a0b493d0cbc`, and `e1f7d37b95502ee590a324a6b5294082605703ac`
+- State: Canonical through PR #485 and merge commit `10ec1342713e11543377b89de5f5ffc8cf5ddf8d`
+- Implementation commits: `8eae5943551ffe471dd9f53a30dd309e890dc360`, `fef0beacf4277b68c0164337b82344b1e56df8ae`, `fcf430a065e02e8c65c00290bec2193949319720`, `71e547155ce3b9c81972a50e9e9e8a0b493d0cbc`, `e1f7d37b95502ee590a324a6b5294082605703ac`, `8c1eb765ace51edd4f9782cf26692bad4b6e6a2f`, `15657d443f1a054fac42e8b5bc1c794c3b9935e7`, `d44cef748fff9f18abfada7466b8d5e0646bc224`, and `78381a335f16d9e2e4e16a9b4dcbd6f627da33c3`
 - Rollback baseline: `4e6f2c293daf47a4584d1c25866cb6fc4f4e36ac`
 
 ### Security, privacy & disclosure
 
 - Category ID: `security_privacy_disclosure`
 - Change ID: `CONSOLE-2026-002`
-- Commit IDs: `8eae5943551ffe471dd9f53a30dd309e890dc360`, `fef0beacf4277b68c0164337b82344b1e56df8ae`, `fcf430a065e02e8c65c00290bec2193949319720`, `71e547155ce3b9c81972a50e9e9e8a0b493d0cbc`, and `e1f7d37b95502ee590a324a6b5294082605703ac`
+- Commit IDs: `8eae5943551ffe471dd9f53a30dd309e890dc360`, `fef0beacf4277b68c0164337b82344b1e56df8ae`, `fcf430a065e02e8c65c00290bec2193949319720`, `71e547155ce3b9c81972a50e9e9e8a0b493d0cbc`, `e1f7d37b95502ee590a324a6b5294082605703ac`, and `78381a335f16d9e2e4e16a9b4dcbd6f627da33c3`
 - Material change: Added a fixed-authority owner refresh that requires the
   clean canonical checkout, obtains the dedicated read-only Project
   credential from its approved Keychain boundary, removes inherited GitHub
