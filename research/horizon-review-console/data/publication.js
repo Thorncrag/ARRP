@@ -7616,7 +7616,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/automation-arrp console development log",
       "internal_links": [],
-      "word_count": 933,
+      "word_count": 936,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
@@ -19931,6 +19931,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-3e437ddd4faddd7c7b93"
+    "publication.js": "project-console-513c97bda0b2ea432bf2"
   }
 });
