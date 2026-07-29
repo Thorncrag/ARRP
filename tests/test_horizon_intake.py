@@ -1483,7 +1483,6 @@ class HorizonIntakeTest(unittest.TestCase):
                 ],
             ],
         )
-        self.assertTrue(all(record["entries"] for record in self.console["project_logs"]))
         for record in self.console["project_logs"]:
             if record["id"] in {"elim", "agents"}:
                 self.assertIsNone(record["source_url"])
@@ -1495,8 +1494,14 @@ class HorizonIntakeTest(unittest.TestCase):
                 )
         for record in self.console["project_logs"]:
             self.assertTrue(record["columns"])
-            self.assertTrue(record["entries"])
-            self.assertTrue(all(entry["details_html"] for entry in record["entries"]))
+            if record["complete"] is True:
+                self.assertEqual(record["availability"], "current")
+                self.assertTrue(record["entries"])
+                self.assertTrue(all(entry["details_html"] for entry in record["entries"]))
+            else:
+                self.assertEqual(record["availability"], "unavailable")
+                self.assertEqual(record["entries"], [])
+                self.assertTrue(record["reason"])
         self.assertTrue(self.console["progress"].get("metrics"))
         directive_dates = [
             row["signed_date"] or row["published_date"]
