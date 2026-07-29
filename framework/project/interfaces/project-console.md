@@ -242,13 +242,23 @@ Operations owns:
    schema. A current future-run snapshot never rewrites historical run state;
    a gate counts against the latest attempt only when the coordinator applied
    its exact gate ID to that attempt.
-4. Security — the complete private authenticated GitHub security snapshot,
-   preserving raw alert count while counting actionable remediation work
-   units. One alert is one work unit unless the producer supplies an explicit
-   stable remediation-group ID. Human-owned credential/secret actions
-   cross-index into `Security actions requiring you`; Elim-owned CodeQL and
-   dependency work cross-index into `Security remediation owned by Elim`.
-   Neither becomes a Project Integrity finding merely by appearing here.
+4. Security — a safe operational-assurance and protective-action surface. Its
+   compact status row shows public-intake `Live`, `Paused`, or `Unverified`;
+   completed registered-check coverage; private attention as `None reported`,
+   `Required`, or `Unavailable`; and a typed active-incident indicator. Its
+   bounded master/detail workspace contains exactly the seven registered tool
+   identities in
+   [`project-console-classifications.json`](project-console-classifications.json):
+   Public-intake protection, Repository change protection, Protected-surface
+   change review, Automation isolation, Credential and access review,
+   Disclosure-boundary verification, and Recovery readiness. Previews explain
+   purpose and scope only. Provider-native alert contents, credential
+   metadata, affected paths or components, rule identities, detector details,
+   evidence, and remediation analysis remain at GitHub Security or in the
+   owner-local Security Control Profile and never enter the Console projection
+   or DOM. Unknown, stale, or incomplete private evidence renders unavailable,
+   never zero or healthy. A successful check means completed coverage, not
+   `secure` or `no vulnerabilities`.
 5. Capacity — typed usage windows, reserve posture, historical consumption,
    and explicit Review Epoch identity/markers.
 6. Platform — one provider-neutral typed projection grouping OpenAI, Vercel,
@@ -318,6 +328,42 @@ only after the public generation passes the project-wide disclosure gate and
 are absent from its manifest, catalog, DOM, exports, and GitHub-bound bundle.
 Unavailable local detail is never represented as a public zero or healthy
 state.
+
+The Console supports three explicit delivery modes. The ordinary owner-local
+mode is the canonical `research/horizon-review-console/index.html` opened
+directly with `file://`; it may load the ignored sibling Security assurance,
+private Operations, and local automation-status scripts. Loopback HTTP(S) on
+`localhost`, `127.0.0.1`, or the IPv6 loopback is the development mode and may
+load the same ignored files. Hosted/public HTTPS is public-only and must not
+request any local projection. A future hosted private mode requires a
+separately designed authenticated service with deny-by-default field
+allowlists; authentication never means storing private operational data in
+GitHub. The direct-disk gate requires an empty file hostname and the canonical
+Console entrypoint suffix. Missing or malformed files remain unavailable.
+Private Operations additionally requires an exact schema, Console generation,
+and source-revision binding before its records can join the public shell.
+
+Security accepts only `Open protected source`, `Refresh authenticated status`,
+`Prepare read-only review`, and the separately reviewed public-intake
+`Live / Paused` action class. The static Console executes no arbitrary command
+or security mutation. Until an authenticated owner-only server control is
+separately reviewed, intake-state changes remain exported requests. Any future
+direct control must cover the form, both APIs, collector, Elim intake review,
+and replies; require exact authorization and immediate readback; and create an
+Operational Incident when those surfaces disagree. A form-endpoint pause alone
+never establishes that intake collection and review are paused.
+
+The minimized security projection permits only registered tool ID and safe
+label, availability, last checked, next due, safe source revision, coverage
+state, private-attention value, owner class, destination class,
+active-incident boolean, and public-intake state. Safe tool-purpose text comes
+from the checked-in classification registry, not the private feed. Unknown
+tool IDs or fields invalidate the private projection. Human-required work
+cross-indexes into Action Items only as a generic protected action; Elim-owned
+work may contribute a private authenticated work-unit signal but no public
+count or details. Provider-native CodeQL, Dependabot, secret-scanning, and
+private-advisory systems remain the detailed authorities and are never copied
+into project-authored GitHub records.
 
 The ordinary
 user-facing control vocabulary is binary `Run / Paused`; `Disabled` is not a

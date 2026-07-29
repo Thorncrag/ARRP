@@ -54,7 +54,7 @@
     },
     "github_disclosure_boundary": {
       "path": "framework/project/github/disclosure-boundary.md",
-      "sha256": "81ac1c116d03088435345461d7c00c30e0c3a56b6481a7a882a34eefe56e6296",
+      "sha256": "282fe98f858782380dbac166ca8b6f96b3779e7c627195e90905141b0ec33fe3",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -152,7 +152,7 @@
     },
     "project_interface": {
       "path": "framework/project/interfaces/project-console.md",
-      "sha256": "026a46a1af81c15c111af59dc01afeb02c98825f53b86882f2cd668e1dc06014",
+      "sha256": "8adc4451d274893829594571311056a7ed22bee3ae5efd4f97d04a434535a5fa",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -679,7 +679,7 @@
       "requires": [
         "project_structure"
       ],
-      "sha256": "b7300069538234b4bffc5d207977c29a32a5a3147f676bbdb8a6bc3e0a680def"
+      "sha256": "f09caa48c5b6c6ecc70ca27c666e810e9bfd68f8378fd5fcb53fc4cd5b076213"
     },
     "progress_view_standard": {
       "path": "framework/standards/interfaces/progress-views.md",

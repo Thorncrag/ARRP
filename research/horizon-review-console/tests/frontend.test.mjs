@@ -11,7 +11,7 @@ const appPath = path.join(consoleDirectory, "app.js");
 const indexPath = path.join(consoleDirectory, "index.html");
 const localRequire = createRequire(import.meta.url);
 
-function loadApi(privateGitHubSecurity = {}, projectDataOverride = {}) {
+function loadApi(privateSecurityAssurance = {}, projectDataOverride = {}) {
   const projectData = {
     records: [],
     active_horizon_records: [],
@@ -25,7 +25,7 @@ function loadApi(privateGitHubSecurity = {}, projectDataOverride = {}) {
   };
   const window = {
     ARRP_HORIZON_REVIEW_DATA: projectData,
-    ARRP_PRIVATE_GITHUB_SECURITY: privateGitHubSecurity,
+    ARRP_PRIVATE_SECURITY_ASSURANCE: privateSecurityAssurance,
     __ARRP_CONSOLE_TEST_MODE__: true
   };
   const priorGlobals = {
@@ -89,62 +89,155 @@ test("Integrity remains the exact authoritative report rather than a cross-domai
   assert.ok(combined.some((finding) => finding.message === "Pipeline provenance defect"));
 });
 
-test("private GitHub security alerts route by typed owner without becoming authoritative", () => {
+test("security assurance accepts only minimized registered tool status", () => {
+  const publicTools = [
+    { tool_id: "credential-access-review", label: "Credential and access review", purpose: "Safe purpose.", owner_class: "Human", destination_class: "owner_local_review" },
+    { tool_id: "repository-change-protection", label: "Repository change protection", purpose: "Safe purpose.", owner_class: "Elim", destination_class: "protected_source" }
+  ];
   const { api } = loadApi({
+    schema_version: 2,
     availability: "current",
-    generated_at: "2026-07-26T20:00:00Z",
-    completeness: { complete: true },
-    authoritative_url: "https://github.com/Thorncrag/ARRP/security",
-    problems: [
-      {
-        reference: "GHSEC-CODE-SCANNING-102",
-        category: "Code scanning",
-        severity: "error",
-        message: "Path injection",
-        owner: "Elim",
-        attention: "agent",
-        reported_by: "GitHub Security",
-        status: "Open",
-        source_url: "https://github.com/Thorncrag/ARRP/security/code-scanning/102"
-      },
-      {
-        reference: "GHSEC-SECRET-SCANNING-9",
-        category: "Exposed credential",
-        severity: "error",
-        message: "Credential",
-        owner: "Human",
-        attention: "human",
-        reported_by: "GitHub Security",
-        status: "Open",
-        source_url: "https://github.com/Thorncrag/ARRP/security/secret-scanning/9"
-      }
+    complete: true,
+    checked_at: "2026-07-28T20:00:00Z",
+    public_intake_state: "unverified",
+    private_attention: "required",
+    active_incident: false,
+    tools: [
+      { tool_id: "credential-access-review", availability: "current", last_checked: "2026-07-28T20:00:00Z", coverage_state: "current", private_attention: "yes", owner_class: "Human", destination_class: "owner_local_review", active_incident: false, public_intake_state: null, next_due: null, source_revision: "safe-revision", label: "Credential and access review" },
+      { tool_id: "repository-change-protection", availability: "current", last_checked: "2026-07-28T20:00:00Z", coverage_state: "current", private_attention: "yes", owner_class: "Elim", destination_class: "protected_source", active_incident: false, public_intake_state: null, next_due: null, source_revision: "safe-revision", label: "Repository change protection" }
     ]
+  }, {
+    security_assurance: { schema_version: 2, availability: "unavailable", complete: false, tools: publicTools }
   });
-  const alerts = api.allProblemRecords()
-    .filter((record) => record.reported_by === "GitHub Security");
-  assert.equal(alerts.length, 2);
-  assert.equal(alerts.filter((record) => record.attention === "human").length, 1);
-  assert.equal(alerts.filter((record) => record.attention === "agent").length, 1);
-  assert.equal(alerts.find((record) => record.attention === "human").owner, "Human");
-  assert.equal(alerts.find((record) => record.attention === "agent").owner, "Elim");
+  const projection = api.securityAssuranceProjection();
+  assert.equal(projection.available, true);
+  assert.equal(projection.privateAttention, "required");
+  assert.equal(api.securityActionRecords().filter((record) => record.attention === "human").length, 1);
+  assert.equal(api.securityActionRecords().filter((record) => record.attention === "agent").length, 1);
+  assert.ok(api.securityActionRecords().every((record) => !record.message.includes("credential-access-review")));
 });
 
-test("security remediation counts typed work units and preserves raw alert count", () => {
+test("security assurance fails closed on vulnerability-shaped or unknown fields", () => {
   const { api } = loadApi({
+    schema_version: 2,
     availability: "current",
-    generated_at: "2026-07-28T18:45:44Z",
-    completeness: { complete: true, open_alert_count: 3 },
-    alerts: [
-      { id: "A-1", remediation_group_id: "R-1", owner: "Elim", next_action: "Repair one", title: "Path issue" },
-      { id: "A-2", remediation_group_id: "R-1", owner: "Elim", next_action: "Repair one", title: "Path issue" },
-      { id: "A-3", owner: "Human", next_action: "Rotate credential", title: "Secret" }
-    ],
-    problems: []
+    complete: true,
+    checked_at: "2026-07-28T20:00:00Z",
+    public_intake_state: "live",
+    private_attention: "none_reported",
+    active_incident: false,
+    tools: [{
+      tool_id: "credential-access-review",
+      label: "Credential and access review",
+      availability: "current",
+      coverage_state: "current",
+      private_attention: "no",
+      owner_class: "Human",
+      destination_class: "owner_local_review",
+      active_incident: false,
+      vulnerability_message: "must not enter the Console"
+    }]
+  }, {
+    security_assurance: {
+      schema_version: 2,
+      tools: [{ tool_id: "credential-access-review", label: "Credential and access review", purpose: "Safe purpose." }]
+    }
   });
-  const projection = api.securityRemediationProjection();
-  assert.equal(projection.available, true);
-  assert.equal(projection.count, 2);
-  assert.equal(projection.rawAlertCount, 3);
+  assert.equal(api.securityAssuranceProjection().available, false);
+  assert.equal(api.securityActionRecords().length, 0);
+});
+
+test("security assurance exposes staged safe actions and keyboard navigation", () => {
+  const app = fs.readFileSync(appPath, "utf8");
+  const html = fs.readFileSync(indexPath, "utf8");
+  assert.match(html, /id="refresh-security-status"/);
+  assert.match(app, /prepare_public_intake_state_request/);
+  assert.match(app, /execution: "staged_request_only"/);
+  assert.match(app, /mixed_state_response: "record_operational_incident"/);
+  assert.match(app, /event\.key === "ArrowDown"/);
+  assert.doesNotMatch(app, /arbitrary_command_execution"\]\s*,?\s*commands:/);
+});
+
+test("owner-local projections load only from canonical disk or loopback mode", async () => {
+  const { api } = loadApi();
+  assert.equal(api.localConsoleOriginAllowed({
+    protocol: "file:",
+    hostname: "",
+    pathname: "/Users/example/ARRP/research/horizon-review-console/index.html"
+  }), true);
+  assert.equal(api.localConsoleOriginAllowed({
+    protocol: "file:",
+    hostname: "",
+    pathname: "/Users/example/ARRP/research/horizon-review-console/copy.html"
+  }), false);
+  assert.equal(api.localConsoleOriginAllowed({
+    protocol: "file:",
+    hostname: "localhost",
+    pathname: "/Users/example/ARRP/research/horizon-review-console/index.html"
+  }), false);
+  assert.equal(api.localConsoleOriginAllowed({
+    protocol: "http:",
+    hostname: "127.0.0.1",
+    pathname: "/index.html"
+  }), true);
+  assert.equal(api.localConsoleOriginAllowed({
+    protocol: "https:",
+    hostname: "arrp.org",
+    pathname: "/research/horizon-review-console/index.html"
+  }), false);
+
+  const priorWindow = globalThis.window;
+  const priorDocument = globalThis.document;
+  let appended = 0;
+  globalThis.window = {
+    location: {
+      protocol: "file:",
+      hostname: "",
+      pathname: "/Users/example/ARRP/research/horizon-review-console/index.html"
+    }
+  };
+  globalThis.document = {
+    createElement() { return {}; },
+    head: {
+      append(script) {
+        appended += 1;
+        script.onerror();
+      }
+    }
+  };
+  try {
+    assert.equal(await api.loadLocalProjection("data/missing.js", () => false), false);
+    assert.equal(appended, 1);
+  } finally {
+    if (priorWindow === undefined) delete globalThis.window;
+    else globalThis.window = priorWindow;
+    if (priorDocument === undefined) delete globalThis.document;
+    else globalThis.document = priorDocument;
+  }
+});
+
+test("private operations require exact generation and revision binding", () => {
+  const { api } = loadApi({}, {
+    generation_id: "generation-current",
+    source_revision: "revision-current"
+  });
+  const snapshot = {
+    schema_version: 2,
+    availability: "current",
+    generated_at: "2026-07-28T20:00:00Z",
+    catalog_generation_id: "generation-current",
+    source_revision: "revision-current",
+    agent_registry: [],
+    project_logs: [],
+    integrity: {},
+    run_chain: {},
+    privacy: "Owner-only local projection."
+  };
+  assert.equal(api.validPrivateOperationsSnapshot(snapshot), true);
+  assert.equal(api.validPrivateOperationsSnapshot({
+    ...snapshot,
+    catalog_generation_id: "older-generation"
+  }), false);
 });
 
 test("role surfaces share the typed projection and exact owner-only control state", () => {
@@ -1225,21 +1318,27 @@ test("initial HTML loads only bounded scripts and stays within declared budgets"
   const app = fs.readFileSync(appPath, "utf8");
   const scriptSources = [...html.matchAll(/<script\s+src="([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(scriptSources, [
-    "catalog-data.js?v=47",
-    "app.js?v=61"
+    "catalog-data.js?v=48",
+    "app.js?v=65"
   ]);
-  assert.match(app, /const PRIVATE_GITHUB_SECURITY_PATH = "data\/private-github-security\.js\?v=1";/);
+  assert.match(app, /const PRIVATE_SECURITY_ASSURANCE_PATH = "data\/private-security-assurance\.js\?v=1";/);
   assert.match(app, /const PRIVATE_OPERATIONS_PATH = "data\/private-operations\.js\?v=1";/);
-  assert.match(app, /if \(capturePrivateGitHubProblems\(\) \|\| !localConsoleOriginAllowed\(\)\)/);
-  assert.match(html, /data-initial-script-budget-kib="590"/);
+  assert.match(app, /const LOCAL_AUTOMATION_STATUS_PATH = "data\/local-automation-status\.js";/);
+  assert.match(app, /return loadLocalProjection\(\s*PRIVATE_SECURITY_ASSURANCE_PATH,\s*capturePrivateSecurityAssurance\s*\)/);
+  assert.match(app, /return loadLocalProjection\(PRIVATE_OPERATIONS_PATH, capturePrivateOperations\)/);
+  assert.match(app, /return loadLocalProjection\(\s*LOCAL_AUTOMATION_STATUS_PATH,\s*captureLocalAutomationStatus\s*\)/);
+  assert.match(app, /if \(window\.__ARRP_CONSOLE_TEST_MODE__\) capturePrivateSecurityAssurance\(\);/);
+  assert.doesNotMatch(app, /\n  capturePrivateSecurityAssurance\(\);/);
+  assert.match(html, /data-initial-script-budget-kib="605"/);
   assert.match(html, /data-initial-dom-budget="1500"/);
   const bytes = ["catalog-data.js", "app.js"]
     .map((file) => fs.statSync(path.join(consoleDirectory, file)).size)
     .reduce((sum, size) => sum + size, 0);
-  assert.ok(bytes <= 590 * 1024, `synchronous JavaScript is ${bytes} bytes`);
+  assert.ok(bytes <= 605 * 1024, `synchronous JavaScript is ${bytes} bytes`);
   const approximateElementCount = (html.match(/<[a-z][^!/][^>]*>/gi) || []).length;
   assert.ok(approximateElementCount <= 1500, `initial HTML has about ${approximateElementCount} elements`);
   assert.doesNotMatch(html, /<script\s+src="data\/(?:candidates|sources|progress|integrity|automation|logs|publication)/);
+  assert.doesNotMatch(html, /private-security-assurance|private-operations|local-automation-status/);
   assert.doesNotMatch(html, /role="tabpanel"[^>]*tabindex="0"/);
   assert.match(html, /Recent material activity/);
   assert.match(html, /id="pages-pagination"/);
@@ -1414,4 +1513,18 @@ test("local automation status distinguishes unavailable, running, failure, revie
   assert.equal(api.localAutomationPresentation({ status: "failed" }).tone, "error");
   assert.equal(api.localAutomationPresentation({ status: "review-required" }).label, "Review required");
   assert.equal(api.localAutomationPresentation({ status: "completed" }).tone, "success");
+  assert.equal(api.validLocalAutomationStatus({
+    schema_version: "1.0",
+    status: "completed",
+    updated_at: new Date().toISOString()
+  }), true);
+  assert.equal(api.validLocalAutomationStatus({
+    schema_version: "1.0",
+    status: "unexpected",
+    updated_at: new Date().toISOString()
+  }), false);
+  assert.equal(api.localAutomationPresentation({
+    status: "completed",
+    updated_at: "2020-01-01T00:00:00Z"
+  }).label, "Stale");
 });

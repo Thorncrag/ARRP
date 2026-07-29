@@ -98,7 +98,7 @@ class HorizonIntakeTest(unittest.TestCase):
             )
 
     @patch.object(console_builder, "run_gh_paginated_json")
-    def test_private_github_security_snapshot_routes_alerts_by_required_owner(
+    def test_private_security_assurance_minimizes_provider_attention(
         self, paginated: object
     ) -> None:
         paginated.side_effect = [
@@ -106,14 +106,14 @@ class HorizonIntakeTest(unittest.TestCase):
                 {
                     "number": 102,
                     "rule": {
-                        "id": "py/path-injection",
-                        "name": "Path injection",
+                        "id": "synthetic-rule",
+                        "name": "Synthetic alert",
                         "security_severity_level": "high",
                     },
                     "most_recent_instance": {
                         "location": {
-                            "path": "scripts/run_chain_dispatcher.py",
-                            "start_line": 517,
+                            "path": "synthetic/path",
+                            "start_line": 1,
                         }
                     },
                     "html_url": (
@@ -128,7 +128,7 @@ class HorizonIntakeTest(unittest.TestCase):
             [
                 {
                     "number": 9,
-                    "secret_type_display_name": "Test credential",
+                    "secret_type_display_name": "Synthetic private action",
                     "html_url": (
                         "https://github.com/Thorncrag/ARRP/security/"
                         "secret-scanning/9"
@@ -139,20 +139,17 @@ class HorizonIntakeTest(unittest.TestCase):
             ],
         ]
 
-        snapshot = console_builder.github_security_action_snapshot()
+        snapshot = console_builder.security_assurance_snapshot()
 
         self.assertEqual(snapshot["availability"], "current")
-        self.assertTrue(snapshot["completeness"]["complete"])
-        self.assertEqual(snapshot["completeness"]["open_alert_count"], 2)
-        self.assertEqual(snapshot["alerts"][0]["id"], "code-scanning-102")
-        self.assertEqual(snapshot["alerts"][0]["owner"], "Elim")
-        self.assertEqual(
-            snapshot["alerts"][0]["location"],
-            "scripts/run_chain_dispatcher.py:517",
-        )
-        self.assertEqual(snapshot["alerts"][1]["id"], "secret-scanning-9")
-        self.assertEqual(snapshot["alerts"][1]["owner"], "Human")
-        self.assertIn("Git-ignored", snapshot["privacy"])
+        self.assertTrue(snapshot["complete"])
+        self.assertEqual(snapshot["private_attention"], "required")
+        self.assertEqual(len(snapshot["tools"]), 7)
+        self.assertFalse({"alerts", "problems", "completeness"} & set(snapshot))
+        serialized = json.dumps(snapshot)
+        self.assertNotIn("synthetic-rule", serialized)
+        self.assertNotIn("synthetic/path", serialized)
+        self.assertNotIn("Synthetic private action", serialized)
 
     @patch.object(console_builder, "fetch_project")
     def test_project_refresh_uses_exact_node_query_and_normalizes_cli_shape(
@@ -431,21 +428,33 @@ class HorizonIntakeTest(unittest.TestCase):
     def test_private_security_projection_is_written_after_public_bundle_swap(
         self,
     ) -> None:
+        public = console_builder.public_security_assurance_projection()
         snapshot = {
-            "schema_version": 1,
+            "schema_version": 2,
             "availability": "current",
-            "alerts": [],
-            "problems": [],
+            "complete": True,
+            "checked_at": "2026-07-28T20:00:00Z",
+            "public_intake_state": "unverified",
+            "private_attention": "none_reported",
+            "active_incident": False,
+            "tools": [
+                {
+                    key: value
+                    for key, value in tool.items()
+                    if key in console_builder.SECURITY_ASSURANCE_FIELDS
+                }
+                for tool in public["tools"]
+            ],
         }
         with tempfile.TemporaryDirectory() as temporary:
-            output = Path(temporary) / "private-github-security.js"
+            output = Path(temporary) / "private-security-assurance.js"
             with patch.object(
                 console_builder,
-                "PRIVATE_GITHUB_SECURITY_OUTPUT",
+                "PRIVATE_SECURITY_ASSURANCE_OUTPUT",
                 output,
             ):
                 self.assertEqual(
-                    console_builder.write_private_github_security_actions(snapshot),
+                    console_builder.write_private_security_assurance(snapshot),
                     snapshot,
                 )
             text = output.read_text(encoding="utf-8")
@@ -454,14 +463,14 @@ class HorizonIntakeTest(unittest.TestCase):
                     "/* Private local projection; never commit or publish. */"
                 )
             )
-            self.assertIn("window.ARRP_PRIVATE_GITHUB_SECURITY=", text)
+            self.assertIn("window.ARRP_PRIVATE_SECURITY_ASSURANCE=", text)
             with patch.object(
                 console_builder,
-                "PRIVATE_GITHUB_SECURITY_OUTPUT",
+                "PRIVATE_SECURITY_ASSURANCE_OUTPUT",
                 output,
             ):
                 self.assertEqual(
-                    console_builder.read_private_github_security_actions(),
+                    console_builder.read_private_security_assurance(),
                     snapshot,
                 )
         builder_source = (
@@ -470,14 +479,51 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertLess(
             builder_source.index("write_console_bundle("),
             builder_source.index(
-                "write_private_github_security_actions(private_github_security)"
+                "write_private_security_assurance(private_security_assurance)"
             ),
         )
 
-    def test_private_github_security_projection_is_git_ignored(self) -> None:
+    def test_private_security_projection_rejects_unknown_fields(self) -> None:
+        snapshot = console_builder.security_assurance_snapshot
+        with patch.object(
+            console_builder,
+            "_github_security_provider_snapshot",
+            return_value={
+                "checked_at": "2026-07-28T20:00:00Z",
+                "availability": "current",
+                "complete": True,
+                "human_attention": False,
+                "elim_attention": False,
+            },
+        ):
+            value = snapshot()
+        value["tools"][0]["vulnerability_message"] = "must not persist"
+        with tempfile.TemporaryDirectory() as temporary, patch.object(
+            console_builder,
+            "PRIVATE_SECURITY_ASSURANCE_OUTPUT",
+            Path(temporary) / "private-security-assurance.js",
+        ):
+            with self.assertRaisesRegex(RuntimeError, "field allowlist"):
+                console_builder.write_private_security_assurance(value)
+
+    @patch.object(console_builder, "run_gh_paginated_json")
+    def test_private_security_provider_failure_is_unavailable(
+        self, paginated: object
+    ) -> None:
+        paginated.side_effect = RuntimeError("provider detail must not escape")
+        value = console_builder.security_assurance_snapshot()
+        self.assertEqual(value["availability"], "unavailable")
+        self.assertFalse(value["complete"])
+        self.assertEqual(value["private_attention"], "unavailable")
+        self.assertTrue(
+            all(tool["private_attention"] == "unknown" for tool in value["tools"])
+        )
+        self.assertNotIn("provider detail", json.dumps(value))
+
+    def test_private_security_assurance_projection_is_git_ignored(self) -> None:
         ignored = (ROOT / ".gitignore").read_text(encoding="utf-8")
         self.assertIn(
-            "/research/horizon-review-console/data/private-github-security.js",
+            "/research/horizon-review-console/data/private-security-assurance.js",
             ignored,
         )
 
@@ -548,12 +594,29 @@ class HorizonIntakeTest(unittest.TestCase):
             output = Path(temporary) / "private-operations.js"
             with patch.object(console_builder, "PRIVATE_OPERATIONS_OUTPUT", output):
                 snapshot = console_builder.write_private_operations(
+                    catalog_generation_id="generation-test",
+                    source_revision="revision-test",
                     agent_registry=[{"id": "elim", "purpose": "Review work."}],
                     project_logs=[{"id": "agents", "entries": []}],
                     integrity={"history": [{"generation_id": "local-history"}]},
                     run_chain={"context_packet": {"scope": "local"}},
                 )
                 self.assertEqual(snapshot["availability"], "current")
+                self.assertEqual(snapshot["schema_version"], 2)
+                self.assertTrue(
+                    console_builder.valid_private_operations(
+                        snapshot,
+                        catalog_generation_id="generation-test",
+                        source_revision="revision-test",
+                    )
+                )
+                self.assertFalse(
+                    console_builder.valid_private_operations(
+                        snapshot,
+                        catalog_generation_id="different-generation",
+                        source_revision="revision-test",
+                    )
+                )
                 self.assertEqual(
                     snapshot["integrity"]["history"][0]["generation_id"],
                     "local-history",
@@ -566,6 +629,8 @@ class HorizonIntakeTest(unittest.TestCase):
                 prohibited_value = "api" + "_key=" + ("x" * 24)
                 with self.assertRaisesRegex(RuntimeError, "not persisted"):
                     console_builder.write_private_operations(
+                        catalog_generation_id="generation-test",
+                        source_revision="revision-test",
                         agent_registry=[{"id": "elim", "purpose": prohibited_value}],
                         project_logs=[],
                         integrity={},
@@ -973,7 +1038,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertTrue(all(row["kind"] == "preliminary_candidate" for row in self.console["records"]))
 
     def test_console_contains_candidate_and_source_views(self) -> None:
-        self.assertEqual(self.console["schema_version"], 28)
+        self.assertEqual(self.console["schema_version"], 29)
         self.assertEqual(
             set(self.console),
             {
@@ -1017,6 +1082,7 @@ class HorizonIntakeTest(unittest.TestCase):
                 "automation_role_status",
                 "repository_gates",
                 "operational_incidents",
+                "security_assurance",
                 "delivery_items",
                 "topic_products",
             },
@@ -1050,7 +1116,7 @@ class HorizonIntakeTest(unittest.TestCase):
         javascript_parts = {
             path.name for path in (console_dir / "data").glob("*.js")
         }
-        private_projection = console_dir / "data" / "private-github-security.js"
+        private_projection = console_dir / "data" / "private-security-assurance.js"
         if private_projection.exists():
             self.assertTrue(
                 private_projection.read_text(encoding="utf-8").startswith(
@@ -1058,6 +1124,11 @@ class HorizonIntakeTest(unittest.TestCase):
                 )
             )
             javascript_parts.remove(private_projection.name)
+        legacy_private_projection = (
+            console_dir / "data" / "private-github-security.js"
+        )
+        if legacy_private_projection.exists():
+            javascript_parts.remove(legacy_private_projection.name)
         private_operations_projection = (
             console_dir / "data" / "private-operations.js"
         )
@@ -1085,6 +1156,7 @@ class HorizonIntakeTest(unittest.TestCase):
                 if path.name
                 not in {
                     private_projection.name,
+                    legacy_private_projection.name,
                     private_operations_projection.name,
                     local_status_projection.name,
                 }
@@ -1885,15 +1957,15 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Candidates", console_html)
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
-        self.assertIn("catalog-data.js?v=47", console_html)
-        self.assertIn("app.js?v=61", console_html)
+        self.assertIn("catalog-data.js?v=48", console_html)
+        self.assertIn("app.js?v=65", console_html)
         self.assertIn("styles.css?v=55", console_html)
         self.assertEqual(
             re.findall(r'<script src="(data/[^"]+)"', console_html),
             [],
         )
         self.assertIn(
-            'const PRIVATE_GITHUB_SECURITY_PATH = "data/private-github-security.js?v=1";',
+            'const PRIVATE_SECURITY_ASSURANCE_PATH = "data/private-security-assurance.js?v=1";',
             console_app,
         )
         self.assertIn(
@@ -1901,7 +1973,10 @@ class HorizonIntakeTest(unittest.TestCase):
             console_app,
         )
         self.assertIn(
-            "if (capturePrivateGitHubProblems() || !localConsoleOriginAllowed())",
+            "return loadLocalProjection(\n"
+            "      PRIVATE_SECURITY_ASSURANCE_PATH,\n"
+            "      capturePrivateSecurityAssurance\n"
+            "    )",
             console_app,
         )
         for tab in {"overview", "progress", "actions", "planning", "integrity", "automation"}:

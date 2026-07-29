@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "registry_id": "arrp-project-console-classifications",
+  "namespaces": {
+    "security_tool": [
+      {
+        "id": "public-intake-protection",
+        "label": "Public-intake protection",
+        "purpose": "Verifies the recorded intake posture and high-level perimeter, privacy, header, Turnstile, firewall, and prompt-injection test coverage.",
+        "authoritative_source": "ARRP public-input controls and verified deployment readback",
+        "producer": "security-assurance-projection",
+        "lifecycle_owner": "Human",
+        "destination_class": "protected_source",
+        "allowed_consumers": ["operations_security"]
+      },
+      {
+        "id": "repository-change-protection",
+        "label": "Repository change protection",
+        "purpose": "Verifies CODEOWNERS coverage, authenticated branch or ruleset enforcement, and workflow-permission confinement.",
+        "authoritative_source": "GitHub repository administration and provider-native Security",
+        "producer": "security-assurance-projection",
+        "lifecycle_owner": "Elim",
+        "destination_class": "protected_source",
+        "allowed_consumers": ["operations_security", "action_items_oversight"]
+      },
+      {
+        "id": "protected-surface-change-review",
+        "label": "Protected-surface change review",
+        "purpose": "States whether a registered security-sensitive surface changed after its latest completed security review without identifying the surface.",
+        "authoritative_source": "Owner-local Security Control Profile",
+        "producer": "security-assurance-projection",
+        "lifecycle_owner": "Elim",
+        "destination_class": "owner_local_review",
+        "allowed_consumers": ["operations_security"]
+      },
+      {
+        "id": "automation-isolation",
+        "label": "Automation isolation",
+        "purpose": "Verifies owner-only runtime boundaries, Elim isolation, and credential-broker confinement at a high level.",
+        "authoritative_source": "Owner-local runtime assurance",
+        "producer": "security-assurance-projection",
+        "lifecycle_owner": "Elim",
+        "destination_class": "owner_local_review",
+        "allowed_consumers": ["operations_security"]
+      },
+      {
+        "id": "credential-access-review",
+        "label": "Credential and access review",
+        "purpose": "Reports review currentness and whether a protected human action is required without exposing credential inventory or metadata.",
+        "authoritative_source": "Owner-local credential and access review",
+        "producer": "security-assurance-projection",
+        "lifecycle_owner": "Human",
+        "destination_class": "owner_local_review",
+        "allowed_consumers": ["operations_security", "action_items_human"]
+      },
+      {
+        "id": "disclosure-boundary-verification",
+        "label": "Disclosure-boundary verification",
+        "purpose": "Reports disclosure-gate availability, last completed validation, and its safe source revision.",
+        "authoritative_source": "ARRP disclosure gate and active owner-local control pack",
+        "producer": "security-assurance-projection",
+        "lifecycle_owner": "Elim",
+        "destination_class": "owner_local_review",
+        "allowed_consumers": ["operations_security"]
+      },
+      {
+        "id": "recovery-readiness",
+        "label": "Recovery readiness",
+        "purpose": "Reports whether rollback and restore assurance has been verified within its governing review period.",
+        "authoritative_source": "Operational Incident recovery proof and owner-local exercise record",
+        "producer": "security-assurance-projection",
+        "lifecycle_owner": "Human",
+        "destination_class": "incident_ledger",
+        "allowed_consumers": ["operations_security"]
+      }
+    ]
+  }
+}

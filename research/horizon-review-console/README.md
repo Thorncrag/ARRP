@@ -76,9 +76,10 @@ host-state implementation review.
 Repository gates are produced once for both authenticated Console refresh and
 coordinator enforcement from the append-only typed gate declarations and a
 complete paginated live pull-request readback. Current future-run gates do not
-rewrite the historical latest attempt. Security remediation is a separate
-private authenticated Operations ledger and Action Items cross-index; it is
-not folded into the exact Project Integrity report.
+rewrite the historical latest attempt. Security is a separate minimized
+assurance surface and generic Action Items cross-index; provider-native and
+owner-local details remain at their protected sources and are not folded into
+the exact Project Integrity report.
 
 Platform status uses one shared provider-neutral projection on Overview and
 Operations. Its five compact cells cover GPTs, Codex, API platform, the
@@ -91,12 +92,24 @@ themselves establish an ARRP outage or Operational Incident.
 The checked-in Console data is a minimized public operational summary. The
 builder gates the complete catalog and every domain file as one exact
 generation before replacement. Full runtime configuration and raw operational
-logs are written afterward to `data/private-operations.js`; authenticated
-GitHub security state remains in `data/private-github-security.js`. Both files
-are Git-ignored, secret-scanned before persistence, loaded only by the local
-Console origin, and excluded from the public generation manifest. The public
-bundle therefore remains useful without using browser hiding as a privacy
-boundary.
+logs are written afterward to `data/private-operations.js`; minimized
+security-assurance state is written to
+`data/private-security-assurance.js`. Provider-native alert content,
+credential metadata, affected locations, and remediation evidence never enter
+that Console projection. Both files are Git-ignored, secret-scanned before
+persistence, loaded only by the local Console origin, and excluded from the
+public generation manifest. The public bundle therefore remains useful
+without using browser hiding as a privacy boundary.
+
+The supported owner mode is opening the canonical
+`research/horizon-review-console/index.html` directly with `file://`; no local
+web server is required. That exact entrypoint may load the ignored sibling
+Security assurance, private Operations, and local automation-status scripts.
+Loopback HTTP(S) is supported for development. Hosted/public HTTPS never
+requests those files. A future hosted private Console would require a separate
+authenticated, deny-by-default service; authentication does not place private
+operational state in GitHub. Private Operations is accepted only when its
+schema, Console generation, and source revision match the loaded public shell.
 
 Operational Incidents has one immutable structured event authority and one
 deterministic current projection. Operations, Logs, and Overview repeat the

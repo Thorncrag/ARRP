@@ -115,6 +115,17 @@ recorded as a sanitized near-miss Operational Incident; a confirmed disclosure
 is an Operational Incident. Incident, Action Item, and Console projections
 must never reproduce restricted evidence.
 
+No ARRP-authored GitHub Issue, pull-request body, repository document, log,
+audit record, Console-development entry, generated Console artifact, workflow
+output, or other GitHub-hosted project record may contain a suspected or
+confirmed vulnerability or actionable evidence about it. Affected paths or
+components, rule identities, exploit conditions, raw evidence, credential
+metadata, exact permission detail, detector configuration, and remediation
+analysis remain owner-local or in GitHub's provider-native private Security
+surfaces. Project records may retain only a safe typed posture, opaque
+protected-action identity, and protected route. Unknown classification fails
+closed rather than being copied for later review.
+
 ## Inventory and historical disclosure
 
 The initial bounded classification inventory is represented by a minimized

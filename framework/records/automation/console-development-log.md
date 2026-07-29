@@ -98,15 +98,27 @@ horizontal specialist menu and one role workspace at a time; staged
 configuration remains browser-local for the current session. Source Checker
 crawl-specific configuration remains intentionally deferred.
 
-Security remediation now has one private authenticated Operations ledger and
-separate human-versus-Elim Action Items cross-indexes without altering the
-exact Integrity report. The Overview queue counts typed remediation work units
-and preserves raw-alert count in detail. Repository gates now have an
+Security is now a minimized operational-assurance workspace rather than a
+GitHub-alert inventory. Seven registered checks expose only currentness,
+coverage, private-attention posture, safe review scheduling, intake posture,
+and protected destinations. Provider-native alert titles, messages, rules,
+locations, credential metadata, evidence, and remediation detail no longer
+enter Console persistence or the DOM. Human-versus-Elim Action Items
+cross-index only generic protected actions without altering the exact
+Integrity report or publishing private counts. Repository gates now have an
 append-only declaration authority and one reusable fail-closed producer used by
 both authenticated Console refresh and scheduled/manual coordinator
 enforcement. Exact-head changes and incomplete pagination cannot become zero;
 last-good evidence is labeled as retained, and latest-attempt blockers remain
 separate from current future-run gates.
+
+The canonical direct-disk Console is restored as a first-class owner mode:
+`file://` at the exact Console entrypoint and loopback development may load the
+three ignored local projections, while hosted HTTPS remains public-only.
+Security assurance keeps its strict allowlist, local automation status requires
+a valid typed status record, and private Operations now requires exact schema,
+Console-generation, and source-revision binding before joining the public
+shell. Missing, malformed, or mismatched files remain unavailable.
 
 Each Current project brief date now has an accessible green, yellow, red, or
 gray status dot driven by its own predicate. Latest scheduled attempt and the

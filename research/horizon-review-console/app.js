@@ -43,6 +43,10 @@
     data.source_checker = data.source_checker || {};
     data.run_chain = data.run_chain || {};
     data.repository_gates = data.repository_gates || {};
+    data.security_assurance = data.security_assurance
+      && typeof data.security_assurance === "object"
+      ? data.security_assurance
+      : { schema_version: 2, availability: "unavailable", complete: false, tools: [] };
     data.operational_incidents = data.operational_incidents
       && typeof data.operational_incidents === "object"
       ? data.operational_incidents
@@ -70,33 +74,84 @@
       : [];
   }
   normalizeLoadedData();
-  const PRIVATE_GITHUB_SECURITY_PATH = "data/private-github-security.js?v=1";
+  const PRIVATE_SECURITY_ASSURANCE_PATH = "data/private-security-assurance.js?v=1";
   const PRIVATE_OPERATIONS_PATH = "data/private-operations.js?v=1";
   const LOCAL_AUTOMATION_STATUS_PATH = "data/local-automation-status.js";
-  const PRIVATE_GITHUB_SECURITY_UNAVAILABLE = [{ reference: "GHSEC-SNAPSHOT-UNAVAILABLE", category: "GitHub security", severity: "info", attention: "observed", owner: "Authenticated Console refresh", reported_by: "Project Console", status: "Unavailable", message: "Private GitHub security alerts are unavailable; alert absence is not inferred.", source_url: "https://github.com/Thorncrag/ARRP/security" }];
-  let privateGitHubProblems = PRIVATE_GITHUB_SECURITY_UNAVAILABLE;
-  let privateGitHubSecuritySnapshot = {
-    schema_version: 1,
-    availability: "unavailable",
-    completeness: { complete: false, open_alert_count: null },
-    alerts: [],
-    problems: PRIVATE_GITHUB_SECURITY_UNAVAILABLE,
-    generated_at: null
-  };
-  function capturePrivateGitHubProblems() {
-    const snapshot = window.ARRP_PRIVATE_GITHUB_SECURITY;
-    if (!snapshot || typeof snapshot !== "object" || !Array.isArray(snapshot.problems)) return false;
-    privateGitHubSecuritySnapshot = snapshot;
-    privateGitHubProblems = snapshot.problems;
+  const SECURITY_TOOL_FIELDS = new Set([
+    "tool_id", "label", "availability", "last_checked", "next_due",
+    "source_revision", "coverage_state", "private_attention", "owner_class",
+    "destination_class", "active_incident", "public_intake_state"
+  ]);
+  let privateSecurityAssuranceSnapshot = null;
+  function validPrivateSecuritySnapshot(snapshot) {
+    if (!snapshot || snapshot.schema_version !== 2 || !Array.isArray(snapshot.tools)) return false;
+    const topFields = [
+      "schema_version", "availability", "complete", "checked_at",
+      "public_intake_state", "private_attention", "active_incident", "tools"
+    ];
+    if (Object.keys(snapshot).length !== topFields.length
+      || Object.keys(snapshot).some((key) => !topFields.includes(key))) return false;
+    if (!["current", "unavailable"].includes(snapshot.availability)
+      || typeof snapshot.complete !== "boolean"
+      || !["live", "paused", "unverified"].includes(snapshot.public_intake_state)
+      || !["required", "none_reported", "unavailable"].includes(snapshot.private_attention)
+      || typeof snapshot.active_incident !== "boolean") return false;
+    const publicDefinitions = new Map((data.security_assurance.tools || []).map((tool) => [
+      String(tool.tool_id || ""),
+      tool
+    ]));
+    const observed = new Set();
+    for (const tool of snapshot.tools) {
+      if (!tool || typeof tool !== "object") return false;
+      if (Object.keys(tool).length !== SECURITY_TOOL_FIELDS.size
+        || Object.keys(tool).some((key) => !SECURITY_TOOL_FIELDS.has(key))) return false;
+      const toolId = String(tool.tool_id || "");
+      const definition = publicDefinitions.get(toolId);
+      if (!toolId || observed.has(toolId) || !definition) return false;
+      if (tool.label !== definition.label
+        || tool.owner_class !== definition.owner_class
+        || tool.destination_class !== definition.destination_class
+        || !["current", "unavailable"].includes(tool.availability)
+        || !["current", "stale", "incomplete", "unavailable"].includes(tool.coverage_state)
+        || !["yes", "no", "unknown"].includes(tool.private_attention)
+        || typeof tool.active_incident !== "boolean"
+        || ![null, "live", "paused", "unverified"].includes(tool.public_intake_state)) return false;
+      observed.add(toolId);
+    }
+    return observed.size === publicDefinitions.size;
+  }
+  function capturePrivateSecurityAssurance() {
+    const snapshot = window.ARRP_PRIVATE_SECURITY_ASSURANCE;
+    if (!validPrivateSecuritySnapshot(snapshot)) return false;
+    privateSecurityAssuranceSnapshot = snapshot;
     return true;
   }
   let privateOperationsSnapshot = null;
+  function validPrivateOperationsSnapshot(snapshot) {
+    const fields = [
+      "schema_version", "availability", "generated_at", "catalog_generation_id",
+      "source_revision", "agent_registry", "project_logs", "integrity",
+      "run_chain", "privacy"
+    ];
+    return Boolean(
+      snapshot
+      && typeof snapshot === "object"
+      && Object.keys(snapshot).length === fields.length
+      && Object.keys(snapshot).every((key) => fields.includes(key))
+      && snapshot.schema_version === 2
+      && snapshot.availability === "current"
+      && snapshot.catalog_generation_id === catalogGenerationId
+      && snapshot.source_revision === String(data.source_revision || "")
+      && parseTimestamp(snapshot.generated_at) !== null
+      && Array.isArray(snapshot.agent_registry)
+      && Array.isArray(snapshot.project_logs)
+      && snapshot.integrity && typeof snapshot.integrity === "object"
+      && snapshot.run_chain && typeof snapshot.run_chain === "object"
+    );
+  }
   function capturePrivateOperations() {
     const snapshot = window.ARRP_PRIVATE_OPERATIONS;
-    if (!snapshot || typeof snapshot !== "object") return false;
-    if (!Array.isArray(snapshot.agent_registry) || !Array.isArray(snapshot.project_logs)) {
-      return false;
-    }
+    if (!validPrivateOperationsSnapshot(snapshot)) return false;
     privateOperationsSnapshot = snapshot;
     data.agent_registry = snapshot.agent_registry;
     data.project_logs = snapshot.project_logs;
@@ -108,60 +163,52 @@
     }
     return true;
   }
-  function securityRemediationProjection(snapshot = privateGitHubSecuritySnapshot) {
-    const complete = snapshot?.availability === "current"
-      && snapshot?.completeness?.complete === true
-      && Array.isArray(snapshot?.alerts);
-    if (!complete) {
+  function validLocalAutomationStatus(status) {
+    const allowedStatuses = new Set([
+      "completed", "review-required", "failed", "blocked",
+      "usage-stopped", "missed", "running"
+    ]);
+    return Boolean(
+      status
+      && typeof status === "object"
+      && status.schema_version === "1.0"
+      && allowedStatuses.has(String(status.status || "").toLowerCase())
+      && parseTimestamp(status.updated_at || status.completed_at || status.started_at) !== null
+    );
+  }
+  function captureLocalAutomationStatus() {
+    if (validLocalAutomationStatus(window.ARRP_LOCAL_AUTOMATION_STATUS)) return true;
+    window.ARRP_LOCAL_AUTOMATION_STATUS = null;
+    return false;
+  }
+  function securityAssuranceProjection(snapshot = privateSecurityAssuranceSnapshot) {
+    const publicProjection = data.security_assurance || {};
+    const publicTools = Array.isArray(publicProjection.tools) ? publicProjection.tools : [];
+    if (!validPrivateSecuritySnapshot(snapshot)) {
       return {
         available: false,
-        count: null,
-        rawAlertCount: null,
-        checkedAt: snapshot?.generated_at || null,
-        reason: "A complete current authenticated GitHub security snapshot is unavailable.",
-        workUnits: []
+        checkedAt: null,
+        publicIntakeState: "unverified",
+        privateAttention: "unavailable",
+        activeIncident: false,
+        tools: publicTools.map((tool) => ({ ...tool, availability: "unavailable", coverage_state: "unavailable", private_attention: "unknown" }))
       };
     }
-    const groups = new Map();
-    let valid = true;
-    snapshot.alerts.forEach((alert) => {
-      if (!alert || typeof alert !== "object" || !String(alert.id || "").trim()) {
-        valid = false;
-        return;
-      }
-      const remediationId = String(alert.remediation_group_id || alert.id);
-      if (!groups.has(remediationId)) {
-        groups.set(remediationId, {
-          id: remediationId,
-          owner: alert.owner,
-          nextAction: alert.next_action,
-          alerts: []
-        });
-      }
-      const group = groups.get(remediationId);
-      if (group.owner !== alert.owner || group.nextAction !== alert.next_action) valid = false;
-      group.alerts.push(alert);
-    });
-    if (!valid) {
-      return {
-        available: false,
-        count: null,
-        rawAlertCount: snapshot.alerts.length,
-        checkedAt: snapshot.generated_at,
-        reason: "The authenticated snapshot contains an invalid or contradictory remediation-group declaration.",
-        workUnits: [...groups.values()]
-      };
-    }
+    const privateById = new Map(snapshot.tools.map((tool) => [tool.tool_id, tool]));
     return {
-      available: true,
-      count: groups.size,
-      rawAlertCount: snapshot.alerts.length,
-      checkedAt: snapshot.generated_at,
-      reason: "",
-      workUnits: [...groups.values()]
+      available: snapshot.availability === "current" && snapshot.complete === true,
+      checkedAt: snapshot.checked_at || null,
+      publicIntakeState: ["live", "paused"].includes(snapshot.public_intake_state)
+        ? snapshot.public_intake_state
+        : "unverified",
+      privateAttention: ["required", "none_reported"].includes(snapshot.private_attention)
+        ? snapshot.private_attention
+        : "unavailable",
+      activeIncident: snapshot.active_incident === true,
+      tools: publicTools.map((tool) => ({ ...tool, ...(privateById.get(tool.tool_id) || {}) }))
     };
   }
-  capturePrivateGitHubProblems();
+  if (window.__ARRP_CONSOLE_TEST_MODE__) capturePrivateSecurityAssurance();
   const catalogGenerationId = String(
     data.generation_id || data.generation_manifest?.generation_id || ""
   );
@@ -4119,6 +4166,28 @@
     });
   }
 
+  function securityActionRecords() {
+    const projection = securityAssuranceProjection();
+    return projection.tools
+      .filter((tool) => tool.private_attention === "yes")
+      .filter((tool) => ["Human", "Elim"].includes(tool.owner_class))
+      .map((tool) => ({
+        reference: `SECURITY-${String(tool.tool_id).toUpperCase()}`,
+        category: "Protected security action",
+        severity: "warning",
+        attention: tool.owner_class === "Human" ? "human" : "agent",
+        owner: tool.owner_class,
+        reported_by: "Security assurance projection",
+        status: "Protected review required",
+        message: tool.owner_class === "Human"
+          ? "Review private security action"
+          : "Private security remediation requires review",
+        source_url: "#automation:security",
+        checked_at: tool.last_checked || projection.checkedAt,
+        security_tool_id: tool.tool_id
+      }));
+  }
+
   function allProblemRecords(feed = data.integrity) {
     const current = feed && typeof feed.current === "object" ? feed.current : {};
     const problems = [];
@@ -4315,7 +4384,7 @@
       });
     });
 
-    privateGitHubProblems.forEach((problem) => add(problem));
+    securityActionRecords().forEach((problem) => add(problem));
 
     data.agent_registry
       .filter((agent) => !/^enabled$/i.test(agent.status || ""))
@@ -4538,7 +4607,7 @@
     const integrityHumanFindings = problemRecords
       .filter((finding) => finding.attention === "human")
       .filter((finding) => finding.category !== "Automation failure")
-      .filter((finding) => finding.reported_by !== "GitHub Security")
+      .filter((finding) => finding.reported_by !== "Security assurance projection")
       .sort((left, right) => String(left.message || "").localeCompare(String(right.message || "")));
     const automationActions = unresolvedOperationalIncidents().map((incident) => ({
       id: incident.incident_id,
@@ -4580,7 +4649,7 @@
       (item) => item.actionOwner === "Elim"
     );
     const securityProblems = problemRecords.filter((item) =>
-      item.reported_by === "GitHub Security");
+      item.reported_by === "Security assurance projection");
     const securityHumanActions = securityProblems.filter((item) =>
       item.attention === "human" || String(item.owner || "").toLowerCase() === "human");
     const securityOversightActions = securityProblems.filter((item) =>
@@ -4637,7 +4706,7 @@
     const newOrUpdated = preliminary;
     const oversightProblems = problemRecords
       .filter((finding) => finding.attention !== "human")
-      .filter((finding) => finding.reported_by !== "GitHub Security")
+      .filter((finding) => finding.reported_by !== "Security assurance projection")
       .filter((finding) => !/resolved|closed|complete/i.test(String(finding.status || "")));
     const oversightCount = repositoryElimActions.length
       + securityOversightActions.length
@@ -4782,7 +4851,7 @@
         target: "automation:security",
         status: "Owned by Elim",
         tone: "error",
-        detail: "Open CodeQL, Dependabot, or other typed security remediation remains with Elim.",
+        detail: "Protected security-assurance work remains with Elim; details stay at the authorized source.",
         items: securityOversightActions.map(integrityActionLink)
       },
       {
@@ -6717,15 +6786,18 @@
       }
     ];
     if (!queues.some((queue) => queue.label === "Security remediation")) {
-      const security = securityRemediationProjection();
+      const security = securityAssuranceProjection();
+      const protectedActions = security.available
+        ? security.tools.filter((tool) => tool.private_attention === "yes").length
+        : null;
       queues.push({
         label: "Security remediation",
-        count: security.count,
+        count: protectedActions,
         target: "automation:security",
-        tone: security.available ? (security.count ? "error" : "") : "unavailable",
+        tone: security.available ? (protectedActions ? "warning" : "") : "unavailable",
         problemTarget: "automation:security",
         problemLabel: security.available
-          ? "Open security detail →"
+          ? "Open protected review →"
           : "Private feed unavailable →"
       });
     }
@@ -7514,6 +7586,17 @@
         summary: "The optional ignored local status feed is not present; no health conclusion is inferred."
       };
     }
+    const checkedAt = parseTimestamp(
+      status.updated_at || status.completed_at || status.started_at
+    );
+    if (checkedAt !== null && Date.now() - checkedAt > 36 * 60 * 60 * 1000) {
+      return {
+        available: false,
+        tone: "unavailable",
+        label: "Stale",
+        summary: `The ignored local status feed has not been refreshed since ${formatOperationalDate(checkedAt)}.`
+      };
+    }
     const value = String(status.status || "").toLowerCase();
     if (value === "completed") {
       return {
@@ -7816,69 +7899,161 @@
     return row;
   }
 
+  function downloadSecurityWorkOrder(filename, workOrder) {
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(new Blob(
+      [JSON.stringify({ schema_version: 1, requested_at: new Date().toISOString(), ...workOrder }, null, 2)],
+      { type: "application/json" }
+    ));
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
+
+  function securityWorkOrderButton(label, filename, workOrder) {
+    const button = element("button", "record-link secondary", label);
+    button.type = "button";
+    button.addEventListener("click", () => downloadSecurityWorkOrder(filename, workOrder));
+    return button;
+  }
+
   function renderSecurityRemediation() {
-    const projection = securityRemediationProjection();
+    const projection = securityAssuranceProjection();
     const status = byId("operations-security-status");
+    const summary = byId("operations-security-summary");
     const host = byId("operations-security-list");
-    if (!status || !host) return;
+    const preview = byId("operations-security-preview");
+    if (!status || !summary || !host || !preview) return;
+    const currentChecks = projection.tools.filter((tool) => tool.coverage_state === "current").length;
     status.textContent = projection.available
-      ? `${pluralizeWord(projection.count, "actionable remediation work unit")} · ${pluralizeWord(projection.rawAlertCount, "raw open alert")} · checked ${formatOperationalDate(projection.checkedAt)}`
-      : `${projection.reason} Count unavailable${projection.checkedAt ? ` · last checked ${formatOperationalDate(projection.checkedAt)}` : ""}.`;
-    if (!projection.available) {
-      host.replaceChildren(operationsLedgerRow(
-        "Security remediation inventory",
-        { tone: "unavailable", label: "Unavailable" },
-        projection.reason,
-        projection.checkedAt,
-        "https://github.com/Thorncrag/ARRP/security"
+      ? `Authenticated assurance checked ${formatOperationalDate(projection.checkedAt)}. Check completion is not a claim that no vulnerability exists.`
+      : "Authenticated security assurance is unavailable; absence of private findings is not inferred.";
+    const summaryValues = [
+      ["Public intake", projection.publicIntakeState === "live" ? "Live" : projection.publicIntakeState === "paused" ? "Paused" : "Unverified"],
+      ["Check coverage", projection.available ? `${currentChecks} of ${projection.tools.length} current` : "Unavailable"],
+      ["Private attention", projection.privateAttention === "required" ? "Required" : projection.privateAttention === "none_reported" ? "None reported" : "Unavailable"],
+      ["Security incident", projection.activeIncident ? "Active" : projection.available ? "None linked" : "Unavailable"]
+    ];
+    summary.replaceChildren(...summaryValues.map(([label, value]) => {
+      const cell = element("div", "metric-card compact-metric");
+      cell.append(element("span", "metric-label", label), element("strong", "", value));
+      return cell;
+    }));
+    let selectedId = projection.tools[0]?.tool_id || null;
+    const renderPreview = (tool) => {
+      if (!tool) {
+        preview.replaceChildren(element("p", "empty-state", "Security check definitions are unavailable."));
+        return;
+      }
+      const heading = element("div", "email-preview-heading");
+      heading.append(element("div", "", ""), element("span", `status-badge ${tool.coverage_state === "current" ? "success" : tool.coverage_state === "stale" || tool.coverage_state === "incomplete" ? "warning" : "unavailable"}`, tool.coverage_state || "unavailable"));
+      heading.firstChild.append(element("span", "record-id", tool.tool_id), element("h3", "", tool.label || "Registered security check"));
+      const fields = element("dl", "email-preview-fields");
+      [
+        ["Owner", tool.owner_class || "Unavailable"],
+        ["Last checked", tool.last_checked ? formatOperationalDate(tool.last_checked) : "Unavailable"],
+        ["Next due", tool.next_due ? formatOperationalDate(tool.next_due) : "Unavailable"],
+        ["Private attention", tool.private_attention === "yes" ? "Required" : tool.private_attention === "no" ? "None reported" : "Unknown"],
+        ["Source revision", tool.source_revision || "Unavailable"],
+        ["Destination", tool.destination_class || "Unavailable"]
+      ].forEach(([term, value]) => {
+        const field = element("div", "email-preview-field");
+        field.append(element("dt", "", term), element("dd", "", value));
+        fields.append(field);
+      });
+      const links = element("div", "source-list compact-links");
+      links.append(inlineLink("Open protected source ↗", "https://github.com/Thorncrag/ARRP/security"));
+      if (tool.active_incident) links.append(internalInlineLink("View incident history →", "automation:logs:incidents"));
+      if (tool.tool_id === "public-intake-protection") {
+        const sharedRequest = {
+          action: "prepare_public_intake_state_request",
+          scope: ["form", "public_apis", "collector", "elim_intake_review", "replies"],
+          required_readback: "exact_authorized_state",
+          mixed_state_response: "record_operational_incident",
+          execution: "staged_request_only"
+        };
+        links.append(
+          securityWorkOrderButton(
+            "Prepare Live request",
+            "arrp-public-intake-live-request.json",
+            { ...sharedRequest, requested_state: "live" }
+          ),
+          securityWorkOrderButton(
+            "Prepare Paused request",
+            "arrp-public-intake-paused-request.json",
+            { ...sharedRequest, requested_state: "paused" }
+          )
+        );
+      }
+      preview.replaceChildren(heading, element("p", "automation-purpose", tool.purpose || "High-level scope unavailable."), fields, links);
+    };
+    const selectTool = (tool) => {
+      selectedId = tool.tool_id;
+      host.querySelectorAll(".email-list-row").forEach((row) => {
+        const selected = row.dataset.toolId === selectedId;
+        row.classList.toggle("selected", selected);
+        row.setAttribute("aria-selected", selected ? "true" : "false");
+      });
+      renderPreview(tool);
+    };
+    host.replaceChildren(...projection.tools.map((tool) => {
+      const row = element("button", "email-list-row");
+      row.type = "button";
+      row.dataset.toolId = tool.tool_id;
+      row.setAttribute("role", "option");
+      const copy = element("span", "email-list-copy");
+      copy.append(element("strong", "", tool.label || tool.tool_id), element("span", "email-list-meta", tool.coverage_state || "unavailable"));
+      row.append(copy);
+      row.addEventListener("click", () => selectTool(tool));
+      row.addEventListener("keydown", (event) => {
+        const rows = [...host.querySelectorAll(".email-list-row")];
+        const index = rows.indexOf(row);
+        const nextIndex = event.key === "ArrowDown"
+          ? Math.min(rows.length - 1, index + 1)
+          : event.key === "ArrowUp"
+            ? Math.max(0, index - 1)
+            : event.key === "Home"
+              ? 0
+              : event.key === "End"
+                ? rows.length - 1
+                : null;
+        if (nextIndex === null || nextIndex === index) return;
+        event.preventDefault();
+        const nextTool = projection.tools[nextIndex];
+        selectTool(nextTool);
+        rows[nextIndex].focus();
+      });
+      return row;
+    }));
+    selectTool(projection.tools.find((tool) => tool.tool_id === selectedId) || projection.tools[0]);
+    const prepare = byId("prepare-security-review");
+    if (prepare && !prepare.dataset.bound) {
+      prepare.dataset.bound = "true";
+      prepare.addEventListener("click", () => downloadSecurityWorkOrder(
+        "arrp-security-review-work-order.json",
+        {
+          action: "prepare_read_only_security_review",
+          allowed_actions: ["read_only_verification", "protected_source_routing"],
+          prohibited_actions: ["credential_mutation", "provider_disposition", "arbitrary_command_execution"]
+        }
       ));
-      setButtonBlockerFlag("automation-tab-security", false);
-      return;
     }
-    host.replaceChildren(...(projection.workUnits.length
-      ? projection.workUnits.map((unit) => {
-          const first = unit.alerts[0] || {};
-          const row = element("article", "operations-security-unit");
-          const heading = element("div", "section-heading-row");
-          const identity = element("div");
-          identity.append(
-            element("span", "record-id", unit.id),
-            element("h3", "", first.title || first.rule_id || "Security remediation"),
-            element("p", "", `${unit.owner || "Owner unavailable"} · ${pluralizeWord(unit.alerts.length, "raw alert")}`)
-          );
-          heading.append(identity, element("span", `status-badge ${/critical|high/i.test(String(first.severity || "")) ? "error" : "warning"}`, first.severity || "Open"));
-          const next = element("p", "automation-purpose", unit.nextAction || "Typed next action unavailable.");
-          const alerts = element("ul", "operations-security-alerts");
-          unit.alerts.forEach((alert) => {
-            const item = element("li", "");
-            item.append(
-              inlineLink(
-                `${alert.id} · ${alert.location || alert.category || "Location unavailable"} ↗`,
-                alert.url || alert.href
-              )
-            );
-            alerts.append(item);
-          });
-          const incidentLinks = element("div", "source-list compact-links");
-          [...new Set(unit.alerts.flatMap((alert) => alert.active_incident_ids || []))]
-            .forEach((incidentId) => {
-              incidentLinks.append(consoleLinkButton(
-                `${incidentId} →`,
-                `#automation:logs:incidents:selected=${encodeURIComponent(incidentId)}`
-              ));
-            });
-          row.append(heading, next, alerts, incidentLinks);
-          return row;
-        })
-      : [element("p", "empty-state compact-empty", "No open actionable security remediation is present in the complete authenticated snapshot.")]));
+    const refresh = byId("refresh-security-status");
+    if (refresh && !refresh.dataset.bound) {
+      refresh.dataset.bound = "true";
+      refresh.addEventListener("click", () => downloadSecurityWorkOrder(
+        "arrp-security-status-refresh-request.json",
+        {
+          action: "refresh_authenticated_security_assurance",
+          allowed_actions: ["read_only_provider_status", "minimized_projection_refresh"],
+          prohibited_actions: ["credential_mutation", "provider_disposition", "arbitrary_command_execution"]
+        }
+      ));
+    }
     setButtonBlockerFlag(
       "automation-tab-security",
-      projection.workUnits.some((unit) =>
-        unit.alerts.some((alert) => alert.blocks_automation === true)
-        || incidentIdsIncludeBlocker(
-          unit.alerts.flatMap((alert) => alert.active_incident_ids || [])
-        )),
-      "An explicitly typed automation blocker is represented in Security"
+      projection.activeIncident,
+      "An active operational incident is represented in Security"
     );
   }
 
@@ -8855,52 +9030,57 @@
       "Run-chain state is the checked-in projection from the latest local transaction.";
   }
 
-  function localConsoleOriginAllowed() {
-    return ["127.0.0.1", "localhost", "::1", "[::1]"].includes(window.location.hostname)
-      && ["http:", "https:"].includes(window.location.protocol);
+  function canonicalFileConsolePath(pathname) {
+    try {
+      const decoded = decodeURIComponent(String(pathname || ""));
+      return !decoded.includes("\0")
+        && !decoded.includes("\\")
+        && !/(?:^|\/)\.{1,2}(?:\/|$)/.test(decoded)
+        && decoded.endsWith("/research/horizon-review-console/index.html");
+    } catch (_error) {
+      return false;
+    }
   }
 
-  function loadPrivateGitHubSecurity() {
-    if (capturePrivateGitHubProblems() || !localConsoleOriginAllowed()) {
-      return Promise.resolve();
+  function localConsoleOriginAllowed(location = window.location) {
+    const protocol = String(location?.protocol || "");
+    const hostname = String(location?.hostname || "");
+    if (["http:", "https:"].includes(protocol)) {
+      return ["127.0.0.1", "localhost", "::1", "[::1]"].includes(hostname);
     }
+    return protocol === "file:"
+      && hostname === ""
+      && canonicalFileConsolePath(location?.pathname);
+  }
+
+  function loadLocalProjection(path, capture) {
+    if (!localConsoleOriginAllowed()) return Promise.resolve(false);
+    if (capture()) return Promise.resolve(true);
     return new Promise((resolve) => {
       const script = document.createElement("script");
-      script.src = PRIVATE_GITHUB_SECURITY_PATH;
-      script.onload = () => {
-        capturePrivateGitHubProblems();
-        resolve();
-      };
-      script.onerror = () => resolve();
+      script.src = path;
+      script.onload = () => resolve(capture());
+      script.onerror = () => resolve(false);
       document.head.append(script);
     });
+  }
+
+  function loadPrivateSecurityAssurance() {
+    return loadLocalProjection(
+      PRIVATE_SECURITY_ASSURANCE_PATH,
+      capturePrivateSecurityAssurance
+    );
   }
 
   function loadPrivateOperations() {
-    if (capturePrivateOperations() || !localConsoleOriginAllowed()) {
-      return Promise.resolve();
-    }
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = PRIVATE_OPERATIONS_PATH;
-      script.onload = () => {
-        capturePrivateOperations();
-        resolve();
-      };
-      script.onerror = () => resolve();
-      document.head.append(script);
-    });
+    return loadLocalProjection(PRIVATE_OPERATIONS_PATH, capturePrivateOperations);
   }
 
   function loadLocalAutomationStatus() {
-    if (window.ARRP_LOCAL_AUTOMATION_STATUS) return Promise.resolve();
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = LOCAL_AUTOMATION_STATUS_PATH;
-      script.onload = () => resolve();
-      script.onerror = () => resolve();
-      document.head.append(script);
-    });
+    return loadLocalProjection(
+      LOCAL_AUTOMATION_STATUS_PATH,
+      captureLocalAutomationStatus
+    );
   }
 
   async function refreshLiveProgress() {
@@ -11004,7 +11184,8 @@
     elimRunChainPresentation,
     localAutomationPresentation,
     overviewBriefFactStates,
-    securityRemediationProjection,
+    securityAssuranceProjection,
+    securityActionRecords,
     effectiveAutomationRoleStatusProjection,
     automationOutcomePresentation,
     platformProviderObservation,
@@ -11014,11 +11195,16 @@
     operationalIncidentProjection,
     unresolvedOperationalIncidents,
     humanOwnsIncident,
-    incidentStatusPresentation
+    incidentStatusPresentation,
+    canonicalFileConsolePath,
+    localConsoleOriginAllowed,
+    validPrivateOperationsSnapshot,
+    validLocalAutomationStatus,
+    loadLocalProjection
   });
   if (window.__ARRP_CONSOLE_TEST_MODE__) return;
   Promise.all([
-    loadPrivateGitHubSecurity(),
+    loadPrivateSecurityAssurance(),
     loadPrivateOperations(),
     loadLocalAutomationStatus()
   ]).then(initialize);

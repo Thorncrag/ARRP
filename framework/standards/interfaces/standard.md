@@ -71,3 +71,23 @@ the interface does not create a second narrative ledger.
 Cached or generated presentations are rebuildable projections. Cache absence,
 staleness, or inconsistency must appear as unavailable or rebuilding, never as
 an empty authoritative result.
+
+## Security-assurance disclosure boundary
+
+A project-operated interface may present only minimized security-assurance
+states needed to verify coverage, currentness, protected-surface review,
+private-attention posture, and a protected destination. It must never ingest,
+persist, render, export, or log a suspected or confirmed vulnerability,
+affected path or component, rule identity, exploit condition, raw evidence,
+credential metadata, exact permission detail, detector configuration, or
+remediation analysis. Provider-native private security systems and owner-local
+review records remain authoritative; the interface links to them without
+copying their contents.
+
+Unknown or incomplete security evidence fails closed as unavailable. A
+successful check means only that the registered check completed; it is not a
+claim that a system is secure or contains no vulnerabilities. Security tools
+use registered stable machine identities and deny-by-default field allowlists.
+Browser code may filter, sort, and render those records but may not infer a
+finding, category, ownership, action, route, or clean result from prose or the
+absence of private data.

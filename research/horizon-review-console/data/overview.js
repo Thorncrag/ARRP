@@ -23,14 +23,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reason": "No typed latest scheduled-attempt record is published."
       },
       "future_run_gates": {
-        "available": true,
-        "count": 0,
-        "checked_at": "2026-07-28T20:41:07+00:00",
+        "available": false,
+        "count": null,
+        "checked_at": "2026-07-28T23:59:13+00:00",
         "oldest_age": null,
         "items": [],
-        "reason": "No complete typed automation-gate inventory is published.",
-        "availability": "current",
-        "trustworthy_through": null,
+        "reason": "HTTP Error 401: Unauthorized",
+        "availability": "unavailable",
+        "trustworthy_through": "2026-07-28T20:41:07+00:00",
         "known_blocker_count": 0
       }
     },
@@ -38,7 +38,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "schema_version": 1,
       "availability": "current",
       "complete": true,
-      "checked_at": "2026-07-28T22:14:14Z",
+      "checked_at": "2026-07-29T00:05:48Z",
       "count": 1,
       "unresolved_count": 0,
       "impact_state": "green",
@@ -935,6 +935,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-29196c24bdb1d7db30ce"
+    "overview.js": "project-console-121ddd808418a73c5e88"
   }
 });
