@@ -4,11 +4,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
     "availability": "current",
-    "generated_at": "2026-07-29T15:07:22+00:00",
+    "generated_at": "2026-07-29T15:10:15+00:00",
     "current": {
       "result": "findings",
-      "generated_at": "2026-07-29T15:07:22+00:00",
-      "revision": "5d1632e2a8e8f0eec809903ddb53db10f1c0d515",
+      "generated_at": "2026-07-29T15:10:15+00:00",
+      "revision": "e834a381f5ee45254cd9e6eddd95c94a16c7a987",
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -35,7 +35,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       ],
       "findings": [
         {
-          "finding_id": "INT-732a320b5bdcb9ca",
+          "finding_id": "INT-f60f9e125efbc01d",
           "finding_code": "project_integrity_condition",
           "severity": "error",
           "category": "Internal links",
@@ -44,23 +44,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "integrity",
           "next_action": "Open Integrity and resolve the registered producer condition.",
           "message": "A typed integrity error requires review."
-        },
-        {
-          "finding_id": "INT-390017c93b3d82d7",
-          "finding_code": "project_integrity_condition",
-          "severity": "warning",
-          "category": "Internal links",
-          "status": "open",
-          "owner": "Elim",
-          "route": "integrity",
-          "next_action": "Open Integrity and resolve the registered producer condition.",
-          "message": "A typed integrity finding requires review."
         }
       ]
     },
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-6e1c1b50dbc22cef7400"
+    "integrity.js": "project-console-83ffa343f806107bf109"
   }
 });

@@ -1779,6 +1779,19 @@ class GitHubIssueLinkTests(unittest.TestCase):
         )
         self.assertFalse(any(path.startswith("archive/") for path in relative_paths))
 
+    def test_active_project_scope_excludes_owner_only_console_projections(self):
+        relative_paths = {
+            path.relative_to(ROOT)
+            for path in active_project_files(".js")
+        }
+
+        self.assertTrue(consistency.LOCAL_ONLY_CONSOLE_PROJECTIONS)
+        self.assertTrue(
+            consistency.LOCAL_ONLY_CONSOLE_PROJECTIONS.isdisjoint(
+                relative_paths
+            )
+        )
+
     def test_research_scope_includes_central_and_area_records(self):
         relative_paths = {path.relative_to(ROOT).as_posix() for path in research_files(".md")}
 

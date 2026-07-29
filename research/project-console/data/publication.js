@@ -9253,7 +9253,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 103,
+      "word_count": 96,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -12656,6 +12656,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
+          "path": "research/project-console/README.md",
+          "exists": true
+        },
+        {
           "path": "research/durham-report-arrp-crosswalk.md",
           "exists": true
         },
@@ -12692,7 +12696,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 408,
+      "word_count": 414,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -16618,7 +16622,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "link_export_validation": {
         "link_inventory_available": true,
-        "internal_link_count": 1287,
+        "internal_link_count": 1288,
         "missing_link_count": 0,
         "missing_links": [],
         "export_validation_available": false,
@@ -18375,14 +18379,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "available": true,
         "result": "findings",
         "counts": {
-          "errors": 1,
-          "warnings": 1,
-          "findings": 2,
+          "errors": 3,
+          "warnings": 0,
+          "findings": 1,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "5d1632e2a8e8f0eec809903ddb53db10f1c0d515",
-        "generated_at": "2026-07-29T15:07:22+00:00"
+        "revision": "e834a381f5ee45254cd9e6eddd95c94a16c7a987",
+        "generated_at": "2026-07-29T15:10:15+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20138,6 +20142,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-6e1c1b50dbc22cef7400"
+    "publication.js": "project-console-83ffa343f806107bf109"
   }
 });

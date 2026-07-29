@@ -299,6 +299,12 @@ REPOSITORY_LINK_TEXT_SUFFIXES = {
 OPTIONAL_LOCAL_HTML_ASSETS = {
     Path("research/project-console/data/private-github-security.js"),
 }
+LOCAL_ONLY_CONSOLE_PROJECTIONS = {
+    Path("research/project-console/data/private-github-security.js"),
+    Path("research/project-console/data/private-security-assurance.js"),
+    Path("research/project-console/data/private-operations.js"),
+    Path("research/project-console/data/local-automation-status.js"),
+}
 
 REQUIRED_ISSUE_HEADINGS = (
     "Institutional Anomaly",
@@ -385,6 +391,7 @@ def active_project_files(*suffixes: str) -> list[Path]:
         if path.is_file()
         and path.suffix.lower() in allowed
         and not ACTIVE_TREE_EXCLUSIONS.intersection(path.relative_to(ROOT).parts)
+        and path.relative_to(ROOT) not in LOCAL_ONLY_CONSOLE_PROJECTIONS
         and not path.is_relative_to(
             ROOT / "research" / "project-console" / "prototypes"
         )
