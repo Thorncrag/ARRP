@@ -7628,7 +7628,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/automation-arrp console development log",
       "internal_links": [],
-      "word_count": 2152,
+      "word_count": 2157,
       "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7727,7 +7727,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2059,
+      "word_count": 2137,
       "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8464,7 +8464,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation-arrp transaction lifecycle and recovery authority",
       "internal_links": [],
-      "word_count": 467,
+      "word_count": 546,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9307,12 +9307,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 784,
-      "estimated_pages": 2,
+      "word_count": 615,
+      "estimated_pages": 1,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 22
+      "longest_unbroken_token": 21
     },
     {
       "title": "Elim Agent Runbook",
@@ -20177,6 +20177,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-111648aecd9ce6a0676a"
+    "publication.js": "project-console-af078b383537754fd04b"
   }
 });
