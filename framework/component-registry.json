@@ -9,16 +9,16 @@
     "reason": "Stage 1 candidate acceptance and distinct human activation approval have not yet occurred."
   },
   "source_baseline": {
-    "repository_revision": "e08b39e9798e6c6cba884eccb7925ee738792404",
+    "repository_revision": "c5f45b2482d487df3e97f50608659a600afbc9ca",
     "repository_state": "dirty_bound_candidate",
     "working_tree_binding": {
       "mode": "base_revision_plus_route_manifest",
       "scope": "complete_routed_authority_source",
-      "sha256": "ef58fb9f219e25dba00b6b50cda5aad3832b4930219a2f26c60e0783df23af11"
+      "sha256": "69da06dfe90a01c20751a3bbf0e1ec0541ede5694d6237aa122f7d5ad62006ae"
     },
     "route_source": {
       "path": "framework/project/automation/context-routes.json",
-      "sha256": "46bb0dc4bb54cfadc26dd59ee31f2c70372bf2e60e7e939d9162c650f9ce17c6",
+      "sha256": "9501182e214e38ef5d88306c473d264e72304119d69c1c91c667ea5508f033d5",
       "schema_version": 2
     }
   },
@@ -2367,7 +2367,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=github_disclosure_policy",
         "retention_posture": "current",
-        "sha256": "0d607bbf09c1dc233509b6e5d91bf27942b7dd584340164ec9c7a09c652b2d99"
+        "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1"
       },
       "current_audit": {
         "document_id": "current_audit",
@@ -8830,7 +8830,7 @@
     "authoritative": false,
     "source_import": {
       "path": "framework/project/automation/context-routes.json",
-      "sha256": "46bb0dc4bb54cfadc26dd59ee31f2c70372bf2e60e7e939d9162c650f9ce17c6",
+      "sha256": "9501182e214e38ef5d88306c473d264e72304119d69c1c91c667ea5508f033d5",
       "schema_version": 2,
       "import_semantics": "exact_validated_snapshot"
     },
@@ -8990,7 +8990,7 @@
       },
       "github_disclosure_policy": {
         "path": "framework/project/github/disclosure-policy.json",
-        "sha256": "0d607bbf09c1dc233509b6e5d91bf27942b7dd584340164ec9c7a09c652b2d99",
+        "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [

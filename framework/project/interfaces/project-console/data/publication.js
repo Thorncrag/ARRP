@@ -9465,7 +9465,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 959,
+      "word_count": 1004,
       "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
@@ -10678,8 +10678,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/status/sources-source checker bot current report",
       "internal_links": [],
-      "word_count": 6436,
-      "estimated_pages": 10,
+      "word_count": 6713,
+      "estimated_pages": 11,
       "table_count": 2,
       "max_table_columns": 4,
       "heading_issue_count": 0,
@@ -18536,8 +18536,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "e08b39e9798e6c6cba884eccb7925ee738792404",
-        "generated_at": "2026-07-30T15:02:37+00:00"
+        "revision": "c5f45b2482d487df3e97f50608659a600afbc9ca",
+        "generated_at": "2026-07-30T15:48:25+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20293,6 +20293,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-b2b0b1a85945551b73ef"
+    "publication.js": "project-console-5e94c12ba83747a36e72"
   }
 });

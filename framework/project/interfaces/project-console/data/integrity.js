@@ -4,11 +4,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
     "availability": "current",
-    "generated_at": "2026-07-30T15:02:37+00:00",
+    "generated_at": "2026-07-30T15:48:25+00:00",
     "current": {
       "result": "findings",
-      "generated_at": "2026-07-30T15:02:37+00:00",
-      "revision": "e08b39e9798e6c6cba884eccb7925ee738792404",
+      "generated_at": "2026-07-30T15:48:25+00:00",
+      "revision": "c5f45b2482d487df3e97f50608659a600afbc9ca",
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -72,6 +72,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-b2b0b1a85945551b73ef"
+    "integrity.js": "project-console-5e94c12ba83747a36e72"
   }
 });
