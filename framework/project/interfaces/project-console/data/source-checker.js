@@ -6,9 +6,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "agent_id": "source-checker-bot",
     "mode": "report-only",
     "contract_schema_version": 1,
-    "generation_id": "source-checker-98262e080b7d41695c64",
-    "source_revision": "9af57a47ef91e1472191ff1b5fa8e25666bda37f",
-    "checked_at": "2026-07-30T16:06:49+00:00",
+    "generation_id": "source-checker-f353845cb34daac51560",
+    "source_revision": "ec6456588aaec63064e42a249bcdeb436081a42d",
+    "checked_at": "2026-07-30T16:39:17+00:00",
     "expected_count": 2055,
     "actual_count": 2055,
     "source_hashes": {
@@ -75,13 +75,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "unexpected_source_ids": [],
     "duplicate_result_ids": [],
     "counts": {
-      "access restricted": 736,
+      "access restricted": 732,
       "broken": 13,
       "identity mismatch": 3,
-      "identity-preserving redirect": 96,
+      "identity-preserving redirect": 97,
       "review required": 83,
-      "transient failure": 10,
-      "verified": 1114
+      "transient failure": 18,
+      "verified": 1109
     },
     "results": [
       {
@@ -112,7 +112,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0003",
@@ -128,7 +128,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0004",
@@ -144,7 +144,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0005",
@@ -164,15 +164,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0006",
         "catalog": "inventory/sources.csv",
         "catalog_row": 7,
-        "title": "AP: Texas tossed out 13% of mail ballots in March primary election",
+        "title": "",
         "requested_url": "https://www.axios.com/2022/03/16/texas-mail-ballots-voting",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.axios.com/2022/03/16/texas-mail-ballots-voting",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0007",
@@ -188,7 +190,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-0008",
@@ -204,7 +206,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0009",
@@ -234,7 +236,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0011",
@@ -250,23 +252,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0012",
         "catalog": "inventory/sources.csv",
         "catalog_row": 13,
-        "title": "",
+        "title": "H.R.1 - 117th Congress (2021-2022): For the People Act of 2021 | Congress.gov | Library of Congress",
         "requested_url": "https://www.congress.gov/bill/117th-congress/house-bill/1",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.congress.gov/bill/117th-congress/house-bill/1",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0013",
@@ -282,7 +282,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0014",
@@ -298,7 +298,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-0015",
@@ -314,23 +314,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0016",
         "catalog": "inventory/sources.csv",
         "catalog_row": 17,
-        "title": "",
+        "title": "H.R.22 - 119th Congress (2025-2026): SAVE Act | Congress.gov | Library of Congress",
         "requested_url": "https://www.congress.gov/bill/119th-congress/house-bill/22",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.congress.gov/bill/119th-congress/house-bill/22",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0017",
@@ -346,53 +344,51 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-0018",
         "catalog": "inventory/sources.csv",
         "catalog_row": 19,
-        "title": "",
+        "title": "Twelfth Amendment | Browse | Constitution Annotated | Congress.gov | Library of Congress",
         "requested_url": "https://constitution.congress.gov/browse/amendment-12/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://constitution.congress.gov/browse/amendment-12/",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0019",
         "catalog": "inventory/sources.csv",
         "catalog_row": 20,
-        "title": "",
+        "title": "Twentieth Amendment | Browse | Constitution Annotated | Congress.gov | Library of Congress",
         "requested_url": "https://constitution.congress.gov/browse/amendment-20/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://constitution.congress.gov/browse/amendment-20/",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0020",
         "catalog": "inventory/sources.csv",
         "catalog_row": 21,
-        "title": "Twenty-Third Amendment | Browse | Constitution Annotated | Congress.gov | Library of Congress",
+        "title": "",
         "requested_url": "https://constitution.congress.gov/browse/amendment-23/",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://constitution.congress.gov/browse/amendment-23/",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0021",
@@ -408,7 +404,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0022",
@@ -424,7 +420,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0023",
@@ -440,39 +436,35 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0024",
         "catalog": "inventory/sources.csv",
         "catalog_row": 25,
-        "title": "",
+        "title": "Article 1 Section 6 Clause 1 | Constitution Annotated | Congress.gov | Library of Congress",
         "requested_url": "https://constitution.congress.gov/browse/article-1/section-6/clause-1/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://constitution.congress.gov/browse/article-1/section-6/clause-1/",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0025",
         "catalog": "inventory/sources.csv",
         "catalog_row": 26,
-        "title": "",
+        "title": "Article II | Browse | Constitution Annotated | Congress.gov | Library of Congress",
         "requested_url": "https://constitution.congress.gov/browse/article-2/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://constitution.congress.gov/browse/article-2/",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0026",
@@ -488,7 +480,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0027",
@@ -616,39 +608,37 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-0036",
         "catalog": "inventory/sources.csv",
         "catalog_row": 37,
-        "title": "",
+        "title": "United States v. Armstrong | 517 U.S. 456 (1996) | Justia U.S. Supreme Court Center",
         "requested_url": "https://supreme.justia.com/cases/federal/us/517/456/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://supreme.justia.com/cases/federal/us/517/456/",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0037",
         "catalog": "inventory/sources.csv",
         "catalog_row": 38,
-        "title": "Trump v. United States | 603 U.S. ___ (2024) | Justia U.S. Supreme Court Center",
+        "title": "",
         "requested_url": "https://supreme.justia.com/cases/federal/us/603/23-939/",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://supreme.justia.com/cases/federal/us/603/23-939/",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "review required",
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0038",
@@ -734,7 +724,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0046",
@@ -764,7 +754,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0048",
@@ -780,7 +770,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0049",
@@ -796,7 +786,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0050",
@@ -812,7 +802,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0051",
@@ -856,7 +846,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0055",
@@ -872,7 +862,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0056",
@@ -888,7 +878,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0057",
@@ -904,7 +894,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0058",
@@ -934,7 +924,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0061",
@@ -964,7 +954,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0063",
@@ -980,7 +970,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "broken",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0065",
@@ -1024,7 +1014,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0069",
@@ -1040,7 +1030,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0070",
@@ -1056,7 +1046,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0071",
@@ -1072,7 +1062,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "broken",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0072",
@@ -1088,7 +1078,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0073",
@@ -1104,7 +1094,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0074",
@@ -1404,43 +1394,49 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0097",
         "catalog": "inventory/sources.csv",
         "catalog_row": 90,
-        "title": "28 USC 503: Attorney General",
+        "title": "",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section503&num=0&edition=prelim",
-        "attempts": 1,
-        "status_code": 200,
+        "attempts": 3,
+        "status_code": null,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section503&num=0&edition=prelim",
-        "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "content_type": "",
+        "error": "timed out",
+        "error_kind": "transient",
+        "classification": "transient failure",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0098",
         "catalog": "inventory/sources.csv",
         "catalog_row": 91,
-        "title": "28 USC 566: Powers and duties",
+        "title": "",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section566&num=0&edition=prelim",
-        "attempts": 1,
-        "status_code": 200,
+        "attempts": 3,
+        "status_code": null,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section566&num=0&edition=prelim",
-        "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "content_type": "",
+        "error": "timed out",
+        "error_kind": "transient",
+        "classification": "transient failure",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0099",
         "catalog": "inventory/sources.csv",
         "catalog_row": 92,
-        "title": "3 USC 11: Transmission of certificates by electors",
+        "title": "",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section11&num=0&edition=prelim",
-        "attempts": 1,
-        "status_code": 200,
+        "attempts": 3,
+        "status_code": null,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title3-section11&num=0&edition=prelim",
-        "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "content_type": "",
+        "error": "timed out",
+        "error_kind": "transient",
+        "classification": "transient failure",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0100",
@@ -1488,57 +1484,65 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0103",
         "catalog": "inventory/sources.csv",
         "catalog_row": 96,
-        "title": "31 USC 1304: Judgments, awards, and compromise settlements",
+        "title": "",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title31-section1304&num=0&edition=prelim",
-        "attempts": 1,
-        "status_code": 200,
+        "attempts": 3,
+        "status_code": null,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title31-section1304&num=0&edition=prelim",
-        "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "content_type": "",
+        "error": "timed out",
+        "error_kind": "transient",
+        "classification": "transient failure",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0104",
         "catalog": "inventory/sources.csv",
         "catalog_row": 97,
-        "title": "31 USC 717: Evaluating programs and activities of the United States Government",
+        "title": "",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title31-section717&num=0&edition=prelim",
-        "attempts": 1,
-        "status_code": 200,
+        "attempts": 3,
+        "status_code": null,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title31-section717&num=0&edition=prelim",
-        "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "content_type": "",
+        "error": "timed out",
+        "error_kind": "transient",
+        "classification": "transient failure",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0105",
         "catalog": "inventory/sources.csv",
         "catalog_row": 98,
-        "title": "5 USC 3345: Acting officer",
+        "title": "",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title5-section3345&num=0&edition=prelim",
-        "attempts": 1,
-        "status_code": 200,
+        "attempts": 3,
+        "status_code": null,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title5-section3345&num=0&edition=prelim",
-        "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "content_type": "",
+        "error": "timed out",
+        "error_kind": "transient",
+        "classification": "transient failure",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0106",
         "catalog": "inventory/sources.csv",
         "catalog_row": 99,
-        "title": "5 USC 3349d: Notification of intent to nominate during certain recesses or adjournments",
+        "title": "",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title5-section3349d&num=0&edition=prelim",
-        "attempts": 1,
-        "status_code": 200,
+        "attempts": 3,
+        "status_code": null,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title5-section3349d&num=0&edition=prelim",
-        "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "content_type": "",
+        "error": "timed out",
+        "error_kind": "transient",
+        "classification": "transient failure",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0107",
@@ -1596,7 +1600,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "broken",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0111",
@@ -1696,7 +1700,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "transient",
         "classification": "transient failure",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0118",
@@ -1726,7 +1730,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0120",
@@ -1742,7 +1746,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0121",
@@ -1786,7 +1790,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0124",
@@ -1816,7 +1820,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0126",
@@ -1838,7 +1842,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 120,
         "title": "28 USC 508: Vacancies",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section508&num=0&edition=prelim",
-        "attempts": 1,
+        "attempts": 2,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section508&num=0&edition=prelim",
         "content_type": "text/html",
@@ -1958,7 +1962,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0138",
@@ -2160,15 +2164,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0156",
         "catalog": "inventory/sources.csv",
         "catalog_row": 143,
-        "title": "Trump asks Congress for $87.6 billion, mostly for Iran war",
+        "title": "",
         "requested_url": "https://www.axios.com/2026/06/25/trump-white-house-congress-request-iran-war-us-farmers-ebola",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.axios.com/2026/06/25/trump-white-house-congress-request-iran-war-us-farmers-ebola",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0157",
@@ -2240,7 +2246,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0166",
@@ -2270,7 +2276,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "transient",
         "classification": "transient failure",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0168",
@@ -2286,7 +2292,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0169",
@@ -2344,7 +2350,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "broken",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0173",
@@ -2360,7 +2366,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0174",
@@ -2376,7 +2382,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0175",
@@ -2392,7 +2398,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0176",
@@ -2426,15 +2432,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0178",
         "catalog": "inventory/sources.csv",
         "catalog_row": 161,
-        "title": "DC approves Initiative 83 for ranked-choice voting, open primaries - Axios Washington D.C.",
+        "title": "",
         "requested_url": "https://www.axios.com/local/washington-dc/2024/11/06/initiative-83-ranked-choice-voting-open-primaries-dc-council",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.axios.com/local/washington-dc/2024/11/06/initiative-83-ranked-choice-voting-open-primaries-dc-council",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0179",
@@ -2492,21 +2500,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0183",
         "catalog": "inventory/sources.csv",
         "catalog_row": 166,
-        "title": "Supreme Court OKs Trump’s passport policy limiting options for transgender people - POLITICO Politico Logo",
+        "title": "",
         "requested_url": "https://www.politico.com/news/2025/11/06/supreme-court-transgender-case-passports-ruling-00640503",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.politico.com/news/2025/11/06/supreme-court-transgender-case-passports-ruling-00640503",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0184",
@@ -2610,15 +2620,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0192",
         "catalog": "inventory/sources.csv",
         "catalog_row": 174,
-        "title": "Myers v. United States | 272 U.S. 52 (1926) | Justia U.S. Supreme Court Center",
+        "title": "",
         "requested_url": "https://supreme.justia.com/cases/federal/us/272/52/",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://supreme.justia.com/cases/federal/us/272/52/",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0193",
@@ -2634,7 +2646,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0194",
@@ -2654,17 +2666,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0195",
         "catalog": "inventory/sources.csv",
         "catalog_row": 177,
-        "title": "",
+        "title": "H.R.5314 - 117th Congress (2021-2022): Protecting Our Democracy Act | Congress.gov | Library of Congress",
         "requested_url": "https://www.congress.gov/bill/117th-congress/house-bill/5314",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.congress.gov/bill/117th-congress/house-bill/5314",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0196",
@@ -2750,7 +2760,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0202",
@@ -2990,7 +3000,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0219",
@@ -3006,7 +3016,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0220",
@@ -3022,7 +3032,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0221",
@@ -3108,7 +3118,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0227",
@@ -3138,21 +3148,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "transient",
         "classification": "transient failure",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0229",
         "catalog": "inventory/sources.csv",
         "catalog_row": 211,
-        "title": "Mine Workers v. Bagwell | 512 U.S. 821 (1994) | Justia U.S. Supreme Court Center",
+        "title": "",
         "requested_url": "https://supreme.justia.com/cases/federal/us/512/821/",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://supreme.justia.com/cases/federal/us/512/821/",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0230",
@@ -3182,7 +3194,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0232",
@@ -3198,7 +3210,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0233",
@@ -3214,7 +3226,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "transient",
         "classification": "transient failure",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0234",
@@ -3258,7 +3270,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0237",
@@ -3274,7 +3286,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "transient",
         "classification": "transient failure",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0238",
@@ -3294,15 +3306,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0239",
         "catalog": "inventory/sources.csv",
         "catalog_row": 221,
-        "title": "Liljeberg v. Health Svcs. Acq. Corp. | 486 U.S. 847 (1988) | Justia U.S. Supreme Court Center",
+        "title": "",
         "requested_url": "https://supreme.justia.com/cases/federal/us/486/847/",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://supreme.justia.com/cases/federal/us/486/847/",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0240",
@@ -3318,7 +3332,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-0241",
@@ -3362,21 +3376,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0244",
         "catalog": "inventory/sources.csv",
         "catalog_row": 226,
-        "title": "Robert Mueller's Russia probe has cost $17M so far",
+        "title": "",
         "requested_url": "https://www.axios.com/2018/05/31/mueller-russia-probe-cost",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.axios.com/2018/05/31/mueller-russia-probe-cost",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0245",
@@ -3448,7 +3464,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "broken",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0252",
@@ -3478,7 +3494,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-0254",
@@ -3498,17 +3514,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0255",
         "catalog": "inventory/sources.csv",
         "catalog_row": 235,
-        "title": "",
+        "title": "Cochise County Supervisor Peggy Judd took a plea deal in her election certification case - Axios Phoenix",
         "requested_url": "https://www.axios.com/local/phoenix/2024/10/21/cochise-county-supervisor-judd-pleads-guilty-delayed-election-certification",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.axios.com/local/phoenix/2024/10/21/cochise-county-supervisor-judd-pleads-guilty-delayed-election-certification",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0256",
@@ -3524,7 +3538,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0257",
@@ -3596,7 +3610,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0262",
@@ -3630,17 +3644,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0265",
         "catalog": "inventory/sources.csv",
         "catalog_row": 244,
-        "title": "",
+        "title": "Michigan judge dismisses criminal charges against false Trump electors - POLITICO Politico Logo",
         "requested_url": "https://www.politico.com/news/2025/09/09/false-electors-trump-2020-case-00552153",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.politico.com/news/2025/09/09/false-electors-trump-2020-case-00552153",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0266",
@@ -3656,7 +3668,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0267",
@@ -3728,23 +3740,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0273",
         "catalog": "inventory/sources.csv",
         "catalog_row": 251,
-        "title": "",
+        "title": "Trump transition green-lights FBI background checks for incoming staff - POLITICO Politico Logo",
         "requested_url": "https://www.politico.com/news/2024/12/03/trump-transition-doj-agreement-00192451",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.politico.com/news/2024/12/03/trump-transition-doj-agreement-00192451",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0274",
@@ -3834,15 +3844,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0280",
         "catalog": "inventory/sources.csv",
         "catalog_row": 258,
-        "title": "52 USC 10305: Use of observers",
+        "title": "",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title52-section10305&num=0&edition=prelim",
-        "attempts": 1,
-        "status_code": 200,
+        "attempts": 3,
+        "status_code": null,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title52-section10305&num=0&edition=prelim",
-        "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "content_type": "",
+        "error": "timed out",
+        "error_kind": "transient",
+        "classification": "transient failure",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0281",
@@ -3914,7 +3926,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0286",
@@ -3930,7 +3942,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0287",
@@ -3950,17 +3962,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0288",
         "catalog": "inventory/sources.csv",
         "catalog_row": 266,
-        "title": "",
+        "title": "S.J.Res.17 - 116th Congress (2019-2020): A joint resolution proposing an amendment to the Constitution of the United States to abolish the electoral college and to provide for the direct election of the President and Vice President of the United States. | Congress.gov | Library of Congress",
         "requested_url": "https://www.congress.gov/bill/116th-congress/senate-joint-resolution/17",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.congress.gov/bill/116th-congress/senate-joint-resolution/17",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0289",
@@ -3990,7 +4000,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0291",
@@ -4020,7 +4030,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0294",
@@ -4028,7 +4038,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 271,
         "title": "Document not Found",
         "requested_url": "https://uscode.house.gov/view.xhtml?path=/prelim@title52/subtitle1/chapter203&edition=prelim",
-        "attempts": 1,
+        "attempts": 3,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/docnotfound.xhtml",
         "content_type": "text/html",
@@ -4036,7 +4046,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0295",
@@ -4044,7 +4054,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 272,
         "title": "39 USC 101: Postal policy",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title39-section101&num=0&edition=prelim",
-        "attempts": 1,
+        "attempts": 3,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title39-section101&num=0&edition=prelim",
         "content_type": "text/html",
@@ -4058,7 +4068,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 273,
         "title": "39 USC 403: General duties",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title39-section403&num=0&edition=prelim",
-        "attempts": 1,
+        "attempts": 3,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title39-section403&num=0&edition=prelim",
         "content_type": "text/html",
@@ -4086,7 +4096,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 275,
         "title": "39 USC 401: General powers of the Postal Service",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title39-section401&num=0&edition=prelim",
-        "attempts": 1,
+        "attempts": 2,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title39-section401&num=0&edition=prelim",
         "content_type": "text/html",
@@ -4100,7 +4110,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 276,
         "title": "39 USC 404: Specific powers",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title39-section404&num=0&edition=prelim",
-        "attempts": 1,
+        "attempts": 2,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title39-section404&num=0&edition=prelim",
         "content_type": "text/html",
@@ -4122,7 +4132,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0302",
@@ -4138,7 +4148,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0303",
@@ -4182,7 +4192,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0306",
@@ -4212,7 +4222,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0308",
@@ -4228,7 +4238,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0309",
@@ -4258,7 +4268,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0311",
@@ -4274,7 +4284,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0312",
@@ -4304,21 +4314,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0314",
         "catalog": "inventory/sources.csv",
         "catalog_row": 290,
-        "title": "Democrats push to bypass Mike Johnson and outlaw Trump weaponization fund",
+        "title": "",
         "requested_url": "https://www.axios.com/2026/06/25/weaponization-fund-trump-blanche-raskin-jan-6",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.axios.com/2026/06/25/weaponization-fund-trump-blanche-raskin-jan-6",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0316",
@@ -4326,7 +4338,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 291,
         "title": "28 USC 2414: Payment of judgments and compromise settlements",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section2414&num=0&edition=prelim",
-        "attempts": 1,
+        "attempts": 2,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title28-section2414&num=0&edition=prelim",
         "content_type": "text/html",
@@ -4340,7 +4352,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 292,
         "title": "26 USC 7431: Civil damages for unauthorized inspection or disclosure of returns and return information",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title26-section7431&num=0&edition=prelim",
-        "attempts": 1,
+        "attempts": 2,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title26-section7431&num=0&edition=prelim",
         "content_type": "text/html",
@@ -4362,7 +4374,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0321",
@@ -4524,7 +4536,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 305,
         "title": "2 USC 684: Proposed deferrals of budget authority",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A2+section%3A684+edition%3Aprelim%29",
-        "attempts": 1,
+        "attempts": 3,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A2+section%3A684+edition%3Aprelim%29",
         "content_type": "text/html",
@@ -4616,7 +4628,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0341",
@@ -4702,7 +4714,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-0351",
@@ -4802,7 +4814,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0358",
@@ -4818,7 +4830,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0359",
@@ -4834,21 +4846,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0360",
         "catalog": "inventory/sources.csv",
         "catalog_row": 327,
-        "title": "Restrictions on Congress's Authority | Constitution Annotated | Congress.gov | Library of Congress",
+        "title": "",
         "requested_url": "https://constitution.congress.gov/browse/essay/artII-S2-C2-3-9/ALDE_00013099/",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://constitution.congress.gov/browse/essay/artII-S2-C2-3-9/ALDE_00013099/",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0362",
@@ -4976,7 +4990,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0371",
@@ -4992,7 +5006,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0372",
@@ -5008,7 +5022,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0373",
@@ -5024,7 +5038,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0375",
@@ -5040,23 +5054,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0376",
         "catalog": "inventory/sources.csv",
         "catalog_row": 341,
-        "title": "",
+        "title": "S.1596 - 118th Congress (2023-2024): REAL Political Advertisements Act | Congress.gov | Library of Congress",
         "requested_url": "https://www.congress.gov/bill/118th-congress/senate-bill/1596",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.congress.gov/bill/118th-congress/senate-bill/1596",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0377",
@@ -5072,7 +5084,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0378",
@@ -5088,7 +5100,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0379",
@@ -5104,7 +5116,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0380",
@@ -5120,7 +5132,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0381",
@@ -5136,7 +5148,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0382",
@@ -5152,7 +5164,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0383",
@@ -5168,23 +5180,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-0384",
         "catalog": "inventory/sources.csv",
         "catalog_row": 349,
-        "title": "",
+        "title": "South Carolina v. Katzenbach | 383 U.S. 301 (1966) | Justia U.S. Supreme Court Center",
         "requested_url": "https://supreme.justia.com/cases/federal/us/383/301/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://supreme.justia.com/cases/federal/us/383/301/",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0385",
@@ -5200,21 +5210,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0386",
         "catalog": "inventory/sources.csv",
         "catalog_row": 351,
-        "title": "City of Boerne v. Flores | 521 U.S. 507 (1997) | Justia U.S. Supreme Court Center",
+        "title": "",
         "requested_url": "https://supreme.justia.com/cases/federal/us/521/507/",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://supreme.justia.com/cases/federal/us/521/507/",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0387",
@@ -5398,7 +5410,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "transient",
         "classification": "transient failure",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0401",
@@ -5432,17 +5444,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0407",
         "catalog": "inventory/sources.csv",
         "catalog_row": 367,
-        "title": "",
+        "title": "In re: American Oversight 25-13400 | U.S. Court of Appeals, Eleventh Circuit | Justia",
         "requested_url": "https://dockets.justia.com/docket/circuit-courts/ca11/25-13400",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://dockets.justia.com/docket/circuit-courts/ca11/25-13400",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0408",
@@ -5458,7 +5468,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0409",
@@ -5474,21 +5484,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0410",
         "catalog": "inventory/sources.csv",
         "catalog_row": 370,
-        "title": "Rule 5.5: Unauthorized Practice of Law; Multijurisdictional Practice of Law chevron-down American Bar Association TM American Bar Association American Bar Association American Bar Association American Bar Association TM",
+        "title": "",
         "requested_url": "https://www.americanbar.org/groups/professional_responsibility/publications/model_rules_of_professional_conduct/rule_5_5_unauthorized_practice_of_law_multijurisdictional_practice_of_law/",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.americanbar.org/groups/professional_responsibility/publications/model_rules_of_professional_conduct/rule_5_5_unauthorized_practice_of_law_multijurisdictional_practice_of_law/",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0411",
@@ -5504,7 +5516,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0412",
@@ -5520,7 +5532,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0413",
@@ -5592,7 +5604,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0419",
@@ -5608,7 +5620,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0420",
@@ -5722,7 +5734,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0429",
@@ -5738,7 +5750,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0430",
@@ -5754,7 +5766,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0431",
@@ -5784,7 +5796,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "broken",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0433",
@@ -5828,21 +5840,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0436",
         "catalog": "inventory/sources.csv",
         "catalog_row": 394,
-        "title": "FEDERAL RULES OF CRIMINAL PROCEDURE",
+        "title": "",
         "requested_url": "https://uscode.house.gov/view.xhtml?path=/prelim@title18/title18a/node35&edition=prelim",
-        "attempts": 1,
-        "status_code": 200,
+        "attempts": 3,
+        "status_code": null,
         "final_url": "https://uscode.house.gov/view.xhtml?path=/prelim@title18/title18a/node35&edition=prelim",
-        "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "content_type": "",
+        "error": "timed out",
+        "error_kind": "transient",
+        "classification": "transient failure",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0437",
@@ -5858,7 +5872,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0438",
@@ -5930,7 +5944,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "broken",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0443",
@@ -5974,7 +5988,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-0446",
@@ -6018,7 +6032,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0449",
@@ -6034,7 +6048,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0450",
@@ -6042,7 +6056,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 408,
         "title": "18 USC Ch. 29: ELECTIONS AND POLITICAL ACTIVITIES",
         "requested_url": "https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter29&edition=prelim",
-        "attempts": 1,
+        "attempts": 2,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?path=/prelim@title18/part1/chapter29&edition=prelim",
         "content_type": "text/html",
@@ -6134,7 +6148,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0458",
@@ -6150,21 +6164,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0459",
         "catalog": "inventory/sources.csv",
         "catalog_row": 416,
-        "title": "Fifteenth Amendment | Browse | Constitution Annotated | Congress.gov | Library of Congress",
+        "title": "",
         "requested_url": "https://constitution.congress.gov/browse/amendment-15/",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://constitution.congress.gov/browse/amendment-15/",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0460",
@@ -6292,35 +6308,39 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0469",
         "catalog": "inventory/sources.csv",
         "catalog_row": 426,
-        "title": "H.R.4632 - 119th Congress (2025-2026): Fair Representation Act | Congress.gov | Library of Congress",
+        "title": "",
         "requested_url": "https://www.congress.gov/bill/119th-congress/house-bill/4632",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.congress.gov/bill/119th-congress/house-bill/4632",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0470",
         "catalog": "inventory/sources.csv",
         "catalog_row": 427,
-        "title": "H.Res.20 - 119th Congress (2025-2026): Establishing the Select Committee on Electoral Reform. | Congress.gov | Library of Congress",
+        "title": "",
         "requested_url": "https://www.congress.gov/bill/119th-congress/house-resolution/20",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.congress.gov/bill/119th-congress/house-resolution/20",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0471",
@@ -6336,53 +6356,51 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0472",
         "catalog": "inventory/sources.csv",
         "catalog_row": 429,
-        "title": "",
+        "title": "Anderson v. Celebrezze | 460 U.S. 780 (1983) | Justia U.S. Supreme Court Center",
         "requested_url": "https://supreme.justia.com/cases/federal/us/460/780/",
         "attempts": 1,
-        "status_code": 403,
-        "final_url": "https://supreme.justia.com/cases/federal/us/460/780/",
-        "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
-      },
-      {
-        "source_id": "SRC-0473",
-        "catalog": "inventory/sources.csv",
-        "catalog_row": 430,
-        "title": "Burdick v. Takushi | 504 U.S. 428 (1992) | Justia U.S. Supreme Court Center",
-        "requested_url": "https://supreme.justia.com/cases/federal/us/504/428/",
-        "attempts": 1,
         "status_code": 200,
-        "final_url": "https://supreme.justia.com/cases/federal/us/504/428/",
+        "final_url": "https://supreme.justia.com/cases/federal/us/460/780/",
         "content_type": "text/html",
         "error": "",
         "error_kind": "",
         "classification": "verified"
       },
       {
-        "source_id": "SRC-0474",
+        "source_id": "SRC-0473",
         "catalog": "inventory/sources.csv",
-        "catalog_row": 431,
+        "catalog_row": 430,
         "title": "",
-        "requested_url": "https://supreme.justia.com/cases/federal/us/520/351/",
+        "requested_url": "https://supreme.justia.com/cases/federal/us/504/428/",
         "attempts": 1,
         "status_code": 403,
-        "final_url": "https://supreme.justia.com/cases/federal/us/520/351/",
+        "final_url": "https://supreme.justia.com/cases/federal/us/504/428/",
         "content_type": "text/html",
         "error": "HTTP 403",
         "error_kind": "access",
         "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
+      },
+      {
+        "source_id": "SRC-0474",
+        "catalog": "inventory/sources.csv",
+        "catalog_row": 431,
+        "title": "Timmons v. Twin Cities Area New Party | 520 U.S. 351 (1997) | Justia U.S. Supreme Court Center",
+        "requested_url": "https://supreme.justia.com/cases/federal/us/520/351/",
+        "attempts": 1,
+        "status_code": 200,
+        "final_url": "https://supreme.justia.com/cases/federal/us/520/351/",
+        "content_type": "text/html",
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0475",
@@ -6398,7 +6416,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0476",
@@ -6442,7 +6460,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0479",
@@ -6458,7 +6476,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0480",
@@ -6474,7 +6492,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0481",
@@ -6574,7 +6592,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "transient",
         "classification": "transient failure",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0488",
@@ -6596,7 +6614,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 446,
         "title": "8 USC 1401: Nationals and citizens of United States at birth",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title8-section1401&num=0&edition=prelim",
-        "attempts": 1,
+        "attempts": 3,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title8-section1401&num=0&edition=prelim",
         "content_type": "text/html",
@@ -6748,17 +6766,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0500",
         "catalog": "inventory/sources.csv",
         "catalog_row": 457,
-        "title": "",
+        "title": "Arizona v. Inter Tribal Council of Ariz., Inc. | 570 U.S. 1 (2013) | Justia U.S. Supreme Court Center",
         "requested_url": "https://supreme.justia.com/cases/federal/us/570/1/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://supreme.justia.com/cases/federal/us/570/1/",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0501",
@@ -6774,7 +6790,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0502",
@@ -6860,7 +6876,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0509",
@@ -6950,17 +6966,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0516",
         "catalog": "inventory/sources.csv",
         "catalog_row": 471,
-        "title": "",
+        "title": "H.R.1503 - 111th Congress (2009-2010): To amend the Federal Election Campaign Act of 1971 to require the principal campaign committee of a candidate for election to the office of President to include with the committee's statement of organization a copy of the candidate's birth certificate, together with such other documentation as may be necessary to establish that the candidate meets the qualifications for eligibility to the Office of President under the Constitution. | Congress.gov | Library ",
         "requested_url": "https://www.congress.gov/bill/111th-congress/house-bill/1503",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.congress.gov/bill/111th-congress/house-bill/1503",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0517",
@@ -6976,7 +6990,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0518",
@@ -7006,7 +7020,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0520",
@@ -7022,7 +7036,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0521",
@@ -7196,17 +7210,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0534",
         "catalog": "inventory/sources.csv",
         "catalog_row": 488,
-        "title": "",
+        "title": "Trump fired this independent labor regulator. Now, she’s suing. - POLITICO Politico Logo",
         "requested_url": "https://www.politico.com/news/2025/02/05/ex-nlrb-member-challenges-trumps-firing-00202585",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.politico.com/news/2025/02/05/ex-nlrb-member-challenges-trumps-firing-00202585",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0535",
@@ -7250,7 +7262,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "transient",
         "classification": "transient failure",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0538",
@@ -7280,7 +7292,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-0540",
@@ -7300,17 +7312,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0542",
         "catalog": "inventory/sources.csv",
         "catalog_row": 495,
-        "title": "",
+        "title": "Departure on FEC hobbles the election enforcement agency - POLITICO Politico Logo",
         "requested_url": "https://www.politico.com/news/2025/04/30/fec-quorum-00318077",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.politico.com/news/2025/04/30/fec-quorum-00318077",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0543",
@@ -7354,7 +7364,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0546",
@@ -7370,7 +7380,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0547",
@@ -7386,7 +7396,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0548",
@@ -7472,21 +7482,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0554",
         "catalog": "inventory/sources.csv",
         "catalog_row": 507,
-        "title": "Rhode Island v. Trump, No. 25-1477 (1st Cir. 2025) :: Justia",
+        "title": "",
         "requested_url": "https://law.justia.com/cases/federal/appellate-courts/ca1/25-1477/25-1477-2025-09-11.html",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://law.justia.com/cases/federal/appellate-courts/ca1/25-1477/25-1477-2025-09-11.html",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0555",
@@ -7496,13 +7508,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://law.justia.com/cases/federal/district-courts/maryland/mddce/1%3A2025cv01363/581470/148/",
         "attempts": 1,
         "status_code": 403,
-        "final_url": "https://law.justia.com/cases/federal/district-courts/maryland/mddce/1%3A2025cv01363/581470/148/",
+        "final_url": "https://law.justia.com/cases/federal/district-courts/maryland/mddce/1:2025cv01363/581470/148/",
         "content_type": "text/html",
         "error": "HTTP 403",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0556",
@@ -7512,13 +7524,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2025cv00804/278529/40/",
         "attempts": 1,
         "status_code": 403,
-        "final_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2025cv00804/278529/40/",
+        "final_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1:2025cv00804/278529/40/",
         "content_type": "text/html",
         "error": "HTTP 403",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0557",
@@ -7540,7 +7552,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 511,
         "title": "22 USC 1928f: Limitation on withdrawal from the North Atlantic Treaty Organization",
         "requested_url": "https://uscode.house.gov/view.xhtml?edition=prelim&f=treesort&jumpTo=true&num=0&req=%28title%3A22+section%3A1928f+edition%3Aprelim%29+OF+%28granuleid%3AUSC-prelim-title22-section1928f%29",
-        "attempts": 1,
+        "attempts": 2,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?edition=prelim&f=treesort&jumpTo=true&num=0&req=%28title%3A22+section%3A1928f+edition%3Aprelim%29+OF+%28granuleid%3AUSC-prelim-title22-section1928f%29",
         "content_type": "text/html",
@@ -7554,7 +7566,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 512,
         "title": "22 USC 290c: Withdrawal from Organization on one-year notice",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A22+section%3A290c+edition%3Aprelim%29",
-        "attempts": 1,
+        "attempts": 2,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A22+section%3A290c+edition%3Aprelim%29",
         "content_type": "text/html",
@@ -7576,7 +7588,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0561",
@@ -7584,7 +7596,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 514,
         "title": "28 USC 2284: Three-judge court; when required; composition; procedure",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A2284+edition%3Aprelim%29",
-        "attempts": 1,
+        "attempts": 3,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A2284+edition%3Aprelim%29",
         "content_type": "text/html",
@@ -7598,7 +7610,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 515,
         "title": "28 USC 1253: Direct appeals from decisions of three-judge courts",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A1253+edition%3Aprelim%29",
-        "attempts": 1,
+        "attempts": 3,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A1253+edition%3Aprelim%29",
         "content_type": "text/html",
@@ -7626,7 +7638,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 517,
         "title": "28 USC 1657: Priority of civil actions",
         "requested_url": "https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title28-section1657",
-        "attempts": 1,
+        "attempts": 2,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title28-section1657",
         "content_type": "text/html",
@@ -7676,7 +7688,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0568",
@@ -7726,7 +7738,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 524,
         "title": "28 USC 144: Bias or prejudice of judge",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A144+edition%3Aprelim%29",
-        "attempts": 1,
+        "attempts": 2,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A144+edition%3Aprelim%29",
         "content_type": "text/html",
@@ -8042,7 +8054,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0596",
@@ -8160,15 +8172,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0604",
         "catalog": "inventory/sources.csv",
         "catalog_row": 555,
-        "title": "Governor Walz Establishes Council to Document the Impacts of Operation Metro Surge",
+        "title": "Radware Bot Manager Captcha State of MN Logo",
         "requested_url": "https://mn.gov/governor/newsroom/press-releases/?id=1055-735583",
         "attempts": 1,
         "status_code": 200,
-        "final_url": "https://mn.gov/governor/newsroom/press-releases/?id=1055-735583",
+        "final_url": "http://validate.perfdrive.com/d5bd5333eafe8b0ccd6023ba818d1aa6/?ssa=78a53b52-a095-465d-a45f-84595613cf86&ssb=42678285592&ssc=https%3A%2F%2Fmn.gov%2Fgovernor%2Fnewsroom%2Fpress-releases%2F%3Fid%3D1055-735583&ssi=b6caa797-bf56-40a8-96bb-1dfe3a1e61fe&ssk=support@shieldsquare.com&ssm=42791152745518617106641237343607&ssn=d6db42374009531ce9ab6ad7d1c139ae2d988c260249-9e0b-4c61-b252f7&sso=b1a0a098-fa8c69e10c5c32071111dbb856b740cd045664b6db74a973&ssp=49419324991785472403178543463066888&ssq=50591052986471726952629864850545687352088&ssr=NjcuMjU1LjIxMi4yMTc=&sst=ARRP%20source-checker-bot/1.0%20(+https://github.com/Thorncrag/ARRP)&ssu=&ssv=&ssw=&ssx=W10=",
         "content_type": "text/html",
         "error": "",
         "error_kind": "",
-        "classification": "verified"
+        "classification": "review required",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0605",
@@ -8226,7 +8240,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0609",
@@ -8256,7 +8270,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "identity mismatch",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0611",
@@ -8314,7 +8328,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0615",
@@ -8336,7 +8350,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 567,
         "title": "18 USC 1365: Tampering with consumer products",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=granuleid%3AUSC-prelim-title18-section1365&num=0&edition=prelim",
-        "attempts": 3,
+        "attempts": 1,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=granuleid%3AUSC-prelim-title18-section1365&num=0&edition=prelim",
         "content_type": "text/html",
@@ -8358,7 +8372,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0618",
@@ -8374,7 +8388,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-0620",
@@ -8396,7 +8410,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 571,
         "title": "5 USC 702: Right of review",
         "requested_url": "https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title5-section702",
-        "attempts": 3,
+        "attempts": 1,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title5-section702",
         "content_type": "text/html",
@@ -8408,17 +8422,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0623",
         "catalog": "inventory/sources.csv",
         "catalog_row": 572,
-        "title": "",
+        "title": "28 USC 291: Circuit judges",
         "requested_url": "https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title28-section291",
-        "attempts": 3,
-        "status_code": null,
+        "attempts": 1,
+        "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title28-section291",
-        "content_type": "",
-        "error": "timed out",
-        "error_kind": "transient",
-        "classification": "transient failure",
-        "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "content_type": "text/html",
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0624",
@@ -8426,7 +8438,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 573,
         "title": "28 USC 295: Conditions upon designation and assignment",
         "requested_url": "https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title28-section295",
-        "attempts": 3,
+        "attempts": 1,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?edition=prelim&num=0&req=granuleid%3AUSC-prelim-title28-section295",
         "content_type": "text/html",
@@ -8476,7 +8488,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0629",
@@ -8526,7 +8538,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 580,
         "title": "28 USC 2071: Rule-making power generally",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A2071+edition%3Aprelim%29",
-        "attempts": 3,
+        "attempts": 1,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A2071+edition%3Aprelim%29",
         "content_type": "text/html",
@@ -8624,7 +8636,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 587,
         "title": "28 USC 2107: Time for appeal to court of appeals",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A2107+edition%3Aprelim%29",
-        "attempts": 3,
+        "attempts": 1,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A2107+edition%3Aprelim%29",
         "content_type": "text/html",
@@ -8666,7 +8678,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 590,
         "title": "28 USC 1367: Supplemental jurisdiction",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A1367+edition%3Aprelim%29",
-        "attempts": 2,
+        "attempts": 3,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A1367+edition%3Aprelim%29",
         "content_type": "text/html",
@@ -8750,7 +8762,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 596,
         "title": "28 USC 294: Assignment of retired Justices or judges to active duty",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A294+edition%3Aprelim%29",
-        "attempts": 1,
+        "attempts": 2,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A28+section%3A294+edition%3Aprelim%29",
         "content_type": "text/html",
@@ -8772,7 +8784,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0654",
@@ -8788,7 +8800,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0655",
@@ -8804,7 +8816,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0656",
@@ -8904,7 +8916,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0667",
@@ -8920,7 +8932,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0668",
@@ -8936,7 +8948,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0669",
@@ -9078,7 +9090,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0679",
@@ -9086,7 +9098,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "catalog_row": 619,
         "title": "52 USC 20923: Membership and appointment",
         "requested_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A52+section%3A20923+edition%3Aprelim%29",
-        "attempts": 2,
+        "attempts": 1,
         "status_code": 200,
         "final_url": "https://uscode.house.gov/view.xhtml?req=%28title%3A52+section%3A20923+edition%3Aprelim%29",
         "content_type": "text/html",
@@ -9098,17 +9110,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0680",
         "catalog": "inventory/sources.csv",
         "catalog_row": 620,
-        "title": "",
+        "title": "H.R.1196 - 119th Congress (2025-2026): Protect U.S. National Security Act | Congress.gov | Library of Congress",
         "requested_url": "https://www.congress.gov/bill/119th-congress/house-bill/1196",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.congress.gov/bill/119th-congress/house-bill/1196",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0681",
@@ -9124,7 +9134,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-0682",
@@ -9140,7 +9150,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0683",
@@ -9156,7 +9166,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0684",
@@ -9172,7 +9182,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0685",
@@ -9244,7 +9254,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0690",
@@ -9288,7 +9298,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "broken",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0693",
@@ -9304,7 +9314,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0694",
@@ -9320,7 +9330,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0695",
@@ -9336,7 +9346,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0696",
@@ -9422,7 +9432,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0705",
@@ -9466,7 +9476,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0710",
@@ -9570,17 +9580,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0717",
         "catalog": "inventory/sources.csv",
         "catalog_row": 652,
-        "title": "",
+        "title": "Text - H.R.23 - 119th Congress (2025-2026): Illegitimate Court Counteraction Act | Congress.gov | Library of Congress",
         "requested_url": "https://www.congress.gov/bill/119th-congress/house-bill/23/text",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.congress.gov/bill/119th-congress/house-bill/23/text",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0718",
@@ -9698,15 +9706,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0726",
         "catalog": "inventory/sources.csv",
         "catalog_row": 661,
-        "title": "The International Emergency Economic Powers Act: Origins, Evolution, and Use | Congress.gov | Library of Congress",
+        "title": "",
         "requested_url": "https://www.congress.gov/crs-product/R45618",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.congress.gov/crs-product/R45618",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0727",
@@ -9722,7 +9732,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0728",
@@ -9871,28 +9881,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.congress.gov/crs_external_products/LSB/HTML/LSB11271.html",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.congress.gov/crs_external_products/LSB/HTML/LSB11271.html",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0739",
         "catalog": "inventory/sources.csv",
         "catalog_row": 674,
-        "title": "Text - H.R.5220 - 119th Congress (2025-2026): Congressional Power of the Purse Act | Congress.gov | Library of Congress",
+        "title": "",
         "requested_url": "https://www.congress.gov/bill/119th-congress/house-bill/5220/text",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.congress.gov/bill/119th-congress/house-bill/5220/text",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0740",
@@ -9950,7 +9960,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0744",
@@ -9966,7 +9976,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0745",
@@ -10108,7 +10118,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "broken",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0755",
@@ -10124,7 +10134,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0756",
@@ -10140,7 +10150,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0757",
@@ -10205,14 +10215,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.congress.gov/crs_external_products/R/HTML/R41330.web.html",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.congress.gov/crs_external_products/R/HTML/R41330.web.html",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0762",
@@ -10246,15 +10254,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-0764",
         "catalog": "inventory/sources.csv",
         "catalog_row": 699,
-        "title": "Property Clause Generally | Constitution Annotated | Congress.gov | Library of Congress",
+        "title": "",
         "requested_url": "https://constitution.congress.gov/browse/essay/artIV-S3-C2-1/ALDE_00013509/",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://constitution.congress.gov/browse/essay/artIV-S3-C2-1/ALDE_00013509/",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0765",
@@ -10410,7 +10420,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0781",
@@ -10510,7 +10520,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0788",
@@ -10526,7 +10536,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0789",
@@ -10584,7 +10594,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0793",
@@ -10600,7 +10610,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0794",
@@ -10644,23 +10654,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0797",
         "catalog": "inventory/sources.csv",
         "catalog_row": 727,
-        "title": "",
+        "title": "Alienage Classification | Constitution Annotated | Congress.gov | Library of Congress",
         "requested_url": "https://constitution.congress.gov/browse/essay/Amdt14-S1-8-7-2/ALDE_00000829",
         "attempts": 1,
-        "status_code": 403,
-        "final_url": "https://constitution.congress.gov/browse/essay/Amdt14-S1-8-7-2/ALDE_00000829",
+        "status_code": 200,
+        "final_url": "https://constitution.congress.gov/browse/essay/amdt14-S1-8-7-2/ALDE_00000829/",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "identity-preserving redirect"
       },
       {
         "source_id": "SRC-0798",
@@ -10676,7 +10684,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-0799",
@@ -10692,23 +10700,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-0800",
         "catalog": "inventory/sources.csv",
         "catalog_row": 730,
-        "title": "",
+        "title": "MEMORANDUM OPINION re 28 Motion to Dismiss for DOES 1-9 v. DEPARTMENT OF JUSTICE :: Justia Dockets & Filings",
         "requested_url": "https://docs.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2025cv00325/277085/54",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://docs.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2025cv00325/277085/54",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0801",
@@ -10724,35 +10730,39 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0802",
         "catalog": "inventory/sources.csv",
         "catalog_row": 732,
-        "title": "Ramos v. Wolf, No. 18-16981 (9th Cir. 2020) :: Justia",
+        "title": "",
         "requested_url": "https://law.justia.com/cases/federal/appellate-courts/ca9/18-16981/18-16981-2020-09-14.html",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://law.justia.com/cases/federal/appellate-courts/ca9/18-16981/18-16981-2020-09-14.html",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0803",
         "catalog": "inventory/sources.csv",
         "catalog_row": 733,
-        "title": "Wild Virginia v. Council on Environmental Quality, No. 21-1839 (4th Cir. 2022) :: Justia",
+        "title": "",
         "requested_url": "https://law.justia.com/cases/federal/appellate-courts/ca4/21-1839/21-1839-2022-12-22.html",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://law.justia.com/cases/federal/appellate-courts/ca4/21-1839/21-1839-2022-12-22.html",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-0804",
@@ -10762,29 +10772,27 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://law.justia.com/cases/federal/district-courts/california/candce/3%3A2020cv03005/358957/171/",
         "attempts": 1,
         "status_code": 403,
-        "final_url": "https://law.justia.com/cases/federal/district-courts/california/candce/3:2020cv03005/358957/171/",
+        "final_url": "https://law.justia.com/cases/federal/district-courts/california/candce/3%3A2020cv03005/358957/171/",
         "content_type": "text/html",
         "error": "HTTP 403",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0805",
         "catalog": "inventory/sources.csv",
         "catalog_row": 735,
-        "title": "",
+        "title": "Northern Alaska Environmental Center v. Department of the Interior, No. 19-35008 (9th Cir. 2020) :: Justia",
         "requested_url": "https://law.justia.com/cases/federal/appellate-courts/ca9/19-35008/19-35008-2020-07-09.html",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://law.justia.com/cases/federal/appellate-courts/ca9/19-35008/19-35008-2020-07-09.html",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-0806",
@@ -10800,7 +10808,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0807",
@@ -10816,7 +10824,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0808",
@@ -10826,13 +10834,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2019cv00166/203614/25/",
         "attempts": 1,
         "status_code": 403,
-        "final_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1:2019cv00166/203614/25/",
+        "final_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2019cv00166/203614/25/",
         "content_type": "text/html",
         "error": "HTTP 403",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0809",
@@ -10862,7 +10870,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0811",
@@ -10872,13 +10880,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2018cv01076/196383/47/",
         "attempts": 1,
         "status_code": 403,
-        "final_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1:2018cv01076/196383/47/",
+        "final_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2018cv01076/196383/47/",
         "content_type": "text/html",
         "error": "HTTP 403",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0812",
@@ -10922,7 +10930,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0835",
@@ -10938,7 +10946,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0836",
@@ -11038,7 +11046,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0852",
@@ -11208,7 +11216,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0895",
@@ -11224,7 +11232,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0899",
@@ -11366,7 +11374,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0916",
@@ -11382,7 +11390,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0918",
@@ -11398,7 +11406,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0919",
@@ -11414,7 +11422,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0921",
@@ -11430,7 +11438,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0922",
@@ -11460,7 +11468,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0924",
@@ -11476,7 +11484,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0925",
@@ -11492,7 +11500,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0928",
@@ -11522,7 +11530,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0930",
@@ -11538,7 +11546,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0931",
@@ -11554,7 +11562,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0932",
@@ -11570,7 +11578,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0933",
@@ -11586,7 +11594,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0934",
@@ -11602,7 +11610,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0935",
@@ -11632,7 +11640,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0940",
@@ -11648,7 +11656,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0943",
@@ -11678,7 +11686,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0945",
@@ -11694,7 +11702,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0946",
@@ -11710,7 +11718,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0947",
@@ -11740,7 +11748,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0949",
@@ -11756,7 +11764,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0950",
@@ -11786,7 +11794,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0955",
@@ -11816,7 +11824,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0957",
@@ -11832,7 +11840,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0958",
@@ -11848,7 +11856,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0959",
@@ -11864,7 +11872,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0960",
@@ -11894,7 +11902,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0962",
@@ -11910,7 +11918,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0963",
@@ -11926,7 +11934,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0965",
@@ -11942,7 +11950,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0966",
@@ -11958,7 +11966,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0967",
@@ -11974,7 +11982,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0968",
@@ -12004,7 +12012,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0972",
@@ -12020,7 +12028,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0973",
@@ -12036,7 +12044,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0975",
@@ -12052,7 +12060,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0976",
@@ -12068,7 +12076,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0977",
@@ -12084,7 +12092,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0978",
@@ -12114,7 +12122,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0980",
@@ -12130,7 +12138,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0981",
@@ -12146,7 +12154,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0982",
@@ -12162,7 +12170,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0983",
@@ -12178,7 +12186,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0984",
@@ -12208,7 +12216,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0986",
@@ -12224,7 +12232,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0987",
@@ -12240,7 +12248,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0988",
@@ -12256,7 +12264,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0989",
@@ -12272,7 +12280,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0990",
@@ -12302,7 +12310,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0992",
@@ -12332,7 +12340,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0994",
@@ -12348,7 +12356,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0995",
@@ -12378,7 +12386,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0997",
@@ -12394,7 +12402,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-0998",
@@ -12410,7 +12418,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1000",
@@ -12426,7 +12434,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1004",
@@ -12435,14 +12443,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70496361/newsom-v-trump/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70496361/newsom-v-trump/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1005",
@@ -12451,14 +12459,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69748413/solutions-in-hometown-connections-v-noem/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69748413/solutions-in-hometown-connections-v-noem/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1007",
@@ -12467,14 +12475,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69878269/sealed-v-sealed/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69878269/sealed-v-sealed/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1008",
@@ -12483,14 +12491,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69752936/rferl-inc-v-lake/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69752936/rferl-inc-v-lake/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1009",
@@ -12499,14 +12507,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/17313427/national-association-of-immigration-judges-v-david-l-neal/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/17313427/national-association-of-immigration-judges-v-david-l-neal/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1010",
@@ -12515,14 +12523,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72028010/national-trust-for-historic-preservation-in-the-united-states-v-national/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72028010/national-trust-for-historic-preservation-in-the-united-states-v-national/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1011",
@@ -12531,14 +12539,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69743997/taal-v-trump/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69743997/taal-v-trump/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1012",
@@ -12561,14 +12569,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70131463/state-of-new-york-v-trump/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70131463/state-of-new-york-v-trump/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1015",
@@ -12577,14 +12585,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73254099/duru-v-mullin/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73254099/duru-v-mullin/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1016",
@@ -12593,14 +12601,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70695499/van-schaick-v-desantis/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70695499/van-schaick-v-desantis/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1017",
@@ -12609,14 +12617,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70895584/lazaro-maldonado-bautista-v-ernesto-santacruz-jr/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70895584/lazaro-maldonado-bautista-v-ernesto-santacruz-jr/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1018",
@@ -12625,14 +12633,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69580474/philadelphia-yearly-meeting-of-the-religious-society-of-friends-v-us/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69580474/philadelphia-yearly-meeting-of-the-religious-society-of-friends-v-us/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1020",
@@ -12641,14 +12649,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73587222/doe-v-mullin/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73587222/doe-v-mullin/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1021",
@@ -12657,14 +12665,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/68850646/las-americas-immigrant-advocacy-center-v-us-department-of-homeland/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/68850646/las-americas-immigrant-advocacy-center-v-us-department-of-homeland/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1023",
@@ -12673,14 +12681,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69599829/amica-center-for-immigrant-rights-v-united-states-department-of-justice/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69599829/amica-center-for-immigrant-rights-v-united-states-department-of-justice/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1024",
@@ -12689,14 +12697,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69566723/make-the-road-new-york-v-huffman/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69566723/make-the-road-new-york-v-huffman/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1025",
@@ -12705,14 +12713,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69577670/organized-communities-against-deportations-v-donald-trump/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69577670/organized-communities-against-deportations-v-donald-trump/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1026",
@@ -12721,14 +12729,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69695790/doe-v-noem/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69695790/doe-v-noem/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1027",
@@ -12737,14 +12745,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70594806/pedro-vasquez-perdomo-v-kristi-noem/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70594806/pedro-vasquez-perdomo-v-kristi-noem/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1028",
@@ -12767,14 +12775,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72178941/city-of-philadelphia-v-burgum/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72178941/city-of-philadelphia-v-burgum/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1030",
@@ -12783,14 +12791,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72379655/anthropic-pbc-v-us-department-of-war/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72379655/anthropic-pbc-v-us-department-of-war/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1031",
@@ -12813,14 +12821,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72338638/amica-center-for-immigrant-rights-v-executive-office-for-immigration/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72338638/amica-center-for-immigrant-rights-v-executive-office-for-immigration/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1033",
@@ -12843,14 +12851,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73465163/american-federation-of-labor-and-congress-of-industrial-organizations-v/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73465163/american-federation-of-labor-and-congress-of-industrial-organizations-v/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1035",
@@ -12859,14 +12867,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69634526/national-treasury-employees-union-v-donald-j-trump/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69634526/national-treasury-employees-union-v-donald-j-trump/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1036",
@@ -12875,14 +12883,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69718515/pueblo-of-isleta-v-secretary-of-the-department-of-the-interior/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69718515/pueblo-of-isleta-v-secretary-of-the-department-of-the-interior/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1037",
@@ -12891,14 +12899,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69162304/perez-parra-v-castro/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69162304/perez-parra-v-castro/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1039",
@@ -12921,14 +12929,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69844582/state-of-rhode-island-v-trump/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69844582/state-of-rhode-island-v-trump/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1044",
@@ -12937,14 +12945,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73214680/healthy-gulf-v-us-department-of-the-interior/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73214680/healthy-gulf-v-us-department-of-the-interior/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1045",
@@ -12953,14 +12961,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69683411/united-farm-workers-v-noem/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69683411/united-farm-workers-v-noem/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1046",
@@ -12969,14 +12977,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69623342/orr-v-trump-president-of-the-united-states/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69623342/orr-v-trump-president-of-the-united-states/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1047",
@@ -12985,14 +12993,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/17474384/gwichin-steering-committee-v-united-states-department-of-the-interior/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/17474384/gwichin-steering-committee-v-united-states-department-of-the-interior/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1048",
@@ -13015,14 +13023,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70225239/s-v-us-department-of-health-and-human-services/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70225239/s-v-us-department-of-health-and-human-services/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1050",
@@ -13031,14 +13039,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73154145/american-historical-association-v-trump/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73154145/american-historical-association-v-trump/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1051",
@@ -13061,14 +13069,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69606027/refugee-and-immigrant-center-for-education-and-legal-services-v-noem/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69606027/refugee-and-immigrant-center-for-education-and-legal-services-v-noem/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1055",
@@ -13091,14 +13099,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71701019/jorge-lujan-v-fmcsa/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71701019/jorge-lujan-v-fmcsa/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1059",
@@ -13107,14 +13115,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69560537/national-treasury-employees-union-v-trump/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69560537/national-treasury-employees-union-v-trump/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1060",
@@ -13123,14 +13131,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69887699/protect-democracy-project-v-us-office-of-management-and-budget/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69887699/protect-democracy-project-v-us-office-of-management-and-budget/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1061",
@@ -13139,14 +13147,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70909385/gordon-v-executive-office-of-the-president/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70909385/gordon-v-executive-office-of-the-president/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1062",
@@ -13155,14 +13163,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69665792/northeast-organic-farming-association-of-new-york-v-us-department-of/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69665792/northeast-organic-farming-association-of-new-york-v-us-department-of/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1063",
@@ -13171,14 +13179,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69624836/dellinger-v-bessent/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69624836/dellinger-v-bessent/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1064",
@@ -13187,14 +13195,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70409956/melgar-salmeron-v-bondi/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70409956/melgar-salmeron-v-bondi/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1066",
@@ -13203,14 +13211,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69733614/american-federation-of-government-employees-afl-cio-v-noem/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69733614/american-federation-of-government-employees-afl-cio-v-noem/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1067",
@@ -13219,14 +13227,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72054098/oregon-environmental-council-v-internal-revenue-service/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72054098/oregon-environmental-council-v-internal-revenue-service/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1068",
@@ -13249,14 +13257,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72349057/jane-addams-senior-caucus-v-united-states-department-of-housing-and-urban/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72349057/jane-addams-senior-caucus-v-united-states-department-of-housing-and-urban/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1070",
@@ -13279,14 +13287,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69652665/northern-alaska-environmental-center-v-trump/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69652665/northern-alaska-environmental-center-v-trump/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1074",
@@ -13295,14 +13303,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69662918/the-associated-press-v-budowich/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69662918/the-associated-press-v-budowich/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1075",
@@ -13311,14 +13319,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72497116/arias-v-us-immigration-and-customs-enforcement/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72497116/arias-v-us-immigration-and-customs-enforcement/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1076",
@@ -13327,14 +13335,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71959925/swalwell-v-pulte/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71959925/swalwell-v-pulte/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1077",
@@ -13343,14 +13351,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73391533/mauldin-v-blanche/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73391533/mauldin-v-blanche/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1078",
@@ -13359,14 +13367,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71795245/state-of-colorado-v-trump/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71795245/state-of-colorado-v-trump/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1079",
@@ -13375,14 +13383,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72487599/service-employees-international-union-v-scott/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72487599/service-employees-international-union-v-scott/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1080",
@@ -13405,14 +13413,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72369202/zhaocheng-tan-v-donald-trump/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72369202/zhaocheng-tan-v-donald-trump/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1082",
@@ -13421,14 +13429,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69582338/doe-v-office-of-personnel-management/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69582338/doe-v-office-of-personnel-management/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1083",
@@ -13451,14 +13459,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72379585/havens-v-us-department-of-education/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72379585/havens-v-us-department-of-education/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1085",
@@ -13467,14 +13475,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69626101/pacito-v-trump/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69626101/pacito-v-trump/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1086",
@@ -13483,14 +13491,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69927142/learning-resources-inc-v-trump/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69927142/learning-resources-inc-v-trump/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1087",
@@ -13499,14 +13507,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69632418/storch-v-hegseth/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69632418/storch-v-hegseth/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1088",
@@ -13515,14 +13523,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69829000/state-of-colorado-v-us-department-of-health-and-human-services/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69829000/state-of-colorado-v-us-department-of-health-and-human-services/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1089",
@@ -13545,14 +13553,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73501422/national-family-planning-reproductive-health-association-v-kennedy-jr/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73501422/national-family-planning-reproductive-health-association-v-kennedy-jr/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1091",
@@ -13575,14 +13583,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73450743/douglas-v-national-park-service/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73450743/douglas-v-national-park-service/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1093",
@@ -13591,14 +13599,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70634204/appalachian-voices-v-united-states-environmental-protection-agency/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70634204/appalachian-voices-v-united-states-environmental-protection-agency/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1094",
@@ -13607,14 +13615,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70522333/state-of-california-v-united-states-of-america/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70522333/state-of-california-v-united-states-of-america/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1095",
@@ -13637,14 +13645,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71541425/global-nurse-force-v-trump/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71541425/global-nurse-force-v-trump/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1097",
@@ -13653,14 +13661,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69610323/american-federation-of-government-employees-afl-cio-v-ezell/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69610323/american-federation-of-government-employees-afl-cio-v-ezell/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1098",
@@ -13669,14 +13677,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69583571/national-council-of-nonprofits-v-office-of-management-and-budget/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69583571/national-council-of-nonprofits-v-office-of-management-and-budget/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1099",
@@ -13924,13 +13932,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2025cv00322/277069/60/",
         "attempts": 1,
         "status_code": 403,
-        "final_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1:2025cv00322/277069/60/",
+        "final_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2025cv00322/277069/60/",
         "content_type": "text/html",
         "error": "HTTP 403",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1143",
@@ -13946,7 +13954,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "broken",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1144",
@@ -13983,14 +13991,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70515005/20/1/united-states-v-mciver/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70515005/20/1/united-states-v-mciver/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1186",
@@ -14010,15 +14018,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-1187",
         "catalog": "inventory/sources.csv",
         "catalog_row": 947,
-        "title": "Exclusive: Truth Social to license its data to Wall Street",
+        "title": "",
         "requested_url": "https://www.axios.com/2026/07/16/truth-social-license-data-wall-street",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.axios.com/2026/07/16/truth-social-license-data-wall-street",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-1188",
@@ -14496,7 +14506,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1222",
@@ -14582,7 +14592,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1228",
@@ -14598,7 +14608,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1229",
@@ -14628,7 +14638,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1231",
@@ -14648,33 +14658,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-1232",
         "catalog": "inventory/sources.csv",
         "catalog_row": 992,
-        "title": "",
+        "title": "Text - H.R.6091 - 119th Congress (2025-2026): Bivens Act of 2025 | Congress.gov | Library of Congress",
         "requested_url": "https://www.congress.gov/bill/119th-congress/house-bill/6091/text",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.congress.gov/bill/119th-congress/house-bill/6091/text",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-1233",
         "catalog": "inventory/sources.csv",
         "catalog_row": 993,
-        "title": "",
+        "title": "The State Secrets Privilege: National Security Information in Civil Litigation | Congress.gov | Library of Congress",
         "requested_url": "https://www.congress.gov/crs-product/R47081",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.congress.gov/crs-product/R47081",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-1234",
@@ -14718,7 +14724,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1237",
@@ -14734,7 +14740,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1238",
@@ -14904,23 +14910,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1250",
         "catalog": "inventory/sources.csv",
         "catalog_row": 1010,
-        "title": "",
+        "title": "H.R.7836 - 119th Congress (2025-2026): Real Courts, Rule of Law Act of 2026 | Congress.gov | Library of Congress",
         "requested_url": "https://www.congress.gov/bill/119th-congress/house-bill/7836",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://www.congress.gov/bill/119th-congress/house-bill/7836",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-1251",
@@ -14964,7 +14968,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "broken",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1254",
@@ -16506,7 +16510,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1364",
@@ -16522,7 +16526,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "transient",
         "classification": "transient failure",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1365",
@@ -16574,13 +16578,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=7709763150305515287",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7709763150305515287&q=EgRD_9TZGJbvrdMGIiy7N25crfwj1z3A40LrYboxMnhJaACaMTRldipO6VgAvmX9XbwCL2V5R9yPqzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7709763150305515287&q=EgRD_9TZGN7_rdMGIiz2ldW_V9t2PftBrDPq2if3dsWzhbViyS_9hnPbuKjjE4e0YUGfF5SzdIuvdDICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1369",
@@ -16604,13 +16608,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=5965664274709162335",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D5965664274709162335&q=EgRD_9TZGJbvrdMGIizajiFVhfSbyueUbYg6U2g7E_NaDrml2NuhJzViY5ntBNuqB7-hFQNjUfiWSzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D5965664274709162335&q=EgRD_9TZGN7_rdMGIizsVAs5w96a8P6l-kuui13Kowg6fSyKvDsTekktXosmQPQuN4w-iK6d9vD3NDICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1371",
@@ -16634,13 +16638,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=9026813009511683815",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D9026813009511683815&q=EgRD_9TZGJbvrdMGIizNtWNkS2vMvzozC2yjbgFgAfLSacBcn8bxn-H3LNJQnqMJcMWTJP8z5WdlyjICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D9026813009511683815&q=EgRD_9TZGN7_rdMGIiyJcr3bgqzHClkD9zDV4foEzW1-o6sy_qkKGCLDshpE6MWMPwsDDHo6b3P_DTICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1373",
@@ -16664,13 +16668,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=5508189020577131514",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D5508189020577131514&q=EgRD_9TZGJbvrdMGIiy_jNgqzEJo-sU9DY0RXkVpUCb01Tjq-efBOnt_pd-BvQrEJ47YVYEhqlGqgTICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D5508189020577131514&q=EgRD_9TZGN7_rdMGIizmRCKwzXclHrKvOY4Ge2bUUe1HDL6AYBpw9S_4NhNJWaz3wABb6mOoqZceJjICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1375",
@@ -16708,13 +16712,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=8184526402276808710",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D8184526402276808710&q=EgRD_9TZGJbvrdMGIiyK_cyN7yXi3OaovLIivVyJfQojFkTdm2fRhFgPLXWsVxB91XL3DQQC3H9AozICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D8184526402276808710&q=EgRD_9TZGN__rdMGIiyGrT15J1eSlpVVwuYH5WWV_poLLa-SlpqDeZWSpUeQFJaQ-YtIkoBEQJhc9DICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1378",
@@ -16752,13 +16756,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=13265719044255902988",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D13265719044255902988&q=EgRD_9TZGJfvrdMGIiwbznxkl_IacrVGoFDv7LRGjeOdiZbAb0Npx7_p7b-i_rlCxEn_RtFFAdE28DICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D13265719044255902988&q=EgRD_9TZGN__rdMGIixuicdYA07WQh0-rW9GMxAw0djBwm5V9JPf6VHfGI_2laWpRrQlu8TTgFTDUzICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1381",
@@ -16782,13 +16786,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=16134836000117914133",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16134836000117914133&q=EgRD_9TZGJfvrdMGIiyWTVfeYVWwP5NS-8n606Esh1irJQPaKZ3pJWI4sZo3225f55cAuPZu-9AlYzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16134836000117914133&q=EgRD_9TZGN__rdMGIiyUBtu9NqjpRnWo9fN72vt7u4ho6erBR0O_83TcHkNJ1fG0t6EvAmA47JfodDICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1383",
@@ -16812,13 +16816,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=8412779845356577069",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D8412779845356577069&q=EgRD_9TZGJfvrdMGIixWcf0gkumUl6G66sA17K1F6fP8WxVjVWZmB8Ft6I2LDPo-Ep9Axw91LK5czjICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D8412779845356577069&q=EgRD_9TZGN__rdMGIixKbhwL4q9rvWlDdX8F21EbQhPa0Tp_99RjoNBCM9LqLDm3iPr9DlySiNwKiDICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1385",
@@ -16842,13 +16846,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=13950613554712833197",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D13950613554712833197&q=EgRD_9TZGJfvrdMGIiwut5kG7EOZwqvUncgD4LHyh_RiFbrkFKG1vf_rS5ZmqVgx-jVdckya0oB7QjICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D13950613554712833197&q=EgRD_9TZGOD_rdMGIixW-h5ySprJu8lxWRVytSRYVu4sLhB3m5LF4KWZ_l4SasITjUdONhy3xnWHnTICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1387",
@@ -16872,13 +16876,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=5142773376515150030",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D5142773376515150030&q=EgRD_9TZGJfvrdMGIiy6EwbbCE4Bnh7Z5pGOMRLEHvL7rNh4p3X2clZAXdSUYqJZnrHpWJyPDmCF8zICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D5142773376515150030&q=EgRD_9TZGOD_rdMGIixiagLkDqwmtee-h9wccyhYkLsKwk1GdYZEontAdjPk552wlIdSpQ_bwICMaTICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1389",
@@ -16902,13 +16906,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=4044946221491972933",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D4044946221491972933&q=EgRD_9TZGJjvrdMGIiy2bWSJjPX2Z1RbRPMnrfXdcaovJdeeey1eIHzViLkPuA3Bk_ovzccO9_j1MjICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D4044946221491972933&q=EgRD_9TZGOD_rdMGIiwCP8mEB8Y8-t9Ad-yyjNlwsvDcwggHkLVdp97j8wRI0muwmN27dY_6S1k-2zICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1391",
@@ -16932,13 +16936,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=5213874655829875267",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D5213874655829875267&q=EgRD_9TZGJjvrdMGIiwmFiRTCjyOkC0wpwqIzl0bDYX9EHpP_IAhjtreqDmf9imAbOTqCG5W0f6XJjICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D5213874655829875267&q=EgRD_9TZGOD_rdMGIiw1vXxwT3If6cJN-rAAVdJ22ZT69r_XLcaVAXdhbflEEJhjoo-qYLvD4o_9NjICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1393",
@@ -17004,13 +17008,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=16340252069786720683",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16340252069786720683&q=EgRD_9TZGJjvrdMGIiwDxYgXyptppQlvDVqMwHO6QPia_IBiJx9yDd4PU0Rc3ilx78f7vyrGrjP-iTICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16340252069786720683&q=EgRD_9TZGOH_rdMGIiybYLG573WxwUZycnD-oM8zTwUfD_HTia8qsZresE3d1EydSf4r2nnCsCQwfzICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1398",
@@ -17034,13 +17038,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=17158585937885309143",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D17158585937885309143&q=EgRD_9TZGJjvrdMGIiztpuYIsYuqqz0WxSuQrksCaxsRbuN96O8Fbn3CSqTZKo688lsDqZk-KviMNzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D17158585937885309143&q=EgRD_9TZGOH_rdMGIiwzQJS4O4jFYNU29nwvriCaiacvDFHHa0fjxHqkT6MkP9qua_CumoYhsau8vzICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1400",
@@ -17092,13 +17096,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=16142163764410348668",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16142163764410348668&q=EgRD_9TZGJnvrdMGIiwKiDPqphW-J-ODfiIPEaJUC9DLRDVkeFU0pyRk8hZxIfyVBWmBFLCJW7OYETICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16142163764410348668&q=EgRD_9TZGOH_rdMGIix4vZnrqljnP9EhVsxPd4XARt72n3o6NujPpWIRddxt0T1REXSiw-L42l97QTICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1404",
@@ -17150,13 +17154,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=7285288459349336449",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7285288459349336449&q=EgRD_9TZGJnvrdMGIizOCRM8rwnGGp9fVr6UcI66X5J1WzkxaSh9nPQe8StnmrJ55fcG94iQih68MzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7285288459349336449&q=EgRD_9TZGOH_rdMGIiw5K62OA57jvM3c4pBnHJHvqMhSOiXfMRnZOSmtUijF91WCYqcTnQ6v2DX1OjICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1408",
@@ -17180,13 +17184,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=9931675236732526411",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D9931675236732526411&q=EgRD_9TZGJnvrdMGIiy2LmeXC3D3gaBy6H184d7vVp_ZrvRRX1l2JkoWZIa813s9OGxDjKJ5RKJ7qTICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D9931675236732526411&q=EgRD_9TZGOL_rdMGIizBWwMe81fQY_kTxrN3p18vNEQpuKIrVkCFaC-yLRo_99rZMYG4tDjxIaK5MDICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1410",
@@ -17196,13 +17200,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=2579320757355913040",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D2579320757355913040&q=EgRD_9TZGJnvrdMGIiwJV_A3bLnaswkBwemLscFJ2rBpoly9xAF9g_l_YU2y-WD-jVQ9YIwM6U0spzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D2579320757355913040&q=EgRD_9TZGOL_rdMGIiwKUQWLzzau3Vlxu7nB6woJL7gXiLcmRulsmPtOLxdfb4ZzkogpbdkH1lyHbDICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1411",
@@ -17310,13 +17314,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=3172946686547166602",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D3172946686547166602&q=EgRD_9TZGJrvrdMGIix33zBjOqM3HWSAcXLb-P1bjvrYiOnWVdTnKStyJx5OMLcfbwOCCaaoWfC1ajICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D3172946686547166602&q=EgRD_9TZGOP_rdMGIiwypy-jt2MXTnwMCaL52kNCh_yh_9CNTAadxcz95OezvhJ6IbNPkvHCRuaL7TICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1419",
@@ -17340,13 +17344,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=10914820682798826636",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D10914820682798826636&q=EgRD_9TZGJrvrdMGIiwHvYPA8NO7jl5NberEyWO4jvGyTCXLnRxR7-iRARM_ggAn1clC4vIZHhuB2jICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D10914820682798826636&q=EgRD_9TZGOP_rdMGIiw5IHf1JMlF8pgal-ak7z65hEN5B1n9tJaVDjCmeitox6cD_z5dH8i3P7bQbDICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1421",
@@ -17370,13 +17374,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=4815129593161605513",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D4815129593161605513&q=EgRD_9TZGJvvrdMGIiwpLCqqXgeBmRvl5m1OAXcYbqpkVUWV0biI1ibEmkd24j98MnFxN6Y84NpE5TICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D4815129593161605513&q=EgRD_9TZGOP_rdMGIiyMb_Kn66WW6ZKzaOGa7SwR6_BbeL5hCxgAHqNZ5KFH4e9uMUx7NH9O-9MBJjICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1423",
@@ -17400,13 +17404,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=9181520640355562886",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D9181520640355562886&q=EgRD_9TZGJvvrdMGIix6xY-mhOxBR_cZ3s-k_tZSGVxEqY0nvO5XMBTZMY_k8gXylQ4LL1tDqNEQhzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D9181520640355562886&q=EgRD_9TZGOP_rdMGIizzHd9uSAc04cXMEf79Y13OOlfuXyJbKumhnr0Cgg3Z_fkvgUjtZFo_6VidDzICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1425",
@@ -17430,13 +17434,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=10991791739567399966",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D10991791739567399966&q=EgRD_9TZGJvvrdMGIiye7GTbau97fUmAl9vqGnilSEPRHIy7BQG3E3HkwOezsTlCYYZNMRS7bSHrjjICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D10991791739567399966&q=EgRD_9TZGOP_rdMGIiyuCPNnWFyh650Jgb_blRfGzY8L2VtRw-CgAhnqDz-Wf0uJuzvYpaeU5FfwvDICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1427",
@@ -17488,13 +17492,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=9830266283753068292",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D9830266283753068292&q=EgRD_9TZGJvvrdMGIiwHDMM_OCk2EacAVzeW83y3jLhBwUAsRHun3FdAHC0yDb1QXLQUd4e67DoSGzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D9830266283753068292&q=EgRD_9TZGOT_rdMGIixNjFBbdxfPgaqhJiCpQ8rMevkVKPozdZBKtdaVwARpT_JImqyO2EB_4Fge6zICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1431",
@@ -17602,13 +17606,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=16572779089396750870",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16572779089396750870&q=EgRD_9TZGJzvrdMGIizCXfjV5acQ_zPN6t6lvoBiavjW8M-fqwPZqiYioCymSeTlhYviiM_aZqqQpzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16572779089396750870&q=EgRD_9TZGOX_rdMGIixrC3Z9RrYIEQ7pwewri3BHx3KGGbPBIbJLJfMH3ev-iu-quaOBokbOLTvbmDICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1439",
@@ -17632,13 +17636,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=7166684961875527203",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7166684961875527203&q=EgRD_9TZGJzvrdMGIixo4hK14RcyOtneX5um-Wq0CP9ElasqtsoIa6a00kcqDPsnEEZQN2LH34FFljICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7166684961875527203&q=EgRD_9TZGOX_rdMGIiwgitxBcp8DbrgjODzWjRo_ENxIu8mlpXX1Qb0sgp4jUuaSVjeTRYydVE4cDDICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1441",
@@ -17662,13 +17666,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=3521100239640451280",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D3521100239640451280&q=EgRD_9TZGJ3vrdMGIiyMwFEwkbIQxp0Xql5aTnoQaMFkmvDxViLvQmn5Ved2SvCfpeMJHOCbNnnOkTICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D3521100239640451280&q=EgRD_9TZGOX_rdMGIixNsEnNJ8Di1YtPPWaF6tFSGQTfTltcYHJIl6yvavft2jNVDNgUyh0z-aaiijICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1443",
@@ -17692,13 +17696,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=9327819909108348859",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D9327819909108348859&q=EgRD_9TZGJ3vrdMGIiyPSiwAmo30nbyVTzqqkOWTH1wItjp1Nj3HPO98dFFWxQBHsYyGmNSuSxv7ADICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D9327819909108348859&q=EgRD_9TZGOX_rdMGIiyPLWq-xP2PCQLSYOMwal-TNaYNmKLsVgll3godT5BkXXv92Ktoiimk50SyfTICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1445",
@@ -17722,13 +17726,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=6558699955984562408",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D6558699955984562408&q=EgRD_9TZGJ3vrdMGIixu_czKzakFKQlHQP5od7WFI4rSgauQt_eh1zdh3X5Hf4Kb0wvtv2XxpGb0qjICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D6558699955984562408&q=EgRD_9TZGOb_rdMGIiyGhAM96oKh8qD0sA1dF7pJ29i0K7JvSesPEGFlWyO4AwzqiBC8MqK--Ide4TICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1447",
@@ -17934,13 +17938,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=12550787966632139864",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D12550787966632139864&q=EgRD_9TZGJ_vrdMGIiwsDrJ303JY0axkjX6c8pddvHFjbf24wtjcrfzhA_BvDRwMvN4czQz8DjBdpzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D12550787966632139864&q=EgRD_9TZGOf_rdMGIiw6Ax0ppS_1EG1tb7COwMdxrfe_jsVgPRB3_KkiQGlFW7NRtxKAZuiFhkZ95zICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1462",
@@ -18216,13 +18220,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=13735252432428480002",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D13735252432428480002&q=EgRD_9TZGKLvrdMGIiwQ4syh41aFOlrgpkf4aLLP39HV0icDdj2QXq1Gq77raFCqtv2qZkM_Z2FOlDICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D13735252432428480002&q=EgRD_9TZGOr_rdMGIiyE04DT2zKdXwThmS60_52j5Ld5Rfc471bjNx2RAwVVhmFjzLagNAjG0fzonjICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1482",
@@ -18302,13 +18306,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=16062632215534775045",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16062632215534775045&q=EgRD_9TZGKLvrdMGIizXvMsQFQom_I37zinqGl5Xf49d9mJhO-2ah-aJgg9qfRSLVu56wW0YBlsYijICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16062632215534775045&q=EgRD_9TZGOv_rdMGIiyFKt5rHXVgitDm9vtqBqjKhXXwC78JxIJW1v0IXtiAxRBtQ4XQAUEugdYP0TICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1488",
@@ -18388,13 +18392,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=10998041686661677797",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D10998041686661677797&q=EgRD_9TZGKPvrdMGIixeP7A1X4FchaWKjvkuIXvBjowvD5waB7hBJuPeucFpZCgIT5HFfA6SPQfmAzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D10998041686661677797&q=EgRD_9TZGOz_rdMGIiyUKTdWpMXRw0cMNnkkS_U5ImSVbVQkMa1f7go_BTFrJDbtAUsvDu6vyAuZnTICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1494",
@@ -18474,13 +18478,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=16924067675422118242",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16924067675422118242&q=EgRD_9TZGKTvrdMGIizh0YJSYYmFmDY50ckArikWyg6LbYoF_7EQX-LZTHmm5w_swabsZnoErA9AtzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16924067675422118242&q=EgRD_9TZGOz_rdMGIiwcaZkOEgUjD6VMcSGgXnEfizgFkA2WLWAxOL8AovBcxpun1ScXWqqOcGMc3TICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1500",
@@ -18616,13 +18620,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=14241967220791443467",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D14241967220791443467&q=EgRD_9TZGKXvrdMGIixr7wFTP4_dwsFhoUnXJyqK2F0Qm-9BAVgA_rNoybe8_9h06dY1UseYmKqeZzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D14241967220791443467&q=EgRD_9TZGO7_rdMGIix4w9kVqxxFRBvL9Z68XFQj5nxwuI0M0xXfZ6Dojo5epkRmWOacUnlMwpeZSjICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1510",
@@ -18730,13 +18734,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=15013671406388536171",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D15013671406388536171&q=EgRD_9TZGKbvrdMGIizInH3JafWqXltJ9WK7b62FEmTSrR4CvQG0FzcJEvsv_t_LKgxZpsOMzRM4QzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D15013671406388536171&q=EgRD_9TZGO__rdMGIiy5bzmICVfWSw5nmNvsVQgvlI8Zfb0sE1QYjCtVtUr3darZjmbzlkAKgd0ZWTICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1518",
@@ -18774,13 +18778,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=16982471967007447586",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16982471967007447586&q=EgRD_9TZGKfvrdMGIixhLN-oUbFINpuSKwZCkGppkPR_fFiYW1-RDtlw-UkCO8-Yi0U6DeqHYf7chjICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16982471967007447586&q=EgRD_9TZGO__rdMGIixSAfaEPkDPzaG06oJxPNan3LrDpcHKJpA4fVbLTQOhViC47tSFOeCG5nUM3zICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1521",
@@ -18894,7 +18898,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "broken",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1529",
@@ -19086,13 +19090,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=10040450942585177154",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D10040450942585177154&q=EgRD_9TZGKrvrdMGIiym8Pjm43_lR1osoEm1khKw9wanJnVWCZ17M_vENCN-mapmpL9FkDh8tdlIsjICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D10040450942585177154&q=EgRD_9TZGPL_rdMGIiztmY-vnM2ZdTHurh3s6SJrmsSKdamfd4EjvKFn1PRUEv69XJGmS7fGFXJ_MDICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1543",
@@ -19158,13 +19162,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=13903460348037257609",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D13903460348037257609&q=EgRD_9TZGKrvrdMGIiwn6dAnBb4uAvXi4qE8Par0SbV8JPauqAbgBCM_HKQvXDb9hY5QvCvhS-POiDICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D13903460348037257609&q=EgRD_9TZGPP_rdMGIixdpHWj5QdnAqyZToieyeUHY0LU9UPyPYP6MknhHcLxeNl0jeY5xypi09Gc0jICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1548",
@@ -22492,13 +22496,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=7837059870756223548",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7837059870756223548&q=EgRD_9TZGM7vrdMGIiw-WEPrMn-RId5gCib5REW3sdr_f3CkwSJfSM72dmNL6XsAEnv-m5dM8oargzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7837059870756223548&q=EgRD_9TZGJaArtMGIiwsVxyXzItLPna2VKpwZiQqRbEkmjkyGAgTBOns3f0NnU3Hezqa7QDWAfgv1jICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1786",
@@ -22508,13 +22512,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=7164285902808920028",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7164285902808920028&q=EgRD_9TZGM7vrdMGIizuPjoPuhFMMvF_jMT8wXaF-JY0oZ2Y0VLdqexiNR7kobnHsf-8YiU8fay-szICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7164285902808920028&q=EgRD_9TZGJaArtMGIiyzVYdxJ8o2pcLpLNgiGQ91o83gUVp8k5kgegdGwh9fpuTrjTzFpG4a8ey5jTICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1787",
@@ -22524,13 +22528,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=1452783577772457350",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D1452783577772457350&q=EgRD_9TZGM7vrdMGIizk7XtohJfdahKfWsWO6E8W_vZ2r2RZuSuIOpvsK9JtUzGyDdsFJD0CbUqhqTICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D1452783577772457350&q=EgRD_9TZGJeArtMGIiw7L3uBOPPIQTrqp3fgR44hWOK5kfnU0VP6w98e36gN2j2cvVdIC--5bUjYsjICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1788",
@@ -22540,13 +22544,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=16355438291153554663",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16355438291153554663&q=EgRD_9TZGM7vrdMGIiyHDdqAVEG4eVUH9SAVapwQfve12uh4fazuGAAG7maH6x2IxIu2mrYNuKgg8TICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16355438291153554663&q=EgRD_9TZGJeArtMGIiyyRLqKaDcQMdKzND4hVK67-tKs-7AooKXjJIRv6UsjBOMfp58sx-WmeTshDTICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1789",
@@ -22556,13 +22560,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=7679191414126404940",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7679191414126404940&q=EgRD_9TZGM7vrdMGIiyVRwooAG8VqDmQsdaPBcdfymob3JiHl24HwNHs65BWC0QAhpMigxzoZUTd6zICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7679191414126404940&q=EgRD_9TZGJeArtMGIiw301016C-eEmRpZQzZGgDrGvVzrTW6BJ1AlLGB2uEUloG968RXldxdhRPEKTICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1790",
@@ -22572,13 +22576,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=1409980094426754588",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D1409980094426754588&q=EgRD_9TZGM_vrdMGIiw-IeRzoIKy1-uoztX3wgf6jsDmnfJknbO4ZiXIJpF4moP9bQR8kyVfvVqiPzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D1409980094426754588&q=EgRD_9TZGJeArtMGIizaXrkVFTCx2UuDEG7Xjmq6uwQfcdTDc7QDWNGJUugXXYnC9ebMbi-iyCLWVDICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1791",
@@ -22588,13 +22592,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=13219054940483803087",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D13219054940483803087&q=EgRD_9TZGM_vrdMGIixR_XYF755SYxJJh2GmDNJZ66z10wKsF97LJnAndGW0UOR6qYPfEATtYxCZrzICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D13219054940483803087&q=EgRD_9TZGJeArtMGIizJ_FxOlqw78L48f3mBAPMVpqhJuT6mP7Pz0f1n2-rLQj-GpK6-CkClx2sanDICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1792",
@@ -22604,13 +22608,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=439758603604665236",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D439758603604665236&q=EgRD_9TZGM_vrdMGIiw30X7dzFjSfrV0jyhXXk48XSP7ofEduzaFugQyg9Rer2iqUP6ANMEv2skh4TICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D439758603604665236&q=EgRD_9TZGJeArtMGIixskI9S5Ml6tZ6BA8A2H_UFPeWxTClUroPaGXDqIz1aMFjUbI6_MFPvG0yFGjICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1793",
@@ -22620,13 +22624,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=7864259334611810646",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7864259334611810646&q=EgRD_9TZGM_vrdMGIiwjneG2EwafX5H2Vz8ZN_Fdz9h-NzOAKChkOkZmKGq-D8DZ90qIBjGyjtUcHjICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7864259334611810646&q=EgRD_9TZGJiArtMGIiwnsXiyZw8r7dF-MGmv_udHws-V8zfmqh_UkbNPWDwzYIQgHQivyHHoAsgHgDICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1794",
@@ -22636,13 +22640,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=11525304920973937111",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D11525304920973937111&q=EgRD_9TZGM_vrdMGIizG8SN-s8DYpEvAnPq1WTiwWXe5CIyfM8BBj3CrL4MFhVM-4uoNMTzCawh46DICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D11525304920973937111&q=EgRD_9TZGJmArtMGIixDlXiZhr21JQtak2r1mo5SOAAt7CogGeeht-DRquAQ6OCWsTsX9jbsziGfhTICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1795",
@@ -22652,13 +22656,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=16116499735263428396",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16116499735263428396&q=EgRD_9TZGM_vrdMGIixXSs-0KSZEEJUmoRqpfqFMJP_q9KO0JDaMZFQwygwiNE0X9I9McCR9DRuk4TICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D16116499735263428396&q=EgRD_9TZGJiArtMGIix-tah9YdyyE1vcxtHbua2JkUQZ1QmeiCkE8hUDhVMl-yUAIL5RLXzGheMISjICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1796",
@@ -22668,13 +22672,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=13208700449410056926",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D13208700449410056926&q=EgRD_9TZGNDvrdMGIizjaRIV5nKwXHQqCKglxBDDCcIoiZFcNw3mASGUW0yIE7upgQ2sIL9p6g0oGTICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D13208700449410056926&q=EgRD_9TZGJiArtMGIiw6xIRB35myjbO_nMtvPue1QZuOS3TciFNDxpP3aVZ_F6snWv2IzlpBPS3RkzICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1797",
@@ -22698,13 +22702,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=526415149197614599",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D526415149197614599&q=EgRD_9TZGNDvrdMGIixzEe3f8ZT2poadXbN0QJWg6N9wvqUDVskjvNSbSVZuyLr9405djG3vGE2awjICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D526415149197614599&q=EgRD_9TZGJiArtMGIixaU6qbwDsgNqInsAGByBx-aKwe2eqbS8QvPN3MlbQYzJlWpY0GJ2Y2cHBZejICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1799",
@@ -22728,13 +22732,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=11453049702739564350",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D11453049702739564350&q=EgRD_9TZGNDvrdMGIiyRERq9KXxawF4YoMIcd2B4YhPGfBjSAfV_myLgnaDLNCUrEO6sCUw_hid17DICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D11453049702739564350&q=EgRD_9TZGJiArtMGIiwxukyiFMdRdrEk9_huJq9stxE3xCKK4sFGL2422n3YinY9yMR__xBF0-zdyjICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1801",
@@ -22744,13 +22748,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=8112904873727819730",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D8112904873727819730&q=EgRD_9TZGNDvrdMGIizs_80l-D4DW1TKC0MlfjrY3R9Kqq9iFPepuL-sEM13F78MwdjlAJwBCB1sKjICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D8112904873727819730&q=EgRD_9TZGJiArtMGIiwBRZ2oc-byf5N4YFx4WpGm6oLLxZvXr6VnF2bkMXSwQRiikJRCwzFjWAVU8DICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1802",
@@ -22760,13 +22764,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://scholar.google.com/scholar_case?case=7255047903523925801",
         "attempts": 1,
         "status_code": 429,
-        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7255047903523925801&q=EgRD_9TZGNDvrdMGIixaUlf6PB7oYniNl3XOShbmSO2XxygepBEXcaj78jdX04fhhnfrdzHWGJOL7jICclJaAUM",
+        "final_url": "https://www.google.com/sorry/index?continue=https://scholar.google.com/scholar_case%3Fcase%3D7255047903523925801&q=EgRD_9TZGJmArtMGIiy7bTCjcrZ5b3LR9DCr6QATu_yntZFTlaRALSiX8yIbN3IJAZkLhCcXTyzrGTICclJaAUM",
         "content_type": "text/html",
         "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-1803",
@@ -22814,15 +22818,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-1814",
         "catalog": "inventory/sources.csv",
         "catalog_row": 1566,
-        "title": "Removal of Inspectors General: Rules, Practice, and Considerations for Congress | Congress.gov | Library of Congress",
+        "title": "",
         "requested_url": "https://www.congress.gov/crs-product/IF11546",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.congress.gov/crs-product/IF11546",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-1817",
@@ -22922,7 +22928,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1840",
@@ -22994,7 +23000,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1859",
@@ -23164,7 +23170,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1911",
@@ -23180,7 +23186,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "http",
         "classification": "broken",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1913",
@@ -23196,7 +23202,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1917",
@@ -23205,14 +23211,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69934429/american-bar-association-v-us-department-of-justice",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69934429/american-bar-association-v-us-department-of-justice",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1919",
@@ -23228,7 +23234,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1920",
@@ -23244,7 +23250,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1921",
@@ -23260,7 +23266,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1922",
@@ -23276,7 +23282,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1923",
@@ -23285,14 +23291,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71889590/mittereder-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71889590/mittereder-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1924",
@@ -23301,14 +23307,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73617964/democracy-for-the-arab-world-now-inc-dba-dawn-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73617964/democracy-for-the-arab-world-now-inc-dba-dawn-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1926",
@@ -23317,14 +23323,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73525122/prost-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73525122/prost-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1927",
@@ -23334,13 +23340,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1%3A2025cv03114/640571/70/",
         "attempts": 1,
         "status_code": 403,
-        "final_url": "https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2025cv03114/640571/70/",
+        "final_url": "https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1%3A2025cv03114/640571/70/",
         "content_type": "text/html",
         "error": "HTTP 403",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1929",
@@ -23349,14 +23355,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69881741/american-association-of-university-professors-harvard-faculty-chapter-v",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69881741/american-association-of-university-professors-harvard-faculty-chapter-v",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1930",
@@ -23365,14 +23371,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71360200/american-association-of-university-professors-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71360200/american-association-of-university-professors-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1931",
@@ -23381,14 +23387,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69784589/american-association-of-university-professors-v-united-states-department",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69784589/american-association-of-university-professors-v-united-states-department",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1932",
@@ -23397,14 +23403,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70349156/president-and-fellows-of-harvard-college-v-department-of-homeland-security",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70349156/president-and-fellows-of-harvard-college-v-department-of-homeland-security",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1933",
@@ -23413,14 +23419,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69921962/president-and-fellows-of-harvard-college-v-us-department-of-health-and",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69921962/president-and-fellows-of-harvard-college-v-us-department-of-health-and",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1934",
@@ -23429,14 +23435,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70459259/thakur-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70459259/thakur-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1935",
@@ -23445,14 +23451,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71498800/community-economic-development-center-of-southeastern-massachusetts-v",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71498800/community-economic-development-center-of-southeastern-massachusetts-v",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1936",
@@ -23461,14 +23467,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73581390/iranian-american-legal-defense-fund-v-rubio",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73581390/iranian-american-legal-defense-fund-v-rubio",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1937",
@@ -23477,14 +23483,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70687026/state-of-california-v-us-department-of-health-and-human-services",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70687026/state-of-california-v-us-department-of-health-and-human-services",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1938",
@@ -23493,14 +23499,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69893393/asr-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69893393/asr-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1940",
@@ -23509,14 +23515,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69885285/dbu-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69885285/dbu-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1941",
@@ -23525,14 +23531,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70294725/darwin-antonio-arevalo-millan-v-donald-j-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70294725/darwin-antonio-arevalo-millan-v-donald-j-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1942",
@@ -23541,14 +23547,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69857769/gff-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69857769/gff-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1943",
@@ -23557,14 +23563,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69862833/jav-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69862833/jav-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1944",
@@ -23573,14 +23579,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69741724/jgg-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69741724/jgg-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1945",
@@ -23589,14 +23595,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72600914/leon-rengel-v-united-states",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72600914/leon-rengel-v-united-states",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1946",
@@ -23605,14 +23611,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70242549/maps-v-garite",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70242549/maps-v-garite",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1947",
@@ -23621,14 +23627,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69905770/sanchez-puentes-v-garite",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69905770/sanchez-puentes-v-garite",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1948",
@@ -23637,14 +23643,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70336200/wjcc-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70336200/wjcc-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1949",
@@ -23653,14 +23659,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69898198/aarp-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69898198/aarp-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1952",
@@ -23669,14 +23675,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73564609/venezuelan-association-of-massachusetts-v-united-states-citizenship-and",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73564609/venezuelan-association-of-massachusetts-v-united-states-citizenship-and",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1953",
@@ -23685,14 +23691,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73384679/citizens-for-responsibility-and-ethics-in-washington-v-us-department-of",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73384679/citizens-for-responsibility-and-ethics-in-washington-v-us-department-of",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1954",
@@ -23708,7 +23714,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "identity mismatch",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1955",
@@ -23717,14 +23723,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73408559/gill-v-united-states-department-of-justice",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73408559/gill-v-united-states-department-of-justice",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1956",
@@ -23733,14 +23739,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73424459/gordon-v-blanche",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73424459/gordon-v-blanche",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1957",
@@ -23749,14 +23755,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69700167/american-association-of-colleges-for-teacher-education-v-carter",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69700167/american-association-of-colleges-for-teacher-education-v-carter",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1958",
@@ -23765,14 +23771,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69675603/chicago-women-in-trades-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69675603/chicago-women-in-trades-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1959",
@@ -23781,14 +23787,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73559829/city-of-salem-v-mullin",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73559829/city-of-salem-v-mullin",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1960",
@@ -23797,14 +23803,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70977516/city-of-seattle-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70977516/city-of-seattle-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1961",
@@ -23813,14 +23819,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73202365/city-of-shoreline-v-united-states-department-of-transportation",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73202365/city-of-shoreline-v-united-states-department-of-transportation",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1962",
@@ -23829,14 +23835,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72530790/commonwealth-of-massachusetts-v-us-department-of-agriculture",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72530790/commonwealth-of-massachusetts-v-us-department-of-agriculture",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1964",
@@ -23845,14 +23851,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69646552/doe-1-v-office-of-the-director-of-national-intelligence",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69646552/doe-1-v-office-of-the-director-of-national-intelligence",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1966",
@@ -23861,14 +23867,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69899129/ek-v-department-of-defense-education-activity",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69899129/ek-v-department-of-defense-education-activity",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1968",
@@ -23877,14 +23883,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71986673/fell-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71986673/fell-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1970",
@@ -23893,14 +23899,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72496404/state-of-illinois-v-united-states-department-of-housing-and-urban",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72496404/state-of-illinois-v-united-states-department-of-housing-and-urban",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1971",
@@ -23909,14 +23915,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70062174/king-county-v-turner",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70062174/king-county-v-turner",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1972",
@@ -23925,14 +23931,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69651274/national-urban-league-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69651274/national-urban-league-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1973",
@@ -23941,14 +23947,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69710414/rhode-island-latino-arts-v-national-endowment-for-the-arts",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69710414/rhode-island-latino-arts-v-national-endowment-for-the-arts",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1974",
@@ -23957,14 +23963,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69658554/san-francisco-aids-foundation-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69658554/san-francisco-aids-foundation-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1975",
@@ -23973,14 +23979,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69868681/southern-education-foundation-v-united-states-department-of-education",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69868681/southern-education-foundation-v-united-states-department-of-education",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1976",
@@ -23989,14 +23995,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69711499/state-of-california-v-us-department-of-education",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69711499/state-of-california-v-us-department-of-education",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1977",
@@ -24005,14 +24011,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73460233/state-of-california-v-united-states-department-of-education",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73460233/state-of-california-v-united-states-department-of-education",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1978",
@@ -24021,14 +24027,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73465602/state-of-maryland-v-hegseth",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73465602/state-of-maryland-v-hegseth",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1979",
@@ -24037,14 +24043,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71467786/state-of-washington-v-united-states-department-of-health-and-human",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71467786/state-of-washington-v-united-states-department-of-health-and-human",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1980",
@@ -24053,14 +24059,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72529964/underground-railroad-history-project-of-the-capitol-region-v-national",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72529964/underground-railroad-history-project-of-the-capitol-region-v-national",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1981",
@@ -24069,14 +24075,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71939878/withrow-v-united-states-of-america?order_by=desc",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71939878/withrow-v-united-states-of-america?order_by=desc",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1982",
@@ -24085,14 +24091,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73428721/coe-v-blanche",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73428721/coe-v-blanche",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1983",
@@ -24101,14 +24107,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70989506/commonwealth-of-massachusetts-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70989506/commonwealth-of-massachusetts-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1984",
@@ -24117,14 +24123,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71294148/doe-v-department-of-defense",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71294148/doe-v-department-of-defense",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1985",
@@ -24133,14 +24139,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69620657/state-of-washington-v-department-of-justice",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69620657/state-of-washington-v-department-of-justice",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1986",
@@ -24149,14 +24155,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73401094/za-v-lucile-salter-packard-childrens-hospital-at-stanford",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73401094/za-v-lucile-salter-packard-childrens-hospital-at-stanford",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1987",
@@ -24165,14 +24171,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72376094/board-of-trustees-of-the-california-state-university-v-united-states",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72376094/board-of-trustees-of-the-california-state-university-v-united-states",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1988",
@@ -24181,14 +24187,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70495597/state-of-california-v-united-states-department-of-justice",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70495597/state-of-california-v-united-states-department-of-justice",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1989",
@@ -24197,14 +24203,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69924631/state-of-minnesota-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69924631/state-of-minnesota-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1991",
@@ -24213,14 +24219,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71901559/ireland-v-united-states",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71901559/ireland-v-united-states",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-1992",
@@ -24229,14 +24235,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69617888/shilling-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69617888/shilling-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2007",
@@ -24245,14 +24251,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72324736/state-of-california-justice-departments-v-kennedy",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72324736/state-of-california-justice-departments-v-kennedy",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2008",
@@ -24261,14 +24267,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73511973/california-v-united-states-environmental-protection-agency",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73511973/california-v-united-states-environmental-protection-agency",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2009",
@@ -24277,14 +24283,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73241489/state-of-california-v-zeldin-in-his-official-capacity-as-epa",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73241489/state-of-california-v-zeldin-in-his-official-capacity-as-epa",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2010",
@@ -24293,14 +24299,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73464544/center-for-biological-diversity-v-nesvik",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73464544/center-for-biological-diversity-v-nesvik",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2011",
@@ -24309,14 +24315,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72230289/conserve-southwest-utah-v-us-department-of-the-interior",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72230289/conserve-southwest-utah-v-us-department-of-the-interior",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2012",
@@ -24325,14 +24331,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71905243/defenders-of-wildlife-v-burgum",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71905243/defenders-of-wildlife-v-burgum",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2013",
@@ -24341,14 +24347,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71904964/friends-of-alaska-national-wildlife-refuges-v-burgum",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71904964/friends-of-alaska-national-wildlife-refuges-v-burgum",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2014",
@@ -24357,14 +24363,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73602164/greenwich-terminals-llc-v-united-states-army-corps-of-engineers",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73602164/greenwich-terminals-llc-v-united-states-army-corps-of-engineers",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2015",
@@ -24373,14 +24379,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72278895/league-v-department-of-interior",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72278895/league-v-department-of-interior",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2016",
@@ -24389,14 +24395,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72301112/lemmon-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72301112/lemmon-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2017",
@@ -24405,14 +24411,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73484222/national-parks-conservation-association-v-doug-burgum",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73484222/national-parks-conservation-association-v-doug-burgum",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2018",
@@ -24421,14 +24427,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71903568/native-village-of-hooper-bay-v-doug-burgum",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71903568/native-village-of-hooper-bay-v-doug-burgum",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2019",
@@ -24437,14 +24443,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71051491/southern-utah-wilderness-alliance-v-united-states-department-of-the",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71051491/southern-utah-wilderness-alliance-v-united-states-department-of-the",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2020",
@@ -24453,14 +24459,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73562893/brennan-v-blanche/",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73562893/brennan-v-blanche/",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2021",
@@ -24469,14 +24475,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71559589/chicago-headline-club-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71559589/chicago-headline-club-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2022",
@@ -24485,14 +24491,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73618579/choi-v-us-department-of-homeland-security",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73618579/choi-v-us-department-of-homeland-security",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2023",
@@ -24501,14 +24507,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72358776/herzberg-v-united-states",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72358776/herzberg-v-united-states",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2024",
@@ -24517,14 +24523,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72002125/longworth-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72002125/longworth-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2026",
@@ -24533,14 +24539,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71730267/ohara-v-beck",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71730267/ohara-v-beck",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2027",
@@ -24549,14 +24555,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72131845/state-of-illinois-v-department-of-homeland-security",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72131845/state-of-illinois-v-department-of-homeland-security",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2028",
@@ -24565,14 +24571,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72132615/state-of-minnesota-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72132615/state-of-minnesota-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2030",
@@ -24581,14 +24587,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72069053/african-communities-together-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72069053/african-communities-together-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2031",
@@ -24597,14 +24603,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72178312/african-communities-together-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72178312/african-communities-together-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2032",
@@ -24613,14 +24619,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72383804/african-communities-together-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72383804/african-communities-together-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2033",
@@ -24629,14 +24635,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70217588/casa-inc-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70217588/casa-inc-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2034",
@@ -24645,14 +24651,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69656739/casa-inc-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69656739/casa-inc-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2035",
@@ -24661,14 +24667,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69781698/coalition-for-humane-immigrant-rights-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69781698/coalition-for-humane-immigrant-rights-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2036",
@@ -24677,14 +24683,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71705917/doe-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71705917/doe-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2037",
@@ -24693,14 +24699,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72063883/doe-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72063883/doe-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2038",
@@ -24709,14 +24715,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72493533/doe-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72493533/doe-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2039",
@@ -24725,14 +24731,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72516948/doe-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72516948/doe-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2040",
@@ -24741,14 +24747,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69696873/haitian-americans-united-inc-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69696873/haitian-americans-united-inc-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2041",
@@ -24757,14 +24763,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69740630/haitian-evangelical-clergy-association-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69740630/haitian-evangelical-clergy-association-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2042",
@@ -24773,14 +24779,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70965949/lesly-miot-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70965949/lesly-miot-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2043",
@@ -24789,14 +24795,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70726295/national-tps-alliance-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70726295/national-tps-alliance-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2044",
@@ -24805,14 +24811,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72014766/chavarria-v-us-department-of-homeland-security",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72014766/chavarria-v-us-department-of-homeland-security",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2045",
@@ -24821,14 +24827,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72083484/afterschool-for-children-and-teens-act-now-v-united-states-department-of",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72083484/afterschool-for-children-and-teens-act-now-v-united-states-department-of",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2046",
@@ -24837,14 +24843,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72079033/american-academy-of-pediatrics-v-department-of-health-and-human-services",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72079033/american-academy-of-pediatrics-v-department-of-health-and-human-services",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2047",
@@ -24853,14 +24859,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70320847/american-association-of-physicians-for-human-rights-inc-dba-glma",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70320847/american-association-of-physicians-for-human-rights-inc-dba-glma",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2048",
@@ -24869,14 +24875,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70576237/american-association-of-physics-teachers-inc-v-national-science",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70576237/american-association-of-physics-teachers-inc-v-national-science",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2049",
@@ -24885,14 +24891,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69896743/american-educational-research-association-v-us-department-of-education",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69896743/american-educational-research-association-v-us-department-of-education",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2050",
@@ -24901,14 +24907,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72384325/american-federation-of-state-county-and-municipal-employees-aflcio-v",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72384325/american-federation-of-state-county-and-municipal-employees-aflcio-v",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2051",
@@ -24917,14 +24923,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69835536/american-public-health-association-v-national-institutes-of-health",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69835536/american-public-health-association-v-national-institutes-of-health",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2052",
@@ -24933,14 +24939,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70873172/anchorage-school-district-v-us-department-of-education",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70873172/anchorage-school-district-v-us-department-of-education",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2053",
@@ -24949,14 +24955,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70143919/association-of-american-universities-v-national-science-foundation",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70143919/association-of-american-universities-v-national-science-foundation",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2054",
@@ -24965,14 +24971,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70599333/board-of-education-for-the-silver-consolidated-schools-v-mcmahon",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70599333/board-of-education-for-the-silver-consolidated-schools-v-mcmahon",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2055",
@@ -24981,14 +24987,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72085355/brighton-park-neighborhood-council-v-mcmahon",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72085355/brighton-park-neighborhood-council-v-mcmahon",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2056",
@@ -24997,14 +25003,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70834344/california-high-speed-rail-authority-v-united-states-department-of",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70834344/california-high-speed-rail-authority-v-united-states-department-of",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2057",
@@ -25013,14 +25019,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71698211/chicago-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71698211/chicago-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2058",
@@ -25029,14 +25035,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73449176/city-and-county-of-san-francisco-v-department-of-energy",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73449176/city-and-county-of-san-francisco-v-department-of-energy",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2059",
@@ -25045,14 +25051,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71788745/city-and-county-of-san-francisco-v-united-states-department-of-justice",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71788745/city-and-county-of-san-francisco-v-united-states-department-of-justice",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2060",
@@ -25061,14 +25067,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71901645/city-of-chicago-v-department-of-justice",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71901645/city-of-chicago-v-department-of-justice",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2061",
@@ -25077,14 +25083,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70282724/city-of-chicago-v-united-states-department-of-homeland-security",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70282724/city-of-chicago-v-united-states-department-of-homeland-security",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2062",
@@ -25093,14 +25099,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70282725/city-of-chicago-v-department-of-homeland-security",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70282725/city-of-chicago-v-department-of-homeland-security",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2063",
@@ -25109,14 +25115,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72310176/city-of-fresno-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72310176/city-of-fresno-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2064",
@@ -25125,14 +25131,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71160717/city-of-fresno-v-turner",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71160717/city-of-fresno-v-turner",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2065",
@@ -25141,14 +25147,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69663207/v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69663207/v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2066",
@@ -25157,14 +25163,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71894043/city-of-saint-paul-minnesota-v-wright",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71894043/city-of-saint-paul-minnesota-v-wright",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2067",
@@ -25173,14 +25179,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72045202/climate-solutions-v-department-of-transportation-us",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72045202/climate-solutions-v-department-of-transportation-us",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2068",
@@ -25189,14 +25195,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69718818/climate-united-fund-v-citibank-na",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69718818/climate-united-fund-v-citibank-na",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2069",
@@ -25205,14 +25211,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69843493/commonwealth-of-massachusetts-v-kennedy-jr",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69843493/commonwealth-of-massachusetts-v-kennedy-jr",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2070",
@@ -25221,14 +25227,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71783393/commonwealth-of-massachusetts-v-united-states-department-of-agriculture",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71783393/commonwealth-of-massachusetts-v-united-states-department-of-agriculture",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2071",
@@ -25237,14 +25243,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72228510/confederated-tribes-of-the-colville-reservation-v-national-oceanic-and",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72228510/confederated-tribes-of-the-colville-reservation-v-national-oceanic-and",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2072",
@@ -25253,14 +25259,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71495173/council-for-opportunity-in-education-v-us-department-of-education",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71495173/council-for-opportunity-in-education-v-us-department-of-education",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2073",
@@ -25269,14 +25275,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71506962/council-for-opportunity-in-education-v-us-department-of-education",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71506962/council-for-opportunity-in-education-v-us-department-of-education",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2074",
@@ -25285,14 +25291,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71508891/county-of-santa-clara-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71508891/county-of-santa-clara-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2075",
@@ -25301,14 +25307,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71230470/fairfax-county-school-board-v-mcmahon-in-her-official-capacity-as-us",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71230470/fairfax-county-school-board-v-mcmahon-in-her-official-capacity-as-us",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2076",
@@ -25317,14 +25323,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71610372/freedom-network-usa-v-president-donald-j-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71610372/freedom-network-usa-v-president-donald-j-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2077",
@@ -25333,14 +25339,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72224347/gateway-development-commission-v-united-states",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72224347/gateway-development-commission-v-united-states",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2078",
@@ -25349,14 +25355,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69940313/harris-county-texas-v-robert-f-kennedy-jr",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69940313/harris-county-texas-v-robert-f-kennedy-jr",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2079",
@@ -25365,14 +25371,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73613631/hennepin-county-minnesota-v-us-department-of-health-and-human-services",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73613631/hennepin-county-minnesota-v-us-department-of-health-and-human-services",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2080",
@@ -25381,14 +25387,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71661089/housing-authority-of-the-city-and-county-of-san-francisco-v-turner",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71661089/housing-authority-of-the-city-and-county-of-san-francisco-v-turner",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2081",
@@ -25397,14 +25403,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72058106/institute-for-applied-ecology-v-burgum",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72058106/institute-for-applied-ecology-v-burgum",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2082",
@@ -25413,14 +25419,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71383010/jones-v-us-department-of-labor",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71383010/jones-v-us-department-of-labor",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2083",
@@ -25429,14 +25435,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73522275/kamga-v-us-department-of-transportation",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73522275/kamga-v-us-department-of-transportation",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2084",
@@ -25445,14 +25451,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70683995/launch-alaska-v-department-of-the-navy-office-of-naval-research",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70683995/launch-alaska-v-department-of-the-navy-office-of-naval-research",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2085",
@@ -25461,14 +25467,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73547366/los-angeles-homeless-services-authority-v-donald-j-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73547366/los-angeles-homeless-services-authority-v-donald-j-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2086",
@@ -25477,14 +25483,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69733424/massachusetts-fair-housing-center-v-department-of-housing-and-urban",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69733424/massachusetts-fair-housing-center-v-department-of-housing-and-urban",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2087",
@@ -25493,14 +25499,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71727525/mckinleyville-union-school-district-v-us-department-of-education",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71727525/mckinleyville-union-school-district-v-us-department-of-education",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2088",
@@ -25509,14 +25515,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72503935/metropolitan-transportation-authority-v-united-states",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72503935/metropolitan-transportation-authority-v-united-states",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2089",
@@ -25525,14 +25531,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71978322/national-alliance-to-end-homelessness-v-united-states-department-of",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71978322/national-alliance-to-end-homelessness-v-united-states-department-of",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2090",
@@ -25541,14 +25547,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73558053/national-center-for-learning-disabilities-v-office-of-management-and",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73558053/national-center-for-learning-disabilities-v-office-of-management-and",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2091",
@@ -25557,14 +25563,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71577961/national-digital-inclusion-alliance-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71577961/national-digital-inclusion-alliance-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2092",
@@ -25573,14 +25579,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70620442/national-fair-housing-alliance-v-department-of-housing-and-urban",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70620442/national-fair-housing-alliance-v-department-of-housing-and-urban",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2093",
@@ -25589,14 +25595,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69936371/national-family-planning-and-reproductive-health-association-v-kennedy",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69936371/national-family-planning-and-reproductive-health-association-v-kennedy",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2094",
@@ -25605,14 +25611,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72228444/state-of-new-jersey-v-united-states-department-of-transportation",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72228444/state-of-new-jersey-v-united-states-department-of-transportation",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2095",
@@ -25621,14 +25627,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71658061/norman-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71658061/norman-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2096",
@@ -25637,14 +25643,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70275737/oregon-council-for-the-humanities-v-united-states-doge-service",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70275737/oregon-council-for-the-humanities-v-united-states-doge-service",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2097",
@@ -25653,14 +25659,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70031478/planned-parenthood-of-greater-new-york-v-us-department-of-health-and",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70031478/planned-parenthood-of-greater-new-york-v-us-department-of-health-and",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2098",
@@ -25669,14 +25675,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70954395/planned-parenthood-of-greater-new-york-v-us-department-of-health-and",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70954395/planned-parenthood-of-greater-new-york-v-us-department-of-health-and",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2099",
@@ -25685,14 +25691,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69911708/porwancher-v-national-endowment-for-the-humanities",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69911708/porwancher-v-national-endowment-for-the-humanities",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2100",
@@ -25701,14 +25707,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71560315/rhode-island-afl-cio-v-united-states-environmental-protection-agency",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71560315/rhode-island-afl-cio-v-united-states-environmental-protection-agency",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2101",
@@ -25717,14 +25723,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70551604/rhode-island-coalition-against-domestic-violence-v-bondi",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70551604/rhode-island-coalition-against-domestic-violence-v-bondi",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2102",
@@ -25733,14 +25739,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70865884/rhode-island-coalition-against-domestic-violence-v-kennedy-jr",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70865884/rhode-island-coalition-against-domestic-violence-v-kennedy-jr",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2103",
@@ -25749,14 +25755,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71820142/rhode-island-state-council-of-churches-v-rollins",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71820142/rhode-island-state-council-of-churches-v-rollins",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2104",
@@ -25765,14 +25771,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71433106/right-to-be-v-bondi",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71433106/right-to-be-v-bondi",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2105",
@@ -25781,14 +25787,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70452516/shapiro-v-us-department-of-agriculture",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70452516/shapiro-v-us-department-of-agriculture",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2106",
@@ -25797,14 +25803,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72264974/state-of-california-v-us-department-of-education",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72264974/state-of-california-v-us-department-of-education",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2107",
@@ -25813,14 +25819,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72032243/state-of-california-v-united-states-department-of-transportation",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72032243/state-of-california-v-united-states-department-of-transportation",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2108",
@@ -25829,14 +25835,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72042658/state-of-california-v-united-states-department-of-transportation",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72042658/state-of-california-v-united-states-department-of-transportation",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2109",
@@ -25845,14 +25851,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72332052/state-of-colorado-v-united-states",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72332052/state-of-colorado-v-united-states",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2110",
@@ -25861,14 +25867,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70251276/state-of-illinois-v-federal-emergency-management-agency",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70251276/state-of-illinois-v-federal-emergency-management-agency",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2111",
@@ -25877,14 +25883,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72265112/state-of-illinois-v-vought",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72265112/state-of-illinois-v-vought",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2112",
@@ -25893,14 +25899,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72092158/state-of-maryland-v-united-states-department-of-education",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72092158/state-of-maryland-v-united-states-department-of-education",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2113",
@@ -25909,14 +25915,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71872603/state-of-michigan-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71872603/state-of-michigan-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2114",
@@ -25925,14 +25931,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72353395/state-of-minnesota-v-oz",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72353395/state-of-minnesota-v-oz",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2115",
@@ -25941,14 +25947,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70622367/state-of-new-jersey-v-us-office-of-management-and-budget",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70622367/state-of-new-jersey-v-us-office-of-management-and-budget",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2116",
@@ -25957,14 +25963,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71135488/state-of-new-jersey-v-united-states-department-of-justice",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71135488/state-of-new-jersey-v-united-states-department-of-justice",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2117",
@@ -25973,14 +25979,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72136009/state-of-new-york-v-us-department-of-health-and-human-services",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72136009/state-of-new-york-v-us-department-of-health-and-human-services",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2118",
@@ -25989,14 +25995,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72123419/state-of-new-york-v-administration-for-children-and-families",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72123419/state-of-new-york-v-administration-for-children-and-families",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2119",
@@ -26005,14 +26011,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70390972/state-of-new-york-v-national-science-foundation",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70390972/state-of-new-york-v-national-science-foundation",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2120",
@@ -26021,14 +26027,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71966888/state-of-new-york-v-rollins",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71966888/state-of-new-york-v-rollins",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2121",
@@ -26037,14 +26043,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70869382/state-of-new-york-v-us-department-of-justice",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70869382/state-of-new-york-v-us-department-of-justice",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2122",
@@ -26053,14 +26059,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73244048/state-of-new-york-v-united-states-department-of-transportation",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73244048/state-of-new-york-v-united-states-department-of-transportation",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2123",
@@ -26069,14 +26075,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69874014/state-of-new-york-v-united-states-department-of-education",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69874014/state-of-new-york-v-united-states-department-of-education",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2124",
@@ -26085,14 +26091,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71516975/state-of-new-york-v-united-states-department-of-justice",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71516975/state-of-new-york-v-united-states-department-of-justice",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2125",
@@ -26101,14 +26107,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70807946/state-of-washington-v-federal-emergency-management-agency",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70807946/state-of-washington-v-federal-emergency-management-agency",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2126",
@@ -26117,14 +26123,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70917556/state-of-washington-v-us-department-of-homeland-security",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70917556/state-of-washington-v-us-department-of-homeland-security",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2127",
@@ -26133,14 +26139,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71065919/state-of-washington-v-united-states-department-of-commerce",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71065919/state-of-washington-v-united-states-department-of-commerce",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2128",
@@ -26149,14 +26155,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70679500/state-of-washington-v-united-states-department-of-education",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70679500/state-of-washington-v-united-states-department-of-education",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2129",
@@ -26165,14 +26171,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73599929/state-of-washington-v-united-states-department-of-education",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73599929/state-of-washington-v-united-states-department-of-education",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2130",
@@ -26181,14 +26187,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71959540/state-of-washington-v-united-states-department-of-housing-and-urban?order_by=desc",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71959540/state-of-washington-v-united-states-department-of-housing-and-urban?order_by=desc",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2131",
@@ -26197,14 +26203,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73584661/state-of-washington-v-united-states-department-of-housing-and-urban",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73584661/state-of-washington-v-united-states-department-of-housing-and-urban",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2132",
@@ -26213,14 +26219,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71659617/the-board-of-education-of-the-city-school-district-of-the-city-of-new-york",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71659617/the-board-of-education-of-the-city-school-district-of-the-city-of-new-york",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2133",
@@ -26229,14 +26235,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72496922/university-corporation-for-atmospheric-research-v-national-science",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72496922/university-corporation-for-atmospheric-research-v-national-science",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2134",
@@ -26245,14 +26251,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71771421/urban-justice-center-safety-net-project-ujc-snp-v-rollins",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71771421/urban-justice-center-safety-net-project-ujc-snp-v-rollins",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2135",
@@ -26261,14 +26267,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70464982/urban-sustainability-directors-network-v-united-states-department-of",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70464982/urban-sustainability-directors-network-v-united-states-department-of",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2136",
@@ -26277,14 +26283,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70336266/vera-institute-of-justice-v-us-department-of-justice",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70336266/vera-institute-of-justice-v-us-department-of-justice",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2137",
@@ -26293,14 +26299,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71203569/woodmere-art-museum-inc-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71203569/woodmere-art-museum-inc-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2139",
@@ -26309,14 +26315,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69775896/dvd-v-us-department-of-homeland-security",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69775896/dvd-v-us-department-of-homeland-security",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2140",
@@ -26325,14 +26331,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72456072/martinez-moncada-v-bondi",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72456072/martinez-moncada-v-bondi",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2141",
@@ -26341,14 +26347,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71930356/pablo-pablo-v-lyons",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71930356/pablo-pablo-v-lyons",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2142",
@@ -26357,14 +26363,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73306593/quiroz-zapata-v-mullin",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73306593/quiroz-zapata-v-mullin",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2143",
@@ -26373,14 +26379,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72514916/interfaith-center-on-corporate-responsibility-v-securities-and-exchange",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72514916/interfaith-center-on-corporate-responsibility-v-securities-and-exchange",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2145",
@@ -26389,14 +26395,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69613359/american-federation-of-labor-and-congress-of-industrial-organizations-v",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69613359/american-federation-of-labor-and-congress-of-industrial-organizations-v",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2147",
@@ -26412,7 +26418,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2149",
@@ -26421,14 +26427,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69646607/center-for-taxpayer-rights-v-internal-revenue-service",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69646607/center-for-taxpayer-rights-v-internal-revenue-service",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2150",
@@ -26437,14 +26443,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69627950/electronic-privacy-information-center-v-us-office-of-personnel",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69627950/electronic-privacy-information-center-v-us-office-of-personnel",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2152",
@@ -26453,14 +26459,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71499795/league-of-women-voters-v-us-department-of-homeland-security",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71499795/league-of-women-voters-v-us-department-of-homeland-security",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2157",
@@ -26469,14 +26475,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70945300/state-of-california-v-united-states-department-of-agriculture",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70945300/state-of-california-v-united-states-department-of-agriculture",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2164",
@@ -26499,14 +26505,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73218916/common-cause-v-us-department-of-justice",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73218916/common-cause-v-us-department-of-justice",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2183",
@@ -26515,14 +26521,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73131864/dscc-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73131864/dscc-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2184",
@@ -26531,14 +26537,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69826986/democratic-national-committee-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69826986/democratic-national-committee-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2188",
@@ -26547,14 +26553,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71927766/league-of-women-voters-of-the-united-states-v-us-citizenship-and",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71927766/league-of-women-voters-of-the-united-states-v-us-citizenship-and",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2190",
@@ -26563,14 +26569,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/17461792/national-association-for-the-advancement-of-colored-people-v-united-states",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/17461792/national-association-for-the-advancement-of-colored-people-v-united-states",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2192",
@@ -26579,14 +26585,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73141063/state-of-california-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73141063/state-of-california-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2193",
@@ -26595,14 +26601,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73190507/state-of-louisiana-v-u-s-election-assistance-commission",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73190507/state-of-louisiana-v-u-s-election-assistance-commission",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2195",
@@ -26611,14 +26617,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73434730/bade-v-united-states-department-of-homeland-security",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73434730/bade-v-united-states-department-of-homeland-security",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2196",
@@ -26627,14 +26633,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69559509/center-for-biological-diversity-v-office-of-management-and-budget",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69559509/center-for-biological-diversity-v-office-of-management-and-budget",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2197",
@@ -26643,14 +26649,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69698261/center-for-biological-diversity-v-us-department-of-interior",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69698261/center-for-biological-diversity-v-us-department-of-interior",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2198",
@@ -26659,14 +26665,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69636722/does-1-26-v-musk",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69636722/does-1-26-v-musk",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2201",
@@ -26675,14 +26681,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73482593/martinez-v-united-states",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73482593/martinez-v-united-states",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2202",
@@ -26691,14 +26697,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73524025/cascadia-wildlands-v-burgum",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73524025/cascadia-wildlands-v-burgum",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2204",
@@ -26707,14 +26713,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72355449/montana-environmental-information-center-v-doug-burgum",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72355449/montana-environmental-information-center-v-doug-burgum",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2205",
@@ -26723,14 +26729,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72387064/northern-alaska-environmental-center-v-burgum",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72387064/northern-alaska-environmental-center-v-burgum",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2206",
@@ -26739,14 +26745,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71116258/district-of-columbia-v-donald-j-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71116258/district-of-columbia-v-donald-j-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2207",
@@ -26755,14 +26761,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71267525/district-of-columbia-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71267525/district-of-columbia-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2208",
@@ -26771,14 +26777,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71559895/state-of-illinois-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71559895/state-of-illinois-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2209",
@@ -26787,14 +26793,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71481149/state-of-oregon-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71481149/state-of-oregon-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2210",
@@ -26803,14 +26809,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69593824/doe-v-mchenry",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69593824/doe-v-mchenry",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2211",
@@ -26819,14 +26825,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69628010/jones-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69628010/jones-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2212",
@@ -26835,14 +26841,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69717615/kingdom-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69717615/kingdom-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2213",
@@ -26851,14 +26857,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73303035/poe-v-us-department-of-justice",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73303035/poe-v-us-department-of-justice",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2216",
@@ -26867,14 +26873,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69832711/middle-east-broadcasting-networks-inc-v-united-states-of-america",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69832711/middle-east-broadcasting-networks-inc-v-united-states-of-america",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2217",
@@ -26884,13 +26890,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2025cv01674/280953/81/",
         "attempts": 1,
         "status_code": 403,
-        "final_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1:2025cv01674/280953/81/",
+        "final_url": "https://law.justia.com/cases/federal/district-courts/district-of-columbia/dcdce/1%3A2025cv01674/280953/81/",
         "content_type": "text/html",
         "error": "HTTP 403",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2218",
@@ -26899,14 +26905,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72528662/widakuswara-v-lake",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72528662/widakuswara-v-lake",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2219",
@@ -26915,14 +26921,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69765042/open-technology-fund-v-lake",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69765042/open-technology-fund-v-lake",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2221",
@@ -26931,14 +26937,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69800762/radio-free-asia-v-united-states-of-america",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69800762/radio-free-asia-v-united-states-of-america",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2223",
@@ -26947,14 +26953,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71884278/american-federation-of-government-employees-afl-cio-v-kupor",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71884278/american-federation-of-government-employees-afl-cio-v-kupor",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2224",
@@ -26963,14 +26969,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73554341/balani-v-us-environmental-protection-agency",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73554341/balani-v-us-environmental-protection-agency",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2225",
@@ -26979,14 +26985,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72004388/does-v-patel",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72004388/does-v-patel",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2228",
@@ -26995,14 +27001,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72069932/beatty-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72069932/beatty-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2229",
@@ -27011,14 +27017,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73321580/cultural-landscape-foundation-v-us-department-of-the-interior",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73321580/cultural-landscape-foundation-v-us-department-of-the-interior",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2230",
@@ -27027,14 +27033,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72528661/dc-preservation-league-v-board-of-trustees-of-the-john-f-kennedy-center",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72528661/dc-preservation-league-v-board-of-trustees-of-the-john-f-kennedy-center",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2231",
@@ -27043,14 +27049,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73549825/total-fright-productions-llc-dba-total-party-v-turner",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73549825/total-fright-productions-llc-dba-total-party-v-turner",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2232",
@@ -27059,14 +27065,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72529658/washington-area-bicyclist-association-inc-v-burgum",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72529658/washington-area-bicyclist-association-inc-v-burgum",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2233",
@@ -27075,14 +27081,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69784731/american-association-of-university-professors-v-rubio",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69784731/american-association-of-university-professors-v-rubio",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2234",
@@ -27091,14 +27097,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69780645/chung-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69780645/chung-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2235",
@@ -27107,14 +27113,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69888582/mahdawi-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69888582/mahdawi-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2236",
@@ -27123,14 +27129,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69757814/khalil-v-joyce",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69757814/khalil-v-joyce",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2237",
@@ -27139,14 +27145,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71168373/ozturk-v-hyde",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71168373/ozturk-v-hyde",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2238",
@@ -27155,14 +27161,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69755722/suri-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69755722/suri-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2239",
@@ -27171,14 +27177,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/69750515/vizguerra-ramirez-v-choate",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/69750515/vizguerra-ramirez-v-choate",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2240",
@@ -27187,14 +27193,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72099689/empire-leaseholder-llc-v-burgum",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72099689/empire-leaseholder-llc-v-burgum",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2241",
@@ -27203,14 +27209,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70447072/protect-our-coast-nj-v-united-states-of-america",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70447072/protect-our-coast-nj-v-united-states-of-america",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2242",
@@ -27219,14 +27225,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72076757/renew-northeast-v-united-states-department-of-the-interior",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72076757/renew-northeast-v-united-states-department-of-the-interior",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2243",
@@ -27235,14 +27241,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71266768/revolution-wind-llc-v-burgum",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71266768/revolution-wind-llc-v-burgum",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2244",
@@ -27251,14 +27257,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72126766/state-of-new-york-v-burgum",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72126766/state-of-new-york-v-burgum",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2245",
@@ -27267,14 +27273,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72126847/state-of-new-york-v-burgum",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72126847/state-of-new-york-v-burgum",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2246",
@@ -27283,14 +27289,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73426597/state-of-new-york-v-us-department-of-the-interior",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73426597/state-of-new-york-v-us-department-of-the-interior",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2247",
@@ -27299,14 +27305,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72031164/state-of-rhode-island-v-united-states-department-of-the-interior",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72031164/state-of-rhode-island-v-united-states-department-of-the-interior",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2248",
@@ -27315,14 +27321,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72111814/sunrise-wind-llc-v-burgum",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72111814/sunrise-wind-llc-v-burgum",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2249",
@@ -27331,14 +27337,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72147673/vineyard-wind-1-llc-v-united-states-department-of-the-interior",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72147673/vineyard-wind-1-llc-v-united-states-department-of-the-interior",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2250",
@@ -27347,14 +27353,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72074497/virginia-electric-and-power-company-v-united-states-department-of-the",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72074497/virginia-electric-and-power-company-v-united-states-department-of-the",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2251",
@@ -27363,14 +27369,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73231930/doe-1-v-edlow",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73231930/doe-1-v-edlow",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2252",
@@ -27379,14 +27385,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72071916/doe-v-trump",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72071916/doe-v-trump",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2253",
@@ -27395,14 +27401,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73417799/angye-v-united-states-immigration-and-customs-enforcement-ice",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73417799/angye-v-united-states-immigration-and-customs-enforcement-ice",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2254",
@@ -27411,14 +27417,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/71065570/barco-mercado-v-noem",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/71065570/barco-mercado-v-noem",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2255",
@@ -27427,14 +27433,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73337974/city-of-social-circle-v-united-states-immigration-and-customs-enforcement",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73337974/city-of-social-circle-v-united-states-immigration-and-customs-enforcement",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2256",
@@ -27443,14 +27449,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/72418655/county-of-san-diego-v-us-department-of-homeland-security",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/72418655/county-of-san-diego-v-us-department-of-homeland-security",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2257",
@@ -27459,14 +27465,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/73466875/county-of-santa-clara-v-united-states-immigration-customs-enforcement",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/73466875/county-of-santa-clara-v-united-states-immigration-customs-enforcement",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2258",
@@ -27475,14 +27481,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "title": "",
         "requested_url": "https://www.courtlistener.com/docket/70321567/dnn-v-liggins",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 429,
         "final_url": "https://www.courtlistener.com/docket/70321567/dnn-v-liggins",
         "content_type": "text/html",
-        "error": "HTTP 403",
+        "error": "HTTP 429",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2259",
@@ -27498,7 +27504,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2260",
@@ -27514,7 +27520,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2261",
@@ -27530,7 +27536,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2262",
@@ -27546,7 +27552,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2263",
@@ -27562,7 +27568,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2264",
@@ -27578,7 +27584,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2265",
@@ -27594,7 +27600,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2266",
@@ -27610,7 +27616,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2267",
@@ -27626,7 +27632,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2268",
@@ -27642,7 +27648,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2269",
@@ -27658,7 +27664,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2270",
@@ -27674,7 +27680,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2271",
@@ -27690,7 +27696,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2272",
@@ -27706,7 +27712,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2273",
@@ -27722,7 +27728,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2274",
@@ -27738,7 +27744,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2275",
@@ -27754,7 +27760,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2276",
@@ -27770,7 +27776,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2277",
@@ -27786,7 +27792,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2278",
@@ -27802,7 +27808,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2279",
@@ -27818,7 +27824,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2280",
@@ -27834,7 +27840,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2281",
@@ -27850,7 +27856,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2282",
@@ -27866,7 +27872,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2283",
@@ -27882,7 +27888,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2284",
@@ -27898,7 +27904,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2285",
@@ -27914,7 +27920,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2286",
@@ -27930,7 +27936,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2287",
@@ -27946,7 +27952,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2288",
@@ -27962,7 +27968,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2289",
@@ -27978,7 +27984,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2290",
@@ -27988,29 +27994,27 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "requested_url": "https://law.justia.com/cases/federal/district-courts/california/candce/3%3A2025cv01350/444175/111/",
         "attempts": 1,
         "status_code": 403,
-        "final_url": "https://law.justia.com/cases/federal/district-courts/california/candce/3:2025cv01350/444175/111/",
+        "final_url": "https://law.justia.com/cases/federal/district-courts/california/candce/3%3A2025cv01350/444175/111/",
         "content_type": "text/html",
         "error": "HTTP 403",
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2293",
         "catalog": "inventory/sources.csv",
         "catalog_row": 1893,
-        "title": "",
+        "title": "MEMORANDUM AND ORDER : For the foregoing reasons, the Court GRANTS Plaintiffs' Motion for Summary Judgment for State of Illinois et al v. Noem et al :: Justia Dockets & Filings",
         "requested_url": "https://docs.justia.com/cases/federal/district-courts/rhode-island/ridce/1%3A2025cv00495/60525/53",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://docs.justia.com/cases/federal/district-courts/rhode-island/ridce/1%3A2025cv00495/60525/53",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-2294",
@@ -28026,7 +28030,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2295",
@@ -28042,7 +28046,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2296",
@@ -28058,7 +28062,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2297",
@@ -28074,7 +28078,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2298",
@@ -28090,7 +28094,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2299",
@@ -28106,7 +28110,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2301",
@@ -28122,7 +28126,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2302",
@@ -28138,7 +28142,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2303",
@@ -28154,7 +28158,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2304",
@@ -28170,7 +28174,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2305",
@@ -28186,7 +28190,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2306",
@@ -28202,7 +28206,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2307",
@@ -28218,7 +28222,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2308",
@@ -28234,7 +28238,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2309",
@@ -28250,7 +28254,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2310",
@@ -28266,7 +28270,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2311",
@@ -28282,7 +28286,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2312",
@@ -28298,7 +28302,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2313",
@@ -28328,7 +28332,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2316",
@@ -28344,7 +28348,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2327",
@@ -28360,7 +28364,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2328",
@@ -28376,7 +28380,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2330",
@@ -28392,7 +28396,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2333",
@@ -28408,7 +28412,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2334",
@@ -28424,7 +28428,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2335",
@@ -28440,7 +28444,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2338",
@@ -28456,7 +28460,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2339",
@@ -28472,7 +28476,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2341",
@@ -28488,7 +28492,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2342",
@@ -28504,7 +28508,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2343",
@@ -28520,7 +28524,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2344",
@@ -28536,7 +28540,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2345",
@@ -28552,7 +28556,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2346",
@@ -28568,7 +28572,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2348",
@@ -28584,7 +28588,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2349",
@@ -28600,7 +28604,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2350",
@@ -28616,7 +28620,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2351",
@@ -28632,7 +28636,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2356",
@@ -28648,7 +28652,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2357",
@@ -28664,7 +28668,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2358",
@@ -28680,7 +28684,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2359",
@@ -28696,7 +28700,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2360",
@@ -28712,7 +28716,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2361",
@@ -28728,7 +28732,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2362",
@@ -28744,7 +28748,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2363",
@@ -28760,7 +28764,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2366",
@@ -28776,7 +28780,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2379",
@@ -28792,7 +28796,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2381",
@@ -28808,7 +28812,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2385",
@@ -28824,7 +28828,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2399",
@@ -28840,7 +28844,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2406",
@@ -28856,7 +28860,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2407",
@@ -28872,7 +28876,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2408",
@@ -28888,7 +28892,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2409",
@@ -28904,7 +28908,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2411",
@@ -28920,7 +28924,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2412",
@@ -28936,7 +28940,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2420",
@@ -28952,7 +28956,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2446",
@@ -28968,7 +28972,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2465",
@@ -28984,7 +28988,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2501",
@@ -29000,7 +29004,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2521",
@@ -29016,7 +29020,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "identity mismatch",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2530",
@@ -29032,7 +29036,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2531",
@@ -29048,7 +29052,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2532",
@@ -29064,7 +29068,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2533",
@@ -29080,7 +29084,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2534",
@@ -29096,7 +29100,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2535",
@@ -29112,7 +29116,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2536",
@@ -29128,7 +29132,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2537",
@@ -29144,7 +29148,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2538",
@@ -29160,7 +29164,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2539",
@@ -29176,7 +29180,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2540",
@@ -29192,7 +29196,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2542",
@@ -29208,7 +29212,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2543",
@@ -29224,7 +29228,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2544",
@@ -29240,7 +29244,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2545",
@@ -29256,7 +29260,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2546",
@@ -29272,7 +29276,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2547",
@@ -29288,7 +29292,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2548",
@@ -29304,7 +29308,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2549",
@@ -29320,7 +29324,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2550",
@@ -29336,7 +29340,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2552",
@@ -29352,7 +29356,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2553",
@@ -29368,7 +29372,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2554",
@@ -29384,7 +29388,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2555",
@@ -29400,7 +29404,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2556",
@@ -29416,7 +29420,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2557",
@@ -29432,7 +29436,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2558",
@@ -29448,7 +29452,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2559",
@@ -29464,7 +29468,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2560",
@@ -29480,7 +29484,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2569",
@@ -29496,7 +29500,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2570",
@@ -29512,7 +29516,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2571",
@@ -29528,7 +29532,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2573",
@@ -29544,7 +29548,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2574",
@@ -29560,7 +29564,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2575",
@@ -29576,7 +29580,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2576",
@@ -29592,7 +29596,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2580",
@@ -29608,23 +29612,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2587",
         "catalog": "inventory/sources.csv",
         "catalog_row": 1994,
-        "title": "",
+        "title": "ORDER ON MOTIONS FOR SUMMARY JUDGMENT: Accordingly, as to Counts I, II, and III of the Amended Complaint for State of Washington et al v. United States Department of Transportation et al :: Justia Dockets & Filings",
         "requested_url": "https://docs.justia.com/cases/federal/district-courts/washington/wawdce/2%3A2025cv00848/347944/175",
         "attempts": 1,
-        "status_code": 403,
+        "status_code": 200,
         "final_url": "https://docs.justia.com/cases/federal/district-courts/washington/wawdce/2%3A2025cv00848/347944/175",
         "content_type": "text/html",
-        "error": "HTTP 403",
-        "error_kind": "access",
-        "classification": "access restricted",
-        "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "error": "",
+        "error_kind": "",
+        "classification": "verified"
       },
       {
         "source_id": "SRC-2589",
@@ -29640,7 +29642,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2591",
@@ -29656,7 +29658,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2592",
@@ -29672,7 +29674,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2594",
@@ -29688,7 +29690,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2597",
@@ -29704,7 +29706,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2598",
@@ -29720,7 +29722,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2599",
@@ -29736,21 +29738,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2600",
         "catalog": "inventory/sources.csv",
         "catalog_row": 2002,
-        "title": "Text - H.R.3513 - 119th Congress (2025-2026): Supreme Court Ethics, Recusal, and Transparency Act of 2025 | Congress.gov | Library of Congress",
+        "title": "",
         "requested_url": "https://www.congress.gov/bill/119th-congress/house-bill/3513/text",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.congress.gov/bill/119th-congress/house-bill/3513/text",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-2601",
@@ -29766,7 +29770,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2602",
@@ -29782,7 +29786,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T16:06:49+00:00",
-        "exception_age_days": 0.0
+        "exception_age_days": 0.02
       },
       {
         "source_id": "SRC-2603",
@@ -29798,7 +29802,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2604",
@@ -29870,7 +29874,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2609",
@@ -29886,7 +29890,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2610",
@@ -29902,7 +29906,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2611",
@@ -29918,7 +29922,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2612",
@@ -29934,7 +29938,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T15:41:22+00:00",
-        "exception_age_days": 0.02
+        "exception_age_days": 0.04
       },
       {
         "source_id": "SRC-2613",
@@ -29950,7 +29954,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2614",
@@ -30078,7 +30082,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2623",
@@ -30094,7 +30098,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2624",
@@ -30236,7 +30240,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2634",
@@ -30252,7 +30256,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2635",
@@ -30282,7 +30286,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2637",
@@ -30298,7 +30302,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "",
         "classification": "review required",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2638",
@@ -30328,7 +30332,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2640",
@@ -30414,21 +30418,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2646",
         "catalog": "inventory/sources.csv",
         "catalog_row": 2048,
-        "title": "Overview of Impeachable Offenses | Constitution Annotated | Congress.gov | Library of Congress",
+        "title": "",
         "requested_url": "https://constitution.congress.gov/browse/essay/artII-S4-2-1/ALDE_00000690/",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://constitution.congress.gov/browse/essay/artII-S4-2-1/ALDE_00000690/",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-2647",
@@ -30490,15 +30496,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "source_id": "SRC-2651",
         "catalog": "inventory/sources.csv",
         "catalog_row": 2053,
-        "title": "Legal History | Smithsonian Institution",
+        "title": "",
         "requested_url": "https://www.si.edu/ogc/legalhistory",
         "attempts": 1,
-        "status_code": 200,
+        "status_code": 403,
         "final_url": "https://www.si.edu/ogc/legalhistory",
         "content_type": "text/html",
-        "error": "",
-        "error_kind": "",
-        "classification": "verified"
+        "error": "HTTP 403",
+        "error_kind": "access",
+        "classification": "access restricted",
+        "exception_first_seen_at": "2026-07-30T16:39:17+00:00",
+        "exception_age_days": 0.0
       },
       {
         "source_id": "SRC-2652",
@@ -30514,7 +30522,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "error_kind": "access",
         "classification": "access restricted",
         "exception_first_seen_at": "2026-07-30T14:26:04+00:00",
-        "exception_age_days": 0.07
+        "exception_age_days": 0.09
       },
       {
         "source_id": "SRC-2653",
@@ -30547,76 +30555,85 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "deltas": {
       "available": true,
-      "baseline_checked_at": "2026-07-30T15:41:22+00:00",
-      "baseline_source_revision": "c5f45b2482d487df3e97f50608659a600afbc9ca",
+      "baseline_checked_at": "2026-07-30T16:06:49+00:00",
+      "baseline_source_revision": "9af57a47ef91e1472191ff1b5fa8e25666bda37f",
       "elapsed_days": 0.02,
       "new_exception_ids": [],
       "regressed_exception_ids": [
-        "SRC-0010",
-        "SRC-0011",
-        "SRC-0019",
-        "SRC-0022",
-        "SRC-0024",
-        "SRC-0025",
-        "SRC-0037",
-        "SRC-0069",
-        "SRC-0125",
-        "SRC-0164",
-        "SRC-0220",
-        "SRC-0243",
-        "SRC-0266",
-        "SRC-0285",
-        "SRC-0286",
-        "SRC-0310",
-        "SRC-0359",
-        "SRC-0373",
-        "SRC-0382",
-        "SRC-0409",
-        "SRC-0418",
-        "SRC-0449",
-        "SRC-0471",
-        "SRC-0475",
-        "SRC-0545",
-        "SRC-0617",
-        "SRC-0623",
-        "SRC-0655",
-        "SRC-0680",
-        "SRC-0681",
-        "SRC-0738",
-        "SRC-0805",
-        "SRC-1232",
-        "SRC-2316",
-        "SRC-2602"
-      ],
-      "resolved_exception_ids": [
         "SRC-0006",
-        "SRC-0009",
         "SRC-0020",
+        "SRC-0097",
+        "SRC-0098",
+        "SRC-0099",
+        "SRC-0103",
+        "SRC-0104",
+        "SRC-0105",
+        "SRC-0106",
         "SRC-0156",
         "SRC-0178",
         "SRC-0183",
+        "SRC-0192",
         "SRC-0229",
-        "SRC-0230",
         "SRC-0239",
         "SRC-0244",
-        "SRC-0287",
+        "SRC-0280",
         "SRC-0314",
         "SRC-0360",
-        "SRC-0417",
+        "SRC-0386",
+        "SRC-0410",
+        "SRC-0436",
         "SRC-0459",
+        "SRC-0469",
+        "SRC-0470",
         "SRC-0473",
         "SRC-0554",
+        "SRC-0604",
         "SRC-0726",
         "SRC-0739",
-        "SRC-0791",
+        "SRC-0764",
         "SRC-0802",
         "SRC-0803",
         "SRC-1187",
-        "SRC-1197",
         "SRC-1814",
         "SRC-2600",
         "SRC-2646",
         "SRC-2651"
+      ],
+      "resolved_exception_ids": [
+        "SRC-0012",
+        "SRC-0016",
+        "SRC-0018",
+        "SRC-0019",
+        "SRC-0024",
+        "SRC-0025",
+        "SRC-0036",
+        "SRC-0195",
+        "SRC-0255",
+        "SRC-0265",
+        "SRC-0273",
+        "SRC-0288",
+        "SRC-0376",
+        "SRC-0384",
+        "SRC-0407",
+        "SRC-0472",
+        "SRC-0474",
+        "SRC-0500",
+        "SRC-0516",
+        "SRC-0534",
+        "SRC-0542",
+        "SRC-0623",
+        "SRC-0680",
+        "SRC-0717",
+        "SRC-0738",
+        "SRC-0761",
+        "SRC-0797",
+        "SRC-0800",
+        "SRC-0805",
+        "SRC-1232",
+        "SRC-1233",
+        "SRC-1250",
+        "SRC-2293",
+        "SRC-2587"
       ],
       "ongoing_exception_ids": [
         "SRC-0002",
@@ -30624,18 +30641,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "SRC-0004",
         "SRC-0007",
         "SRC-0008",
-        "SRC-0012",
+        "SRC-0010",
+        "SRC-0011",
         "SRC-0013",
         "SRC-0014",
         "SRC-0015",
-        "SRC-0016",
         "SRC-0017",
-        "SRC-0018",
         "SRC-0021",
+        "SRC-0022",
         "SRC-0023",
         "SRC-0026",
         "SRC-0035",
-        "SRC-0036",
         "SRC-0037",
         "SRC-0045",
         "SRC-0047",
@@ -30650,6 +30666,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "SRC-0062",
         "SRC-0063",
         "SRC-0068",
+        "SRC-0069",
         "SRC-0070",
         "SRC-0071",
         "SRC-0072",
@@ -30659,7 +30676,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "SRC-0119",
         "SRC-0120",
         "SRC-0123",
+        "SRC-0125",
         "SRC-0135",
+        "SRC-0164",
         "SRC-0167",
         "SRC-0168",
         "SRC-0172",
@@ -30668,10 +30687,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "SRC-0175",
         "SRC-0182",
         "SRC-0193",
-        "SRC-0195",
         "SRC-0201",
         "SRC-0218",
         "SRC-0219",
+        "SRC-0220",
         "SRC-0226",
         "SRC-0228",
         "SRC-0231",
@@ -30680,15 +30699,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "SRC-0236",
         "SRC-0237",
         "SRC-0240",
+        "SRC-0243",
         "SRC-0251",
         "SRC-0253",
-        "SRC-0255",
         "SRC-0256",
         "SRC-0261",
-        "SRC-0265",
+        "SRC-0266",
         "SRC-0272",
-        "SRC-0273",
-        "SRC-0288",
+        "SRC-0285",
+        "SRC-0286",
         "SRC-0290",
         "SRC-0292",
         "SRC-0294",
@@ -30697,6 +30716,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "SRC-0305",
         "SRC-0307",
         "SRC-0308",
+        "SRC-0310",
         "SRC-0311",
         "SRC-0313",
         "SRC-0320",
@@ -30704,24 +30724,26 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "SRC-0350",
         "SRC-0357",
         "SRC-0358",
+        "SRC-0359",
         "SRC-0370",
         "SRC-0371",
         "SRC-0372",
+        "SRC-0373",
         "SRC-0375",
-        "SRC-0376",
         "SRC-0377",
         "SRC-0378",
         "SRC-0379",
         "SRC-0380",
         "SRC-0381",
+        "SRC-0382",
         "SRC-0383",
-        "SRC-0384",
         "SRC-0385",
         "SRC-0400",
-        "SRC-0407",
         "SRC-0408",
+        "SRC-0409",
         "SRC-0411",
         "SRC-0412",
+        "SRC-0418",
         "SRC-0419",
         "SRC-0428",
         "SRC-0429",
@@ -30732,26 +30754,24 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "SRC-0442",
         "SRC-0445",
         "SRC-0448",
+        "SRC-0449",
         "SRC-0457",
         "SRC-0458",
         "SRC-0468",
-        "SRC-0472",
-        "SRC-0474",
+        "SRC-0471",
+        "SRC-0475",
         "SRC-0478",
         "SRC-0479",
         "SRC-0480",
         "SRC-0487",
-        "SRC-0500",
         "SRC-0501",
         "SRC-0508",
-        "SRC-0516",
         "SRC-0517",
         "SRC-0519",
         "SRC-0520",
-        "SRC-0534",
         "SRC-0537",
         "SRC-0539",
-        "SRC-0542",
+        "SRC-0545",
         "SRC-0546",
         "SRC-0547",
         "SRC-0553",
@@ -30763,14 +30783,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "SRC-0608",
         "SRC-0610",
         "SRC-0614",
+        "SRC-0617",
         "SRC-0618",
         "SRC-0627",
         "SRC-0653",
         "SRC-0654",
+        "SRC-0655",
         "SRC-0666",
         "SRC-0667",
         "SRC-0668",
         "SRC-0678",
+        "SRC-0681",
         "SRC-0682",
         "SRC-0683",
         "SRC-0684",
@@ -30781,24 +30804,20 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "SRC-0695",
         "SRC-0703",
         "SRC-0709",
-        "SRC-0717",
         "SRC-0727",
         "SRC-0743",
         "SRC-0744",
         "SRC-0754",
         "SRC-0755",
         "SRC-0756",
-        "SRC-0761",
         "SRC-0780",
         "SRC-0787",
         "SRC-0788",
         "SRC-0792",
         "SRC-0793",
         "SRC-0796",
-        "SRC-0797",
         "SRC-0798",
         "SRC-0799",
-        "SRC-0800",
         "SRC-0801",
         "SRC-0804",
         "SRC-0806",
@@ -30938,11 +30957,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "SRC-1227",
         "SRC-1228",
         "SRC-1230",
-        "SRC-1233",
         "SRC-1236",
         "SRC-1237",
         "SRC-1249",
-        "SRC-1250",
         "SRC-1253",
         "SRC-1363",
         "SRC-1364",
@@ -31306,7 +31323,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "SRC-2288",
         "SRC-2289",
         "SRC-2290",
-        "SRC-2293",
         "SRC-2294",
         "SRC-2295",
         "SRC-2296",
@@ -31406,7 +31422,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "SRC-2575",
         "SRC-2576",
         "SRC-2580",
-        "SRC-2587",
         "SRC-2589",
         "SRC-2591",
         "SRC-2592",
@@ -31415,6 +31430,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "SRC-2598",
         "SRC-2599",
         "SRC-2601",
+        "SRC-2602",
         "SRC-2603",
         "SRC-2608",
         "SRC-2609",
@@ -31435,15 +31451,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "changed_exceptions": [
         {
           "source_id": "SRC-0037",
-          "from": "access restricted",
-          "to": "review required",
-          "direction": "regressed"
-        },
-        {
-          "source_id": "SRC-2316",
-          "from": "access restricted",
-          "to": "review required",
-          "direction": "regressed"
+          "from": "review required",
+          "to": "access restricted",
+          "direction": "improved"
         }
       ],
       "aging_exceptions": [
@@ -31452,5914 +31462,5942 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0003",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0004",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0008",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0012",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0013",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0015",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0016",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0018",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0021",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0023",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0026",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0036",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0037",
-          "classification": "review required",
-          "previous_classification": "access restricted",
+          "classification": "access restricted",
+          "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0045",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0047",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0048",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0049",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0050",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0054",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0055",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0056",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0057",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0060",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0062",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0063",
           "classification": "broken",
           "previous_classification": "broken",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0068",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0070",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0071",
           "classification": "broken",
           "previous_classification": "broken",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0072",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0073",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0110",
           "classification": "broken",
           "previous_classification": "broken",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0117",
           "classification": "transient failure",
           "previous_classification": "transient failure",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0119",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0120",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0123",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0135",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0167",
           "classification": "transient failure",
           "previous_classification": "transient failure",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0168",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0172",
           "classification": "broken",
           "previous_classification": "broken",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0173",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0174",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0175",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0182",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0193",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0195",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0201",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0218",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0219",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0226",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0228",
           "classification": "transient failure",
           "previous_classification": "transient failure",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0231",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0232",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0233",
           "classification": "transient failure",
           "previous_classification": "transient failure",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0236",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0237",
           "classification": "transient failure",
           "previous_classification": "transient failure",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0251",
           "classification": "broken",
           "previous_classification": "broken",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0255",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0256",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0261",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0265",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0272",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0273",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0288",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0290",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0292",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0294",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0301",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0302",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0305",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0307",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0308",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0311",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0313",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0320",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0339",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0357",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0358",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0370",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0371",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0372",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0375",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0376",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0377",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0378",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0379",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0380",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0381",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0384",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0385",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0400",
           "classification": "transient failure",
           "previous_classification": "transient failure",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0407",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0408",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0411",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0412",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0419",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0428",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0429",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0430",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0432",
           "classification": "broken",
           "previous_classification": "broken",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0435",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0437",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0442",
           "classification": "broken",
           "previous_classification": "broken",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0448",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0457",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0458",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0468",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0472",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0474",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0478",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0479",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0480",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0487",
           "classification": "transient failure",
           "previous_classification": "transient failure",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0500",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0501",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0508",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0516",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0517",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0519",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0520",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0534",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0537",
           "classification": "transient failure",
           "previous_classification": "transient failure",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0542",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0546",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0547",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0553",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0555",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0556",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0560",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0567",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0595",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0608",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0610",
           "classification": "identity mismatch",
           "previous_classification": "identity mismatch",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0614",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0627",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0653",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0654",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0666",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0667",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0668",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0678",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0682",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0683",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0684",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0689",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0692",
           "classification": "broken",
           "previous_classification": "broken",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0693",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0694",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0695",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0703",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0709",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0717",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0727",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0743",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0744",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0754",
           "classification": "broken",
           "previous_classification": "broken",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0755",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0756",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0761",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0780",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0787",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0788",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0792",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0793",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0796",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0797",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-0800",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0801",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0804",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0806",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0807",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0808",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0810",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0811",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0831",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0835",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0851",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0894",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0895",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0913",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0916",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0918",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0919",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0921",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0923",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0924",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0925",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0929",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0930",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0931",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0932",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0933",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0934",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0937",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0940",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0944",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0945",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0946",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0948",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0949",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0952",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0956",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0957",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0958",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0959",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0961",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0962",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0963",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0965",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0966",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0967",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0969",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0972",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0973",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0975",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0976",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0977",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0979",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0980",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0981",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0982",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0983",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0985",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0986",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0987",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0988",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0989",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0991",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0993",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0994",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0996",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0997",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0998",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1000",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1004",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1005",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1007",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1008",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1009",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1010",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1011",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1013",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1015",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1016",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1017",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1018",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1020",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1021",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1023",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1024",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1025",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1026",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1027",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1029",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1030",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1032",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1034",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1035",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1036",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1037",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1040",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1044",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1045",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1046",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1047",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1049",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1050",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1052",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1056",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1059",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1060",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1061",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1062",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1063",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1064",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1066",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1067",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1069",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1071",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1074",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1075",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1076",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1077",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1078",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1079",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1081",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1082",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1084",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1085",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1086",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1087",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1088",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1090",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1092",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1093",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1094",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1096",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1097",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1098",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1140",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1143",
           "classification": "broken",
           "previous_classification": "broken",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1149",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1221",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1227",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1228",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1230",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-1233",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1236",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1237",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1249",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-1250",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1253",
           "classification": "broken",
           "previous_classification": "broken",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1363",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1364",
           "classification": "transient failure",
           "previous_classification": "transient failure",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1528",
           "classification": "broken",
           "previous_classification": "broken",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1839",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1857",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1909",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1911",
           "classification": "broken",
           "previous_classification": "broken",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1913",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1917",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1919",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1920",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1921",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1922",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1923",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1924",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1926",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1927",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1929",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1930",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1931",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1932",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1933",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1934",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1935",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1936",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1937",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1938",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1940",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1941",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1942",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1943",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1944",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1945",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1946",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1947",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1948",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1949",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1952",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1953",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1954",
           "classification": "identity mismatch",
           "previous_classification": "identity mismatch",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1955",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1956",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1957",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1958",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1959",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1960",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1961",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1962",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1964",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1966",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1968",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1970",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1971",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1972",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1973",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1974",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1975",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1976",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1977",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1978",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1979",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1980",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1981",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1982",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1983",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1984",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1985",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1986",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1987",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1988",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1989",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1991",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-1992",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2007",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2008",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2009",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2010",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2011",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2012",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2013",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2014",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2015",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2016",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2017",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2018",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2019",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2020",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2021",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2022",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2023",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2024",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2026",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2027",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2028",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2030",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2031",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2032",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2033",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2034",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2035",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2036",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2037",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2038",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2039",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2040",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2041",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2042",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2043",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2044",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2045",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2046",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2047",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2048",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2049",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2050",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2051",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2052",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2053",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2054",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2055",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2056",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2057",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2058",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2059",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2060",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2061",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2062",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2063",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2064",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2065",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2066",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2067",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2068",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2069",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2070",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2071",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2072",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2073",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2074",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2075",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2076",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2077",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2078",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2079",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2080",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2081",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2082",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2083",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2084",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2085",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2086",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2087",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2088",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2089",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2090",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2091",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2092",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2093",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2094",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2095",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2096",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2097",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2098",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2099",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2100",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2101",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2102",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2103",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2104",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2105",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2106",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2107",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2108",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2109",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2110",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2111",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2112",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2113",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2114",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2115",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2116",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2117",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2118",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2119",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2120",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2121",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2122",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2123",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2124",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2125",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2126",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2127",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2128",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2129",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2130",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2131",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2132",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2133",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2134",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2135",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2136",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2137",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2139",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2140",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2141",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2142",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2143",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2145",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2147",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2149",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2150",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2152",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2157",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2182",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2183",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2184",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2188",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2190",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2192",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2193",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2195",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2196",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2197",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2198",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2201",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2202",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2204",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2205",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2206",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2207",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2208",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2209",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2210",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2211",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2212",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2213",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2216",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2217",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2218",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2219",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2221",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2223",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2224",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2225",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2228",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2229",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2230",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2231",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2232",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2233",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2234",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2235",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2236",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2237",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2238",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2239",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2240",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2241",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2242",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2243",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2244",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2245",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2246",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2247",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2248",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2249",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2250",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2251",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2252",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2253",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2254",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2255",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2256",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2257",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2258",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2259",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2260",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2261",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2262",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2263",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2264",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2265",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2266",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2267",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2268",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2269",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2270",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2271",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2272",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2273",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2274",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2275",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2276",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2277",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2278",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2279",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2280",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2281",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2282",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2283",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2284",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2285",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2286",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2287",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2288",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2289",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2290",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
-        },
-        {
-          "source_id": "SRC-2293",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2294",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2295",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2296",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2297",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2298",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2299",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2301",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2302",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2303",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2304",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2305",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2306",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2307",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2308",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2309",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2310",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2311",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2312",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2315",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2316",
           "classification": "review required",
-          "previous_classification": "access restricted",
+          "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2327",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2328",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2330",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2333",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2334",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2335",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2338",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2339",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2341",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2342",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2343",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2344",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2345",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2346",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2348",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2349",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2350",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2351",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2356",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2357",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2358",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2359",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2360",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2361",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2362",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2363",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2366",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2379",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2381",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2385",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2399",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2406",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2407",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2408",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2409",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2411",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2412",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2420",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2446",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2465",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2501",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2521",
           "classification": "identity mismatch",
           "previous_classification": "identity mismatch",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2530",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2531",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2532",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2533",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2534",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2535",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2536",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2537",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2538",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2539",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2540",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2542",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2543",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2544",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2545",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2546",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2547",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2548",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2549",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2550",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2552",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2553",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2554",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2555",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2556",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2557",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2558",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2559",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2560",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2569",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2570",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2571",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2573",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2574",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2575",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2576",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2580",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2589",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2591",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2592",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2594",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2597",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2598",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2599",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2601",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2603",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2608",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2609",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2610",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2611",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2613",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2622",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2623",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2633",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2634",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2636",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2637",
           "classification": "review required",
           "previous_classification": "review required",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2639",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2645",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-2652",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T14:26:04+00:00",
-          "age_days": 0.07
+          "age_days": 0.09
         },
         {
           "source_id": "SRC-0007",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-0014",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-0017",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-0035",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-0240",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-0253",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-0350",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-0383",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-0445",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-0539",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-0618",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-0798",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-0799",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1368",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1370",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1372",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1374",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1377",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1380",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1382",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1384",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1386",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1388",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1390",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1392",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1397",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1399",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1403",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1407",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1409",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1410",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1418",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1420",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1422",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1424",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1426",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1430",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1438",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1440",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1442",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1444",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1446",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1461",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1481",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1487",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1493",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1499",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1509",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1517",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1520",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1542",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1547",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1785",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1786",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1787",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1788",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1789",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1790",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1791",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1792",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1793",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1794",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1795",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1796",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1798",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1800",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1801",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-1802",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
-        },
-        {
-          "source_id": "SRC-2587",
-          "classification": "access restricted",
-          "previous_classification": "access restricted",
-          "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-2612",
           "classification": "access restricted",
           "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T15:41:22+00:00",
-          "age_days": 0.02
+          "age_days": 0.04
         },
         {
           "source_id": "SRC-0010",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0011",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
-        },
-        {
-          "source_id": "SRC-0019",
-          "classification": "access restricted",
-          "previous_classification": "verified",
-          "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0022",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
-        },
-        {
-          "source_id": "SRC-0024",
-          "classification": "access restricted",
-          "previous_classification": "verified",
-          "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
-        },
-        {
-          "source_id": "SRC-0025",
-          "classification": "access restricted",
-          "previous_classification": "verified",
-          "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0069",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0125",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0164",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0220",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0243",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0266",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0285",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0286",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0310",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0359",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0373",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0382",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0409",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0418",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0449",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0471",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0475",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0545",
           "classification": "access restricted",
-          "previous_classification": "identity-preserving redirect",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0617",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
-        },
-        {
-          "source_id": "SRC-0623",
-          "classification": "transient failure",
-          "previous_classification": "verified",
-          "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0655",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
-        },
-        {
-          "source_id": "SRC-0680",
-          "classification": "access restricted",
-          "previous_classification": "verified",
-          "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-0681",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
-        },
-        {
-          "source_id": "SRC-0738",
-          "classification": "access restricted",
-          "previous_classification": "verified",
-          "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
-        },
-        {
-          "source_id": "SRC-0805",
-          "classification": "access restricted",
-          "previous_classification": "verified",
-          "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
-        },
-        {
-          "source_id": "SRC-1232",
-          "classification": "access restricted",
-          "previous_classification": "verified",
-          "first_seen_at": "2026-07-30T16:06:49+00:00",
-          "age_days": 0.0
+          "age_days": 0.02
         },
         {
           "source_id": "SRC-2602",
           "classification": "access restricted",
-          "previous_classification": "verified",
+          "previous_classification": "access restricted",
           "first_seen_at": "2026-07-30T16:06:49+00:00",
+          "age_days": 0.02
+        },
+        {
+          "source_id": "SRC-0006",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0020",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0097",
+          "classification": "transient failure",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0098",
+          "classification": "transient failure",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0099",
+          "classification": "transient failure",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0103",
+          "classification": "transient failure",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0104",
+          "classification": "transient failure",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0105",
+          "classification": "transient failure",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0106",
+          "classification": "transient failure",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0156",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0178",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0183",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0192",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0229",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0239",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0244",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0280",
+          "classification": "transient failure",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0314",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0360",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0386",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0410",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0436",
+          "classification": "transient failure",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0459",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0469",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0470",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0473",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0554",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0604",
+          "classification": "review required",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0726",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0739",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0764",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0802",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-0803",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-1187",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-1814",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-2600",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-2646",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
+          "age_days": 0.0
+        },
+        {
+          "source_id": "SRC-2651",
+          "classification": "access restricted",
+          "previous_classification": "verified",
+          "first_seen_at": "2026-07-30T16:39:17+00:00",
           "age_days": 0.0
         }
       ],
@@ -37367,14 +37405,54 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "left_scope_ids": [],
       "counts": {
         "new_exceptions": 0,
-        "regressed_exceptions": 35,
-        "resolved_exceptions": 28,
-        "ongoing_exceptions": 812,
+        "regressed_exceptions": 38,
+        "resolved_exceptions": 34,
+        "ongoing_exceptions": 811,
         "entered_scope": 0,
         "left_scope": 0
       }
     },
     "history": [
+      {
+        "checked_at": "2026-07-30T16:39:17+00:00",
+        "generation_id": "source-checker-f353845cb34daac51560",
+        "source_revision": "ec6456588aaec63064e42a249bcdeb436081a42d",
+        "source_hashes": {
+          "inventory/sources-pending.csv": "sha256:c6eafc0d61b601ee1db9c12e9271797eba4c0abd3f7bf75021df916989f5433c",
+          "inventory/sources.csv": "sha256:50c8e018da9f3fdd46b18dce130815003cbd1fd935d373fa8f3121671c301326"
+        },
+        "expected_count": 2055,
+        "actual_count": 2055,
+        "completeness": {
+          "complete": true,
+          "expected_count": 2055,
+          "actual_count": 2055,
+          "missing_count": 0
+        },
+        "eligible_urls": 2055,
+        "missing_source_ids": [],
+        "counts": {
+          "access restricted": 732,
+          "broken": 13,
+          "identity mismatch": 3,
+          "identity-preserving redirect": 97,
+          "review required": 83,
+          "transient failure": 18,
+          "verified": 1109
+        },
+        "deltas": {
+          "available": true,
+          "counts": {
+            "new_exceptions": 0,
+            "regressed_exceptions": 38,
+            "resolved_exceptions": 34,
+            "ongoing_exceptions": 811,
+            "entered_scope": 0,
+            "left_scope": 0
+          },
+          "baseline_checked_at": "2026-07-30T16:06:49+00:00"
+        }
+      },
       {
         "checked_at": "2026-07-30T16:06:49+00:00",
         "generation_id": "source-checker-98262e080b7d41695c64",
@@ -37491,8 +37569,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "producer_contract": {
       "contract_schema_version": 1,
-      "generation_id": "source-checker-98262e080b7d41695c64",
-      "source_revision": "9af57a47ef91e1472191ff1b5fa8e25666bda37f",
+      "generation_id": "source-checker-f353845cb34daac51560",
+      "source_revision": "ec6456588aaec63064e42a249bcdeb436081a42d",
       "expected_count": 2055,
       "actual_count": 2055,
       "source_hashes": {
@@ -37556,6 +37634,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "source-checker.js": "project-console-4856f03b94e840ed43fa"
+    "source-checker.js": "project-console-32489ba50fc51fa9e975"
   }
 });

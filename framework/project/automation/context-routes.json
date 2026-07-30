@@ -19,13 +19,13 @@
   "documents": {
     "public_premise": {
       "path": "README.md",
-      "sha256": "d0a5936c876d022ae186d40502aecc0074fcf1103bded47abb4a378aeab78ec4",
+      "sha256": "85d48e360c286df6e63db7e26432e19c58d2402f1be7e7db5b9df5dca293f583",
       "hash_policy": "pinned",
       "governing": true
     },
     "codex_bootstrap": {
       "path": "AGENTS.md",
-      "sha256": "3113177ff75828c40d4479c81368fdd86561fee3f6cceef0a4adf1cf8acc613a",
+      "sha256": "1017f17736ea1f14654f7a39563be1bf2e670cd76ad0d866fdf6a3970dd5ba7c",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -38,7 +38,7 @@
     },
     "framework_kernel": {
       "path": "framework/FRAMEWORK.md",
-      "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+      "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
       "hash_policy": "pinned",
       "governing": true
     },
@@ -121,7 +121,7 @@
     },
     "print_assembly": {
       "path": "framework/project/publication/print-assembly.md",
-      "sha256": "8071a57c114f7546a6e6d0b9e4607b3aca1bf7854303f337193aaf1786b59fe5",
+      "sha256": "6d81f940fda713b6e3c4bc6b40533b887325a437f50a0ad968e22b70eaedca00",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -163,7 +163,7 @@
     },
     "project_interface": {
       "path": "framework/project/interfaces/project-console.md",
-      "sha256": "c2da4d36181ece7b94c00414f87726a6c3c6eea2fc35c80eeedc135348fe9e13",
+      "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -214,7 +214,7 @@
     },
     "project_runtime_authority": {
       "path": "framework/project/automation/owner-local-runtime.md",
-      "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+      "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -593,7 +593,7 @@
     },
     "source_catalogs": {
       "path": "framework/standards/sources/source-records.md",
-      "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+      "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -629,7 +629,7 @@
     },
     "navigation_inventory": {
       "path": "framework/standards/content/navigation-and-indexes.md",
-      "sha256": "cbb9d69dab0d7481b517bfd69e0cb62efa48ede7923dc41912bd469eb875a841",
+      "sha256": "eb29d5dde72e892ce8c79f339c4c8f43168628f6ccb4816f418c7b7930ab7b38",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -701,7 +701,7 @@
     },
     "operation_project_update": {
       "path": "framework/project/workflows/project-update.md",
-      "sha256": "b585566de05f97492f24fd9fc3612aee31f1b729ef2a0453e9535e90fa19a317",
+      "sha256": "6d164fec0cd55bec92461b9d86bebd035794fb17a9c72de9e420578a377a0ef1",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -717,7 +717,7 @@
     },
     "operation_governance_change_recording": {
       "path": "framework/project/workflows/governance-change-recording.md",
-      "sha256": "5a97f326d4d78f441d7a02f26b6c62813900edb1d3434d945f80910d5fa0e946",
+      "sha256": "3c682e318b0391453228f7e54cadf97f3a27682fe6a92ff1508b722308a25fbe",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -729,7 +729,7 @@
     },
     "governance_change_registry": {
       "path": "framework/project/workflows/governance-change-registry.json",
-      "sha256": "53ca6fda3aab54639456278e084646e83a83fa1f87d65bed67dda0b53584324e",
+      "sha256": "71c08f77382b0de1fa36bc5a4936cf140a00acf3cd0122898588fc9748feb368",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -811,7 +811,7 @@
       "requires": [
         "project_structure"
       ],
-      "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c"
+      "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192"
     },
     "progress_view_standard": {
       "path": "framework/standards/interfaces/progress-views.md",
@@ -894,7 +894,7 @@
         "repository_map",
         "visual_identity"
       ],
-      "sha256": "1b6e790a1dab85298da32920600d08987ecd3f20e89b1629835e4cb2154ead29"
+      "sha256": "4b262c7a6bf61599116fa164d512042a1c7e2e8b813659dd750f034cc03523e4"
     },
     "project_audit_execution": {
       "path": "framework/project/workflows/audit-execution.md",

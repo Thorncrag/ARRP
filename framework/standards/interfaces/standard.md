@@ -4,7 +4,7 @@ status: active
 authority_scope: "Reusable accessibility, projection, interaction, warning, control, and canonical-authority rules for project-operated interfaces."
 load_when: "Designing, changing, or reviewing a dashboard, console, form, or other application-like interface."
 dependencies:
-  - "../../PROJECT_STRUCTURE.md"
+  - "../../component-registry.json"
 print_status: excluded
 print_exclusion_reason: "Internal interface-governance documentation."
 ---

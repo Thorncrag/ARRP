@@ -4,15 +4,21 @@ dependencies:
   - "framework/FRAMEWORK.md"
   - "framework/AGENT_OPERATING_RULES.md"
   - "framework/handoffs/current-task.md"
-  - "framework/CONTEXT_ROUTING.md"
-  - "framework/PROJECT_STRUCTURE.md"
+  - "framework/component-registry.json"
 ---
 
 # ARRP Codex Guidance
 
 Before substantive ARRP work, read the compact mandatory kernels in [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md) and [`framework/AGENT_OPERATING_RULES.md`](framework/AGENT_OPERATING_RULES.md), plus the live continuation checkpoint in [`framework/handoffs/current-task.md`](framework/handoffs/current-task.md). These files are the required floor, not the complete context for every task.
 
-Use the module route table in the Framework and the routing rules in [`framework/CONTEXT_ROUTING.md`](framework/CONTEXT_ROUTING.md) to load the additive union of every operation and capability implicated by the work, together with each selected module's dependencies. Expand context before taking an action that newly implicates another authority. Read [`framework/project/github/workflow.md`](framework/project/github/workflow.md) whenever GitHub issues, Project fields, lifecycle status, or authenticated synchronization may be affected.
+Use the module route table in the Framework and the validated routing view in
+[`framework/component-registry.json`](framework/component-registry.json) to
+load the additive union of every operation and capability implicated by the
+work, together with each selected module's dependencies. Expand context before
+taking an action that newly implicates another authority. Read
+[`framework/project/github/workflow.md`](framework/project/github/workflow.md)
+whenever GitHub issues, Project fields, lifecycle status, or authenticated
+synchronization may be affected.
 
 Use parallel agents by default when work divides into independent,
 non-overlapping responsibilities and the expected gain exceeds coordination
@@ -34,4 +40,7 @@ Any substantive issue work invokes the issue-development lifecycle check in the 
 
 Apply neutral characterization and reader-friendly language in project-authored public prose. Preserve exact internal terminology in technical records, machine-readable metadata, and attributed source material.
 
-This file is the required tool-discovered bootstrap, not a second detailed rulebook. The repository-purpose map in [`framework/PROJECT_STRUCTURE.md`](framework/PROJECT_STRUCTURE.md) identifies every governing file and its scope.
+This file is the required tool-discovered bootstrap, not a second detailed
+rulebook. The
+[`Component Registry`](framework/component-registry.json) identifies every
+governing file, its scope, and its current routing relationships.

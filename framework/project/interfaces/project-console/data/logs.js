@@ -2349,7 +2349,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "id": "GOV-2026-003",
           "values": {
             "governance_change_id": "GOV-2026-003",
-            "entry_sha256": "sha256:e8434796c88740a813fb35ccbd7ad1ea3adc35841c0ebd5c3d13913af9f29557",
+            "entry_sha256": "sha256:913625cae2537d41d08326309d6bd6d506993f8b5bfb746c997781da6d8ccb2a",
             "date": "2026-07-28",
             "status": "Canonical",
             "decision_class": "security_privacy_disclosure",
@@ -2359,7 +2359,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           },
           "values_html": {
             "governance_change_id": "GOV-2026-003",
-            "entry_sha256": "sha256:e8434796c88740a813fb35ccbd7ad1ea3adc35841c0ebd5c3d13913af9f29557",
+            "entry_sha256": "sha256:913625cae2537d41d08326309d6bd6d506993f8b5bfb746c997781da6d8ccb2a",
             "date": "2026-07-28",
             "status": "Canonical",
             "decision_class": "security<em>privacy<\/em>disclosure",
@@ -2367,8 +2367,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "live_activation": "No host activation is represented.",
             "supplement": "Required"
           },
-          "details_html": "<h2>GOV-2026-003 — Owner-local protected operational records<\/h2>\n<ul><li><strong>Decision class:<\/strong> security<em>privacy<\/em>disclosure<\/li><li><strong>Authorities:<\/strong> framework/project/github/disclosure-boundary.md; framework/PROJECT_STRUCTURE.md<\/li><li><strong>Decision:<\/strong> Preserves restricted operational records owner-locally while using public-safe summaries and projections without creating a second authority.<\/li><li><strong>Evidence:<\/strong> PR #479; merge <code>93a01eb24dfb94c848a1f937e9e1bdfeea72c74d<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Refined separately by GOV-2026-010 and GOV-2026-011; their refresh and owner-local location scopes remain distinct.<\/li><li><strong>Validation:<\/strong> Disclosure, path-authority, and projection checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
-          "search_text": "GOV-2026-003 GOV-2026-003 sha256:e8434796c88740a813fb35ccbd7ad1ea3adc35841c0ebd5c3d13913af9f29557 2026-07-28 Canonical security_privacy_disclosure Adopted on canonical history. No host activation is represented. Required GOV-2026-003 sha256:e8434796c88740a813fb35ccbd7ad1ea3adc35841c0ebd5c3d13913af9f29557 2026-07-28 Canonical security_privacy_disclosure Adopted on canonical history. No host activation is represented. Required",
+          "details_html": "<h2>GOV-2026-003 — Owner-local protected operational records<\/h2>\n<ul><li><strong>Decision class:<\/strong> security<em>privacy<\/em>disclosure<\/li><li><strong>Authorities:<\/strong> framework/project/github/disclosure-boundary.md; framework/archive/authorities/PROJECT_STRUCTURE.md<\/li><li><strong>Decision:<\/strong> Preserves restricted operational records owner-locally while using public-safe summaries and projections without creating a second authority.<\/li><li><strong>Evidence:<\/strong> PR #479; merge <code>93a01eb24dfb94c848a1f937e9e1bdfeea72c74d<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Refined separately by GOV-2026-010 and GOV-2026-011; their refresh and owner-local location scopes remain distinct.<\/li><li><strong>Validation:<\/strong> Disclosure, path-authority, and projection checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-003 GOV-2026-003 sha256:913625cae2537d41d08326309d6bd6d506993f8b5bfb746c997781da6d8ccb2a 2026-07-28 Canonical security_privacy_disclosure Adopted on canonical history. No host activation is represented. Required GOV-2026-003 sha256:913625cae2537d41d08326309d6bd6d506993f8b5bfb746c997781da6d8ccb2a 2026-07-28 Canonical security_privacy_disclosure Adopted on canonical history. No host activation is represented. Required",
           "title": "Owner-local protected operational records"
         },
         {
@@ -3360,6 +3360,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "logs.js": "project-console-4856f03b94e840ed43fa"
+    "logs.js": "project-console-32489ba50fc51fa9e975"
   }
 });

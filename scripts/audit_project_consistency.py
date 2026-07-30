@@ -291,9 +291,9 @@ TOOL_INTERFACES = (
 CURRENT_INTAKE_WORKFLOW_FILES = (
     ROOT / "framework" / "FRAMEWORK.md",
     ROOT / "framework" / "AGENT_OPERATING_RULES.md",
+    ROOT / "framework" / "component-registry.json",
     ROOT / "framework" / "standards" / "interfaces" / "public-input.md",
     ROOT / "framework" / "project" / "workflows" / "public-input-review.md",
-    ROOT / "framework" / "PROJECT_STRUCTURE.md",
     ROOT / "participate" / "README.md",
     ROOT / "participate" / "SECURITY.md",
     ROOT / "research" / "README.md",
@@ -3480,6 +3480,69 @@ def context_registry_dependency_values(value: object) -> list[str]:
     raise ValueError("dependencies must be a semicolon-delimited string or YAML array")
 
 
+COMPONENT_REGISTRY_DEPENDENCY_PATH = "framework/component-registry.json"
+ROUTING_PREDECESSOR_DOCUMENT_IDS = frozenset(
+    {"context_routing", "project_structure", "repository_map"}
+)
+
+
+def context_registry_dependencies_match(
+    declared: list[str],
+    expected: list[str],
+    *,
+    validation_mode: str,
+    predecessor_paths: frozenset[str],
+) -> bool:
+    """Compare exact route dependencies across the candidate-to-active boundary."""
+
+    if validation_mode == "candidate_validation_only":
+        if declared == expected:
+            return True
+        predecessor_indexes = [
+            index
+            for index, dependency in enumerate(expected)
+            if dependency in predecessor_paths
+        ]
+        if not predecessor_indexes:
+            return False
+        first = predecessor_indexes[0]
+        last = predecessor_indexes[-1]
+        if predecessor_indexes != list(range(first, last + 1)):
+            return False
+        projected = [
+            *expected[:first],
+            COMPONENT_REGISTRY_DEPENDENCY_PATH,
+            *expected[last + 1 :],
+        ]
+        return (
+            declared.count(COMPONENT_REGISTRY_DEPENDENCY_PATH) == 1
+            and not predecessor_paths.intersection(declared)
+            and declared == projected
+        )
+
+    if validation_mode in {
+        "active_configuration_validation_only",
+        "active_component_registry",
+    }:
+        if predecessor_paths.intersection(expected):
+            return False
+        if predecessor_paths.intersection(declared):
+            return False
+        registry_count = declared.count(COMPONENT_REGISTRY_DEPENDENCY_PATH)
+        if registry_count > 1:
+            return False
+        if registry_count == 0:
+            return declared == expected
+        without_registry = [
+            dependency
+            for dependency in declared
+            if dependency != COMPONENT_REGISTRY_DEPENDENCY_PATH
+        ]
+        return without_registry == expected
+
+    return False
+
+
 def _production_context_registry_path_authority(
     authority_mode: str,
     root: Path = ROOT,
@@ -3786,6 +3849,12 @@ def check_context_registry(
         document_id: str(spec.get("path") or "")
         for document_id, spec in documents.items()
     }
+    predecessor_paths = frozenset(
+        path_by_id[document_id]
+        for document_id in ROUTING_PREDECESSOR_DOCUMENT_IDS
+        if document_id in path_by_id
+    )
+    validation_mode = str(view.get("validation_mode") or "")
     root_resolved = ROOT.resolve()
     for document_id, spec in documents.items():
         relative = Path(str(spec.get("path") or ""))
@@ -3863,7 +3932,12 @@ def check_context_registry(
             path_by_id[required_id]
             for required_id in spec.get("requires") or []
         ]
-        if declared != expected:
+        if not context_registry_dependencies_match(
+            declared,
+            expected,
+            validation_mode=validation_mode,
+            predecessor_paths=predecessor_paths,
+        ):
             report(
                 "ERROR",
                 f"context module {document_id} front-matter dependencies differ "

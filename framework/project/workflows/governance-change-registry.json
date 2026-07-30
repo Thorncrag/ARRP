@@ -116,7 +116,7 @@
       "date": "2026-07-28",
       "title": "Owner-local protected operational records",
       "decision_class": "security_privacy_disclosure",
-      "authority": ["framework/project/github/disclosure-boundary.md", "framework/PROJECT_STRUCTURE.md"],
+      "authority": ["framework/project/github/disclosure-boundary.md", "framework/archive/authorities/PROJECT_STRUCTURE.md"],
       "source": {"kind": "git_merge", "commits": ["93a01eb24dfb94c848a1f937e9e1bdfeea72c74d"], "pull_requests": [479]},
       "destination": "framework/logs/governance/governance-change-log.md#gov-2026-003",
       "resolution": "Canonical; later runtime and refresh entries refine distinct aspects.",

@@ -59,10 +59,12 @@ class ExecutionHelperTests(unittest.TestCase):
             "discovery_context": "Quiet-queue governance review.",
             "observed_at": observed_at,
             "source_revision": "a" * 40,
-            "evidence": ["framework/PROJECT_STRUCTURE.md documents the expected owner."],
+            "evidence": [
+                "framework/component-registry.json documents the expected owner."
+            ],
             "reasoning": "The current record omits the required canonical linkage.",
             "uncertainty": "The intended owner is not yet conclusive.",
-            "affected_records": ["framework/PROJECT_STRUCTURE.md"],
+            "affected_records": ["framework/component-registry.json"],
             "consequence": "The gap can evade ordinary deterministic routing.",
             "authority": {
                 "classification": "delegated_judgment",

@@ -5,7 +5,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 1,
     "projection_id": "component-registry-console",
     "producer_id": "project-console-builder",
-    "generated_at": "2026-07-30T16:13:51+00:00",
+    "generated_at": "2026-07-30T18:14:03+00:00",
     "availability": "current",
     "complete": true,
     "reason_code": null,
@@ -42,11 +42,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "executable": false,
       "live_activation_verified": false,
       "predecessor_route_consulted": true,
-      "registry_sha256": "23e837e97867536d8b03d2c24625c08c760e2bca98d926bd1a6052f18f9f03e7",
-      "repository_revision": "9af57a47ef91e1472191ff1b5fa8e25666bda37f",
+      "registry_sha256": "4f0914de763bd21237eed4b3fad49a491d994c2be686aabb33ef16d04c77aa27",
+      "repository_revision": "ec6456588aaec63064e42a249bcdeb436081a42d",
       "source_binding_sha256": {
         "state": "known",
-        "value": "d3013d71c505af63aca9fd908ccbf26db5dc611df8e1e0eb644e03914045a611"
+        "value": "aa859c21c3226f83a9395d135c87794f75214e983fef67d06eb3c498ebe70641"
       }
     },
     "deferred": {
@@ -1667,7 +1667,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         ],
         "consumers": [],
         "digest_policy": "pinned",
-        "sha256": "3113177ff75828c40d4479c81368fdd86561fee3f6cceef0a4adf1cf8acc613a",
+        "sha256": "1017f17736ea1f14654f7a39563be1bf2e670cd76ad0d866fdf6a3970dd5ba7c",
         "console_route": "operations:component-registry:documents?document=codex_bootstrap",
         "retention_posture": "current",
         "history": {
@@ -2425,7 +2425,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "document:source_project_monitoring"
         ],
         "digest_policy": "pinned",
-        "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+        "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
         "console_route": "operations:component-registry:documents?document=framework_kernel",
         "retention_posture": "current",
         "history": {
@@ -2737,7 +2737,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "capability:change_control"
         ],
         "digest_policy": "pinned",
-        "sha256": "53ca6fda3aab54639456278e084646e83a83fa1f87d65bed67dda0b53584324e",
+        "sha256": "71c08f77382b0de1fa36bc5a4936cf140a00acf3cd0122898588fc9748feb368",
         "console_route": "operations:component-registry:documents?document=governance_change_registry",
         "retention_posture": "current",
         "history": {
@@ -2968,7 +2968,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "document:visual_identity"
         ],
         "digest_policy": "pinned",
-        "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c",
+        "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
         "console_route": "operations:component-registry:documents?document=interface_standard",
         "retention_posture": "current",
         "history": {
@@ -3452,7 +3452,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "profile:github_sync"
         ],
         "digest_policy": "pinned",
-        "sha256": "cbb9d69dab0d7481b517bfd69e0cb62efa48ede7923dc41912bd469eb875a841",
+        "sha256": "eb29d5dde72e892ce8c79f339c4c8f43168628f6ccb4816f418c7b7930ab7b38",
         "console_route": "operations:component-registry:documents?document=navigation_inventory",
         "retention_posture": "current",
         "history": {
@@ -3533,7 +3533,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "profile:github_sync"
         ],
         "digest_policy": "pinned",
-        "sha256": "1b6e790a1dab85298da32920600d08987ecd3f20e89b1629835e4cb2154ead29",
+        "sha256": "4b262c7a6bf61599116fa164d512042a1c7e2e8b813659dd750f034cc03523e4",
         "console_route": "operations:component-registry:documents?document=navigation_project_sync",
         "retention_posture": "current",
         "history": {
@@ -3689,7 +3689,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "document:governance_change_registry"
         ],
         "digest_policy": "pinned",
-        "sha256": "5a97f326d4d78f441d7a02f26b6c62813900edb1d3434d945f80910d5fa0e946",
+        "sha256": "3c682e318b0391453228f7e54cadf97f3a27682fe6a92ff1508b722308a25fbe",
         "console_route": "operations:component-registry:documents?document=operation_governance_change_recording",
         "retention_posture": "current",
         "history": {
@@ -3772,7 +3772,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "document:project_reconciliation"
         ],
         "digest_policy": "pinned",
-        "sha256": "b585566de05f97492f24fd9fc3612aee31f1b729ef2a0453e9535e90fa19a317",
+        "sha256": "6d164fec0cd55bec92461b9d86bebd035794fb17a9c72de9e420578a377a0ef1",
         "console_route": "operations:component-registry:documents?document=operation_project_update",
         "retention_posture": "current",
         "history": {
@@ -3927,7 +3927,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "document:public_release"
         ],
         "digest_policy": "pinned",
-        "sha256": "8071a57c114f7546a6e6d0b9e4607b3aca1bf7854303f337193aaf1786b59fe5",
+        "sha256": "6d81f940fda713b6e3c4bc6b40533b887325a437f50a0ad968e22b70eaedca00",
         "console_route": "operations:component-registry:documents?document=print_assembly",
         "retention_posture": "current",
         "history": {
@@ -4708,7 +4708,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "document:project_audit_execution"
         ],
         "digest_policy": "pinned",
-        "sha256": "c2da4d36181ece7b94c00414f87726a6c3c6eea2fc35c80eeedc135348fe9e13",
+        "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
         "console_route": "operations:component-registry:documents?document=project_interface",
         "retention_posture": "current",
         "history": {
@@ -5028,7 +5028,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "document:transaction_lifecycle"
         ],
         "digest_policy": "pinned",
-        "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+        "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
         "console_route": "operations:component-registry:documents?document=project_runtime_authority",
         "retention_posture": "current",
         "history": {
@@ -5347,7 +5347,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "dependencies": [],
         "consumers": [],
         "digest_policy": "pinned",
-        "sha256": "d0a5936c876d022ae186d40502aecc0074fcf1103bded47abb4a378aeab78ec4",
+        "sha256": "85d48e360c286df6e63db7e26432e19c58d2402f1be7e7db5b9df5dca293f583",
         "console_route": "operations:component-registry:documents?document=public_premise",
         "retention_posture": "current",
         "history": {
@@ -6802,7 +6802,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "profile:candidate_research"
         ],
         "digest_policy": "pinned",
-        "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+        "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
         "console_route": "operations:component-registry:documents?document=source_catalogs",
         "retention_posture": "current",
         "history": {
@@ -8654,7 +8654,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         "current_artifact_count": {
           "state": "known",
-          "value": 0
+          "value": 9
         }
       },
       {
@@ -9617,7 +9617,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         "current_artifact_count": {
           "state": "known",
-          "value": 7
+          "value": 51
         }
       },
       {
@@ -9745,7 +9745,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "authoritative": false,
       "source_import": {
         "path": "framework/project/automation/context-routes.json",
-        "sha256": "9501182e214e38ef5d88306c473d264e72304119d69c1c91c667ea5508f033d5",
+        "sha256": "f30b0d113c315677827e29044fcebcded631020ebf8bb3bf60af2730262cd6fd",
         "schema_version": 2,
         "import_semantics": "exact_validated_snapshot"
       },
@@ -9988,7 +9988,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "path": "AGENTS.md",
           "governing": true,
           "hash_policy": "pinned",
-          "sha256": "3113177ff75828c40d4479c81368fdd86561fee3f6cceef0a4adf1cf8acc613a",
+          "sha256": "1017f17736ea1f14654f7a39563be1bf2e670cd76ad0d866fdf6a3970dd5ba7c",
           "requires": [
             "framework_kernel",
             "agent_rules_kernel",
@@ -10056,7 +10056,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "path": "framework/FRAMEWORK.md",
           "governing": true,
           "hash_policy": "pinned",
-          "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+          "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
           "requires": []
         },
         {
@@ -10097,7 +10097,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "path": "framework/project/workflows/governance-change-registry.json",
           "governing": true,
           "hash_policy": "pinned",
-          "sha256": "53ca6fda3aab54639456278e084646e83a83fa1f87d65bed67dda0b53584324e",
+          "sha256": "71c08f77382b0de1fa36bc5a4936cf140a00acf3cd0122898588fc9748feb368",
           "requires": [
             "operation_governance_change_recording"
           ]
@@ -10130,7 +10130,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "path": "framework/standards/interfaces/standard.md",
           "governing": true,
           "hash_policy": "pinned",
-          "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c",
+          "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
           "requires": [
             "project_structure"
           ]
@@ -10198,7 +10198,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "path": "framework/standards/content/navigation-and-indexes.md",
           "governing": true,
           "hash_policy": "pinned",
-          "sha256": "cbb9d69dab0d7481b517bfd69e0cb62efa48ede7923dc41912bd469eb875a841",
+          "sha256": "eb29d5dde72e892ce8c79f339c4c8f43168628f6ccb4816f418c7b7930ab7b38",
           "requires": [
             "framework_kernel",
             "project_structure",
@@ -10210,7 +10210,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "path": "framework/project/workflows/navigation-sync.md",
           "governing": true,
           "hash_policy": "pinned",
-          "sha256": "1b6e790a1dab85298da32920600d08987ecd3f20e89b1629835e4cb2154ead29",
+          "sha256": "4b262c7a6bf61599116fa164d512042a1c7e2e8b813659dd750f034cc03523e4",
           "requires": [
             "navigation_inventory",
             "navigation_topic_guides",
@@ -10237,7 +10237,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "path": "framework/project/workflows/governance-change-recording.md",
           "governing": true,
           "hash_policy": "pinned",
-          "sha256": "5a97f326d4d78f441d7a02f26b6c62813900edb1d3434d945f80910d5fa0e946",
+          "sha256": "3c682e318b0391453228f7e54cadf97f3a27682fe6a92ff1508b722308a25fbe",
           "requires": [
             "framework_kernel",
             "project_structure",
@@ -10250,7 +10250,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "path": "framework/project/workflows/project-update.md",
           "governing": true,
           "hash_policy": "pinned",
-          "sha256": "b585566de05f97492f24fd9fc3612aee31f1b729ef2a0453e9535e90fa19a317",
+          "sha256": "6d164fec0cd55bec92461b9d86bebd035794fb17a9c72de9e420578a377a0ef1",
           "requires": [
             "framework_kernel",
             "github_workflow",
@@ -10278,7 +10278,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "path": "framework/project/publication/print-assembly.md",
           "governing": true,
           "hash_policy": "pinned",
-          "sha256": "8071a57c114f7546a6e6d0b9e4607b3aca1bf7854303f337193aaf1786b59fe5",
+          "sha256": "6d81f940fda713b6e3c4bc6b40533b887325a437f50a0ad968e22b70eaedca00",
           "requires": [
             "print_assembly_standard",
             "project_structure",
@@ -10392,7 +10392,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "path": "framework/project/interfaces/project-console.md",
           "governing": true,
           "hash_policy": "pinned",
-          "sha256": "c2da4d36181ece7b94c00414f87726a6c3c6eea2fc35c80eeedc135348fe9e13",
+          "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
           "requires": [
             "interface_standard",
             "progress_view_standard",
@@ -10444,7 +10444,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "path": "framework/project/automation/owner-local-runtime.md",
           "governing": true,
           "hash_policy": "pinned",
-          "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+          "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
           "requires": [
             "agent_rules_kernel",
             "project_structure",
@@ -10493,7 +10493,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "path": "README.md",
           "governing": true,
           "hash_policy": "pinned",
-          "sha256": "d0a5936c876d022ae186d40502aecc0074fcf1103bded47abb4a378aeab78ec4",
+          "sha256": "85d48e360c286df6e63db7e26432e19c58d2402f1be7e7db5b9df5dca293f583",
           "requires": []
         },
         {
@@ -10698,7 +10698,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "path": "framework/standards/sources/source-records.md",
           "governing": true,
           "hash_policy": "pinned",
-          "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+          "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
           "requires": [
             "evidence_standards",
             "issue_architecture",
@@ -11260,7 +11260,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -11578,7 +11578,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -11723,7 +11723,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -12181,7 +12181,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -12507,7 +12507,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -12656,7 +12656,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -13116,7 +13116,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/content/navigation-and-indexes.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "cbb9d69dab0d7481b517bfd69e0cb62efa48ede7923dc41912bd469eb875a841",
+              "sha256": "eb29d5dde72e892ce8c79f339c4c8f43168628f6ccb4816f418c7b7930ab7b38",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -13209,7 +13209,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c",
+              "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -13257,7 +13257,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/navigation-sync.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "1b6e790a1dab85298da32920600d08987ecd3f20e89b1629835e4cb2154ead29",
+              "sha256": "4b262c7a6bf61599116fa164d512042a1c7e2e8b813659dd750f034cc03523e4",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -13450,7 +13450,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/interfaces/project-console.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c2da4d36181ece7b94c00414f87726a6c3c6eea2fc35c80eeedc135348fe9e13",
+              "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -13575,7 +13575,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -13903,7 +13903,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -14269,7 +14269,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -14571,7 +14571,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "AGENTS.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "3113177ff75828c40d4479c81368fdd86561fee3f6cceef0a4adf1cf8acc613a",
+              "sha256": "1017f17736ea1f14654f7a39563be1bf2e670cd76ad0d866fdf6a3970dd5ba7c",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -14617,7 +14617,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/content/navigation-and-indexes.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "cbb9d69dab0d7481b517bfd69e0cb62efa48ede7923dc41912bd469eb875a841",
+              "sha256": "eb29d5dde72e892ce8c79f339c4c8f43168628f6ccb4816f418c7b7930ab7b38",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -14725,7 +14725,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/publication/print-assembly.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "8071a57c114f7546a6e6d0b9e4607b3aca1bf7854303f337193aaf1786b59fe5",
+              "sha256": "6d81f940fda713b6e3c4bc6b40533b887325a437f50a0ad968e22b70eaedca00",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -14822,7 +14822,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c",
+              "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -14873,7 +14873,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/navigation-sync.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "1b6e790a1dab85298da32920600d08987ecd3f20e89b1629835e4cb2154ead29",
+              "sha256": "4b262c7a6bf61599116fa164d512042a1c7e2e8b813659dd750f034cc03523e4",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -14901,7 +14901,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/project-update.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "b585566de05f97492f24fd9fc3612aee31f1b729ef2a0453e9535e90fa19a317",
+              "sha256": "6d164fec0cd55bec92461b9d86bebd035794fb17a9c72de9e420578a377a0ef1",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -14932,7 +14932,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/governance-change-recording.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "5a97f326d4d78f441d7a02f26b6c62813900edb1d3434d945f80910d5fa0e946",
+              "sha256": "3c682e318b0391453228f7e54cadf97f3a27682fe6a92ff1508b722308a25fbe",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -14958,7 +14958,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/governance-change-registry.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "53ca6fda3aab54639456278e084646e83a83fa1f87d65bed67dda0b53584324e",
+              "sha256": "71c08f77382b0de1fa36bc5a4936cf140a00acf3cd0122898588fc9748feb368",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -15242,7 +15242,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/interfaces/project-console.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c2da4d36181ece7b94c00414f87726a6c3c6eea2fc35c80eeedc135348fe9e13",
+              "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -15474,7 +15474,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "README.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "d0a5936c876d022ae186d40502aecc0074fcf1103bded47abb4a378aeab78ec4",
+              "sha256": "85d48e360c286df6e63db7e26432e19c58d2402f1be7e7db5b9df5dca293f583",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -15872,7 +15872,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -16177,7 +16177,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/content/navigation-and-indexes.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "cbb9d69dab0d7481b517bfd69e0cb62efa48ede7923dc41912bd469eb875a841",
+              "sha256": "eb29d5dde72e892ce8c79f339c4c8f43168628f6ccb4816f418c7b7930ab7b38",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -16294,7 +16294,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -16367,7 +16367,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c",
+              "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -16411,7 +16411,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/navigation-sync.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "1b6e790a1dab85298da32920600d08987ecd3f20e89b1629835e4cb2154ead29",
+              "sha256": "4b262c7a6bf61599116fa164d512042a1c7e2e8b813659dd750f034cc03523e4",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -16657,7 +16657,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -16879,7 +16879,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -17358,7 +17358,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -17748,7 +17748,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/content/navigation-and-indexes.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "cbb9d69dab0d7481b517bfd69e0cb62efa48ede7923dc41912bd469eb875a841",
+              "sha256": "eb29d5dde72e892ce8c79f339c4c8f43168628f6ccb4816f418c7b7930ab7b38",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -17826,7 +17826,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c",
+              "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -17877,7 +17877,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/navigation-sync.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "1b6e790a1dab85298da32920600d08987ecd3f20e89b1629835e4cb2154ead29",
+              "sha256": "4b262c7a6bf61599116fa164d512042a1c7e2e8b813659dd750f034cc03523e4",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -17930,7 +17930,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/publication/print-assembly.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "8071a57c114f7546a6e6d0b9e4607b3aca1bf7854303f337193aaf1786b59fe5",
+              "sha256": "6d81f940fda713b6e3c4bc6b40533b887325a437f50a0ad968e22b70eaedca00",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -17980,7 +17980,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/project-update.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "b585566de05f97492f24fd9fc3612aee31f1b729ef2a0453e9535e90fa19a317",
+              "sha256": "6d164fec0cd55bec92461b9d86bebd035794fb17a9c72de9e420578a377a0ef1",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -18010,7 +18010,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/governance-change-recording.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "5a97f326d4d78f441d7a02f26b6c62813900edb1d3434d945f80910d5fa0e946",
+              "sha256": "3c682e318b0391453228f7e54cadf97f3a27682fe6a92ff1508b722308a25fbe",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -18036,7 +18036,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/governance-change-registry.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "53ca6fda3aab54639456278e084646e83a83fa1f87d65bed67dda0b53584324e",
+              "sha256": "71c08f77382b0de1fa36bc5a4936cf140a00acf3cd0122898588fc9748feb368",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -18268,7 +18268,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/interfaces/project-console.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c2da4d36181ece7b94c00414f87726a6c3c6eea2fc35c80eeedc135348fe9e13",
+              "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -18676,7 +18676,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -19003,7 +19003,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -19285,7 +19285,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -19667,7 +19667,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/content/navigation-and-indexes.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "cbb9d69dab0d7481b517bfd69e0cb62efa48ede7923dc41912bd469eb875a841",
+              "sha256": "eb29d5dde72e892ce8c79f339c4c8f43168628f6ccb4816f418c7b7930ab7b38",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -19760,7 +19760,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c",
+              "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -19808,7 +19808,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/navigation-sync.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "1b6e790a1dab85298da32920600d08987ecd3f20e89b1629835e4cb2154ead29",
+              "sha256": "4b262c7a6bf61599116fa164d512042a1c7e2e8b813659dd750f034cc03523e4",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -20001,7 +20001,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/interfaces/project-console.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c2da4d36181ece7b94c00414f87726a6c3c6eea2fc35c80eeedc135348fe9e13",
+              "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -20169,7 +20169,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -20484,7 +20484,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -20625,7 +20625,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -21032,7 +21032,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -21314,7 +21314,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -21456,7 +21456,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -21716,7 +21716,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c",
+              "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -21826,7 +21826,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -22146,7 +22146,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -22424,7 +22424,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -22532,7 +22532,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/content/navigation-and-indexes.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "cbb9d69dab0d7481b517bfd69e0cb62efa48ede7923dc41912bd469eb875a841",
+              "sha256": "eb29d5dde72e892ce8c79f339c4c8f43168628f6ccb4816f418c7b7930ab7b38",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -22625,7 +22625,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c",
+              "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -22673,7 +22673,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/navigation-sync.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "1b6e790a1dab85298da32920600d08987ecd3f20e89b1629835e4cb2154ead29",
+              "sha256": "4b262c7a6bf61599116fa164d512042a1c7e2e8b813659dd750f034cc03523e4",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -22917,7 +22917,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/interfaces/project-console.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c2da4d36181ece7b94c00414f87726a6c3c6eea2fc35c80eeedc135348fe9e13",
+              "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -22995,7 +22995,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -23187,7 +23187,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -23456,7 +23456,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -23646,7 +23646,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -24064,7 +24064,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -24345,7 +24345,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -24546,7 +24546,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/content/navigation-and-indexes.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "cbb9d69dab0d7481b517bfd69e0cb62efa48ede7923dc41912bd469eb875a841",
+              "sha256": "eb29d5dde72e892ce8c79f339c4c8f43168628f6ccb4816f418c7b7930ab7b38",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -24595,7 +24595,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -24694,7 +24694,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/publication/print-assembly.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "8071a57c114f7546a6e6d0b9e4607b3aca1bf7854303f337193aaf1786b59fe5",
+              "sha256": "6d81f940fda713b6e3c4bc6b40533b887325a437f50a0ad968e22b70eaedca00",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -24787,7 +24787,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c",
+              "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -24831,7 +24831,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/navigation-sync.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "1b6e790a1dab85298da32920600d08987ecd3f20e89b1629835e4cb2154ead29",
+              "sha256": "4b262c7a6bf61599116fa164d512042a1c7e2e8b813659dd750f034cc03523e4",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -24857,7 +24857,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/project-update.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "b585566de05f97492f24fd9fc3612aee31f1b729ef2a0453e9535e90fa19a317",
+              "sha256": "6d164fec0cd55bec92461b9d86bebd035794fb17a9c72de9e420578a377a0ef1",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -24887,7 +24887,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/governance-change-recording.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "5a97f326d4d78f441d7a02f26b6c62813900edb1d3434d945f80910d5fa0e946",
+              "sha256": "3c682e318b0391453228f7e54cadf97f3a27682fe6a92ff1508b722308a25fbe",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -24913,7 +24913,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/governance-change-registry.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "53ca6fda3aab54639456278e084646e83a83fa1f87d65bed67dda0b53584324e",
+              "sha256": "71c08f77382b0de1fa36bc5a4936cf140a00acf3cd0122898588fc9748feb368",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -24995,7 +24995,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -25264,7 +25264,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -25401,7 +25401,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -25784,7 +25784,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -25850,7 +25850,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -26005,7 +26005,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -26159,7 +26159,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c",
+              "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -26451,7 +26451,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -26575,7 +26575,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -26727,7 +26727,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/interfaces/project-console.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c2da4d36181ece7b94c00414f87726a6c3c6eea2fc35c80eeedc135348fe9e13",
+              "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -26772,7 +26772,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -27142,7 +27142,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -27301,7 +27301,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -27610,7 +27610,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -27765,7 +27765,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -28087,7 +28087,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/content/navigation-and-indexes.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "cbb9d69dab0d7481b517bfd69e0cb62efa48ede7923dc41912bd469eb875a841",
+              "sha256": "eb29d5dde72e892ce8c79f339c4c8f43168628f6ccb4816f418c7b7930ab7b38",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -28204,7 +28204,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -28254,7 +28254,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c",
+              "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -28298,7 +28298,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/navigation-sync.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "1b6e790a1dab85298da32920600d08987ecd3f20e89b1629835e4cb2154ead29",
+              "sha256": "4b262c7a6bf61599116fa164d512042a1c7e2e8b813659dd750f034cc03523e4",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -28340,7 +28340,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -28548,7 +28548,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -28753,7 +28753,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/content/navigation-and-indexes.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "cbb9d69dab0d7481b517bfd69e0cb62efa48ede7923dc41912bd469eb875a841",
+              "sha256": "eb29d5dde72e892ce8c79f339c4c8f43168628f6ccb4816f418c7b7930ab7b38",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -28802,7 +28802,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -28901,7 +28901,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/publication/print-assembly.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "8071a57c114f7546a6e6d0b9e4607b3aca1bf7854303f337193aaf1786b59fe5",
+              "sha256": "6d81f940fda713b6e3c4bc6b40533b887325a437f50a0ad968e22b70eaedca00",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -29063,7 +29063,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c",
+              "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -29107,7 +29107,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/navigation-sync.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "1b6e790a1dab85298da32920600d08987ecd3f20e89b1629835e4cb2154ead29",
+              "sha256": "4b262c7a6bf61599116fa164d512042a1c7e2e8b813659dd750f034cc03523e4",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -29133,7 +29133,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/workflows/project-update.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "b585566de05f97492f24fd9fc3612aee31f1b729ef2a0453e9535e90fa19a317",
+              "sha256": "6d164fec0cd55bec92461b9d86bebd035794fb17a9c72de9e420578a377a0ef1",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -29358,7 +29358,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -29657,7 +29657,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -29912,7 +29912,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -30061,7 +30061,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "7e16b90400c4f46540413b399f472ac987c8140ba87bebfdcdd3b625d07e2a1c",
+              "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -30274,7 +30274,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -30412,7 +30412,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -30713,7 +30713,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/content/navigation-and-indexes.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "cbb9d69dab0d7481b517bfd69e0cb62efa48ede7923dc41912bd469eb875a841",
+              "sha256": "eb29d5dde72e892ce8c79f339c4c8f43168628f6ccb4816f418c7b7930ab7b38",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -30806,7 +30806,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -30904,7 +30904,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/publication/print-assembly.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "8071a57c114f7546a6e6d0b9e4607b3aca1bf7854303f337193aaf1786b59fe5",
+              "sha256": "6d81f940fda713b6e3c4bc6b40533b887325a437f50a0ad968e22b70eaedca00",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -30988,7 +30988,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -31297,7 +31297,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -31415,7 +31415,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -31627,7 +31627,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -31901,7 +31901,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -32046,7 +32046,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/automation/owner-local-runtime.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
+              "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -32160,7 +32160,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/FRAMEWORK.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "c000ccd071b81aee679cc7a0f0d4f93ec02469d5c92cdaf0a296687a12c28552",
+              "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -32452,7 +32452,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "35b56a327f09d4a8023a267e893fedecf9ab984dee10699da60302ff9fe25d7f",
+              "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -34043,8 +34043,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       ],
       "validation": {
         "valid": true,
-        "source_sha256": "9501182e214e38ef5d88306c473d264e72304119d69c1c91c667ea5508f033d5",
-        "registry_route_sha256": "a71744dbfc913e891caac619bb7f6b7481301c9616d22f7de78aca6ed54f1e37",
+        "source_sha256": "f30b0d113c315677827e29044fcebcded631020ebf8bb3bf60af2730262cd6fd",
+        "registry_route_sha256": "cc8c61bb629f30d0d0e8f15db1325a0c309e80715c16da99c816f8d9bb249446",
         "counts": {
           "documents": 88,
           "governing_documents": 87,
@@ -34066,7 +34066,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "authoritative": false,
       "executable": false,
       "registry_revision": 1,
-      "registry_sha256": "23e837e97867536d8b03d2c24625c08c760e2bca98d926bd1a6052f18f9f03e7",
+      "registry_sha256": "4f0914de763bd21237eed4b3fad49a491d994c2be686aabb33ef16d04c77aa27",
       "current_candidate_counts": {
         "documents": 88,
         "governing_documents": 87,
@@ -34106,6 +34106,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "component-registry.js": "project-console-4856f03b94e840ed43fa"
+    "component-registry.js": "project-console-32489ba50fc51fa9e975"
   }
 });

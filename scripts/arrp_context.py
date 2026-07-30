@@ -41,6 +41,9 @@ except ModuleNotFoundError:
 
 
 ROOT = Path(__file__).resolve().parents[1]
+PREDECESSOR_ROUTE_RELATIVE = (
+    Path("framework") / "project" / "automation" / "context-routes.json"
+)
 ISSUE_ID_RE = re.compile(r"\b(?:[A-Z][A-Z0-9]*-\d{3}|HOR-\d{3})\b")
 FORMAL_HORIZON_ID_RE = re.compile(r"^HOR-\d{3}$")
 HORIZON_ISSUE_URL_RE = re.compile(
@@ -496,13 +499,7 @@ def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = Tru
     canonical_manifest = (
         canonical_root == ROOT.resolve()
         and path
-        == (
-            canonical_root
-            / "framework"
-            / "project"
-            / "automation"
-            / "context-routes.json"
-        )
+        == canonical_root / PREDECESSOR_ROUTE_RELATIVE
     )
     manifest = load_json(path, root)
     schema_version = manifest.get("schema_version")

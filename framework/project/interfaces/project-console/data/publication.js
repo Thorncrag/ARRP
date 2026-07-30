@@ -7727,7 +7727,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2527,
+      "word_count": 2529,
       "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7974,10 +7974,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/project/REPOSITORY_MAP.md",
-          "exists": true
-        },
-        {
           "path": "framework/project/profile/maturity-profile.md",
           "exists": true
         },
@@ -8018,7 +8014,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2772,
+      "word_count": 2776,
       "estimated_pages": 5,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8106,7 +8102,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 8905,
+      "word_count": 8895,
       "estimated_pages": 14,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8285,10 +8281,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/PROJECT_STRUCTURE.md",
-          "exists": true
-        },
-        {
           "path": "framework/project/workflows/navigation-sync.md",
           "exists": true
         },
@@ -8325,7 +8317,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1543,
+      "word_count": 1544,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8796,10 +8788,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/PROJECT_STRUCTURE.md",
-          "exists": true
-        },
-        {
           "path": "framework/project/github/workflow.md",
           "exists": true
         },
@@ -8809,10 +8797,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         {
           "path": "framework/project/workflows/public-input-review.md",
-          "exists": true
-        },
-        {
-          "path": "framework/CONTEXT_ROUTING.md",
           "exists": true
         },
         {
@@ -8992,7 +8976,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3613,
+      "word_count": 3617,
       "estimated_pages": 6,
       "table_count": 5,
       "max_table_columns": 2,
@@ -9374,10 +9358,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sort_key": "framework/standards/content-content navigation, indexes, and synchronization",
       "internal_links": [
         {
-          "path": "framework/PROJECT_STRUCTURE.md",
-          "exists": true
-        },
-        {
           "path": "framework/standards/content/maturity-and-gates.md",
           "exists": true
         },
@@ -9465,12 +9445,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 986,
+      "word_count": 1009,
       "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 43
+      "longest_unbroken_token": 42
     },
     {
       "title": "Elim Agent Runbook",
@@ -10678,12 +10658,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/status/sources-source checker bot current report",
       "internal_links": [],
-      "word_count": 6767,
+      "word_count": 6802,
       "estimated_pages": 11,
       "table_count": 2,
       "max_table_columns": 4,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 126
+      "longest_unbroken_token": 188
     },
     {
       "title": "Source Checker Bot Runbook",
@@ -10757,10 +10737,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         {
           "path": "framework/standards/content/record-architecture.md",
-          "exists": true
-        },
-        {
-          "path": "framework/PROJECT_STRUCTURE.md",
           "exists": true
         },
         {
@@ -10971,15 +10947,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/PROJECT_STRUCTURE.md",
-          "exists": true
-        },
-        {
           "path": "framework/AGENT_OPERATING_RULES.md",
           "exists": true
         }
       ],
-      "word_count": 1841,
+      "word_count": 1844,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -14030,10 +14002,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "framework/project/publication/print-assembly.md",
           "exists": true
-        },
-        {
-          "path": "framework/PROJECT_STRUCTURE.md",
-          "exists": true
         }
       ],
       "word_count": 659,
@@ -16748,7 +16716,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "link_export_validation": {
         "link_inventory_available": true,
-        "internal_link_count": 1291,
+        "internal_link_count": 1283,
         "missing_link_count": 6,
         "missing_links": [
           {
@@ -16797,7 +16765,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "cross_edition_references": {
         "available": true,
-        "count": 245,
+        "count": 243,
         "items": [
           {
             "source": "areas/ELEC/issues/ELEC-004.md",
@@ -18173,20 +18141,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           },
           {
             "source": "README.md",
-            "target": "framework/PROJECT_STRUCTURE.md",
-            "source_edition": "executive-summary",
-            "target_disposition": "excluded",
-            "review_disposition": null
-          },
-          {
-            "source": "README.md",
-            "target": "framework/PROJECT_STRUCTURE.md",
-            "source_edition": "public-proposal",
-            "target_disposition": "excluded",
-            "review_disposition": null
-          },
-          {
-            "source": "README.md",
             "target": "framework/AGENT_OPERATING_RULES.md",
             "source_edition": "executive-summary",
             "target_disposition": "excluded",
@@ -18536,8 +18490,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "9af57a47ef91e1472191ff1b5fa8e25666bda37f",
-        "generated_at": "2026-07-30T16:13:38+00:00"
+        "revision": "ec6456588aaec63064e42a249bcdeb436081a42d",
+        "generated_at": "2026-07-30T18:13:42+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20293,6 +20247,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-4856f03b94e840ed43fa"
+    "publication.js": "project-console-32489ba50fc51fa9e975"
   }
 });

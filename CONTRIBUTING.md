@@ -23,7 +23,7 @@ Contributors should follow the project's current governing documents rather than
 - [Framework and Methodology](framework/FRAMEWORK.md)
 - [GitHub Workflow](framework/project/github/workflow.md)
 - [Print Assembly Framework](framework/project/publication/print-assembly.md)
-- [Project Structure](framework/PROJECT_STRUCTURE.md)
+- [Component Registry](framework/component-registry.json)
 
 If those documents change, contributors should follow the current version of those documents.
 

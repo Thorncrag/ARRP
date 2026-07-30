@@ -482,13 +482,12 @@ Operations owns:
    rules across Invariants (7), Selection (17), Validation (10), Failure
    rules (10), Currentness (6), Budgets (4), and Comprehensive review (10).
    Rule meaning and readable text come from the validated producer; the
-   browser may not infer them from predecessor prose. Every rule remains
-   bound to `framework/CONTEXT_ROUTING.md` at
+   browser may not infer them from predecessor prose. Historical rule
+   provenance remains bound to the frozen predecessor digest
    `246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7`.
-   While the registry remains a candidate, the predecessor document and
-   `context-routes.json` remain the live routing authorities. A simulated
-   tracked-active configuration instead presents the embedded routing
-   authority, frozen historical predecessor provenance, and a separately
+   A candidate registry remains explicitly predecessor-bound. An active
+   tracked configuration instead presents the embedded Component Registry
+   routing authority, frozen historical predecessor provenance, and a separately
    identified nonauthoritative readable representation; it does not read the
    predecessor files or present either provenance or representation as a
    second authority. The public projection exposes only a safe retained-

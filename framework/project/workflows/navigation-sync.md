@@ -7,7 +7,7 @@ dependencies:
   - "../../standards/content/navigation-and-indexes.md"
   - "../../standards/content/topic-guides.md"
   - "../github/workflow.md"
-  - "../REPOSITORY_MAP.md"
+  - "../../component-registry.json"
   - "../interfaces/visual-identity.md"
 print_status: excluded
 print_exclusion_reason: "Internal project configuration."

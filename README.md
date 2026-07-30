@@ -135,7 +135,12 @@ For citation metadata, see [CITATION.cff](CITATION.cff). The preferred citation 
 
 ## Technical Records
 
-The complete Framework and Methodology—including issue-admission standards, political-failure boundaries, internal-review requirements, scoring rules, and source-governance rules—is maintained in [framework/FRAMEWORK.md](framework/FRAMEWORK.md). Repository directories and file purposes are documented in [framework/PROJECT_STRUCTURE.md](framework/PROJECT_STRUCTURE.md).
+The complete Framework and Methodology—including issue-admission standards,
+political-failure boundaries, internal-review requirements, scoring rules, and
+source-governance rules—is maintained in
+[framework/FRAMEWORK.md](framework/FRAMEWORK.md). Repository directories,
+document identities, file purposes, and routing relationships are registered
+in the [Component Registry](framework/component-registry.json).
 
 Agent-assisted and autonomous-review rules are maintained in [framework/AGENT_OPERATING_RULES.md](framework/AGENT_OPERATING_RULES.md). Automated run provenance is recorded in the applicable agent or bot log, while proposal-specific research and audit history remains with the affected proposal.
 

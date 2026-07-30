@@ -380,7 +380,7 @@ remains separate and unchanged.
 - Date: 2026-07-28
 - Status: Canonical
 - Decision class: security_privacy_disclosure
-- Authorities: framework/project/github/disclosure-boundary.md; framework/PROJECT_STRUCTURE.md
+- Authorities: framework/project/github/disclosure-boundary.md; framework/archive/authorities/PROJECT_STRUCTURE.md
 - Decision: Preserves restricted operational records owner-locally while using
   public-safe summaries and projections without creating a second authority.
 - Evidence: PR #479; merge `93a01eb24dfb94c848a1f937e9e1bdfeea72c74d`.

@@ -10,9 +10,10 @@ print_exclusion_reason: "Online technical framework and methodology."
 This file is ARRP's cross-cutting governing kernel and routing index. It states the principles, authority boundaries, and conventions that apply throughout the project. Detailed methodology is authoritative in the independently loadable modules linked below. Together, this kernel and those modules constitute the complete Framework; this file is not a compressed substitute for a module whose subject is implicated.
 
 The public premise, mission, scope, and governing principles are maintained in
-[`../README.md`](../README.md). Placement is governed by
-[`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md). Exact ARRP GitHub mechanics are
-in [`project/github/workflow.md`](project/github/workflow.md). Reusable print
+[`../README.md`](../README.md). Placement and stable document identity are
+governed by the [`Component Registry`](component-registry.json). Exact ARRP
+GitHub mechanics are in
+[`project/github/workflow.md`](project/github/workflow.md). Reusable print
 rules and ARRP edition configuration are separated between
 [`standards/publication/`](standards/publication/) and
 [`project/publication/`](project/publication/). Agent execution is governed by
@@ -35,15 +36,18 @@ Routing is additive. Selecting one operation never excludes another module that 
 
 Automated agents should use reviewed, hash-verified routes and fail closed when required context is missing, stale, contradictory, oversized, or unregistered. Interactive work with the user remains comprehensive by default: the routes establish a minimum complete context, not a ceiling on investigation or review.
 
-The human-readable routing and maintenance rules are in [`CONTEXT_ROUTING.md`](CONTEXT_ROUTING.md); the machine-readable registry is [`context-routes.json`](project/automation/context-routes.json).
+The validated embedded routing namespace in the
+[`Component Registry`](component-registry.json) is the sole current routing
+authority. Its Project Console representation is nonauthoritative and
+human-readable.
 
 ## Governing Authority
 
 | Subject | Canonical authority |
 | --- | --- |
 | Cross-cutting project principles, authority, and routing | This kernel |
-| Detailed scope, methodology, issue, evidence, lifecycle, source, candidate, audit, and scoring rules | The modules registered below and in [`context-routes.json`](project/automation/context-routes.json) |
-| Repository directories and file purposes | [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md) |
+| Detailed scope, methodology, issue, evidence, lifecycle, source, candidate, audit, and scoring rules | The modules registered below and in the [`Component Registry`](component-registry.json) |
+| Repository directories, stable document identities, and file purposes | [`Component Registry`](component-registry.json) |
 | GitHub Issues, Project fields, lifecycle synchronization, workflow Status, and holds | [`project/github/workflow.md`](project/github/workflow.md) |
 | Remedy selection, categories, repair and prevention, and trigger stages | [`standards/content/remedies.md`](standards/content/remedies.md) |
 | Print selection, order, page locators, and compiled editions | [`standards/publication/print-assembly.md`](standards/publication/print-assembly.md), [`project/publication/print-assembly.md`](project/publication/print-assembly.md), and [`project/publication/print-assembly.json`](project/publication/print-assembly.json) |
@@ -93,7 +97,7 @@ The scope rule follows from the same principle: **If an institutional design pre
 
 ## Cross-Cutting Rules and Conventions
 
-- **One authority and one primary home.** Each governing rule family and each institutional defect has one authoritative home. Other records link to it rather than create competing definitions. Repository placement is controlled by [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md).
+- **One authority and one primary home.** Each governing rule family and each institutional defect has one authoritative home. Other records link to it rather than create competing definitions. Repository placement is controlled by the [`Component Registry`](component-registry.json).
 - **Neutral standards, candid conclusions.** Apply the same evidentiary, legal, and remedial standards regardless of party, ideology, officeholder, administration, or movement. Distinguish fact, law, dispute or uncertainty, and ARRP's own institutional analysis. Party-neutral method does not require positionlessness or false symmetry.
 - **Evidence before favorable credit.** Do not invent or infer unsupported facts, authorities, review, public support, professional validation, or outcomes. Unverified favorable propositions receive no favorable score credit.
 - **Repair without reproducing arbitrariness.** Every remedy must address the independently repairable defect, preserve legitimate governmental discretion, and be tested for abuse, selective enforcement, personalization, inadequate constraint, and failure of review or correction.
@@ -159,8 +163,8 @@ The following routes are cumulative. Each linked module states its own load trig
 | Work or subject | Authoritative record |
 | --- | --- |
 | Agent or bot behavior | [`AGENT_OPERATING_RULES.md`](AGENT_OPERATING_RULES.md), reusable [`standards/automation/`](standards/automation/) rules, and applicable [`project/automation/`](project/automation/) policy or runbook |
-| Context selection, manifest maintenance, or comprehensive-review coverage | [`CONTEXT_ROUTING.md`](CONTEXT_ROUTING.md) and [`context-routes.json`](project/automation/context-routes.json) |
-| Repository placement | [`PROJECT_STRUCTURE.md`](PROJECT_STRUCTURE.md) |
+| Context selection, routing maintenance, or comprehensive-review coverage | [`Component Registry`](component-registry.json) |
+| Repository placement | [`Component Registry`](component-registry.json) |
 | Owner-local runtime paths, state classes, Application Support authority, `ARRP Private` staging, migration, cutover, rollback, or retirement | [`ARRP Owner-Local Runtime Authority`](project/automation/owner-local-runtime.md) |
 | GitHub-bound disclosure, public/private artifact families, secret exclusion, or owner-local disclosure controls | [`GitHub Disclosure Boundary`](project/github/disclosure-boundary.md) and [`disclosure-policy.json`](project/github/disclosure-policy.json) |
 | Operational Incident identity, admission, recurrence, recovery, or closure | [`operational-incidents.json`](project/automation/operational-incidents.json) |

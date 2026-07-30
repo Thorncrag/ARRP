@@ -93,6 +93,7 @@ except ModuleNotFoundError:
 try:
     from component_registry import (
         RegistryError as ComponentRegistryError,
+        ROUTING_PREDECESSOR_PATHS,
         activation_readiness_report as component_registry_activation_readiness_report,
         audit_terminology as audit_component_registry_terminology,
         canonical_json as component_registry_canonical_json,
@@ -107,6 +108,7 @@ try:
 except ModuleNotFoundError:
     from scripts.component_registry import (
         RegistryError as ComponentRegistryError,
+        ROUTING_PREDECESSOR_PATHS,
         activation_readiness_report as component_registry_activation_readiness_report,
         audit_terminology as audit_component_registry_terminology,
         canonical_json as component_registry_canonical_json,
@@ -185,7 +187,8 @@ COMPONENT_REGISTRY_SCHEMA = (
     / "component-registry.schema.json"
 )
 COMPONENT_REGISTRY_ROUTE_SOURCE = (
-    ROOT / "framework" / "project" / "automation" / "context-routes.json"
+    ROOT
+    / ROUTING_PREDECESSOR_PATHS["context_routes_source"]["historical_path"]
 )
 CANDIDATES = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
 HORIZON_LOG = (
@@ -9811,35 +9814,16 @@ def _component_registry_active_console_evidence(
         "retirement_proof",
     }
     expected_records = {
-        "project_structure": {
-            "artifact_kind": "markdown_authority",
-            "historical_path": "framework/PROJECT_STRUCTURE.md",
-            "archived_path":
-                "framework/archive/authorities/PROJECT_STRUCTURE.md",
-            "source_schema_version": None,
-        },
-        "context_routing": {
-            "artifact_kind": "markdown_authority",
-            "historical_path": "framework/CONTEXT_ROUTING.md",
-            "archived_path":
-                "framework/archive/authorities/CONTEXT_ROUTING.md",
-            "source_schema_version": None,
-        },
-        "repository_map": {
-            "artifact_kind": "markdown_authority",
-            "historical_path": "framework/project/REPOSITORY_MAP.md",
-            "archived_path":
-                "framework/archive/authorities/REPOSITORY_MAP.md",
-            "source_schema_version": None,
-        },
-        "context_routes_source": {
-            "artifact_kind": "route_data_authority",
-            "historical_path":
-                "framework/project/automation/context-routes.json",
-            "archived_path":
-                "framework/archive/authorities/context-routes.json",
-            "source_schema_version": 2,
-        },
+        identity: {
+            key: specification[key]
+            for key in (
+                "artifact_kind",
+                "historical_path",
+                "archived_path",
+                "source_schema_version",
+            )
+        }
+        for identity, specification in ROUTING_PREDECESSOR_PATHS.items()
     }
     if (
         not isinstance(provenance, dict)
@@ -10599,8 +10583,10 @@ def component_registry_source_paths(
     if mode == "candidate_validation_only":
         paths.extend(
             [
-                root / "framework" / "project" / "automation"
-                / "context-routes.json",
+                root
+                / ROUTING_PREDECESSOR_PATHS["context_routes_source"][
+                    "historical_path"
+                ],
                 root / "framework" / "receipts" / "component-registry"
                 / "stage1-requirement-closure.json",
             ]

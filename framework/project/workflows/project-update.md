@@ -6,7 +6,7 @@ load_when: "Closing any repository change that adds, moves, renames, promotes, r
 dependencies:
   - "../../FRAMEWORK.md"
   - "../github/workflow.md"
-  - "../../PROJECT_STRUCTURE.md"
+  - "../../component-registry.json"
   - "../publication/print-assembly.md"
   - "../publication/first-release.md"
   - "../../standards/audits/change-audits.md"
@@ -23,8 +23,8 @@ print_exclusion_reason: "Internal workflow or tool documentation."
 This file is the authoritative cross-surface completion checklist for project
 updates. It does not replace the subject-matter authority for any affected
 record. Apply the governing module for the substantive change,
-[GitHub Workflow](../github/workflow.md) for GitHub mechanics,
-[Repository Structure](../../PROJECT_STRUCTURE.md) for placement,
+[GitHub Workflow](../github/workflow.md) for GitHub mechanics, the
+[Component Registry](../../component-registry.json) for placement,
 [ARRP Navigation Synchronization](navigation-sync.md) for exact reader-route
 maintenance, [ARRP Source Catalog and Adjudication](source-adjudication.md) for
 source ownership and fields, [ARRP Print Assembly](../publication/print-assembly.md)

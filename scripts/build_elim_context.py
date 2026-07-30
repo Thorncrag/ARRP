@@ -20,6 +20,7 @@ from arrp_context import (
 )
 from component_registry import (
     RegistryError,
+    ROUTING_PREDECESSOR_PATHS,
     RoutingRuleFailure,
     build_context_packet_from_view,
     load_validated_component_registry_routing_view,
@@ -31,7 +32,8 @@ from path_authority import (
 
 
 DEFAULT_MANIFEST = (
-    ROOT / "framework" / "project" / "automation" / "context-routes.json"
+    ROOT
+    / ROUTING_PREDECESSOR_PATHS["context_routes_source"]["historical_path"]
 )
 
 

@@ -6,7 +6,7 @@ authority_scope: "Exact ARRP owner-local runtime locations, artifact classes, pa
 load_when: "Reading, writing, moving, validating, projecting, migrating, activating, or retiring ARRP owner-local runtime state; resolving an owner-local path; or changing the owner Console staging boundary."
 dependencies:
   - "../../AGENT_OPERATING_RULES.md"
-  - "../../PROJECT_STRUCTURE.md"
+  - "../../component-registry.json"
   - "../../standards/automation/autonomous-execution.md"
   - "../github/disclosure-boundary.md"
   - "schemas/private-staging-authority.schema.json"

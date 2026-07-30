@@ -5,7 +5,7 @@ authority_scope: "Public-safe provenance recording for material ARRP governance 
 load_when: "Recording, reconciling, or reading a material project-governance decision, its public provenance, supersession, validation, or activation posture."
 dependencies:
   - "../../FRAMEWORK.md"
-  - "../../PROJECT_STRUCTURE.md"
+  - "../../component-registry.json"
   - "../../standards/audits/change-audits.md"
   - "project-update.md"
 print_status: excluded

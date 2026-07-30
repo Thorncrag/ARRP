@@ -6,7 +6,7 @@ load_when: "Adding, reviewing, routing, monitoring, removing, or materially repu
 dependencies:
   - "claims-and-citations.md"
   - "../content/record-architecture.md"
-  - "../../PROJECT_STRUCTURE.md"
+  - "../../component-registry.json"
 print_status: excluded
 print_exclusion_reason: "Online technical framework and methodology."
 ---
@@ -21,7 +21,7 @@ source-development records. Claim support belongs to
 [`claims-and-citations.md`](claims-and-citations.md), issue-level monitoring to
 [`monitoring.md`](monitoring.md), content-record structure to
 [`record-architecture.md`](../content/record-architecture.md), and physical
-placement to [`PROJECT_STRUCTURE.md`](../../PROJECT_STRUCTURE.md).
+placement to the [`Component Registry`](../../component-registry.json).
 
 ## Load When
 

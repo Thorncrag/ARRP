@@ -83,11 +83,12 @@ does not invent taxonomy, directory membership, context routes, identities, or
 remediation. Routing includes the producer-rendered Stage 1 catalog: schema
 version 2, catalog version 1, and 64 stable rules divided across Invariants
 (7), Selection (17), Validation (10), Failure rules (10), Currentness (6),
-Budgets (4), and Comprehensive review (10). Those candidate rules remain bound
-to `framework/CONTEXT_ROUTING.md` at
-`246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7`;
-that document and `context-routes.json` remain the live routing authorities
-until separate activation. Artifact classification and lifecycle enforcement
+Budgets (4), and Comprehensive review (10). Historical rule provenance remains
+bound to the frozen predecessor digest
+`246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7`.
+Candidate configuration remains explicitly predecessor-bound; after
+activation, the embedded Component Registry route is the sole current routing
+authority. Artifact classification and lifecycle enforcement
 remain deferred, so the feature displays
 `Classification pending — enforcement not active` and treats empty deferred
 namespaces as unavailable rather than zero. The feature has no Overview

@@ -104,12 +104,14 @@ except ModuleNotFoundError:
 try:
     from component_registry import (
         RegistryError as ComponentRegistryError,
+        ROUTING_PREDECESSOR_PATHS,
         load_fixture_component_registry_routing_view,
         load_validated_component_registry_routing_view,
     )
 except ModuleNotFoundError:
     from scripts.component_registry import (
         RegistryError as ComponentRegistryError,
+        ROUTING_PREDECESSOR_PATHS,
         load_fixture_component_registry_routing_view,
         load_validated_component_registry_routing_view,
     )
@@ -191,8 +193,11 @@ PROTECTED_EXACT = frozenset(
         "package-lock.json",
         "framework/FRAMEWORK.md",
         "framework/AGENT_OPERATING_RULES.md",
-        "framework/CONTEXT_ROUTING.md",
-        "framework/PROJECT_STRUCTURE.md",
+        "framework/component-registry.json",
+        *(
+            specification["archived_path"]
+            for specification in ROUTING_PREDECESSOR_PATHS.values()
+        ),
         "framework/project/interfaces/project-console/README.md",
         "framework/project/interfaces/project-console/project-console.html",
         "framework/project/interfaces/project-console/app.js",
@@ -4030,10 +4035,9 @@ def governing_protected_paths(
             )
         predecessor_path = (
             repository
-            / "framework"
-            / "project"
-            / "automation"
-            / "context-routes.json"
+            / ROUTING_PREDECESSOR_PATHS["context_routes_source"][
+                "historical_path"
+            ]
         )
         if not predecessor_path.exists():
             if path_authority.mode == "fixture":

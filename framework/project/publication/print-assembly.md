@@ -5,7 +5,7 @@ authority_scope: "ARRP edition selection, section order, page metadata, exact so
 load_when: "Assigning ARRP publication metadata or building, reviewing, or validating a compiled print, PDF, DOCX, or other linear edition."
 dependencies:
   - "../../standards/publication/print-assembly.md"
-  - "../../PROJECT_STRUCTURE.md"
+  - "../../component-registry.json"
   - "../workflows/source-adjudication.md"
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."

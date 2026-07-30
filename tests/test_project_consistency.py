@@ -591,6 +591,202 @@ class GitHubIssueLinkTests(unittest.TestCase):
             )
             self.assertEqual(warnings, [])
 
+    def test_context_registry_dependency_transition_is_exact_and_status_sensitive(self):
+        registry_path = "framework/component-registry.json"
+        predecessor_paths = frozenset(
+            {
+                "framework/CONTEXT_ROUTING.md",
+                "framework/PROJECT_STRUCTURE.md",
+                "framework/project/REPOSITORY_MAP.md",
+            }
+        )
+        transitions = {
+            "codex_bootstrap": (
+                [
+                    "framework/FRAMEWORK.md",
+                    "framework/AGENT_OPERATING_RULES.md",
+                    "framework/handoffs/current-task.md",
+                    "framework/CONTEXT_ROUTING.md",
+                    "framework/PROJECT_STRUCTURE.md",
+                ],
+                [
+                    "framework/FRAMEWORK.md",
+                    "framework/AGENT_OPERATING_RULES.md",
+                    "framework/handoffs/current-task.md",
+                    registry_path,
+                ],
+            ),
+            "interface_standard": (
+                ["framework/PROJECT_STRUCTURE.md"],
+                [registry_path],
+            ),
+            "navigation_inventory": (
+                [
+                    "framework/FRAMEWORK.md",
+                    "framework/PROJECT_STRUCTURE.md",
+                    "framework/standards/content/maturity-and-gates.md",
+                ],
+                [
+                    "framework/FRAMEWORK.md",
+                    registry_path,
+                    "framework/standards/content/maturity-and-gates.md",
+                ],
+            ),
+            "navigation_project_sync": (
+                [
+                    "framework/standards/content/navigation-and-indexes.md",
+                    "framework/standards/content/topic-guides.md",
+                    "framework/project/github/workflow.md",
+                    "framework/project/REPOSITORY_MAP.md",
+                    "framework/project/interfaces/visual-identity.md",
+                ],
+                [
+                    "framework/standards/content/navigation-and-indexes.md",
+                    "framework/standards/content/topic-guides.md",
+                    "framework/project/github/workflow.md",
+                    registry_path,
+                    "framework/project/interfaces/visual-identity.md",
+                ],
+            ),
+            "operation_governance_change_recording": (
+                [
+                    "framework/FRAMEWORK.md",
+                    "framework/PROJECT_STRUCTURE.md",
+                    "framework/standards/audits/change-audits.md",
+                    "framework/project/workflows/project-update.md",
+                ],
+                [
+                    "framework/FRAMEWORK.md",
+                    registry_path,
+                    "framework/standards/audits/change-audits.md",
+                    "framework/project/workflows/project-update.md",
+                ],
+            ),
+            "operation_project_update": (
+                [
+                    "framework/FRAMEWORK.md",
+                    "framework/project/github/workflow.md",
+                    "framework/PROJECT_STRUCTURE.md",
+                    "framework/project/publication/print-assembly.md",
+                    "framework/project/publication/first-release.md",
+                    "framework/standards/audits/change-audits.md",
+                    "framework/project/workflows/navigation-sync.md",
+                    "framework/project/workflows/source-adjudication.md",
+                ],
+                [
+                    "framework/FRAMEWORK.md",
+                    "framework/project/github/workflow.md",
+                    registry_path,
+                    "framework/project/publication/print-assembly.md",
+                    "framework/project/publication/first-release.md",
+                    "framework/standards/audits/change-audits.md",
+                    "framework/project/workflows/navigation-sync.md",
+                    "framework/project/workflows/source-adjudication.md",
+                ],
+            ),
+            "print_assembly": (
+                [
+                    "framework/standards/publication/print-assembly.md",
+                    "framework/PROJECT_STRUCTURE.md",
+                    "framework/project/workflows/source-adjudication.md",
+                ],
+                [
+                    "framework/standards/publication/print-assembly.md",
+                    registry_path,
+                    "framework/project/workflows/source-adjudication.md",
+                ],
+            ),
+            "project_runtime_authority": (
+                [
+                    "framework/AGENT_OPERATING_RULES.md",
+                    "framework/PROJECT_STRUCTURE.md",
+                    "framework/standards/automation/autonomous-execution.md",
+                    "framework/project/github/disclosure-boundary.md",
+                    "framework/project/automation/schemas/private-staging-authority.schema.json",
+                ],
+                [
+                    "framework/AGENT_OPERATING_RULES.md",
+                    registry_path,
+                    "framework/standards/automation/autonomous-execution.md",
+                    "framework/project/github/disclosure-boundary.md",
+                    "framework/project/automation/schemas/private-staging-authority.schema.json",
+                ],
+            ),
+            "source_catalogs": (
+                [
+                    "framework/standards/sources/claims-and-citations.md",
+                    "framework/standards/content/record-architecture.md",
+                    "framework/PROJECT_STRUCTURE.md",
+                ],
+                [
+                    "framework/standards/sources/claims-and-citations.md",
+                    "framework/standards/content/record-architecture.md",
+                    registry_path,
+                ],
+            ),
+        }
+
+        for document_id, (candidate_expected, declared) in transitions.items():
+            with self.subTest(document_id=document_id, mode="candidate"):
+                self.assertTrue(
+                    consistency.context_registry_dependencies_match(
+                        declared,
+                        candidate_expected,
+                        validation_mode="candidate_validation_only",
+                        predecessor_paths=predecessor_paths,
+                    )
+                )
+            active_expected = [
+                dependency
+                for dependency in candidate_expected
+                if dependency not in predecessor_paths
+            ]
+            with self.subTest(document_id=document_id, mode="active"):
+                self.assertTrue(
+                    consistency.context_registry_dependencies_match(
+                        declared,
+                        active_expected,
+                        validation_mode="active_configuration_validation_only",
+                        predecessor_paths=predecessor_paths,
+                    )
+                )
+                self.assertFalse(
+                    consistency.context_registry_dependencies_match(
+                        candidate_expected,
+                        active_expected,
+                        validation_mode="active_configuration_validation_only",
+                        predecessor_paths=predecessor_paths,
+                    )
+                )
+
+        candidate_expected, declared = transitions["codex_bootstrap"]
+        invalid_declarations = {
+            "wrong_order": [
+                registry_path,
+                *declared[:-1],
+            ],
+            "duplicate_registry": [
+                *declared,
+                registry_path,
+            ],
+            "missing_registry": declared[:-1],
+            "non_predecessor_substitution": [
+                "framework/FRAMEWORK.md",
+                registry_path,
+                "framework/handoffs/current-task.md",
+            ],
+        }
+        for case, invalid in invalid_declarations.items():
+            with self.subTest(case=case):
+                self.assertFalse(
+                    consistency.context_registry_dependencies_match(
+                        invalid,
+                        candidate_expected,
+                        validation_mode="candidate_validation_only",
+                        predecessor_paths=predecessor_paths,
+                    )
+                )
+
     def test_context_registry_rejects_standard_dependency_on_project_layer(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
