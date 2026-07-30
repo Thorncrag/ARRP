@@ -8454,43 +8454,43 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     {
       "title": "ARRP Repository Map",
-      "path": "framework/project/REPOSITORY_MAP.md",
+      "path": "framework/archive/authorities/REPOSITORY_MAP.md",
       "section": "Framework and process",
       "print_levels": [],
       "print_level_labels": [],
       "print_status": "excluded",
       "print_exclusion_reason": "Internal project configuration.",
       "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/REPOSITORY_MAP.md",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/archive/authorities/REPOSITORY_MAP.md",
       "document_type": "technical",
       "print_metadata_present": true,
       "invalid_print_levels": [],
       "assembly_sections": {},
-      "assembly_sort_key": "framework/project-arrp repository map",
+      "assembly_sort_key": "framework/archive/authorities-arrp repository map",
       "internal_links": [
         {
-          "path": "framework/PROJECT_STRUCTURE.md",
+          "path": "framework/archive/PROJECT_STRUCTURE.md",
+          "exists": false
+        },
+        {
+          "path": "framework/archive/authorities/PROJECT_PROFILE.md",
+          "exists": false
+        },
+        {
+          "path": "framework/archive/authorities/REPOSITORY_MAP.md",
           "exists": true
         },
         {
-          "path": "framework/project/PROJECT_PROFILE.md",
-          "exists": true
+          "path": "framework/archive/authorities/github/workflow.md",
+          "exists": false
         },
         {
-          "path": "framework/project/REPOSITORY_MAP.md",
-          "exists": true
+          "path": "framework/archive/authorities/workflows/governance-change-recording.md",
+          "exists": false
         },
         {
-          "path": "framework/project/github/workflow.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/workflows/governance-change-recording.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/workflows/navigation-sync.md",
-          "exists": true
+          "path": "framework/archive/authorities/workflows/navigation-sync.md",
+          "exists": false
         }
       ],
       "word_count": 503,
@@ -9668,30 +9668,30 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     {
       "title": "Governing Context Routing",
-      "path": "framework/CONTEXT_ROUTING.md",
+      "path": "framework/archive/authorities/CONTEXT_ROUTING.md",
       "section": "Framework and process",
       "print_levels": [],
       "print_level_labels": [],
       "print_status": "excluded",
       "print_exclusion_reason": "Internal workflow or tool documentation.",
       "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/CONTEXT_ROUTING.md",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/archive/authorities/CONTEXT_ROUTING.md",
       "document_type": "technical",
       "print_metadata_present": true,
       "invalid_print_levels": [],
       "assembly_sections": {},
-      "assembly_sort_key": "framework-governing context routing",
+      "assembly_sort_key": "framework/archive/authorities-governing context routing",
       "internal_links": [
         {
-          "path": "framework/FRAMEWORK.md",
-          "exists": true
+          "path": "framework/archive/authorities/FRAMEWORK.md",
+          "exists": false
         },
         {
-          "path": "framework/AGENT_OPERATING_RULES.md",
-          "exists": true
+          "path": "framework/archive/authorities/AGENT_OPERATING_RULES.md",
+          "exists": false
         },
         {
-          "path": "framework/records/handoffs/current-task.md",
+          "path": "framework/archive/authorities/records/handoffs/current-task.md",
           "exists": false
         }
       ],
@@ -10509,51 +10509,51 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     {
       "title": "Repository Structure",
-      "path": "framework/PROJECT_STRUCTURE.md",
+      "path": "framework/archive/authorities/PROJECT_STRUCTURE.md",
       "section": "Framework and process",
       "print_levels": [],
       "print_level_labels": [],
       "print_status": "excluded",
       "print_exclusion_reason": "Online technical documentation.",
       "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/PROJECT_STRUCTURE.md",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/archive/authorities/PROJECT_STRUCTURE.md",
       "document_type": "technical",
       "print_metadata_present": true,
       "invalid_print_levels": [],
       "assembly_sections": {},
-      "assembly_sort_key": "framework-repository structure",
+      "assembly_sort_key": "framework/archive/authorities-repository structure",
       "internal_links": [
         {
-          "path": "framework/standards/README.md",
+          "path": "framework/archive/authorities/standards/README.md",
+          "exists": false
+        },
+        {
+          "path": "framework/archive/authorities/project/README.md",
+          "exists": false
+        },
+        {
+          "path": "framework/archive/authorities/archive/operational/framework-records-README.md",
+          "exists": false
+        },
+        {
+          "path": "framework/archive/authorities/FRAMEWORK.md",
+          "exists": false
+        },
+        {
+          "path": "framework/archive/authorities/AGENT_OPERATING_RULES.md",
+          "exists": false
+        },
+        {
+          "path": "framework/archive/authorities/CONTEXT_ROUTING.md",
           "exists": true
         },
         {
-          "path": "framework/project/README.md",
+          "path": "framework/archive/authorities/PROJECT_STRUCTURE.md",
           "exists": true
         },
         {
-          "path": "framework/archive/operational/framework-records-README.md",
-          "exists": true
-        },
-        {
-          "path": "framework/FRAMEWORK.md",
-          "exists": true
-        },
-        {
-          "path": "framework/AGENT_OPERATING_RULES.md",
-          "exists": true
-        },
-        {
-          "path": "framework/CONTEXT_ROUTING.md",
-          "exists": true
-        },
-        {
-          "path": "framework/PROJECT_STRUCTURE.md",
-          "exists": true
-        },
-        {
-          "path": "framework/project/automation/transaction-lifecycle.md",
-          "exists": true
+          "path": "framework/archive/authorities/project/automation/transaction-lifecycle.md",
+          "exists": false
         }
       ],
       "word_count": 1288,
@@ -10658,7 +10658,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/status/sources-source checker bot current report",
       "internal_links": [],
-      "word_count": 6802,
+      "word_count": 6799,
       "estimated_pages": 11,
       "table_count": 2,
       "max_table_columns": 4,
@@ -16717,8 +16717,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "link_export_validation": {
         "link_inventory_available": true,
         "internal_link_count": 1283,
-        "missing_link_count": 6,
+        "missing_link_count": 19,
         "missing_links": [
+          {
+            "source": "framework/archive/authorities/REPOSITORY_MAP.md",
+            "target": "framework/archive/PROJECT_STRUCTURE.md"
+          },
+          {
+            "source": "framework/archive/authorities/REPOSITORY_MAP.md",
+            "target": "framework/archive/authorities/PROJECT_PROFILE.md"
+          },
+          {
+            "source": "framework/archive/authorities/REPOSITORY_MAP.md",
+            "target": "framework/archive/authorities/github/workflow.md"
+          },
+          {
+            "source": "framework/archive/authorities/REPOSITORY_MAP.md",
+            "target": "framework/archive/authorities/workflows/governance-change-recording.md"
+          },
+          {
+            "source": "framework/archive/authorities/REPOSITORY_MAP.md",
+            "target": "framework/archive/authorities/workflows/navigation-sync.md"
+          },
           {
             "source": "framework/archive/operational/framework-records-README.md",
             "target": "framework/archive/PROJECT_STRUCTURE.md"
@@ -16740,8 +16760,40 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "target": "framework/archive/audits/change-audit-log.md"
           },
           {
-            "source": "framework/CONTEXT_ROUTING.md",
-            "target": "framework/records/handoffs/current-task.md"
+            "source": "framework/archive/authorities/CONTEXT_ROUTING.md",
+            "target": "framework/archive/authorities/FRAMEWORK.md"
+          },
+          {
+            "source": "framework/archive/authorities/CONTEXT_ROUTING.md",
+            "target": "framework/archive/authorities/AGENT_OPERATING_RULES.md"
+          },
+          {
+            "source": "framework/archive/authorities/CONTEXT_ROUTING.md",
+            "target": "framework/archive/authorities/records/handoffs/current-task.md"
+          },
+          {
+            "source": "framework/archive/authorities/PROJECT_STRUCTURE.md",
+            "target": "framework/archive/authorities/standards/README.md"
+          },
+          {
+            "source": "framework/archive/authorities/PROJECT_STRUCTURE.md",
+            "target": "framework/archive/authorities/project/README.md"
+          },
+          {
+            "source": "framework/archive/authorities/PROJECT_STRUCTURE.md",
+            "target": "framework/archive/authorities/archive/operational/framework-records-README.md"
+          },
+          {
+            "source": "framework/archive/authorities/PROJECT_STRUCTURE.md",
+            "target": "framework/archive/authorities/FRAMEWORK.md"
+          },
+          {
+            "source": "framework/archive/authorities/PROJECT_STRUCTURE.md",
+            "target": "framework/archive/authorities/AGENT_OPERATING_RULES.md"
+          },
+          {
+            "source": "framework/archive/authorities/PROJECT_STRUCTURE.md",
+            "target": "framework/archive/authorities/project/automation/transaction-lifecycle.md"
           }
         ],
         "export_validation_available": false,
@@ -18490,8 +18542,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "9953be3f0f7eec4976802268021ba08e8f92d695",
-        "generated_at": "2026-07-30T18:52:27+00:00"
+        "revision": "e64ecee9d23a6ddea44ecd0638c60a29df4e541e",
+        "generated_at": "2026-07-30T19:04:49+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20247,6 +20299,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-74d2c9250638aa05bcc7"
+    "publication.js": "project-console-f95a0c98c4f31da5efe1"
   }
 });
