@@ -118,6 +118,15 @@ class RetiredControlPlaneTests(unittest.TestCase):
             "--exit-zero-on-findings",
             normalized,
         )
+        self.assertIn(
+            "python scripts/component_registry.py validate",
+            normalized,
+        )
+        self.assertNotIn(
+            "python scripts/build_elim_context.py "
+            "--path-authority repository-validation",
+            normalized,
+        )
         self.assertNotIn(
             "audit_project_consistency.py "
             "--routing-authority production-canonical",

@@ -1585,7 +1585,7 @@ def default_assembly_sections(
 def page_inventory_records() -> list[dict[str, object]]:
     """Return every publication-controlled Markdown page and its disposition."""
     excluded_roots = {".git", ".site-build", ".tmp", ".venv"}
-    local_only_roots = {Path("framework/project/interfaces/project-console/prototypes")}
+    local_only_roots = {Path("research/project-console/prototypes")}
     explicit_exceptions = {ROOT / "AGENTS.md", ROOT / "website" / "404.md"}
     records: list[dict[str, object]] = []
     manifest = publication_manifest()

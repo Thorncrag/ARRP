@@ -1720,7 +1720,7 @@ class HorizonIntakeTest(unittest.TestCase):
 
     def test_print_level_inventory_matches_compiled_markdown_pages(self) -> None:
         excluded_roots = {".git", ".site-build", ".tmp", ".venv"}
-        local_only_roots = {Path("framework/project/interfaces/project-console/prototypes")}
+        local_only_roots = {Path("research/project-console/prototypes")}
         explicit_exceptions = {ROOT / "AGENTS.md", ROOT / "website" / "404.md"}
         expected = {
             path.relative_to(ROOT).as_posix()

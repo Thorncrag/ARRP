@@ -10,8 +10,8 @@
 /**/*.schema.json @Thorncrag
 /framework/FRAMEWORK.md @Thorncrag
 /framework/AGENT_OPERATING_RULES.md @Thorncrag
-/framework/CONTEXT_ROUTING.md @Thorncrag
-/framework/PROJECT_STRUCTURE.md @Thorncrag
+/framework/archive/authorities/CONTEXT_ROUTING.md @Thorncrag
+/framework/archive/authorities/PROJECT_STRUCTURE.md @Thorncrag
 /framework/component-registry.json @Thorncrag
 /framework/standards/ @Thorncrag
 /framework/project/ @Thorncrag
