@@ -336,7 +336,7 @@ class SourceCheckerTests(unittest.TestCase):
         )
         self.assertFalse(config["localStage"]["publication"])
         self.assertNotIn(
-            "framework/records/status/source-checker.json", config.values()
+            "framework/status/source-checker.json", config.values()
         )
 
 

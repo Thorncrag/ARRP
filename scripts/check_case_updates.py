@@ -4,7 +4,7 @@
 The watcher compares the Just Security Trump-administration litigation tracker with
 case-specific baselines stored on monitored CourtListener rows in the source
 catalogs. When an observable source changes, ``--apply`` updates those catalog fields
-and appends a material event to ``framework/records/sources/source-monitor-log.md``. Configured
+and appends a material event to ``framework/logs/sources/source-monitor-log.md``. Configured
 source-development modules may also project high-recall, machine-observed leads into
 an existing candidate or issue source-development record. GitHub Actions, rather
 than this script, commits the changes and creates or updates a narrow review PR.
@@ -500,7 +500,7 @@ def source_development_target(module: dict[str, Any], root: Path = ROOT) -> Path
     except ValueError as exc:
         raise ValueError(f"source-development module target escapes the repository: {raw!r}") from exc
     allowed = bool(
-        re.fullmatch(r"research/horizon-source-records/HOR-\d{3}-source-development\.md", canonical)
+        re.fullmatch(r"research/candidate-source-development/HOR-\d{3}-source-development\.md", canonical)
         or re.fullmatch(
             r"areas/[A-Z]+/research/[A-Z]+-\d{3}-source-development\.md", canonical
         )
@@ -1265,8 +1265,9 @@ def render_summary(
             [
                 "",
                 "Authorized repository and material-log updates were prepared in the worktree. "
-                "In the scheduled workflow they are proposed through the deterministic bot branch "
-                "and its owner-assigned review pull request.",
+                "In the scheduled workflow the coordinator may propose the exact validated "
+                "transaction delta through its run-bound transaction branch and owner-assigned "
+                "review pull request; the watcher itself has no branch or merge authority.",
             ]
         )
     else:

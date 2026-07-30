@@ -1,14 +1,20 @@
+import copy
 import importlib.util
+import hashlib
 import json
 import os
+import subprocess
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 from unittest import mock
 
+from scripts import component_registry as component_registry_tool
+
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "scripts" / "build_horizon_review_console.py"
+SCRIPT = ROOT / "scripts" / "build_project_console.py"
 SPEC = importlib.util.spec_from_file_location("console_data_contract_builder", SCRIPT)
 MODULE = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader is not None
@@ -23,7 +29,183 @@ assert CONTRACT_SPEC.loader is not None
 CONTRACT_SPEC.loader.exec_module(CONTRACTS)
 
 
+def candidate_registry_fixture() -> dict[str, object]:
+    current = json.loads(MODULE.COMPONENT_REGISTRY.read_text(encoding="utf-8"))
+    if current.get("status") == "candidate":
+        return current
+    candidate_revision = current["approval"]["value"]["base_revision"]
+    completed = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(ROOT),
+            "show",
+            f"{candidate_revision}:framework/component-registry.json",
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    candidate = json.loads(completed.stdout)
+    if (
+        candidate.get("status") != "candidate"
+        or component_registry_tool._canonical_registry_digest(candidate)
+        != current["approval"]["value"]["candidate_registry_sha256"]
+    ):
+        raise AssertionError("active registry candidate parent is not exact")
+    return candidate
+
+
 class ConsoleDataContractTests(unittest.TestCase):
+    def component_registry_view(
+        self,
+        registry: dict[str, object],
+        *,
+        status: str,
+    ) -> dict[str, object]:
+        routing = registry["context_routing"]
+        route = {
+            "schema_version": routing["schema_version"],
+            "generated_path_exclusions": routing[
+                "generated_path_exclusions"
+            ],
+            "required_modules": routing["required_modules"],
+            "documents": routing["documents"],
+            "capabilities": routing["capabilities"],
+            "profiles": routing["profiles"],
+        }
+        candidate = status == "candidate"
+        registry_sha256 = hashlib.sha256(
+            MODULE.component_registry_canonical_json(registry).encode(
+                "utf-8"
+            )
+        ).hexdigest()
+        return {
+            "schema_version": 1,
+            "validation_mode": (
+                "candidate_validation_only"
+                if candidate
+                else "active_configuration_validation_only"
+            ),
+            "registry_id": registry["registry_id"],
+            "registry_revision": registry["registry_revision"],
+            "registry_status": status,
+            "registry_sha256": registry_sha256,
+            "routing_authority_sha256": (
+                routing["source_import"]["sha256"]
+                if candidate
+                else registry_sha256
+            ),
+            "registry_path": "framework/component-registry.json",
+            "authoritative": False,
+            "executable": False,
+            "live_activation_verified": False,
+            "activation_receipt_consulted": False,
+            "predecessor_route_consulted": candidate,
+            "route": route,
+            "_validated_registry": registry,
+        }
+
+    def codex_usage_projection(self) -> dict[str, object]:
+        return {
+            "schema_version": 2,
+            "projection_id": "codex-usage",
+            "producer_id": "owner-local-codex-usage-sampler",
+            "sampler_cadence_seconds": 1800,
+            "generated_at": "2026-07-29T20:20:00Z",
+            "trustworthy_through": "2026-07-29T20:47:00Z",
+            "availability": "current",
+            "completeness": "complete",
+            "reason_code": None,
+            "current_through": "2026-07-29T20:17:00Z",
+            "current": {
+                "observed_at": "2026-07-29T20:17:00Z",
+                "plan_type": "pro",
+                "used_percent": 28,
+                "remaining_percent": 72,
+                "window_minutes": 10080,
+                "resets_at": 1785908741,
+                "reset_identity": "10080:29765145",
+            },
+            "history": [
+                {
+                    "observed_at": "2026-07-29T19:47:00Z",
+                    "event_type": "baseline",
+                    "plan_type": "pro",
+                    "used_percent": 27,
+                    "remaining_percent": 73,
+                    "window_minutes": 10080,
+                    "resets_at": 1785908741,
+                    "reset_identity": "10080:29765145",
+                }
+            ],
+            "reset_windows": [
+                {
+                    "reset_identity": "10080:29765145",
+                    "first_observed": "2026-07-29T19:47:00Z",
+                    "last_observed": "2026-07-29T20:17:00Z",
+                    "window_minutes": 10080,
+                    "resets_at": 1785908741,
+                    "plan_types": ["pro"],
+                    "min_used_percent": 27,
+                    "max_used_percent": 28,
+                    "observation_count": 2,
+                    "material": True,
+                }
+            ],
+            "anomalies": [],
+            "estimates": {
+                "available": True,
+                "budget_available": True,
+                "budget_reason_code": None,
+                "burn_rate_available": False,
+                "burn_rate_reason_code": "insufficient_observation_coverage",
+                "coverage_hours": 0.5,
+                "sample_count": 2,
+                "average_percent_per_day": None,
+                "projected_exhaustion_at": None,
+                "remaining_percent_per_day_budget": 10.1,
+                "confidence": "unavailable",
+            },
+        }
+
+    def test_codex_usage_projection_has_strict_nested_schema(self):
+        payload = self.codex_usage_projection()
+        checked_at = datetime(2026, 7, 29, 20, 20, tzinfo=timezone.utc)
+        self.assertTrue(
+            MODULE.valid_codex_usage_projection(payload, now=checked_at)
+        )
+        altered = json.loads(json.dumps(payload))
+        altered["current"]["prompt"] = "not allowed"
+        self.assertFalse(
+            MODULE.valid_codex_usage_projection(altered, now=checked_at)
+        )
+        altered = json.loads(json.dumps(payload))
+        altered["reset_windows"][0]["observation_count"] = True
+        self.assertFalse(
+            MODULE.valid_codex_usage_projection(altered, now=checked_at)
+        )
+        altered = json.loads(json.dumps(payload))
+        altered["estimates"]["available"] = False
+        self.assertFalse(
+            MODULE.valid_codex_usage_projection(altered, now=checked_at)
+        )
+        altered = json.loads(json.dumps(payload))
+        altered["estimates"]["average_percent_per_day"] = 2
+        self.assertFalse(
+            MODULE.valid_codex_usage_projection(altered, now=checked_at)
+        )
+
+    def test_codex_usage_unavailable_projection_retains_exact_shape(self):
+        payload = MODULE.unavailable_codex_usage_projection()
+        self.assertTrue(MODULE.valid_codex_usage_projection(payload))
+        self.assertEqual(MODULE.codex_usage_projection(), payload)
+        self.assertFalse(payload["estimates"]["available"])
+        self.assertFalse(payload["estimates"]["budget_available"])
+        self.assertFalse(payload["estimates"]["burn_rate_available"])
+        self.assertIsNone(payload["estimates"]["remaining_percent_per_day_budget"])
+        self.assertIsNone(payload["estimates"]["average_percent_per_day"])
+
     def test_status_projection_contract_distinguishes_complete_from_partial(self):
         complete = CONTRACTS.status_projection_contract(6)
         self.assertEqual(complete["availability"], "current")
@@ -130,6 +312,241 @@ class ConsoleDataContractTests(unittest.TestCase):
             projected["currentness"]["expected_source_revision"],
             "authoritative-head",
         )
+
+    def public_source_checker_fixture(
+        self,
+        root: Path,
+    ) -> tuple[Path, Path, dict[str, object], str]:
+        catalog = root / "inventory" / "sources.csv"
+        catalog.parent.mkdir(parents=True)
+        catalog.write_text(
+            "Source ID,URL,Title or Description,Authority / Publisher\n"
+            "SRC-1,https://example.test/1,One,Publisher\n",
+            encoding="utf-8",
+        )
+        config = root / "source-checker-config.json"
+        config.write_text(
+            json.dumps(
+                {
+                    "catalogs": ["inventory/sources.csv"],
+                    "idField": "Source ID",
+                    "urlField": "URL",
+                }
+            ),
+            encoding="utf-8",
+        )
+        stage = root / ".tmp" / "project-console-source-checker.json"
+        stage.parent.mkdir()
+        revision = "a" * 40
+        hashes = CONTRACTS.source_hashes(root, [catalog])
+        payload: dict[str, object] = {
+            "schema_version": 2,
+            "contract_schema_version": 1,
+            "agent_id": "source-checker-bot",
+            "mode": "report-only",
+            "checked_at": "2026-07-30T12:00:00+00:00",
+            "generation_id": "source-checker-test-generation",
+            "source_revision": revision,
+            "source_hashes": hashes,
+            "catalogs": ["inventory/sources.csv"],
+            "expected_count": 1,
+            "actual_count": 1,
+            "availability": "current",
+            "completeness": {
+                "complete": True,
+                "expected_count": 1,
+                "actual_count": 1,
+                "missing_count": 0,
+            },
+            "pagination": {
+                "complete": True,
+                "sources": [
+                    {
+                        "source": "inventory/sources.csv",
+                        "complete": True,
+                        "expected_count": 1,
+                        "actual_count": 1,
+                    }
+                ],
+            },
+            "projection_errors": [],
+            "eligible_urls": 1,
+            "counts": {"verified": 1},
+            "results": [
+                {
+                    "source_id": "SRC-1",
+                    "catalog": "inventory/sources.csv",
+                    "classification": "verified",
+                }
+            ],
+            "missing_source_ids": [],
+            "unexpected_source_ids": [],
+            "duplicate_result_ids": [],
+        }
+        stage.write_text(json.dumps(payload), encoding="utf-8")
+        return config, stage, payload, revision
+
+    def test_public_source_checker_stage_requires_public_only(self):
+        args = mock.Mock(
+            public_only=False,
+            refresh_github=False,
+            public_source_checker_stage=True,
+        )
+        with self.assertRaisesRegex(RuntimeError, "requires --public-only"):
+            MODULE.validate_console_modes(args)
+
+    def test_public_source_checker_stage_is_fixed_and_current(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config, stage, _, revision = self.public_source_checker_fixture(root)
+            legacy = root / ".tmp" / "source-checker.json"
+            legacy.write_text("must not open", encoding="utf-8")
+            original_open = open
+
+            def guarded_open(path, *args, **kwargs):
+                if os.path.realpath(os.fspath(path)) == os.path.realpath(legacy):
+                    raise AssertionError("legacy Source Checker cache opened")
+                return original_open(path, *args, **kwargs)
+
+            with (
+                mock.patch.object(MODULE, "ROOT", root),
+                mock.patch.object(MODULE, "SOURCE_CHECKER_CONFIG", config),
+                mock.patch.object(
+                    MODULE, "PUBLIC_SOURCE_CHECKER_STAGE", stage
+                ),
+                mock.patch.object(
+                    MODULE, "current_repository_head", return_value=revision
+                ),
+                mock.patch("builtins.open", guarded_open),
+                mock.patch.dict(
+                    os.environ,
+                    {"ARRP_SOURCE_CHECKER_SNAPSHOT": ""},
+                    clear=False,
+                ),
+            ):
+                projected = MODULE.source_checker_snapshot(
+                    public_source_checker_stage=True
+                )
+        self.assertEqual(projected["availability"], "current")
+        self.assertTrue(projected["completeness"]["complete"])
+        self.assertEqual(projected["actual_count"], 1)
+        self.assertNotIn(".tmp", json.dumps(projected))
+
+    def test_public_source_checker_stage_rejects_other_input_authority(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config, stage, _, revision = self.public_source_checker_fixture(root)
+            with (
+                mock.patch.object(MODULE, "ROOT", root),
+                mock.patch.object(MODULE, "SOURCE_CHECKER_CONFIG", config),
+                mock.patch.object(
+                    MODULE, "PUBLIC_SOURCE_CHECKER_STAGE", stage
+                ),
+                mock.patch.object(
+                    MODULE, "current_repository_head", return_value=revision
+                ),
+                mock.patch.dict(
+                    os.environ,
+                    {"ARRP_SOURCE_CHECKER_SNAPSHOT": str(stage)},
+                    clear=False,
+                ),
+            ):
+                with self.assertRaisesRegex(RuntimeError, "cannot be combined"):
+                    MODULE.source_checker_snapshot(
+                        public_source_checker_stage=True
+                    )
+
+    def test_public_source_checker_stage_rejects_missing_nonregular_and_symlink(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config, stage, _, revision = self.public_source_checker_fixture(root)
+            stage.unlink()
+            cases = ("missing", "directory", "symlink")
+            for case in cases:
+                with self.subTest(case=case):
+                    if stage.exists() or stage.is_symlink():
+                        if stage.is_dir():
+                            stage.rmdir()
+                        else:
+                            stage.unlink()
+                    if case == "directory":
+                        stage.mkdir()
+                    elif case == "symlink":
+                        target = root / "elsewhere.json"
+                        target.write_text("{}", encoding="utf-8")
+                        stage.symlink_to(target)
+                    with (
+                        mock.patch.object(MODULE, "ROOT", root),
+                        mock.patch.object(
+                            MODULE, "SOURCE_CHECKER_CONFIG", config
+                        ),
+                        mock.patch.object(
+                            MODULE, "PUBLIC_SOURCE_CHECKER_STAGE", stage
+                        ),
+                        mock.patch.object(
+                            MODULE,
+                            "current_repository_head",
+                            return_value=revision,
+                        ),
+                        mock.patch.dict(
+                            os.environ,
+                            {"ARRP_SOURCE_CHECKER_SNAPSHOT": ""},
+                            clear=False,
+                        ),
+                    ):
+                        with self.assertRaisesRegex(
+                            RuntimeError, "stage is unavailable"
+                        ):
+                            MODULE.source_checker_snapshot(
+                                public_source_checker_stage=True
+                            )
+
+    def test_public_source_checker_stage_rejects_invalid_current_report(self):
+        mutations = {
+            "producer": lambda payload: payload.update(agent_id="other"),
+            "schema": lambda payload: payload.update(schema_version=1),
+            "revision": lambda payload: payload.update(source_revision="b" * 40),
+            "hash": lambda payload: payload.update(source_hashes={}),
+            "completeness": lambda payload: payload["completeness"].update(
+                complete=False
+            ),
+            "pagination": lambda payload: payload["pagination"].update(
+                complete=False
+            ),
+            "count": lambda payload: payload.update(actual_count=0),
+            "identity": lambda payload: payload["results"][0].update(
+                source_id="SRC-OTHER"
+            ),
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                config, stage, payload, revision = (
+                    self.public_source_checker_fixture(root)
+                )
+                mutate(payload)
+                stage.write_text(json.dumps(payload), encoding="utf-8")
+                with (
+                    mock.patch.object(MODULE, "ROOT", root),
+                    mock.patch.object(MODULE, "SOURCE_CHECKER_CONFIG", config),
+                    mock.patch.object(
+                        MODULE, "PUBLIC_SOURCE_CHECKER_STAGE", stage
+                    ),
+                    mock.patch.object(
+                        MODULE,
+                        "current_repository_head",
+                        return_value=revision,
+                    ),
+                    mock.patch.dict(
+                        os.environ,
+                        {"ARRP_SOURCE_CHECKER_SNAPSHOT": ""},
+                        clear=False,
+                    ),
+                ):
+                    with self.assertRaisesRegex(RuntimeError, "stage is invalid"):
+                        MODULE.source_checker_snapshot(
+                            public_source_checker_stage=True
+                        )
 
     def test_source_checker_keeps_stale_generation_and_enumerates_missing_ids(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -427,6 +844,547 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertEqual(errors[0]["code"], "markdown_table_row_width")
         self.assertEqual(errors[0]["source"], "governed-log.md")
 
+    def test_component_registry_projection_preserves_validated_typed_state(self):
+        projection_source = SCRIPT.read_text(encoding="utf-8").split(
+            "def component_registry_console_snapshot(",
+            1,
+        )[1].split(
+            "def load_component_registry_console_snapshot(",
+            1,
+        )[0]
+        self.assertEqual(
+            projection_source.count('"source_import": source_import'),
+            1,
+        )
+        self.assertNotIn(
+            '"source_import": routing["source_import"]',
+            projection_source,
+        )
+        registry = candidate_registry_fixture()
+        embedded = registry["context_routing"]
+        view = self.component_registry_view(
+            registry,
+            status="candidate",
+        )
+        inventory = {
+            "classification_complete": True,
+            "scope_counts": {
+                scope_id: 0
+                for scope_id in registry["directory_scopes"]["entries"]
+            },
+        }
+        with mock.patch.object(
+            MODULE,
+            "component_registry_inventory_report",
+            return_value=inventory,
+        ):
+            snapshot = MODULE.component_registry_console_snapshot(
+                view,
+                generated_at="2026-07-29T12:00:00Z",
+            )
+        self.assertEqual(
+            set(snapshot),
+            {
+                "schema_version",
+                "projection_id",
+                "producer_id",
+                "generated_at",
+                "availability",
+                "complete",
+                "reason_code",
+                "routes",
+                "defaults",
+                "registry",
+                "deferred",
+                "documents",
+                "directories",
+                "routing",
+                "activation_readiness",
+                "terminology",
+            },
+        )
+        self.assertEqual(
+            set(snapshot["routing"]),
+            {
+                "schema_version",
+                "rule_catalog_version",
+                "activation_state",
+                "complete",
+                "authoritative",
+                "source_import",
+                "predecessor_provenance",
+                "readable_representation",
+                "expected_counts",
+                "parity_policy",
+                "required_modules",
+                "generated_path_exclusions",
+                "documents",
+                "capabilities",
+                "profiles",
+                "selections",
+                "rule_namespaces",
+                "rule_counts",
+                "rules",
+                "validation",
+            },
+        )
+        self.assertEqual(snapshot["schema_version"], 1)
+        self.assertEqual(
+            snapshot["registry"]["validation_mode"],
+            "candidate_validation_only",
+        )
+        self.assertFalse(snapshot["registry"]["authoritative"])
+        self.assertFalse(snapshot["registry"]["executable"])
+        self.assertFalse(snapshot["registry"]["live_activation_verified"])
+        self.assertTrue(snapshot["registry"]["predecessor_route_consulted"])
+        self.assertEqual(
+            snapshot["registry"]["configuration_validation"]["value"],
+            "Candidate predecessor parity validated",
+        )
+        self.assertEqual(
+            snapshot["registry"]["live_activation"]["state"],
+            "pending",
+        )
+        self.assertEqual(
+            snapshot["registry"]["source_binding_sha256"]["state"],
+            "known",
+        )
+        self.assertEqual(
+            snapshot["routing"]["predecessor_provenance"]["state"],
+            "not_applicable",
+        )
+        self.assertEqual(
+            snapshot["routing"]["readable_representation"]["state"],
+            "not_applicable",
+        )
+        candidate_sources = MODULE.component_registry_source_paths(snapshot)
+        self.assertIn(
+            MODULE.COMPONENT_REGISTRY_ROUTE_SOURCE,
+            candidate_sources,
+        )
+        self.assertIn(
+            ROOT
+            / "framework"
+            / "receipts"
+            / "component-registry"
+            / "stage1-requirement-closure.json",
+            candidate_sources,
+        )
+        self.assertNotIn(
+            ROOT
+            / "framework"
+            / "receipts"
+            / "component-registry"
+            / "stage1-activation-readiness.json",
+            candidate_sources,
+        )
+        self.assertEqual(snapshot["routing"]["schema_version"], 2)
+        self.assertEqual(snapshot["routing"]["rule_catalog_version"], 1)
+        self.assertTrue(snapshot["complete"])
+        self.assertEqual(
+            snapshot["activation_readiness"]["requirement_count"],
+            77,
+        )
+        self.assertEqual(
+            snapshot["activation_readiness"]["activation_decision"],
+            "pending_human_activation",
+        )
+        self.assertEqual(
+            snapshot["deferred"]["display_state"],
+            "Classification pending — enforcement not active",
+        )
+        self.assertEqual(
+            snapshot["routes"]["documents"],
+            "automation:component-registry:documents",
+        )
+        self.assertEqual(
+            len(snapshot["documents"]),
+            len(registry["operational_documents"]["entries"]),
+        )
+        self.assertEqual(
+            len(snapshot["directories"]),
+            len(registry["directory_scopes"]["entries"]),
+        )
+        self.assertEqual(
+            len(snapshot["routing"]["selections"]),
+            len(embedded["profiles"]) + len(embedded["capabilities"]),
+        )
+        self.assertTrue(
+            all(
+                record["executable"] is False
+                and record["authoritative"] is False
+                and record["live_activation_verified"] is False
+                for record in snapshot["routing"]["selections"]
+            )
+        )
+        expected_rule_counts = {
+            "invariants": 7,
+            "selection": 17,
+            "validation": 10,
+            "failure_rules": 10,
+            "currentness": 6,
+            "budgets": 4,
+            "comprehensive_review": 10,
+        }
+        self.assertEqual(snapshot["routing"]["rule_counts"], expected_rule_counts)
+        self.assertEqual(len(snapshot["routing"]["rules"]), 64)
+        for rule in snapshot["routing"]["rules"]:
+            self.assertEqual(rule["predicate_type"], rule["rule_id"])
+            self.assertEqual(rule["rule_version"], 1)
+            self.assertEqual(rule["status"], "active")
+            self.assertEqual(
+                rule["source_provenance"]["source_document_id"],
+                "context_routing",
+            )
+            self.assertEqual(
+                rule["source_provenance"]["clause_key"],
+                rule["rule_id"],
+            )
+            self.assertEqual(rule["verification_ids"], [f"test.{rule['rule_id']}"])
+            self.assertIn("rendered_text", rule)
+            self.assertTrue(rule["console_route"].startswith(
+                "automation:component-registry:routing?rule="
+            ))
+        self.assertNotIn("failure_code", snapshot["routing"]["rules"][0])
+        failure_rule = next(
+            rule for rule in snapshot["routing"]["rules"]
+            if rule["namespace"] == "failure_rules"
+        )
+        self.assertTrue(failure_rule["failure_code"].startswith("CTXR_"))
+        self.assertEqual(
+            snapshot["terminology"]["console_route"],
+            "automation:component-registry:terminology",
+        )
+        self.assertTrue(
+            all(
+                row["permitted_artifact_classes"]["state"] == "unavailable"
+                for row in snapshot["directories"]
+            )
+        )
+        self.assertTrue(
+            all(
+                row["console_route"].startswith(
+                    "operations:component-registry:documents?document="
+                )
+                for row in snapshot["documents"]
+            )
+        )
+
+    def test_component_registry_active_configuration_is_not_live_activation(self):
+        registry = candidate_registry_fixture()
+        candidate_registry = copy.deepcopy(registry)
+        registry["status"] = "active"
+        registry["approval"] = {
+            "state": "known",
+            "value": {
+                "owner_review_reference": "restricted-review-reference",
+                "approved_by": "@Thorncrag",
+                "governance_change_id": "GOV-2026-001",
+                "implementation_contract_id":
+                    "COMPONENT-REGISTRY-2026-001-ACTIVATION",
+            },
+        }
+        registry["context_routing"]["activation_state"] = "active"
+        registry["context_routing"]["authoritative"] = True
+        registry["context_routing"].pop("source_import")
+        registry["context_routing"].pop("parity_policy")
+        predecessor_digests = {
+            "context_routing": "6" * 64,
+            "context_routes_source": "7" * 64,
+        }
+        registry["context_routing"]["predecessor_provenance"] = {
+            "schema_version": 1,
+            "complete": True,
+            "authority_effect":
+                "historical_provenance_only_no_runtime_read",
+            "records": {
+                "context_routing": {
+                    "stable_id": "context_routing",
+                    "artifact_kind": "markdown_authority",
+                    "historical_path": "framework/CONTEXT_ROUTING.md",
+                    "archived_path":
+                        "framework/archive/authorities/CONTEXT_ROUTING.md",
+                    "sha256": predecessor_digests["context_routing"],
+                    "source_schema_version": None,
+                    "state": "archived_retired_provenance_only",
+                    "retirement_proof": {
+                        "proof_type":
+                            "authenticated_activation_cutover",
+                        "governance_change_id": "GOV-2026-001",
+                        "implementation_contract_id":
+                            "COMPONENT-REGISTRY-2026-001-ACTIVATION",
+                        "owner_review_reference":
+                            "restricted-review-reference",
+                    },
+                },
+                "context_routes_source": {
+                    "stable_id": "context_routes_source",
+                    "artifact_kind": "route_data_authority",
+                    "historical_path":
+                        "framework/project/automation/context-routes.json",
+                    "archived_path":
+                        "framework/archive/authorities/context-routes.json",
+                    "sha256": predecessor_digests[
+                        "context_routes_source"
+                    ],
+                    "source_schema_version": 2,
+                    "state": "archived_retired_provenance_only",
+                    "retirement_proof": {
+                        "proof_type":
+                            "authenticated_activation_cutover",
+                        "governance_change_id": "GOV-2026-001",
+                        "implementation_contract_id":
+                            "COMPONENT-REGISTRY-2026-001-ACTIVATION",
+                        "owner_review_reference":
+                            "restricted-review-reference",
+                    },
+                },
+            },
+            "migration_alias_ids": [
+                "relocate_context_routing",
+                "relocate_context_routes_source",
+            ],
+            "verification_ids": [
+                "test_active_predecessor_provenance_is_closed",
+                "test_active_loader_does_not_read_predecessors",
+                "test_active_embedded_route_excludes_predecessors",
+            ],
+        }
+        registry["context_routing"]["readable_representation"] = {
+            "representation_id": "human_readable_context_routing",
+            "binding_kind": "component_registry_revision",
+            "source_registry_revision": registry["registry_revision"],
+            "generated_from": "embedded_context_routing",
+            "authority_effect": "none",
+            "executable": False,
+        }
+        archived_paths = {
+            "context_routing":
+                "framework/archive/authorities/CONTEXT_ROUTING.md",
+            "context_routes_source":
+                "framework/archive/authorities/context-routes.json",
+        }
+        document_template = dict(
+            registry["operational_documents"]["entries"][
+                "context_routing"
+            ]
+        )
+        for stable_id, archived_path in archived_paths.items():
+            document = dict(document_template)
+            document.update({
+                "document_id": stable_id,
+                "canonical_path": archived_path,
+                "authority_role": "archived_predecessor",
+                "retention_posture": "archived",
+                "digest_policy": "provenance_only",
+                "sha256": predecessor_digests[stable_id],
+                "dependencies": [],
+                "consumers": [],
+                "current_status": {
+                    "state": "known",
+                    "value": "retired",
+                },
+            })
+            registry["operational_documents"]["entries"][
+                stable_id
+            ] = document
+        registry["representations"]["entries"][
+            "human_readable_context_routing"
+        ].update({
+            "canonical_path":
+                (
+                    "framework/project/interfaces/project-console/data/"
+                    "component-registry.js"
+                ),
+            "source_revision_binding":
+                f"component_registry_revision:{registry['registry_revision']}",
+            "state": "active",
+        })
+        registry["context_routing"]["documents"].pop("context_routing")
+        registry = component_registry_tool.build_simulated_active_registry(
+            candidate_registry,
+            repository_revision="a" * 40,
+            approval_value={
+                "approval_type": "stage1_component_registry_activation",
+                "approved_by": "@Thorncrag",
+                "approval_method": "explicit_recorded_owner_activation",
+                "governance_change_id": "GOV-2026-001",
+                "implementation_contract_id":
+                    "COMPONENT-REGISTRY-2026-001-ACTIVATION",
+                "base_revision": "a" * 40,
+                "candidate_registry_sha256": "b" * 64,
+                "affected_stable_ids": ["COMPONENT-REGISTRY"],
+                "purpose_scope": "restricted-review-reference",
+                "bounded_diff_sha256": "c" * 64,
+                "approved_at": "2026-07-30T00:00:00-04:00",
+                "owner_review_reference":
+                    "github-review:Thorncrag/ARRP#123",
+            },
+        )
+        view = self.component_registry_view(
+            registry,
+            status="active",
+        )
+        inventory = {
+            "classification_complete": True,
+            "scope_counts": {
+                scope_id: 0
+                for scope_id in registry["directory_scopes"]["entries"]
+            },
+        }
+        with mock.patch.object(
+            MODULE,
+            "component_registry_inventory_report",
+            return_value=inventory,
+        ), mock.patch.object(
+            MODULE,
+            "component_registry_parity_report",
+            side_effect=AssertionError(
+                "active configuration must not consult predecessor parity"
+            ),
+        ), mock.patch.object(
+            MODULE,
+            "component_registry_routed_profile_preview",
+            return_value={
+                "executable": False,
+                "authoritative": False,
+                "live_activation_verified": False,
+                "modules": [],
+            },
+        ), mock.patch.object(
+            MODULE,
+            "component_registry_routed_capability_preview",
+            return_value={
+                "executable": False,
+                "authoritative": False,
+                "live_activation_verified": False,
+                "modules": [],
+            },
+        ):
+            snapshot = MODULE.component_registry_console_snapshot(
+                view,
+                generated_at="2026-07-29T12:00:00Z",
+            )
+        self.assertEqual(
+            snapshot["registry"]["approval"],
+            {
+                "state": "known",
+                "value": "Tracked activation configuration approved",
+            },
+        )
+        self.assertEqual(
+            snapshot["registry"]["validation_mode"],
+            "active_configuration_validation_only",
+        )
+        self.assertFalse(snapshot["registry"]["authoritative"])
+        self.assertFalse(snapshot["registry"]["executable"])
+        self.assertFalse(snapshot["registry"]["live_activation_verified"])
+        self.assertFalse(
+            snapshot["registry"]["predecessor_route_consulted"]
+        )
+        self.assertEqual(
+            snapshot["registry"]["live_activation"]["state"],
+            "unknown",
+        )
+        self.assertEqual(
+            snapshot["registry"]["source_binding_sha256"]["state"],
+            "not_applicable",
+        )
+        self.assertEqual(
+            snapshot["routing"]["source_import"]["state"],
+            "not_applicable",
+        )
+        self.assertEqual(
+            snapshot["routing"]["validation"]["state"],
+            "not_applicable",
+        )
+        self.assertEqual(
+            snapshot["routing"]["parity_policy"]["state"],
+            "not_applicable",
+        )
+        self.assertEqual(
+            snapshot["routing"]["predecessor_provenance"],
+            {
+                "state": "known",
+                "value": (
+                    "Archived predecessor provenance retained as "
+                    "nonauthoritative history."
+                ),
+            },
+        )
+        self.assertEqual(
+            snapshot["routing"]["readable_representation"],
+            {
+                "state": "known",
+                "representation_id": "human_readable_context_routing",
+                "source_registry_revision": registry["registry_revision"],
+                "authority_effect": "none",
+                "executable": False,
+            },
+        )
+        self.assertNotIn(
+            "context_routing",
+            {
+                record["document_id"]
+                for record in snapshot["routing"]["documents"]
+            },
+        )
+        self.assertTrue(
+            all(
+                rule["source_provenance"]["source_document_id"]
+                == "COMPONENT-REGISTRY"
+                and rule["source_provenance"]["source_sha256"]
+                == snapshot["registry"]["registry_sha256"]
+                for rule in snapshot["routing"]["rules"]
+            )
+        )
+        self.assertFalse(snapshot["routing"]["authoritative"])
+        self.assertNotIn(
+            MODULE.COMPONENT_REGISTRY_ROUTE_SOURCE,
+            MODULE.component_registry_source_paths(snapshot),
+        )
+        self.assertNotIn(
+            "restricted-review-reference",
+            json.dumps(snapshot, sort_keys=True),
+        )
+        self.assertNotIn(
+            "Owner activation verified",
+            json.dumps(snapshot, sort_keys=True),
+        )
+        self.assertNotIn(
+            "activation_receipt",
+            json.dumps(snapshot, sort_keys=True),
+        )
+        serialized = json.dumps(snapshot, sort_keys=True)
+        self.assertNotIn(
+            "framework/CONTEXT_ROUTING.md",
+            serialized,
+        )
+        self.assertNotIn(
+            "framework/project/automation/context-routes.json",
+            serialized,
+        )
+        self.assertNotIn(predecessor_digests["context_routing"], serialized)
+        self.assertNotIn(
+            predecessor_digests["context_routes_source"],
+            serialized,
+        )
+
+    def test_component_registry_loader_fails_closed_on_invalid_configuration(self):
+        with mock.patch.object(
+            MODULE,
+            "load_component_registry_configuration_routing_view",
+            side_effect=MODULE.ComponentRegistryError("source baseline drift"),
+        ) as loader:
+            with self.assertRaisesRegex(
+                RuntimeError,
+                "configuration validation is unavailable",
+            ):
+                MODULE.load_component_registry_console_snapshot(
+                    generated_at="2026-07-29T12:00:00Z",
+                )
+        loader.assert_called_once_with()
+
     def test_atomic_bundle_removes_stale_domains_and_verifies_hashes(self):
         with tempfile.TemporaryDirectory() as directory:
             console = Path(directory) / "console"
@@ -457,6 +1415,12 @@ class ConsoleDataContractTests(unittest.TestCase):
                 manifest = MODULE.write_console_bundle(
                     {"schema_version": 27, "overview": {"queue_counts": {}}},
                     {
+                        "component-registry.js": {
+                            "component_registry": {
+                                "schema_version": 1,
+                                "projection_id": "component-registry-console",
+                            }
+                        },
                         "overview.js": {"overview": {"queue_counts": {}}},
                         "progress.js": {"progress": {"metrics": {"total": 1}}},
                     },
@@ -500,7 +1464,7 @@ class ConsoleDataContractTests(unittest.TestCase):
             self.assertEqual(catalog["generation_id"], contract["generation_id"])
             self.assertEqual(
                 set(catalog["generation_manifest"]["files"]),
-                {"overview.js", "progress.js"},
+                {"component-registry.js", "overview.js", "progress.js"},
             )
 
     def test_topic_products_have_stable_nonissue_identity(self):
@@ -1253,6 +2217,102 @@ class ConsoleDataContractTests(unittest.TestCase):
             MODULE.require_registered_classification(
                 "queue_id",
                 "browser_invented_queue",
+            )
+
+    def test_public_only_payload_does_not_open_ignored_console_projections(self):
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            output = root / "catalog-data.js"
+            data_dir = root / "data"
+            data_dir.mkdir()
+            output.write_text(
+                "/* Generated by scripts/build_project_console.py. */\n"
+                "window.ARRP_HORIZON_REVIEW_DATA={\"schema_version\":29};\n",
+                encoding="utf-8",
+            )
+            (data_dir / "private-operations.js").write_text(
+                "owner-only canary",
+                encoding="utf-8",
+            )
+            (data_dir / "private-security-assurance.js").write_text(
+                "owner-only canary",
+                encoding="utf-8",
+            )
+            (data_dir / "local-automation-status.js").write_text(
+                "owner-only canary",
+                encoding="utf-8",
+            )
+            original_read_text = Path.read_text
+
+            def guarded_read_text(path: Path, *args, **kwargs):
+                if (
+                    path.name.startswith("private-")
+                    or path.name == "local-automation-status.js"
+                ):
+                    raise AssertionError(
+                        f"public-only generation opened {path.name}"
+                    )
+                return original_read_text(path, *args, **kwargs)
+
+            with (
+                mock.patch.object(MODULE, "OUTPUT", output),
+                mock.patch.object(MODULE, "CONSOLE_DATA_DIR", data_dir),
+                mock.patch.object(
+                    MODULE, "ALLOW_PRIVATE_CONSOLE_INPUTS", False
+                ),
+                mock.patch.object(Path, "read_text", guarded_read_text),
+            ):
+                payload = MODULE.existing_console_payload()
+        self.assertEqual(payload["schema_version"], 29)
+
+    def test_public_only_logs_do_not_open_owner_local_log_sources(self):
+        with (
+            mock.patch.object(
+                MODULE, "ALLOW_PRIVATE_CONSOLE_INPUTS", False
+            ),
+            mock.patch.object(
+                MODULE,
+                "agent_audit_log_view",
+                side_effect=AssertionError("owner-local log opened"),
+            ),
+            mock.patch.object(
+                MODULE,
+                "elim_run_log_view",
+                side_effect=AssertionError("owner-local log opened"),
+            ),
+        ):
+            logs = MODULE.project_log_views([])
+        by_id = {item["id"]: item for item in logs}
+        self.assertEqual(by_id["agents"]["availability"], "unavailable")
+        self.assertEqual(by_id["elim"]["availability"], "unavailable")
+        self.assertFalse(by_id["agents"]["complete"])
+        self.assertFalse(by_id["elim"]["complete"])
+        self.assertEqual(by_id["agents"]["entries"], [])
+        self.assertEqual(by_id["elim"]["entries"], [])
+        self.assertEqual(
+            [item["key"] for item in by_id["agents"]["columns"]],
+            ["date", "record", "task", "agent", "run", "outcome"],
+        )
+        self.assertEqual(
+            [item["key"] for item in by_id["elim"]["columns"]],
+            ["date", "outcome", "trigger", "summary", "usage", "next"],
+        )
+        public = {
+            item["id"]: item
+            for item in MODULE.public_safe_project_logs(logs)
+        }
+        for log_id in ("agents", "elim"):
+            self.assertIsNone(public[log_id]["entry_count"])
+            self.assertEqual(public[log_id]["entries"], [])
+            self.assertEqual(
+                public[log_id]["availability"], "unavailable"
+            )
+            self.assertFalse(public[log_id]["complete"])
+            self.assertIsNone(public[log_id]["current_through"])
+            self.assertIsNone(public[log_id]["source_url"])
+            self.assertEqual(
+                public[log_id]["reason"],
+                MODULE.OWNER_MODE_UNAVAILABLE_MESSAGE,
             )
 
 

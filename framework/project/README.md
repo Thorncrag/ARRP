@@ -16,8 +16,9 @@ belong in [`../records/`](../records/). A file may be binding ARRP authority
 without being a reusable standard.
 
 Begin with the [ARRP Project Profile](PROJECT_PROFILE.md) for the installation
-choices and the [ARRP Repository Map](REPOSITORY_MAP.md) for the exact content,
-configuration, and record surfaces. Exact maturity values and thresholds are
+choices and the [Component Registry](../component-registry.json) for exact
+document identities, content, configuration, and record surfaces. Exact
+maturity values and thresholds are
 maintained in the [ARRP Maturity Profile](profile/maturity-profile.md). The
 current and staged owner-local runtime boundary is governed separately by the
 [ARRP Owner-Local Runtime

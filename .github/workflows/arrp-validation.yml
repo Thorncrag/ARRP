@@ -28,6 +28,11 @@ jobs:
           cache-dependency-path: requirements-local-tools.txt
       - run: python -m pip install --requirement requirements-local-tools.txt
       - run: python -m unittest discover -s tests -p 'test_*.py'
+      - name: Validate repository Project Integrity configuration
+        run: >-
+          python scripts/audit_project_consistency.py
+          --routing-authority repository-validation
+          --exit-zero-on-findings
 
   console-tests:
     runs-on: ubuntu-latest
@@ -37,7 +42,7 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: "22"
-      - run: node --test research/project-console/tests/frontend.test.mjs
+      - run: node --test tests/project-console/frontend.test.mjs
 
   participation-tests:
     runs-on: ubuntu-latest
@@ -47,7 +52,7 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: "22"
-      - run: node --test participate/tests/*.test.js
+      - run: node --test tests/participation/*.test.js
 
   site-build:
     runs-on: ubuntu-latest
@@ -77,11 +82,8 @@ jobs:
           python-version: "3.12"
       - name: Compile runtime and tests
         run: python -m compileall -q scripts tests
-      - name: Validate context routes
-        run: >-
-          python scripts/build_elim_context.py
-          --path-authority repository-validation
-          --print-hash-updates
+      - name: Validate Component Registry configuration
+        run: python scripts/component_registry.py validate
       - name: Reject tracked symlinks, submodules, and unexpected executables
         run: python scripts/arrp_nightly.py --validate-repository-policy
 

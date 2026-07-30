@@ -39,7 +39,8 @@ current development status, trajectory, compact hold counts, and monitoring;
 **Planning**, a navigation category containing Workbench, Preliminary
 Candidates, Candidates, Sources, and Publication; **Integrity**, containing the exact current Project
 Integrity report and its findings; and **Operations**, containing Overview,
-Agents & Bots, Repository gates, Security, Capacity, Platform, Data, and Logs.
+Agents & Bots, Repository gates, Security, Capacity, Platform, Data, Component
+Registry, and Logs.
 
 Planning defaults to Workbench and has no aggregate main-tab count. It groups
 existing specialist ledgers without creating a new authority or duplicated
@@ -102,20 +103,37 @@ Rebuild the ARRP Project Console whenever candidate data, either canonical
 source catalog, a source-monitoring designation, an issue-level monitoring
 label, the presidential-directive registry, watcher configuration, a canonical
 project log, page-level publication-disposition metadata, or
-[`print-assembly.json`](../publication/print-assembly.json) changes.
+[`print-assembly.json`](../publication/print-assembly.json) changes. Rebuild
+also when the Component Registry configuration or schema changes. While the
+registry is a candidate, its exact imported context-route predecessor is also
+validated and hashed into the generation specification. A tracked active
+configuration validates only its embedded routing and must neither read nor
+hash either predecessor.
 
 The Console's progress, source, pending, watcher, integrity, log, and
 publication presentations are generated views. A rebuild refreshes those views
 but does not create another workflow, source, candidate, log, or publication
 authority.
 
+`scripts/build_project_console.py --public-only` is a tracked-output
+operation for rebuilding only the public Console bundle. It must not open,
+restore, or authorize ignored owner-only projections, and it leaves every
+owner-only feed explicitly unavailable rather than substituting an empty or
+healthy value. An immutable owner Console version may be staged after this
+operation only when the exact generation-bound owner-only projections have
+separately been restored by an authorized normal owner-bound generation. A
+public-only rebuild by itself never satisfies that prerequisite.
+
 An owner-initiated authenticated refresh uses
-`scripts/refresh_horizon_review_console.py`. That entry point has no
+`scripts/refresh_project_console.py`. That entry point has no
 caller-selected root or credential: it requires the clean canonical checkout,
 reads the dedicated Project-only credential from the fixed macOS Keychain
 authority, removes inherited GitHub-token variables, and supplies
 `ARRP_PROJECT_TOKEN` only to the exact read-only Progress, Integrity, feed, and
-Console producer subprocesses. It performs no GitHub mutation. Missing,
+Console producer subprocesses. The Integrity observation receives the fixed
+`production-canonical` routing-authority mode; neither the caller nor an
+environment variable may substitute a candidate, fixture, or alternate root.
+It performs no GitHub mutation. Missing,
 expired, or insufficient Project access fails closed without printing provider
 diagnostics or credential material. The ordinary GitHub CLI credential must
 not be broadened to satisfy this route. Generated tracked changes still follow
@@ -409,8 +427,35 @@ Operations owns:
    or DOM. Unknown, stale, or incomplete private evidence renders unavailable,
    never zero or healthy. A successful check means completed coverage, not
    `secure` or `no vulnerabilities`.
-5. Capacity — typed usage windows, reserve posture, historical consumption,
-   and explicit Review Epoch identity/markers.
+5. Capacity — one exact-bound owner-local `codex-usage` projection shared with
+   the Overview portlet. It presents the current plan/readback identity,
+   percentages, reset identity, material reset-window history, typed reset
+   anomalies, rate and even-spend estimates only when the producer declares
+   sufficient coverage, and explicit confidence. It does not expose absolute
+   capacity, prompts, task content, paths, tokens, credentials, or raw logs;
+   it never treats a billing label or percentage as proof of an advertised
+   denominator. Only the exact generation-bound owner-file Console may load
+   the minimized projection. Public, hosted, loopback, and repository-source
+   modes state `Data unavailable outside the bound owner-local Console.`
+   The projection uses schema version 2, the opaque producer identity
+   `owner-local-codex-usage-sampler`, a fixed 1,800-second sampling cadence,
+   and only the 10,080-minute weekly window. `trustworthy_through` is exactly
+   the earlier of the current observation plus one sampling cadence or its
+   recorded reset boundary. A projection accessed after that instant is stale
+   and unavailable; neither builder nor browser may extend it from schedule
+   expectations. Reset identity is derived from the exact window and reset
+   epoch, not a date label. Budget and burn-rate estimates have independent
+   typed availability and safe reason codes. Estimate availability is neutral,
+   never a health or success claim, and credit fields are prohibited.
+   Production owner staging obtains the projection only from the fixed approved
+   owner-local producer; a caller cannot substitute a source path. The owner
+   envelope binds the validated semantic payload digest rather than raw file
+   formatting, and the browser recomputes that digest before joining the data.
+   Its schema validator, digest implementation, responsive graph, and Capacity
+   renderer live in deferred public `capacity.js`; the entrypoint contains no
+   static script tag for that module, so the established 655 KiB initial
+   synchronous-script ceiling remains unchanged. The owner builder copies the
+   module into each immutable owner snapshot for direct `file://` use.
 6. Platform — one provider-neutral typed projection grouping OpenAI, Vercel,
    and Cloudflare observations with provider source, exact checked time,
    registered relevant components, relevant provider incident references, and
@@ -423,7 +468,61 @@ Operations owns:
    not erase valid observations from another.
 7. Data — one row per principal feed with availability, completeness, reason,
    trustworthy-through boundary, producer, and recovery route.
-8. Logs — one compact horizontal menu defaulting to Operational Incidents,
+8. Component Registry — one builder-supplied, typed repository-configuration
+   snapshot accepted by `scripts/component_registry.py`. Its four modes are
+   Documents, Directories, Routing, and Terminology. Documents preserve
+   registered authority, representation, dependency, consumer, digest,
+   lifecycle, and producer-supplied typed metadata. Directories preserve
+   registered placement, ownership, disclosure, precedence, and exact
+   inventory counts while artifact-class membership remains explicitly
+   unavailable. Routing preserves the exact imported route-source binding,
+   parity result, registered profiles and capabilities, and producer-resolved
+   dependency closures. It also renders the Stage 1 candidate's versioned
+   routing-rule catalog: schema version 2, catalog version 1, and 64 stable
+   rules across Invariants (7), Selection (17), Validation (10), Failure
+   rules (10), Currentness (6), Budgets (4), and Comprehensive review (10).
+   Rule meaning and readable text come from the validated producer; the
+   browser may not infer them from predecessor prose. Historical rule
+   provenance remains bound to the frozen predecessor digest
+   `246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7`.
+   A candidate registry remains explicitly predecessor-bound. An active
+   tracked configuration instead presents the embedded Component Registry
+   routing authority, frozen historical predecessor provenance, and a separately
+   identified nonauthoritative readable representation; it does not read the
+   predecessor files or present either provenance or representation as a
+   second authority. The public projection exposes only a safe retained-
+   provenance state plus the readable representation ID and current registry
+   revision; predecessor paths and digests remain outside the Console payload
+   and DOM.
+   Terminology remains unavailable while its candidate namespace is
+   unpopulated. The view always displays
+   `Classification pending — enforcement not active` until a separate approved
+   activation changes the governing registry; it performs no enforcement or
+   remediation. Candidate snapshots explicitly retain their predecessor
+   parity and source-binding evidence. A tracked active configuration uses the
+   closed `active_configuration_validation_only` state: it is
+   nonauthoritative, nonexecutable, does not consult either routing
+   predecessor, and does not read owner-local activation evidence. Its public
+   status may say `Tracked active configuration`, never `Owner activation
+   verified`. Live owner activation remains a separate production-runtime
+   determination requiring the fixed owner-local receipt; repository and
+   hosted Console data report that state as not evaluated and contain no
+   receipt identity or evidence. The browser must not invent taxonomy,
+   membership, route selection, identity, activation, or fallback facts.
+   Generation fails closed when the applicable configuration evidence, schema,
+   repository baseline, candidate source binding/parity, or directory
+   inventory is invalid or stale.
+
+   The feature has no Overview portlet. Its public shell module
+   `component-registry.js` and generated
+   `data/component-registry.js` domain load only when the subtab is opened;
+   neither is a static entrypoint script, preserving the 655 KiB initial
+   synchronous-script ceiling. Immutable owner snapshots copy both artifacts
+   for direct `file://` use. Canonical destinations use
+   `automation:component-registry:*`; the registered legacy
+   `operations:component-registry:*` document routes normalize one way to
+   those canonical destinations.
+9. Logs — one compact horizontal menu defaulting to Operational Incidents,
    followed in owner-file mode by Security Incidents, Horizon, Elim, Bots,
    Sources, retained Integrity history, Change audits, Governance changes, and
    Console development above the shared bounded master/detail workspace.
@@ -508,7 +607,7 @@ manifest, catalog, DOM, exports, and GitHub-bound bundle. Unavailable local
 detail is never represented as a public zero or healthy state.
 
 The maintained source package has one canonical repository home,
-`research/project-console/`, and one canonical entrypoint,
+`framework/project/interfaces/project-console/`, and one canonical entrypoint,
 `project-console.html`; compatibility aliases may not create a second source
 directory or entrypoint. The Console supports three explicit delivery modes.
 The ordinary owner-local
@@ -531,6 +630,9 @@ internal reason codes, infer a zero count, or suggest that a provider request
 failed.
 Private Operations additionally requires an exact schema, Console generation,
 and source-revision binding before its records can join the public shell. Its
+binding also assigns one exact `relative_path` to each feed identity; the
+loader rejects a requested path that belongs to a different feed even when
+both paths appear elsewhere in the same valid binding. Its
 owner-only Action snapshot and both incident projections are part of that same
 binding, so private Security attention cannot alter one surface without
 reconciling all shared Action counts. The current production runtime remains at
@@ -802,7 +904,7 @@ screen must not change a prior Overview assertion, count, status, or selection.
 
 Material Console changes use stable IDs in the form `CONSOLE-YYYY-NNN` and are
 recorded in
-[`console-development-log.md`](../../records/automation/console-development-log.md).
+[`console-development-log.md`](../../logs/automation/console-development-log.md).
 Each semantic implementation commit carries exactly one applicable trailer:
 
 `Console-Change-ID: CONSOLE-YYYY-NNN`

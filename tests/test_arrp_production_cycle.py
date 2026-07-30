@@ -123,6 +123,8 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
         self.runtime = self.state / "runtime" / ("b" * 40)
         self.worktree = self.state / "worktrees/run-1"
         self.worktree.mkdir(parents=True)
+        self.run_dir = self.state / "runs/run-1"
+        self.run_dir.mkdir(parents=True)
         (self.worktree / ".github").mkdir()
         (self.worktree / ".github/run-coordinator-bot.json").write_text(
             json.dumps(
@@ -152,6 +154,16 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
             None,
             str(self.worktree),
             self.revision,
+        )
+
+    def fixture_production_transaction(self, *, repository_root, run_root):
+        self.assertEqual(repository_root, self.worktree.resolve())
+        self.assertEqual(run_root, self.run_dir)
+        return MODULE.ProjectPathAuthority.fixture(
+            self.root,
+            repository_root=repository_root,
+            state_root=self.state,
+            output_root=run_root,
         )
 
     def tearDown(self):
@@ -287,6 +299,11 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                     "manifest": str(self.state / "manifest.json"),
                 },
             ),
+            mock.patch.object(
+                MODULE.ProjectPathAuthority,
+                "production_transaction",
+                side_effect=self.fixture_production_transaction,
+            ) as authority_constructor,
         ):
             result = MODULE.run_production_cycle(
                 self.config,
@@ -294,6 +311,10 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                 self.runtime,
             )
 
+        authority_constructor.assert_called_once_with(
+            repository_root=self.worktree.resolve(),
+            run_root=self.run_dir,
+        )
         self.assertIsNone(result["final_commit"]["commit"])
         self.assertIsNone(result["elim_result"])
         stages.assert_called_once()
@@ -404,12 +425,21 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
             ) as remove,
             mock.patch.object(MODULE, "git") as git_call,
             mock.patch.object(MODULE, "git_text", return_value=self.revision),
+            mock.patch.object(
+                MODULE.ProjectPathAuthority,
+                "production_transaction",
+                side_effect=self.fixture_production_transaction,
+            ) as authority_constructor,
         ):
             result = MODULE.publish_production_transaction(
                 self.config,
                 self.transaction,
                 summary,
             )
+        authority_constructor.assert_called_once_with(
+            repository_root=self.worktree.resolve(),
+            run_root=self.run_dir,
+        )
         self.assertTrue(result["no_op"])
         remove.assert_called_once()
         git_call.assert_called_once_with(

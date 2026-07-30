@@ -5,6 +5,8 @@ import json
 import unittest
 from pathlib import Path
 
+from scripts import component_registry
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -19,15 +21,12 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
             / "owner-local-runtime.md"
         )
         self.runtime = self.runtime_path.read_text(encoding="utf-8")
-        self.routes = json.loads(
-            (
-                ROOT
-                / "framework"
-                / "project"
-                / "automation"
-                / "context-routes.json"
-            ).read_text(encoding="utf-8")
+        self.registry = json.loads(
+            (ROOT / "framework" / "component-registry.json").read_text(
+                encoding="utf-8"
+            )
         )
+        self.routes = component_registry._routing_snapshot(self.registry)
 
     def test_runtime_authority_is_governing_pinned_and_routed(self) -> None:
         document = self.routes["documents"]["project_runtime_authority"]
@@ -91,28 +90,37 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
             self.assertIn(phrase, self.runtime)
 
     def test_current_documents_do_not_reintroduce_retired_or_ambiguous_state(self) -> None:
-        repository_map = (
-            ROOT / "framework" / "project" / "REPOSITORY_MAP.md"
-        ).read_text(encoding="utf-8")
         workflow = (
             ROOT / "framework" / "project" / "github" / "workflow.md"
         ).read_text(encoding="utf-8")
         agent_policy = (
             ROOT / "framework" / "project" / "automation" / "agent-policy.md"
         ).read_text(encoding="utf-8")
-        structure = (
-            ROOT / "framework" / "PROJECT_STRUCTURE.md"
-        ).read_text(encoding="utf-8")
+        framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(
+            encoding="utf-8"
+        )
 
-        self.assertIn("currently intentionally `Paused`", repository_map)
+        if self.registry["status"] == "candidate":
+            self.assertFalse(
+                self.registry["context_routing"]["authoritative"]
+            )
+            self.assertEqual(
+                self.registry["context_routing"]["activation_state"],
+                "candidate_import",
+            )
+        else:
+            self.assertEqual(self.registry["status"], "active")
+            self.assertTrue(
+                self.registry["context_routing"]["authoritative"]
+            )
         self.assertNotIn("ARRP's disabled local-first runner", workflow)
         self.assertNotIn(
             "bounded GitHub Actions or Console history",
             agent_policy,
         )
         self.assertIn(
-            "companion workspace and\ninactive successor staging authority",
-            structure,
+            "Component Registry",
+            framework,
         )
 
     def test_console_documentation_matches_owner_only_incident_and_binding_contract(
@@ -126,7 +134,12 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
             / "project-console.md"
         ).read_text(encoding="utf-8")
         readme = (
-            ROOT / "research" / "project-console" / "README.md"
+            ROOT
+            / "framework"
+            / "project"
+            / "interfaces"
+            / "project-console"
+            / "README.md"
         ).read_text(encoding="utf-8")
         classification_path = (
             ROOT

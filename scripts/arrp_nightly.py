@@ -101,6 +101,37 @@ except ModuleNotFoundError:
         transition_transaction,
     )
 
+try:
+    from component_registry import (
+        RegistryError as ComponentRegistryError,
+        ROUTING_PREDECESSOR_PATHS,
+        load_fixture_component_registry_routing_view,
+        load_validated_component_registry_routing_view,
+    )
+except ModuleNotFoundError:
+    from scripts.component_registry import (
+        RegistryError as ComponentRegistryError,
+        ROUTING_PREDECESSOR_PATHS,
+        load_fixture_component_registry_routing_view,
+        load_validated_component_registry_routing_view,
+    )
+
+try:
+    from arrp_context import (
+        ContextError as RoutingContextError,
+        load_route_manifest,
+    )
+except ModuleNotFoundError:
+    from scripts.arrp_context import (
+        ContextError as RoutingContextError,
+        load_route_manifest,
+    )
+
+try:
+    from path_authority import PathAuthorityError, ProjectPathAuthority
+except ModuleNotFoundError:
+    from scripts.path_authority import PathAuthorityError, ProjectPathAuthority
+
 SCHEMA_VERSION = "1.0"
 APPROVED_ORIGINS = frozenset(
     {
@@ -162,12 +193,17 @@ PROTECTED_EXACT = frozenset(
         "package-lock.json",
         "framework/FRAMEWORK.md",
         "framework/AGENT_OPERATING_RULES.md",
-        "framework/CONTEXT_ROUTING.md",
-        "framework/PROJECT_STRUCTURE.md",
-        "research/project-console/README.md",
-        "research/project-console/project-console.html",
-        "research/project-console/app.js",
-        "research/project-console/styles.css",
+        "framework/component-registry.json",
+        *(
+            specification["archived_path"]
+            for specification in ROUTING_PREDECESSOR_PATHS.values()
+        ),
+        "framework/project/interfaces/project-console/README.md",
+        "framework/project/interfaces/project-console/project-console.html",
+        "framework/project/interfaces/project-console/app.js",
+        "framework/project/interfaces/project-console/capacity.js",
+        "framework/project/interfaces/project-console/component-registry.js",
+        "framework/project/interfaces/project-console/styles.css",
     }
 )
 RECOGNIZED_NEW_PREFIXES = (
@@ -183,6 +219,7 @@ RUNTIME_FILES = (
     "scripts/arrp_nightly.py",
     "scripts/arrp_bootstrap.py",
     "scripts/arrp_context.py",
+    "scripts/component_registry.py",
     "scripts/path_authority.py",
     "scripts/github_disclosure_gate.py",
     "scripts/operational_incidents.py",
@@ -329,7 +366,7 @@ APP_REPOSITORY_PERMISSIONS = {
 EXPECTED_TRACKED_EXECUTABLES = frozenset(
     {
         "scripts/bootstrap_local_tools.sh",
-        "scripts/build_horizon_review_console.py",
+        "scripts/build_project_console.py",
         "scripts/congress_api_smoke_test.py",
     }
 )
@@ -2708,7 +2745,7 @@ def default_local_stage_specs(python: str | None = None) -> tuple[LocalStageSpec
                 "--json-output",
                 "{run_dir}/stages/source-checker-bot/report.json",
                 "--markdown-output",
-                "{worktree}/framework/records/status/source-checker-report.md",
+                "{worktree}/framework/status/source-checker-report.md",
             ),
             ("{run_dir}/stages/source-checker-bot/report.json",),
         ),
@@ -2751,10 +2788,12 @@ def default_local_stage_specs(python: str | None = None) -> tuple[LocalStageSpec
             (
                 interpreter,
                 "{worktree}/scripts/audit_project_consistency.py",
+                "--routing-authority",
+                "production-transaction",
                 "--json-output",
                 "{run_dir}/stages/project-integrity-bot/report.json",
                 "--markdown-output",
-                "{worktree}/framework/records/status/project-integrity-report.md",
+                "{worktree}/framework/status/project-integrity-report.md",
                 "--exit-zero-on-findings",
             ),
             ("{run_dir}/stages/project-integrity-bot/report.json",),
@@ -2774,10 +2813,12 @@ def default_post_elim_validation_specs(
             (
                 python,
                 "scripts/audit_project_consistency.py",
+                "--routing-authority",
+                "production-transaction",
                 "--json-output",
                 ".tmp/project-integrity-final.json",
                 "--markdown-output",
-                "framework/records/status/project-integrity-report.md",
+                "framework/status/project-integrity-report.md",
                 "--exit-zero-on-findings",
             ),
         ),
@@ -2789,14 +2830,14 @@ def default_post_elim_validation_specs(
                 "--report",
                 ".tmp/project-integrity-final.json",
                 "--existing-file",
-                "research/project-console/data/integrity.js",
+                "framework/project/interfaces/project-console/data/integrity.js",
                 "--output",
                 ".tmp/project-console-integrity.json",
             ),
         ),
         ValidationSpec(
             "console-build",
-            (python, "scripts/build_horizon_review_console.py", "--refresh-github"),
+            (python, "scripts/build_project_console.py", "--refresh-github"),
         ),
         ValidationSpec(
             "site-prepare",
@@ -2820,11 +2861,11 @@ def default_post_elim_validation_specs(
         ),
         ValidationSpec(
             "console-tests",
-            ("node", "--test", "research/project-console/tests/frontend.test.mjs"),
+            ("node", "--test", "framework/project/interfaces/project-console/tests/frontend.test.mjs"),
         ),
         ValidationSpec(
             "participation-tests",
-            ("node", "--test", "participate/tests/*.test.js"),
+            ("node", "--test", "tests/participation/*.test.js"),
         ),
         ValidationSpec(
             "python-compile",
@@ -2833,7 +2874,7 @@ def default_post_elim_validation_specs(
         ValidationSpec("diff-check", ("git", "diff", "--check")),
         ValidationSpec(
             "launchagent-template",
-            ("plutil", "-lint", ".github/launchd/com.thorncrag.arrp-nightly.plist.example"),
+            ("plutil", "-lint", "framework/project/automation/configuration/launchd/com.thorncrag.arrp-nightly.plist.example"),
         ),
     )
 
@@ -3229,6 +3270,11 @@ def run_p3_fixture_cycle(
         worktree,
         run_dir,
         message=f"ARRP nightly automation {utc_now().date().isoformat()}",
+        path_authority=routing_path_authority(
+            config,
+            worktree,
+            output_root=run_dir,
+        ),
     )
     return {
         "schema_version": 1,
@@ -3678,8 +3724,6 @@ def run_production_cycle(
             str(runtime / "scripts/build_elim_context.py"),
             "--path-authority",
             "production-transaction",
-            "--manifest",
-            str(worktree / "framework/project/automation/context-routes.json"),
             "--input-root",
             str(worktree),
             "--review-epoch-root",
@@ -3840,6 +3884,12 @@ def run_production_cycle(
         worktree,
         run_dir,
         message=f"ARRP nightly automation {utc_now().date().isoformat()}",
+        path_authority=routing_path_authority(
+            config,
+            worktree,
+            output_root=run_dir,
+        ),
+        require_active_registry=True,
     )
     success_candidate = last_success_document(
         config.state_root,
@@ -3925,28 +3975,174 @@ def git_text(repository: Path, *args: str) -> str:
     return git(repository, *args).stdout.decode("utf-8", "strict").strip()
 
 
+def routing_path_authority(
+    config: RunnerConfig,
+    repository: Path,
+    *,
+    output_root: Path | None = None,
+) -> ProjectPathAuthority:
+    """Construct the exact typed routing authority for this transaction phase."""
+
+    repository = repository.resolve()
+    try:
+        if config.fixture_root is not None:
+            return ProjectPathAuthority.fixture(
+                config.fixture_root,
+                repository_root=repository,
+                state_root=config.state_root,
+                output_root=output_root or repository,
+            )
+        if repository == config.canonical_path.resolve():
+            return ProjectPathAuthority.production()
+        if output_root is None:
+            raise TransactionError(
+                "transaction routing requires its exact run output root"
+            )
+        return ProjectPathAuthority.production_transaction(
+            repository_root=repository,
+            run_root=output_root,
+        )
+    except PathAuthorityError as error:
+        raise TransactionError(
+            "Component Registry routing path authority is unavailable"
+        ) from error
+
+
 def governing_protected_paths(
     repository: Path,
     runtime_files: Sequence[str] = RUNTIME_FILES,
+    *,
+    path_authority: ProjectPathAuthority | None = None,
+    require_active_registry: bool = False,
 ) -> frozenset[str]:
     """Resolve dynamic protected paths from the canonical registry and runtime."""
 
+    repository = repository.resolve()
     protected = set(runtime_files)
-    registry_path = repository / "framework/project/automation/context-routes.json"
+    registry_path = repository / "framework/component-registry.json"
     if not registry_path.exists():
+        if require_active_registry:
+            raise TransactionError(
+                "active Component Registry routing is unavailable"
+            )
+        if path_authority is None:
+            raise TransactionError(
+                "routing requires a typed path authority"
+            )
+        if path_authority.repository_root != repository:
+            raise TransactionError(
+                "routing authority and repository differ"
+            )
+        predecessor_path = (
+            repository
+            / ROUTING_PREDECESSOR_PATHS["context_routes_source"][
+                "historical_path"
+            ]
+        )
+        if not predecessor_path.exists():
+            if path_authority.mode == "fixture":
+                return frozenset(protected)
+            raise TransactionError(
+                "routing authority is unavailable"
+            )
+        try:
+            route = load_route_manifest(
+                predecessor_path,
+                root=repository,
+                verify_hashes=True,
+            )
+        except (OSError, ValueError, RoutingContextError) as error:
+            raise TransactionError(
+                "predecessor routing validation failed"
+            ) from error
+        documents = route.get("documents")
+        if not isinstance(documents, dict):
+            raise TransactionError(
+                "predecessor routing documents must be an object"
+            )
+        for identifier, document in documents.items():
+            if not isinstance(document, dict):
+                raise TransactionError(
+                    f"invalid predecessor routing document: {identifier}"
+                )
+            if document.get("governing") is True:
+                path = document.get("path")
+                if not isinstance(path, str) or not path:
+                    raise TransactionError(
+                        "governing predecessor routing document lacks path: "
+                        f"{identifier}"
+                    )
+                protected.add(path)
         return frozenset(protected)
-    registry = read_json_object(registry_path)
-    documents = registry.get("documents")
+    if path_authority is None:
+        raise TransactionError(
+            "Component Registry routing requires a typed path authority"
+        )
+    if path_authority.repository_root != repository:
+        raise TransactionError(
+            "Component Registry routing authority and repository differ"
+        )
+    try:
+        if path_authority.mode == "fixture":
+            routing_view = load_fixture_component_registry_routing_view(
+                path_authority
+            )
+        else:
+            routing_view = load_validated_component_registry_routing_view(
+                path_authority
+            )
+    except ComponentRegistryError as error:
+        raise TransactionError(
+            "Component Registry routing validation failed"
+        ) from error
+    validation_mode = routing_view.get("validation_mode")
+    expected_posture = {
+        "candidate_validation_only": {
+            "authoritative": False,
+            "executable": False,
+            "live_activation_verified": False,
+            "activation_receipt_consulted": False,
+            "predecessor_route_consulted": True,
+        },
+        "active_component_registry": {
+            "authoritative": True,
+            "executable": True,
+            "live_activation_verified": True,
+            "activation_receipt_consulted": True,
+            "predecessor_route_consulted": False,
+        },
+    }.get(str(validation_mode))
+    if expected_posture is None or any(
+        routing_view.get(field) is not expected
+        for field, expected in expected_posture.items()
+    ):
+        raise TransactionError(
+            "Component Registry routing view has an invalid authority posture"
+        )
+    if require_active_registry and (
+        validation_mode != "active_component_registry"
+    ):
+        raise TransactionError(
+            "production routing requires an active Component Registry "
+            "with authenticated activation readback"
+        )
+    route = routing_view.get("route")
+    documents = route.get("documents") if isinstance(route, Mapping) else None
     if not isinstance(documents, dict):
-        raise TransactionError("context-routes documents must be an object")
+        raise TransactionError(
+            "Component Registry routing documents must be an object"
+        )
     for identifier, document in documents.items():
         if not isinstance(document, dict):
-            raise TransactionError(f"invalid context-routes document: {identifier}")
+            raise TransactionError(
+                f"invalid Component Registry routing document: {identifier}"
+            )
         if document.get("governing") is True:
             path = document.get("path")
             if not isinstance(path, str) or not path:
                 raise TransactionError(
-                    f"governing context-routes document lacks path: {identifier}"
+                    "governing Component Registry routing document lacks path: "
+                    f"{identifier}"
                 )
             protected.add(path)
     return frozenset(protected)
@@ -4152,16 +4348,48 @@ def write_status(
     unknown = set(updates) - set(STATUS_FIELDS)
     if unknown:
         raise TransactionError(f"unknown status fields: {sorted(unknown)}")
-    status_document.update(updates)
-    status_document["updated_at"] = iso_utc()
-    missing = set(STATUS_FIELDS) - set(status_document)
+    candidate = dict(status_document)
+    candidate.update(updates)
+    candidate["updated_at"] = iso_utc()
+    missing = set(STATUS_FIELDS) - set(candidate)
     if missing:
         raise TransactionError(f"missing status fields: {sorted(missing)}")
-    atomic_write_json(config.state_root / "status.json", status_document)
+    atomic_write_json(config.state_root / "status.json", candidate)
+    status_document.clear()
+    status_document.update(candidate)
     if config.console_projection is not None:
         write_console_status_projection(
             config.state_root / "status.json", config.console_projection
         )
+
+
+def _callback_summary(
+    value: Any,
+    *,
+    callback_name: str,
+) -> dict[str, Any]:
+    """Return a bounded plain JSON mapping without exposing invalid contents."""
+
+    if not isinstance(value, Mapping):
+        raise TransactionError(f"{callback_name} summary is invalid")
+    try:
+        encoded = json.dumps(
+            dict(value),
+            sort_keys=True,
+            separators=(",", ":"),
+            ensure_ascii=False,
+            allow_nan=False,
+        ).encode("utf-8")
+        if len(encoded) > 262_144:
+            raise ValueError("callback summary exceeds the bounded size")
+        normalized = json.loads(encoded)
+    except (TypeError, ValueError, OverflowError) as error:
+        raise TransactionError(
+            f"{callback_name} summary is invalid"
+        ) from error
+    if not isinstance(normalized, dict):
+        raise TransactionError(f"{callback_name} summary is invalid")
+    return normalized
 
 
 def write_console_status_projection(status_path: Path, output: Path | None = None) -> Path:
@@ -4576,11 +4804,17 @@ def create_local_final_commit(
     run_dir: Path,
     *,
     message: str,
+    path_authority: ProjectPathAuthority | None = None,
+    require_active_registry: bool = False,
 ) -> dict[str, Any]:
     """Classify, scan, commit, and prove the exact local-only final delta."""
 
     base_commit = git_text(repository, "rev-parse", "HEAD")
-    dynamic_protected = governing_protected_paths(repository)
+    dynamic_protected = governing_protected_paths(
+        repository,
+        path_authority=path_authority,
+        require_active_registry=require_active_registry,
+    )
     records = status_manifest(repository, dynamic_protected=dynamic_protected)
     reject_unsafe_manifest_entries(repository, records)
     prohibited = [
@@ -4639,10 +4873,17 @@ def committed_range_manifest(
     repository: Path,
     base_commit: str,
     head_commit: str,
+    *,
+    path_authority: ProjectPathAuthority | None = None,
+    require_active_registry: bool = False,
 ) -> list[IndexRecord]:
     """Classify the complete publication range, including checkpoint ancestry."""
 
-    dynamic_protected = governing_protected_paths(repository)
+    dynamic_protected = governing_protected_paths(
+        repository,
+        path_authority=path_authority,
+        require_active_registry=require_active_registry,
+    )
     records: list[IndexRecord] = []
     for status_code, path in _changed_paths_against_commit(
         repository,
@@ -4679,8 +4920,16 @@ def classify_publication_range(
     *,
     base_commit: str,
     head_commit: str,
+    path_authority: ProjectPathAuthority | None = None,
+    require_active_registry: bool = False,
 ) -> dict[str, Any]:
-    records = committed_range_manifest(repository, base_commit, head_commit)
+    records = committed_range_manifest(
+        repository,
+        base_commit,
+        head_commit,
+        path_authority=path_authority,
+        require_active_registry=require_active_registry,
+    )
     findings = scan_staged_blobs(repository, records)
     prohibited = [
         record.path
@@ -4877,6 +5126,11 @@ def publish_supervised_transaction(
         run_dir,
         base_commit=transaction.fetched_origin_main,
         head_commit=expected_head,
+        path_authority=routing_path_authority(
+            config,
+            worktree,
+            output_root=run_dir,
+        ),
     )
     if publication_range["review_required"]:
         raise TransactionError(
@@ -5028,6 +5282,12 @@ def publish_production_transaction(
         run_dir,
         base_commit=transaction.fetched_origin_main,
         head_commit=expected_head,
+        path_authority=routing_path_authority(
+            config,
+            worktree,
+            output_root=run_dir,
+        ),
+        require_active_registry=True,
     )
     if final.get("commit") is not None and expected_head != final.get("commit"):
         raise TransactionError("production final commit readback differs")
@@ -5395,6 +5655,15 @@ def prepare_transaction(
             dynamic_protected = governing_protected_paths(
                 repository,
                 config.runtime_files,
+                path_authority=routing_path_authority(
+                    config,
+                    repository,
+                ),
+                require_active_registry=(
+                    config.fixture_root is None
+                    and config.trigger
+                    in {"scheduled", "manual", "manual-retry"}
+                ),
             )
             preexisting = status_manifest(
                 repository,
@@ -5585,7 +5854,14 @@ def prepare_transaction(
                 stage="05_worktree",
                 worktree_path=str(worktree),
             )
-            cycle_summary = local_cycle(prepared) if local_cycle is not None else None
+            cycle_summary = (
+                _callback_summary(
+                    local_cycle(prepared),
+                    callback_name="local cycle",
+                )
+                if local_cycle is not None
+                else None
+            )
             cycle_phase = (
                 str(cycle_summary.get("phase"))
                 if isinstance(cycle_summary, Mapping) and cycle_summary.get("phase")
@@ -5598,7 +5874,10 @@ def prepare_transaction(
                         "publication requires a completed local cycle summary"
                     )
                 assert_canonical_unchanged(repository, starting_head, clean_digest)
-                publication_summary = publication_cycle(prepared, cycle_summary)
+                publication_summary = _callback_summary(
+                    publication_cycle(prepared, cycle_summary),
+                    callback_name="publication cycle",
+                )
                 cycle_phase = str(publication_summary.get("phase") or cycle_phase)
             cycle_elim_summary = None
             if isinstance(cycle_summary, Mapping):
@@ -5844,7 +6123,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         scheduled_for=scheduled_slot() if args.scheduled else None,
         console_projection=(
             canonical
-            / "research/project-console/data/local-automation-status.js"
+            / "framework/project/interfaces/project-console/data/local-automation-status.js"
         ),
         supervised_live=supervised_plan is not None,
         runtime_commit=str(args.runtime_commit) if production else None,

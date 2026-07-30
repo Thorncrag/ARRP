@@ -1,0 +1,79 @@
+---
+title: "ARRP Repository Map"
+status: active
+print_status: excluded
+print_exclusion_reason: "Internal project configuration."
+---
+
+# ARRP Repository Map
+
+This is the ARRP installation map. General placement rules remain authoritative
+in [`../PROJECT_STRUCTURE.md`](../PROJECT_STRUCTURE.md).
+
+## Public entry records
+
+| Path | Purpose |
+| --- | --- |
+| `README.md` | Public front door, premise, scope, and navigation. |
+| `UNDER_REVIEW.md` | Generated public status of candidates, investigations, holds, and monitored issues. |
+| `PRINT_READERS_GUIDE.md` | Front matter for compiled editions. |
+| `SUBJECT_INDEX.md` | Cross-area subject and institution lookup. |
+| `areas/README.md` | Ordered public index of ARRP institutional areas. |
+| `topics/README.md` | Public index of selective topic guides. |
+| `ABOUT.md` | Project authorship, stewardship, and contact orientation. |
+| `SUPPORT.md` | Funding-independence, access, rights, and tax-status notice. |
+| `CONTRIBUTING.md` | Contribution and review expectations. |
+
+## Canonical substantive records
+
+| Path | Purpose |
+| --- | --- |
+| `areas/<AREA>/issues/<ISSUE>.md` | Canonical issue diagnosis, remedy, and proposal summary. |
+| `areas/<AREA>/issues/<ISSUE>.audit.md` | Preserved issue-specific audit history. |
+| `areas/<AREA>/README.md` | Public area page containing active and historical issue routes. |
+| `legislation/<ISSUE>.md` | Proposed legal or procedural vehicle. |
+| `topics/*.md` | Public topic guides. |
+| `research/` and `areas/<AREA>/research/` | Project-authored research and source-development records. |
+| `inventory/sources.csv` | Canonical retained-source catalog. |
+| `inventory/sources-pending.csv` | Temporary unresolved-source routing catalog. |
+| `inventory/presidential-directives.csv` | Directive discovery and screening registry. |
+| `inventory/github_issue_registry.csv` | Stable GitHub-item-to-canonical-page registry. |
+| `framework/logs/governance/governance-change-log.md` | Public-safe provenance index for material governance decisions; it does not replace the governing document, Change Audit history, or Git evidence. |
+
+## ARRP governing configuration
+
+| Path | Purpose |
+| --- | --- |
+| [`PROJECT_PROFILE.md`](PROJECT_PROFILE.md) | ARRP identity, adopted scope applications, issue-page choices, and reader-facing technical vocabulary. |
+| [`REPOSITORY_MAP.md`](REPOSITORY_MAP.md) | This exact ARRP installation map. |
+| [`profile/`](profile/) | Additional ARRP-specific scoring, maturity, and public-actor conventions. |
+| [`github/workflow.md`](github/workflow.md) | Exact GitHub lifecycle, field, and synchronization implementation. |
+| [`workflows/`](workflows/) | ARRP-specific review and reconciliation procedures. |
+| [`workflows/governance-change-recording.md`](workflows/governance-change-recording.md) | Public-safe material governance-decision provenance and protected-supplement posture. |
+| [`workflows/navigation-sync.md`](workflows/navigation-sync.md) | Exact ARRP navigation, area-list, topic-guide, and synchronization implementation. |
+| [`publication/`](publication/) | Exact edition manifests and release decisions. |
+| [`interfaces/`](interfaces/) | Project Console and visual-identity configuration. |
+| [`automation/`](automation/) | Owner-local runtime authority, context registry, named runbooks, and exact agent/bot configuration. |
+
+## Local-first runtime
+
+The [ARRP Owner-Local Runtime
+Authority](automation/owner-local-runtime.md) governs the current Application
+Support state root, the inactive protected successor staging descriptor, and
+every logical `owner-local:` path. The reviewed `scripts/arrp_bootstrap.py` and
+`scripts/arrp_nightly.py` source implements the installed local-first chain.
+The chain is currently intentionally `Paused`; installed capability does not
+authorize a production run or removal of the pause marker. One owner LaunchAgent,
+`com.thorncrag.arrp-nightly`, is the sole scheduled coordinator and evaluates
+the chain at 02:00 `America/New_York`, with `RunAtLoad` due evaluation.
+Protected ownership and validation policy remain under `.github/`, and
+`tests/test_arrp_*.py` retain fixture-first coverage. The GitHub broker is
+repository- and permission-bound; Elim never receives its credentials.
+GitHub Actions retains only public-site publication and required validation,
+not scheduled project maintenance.
+
+## Project records
+
+Current state and historical evidence live under [`../records/`](../records/).
+Those records do not become methodology or authority merely because runtime
+tools consume them.

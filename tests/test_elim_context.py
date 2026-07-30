@@ -34,6 +34,9 @@ from build_elim_context import (  # noqa: E402
     main as build_elim_context_main,
     parse_args as parse_build_elim_context_args,
 )
+import build_elim_context as build_elim_context_module  # noqa: E402
+from component_registry import RegistryError, RoutingRuleFailure  # noqa: E402
+import component_registry as component_registry_module  # noqa: E402
 import path_authority as path_authority_module  # noqa: E402
 from path_authority import ProjectPathAuthority  # noqa: E402
 
@@ -116,7 +119,13 @@ class ExactContextTests(unittest.TestCase):
             output_root=output_root,
         )
         stdout = io.StringIO()
-        with redirect_stdout(stdout):
+        with (
+            patch.object(
+                build_elim_context_module,
+                "load_validated_component_registry_routing_view",
+            ) as registry_loader,
+            redirect_stdout(stdout),
+        ):
             return_code = build_elim_context_main(
                 [
                     "--manifest",
@@ -129,6 +138,7 @@ class ExactContextTests(unittest.TestCase):
                 path_authority=authority,
             )
         self.assertEqual(return_code, 0, stdout.getvalue())
+        registry_loader.assert_not_called()
         self.assertEqual(stdout.getvalue(), "")
         packet = json.loads(output.read_text(encoding="utf-8"))
         self.assertEqual(packet["profile"], "issue")
@@ -188,6 +198,7 @@ class ExactContextTests(unittest.TestCase):
         for arguments in (
             ["--fixture-root", str(self.root)],
             ["--path-authority", "fixture"],
+            ["--component-registry", str(self.root / "registry.json")],
         ):
             with self.subTest(arguments=arguments), redirect_stderr(io.StringIO()):
                 with self.assertRaises(SystemExit):
@@ -229,19 +240,30 @@ class ExactContextTests(unittest.TestCase):
                 2,
             )
 
-    def test_production_transaction_cli_uses_matching_reviewed_roots(self):
+    def _production_transaction_paths(
+        self,
+        base: Path,
+    ) -> tuple[Path, Path, Path, Path]:
+        state = base / "state"
+        worktrees = state / "worktrees"
+        runs = state / "runs"
+        worktree = worktrees / "run-1"
+        run = runs / "run-1"
+        state.mkdir(mode=0o700)
+        worktrees.mkdir(mode=0o700)
+        runs.mkdir(mode=0o700)
+        shutil.copytree(self.root, worktree)
+        run.mkdir(mode=0o700)
+        registry = worktree / "framework/component-registry.json"
+        registry.write_text("{}\n", encoding="utf-8")
+        return state, worktree, run, registry
+
+    def test_production_transaction_cli_rejects_predecessor_manifest(self):
         with tempfile.TemporaryDirectory() as temporary:
             base = Path(temporary).resolve()
-            state = base / "state"
-            worktrees = state / "worktrees"
-            runs = state / "runs"
-            worktree = worktrees / "run-1"
-            run = runs / "run-1"
-            state.mkdir(mode=0o700)
-            worktrees.mkdir(mode=0o700)
-            runs.mkdir(mode=0o700)
-            shutil.copytree(self.root, worktree)
-            run.mkdir(mode=0o700)
+            state, worktree, run, _registry = self._production_transaction_paths(
+                base
+            )
             output = run / "packet.json"
             with (
                 patch.object(
@@ -249,6 +271,10 @@ class ExactContextTests(unittest.TestCase):
                     "APPROVED_STATE_ROOT",
                     state,
                 ),
+                patch.object(
+                    build_elim_context_module,
+                    "load_validated_component_registry_routing_view",
+                ) as registry_loader,
                 redirect_stdout(io.StringIO()),
             ):
                 return_code = build_elim_context_main(
@@ -267,10 +293,245 @@ class ExactContextTests(unittest.TestCase):
                         str(output),
                     ]
                 )
+            self.assertEqual(return_code, 2)
+            registry_loader.assert_not_called()
+            blocked = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(blocked["status"], "blocked")
+            self.assertIn(
+                "forbids predecessor --manifest routing",
+                blocked["error"],
+            )
+
+    def test_production_transaction_cli_uses_active_registry_view(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary).resolve()
+            state, worktree, run, _registry = self._production_transaction_paths(
+                base
+            )
+            output = run / "packet.json"
+            active_view = {
+                "validation_mode": "active_component_registry",
+                "authoritative": True,
+                "executable": True,
+                "live_activation_verified": True,
+                "activation_receipt_consulted": True,
+                "predecessor_route_consulted": False,
+            }
+            packet = {
+                "schema_version": 2,
+                "profile": "issue",
+                "routing_authority": "component-registry",
+            }
+            with (
+                patch.object(
+                    path_authority_module,
+                    "APPROVED_STATE_ROOT",
+                    state,
+                ),
+                patch.object(
+                    build_elim_context_module,
+                    "load_validated_component_registry_routing_view",
+                    return_value=active_view,
+                ) as registry_loader,
+                patch.object(
+                    build_elim_context_module,
+                    "build_context_packet_from_view",
+                    return_value=packet,
+                ) as packet_builder,
+                redirect_stdout(io.StringIO()),
+            ):
+                return_code = build_elim_context_main(
+                    [
+                        "--path-authority",
+                        "production-transaction",
+                        "--input-root",
+                        str(worktree),
+                        "--output-root",
+                        str(run),
+                        "--profile",
+                        "issue",
+                        "--output",
+                        str(output),
+                    ]
+                )
             self.assertEqual(return_code, 0)
+            registry_loader.assert_called_once()
+            authority = registry_loader.call_args.args[0]
+            self.assertIsInstance(authority, ProjectPathAuthority)
+            self.assertEqual(authority.mode, "production_transaction")
+            self.assertEqual(authority.repository_root, worktree)
+            self.assertEqual(authority.state_root, state)
+            self.assertEqual(authority.output_root, run)
+            self.assertIs(packet_builder.call_args.args[0], active_view)
+            self.assertEqual(packet_builder.call_args.args[1], "issue")
             self.assertEqual(
-                json.loads(output.read_text(encoding="utf-8"))["profile"],
-                "issue",
+                json.loads(output.read_text(encoding="utf-8")),
+                packet,
+            )
+
+    def test_production_transaction_cli_blocks_candidate_registry_view(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary).resolve()
+            state, worktree, run, _registry = self._production_transaction_paths(
+                base
+            )
+            output = run / "packet.json"
+            candidate_view = {
+                "validation_mode": "candidate_validation_only",
+                "authoritative": False,
+                "executable": False,
+                "live_activation_verified": False,
+                "activation_receipt_consulted": False,
+                "predecessor_route_consulted": True,
+            }
+            with (
+                patch.object(
+                    path_authority_module,
+                    "APPROVED_STATE_ROOT",
+                    state,
+                ),
+                patch.object(
+                    build_elim_context_module,
+                    "load_validated_component_registry_routing_view",
+                    return_value=candidate_view,
+                ),
+                patch.object(
+                    build_elim_context_module,
+                    "build_context_packet_from_view",
+                ) as packet_builder,
+                redirect_stdout(io.StringIO()),
+            ):
+                return_code = build_elim_context_main(
+                    [
+                        "--path-authority",
+                        "production-transaction",
+                        "--input-root",
+                        str(worktree),
+                        "--output-root",
+                        str(run),
+                        "--profile",
+                        "issue",
+                        "--output",
+                        str(output),
+                    ]
+                )
+            self.assertEqual(return_code, 2)
+            packet_builder.assert_not_called()
+            blocked = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(blocked["status"], "blocked")
+            self.assertIn(
+                "requires active Component Registry routing",
+                blocked["error"],
+            )
+
+    def test_production_transaction_cli_preserves_safe_readback_failure(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary).resolve()
+            state, worktree, run, _registry = self._production_transaction_paths(
+                base
+            )
+            output = run / "packet.json"
+            with (
+                patch.object(
+                    path_authority_module,
+                    "APPROVED_STATE_ROOT",
+                    state,
+                ),
+                patch.object(
+                    build_elim_context_module,
+                    "load_validated_component_registry_routing_view",
+                    side_effect=RegistryError(
+                        "active registry lacks authenticated activation readback"
+                    ),
+                ),
+                patch.object(
+                    build_elim_context_module,
+                    "build_context_packet_from_view",
+                ) as packet_builder,
+                redirect_stdout(io.StringIO()),
+            ):
+                return_code = build_elim_context_main(
+                    [
+                        "--path-authority",
+                        "production-transaction",
+                        "--input-root",
+                        str(worktree),
+                        "--output-root",
+                        str(run),
+                        "--profile",
+                        "issue",
+                        "--output",
+                        str(output),
+                    ]
+                )
+            self.assertEqual(return_code, 2)
+            packet_builder.assert_not_called()
+            blocked = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(blocked["status"], "blocked")
+            self.assertEqual(
+                blocked["error"],
+                "active registry lacks authenticated activation readback",
+            )
+
+    def test_production_transaction_cli_preserves_typed_routing_failure(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            base = Path(temporary).resolve()
+            state, worktree, run, _registry = self._production_transaction_paths(
+                base
+            )
+            output = run / "packet.json"
+            active_view = {
+                "validation_mode": "active_component_registry",
+                "authoritative": True,
+                "executable": True,
+                "live_activation_verified": True,
+                "activation_receipt_consulted": True,
+                "predecessor_route_consulted": False,
+            }
+            failure = RoutingRuleFailure(
+                failure_code="CTXR_PACKET_BUDGET_EXCEEDED",
+                phase="packet_build",
+                rule_ids=("ctxr.fail.packet_budget_exceeded",),
+                message="Component Registry context packet exceeded its ceiling",
+            )
+            with (
+                patch.object(
+                    path_authority_module,
+                    "APPROVED_STATE_ROOT",
+                    state,
+                ),
+                patch.object(
+                    build_elim_context_module,
+                    "load_validated_component_registry_routing_view",
+                    return_value=active_view,
+                ),
+                patch.object(
+                    build_elim_context_module,
+                    "build_context_packet_from_view",
+                    side_effect=failure,
+                ),
+                redirect_stdout(io.StringIO()),
+            ):
+                return_code = build_elim_context_main(
+                    [
+                        "--path-authority",
+                        "production-transaction",
+                        "--input-root",
+                        str(worktree),
+                        "--output-root",
+                        str(run),
+                        "--profile",
+                        "issue",
+                        "--output",
+                        str(output),
+                    ]
+                )
+            self.assertEqual(return_code, 2)
+            blocked = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(blocked["status"], "blocked")
+            self.assertEqual(
+                blocked["routing_failure"],
+                failure.safe_evidence(),
             )
 
     def schema_two_manifest(self) -> Path:
@@ -1766,7 +2027,7 @@ class QueueTests(unittest.TestCase):
                         "module_id": "test-module",
                         "record_id": "HOR-035",
                         "target_path": (
-                            "research/horizon-source-records/"
+                            "research/candidate-source-development/"
                             "HOR-035-source-development.md"
                         ),
                         "added_lead_ids": ["CASELEAD-ABCDEF012345"],
@@ -1915,7 +2176,7 @@ class QueueTests(unittest.TestCase):
 - Human question: Approve the exact reviewed head for merge?
 - Reassessment trigger: Any head change invalidates this recommendation.
 """
-        untrusted_log = self.root / "framework/records/sources/source-monitor-log.md"
+        untrusted_log = self.root / "framework/logs/sources/source-monitor-log.md"
         untrusted_log.parent.mkdir(parents=True)
         untrusted_log.write_text(recommendation_text, encoding="utf-8")
         runtime_root = self.root / "reviewed-runtime"
@@ -1943,7 +2204,7 @@ class QueueTests(unittest.TestCase):
             )
         )
 
-        source_log = runtime_root / "framework/records/sources/source-monitor-log.md"
+        source_log = runtime_root / "framework/logs/sources/source-monitor-log.md"
         source_log.parent.mkdir(parents=True)
         source_log.write_text(recommendation_text, encoding="utf-8")
         with patch("arrp_context.ROOT", runtime_root):
@@ -2492,17 +2753,25 @@ class ContextRouteTests(unittest.TestCase):
 
 
 class RepositorySearchBoundaryTests(unittest.TestCase):
+    def configuration_route(
+        self,
+    ) -> tuple[dict[str, object], dict[str, object]]:
+        view = (
+            component_registry_module
+            .load_component_registry_configuration_routing_view()
+        )
+        return view["route"], view
+
     def test_generated_console_and_local_artifacts_are_excluded_from_ordinary_search(self):
         policy = (ROOT / ".rgignore").read_text(encoding="utf-8")
-        self.assertIn("research/project-console/catalog-data.js", policy)
-        self.assertIn("research/project-console/data/", policy)
+        self.assertIn("framework/project/interfaces/project-console/catalog-data.js", policy)
+        self.assertIn("framework/project/interfaces/project-console/data/", policy)
         self.assertIn(".site-build/", policy)
         self.assertIn(".tmp/", policy)
         self.assertIn(".venv/", policy)
 
     def test_production_context_routes_are_hash_pinned_and_extractable(self):
-        path = ROOT / "framework/project/automation/context-routes.json"
-        raw = json.loads(path.read_text(encoding="utf-8"))
+        raw, view = self.configuration_route()
         self.assertEqual(raw["schema_version"], 2)
         self.assertTrue(
             {
@@ -2515,7 +2784,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         current_spec = raw["documents"]["current_audit"]
         self.assertEqual(
             current_spec["path"],
-            "framework/records/handoffs/current-task.md",
+            "framework/handoffs/current-task.md",
         )
         self.assertEqual(current_spec["hash_policy"], "runtime")
         self.assertFalse(current_spec["governing"])
@@ -2534,9 +2803,15 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
                 document_id,
             )
 
-        manifest = load_route_manifest(path, root=ROOT)
+        manifest = raw
         packets = {
-            profile_name: build_context_packet(path, profile_name, root=ROOT)
+            profile_name:
+                component_registry_module.build_context_packet_from_view(
+                    view,
+                    profile_name,
+                    assurance_mode=view["validation_mode"],
+                    root=ROOT,
+                )
             for profile_name in manifest["profiles"]
         }
         required = set(manifest["required_modules"])
@@ -2569,7 +2844,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         self.assertEqual(
             current_module["sha256"],
             hashlib.sha256(
-                (ROOT / "framework/records/handoffs/current-task.md").read_bytes()
+                (ROOT / "framework/handoffs/current-task.md").read_bytes()
             ).hexdigest(),
         )
 
@@ -2644,6 +2919,12 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
             },
         }
         for profile_name, expected_modules in expected_profile_modules.items():
+            if view["registry_status"] == "active":
+                expected_modules = expected_modules - {
+                    "project_structure",
+                    "context_routing",
+                    "repository_map",
+                }
             actual_modules = {
                 module["document"]
                 for module in packets[profile_name]["modules"]
@@ -2669,8 +2950,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         self.assertIn("current_audit", comprehensive_modules)
 
     def test_small_profiles_allow_additive_audit_capabilities_with_headroom(self):
-        path = ROOT / "framework/project/automation/context-routes.json"
-        manifest = load_route_manifest(path, root=ROOT)
+        manifest, view = self.configuration_route()
         profiles = ("integrity_reconciliation", "github_sync")
         capabilities = ("change_control", "tiered_quality_audit")
 
@@ -2681,9 +2961,10 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
             )
             for capability in capabilities:
                 with self.subTest(profile=profile_name, capability=capability):
-                    packet = build_context_packet(
-                        path,
+                    packet = component_registry_module.build_context_packet_from_view(
+                        view,
                         profile_name,
+                        assurance_mode=view["validation_mode"],
                         root=ROOT,
                         capabilities=(capability,),
                     )
@@ -2713,14 +2994,15 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
                     )
 
     def test_explicit_lower_packet_ceiling_still_fails_closed(self):
-        path = ROOT / "framework/project/automation/context-routes.json"
         with self.assertRaisesRegex(
-            ContextError,
+            RoutingRuleFailure,
             r"context packet exceeds max bytes \(\d+ > 300000\)",
         ):
-            build_context_packet(
-                path,
+            _manifest, view = self.configuration_route()
+            component_registry_module.build_context_packet_from_view(
+                view,
                 "integrity_reconciliation",
+                assurance_mode=view["validation_mode"],
                 root=ROOT,
                 capabilities=("change_control",),
                 max_total_bytes=300000,

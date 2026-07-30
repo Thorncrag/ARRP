@@ -12,6 +12,13 @@ from types import SimpleNamespace
 from unittest import mock
 
 from scripts import build_owner_console as owner_console
+from scripts.codex_usage_projection import (
+    canonical_payload_digest,
+    unavailable_projection,
+)
+from scripts.path_authority import (
+    APPROVED_REPOSITORY_ROOT as PATH_AUTHORITY_REPOSITORY_ROOT,
+)
 from scripts.security_incidents import (
     project_security_incident_log,
     record_security_occurrence,
@@ -46,13 +53,57 @@ def parsed_assignment(path: Path, global_name: str) -> dict[str, object]:
     return json.loads(text.removeprefix(prefix).removesuffix(";\n"))
 
 
+def available_usage_projection() -> dict[str, object]:
+    return {
+        "schema_version": 2,
+        "projection_id": "codex-usage",
+        "producer_id": "owner-local-codex-usage-sampler",
+        "sampler_cadence_seconds": 1800,
+        "generated_at": "2026-07-29T11:50:00Z",
+        "trustworthy_through": "2026-07-29T12:15:00Z",
+        "availability": "current",
+        "completeness": "complete",
+        "reason_code": None,
+        "current_through": "2026-07-29T11:45:00Z",
+        "current": {
+            "observed_at": "2026-07-29T11:45:00Z",
+            "plan_type": "pro",
+            "used_percent": 28,
+            "remaining_percent": 72,
+            "window_minutes": 10080,
+            "resets_at": 1785908741,
+            "reset_identity": "10080:29765145",
+        },
+        "history": [],
+        "reset_windows": [],
+        "anomalies": [],
+        "estimates": {
+            "available": True,
+            "budget_available": True,
+            "budget_reason_code": None,
+            "burn_rate_available": False,
+            "burn_rate_reason_code": "insufficient_observation_coverage",
+            "coverage_hours": 0,
+            "sample_count": 1,
+            "average_percent_per_day": None,
+            "projected_exhaustion_at": None,
+            "remaining_percent_per_day_budget": 10.1,
+            "confidence": "unavailable",
+        },
+    }
+
+
 class OwnerConsoleTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name).resolve()
         self.repository = self.root / "ARRP"
         self.console = (
-            self.repository / "research" / "project-console"
+            self.repository
+            / "framework"
+            / "project"
+            / "interfaces"
+            / "project-console"
         )
         self.data = self.console / "data"
         self.data.mkdir(parents=True)
@@ -101,9 +152,14 @@ class OwnerConsoleTests(unittest.TestCase):
     def tearDown(self) -> None:
         self.temporary.cleanup()
 
-    def build(self) -> Path:
+    def build(
+        self,
+        *,
+        codex_usage_source: Path | None = None,
+    ) -> Path:
         return owner_console.build_owner_console(
             private_authority=self.authority,
+            codex_usage_source=codex_usage_source,
             now=STAGED_AT,
         )
 
@@ -131,6 +187,34 @@ class OwnerConsoleTests(unittest.TestCase):
             if key != "generation_id"
         }
         domain_row["file"] = "overview.js"
+        component_payload = {
+            "component_registry": {
+                "schema_version": 1,
+                "projection_id": "component-registry-console",
+            },
+            "domain_generation": {
+                "component-registry.js": GENERATION_ID
+            },
+        }
+        component_domain = (
+            owner_console.PART_PREFIX
+            + json.dumps(component_payload, indent=2)
+            + ");\n"
+        ).encode("utf-8")
+        (self.data / "component-registry.js").write_bytes(component_domain)
+        component_metadata = {
+            "generation_id": GENERATION_ID,
+            "sha256": digest(component_domain),
+            "bytes": len(component_domain),
+            "keys": ["component_registry"],
+            "record_count": 1,
+        }
+        component_row = {
+            key: value
+            for key, value in component_metadata.items()
+            if key != "generation_id"
+        }
+        component_row["file"] = "component-registry.js"
         manifest = {
             "manifest_schema_version": 1,
             "generation_id": GENERATION_ID,
@@ -143,9 +227,12 @@ class OwnerConsoleTests(unittest.TestCase):
                 "expected_count": 1,
                 "missing_count": 0,
             },
-            "domain_count": 1,
-            "domains": [domain_row],
-            "files": {"overview.js": metadata},
+            "domain_count": 2,
+            "domains": [component_row, domain_row],
+            "files": {
+                "component-registry.js": component_metadata,
+                "overview.js": metadata,
+            },
         }
         (self.data / "generation-manifest.json").write_text(
             json.dumps(manifest, indent=2, sort_keys=True) + "\n",
@@ -174,6 +261,15 @@ class OwnerConsoleTests(unittest.TestCase):
         )
         (self.console / "app.js").write_text(
             'console.log("public shell");\n',
+            encoding="utf-8",
+        )
+        (self.console / "capacity.js").write_text(
+            'window.ARRP_CODEX_CAPACITY = Object.freeze({ schemaVersion: 1 });\n',
+            encoding="utf-8",
+        )
+        (self.console / "component-registry.js").write_text(
+            "window.ARRP_COMPONENT_REGISTRY = "
+            "Object.freeze({ schemaVersion: 1 });\n",
             encoding="utf-8",
         )
         (self.console / "styles.css").write_text(
@@ -325,6 +421,15 @@ class OwnerConsoleTests(unittest.TestCase):
                 "window.ARRP_LOCAL_AUTOMATION_STATUS = ",
                 self._local_status(),
             ),
+            "private-codex-usage.js": assignment(
+                "window.ARRP_PRIVATE_CODEX_USAGE=",
+                unavailable_projection(
+                    generated_at=datetime(
+                        2026, 7, 29, 11, 30, tzinfo=timezone.utc
+                    )
+                ),
+                "/* Private local projection; never commit or publish. */\n",
+            ),
         }
         for name, content in values.items():
             path = self.data / name
@@ -366,6 +471,7 @@ class OwnerConsoleTests(unittest.TestCase):
                 "security-assurance",
                 "private-operations",
                 "local-automation-status",
+                "codex-usage",
             },
         )
         local = parsed_assignment(
@@ -395,6 +501,18 @@ class OwnerConsoleTests(unittest.TestCase):
         self.assertEqual(
             (version / "data" / "overview.js").read_bytes(),
             (self.data / "overview.js").read_bytes(),
+        )
+        self.assertEqual(
+            (version / "data" / "component-registry.js").read_bytes(),
+            (self.data / "component-registry.js").read_bytes(),
+        )
+        self.assertEqual(
+            (version / "component-registry.js").read_bytes(),
+            (self.console / "component-registry.js").read_bytes(),
+        )
+        self.assertNotIn(
+            'src="component-registry.js',
+            entrypoint,
         )
         for current, directories, files in os.walk(version):
             self.assertEqual(
@@ -429,6 +547,86 @@ class OwnerConsoleTests(unittest.TestCase):
             self.build()
 
         self.assertEqual((version / "project-console.html").read_bytes(), original)
+
+    def test_owner_usage_source_is_read_directly_and_bound(self) -> None:
+        source_script = (
+            self.data / "private-codex-usage.js"
+        ).read_bytes()
+        payload = owner_console._json_script_payload(
+            source_script,
+            prefix="window.ARRP_PRIVATE_CODEX_USAGE=",
+            leading_comment=(
+                "/* Private local projection; never commit or publish. */\n"
+            ),
+        )
+        source = self.root / "codex-usage-projection.json"
+        source_content = json.dumps(
+            payload,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+        source.write_bytes(source_content)
+        os.chmod(source, 0o600)
+
+        version = self.build(codex_usage_source=source)
+
+        staged = parsed_assignment(
+            version / "data" / "private-codex-usage.js",
+            "window.ARRP_PRIVATE_CODEX_USAGE",
+        )
+        self.assertEqual(staged["payload"], payload)
+        self.assertEqual(
+            staged["owner_console_envelope"]["source_sha256"],
+            canonical_payload_digest(payload),
+        )
+        self.assertEqual(
+            staged["owner_console_envelope"]["source_sha256"],
+            canonical_payload_digest(staged["payload"]),
+        )
+        self.assertEqual(
+            (version / "capacity.js").read_bytes(),
+            (self.console / "capacity.js").read_bytes(),
+        )
+        self.assertEqual(
+            (version / "component-registry.js").read_bytes(),
+            (self.console / "component-registry.js").read_bytes(),
+        )
+
+    def test_owner_usage_source_rejects_ambiguous_paths(self) -> None:
+        with self.assertRaisesRegex(
+            owner_console.OwnerConsoleBuildError,
+            "absolute canonical path",
+        ):
+            self.build(codex_usage_source=Path("relative-usage.json"))
+
+        source = self.root / "usage-target.json"
+        source.write_text("{}", encoding="utf-8")
+        os.chmod(source, 0o600)
+        link = self.root / "usage-link.json"
+        link.symlink_to(source)
+        with self.assertRaisesRegex(
+            owner_console.OwnerConsoleBuildError,
+            "absolute canonical path",
+        ):
+            self.build(codex_usage_source=link)
+
+    def test_production_usage_source_cannot_be_substituted(self) -> None:
+        candidate = self.root / "valid-looking-weaker-source.json"
+        candidate.write_text("{}", encoding="utf-8")
+        os.chmod(candidate, 0o600)
+        with self.assertRaisesRegex(
+            owner_console.OwnerConsoleBuildError,
+            "cannot be caller-selected",
+        ):
+            owner_console._approved_codex_usage_source(
+                production=True,
+                requested=candidate,
+            )
+        self.assertEqual(
+            owner_console.APPROVED_CODEX_USAGE_SOURCE,
+            PATH_AUTHORITY_REPOSITORY_ROOT.parent.parent
+            / owner_console.CODEX_USAGE_SOURCE_RELATIVE,
+        )
 
     def test_incomplete_or_hash_mismatched_public_generation_fails_closed(self) -> None:
         manifest_path = self.data / "generation-manifest.json"
@@ -470,7 +668,7 @@ class OwnerConsoleTests(unittest.TestCase):
         row["file"] = "not-present.js"
         manifest["files"]["not-present.js"] = metadata
         manifest["domains"].append(row)
-        manifest["domain_count"] = 2
+        manifest["domain_count"] = 3
         manifest["completeness"].update(
             {
                 "actual_count": 2,
@@ -537,7 +735,7 @@ class OwnerConsoleTests(unittest.TestCase):
         row["file"] = "private-operations.js"
         manifest["files"]["private-operations.js"] = metadata
         manifest["domains"].append(row)
-        manifest["domain_count"] = 2
+        manifest["domain_count"] = 3
         manifest["completeness"].update(
             {
                 "actual_count": 2,
@@ -688,6 +886,57 @@ class OwnerConsoleTests(unittest.TestCase):
             self.build()
 
         self.assertFalse(any(self.private_versions.iterdir()))
+
+    def test_codex_usage_projection_and_estimate_flags_fail_closed(self) -> None:
+        payload = available_usage_projection()
+        self.assertEqual(
+            owner_console._validate_codex_usage(payload, now=STAGED_AT),
+            ("current", True),
+        )
+        altered = json.loads(json.dumps(payload))
+        altered["estimates"]["available"] = False
+        with self.assertRaisesRegex(
+            owner_console.OwnerConsoleBuildError,
+            "allowlist",
+        ):
+            owner_console._validate_codex_usage(altered)
+        altered = json.loads(json.dumps(payload))
+        altered["estimates"]["average_percent_per_day"] = 4
+        with self.assertRaisesRegex(
+            owner_console.OwnerConsoleBuildError,
+            "allowlist",
+        ):
+            owner_console._validate_codex_usage(altered)
+        altered = json.loads(json.dumps(payload))
+        altered["current"]["raw_prompt"] = "not allowed"
+        with self.assertRaisesRegex(
+            owner_console.OwnerConsoleBuildError,
+            "allowlist",
+        ):
+            owner_console._validate_codex_usage(altered)
+
+    def test_stale_or_malformed_usage_source_is_staged_unavailable(self) -> None:
+        source = self.root / "codex-usage-projection.json"
+        stale = available_usage_projection()
+        stale["trustworthy_through"] = "2026-07-29T11:59:59Z"
+        source.write_text(
+            json.dumps(stale, sort_keys=True, separators=(",", ":")),
+            encoding="utf-8",
+        )
+        os.chmod(source, 0o600)
+
+        version = self.build(codex_usage_source=source)
+        staged = parsed_assignment(
+            version / "data" / "private-codex-usage.js",
+            "window.ARRP_PRIVATE_CODEX_USAGE",
+        )
+        self.assertEqual(staged["payload"]["availability"], "unavailable")
+        self.assertEqual(staged["payload"]["reason_code"], "source_unavailable")
+        self.assertIsNone(staged["payload"]["current"])
+        self.assertEqual(
+            staged["owner_console_envelope"]["source_sha256"],
+            canonical_payload_digest(staged["payload"]),
+        )
 
 
 if __name__ == "__main__":

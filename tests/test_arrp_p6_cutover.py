@@ -14,7 +14,7 @@ from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 PLIST_PATH = (
-    ROOT / ".github/launchd/com.thorncrag.arrp-nightly.plist.example"
+    ROOT / "framework/project/automation/configuration/launchd/com.thorncrag.arrp-nightly.plist.example"
 )
 STATE_ROOT = Path("/Users/benjaminsmith/Library/Application Support/ARRP")
 BOOTSTRAP_SPEC = importlib.util.spec_from_file_location(

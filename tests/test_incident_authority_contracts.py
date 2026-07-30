@@ -5,6 +5,8 @@ import hashlib
 import unittest
 from pathlib import Path
 
+from scripts import component_registry
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -30,11 +32,12 @@ class IncidentAuthorityContractTest(unittest.TestCase):
                 / "project-console-classifications.json"
             ).read_text(encoding="utf-8")
         )
-        self.context_routes = json.loads(
-            (
-                automation / "context-routes.json"
-            ).read_text(encoding="utf-8")
+        registry = json.loads(
+            (ROOT / "framework" / "component-registry.json").read_text(
+                encoding="utf-8"
+            )
         )
+        self.context_routes = component_registry._routing_snapshot(registry)
 
     def test_inc_and_sec_have_distinct_owner_local_authorities(self) -> None:
         self.assertIn("operational-incidents.jsonl", self.operational["event_authority"])

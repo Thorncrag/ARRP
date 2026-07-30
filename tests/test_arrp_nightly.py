@@ -1,5 +1,7 @@
 import fcntl
+import importlib
 import importlib.util
+import hashlib
 import json
 import os
 import subprocess
@@ -21,6 +23,9 @@ assert SPEC.loader is not None
 sys.modules[SPEC.name] = MODULE
 SPEC.loader.exec_module(MODULE)
 install_test_control_pack(MODULE)
+path_authority_module = importlib.import_module(
+    MODULE.ProjectPathAuthority.__module__
+)
 
 
 def run(*args: str, cwd: Path | None = None) -> str:
@@ -84,6 +89,24 @@ class GitFixture:
 
 
 class ArrpNightlyTransactionTests(unittest.TestCase):
+    def test_capacity_module_is_a_protected_console_shell_file(self):
+        self.assertIn(
+            "framework/project/interfaces/project-console/capacity.js",
+            MODULE.PROTECTED_EXACT,
+        )
+
+    def test_component_registry_module_is_a_protected_console_shell_file(self):
+        self.assertIn(
+            "framework/project/interfaces/project-console/component-registry.js",
+            MODULE.PROTECTED_EXACT,
+        )
+
+    def test_component_registry_router_is_in_the_runtime_snapshot(self):
+        self.assertIn(
+            "scripts/component_registry.py",
+            MODULE.RUNTIME_FILES,
+        )
+
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
@@ -91,6 +114,403 @@ class ArrpNightlyTransactionTests(unittest.TestCase):
 
     def tearDown(self):
         self.temporary.cleanup()
+
+    def production_routing_authority(
+        self,
+        *,
+        create_registry: bool = True,
+    ) -> tuple[Path, Path, Path, MODULE.ProjectPathAuthority]:
+        state = (self.root / "production-state").resolve()
+        worktrees = state / "worktrees"
+        runs = state / "runs"
+        repository = worktrees / "routing-run"
+        run_dir = runs / "routing-run"
+        for path in (state, worktrees, runs, repository, run_dir):
+            path.mkdir(mode=0o700, exist_ok=True)
+        if create_registry:
+            registry = repository / "framework/component-registry.json"
+            registry.parent.mkdir(mode=0o700)
+            registry.write_text("{}\n", encoding="utf-8")
+        with mock.patch.object(
+            path_authority_module,
+            "APPROVED_STATE_ROOT",
+            state,
+        ):
+            authority = MODULE.ProjectPathAuthority.production_transaction(
+                repository_root=repository,
+                run_root=run_dir,
+            )
+        return repository, state, run_dir, authority
+
+    def fixture_routing_authority(self) -> MODULE.ProjectPathAuthority:
+        self.fixture.state.mkdir(mode=0o700, exist_ok=True)
+        return MODULE.routing_path_authority(
+            self.fixture.config(),
+            self.fixture.repo,
+        )
+
+    def write_predecessor_route(
+        self,
+        *,
+        repository: Path | None = None,
+        sha256: str | None = None,
+    ) -> Path:
+        repository = repository or self.fixture.repo
+        document = repository / "framework/governing.md"
+        document.parent.mkdir(parents=True, exist_ok=True)
+        document.write_text("governing fixture\n", encoding="utf-8")
+        digest = sha256 or hashlib.sha256(document.read_bytes()).hexdigest()
+        route = repository / "framework/project/automation/context-routes.json"
+        route.parent.mkdir(parents=True, exist_ok=True)
+        route.write_text(
+            json.dumps(
+                {
+                    "schema_version": 2,
+                    "documents": {
+                        "governing": {
+                            "path": "framework/governing.md",
+                            "requires": [],
+                            "governing": True,
+                            "hash_policy": "pinned",
+                            "sha256": digest,
+                        }
+                    },
+                    "required_modules": ["governing"],
+                    "profiles": {
+                        "fixture": {
+                            "modules": ["governing"],
+                            "sections": [],
+                            "capabilities": [],
+                            "max_bytes": 4096,
+                        }
+                    },
+                    "capabilities": {},
+                    "generated_path_exclusions": [],
+                },
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        return route
+
+    def test_fixture_protected_paths_can_omit_component_registry(self):
+        authority = self.fixture_routing_authority()
+        with mock.patch.object(
+            MODULE,
+            "load_validated_component_registry_routing_view",
+        ) as registry_loader:
+            protected = MODULE.governing_protected_paths(
+                self.fixture.repo,
+                ("scripts/fixture-runtime.py",),
+                path_authority=authority,
+            )
+
+        self.assertEqual(protected, frozenset({"scripts/fixture-runtime.py"}))
+        registry_loader.assert_not_called()
+
+    def test_nonfixture_protected_paths_require_a_routing_authority(self):
+        repository, _state, _run_dir, authority = (
+            self.production_routing_authority(create_registry=False)
+        )
+        self.assertEqual(authority.mode, "production_transaction")
+        with self.assertRaisesRegex(
+            MODULE.TransactionError,
+            "routing authority is unavailable",
+        ):
+            MODULE.governing_protected_paths(
+                repository,
+                ("scripts/fixture-runtime.py",),
+                path_authority=authority,
+            )
+
+    def test_fixture_predecessor_supplies_governing_paths(self):
+        self.write_predecessor_route()
+        authority = self.fixture_routing_authority()
+        with (
+            mock.patch.object(
+                MODULE,
+                "load_fixture_component_registry_routing_view",
+            ) as candidate_loader,
+            mock.patch.object(
+                MODULE,
+                "load_route_manifest",
+                wraps=MODULE.load_route_manifest,
+            ) as predecessor_loader,
+        ):
+            protected = MODULE.governing_protected_paths(
+                self.fixture.repo,
+                ("scripts/fixture-runtime.py",),
+                path_authority=authority,
+            )
+
+        candidate_loader.assert_not_called()
+        predecessor_loader.assert_called_once_with(
+            self.fixture.repo.resolve()
+            / "framework/project/automation/context-routes.json",
+            root=self.fixture.repo.resolve(),
+            verify_hashes=True,
+        )
+        self.assertEqual(
+            protected,
+            frozenset(
+                {
+                    "scripts/fixture-runtime.py",
+                    "framework/governing.md",
+                }
+            ),
+        )
+
+    def test_fixture_predecessor_stale_pin_fails_closed(self):
+        self.write_predecessor_route(sha256="0" * 64)
+        with self.assertRaisesRegex(
+            MODULE.TransactionError,
+            "predecessor routing validation failed",
+        ):
+            MODULE.governing_protected_paths(
+                self.fixture.repo,
+                path_authority=self.fixture_routing_authority(),
+            )
+
+    def test_predecessor_rejects_authority_repository_mismatch(self):
+        self.write_predecessor_route()
+        other_repository = self.root / "other-repository"
+        other_repository.mkdir()
+        self.fixture.state.mkdir(mode=0o700, exist_ok=True)
+        authority = MODULE.ProjectPathAuthority.fixture(
+            self.root,
+            repository_root=other_repository,
+            state_root=self.fixture.state,
+            output_root=other_repository,
+        )
+        with self.assertRaisesRegex(
+            MODULE.TransactionError,
+            "routing authority and repository differ",
+        ):
+            MODULE.governing_protected_paths(
+                self.fixture.repo,
+                path_authority=authority,
+            )
+
+    def test_fixture_candidate_uses_only_fixture_registry_loader(self):
+        registry = self.fixture.repo / "framework/component-registry.json"
+        registry.parent.mkdir(parents=True)
+        registry.write_text("{}\n", encoding="utf-8")
+        self.fixture.state.mkdir(mode=0o700)
+        authority = MODULE.routing_path_authority(
+            self.fixture.config(),
+            self.fixture.repo,
+        )
+        candidate_view = {
+            "validation_mode": "candidate_validation_only",
+            "authoritative": False,
+            "executable": False,
+            "live_activation_verified": False,
+            "activation_receipt_consulted": False,
+            "predecessor_route_consulted": True,
+            "route": {
+                "documents": {
+                    "governing": {
+                        "governing": True,
+                        "path": "framework/governing.md",
+                    }
+                }
+            },
+        }
+        with (
+            mock.patch.object(
+                MODULE,
+                "load_fixture_component_registry_routing_view",
+                return_value=candidate_view,
+            ) as fixture_loader,
+            mock.patch.object(
+                MODULE,
+                "load_validated_component_registry_routing_view",
+            ) as production_loader,
+        ):
+            protected = MODULE.governing_protected_paths(
+                self.fixture.repo,
+                ("scripts/fixture-runtime.py",),
+                path_authority=authority,
+            )
+
+        fixture_loader.assert_called_once_with(authority)
+        production_loader.assert_not_called()
+        self.assertEqual(
+            protected,
+            frozenset(
+                {
+                    "scripts/fixture-runtime.py",
+                    "framework/governing.md",
+                }
+            ),
+        )
+
+    def test_production_protected_paths_require_component_registry(self):
+        self.write_predecessor_route()
+        with self.assertRaisesRegex(
+            MODULE.TransactionError,
+            "active Component Registry routing is unavailable",
+        ):
+            MODULE.governing_protected_paths(
+                self.fixture.repo,
+                path_authority=self.fixture_routing_authority(),
+                require_active_registry=True,
+            )
+
+    def test_production_protected_paths_use_active_registry_view(self):
+        repository, _state, _run_dir, authority = (
+            self.production_routing_authority()
+        )
+        active_view = {
+            "validation_mode": "active_component_registry",
+            "authoritative": True,
+            "executable": True,
+            "live_activation_verified": True,
+            "activation_receipt_consulted": True,
+            "predecessor_route_consulted": False,
+            "route": {
+                "documents": {
+                    "governing": {
+                        "governing": True,
+                        "path": "framework/governing.md",
+                    },
+                    "nongoverning": {
+                        "governing": False,
+                        "path": "framework/nongoverning.md",
+                    },
+                }
+            },
+        }
+        with mock.patch.object(
+            MODULE,
+            "load_validated_component_registry_routing_view",
+            return_value=active_view,
+        ) as registry_loader:
+            protected = MODULE.governing_protected_paths(
+                repository,
+                ("scripts/fixture-runtime.py",),
+                path_authority=authority,
+                require_active_registry=True,
+            )
+
+        registry_loader.assert_called_once_with(authority)
+        self.assertEqual(
+            protected,
+            frozenset(
+                {
+                    "scripts/fixture-runtime.py",
+                    "framework/governing.md",
+                }
+            ),
+        )
+
+    def test_production_protected_paths_reject_candidate_registry_view(self):
+        repository, _state, _run_dir, authority = (
+            self.production_routing_authority()
+        )
+        candidate_view = {
+            "validation_mode": "candidate_validation_only",
+            "authoritative": False,
+            "executable": False,
+            "live_activation_verified": False,
+            "activation_receipt_consulted": False,
+            "predecessor_route_consulted": True,
+            "route": {"documents": {}},
+        }
+        with (
+            mock.patch.object(
+                MODULE,
+                "load_validated_component_registry_routing_view",
+                return_value=candidate_view,
+            ),
+            self.assertRaisesRegex(
+                MODULE.TransactionError,
+                "production routing requires an active Component Registry",
+            ),
+        ):
+            MODULE.governing_protected_paths(
+                repository,
+                path_authority=authority,
+                require_active_registry=True,
+            )
+
+    def test_production_protected_paths_preserve_safe_validation_failure(self):
+        repository, _state, _run_dir, authority = (
+            self.production_routing_authority()
+        )
+        self.write_predecessor_route(repository=repository)
+        with (
+            mock.patch.object(
+                MODULE,
+                "load_validated_component_registry_routing_view",
+                side_effect=MODULE.ComponentRegistryError(
+                    "active registry lacks authenticated activation readback"
+                ),
+            ),
+            mock.patch.object(
+                MODULE,
+                "load_route_manifest",
+            ) as predecessor_loader,
+            self.assertRaisesRegex(
+                MODULE.TransactionError,
+                "Component Registry routing validation failed",
+            ),
+        ):
+            MODULE.governing_protected_paths(
+                repository,
+                path_authority=authority,
+                require_active_registry=True,
+            )
+        predecessor_loader.assert_not_called()
+
+    def test_production_publication_requires_active_registry_classification(self):
+        head = run("git", "rev-parse", "HEAD", cwd=self.fixture.repo)
+        transaction = MODULE.TransactionResult(
+            run_id="production-publication-routing",
+            status="completed",
+            branch="codex/production-publication-routing",
+            checkpoint_commit=None,
+            worktree_path=str(self.fixture.repo),
+            fetched_origin_main=head,
+        )
+        cycle_summary = {
+            "phase": "P6",
+            "final_commit": {"commit": head},
+            "last_success_candidate": {"run_id": transaction.run_id},
+        }
+        run_dir = (
+            self.fixture.state
+            / "runs"
+            / "production-publication-routing"
+        )
+        run_dir.mkdir(parents=True)
+        with mock.patch.object(
+            MODULE,
+            "classify_publication_range",
+            side_effect=MODULE.TransactionError("classification sentinel"),
+        ) as classifier:
+            with self.assertRaisesRegex(
+                MODULE.TransactionError,
+                "classification sentinel",
+            ):
+                MODULE.publish_production_transaction(
+                    self.fixture.config(),
+                    transaction,
+                    cycle_summary,
+                )
+
+        classifier.assert_called_once()
+        call = classifier.call_args
+        self.assertEqual(call.args, (self.fixture.repo.resolve(), run_dir))
+        self.assertEqual(call.kwargs["base_commit"], head)
+        self.assertEqual(call.kwargs["head_commit"], head)
+        self.assertTrue(call.kwargs["require_active_registry"])
+        authority = call.kwargs["path_authority"]
+        self.assertEqual(authority.mode, "fixture")
+        self.assertEqual(authority.repository_root, self.fixture.repo.resolve())
+        self.assertEqual(authority.output_root, run_dir.resolve())
 
     def test_dirty_ordinary_fixture_is_checkpointed(self):
         path = self.fixture.repo / "areas/TEST/issues/TEST-001.md"
@@ -296,6 +716,116 @@ class ArrpNightlyTransactionTests(unittest.TestCase):
                 (self.fixture.state / "run-owner.json").read_text(encoding="utf-8")
             )
             self.assertEqual(owner["run_id"], "active-owner")
+
+    def test_nonmapping_local_callback_fails_with_safe_status(self):
+        sensitive_marker = "callback-private-marker"
+
+        class InvalidSummary:
+            def __repr__(self) -> str:
+                return sensitive_marker
+
+        with self.assertRaisesRegex(
+            MODULE.TransactionError,
+            "local cycle summary is invalid",
+        ):
+            MODULE.prepare_transaction(
+                self.fixture.config(),
+                run_id="invalid-local-summary",
+                local_cycle=lambda _transaction: InvalidSummary(),
+            )
+
+        status_text = (self.fixture.state / "status.json").read_text(
+            encoding="utf-8"
+        )
+        status = json.loads(status_text)
+        self.assertEqual(status["status"], "failed")
+        self.assertEqual(
+            status["failure_reason"],
+            "local cycle summary is invalid",
+        )
+        self.assertNotIn(sensitive_marker, status_text)
+
+    def test_unserializable_nested_local_callback_fails_with_safe_status(self):
+        sensitive_marker = "nested-private-marker"
+
+        class InvalidNestedValue:
+            def __repr__(self) -> str:
+                return sensitive_marker
+
+        with self.assertRaisesRegex(
+            MODULE.TransactionError,
+            "local cycle summary is invalid",
+        ):
+            MODULE.prepare_transaction(
+                self.fixture.config(),
+                run_id="invalid-nested-local-summary",
+                local_cycle=lambda _transaction: {
+                    "phase": "P2",
+                    "detail": InvalidNestedValue(),
+                },
+            )
+
+        status_text = (self.fixture.state / "status.json").read_text(
+            encoding="utf-8"
+        )
+        status = json.loads(status_text)
+        self.assertEqual(status["status"], "failed")
+        self.assertEqual(
+            status["failure_reason"],
+            "local cycle summary is invalid",
+        )
+        self.assertNotIn(sensitive_marker, status_text)
+
+    def test_invalid_publication_callback_fails_with_safe_status(self):
+        with self.assertRaisesRegex(
+            MODULE.TransactionError,
+            "publication cycle summary is invalid",
+        ):
+            MODULE.prepare_transaction(
+                self.fixture.config(),
+                run_id="invalid-publication-summary",
+                local_cycle=lambda _transaction: {"phase": "P2"},
+                publication_cycle=lambda _transaction, _local: ["invalid"],
+            )
+
+        status = json.loads(
+            (self.fixture.state / "status.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(status["status"], "failed")
+        self.assertEqual(
+            status["failure_reason"],
+            "publication cycle summary is invalid",
+        )
+
+    def test_write_status_serialization_failure_does_not_mutate_status(self):
+        config = self.fixture.config()
+        config.state_root.mkdir(mode=0o700, exist_ok=True)
+        status = MODULE._base_status(config, "status-copy-on-write")
+        original = dict(status)
+
+        with self.assertRaises(TypeError):
+            MODULE.write_status(
+                config,
+                status,
+                validation_summary={"invalid": object()},
+            )
+
+        self.assertEqual(status, original)
+        self.assertFalse((config.state_root / "status.json").exists())
+        MODULE.write_status(
+            config,
+            status,
+            status="failed",
+            completed_at=MODULE.iso_utc(),
+            failure_class="TransactionError",
+            failure_reason="safe generic failure",
+            exact_next_action="Inspect the preserved failure.",
+        )
+        persisted = json.loads(
+            (config.state_root / "status.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(persisted["status"], "failed")
+        self.assertEqual(persisted["failure_reason"], "safe generic failure")
 
     def test_transaction_never_invokes_destructive_or_remote_publication_git(self):
         issue = self.fixture.repo / "areas/TEST/issues/TEST-001.md"

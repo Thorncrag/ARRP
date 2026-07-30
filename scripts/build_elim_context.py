@@ -18,6 +18,13 @@ from arrp_context import (
     contained_path,
     manifest_hash_updates,
 )
+from component_registry import (
+    RegistryError,
+    ROUTING_PREDECESSOR_PATHS,
+    RoutingRuleFailure,
+    build_context_packet_from_view,
+    load_validated_component_registry_routing_view,
+)
 from path_authority import (
     PathAuthorityError,
     ProjectPathAuthority,
@@ -25,7 +32,8 @@ from path_authority import (
 
 
 DEFAULT_MANIFEST = (
-    ROOT / "framework" / "project" / "automation" / "context-routes.json"
+    ROOT
+    / ROUTING_PREDECESSOR_PATHS["context_routes_source"]["historical_path"]
 )
 
 
@@ -47,7 +55,14 @@ def _resolved_requested_root(
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
+    parser.add_argument(
+        "--manifest",
+        type=Path,
+        help=(
+            "Fixture-only context route or nonexecuting hash-inspection source. "
+            "Production packet construction rejects this predecessor input."
+        ),
+    )
     parser.add_argument(
         "--input-root",
         type=Path,
@@ -197,7 +212,6 @@ def main(
                 "repository validation root",
             )
         input_root = authority.repository_root
-        manifest_path = authority.requested_repository_file(args.manifest)
         if args.review_epoch_root is not None:
             review_epoch_root = _resolved_requested_root(
                 args.review_epoch_root,
@@ -208,6 +222,9 @@ def main(
             review_epoch_root = authority.output_root
         output_root = authority.output_root
         if args.print_hash_updates:
+            manifest_path = authority.requested_repository_file(
+                args.manifest or DEFAULT_MANIFEST
+            )
             value = {
                 "schema_version": 2,
                 "manifest": str(manifest_path),
@@ -219,28 +236,70 @@ def main(
         else:
             if not args.profile:
                 raise ContextError("--profile is required unless --print-hash-updates is used")
-            value = build_context_packet(
-                manifest_path,
-                args.profile,
-                root=input_root,
-                issue_id=args.issue,
-                review_epoch_path=args.review_epoch,
-                review_epoch_root=review_epoch_root,
-                max_total_bytes=args.max_total_bytes,
-                capabilities=args.capability,
-                work_item_id=args.work_item_id,
-                work_kind=args.work_kind,
-                canonical_record=args.canonical_record,
-                path_authority=authority,
-            )
+            packet_options = {
+                "root": input_root,
+                "issue_id": args.issue,
+                "review_epoch_path": args.review_epoch,
+                "review_epoch_root": review_epoch_root,
+                "max_total_bytes": args.max_total_bytes,
+                "capabilities": args.capability,
+                "work_item_id": args.work_item_id,
+                "work_kind": args.work_kind,
+                "canonical_record": args.canonical_record,
+                "path_authority": authority,
+            }
+            if authority.mode == "fixture":
+                if args.manifest is None:
+                    raise ContextError(
+                        "fixture context construction requires an exact --manifest"
+                    )
+                manifest_path = authority.requested_repository_file(
+                    args.manifest
+                )
+                value = build_context_packet(
+                    manifest_path,
+                    args.profile,
+                    **packet_options,
+                )
+            else:
+                if args.manifest is not None:
+                    raise ContextError(
+                        "production context construction forbids predecessor "
+                        "--manifest routing"
+                    )
+                routing_view = load_validated_component_registry_routing_view(
+                    authority,
+                )
+                if (
+                    routing_view.get("validation_mode")
+                    != "active_component_registry"
+                    or routing_view.get("authoritative") is not True
+                    or routing_view.get("executable") is not True
+                    or routing_view.get("live_activation_verified") is not True
+                    or routing_view.get("activation_receipt_consulted")
+                    is not True
+                    or routing_view.get("predecessor_route_consulted")
+                    is not False
+                ):
+                    raise RegistryError(
+                        "production Elim context requires active Component "
+                        "Registry routing without predecessor consultation"
+                    )
+                value = build_context_packet_from_view(
+                    routing_view,
+                    args.profile,
+                    **packet_options,
+                )
         emit(
             value,
             output=args.output,
             output_root=output_root,
         )
         return 0
-    except (ContextError, PathAuthorityError) as exc:
+    except (ContextError, PathAuthorityError, RegistryError) as exc:
         value = {"schema_version": 2, "status": "blocked", "error": str(exc)}
+        if isinstance(exc, RoutingRuleFailure):
+            value["routing_failure"] = exc.safe_evidence()
         try:
             emit(
                 value,

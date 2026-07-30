@@ -60,7 +60,7 @@ A scan is recommendation-only. It does not directly create issue pages, revise
 legislation, change scores, or alter inventories without separate
 implementation authority. Active formal findings use sequential `HOR-###`
 identifiers and GitHub Issues/Project records. The cumulative
-[Horizon Scan Log](../../records/candidates/horizon-scan-log.md) preserves
+[Candidate Discovery Log](../../logs/candidates/candidate-discovery-log.md) preserves
 adjudicated outcomes rather than serving as the active queue.
 
 Each formal scan result records its scan scope, source routes, concern,
@@ -100,7 +100,7 @@ are read-only projections of these records and do not change a disposition.
 
 ## Horizon Candidate Adjudication Workflow
 
-1. **Locate the candidate.** Find the `HOR-###` GitHub Issue for active horizon candidates, or find the `HOR-###` row in the [`Horizon Scan Log`](../../records/candidates/horizon-scan-log.md) if the candidate has already been adjudicated.
+1. **Locate the candidate.** Find the `HOR-###` GitHub Issue for active horizon candidates, or find the `HOR-###` row in the [`Candidate Discovery Log`](../../logs/candidates/candidate-discovery-log.md) if the candidate has already been adjudicated.
 2. **Verify the factual premise.** Check the cited sources and, where the matter is current or source-sensitive, refresh with reliable current public sources. Prefer primary materials when the claim depends on a court order, statute, regulation, bill, executive action, agency action, official vote, or formal record.
 3. **Cross-check existing project coverage.** Search existing areas, issue pages, proposed legislation, source-development notes, inventories, and GitHub Project items/fields for overlap. Identify the best existing home if the concern is a manifestation, source-development lead, or expansion of an existing issue.
 4. **Apply the canonical Issue-Admission Test.** Record the candidate-level answer to each of its three conclusions: human consequence, institutional cause and repairability, and standalone fit. Evidence must support a concrete institutional pathway, but do not require completed harm, repetition, or multiple episodes when one well-established episode reliably exposes a generalizable defect. Candidate review requires a plausible neutral remedy class, not selection of the final remedy or vehicle.

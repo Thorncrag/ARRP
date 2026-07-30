@@ -2,6 +2,8 @@
 # Tools that intentionally inspect one of these paths may still address it explicitly.
 research/project-console/catalog-data.js
 research/project-console/data/
+framework/project/interfaces/project-console/catalog-data.js
+framework/project/interfaces/project-console/data/
 .site-build/
 .tmp/
 .venv/

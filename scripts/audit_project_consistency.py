@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import functools
 import hashlib
 import inspect
 import json
@@ -34,9 +35,36 @@ except ModuleNotFoundError:  # Imported as scripts.audit_project_consistency.
     from scripts.project_tree import iter_project_files
 
 try:
-    from arrp_context import ContextError, load_route_manifest
+    from component_registry import (
+        RegistryError as ComponentRegistryError,
+        load_component_registry_configuration_routing_view,
+        load_fixture_component_registry_configuration_routing_view,
+        load_validated_registry,
+        load_validated_component_registry_routing_view,
+    )
 except ModuleNotFoundError:  # Imported as scripts.audit_project_consistency.
-    from scripts.arrp_context import ContextError, load_route_manifest
+    from scripts.component_registry import (
+        RegistryError as ComponentRegistryError,
+        load_component_registry_configuration_routing_view,
+        load_fixture_component_registry_configuration_routing_view,
+        load_validated_registry,
+        load_validated_component_registry_routing_view,
+    )
+
+try:
+    from path_authority import (
+        APPROVED_REPOSITORY_ROOT,
+        APPROVED_STATE_ROOT,
+        PathAuthorityError,
+        ProjectPathAuthority,
+    )
+except ModuleNotFoundError:  # Imported as scripts.audit_project_consistency.
+    from scripts.path_authority import (
+        APPROVED_REPOSITORY_ROOT,
+        APPROVED_STATE_ROOT,
+        PathAuthorityError,
+        ProjectPathAuthority,
+    )
 
 try:
     from build_project_console_progress import (
@@ -66,9 +94,6 @@ PROJECT_INTEGRITY_RUNBOOK = (
     / "project-integrity-bot.md"
 )
 RUN_COORDINATOR_CONFIG = ROOT / ".github" / "run-coordinator-bot.json"
-CONTEXT_MANIFEST = (
-    ROOT / "framework" / "project" / "automation" / "context-routes.json"
-)
 CONSOLE_CLASSIFICATION_REGISTRY = (
     ROOT
     / "framework"
@@ -77,6 +102,11 @@ CONSOLE_CLASSIFICATION_REGISTRY = (
     / "project-console-classifications.json"
 )
 CONTEXT_MANAGED_DIRECTORIES = ("standards", "project")
+CONTEXT_ROUTING_AUTHORITY_MODES = (
+    "repository-validation",
+    "production-canonical",
+    "production-transaction",
+)
 CANONICAL_RUN_CHAIN_STAGE_ORDER = (
     "case-monitor-bot",
     "presidential-directives-bot",
@@ -243,21 +273,36 @@ AUTHORITATIVE_SOURCE_RECORDS = (
 )
 TOOL_INTERFACES = (
     (
-        ROOT / "research" / "project-console" / "project-console.html",
-        ROOT / "research" / "project-console" / "styles.css",
+        ROOT
+        / "framework"
+        / "project"
+        / "interfaces"
+        / "project-console"
+        / "project-console.html",
+        ROOT
+        / "framework"
+        / "project"
+        / "interfaces"
+        / "project-console"
+        / "styles.css",
     ),
     (ROOT / "participate" / "index.html", ROOT / "participate" / "styles.css"),
 )
 CURRENT_INTAKE_WORKFLOW_FILES = (
     ROOT / "framework" / "FRAMEWORK.md",
     ROOT / "framework" / "AGENT_OPERATING_RULES.md",
+    ROOT / "framework" / "component-registry.json",
     ROOT / "framework" / "standards" / "interfaces" / "public-input.md",
     ROOT / "framework" / "project" / "workflows" / "public-input-review.md",
-    ROOT / "framework" / "PROJECT_STRUCTURE.md",
     ROOT / "participate" / "README.md",
     ROOT / "participate" / "SECURITY.md",
     ROOT / "research" / "README.md",
-    ROOT / "research" / "project-console" / "README.md",
+    ROOT
+    / "framework"
+    / "project"
+    / "interfaces"
+    / "project-console"
+    / "README.md",
     ROOT / "research" / "trump-administration-legal-review-summary.md",
     ROOT / "website" / "README.md",
 )
@@ -297,13 +342,16 @@ REPOSITORY_LINK_TEXT_SUFFIXES = {
     ".yml",
 }
 OPTIONAL_LOCAL_HTML_ASSETS = {
-    Path("research/project-console/data/private-github-security.js"),
+    Path("framework/project/interfaces/project-console/data/private-github-security.js"),
 }
 LOCAL_ONLY_CONSOLE_PROJECTIONS = {
-    Path("research/project-console/data/private-github-security.js"),
-    Path("research/project-console/data/private-security-assurance.js"),
-    Path("research/project-console/data/private-operations.js"),
-    Path("research/project-console/data/local-automation-status.js"),
+    Path("framework/project/interfaces/project-console/data/private-github-security.js"),
+    Path("framework/project/interfaces/project-console/data/private-security-assurance.js"),
+    Path("framework/project/interfaces/project-console/data/private-operations.js"),
+    Path("framework/project/interfaces/project-console/data/local-automation-status.js"),
+}
+LOCAL_ONLY_CONSOLE_PROJECTION_NAMES = {
+    path.name for path in LOCAL_ONLY_CONSOLE_PROJECTIONS
 }
 
 REQUIRED_ISSUE_HEADINGS = (
@@ -382,6 +430,52 @@ def local_target(path: Path, raw_target: str) -> Path | None:
     return (link_base / target).resolve()
 
 
+@functools.lru_cache(maxsize=1)
+def candidate_migration_aliases() -> tuple[tuple[str, str, str], ...]:
+    """Return validated candidate relocation aliases for link readback only."""
+
+    try:
+        candidate, _route = load_validated_registry()
+    except (ComponentRegistryError, OSError):
+        return ()
+    aliases = []
+    for entry in candidate["aliases_and_migrations"]["entries"].values():
+        if entry["reference_policy"] != "rewrite_active":
+            continue
+        aliases.append(
+            (
+                entry["source_path"],
+                entry["target_path"],
+                entry["path_kind"],
+            )
+        )
+    return tuple(
+        sorted(aliases, key=lambda item: len(item[0]), reverse=True)
+    )
+
+
+def candidate_migration_target(target: Path) -> Path | None:
+    """Resolve a missing candidate-era link through one registered alias."""
+
+    try:
+        relative = target.relative_to(ROOT.resolve()).as_posix()
+    except ValueError:
+        return None
+    for source, destination, path_kind in candidate_migration_aliases():
+        if path_kind == "exact":
+            if relative != source:
+                continue
+            migrated = destination
+        else:
+            if relative != source and not relative.startswith(source + "/"):
+                continue
+            migrated = destination + relative[len(source) :]
+        resolved = (ROOT / migrated).resolve()
+        if resolved.exists():
+            return resolved
+    return None
+
+
 def active_project_files(*suffixes: str) -> list[Path]:
     """Return files in the active project tree, excluding generated and historical copies."""
     allowed = set(suffixes)
@@ -392,8 +486,14 @@ def active_project_files(*suffixes: str) -> list[Path]:
         and path.suffix.lower() in allowed
         and not ACTIVE_TREE_EXCLUSIONS.intersection(path.relative_to(ROOT).parts)
         and path.relative_to(ROOT) not in LOCAL_ONLY_CONSOLE_PROJECTIONS
+        and path.name not in LOCAL_ONLY_CONSOLE_PROJECTION_NAMES
         and not path.is_relative_to(
-            ROOT / "research" / "project-console" / "prototypes"
+            ROOT
+            / "framework"
+            / "project"
+            / "interfaces"
+            / "project-console"
+            / "prototypes"
         )
     )
 
@@ -1296,7 +1396,11 @@ def check_markdown_links(failures: list[str], warnings: list[str]) -> None:
         for raw_target in MARKDOWN_LINK_RE.findall(body):
             target = local_target(path, raw_target)
             if target and not target.exists():
-                report("ERROR", f"broken local link in {path.relative_to(ROOT)}: {raw_target}", failures, warnings)
+                migrated_target = candidate_migration_target(target)
+                if migrated_target is None:
+                    report("ERROR", f"broken local link in {path.relative_to(ROOT)}: {raw_target}", failures, warnings)
+                else:
+                    target = migrated_target
             link_text = raw_target.strip().strip("<>").split(" ", 1)[0]
             if link_text.startswith(("http://", "https://", "mailto:", "data:")):
                 continue
@@ -2527,7 +2631,10 @@ def check_research_placement(failures: list[str], warnings: list[str]) -> None:
             continue
         issue_id = issue_match.group(1)
         area = issue_id.split("-", 1)[0]
-        if area == "HOR" and path.parent == ROOT / "research" / "horizon-source-records":
+        if (
+            area == "HOR"
+            and path.parent == ROOT / "research" / "candidate-source-development"
+        ):
             continue
         if path.parent == ROOT / "research" / "interbranch-review":
             # These matrices apply one issue's shared infrastructure across
@@ -3254,7 +3361,9 @@ def check_structured_files_and_repository_hygiene(
         "Supports HOR-0",
     )
     horizon_source_records = sorted(
-        (ROOT / "research" / "horizon-source-records").glob("HOR-*-source-development.md")
+        (ROOT / "research" / "candidate-source-development").glob(
+            "HOR-*-source-development.md"
+        )
     )
     for path in horizon_source_records:
         content = read(path)
@@ -3371,21 +3480,287 @@ def context_registry_dependency_values(value: object) -> list[str]:
     raise ValueError("dependencies must be a semicolon-delimited string or YAML array")
 
 
-def check_context_registry(failures: list[str], warnings: list[str]) -> None:
+COMPONENT_REGISTRY_DEPENDENCY_PATH = "framework/component-registry.json"
+ROUTING_PREDECESSOR_DOCUMENT_IDS = frozenset(
+    {"context_routing", "project_structure", "repository_map"}
+)
+
+
+def context_registry_dependencies_match(
+    declared: list[str],
+    expected: list[str],
+    *,
+    validation_mode: str,
+    predecessor_paths: frozenset[str],
+) -> bool:
+    """Compare exact route dependencies across the candidate-to-active boundary."""
+
+    if validation_mode == "candidate_validation_only":
+        if declared == expected:
+            return True
+        predecessor_indexes = [
+            index
+            for index, dependency in enumerate(expected)
+            if dependency in predecessor_paths
+        ]
+        if not predecessor_indexes:
+            return False
+        first = predecessor_indexes[0]
+        last = predecessor_indexes[-1]
+        if predecessor_indexes != list(range(first, last + 1)):
+            return False
+        projected = [
+            *expected[:first],
+            COMPONENT_REGISTRY_DEPENDENCY_PATH,
+            *expected[last + 1 :],
+        ]
+        return (
+            declared.count(COMPONENT_REGISTRY_DEPENDENCY_PATH) == 1
+            and not predecessor_paths.intersection(declared)
+            and declared == projected
+        )
+
+    if validation_mode in {
+        "active_configuration_validation_only",
+        "active_component_registry",
+    }:
+        if predecessor_paths.intersection(expected):
+            return False
+        if predecessor_paths.intersection(declared):
+            return False
+        registry_count = declared.count(COMPONENT_REGISTRY_DEPENDENCY_PATH)
+        if registry_count > 1:
+            return False
+        if registry_count == 0:
+            return declared == expected
+        without_registry = [
+            dependency
+            for dependency in declared
+            if dependency != COMPONENT_REGISTRY_DEPENDENCY_PATH
+        ]
+        return without_registry == expected
+
+    return False
+
+
+def _production_context_registry_path_authority(
+    authority_mode: str,
+    root: Path = ROOT,
+) -> ProjectPathAuthority:
+    """Construct only the explicitly selected fixed production authority."""
+
+    resolved_root = root.resolve()
+    if authority_mode == "production-canonical":
+        if resolved_root != APPROVED_REPOSITORY_ROOT.resolve():
+            raise PathAuthorityError(
+                "production-canonical routing requires the approved checkout"
+            )
+        return ProjectPathAuthority.production()
+    if authority_mode == "production-transaction":
+        production_worktrees = (APPROVED_STATE_ROOT / "worktrees").resolve()
+        if resolved_root.parent != production_worktrees:
+            raise PathAuthorityError(
+                "production-transaction routing requires a registered "
+                "production worktree"
+            )
+        return ProjectPathAuthority.production_transaction(
+            repository_root=resolved_root,
+            run_root=APPROVED_STATE_ROOT / "runs" / resolved_root.name,
+        )
+    raise PathAuthorityError(
+        "Project Integrity production routing authority mode is invalid"
+    )
+
+
+def _load_context_registry_routing_view(
+    *,
+    authority_mode: str,
+    fixture_path_authority: ProjectPathAuthority | None = None,
+) -> dict[str, object]:
+    if authority_mode == "fixture":
+        if fixture_path_authority is None:
+            raise ComponentRegistryError(
+                "Project Integrity fixture routing requires an explicit "
+                "contained authority"
+            )
+        if fixture_path_authority.mode != "fixture":
+            raise ComponentRegistryError(
+                "Project Integrity fixture authority must be explicitly contained"
+            )
+        return load_fixture_component_registry_configuration_routing_view(
+            fixture_path_authority
+        )
+    if fixture_path_authority is not None:
+        raise ComponentRegistryError(
+            "Project Integrity production routing cannot accept fixture authority"
+        )
+    if authority_mode == "repository-validation":
+        return load_component_registry_configuration_routing_view()
+    if authority_mode in {
+        "production-canonical",
+        "production-transaction",
+    }:
+        production_authority = _production_context_registry_path_authority(
+            authority_mode,
+            ROOT,
+        )
+        return load_validated_component_registry_routing_view(
+            production_authority
+        )
+    raise ComponentRegistryError(
+        "Project Integrity routing authority mode is invalid"
+    )
+
+
+def context_registry_authority_envelope(
+    view: dict[str, object],
+    *,
+    authority_mode: str,
+) -> dict[str, object]:
+    """Return the closed safe authority envelope emitted by Project Integrity."""
+
+    mode = str(view.get("validation_mode") or "")
+    expected_posture = {
+        "candidate_validation_only": {
+            "registry_status": "candidate",
+            "authoritative": False,
+            "executable": False,
+            "live_activation_verified": False,
+            "activation_receipt_consulted": False,
+            "predecessor_route_consulted": True,
+        },
+        "active_configuration_validation_only": {
+            "registry_status": "active",
+            "authoritative": False,
+            "executable": False,
+            "live_activation_verified": False,
+            "activation_receipt_consulted": False,
+            "predecessor_route_consulted": False,
+        },
+        "active_component_registry": {
+            "registry_status": "active",
+            "authoritative": True,
+            "executable": True,
+            "live_activation_verified": True,
+            "activation_receipt_consulted": True,
+            "predecessor_route_consulted": False,
+        },
+    }.get(mode)
+    if expected_posture is None or any(
+        view.get(field) != expected
+        for field, expected in expected_posture.items()
+    ):
+        raise ComponentRegistryError(
+            "Project Integrity received an invalid routing authority posture"
+        )
+    expected_authority_modes = {
+        "candidate_validation_only": {
+            "repository-validation",
+            "fixture",
+        },
+        "active_configuration_validation_only": {
+            "repository-validation",
+            "fixture",
+        },
+        "active_component_registry": {
+            "production-canonical",
+            "production-transaction",
+        },
+    }[mode]
+    if authority_mode not in expected_authority_modes:
+        raise ComponentRegistryError(
+            "Project Integrity routing authority mode and validation mode differ"
+        )
+    if (
+        view.get("schema_version") != 1
+        or view.get("registry_path")
+        != "framework/component-registry.json"
+        or not isinstance(view.get("registry_id"), str)
+        or not str(view.get("registry_id") or "").strip()
+        or not isinstance(view.get("registry_revision"), int)
+        or not isinstance(view.get("registry_sha256"), str)
+        or re.fullmatch(
+            r"[0-9a-f]{64}",
+            str(view.get("registry_sha256") or ""),
+        )
+        is None
+        or not isinstance(view.get("route"), dict)
+    ):
+        raise ComponentRegistryError(
+            "Project Integrity received an invalid routing authority envelope"
+        )
+    return {
+        "authority_mode": authority_mode,
+        "validation_mode": mode,
+        "registry_status": view["registry_status"],
+        "registry_revision": view["registry_revision"],
+        "registry_sha256": view["registry_sha256"],
+        "configuration_valid": True,
+        "live_activation_verified": view["live_activation_verified"],
+        "authoritative": view["authoritative"],
+        "executable": view["executable"],
+        "predecessor_route_consulted": view["predecessor_route_consulted"],
+        "activation_receipt_consulted": view[
+            "activation_receipt_consulted"
+        ],
+    }
+
+
+def unavailable_context_registry_authority_envelope(
+    authority_mode: str,
+) -> dict[str, object]:
+    """Return one explicit incomplete authority envelope after validation failure."""
+
+    return {
+        "authority_mode": authority_mode,
+        "validation_mode": "unavailable",
+        "registry_status": "unavailable",
+        "registry_revision": None,
+        "registry_sha256": None,
+        "configuration_valid": False,
+        "live_activation_verified": False,
+        "authoritative": False,
+        "executable": False,
+        "predecessor_route_consulted": False,
+        "activation_receipt_consulted": False,
+    }
+
+
+def check_context_registry(
+    failures: list[str],
+    warnings: list[str],
+    *,
+    authority_mode: str,
+    fixture_path_authority: ProjectPathAuthority | None = None,
+) -> dict[str, object] | None:
     """Verify that modular governing context is complete, current, and routable."""
     try:
-        manifest = load_route_manifest(CONTEXT_MANIFEST, root=ROOT, verify_hashes=True)
-    except ContextError as exc:
+        view = _load_context_registry_routing_view(
+            authority_mode=authority_mode,
+            fixture_path_authority=fixture_path_authority
+        )
+        authority_envelope = context_registry_authority_envelope(
+            view,
+            authority_mode=authority_mode,
+        )
+        manifest = view["route"]
+    except (ComponentRegistryError, PathAuthorityError) as exc:
         report(
             "ERROR",
-            f"context registry validation failed: {exc}",
+            f"Component Registry routing authority validation failed: {exc}",
             failures,
             warnings,
         )
-        return
+        return None
 
-    required = set(manifest.get("required_modules") or [])
-    expected_required = {"framework_kernel", "agent_rules_kernel", "current_audit"}
+    required_values = manifest.get("required_modules") or []
+    required = set(required_values)
+    expected_required_values = [
+        "framework_kernel",
+        "agent_rules_kernel",
+        "current_audit",
+    ]
+    expected_required = set(expected_required_values)
     if not expected_required <= required:
         report(
             "ERROR",
@@ -3394,11 +3769,20 @@ def check_context_registry(failures: list[str], warnings: list[str]) -> None:
             failures,
             warnings,
         )
+    elif required_values != expected_required_values:
+        report(
+            "ERROR",
+            "context registry required floor must be exactly "
+            "framework_kernel, agent_rules_kernel, current_audit in that order; "
+            f"found={required_values!r}",
+            failures,
+            warnings,
+        )
 
     documents = manifest["documents"]
     current = documents.get("current_audit") or {}
     if (
-        current.get("path") != "framework/records/handoffs/current-task.md"
+        current.get("path") != "framework/handoffs/current-task.md"
         or current.get("hash_policy") != "runtime"
         or current.get("governing")
     ):
@@ -3454,7 +3838,8 @@ def check_context_registry(failures: list[str], warnings: list[str]) -> None:
     if unregistered:
         report(
             "ERROR",
-            "governing framework Markdown is absent from context-routes.json: "
+            "governing framework Markdown is absent from Component Registry "
+            "routing: "
             + ", ".join(unregistered),
             failures,
             warnings,
@@ -3464,6 +3849,12 @@ def check_context_registry(failures: list[str], warnings: list[str]) -> None:
         document_id: str(spec.get("path") or "")
         for document_id, spec in documents.items()
     }
+    predecessor_paths = frozenset(
+        path_by_id[document_id]
+        for document_id in ROUTING_PREDECESSOR_DOCUMENT_IDS
+        if document_id in path_by_id
+    )
+    validation_mode = str(view.get("validation_mode") or "")
     root_resolved = ROOT.resolve()
     for document_id, spec in documents.items():
         relative = Path(str(spec.get("path") or ""))
@@ -3490,7 +3881,8 @@ def check_context_registry(failures: list[str], warnings: list[str]) -> None:
                 report(
                     "ERROR",
                     f"context module {relative.as_posix()} front-matter module_id "
-                    f"differs from context-routes.json; declared={declared_id!r}, "
+                    "differs from Component Registry routing; "
+                    f"declared={declared_id!r}, "
                     f"expected={document_id!r}",
                     failures,
                     warnings,
@@ -3540,14 +3932,21 @@ def check_context_registry(failures: list[str], warnings: list[str]) -> None:
             path_by_id[required_id]
             for required_id in spec.get("requires") or []
         ]
-        if declared != expected:
+        if not context_registry_dependencies_match(
+            declared,
+            expected,
+            validation_mode=validation_mode,
+            predecessor_paths=predecessor_paths,
+        ):
             report(
                 "ERROR",
                 f"context module {document_id} front-matter dependencies differ "
-                f"from context-routes.json; declared={declared}, expected={expected}",
+                "from Component Registry routing; "
+                f"declared={declared}, expected={expected}",
                 failures,
                 warnings,
             )
+    return authority_envelope
 
 
 def _workflow_has_trigger(workflow_text: str, trigger: str) -> bool:
@@ -3940,8 +4339,8 @@ def source_domain_event_pipeline_findings(root: Path = ROOT) -> list[str]:
             "scripts/build_automation_health_projection.py",
             "scripts/publish_project_console_progress.py",
             "scripts/publish_immutable_data_file.py",
-            ".github/launchd/com.thorncrag.arrp-run-coordinator.plist.example",
-            ".github/launchd/com.thorncrag.arrp-run-coordinator-control.plist.example",
+            "framework/project/automation/configuration/launchd/com.thorncrag.arrp-run-coordinator.plist.example",
+            "framework/project/automation/configuration/launchd/com.thorncrag.arrp-run-coordinator-control.plist.example",
             ".github/workflows/run-coordinator-bot.yml",
             ".github/workflows/case-monitor-bot.yml",
             ".github/workflows/presidential-directives-bot.yml",
@@ -4112,7 +4511,7 @@ def source_domain_event_pipeline_findings(root: Path = ROOT) -> list[str]:
                 "git rev-parse HEAD",
                 'git switch -C "$branch" "${SOURCE_REVISION}"',
                 '--git-base "${SOURCE_REVISION}"',
-                "framework/records/status/source-checker-report.md",
+                "framework/status/source-checker-report.md",
                 "exact report-only delta",
                 "git push --force-with-lease",
             ),
@@ -4178,6 +4577,15 @@ def check_source_domain_event_pipeline(
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
+        "--routing-authority",
+        choices=CONTEXT_ROUTING_AUTHORITY_MODES,
+        required=True,
+        help=(
+            "Select the closed Component Registry authority mode. "
+            "No path or registry content may infer this choice."
+        ),
+    )
+    parser.add_argument(
         "--json-output",
         type=Path,
         help="Write a structured integrity report for the Project Console.",
@@ -4242,6 +4650,9 @@ def structured_report(
     issue_count: int,
     proposal_count: int,
     duration_seconds: float,
+    *,
+    context_routing_authority: dict[str, object] | None = None,
+    context_routing_authority_mode: str = "unavailable",
 ) -> dict[str, object]:
     check_scope = front_matter_list(PROJECT_INTEGRITY_RUNBOOK, "checks_included")
     if not check_scope:
@@ -4273,6 +4684,12 @@ def structured_report(
         },
         "duration_seconds": round(duration_seconds, 3),
         "scope": check_scope,
+        "context_routing_authority": (
+            context_routing_authority
+            or unavailable_context_registry_authority_envelope(
+                context_routing_authority_mode
+            )
+        ),
         "findings": findings,
     }
 
@@ -4330,6 +4747,19 @@ def markdown_report(report_data: dict[str, object]) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
+def project_integrity_exit_code(
+    failures: list[str],
+    *,
+    exit_zero_on_findings: bool,
+    context_routing_authority: dict[str, object] | None,
+) -> int:
+    """Keep routing-authority failure fatal regardless of finding disposition."""
+
+    if context_routing_authority is None:
+        return 2
+    return 1 if failures and not exit_zero_on_findings else 0
+
+
 def main() -> int:
     args = parse_args()
     STRUCTURED_FINDINGS.clear()
@@ -4363,7 +4793,11 @@ def main() -> int:
     check_retired_monitor_identifiers(github_issue_bodies, failures, warnings)
     check_print_assignment_metadata(failures, warnings)
     check_print_assembly_configuration(failures, warnings)
-    check_context_registry(failures, warnings)
+    context_routing_authority = check_context_registry(
+        failures,
+        warnings,
+        authority_mode=args.routing_authority,
+    )
     check_agent_runbooks(failures, warnings)
     check_source_domain_event_pipeline(failures, warnings)
     check_structured_files_and_repository_hygiene(failures, warnings)
@@ -4378,6 +4812,8 @@ def main() -> int:
         len(issue_map),
         proposal_count,
         time.monotonic() - started,
+        context_routing_authority=context_routing_authority,
+        context_routing_authority_mode=args.routing_authority,
     )
     if args.json_output:
         args.json_output.parent.mkdir(parents=True, exist_ok=True)
@@ -4390,7 +4826,11 @@ def main() -> int:
         args.markdown_output.parent.mkdir(parents=True, exist_ok=True)
         args.markdown_output.write_text(markdown_report(report_data), encoding="utf-8")
         print(f"Wrote current Markdown report to {args.markdown_output}.")
-    return 1 if failures and not args.exit_zero_on_findings else 0
+    return project_integrity_exit_code(
+        failures,
+        exit_zero_on_findings=args.exit_zero_on_findings,
+        context_routing_authority=context_routing_authority,
+    )
 
 
 if __name__ == "__main__":

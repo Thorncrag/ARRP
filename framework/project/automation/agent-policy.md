@@ -119,7 +119,7 @@ record-specific human decision and any authorized implementation and readback.
 ## ARRP Task Handoff
 
 ARRP's durable continuation checkpoint is
-[`current-task.md`](../../records/handoffs/current-task.md). Use it for any
+[`current-task.md`](../../handoffs/current-task.md). Use it for any
 audit, drafting pass, source-development task, batch run, or other substantial
 work likely to span interruptions, context compaction, or a new task.
 
@@ -172,7 +172,7 @@ applicable, using the fields required by the reusable
 [`provenance-and-recovery.md`](../../standards/automation/provenance-and-recovery.md)
 standard and the canonical prospective template maintained in that log. Its
 public retention contract is summarized in
-[`agent-audit-summary.md`](../../records/automation/agent-audit-summary.md).
+[`agent-audit-summary.md`](../../archive/operational/agent-audit-summary.md).
 Ordinary human-invoked work does not append there unless the user expressly
 converts it into an autonomous, batched, or scheduled run.
 

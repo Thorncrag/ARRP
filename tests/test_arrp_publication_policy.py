@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import shutil
@@ -12,6 +13,53 @@ from tests.test_arrp_local_stages import FIXTURES, stage_spec
 from tests.test_arrp_nightly import GitFixture, MODULE, run
 
 
+def write_predecessor_route_fixture(
+    repository: Path,
+    *,
+    governing_path: str,
+) -> Path:
+    source = repository / governing_path
+    registry = (
+        repository
+        / "framework"
+        / "project"
+        / "automation"
+        / "context-routes.json"
+    )
+    registry.parent.mkdir(parents=True, exist_ok=True)
+    registry.write_text(
+        json.dumps(
+            {
+                "schema_version": 2,
+                "required_modules": ["fixture_governing"],
+                "documents": {
+                    "fixture_governing": {
+                        "path": governing_path,
+                        "requires": [],
+                        "governing": True,
+                        "hash_policy": "pinned",
+                        "sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
+                    }
+                },
+                "capabilities": {},
+                "profiles": {
+                    "fixture": {
+                        "sections": [],
+                        "modules": ["fixture_governing"],
+                        "capabilities": [],
+                        "max_bytes": 4096,
+                    }
+                },
+                "generated_path_exclusions": [],
+            },
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return registry
+
+
 class PublicationPolicyTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
@@ -19,6 +67,10 @@ class PublicationPolicyTests(unittest.TestCase):
         self.fixture = GitFixture(self.root)
         self.run_dir = self.fixture.state / "runs/p3-policy"
         self.run_dir.mkdir(parents=True)
+        self.path_authority = MODULE.routing_path_authority(
+            self.fixture.config(),
+            self.fixture.repo,
+        )
 
     def tearDown(self):
         self.temporary.cleanup()
@@ -28,6 +80,7 @@ class PublicationPolicyTests(unittest.TestCase):
             self.fixture.repo,
             self.run_dir,
             message="fixture local final commit",
+            path_authority=self.path_authority,
         )
 
     def test_ordinary_protected_prohibited_and_mixed_classification(self):
@@ -81,29 +134,19 @@ class PublicationPolicyTests(unittest.TestCase):
         self.assertTrue(result["review_required"])
 
     def test_governing_registry_path_is_dynamically_protected(self):
-        registry = (
-            self.fixture.repo
-            / "framework/project/automation/context-routes.json"
-        )
-        registry.parent.mkdir(parents=True)
-        registry.write_text(
-            json.dumps(
-                {
-                    "documents": {
-                        "fixture_governing": {
-                            "path": "areas/TEST/issues/TEST-001.md",
-                            "governing": True,
-                        }
-                    }
-                }
-            )
-            + "\n",
-            encoding="utf-8",
-        )
-        run("git", "add", str(registry.relative_to(self.fixture.repo)), cwd=self.fixture.repo)
-        run("git", "commit", "-m", "fixture governing registry", cwd=self.fixture.repo)
         issue = self.fixture.repo / "areas/TEST/issues/TEST-001.md"
         issue.write_text("governing change\n", encoding="utf-8")
+        registry = write_predecessor_route_fixture(
+            self.fixture.repo,
+            governing_path="areas/TEST/issues/TEST-001.md",
+        )
+        run(
+            "git",
+            "add",
+            str(registry.relative_to(self.fixture.repo)),
+            cwd=self.fixture.repo,
+        )
+        run("git", "commit", "-m", "fixture governing registry", cwd=self.fixture.repo)
         result = self.finalize()
         self.assertEqual(
             result["classification"]["protected"],
@@ -132,7 +175,7 @@ class PublicationPolicyTests(unittest.TestCase):
         )
 
     def test_validation_globs_expand_only_path_arguments(self):
-        tests = self.fixture.repo / "participate/tests"
+        tests = self.fixture.repo / "tests/participation"
         tests.mkdir(parents=True)
         (tests / "first.test.js").write_text("// fixture\n", encoding="utf-8")
         (tests / "second.test.js").write_text("// fixture\n", encoding="utf-8")
@@ -146,7 +189,7 @@ class PublicationPolicyTests(unittest.TestCase):
                 "discover",
                 "-p",
                 "test_*.py",
-                "participate/tests/*.test.js",
+                "tests/participation/*.test.js",
             ),
         )
 
@@ -154,8 +197,8 @@ class PublicationPolicyTests(unittest.TestCase):
         self.assertEqual(
             expanded[-2:],
             (
-                "participate/tests/first.test.js",
-                "participate/tests/second.test.js",
+                "tests/participation/first.test.js",
+                "tests/participation/second.test.js",
             ),
         )
 
@@ -294,7 +337,7 @@ class P3FixtureTransactionTests(unittest.TestCase):
             gitignore = fixture.repo / ".gitignore"
             gitignore.write_text(
                 gitignore.read_text(encoding="utf-8")
-                + "/research/project-console/data/local-automation-status.js\n",
+                + "/framework/project/interfaces/project-console/data/local-automation-status.js\n",
                 encoding="utf-8",
             )
             run("git", "add", str(schema.relative_to(fixture.repo)), cwd=fixture.repo)
@@ -366,7 +409,7 @@ class P3FixtureTransactionTests(unittest.TestCase):
                 runtime_files=(),
                 console_projection=(
                     fixture.repo
-                    / "research/project-console/data/local-automation-status.js"
+                    / "framework/project/interfaces/project-console/data/local-automation-status.js"
                 ),
             )
 
@@ -395,7 +438,7 @@ class P3FixtureTransactionTests(unittest.TestCase):
             self.assertIsNone(status["merge_commit"])
             projection = (
                 fixture.repo
-                / "research/project-console/data/local-automation-status.js"
+                / "framework/project/interfaces/project-console/data/local-automation-status.js"
             )
             self.assertTrue(projection.is_file())
             self.assertIn('"status":"completed"', projection.read_text(encoding="utf-8"))

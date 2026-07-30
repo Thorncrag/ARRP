@@ -574,6 +574,29 @@ class GitHubDisclosureGateTests(unittest.TestCase):
             "public-research-and-proposals",
         )
 
+    def test_component_registry_archive_targets_have_exact_public_families(
+        self,
+    ) -> None:
+        expected = {
+            "framework/archive/authorities/PROJECT_STRUCTURE.md":
+                "public-governance-summary",
+            "framework/archive/authorities/REPOSITORY_MAP.md":
+                "public-governance-summary",
+            "framework/archive/authorities/CONTEXT_ROUTING.md":
+                "portable-automation-and-controls",
+            "framework/archive/authorities/context-routes.json":
+                "portable-automation-and-controls",
+        }
+        for path, family_id in expected.items():
+            with self.subTest(path=path):
+                family = MODULE._resolve_family(
+                    self.policy,
+                    path=path,
+                    producer="interactive-reviewed-github",
+                    requested_family=None,
+                )
+                self.assertEqual(family["id"], family_id)
+
     def test_current_repository_files_map_once_and_contain_no_secret_canary(self) -> None:
         paths = [
             item
@@ -909,7 +932,7 @@ class GitHubDisclosureGateTests(unittest.TestCase):
         public = MODULE.evaluate_outbound_bundle(
             [
                 self.artifact(
-                    "framework/records/governance/governance-change-log.md",
+                    "framework/logs/governance/governance-change-log.md",
                     "# Public governance change log\n",
                     producer="interactive-reviewed-github",
                 ),
@@ -949,6 +972,45 @@ class GitHubDisclosureGateTests(unittest.TestCase):
             supplement["artifacts"][0]["artifact_family"],
             "private-local-state",
         )
+
+    def test_component_registry_receipt_family_is_narrowly_public(self) -> None:
+        receipt = MODULE.evaluate_outbound_bundle(
+            [
+                self.artifact(
+                    "framework/receipts/component-registry/"
+                    "context-routing-v1-rule-closure.json",
+                    '{"schema_version":1,"receipt_id":"fixture"}\n',
+                    producer="interactive-reviewed-github",
+                )
+            ],
+            operation="git_push",
+            source_revision=self.revision,
+            policy=self.policy,
+        )
+        self.assertTrue(receipt["allowed"])
+        self.assertEqual(
+            receipt["artifacts"][0]["artifact_family"],
+            "public-governance-summary",
+        )
+        self.assertEqual(
+            receipt["artifacts"][0]["category"],
+            "public_operational_summary",
+        )
+
+        with self.assertRaises(MODULE.DisclosureBlocked) as caught:
+            MODULE.evaluate_outbound_bundle(
+                [
+                    self.artifact(
+                        "framework/receipts/unrelated/receipt.json",
+                        '{"schema_version":1,"receipt_id":"unmapped"}\n',
+                        producer="interactive-reviewed-github",
+                    )
+                ],
+                operation="git_push",
+                source_revision=self.revision,
+                policy=self.policy,
+            )
+        self.assertIn("unknown-artifact-family", str(caught.exception))
 
     def test_unrelated_members_of_one_family_do_not_inherit_by_default(self) -> None:
         policy = copy.deepcopy(self.policy)

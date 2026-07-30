@@ -105,7 +105,7 @@ source-catalog record. Create a preliminary candidate only for a plausible
 distinct institutional weakness without an existing owner. The deterministic
 watcher may propose only the registry metadata authorized by its runbook,
 verify only whether a required human answer exists, and record its material
-event in `framework/records/sources/source-monitor-log.md`; it may not perform
+event in `framework/logs/sources/source-monitor-log.md`; it may not perform
 the substantive review or disposition.
 
 ## ARRP Tier Progression
@@ -188,7 +188,7 @@ snapshot is temporary visibility, not a substitute.
 
 If Console dispatch or readback fails, preserve the audit, identify the stale
 progress value, record the remaining step in
-[`current-task.md`](../../records/handoffs/current-task.md), and do not describe
+[`current-task.md`](../../handoffs/current-task.md), and do not describe
 the Console as current. If validation, commit, or push fails, preserve the
 work, record the failed step and changed files, stop the batch, and do not
 begin another issue until repository state or access is resolved.

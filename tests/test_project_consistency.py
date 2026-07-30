@@ -95,8 +95,8 @@ class RetiredControlPlaneTests(unittest.TestCase):
             "scripts/build_automation_health_projection.py",
             "scripts/publish_project_console_progress.py",
             "scripts/publish_immutable_data_file.py",
-            ".github/launchd/com.thorncrag.arrp-run-coordinator.plist.example",
-            ".github/launchd/com.thorncrag.arrp-run-coordinator-control.plist.example",
+            "framework/project/automation/configuration/launchd/com.thorncrag.arrp-run-coordinator.plist.example",
+            "framework/project/automation/configuration/launchd/com.thorncrag.arrp-run-coordinator-control.plist.example",
         )
         self.assertEqual(
             [relative for relative in retired if (ROOT / relative).exists()],
@@ -107,12 +107,63 @@ class RetiredControlPlaneTests(unittest.TestCase):
             [],
         )
 
+    def test_github_validation_uses_repository_only_routing_authority(self):
+        workflow = (
+            ROOT / ".github" / "workflows" / "arrp-validation.yml"
+        ).read_text(encoding="utf-8")
+        normalized = " ".join(workflow.split())
+        self.assertIn(
+            "python scripts/audit_project_consistency.py "
+            "--routing-authority repository-validation "
+            "--exit-zero-on-findings",
+            normalized,
+        )
+        self.assertIn(
+            "python scripts/component_registry.py validate",
+            normalized,
+        )
+        self.assertNotIn(
+            "python scripts/build_elim_context.py "
+            "--path-authority repository-validation",
+            normalized,
+        )
+        self.assertNotIn(
+            "audit_project_consistency.py "
+            "--routing-authority production-canonical",
+            normalized,
+        )
+        self.assertNotIn(
+            "audit_project_consistency.py "
+            "--routing-authority production-transaction",
+            normalized,
+        )
+
 
 class GitHubIssueLinkTests(unittest.TestCase):
+    CONTEXT_ROUTING_AUTHORITY_FIELDS = {
+        "authority_mode",
+        "validation_mode",
+        "registry_status",
+        "registry_revision",
+        "registry_sha256",
+        "configuration_valid",
+        "live_activation_verified",
+        "authoritative",
+        "executable",
+        "predecessor_route_consulted",
+        "activation_receipt_consulted",
+    }
+
     def test_ignored_private_console_projection_is_an_optional_html_asset(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            console = root / "research" / "project-console"
+            console = (
+                root
+                / "framework"
+                / "project"
+                / "interfaces"
+                / "project-console"
+            )
             console.mkdir(parents=True)
             page = console / "project-console.html"
             page.write_text(
@@ -152,7 +203,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             encoding="utf-8",
         )
         (framework / "EXTRA.md").write_text("# Extra authority\n", encoding="utf-8")
-        handoffs = framework / "records" / "handoffs"
+        handoffs = framework / "handoffs"
         handoffs.mkdir(parents=True)
         (handoffs / "current-task.md").write_text(
             "# Current audit\n",
@@ -185,7 +236,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                     "governing": True,
                 },
                 "current_audit": {
-                    "path": "framework/records/handoffs/current-task.md",
+                    "path": "framework/handoffs/current-task.md",
                     "hash_policy": "runtime",
                     "governing": False,
                 },
@@ -202,6 +253,60 @@ class GitHubIssueLinkTests(unittest.TestCase):
             },
         }
 
+    def context_registry_fixture_path_authority(
+        self,
+        root: Path,
+    ) -> consistency.ProjectPathAuthority:
+        return consistency.ProjectPathAuthority.fixture(
+            root,
+            repository_root=root,
+            state_root=root,
+            output_root=root,
+        )
+
+    def context_registry_view(
+        self,
+        route: dict[str, object],
+        *,
+        mode: str = "candidate_validation_only",
+    ) -> dict[str, object]:
+        postures = {
+            "candidate_validation_only": {
+                "registry_status": "candidate",
+                "authoritative": False,
+                "executable": False,
+                "live_activation_verified": False,
+                "activation_receipt_consulted": False,
+                "predecessor_route_consulted": True,
+            },
+            "active_configuration_validation_only": {
+                "registry_status": "active",
+                "authoritative": False,
+                "executable": False,
+                "live_activation_verified": False,
+                "activation_receipt_consulted": False,
+                "predecessor_route_consulted": False,
+            },
+            "active_component_registry": {
+                "registry_status": "active",
+                "authoritative": True,
+                "executable": True,
+                "live_activation_verified": True,
+                "activation_receipt_consulted": True,
+                "predecessor_route_consulted": False,
+            },
+        }
+        return {
+            "schema_version": 1,
+            "validation_mode": mode,
+            "registry_id": "ARRP-COMPONENT-REGISTRY",
+            "registry_revision": 1,
+            "registry_sha256": "a" * 64,
+            "registry_path": "framework/component-registry.json",
+            **postures[mode],
+            "route": route,
+        }
+
     def test_context_registry_requires_kernels_runtime_checkpoint_and_full_review(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -209,22 +314,27 @@ class GitHubIssueLinkTests(unittest.TestCase):
 
             failures: list[str] = []
             warnings: list[str] = []
+            authority = self.context_registry_fixture_path_authority(root)
             with (
                 patch.object(consistency, "ROOT", root),
                 patch.object(
                     consistency,
-                    "CONTEXT_MANIFEST",
-                    root / "framework/project/automation/context-routes.json",
-                ),
-                patch.object(
-                    consistency,
-                    "load_route_manifest",
-                    return_value=baseline,
+                    "load_fixture_component_registry_configuration_routing_view",
+                    return_value=self.context_registry_view(baseline),
                 ),
             ):
-                check_context_registry(failures, warnings)
+                envelope = check_context_registry(
+                    failures,
+                    warnings,
+                    authority_mode="fixture",
+                    fixture_path_authority=authority,
+                )
             self.assertEqual(failures, [])
             self.assertEqual(warnings, [])
+            self.assertEqual(
+                envelope["validation_mode"],
+                "candidate_validation_only",
+            )
 
             variants = []
             missing_kernel = {
@@ -238,7 +348,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 "documents": {
                     **baseline["documents"],
                     "current_audit": {
-                        "path": "framework/records/handoffs/current-task.md",
+                        "path": "framework/handoffs/current-task.md",
                         "hash_policy": "pinned",
                         "governing": True,
                     },
@@ -265,6 +375,17 @@ class GitHubIssueLinkTests(unittest.TestCase):
                     "comprehensive_review must include every governing",
                 )
             )
+            reversed_floor = {
+                **baseline,
+                "required_modules": list(reversed(baseline["required_modules"])),
+            }
+            variants.append(
+                (
+                    reversed_floor,
+                    "required floor must be exactly "
+                    "framework_kernel, agent_rules_kernel, current_audit in that order",
+                )
+            )
 
             for manifest, expected in variants:
                 with self.subTest(expected=expected):
@@ -274,16 +395,16 @@ class GitHubIssueLinkTests(unittest.TestCase):
                         patch.object(consistency, "ROOT", root),
                         patch.object(
                             consistency,
-                            "CONTEXT_MANIFEST",
-                            root / "framework/project/automation/context-routes.json",
-                        ),
-                        patch.object(
-                            consistency,
-                            "load_route_manifest",
-                            return_value=manifest,
+                            "load_fixture_component_registry_configuration_routing_view",
+                            return_value=self.context_registry_view(manifest),
                         ),
                     ):
-                        check_context_registry(failures, warnings)
+                        check_context_registry(
+                            failures,
+                            warnings,
+                            authority_mode="fixture",
+                            fixture_path_authority=authority,
+                        )
                     self.assertTrue(
                         any(expected in failure for failure in failures),
                         failures,
@@ -305,20 +426,21 @@ class GitHubIssueLinkTests(unittest.TestCase):
             )
             failures: list[str] = []
             warnings: list[str] = []
+            authority = self.context_registry_fixture_path_authority(root)
             with (
                 patch.object(consistency, "ROOT", root),
                 patch.object(
                     consistency,
-                    "CONTEXT_MANIFEST",
-                    root / "framework/project/automation/context-routes.json",
-                ),
-                patch.object(
-                    consistency,
-                    "load_route_manifest",
-                    return_value=manifest,
+                    "load_fixture_component_registry_configuration_routing_view",
+                    return_value=self.context_registry_view(manifest),
                 ),
             ):
-                check_context_registry(failures, warnings)
+                check_context_registry(
+                    failures,
+                    warnings,
+                    authority_mode="fixture",
+                    fixture_path_authority=authority,
+                )
 
             self.assertTrue(
                 any(
@@ -350,20 +472,21 @@ class GitHubIssueLinkTests(unittest.TestCase):
             }
             failures: list[str] = []
             warnings: list[str] = []
+            authority = self.context_registry_fixture_path_authority(root)
             with (
                 patch.object(consistency, "ROOT", root),
                 patch.object(
                     consistency,
-                    "CONTEXT_MANIFEST",
-                    root / "framework/project/automation/context-routes.json",
-                ),
-                patch.object(
-                    consistency,
-                    "load_route_manifest",
-                    return_value=manifest,
+                    "load_fixture_component_registry_configuration_routing_view",
+                    return_value=self.context_registry_view(manifest),
                 ),
             ):
-                check_context_registry(failures, warnings)
+                check_context_registry(
+                    failures,
+                    warnings,
+                    authority_mode="fixture",
+                    fixture_path_authority=authority,
+                )
             self.assertTrue(
                 any(
                     "governing framework Markdown is absent" in failure
@@ -397,20 +520,21 @@ class GitHubIssueLinkTests(unittest.TestCase):
             }
             failures: list[str] = []
             warnings: list[str] = []
+            authority = self.context_registry_fixture_path_authority(root)
             with (
                 patch.object(consistency, "ROOT", root),
                 patch.object(
                     consistency,
-                    "CONTEXT_MANIFEST",
-                    root / "framework/project/automation/context-routes.json",
-                ),
-                patch.object(
-                    consistency,
-                    "load_route_manifest",
-                    return_value=manifest,
+                    "load_fixture_component_registry_configuration_routing_view",
+                    return_value=self.context_registry_view(manifest),
                 ),
             ):
-                check_context_registry(failures, warnings)
+                check_context_registry(
+                    failures,
+                    warnings,
+                    authority_mode="fixture",
+                    fixture_path_authority=authority,
+                )
 
             self.assertTrue(
                 any(
@@ -450,20 +574,21 @@ class GitHubIssueLinkTests(unittest.TestCase):
             }
             failures: list[str] = []
             warnings: list[str] = []
+            authority = self.context_registry_fixture_path_authority(root)
             with (
                 patch.object(consistency, "ROOT", root),
                 patch.object(
                     consistency,
-                    "CONTEXT_MANIFEST",
-                    root / "framework/project/automation/context-routes.json",
-                ),
-                patch.object(
-                    consistency,
-                    "load_route_manifest",
-                    return_value=manifest,
+                    "load_fixture_component_registry_configuration_routing_view",
+                    return_value=self.context_registry_view(manifest),
                 ),
             ):
-                check_context_registry(failures, warnings)
+                check_context_registry(
+                    failures,
+                    warnings,
+                    authority_mode="fixture",
+                    fixture_path_authority=authority,
+                )
             self.assertTrue(
                 any(
                     "test_rule front-matter dependencies differ" in failure
@@ -474,6 +599,202 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 failures,
             )
             self.assertEqual(warnings, [])
+
+    def test_context_registry_dependency_transition_is_exact_and_status_sensitive(self):
+        registry_path = "framework/component-registry.json"
+        predecessor_paths = frozenset(
+            {
+                "framework/CONTEXT_ROUTING.md",
+                "framework/PROJECT_STRUCTURE.md",
+                "framework/project/REPOSITORY_MAP.md",
+            }
+        )
+        transitions = {
+            "codex_bootstrap": (
+                [
+                    "framework/FRAMEWORK.md",
+                    "framework/AGENT_OPERATING_RULES.md",
+                    "framework/handoffs/current-task.md",
+                    "framework/CONTEXT_ROUTING.md",
+                    "framework/PROJECT_STRUCTURE.md",
+                ],
+                [
+                    "framework/FRAMEWORK.md",
+                    "framework/AGENT_OPERATING_RULES.md",
+                    "framework/handoffs/current-task.md",
+                    registry_path,
+                ],
+            ),
+            "interface_standard": (
+                ["framework/PROJECT_STRUCTURE.md"],
+                [registry_path],
+            ),
+            "navigation_inventory": (
+                [
+                    "framework/FRAMEWORK.md",
+                    "framework/PROJECT_STRUCTURE.md",
+                    "framework/standards/content/maturity-and-gates.md",
+                ],
+                [
+                    "framework/FRAMEWORK.md",
+                    registry_path,
+                    "framework/standards/content/maturity-and-gates.md",
+                ],
+            ),
+            "navigation_project_sync": (
+                [
+                    "framework/standards/content/navigation-and-indexes.md",
+                    "framework/standards/content/topic-guides.md",
+                    "framework/project/github/workflow.md",
+                    "framework/project/REPOSITORY_MAP.md",
+                    "framework/project/interfaces/visual-identity.md",
+                ],
+                [
+                    "framework/standards/content/navigation-and-indexes.md",
+                    "framework/standards/content/topic-guides.md",
+                    "framework/project/github/workflow.md",
+                    registry_path,
+                    "framework/project/interfaces/visual-identity.md",
+                ],
+            ),
+            "operation_governance_change_recording": (
+                [
+                    "framework/FRAMEWORK.md",
+                    "framework/PROJECT_STRUCTURE.md",
+                    "framework/standards/audits/change-audits.md",
+                    "framework/project/workflows/project-update.md",
+                ],
+                [
+                    "framework/FRAMEWORK.md",
+                    registry_path,
+                    "framework/standards/audits/change-audits.md",
+                    "framework/project/workflows/project-update.md",
+                ],
+            ),
+            "operation_project_update": (
+                [
+                    "framework/FRAMEWORK.md",
+                    "framework/project/github/workflow.md",
+                    "framework/PROJECT_STRUCTURE.md",
+                    "framework/project/publication/print-assembly.md",
+                    "framework/project/publication/first-release.md",
+                    "framework/standards/audits/change-audits.md",
+                    "framework/project/workflows/navigation-sync.md",
+                    "framework/project/workflows/source-adjudication.md",
+                ],
+                [
+                    "framework/FRAMEWORK.md",
+                    "framework/project/github/workflow.md",
+                    registry_path,
+                    "framework/project/publication/print-assembly.md",
+                    "framework/project/publication/first-release.md",
+                    "framework/standards/audits/change-audits.md",
+                    "framework/project/workflows/navigation-sync.md",
+                    "framework/project/workflows/source-adjudication.md",
+                ],
+            ),
+            "print_assembly": (
+                [
+                    "framework/standards/publication/print-assembly.md",
+                    "framework/PROJECT_STRUCTURE.md",
+                    "framework/project/workflows/source-adjudication.md",
+                ],
+                [
+                    "framework/standards/publication/print-assembly.md",
+                    registry_path,
+                    "framework/project/workflows/source-adjudication.md",
+                ],
+            ),
+            "project_runtime_authority": (
+                [
+                    "framework/AGENT_OPERATING_RULES.md",
+                    "framework/PROJECT_STRUCTURE.md",
+                    "framework/standards/automation/autonomous-execution.md",
+                    "framework/project/github/disclosure-boundary.md",
+                    "framework/project/automation/schemas/private-staging-authority.schema.json",
+                ],
+                [
+                    "framework/AGENT_OPERATING_RULES.md",
+                    registry_path,
+                    "framework/standards/automation/autonomous-execution.md",
+                    "framework/project/github/disclosure-boundary.md",
+                    "framework/project/automation/schemas/private-staging-authority.schema.json",
+                ],
+            ),
+            "source_catalogs": (
+                [
+                    "framework/standards/sources/claims-and-citations.md",
+                    "framework/standards/content/record-architecture.md",
+                    "framework/PROJECT_STRUCTURE.md",
+                ],
+                [
+                    "framework/standards/sources/claims-and-citations.md",
+                    "framework/standards/content/record-architecture.md",
+                    registry_path,
+                ],
+            ),
+        }
+
+        for document_id, (candidate_expected, declared) in transitions.items():
+            with self.subTest(document_id=document_id, mode="candidate"):
+                self.assertTrue(
+                    consistency.context_registry_dependencies_match(
+                        declared,
+                        candidate_expected,
+                        validation_mode="candidate_validation_only",
+                        predecessor_paths=predecessor_paths,
+                    )
+                )
+            active_expected = [
+                dependency
+                for dependency in candidate_expected
+                if dependency not in predecessor_paths
+            ]
+            with self.subTest(document_id=document_id, mode="active"):
+                self.assertTrue(
+                    consistency.context_registry_dependencies_match(
+                        declared,
+                        active_expected,
+                        validation_mode="active_configuration_validation_only",
+                        predecessor_paths=predecessor_paths,
+                    )
+                )
+                self.assertFalse(
+                    consistency.context_registry_dependencies_match(
+                        candidate_expected,
+                        active_expected,
+                        validation_mode="active_configuration_validation_only",
+                        predecessor_paths=predecessor_paths,
+                    )
+                )
+
+        candidate_expected, declared = transitions["codex_bootstrap"]
+        invalid_declarations = {
+            "wrong_order": [
+                registry_path,
+                *declared[:-1],
+            ],
+            "duplicate_registry": [
+                *declared,
+                registry_path,
+            ],
+            "missing_registry": declared[:-1],
+            "non_predecessor_substitution": [
+                "framework/FRAMEWORK.md",
+                registry_path,
+                "framework/handoffs/current-task.md",
+            ],
+        }
+        for case, invalid in invalid_declarations.items():
+            with self.subTest(case=case):
+                self.assertFalse(
+                    consistency.context_registry_dependencies_match(
+                        invalid,
+                        candidate_expected,
+                        validation_mode="candidate_validation_only",
+                        predecessor_paths=predecessor_paths,
+                    )
+                )
 
     def test_context_registry_rejects_standard_dependency_on_project_layer(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -505,20 +826,21 @@ class GitHubIssueLinkTests(unittest.TestCase):
             }
             failures: list[str] = []
             warnings: list[str] = []
+            authority = self.context_registry_fixture_path_authority(root)
             with (
                 patch.object(consistency, "ROOT", root),
                 patch.object(
                     consistency,
-                    "CONTEXT_MANIFEST",
-                    root / "framework/project/automation/context-routes.json",
-                ),
-                patch.object(
-                    consistency,
-                    "load_route_manifest",
-                    return_value=manifest,
+                    "load_fixture_component_registry_configuration_routing_view",
+                    return_value=self.context_registry_view(manifest),
                 ),
             ):
-                check_context_registry(failures, warnings)
+                check_context_registry(
+                    failures,
+                    warnings,
+                    authority_mode="fixture",
+                    fixture_path_authority=authority,
+                )
 
             self.assertTrue(
                 any(
@@ -543,17 +865,332 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 warnings: list[str] = []
                 with patch.object(
                     consistency,
-                    "load_route_manifest",
-                    side_effect=consistency.ContextError(error),
+                    "_load_context_registry_routing_view",
+                    side_effect=consistency.ComponentRegistryError(error),
                 ):
-                    check_context_registry(failures, warnings)
+                    check_context_registry(
+                        failures,
+                        warnings,
+                        authority_mode="repository-validation",
+                    )
                 self.assertEqual(len(failures), 1)
-                self.assertIn("context registry validation failed", failures[0])
+                self.assertIn(
+                    "Component Registry routing authority validation failed",
+                    failures[0],
+                )
                 self.assertIn(error, failures[0])
                 self.assertEqual(warnings, [])
 
+    def test_context_registry_configuration_modes_use_zero_argument_loader(self):
+        for mode in (
+            "candidate_validation_only",
+            "active_configuration_validation_only",
+        ):
+            with self.subTest(mode=mode), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                route = self.context_registry_fixture(root)
+                view = self.context_registry_view(route, mode=mode)
+                failures: list[str] = []
+                warnings: list[str] = []
+                with (
+                    patch.object(consistency, "ROOT", root),
+                    patch.object(
+                        consistency,
+                        "load_component_registry_configuration_routing_view",
+                        return_value=view,
+                    ) as configuration_loader,
+                    patch.object(
+                        consistency,
+                        "load_validated_component_registry_routing_view",
+                    ) as production_loader,
+                    patch.object(
+                        consistency,
+                        "load_fixture_component_registry_configuration_routing_view",
+                    ) as fixture_loader,
+                ):
+                    envelope = check_context_registry(
+                        failures,
+                        warnings,
+                        authority_mode="repository-validation",
+                    )
+
+                configuration_loader.assert_called_once_with()
+                production_loader.assert_not_called()
+                fixture_loader.assert_not_called()
+                self.assertEqual(failures, [])
+                self.assertEqual(warnings, [])
+                self.assertEqual(
+                    set(envelope),
+                    self.CONTEXT_ROUTING_AUTHORITY_FIELDS,
+                )
+                self.assertEqual(
+                    envelope["authority_mode"],
+                    "repository-validation",
+                )
+                self.assertTrue(envelope["configuration_valid"])
+                self.assertEqual(envelope["validation_mode"], mode)
+                self.assertFalse(envelope["authoritative"])
+                self.assertFalse(envelope["executable"])
+                self.assertFalse(envelope["live_activation_verified"])
+                self.assertFalse(envelope["activation_receipt_consulted"])
+
+    def test_context_registry_production_uses_only_fixed_runtime_loader(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            route = self.context_registry_fixture(root)
+            view = self.context_registry_view(
+                route,
+                mode="active_component_registry",
+            )
+            authority = SimpleNamespace(mode="production_transaction")
+            failures: list[str] = []
+            warnings: list[str] = []
+            with (
+                patch.object(consistency, "ROOT", root),
+                patch.object(
+                    consistency,
+                    "_production_context_registry_path_authority",
+                    return_value=authority,
+                ),
+                patch.object(
+                    consistency,
+                    "load_validated_component_registry_routing_view",
+                    return_value=view,
+                ) as production_loader,
+                patch.object(
+                    consistency,
+                    "load_component_registry_configuration_routing_view",
+                ) as configuration_loader,
+            ):
+                envelope = check_context_registry(
+                    failures,
+                    warnings,
+                    authority_mode="production-transaction",
+                )
+
+            production_loader.assert_called_once_with(authority)
+            configuration_loader.assert_not_called()
+            self.assertEqual(failures, [])
+            self.assertEqual(warnings, [])
+            self.assertEqual(
+                set(envelope),
+                self.CONTEXT_ROUTING_AUTHORITY_FIELDS,
+            )
+            self.assertEqual(
+                envelope["authority_mode"],
+                "production-transaction",
+            )
+            self.assertTrue(envelope["configuration_valid"])
+            self.assertEqual(
+                envelope["validation_mode"],
+                "active_component_registry",
+            )
+            self.assertTrue(envelope["authoritative"])
+            self.assertTrue(envelope["executable"])
+            self.assertTrue(envelope["live_activation_verified"])
+            self.assertTrue(envelope["activation_receipt_consulted"])
+
+    def test_context_registry_active_mode_checks_current_markdown_without_opening_predecessors(
+        self,
+    ):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            route = self.context_registry_fixture(root)
+            view = self.context_registry_view(
+                route,
+                mode="active_configuration_validation_only",
+            )
+            archive = root / "framework" / "archive" / "authorities"
+            archive.mkdir(parents=True)
+            (archive / "CONTEXT_ROUTING.md").write_text(
+                "# Retired context routing\n",
+                encoding="utf-8",
+            )
+            (archive / "context-routes.json").write_text(
+                "{}\n",
+                encoding="utf-8",
+            )
+            predecessor_paths = {
+                "framework/CONTEXT_ROUTING.md",
+                "framework/project/automation/context-routes.json",
+                "framework/archive/authorities/CONTEXT_ROUTING.md",
+                "framework/archive/authorities/context-routes.json",
+            }
+            current_markdown = {
+                str(spec["path"])
+                for spec in route["documents"].values()
+                if str(spec["path"]).endswith(".md")
+            }
+            visited: set[str] = set()
+            original_read = consistency.read
+
+            def guarded_read(path: Path) -> str:
+                relative = path.resolve().relative_to(root.resolve()).as_posix()
+                if relative in predecessor_paths:
+                    raise AssertionError(
+                        f"active routing validation opened predecessor {relative}"
+                    )
+                visited.add(relative)
+                return original_read(path)
+
+            failures: list[str] = []
+            warnings: list[str] = []
+            with (
+                patch.object(consistency, "ROOT", root),
+                patch.object(
+                    consistency,
+                    "load_component_registry_configuration_routing_view",
+                    return_value=view,
+                ),
+                patch.object(consistency, "read", side_effect=guarded_read),
+            ):
+                envelope = check_context_registry(
+                    failures,
+                    warnings,
+                    authority_mode="repository-validation",
+                )
+
+            self.assertEqual(failures, [])
+            self.assertEqual(warnings, [])
+            self.assertEqual(visited, current_markdown)
+            self.assertTrue(predecessor_paths.isdisjoint(visited))
+            self.assertEqual(
+                envelope["validation_mode"],
+                "active_configuration_validation_only",
+            )
+            self.assertFalse(envelope["predecessor_route_consulted"])
+
+    def test_context_registry_missing_production_receipt_is_fatal(self):
+        authority = SimpleNamespace(mode="production_transaction")
+        failures: list[str] = []
+        warnings: list[str] = []
+        with (
+            patch.object(
+                consistency,
+                "_production_context_registry_path_authority",
+                return_value=authority,
+            ),
+            patch.object(
+                consistency,
+                "load_validated_component_registry_routing_view",
+                side_effect=consistency.ComponentRegistryError(
+                    "active Component Registry activation receipt is unavailable"
+                ),
+            ),
+            patch.object(
+                consistency,
+                "load_component_registry_configuration_routing_view",
+            ) as configuration_loader,
+        ):
+            envelope = check_context_registry(
+                failures,
+                warnings,
+                authority_mode="production-transaction",
+            )
+
+        configuration_loader.assert_not_called()
+        self.assertIsNone(envelope)
+        self.assertEqual(len(failures), 1)
+        self.assertIn("activation receipt is unavailable", failures[0])
+        self.assertEqual(warnings, [])
+        self.assertEqual(
+            consistency.project_integrity_exit_code(
+                failures,
+                exit_zero_on_findings=True,
+                context_routing_authority=envelope,
+            ),
+            2,
+        )
+        unavailable = (
+            consistency.unavailable_context_registry_authority_envelope(
+                "production-transaction"
+            )
+        )
+        self.assertEqual(
+            set(unavailable),
+            self.CONTEXT_ROUTING_AUTHORITY_FIELDS,
+        )
+        self.assertEqual(
+            unavailable,
+            {
+                "authority_mode": "production-transaction",
+                "validation_mode": "unavailable",
+                "registry_status": "unavailable",
+                "registry_revision": None,
+                "registry_sha256": None,
+                "configuration_valid": False,
+                "live_activation_verified": False,
+                "authoritative": False,
+                "executable": False,
+                "predecessor_route_consulted": False,
+                "activation_receipt_consulted": False,
+            },
+        )
+
+    def test_context_registry_rejects_cross_mode_authority_posture(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            route = self.context_registry_fixture(root)
+            invalid = self.context_registry_view(
+                route,
+                mode="active_configuration_validation_only",
+            )
+            invalid["predecessor_route_consulted"] = True
+            failures: list[str] = []
+            warnings: list[str] = []
+            with (
+                patch.object(consistency, "ROOT", root),
+                patch.object(
+                    consistency,
+                    "load_component_registry_configuration_routing_view",
+                    return_value=invalid,
+                ),
+            ):
+                envelope = check_context_registry(
+                    failures,
+                    warnings,
+                    authority_mode="repository-validation",
+                )
+
+            self.assertIsNone(envelope)
+            self.assertEqual(len(failures), 1)
+            self.assertIn("invalid routing authority posture", failures[0])
+            self.assertEqual(warnings, [])
+
+    def test_context_registry_rejects_authority_mode_validation_mode_mismatch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            route = self.context_registry_fixture(root)
+            invalid = self.context_registry_view(
+                route,
+                mode="active_component_registry",
+            )
+            failures: list[str] = []
+            warnings: list[str] = []
+            with (
+                patch.object(consistency, "ROOT", root),
+                patch.object(
+                    consistency,
+                    "load_component_registry_configuration_routing_view",
+                    return_value=invalid,
+                ),
+            ):
+                envelope = check_context_registry(
+                    failures,
+                    warnings,
+                    authority_mode="repository-validation",
+                )
+
+            self.assertIsNone(envelope)
+            self.assertEqual(len(failures), 1)
+            self.assertIn(
+                "authority mode and validation mode differ",
+                failures[0],
+            )
+            self.assertEqual(warnings, [])
+
     def test_current_audit_handoff_state_is_coherent(self):
-        current_audit = (ROOT / "framework/records/handoffs/current-task.md").read_text(
+        current_audit = (ROOT / "framework/handoffs/current-task.md").read_text(
             encoding="utf-8"
         )
         current_table = current_audit.split("## Current Task", 1)[1].split(
@@ -606,7 +1243,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
         )
 
     def test_current_audit_rules_separate_handoff_from_runtime_liveness(self):
-        current_audit = (ROOT / "framework/records/handoffs/current-task.md").read_text(
+        current_audit = (ROOT / "framework/handoffs/current-task.md").read_text(
             encoding="utf-8"
         )
         agent_rules = (ROOT / "framework/AGENT_OPERATING_RULES.md").read_text(
@@ -678,7 +1315,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             "trigger": "run-chain-or-manual",
             "schedule": "Due every 168 hours in the Run Coordinator chain; no independent schedule",
             "status": "report-only-pilot",
-            "current_report": "framework/records/status/source-checker-report.md",
+            "current_report": "framework/status/source-checker-report.md",
             "current_data": "project-console-data:source-checker.json",
             "offline_cache_path": ".tmp/project-console-source-checker.json",
         }
@@ -690,7 +1327,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 "coordinator": ".github/workflows/run-coordinator-bot.yml",
                 "dueEveryHours": 168,
             },
-            "currentReport": "framework/records/status/source-checker-report.md",
+            "currentReport": "framework/status/source-checker-report.md",
             "currentData": "project-console-data:source-checker.json",
             "offlineCachePath": ".tmp/project-console-source-checker.json",
         }
@@ -718,7 +1355,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
         drifted_values = {
             **values,
             "execution_environment": "local-shell",
-            "current_data": "framework/records/status/source-checker.json",
+            "current_data": "framework/status/source-checker.json",
             "offline_cache_path": ".tmp/wrong.json",
         }
         drifted_config = {
@@ -863,7 +1500,14 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertEqual(warnings, [])
 
     def test_local_link_queries_do_not_change_filesystem_target(self):
-        source = ROOT / "research" / "project-console" / "project-console.html"
+        source = (
+            ROOT
+            / "framework"
+            / "project"
+            / "interfaces"
+            / "project-console"
+            / "project-console.html"
+        )
         self.assertEqual(
             local_target(source, "app.js?v=20"),
             (source.parent / "app.js").resolve(),
@@ -1738,24 +2382,24 @@ class GitHubIssueLinkTests(unittest.TestCase):
     def test_extracts_main_branch_blob_target(self):
         body = (
             "[Horizon log](https://github.com/Thorncrag/ARRP/blob/main/"
-            "framework/records/candidates/horizon-scan-log.md#horizon-integration-log)"
+            "framework/logs/candidates/candidate-discovery-log.md#horizon-integration-log)"
         )
 
         targets = github_repository_targets(body)
 
         self.assertEqual(len(targets), 1)
-        self.assertEqual(targets[0][1], "framework/records/candidates/horizon-scan-log.md")
+        self.assertEqual(targets[0][1], "framework/logs/candidates/candidate-discovery-log.md")
 
     def test_extracts_repository_target_from_json_escaped_html(self):
         body = (
             '{"html":"<a href=\\"https://github.com/Thorncrag/ARRP/blob/main/'
-            'framework/records/candidates/horizon-scan-log.md\\" target=\\"_blank\\">log</a>"}'
+            'framework/logs/candidates/candidate-discovery-log.md\\" target=\\"_blank\\">log</a>"}'
         )
 
         targets = github_repository_targets(body)
 
         self.assertEqual(len(targets), 1)
-        self.assertEqual(targets[0][1], "framework/records/candidates/horizon-scan-log.md")
+        self.assertEqual(targets[0][1], "framework/logs/candidates/candidate-discovery-log.md")
 
     def test_ignores_non_main_branch_target(self):
         body = "https://github.com/Thorncrag/ARRP/blob/project-console-data/progress.json"

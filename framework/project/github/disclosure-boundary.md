@@ -181,7 +181,7 @@ raw vulnerability evidence and never authorizes a GitHub transmission.
 
 The initial bounded classification inventory is represented by a minimized
 public summary in
-[`../../records/automation/disclosure-classification-summary-2026-07-28.json`](../../records/automation/disclosure-classification-summary-2026-07-28.json).
+[`disclosure-classification-summary-2026-07-28.json`](../../receipts/disclosure/disclosure-classification-summary-2026-07-28.json).
 The complete path inventory is owner-local and does not grandfather restricted
 material already present on GitHub.
 

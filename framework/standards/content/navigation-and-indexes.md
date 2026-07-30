@@ -5,7 +5,7 @@ authority_scope: "Stable content identity, active and historical indexes, nondup
 load_when: "Creating, moving, renaming, promoting, merging, retiring, or otherwise rerouting an area, issue, candidate, or developed proposal."
 dependencies:
   - "../../FRAMEWORK.md"
-  - "../../PROJECT_STRUCTURE.md"
+  - "../../component-registry.json"
   - "maturity-and-gates.md"
 print_status: excluded
 print_exclusion_reason: "Online technical framework and methodology."
@@ -17,8 +17,8 @@ print_exclusion_reason: "Online technical framework and methodology."
 
 This file is the authoritative detailed standard for substantive project
 inventory, index, and listing conventions. Repository placement belongs to
-[`PROJECT_STRUCTURE.md`](../../PROJECT_STRUCTURE.md), and substantive maturity
-to [`maturity-and-gates.md`](maturity-and-gates.md). The project configuration
+the [`Component Registry`](../../component-registry.json), and substantive
+maturity to [`maturity-and-gates.md`](maturity-and-gates.md). The project configuration
 must identify the exact repository paths, hosted-platform fields, labels,
 views, headings, and synchronization mechanics that implement this standard.
 Apply the synchronization section below whenever a route changes.

@@ -1,0 +1,1440 @@
+{
+  "schema_version": 1,
+  "receipt_id": "component_registry_stage1_requirement_closure",
+  "design_id": "COMPONENT-REGISTRY-2026-001-CANDIDATE-ACTIVATION-READINESS-CLOSURE",
+  "design_revision": "sha256:8a6eaf0b2e91fb86a47363ea176e793d4fbe40001f31d80d00963748c757aeba",
+  "source_design": {
+    "document_id": "CR-PROPOSAL-2026-001",
+    "revision": 15,
+    "sha256": "95e6a67263a7ef228e395f8a9429ba1082d874d79939d95269d9f5d91d4f7a0d",
+    "section": "Registry enforcement requirements",
+    "requirement_count": 77,
+    "normalization": "markdown_continuation_whitespace_only"
+  },
+  "implementation_blueprint": {
+    "document_id": "CR-IMPLEMENTATION-DESIGN-2026-001",
+    "revision": 7,
+    "sha256": "a3dd3fa31c3e02b5fbddc89b1aa293ec0164e667d45f4142ebaa884020989ac8",
+    "closure_matrix_lines": "1182-1205"
+  },
+  "requirement_count": 77,
+  "requirements_sha256": "166f93c3aa199fcfa37e2929b5cf13a7472a30b1f7ea3eba3a10123fb9fcbc06",
+  "complete_catalog": true,
+  "rows": [
+    {
+      "cr_id": "CR-001",
+      "ordinal": 1,
+      "design_requirement": "every durable tracked file resolves to exactly one directory scope;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-002",
+      "ordinal": 2,
+      "design_requirement": "every operational document resolves to one stable document ID and approved creation authority;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-003",
+      "ordinal": 3,
+      "design_requirement": "every directory satisfies its own placement test and all ancestor tests;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-004",
+      "ordinal": 4,
+      "design_requirement": "duplicate leaf directory names are permitted only through registered, disjoint inherited scopes;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-005",
+      "ordinal": 5,
+      "design_requirement": "unknown directories, document types, and context routes fail closed;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_with_deferred_stage2_portion",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-006",
+      "ordinal": 6,
+      "design_requirement": "`framework/reports/`, `framework/status/`, `framework/logs/`, and `framework/receipts/` contain only disclosure-approved public-safe fields;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-007",
+      "ordinal": 7,
+      "design_requirement": "sensitive bounded analysis cannot be classified as a public report;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_with_deferred_stage2_portion",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-008",
+      "ordinal": 8,
+      "design_requirement": "public status and complete private runtime state cannot be confused or silently joined;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-009",
+      "ordinal": 9,
+      "design_requirement": "reports obey creation, finalization, correction, supersession, and archive lifecycle rules;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "deferred_by_approved_stage_boundary",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-010",
+      "ordinal": 10,
+      "design_requirement": "archived material is excluded from active context unless expressly requested;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-011",
+      "ordinal": 11,
+      "design_requirement": "operational receipts cannot substitute for authority, status, history, or closure;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-012",
+      "ordinal": 12,
+      "design_requirement": "tests exist only beneath the central public test root except for the exact owner-local security-validation class;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-013",
+      "ordinal": 13,
+      "design_requirement": "project-controlled utilities exist only beneath the central scripts root;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-014",
+      "ordinal": 14,
+      "design_requirement": "every governed active term resolves to the canonical terminology namespace, conflicting definitions fail closed, and new output stops emitting `Horizon` where `candidate` is meant after the approved compatibility migration;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "deferred_by_approved_stage_boundary",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-015",
+      "ordinal": 15,
+      "design_requirement": "all links, hashes, schemas, route dependencies, build paths, Console paths, disclosure families, and generated artifacts reconcile after relocation; and",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_readiness_verified_pending_canonical_activation_readback",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-016",
+      "ordinal": 16,
+      "design_requirement": "the Console Documents, Directories, Routing, and Terminology views render the same exact registry generation rather than reconstructing scope in browser code;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-017",
+      "ordinal": 17,
+      "design_requirement": "every compact metadata table contains every required field as either its authoritative value or an allowed reason-qualified state;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-018",
+      "ordinal": 18,
+      "design_requirement": "no blank, omitted, unqualified-dash, or silent-null required metadata field passes validation; and",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-019",
+      "ordinal": 19,
+      "design_requirement": "every rendered registry link resolves to the exact matching document ID and the metadata values agree across Markdown, web, PDF, public Console, and owner-local representations;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_readiness_verified_pending_canonical_activation_readback",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-020",
+      "ordinal": 20,
+      "design_requirement": "a new governance document, directory, document family, or registry entry without exact owner approval is rejected before it can become active;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-021",
+      "ordinal": 21,
+      "design_requirement": "copying, renaming, splitting, merging, or changing the extension of an existing document cannot evade the new-document approval rule;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-022",
+      "ordinal": 22,
+      "design_requirement": "an agent-authored approval flag, Governance Change entry, commit message, chat summary, broad task scope, or neighboring approved change cannot satisfy the owner-approval requirement;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-023",
+      "ordinal": 23,
+      "design_requirement": "approval is bound to the exact registry base revision, affected stable IDs, purpose, scope, path, and bounded diff or artifact family;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-024",
+      "ordinal": 24,
+      "design_requirement": "a human-requested nonauthoritative proposal may be prepared without being misrepresented as an adopted governance document;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-025",
+      "ordinal": 25,
+      "design_requirement": "exact generated representations of an approved document identity do not create additional documents or authorities; and",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-026",
+      "ordinal": 26,
+      "design_requirement": "every Component Registry change preserves an auditable owner-approved Governance Change identity and downstream reconciliation result;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "framework/standards/automation/component-registry.schema.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-027",
+      "ordinal": 27,
+      "design_requirement": "every routed document carries its registered authority role, scope, exclusions, dependencies, precedence, revision, and validation identity;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-028",
+      "ordinal": 28,
+      "design_requirement": "the context builder selects the smallest complete additive union and deduplicates dependencies without omitting an implicated authority;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-029",
+      "ordinal": 29,
+      "design_requirement": "logs, reports, status projections, generated views, and archived predecessors cannot be treated as governing merely because they are routed;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-030",
+      "ordinal": 30,
+      "design_requirement": "stale, missing, ambiguous, conflicting, or scope-incomplete routing expands to canonical context or fails closed rather than silently narrowing the packet; and",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-031",
+      "ordinal": 31,
+      "design_requirement": "the readable context rendering states why each document was loaded, what it governs, and what authority it does not possess;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-032",
+      "ordinal": 32,
+      "design_requirement": "the migration inventory accounts for every document, required module, capability, profile, section selector, dependency, byte ceiling, governing marker, and scan exclusion in the exact source registry revision;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-033",
+      "ordinal": 33,
+      "design_requirement": "every pre-migration profile and capability produces the same substantive stable document IDs, exact sections, dependency closure, additive behavior, and governing membership after migration except for an explicitly approved semantic change;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-034",
+      "ordinal": 34,
+      "design_requirement": "a canonical path change updates the document entry without requiring a capability or profile membership change, while an ID change requires an explicit compatibility migration;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-035",
+      "ordinal": 35,
+      "design_requirement": "required-floor documents, implicated authorities, dependencies, and comprehensive-review members cannot be dropped to satisfy a byte ceiling;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-036",
+      "ordinal": 36,
+      "design_requirement": "`include_all_governing` selects every and only active governing documents plus their dependency closure from the exact registry generation;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-037",
+      "ordinal": 37,
+      "design_requirement": "unknown document or capability IDs, dependency cycles, and missing, duplicated, renamed, stale, or over-limit exact section selectors fail closed;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-038",
+      "ordinal": 38,
+      "design_requirement": "scan exclusions reference registered path scopes or representation classes where possible and never exempt an artifact from classification, disclosure, or placement validation;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-039",
+      "ordinal": 39,
+      "design_requirement": "every emitted context packet binds the Component Registry revision and digest, resolved document identities and digests, selected profile and capabilities, dynamic expansions, and inclusion reasons;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-040",
+      "ordinal": 40,
+      "design_requirement": "public routing cannot disclose owner-local paths or restricted details, and unavailable private authority cannot be replaced by a public summary;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-041",
+      "ordinal": 41,
+      "design_requirement": "the two predecessor routing sources remain current in their existing distinct roles during candidate validation, the Component Registry becomes the sole routing authority at cutover, and no fallback can select whichever source is more permissive;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-042",
+      "ordinal": 42,
+      "design_requirement": "every known routing consumer and bootstrap reference is migrated and verified before the predecessors are archived;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_readiness_verified_pending_canonical_activation_readback",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-043",
+      "ordinal": 43,
+      "design_requirement": "the first Component Registry-based Review Epoch is an approved rebaseline with exact boundary reconciliation and carried-forward unresolved findings;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-044",
+      "ordinal": 44,
+      "design_requirement": "legacy route aliases resolve deterministically to one current identity, remain observable during their bounded compatibility window, and stop being emitted; and",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-045",
+      "ordinal": 45,
+      "design_requirement": "routing, profile, capability, precedence, exclusion, and governing-boundary changes are treated as locked Component Registry changes requiring the approved owner-governance process;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-046",
+      "ordinal": 46,
+      "design_requirement": "every normative routing rule formerly maintained in `CONTEXT_ROUTING.md` resolves to one stable machine-validatable rule in the Component Registry with proven behavioral parity;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-047",
+      "ordinal": 47,
+      "design_requirement": "no live bootstrap document, runbook, source file, generated Markdown, or Console view independently restates or overrides routing semantics or membership;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_readiness_verified_pending_canonical_activation_readback",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-048",
+      "ordinal": 48,
+      "design_requirement": "human-readable routing output identifies its source Component Registry revision and digest and is regenerated rather than manually edited; and",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-049",
+      "ordinal": 49,
+      "design_requirement": "both predecessor routing files are unreadable as current authority after cutover and remain available only as archived provenance;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_readiness_verified_pending_canonical_activation_readback",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-050",
+      "ordinal": 50,
+      "design_requirement": "the migration reproduces the source-bound three-item required floor, nineteen capability mappings, eight profiles, and every exact section selector shown in this proposal before applying an approved substitution;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-051",
+      "ordinal": 51,
+      "design_requirement": "all 88 source document identities, digest policies, governing markers, and dependency arrays are imported and reconciled one-for-one from the exact source digest rather than reconstructed from prose;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-052",
+      "ordinal": 52,
+      "design_requirement": "the only organization-driven membership substitutions are the registered `context_routing`, `project_structure`, `repository_map`, and `current_audit` treatments stated above unless Benjamin approves an additional exact semantic change; and",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-053",
+      "ordinal": 53,
+      "design_requirement": "an unchanged stable document ID continues to resolve through every capability, profile, dependency, and section selector after its canonical path changes;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_readiness_verified_pending_canonical_activation_readback",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-054",
+      "ordinal": 54,
+      "design_requirement": "`navigation_and_inventory` and `navigation_project_sync` each consume one typed Component Registry selection rather than preserving two aliases for the retired structure and repository-map authorities; and",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-055",
+      "ordinal": 55,
+      "design_requirement": "no current runtime posture, pause assertion, schedule detail, or private topology is migrated from `REPOSITORY_MAP.md` into the Component Registry;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/context-routing-v1-rule-closure.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_context_routing_rule_closure.py",
+        "tests/framework/test_context_routing_semantics.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-056",
+      "ordinal": 56,
+      "design_requirement": "retained README files do not independently define directory placement, authority, lifecycle, disclosure, exclusions, or child structure already owned by the Component Registry;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_readiness_verified_pending_canonical_activation_readback",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-057",
+      "ordinal": 57,
+      "design_requirement": "removing duplicate scope prose does not erase distinct public navigation, catalog instructions, component operations, deployment guidance, privacy or security guidance, or other independently registered purpose; and",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_readiness_verified_pending_canonical_activation_readback",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-058",
+      "ordinal": 58,
+      "design_requirement": "a README left with no registered purpose after scope prose is removed receives an explicit human-approved retirement disposition rather than remaining as an empty or competing guide.",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_readiness_verified_pending_canonical_activation_readback",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-059",
+      "ordinal": 59,
+      "design_requirement": "`elim-run-summary.md` is absent from the active document and routing boundary after migration, no Console or automation consumer treats it as the Elim Run Log or as a report, and every genuinely unique retained statement resolves through the Elim runbook, owner-local runtime authority, Project Console specification, or Component Registry entry.",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_readiness_verified_pending_canonical_activation_readback",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-060",
+      "ordinal": 60,
+      "design_requirement": "an automatically preserved local report delivery remains outside the project inventory and routing boundary unless Benjamin separately approves its exact promotion, and neither a local filename nor its existence may make it a project report, governing document, or publication.",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-061",
+      "ordinal": 61,
+      "design_requirement": "actions and dispositions retained inside a local report preserve their exact finding relationship, destination, and readback without becoming a competing ARRP queue or lifecycle authority.",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_evidence_verified_in_candidate_state",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-062",
+      "ordinal": 62,
+      "design_requirement": "every generated CODEOWNERS pattern resolves to one registered ownership and review policy, exact regeneration detects manual drift, and ambiguous or weakening overlaps fail closed;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py",
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_readiness_verified_pending_canonical_activation_readback",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-063",
+      "ordinal": 63,
+      "design_requirement": "the Component Registry, schema, ownership generator, and generated CODEOWNERS file remain protected by the current default-branch owner-review rule during a proposed protection change;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py",
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_readiness_verified_pending_canonical_activation_readback",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-064",
+      "ordinal": 64,
+      "design_requirement": "ordinary validated log appends are not accidentally converted into owner-approval events, while log schemas, writers, existing-entry immutability, and governing workflows retain their registered protection;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py",
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_readiness_verified_pending_canonical_activation_readback",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": null,
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-065",
+      "ordinal": 65,
+      "design_requirement": "every registered term has a stable identity, exact semantic boundary, approval provenance, alias/deprecation posture, and compatible consumers, and no specialist document independently redefines it;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py",
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "deferred_by_approved_stage_boundary",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-066",
+      "ordinal": 66,
+      "design_requirement": "historical wording and externally required machine tokens remain distinguishable from active canonical terminology and cannot silently reactivate a retired label;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_stage1_acceptance.py",
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "deferred_by_approved_stage_boundary",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-067",
+      "ordinal": 67,
+      "design_requirement": "every live local and GitHub branch resolves to exactly one registered repository-reference class and one exact purpose binding, except that an unclassified reference remains a visible fail-closed reconciliation exception;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_read_only_lifecycle_model_verified_mutation_not_activated",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-068",
+      "ordinal": 68,
+      "design_requirement": "project-operated first push of a new non-default branch is refused without its class, purpose, base/head binding, owner, lifecycle, and owner-local reference event;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_read_only_lifecycle_model_verified_mutation_not_activated",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-069",
+      "ordinal": 69,
+      "design_requirement": "exact merge-commit ancestry permits only the registered retirement path, while squash, rebase, unmerged, moved, or branch-only material requires explicit reconciliation and any required recovery package;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_read_only_lifecycle_model_verified_mutation_not_activated",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-070",
+      "ordinal": 70,
+      "design_requirement": "no default, protected, registered-persistent, dependent, open-pull-request, or moved reference can pass the ephemeral retirement predicate;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_read_only_lifecycle_model_verified_mutation_not_activated",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-071",
+      "ordinal": 71,
+      "design_requirement": "every remote retirement uses the existing disclosure gate, exact expected-old lease, single target, immediate absence readback, local reconciliation, and immutable receipt;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_read_only_lifecycle_model_verified_mutation_not_activated",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-072",
+      "ordinal": 72,
+      "design_requirement": "a standing retirement predicate remains inactive unless Benjamin separately approves its exact class, actor, credential scope, evidence, and stop conditions, and registry adoption does not expand the GitHub App;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_read_only_lifecycle_model_verified_mutation_not_activated",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-073",
+      "ordinal": 73,
+      "design_requirement": "GitHub's generic automatic head-branch deletion setting is authenticated and read back, and an unknown, unexpectedly enabled, or non-equivalent setting cannot substitute for classification, exact-head preservation, recovery, lease, receipt, or reconciliation proof;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_read_only_lifecycle_model_verified_mutation_not_activated",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-074",
+      "ordinal": 74,
+      "design_requirement": "the remote inventory is complete, authenticated, paginated, and live; local remote-tracking refs cannot masquerade as current GitHub authority;",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_read_only_lifecycle_model_verified_mutation_not_activated",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-075",
+      "ordinal": 75,
+      "design_requirement": "unknown, expired, held-without-review, retirement-eligible but unretired, duplicate, moved, or proof-mismatched references prevent a neutral or fully reconciled result; and",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_read_only_lifecycle_model_verified_mutation_not_activated",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-076",
+      "ordinal": 76,
+      "design_requirement": "every reference remaining from the revision-15 held migration floor receives exact continuing-authority, preservation, reconciliation, or retirement disposition before post-migration certification; and",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_read_only_lifecycle_model_verified_mutation_not_activated",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    },
+    {
+      "cr_id": "CR-077",
+      "ordinal": 77,
+      "design_requirement": "no current workflow, runbook, bootstrap file, or Console text claims that retired standing bot/data branches remain active, and the current monitoring-workflow contradiction is removed and regression-tested.",
+      "implementation_locations": [
+        "framework/component-registry.json",
+        "scripts/component_registry.py",
+        "framework/receipts/component-registry/stage1-activation-readiness.json"
+      ],
+      "verification_ids": [
+        "tests/framework/test_component_registry_activation_readiness.py"
+      ],
+      "pre_activation_result": "stage1_read_only_lifecycle_model_verified_mutation_not_activated",
+      "canonical_readback_result": "pending_activation_readback",
+      "exception_status": "",
+      "approved_deferral": "deferred_by_approved_stage_boundary",
+      "receipt_provenance_reference": "framework/receipts/component-registry/stage1-activation-readiness.json"
+    }
+  ]
+}

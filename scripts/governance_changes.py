@@ -356,7 +356,7 @@ def _read_registry(
                 "governance registry source evidence is invalid"
             )
         expected_destination = (
-            "framework/records/governance/governance-change-log.md#"
+            "framework/logs/governance/governance-change-log.md#"
             + identifier.casefold()
         )
         if raw.get("destination") != expected_destination:

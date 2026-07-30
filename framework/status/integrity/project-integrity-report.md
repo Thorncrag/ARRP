@@ -1,0 +1,29 @@
+---
+title: "Current Project Integrity Report"
+print_status: excluded
+print_exclusion_reason: "Internal operational report."
+---
+
+# Current Project Integrity Report
+
+> This file is an overwritten current-state snapshot, not a running log or an audit tier. The owner-local run record and bound owner Console retain the latest run time and bounded run history. The file changes only when the finding set, checked-page counts, or check scope changes.
+
+## Current Result
+
+- **Result:** Findings require review
+- **Errors:** 0
+- **Warnings:** 3
+- **Issue pages checked:** 64
+- **Proposal pages checked:** 41
+
+## Current Findings
+
+### GitHub records
+
+- **WARNING:** GitHub Pages deployment synchronization could not be verified.
+- **WARNING:** GitHub Issues synchronization could not be verified.
+- **WARNING:** GitHub Project synchronization could not be verified because the registered read-only access was unavailable.
+
+## Checks Included
+
+The authoritative check inventory is maintained in the [Project Integrity Bot runbook](../../project/automation/runbooks/project-integrity-bot.md#checks-included).

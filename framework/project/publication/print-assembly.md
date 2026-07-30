@@ -5,7 +5,7 @@ authority_scope: "ARRP edition selection, section order, page metadata, exact so
 load_when: "Assigning ARRP publication metadata or building, reviewing, or validating a compiled print, PDF, DOCX, or other linear edition."
 dependencies:
   - "../../standards/publication/print-assembly.md"
-  - "../../PROJECT_STRUCTURE.md"
+  - "../../component-registry.json"
   - "../workflows/source-adjudication.md"
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
@@ -99,7 +99,7 @@ treated as an independent proposal.
 Issue source-development records at
 `areas/<AREA>/research/<ISSUE-ID>-source-development.md`, formal Horizon
 source-development records at
-`research/horizon-source-records/<HOR-ID>-source-development.md`, and
+`research/candidate-source-development/<HOR-ID>-source-development.md`, and
 area-specific source-development shells with
 `record_type: source-development` are internal records. They must use
 `print_status: excluded` with an accurate reason and must not carry

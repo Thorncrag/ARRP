@@ -26,6 +26,11 @@ try:
 except ModuleNotFoundError:  # Imported as scripts.run_coordinator.
     from scripts.console_data_contracts import status_projection_contract
 
+try:
+    from scripts.component_registry import RoutingRuleFailure
+except ModuleNotFoundError:  # Direct script execution uses scripts/ on sys.path.
+    from component_registry import RoutingRuleFailure
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / ".github" / "run-coordinator-bot.json"
@@ -884,59 +889,314 @@ def review_epoch_boundary_changes(signals: dict[str, Any]) -> dict[str, list[str
     return normalized
 
 
-def review_epoch_boundary_status(
-    latest_epoch: dict[str, Any] | None,
-    context_registry: dict[str, Any],
-    context_registry_sha256: str,
+def _valid_unprefixed_sha256(value: object) -> bool:
+    return (
+        isinstance(value, str)
+        and len(value) == 64
+        and all(character in "0123456789abcdef" for character in value)
+    )
+
+
+def _review_epoch_routing_boundary_untyped(
+    routing_view: dict[str, Any],
+    routing_selection: dict[str, Any],
     *,
-    context_registry_path: str = "framework/project/automation/context-routes.json",
-) -> dict[str, Any]:
-    """Compare one recorded Review Epoch with the current registry boundary."""
-    if context_registry.get("schema_version") != 2:
-        raise ValueError("Review Epoch boundary comparison requires a schema-2 registry")
-    if (
-        len(context_registry_sha256) != 64
-        or any(
-            character not in "0123456789abcdef"
-            for character in context_registry_sha256
+    allow_candidate_validation: bool,
+) -> dict[str, str]:
+    """Validate one Component Registry comprehensive-review boundary."""
+    if routing_view.get("schema_version") != 1:
+        raise ValueError(
+            "Review Epoch boundary comparison requires a validated "
+            "Component Registry routing view"
         )
-    ):
-        raise ValueError("context registry hash must be an unprefixed SHA-256 digest")
-    documents = context_registry.get("documents")
-    if not isinstance(documents, dict) or not documents:
-        raise ValueError("context registry has no documents")
-    current: dict[str, str] = {}
-    for document_id, spec in documents.items():
-        if not isinstance(spec, dict):
-            raise ValueError(f"context registry document {document_id} is not an object")
-        if spec.get("governing") is not True:
-            continue
-        if spec.get("hash_policy") != "pinned":
-            raise ValueError(
-                f"governing context registry document {document_id} is not pinned"
-            )
-        path = spec.get("path")
-        digest = spec.get("sha256")
-        if not isinstance(path, str) or not path:
-            raise ValueError(
-                f"governing context registry document {document_id} has no path"
-            )
+    status = routing_view.get("registry_status")
+    if status == "active":
         if (
-            not isinstance(digest, str)
-            or len(digest) != 64
-            or any(character not in "0123456789abcdef" for character in digest)
+            routing_view.get("validation_mode") != "active_component_registry"
+            or routing_view.get("authoritative") is not True
+            or routing_view.get("predecessor_route_consulted") is not False
         ):
             raise ValueError(
-                f"governing context registry document {document_id} has no valid hash"
+                "active Review Epoch routing must use only the authoritative "
+                "Component Registry"
             )
-        if path in current:
-            raise ValueError(f"context registry repeats governing path {path}")
-        current[path] = "sha256:" + digest
-    if context_registry_path in current:
+        expected_authoritative = True
+    elif status == "candidate" and allow_candidate_validation:
+        if (
+            routing_view.get("validation_mode") != "candidate_validation_only"
+            or routing_view.get("authoritative") is not False
+            or routing_view.get("predecessor_route_consulted") is not True
+        ):
+            raise ValueError(
+                "candidate Review Epoch routing lacks explicit predecessor-bound "
+                "validation"
+            )
+        expected_authoritative = False
+    else:
         raise ValueError(
-            "context registry manifest must not self-register as a governing document"
+            "Review Epoch routing requires active authority; candidate validation "
+            "must be explicitly enabled"
         )
-    current[context_registry_path] = "sha256:" + context_registry_sha256
+
+    registry_path = routing_view.get("registry_path")
+    registry_digest = routing_view.get("registry_sha256")
+    registry_identity = routing_view.get("registry_id")
+    registry_revision = routing_view.get("registry_revision")
+    if (
+        registry_path != "framework/component-registry.json"
+        or not _valid_unprefixed_sha256(registry_digest)
+        or not isinstance(registry_identity, str)
+        or not registry_identity.strip()
+        or isinstance(registry_revision, bool)
+        or not isinstance(registry_revision, (str, int))
+        or (isinstance(registry_revision, str) and not registry_revision.strip())
+        or (isinstance(registry_revision, int) and registry_revision < 1)
+    ):
+        raise ValueError(
+            "Review Epoch routing has an invalid Component Registry identity"
+        )
+    if (
+        routing_selection.get("selection_kind") != "executable_packet"
+        or routing_selection.get("executable") is not True
+        or routing_selection.get("profile") != "comprehensive_review"
+        or routing_selection.get("capabilities") != []
+        or routing_selection.get("authoritative") is not expected_authoritative
+    ):
+        raise ValueError(
+            "Review Epoch requires the exact comprehensive_review executable "
+            "routing selection"
+        )
+    for field in (
+        "registry_id",
+        "registry_revision",
+        "registry_status",
+        "registry_sha256",
+        "registry_path",
+    ):
+        if routing_selection.get(field) != routing_view.get(field):
+            raise ValueError(
+                f"Review Epoch routing selection {field} differs from its "
+                "validated Component Registry view"
+            )
+
+    route = routing_view.get("route")
+    documents = route.get("documents") if isinstance(route, dict) else None
+    profile = (
+        (route.get("profiles") or {}).get("comprehensive_review")
+        if isinstance(route, dict)
+        else None
+    )
+    if (
+        not isinstance(documents, dict)
+        or not documents
+        or not isinstance(profile, dict)
+        or profile.get("include_all_governing") is not True
+    ):
+        raise ValueError(
+            "Component Registry comprehensive_review routing is unavailable "
+            "or incomplete"
+        )
+    selected_modules = routing_selection.get("modules")
+    if not isinstance(selected_modules, list) or not selected_modules:
+        raise ValueError(
+            "Review Epoch comprehensive routing selection has no modules"
+        )
+    selected_ids: list[str] = []
+    selected_paths: set[str] = set()
+    runtime_ids: list[str] = []
+    current: dict[str, str] = {}
+    for module in selected_modules:
+        if not isinstance(module, dict):
+            raise ValueError(
+                "Review Epoch comprehensive routing contains a non-object module"
+            )
+        document_id = module.get("id")
+        path = module.get("path")
+        if (
+            not isinstance(document_id, str)
+            or not document_id
+            or document_id in selected_ids
+            or not isinstance(path, str)
+            or not path
+            or path in selected_paths
+        ):
+            raise ValueError(
+                "Review Epoch comprehensive routing has an invalid or duplicate "
+                "module identity"
+            )
+        selected_ids.append(document_id)
+        selected_paths.add(path)
+        document = documents.get(document_id)
+        if (
+            not isinstance(document, dict)
+            or document.get("path") != path
+            or document.get("governing") is not module.get("governing")
+            or document.get("hash_policy") != module.get("hash_policy")
+        ):
+            raise ValueError(
+                f"Review Epoch routing module {document_id} differs from the "
+                "validated Component Registry view"
+            )
+        digest = module.get("sha256")
+        policy = module.get("hash_policy")
+        if policy == "pinned":
+            if not _valid_unprefixed_sha256(digest):
+                raise ValueError(
+                    f"pinned Review Epoch module {document_id} has no valid "
+                    "integration digest"
+                )
+        elif policy == "runtime":
+            runtime_ids.append(document_id)
+            if (
+                document_id != "current_audit"
+                or module.get("governing") is not False
+                or digest is not None
+            ):
+                raise ValueError(
+                    "current_audit must be the sole unpinned runtime module in "
+                    "the Review Epoch route"
+                )
+        else:
+            raise ValueError(
+                f"Review Epoch module {document_id} has an invalid hash policy"
+            )
+        if module.get("governing") is True:
+            if policy != "pinned":
+                raise ValueError(
+                    f"governing Review Epoch module {document_id} is not "
+                    "integration-pinned"
+                )
+            if path in current:
+                raise ValueError(
+                    f"Review Epoch routing repeats governing path {path}"
+                )
+            current[path] = "sha256:" + str(digest)
+    if runtime_ids != ["current_audit"]:
+        raise ValueError(
+            "current_audit must be the sole runtime-hashed Review Epoch module"
+        )
+
+    expected_seeds = [
+        *(route.get("required_modules") or []),
+        *(profile.get("modules") or []),
+    ]
+    capabilities = route.get("capabilities") or {}
+    for capability in profile.get("capabilities") or []:
+        members = capabilities.get(capability)
+        if not isinstance(members, list):
+            raise ValueError(
+                f"Review Epoch profile references unknown capability {capability}"
+            )
+        expected_seeds.extend(members)
+    expected_seeds.extend(
+        document_id
+        for document_id, document in documents.items()
+        if isinstance(document, dict) and document.get("governing") is True
+    )
+    expected_ids: list[str] = []
+    visiting: list[str] = []
+
+    def include(document_id: str) -> None:
+        document = documents.get(document_id)
+        if not isinstance(document, dict):
+            raise ValueError(
+                f"Review Epoch route references unknown document {document_id}"
+            )
+        if document_id in visiting:
+            raise ValueError("Review Epoch routing dependency cycle")
+        if document_id in expected_ids:
+            return
+        visiting.append(document_id)
+        dependencies = document.get("requires") or []
+        if not isinstance(dependencies, list):
+            raise ValueError(
+                f"Review Epoch document {document_id} dependencies are invalid"
+            )
+        for dependency in dependencies:
+            include(str(dependency))
+        visiting.pop()
+        expected_ids.append(document_id)
+
+    for seed in expected_seeds:
+        include(str(seed))
+    if selected_ids != expected_ids:
+        raise ValueError(
+            "Review Epoch comprehensive routing does not select the exact "
+            "governing boundary and dependency closure"
+        )
+    if registry_path in current:
+        raise ValueError(
+            "Component Registry must be represented by routing identity, not "
+            "self-registered as a governing document"
+        )
+    current[str(registry_path)] = "sha256:" + str(registry_digest)
+    return current
+
+
+def _review_epoch_routing_boundary(
+    routing_view: dict[str, Any],
+    routing_selection: dict[str, Any],
+    *,
+    allow_candidate_validation: bool,
+) -> dict[str, str]:
+    """Resolve one exact boundary with typed safe routing evidence."""
+
+    try:
+        return _review_epoch_routing_boundary_untyped(
+            routing_view,
+            routing_selection,
+            allow_candidate_validation=allow_candidate_validation,
+        )
+    except RoutingRuleFailure:
+        raise
+    except ValueError as exc:
+        detail = str(exc)
+        if "runtime" in detail or "current_audit" in detail:
+            failure_code = "CTXR_RUNTIME_DIGEST_UNREADABLE"
+            rule_ids = (
+                "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary",
+            )
+        elif "cycle" in detail:
+            failure_code = "CTXR_DEPENDENCY_CYCLE"
+            rule_ids = (
+                "ctxr.inv.dependency_graph_is_acyclic",
+                "ctxr.fail.dependency_cycle",
+            )
+        elif (
+            "comprehensive_review routing is unavailable or incomplete"
+            in detail
+        ):
+            failure_code = "CTXR_UNKNOWN_OR_MISSING_SELECTION"
+            rule_ids = ("ctxr.review.select_all_active_governing",)
+        else:
+            failure_code = "CTXR_PINNED_DIGEST_ABSENT_OR_STALE"
+            rule_ids = (
+                "ctxr.review.select_all_active_governing",
+                "ctxr.review.boundary_exact",
+                "ctxr.review.invalid_drift_is_integrity_failure",
+                "ctxr.review.recorder_requires_exact_current_boundary",
+            )
+        raise RoutingRuleFailure(
+            failure_code=failure_code,
+            phase="review_epoch",
+            rule_ids=rule_ids,
+            message=f"Review Epoch routing boundary is invalid: {detail}",
+        ) from exc
+
+
+def review_epoch_boundary_status(
+    latest_epoch: dict[str, Any] | None,
+    routing_view: dict[str, Any],
+    routing_selection: dict[str, Any],
+    *,
+    allow_candidate_validation: bool = False,
+) -> dict[str, Any]:
+    """Compare one Review Epoch with the current Component Registry boundary."""
+    current = _review_epoch_routing_boundary(
+        routing_view,
+        routing_selection,
+        allow_candidate_validation=allow_candidate_validation,
+    )
 
     recorded = (
         (latest_epoch or {}).get("governing_hashes")
@@ -952,7 +1212,7 @@ def review_epoch_boundary_status(
         if recorded[path] != current[path]
     )
     required = bool(missing or extra or mismatched)
-    return {
+    result = {
         "off_cycle_required": required,
         "reason": "governing_boundary_changed" if required else "boundary_current",
         "missing": missing,
@@ -960,6 +1220,17 @@ def review_epoch_boundary_status(
         "mismatched": mismatched,
         "current_governing_hashes": current,
     }
+    if required:
+        result["routing_failure"] = RoutingRuleFailure(
+            failure_code="CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP",
+            phase="review_epoch",
+            rule_ids=("ctxr.review.any_valid_boundary_difference_due",),
+            message=(
+                "Review Epoch completion is blocked because the governing "
+                "boundary changed"
+            ),
+        ).safe_evidence()
+    return result
 
 
 def previous_stage(previous: dict[str, Any], stage_id: str) -> dict[str, Any]:
@@ -1155,7 +1426,7 @@ def release_lock(lock: dict[str, Any]) -> None:
         lock["status"] = "released-by-workflow"
 
 
-def review_epoch(
+def _review_epoch_untyped(
     config: dict[str, Any],
     previous: dict[str, Any],
     signals: dict[str, Any],
@@ -1211,6 +1482,31 @@ def review_epoch(
         "unresolved_findings": unresolved,
         "boundary_changes": boundary_changes,
     }
+
+
+def review_epoch(
+    config: dict[str, Any],
+    previous: dict[str, Any],
+    signals: dict[str, Any],
+    now: datetime,
+) -> dict[str, Any]:
+    """Plan the next Review Epoch with typed fail-closed evidence."""
+
+    try:
+        return _review_epoch_untyped(config, previous, signals, now)
+    except RoutingRuleFailure:
+        raise
+    except (KeyError, TypeError, ValueError) as exc:
+        raise RoutingRuleFailure(
+            failure_code="CTXR_UNKNOWN_OR_MISSING_SELECTION",
+            phase="review_epoch",
+            rule_ids=(
+                "ctxr.review.periodic_epoch_required",
+                "ctxr.review.completion_fields_exact",
+                "ctxr.review.next_epoch_uses_delta_and_carry_forward",
+            ),
+            message=f"Review Epoch scheduling evidence is invalid: {exc}",
+        ) from exc
 
 
 def is_local_first_config(config: dict[str, Any]) -> bool:
