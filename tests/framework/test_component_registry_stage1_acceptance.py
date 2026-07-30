@@ -13,6 +13,7 @@ import copy
 import hashlib
 import json
 import re
+import subprocess
 import unittest
 from collections import defaultdict
 from pathlib import Path
@@ -24,9 +25,19 @@ from scripts import component_registry as registry
 ROOT = Path(__file__).resolve().parents[2]
 REGISTRY_PATH = ROOT / "framework" / "component-registry.json"
 ROUTING_PREDECESSOR_PATH = ROOT / "framework" / "CONTEXT_ROUTING.md"
+if not ROUTING_PREDECESSOR_PATH.exists():
+    ROUTING_PREDECESSOR_PATH = (
+        ROOT / "framework" / "archive" / "authorities"
+        / "CONTEXT_ROUTING.md"
+    )
 ROUTE_PATH = (
     ROOT / "framework" / "project" / "automation" / "context-routes.json"
 )
+if not ROUTE_PATH.exists():
+    ROUTE_PATH = (
+        ROOT / "framework" / "archive" / "authorities"
+        / "context-routes.json"
+    )
 ROUTING_PREDECESSOR_SHA256 = (
     "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7"
 )
@@ -34,6 +45,33 @@ ROUTING_PREDECESSOR_SHA256 = (
 
 def load_json(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_candidate_registry() -> dict[str, object]:
+    current = load_json(REGISTRY_PATH)
+    if current["status"] == "candidate":
+        return current
+    candidate_revision = current["source_baseline"]["repository_revision"]
+    result = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(ROOT),
+            "show",
+            f"{candidate_revision}:framework/component-registry.json",
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    candidate = json.loads(result.stdout)
+    if (
+        candidate.get("status") != "candidate"
+        or registry._canonical_registry_digest(candidate)
+        != current["approval"]["value"]["candidate_registry_sha256"]
+    ):
+        raise AssertionError("active registry candidate parent is not exact")
+    return candidate
 
 
 def dependency_closure(
@@ -58,8 +96,8 @@ def dependency_closure(
 
 class ComponentRegistryStage1AcceptanceTests(unittest.TestCase):
     def setUp(self) -> None:
-        self.candidate = load_json(REGISTRY_PATH)
-        self.route = load_json(ROUTE_PATH)
+        self.candidate = load_candidate_registry()
+        self.route = registry._routing_snapshot(self.candidate)
         self.embedded_route = registry._routing_snapshot(self.candidate)
 
     def test_cr002_017_018_019_document_identity_metadata_and_links(self):

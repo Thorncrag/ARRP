@@ -6,6 +6,7 @@ import ast
 import copy
 import hashlib
 import json
+import subprocess
 import unittest
 from collections import Counter
 from datetime import datetime, timezone
@@ -18,6 +19,11 @@ from scripts import component_registry as registry_tool
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_PATH = ROOT / "framework" / "CONTEXT_ROUTING.md"
+if not SOURCE_PATH.exists():
+    SOURCE_PATH = (
+        ROOT / "framework" / "archive" / "authorities"
+        / "CONTEXT_ROUTING.md"
+    )
 REGISTRY_PATH = ROOT / "framework" / "component-registry.json"
 SCHEMA_PATH = (
     ROOT
@@ -396,7 +402,30 @@ def _load_matrix() -> dict[str, object]:
 
 
 def _load_registry() -> dict[str, object]:
-    return json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
+    current = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
+    if current["status"] == "candidate":
+        return current
+    candidate_revision = current["source_baseline"]["repository_revision"]
+    result = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(ROOT),
+            "show",
+            f"{candidate_revision}:framework/component-registry.json",
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    candidate = json.loads(result.stdout)
+    if (
+        candidate.get("status") != "candidate"
+        or registry_tool._canonical_registry_digest(candidate)
+        != current["approval"]["value"]["candidate_registry_sha256"]
+    ):
+        raise AssertionError("active registry candidate parent is not exact")
+    return candidate
 
 
 def _load_schema() -> dict[str, object]:
@@ -1415,19 +1444,31 @@ def _current_candidate_view() -> dict[str, object]:
     """Return an in-memory candidate view pinned to the current test checkout."""
 
     candidate = _load_registry()
-    route = json.loads(
-        (
-            ROOT
-            / "framework"
-            / "project"
-            / "automation"
-            / "context-routes.json"
-        ).read_text(encoding="utf-8")
+    route_path = (
+        ROOT / "framework" / "project" / "automation"
+        / "context-routes.json"
     )
+    if not route_path.exists():
+        route_path = (
+            ROOT / "framework" / "archive" / "authorities"
+            / "context-routes.json"
+        )
+    route = json.loads(route_path.read_text(encoding="utf-8"))
     for document in route["documents"].values():
         if document.get("hash_policy", "pinned") == "pinned":
+            source = ROOT / document["path"]
+            if not source.exists():
+                for specification in (
+                    registry_tool.ROUTING_PREDECESSOR_PATHS.values()
+                ):
+                    if (
+                        document["path"]
+                        == specification["historical_path"]
+                    ):
+                        source = ROOT / specification["archived_path"]
+                        break
             document["sha256"] = hashlib.sha256(
-                (ROOT / document["path"]).read_bytes()
+                source.read_bytes()
             ).hexdigest()
     candidate["context_routing"]["documents"] = copy.deepcopy(
         route["documents"]

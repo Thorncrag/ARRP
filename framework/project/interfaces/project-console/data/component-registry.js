@@ -5,7 +5,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 1,
     "projection_id": "component-registry-console",
     "producer_id": "project-console-builder",
-    "generated_at": "2026-07-30T15:49:03+00:00",
+    "generated_at": "2026-07-30T16:13:51+00:00",
     "availability": "current",
     "complete": true,
     "reason_code": null,
@@ -42,11 +42,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "executable": false,
       "live_activation_verified": false,
       "predecessor_route_consulted": true,
-      "registry_sha256": "dd78beecc1d34ed41e60d09b46e41a6da5140e44e358cf9c61d3637303e82db4",
-      "repository_revision": "c5f45b2482d487df3e97f50608659a600afbc9ca",
+      "registry_sha256": "23e837e97867536d8b03d2c24625c08c760e2bca98d926bd1a6052f18f9f03e7",
+      "repository_revision": "9af57a47ef91e1472191ff1b5fa8e25666bda37f",
       "source_binding_sha256": {
         "state": "known",
-        "value": "69da06dfe90a01c20751a3bbf0e1ec0541ede5694d6237aa122f7d5ad62006ae"
+        "value": "d3013d71c505af63aca9fd908ccbf26db5dc611df8e1e0eb644e03914045a611"
       }
     },
     "deferred": {
@@ -1877,7 +1877,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "dependencies": [],
         "consumers": [],
         "digest_policy": "pinned",
-        "sha256": "ea1657dc04813c8e1266e18a5dc0a926d4c55eb326220b11fe81a287902288e5",
+        "sha256": "b419d692911c32b7b8249c5d6e691a63a5dd51146b8c1dca9a04bf340b562576",
         "console_route": "operations:component-registry:documents?document=component_registry_tests",
         "retention_posture": "current",
         "history": {
@@ -34066,7 +34066,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "authoritative": false,
       "executable": false,
       "registry_revision": 1,
-      "registry_sha256": "dd78beecc1d34ed41e60d09b46e41a6da5140e44e358cf9c61d3637303e82db4",
+      "registry_sha256": "23e837e97867536d8b03d2c24625c08c760e2bca98d926bd1a6052f18f9f03e7",
       "current_candidate_counts": {
         "documents": 88,
         "governing_documents": 87,
@@ -34106,6 +34106,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "component-registry.js": "project-console-5e94c12ba83747a36e72"
+    "component-registry.js": "project-console-4856f03b94e840ed43fa"
   }
 });

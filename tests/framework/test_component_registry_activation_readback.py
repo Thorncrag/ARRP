@@ -29,6 +29,43 @@ def load_json(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def load_candidate_registry() -> dict[str, object]:
+    current = load_json(REGISTRY_PATH)
+    if current["status"] == "candidate":
+        return current
+    candidate_revision = current["source_baseline"]["repository_revision"]
+    result = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(ROOT),
+            "show",
+            f"{candidate_revision}:framework/component-registry.json",
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    candidate = json.loads(result.stdout)
+    if (
+        candidate.get("status") != "candidate"
+        or registry._canonical_registry_digest(candidate)
+        != current["approval"]["value"]["candidate_registry_sha256"]
+    ):
+        raise AssertionError("active registry candidate parent is not exact")
+    return candidate
+
+
+def current_source_path(relative: str) -> Path:
+    source = ROOT / relative
+    if source.exists():
+        return source
+    for specification in registry.ROUTING_PREDECESSOR_PATHS.values():
+        if relative == specification["historical_path"]:
+            return ROOT / specification["archived_path"]
+    return source
+
+
 class ComponentRegistryActivationReadbackTests(unittest.TestCase):
     def git(self, repository: Path, *arguments: str) -> str:
         result = subprocess.run(
@@ -54,7 +91,7 @@ class ComponentRegistryActivationReadbackTests(unittest.TestCase):
         for directory in (repository, state, output):
             directory.mkdir(mode=0o700)
 
-        candidate = load_json(REGISTRY_PATH)
+        candidate = load_candidate_registry()
         route = registry._routing_snapshot(candidate)
         source_paths = {
             str(spec["path"]) for spec in route["documents"].values()
@@ -71,7 +108,7 @@ class ComponentRegistryActivationReadbackTests(unittest.TestCase):
             "component-registry.schema.json"
         )
         for relative in sorted(source_paths):
-            source = ROOT / relative
+            source = current_source_path(relative)
             destination = repository / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, destination)

@@ -6,6 +6,7 @@ import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from scripts import component_registry as registry
 
@@ -20,7 +21,7 @@ SCHEMA_PATH = (
     / "component-registry.schema.json"
 )
 ROUTE_PATH = (
-    ROOT / "framework" / "project" / "automation" / "context-routes.json"
+    ROOT / "framework" / "archive" / "authorities" / "context-routes.json"
 )
 
 
@@ -28,11 +29,89 @@ def load_json(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def load_candidate_registry() -> dict[str, object]:
+    current = load_json(REGISTRY_PATH)
+    if current["status"] == "candidate":
+        return current
+    candidate_revision = current["source_baseline"]["repository_revision"]
+    result = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(ROOT),
+            "show",
+            f"{candidate_revision}:framework/component-registry.json",
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    candidate = json.loads(result.stdout)
+    if (
+        candidate.get("status") != "candidate"
+        or registry._canonical_registry_digest(candidate)
+        != current["approval"]["value"]["candidate_registry_sha256"]
+    ):
+        raise AssertionError("active registry candidate parent is not exact")
+    return candidate
+
+
+def current_source_path(relative: str) -> Path:
+    source = ROOT / relative
+    if source.exists():
+        return source
+    for specification in registry.ROUTING_PREDECESSOR_PATHS.values():
+        if relative == specification["historical_path"]:
+            return ROOT / specification["archived_path"]
+    return source
+
+
 class ComponentRegistryCandidateTests(unittest.TestCase):
     def setUp(self) -> None:
-        self.candidate = load_json(REGISTRY_PATH)
+        self.candidate = load_candidate_registry()
         self.schema = load_json(SCHEMA_PATH)
-        self.route = load_json(ROUTE_PATH)
+        self.route = registry._routing_snapshot(self.candidate)
+        original_loader = registry.load_validated_registry
+        original_contained_file = registry._contained_file
+
+        def candidate_loader(*args, **kwargs):
+            if not args and not kwargs:
+                return (
+                    copy.deepcopy(self.candidate),
+                    copy.deepcopy(self.route),
+                )
+            return original_loader(*args, **kwargs)
+
+        def candidate_contained_file(root, relative, label):
+            if (
+                root.resolve() == ROOT.resolve()
+                and not (ROOT / str(relative)).exists()
+            ):
+                for specification in (
+                    registry.ROUTING_PREDECESSOR_PATHS.values()
+                ):
+                    if relative == specification["historical_path"]:
+                        return (
+                            ROOT / specification["archived_path"]
+                        ).resolve()
+            return original_contained_file(root, relative, label)
+
+        self.loader_patch = mock.patch.object(
+            registry,
+            "load_validated_registry",
+            side_effect=candidate_loader,
+        )
+        self.contained_file_patch = mock.patch.object(
+            registry,
+            "_contained_file",
+            side_effect=candidate_contained_file,
+        )
+        self.loader_patch.start()
+        self.contained_file_patch.start()
+
+    def tearDown(self) -> None:
+        self.contained_file_patch.stop()
+        self.loader_patch.stop()
 
     def _build_refresh_fixture(
         self,
@@ -57,7 +136,7 @@ class ComponentRegistryCandidateTests(unittest.TestCase):
             if entry["digest_policy"] == "pinned"
         )
         for relative in sorted(source_paths):
-            source = ROOT / relative
+            source = current_source_path(relative)
             destination = root / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, destination)

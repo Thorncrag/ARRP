@@ -9,12 +9,12 @@
     "reason": "Stage 1 candidate acceptance and distinct human activation approval have not yet occurred."
   },
   "source_baseline": {
-    "repository_revision": "c5f45b2482d487df3e97f50608659a600afbc9ca",
+    "repository_revision": "9af57a47ef91e1472191ff1b5fa8e25666bda37f",
     "repository_state": "dirty_bound_candidate",
     "working_tree_binding": {
       "mode": "base_revision_plus_route_manifest",
       "scope": "complete_routed_authority_source",
-      "sha256": "69da06dfe90a01c20751a3bbf0e1ec0541ede5694d6237aa122f7d5ad62006ae"
+      "sha256": "d3013d71c505af63aca9fd908ccbf26db5dc611df8e1e0eb644e03914045a611"
     },
     "route_source": {
       "path": "framework/project/automation/context-routes.json",
@@ -8792,7 +8792,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=component_registry_tests",
         "retention_posture": "current",
-        "sha256": "ea1657dc04813c8e1266e18a5dc0a926d4c55eb326220b11fe81a287902288e5"
+        "sha256": "b419d692911c32b7b8249c5d6e691a63a5dd51146b8c1dca9a04bf340b562576"
       }
     }
   },
