@@ -195,28 +195,21 @@ class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
             "pull_request_number": 123,
             "pull_request_state": "closed",
             "pull_request_merged": True,
+            "pull_request_auto_merge": None,
+            "merged_by": "Thorncrag",
             "pull_request_base_repository": "Thorncrag/ARRP",
             "pull_request_base_branch": "main",
             "pull_request_base_revision": pull_request_base,
             "reviewed_head_revision": reviewed_head,
             "merge_commit_sha": remote_main,
             "merged_at": "2026-07-30T00:02:00-04:00",
-            "reviews": [
-                {
-                    "id": 456789,
-                    "state": "APPROVED",
-                    "user": {"login": "Thorncrag"},
-                    "commit_id": reviewed_head,
-                    "submitted_at": "2026-07-30T00:01:00-04:00",
-                }
-            ],
-            "reviews_complete": True,
             "check_runs": [
                 {
                     "name": "ARRP validation",
                     "head_sha": reviewed_head,
                     "status": "completed",
                     "conclusion": "success",
+                    "completed_at": "2026-07-30T00:01:00-04:00",
                     "app": {"id": 1},
                 }
             ],
@@ -270,12 +263,13 @@ class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
                     observations,
                 )
 
-    def test_wrong_identity_review_checks_and_remote_registry_fail(self):
+    def test_wrong_identity_merge_checks_and_remote_registry_fail(self):
         mutations = [
             ("repository", "Other/Repository"),
             ("pull_request_number", 124),
             ("pull_request_merged", False),
-            ("reviews", []),
+            ("merged_by", "SomeoneElse"),
+            ("pull_request_auto_merge", {"enabled_by": {"login": "Thorncrag"}}),
             (
                 "check_runs",
                 [
@@ -284,6 +278,7 @@ class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
                         "head_sha": "0" * 40,
                         "status": "completed",
                         "conclusion": "success",
+                        "completed_at": "2026-07-30T00:01:00-04:00",
                     }
                 ],
             ),
@@ -408,28 +403,14 @@ class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
                         observations,
                     )
 
-    def test_latest_decisive_exact_head_owner_review_governs(self):
-        mutations = (
-            {
-                "id": 999,
-                "state": "CHANGES_REQUESTED",
-                "user": {"login": "Thorncrag"},
-                "commit_id": None,
-                "submitted_at": "2026-07-30T00:01:30-04:00",
-            },
-            {
-                "id": 999,
-                "state": "DISMISSED",
-                "user": {"login": "Thorncrag"},
-                "commit_id": None,
-                "submitted_at": "2026-07-30T00:01:30-04:00",
-            },
-        )
-        for later in mutations:
-            with self.subTest(state=later["state"]), tempfile.TemporaryDirectory() as temporary:
+    def test_exact_head_owner_manual_merge_governs(self):
+        for key, value in (
+            ("merged_by", "SomeoneElse"),
+            ("pull_request_auto_merge", {"enabled_by": {"login": "Thorncrag"}}),
+        ):
+            with self.subTest(key=key), tempfile.TemporaryDirectory() as temporary:
                 authority, active, observations = self.fixture(temporary)
-                later["commit_id"] = observations["reviewed_head_revision"]
-                observations["reviews"].append(later)
+                observations[key] = value
                 with self.assertRaises(
                     finalizer.ActivationFinalizationError
                 ):
@@ -438,15 +419,6 @@ class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
                         active,
                         observations,
                     )
-        with tempfile.TemporaryDirectory() as temporary:
-            authority, active, observations = self.fixture(temporary)
-            observations["reviews"][0]["id"] = 0
-            with self.assertRaises(finalizer.ActivationFinalizationError):
-                finalizer._build_receipt(
-                    authority,
-                    active,
-                    observations,
-                )
 
     def test_required_checks_are_exact_and_optional_failures_are_ignored(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -457,6 +429,7 @@ class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
                     "head_sha": observations["reviewed_head_revision"],
                     "status": "completed",
                     "conclusion": "failure",
+                    "completed_at": "2026-07-30T00:01:00-04:00",
                     "app": {"id": 2},
                 }
             )
@@ -478,6 +451,7 @@ class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
                         "head_sha": "0" * 40,
                         "status": "completed",
                         "conclusion": "success",
+                        "completed_at": "2026-07-30T00:01:00-04:00",
                         "app": {"id": 1},
                     }
                 ],
@@ -490,6 +464,7 @@ class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
                         "head_sha": None,
                         "status": "in_progress",
                         "conclusion": None,
+                        "completed_at": None,
                         "app": {"id": 1},
                     }
                 ],
@@ -533,6 +508,7 @@ class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
                     "context": "ARRP validation",
                     "sha": observations["reviewed_head_revision"],
                     "state": "success",
+                    "updated_at": "2026-07-30T00:01:00-04:00",
                 }
             ]
             finalizer._build_receipt(authority, active, observations)

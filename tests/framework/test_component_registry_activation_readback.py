@@ -468,11 +468,12 @@ class ComponentRegistryActivationReadbackTests(unittest.TestCase):
                 active["approval"]["value"]["owner_review_reference"]
             ),
             "pull_request_number": 123,
-            "review_database_id": 456789,
-            "reviewed_head_revision": reviewed_head,
-            "reviewed_by": "@Thorncrag",
-            "review_state": "approved",
-            "reviewed_at": "2026-07-30T00:01:00-04:00",
+            "approval_evidence_type": "github_owner_manual_merge",
+            "approved_head_revision": reviewed_head,
+            "approved_by": "@Thorncrag",
+            "merged_by": "Thorncrag",
+            "merged_at": "2026-07-30T00:01:00-04:00",
+            "merge_commit_revision": reviewed_head,
             "required_checks_state": "success",
             "required_checks_revision": reviewed_head,
             "remote_main_revision": reviewed_head,
@@ -886,14 +887,15 @@ class ComponentRegistryActivationReadbackTests(unittest.TestCase):
                 "bounded_diff_sha256": "3" * 64,
                 "owner_review_reference": "github-review:wrong",
                 "pull_request_number": 124,
-                "review_database_id": 0,
-                "reviewed_by": "@SomeoneElse",
-                "review_state": "pending",
+                "approval_evidence_type": "github_review",
+                "approved_by": "@SomeoneElse",
+                "merged_by": "SomeoneElse",
+                "merge_commit_revision": "6" * 40,
                 "required_checks_state": "pending",
                 "required_checks_revision": (
                     readback["remote_main_revision"]
                     if readback["remote_main_revision"]
-                    != readback["reviewed_head_revision"]
+                    != readback["approved_head_revision"]
                     else "4" * 40
                 ),
                 "remote_registry_sha256": "5" * 64,
@@ -915,12 +917,12 @@ class ComponentRegistryActivationReadbackTests(unittest.TestCase):
             )
             missing = copy.deepcopy(readback)
             missing.pop("complete")
-            missing_review_id = copy.deepcopy(readback)
-            missing_review_id.pop("review_database_id")
+            missing_merge_evidence = copy.deepcopy(readback)
+            missing_merge_evidence.pop("approval_evidence_type")
             unknown = copy.deepcopy(readback)
             unknown["receipt_path"] = "/tmp/not-authorized"
             reversed_time = copy.deepcopy(readback)
-            reversed_time["reviewed_at"] = (
+            reversed_time["merged_at"] = (
                 "2026-07-29T23:59:59-04:00"
             )
             invalid_locators = [
@@ -931,7 +933,7 @@ class ComponentRegistryActivationReadbackTests(unittest.TestCase):
             ]
             invalid_values = [
                 missing,
-                missing_review_id,
+                missing_merge_evidence,
                 unknown,
                 reversed_time,
             ]
@@ -946,17 +948,17 @@ class ComponentRegistryActivationReadbackTests(unittest.TestCase):
                         activation_readback=invalid,
                     )
 
-    def test_reviewed_head_must_contain_exact_active_registry(self):
+    def test_approved_head_must_contain_exact_active_registry(self):
         with tempfile.TemporaryDirectory() as directory:
             authority, active, readback = self.build_active_fixture(
                 Path(directory)
             )
             invalid = copy.deepcopy(readback)
-            invalid["reviewed_head_revision"] = (
+            invalid["approved_head_revision"] = (
                 active["approval"]["value"]["base_revision"]
             )
             invalid["required_checks_revision"] = (
-                invalid["reviewed_head_revision"]
+                invalid["approved_head_revision"]
             )
             with self.assertRaisesRegex(
                 registry.RegistryError,

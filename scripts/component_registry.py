@@ -776,11 +776,12 @@ ACTIVATION_READBACK_FIELDS = {
     "bounded_diff_sha256",
     "owner_review_reference",
     "pull_request_number",
-    "review_database_id",
-    "reviewed_head_revision",
-    "reviewed_by",
-    "review_state",
-    "reviewed_at",
+    "approval_evidence_type",
+    "approved_head_revision",
+    "approved_by",
+    "merged_by",
+    "merged_at",
+    "merge_commit_revision",
     "required_checks_state",
     "required_checks_revision",
     "remote_main_revision",
@@ -1981,7 +1982,6 @@ def _validate_active_routing_readback(
         owner_review_reference
     )
     pull_request_number = readback.get("pull_request_number")
-    review_database_id = readback.get("review_database_id")
     if (
         readback.get("schema_version") != 1
         or readback.get("verification_type")
@@ -2014,15 +2014,18 @@ def _validate_active_routing_readback(
         or not isinstance(pull_request_number, int)
         or isinstance(pull_request_number, bool)
         or int(review_match.group(1)) != pull_request_number
-        or not isinstance(review_database_id, int)
-        or isinstance(review_database_id, bool)
-        or review_database_id <= 0
-        or readback.get("reviewed_by") != approval.get("approved_by")
-        or readback.get("reviewed_by") != "@Thorncrag"
-        or readback.get("review_state") != "approved"
+        or readback.get("approval_evidence_type")
+        != "github_owner_manual_merge"
+        or readback.get("approved_by") != approval.get("approved_by")
+        or readback.get("approved_by") != "@Thorncrag"
+        or readback.get("merged_by") != "Thorncrag"
+        or readback.get("approved_head_revision")
+        != readback.get("required_checks_revision")
+        or readback.get("merge_commit_revision")
+        != readback.get("remote_main_revision")
         or readback.get("required_checks_state") != "success"
         or readback.get("required_checks_revision")
-        != readback.get("reviewed_head_revision")
+        != readback.get("approved_head_revision")
         or readback.get("remote_registry_sha256") != registry_digest
     ):
         raise RegistryError(
@@ -2033,15 +2036,15 @@ def _validate_active_routing_readback(
         approval.get("approved_at"),
         "activation approval time",
     )
-    reviewed_at = _parse_activation_timestamp(
-        readback.get("reviewed_at"),
-        "activation review time",
+    merged_at = _parse_activation_timestamp(
+        readback.get("merged_at"),
+        "activation merge time",
     )
     verified_at = _parse_activation_timestamp(
         readback.get("verified_at"),
         "activation verification time",
     )
-    if not approved_at <= reviewed_at <= verified_at:
+    if not approved_at <= merged_at <= verified_at:
         raise RegistryError(
             "active Component Registry activation chronology is invalid"
         )
@@ -2250,31 +2253,31 @@ def _validate_activation_repository_binding(
 ) -> None:
     approval = registry["approval"]["value"]
     base_revision = str(approval["base_revision"])
-    reviewed_revision = str(readback["reviewed_head_revision"])
+    approved_revision = str(readback["approved_head_revision"])
     remote_revision = str(readback["remote_main_revision"])
     current_revision = _repository_head(root)
     if current_revision is None:
         raise RegistryError(
             "activation readback requires a Git repository identity"
         )
-    if not _git_is_ancestor(root, base_revision, reviewed_revision):
+    if not _git_is_ancestor(root, base_revision, approved_revision):
         raise RegistryError(
-            "activation review revision is not based on the approved baseline"
+            "activation head is not based on the approved baseline"
         )
-    if not _git_is_ancestor(root, reviewed_revision, remote_revision):
+    if not _git_is_ancestor(root, approved_revision, remote_revision):
         raise RegistryError(
-            "activation remote revision does not contain the reviewed head"
+            "activation remote revision does not contain the approved head"
         )
     if not _git_is_ancestor(root, remote_revision, current_revision):
         raise RegistryError(
             "current repository revision is not descended from activation"
         )
-    reviewed_registry = _registry_at_revision(root, reviewed_revision)
+    reviewed_registry = _registry_at_revision(root, approved_revision)
     remote_registry = _registry_at_revision(root, remote_revision)
-    reviewed_digest = _canonical_registry_digest(reviewed_registry)
+    approved_digest = _canonical_registry_digest(reviewed_registry)
     remote_digest = _canonical_registry_digest(remote_registry)
     if (
-        reviewed_digest != readback["registry_sha256"]
+        approved_digest != readback["registry_sha256"]
         or reviewed_registry.get("registry_revision")
         != registry.get("registry_revision")
         or reviewed_registry.get("registry_id") != registry.get("registry_id")

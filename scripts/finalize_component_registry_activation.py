@@ -232,9 +232,6 @@ def _collect_authenticated_observations(
         "api",
         f"repos/Thorncrag/ARRP/pulls/{pull_request_number}",
     )
-    reviews = _paginated_array(
-        f"repos/Thorncrag/ARRP/pulls/{pull_request_number}/reviews"
-    )
     branch = _run_json(
         "gh",
         "api",
@@ -277,6 +274,8 @@ def _collect_authenticated_observations(
         "pull_request_number": pull_request_number,
         "pull_request_state": pull_request.get("state"),
         "pull_request_merged": pull_request.get("merged") is True,
+        "pull_request_auto_merge": pull_request.get("auto_merge"),
+        "merged_by": pull_request.get("merged_by", {}).get("login"),
         "pull_request_base_repository": pull_request.get("base", {})
         .get("repo", {})
         .get("full_name"),
@@ -285,8 +284,6 @@ def _collect_authenticated_observations(
         "reviewed_head_revision": reviewed_head,
         "merge_commit_sha": pull_request.get("merge_commit_sha"),
         "merged_at": pull_request.get("merged_at"),
-        "reviews": reviews,
-        "reviews_complete": True,
         "check_runs": checks,
         "check_runs_total_count": check_total,
         "check_runs_complete": True,
@@ -507,64 +504,16 @@ def _candidate_transition_evidence(
     }
 
 
-def _latest_effective_owner_review(
-    reviews: object,
-    *,
-    reviewed_head: str,
-) -> Mapping[str, Any]:
-    if not isinstance(reviews, list):
-        raise ActivationFinalizationError(
-            "owner review evidence is incomplete"
-        )
-    decisive: list[tuple[datetime, int, Mapping[str, Any]]] = []
-    for review in reviews:
-        if (
-            not isinstance(review, Mapping)
-            or review.get("user", {}).get("login") != "Thorncrag"
-            or review.get("commit_id") != reviewed_head
-            or review.get("state")
-            not in {"APPROVED", "CHANGES_REQUESTED", "DISMISSED"}
-        ):
-            continue
-        review_id = review.get("id")
-        if not isinstance(review_id, int) or review_id <= 0:
-            raise ActivationFinalizationError(
-                "owner review database identity is invalid"
-            )
-        decisive.append(
-            (
-                _exact_timestamp(
-                    review.get("submitted_at"),
-                    "owner review",
-                ),
-                review_id,
-                review,
-            )
-        )
-    if not decisive:
-        raise ActivationFinalizationError(
-            "exact-head owner review is unavailable"
-        )
-    decisive.sort(key=lambda item: (item[0], item[1]))
-    latest = decisive[-1][2]
-    if latest.get("state") != "APPROVED":
-        raise ActivationFinalizationError(
-            "latest decisive exact-head owner review is not approved"
-        )
-    return latest
-
-
 def _validate_required_checks(
     observations: Mapping[str, Any],
     *,
     reviewed_head: str,
-) -> None:
+) -> datetime:
     checks = observations.get("check_runs")
     statuses = observations.get("legacy_statuses")
     requirements = observations.get("required_status_checks")
     if (
-        observations.get("reviews_complete") is not True
-        or observations.get("check_runs_complete") is not True
+        observations.get("check_runs_complete") is not True
         or observations.get("legacy_statuses_complete") is not True
         or observations.get("requirements_complete") is not True
         or not isinstance(checks, list)
@@ -577,6 +526,7 @@ def _validate_required_checks(
             "required review or check evidence is incomplete"
         )
     identities: set[tuple[str, int | None]] = set()
+    completion_times: list[datetime] = []
     for requirement in requirements:
         if not isinstance(requirement, Mapping):
             raise ActivationFinalizationError(
@@ -630,12 +580,18 @@ def _validate_required_checks(
                 item.get("status") == "completed"
                 and item.get("conclusion") == "success"
             )
+            completed_at = item.get("completed_at")
         else:
             succeeded = item.get("state") == "success"
+            completed_at = item.get("updated_at")
         if not succeeded:
             raise ActivationFinalizationError(
                 "required exact-head check is not a terminal success"
             )
+        completion_times.append(
+            _exact_timestamp(completed_at, "required exact-head check")
+        )
+    return max(completion_times)
 
 
 def _build_receipt(
@@ -673,6 +629,8 @@ def _build_receipt(
         or observations.get("pull_request_number") != pull_request_number
         or observations.get("pull_request_state") != "closed"
         or observations.get("pull_request_merged") is not True
+        or observations.get("pull_request_auto_merge") is not None
+        or observations.get("merged_by") != "Thorncrag"
         or not all(
             isinstance(value, str)
             and len(value) == 40
@@ -708,11 +666,10 @@ def _build_receipt(
         reviewed_head=reviewed_head,
         pull_request_base_revision=pull_request_base,
     )
-    latest_review = _latest_effective_owner_review(
-        observations.get("reviews"),
+    checks_completed_at = _validate_required_checks(
+        observations,
         reviewed_head=reviewed_head,
     )
-    _validate_required_checks(observations, reviewed_head=reviewed_head)
     if not _is_ancestor(
         authority.repository_root,
         pull_request_base,
@@ -750,10 +707,6 @@ def _build_receipt(
         approval.get("approved_at"),
         "activation approval",
     )
-    review_time = _exact_timestamp(
-        latest_review.get("submitted_at"),
-        "owner review",
-    )
     merged_time = _exact_timestamp(
         observations.get("merged_at"),
         "pull request merge",
@@ -762,7 +715,7 @@ def _build_receipt(
         observations.get("verified_at"),
         "activation verification",
     )
-    if not approval_time <= review_time <= merged_time <= verified_time:
+    if not approval_time <= checks_completed_at <= merged_time <= verified_time:
         raise ActivationFinalizationError(
             "activation evidence chronology is invalid"
         )
@@ -792,11 +745,12 @@ def _build_receipt(
         "bounded_diff_sha256": transition["bounded_diff_sha256"],
         "owner_review_reference": approval["owner_review_reference"],
         "pull_request_number": pull_request_number,
-        "review_database_id": latest_review["id"],
-        "reviewed_head_revision": reviewed_head,
-        "reviewed_by": "@Thorncrag",
-        "review_state": "approved",
-        "reviewed_at": latest_review["submitted_at"],
+        "approval_evidence_type": "github_owner_manual_merge",
+        "approved_head_revision": reviewed_head,
+        "approved_by": "@Thorncrag",
+        "merged_by": "Thorncrag",
+        "merged_at": observations["merged_at"],
+        "merge_commit_revision": merge_commit,
         "required_checks_state": "success",
         "required_checks_revision": reviewed_head,
         "remote_main_revision": remote_main,

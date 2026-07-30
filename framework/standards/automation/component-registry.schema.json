@@ -421,11 +421,12 @@
         "bounded_diff_sha256",
         "owner_review_reference",
         "pull_request_number",
-        "review_database_id",
-        "reviewed_head_revision",
-        "reviewed_by",
-        "review_state",
-        "reviewed_at",
+        "approval_evidence_type",
+        "approved_head_revision",
+        "approved_by",
+        "merged_by",
+        "merged_at",
+        "merge_commit_revision",
         "required_checks_state",
         "required_checks_revision",
         "remote_main_revision",
@@ -491,21 +492,23 @@
           "type": "integer",
           "minimum": 1
         },
-        "review_database_id": {
-          "type": "integer",
-          "minimum": 1
+        "approval_evidence_type": {
+          "const": "github_owner_manual_merge"
         },
-        "reviewed_head_revision": {
+        "approved_head_revision": {
           "$ref": "#/$defs/gitRevision"
         },
-        "reviewed_by": {
+        "approved_by": {
           "const": "@Thorncrag"
         },
-        "review_state": {
-          "const": "approved"
+        "merged_by": {
+          "const": "Thorncrag"
         },
-        "reviewed_at": {
+        "merged_at": {
           "$ref": "#/$defs/timestamp"
+        },
+        "merge_commit_revision": {
+          "$ref": "#/$defs/gitRevision"
         },
         "required_checks_state": {
           "const": "success"
