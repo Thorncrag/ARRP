@@ -5,7 +5,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 1,
     "projection_id": "component-registry-console",
     "producer_id": "project-console-builder",
-    "generated_at": "2026-07-30T19:04:51+00:00",
+    "generated_at": "2026-07-30T19:33:29+00:00",
     "availability": "current",
     "complete": true,
     "reason_code": null,
@@ -24,29 +24,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "registry": {
       "registry_id": "COMPONENT-REGISTRY",
       "registry_revision": 1,
-      "registry_status": "active",
+      "registry_status": "candidate",
       "approval": {
-        "state": "known",
-        "value": "Tracked activation configuration approved"
+        "state": "pending",
+        "reason": "Stage 1 candidate acceptance and distinct human activation approval have not yet occurred."
       },
       "configuration_validation": {
         "state": "known",
-        "value": "Tracked active configuration validated"
+        "value": "Candidate predecessor parity validated"
       },
       "live_activation": {
-        "state": "unknown",
-        "reason": "Live owner activation is not evaluated by the public repository configuration projection."
+        "state": "pending",
+        "reason": "The tracked candidate has not entered live owner activation."
       },
-      "validation_mode": "active_configuration_validation_only",
+      "validation_mode": "candidate_validation_only",
       "authoritative": false,
       "executable": false,
       "live_activation_verified": false,
-      "predecessor_route_consulted": false,
-      "registry_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-      "repository_revision": "e64ecee9d23a6ddea44ecd0638c60a29df4e541e",
+      "predecessor_route_consulted": true,
+      "registry_sha256": "9726fe29e0847efc2bf93a8b7e21f89d919c210ef5dbc7bfcc5502c279d577dd",
+      "repository_revision": "76e3df977218fd2e9991e0a28aad55fe2f19dbe8",
       "source_binding_sha256": {
-        "state": "not_applicable",
-        "reason": "Predecessor routing evidence is not consulted by a tracked active configuration."
+        "state": "known",
+        "value": "c319d44058bf7dcb9602047336d528e6b42618a4193c95c4988cc75f2829b46f"
       }
     },
     "deferred": {
@@ -1661,7 +1661,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "dependencies": [
           "framework_kernel",
           "agent_rules_kernel",
-          "current_audit"
+          "current_audit",
+          "context_routing",
+          "project_structure"
         ],
         "consumers": [],
         "digest_policy": "pinned",
@@ -1735,7 +1737,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         ],
         "consumers": [],
         "digest_policy": "pinned",
-        "sha256": "7f98160d06e02c826f621937215ad2bc30218c19e17a5c59d3979ff9c68cbe43",
+        "sha256": "9e688cceae411cdb374deae0a17fa1ee9be13e0eaf11649638bfdae18c99fa3f",
         "console_route": "operations:component-registry:documents?document=component_registry_activation_finalizer",
         "retention_posture": "current",
         "history": {
@@ -1807,7 +1809,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "component_registry_tests"
         ],
         "digest_policy": "pinned",
-        "sha256": "e95240d538497905d1717b128a8e8073fb419cea94763c3812bfb3d5d5cffb74",
+        "sha256": "a5b2dba299a6cea06ff81a3c78863f3111952232b3df0f9236efd5c038ec006f",
         "console_route": "operations:component-registry:documents?document=component_registry_schema",
         "retention_posture": "current",
         "history": {
@@ -1945,8 +1947,83 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "component_registry_tests"
         ],
         "digest_policy": "pinned",
-        "sha256": "855eab407e15cc2ee9048303673203b6c941af9f4a6ddc3106e5313a56f42ecc",
+        "sha256": "1fbcb32e03892855091c8c8ebb503f819f7e377252313f80d2114b8b52c29071",
         "console_route": "operations:component-registry:documents?document=component_registry_tool",
+        "retention_posture": "current",
+        "history": {
+          "state": "unavailable",
+          "reason": "Normalized document history is not registered in the Stage 1 candidate."
+        }
+      },
+      {
+        "document_id": "context_routing",
+        "official_reference_name": {
+          "state": "known",
+          "value": "Governing Context Routing"
+        },
+        "document_class": {
+          "state": "known",
+          "value": "routed_governing_document"
+        },
+        "revision": {
+          "state": "pending",
+          "reason": "The routed predecessor does not carry a normalized document revision."
+        },
+        "current_status": {
+          "state": "known",
+          "value": "current_routed_source"
+        },
+        "effective_date": {
+          "state": "pending",
+          "reason": "The routed predecessor does not carry a normalized effective date."
+        },
+        "approval_date": {
+          "state": "pending",
+          "reason": "Historical approval date is not established by the routed predecessor."
+        },
+        "approval_method": {
+          "state": "pending",
+          "reason": "Historical approval method is not established by the routed predecessor."
+        },
+        "governance_change_id": {
+          "state": "pending",
+          "reason": "Baseline adoption awaits the explicit Stage 1 activation decision."
+        },
+        "purpose_scope": {
+          "state": "pending",
+          "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+        },
+        "authority_role": "governing_authority",
+        "authority_exclusions": {
+          "state": "pending",
+          "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+        },
+        "canonical_path": "framework/CONTEXT_ROUTING.md",
+        "owner": "@Thorncrag",
+        "review_policy": "owner_review_required",
+        "disclosure_class": "public_by_design",
+        "creation_provenance": {
+          "state": "pending",
+          "reason": "Original creation provenance is not normalized in the routed predecessor."
+        },
+        "governance_revision": 1,
+        "producer": "existing_repository_source",
+        "authorized_writers": [
+          "@Thorncrag"
+        ],
+        "representations": [
+          "component_registry_console_documents"
+        ],
+        "dependencies": [
+          "framework_kernel",
+          "agent_rules_kernel"
+        ],
+        "consumers": [
+          "document:codex_bootstrap"
+        ],
+        "digest_policy": "pinned",
+        "sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+        "console_route": "operations:component-registry:documents?document=context_routing",
         "retention_posture": "current",
         "history": {
           "state": "unavailable",
@@ -2879,7 +2956,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "representations": [
           "component_registry_console_documents"
         ],
-        "dependencies": [],
+        "dependencies": [
+          "project_structure"
+        ],
         "consumers": [
           "capability:interface_governance",
           "document:progress_view_standard",
@@ -3362,6 +3441,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         ],
         "dependencies": [
           "framework_kernel",
+          "project_structure",
           "development_levels"
         ],
         "consumers": [
@@ -3443,6 +3523,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "navigation_inventory",
           "navigation_topic_guides",
           "github_workflow",
+          "repository_map",
           "visual_identity"
         ],
         "consumers": [
@@ -3599,6 +3680,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         ],
         "dependencies": [
           "framework_kernel",
+          "project_structure",
           "audit_change",
           "operation_project_update"
         ],
@@ -3677,6 +3759,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "dependencies": [
           "framework_kernel",
           "github_workflow",
+          "project_structure",
           "print_assembly",
           "public_release",
           "audit_change",
@@ -3835,6 +3918,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         ],
         "dependencies": [
           "print_assembly_standard",
+          "project_structure",
           "project_source_adjudication"
         ],
         "consumers": [
@@ -4926,6 +5010,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         ],
         "dependencies": [
           "agent_rules_kernel",
+          "project_structure",
           "agent_autonomous_execution",
           "github_disclosure_boundary",
           "private_staging_authority_schema"
@@ -5034,6 +5119,89 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "digest_policy": "pinned",
         "sha256": "47a45caf79cf19291f5bdb699c33244a09f8924c9bcfdb77dc9561ee00802dc6",
         "console_route": "operations:component-registry:documents?document=project_source_adjudication",
+        "retention_posture": "current",
+        "history": {
+          "state": "unavailable",
+          "reason": "Normalized document history is not registered in the Stage 1 candidate."
+        }
+      },
+      {
+        "document_id": "project_structure",
+        "official_reference_name": {
+          "state": "known",
+          "value": "Repository Structure"
+        },
+        "document_class": {
+          "state": "known",
+          "value": "routed_governing_document"
+        },
+        "revision": {
+          "state": "pending",
+          "reason": "The routed predecessor does not carry a normalized document revision."
+        },
+        "current_status": {
+          "state": "known",
+          "value": "current_routed_source"
+        },
+        "effective_date": {
+          "state": "pending",
+          "reason": "The routed predecessor does not carry a normalized effective date."
+        },
+        "approval_date": {
+          "state": "pending",
+          "reason": "Historical approval date is not established by the routed predecessor."
+        },
+        "approval_method": {
+          "state": "pending",
+          "reason": "Historical approval method is not established by the routed predecessor."
+        },
+        "governance_change_id": {
+          "state": "pending",
+          "reason": "Baseline adoption awaits the explicit Stage 1 activation decision."
+        },
+        "purpose_scope": {
+          "state": "pending",
+          "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+        },
+        "authority_role": "governing_authority",
+        "authority_exclusions": {
+          "state": "pending",
+          "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+        },
+        "canonical_path": "framework/PROJECT_STRUCTURE.md",
+        "owner": "@Thorncrag",
+        "review_policy": "owner_review_required",
+        "disclosure_class": "public_by_design",
+        "creation_provenance": {
+          "state": "pending",
+          "reason": "Original creation provenance is not normalized in the routed predecessor."
+        },
+        "governance_revision": 1,
+        "producer": "existing_repository_source",
+        "authorized_writers": [
+          "@Thorncrag"
+        ],
+        "representations": [
+          "component_registry_console_documents"
+        ],
+        "dependencies": [
+          "framework_kernel"
+        ],
+        "consumers": [
+          "capability:navigation_and_inventory",
+          "document:codex_bootstrap",
+          "document:interface_standard",
+          "document:navigation_inventory",
+          "document:operation_governance_change_recording",
+          "document:operation_project_update",
+          "document:print_assembly",
+          "document:project_runtime_authority",
+          "document:source_catalogs",
+          "profile:integrity_reconciliation"
+        ],
+        "digest_policy": "pinned",
+        "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+        "console_route": "operations:component-registry:documents?document=project_structure",
         "retention_posture": "current",
         "history": {
           "state": "unavailable",
@@ -5485,6 +5653,79 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "digest_policy": "pinned",
         "sha256": "fb426720f24c6ed58de4f183548d8a464948828c1245e70b3c552a61226190b5",
         "console_route": "operations:component-registry:documents?document=repository_gate_policy",
+        "retention_posture": "current",
+        "history": {
+          "state": "unavailable",
+          "reason": "Normalized document history is not registered in the Stage 1 candidate."
+        }
+      },
+      {
+        "document_id": "repository_map",
+        "official_reference_name": {
+          "state": "known",
+          "value": "ARRP Repository Map"
+        },
+        "document_class": {
+          "state": "known",
+          "value": "routed_governing_document"
+        },
+        "revision": {
+          "state": "pending",
+          "reason": "The routed predecessor does not carry a normalized document revision."
+        },
+        "current_status": {
+          "state": "known",
+          "value": "current_routed_source"
+        },
+        "effective_date": {
+          "state": "pending",
+          "reason": "The routed predecessor does not carry a normalized effective date."
+        },
+        "approval_date": {
+          "state": "pending",
+          "reason": "Historical approval date is not established by the routed predecessor."
+        },
+        "approval_method": {
+          "state": "pending",
+          "reason": "Historical approval method is not established by the routed predecessor."
+        },
+        "governance_change_id": {
+          "state": "pending",
+          "reason": "Baseline adoption awaits the explicit Stage 1 activation decision."
+        },
+        "purpose_scope": {
+          "state": "pending",
+          "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+        },
+        "authority_role": "governing_authority",
+        "authority_exclusions": {
+          "state": "pending",
+          "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+        },
+        "canonical_path": "framework/project/REPOSITORY_MAP.md",
+        "owner": "@Thorncrag",
+        "review_policy": "owner_review_required",
+        "disclosure_class": "public_by_design",
+        "creation_provenance": {
+          "state": "pending",
+          "reason": "Original creation provenance is not normalized in the routed predecessor."
+        },
+        "governance_revision": 1,
+        "producer": "existing_repository_source",
+        "authorized_writers": [
+          "@Thorncrag"
+        ],
+        "representations": [
+          "component_registry_console_documents"
+        ],
+        "dependencies": [],
+        "consumers": [
+          "capability:navigation_and_inventory",
+          "document:navigation_project_sync"
+        ],
+        "digest_policy": "pinned",
+        "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313",
+        "console_route": "operations:component-registry:documents?document=repository_map",
         "retention_posture": "current",
         "history": {
           "state": "unavailable",
@@ -6545,7 +6786,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         ],
         "dependencies": [
           "evidence_standards",
-          "issue_architecture"
+          "issue_architecture",
+          "project_structure"
         ],
         "consumers": [
           "capability:evidence_and_sources",
@@ -7935,6 +8177,43 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         }
       },
       {
+        "scope_id": "framework_records_legacy",
+        "display_name": "Legacy framework records",
+        "path_pattern": "framework/records/",
+        "match_kind": "prefix",
+        "specificity_rank": 20,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root",
+          "framework"
+        ],
+        "placement_question": "Is this a pre-migration operational artifact awaiting its registered lifecycle home?",
+        "include_when": [
+          "Only existing predecessor artifacts while the approved structural migration is incomplete."
+        ],
+        "exclude_when": [
+          "New operational artifacts or a replacement authority."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "migration_only",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 20; ties fail closed.",
+        "fallback": "human_review",
+        "console_route": "automation:component-registry:directories?directory=framework_records_legacy",
+        "permitted_artifact_classes": {
+          "state": "unavailable",
+          "reason": "Artifact classification and lifecycle mapping require complete human review."
+        },
+        "current_artifact_count": {
+          "state": "known",
+          "value": 0
+        }
+      },
+      {
         "scope_id": "framework_reports",
         "display_name": "Public-safe completed reports",
         "path_pattern": "framework/reports/",
@@ -8083,6 +8362,43 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         }
       },
       {
+        "scope_id": "github_launchd_legacy",
+        "display_name": "Legacy launchd configuration",
+        "path_pattern": ".github/launchd/",
+        "match_kind": "prefix",
+        "specificity_rank": 20,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root",
+          "github_admin"
+        ],
+        "placement_question": "Is this a pre-migration portable launchd example awaiting its approved project-automation home?",
+        "include_when": [
+          "The artifact has one canonical placement within Legacy launchd configuration."
+        ],
+        "exclude_when": [
+          "Active host configuration, runtime state, or new launchd material."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "migration_only",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 20; ties fail closed.",
+        "fallback": "human_review",
+        "console_route": "automation:component-registry:directories?directory=github_launchd_legacy",
+        "permitted_artifact_classes": {
+          "state": "unavailable",
+          "reason": "Artifact classification and lifecycle mapping require complete human review."
+        },
+        "current_artifact_count": {
+          "state": "known",
+          "value": 0
+        }
+      },
+      {
         "scope_id": "github_workflows",
         "display_name": "GitHub Actions workflows",
         "path_pattern": ".github/workflows/",
@@ -8157,6 +8473,43 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         }
       },
       {
+        "scope_id": "participate_tests_legacy",
+        "display_name": "Legacy participation tests",
+        "path_pattern": "participate/tests/",
+        "match_kind": "prefix",
+        "specificity_rank": 20,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root",
+          "participate"
+        ],
+        "placement_question": "Does the artifact satisfy the registered purpose of Legacy participation tests?",
+        "include_when": [
+          "The artifact has one canonical placement within Legacy participation tests."
+        ],
+        "exclude_when": [
+          "Another registered scope is the more specific canonical home."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "migration_only",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 20; ties fail closed.",
+        "fallback": "human_review",
+        "console_route": "automation:component-registry:directories?directory=participate_tests_legacy",
+        "permitted_artifact_classes": {
+          "state": "unavailable",
+          "reason": "Artifact classification and lifecycle mapping require complete human review."
+        },
+        "current_artifact_count": {
+          "state": "known",
+          "value": 0
+        }
+      },
+      {
         "scope_id": "research_candidate_sources",
         "display_name": "Candidate source development",
         "path_pattern": "research/candidate-source-development/",
@@ -8194,6 +8547,43 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         }
       },
       {
+        "scope_id": "research_horizon_sources_legacy",
+        "display_name": "Legacy Horizon source records",
+        "path_pattern": "research/horizon-source-records/",
+        "match_kind": "prefix",
+        "specificity_rank": 20,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root",
+          "research"
+        ],
+        "placement_question": "Does the artifact satisfy the registered purpose of Legacy Horizon source records?",
+        "include_when": [
+          "The artifact has one canonical placement within Legacy Horizon source records."
+        ],
+        "exclude_when": [
+          "Another registered scope is the more specific canonical home."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "migration_only",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 20; ties fail closed.",
+        "fallback": "human_review",
+        "console_route": "automation:component-registry:directories?directory=research_horizon_sources_legacy",
+        "permitted_artifact_classes": {
+          "state": "unavailable",
+          "reason": "Artifact classification and lifecycle mapping require complete human review."
+        },
+        "current_artifact_count": {
+          "state": "known",
+          "value": 0
+        }
+      },
+      {
         "scope_id": "research_interbranch",
         "display_name": "Interbranch research",
         "path_pattern": "research/interbranch/",
@@ -8221,6 +8611,80 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "precedence": "Most-specific scope rank 20; ties fail closed.",
         "fallback": "human_review",
         "console_route": "automation:component-registry:directories?directory=research_interbranch",
+        "permitted_artifact_classes": {
+          "state": "unavailable",
+          "reason": "Artifact classification and lifecycle mapping require complete human review."
+        },
+        "current_artifact_count": {
+          "state": "known",
+          "value": 0
+        }
+      },
+      {
+        "scope_id": "research_project_console_legacy",
+        "display_name": "Legacy Project Console",
+        "path_pattern": "research/project-console/",
+        "match_kind": "prefix",
+        "specificity_rank": 20,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root",
+          "research"
+        ],
+        "placement_question": "Does the artifact satisfy the registered purpose of Legacy Project Console?",
+        "include_when": [
+          "The artifact has one canonical placement within Legacy Project Console."
+        ],
+        "exclude_when": [
+          "Another registered scope is the more specific canonical home."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "migration_only",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 20; ties fail closed.",
+        "fallback": "human_review",
+        "console_route": "automation:component-registry:directories?directory=research_project_console_legacy",
+        "permitted_artifact_classes": {
+          "state": "unavailable",
+          "reason": "Artifact classification and lifecycle mapping require complete human review."
+        },
+        "current_artifact_count": {
+          "state": "known",
+          "value": 0
+        }
+      },
+      {
+        "scope_id": "research_reference_products_legacy",
+        "display_name": "Legacy reference products",
+        "path_pattern": "research/reference-products/",
+        "match_kind": "prefix",
+        "specificity_rank": 20,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root",
+          "research"
+        ],
+        "placement_question": "Does the artifact satisfy the registered purpose of Legacy reference products?",
+        "include_when": [
+          "The artifact has one canonical placement within Legacy reference products."
+        ],
+        "exclude_when": [
+          "Another registered scope is the more specific canonical home."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "migration_only",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 20; ties fail closed.",
+        "fallback": "human_review",
+        "console_route": "automation:component-registry:directories?directory=research_reference_products_legacy",
         "permitted_artifact_classes": {
           "state": "unavailable",
           "reason": "Artifact classification and lifecycle mapping require complete human review."
@@ -8587,7 +9051,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         "current_artifact_count": {
           "state": "known",
-          "value": 5
+          "value": 1
         }
       },
       {
@@ -9276,36 +9740,32 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "routing": {
       "schema_version": 2,
       "rule_catalog_version": 1,
-      "activation_state": "active",
+      "activation_state": "candidate_import",
       "complete": true,
       "authoritative": false,
       "source_import": {
-        "state": "not_applicable",
-        "reason": "Predecessor routing evidence is not consulted by a tracked active configuration."
+        "path": "framework/project/automation/context-routes.json",
+        "sha256": "f1de00a1cf3451d7f3c8b28dfac0ff772834aa7233ccbb502d0d243167c4f77a",
+        "schema_version": 2,
+        "import_semantics": "exact_validated_snapshot"
       },
       "predecessor_provenance": {
-        "state": "known",
-        "value": "Archived predecessor provenance retained as nonauthoritative history."
+        "state": "not_applicable",
+        "reason": "Candidate routing still uses its exact predecessor source and parity evidence."
       },
       "readable_representation": {
-        "state": "known",
-        "representation_id": "human_readable_context_routing",
-        "source_registry_revision": 1,
-        "authority_effect": "none",
-        "executable": false
+        "state": "not_applicable",
+        "reason": "The active readable representation binding has not been adopted."
       },
       "expected_counts": {
-        "documents": 85,
-        "governing_documents": 84,
+        "documents": 88,
+        "governing_documents": 87,
         "capabilities": 19,
         "profiles": 8,
         "required_modules": 3,
         "generated_path_exclusions": 9
       },
-      "parity_policy": {
-        "state": "not_applicable",
-        "reason": "Predecessor routing evidence is not consulted by a tracked active configuration."
-      },
+      "parity_policy": "exact_identity_membership_dependency_section_and_digest_parity",
       "required_modules": [
         "framework_kernel",
         "agent_rules_kernel",
@@ -9532,7 +9992,20 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "requires": [
             "framework_kernel",
             "agent_rules_kernel",
-            "current_audit"
+            "current_audit",
+            "context_routing",
+            "project_structure"
+          ]
+        },
+        {
+          "document_id": "context_routing",
+          "path": "framework/CONTEXT_ROUTING.md",
+          "governing": true,
+          "hash_policy": "pinned",
+          "sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+          "requires": [
+            "framework_kernel",
+            "agent_rules_kernel"
           ]
         },
         {
@@ -9658,7 +10131,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "governing": true,
           "hash_policy": "pinned",
           "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192",
-          "requires": []
+          "requires": [
+            "project_structure"
+          ]
         },
         {
           "document_id": "issue_architecture",
@@ -9726,6 +10201,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "sha256": "eb29d5dde72e892ce8c79f339c4c8f43168628f6ccb4816f418c7b7930ab7b38",
           "requires": [
             "framework_kernel",
+            "project_structure",
             "development_levels"
           ]
         },
@@ -9739,6 +10215,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "navigation_inventory",
             "navigation_topic_guides",
             "github_workflow",
+            "repository_map",
             "visual_identity"
           ]
         },
@@ -9763,6 +10240,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "sha256": "3c682e318b0391453228f7e54cadf97f3a27682fe6a92ff1508b722308a25fbe",
           "requires": [
             "framework_kernel",
+            "project_structure",
             "audit_change",
             "operation_project_update"
           ]
@@ -9776,6 +10254,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "requires": [
             "framework_kernel",
             "github_workflow",
+            "project_structure",
             "print_assembly",
             "public_release",
             "audit_change",
@@ -9802,6 +10281,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "sha256": "6d81f940fda713b6e3c4bc6b40533b887325a437f50a0ad968e22b70eaedca00",
           "requires": [
             "print_assembly_standard",
+            "project_structure",
             "project_source_adjudication"
           ]
         },
@@ -9967,6 +10447,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "sha256": "2afc6230d7fdbda9caee3f79e2926e4c7fe4f8e26d1cb50522bec8c72c698ee0",
           "requires": [
             "agent_rules_kernel",
+            "project_structure",
             "agent_autonomous_execution",
             "github_disclosure_boundary",
             "private_staging_authority_schema"
@@ -9983,6 +10464,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "source_catalogs",
             "source_automated_adjudication",
             "source_project_monitoring"
+          ]
+        },
+        {
+          "document_id": "project_structure",
+          "path": "framework/PROJECT_STRUCTURE.md",
+          "governing": true,
+          "hash_policy": "pinned",
+          "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+          "requires": [
+            "framework_kernel"
           ]
         },
         {
@@ -10047,6 +10538,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "agent_rules_kernel",
             "project_autonomous_execution"
           ]
+        },
+        {
+          "document_id": "repository_map",
+          "path": "framework/project/REPOSITORY_MAP.md",
+          "governing": true,
+          "hash_policy": "pinned",
+          "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313",
+          "requires": []
         },
         {
           "document_id": "runbook_case_monitor_bot",
@@ -10202,7 +10701,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "sha256": "2aba70757492ca3dc964031eba09f0d1b78164f01f4bd41bb40e7bb6014d9af2",
           "requires": [
             "evidence_standards",
-            "issue_architecture"
+            "issue_architecture",
+            "project_structure"
           ]
         },
         {
@@ -10394,6 +10894,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "capability_id": "navigation_and_inventory",
           "document_ids": [
+            "repository_map",
+            "project_structure",
             "navigation_inventory",
             "navigation_topic_guides",
             "navigation_project_sync"
@@ -10569,7 +11071,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "project_autonomous_execution",
             "agent_provenance_logging",
             "agent_validation_closeout",
-            "audit_project_consistency"
+            "audit_project_consistency",
+            "project_structure"
           ],
           "capabilities": [
             "language_and_neutrality",
@@ -10780,6 +11283,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of method_neutrality_language",
                 "dependency of method_partisan_perception",
                 "dependency of method_scope_admission",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
                 "dependency of source_project_monitoring",
@@ -11047,6 +11551,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of project_runtime_authority",
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "source_catalogs",
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
@@ -11063,7 +11590,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of candidate_adjudication",
@@ -11207,6 +11735,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -11678,6 +12207,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of method_scope_admission",
                 "dependency of navigation_inventory",
                 "dependency of navigation_topic_guides",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
                 "dependency of source_project_monitoring",
@@ -11948,6 +12478,31 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of interface_standard",
+                "dependency of navigation_inventory",
+                "dependency of project_runtime_authority",
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "source_catalogs",
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
@@ -11964,7 +12519,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of audit_verification",
@@ -12112,6 +12668,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -12571,6 +13128,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "framework_kernel",
+                "project_structure",
                 "development_levels"
               ],
               "inclusion_reasons": [
@@ -12627,6 +13185,26 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "repository_map",
+              "path": "framework/project/REPOSITORY_MAP.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [],
+              "inclusion_reasons": [
+                "dependency of navigation_project_sync"
+              ]
+            },
+            {
               "id": "interface_standard",
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
@@ -12641,7 +13219,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "state": "pending",
                 "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
               },
-              "dependencies": [],
+              "dependencies": [
+                "project_structure"
+              ],
               "inclusion_reasons": [
                 "dependency of progress_view_standard",
                 "dependency of project_console_classifications",
@@ -12691,6 +13271,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "navigation_inventory",
                 "navigation_topic_guides",
                 "github_workflow",
+                "repository_map",
                 "visual_identity"
               ],
               "inclusion_reasons": [
@@ -13009,6 +13590,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of agent_rules_kernel",
                 "dependency of audit_core",
                 "dependency of codex_bootstrap",
+                "dependency of context_routing",
                 "dependency of current_audit",
                 "dependency of development_levels",
                 "dependency of evidence_standards",
@@ -13023,6 +13605,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of navigation_topic_guides",
                 "dependency of operation_governance_change_recording",
                 "dependency of operation_project_update",
+                "dependency of project_structure",
                 "dependency of public_release",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
@@ -13114,6 +13697,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of agent_validation_closeout",
                 "dependency of audit_core",
                 "dependency of codex_bootstrap",
+                "dependency of context_routing",
                 "dependency of current_audit",
                 "dependency of project_autonomous_execution",
                 "dependency of project_runtime_authority",
@@ -13264,6 +13848,36 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of codex_bootstrap",
+                "dependency of interface_standard",
+                "dependency of navigation_inventory",
+                "dependency of operation_governance_change_recording",
+                "dependency of operation_project_update",
+                "dependency of print_assembly",
+                "dependency of project_runtime_authority",
+                "dependency of source_catalogs",
+                "profile comprehensive_review complete governing boundary"
+              ]
+            },
+            {
               "id": "private_staging_authority_schema",
               "path": "framework/project/automation/schemas/private-staging-authority.schema.json",
               "governing": true,
@@ -13301,6 +13915,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -13666,7 +14281,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of audit_verification",
@@ -13927,6 +14543,30 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "context_routing",
+              "path": "framework/CONTEXT_ROUTING.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel",
+                "agent_rules_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of codex_bootstrap",
+                "profile comprehensive_review complete governing boundary"
+              ]
+            },
+            {
               "id": "codex_bootstrap",
               "path": "AGENTS.md",
               "governing": true,
@@ -13944,7 +14584,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "dependencies": [
                 "framework_kernel",
                 "agent_rules_kernel",
-                "current_audit"
+                "current_audit",
+                "context_routing",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "profile comprehensive_review complete governing boundary"
@@ -13987,6 +14629,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "framework_kernel",
+                "project_structure",
                 "development_levels"
               ],
               "inclusion_reasons": [
@@ -14094,6 +14737,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "print_assembly_standard",
+                "project_structure",
                 "project_source_adjudication"
               ],
               "inclusion_reasons": [
@@ -14153,6 +14797,27 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "repository_map",
+              "path": "framework/project/REPOSITORY_MAP.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [],
+              "inclusion_reasons": [
+                "dependency of navigation_project_sync",
+                "profile comprehensive_review complete governing boundary"
+              ]
+            },
+            {
               "id": "interface_standard",
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
@@ -14167,7 +14832,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "state": "pending",
                 "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
               },
-              "dependencies": [],
+              "dependencies": [
+                "project_structure"
+              ],
               "inclusion_reasons": [
                 "dependency of progress_view_standard",
                 "dependency of project_console_classifications",
@@ -14220,6 +14887,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "navigation_inventory",
                 "navigation_topic_guides",
                 "github_workflow",
+                "repository_map",
                 "visual_identity"
               ],
               "inclusion_reasons": [
@@ -14246,6 +14914,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "dependencies": [
                 "framework_kernel",
                 "github_workflow",
+                "project_structure",
                 "print_assembly",
                 "public_release",
                 "audit_change",
@@ -14275,6 +14944,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "framework_kernel",
+                "project_structure",
                 "audit_change",
                 "operation_project_update"
               ],
@@ -15226,6 +15896,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of method_scope_admission",
                 "dependency of navigation_inventory",
                 "dependency of navigation_topic_guides",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "required floor"
               ]
@@ -15329,6 +16000,30 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "required floor"
+              ]
+            },
+            {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of interface_standard",
+                "dependency of navigation_inventory",
+                "dependency of project_runtime_authority"
               ]
             },
             {
@@ -15494,6 +16189,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "framework_kernel",
+                "project_structure",
                 "development_levels"
               ],
               "inclusion_reasons": [
@@ -15610,6 +16306,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -15646,6 +16343,26 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "repository_map",
+              "path": "framework/project/REPOSITORY_MAP.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [],
+              "inclusion_reasons": [
+                "dependency of navigation_project_sync"
+              ]
+            },
+            {
               "id": "interface_standard",
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
@@ -15660,7 +16377,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "state": "pending",
                 "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
               },
-              "dependencies": [],
+              "dependencies": [
+                "project_structure"
+              ],
               "inclusion_reasons": [
                 "dependency of visual_identity"
               ]
@@ -15706,6 +16425,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "navigation_inventory",
                 "navigation_topic_guides",
                 "github_workflow",
+                "repository_map",
                 "visual_identity"
               ],
               "inclusion_reasons": [
@@ -15965,6 +16685,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of navigation_topic_guides",
                 "dependency of operation_governance_change_recording",
                 "dependency of operation_project_update",
+                "dependency of project_structure",
                 "dependency of public_release",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
@@ -16104,6 +16825,36 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of interface_standard",
+                "dependency of navigation_inventory",
+                "dependency of operation_governance_change_recording",
+                "dependency of operation_project_update",
+                "dependency of print_assembly",
+                "dependency of project_runtime_authority",
+                "dependency of source_catalogs",
+                "profile integrity_reconciliation",
+                "profile integrity_reconciliation capability navigation_and_inventory"
+              ]
+            },
+            {
               "id": "private_staging_authority_schema",
               "path": "framework/project/automation/schemas/private-staging-authority.schema.json",
               "governing": true,
@@ -16140,6 +16891,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -16618,7 +17370,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of audit_verification",
@@ -16970,6 +17723,27 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "repository_map",
+              "path": "framework/project/REPOSITORY_MAP.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [],
+              "inclusion_reasons": [
+                "dependency of navigation_project_sync",
+                "profile integrity_reconciliation capability navigation_and_inventory"
+              ]
+            },
+            {
               "id": "navigation_inventory",
               "path": "framework/standards/content/navigation-and-indexes.md",
               "governing": true,
@@ -16986,6 +17760,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "framework_kernel",
+                "project_structure",
                 "development_levels"
               ],
               "inclusion_reasons": [
@@ -17061,7 +17836,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "state": "pending",
                 "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
               },
-              "dependencies": [],
+              "dependencies": [
+                "project_structure"
+              ],
               "inclusion_reasons": [
                 "dependency of progress_view_standard",
                 "dependency of project_console_classifications",
@@ -17114,6 +17891,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "navigation_inventory",
                 "navigation_topic_guides",
                 "github_workflow",
+                "repository_map",
                 "visual_identity"
               ],
               "inclusion_reasons": [
@@ -17164,6 +17942,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "print_assembly_standard",
+                "project_structure",
                 "project_source_adjudication"
               ],
               "inclusion_reasons": [
@@ -17214,6 +17993,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "dependencies": [
                 "framework_kernel",
                 "github_workflow",
+                "project_structure",
                 "print_assembly",
                 "public_release",
                 "audit_change",
@@ -17242,6 +18022,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "framework_kernel",
+                "project_structure",
                 "audit_change",
                 "operation_project_update"
               ],
@@ -17921,6 +18702,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of method_scope_admission",
                 "dependency of navigation_inventory",
                 "dependency of navigation_topic_guides",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
                 "dependency of source_project_monitoring",
@@ -18192,6 +18974,31 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of interface_standard",
+                "dependency of navigation_inventory",
+                "dependency of project_runtime_authority",
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "source_catalogs",
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
@@ -18208,7 +19015,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of audit_verification",
@@ -18489,6 +19297,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -18870,6 +19679,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "framework_kernel",
+                "project_structure",
                 "development_levels"
               ],
               "inclusion_reasons": [
@@ -18926,6 +19736,26 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "repository_map",
+              "path": "framework/project/REPOSITORY_MAP.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [],
+              "inclusion_reasons": [
+                "dependency of navigation_project_sync"
+              ]
+            },
+            {
               "id": "interface_standard",
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
@@ -18940,7 +19770,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "state": "pending",
                 "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
               },
-              "dependencies": [],
+              "dependencies": [
+                "project_structure"
+              ],
               "inclusion_reasons": [
                 "dependency of progress_view_standard",
                 "dependency of project_console_classifications",
@@ -18990,6 +19822,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "navigation_inventory",
                 "navigation_topic_guides",
                 "github_workflow",
+                "repository_map",
                 "visual_identity"
               ],
               "inclusion_reasons": [
@@ -19359,6 +20192,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of method_neutrality_language",
                 "dependency of method_partisan_perception",
                 "dependency of method_scope_admission",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
                 "dependency of source_project_monitoring",
@@ -19623,6 +20457,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of project_runtime_authority",
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "source_catalogs",
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
@@ -19639,7 +20496,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of project_source_adjudication",
@@ -19779,6 +20637,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -20194,6 +21053,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of issue_architecture",
                 "dependency of method_neutrality_language",
                 "dependency of method_scope_admission",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
                 "dependency of source_project_monitoring",
@@ -20426,6 +21286,30 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of interface_standard",
+                "dependency of project_runtime_authority",
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "source_catalogs",
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
@@ -20442,7 +21326,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of project_source_adjudication",
@@ -20583,6 +21468,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -20840,7 +21726,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "state": "pending",
                 "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
               },
-              "dependencies": [],
+              "dependencies": [
+                "project_structure"
+              ],
               "inclusion_reasons": [
                 "dependency of public_input_standard"
               ]
@@ -20963,6 +21851,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of method_scope_admission",
                 "dependency of navigation_inventory",
                 "dependency of navigation_topic_guides",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
                 "dependency of source_project_monitoring",
@@ -21228,6 +22117,31 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of interface_standard",
+                "dependency of navigation_inventory",
+                "dependency of project_runtime_authority",
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "source_catalogs",
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
@@ -21244,7 +22158,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of audit_verification",
@@ -21521,6 +22436,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -21628,6 +22544,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "framework_kernel",
+                "project_structure",
                 "development_levels"
               ],
               "inclusion_reasons": [
@@ -21684,6 +22601,26 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "repository_map",
+              "path": "framework/project/REPOSITORY_MAP.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [],
+              "inclusion_reasons": [
+                "dependency of navigation_project_sync"
+              ]
+            },
+            {
               "id": "interface_standard",
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
@@ -21698,7 +22635,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "state": "pending",
                 "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
               },
-              "dependencies": [],
+              "dependencies": [
+                "project_structure"
+              ],
               "inclusion_reasons": [
                 "dependency of progress_view_standard",
                 "dependency of project_console_classifications",
@@ -21748,6 +22687,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "navigation_inventory",
                 "navigation_topic_guides",
                 "github_workflow",
+                "repository_map",
                 "visual_identity"
               ],
               "inclusion_reasons": [
@@ -22071,6 +23011,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of current_audit",
                 "dependency of github_disclosure_boundary",
                 "dependency of github_disclosure_policy",
+                "dependency of project_structure",
                 "required floor"
               ]
             },
@@ -22177,6 +23118,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of project_runtime_authority"
+              ]
+            },
+            {
               "id": "agent_autonomous_execution",
               "path": "framework/standards/automation/autonomous-execution.md",
               "governing": true,
@@ -22236,6 +23199,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -22508,6 +23472,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of current_audit",
                 "dependency of github_disclosure_boundary",
                 "dependency of github_disclosure_policy",
+                "dependency of project_structure",
                 "required floor"
               ]
             },
@@ -22612,6 +23577,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of project_runtime_authority"
+              ]
+            },
+            {
               "id": "agent_autonomous_execution",
               "path": "framework/standards/automation/autonomous-execution.md",
               "governing": true,
@@ -22671,6 +23658,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -23103,6 +24091,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of navigation_topic_guides",
                 "dependency of operation_governance_change_recording",
                 "dependency of operation_project_update",
+                "dependency of project_structure",
                 "dependency of public_release",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
@@ -23282,6 +24271,34 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of interface_standard",
+                "dependency of navigation_inventory",
+                "dependency of operation_governance_change_recording",
+                "dependency of operation_project_update",
+                "dependency of print_assembly",
+                "dependency of project_runtime_authority",
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "agent_autonomous_execution",
               "path": "framework/standards/automation/autonomous-execution.md",
               "governing": true,
@@ -23340,6 +24357,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -23540,6 +24558,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "framework_kernel",
+                "project_structure",
                 "development_levels"
               ],
               "inclusion_reasons": [
@@ -23588,7 +24607,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of project_source_adjudication",
@@ -23686,6 +24706,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "print_assembly_standard",
+                "project_structure",
                 "project_source_adjudication"
               ],
               "inclusion_reasons": [
@@ -23742,6 +24763,26 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "repository_map",
+              "path": "framework/project/REPOSITORY_MAP.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [],
+              "inclusion_reasons": [
+                "dependency of navigation_project_sync"
+              ]
+            },
+            {
               "id": "interface_standard",
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
@@ -23756,7 +24797,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "state": "pending",
                 "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
               },
-              "dependencies": [],
+              "dependencies": [
+                "project_structure"
+              ],
               "inclusion_reasons": [
                 "dependency of visual_identity"
               ]
@@ -23802,6 +24845,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "navigation_inventory",
                 "navigation_topic_guides",
                 "github_workflow",
+                "repository_map",
                 "visual_identity"
               ],
               "inclusion_reasons": [
@@ -23826,6 +24870,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "dependencies": [
                 "framework_kernel",
                 "github_workflow",
+                "project_structure",
                 "print_assembly",
                 "public_release",
                 "audit_change",
@@ -23854,6 +24899,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "framework_kernel",
+                "project_structure",
                 "audit_change",
                 "operation_project_update"
               ],
@@ -23969,6 +25015,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of issue_architecture",
                 "dependency of method_neutrality_language",
                 "dependency of method_scope_admission",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
                 "dependency of source_project_monitoring",
@@ -24191,6 +25238,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "source_catalogs",
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
@@ -24207,7 +25276,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of project_source_adjudication",
@@ -24353,6 +25423,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of issue_architecture",
                 "dependency of method_neutrality_language",
                 "dependency of method_scope_admission",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "required floor"
               ]
@@ -24645,6 +25716,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of project_runtime_authority"
+              ]
+            },
+            {
               "id": "agent_autonomous_execution",
               "path": "framework/standards/automation/autonomous-execution.md",
               "governing": true,
@@ -24703,6 +25796,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -24933,6 +26027,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of issue_architecture",
                 "dependency of method_neutrality_language",
                 "dependency of method_scope_admission",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
                 "dependency of source_project_monitoring",
@@ -25036,6 +26131,30 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of interface_standard",
+                "dependency of project_runtime_authority",
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "interface_standard",
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
@@ -25050,7 +26169,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "state": "pending",
                 "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
               },
-              "dependencies": [],
+              "dependencies": [
+                "project_structure"
+              ],
               "inclusion_reasons": [
                 "dependency of progress_view_standard",
                 "dependency of project_console_classifications",
@@ -25342,6 +26463,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -25465,7 +26587,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of candidate_adjudication",
@@ -25671,6 +26794,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of issue_architecture",
                 "dependency of method_neutrality_language",
                 "dependency of method_scope_admission",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "required floor"
               ]
@@ -25950,6 +27074,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of project_runtime_authority"
+              ]
+            },
+            {
               "id": "agent_autonomous_execution",
               "path": "framework/standards/automation/autonomous-execution.md",
               "governing": true,
@@ -26008,6 +27154,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -26642,6 +27789,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of method_scope_admission",
                 "dependency of navigation_inventory",
                 "dependency of navigation_topic_guides",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "required floor"
               ]
@@ -26740,6 +27888,52 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "required floor"
+              ]
+            },
+            {
+              "id": "repository_map",
+              "path": "framework/project/REPOSITORY_MAP.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [],
+              "inclusion_reasons": [
+                "dependency of navigation_project_sync",
+                "requested capability navigation_and_inventory"
+              ]
+            },
+            {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of interface_standard",
+                "dependency of navigation_inventory",
+                "dependency of project_runtime_authority",
+                "requested capability navigation_and_inventory"
               ]
             },
             {
@@ -26905,6 +28099,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "framework_kernel",
+                "project_structure",
                 "development_levels"
               ],
               "inclusion_reasons": [
@@ -27021,6 +28216,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -27068,7 +28264,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "state": "pending",
                 "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
               },
-              "dependencies": [],
+              "dependencies": [
+                "project_structure"
+              ],
               "inclusion_reasons": [
                 "dependency of visual_identity"
               ]
@@ -27114,6 +28312,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "navigation_inventory",
                 "navigation_topic_guides",
                 "github_workflow",
+                "repository_map",
                 "visual_identity"
               ],
               "inclusion_reasons": [
@@ -27167,6 +28366,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of navigation_inventory",
                 "dependency of navigation_topic_guides",
                 "dependency of operation_project_update",
+                "dependency of project_structure",
                 "dependency of public_release",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
@@ -27275,6 +28475,33 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of interface_standard",
+                "dependency of navigation_inventory",
+                "dependency of operation_project_update",
+                "dependency of print_assembly",
+                "dependency of project_runtime_authority",
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "agent_autonomous_execution",
               "path": "framework/standards/automation/autonomous-execution.md",
               "governing": true,
@@ -27333,6 +28560,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -27537,6 +28765,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "framework_kernel",
+                "project_structure",
                 "development_levels"
               ],
               "inclusion_reasons": [
@@ -27585,7 +28814,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of project_source_adjudication",
@@ -27683,6 +28913,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "print_assembly_standard",
+                "project_structure",
                 "project_source_adjudication"
               ],
               "inclusion_reasons": [
@@ -27808,6 +29039,26 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "repository_map",
+              "path": "framework/project/REPOSITORY_MAP.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [],
+              "inclusion_reasons": [
+                "dependency of navigation_project_sync"
+              ]
+            },
+            {
               "id": "interface_standard",
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
@@ -27822,7 +29073,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "state": "pending",
                 "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
               },
-              "dependencies": [],
+              "dependencies": [
+                "project_structure"
+              ],
               "inclusion_reasons": [
                 "dependency of visual_identity"
               ]
@@ -27868,6 +29121,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "navigation_inventory",
                 "navigation_topic_guides",
                 "github_workflow",
+                "repository_map",
                 "visual_identity"
               ],
               "inclusion_reasons": [
@@ -27892,6 +29146,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "dependencies": [
                 "framework_kernel",
                 "github_workflow",
+                "project_structure",
                 "print_assembly",
                 "public_release",
                 "audit_change",
@@ -28125,6 +29380,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of method_neutrality_language",
                 "dependency of method_partisan_perception",
                 "dependency of method_scope_admission",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "required floor"
               ]
@@ -28375,6 +29631,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "source_catalogs",
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
@@ -28391,7 +29669,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of audit_verification"
@@ -28653,6 +29932,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of issue_architecture",
                 "dependency of method_neutrality_language",
                 "dependency of method_scope_admission",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
                 "dependency of source_project_monitoring",
@@ -28754,6 +30034,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of interface_standard",
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "interface_standard",
               "path": "framework/standards/interfaces/standard.md",
               "governing": true,
@@ -28768,7 +30071,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "state": "pending",
                 "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
               },
-              "dependencies": [],
+              "dependencies": [
+                "project_structure"
+              ],
               "inclusion_reasons": [
                 "dependency of public_input_standard"
               ]
@@ -28981,7 +30286,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of project_source_adjudication",
@@ -29128,6 +30434,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of method_neutrality_language",
                 "dependency of method_scope_admission",
                 "dependency of navigation_inventory",
+                "dependency of project_structure",
                 "dependency of public_release",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
@@ -29226,6 +30533,30 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "required floor"
+              ]
+            },
+            {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of navigation_inventory",
+                "dependency of print_assembly",
+                "dependency of source_catalogs"
               ]
             },
             {
@@ -29394,6 +30725,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "framework_kernel",
+                "project_structure",
                 "development_levels"
               ],
               "inclusion_reasons": [
@@ -29486,7 +30818,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of project_source_adjudication",
@@ -29583,6 +30916,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "print_assembly_standard",
+                "project_structure",
                 "project_source_adjudication"
               ],
               "inclusion_reasons": [
@@ -29676,6 +31010,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of issue_architecture",
                 "dependency of method_neutrality_language",
                 "dependency of method_scope_admission",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
                 "required floor"
@@ -29935,6 +31270,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of project_runtime_authority",
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "source_catalogs",
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
@@ -29951,7 +31309,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of candidate_adjudication",
@@ -30068,6 +31427,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -30287,6 +31647,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of issue_architecture",
                 "dependency of method_neutrality_language",
                 "dependency of method_scope_admission",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "dependency of source_automated_adjudication",
                 "dependency of source_presidential_directives",
@@ -30513,6 +31874,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of project_runtime_authority",
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "source_catalogs",
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
@@ -30529,7 +31913,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of project_source_adjudication",
@@ -30673,6 +32058,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "agent_rules_kernel",
+                "project_structure",
                 "agent_autonomous_execution",
                 "github_disclosure_boundary",
                 "private_staging_authority_schema"
@@ -30795,6 +32181,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of issue_architecture",
                 "dependency of method_neutrality_language",
                 "dependency of method_scope_admission",
+                "dependency of project_structure",
                 "dependency of remedy_framework",
                 "required floor"
               ]
@@ -31039,6 +32426,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ]
             },
             {
+              "id": "project_structure",
+              "path": "framework/PROJECT_STRUCTURE.md",
+              "governing": true,
+              "hash_policy": "pinned",
+              "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+              "authority_role": "governing_authority",
+              "authority_scope": {
+                "state": "pending",
+                "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+              },
+              "authority_exclusions": {
+                "state": "pending",
+                "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+              },
+              "dependencies": [
+                "framework_kernel"
+              ],
+              "inclusion_reasons": [
+                "dependency of source_catalogs"
+              ]
+            },
+            {
               "id": "source_catalogs",
               "path": "framework/standards/sources/source-records.md",
               "governing": true,
@@ -31055,7 +32464,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               },
               "dependencies": [
                 "evidence_standards",
-                "issue_architecture"
+                "issue_architecture",
+                "project_structure"
               ],
               "inclusion_reasons": [
                 "dependency of audit_verification"
@@ -31180,9 +32590,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Additive Union",
           "rendered_text": "Additive Union — selection members: required floor, primary profile, implicated capabilities, profile documents, profile exact sections, task specific canonical material, all governing membership, dependency closure, dynamic expansions",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Additive Routing",
             "clause_key": "ctxr.inv.additive_union"
           },
           "verification_ids": [
@@ -31200,9 +32610,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Bounded Context Never Omits Material Authority",
           "rendered_text": "Bounded Context Never Omits Material Authority",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Dynamic Expansion",
             "clause_key": "ctxr.inv.bounded_context_never_omits_material_authority"
           },
           "verification_ids": [
@@ -31220,9 +32630,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Dependencies Are Directional Minimums",
           "rendered_text": "Dependencies Are Directional Minimums",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Additive Routing",
             "clause_key": "ctxr.inv.dependencies_are_directional_minimums"
           },
           "verification_ids": [
@@ -31240,9 +32650,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Dependency Graph Is Acyclic",
           "rendered_text": "Dependency Graph Is Acyclic",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Additive Routing",
             "clause_key": "ctxr.inv.dependency_graph_is_acyclic"
           },
           "verification_ids": [
@@ -31262,9 +32672,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Required Floor Is Minimum",
           "rendered_text": "Required Floor Is Minimum — required modules field: required modules",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Required Floor",
             "clause_key": "ctxr.inv.required_floor_is_minimum"
           },
           "verification_ids": [
@@ -31282,9 +32692,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Router Preserves Source Authority",
           "rendered_text": "Router Preserves Source Authority",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Governing Context Routing",
             "clause_key": "ctxr.inv.router_preserves_source_authority"
           },
           "verification_ids": [
@@ -31302,9 +32712,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Stable Document Identity Is Path Independent",
           "rendered_text": "Stable Document Identity Is Path Independent",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Profiles and Capabilities",
             "clause_key": "ctxr.inv.stable_document_identity_is_path_independent"
           },
           "verification_ids": [
@@ -31322,9 +32732,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "All Implicated Capabilities",
           "rendered_text": "All Implicated Capabilities",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Additive Routing",
             "clause_key": "ctxr.sel.all_implicated_capabilities"
           },
           "verification_ids": [
@@ -31349,9 +32759,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Automated Expansion Allowlist",
           "rendered_text": "Automated Expansion Allowlist — allowed source classes: registered documents, registered capabilities, task specific canonical records, current verified sources",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Interactive and Automated Use",
             "clause_key": "ctxr.sel.automated_expansion_allowlist"
           },
           "verification_ids": [
@@ -31369,9 +32779,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Capability Addition Requires No New Profile",
           "rendered_text": "Capability Addition Requires No New Profile",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Profiles and Capabilities",
             "clause_key": "ctxr.sel.capability_addition_requires_no_new_profile"
           },
           "verification_ids": [
@@ -31389,9 +32799,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Complete Dependency Closure",
           "rendered_text": "Complete Dependency Closure",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Additive Routing",
             "clause_key": "ctxr.sel.complete_dependency_closure"
           },
           "verification_ids": [
@@ -31409,9 +32819,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Deterministic Bot Structured Inputs",
           "rendered_text": "Deterministic Bot Structured Inputs",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Interactive and Automated Use",
             "clause_key": "ctxr.sel.deterministic_bot_structured_inputs"
           },
           "verification_ids": [
@@ -31439,9 +32849,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Dynamic Trigger Set",
           "rendered_text": "Dynamic Trigger Set — triggers: task change, unfamiliar operation or class, conflicting or ambiguous authority, human reserved decision, implicated specialized rule, stale contradictory or incomplete record, external validation reference",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Dynamic Expansion",
             "clause_key": "ctxr.sel.dynamic_trigger_set"
           },
           "verification_ids": [
@@ -31459,9 +32869,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Expansion Precedes Dependent Action",
           "rendered_text": "Expansion Precedes Dependent Action",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Dynamic Expansion",
             "clause_key": "ctxr.sel.expansion_precedes_dependent_action"
           },
           "verification_ids": [
@@ -31485,9 +32895,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Governance Recording Plus Change Audit",
           "rendered_text": "Governance Recording Plus Change Audit — required document ids: operation governance change recording, governance change registry, audit change",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Dynamic Expansion",
             "clause_key": "ctxr.sel.governance_recording_plus_change_audit"
           },
           "verification_ids": [
@@ -31505,9 +32915,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Interactive Route Is Minimum Not Ceiling",
           "rendered_text": "Interactive Route Is Minimum Not Ceiling",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Interactive and Automated Use",
             "clause_key": "ctxr.sel.interactive_route_is_minimum_not_ceiling"
           },
           "verification_ids": [
@@ -31527,9 +32937,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Multi Agent Before Delegation",
           "rendered_text": "Multi Agent Before Delegation — required capability id: multi agent execution",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Dynamic Expansion",
             "clause_key": "ctxr.sel.multi_agent_before_delegation"
           },
           "verification_ids": [
@@ -31547,9 +32957,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Primary Profile",
           "rendered_text": "Primary Profile",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Additive Routing",
             "clause_key": "ctxr.sel.primary_profile"
           },
           "verification_ids": [
@@ -31567,9 +32977,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Profile Documents And Exact Sections",
           "rendered_text": "Profile Documents And Exact Sections",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Additive Routing",
             "clause_key": "ctxr.sel.profile_documents_and_exact_sections"
           },
           "verification_ids": [
@@ -31587,9 +32997,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Profile Never Excludes Capability",
           "rendered_text": "Profile Never Excludes Capability",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Additive Routing",
             "clause_key": "ctxr.sel.profile_never_excludes_capability"
           },
           "verification_ids": [
@@ -31607,9 +33017,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Profile Starting Set",
           "rendered_text": "Profile Starting Set",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Profiles and Capabilities",
             "clause_key": "ctxr.sel.profile_starting_set"
           },
           "verification_ids": [
@@ -31633,9 +33043,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Required Floor Order",
           "rendered_text": "Required Floor Order — document ids: framework kernel, agent rules kernel, current audit",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Required Floor",
             "clause_key": "ctxr.sel.required_floor_order"
           },
           "verification_ids": [
@@ -31663,9 +33073,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Source Projection Requires Canonical Readback",
           "rendered_text": "Source Projection Requires Canonical Readback — gated actions: evidentiary reliance, source mutation, audit credit; required readbacks: canonical catalog row, current external source",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Profiles and Capabilities",
             "clause_key": "ctxr.sel.source_projection_requires_canonical_readback"
           },
           "verification_ids": [
@@ -31683,9 +33093,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Task Specific Canonical Material",
           "rendered_text": "Task Specific Canonical Material",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Profiles and Capabilities",
             "clause_key": "ctxr.sel.task_specific_canonical_material"
           },
           "verification_ids": [
@@ -31706,9 +33116,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Authorized Digest Update Atomic",
           "rendered_text": "Authorized Digest Update Atomic — revalidation scope: all impacted profiles; update scope: same reviewed change",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Hashes, Generated Artifacts, and Updates",
             "clause_key": "ctxr.val.authorized_digest_update_atomic"
           },
           "verification_ids": [
@@ -31729,9 +33139,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Exact Section Unique",
           "rendered_text": "Exact Section Unique — fuzzy fallback: false; required match count: 1",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Fail-Closed Rules",
             "clause_key": "ctxr.val.exact_section_unique"
           },
           "verification_ids": [
@@ -31755,9 +33165,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Expansion Provenance Preserved",
           "rendered_text": "Expansion Provenance Preserved — required fields: source identity, source digest, inclusion reason",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Dynamic Expansion",
             "clause_key": "ctxr.val.expansion_provenance_preserved"
           },
           "verification_ids": [
@@ -31782,9 +33192,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Id Rename Change Audit",
           "rendered_text": "Id Rename Change Audit — required review surfaces: callers, tests, aliases or migrations, persisted route references",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Profiles and Capabilities",
             "clause_key": "ctxr.val.id_rename_change_audit"
           },
           "verification_ids": [
@@ -31804,9 +33214,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Integration Pinned Digest Exact",
           "rendered_text": "Integration Pinned Digest Exact — hash algorithm: sha256",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Required Floor",
             "clause_key": "ctxr.val.integration_pinned_digest_exact"
           },
           "verification_ids": [
@@ -31836,9 +33246,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "New Authoritative Module Admission",
           "rendered_text": "New Authoritative Module Admission — required properties: stable id, canonical path, governing classification, acyclic dependencies, profile membership, capability membership, comprehensive review membership, pinned digest, registry validation",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Hashes, Generated Artifacts, and Updates",
             "clause_key": "ctxr.val.new_authoritative_module_admission"
           },
           "verification_ids": [
@@ -31868,9 +33278,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Packet Manifest Bound",
           "rendered_text": "Packet Manifest Bound — required fields: registry revision, registry digest, selected profile, selected capabilities, resolved document revisions, resolved document digests, exact sections, dynamic expansions, inclusion reasons",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Hashes, Generated Artifacts, and Updates",
             "clause_key": "ctxr.val.packet_manifest_bound"
           },
           "verification_ids": [
@@ -31895,9 +33305,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Registry Before Selection",
           "rendered_text": "Registry Before Selection — required validation states: schema valid, revision valid, approval valid, external digest valid",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Required Floor",
             "clause_key": "ctxr.val.registry_before_selection"
           },
           "verification_ids": [
@@ -31918,9 +33328,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Registry Digest External",
           "rendered_text": "Registry Digest External — digest location: packet provenance; self hashing: false",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Hashes, Generated Artifacts, and Updates",
             "clause_key": "ctxr.val.registry_digest_external"
           },
           "verification_ids": [
@@ -31940,9 +33350,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Runtime Digest At Packet Build",
           "rendered_text": "Runtime Digest At Packet Build — provenance required: true",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Required Floor",
             "clause_key": "ctxr.val.runtime_digest_at_packet_build"
           },
           "verification_ids": [
@@ -31960,9 +33370,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Dependency Cycle",
           "rendered_text": "Dependency Cycle",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Fail-Closed Rules",
             "clause_key": "ctxr.fail.dependency_cycle"
           },
           "verification_ids": [
@@ -31981,9 +33391,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Generated Or Excluded As Authority",
           "rendered_text": "Generated Or Excluded As Authority",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Fail-Closed Rules",
             "clause_key": "ctxr.fail.generated_or_excluded_as_authority"
           },
           "verification_ids": [
@@ -32002,9 +33412,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Packet Budget Exceeded",
           "rendered_text": "Packet Budget Exceeded",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Fail-Closed Rules",
             "clause_key": "ctxr.fail.packet_budget_exceeded"
           },
           "verification_ids": [
@@ -32023,9 +33433,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Pinned Digest Absent Or Stale",
           "rendered_text": "Pinned Digest Absent Or Stale",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Fail-Closed Rules",
             "clause_key": "ctxr.fail.pinned_digest_absent_or_stale"
           },
           "verification_ids": [
@@ -32044,9 +33454,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Runtime Digest Unreadable",
           "rendered_text": "Runtime Digest Unreadable",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Fail-Closed Rules",
             "clause_key": "ctxr.fail.runtime_digest_unreadable"
           },
           "verification_ids": [
@@ -32065,9 +33475,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Safe Failure Disposition",
           "rendered_text": "Safe Failure Disposition",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Fail-Closed Rules",
             "clause_key": "ctxr.fail.safe_failure_disposition"
           },
           "verification_ids": [
@@ -32086,9 +33496,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Section Budget Exceeded",
           "rendered_text": "Section Budget Exceeded",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Fail-Closed Rules",
             "clause_key": "ctxr.fail.section_budget_exceeded"
           },
           "verification_ids": [
@@ -32107,9 +33517,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Section Identity Invalid",
           "rendered_text": "Section Identity Invalid",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Fail-Closed Rules",
             "clause_key": "ctxr.fail.section_identity_invalid"
           },
           "verification_ids": [
@@ -32128,9 +33538,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Unknown Or Missing Selection",
           "rendered_text": "Unknown Or Missing Selection",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Fail-Closed Rules",
             "clause_key": "ctxr.fail.unknown_or_missing_selection"
           },
           "verification_ids": [
@@ -32149,9 +33559,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Unresolved Material Governing Gap",
           "rendered_text": "Unresolved Material Governing Gap",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Fail-Closed Rules",
             "clause_key": "ctxr.fail.unresolved_material_governing_gap"
           },
           "verification_ids": [
@@ -32172,9 +33582,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Checkpoint Update Needs No Registry Edit",
           "rendered_text": "Checkpoint Update Needs No Registry Edit — document id: current audit",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Required Floor",
             "clause_key": "ctxr.cur.checkpoint_update_needs_no_registry_edit"
           },
           "verification_ids": [
@@ -32194,9 +33604,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Generated Rebuildables Excluded",
           "rendered_text": "Generated Rebuildables Excluded — exclusion field: generated path exclusions",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Hashes, Generated Artifacts, and Updates",
             "clause_key": "ctxr.cur.generated_rebuildables_excluded"
           },
           "verification_ids": [
@@ -32217,9 +33627,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Mutable Handoff Is Runtime Hashed",
           "rendered_text": "Mutable Handoff Is Runtime Hashed — document id: current audit; hash policy: runtime",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Required Floor",
             "clause_key": "ctxr.cur.mutable_handoff_is_runtime_hashed"
           },
           "verification_ids": [
@@ -32239,9 +33649,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Records Excluded Except Handoff",
           "rendered_text": "Records Excluded Except Handoff — exception document id: current audit",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Hashes, Generated Artifacts, and Updates",
             "clause_key": "ctxr.cur.records_excluded_except_handoff"
           },
           "verification_ids": [
@@ -32259,9 +33669,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Runtime Nongoverning Excluded From Review Boundary",
           "rendered_text": "Runtime Nongoverning Excluded From Review Boundary",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Comprehensive Review Boundary",
             "clause_key": "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary"
           },
           "verification_ids": [
@@ -32281,9 +33691,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Stable Governing Is Pinned",
           "rendered_text": "Stable Governing Is Pinned — hash policy: pinned",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Required Floor",
             "clause_key": "ctxr.cur.stable_governing_is_pinned"
           },
           "verification_ids": [
@@ -32303,9 +33713,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Ceiling Change Does Not Change Membership",
           "rendered_text": "Ceiling Change Does Not Change Membership — profile limit field: max bytes",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Profiles and Capabilities",
             "clause_key": "ctxr.budget.ceiling_change_does_not_change_membership"
           },
           "verification_ids": [
@@ -32331,9 +33741,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "No Mandatory Trimming",
           "rendered_text": "No Mandatory Trimming — mandatory selection classes: required floor, profile exact sections, implicated capabilities, dependencies, comprehensive review members",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Fail-Closed Rules",
             "clause_key": "ctxr.budget.no_mandatory_trimming"
           },
           "verification_ids": [
@@ -32353,9 +33763,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Profile Max Is Fail Closed Ceiling",
           "rendered_text": "Profile Max Is Fail Closed Ceiling — profile limit field: max bytes",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Profiles and Capabilities",
             "clause_key": "ctxr.budget.profile_max_is_fail_closed_ceiling"
           },
           "verification_ids": [
@@ -32376,9 +33786,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Section And Packet Limits Are Independent",
           "rendered_text": "Section And Packet Limits Are Independent — packet limit field: max bytes; section limit field: max bytes",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Fail-Closed Rules",
             "clause_key": "ctxr.budget.section_and_packet_limits_are_independent"
           },
           "verification_ids": [
@@ -32398,9 +33808,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Any Valid Boundary Difference Due",
           "rendered_text": "Any Valid Boundary Difference Due — comparison: any exact difference",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Comprehensive Review Boundary",
             "clause_key": "ctxr.review.any_valid_boundary_difference_due"
           },
           "verification_ids": [
@@ -32425,9 +33835,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Boundary Exact",
           "rendered_text": "Boundary Exact — boundary fields: governing membership, canonical paths, pinned digests, component registry digest",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Comprehensive Review Boundary",
             "clause_key": "ctxr.review.boundary_exact"
           },
           "verification_ids": [
@@ -32465,9 +33875,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Completion Fields Exact",
           "rendered_text": "Completion Fields Exact — required fields: epoch id, triggering run id, baseline commit, completion commit, governing hashes, project snapshot, registry snapshot, reviewed domains, resolved findings, unresolved findings, automation health, sampling record, completed at, next due at, cadence status, stability status, triggering reason",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Comprehensive Review Boundary",
             "clause_key": "ctxr.review.completion_fields_exact"
           },
           "verification_ids": [
@@ -32485,9 +33895,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Efficiency Never Limits Scope Or Lookback",
           "rendered_text": "Efficiency Never Limits Scope Or Lookback",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Comprehensive Review Boundary",
             "clause_key": "ctxr.review.efficiency_never_limits_scope_or_lookback"
           },
           "verification_ids": [
@@ -32505,9 +33915,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Invalid Drift Is Integrity Failure",
           "rendered_text": "Invalid Drift Is Integrity Failure",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Comprehensive Review Boundary",
             "clause_key": "ctxr.review.invalid_drift_is_integrity_failure"
           },
           "verification_ids": [
@@ -32525,9 +33935,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Next Epoch Uses Delta And Carry Forward",
           "rendered_text": "Next Epoch Uses Delta And Carry Forward",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Comprehensive Review Boundary",
             "clause_key": "ctxr.review.next_epoch_uses_delta_and_carry_forward"
           },
           "verification_ids": [
@@ -32548,9 +33958,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Periodic Epoch Required",
           "rendered_text": "Periodic Epoch Required — profile id: comprehensive review; trigger: periodic review epoch",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Comprehensive Review Boundary",
             "clause_key": "ctxr.review.periodic_epoch_required"
           },
           "verification_ids": [
@@ -32576,9 +33986,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Recorder Requires Exact Current Boundary",
           "rendered_text": "Recorder Requires Exact Current Boundary — rejected states: partial, stale, extra, altered; required match: exact current boundary",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Comprehensive Review Boundary",
             "clause_key": "ctxr.review.recorder_requires_exact_current_boundary"
           },
           "verification_ids": [
@@ -32600,9 +34010,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Select All Active Governing",
           "rendered_text": "Select All Active Governing — membership field: governing; membership value: true; profile id: comprehensive review",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Comprehensive Review Boundary",
             "clause_key": "ctxr.review.select_all_active_governing"
           },
           "verification_ids": [
@@ -32620,9 +34030,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "label": "Unresolved Findings Carry Forward",
           "rendered_text": "Unresolved Findings Carry Forward",
           "source_provenance": {
-            "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
-            "source_heading": "Embedded context routing rule catalog",
+            "source_document_id": "context_routing",
+            "source_sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+            "source_heading": "Comprehensive Review Boundary",
             "clause_key": "ctxr.review.unresolved_findings_carry_forward"
           },
           "verification_ids": [
@@ -32632,18 +34042,31 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         }
       ],
       "validation": {
-        "state": "not_applicable",
-        "reason": "Predecessor routing evidence is not consulted by a tracked active configuration."
+        "valid": true,
+        "source_sha256": "f1de00a1cf3451d7f3c8b28dfac0ff772834aa7233ccbb502d0d243167c4f77a",
+        "registry_route_sha256": "e9e09e07c5e08f23787a63ba4ca7e11ccf73c740ec0cc57d3c3a73641838c542",
+        "counts": {
+          "documents": 88,
+          "governing_documents": 87,
+          "capabilities": 19,
+          "profiles": 8,
+          "required_modules": 3,
+          "generated_path_exclusions": 9
+        },
+        "differences": [],
+        "document_ids_equal": true,
+        "profile_ids_equal": true,
+        "capability_ids_equal": true
       }
     },
     "activation_readiness": {
       "available": true,
       "complete": true,
-      "activation_state": "active",
+      "activation_state": "candidate_complete",
       "authoritative": false,
       "executable": false,
       "registry_revision": 1,
-      "registry_sha256": "e679e394dd02de04f1ed12d0f9d46fd57d0e8813eb72d08389b61a38cbdf2788",
+      "registry_sha256": "9726fe29e0847efc2bf93a8b7e21f89d919c210ef5dbc7bfcc5502c279d577dd",
       "current_candidate_counts": {
         "documents": 88,
         "governing_documents": 87,
@@ -32671,7 +34094,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "terminology": "candidate_unpopulated",
         "repository_reference_mutation": "separately_gated"
       },
-      "activation_decision": "tracked_active_configuration_live_readback_separate"
+      "activation_decision": "pending_human_activation"
     },
     "terminology": {
       "available": false,
@@ -32683,6 +34106,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "component-registry.js": "project-console-f95a0c98c4f31da5efe1"
+    "component-registry.js": "project-console-273d99ef1bc7f1a28e85"
   }
 });

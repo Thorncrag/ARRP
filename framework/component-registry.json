@@ -3,33 +3,23 @@
   "schema_version": 1,
   "registry_id": "COMPONENT-REGISTRY",
   "registry_revision": 1,
-  "status": "active",
+  "status": "candidate",
   "approval": {
-    "state": "known",
-    "value": {
-      "approval_type": "stage1_component_registry_activation",
-      "approved_by": "@Thorncrag",
-      "approval_method": "explicit_recorded_owner_activation",
-      "governance_change_id": "GOV-2026-020",
-      "implementation_contract_id": "COMPONENT-REGISTRY-2026-001-STAGE1-ACTIVATION-TRANSACTION",
-      "base_revision": "e64ecee9d23a6ddea44ecd0638c60a29df4e541e",
-      "candidate_registry_sha256": "eeeee2d4e8326b4336e8085dca91d6ba2669800091faa1a03344564fecda1897",
-      "affected_stable_ids": [
-        "COMPONENT-REGISTRY"
-      ],
-      "purpose_scope": "Activate Stage 1 Component Registry document identity, placement, ownership, relationships, representations, and routing; preserve four predecessors as historical provenance; keep terminology unpopulated and unenforced; defer artifact classes, families, and lifecycles to Stage 2; keep ARRP automation Paused.",
-      "bounded_diff_sha256": "36794d61cf412188942ed4ac67c8e4cc59149a26ada3fe9a73fce1d71833505c",
-      "approved_at": "2026-07-30T13:11:46Z",
-      "owner_review_reference": "github-review:Thorncrag/ARRP#498"
-    }
+    "state": "pending",
+    "reason": "Stage 1 candidate acceptance and distinct human activation approval have not yet occurred."
   },
   "source_baseline": {
-    "repository_revision": "e64ecee9d23a6ddea44ecd0638c60a29df4e541e",
-    "repository_state": "clean_committed",
+    "repository_revision": "76e3df977218fd2e9991e0a28aad55fe2f19dbe8",
+    "repository_state": "dirty_bound_candidate",
     "working_tree_binding": {
-      "mode": "active_revision_plus_embedded_route",
-      "scope": "complete_embedded_component_registry_route",
-      "sha256": "dcf0dded8cb8a34ddadd12478e9ab7dbd544a99b9cc752e096e837050cb7dc08"
+      "mode": "base_revision_plus_route_manifest",
+      "scope": "complete_routed_authority_source",
+      "sha256": "c319d44058bf7dcb9602047336d528e6b42618a4193c95c4988cc75f2829b46f"
+    },
+    "route_source": {
+      "path": "framework/project/automation/context-routes.json",
+      "sha256": "f1de00a1cf3451d7f3c8b28dfac0ff772834aa7233ccbb502d0d243167c4f77a",
+      "schema_version": 2
     }
   },
   "namespace_versions": {
@@ -50,7 +40,7 @@
   },
   "directory_scopes": {
     "schema_version": 1,
-    "activation_state": "active",
+    "activation_state": "candidate_complete",
     "complete": true,
     "entries": {
       "repository_root": {
@@ -155,6 +145,34 @@
         "primary_authority": "COMPONENT-REGISTRY",
         "disclosure_boundary": "public_by_design",
         "lifecycle_posture": "current",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 20; ties fail closed.",
+        "fallback": "human_review"
+      },
+      "github_launchd_legacy": {
+        "scope_id": "github_launchd_legacy",
+        "display_name": "Legacy launchd configuration",
+        "path_pattern": ".github/launchd/",
+        "match_kind": "prefix",
+        "specificity_rank": 20,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root",
+          "github_admin"
+        ],
+        "placement_question": "Is this a pre-migration portable launchd example awaiting its approved project-automation home?",
+        "include_when": [
+          "The artifact has one canonical placement within Legacy launchd configuration."
+        ],
+        "exclude_when": [
+          "Active host configuration, runtime state, or new launchd material."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "migration_only",
         "authorized_creators": [
           "@Thorncrag"
         ],
@@ -980,6 +998,34 @@
         "precedence": "Most-specific scope rank 40; ties fail closed.",
         "fallback": "human_review"
       },
+      "framework_records_legacy": {
+        "scope_id": "framework_records_legacy",
+        "display_name": "Legacy framework records",
+        "path_pattern": "framework/records/",
+        "match_kind": "prefix",
+        "specificity_rank": 20,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root",
+          "framework"
+        ],
+        "placement_question": "Is this a pre-migration operational artifact awaiting its registered lifecycle home?",
+        "include_when": [
+          "Only existing predecessor artifacts while the approved structural migration is incomplete."
+        ],
+        "exclude_when": [
+          "New operational artifacts or a replacement authority."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "migration_only",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 20; ties fail closed.",
+        "fallback": "human_review"
+      },
       "areas": {
         "scope_id": "areas",
         "display_name": "Project subject areas",
@@ -1563,6 +1609,34 @@
         "precedence": "Most-specific scope rank 20; ties fail closed.",
         "fallback": "human_review"
       },
+      "research_horizon_sources_legacy": {
+        "scope_id": "research_horizon_sources_legacy",
+        "display_name": "Legacy Horizon source records",
+        "path_pattern": "research/horizon-source-records/",
+        "match_kind": "prefix",
+        "specificity_rank": 20,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root",
+          "research"
+        ],
+        "placement_question": "Does the artifact satisfy the registered purpose of Legacy Horizon source records?",
+        "include_when": [
+          "The artifact has one canonical placement within Legacy Horizon source records."
+        ],
+        "exclude_when": [
+          "Another registered scope is the more specific canonical home."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "migration_only",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 20; ties fail closed.",
+        "fallback": "human_review"
+      },
       "research_interbranch": {
         "scope_id": "research_interbranch",
         "display_name": "Interbranch research",
@@ -1591,6 +1665,62 @@
         "precedence": "Most-specific scope rank 20; ties fail closed.",
         "fallback": "human_review"
       },
+      "research_reference_products_legacy": {
+        "scope_id": "research_reference_products_legacy",
+        "display_name": "Legacy reference products",
+        "path_pattern": "research/reference-products/",
+        "match_kind": "prefix",
+        "specificity_rank": 20,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root",
+          "research"
+        ],
+        "placement_question": "Does the artifact satisfy the registered purpose of Legacy reference products?",
+        "include_when": [
+          "The artifact has one canonical placement within Legacy reference products."
+        ],
+        "exclude_when": [
+          "Another registered scope is the more specific canonical home."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "migration_only",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 20; ties fail closed.",
+        "fallback": "human_review"
+      },
+      "research_project_console_legacy": {
+        "scope_id": "research_project_console_legacy",
+        "display_name": "Legacy Project Console",
+        "path_pattern": "research/project-console/",
+        "match_kind": "prefix",
+        "specificity_rank": 20,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root",
+          "research"
+        ],
+        "placement_question": "Does the artifact satisfy the registered purpose of Legacy Project Console?",
+        "include_when": [
+          "The artifact has one canonical placement within Legacy Project Console."
+        ],
+        "exclude_when": [
+          "Another registered scope is the more specific canonical home."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "migration_only",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 20; ties fail closed.",
+        "fallback": "human_review"
+      },
       "participate_api": {
         "scope_id": "participate_api",
         "display_name": "Public participation API",
@@ -1613,6 +1743,34 @@
         "primary_authority": "COMPONENT-REGISTRY",
         "disclosure_boundary": "public_by_design",
         "lifecycle_posture": "current",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 20; ties fail closed.",
+        "fallback": "human_review"
+      },
+      "participate_tests_legacy": {
+        "scope_id": "participate_tests_legacy",
+        "display_name": "Legacy participation tests",
+        "path_pattern": "participate/tests/",
+        "match_kind": "prefix",
+        "specificity_rank": 20,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root",
+          "participate"
+        ],
+        "placement_question": "Does the artifact satisfy the registered purpose of Legacy participation tests?",
+        "include_when": [
+          "The artifact has one canonical placement within Legacy participation tests."
+        ],
+        "exclude_when": [
+          "Another registered scope is the more specific canonical home."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "migration_only",
         "authorized_creators": [
           "@Thorncrag"
         ],
@@ -1744,7 +1902,7 @@
   },
   "operational_documents": {
     "schema_version": 1,
-    "activation_state": "active",
+    "activation_state": "candidate_complete",
     "complete": true,
     "baseline_adoption": {
       "state": "pending",
@@ -1879,7 +2037,9 @@
         "dependencies": [
           "framework_kernel",
           "agent_rules_kernel",
-          "current_audit"
+          "current_audit",
+          "context_routing",
+          "project_structure"
         ],
         "consumers": [],
         "digest_policy": "pinned",
@@ -1891,7 +2051,7 @@
         "document_id": "framework_kernel",
         "official_reference_name": {
           "state": "known",
-          "value": "American Restoration and Resilience Project \u2014 Framework and Methodology"
+          "value": "American Restoration and Resilience Project — Framework and Methodology"
         },
         "document_class": {
           "state": "known",
@@ -2296,7 +2456,7 @@
         },
         "current_status": {
           "state": "known",
-          "value": "retired"
+          "value": "current_routed_source"
         },
         "effective_date": {
           "state": "pending",
@@ -2318,12 +2478,12 @@
           "state": "pending",
           "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
         },
-        "authority_role": "archived_predecessor",
+        "authority_role": "governing_authority",
         "authority_exclusions": {
           "state": "pending",
           "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
         },
-        "canonical_path": "framework/archive/authorities/CONTEXT_ROUTING.md",
+        "canonical_path": "framework/CONTEXT_ROUTING.md",
         "owner": "@Thorncrag",
         "review_policy": "owner_review_required",
         "disclosure_class": "public_by_design",
@@ -2336,12 +2496,19 @@
         "authorized_writers": [
           "@Thorncrag"
         ],
-        "representations": [],
-        "dependencies": [],
-        "consumers": [],
-        "digest_policy": "provenance_only",
+        "representations": [
+          "component_registry_console_documents"
+        ],
+        "dependencies": [
+          "framework_kernel",
+          "agent_rules_kernel"
+        ],
+        "consumers": [
+          "document:codex_bootstrap"
+        ],
+        "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=context_routing",
-        "retention_posture": "archived",
+        "retention_posture": "current",
         "sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7"
       },
       "project_structure": {
@@ -2360,7 +2527,7 @@
         },
         "current_status": {
           "state": "known",
-          "value": "retired"
+          "value": "current_routed_source"
         },
         "effective_date": {
           "state": "pending",
@@ -2382,12 +2549,12 @@
           "state": "pending",
           "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
         },
-        "authority_role": "archived_predecessor",
+        "authority_role": "governing_authority",
         "authority_exclusions": {
           "state": "pending",
           "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
         },
-        "canonical_path": "framework/archive/authorities/PROJECT_STRUCTURE.md",
+        "canonical_path": "framework/PROJECT_STRUCTURE.md",
         "owner": "@Thorncrag",
         "review_policy": "owner_review_required",
         "disclosure_class": "public_by_design",
@@ -2400,12 +2567,27 @@
         "authorized_writers": [
           "@Thorncrag"
         ],
-        "representations": [],
-        "dependencies": [],
-        "consumers": [],
-        "digest_policy": "provenance_only",
+        "representations": [
+          "component_registry_console_documents"
+        ],
+        "dependencies": [
+          "framework_kernel"
+        ],
+        "consumers": [
+          "capability:navigation_and_inventory",
+          "document:codex_bootstrap",
+          "document:interface_standard",
+          "document:navigation_inventory",
+          "document:operation_governance_change_recording",
+          "document:operation_project_update",
+          "document:print_assembly",
+          "document:project_runtime_authority",
+          "document:source_catalogs",
+          "profile:integrity_reconciliation"
+        ],
+        "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=project_structure",
-        "retention_posture": "archived",
+        "retention_posture": "current",
         "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350"
       },
       "github_workflow": {
@@ -2624,6 +2806,7 @@
         ],
         "dependencies": [
           "print_assembly_standard",
+          "project_structure",
           "project_source_adjudication"
         ],
         "consumers": [
@@ -3276,6 +3459,7 @@
         ],
         "dependencies": [
           "agent_rules_kernel",
+          "project_structure",
           "agent_autonomous_execution",
           "github_disclosure_boundary",
           "private_staging_authority_schema"
@@ -4024,7 +4208,7 @@
         "document_id": "agent_context_research",
         "official_reference_name": {
           "state": "known",
-          "value": "Agent Rules \u2014 Context and Research"
+          "value": "Agent Rules — Context and Research"
         },
         "document_class": {
           "state": "known",
@@ -4097,7 +4281,7 @@
         "document_id": "agent_handoff",
         "official_reference_name": {
           "state": "known",
-          "value": "Agent Rules \u2014 Context Handoff"
+          "value": "Agent Rules — Context Handoff"
         },
         "document_class": {
           "state": "known",
@@ -4246,7 +4430,7 @@
         "document_id": "agent_multi_agent",
         "official_reference_name": {
           "state": "known",
-          "value": "Agent Rules \u2014 Multi-Agent Work"
+          "value": "Agent Rules — Multi-Agent Work"
         },
         "document_class": {
           "state": "known",
@@ -4316,7 +4500,7 @@
         "document_id": "agent_provenance_logging",
         "official_reference_name": {
           "state": "known",
-          "value": "Agent Rules \u2014 Provenance and Logging"
+          "value": "Agent Rules — Provenance and Logging"
         },
         "document_class": {
           "state": "known",
@@ -4397,7 +4581,7 @@
         "document_id": "agent_validation_closeout",
         "official_reference_name": {
           "state": "known",
-          "value": "Agent Rules \u2014 Validation and Closeout"
+          "value": "Agent Rules — Validation and Closeout"
         },
         "document_class": {
           "state": "known",
@@ -6102,7 +6286,8 @@
         ],
         "dependencies": [
           "evidence_standards",
-          "issue_architecture"
+          "issue_architecture",
+          "project_structure"
         ],
         "consumers": [
           "capability:evidence_and_sources",
@@ -6337,6 +6522,7 @@
         ],
         "dependencies": [
           "framework_kernel",
+          "project_structure",
           "development_levels"
         ],
         "consumers": [
@@ -6787,6 +6973,7 @@
         "dependencies": [
           "framework_kernel",
           "github_workflow",
+          "project_structure",
           "print_assembly",
           "public_release",
           "audit_change",
@@ -6864,6 +7051,7 @@
         ],
         "dependencies": [
           "framework_kernel",
+          "project_structure",
           "audit_change",
           "operation_project_update"
         ],
@@ -7040,7 +7228,7 @@
         },
         "current_status": {
           "state": "known",
-          "value": "retired"
+          "value": "current_routed_source"
         },
         "effective_date": {
           "state": "pending",
@@ -7062,12 +7250,12 @@
           "state": "pending",
           "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
         },
-        "authority_role": "archived_predecessor",
+        "authority_role": "governing_authority",
         "authority_exclusions": {
           "state": "pending",
           "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
         },
-        "canonical_path": "framework/archive/authorities/REPOSITORY_MAP.md",
+        "canonical_path": "framework/project/REPOSITORY_MAP.md",
         "owner": "@Thorncrag",
         "review_policy": "owner_review_required",
         "disclosure_class": "public_by_design",
@@ -7080,12 +7268,17 @@
         "authorized_writers": [
           "@Thorncrag"
         ],
-        "representations": [],
+        "representations": [
+          "component_registry_console_documents"
+        ],
         "dependencies": [],
-        "consumers": [],
-        "digest_policy": "provenance_only",
+        "consumers": [
+          "capability:navigation_and_inventory",
+          "document:navigation_project_sync"
+        ],
+        "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=repository_map",
-        "retention_posture": "archived",
+        "retention_posture": "current",
         "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313"
       },
       "maturity_profile": {
@@ -7511,7 +7704,9 @@
         "representations": [
           "component_registry_console_documents"
         ],
-        "dependencies": [],
+        "dependencies": [
+          "project_structure"
+        ],
         "consumers": [
           "capability:interface_governance",
           "document:progress_view_standard",
@@ -8167,6 +8362,7 @@
           "navigation_inventory",
           "navigation_topic_guides",
           "github_workflow",
+          "repository_map",
           "visual_identity"
         ],
         "consumers": [
@@ -8400,7 +8596,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=component_registry_schema",
         "retention_posture": "current",
-        "sha256": "e95240d538497905d1717b128a8e8073fb419cea94763c3812bfb3d5d5cffb74"
+        "sha256": "a5b2dba299a6cea06ff81a3c78863f3111952232b3df0f9236efd5c038ec006f"
       },
       "component_registry_tool": {
         "document_id": "component_registry_tool",
@@ -8466,7 +8662,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=component_registry_tool",
         "retention_posture": "current",
-        "sha256": "855eab407e15cc2ee9048303673203b6c941af9f4a6ddc3106e5313a56f42ecc"
+        "sha256": "1fbcb32e03892855091c8c8ebb503f819f7e377252313f80d2114b8b52c29071"
       },
       "component_registry_activation_finalizer": {
         "document_id": "component_registry_activation_finalizer",
@@ -8532,7 +8728,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=component_registry_activation_finalizer",
         "retention_posture": "current",
-        "sha256": "7f98160d06e02c826f621937215ad2bc30218c19e17a5c59d3979ff9c68cbe43"
+        "sha256": "9e688cceae411cdb374deae0a17fa1ee9be13e0eaf11649638bfdae18c99fa3f"
       },
       "component_registry_tests": {
         "document_id": "component_registry_tests",
@@ -8597,70 +8793,6 @@
         "console_route": "operations:component-registry:documents?document=component_registry_tests",
         "retention_posture": "current",
         "sha256": "b419d692911c32b7b8249c5d6e691a63a5dd51146b8c1dca9a04bf340b562576"
-      },
-      "context_routes_source": {
-        "document_id": "context_routes_source",
-        "official_reference_name": {
-          "state": "known",
-          "value": "Historical Context Route Data"
-        },
-        "document_class": {
-          "state": "known",
-          "value": "archived_route_data_authority"
-        },
-        "revision": {
-          "state": "pending",
-          "reason": "The routed predecessor does not carry a normalized document revision."
-        },
-        "current_status": {
-          "state": "known",
-          "value": "retired"
-        },
-        "effective_date": {
-          "state": "pending",
-          "reason": "The routed predecessor does not carry a normalized effective date."
-        },
-        "approval_date": {
-          "state": "pending",
-          "reason": "Historical approval date is not established by the routed predecessor."
-        },
-        "approval_method": {
-          "state": "pending",
-          "reason": "Historical approval method is not established by the routed predecessor."
-        },
-        "governance_change_id": {
-          "state": "pending",
-          "reason": "Baseline adoption awaits the explicit Stage 1 activation decision."
-        },
-        "purpose_scope": {
-          "state": "pending",
-          "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
-        },
-        "authority_role": "archived_predecessor",
-        "authority_exclusions": {
-          "state": "pending",
-          "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
-        },
-        "canonical_path": "framework/archive/authorities/context-routes.json",
-        "owner": "@Thorncrag",
-        "review_policy": "owner_review_required",
-        "disclosure_class": "public_by_design",
-        "creation_provenance": {
-          "state": "pending",
-          "reason": "Original creation provenance is not normalized in the routed predecessor."
-        },
-        "governance_revision": 1,
-        "producer": "existing_repository_source",
-        "authorized_writers": [
-          "@Thorncrag"
-        ],
-        "representations": [],
-        "dependencies": [],
-        "consumers": [],
-        "digest_policy": "provenance_only",
-        "console_route": "operations:component-registry:documents?document=context_routes_source",
-        "retention_posture": "archived",
-        "sha256": "f1de00a1cf3451d7f3c8b28dfac0ff772834aa7233ccbb502d0d243167c4f77a"
       }
     }
   },
@@ -8686,24 +8818,31 @@
     "entries": {}
   },
   "deferred_namespace_notice": {
-    "display_state": "Classification pending \u2014 enforcement not active",
+    "display_state": "Classification pending — enforcement not active",
     "reason": "Artifact classification and lifecycle mapping require complete human review.",
     "activation_requirement": "A separate Governance Change ID, Implementation Contract, complete classification, validation, and explicit human approval are required."
   },
   "context_routing": {
     "schema_version": 2,
     "rule_catalog_version": 1,
-    "activation_state": "active",
+    "activation_state": "candidate_import",
     "complete": true,
-    "authoritative": true,
+    "authoritative": false,
+    "source_import": {
+      "path": "framework/project/automation/context-routes.json",
+      "sha256": "f1de00a1cf3451d7f3c8b28dfac0ff772834aa7233ccbb502d0d243167c4f77a",
+      "schema_version": 2,
+      "import_semantics": "exact_validated_snapshot"
+    },
     "expected_counts": {
-      "documents": 85,
-      "governing_documents": 84,
+      "documents": 88,
+      "governing_documents": 87,
       "capabilities": 19,
       "profiles": 8,
       "required_modules": 3,
       "generated_path_exclusions": 9
     },
+    "parity_policy": "exact_identity_membership_dependency_section_and_digest_parity",
     "generated_path_exclusions": [
       ".site-build",
       ".tmp",
@@ -8808,8 +8947,7 @@
         "path": "README.md",
         "sha256": "85d48e360c286df6e63db7e26432e19c58d2402f1be7e7db5b9df5dca293f583",
         "hash_policy": "pinned",
-        "governing": true,
-        "requires": []
+        "governing": true
       },
       "codex_bootstrap": {
         "path": "AGENTS.md",
@@ -8819,15 +8957,16 @@
         "requires": [
           "framework_kernel",
           "agent_rules_kernel",
-          "current_audit"
+          "current_audit",
+          "context_routing",
+          "project_structure"
         ]
       },
       "framework_kernel": {
         "path": "framework/FRAMEWORK.md",
         "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
         "hash_policy": "pinned",
-        "governing": true,
-        "requires": []
+        "governing": true
       },
       "agent_rules_kernel": {
         "path": "framework/AGENT_OPERATING_RULES.md",
@@ -8867,6 +9006,25 @@
           "agent_rules_kernel"
         ]
       },
+      "context_routing": {
+        "path": "framework/CONTEXT_ROUTING.md",
+        "sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+        "hash_policy": "pinned",
+        "governing": true,
+        "requires": [
+          "framework_kernel",
+          "agent_rules_kernel"
+        ]
+      },
+      "project_structure": {
+        "path": "framework/PROJECT_STRUCTURE.md",
+        "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
+        "hash_policy": "pinned",
+        "governing": true,
+        "requires": [
+          "framework_kernel"
+        ]
+      },
       "github_workflow": {
         "path": "framework/project/github/workflow.md",
         "sha256": "cd55605cd4fcee311a4259265577fa9f3d926fb22ee30974a0fd1602de433ead",
@@ -8894,6 +9052,7 @@
         "governing": true,
         "requires": [
           "print_assembly_standard",
+          "project_structure",
           "project_source_adjudication"
         ]
       },
@@ -8977,8 +9136,7 @@
         "path": "framework/project/automation/schemas/private-staging-authority.schema.json",
         "sha256": "a054a9a1bcd3d82beab1d44756d603ddb20e4f65e4842a3098c47a79142c9738",
         "hash_policy": "pinned",
-        "governing": true,
-        "requires": []
+        "governing": true
       },
       "project_runtime_authority": {
         "path": "framework/project/automation/owner-local-runtime.md",
@@ -8987,6 +9145,7 @@
         "governing": true,
         "requires": [
           "agent_rules_kernel",
+          "project_structure",
           "agent_autonomous_execution",
           "github_disclosure_boundary",
           "private_staging_authority_schema"
@@ -9008,15 +9167,13 @@
         "path": "framework/project/automation/transaction-lifecycle.schema.json",
         "sha256": "eaa56321ab626bb6b7d453d5b07704936263830b9c7175cded6ce7d58244bd11",
         "hash_policy": "pinned",
-        "governing": true,
-        "requires": []
+        "governing": true
       },
       "transaction_recovery_package_schema": {
         "path": "framework/project/automation/transaction-recovery-package.schema.json",
         "sha256": "d1f274027e0361fffe2a428c7d610a8ba9287fd67791017d65ee3de38eb63a53",
         "hash_policy": "pinned",
-        "governing": true,
-        "requires": []
+        "governing": true
       },
       "project_reconciliation": {
         "path": "framework/project/automation/project-wide-reconciliation.json",
@@ -9036,8 +9193,7 @@
         "path": "framework/project/automation/project-wide-reconciliation.schema.json",
         "sha256": "64bdcc9bb4ff573af30f5156ed1d15466cbfa3ac88ccca1a006ccf676eba7cbd",
         "hash_policy": "pinned",
-        "governing": true,
-        "requires": []
+        "governing": true
       },
       "project_autonomous_execution": {
         "path": "framework/project/automation/autonomous-execution.md",
@@ -9368,7 +9524,8 @@
         "governing": true,
         "requires": [
           "evidence_standards",
-          "issue_architecture"
+          "issue_architecture",
+          "project_structure"
         ]
       },
       "issue_architecture": {
@@ -9403,6 +9560,7 @@
         "governing": true,
         "requires": [
           "framework_kernel",
+          "project_structure",
           "development_levels"
         ]
       },
@@ -9475,6 +9633,7 @@
         "requires": [
           "framework_kernel",
           "github_workflow",
+          "project_structure",
           "print_assembly",
           "public_release",
           "audit_change",
@@ -9489,6 +9648,7 @@
         "governing": true,
         "requires": [
           "framework_kernel",
+          "project_structure",
           "audit_change",
           "operation_project_update"
         ]
@@ -9512,6 +9672,12 @@
           "method_neutrality_language"
         ],
         "sha256": "efc8cef3ff67074c4e6cc6d2204c6baef2c44d1105e9a76c0569ce03b0d31b6d"
+      },
+      "repository_map": {
+        "path": "framework/project/REPOSITORY_MAP.md",
+        "hash_policy": "pinned",
+        "governing": true,
+        "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313"
       },
       "maturity_profile": {
         "path": "framework/project/profile/maturity-profile.md",
@@ -9568,7 +9734,9 @@
         "path": "framework/standards/interfaces/standard.md",
         "hash_policy": "pinned",
         "governing": true,
-        "requires": [],
+        "requires": [
+          "project_structure"
+        ],
         "sha256": "050e84359a0fec6e36b21a9129ae4d6a28f3e8ba175161079c9b5126a3854192"
       },
       "progress_view_standard": {
@@ -9615,22 +9783,19 @@
         "path": "framework/project/publication/print-assembly.json",
         "hash_policy": "pinned",
         "governing": true,
-        "sha256": "a893ac698b5ff4e3b00dafa87e072023fe504329bbef7db00acee63cdb0d529d",
-        "requires": []
+        "sha256": "a893ac698b5ff4e3b00dafa87e072023fe504329bbef7db00acee63cdb0d529d"
       },
       "progress_config": {
         "path": "framework/project/interfaces/project-console-progress.json",
         "hash_policy": "pinned",
         "governing": true,
-        "sha256": "ba971d87c96f8952e95fd0d29a1e8f1b724b06781bc6da07e772a5c1b817c14b",
-        "requires": []
+        "sha256": "ba971d87c96f8952e95fd0d29a1e8f1b724b06781bc6da07e772a5c1b817c14b"
       },
       "elim_result_schema": {
         "path": "framework/project/automation/schemas/elim-work-unit-result.schema.json",
         "hash_policy": "pinned",
         "governing": true,
-        "sha256": "265d3e603d5f4a547b35159d9fc1646cce747b472ca7772e2fa7ebc67c2d0cad",
-        "requires": []
+        "sha256": "265d3e603d5f4a547b35159d9fc1646cce747b472ca7772e2fa7ebc67c2d0cad"
       },
       "project_source_adjudication": {
         "path": "framework/project/workflows/source-adjudication.md",
@@ -9652,6 +9817,7 @@
           "navigation_inventory",
           "navigation_topic_guides",
           "github_workflow",
+          "repository_map",
           "visual_identity"
         ],
         "sha256": "4b262c7a6bf61599116fa164d512042a1c7e2e8b813659dd750f034cc03523e4"
@@ -9712,6 +9878,8 @@
         "project_source_adjudication"
       ],
       "navigation_and_inventory": [
+        "repository_map",
+        "project_structure",
         "navigation_inventory",
         "navigation_topic_guides",
         "navigation_project_sync"
@@ -9804,7 +9972,8 @@
           "project_autonomous_execution",
           "agent_provenance_logging",
           "agent_validation_closeout",
-          "audit_project_consistency"
+          "audit_project_consistency",
+          "project_structure"
         ],
         "capabilities": [
           "language_and_neutrality",
@@ -11268,92 +11437,6 @@
           "test.ctxr.review.efficiency_never_limits_scope_or_lookback"
         ]
       }
-    },
-    "predecessor_provenance": {
-      "schema_version": 1,
-      "complete": true,
-      "authority_effect": "historical_provenance_only_no_runtime_read",
-      "records": {
-        "project_structure": {
-          "stable_id": "project_structure",
-          "artifact_kind": "markdown_authority",
-          "historical_path": "framework/PROJECT_STRUCTURE.md",
-          "archived_path": "framework/archive/authorities/PROJECT_STRUCTURE.md",
-          "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
-          "source_schema_version": null,
-          "state": "archived_retired_provenance_only",
-          "retirement_proof": {
-            "proof_type": "authenticated_activation_cutover",
-            "governance_change_id": "GOV-2026-020",
-            "implementation_contract_id": "COMPONENT-REGISTRY-2026-001-STAGE1-ACTIVATION-TRANSACTION",
-            "owner_review_reference": "github-review:Thorncrag/ARRP#498"
-          }
-        },
-        "context_routing": {
-          "stable_id": "context_routing",
-          "artifact_kind": "markdown_authority",
-          "historical_path": "framework/CONTEXT_ROUTING.md",
-          "archived_path": "framework/archive/authorities/CONTEXT_ROUTING.md",
-          "sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
-          "source_schema_version": null,
-          "state": "archived_retired_provenance_only",
-          "retirement_proof": {
-            "proof_type": "authenticated_activation_cutover",
-            "governance_change_id": "GOV-2026-020",
-            "implementation_contract_id": "COMPONENT-REGISTRY-2026-001-STAGE1-ACTIVATION-TRANSACTION",
-            "owner_review_reference": "github-review:Thorncrag/ARRP#498"
-          }
-        },
-        "repository_map": {
-          "stable_id": "repository_map",
-          "artifact_kind": "markdown_authority",
-          "historical_path": "framework/project/REPOSITORY_MAP.md",
-          "archived_path": "framework/archive/authorities/REPOSITORY_MAP.md",
-          "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313",
-          "source_schema_version": null,
-          "state": "archived_retired_provenance_only",
-          "retirement_proof": {
-            "proof_type": "authenticated_activation_cutover",
-            "governance_change_id": "GOV-2026-020",
-            "implementation_contract_id": "COMPONENT-REGISTRY-2026-001-STAGE1-ACTIVATION-TRANSACTION",
-            "owner_review_reference": "github-review:Thorncrag/ARRP#498"
-          }
-        },
-        "context_routes_source": {
-          "stable_id": "context_routes_source",
-          "artifact_kind": "route_data_authority",
-          "historical_path": "framework/project/automation/context-routes.json",
-          "archived_path": "framework/archive/authorities/context-routes.json",
-          "sha256": "f1de00a1cf3451d7f3c8b28dfac0ff772834aa7233ccbb502d0d243167c4f77a",
-          "source_schema_version": 2,
-          "state": "archived_retired_provenance_only",
-          "retirement_proof": {
-            "proof_type": "authenticated_activation_cutover",
-            "governance_change_id": "GOV-2026-020",
-            "implementation_contract_id": "COMPONENT-REGISTRY-2026-001-STAGE1-ACTIVATION-TRANSACTION",
-            "owner_review_reference": "github-review:Thorncrag/ARRP#498"
-          }
-        }
-      },
-      "migration_alias_ids": [
-        "relocate_project_structure",
-        "relocate_context_routing",
-        "relocate_repository_map",
-        "relocate_context_routes_source"
-      ],
-      "verification_ids": [
-        "test_active_predecessor_provenance_is_closed",
-        "test_active_loader_does_not_read_predecessors",
-        "test_active_embedded_route_excludes_predecessors"
-      ]
-    },
-    "readable_representation": {
-      "representation_id": "human_readable_context_routing",
-      "binding_kind": "component_registry_revision",
-      "source_registry_revision": 1,
-      "generated_from": "embedded_context_routing",
-      "authority_effect": "none",
-      "executable": false
     }
   },
   "component_relationships": [
@@ -11405,7 +11488,7 @@
       },
       "to": {
         "kind": "predecessor_authority",
-        "id": "framework/archive/authorities/context-routes.json"
+        "id": "framework/project/automation/context-routes.json"
       },
       "authority_boundary": "Candidate preserves exact parity until separately approved activation and archival."
     },
@@ -11464,7 +11547,7 @@
   ],
   "ownership_and_review": {
     "schema_version": 1,
-    "activation_state": "active",
+    "activation_state": "candidate_complete",
     "complete": true,
     "generation_policy": "registry_ordered_github_last_match",
     "entries": {
@@ -11602,7 +11685,7 @@
       },
       "ownership_12_framework_context_routing_md": {
         "ownership_id": "ownership_12_framework_context_routing_md",
-        "path_pattern": "/framework/archive/authorities/CONTEXT_ROUTING.md",
+        "path_pattern": "/framework/CONTEXT_ROUTING.md",
         "owners": [
           "@Thorncrag"
         ],
@@ -11614,7 +11697,7 @@
       },
       "ownership_13_framework_project_structure_md": {
         "ownership_id": "ownership_13_framework_project_structure_md",
-        "path_pattern": "/framework/archive/authorities/PROJECT_STRUCTURE.md",
+        "path_pattern": "/framework/PROJECT_STRUCTURE.md",
         "owners": [
           "@Thorncrag"
         ],
@@ -11938,7 +12021,7 @@
   },
   "temporary_directory_classes": {
     "schema_version": 1,
-    "activation_state": "active",
+    "activation_state": "candidate_complete",
     "complete": true,
     "entries": {
       "current_run_temporary": {
@@ -11953,7 +12036,7 @@
   },
   "representations": {
     "schema_version": 1,
-    "activation_state": "active",
+    "activation_state": "candidate_complete",
     "complete": true,
     "entries": {
       "component_registry_canonical_source": {
@@ -11996,13 +12079,13 @@
         "representation_id": "human_readable_context_routing",
         "representation_type": "human_readable_routing",
         "canonical_document_id": "COMPONENT-REGISTRY",
-        "canonical_path": "framework/project/interfaces/project-console/data/component-registry.js",
+        "canonical_path": "framework/CONTEXT_ROUTING.md",
         "producer": "Stage 1 registry projection generator",
         "generation_rule": "Render readable routing without adding identities or membership.",
-        "source_revision_binding": "component_registry_revision:1",
+        "source_revision_binding": "exact registry context_routing namespace digest",
         "disclosure_class": "public_operational_summary",
         "loading_boundary": "repository documentation",
-        "state": "active"
+        "state": "candidate"
       },
       "component_registry_console": {
         "representation_id": "component_registry_console",
@@ -12172,7 +12255,7 @@
   },
   "aliases_and_migrations": {
     "schema_version": 1,
-    "activation_state": "active",
+    "activation_state": "candidate_complete",
     "complete": true,
     "entries": {
       "relocate_project_structure": {
@@ -12564,7 +12647,7 @@
   },
   "activation_readiness": {
     "schema_version": 1,
-    "activation_state": "active",
+    "activation_state": "candidate_complete",
     "complete": true,
     "design_id": "COMPONENT-REGISTRY-2026-001-CANDIDATE-ACTIVATION-READINESS-CLOSURE",
     "design_revision": "sha256:8a6eaf0b2e91fb86a47363ea176e793d4fbe40001f31d80d00963748c757aeba",

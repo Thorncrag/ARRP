@@ -36,7 +36,6 @@ from build_elim_context import (  # noqa: E402
 )
 import build_elim_context as build_elim_context_module  # noqa: E402
 from component_registry import RegistryError, RoutingRuleFailure  # noqa: E402
-import component_registry as component_registry_module  # noqa: E402
 import path_authority as path_authority_module  # noqa: E402
 from path_authority import ProjectPathAuthority  # noqa: E402
 
@@ -2753,15 +2752,6 @@ class ContextRouteTests(unittest.TestCase):
 
 
 class RepositorySearchBoundaryTests(unittest.TestCase):
-    def configuration_route(
-        self,
-    ) -> tuple[dict[str, object], dict[str, object]]:
-        view = (
-            component_registry_module
-            .load_component_registry_configuration_routing_view()
-        )
-        return view["route"], view
-
     def test_generated_console_and_local_artifacts_are_excluded_from_ordinary_search(self):
         policy = (ROOT / ".rgignore").read_text(encoding="utf-8")
         self.assertIn("framework/project/interfaces/project-console/catalog-data.js", policy)
@@ -2771,7 +2761,8 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         self.assertIn(".venv/", policy)
 
     def test_production_context_routes_are_hash_pinned_and_extractable(self):
-        raw, view = self.configuration_route()
+        path = ROOT / "framework/project/automation/context-routes.json"
+        raw = json.loads(path.read_text(encoding="utf-8"))
         self.assertEqual(raw["schema_version"], 2)
         self.assertTrue(
             {
@@ -2803,15 +2794,9 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
                 document_id,
             )
 
-        manifest = raw
+        manifest = load_route_manifest(path, root=ROOT)
         packets = {
-            profile_name:
-                component_registry_module.build_context_packet_from_view(
-                    view,
-                    profile_name,
-                    assurance_mode=view["validation_mode"],
-                    root=ROOT,
-                )
+            profile_name: build_context_packet(path, profile_name, root=ROOT)
             for profile_name in manifest["profiles"]
         }
         required = set(manifest["required_modules"])
@@ -2919,12 +2904,6 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
             },
         }
         for profile_name, expected_modules in expected_profile_modules.items():
-            if view["registry_status"] == "active":
-                expected_modules = expected_modules - {
-                    "project_structure",
-                    "context_routing",
-                    "repository_map",
-                }
             actual_modules = {
                 module["document"]
                 for module in packets[profile_name]["modules"]
@@ -2950,7 +2929,8 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         self.assertIn("current_audit", comprehensive_modules)
 
     def test_small_profiles_allow_additive_audit_capabilities_with_headroom(self):
-        manifest, view = self.configuration_route()
+        path = ROOT / "framework/project/automation/context-routes.json"
+        manifest = load_route_manifest(path, root=ROOT)
         profiles = ("integrity_reconciliation", "github_sync")
         capabilities = ("change_control", "tiered_quality_audit")
 
@@ -2961,10 +2941,9 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
             )
             for capability in capabilities:
                 with self.subTest(profile=profile_name, capability=capability):
-                    packet = component_registry_module.build_context_packet_from_view(
-                        view,
+                    packet = build_context_packet(
+                        path,
                         profile_name,
-                        assurance_mode=view["validation_mode"],
                         root=ROOT,
                         capabilities=(capability,),
                     )
@@ -2994,15 +2973,14 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
                     )
 
     def test_explicit_lower_packet_ceiling_still_fails_closed(self):
+        path = ROOT / "framework/project/automation/context-routes.json"
         with self.assertRaisesRegex(
-            RoutingRuleFailure,
+            ContextError,
             r"context packet exceeds max bytes \(\d+ > 300000\)",
         ):
-            _manifest, view = self.configuration_route()
-            component_registry_module.build_context_packet_from_view(
-                view,
+            build_context_packet(
+                path,
                 "integrity_reconciliation",
-                assurance_mode=view["validation_mode"],
                 root=ROOT,
                 capabilities=("change_control",),
                 max_total_bytes=300000,

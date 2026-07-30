@@ -21,7 +21,7 @@
     "status": "candidate",
     "authoritative": false,
     "executable": false,
-    "canonical_sha256": "eeeee2d4e8326b4336e8085dca91d6ba2669800091faa1a03344564fecda1897"
+    "canonical_sha256": "9726fe29e0847efc2bf93a8b7e21f89d919c210ef5dbc7bfcc5502c279d577dd"
   },
   "future_tree": {
     "complete": true,
@@ -14898,11 +14898,11 @@
     ],
     "predecessor_authority_effect": "historical_provenance_only_no_runtime_read",
     "stage1_namespace_states": {
-      "directory_scopes": "active",
-      "ownership_and_review": "active",
       "activation_readiness": "active",
-      "temporary_directory_classes": "active",
       "operational_documents": "active",
+      "ownership_and_review": "active",
+      "temporary_directory_classes": "active",
+      "directory_scopes": "active",
       "representations": "active",
       "aliases_and_migrations": "active"
     }
@@ -14915,8 +14915,8 @@
   },
   "console_generation_readback": {
     "complete": true,
-    "generation_id": "project-console-74d2c9250638aa05bcc7",
-    "source_revision": "9953be3f0f7eec4976802268021ba08e8f92d695",
+    "generation_id": "project-console-273d99ef1bc7f1a28e85",
+    "source_revision": "76e3df977218fd2e9991e0a28aad55fe2f19dbe8",
     "availability": "current",
     "completeness": {
       "actual_count": 5859,
@@ -14926,267 +14926,267 @@
     },
     "catalog": {
       "path": "framework/project/interfaces/project-console/catalog-data.js",
-      "bytes": 124845,
-      "sha256": "sha256:bf980364dfb16b72642d452a1dbf1f74ec54c055d9ae8a1ed0a5b651e57adedd"
+      "bytes": 124846,
+      "sha256": "sha256:677d2895501f4c4f448ca296438397c6964959d30f2cc31f6ffe26251de2046e"
     },
     "generation_manifest": {
       "path": "framework/project/interfaces/project-console/data/generation-manifest.json",
       "bytes": 25027,
-      "sha256": "sha256:e4b67705af5b8fe890041dcf8811d2c851ee70f99cfa147e5bace15aecf1c395"
+      "sha256": "sha256:4a77a6484d8396182ef792bfcadd635c1f29b6436566efb472b7b9b3851d22de"
     },
-    "source_hash_map_sha256": "d449ec847d290dbaf8827f1d5f76e5e00481b308a4a5f8cf9e9acaace0f7161c",
+    "source_hash_map_sha256": "af499e7788a42f0037d98704b0643908435ecf9939e170ad15a89795fe19d360",
     "domain_count": 42,
     "domains": [
       {
         "path": "framework/project/interfaces/project-console/data/automation.js",
         "bytes": 36490,
-        "sha256": "sha256:74c060ad3520045c8b3de730a2fa64a916bc0f9431b42296838443e992d0dca7",
+        "sha256": "sha256:fa494447e1d88ab03423ccf39e3ee13491bf23f10de400a368dd0c6ce565c2dc",
         "record_count": 29
       },
       {
         "path": "framework/project/interfaces/project-console/data/candidates.js",
         "bytes": 1420246,
-        "sha256": "sha256:8aa5b8847c88d49edea60ce49198d6de0a01464294cb67fb6b90cc6b1bafd25e",
+        "sha256": "sha256:cca4e065d074eb5782821304de8dab57121c5c95ed3dafa46ebd18c2b871eff5",
         "record_count": 43
       },
       {
         "path": "framework/project/interfaces/project-console/data/component-registry.js",
         "bytes": 1447016,
-        "sha256": "sha256:09e91d7804e512d35008de513590b048973729639fe763890b8a4970a05b7a34",
+        "sha256": "sha256:1ce1398b6b11b54e41dca97f453643dd2be5700e3b7a5d864b6da2f750649dc7",
         "record_count": 381
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-001.js",
         "bytes": 196998,
-        "sha256": "sha256:34cebf005fcfef6ff4433a52db7d0a25b4933df438e007edf196ae1f764e663f",
+        "sha256": "sha256:e4d73691ec719ed67438e0051c95eb99027370046913e9f6133cdbd06e70f3e4",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-002.js",
         "bytes": 192832,
-        "sha256": "sha256:7e174ac8f9dddc1330bca86c4f274ee6084a10271ee03df9ac09e274514380a9",
+        "sha256": "sha256:4524843bb07463b67d271864af6b1a9dcd5f4d8b66201e3045ab6b642f35e178",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-003.js",
         "bytes": 191516,
-        "sha256": "sha256:ce8968abcee24d19fb7757ce26f8e27a95913dff0cb04998ef8d782967a54b0b",
+        "sha256": "sha256:203e5a4489c849ad47353aa6f4fda9763db247c694d2170eeeea2612ac2606ad",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-004.js",
         "bytes": 191913,
-        "sha256": "sha256:7a57031ef77c190dd4695d199aacde2d98826bf5b0abdae98ff4a94f34dab3c2",
+        "sha256": "sha256:98ffddc4fcedea4291a0d6e336a8e9d8a1922c601e654af78144b5b2b87aaa6f",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-005.js",
         "bytes": 192472,
-        "sha256": "sha256:c534321f1e9184ba7d167b949ef883474a3b2323d6948939b00c2ca3abd448a3",
+        "sha256": "sha256:150d85ca51f617b07b2c10b9de04a87c1649edb917fdb912df5ec712811d73eb",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-006.js",
         "bytes": 189461,
-        "sha256": "sha256:3603aab3d010cd1a43ca3ade78d9954c77782c16be4bd476f177e057dc00f967",
+        "sha256": "sha256:f595a45983e42d6d52b1bce42891aaff641f808615cfeaa435933876e92d6249",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-007.js",
         "bytes": 190091,
-        "sha256": "sha256:6e860f589bed21683d0feb22a64b097290f58e69d55bb7b28669fea5c152b5c3",
+        "sha256": "sha256:f69daf1cbdea9722ea6053724fed6db7455218dd0b5b61e5c8be45f16bbb8363",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-008.js",
         "bytes": 191594,
-        "sha256": "sha256:7c99265a73e5a5d11cf0b07485119aced976103fd915e85f06fbe8db767c4ca9",
+        "sha256": "sha256:35feddd094d74e864db5febc0de2c878e289749b471f7f0129cb7be7b5da4971",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-009.js",
         "bytes": 189860,
-        "sha256": "sha256:03d334d744fea742782fe5fad3bcfed7f501e4e82603ae4c9e84113909a60aa1",
+        "sha256": "sha256:98944d7bbbc510f88e198dcac901b28e8f9c27c8c0d383b23ebfb1b771853216",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-010.js",
         "bytes": 190718,
-        "sha256": "sha256:62f96f64001f2ccf2b1376d00a885ebdd322d79d15efe7659744d44b95ba6573",
+        "sha256": "sha256:473b80b599604816aa916465f37d172ab64742792a9e4240494f16219701dad7",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-011.js",
         "bytes": 193152,
-        "sha256": "sha256:e1daea99e8458998cbc61a941a9f1635fac60f8e94bc15eb26d31d0b5801d519",
+        "sha256": "sha256:4676f48ff5c32927019bf28969e694da94bc412094aa29cbcb958b6e57734950",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-012.js",
         "bytes": 193372,
-        "sha256": "sha256:4a11ab9f10ff9a31d2ac8236e43bddc2b0c6fd64e2885acfbf31101dbbb832a8",
+        "sha256": "sha256:b151d53314aa1ec807f9d0e3996aaeda0c9f5614b1f1cf691ee10d8f74d7783c",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-013.js",
         "bytes": 189925,
-        "sha256": "sha256:d0851f6f3921bd756cd1886c8b992e5fa0e1f0fc4c7dd439ee87c0c867899871",
+        "sha256": "sha256:e5c5d582279ab0b9a0c2c71d083a673d89aa6405d9c3a3d57d55b73746d43409",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-014.js",
         "bytes": 191238,
-        "sha256": "sha256:7a2d972a34a033900dfe4a803ef912565f800752416d4fd20967bc27daa06841",
+        "sha256": "sha256:002d5c012c35b5f19db34dc703d1374d33d215babe7bd72021c7142dae722d24",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-015.js",
         "bytes": 189979,
-        "sha256": "sha256:d4a552e83760734a32b9f4e8aa330676b30c3af1665d2dbcbc965d0d67cf0fe0",
+        "sha256": "sha256:7c0365bb322e07f1af5846f0031a8f1225c0385df73e30332588ba374eba3faa",
         "record_count": 189
       },
       {
         "path": "framework/project/interfaces/project-console/data/directives-catalog-016.js",
         "bytes": 180388,
-        "sha256": "sha256:cecf2676caaf04f0cc669f6f3a7fcc8aaba8ccb24b83f1a984addda305f151d7",
+        "sha256": "sha256:ac5d81a4cdbfe0456b41bb4dea27c2f643122fa5c01e9a3f9174c9a96c7c2e8a",
         "record_count": 180
       },
       {
         "path": "framework/project/interfaces/project-console/data/integrity.js",
         "bytes": 3054,
-        "sha256": "sha256:5c9cfb28e837412d719e363044ae3ecfae80c12ad0e6df52ab9bb8adf9bb6a58",
+        "sha256": "sha256:68a2aeaf404be53bb7c8082d98c4052b87112fd0f600605e3a625372db0e0048",
         "record_count": 25
       },
       {
         "path": "framework/project/interfaces/project-console/data/logs.js",
         "bytes": 556249,
-        "sha256": "sha256:598fca43d874a9a144f97cd0becdb89d50ef7d9ec4634057da9c4398e397d4e7",
+        "sha256": "sha256:b702b55bfa57df3593df96ffc12208cb3b0f0b72d26652709f8052638f4d3505",
         "record_count": 9
       },
       {
         "path": "framework/project/interfaces/project-console/data/overview.js",
-        "bytes": 106793,
-        "sha256": "sha256:7f5e1adad45aa5e007e7d7b1cc94726e2362efe85136e70eabbf1319c7159881",
+        "bytes": 106794,
+        "sha256": "sha256:80879846098566c778ce5220f339925f01774caa2953a9e1ab06f0ef4402e038",
         "record_count": 119
       },
       {
         "path": "framework/project/interfaces/project-console/data/progress.js",
         "bytes": 479303,
-        "sha256": "sha256:fe8e1990709f782af0ba2c70aacb4e6f920915cfa1b4f15a1076fd99763b95a8",
+        "sha256": "sha256:8b0ac13e7b1856c12c2e45207e87f00f139c3ed2627c1787c4a8289303660c90",
         "record_count": 364
       },
       {
         "path": "framework/project/interfaces/project-console/data/publication.js",
         "bytes": 698139,
-        "sha256": "sha256:b810cb77c4eb906f63c997143821e87456416c0c754cf06da888774c200f120b",
+        "sha256": "sha256:2bf7361b3811c07940f5adf2379ee2e4f324575390e4d878b354cc0d619f7517",
         "record_count": 755
       },
       {
         "path": "framework/project/interfaces/project-console/data/source-checker.js",
-        "bytes": 1531098,
-        "sha256": "sha256:f1c38310845388a5c1c2c487f14d85cab6bb4f56e904c0e8329d23c3856ca7a7",
-        "record_count": 3823
+        "bytes": 1524521,
+        "sha256": "sha256:473149ae9cfdff4ce75b97633664de91237bcff5e5eafb4634528fc2781806fe",
+        "record_count": 3786
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-001.js",
         "bytes": 132066,
-        "sha256": "sha256:60d7df8e927753fb531988466defff8c06da44e8d0a035a68ef17edb8371c4b3",
+        "sha256": "sha256:406e362bed392ab1c8b77b38d01aa24364d55a32439167f67889ade2dcf307dc",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-002.js",
         "bytes": 148330,
-        "sha256": "sha256:bf8bcf0adfc8929a5a50e47a1313305f711a2719fa4c90c55042136c7308e766",
+        "sha256": "sha256:c90303465e97069a4eeb6cc39f0011fb69fe25b64c4f3bb859c9202a6f07a34d",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-003.js",
         "bytes": 157267,
-        "sha256": "sha256:2ea33aeb57d06f938c259c33b0c60c815b59483f18347e468757b09240f64f75",
+        "sha256": "sha256:b3b3a594df636962fdd9e5557bf441307d512f93da7e3bbecf0c9430ebfa520e",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-004.js",
         "bytes": 161876,
-        "sha256": "sha256:fa523a4b93260f7e85c1126f4be1bf3dfd7cbed90f5e1d533c0c89bf25444ade",
+        "sha256": "sha256:05bb8ae2d3ebc6afcb1cf5b52d3d4b23c633d8151219ec4e86294478ec9a564a",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-005.js",
         "bytes": 147685,
-        "sha256": "sha256:2b382a49d38c0229de0605a3fd86f36e3c6ea28a11151b0e6715c82829f934ea",
+        "sha256": "sha256:9da287b44f174239d36fa563fa88a9e15dd09051ac8a75b3f460a14df5a2dc90",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-006.js",
         "bytes": 175298,
-        "sha256": "sha256:663eb84cb34641d2b86c9b3890aa16379e4a14da3f1826fde7add997cee50bf1",
+        "sha256": "sha256:916caef8a31e8fd6d1f6d8fd3fde4ac044f9ad3eba1241788f543ed3f08c9e90",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-007.js",
         "bytes": 194685,
-        "sha256": "sha256:7e4b4a50a9aafc428087c98cba15aa0def751814fd2f897d806ee07e5f5abfb6",
+        "sha256": "sha256:4a1c1ec41d57587c9e9cb7dd0666cc4dbd5b3a7ed4145afc2c88b22f925c1bba",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-008.js",
         "bytes": 165780,
-        "sha256": "sha256:31de42774c5d9b129ba0944ab75b74b80c08de6a286d8c6cc367e9c3ebcf4f74",
+        "sha256": "sha256:008f4ca65481e53c3fb0261047a661be6a05abc2229e40be4d307b5af31018fc",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-009.js",
         "bytes": 158628,
-        "sha256": "sha256:e14f7bee19a44c2de79e19909184b7d9dfddc2b75841082d070c12c6dc5f68c3",
+        "sha256": "sha256:d2d900da3c64760cf00c1788a1da2ded82a7814d5cd7c2c98021b37bbbe70aae",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-010.js",
         "bytes": 179901,
-        "sha256": "sha256:114c86136f1e02b0f18bda4f746839bf8e436afe4b8a22294e03bc176513c2de",
+        "sha256": "sha256:51352c51fcf5759e28de380fecb19e729ae8b7b2165fe5a8e9b342399bcbe4b4",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-011.js",
         "bytes": 185727,
-        "sha256": "sha256:fe6f9fe02988999bb2e079531523179d6229838d428981e0861f83d3e72681ef",
+        "sha256": "sha256:4833ef0675ab4f00afea0425cd01f1b4ebfa1ce0ec5616d71ff9150564840dfc",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-012.js",
         "bytes": 189909,
-        "sha256": "sha256:99d2a4bba16c3bde7cf1bb17b10afbe5bafda3c70f212eaa0d1232e7fa744dae",
+        "sha256": "sha256:0b23912729610d4f023320389a9733bfbc2bb6d29da0b6b7891ae4e33d0bbfc1",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-013.js",
         "bytes": 184375,
-        "sha256": "sha256:a04fe45e0a2190954728fed5b69f64bc6a20a783f5787ca84b78a9fd9c269f77",
+        "sha256": "sha256:acdedaaec239c3fd7259873a7b33e00cef671488fe4e8dd140d969f8251a7fd7",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-014.js",
         "bytes": 177054,
-        "sha256": "sha256:a498a0993cb52c3939b427d6d6a341c76dec317a5fecff9a7ef98d6a3ee450af",
+        "sha256": "sha256:007966803e6a967c92331a6c4cc8cd4b599f55bcb99e93d9cc4314d6b2dd6bb7",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-015.js",
         "bytes": 177528,
-        "sha256": "sha256:0188f92e6b04bc2139bf16444a461e399b556df3315139d2d1501334a52c9cb4",
+        "sha256": "sha256:85de80ab7f7d135a2a128971631dd67308516f908946338657733154eb223a38",
         "record_count": 129
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources-catalog-016.js",
         "bytes": 149377,
-        "sha256": "sha256:45c626c09db52422d47e68608106dd8899cc758d05f83085137bd6a7e68d6258",
+        "sha256": "sha256:afabc31040ac1f3a84eee0b752ee179f4e8013b18e5e6f7a036c39338e10c668",
         "record_count": 120
       },
       {
         "path": "framework/project/interfaces/project-console/data/sources.js",
         "bytes": 2477380,
-        "sha256": "sha256:58c000e6c358d72d050cd6c42384a81524e9adc244b76915267f291f2b6d1be5",
+        "sha256": "sha256:0b550e29a00870e7c665626acda0e15bd92ff3bc5ac56a6ec60b73fb5ef36f68",
         "record_count": 529
       }
     ],
