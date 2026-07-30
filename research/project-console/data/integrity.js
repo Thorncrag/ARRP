@@ -3,12 +3,12 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
-    "availability": "stale",
-    "generated_at": "2026-07-29T15:27:16+00:00",
+    "availability": "current",
+    "generated_at": "2026-07-30T03:10:59+00:00",
     "current": {
-      "result": "clean",
-      "generated_at": "2026-07-29T15:27:16+00:00",
-      "revision": "2cdeda92c99074a9d06c87c1787e32eff77eda74",
+      "result": "findings",
+      "generated_at": "2026-07-30T03:10:59+00:00",
+      "revision": "b82764f21a39c14e35c371cc6a4530d4a1b11c82",
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -33,11 +33,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "Local-first source-monitoring and provenance wiring",
         "Structured-file and repository hygiene"
       ],
-      "findings": []
+      "findings": [
+        {
+          "finding_id": "INT-c8c79404280b5748",
+          "finding_code": "github_project_access_unavailable",
+          "severity": "warning",
+          "category": "GitHub records",
+          "status": "open",
+          "owner": "Elim",
+          "route": "integrity",
+          "next_action": "Run the registered authenticated Console refresh.",
+          "message": "GitHub Project synchronization could not be verified because the registered read-only access was unavailable."
+        }
+      ]
     },
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-297de2430b58902de8f7"
+    "integrity.js": "project-console-3388c47183ffea8fd4fd"
   }
 });

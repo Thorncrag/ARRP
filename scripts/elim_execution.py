@@ -233,7 +233,13 @@ def validation_plan(files: list[str], task_type: str) -> dict[str, Any]:
     if any(path.startswith(("areas/", "legislation/", "framework/", "inventory/")) for path in normalized):
         add(
             "repository_consistency",
-            ["python3", "scripts/audit_project_consistency.py", "--exit-zero-on-findings"],
+            [
+                "python3",
+                "scripts/audit_project_consistency.py",
+                "--routing-authority",
+                "repository-validation",
+                "--exit-zero-on-findings",
+            ],
             "repository structure and metadata",
         )
     if any(path.startswith("research/project-console/") for path in normalized):

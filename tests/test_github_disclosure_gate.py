@@ -950,6 +950,45 @@ class GitHubDisclosureGateTests(unittest.TestCase):
             "private-local-state",
         )
 
+    def test_component_registry_receipt_family_is_narrowly_public(self) -> None:
+        receipt = MODULE.evaluate_outbound_bundle(
+            [
+                self.artifact(
+                    "framework/receipts/component-registry/"
+                    "context-routing-v1-rule-closure.json",
+                    '{"schema_version":1,"receipt_id":"fixture"}\n',
+                    producer="interactive-reviewed-github",
+                )
+            ],
+            operation="git_push",
+            source_revision=self.revision,
+            policy=self.policy,
+        )
+        self.assertTrue(receipt["allowed"])
+        self.assertEqual(
+            receipt["artifacts"][0]["artifact_family"],
+            "public-governance-summary",
+        )
+        self.assertEqual(
+            receipt["artifacts"][0]["category"],
+            "public_operational_summary",
+        )
+
+        with self.assertRaises(MODULE.DisclosureBlocked) as caught:
+            MODULE.evaluate_outbound_bundle(
+                [
+                    self.artifact(
+                        "framework/receipts/unrelated/receipt.json",
+                        '{"schema_version":1,"receipt_id":"unmapped"}\n',
+                        producer="interactive-reviewed-github",
+                    )
+                ],
+                operation="git_push",
+                source_revision=self.revision,
+                policy=self.policy,
+            )
+        self.assertIn("unknown-artifact-family", str(caught.exception))
+
     def test_unrelated_members_of_one_family_do_not_inherit_by_default(self) -> None:
         policy = copy.deepcopy(self.policy)
         policy["artifact_families"].append(

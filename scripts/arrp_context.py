@@ -14,7 +14,7 @@ import subprocess
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path, PurePosixPath
-from typing import Any, Iterable
+from typing import Any, Iterable, Mapping
 
 try:
     import yaml
@@ -492,6 +492,18 @@ def _validate_section_module_conflicts(
 
 def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = True) -> dict[str, Any]:
     path = contained_path(path, root)
+    canonical_root = Path(os.path.realpath(os.fspath(root)))
+    canonical_manifest = (
+        canonical_root == ROOT.resolve()
+        and path
+        == (
+            canonical_root
+            / "framework"
+            / "project"
+            / "automation"
+            / "context-routes.json"
+        )
+    )
     manifest = load_json(path, root)
     schema_version = manifest.get("schema_version")
     if schema_version not in {1, 2}:
@@ -505,6 +517,15 @@ def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = Tru
     required_modules = manifest.get("required_modules") or []
     if not isinstance(required_modules, list):
         raise ContextError("context route manifest required_modules must be an array")
+    if canonical_manifest and required_modules != [
+        "framework_kernel",
+        "agent_rules_kernel",
+        "current_audit",
+    ]:
+        raise ContextError(
+            "production required_modules must be exactly framework_kernel, "
+            "agent_rules_kernel, current_audit in that order"
+        )
     exclusions = manifest.get("generated_path_exclusions") or []
     seen_paths: dict[str, tuple[str, str]] = {}
     for name, spec in documents.items():
@@ -516,6 +537,14 @@ def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = Tru
             raise ContextError(f"document {name} requires must be an array")
         if path_is_excluded(relative, exclusions):
             raise ContextError(f"document {name} points to an excluded generated path: {relative}")
+        if (
+            canonical_manifest
+            and relative.startswith("framework/records/")
+            and name != "current_audit"
+        ):
+            raise ContextError(
+                "shared routing records are excluded except current_audit"
+            )
         source = within_root(root, relative)
         canonical_source = os.path.realpath(os.fspath(source))
         if canonical_source in seen_paths:
@@ -561,6 +590,26 @@ def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = Tru
                 raise ContextError(
                     f"document {name} hash changed: expected {expected}, found {actual}"
                 )
+    if canonical_manifest:
+        runtime_documents = {
+            name
+            for name, spec in documents.items()
+            if str(spec.get("hash_policy") or "pinned") == "runtime"
+        }
+        if runtime_documents != {"current_audit"}:
+            raise ContextError(
+                "current_audit must be the sole runtime-hashed shared document"
+            )
+        current_audit = documents.get("current_audit")
+        if (
+            not isinstance(current_audit, dict)
+            or current_audit.get("governing") is not False
+            or current_audit.get("hash_policy") != "runtime"
+            or str(current_audit.get("sha256") or "") not in PLACEHOLDER_HASHES
+        ):
+            raise ContextError(
+                "current_audit must be non-governing, runtime-hashed, and unpinned"
+            )
     _document_dependency_closure(manifest, documents)
     capabilities = manifest.get("capabilities") or {}
     if not isinstance(capabilities, dict):
@@ -622,6 +671,36 @@ def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = Tru
         maximum = profile.get("max_bytes")
         if not isinstance(maximum, int) or maximum <= 0:
             raise ContextError(f"profile {name} has invalid max_bytes")
+    if canonical_manifest:
+        comprehensive = profiles.get("comprehensive_review")
+        if (
+            not isinstance(comprehensive, dict)
+            or comprehensive.get("include_all_governing") is not True
+        ):
+            raise ContextError(
+                "comprehensive_review include_all_governing must be true"
+            )
+        expected_members = set(
+            _document_dependency_closure(
+                manifest,
+                [
+                    *required_modules,
+                    *(
+                        name
+                        for name, spec in documents.items()
+                        if spec.get("governing") is True
+                    ),
+                ],
+            )
+        )
+        actual_members = set(
+            _profile_document_ids(manifest, comprehensive)
+        )
+        if actual_members != expected_members:
+            raise ContextError(
+                "comprehensive_review membership must be exactly the required "
+                "floor, governing documents, and dependency closure"
+            )
     return manifest
 
 
@@ -895,7 +974,7 @@ def context_packet_selection(
 
 
 def build_context_packet(
-    manifest_path: Path,
+    manifest_path: Path | Mapping[str, Any],
     profile_name: str,
     *,
     root: Path = ROOT,
@@ -908,6 +987,7 @@ def build_context_packet(
     work_kind: str | None = None,
     canonical_record: str | None = None,
     path_authority: ProjectPathAuthority | None = None,
+    routing_authority_identity: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     selection = context_packet_selection(
         root=root,
@@ -915,12 +995,72 @@ def build_context_packet(
         work_kind=work_kind,
         canonical_record=canonical_record,
     )
-    manifest_path = contained_path(manifest_path, root)
-    manifest = load_route_manifest(manifest_path, root=root, verify_hashes=True)
+    if isinstance(manifest_path, Mapping):
+        if (
+            not isinstance(routing_authority_identity, Mapping)
+            or set(routing_authority_identity)
+            != {
+                "path",
+                "sha256",
+                "registry_id",
+                "registry_revision",
+                "registry_status",
+                "validated_component_registry_view",
+            }
+            or routing_authority_identity.get(
+                "validated_component_registry_view"
+            )
+            is not True
+            or not isinstance(routing_authority_identity.get("path"), str)
+            or not isinstance(routing_authority_identity.get("sha256"), str)
+            or not isinstance(
+                routing_authority_identity.get("registry_id"),
+                str,
+            )
+            or not isinstance(
+                routing_authority_identity.get("registry_revision"),
+                int,
+            )
+            or routing_authority_identity.get("registry_status")
+            not in {"candidate", "active"}
+            or re.fullmatch(
+                r"[0-9a-f]{64}",
+                str(routing_authority_identity.get("sha256") or ""),
+            )
+            is None
+        ):
+            raise ContextError(
+                "in-memory routing requires a validated Component Registry identity"
+            )
+        manifest = json.loads(canonical_json(manifest_path))
+        manifest_display_path = str(routing_authority_identity["path"])
+        manifest_sha = str(routing_authority_identity["sha256"])
+        routing_registry_id = str(
+            routing_authority_identity["registry_id"]
+        )
+        routing_registry_revision = int(
+            routing_authority_identity["registry_revision"]
+        )
+        routing_registry_status = str(
+            routing_authority_identity["registry_status"]
+        )
+    else:
+        manifest_path = contained_path(manifest_path, root)
+        manifest = load_route_manifest(
+            manifest_path,
+            root=root,
+            verify_hashes=True,
+        )
+        manifest_display_path = manifest_path.relative_to(
+            Path(os.path.realpath(os.fspath(root)))
+        ).as_posix()
+        manifest_sha = sha256_path(manifest_path, root)
+        routing_registry_id = "context-routes"
+        routing_registry_revision = int(manifest["schema_version"])
+        routing_registry_status = "active_predecessor"
     profile = manifest["profiles"].get(profile_name)
     if profile is None:
         raise ContextError(f"unknown context profile: {profile_name}")
-    manifest_sha = sha256_path(manifest_path, root)
     requested_capabilities = [str(item) for item in capabilities]
     module_ids = _profile_document_ids(
         manifest,
@@ -928,6 +1068,35 @@ def build_context_packet(
         extra_capabilities=requested_capabilities,
     )
     _validate_section_module_conflicts(profile_name, profile, module_ids)
+    inclusion_reasons: dict[str, set[str]] = {
+        str(identity): {"required floor"}
+        for identity in manifest.get("required_modules") or []
+    }
+    for identity in profile.get("modules") or []:
+        inclusion_reasons.setdefault(str(identity), set()).add(
+            f"profile {profile_name}"
+        )
+    for capability in profile.get("capabilities") or []:
+        for identity in manifest["capabilities"][capability]:
+            inclusion_reasons.setdefault(str(identity), set()).add(
+                f"profile {profile_name} capability {capability}"
+            )
+    for capability in requested_capabilities:
+        for identity in manifest["capabilities"][capability]:
+            inclusion_reasons.setdefault(str(identity), set()).add(
+                f"requested capability {capability}"
+            )
+    if profile.get("include_all_governing"):
+        for identity, document in manifest["documents"].items():
+            if document.get("governing") is True:
+                inclusion_reasons.setdefault(identity, set()).add(
+                    f"profile {profile_name} complete governing boundary"
+                )
+    for identity in module_ids:
+        for dependency in manifest["documents"][identity].get("requires") or []:
+            inclusion_reasons.setdefault(str(dependency), set()).add(
+                f"dependency of {identity}"
+            )
     modules: list[dict[str, Any]] = []
     sections: list[dict[str, Any]] = []
     total = 0
@@ -937,6 +1106,14 @@ def build_context_packet(
         content = path.read_text(encoding="utf-8")
         size = len(content.encode("utf-8"))
         actual_sha = sha256_path(path, root)
+        if (
+            str(document.get("hash_policy") or "pinned") == "pinned"
+            and document.get("sha256") != actual_sha
+        ):
+            raise ContextError(
+                f"document {module_id} hash changed: expected "
+                f"{document.get('sha256')}, found {actual_sha}"
+            )
         total += size
         modules.append(
             {
@@ -946,6 +1123,9 @@ def build_context_packet(
                 "hash_policy": str(document.get("hash_policy") or "pinned"),
                 "bytes": size,
                 "content": content,
+                "inclusion_reasons": sorted(
+                    inclusion_reasons.get(module_id, {"dependency closure"})
+                ),
             }
         )
     for route in profile.get("sections") or []:
@@ -955,6 +1135,14 @@ def build_context_packet(
         content, start, end = extract_exact_heading(text, route["heading"])
         size = len(content.encode("utf-8"))
         actual_sha = sha256_path(path, root)
+        if (
+            str(document.get("hash_policy") or "pinned") == "pinned"
+            and document.get("sha256") != actual_sha
+        ):
+            raise ContextError(
+                f"section document {route['document']} hash changed: "
+                f"expected {document.get('sha256')}, found {actual_sha}"
+            )
         if size > route["max_bytes"]:
             raise ContextError(
                 f"section exceeds max_bytes ({size} > {route['max_bytes']}): {route['heading']}"
@@ -1131,6 +1319,41 @@ def build_context_packet(
     effective_limit = min(profile_limit, max_total_bytes) if max_total_bytes else profile_limit
     if total > effective_limit:
         raise ContextError(f"context packet exceeds max bytes ({total} > {effective_limit})")
+    selected_capabilities = list(
+        dict.fromkeys(
+            [
+                *(str(item) for item in profile.get("capabilities") or []),
+                *requested_capabilities,
+            ]
+        )
+    )
+    resolved_document_revisions = {
+        module["document"]: {
+            "path": module["path"],
+            "hash_policy": module["hash_policy"],
+        }
+        for module in modules
+    }
+    resolved_document_digests = {
+        module["document"]: module["sha256"]
+        for module in modules
+    }
+    exact_sections = [
+        {
+            key: section[key]
+            for key in (
+                "document",
+                "path",
+                "sha256",
+                "hash_policy",
+                "heading",
+                "start_line",
+                "end_line",
+                "bytes",
+            )
+        }
+        for section in sections
+    ]
     return {
         "schema_version": 2,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -1138,16 +1361,40 @@ def build_context_packet(
         "profile": profile_name,
         "selection": selection,
         "manifest": {
-            "path": manifest_path.relative_to(
-                Path(os.path.realpath(os.fspath(root)))
-            ).as_posix(),
+            "path": manifest_display_path,
             "sha256": manifest_sha,
         },
         "limits": {"max_bytes": effective_limit, "actual_bytes": total},
-        "capabilities": [
-            *(str(item) for item in profile.get("capabilities") or []),
-            *requested_capabilities,
-        ],
+        "capabilities": selected_capabilities,
+        "routing_manifest": {
+            "registry_id": routing_registry_id,
+            "registry_path": manifest_display_path,
+            "registry_revision": routing_registry_revision,
+            "registry_status": routing_registry_status,
+            "registry_digest": manifest_sha,
+            "selected_profile": profile_name,
+            "selected_capabilities": selected_capabilities,
+            "resolved_document_revisions": resolved_document_revisions,
+            "resolved_document_digests": resolved_document_digests,
+            "resolved_document_order": [
+                module["document"] for module in modules
+            ],
+            "dependency_closure": {
+                module["document"]: list(
+                    manifest["documents"][module["document"]].get(
+                        "requires"
+                    )
+                    or []
+                )
+                for module in modules
+            },
+            "exact_sections": exact_sections,
+            "dynamic_expansions": [],
+            "inclusion_reasons": {
+                module["document"]: module["inclusion_reasons"]
+                for module in modules
+            },
+        },
         "modules": modules,
         "sections": sections,
         "issue_dossier": dossier,

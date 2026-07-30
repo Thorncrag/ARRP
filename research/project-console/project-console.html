@@ -568,6 +568,7 @@
             <button type="button" id="automation-tab-capacity" role="tab" aria-selected="false" aria-controls="automation-panel-capacity" data-subtab-group="automation" data-subtab="capacity" tabindex="-1">Capacity</button>
             <button type="button" id="automation-tab-platform" role="tab" aria-selected="false" aria-controls="automation-panel-platform" data-subtab-group="automation" data-subtab="platform" tabindex="-1">Platform</button>
             <button type="button" id="automation-tab-data" role="tab" aria-selected="false" aria-controls="automation-panel-data" data-subtab-group="automation" data-subtab="data" tabindex="-1">Data</button>
+            <button type="button" id="automation-tab-component-registry" role="tab" aria-selected="false" aria-controls="automation-panel-component-registry" data-subtab-group="automation" data-subtab="component-registry" tabindex="-1">Component Registry</button>
             <button type="button" id="automation-tab-logs" role="tab" aria-selected="false" aria-controls="automation-panel-logs" data-subtab-group="automation" data-subtab="logs" tabindex="-1">Logs <span class="tab-count" id="automation-logs-incident-count">—</span></button>
           </div>
         </nav>
@@ -685,7 +686,7 @@
         </div>
         <div class="section-panel" id="automation-panel-capacity" role="tabpanel" aria-labelledby="automation-tab-capacity" hidden>
           <section class="queue-view operations-ledger" aria-labelledby="operations-capacity-heading">
-            <div class="queue-view-header"><div><span class="eyebrow">Owner-only typed history</span><h2 id="operations-capacity-heading">Codex capacity</h2><p>Historical consumption, reserve posture, window identity, and explicit Review Epoch markers.</p></div></div>
+            <div class="queue-view-header"><div><span class="eyebrow">Owner-only typed usage projection</span><h2 id="operations-capacity-heading">Codex capacity</h2><p>Current readback, reset-boundary history, conservative budgeting, and explicitly qualified estimates. Detailed usage is available only in the exact bound owner-local Console; percentages do not establish an absolute allowance.</p></div></div>
             <div id="operations-capacity-summary"></div>
             <div id="operations-capacity-history"></div>
           </section>
@@ -700,6 +701,51 @@
           <section class="queue-view operations-ledger" aria-labelledby="operations-data-heading">
             <div class="queue-view-header"><div><span class="eyebrow">Generation and currentness</span><h2 id="operations-data-heading">Project data</h2><p>One row per principal Console feed, including reason, trustworthy-through boundary, producer identity, and recovery route.</p></div></div>
             <div id="operations-data-list" class="operations-ledger-list"></div>
+          </section>
+        </div>
+        <div class="section-panel" id="automation-panel-component-registry" role="tabpanel" aria-labelledby="automation-tab-component-registry" hidden>
+          <section class="queue-view component-registry-view" aria-labelledby="component-registry-heading">
+            <div class="queue-view-header">
+              <div>
+                <span class="eyebrow">One typed registry generation</span>
+                <h2 id="component-registry-heading">Component Registry</h2>
+                <p>Operational documents, directory placement, context routing, and terminology from the exact builder-validated candidate. This view formats supplied registry records; it does not create categories, routes, identities, or remediation.</p>
+              </div>
+              <span id="component-registry-status" class="status-badge unavailable">Awaiting data</span>
+            </div>
+            <aside id="component-registry-deferred" class="component-registry-deferred" aria-live="polite">
+              <strong>Classification pending — enforcement not active</strong>
+              <p>Artifact classification and lifecycle mapping require complete human review.</p>
+            </aside>
+            <nav class="registry-mode-tabs" aria-label="Component Registry modes">
+              <div class="registry-mode-tab-list" role="tablist" aria-label="Component Registry modes">
+                <button type="button" id="component-registry-mode-documents" role="tab" aria-selected="true" aria-controls="component-registry-panel-documents" data-registry-mode="documents">Documents</button>
+                <button type="button" id="component-registry-mode-directories" role="tab" aria-selected="false" aria-controls="component-registry-panel-directories" data-registry-mode="directories" tabindex="-1">Directories</button>
+                <button type="button" id="component-registry-mode-routing" role="tab" aria-selected="false" aria-controls="component-registry-panel-routing" data-registry-mode="routing" tabindex="-1">Routing</button>
+                <button type="button" id="component-registry-mode-terminology" role="tab" aria-selected="false" aria-controls="component-registry-panel-terminology" data-registry-mode="terminology" tabindex="-1">Terminology</button>
+              </div>
+            </nav>
+            <div id="component-registry-panel-documents" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-documents">
+              <label class="registry-picker" for="component-registry-document-select">Operational document
+                <select id="component-registry-document-select"></select>
+              </label>
+              <article id="component-registry-document-detail" class="component-registry-detail" aria-live="polite"></article>
+            </div>
+            <div id="component-registry-panel-directories" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-directories" hidden>
+              <label class="registry-picker" for="component-registry-directory-select">Directory scope
+                <select id="component-registry-directory-select"></select>
+              </label>
+              <article id="component-registry-directory-detail" class="component-registry-detail" aria-live="polite"></article>
+            </div>
+            <div id="component-registry-panel-routing" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-routing" hidden>
+              <label class="registry-picker" for="component-registry-routing-select">Registered selection
+                <select id="component-registry-routing-select"></select>
+              </label>
+              <article id="component-registry-routing-detail" class="component-registry-detail" aria-live="polite"></article>
+            </div>
+            <div id="component-registry-panel-terminology" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-terminology" hidden>
+              <article id="component-registry-terminology-detail" class="component-registry-detail" aria-live="polite"></article>
+            </div>
           </section>
         </div>
         <div class="section-panel" id="automation-panel-logs" role="tabpanel" aria-labelledby="automation-tab-logs" hidden></div>

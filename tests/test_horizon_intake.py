@@ -1165,6 +1165,7 @@ class HorizonIntakeTest(unittest.TestCase):
                 "security_assurance",
                 "delivery_items",
                 "topic_products",
+                "component_registry",
             },
         )
         self.assertEqual(
@@ -1189,6 +1190,7 @@ class HorizonIntakeTest(unittest.TestCase):
             "automation.js",
             "logs.js",
             "publication.js",
+            "component-registry.js",
             *{f"sources-catalog-{index:03d}.js" for index in range(1, 17)},
             *{f"directives-catalog-{index:03d}.js" for index in range(1, 17)},
         }
@@ -1224,6 +1226,16 @@ class HorizonIntakeTest(unittest.TestCase):
         )
         if local_status_projection.exists():
             javascript_parts.remove(local_status_projection.name)
+        private_codex_usage_projection = (
+            console_dir / "data" / "private-codex-usage.js"
+        )
+        if private_codex_usage_projection.exists():
+            self.assertTrue(
+                private_codex_usage_projection.read_text(encoding="utf-8").startswith(
+                    "/* Private local projection; never commit or publish. */"
+                )
+            )
+            javascript_parts.remove(private_codex_usage_projection.name)
         self.assertEqual(
             javascript_parts,
             parts,
@@ -1239,6 +1251,7 @@ class HorizonIntakeTest(unittest.TestCase):
                     legacy_private_projection.name,
                     private_operations_projection.name,
                     local_status_projection.name,
+                    private_codex_usage_projection.name,
                 }
             ),
         ]:
@@ -1281,18 +1294,19 @@ class HorizonIntakeTest(unittest.TestCase):
             re.search(r"\b(?:INC|SEC)-20\d{2}-\d{3,}\b", public_data_text)
         )
 
-        paused_marker = (
-            Path.home() / "Library/Application Support/ARRP/PAUSED"
-        )
-        if paused_marker.is_file() and not paused_marker.is_symlink():
-            occurrences = self.console["automation_occurrences"]
-            latest_id = occurrences["latest_scheduled_attempt_id"]
-            latest = next(
-                item
+        occurrences = self.console["automation_occurrences"]
+        self.assertIsNone(occurrences["latest_scheduled_attempt_id"])
+        self.assertFalse(
+            any(
+                item.get("schedule_identity") == "owner-local-nightly"
                 for item in occurrences["occurrences"]
-                if item["occurrence_id"] == latest_id
             )
-            self.assertEqual(latest["control_state"], "paused")
+        )
+        self.assertEqual(
+            occurrences["role_currentness"]["state"],
+            "unavailable",
+        )
+        self.assertIsNone(occurrences["trustworthy_through"])
         sources_projection = generated_console_part(
             (console_dir / "data" / "sources.js").read_text(encoding="utf-8")
         )
@@ -1422,14 +1436,33 @@ class HorizonIntakeTest(unittest.TestCase):
         ).read_text(encoding="utf-8")
 
         self.assertFalse(errors)
-        self.assertEqual(
-            view["projection"],
-            {"expected_rows": 13, "actual_rows": 13, "complete": True},
+        entries = view["entries"]
+        projection = view["projection"]
+        self.assertTrue(projection["complete"])
+        self.assertEqual(projection["expected_rows"], len(entries))
+        self.assertEqual(projection["actual_rows"], len(entries))
+        registered_categories = {
+            category["label"]
+            for category in console_builder.console_development_category_registry()
+        }
+        self.assertTrue(
+            all(
+                entry["values"]["category"] in registered_categories
+                for entry in entries
+            )
         )
+        self.assertEqual(len({entry["id"] for entry in entries}), len(entries))
+        entry_dates = [entry["values"]["date"] for entry in entries]
+        self.assertEqual(entry_dates, sorted(entry_dates, reverse=True))
+
+        current_entries = [
+            entry
+            for entry in entries
+            if entry["values"]["date"] == "2026-07-30"
+        ]
         self.assertEqual(
-            [entry["values"]["category"] for entry in view["entries"][:6]],
+            [entry["values"]["category"] for entry in current_entries],
             [
-                "Interface & information architecture",
                 "Operations & automation",
                 "Data, provenance & integrity",
                 "Security, privacy & disclosure",
@@ -1437,46 +1470,73 @@ class HorizonIntakeTest(unittest.TestCase):
                 "Governance & documentation",
             ],
         )
-        self.assertEqual(
-            view["entries"][0]["id"],
-            "console-development-2026-07-29-interface_information_architecture",
-        )
-        self.assertEqual(len({entry["id"] for entry in view["entries"]}), 13)
-        self.assertEqual(
-            view["entries"][0]["values"]["date"],
-            "2026-07-29",
-        )
-        self.assertEqual(
-            view["entries"][0]["values"]["change"],
-            "CONSOLE-2026-003",
-        )
         self.assertTrue(
             all(
-                entry["values"]["date"] == "2026-07-28"
-                and entry["values"]["change"] == "CONSOLE-2026-001"
-                for entry in view["entries"][6:]
+                entry["values"]["change"] == "CONSOLE-2026-006"
+                for entry in current_entries
             )
+        )
+        self.assertEqual(
+            current_entries[0]["id"],
+            "console-development-2026-07-30-operations_automation",
+        )
+
+        historical_2026_07_29 = {
+            entry["values"]["category"]: entry
+            for entry in entries
+            if entry["values"]["date"] == "2026-07-29"
+        }
+        self.assertEqual(
+            historical_2026_07_29["Interface & information architecture"][
+                "values"
+            ]["change"],
+            "CONSOLE-2026-003, CONSOLE-2026-006",
         )
         self.assertIn(
             "<h2>2026-07-29 — Interface &amp; information architecture",
-            view["entries"][0]["details_html"],
+            historical_2026_07_29["Interface & information architecture"][
+                "details_html"
+            ],
         )
         self.assertIn(
             "CONSOLE-2026-002",
-            view["entries"][3]["values"]["change"],
+            historical_2026_07_29["Security, privacy & disclosure"][
+                "values"
+            ]["change"],
         )
         self.assertIn(
             "CONSOLE-2026-003",
-            view["entries"][3]["values"]["change"],
+            historical_2026_07_29["Security, privacy & disclosure"][
+                "values"
+            ]["change"],
+        )
+
+        historical_2026_07_28 = [
+            entry
+            for entry in entries
+            if entry["values"]["date"] == "2026-07-28"
+        ]
+        self.assertTrue(historical_2026_07_28)
+        self.assertTrue(
+            all(
+                entry["values"]["change"] == "CONSOLE-2026-001"
+                for entry in historical_2026_07_28
+            )
+        )
+        historical_interface = next(
+            entry
+            for entry in historical_2026_07_28
+            if entry["values"]["category"]
+            == "Interface & information architecture"
         )
         self.assertIn(
             "<h2>2026-07-28 — Interface &amp; information architecture",
-            view["entries"][6]["details_html"],
+            historical_interface["details_html"],
         )
         self.assertTrue(
             all(
                 entry["values"]["category"] != "Planning & work management"
-                for entry in view["entries"][:6]
+                for entry in historical_2026_07_29.values()
             )
         )
         self.assertIn(
@@ -1601,6 +1661,10 @@ class HorizonIntakeTest(unittest.TestCase):
             else:
                 self.assertEqual(record["availability"], "unavailable")
                 self.assertEqual(record["entries"], [])
+                self.assertIsNone(record["entry_count"])
+                self.assertIsNone(record["current_through"])
+                self.assertIsNone(record["source_url"])
+                self.assertTrue(record["group_options"])
                 self.assertTrue(record["reason"])
         self.assertTrue(self.console["progress"].get("metrics"))
         directive_dates = [
@@ -2141,6 +2205,9 @@ class HorizonIntakeTest(unittest.TestCase):
             encoding="utf-8"
         )
         console_app = (console_dir / "app.js").read_text(encoding="utf-8")
+        console_capacity = (console_dir / "capacity.js").read_text(
+            encoding="utf-8"
+        )
         console_css = (console_dir / "styles.css").read_text(encoding="utf-8")
         self.assertNotIn("../../participate/index.html", console_html)
         self.assertIn("Candidates", console_html)
@@ -2164,6 +2231,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn(
             "return loadLocalProjection(\n"
             "      PRIVATE_SECURITY_ASSURANCE_PATH,\n"
+            '      "security-assurance",\n'
             "      capturePrivateSecurityAssurance\n"
             "    )",
             console_app,
@@ -2338,7 +2406,10 @@ class HorizonIntakeTest(unittest.TestCase):
         )[1].split("function publicInputSnapshot", 1)[0]
         self.assertIn("touched artifacts", recent_automation)
         self.assertIn("record.score_change", recent_automation)
-        self.assertIn('document.createElementNS(namespace, "svg")', console_app)
+        self.assertIn(
+            "documentObject.createElementNS(namespace, name)",
+            console_capacity,
+        )
         self.assertIn("usage-trend-line", console_css)
         self.assertIn("grid-template-columns: repeat(5, minmax(0, 1fr))", console_css)
         self.assertIn(".overview-queue-directory { display: grid; grid-template-columns: repeat(4", console_css)

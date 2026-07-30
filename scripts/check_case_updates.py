@@ -1265,8 +1265,9 @@ def render_summary(
             [
                 "",
                 "Authorized repository and material-log updates were prepared in the worktree. "
-                "In the scheduled workflow they are proposed through the deterministic bot branch "
-                "and its owner-assigned review pull request.",
+                "In the scheduled workflow the coordinator may propose the exact validated "
+                "transaction delta through its run-bound transaction branch and owner-assigned "
+                "review pull request; the watcher itself has no branch or merge authority.",
             ]
         )
     else:

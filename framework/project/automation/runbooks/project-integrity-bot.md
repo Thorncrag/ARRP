@@ -79,6 +79,57 @@ and work queue; the bot cannot repair them, infer classifications, change
 Project fields, or make legal, evidentiary, lifecycle, rubric, scoring, or
 human-reserved decisions.
 
+## Component Registry routing authority
+
+Every invocation selects one closed routing-authority mode explicitly. The
+script never infers the mode from a path, environment value, registry status,
+or nearby repository:
+
+- `repository-validation` derives the repository-validation path authority
+  from the running script's canonical repository root. It validates candidate
+  or tracked-active configuration without owner-local access. A candidate
+  result is `candidate_validation_only`; a tracked-active result is
+  `active_configuration_validation_only`. Both are nonauthoritative and
+  nonexecutable.
+- `production-canonical` constructs the fixed production path authority
+  internally and requires the running script's repository root to be the
+  canonical checkout. An active result is valid only as
+  `active_component_registry` after the fixed activation readback succeeds.
+- `production-transaction` derives the repository root from the running
+  script and accepts only the run-root identity needed by the fixed
+  worktree/run-pair validator. It cannot redefine the production state root,
+  registry path, or activation-readback source.
+
+Fixture injection is available only through contained Python test
+authorities; it is not a production command-line mode. No invocation accepts
+a caller-selected repository root, state root, registry authority path,
+activation-readback path, or activation-readback payload.
+
+The typed JSON report includes a closed authority envelope containing
+`authority_mode`, `validation_mode`, `registry_status`,
+`registry_revision`, `registry_sha256`, `configuration_valid`,
+`live_activation_verified`, `authoritative`, `executable`,
+`predecessor_route_consulted`, and `activation_receipt_consulted`.
+Repository and CI checks may accept configuration validity only. Production
+callers must require the exact authoritative, executable
+`active_component_registry` mode. Missing or incompatible authority evidence
+is a fatal validation failure and remains fatal when ordinary findings are
+otherwise configured for an exit-zero report.
+
+GitHub Actions validates repository configuration only. It has no
+owner-local access and cannot claim that live activation was verified.
+
+While the Component Registry remains a candidate, repository validation
+preserves the exact predecessor-source read, digest, and parity checks. For a
+tracked active configuration or live active routing, the bot consumes only
+the embedded Component Registry route. It continues validating front matter,
+module identity, dependencies, pinned and runtime currentness, required-floor
+order, governing coverage, and comprehensive-review membership for every
+current routed document. Archived predecessor records are validated only as
+typed historical provenance; active validation never opens or hashes either
+the original or archived predecessor and never includes either in the current
+governing-document set.
+
 P6 enables this role only as a coordinator-owned local stage. The stage itself
 has no branch, commit, pull-request, data-projection, credential-provisioning,
 or hosted-mutation authority.

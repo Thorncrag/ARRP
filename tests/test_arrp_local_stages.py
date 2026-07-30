@@ -230,6 +230,42 @@ class LocalStageTests(unittest.TestCase):
             tuple(Path(row.command[1]).name for row in specs),
             expected,
         )
+        integrity = next(
+            row for row in specs if row.identifier == "project-integrity-bot"
+        )
+        self.assertIn("--routing-authority", integrity.command)
+        self.assertEqual(
+            integrity.command[
+                integrity.command.index("--routing-authority") + 1
+            ],
+            "production-transaction",
+        )
+        final_integrity = next(
+            row
+            for row in MODULE.default_post_elim_validation_specs()
+            if row.identifier == "integrity-final-report"
+        )
+        self.assertIn("--routing-authority", final_integrity.command)
+        self.assertEqual(
+            final_integrity.command[
+                final_integrity.command.index("--routing-authority") + 1
+            ],
+            "production-transaction",
+        )
+        coordinator = json.loads(
+            (ROOT / ".github" / "run-coordinator-bot.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        registered_integrity = next(
+            row
+            for row in coordinator["stages"]
+            if row["id"] == "project-integrity-bot"
+        )
+        self.assertIn(
+            "--routing-authority production-transaction",
+            registered_integrity["command"],
+        )
 
     def test_project_progress_stage_validates_the_generated_json_leaf(self):
         progress = next(

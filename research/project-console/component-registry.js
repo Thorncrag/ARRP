@@ -1,0 +1,1167 @@
+(function (global) {
+  "use strict";
+
+  const MODES = Object.freeze([
+    "documents",
+    "directories",
+    "routing",
+    "terminology"
+  ]);
+  const PENDING_DISPLAY = "Classification pending — enforcement not active";
+  const TYPED_STATES = new Set([
+    "known",
+    "pending",
+    "not_applicable",
+    "none",
+    "unknown",
+    "unavailable"
+  ]);
+  const fieldSet = (value) => new Set(value.split(" "));
+  const TOP_FIELDS = fieldSet(
+    "schema_version projection_id producer_id generated_at availability complete reason_code routes defaults registry deferred documents directories routing activation_readiness terminology"
+  );
+  const ROUTE_FIELDS = fieldSet("documents directories routing terminology");
+  const DEFAULT_FIELDS = fieldSet("mode document directory routing");
+  const REGISTRY_FIELDS = fieldSet(
+    "registry_id registry_revision registry_status approval configuration_validation live_activation validation_mode authoritative executable live_activation_verified predecessor_route_consulted registry_sha256 repository_revision source_binding_sha256"
+  );
+  const DEFERRED_FIELDS = fieldSet(
+    "display_state reason activation_requirement namespaces"
+  );
+  const NAMESPACE_FIELDS = fieldSet(
+    "namespace schema_version activation_state complete enforced entry_count"
+  );
+  const DOCUMENT_FIELDS = fieldSet(
+    "document_id official_reference_name document_class revision current_status effective_date approval_date approval_method governance_change_id purpose_scope authority_role authority_exclusions canonical_path owner review_policy disclosure_class creation_provenance governance_revision producer authorized_writers representations dependencies consumers digest_policy sha256 console_route retention_posture history"
+  );
+  const DIRECTORY_FIELDS = fieldSet(
+    "scope_id display_name path_pattern match_kind specificity_rank parameter_bindings owning_scope_selection_rule ancestor_scope_ids placement_question include_when exclude_when primary_authority disclosure_boundary lifecycle_posture authorized_creators precedence fallback console_route permitted_artifact_classes current_artifact_count"
+  );
+  const PARAMETER_FIELDS = fieldSet("allowed_values");
+  const ROUTING_FIELDS = fieldSet(
+    "schema_version rule_catalog_version activation_state complete authoritative source_import predecessor_provenance readable_representation expected_counts parity_policy required_modules generated_path_exclusions documents capabilities profiles selections rule_namespaces rule_counts rules validation"
+  );
+  const SOURCE_IMPORT_FIELDS = fieldSet(
+    "path sha256 schema_version import_semantics"
+  );
+  const COUNT_FIELDS = fieldSet(
+    "documents governing_documents capabilities profiles required_modules generated_path_exclusions"
+  );
+  const ROUTING_DOCUMENT_FIELDS = fieldSet(
+    "document_id path governing hash_policy sha256 requires"
+  );
+  const CAPABILITY_FIELDS = fieldSet("capability_id document_ids");
+  const PROFILE_FIELDS = fieldSet(
+    "profile_id max_bytes modules capabilities include_all_governing sections"
+  );
+  const SECTION_FIELDS = fieldSet("document heading max_bytes");
+  const SELECTION_FIELDS = fieldSet(
+    "selection_id selection_kind executable authoritative live_activation_verified profile capabilities max_bytes sections modules console_route"
+  );
+  const MODULE_FIELDS = fieldSet(
+    "id path governing hash_policy sha256 authority_role authority_scope authority_exclusions dependencies inclusion_reasons"
+  );
+  const VALIDATION_FIELDS = fieldSet(
+    "valid source_sha256 registry_route_sha256 counts differences document_ids_equal profile_ids_equal capability_ids_equal"
+  );
+  const READABLE_REPRESENTATION_FIELDS = fieldSet(
+    "state representation_id source_registry_revision authority_effect executable"
+  );
+  const RULE_NAMESPACE_COUNTS = Object.freeze({
+    invariants: 7,
+    selection: 17,
+    validation: 10,
+    failure_rules: 10,
+    currentness: 6,
+    budgets: 4,
+    comprehensive_review: 10
+  });
+  // This is a closed wire-format allowlist, not a presentation taxonomy. The
+  // producer supplies all display wording and membership remains invalid when
+  // an unregistered wire identity appears.
+  const RULE_IDS_BY_NAMESPACE = Object.freeze({
+    invariants: [
+      "ctxr.inv.router_preserves_source_authority", "ctxr.inv.required_floor_is_minimum",
+      "ctxr.inv.additive_union", "ctxr.inv.dependencies_are_directional_minimums",
+      "ctxr.inv.dependency_graph_is_acyclic", "ctxr.inv.stable_document_identity_is_path_independent",
+      "ctxr.inv.bounded_context_never_omits_material_authority"
+    ],
+    selection: [
+      "ctxr.sel.primary_profile", "ctxr.sel.required_floor_order", "ctxr.sel.profile_starting_set",
+      "ctxr.sel.all_implicated_capabilities", "ctxr.sel.profile_never_excludes_capability",
+      "ctxr.sel.capability_addition_requires_no_new_profile", "ctxr.sel.profile_documents_and_exact_sections",
+      "ctxr.sel.complete_dependency_closure", "ctxr.sel.task_specific_canonical_material",
+      "ctxr.sel.source_projection_requires_canonical_readback", "ctxr.sel.dynamic_trigger_set",
+      "ctxr.sel.expansion_precedes_dependent_action", "ctxr.sel.multi_agent_before_delegation",
+      "ctxr.sel.governance_recording_plus_change_audit", "ctxr.sel.interactive_route_is_minimum_not_ceiling",
+      "ctxr.sel.automated_expansion_allowlist", "ctxr.sel.deterministic_bot_structured_inputs"
+    ],
+    validation: [
+      "ctxr.val.registry_before_selection", "ctxr.val.integration_pinned_digest_exact",
+      "ctxr.val.runtime_digest_at_packet_build", "ctxr.val.expansion_provenance_preserved",
+      "ctxr.val.exact_section_unique", "ctxr.val.packet_manifest_bound",
+      "ctxr.val.authorized_digest_update_atomic", "ctxr.val.registry_digest_external",
+      "ctxr.val.new_authoritative_module_admission", "ctxr.val.id_rename_change_audit"
+    ],
+    failure_rules: [
+      "ctxr.fail.unknown_or_missing_selection", "ctxr.fail.pinned_digest_absent_or_stale",
+      "ctxr.fail.runtime_digest_unreadable", "ctxr.fail.dependency_cycle",
+      "ctxr.fail.generated_or_excluded_as_authority", "ctxr.fail.section_identity_invalid",
+      "ctxr.fail.section_budget_exceeded", "ctxr.fail.packet_budget_exceeded",
+      "ctxr.fail.unresolved_material_governing_gap", "ctxr.fail.safe_failure_disposition"
+    ],
+    currentness: [
+      "ctxr.cur.stable_governing_is_pinned", "ctxr.cur.mutable_handoff_is_runtime_hashed",
+      "ctxr.cur.checkpoint_update_needs_no_registry_edit", "ctxr.cur.generated_rebuildables_excluded",
+      "ctxr.cur.records_excluded_except_handoff", "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary"
+    ],
+    budgets: [
+      "ctxr.budget.profile_max_is_fail_closed_ceiling", "ctxr.budget.ceiling_change_does_not_change_membership",
+      "ctxr.budget.section_and_packet_limits_are_independent", "ctxr.budget.no_mandatory_trimming"
+    ],
+    comprehensive_review: [
+      "ctxr.review.select_all_active_governing", "ctxr.review.periodic_epoch_required",
+      "ctxr.review.boundary_exact", "ctxr.review.any_valid_boundary_difference_due",
+      "ctxr.review.invalid_drift_is_integrity_failure", "ctxr.review.completion_fields_exact",
+      "ctxr.review.recorder_requires_exact_current_boundary", "ctxr.review.unresolved_findings_carry_forward",
+      "ctxr.review.next_epoch_uses_delta_and_carry_forward", "ctxr.review.efficiency_never_limits_scope_or_lookback"
+    ]
+  });
+  const RULE_NAMESPACES = Object.freeze(Object.keys(RULE_NAMESPACE_COUNTS));
+  const RULE_BASE_FIELDS = fieldSet(
+    "namespace rule_id rule_version status predicate_type parameters label rendered_text source_provenance verification_ids console_route"
+  );
+  const RULE_FAILURE_FIELDS = fieldSet(
+    "namespace rule_id rule_version status predicate_type parameters label rendered_text failure_code source_provenance verification_ids console_route"
+  );
+  const RULE_PROVENANCE_FIELDS = fieldSet(
+    "source_document_id source_sha256 source_heading clause_key"
+  );
+  const TERMINOLOGY_FIELDS = fieldSet(
+    "available complete activation_state reason entries console_route"
+  );
+  const READINESS_FIELDS = fieldSet(
+    "available complete activation_state authoritative executable registry_revision registry_sha256 current_candidate_counts simulated_active_counts requirement_count exception_count stage_boundaries activation_decision"
+  );
+  const READINESS_COUNT_FIELDS = fieldSet(
+    "documents governing_documents capabilities profiles required_modules generated_path_exclusions rules"
+  );
+  const READINESS_BOUNDARY_FIELDS = fieldSet(
+    "artifact_classes artifact_families artifact_lifecycles terminology repository_reference_mutation"
+  );
+
+  function plainObject(value) {
+    return Boolean(value)
+      && typeof value === "object"
+      && !Array.isArray(value);
+  }
+
+  function exactFields(value, fields) {
+    if (!plainObject(value)) return false;
+    const keys = Object.keys(value);
+    return keys.length === fields.size && keys.every((key) => fields.has(key));
+  }
+
+  function string(value) {
+    return typeof value === "string" && value.length > 0;
+  }
+
+  function integer(value, minimum = 0) {
+    return Number.isInteger(value) && value >= minimum;
+  }
+
+  function stringArray(value) {
+    return Array.isArray(value)
+      && value.every(string)
+      && new Set(value).size === value.length;
+  }
+
+  function digest(value) {
+    return typeof value === "string" && /^[0-9a-f]{64}$/.test(value);
+  }
+
+  function typedValue(value) {
+    if (!plainObject(value) || !TYPED_STATES.has(value.state)) return false;
+    if (value.state === "known") {
+      return exactFields(value, fieldSet("state value"))
+        && (
+          string(value.value)
+          || Number.isInteger(value.value)
+          || typeof value.value === "boolean"
+        );
+    }
+    return exactFields(value, fieldSet("state reason")) && string(value.reason);
+  }
+
+  function validRoute(value, mode) {
+    return value === `automation:component-registry:${mode}`;
+  }
+
+  function validSelectionRoute(value, mode, key, identity) {
+    if (!string(value)) return false;
+    const [path, query = ""] = value.split("?", 2);
+    if (path !== `automation:component-registry:${mode}`) return false;
+    const parameters = new URLSearchParams(query);
+    return [...parameters.keys()].length === 1
+      && parameters.get(key) === identity;
+  }
+
+  function validRoutingRuleRoute(value, identity) {
+    return validSelectionRoute(value, "routing", "rule", identity);
+  }
+
+  function validDocumentRoute(value, identity) {
+    if (!string(value)) return false;
+    const [path, query = ""] = value.split("?", 2);
+    if (path !== "operations:component-registry:documents") return false;
+    const parameters = new URLSearchParams(query);
+    return [...parameters.keys()].length === 1
+      && parameters.get("document") === identity;
+  }
+
+  function validRegistry(value) {
+    if (!exactFields(value, REGISTRY_FIELDS)) return false;
+    if (!string(value.registry_id)
+      || !integer(value.registry_revision, 1)
+      || !["candidate", "active"].includes(value.registry_status)
+      || !typedValue(value.approval)
+      || !typedValue(value.configuration_validation)
+      || !typedValue(value.live_activation)
+      || ![
+        "candidate_validation_only",
+        "active_configuration_validation_only"
+      ].includes(value.validation_mode)
+      || value.authoritative !== false
+      || value.executable !== false
+      || value.live_activation_verified !== false
+      || typeof value.predecessor_route_consulted !== "boolean"
+      || !digest(value.registry_sha256)
+      || !/^[0-9a-f]{40}(?:[0-9a-f]{24})?$/.test(value.repository_revision)
+      || !typedValue(value.source_binding_sha256)) return false;
+    if (value.registry_status === "candidate") {
+      return value.validation_mode === "candidate_validation_only"
+        && value.approval.state === "pending"
+        && value.configuration_validation.state === "known"
+        && value.configuration_validation.value
+          === "Candidate predecessor parity validated"
+        && value.live_activation.state === "pending"
+        && value.predecessor_route_consulted === true
+        && value.source_binding_sha256.state === "known"
+        && digest(value.source_binding_sha256.value);
+    }
+    return value.validation_mode
+        === "active_configuration_validation_only"
+      && value.approval.state === "known"
+      && value.approval.value
+        === "Tracked activation configuration approved"
+      && value.configuration_validation.state === "known"
+      && value.configuration_validation.value
+        === "Tracked active configuration validated"
+      && value.live_activation.state === "unknown"
+      && value.predecessor_route_consulted === false
+      && value.source_binding_sha256.state === "not_applicable";
+  }
+
+  function validDeferred(value) {
+    if (!exactFields(value, DEFERRED_FIELDS)
+      || value.display_state !== PENDING_DISPLAY
+      || !string(value.reason)
+      || !string(value.activation_requirement)
+      || !Array.isArray(value.namespaces)
+      || value.namespaces.length !== 3) return false;
+    const expected = new Set([
+      "artifact_classes",
+      "artifact_families",
+      "artifact_lifecycles"
+    ]);
+    return value.namespaces.every((record) => {
+      if (!exactFields(record, NAMESPACE_FIELDS)
+        || !expected.has(record.namespace)
+        || record.schema_version !== 1
+        || record.activation_state !== "deferred_pending_human_classification"
+        || record.complete !== false
+        || record.enforced !== false
+        || record.entry_count !== 0) return false;
+      expected.delete(record.namespace);
+      return true;
+    }) && expected.size === 0;
+  }
+
+  function validDocument(value) {
+    if (!exactFields(value, DOCUMENT_FIELDS)
+      || !string(value.document_id)
+      || ![
+        "official_reference_name",
+        "document_class",
+        "revision",
+        "current_status",
+        "effective_date",
+        "approval_date",
+        "approval_method",
+        "governance_change_id",
+        "purpose_scope",
+        "authority_exclusions",
+        "creation_provenance",
+        "history"
+      ].every((field) => typedValue(value[field]))
+      || !string(value.authority_role)
+      || !string(value.canonical_path)
+      || !string(value.owner)
+      || !string(value.review_policy)
+      || !string(value.disclosure_class)
+      || !integer(value.governance_revision, 1)
+      || !string(value.producer)
+      || !stringArray(value.authorized_writers)
+      || !stringArray(value.representations)
+      || !stringArray(value.dependencies)
+      || !stringArray(value.consumers)
+      || !["pinned", "runtime"].includes(value.digest_policy)
+      || !(value.sha256 === null || digest(value.sha256))
+      || !validDocumentRoute(value.console_route, value.document_id)
+      || !string(value.retention_posture)) return false;
+    return value.digest_policy === "pinned"
+      ? digest(value.sha256)
+      : value.sha256 === null;
+  }
+
+  function validParameterBindings(value) {
+    if (!plainObject(value)) return false;
+    return Object.entries(value).every(([name, spec]) =>
+      /^[a-z][a-z0-9_]*$/.test(name)
+      && exactFields(spec, PARAMETER_FIELDS)
+      && stringArray(spec.allowed_values)
+      && spec.allowed_values.length > 0);
+  }
+
+  function validDirectory(value) {
+    return exactFields(value, DIRECTORY_FIELDS)
+      && string(value.scope_id)
+      && string(value.display_name)
+      && string(value.path_pattern)
+      && string(value.match_kind)
+      && integer(value.specificity_rank)
+      && validParameterBindings(value.parameter_bindings)
+      && string(value.owning_scope_selection_rule)
+      && stringArray(value.ancestor_scope_ids)
+      && string(value.placement_question)
+      && stringArray(value.include_when)
+      && stringArray(value.exclude_when)
+      && string(value.primary_authority)
+      && string(value.disclosure_boundary)
+      && string(value.lifecycle_posture)
+      && stringArray(value.authorized_creators)
+      && string(value.precedence)
+      && string(value.fallback)
+      && validSelectionRoute(
+        value.console_route,
+        "directories",
+        "directory",
+        value.scope_id
+      )
+      && typedValue(value.permitted_artifact_classes)
+      && typedValue(value.current_artifact_count)
+      && value.current_artifact_count.state === "known"
+      && integer(value.current_artifact_count.value);
+  }
+
+  function validCounts(value) {
+    return exactFields(value, COUNT_FIELDS)
+      && [...COUNT_FIELDS].every((field) => integer(value[field]));
+  }
+
+  function validSourceImport(value) {
+    return exactFields(value, SOURCE_IMPORT_FIELDS)
+      && string(value.path)
+      && digest(value.sha256)
+      && value.schema_version === 2
+      && value.import_semantics === "exact_validated_snapshot";
+  }
+
+  function validRoutingDocument(value) {
+    return exactFields(value, ROUTING_DOCUMENT_FIELDS)
+      && string(value.document_id)
+      && string(value.path)
+      && typeof value.governing === "boolean"
+      && ["pinned", "runtime"].includes(value.hash_policy)
+      && (
+        value.hash_policy === "pinned"
+          ? digest(value.sha256)
+          : value.sha256 === null
+      )
+      && stringArray(value.requires);
+  }
+
+  function validSection(value) {
+    return exactFields(value, SECTION_FIELDS)
+      && string(value.document)
+      && /^#+\s/.test(value.heading)
+      && integer(value.max_bytes, 1);
+  }
+
+  function validProfile(value) {
+    return exactFields(value, PROFILE_FIELDS)
+      && string(value.profile_id)
+      && integer(value.max_bytes, 1)
+      && stringArray(value.modules)
+      && stringArray(value.capabilities)
+      && typeof value.include_all_governing === "boolean"
+      && Array.isArray(value.sections)
+      && value.sections.every(validSection);
+  }
+
+  function validModule(value) {
+    return exactFields(value, MODULE_FIELDS)
+      && string(value.id)
+      && string(value.path)
+      && typeof value.governing === "boolean"
+      && ["pinned", "runtime"].includes(value.hash_policy)
+      && (
+        value.hash_policy === "pinned"
+          ? digest(value.sha256)
+          : value.sha256 === null
+      )
+      && string(value.authority_role)
+      && typedValue(value.authority_scope)
+      && typedValue(value.authority_exclusions)
+      && stringArray(value.dependencies)
+      && stringArray(value.inclusion_reasons);
+  }
+
+  function validSelection(value) {
+    if (!exactFields(value, SELECTION_FIELDS)
+      || !string(value.selection_id)
+      || !["profile", "capability"].includes(value.selection_kind)
+      || value.executable !== false
+      || value.authoritative !== false
+      || value.live_activation_verified !== false
+      || !(value.profile === null || string(value.profile))
+      || !stringArray(value.capabilities)
+      || !(value.max_bytes === null || integer(value.max_bytes, 1))
+      || !Array.isArray(value.sections)
+      || !value.sections.every(validSection)
+      || !Array.isArray(value.modules)
+      || !value.modules.every(validModule)
+      || !validSelectionRoute(
+        value.console_route,
+        "routing",
+        "selection",
+        value.selection_id
+      )) return false;
+    if (value.selection_kind === "profile") {
+      return value.selection_id === `profile:${value.profile}`
+        && value.capabilities.length === 0
+        && value.max_bytes !== null;
+    }
+    return value.profile === null
+      && value.selection_id === `capability:${value.capabilities[0]}`
+      && value.capabilities.length === 1
+      && value.max_bytes === null
+      && value.sections.length === 0;
+  }
+
+  function validValidation(value) {
+    return exactFields(value, VALIDATION_FIELDS)
+      && value.valid === true
+      && digest(value.source_sha256)
+      && digest(value.registry_route_sha256)
+      && validCounts(value.counts)
+      && Array.isArray(value.differences)
+      && value.differences.length === 0
+      && value.document_ids_equal === true
+      && value.profile_ids_equal === true
+      && value.capability_ids_equal === true;
+  }
+
+  function jsonValue(value) {
+    if (value === null || typeof value === "string" || typeof value === "number" || typeof value === "boolean") return true;
+    if (Array.isArray(value)) return value.every(jsonValue);
+    return plainObject(value) && Object.values(value).every(jsonValue);
+  }
+
+  function validRuleProvenance(value, sourceDocumentId, sourceDigest, ruleId) {
+    return exactFields(value, RULE_PROVENANCE_FIELDS)
+      && value.source_document_id === sourceDocumentId
+      && value.source_sha256 === sourceDigest
+      && string(value.source_heading)
+      && value.clause_key === ruleId;
+  }
+
+  function validRoutingRule(value, sourceDocumentId, sourceDigest) {
+    if (!plainObject(value)
+      || !exactFields(value, value.namespace === "failure_rules" ? RULE_FAILURE_FIELDS : RULE_BASE_FIELDS)
+      || !RULE_NAMESPACES.includes(value.namespace)
+      || !/^ctxr\.(?:inv|sel|val|fail|cur|budget|review)\.[a-z][a-z0-9_]*$/.test(value.rule_id)
+      || value.rule_version !== 1
+      || value.status !== "active"
+      || value.predicate_type !== value.rule_id
+      || !plainObject(value.parameters)
+      || !Object.values(value.parameters).every(jsonValue)
+      || !string(value.label)
+      || !string(value.rendered_text)
+      || !validRuleProvenance(
+        value.source_provenance,
+        sourceDocumentId,
+        sourceDigest,
+        value.rule_id
+      )
+      || !stringArray(value.verification_ids)
+      || !value.verification_ids.includes(`test.${value.rule_id}`)
+      || !validRoutingRuleRoute(value.console_route, value.rule_id)) return false;
+    return value.namespace === "failure_rules"
+      ? /^CTXR_[A-Z0-9_]+$/.test(value.failure_code)
+      : !Object.hasOwn(value, "failure_code");
+  }
+
+  function validPredecessorProvenance(value, candidateMode) {
+    if (candidateMode) {
+      return typedValue(value) && value.state === "not_applicable";
+    }
+    return typedValue(value)
+      && value.state === "known"
+      && value.value
+        === "Archived predecessor provenance retained as nonauthoritative history.";
+  }
+
+  function validReadableRepresentation(value, candidateMode, revision) {
+    if (candidateMode) {
+      return typedValue(value) && value.state === "not_applicable";
+    }
+    return exactFields(value, READABLE_REPRESENTATION_FIELDS)
+      && value.state === "known"
+      && value.representation_id === "human_readable_context_routing"
+      && value.source_registry_revision === revision
+      && value.authority_effect === "none"
+      && value.executable === false;
+  }
+
+  function validRouting(value, registry) {
+    // Kept as a single fail-closed predicate so consumers never recover from
+    // an incomplete routing catalog with browser-generated defaults.
+    const candidateMode = registry.validation_mode
+      === "candidate_validation_only";
+    const expectedActivation = candidateMode ? "candidate_import" : "active";
+    const validSourceState = candidateMode
+      ? validSourceImport(value.source_import)
+      : typedValue(value.source_import)
+        && value.source_import.state === "not_applicable";
+    const validParityState = candidateMode
+      ? validValidation(value.validation)
+      : typedValue(value.validation)
+        && value.validation.state === "not_applicable";
+    const validParityPolicy = candidateMode
+      ? string(value.parity_policy)
+      : typedValue(value.parity_policy)
+        && value.parity_policy.state === "not_applicable";
+    if (!exactFields(value, ROUTING_FIELDS)
+      || value.schema_version !== 2
+      || value.rule_catalog_version !== 1
+      || value.activation_state !== expectedActivation
+      || value.complete !== true
+      || value.authoritative !== false
+      || !validSourceState
+      || !validPredecessorProvenance(
+        value.predecessor_provenance,
+        candidateMode
+      )
+      || !validReadableRepresentation(
+        value.readable_representation,
+        candidateMode,
+        registry.registry_revision
+      )
+      || !validCounts(value.expected_counts)
+      || !validParityPolicy
+      || !stringArray(value.required_modules)
+      || !stringArray(value.generated_path_exclusions)
+      || !Array.isArray(value.documents)
+      || !value.documents.every(validRoutingDocument)
+      || !Array.isArray(value.capabilities)
+      || !value.capabilities.every((record) =>
+        exactFields(record, CAPABILITY_FIELDS)
+        && string(record.capability_id)
+        && stringArray(record.document_ids))
+      || !Array.isArray(value.profiles)
+      || !value.profiles.every(validProfile)
+      || !Array.isArray(value.selections)
+      || !value.selections.every(validSelection)
+      || !Array.isArray(value.rule_namespaces)
+      || value.rule_namespaces.length !== RULE_NAMESPACES.length
+      || !value.rule_namespaces.every((name, index) => name === RULE_NAMESPACES[index])
+      || !plainObject(value.rule_counts)
+      || Object.keys(value.rule_counts).length !== RULE_NAMESPACES.length
+      || !validParityState) return false;
+    const documentIds = value.documents.map((record) => record.document_id);
+    const capabilityIds = value.capabilities.map((record) => record.capability_id);
+    const profileIds = value.profiles.map((record) => record.profile_id);
+    const selectionIds = value.selections.map((record) => record.selection_id);
+    const routingDocument = value.documents.find((record) =>
+      record.document_id === "context_routing");
+    const ruleSourceDocumentId = candidateMode
+      ? "context_routing"
+      : "COMPONENT-REGISTRY";
+    const ruleSourceDigest = candidateMode
+      ? routingDocument?.sha256
+      : registry.registry_sha256;
+    if ((candidateMode && (
+      !routingDocument
+      || routingDocument.path !== "framework/CONTEXT_ROUTING.md"
+      || !digest(routingDocument.sha256)
+    ))
+      || (!candidateMode && routingDocument)
+      || !digest(ruleSourceDigest)
+      || !Array.isArray(value.rules)
+      || !value.rules.every((record) =>
+        validRoutingRule(
+          record,
+          ruleSourceDocumentId,
+          ruleSourceDigest
+        ))) return false;
+    const ruleIds = value.rules.map((record) => record.rule_id);
+    return new Set(documentIds).size === documentIds.length
+      && new Set(capabilityIds).size === capabilityIds.length
+      && new Set(profileIds).size === profileIds.length
+      && new Set(selectionIds).size === selectionIds.length
+      && value.expected_counts.documents === documentIds.length
+      && value.expected_counts.capabilities === capabilityIds.length
+      && value.expected_counts.profiles === profileIds.length
+      && value.selections.length === capabilityIds.length + profileIds.length
+      && new Set(ruleIds).size === ruleIds.length
+      && ruleIds.every((id) => !selectionIds.includes(id))
+      && RULE_NAMESPACES.every((namespace) =>
+        value.rule_counts[namespace] === RULE_NAMESPACE_COUNTS[namespace]
+        && value.rules.filter((rule) => rule.namespace === namespace).length
+          === RULE_NAMESPACE_COUNTS[namespace]
+        && RULE_IDS_BY_NAMESPACE[namespace].every((id) =>
+          value.rules.some((rule) => rule.namespace === namespace && rule.rule_id === id)))
+      && value.rules.length === 64;
+  }
+
+  function validTerminology(value) {
+    return exactFields(value, TERMINOLOGY_FIELDS)
+      && value.available === false
+      && value.complete === false
+      && value.activation_state === "candidate_unpopulated"
+      && string(value.reason)
+      && Array.isArray(value.entries)
+      && value.entries.length === 0
+      && validRoute(value.console_route, "terminology");
+  }
+
+  function validReadinessCounts(value, expectedDocuments, expectedGoverning) {
+    return exactFields(value, READINESS_COUNT_FIELDS)
+      && value.documents === expectedDocuments
+      && value.governing_documents === expectedGoverning
+      && value.capabilities === 19
+      && value.profiles === 8
+      && value.required_modules === 3
+      && value.generated_path_exclusions === 9
+      && value.rules === 64;
+  }
+
+  function validActivationReadiness(value, registryValue) {
+    return exactFields(value, READINESS_FIELDS)
+      && value.available === true
+      && value.complete === true
+      && ["candidate_complete", "active"].includes(value.activation_state)
+      && value.authoritative === false
+      && value.executable === false
+      && value.registry_revision === registryValue.registry_revision
+      && value.registry_sha256 === registryValue.registry_sha256
+      && validReadinessCounts(value.current_candidate_counts, 88, 87)
+      && validReadinessCounts(value.simulated_active_counts, 85, 84)
+      && value.requirement_count === 77
+      && value.exception_count === 0
+      && exactFields(value.stage_boundaries, READINESS_BOUNDARY_FIELDS)
+      && value.stage_boundaries.artifact_classes
+        === "deferred_by_approved_stage_boundary"
+      && value.stage_boundaries.artifact_families
+        === "deferred_by_approved_stage_boundary"
+      && value.stage_boundaries.artifact_lifecycles
+        === "deferred_by_approved_stage_boundary"
+      && value.stage_boundaries.terminology === "candidate_unpopulated"
+      && value.stage_boundaries.repository_reference_mutation
+        === "separately_gated"
+      && [
+        "pending_human_activation",
+        "tracked_active_configuration_live_readback_separate"
+      ].includes(value.activation_decision);
+  }
+
+  function validSnapshot(value) {
+    if (!exactFields(value, TOP_FIELDS)
+      || value.schema_version !== 1
+      || value.projection_id !== "component-registry-console"
+      || value.producer_id !== "project-console-builder"
+      || Number.isNaN(Date.parse(value.generated_at))
+      || value.availability !== "current"
+      || value.complete !== true
+      || value.reason_code !== null
+      || !exactFields(value.routes, ROUTE_FIELDS)
+      || !MODES.every((mode) => validRoute(value.routes[mode], mode))
+      || !exactFields(value.defaults, DEFAULT_FIELDS)
+      || value.defaults.mode !== "documents"
+      || !string(value.defaults.document)
+      || !string(value.defaults.directory)
+      || !string(value.defaults.routing)
+      || !validRegistry(value.registry)
+      || !validDeferred(value.deferred)
+      || !Array.isArray(value.documents)
+      || !value.documents.every(validDocument)
+      || !Array.isArray(value.directories)
+      || !value.directories.every(validDirectory)
+      || !validRouting(value.routing, value.registry)
+      || value.routing.authoritative !== false
+      || !validActivationReadiness(
+        value.activation_readiness,
+        value.registry
+      )
+      || !validTerminology(value.terminology)) return false;
+    const documentIds = value.documents.map((record) => record.document_id);
+    const directoryIds = value.directories.map((record) => record.scope_id);
+    return new Set(documentIds).size === documentIds.length
+      && new Set(directoryIds).size === directoryIds.length
+      && documentIds.includes(value.defaults.document)
+      && directoryIds.includes(value.defaults.directory)
+      && value.routing.selections.some((record) =>
+        record.selection_id === value.defaults.routing)
+      && value.routing.documents.every((record) =>
+        documentIds.includes(record.document_id));
+  }
+
+  function routeState(target, snapshot) {
+    const [path, query = ""] = String(target || "").replace(/^#/, "").split("?", 2);
+    const parts = path.split(":");
+    const requestedMode = parts[0] === "automation"
+      && parts[1] === "component-registry"
+      ? parts[2]
+      : "";
+    const mode = MODES.includes(requestedMode)
+      ? requestedMode
+      : validSnapshot(snapshot)
+        ? snapshot.defaults.mode
+        : "documents";
+    const parameters = new URLSearchParams(query);
+    const allowedKeys = {
+      documents: ["document"],
+      directories: ["directory"],
+      routing: ["selection", "rule"],
+      terminology: []
+    }[mode];
+    const parameterKeys = [...parameters.keys()];
+    const validQuery = parameterKeys.length === 0
+      || (parameterKeys.length === 1 && allowedKeys.includes(parameterKeys[0]));
+    const selected = validQuery ? {
+      documents: parameters.get("document"),
+      directories: parameters.get("directory"),
+      routing: parameters.get("selection") || parameters.get("rule"),
+      terminology: null
+    }[mode] : null;
+    if (!validSnapshot(snapshot)) return { mode, selected: null };
+    const records = {
+      documents: snapshot.documents.map((record) => record.document_id),
+      directories: snapshot.directories.map((record) => record.scope_id),
+      routing: [
+        ...snapshot.routing.selections.map((record) => record.selection_id),
+        ...snapshot.routing.rules.map((record) => record.rule_id)
+      ],
+      terminology: []
+    }[mode];
+    const producerDefault = {
+      documents: snapshot.defaults.document,
+      directories: snapshot.defaults.directory,
+      routing: snapshot.defaults.routing,
+      terminology: null
+    }[mode];
+    return {
+      mode,
+      selected: records.includes(selected) ? selected : producerDefault
+    };
+  }
+
+  function node(tag, className = "", text = "") {
+    const value = document.createElement(tag);
+    if (className) value.className = className;
+    if (text !== "") value.textContent = String(text);
+    return value;
+  }
+
+  function renderValue(value) {
+    if (!typedValue(value)) return "Unavailable";
+    if (value.state === "known") return String(value.value);
+    const label = value.state.replaceAll("_", " ")
+      .replace(/\b\w/g, (letter) => letter.toUpperCase());
+    return `${label} — ${value.reason}`;
+  }
+
+  function appendRows(host, rows) {
+    const list = node("dl", "component-registry-metadata");
+    rows.forEach(([label, value]) => {
+      list.append(node("dt", "", label), node("dd", "", value));
+    });
+    host.append(list);
+  }
+
+  function joined(values) {
+    return values.length ? values.join(", ") : "None registered";
+  }
+
+  function renderDocument(host, record) {
+    host.replaceChildren();
+    host.append(node("h3", "", renderValue(record.official_reference_name)));
+    appendRows(host, [
+      ["Stable identity", record.document_id],
+      ["Class", renderValue(record.document_class)],
+      ["Revision", renderValue(record.revision)],
+      ["Status", renderValue(record.current_status)],
+      ["Authority role", record.authority_role],
+      ["Purpose and scope", renderValue(record.purpose_scope)],
+      ["Authority exclusions", renderValue(record.authority_exclusions)],
+      ["Canonical path", record.canonical_path],
+      ["Owner", record.owner],
+      ["Review policy", record.review_policy],
+      ["Disclosure", record.disclosure_class],
+      ["Producer", record.producer],
+      ["Authorized writers", joined(record.authorized_writers)],
+      ["Representations", joined(record.representations)],
+      ["Dependencies", joined(record.dependencies)],
+      ["Consumers", joined(record.consumers)],
+      ["Digest policy", `${record.digest_policy} · ${record.sha256 || "runtime"}`],
+      ["Approval", `${renderValue(record.approval_method)} · ${renderValue(record.approval_date)}`],
+      ["Governance change", renderValue(record.governance_change_id)],
+      ["Effective date", renderValue(record.effective_date)],
+      ["Creation provenance", renderValue(record.creation_provenance)],
+      ["Retention posture", record.retention_posture],
+      ["History", renderValue(record.history)]
+    ]);
+  }
+
+  function renderDirectory(host, record) {
+    host.replaceChildren();
+    host.append(node("h3", "", record.display_name));
+    appendRows(host, [
+      ["Stable identity", record.scope_id],
+      ["Path pattern", record.path_pattern],
+      ["Match kind", record.match_kind],
+      ["Specificity rank", record.specificity_rank],
+      ["Ancestor scopes", joined(record.ancestor_scope_ids)],
+      ["Placement question", record.placement_question],
+      ["Include when", joined(record.include_when)],
+      ["Exclude when", joined(record.exclude_when)],
+      ["Primary authority", record.primary_authority],
+      ["Disclosure boundary", record.disclosure_boundary],
+      ["Lifecycle posture", record.lifecycle_posture],
+      ["Authorized creators", joined(record.authorized_creators)],
+      ["Precedence", record.precedence],
+      ["Fallback", record.fallback],
+      ["Current artifact count", renderValue(record.current_artifact_count)],
+      ["Permitted artifact classes", renderValue(record.permitted_artifact_classes)]
+    ]);
+  }
+
+  function renderRouting(host, record, snapshot) {
+    host.replaceChildren();
+    if (Object.hasOwn(record, "rule_id")) {
+      host.append(node("h3", "", record.label));
+      appendRows(host, [
+        ["Stable rule identity", record.rule_id],
+        ["Category", record.namespace],
+        ["Rule version", record.rule_version],
+        ["Status", record.status],
+        ["Predicate type", record.predicate_type],
+        ["Registered description", record.rendered_text],
+        ["Failure code", record.failure_code || "Not applicable"],
+        ["Source document", record.source_provenance.source_document_id],
+        ["Source digest", record.source_provenance.source_sha256],
+        ["Source heading", record.source_provenance.source_heading],
+        ["Verification", joined(record.verification_ids)]
+      ]);
+      const parameters = node("pre", "component-registry-rule-parameters");
+      parameters.textContent = JSON.stringify(record.parameters, null, 2);
+      host.append(node("h4", "", "Registered parameters"), parameters);
+      return;
+    }
+    host.append(node("h3", "", record.selection_id));
+    appendRows(host, [
+      ["Selection kind", record.selection_kind],
+      ["Profile", record.profile || "None"],
+      ["Capabilities", joined(record.capabilities)],
+      ["Maximum bytes", record.max_bytes === null ? "Not applicable" : record.max_bytes],
+      ["Resolved modules", record.modules.length],
+      [
+        "Route-source digest",
+        snapshot.routing.source_import.state
+          ? renderValue(snapshot.routing.source_import)
+          : snapshot.routing.source_import.sha256
+      ],
+      [
+        "Parity state",
+        snapshot.routing.validation.state
+          ? renderValue(snapshot.routing.validation)
+          : snapshot.routing.validation.valid
+            ? "Exact"
+            : "Unavailable"
+      ],
+      [
+        "Historical predecessor provenance",
+        renderValue(snapshot.routing.predecessor_provenance)
+      ],
+      [
+        "Readable representation",
+        snapshot.routing.readable_representation.state === "known"
+          ? (
+            `${snapshot.routing.readable_representation.representation_id}`
+            + ` · registry revision ${
+              snapshot.routing.readable_representation.source_registry_revision
+            } · nonauthoritative`
+          )
+          : renderValue(snapshot.routing.readable_representation)
+      ],
+      ["Executable", record.executable ? "Yes" : "No"],
+      ["Authoritative", record.authoritative ? "Yes" : "No"]
+    ]);
+    const table = node("table", "component-registry-route-table");
+    const head = node("thead");
+    const headRow = node("tr");
+    ["Document", "Path", "Authority role", "Inclusion reason"].forEach((label) =>
+      headRow.append(node("th", "", label)));
+    head.append(headRow);
+    const body = node("tbody");
+    record.modules.forEach((module) => {
+      const row = node("tr");
+      row.append(
+        node("td", "", module.id),
+        node("td", "", module.path),
+        node("td", "", module.authority_role),
+        node("td", "", joined(module.inclusion_reasons))
+      );
+      body.append(row);
+    });
+    table.append(head, body);
+    host.append(table);
+  }
+
+  function renderTerminology(host, terminology) {
+    host.replaceChildren();
+    host.append(
+      node("h3", "", "Canonical terminology"),
+      node("p", "empty-state compact-empty", terminology.reason)
+    );
+    appendRows(host, [
+      ["Activation state", terminology.activation_state],
+      ["Availability", "Unavailable"],
+      ["Completeness", "Incomplete"],
+      ["Entries", terminology.entries.length]
+    ]);
+  }
+
+  function populate(select, records, identity, label) {
+    select.replaceChildren();
+    records.forEach((record) => {
+      const option = node("option", "", label(record));
+      option.value = identity(record);
+      select.append(option);
+    });
+  }
+
+  function go(route) {
+    if (!string(route)) return;
+    global.location.hash = `#${route}`;
+  }
+
+  function applyMode(mode) {
+    MODES.forEach((candidate) => {
+      const button = document.getElementById(`component-registry-mode-${candidate}`);
+      const panel = document.getElementById(`component-registry-panel-${candidate}`);
+      if (button) {
+        const selected = candidate === mode;
+        button.setAttribute("aria-selected", String(selected));
+        button.tabIndex = selected ? 0 : -1;
+      }
+      if (panel) panel.hidden = candidate !== mode;
+    });
+  }
+
+  function bindControls(snapshot) {
+    const buttons = MODES.map((mode) =>
+      document.getElementById(`component-registry-mode-${mode}`));
+    buttons.forEach((button, index) => {
+      if (!button || button.dataset.registryBound === "true") return;
+      button.dataset.registryBound = "true";
+      button.addEventListener("click", () =>
+        go(snapshot.routes[button.dataset.registryMode]));
+      button.addEventListener("keydown", (event) => {
+        let next = null;
+        if (event.key === "ArrowRight") next = (index + 1) % buttons.length;
+        if (event.key === "ArrowLeft") next = (index - 1 + buttons.length) % buttons.length;
+        if (event.key === "Home") next = 0;
+        if (event.key === "End") next = buttons.length - 1;
+        if (next === null || !buttons[next]) return;
+        event.preventDefault();
+        buttons[next].focus();
+        go(snapshot.routes[buttons[next].dataset.registryMode]);
+      });
+    });
+    [
+      ["component-registry-document-select", snapshot.documents, "document_id"],
+      ["component-registry-directory-select", snapshot.directories, "scope_id"],
+      [
+        "component-registry-routing-select",
+        [...snapshot.routing.selections, ...snapshot.routing.rules],
+        (record) => record.selection_id || record.rule_id
+      ]
+    ].forEach(([id, records, identity]) => {
+      const select = document.getElementById(id);
+      if (!select || select.dataset.registryBound === "true") return;
+      select.dataset.registryBound = "true";
+      select.addEventListener("change", () => {
+        const record = records.find((candidate) =>
+          (typeof identity === "function" ? identity(candidate) : candidate[identity]) === select.value);
+        if (record) go(record.console_route);
+      });
+    });
+  }
+
+  function unavailable() {
+    const status = document.getElementById("component-registry-status");
+    if (status) {
+      status.className = "status-badge unavailable";
+      status.textContent = "Unavailable";
+    }
+    [
+      "component-registry-document-detail",
+      "component-registry-directory-detail",
+      "component-registry-routing-detail",
+      "component-registry-terminology-detail"
+    ].forEach((id) => {
+      const host = document.getElementById(id);
+      if (host) host.replaceChildren(
+        node("p", "empty-state compact-empty", "Component Registry data unavailable.")
+      );
+    });
+  }
+
+  function render(snapshot, target = "") {
+    if (!validSnapshot(snapshot)) {
+      unavailable();
+      return false;
+    }
+    const state = routeState(target, snapshot);
+    const status = document.getElementById("component-registry-status");
+    if (status) {
+      status.className = "status-badge warning";
+      status.textContent = snapshot.registry.registry_status === "active"
+        ? "Tracked active configuration"
+        : "Candidate";
+    }
+    const deferred = document.getElementById("component-registry-deferred");
+    if (deferred) {
+      deferred.replaceChildren();
+      deferred.append(
+        node("strong", "", snapshot.deferred.display_state),
+        node(
+          "p",
+          "component-registry-configuration",
+          renderValue(snapshot.registry.configuration_validation)
+        ),
+        node(
+          "p",
+          "component-registry-live-activation",
+          `Live activation — ${renderValue(snapshot.registry.live_activation)}`
+        ),
+        node(
+          "p",
+          "component-registry-readiness",
+          (
+            `Activation readiness — ${snapshot.activation_readiness.requirement_count}`
+            + " requirements cataloged; "
+            + `${snapshot.activation_readiness.exception_count} exceptions; `
+            + (
+              snapshot.activation_readiness.activation_decision
+                === "pending_human_activation"
+                ? "human activation pending"
+                : "tracked configuration active; live readback remains separate"
+            )
+          )
+        ),
+        node("p", "", snapshot.deferred.reason),
+        node("p", "component-registry-activation", snapshot.deferred.activation_requirement)
+      );
+    }
+    const documentSelect = document.getElementById("component-registry-document-select");
+    const directorySelect = document.getElementById("component-registry-directory-select");
+    const routingSelect = document.getElementById("component-registry-routing-select");
+    populate(
+      documentSelect,
+      snapshot.documents,
+      (record) => record.document_id,
+      (record) => `${renderValue(record.official_reference_name)} · ${record.document_id}`
+    );
+    populate(
+      directorySelect,
+      snapshot.directories,
+      (record) => record.scope_id,
+      (record) => `${record.display_name} · ${record.path_pattern}`
+    );
+    populate(
+      routingSelect,
+      [...snapshot.routing.selections, ...snapshot.routing.rules],
+      (record) => record.selection_id || record.rule_id,
+      (record) => record.selection_id || `${record.label} · ${record.rule_id}`
+    );
+    bindControls(snapshot);
+    const selectedDocument = snapshot.documents.find((record) =>
+      record.document_id === (
+        state.mode === "documents"
+          ? state.selected
+          : snapshot.defaults.document
+      ));
+    const selectedDirectory = snapshot.directories.find((record) =>
+      record.scope_id === (
+        state.mode === "directories"
+          ? state.selected
+          : snapshot.defaults.directory
+      ));
+    const routingRecords = [...snapshot.routing.selections, ...snapshot.routing.rules];
+    const selectedRouting = routingRecords.find((record) =>
+      (record.selection_id || record.rule_id) === (
+        state.mode === "routing"
+          ? state.selected
+          : snapshot.defaults.routing
+      ));
+    if (selectedDocument) {
+      documentSelect.value = selectedDocument.document_id;
+      renderDocument(
+        document.getElementById("component-registry-document-detail"),
+        selectedDocument
+      );
+    }
+    if (selectedDirectory) {
+      directorySelect.value = selectedDirectory.scope_id;
+      renderDirectory(
+        document.getElementById("component-registry-directory-detail"),
+        selectedDirectory
+      );
+    }
+    if (selectedRouting) {
+      routingSelect.value = selectedRouting.selection_id || selectedRouting.rule_id;
+      renderRouting(
+        document.getElementById("component-registry-routing-detail"),
+        selectedRouting,
+        snapshot
+      );
+    }
+    renderTerminology(
+      document.getElementById("component-registry-terminology-detail"),
+      snapshot.terminology
+    );
+    applyMode(state.mode);
+    return true;
+  }
+
+  global.ARRP_COMPONENT_REGISTRY = Object.freeze({
+    schemaVersion: 1,
+    pendingDisplay: PENDING_DISPLAY,
+    validSnapshot,
+    routeState,
+    render
+  });
+})(window);

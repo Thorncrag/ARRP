@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import tempfile
@@ -6,6 +7,53 @@ from pathlib import Path
 from unittest import mock
 
 from tests.test_arrp_nightly import GitFixture, MODULE, run
+
+
+def write_predecessor_route_fixture(
+    repository: Path,
+    *,
+    governing_path: str,
+) -> Path:
+    source = repository / governing_path
+    registry = (
+        repository
+        / "framework"
+        / "project"
+        / "automation"
+        / "context-routes.json"
+    )
+    registry.parent.mkdir(parents=True, exist_ok=True)
+    registry.write_text(
+        json.dumps(
+            {
+                "schema_version": 2,
+                "required_modules": ["fixture_governing"],
+                "documents": {
+                    "fixture_governing": {
+                        "path": governing_path,
+                        "requires": [],
+                        "governing": True,
+                        "hash_policy": "pinned",
+                        "sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
+                    }
+                },
+                "capabilities": {},
+                "profiles": {
+                    "fixture": {
+                        "sections": [],
+                        "modules": ["fixture_governing"],
+                        "capabilities": [],
+                        "max_bytes": 4096,
+                    }
+                },
+                "generated_path_exclusions": [],
+            },
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return registry
 
 
 def check_api_sequence(states):
@@ -381,11 +429,16 @@ class P5PublicationManifestTests(unittest.TestCase):
             run("git", "commit", "-m", "final", cwd=fixture.repo)
             head = run("git", "rev-parse", "HEAD", cwd=fixture.repo)
             run_dir = fixture.state / "runs/p5-manifest"
+            run_dir.mkdir(parents=True)
             result = MODULE.classify_publication_range(
                 fixture.repo,
                 run_dir,
                 base_commit=base,
                 head_commit=head,
+                path_authority=MODULE.routing_path_authority(
+                    fixture.config(),
+                    fixture.repo,
+                ),
             )
             self.assertEqual(
                 result["classification"]["ordinary"],
@@ -428,29 +481,19 @@ class P5CoordinatorIntegrationTests(unittest.TestCase):
     def test_dynamic_governing_change_stops_before_worktree_execution(self):
         with tempfile.TemporaryDirectory() as directory:
             fixture = GitFixture(Path(directory))
-            registry = (
-                fixture.repo
-                / "framework/project/automation/context-routes.json"
-            )
-            registry.parent.mkdir(parents=True)
-            registry.write_text(
-                json.dumps(
-                    {
-                        "documents": {
-                            "fixture_governing": {
-                                "path": "areas/TEST/issues/TEST-001.md",
-                                "governing": True,
-                            }
-                        }
-                    }
-                )
-                + "\n",
-                encoding="utf-8",
-            )
-            run("git", "add", str(registry.relative_to(fixture.repo)), cwd=fixture.repo)
-            run("git", "commit", "-m", "add governing fixture", cwd=fixture.repo)
             issue = fixture.repo / "areas/TEST/issues/TEST-001.md"
             issue.write_text("protected governing change\n", encoding="utf-8")
+            registry = write_predecessor_route_fixture(
+                fixture.repo,
+                governing_path="areas/TEST/issues/TEST-001.md",
+            )
+            run(
+                "git",
+                "add",
+                str(registry.relative_to(fixture.repo)),
+                cwd=fixture.repo,
+            )
+            run("git", "commit", "-m", "add governing fixture", cwd=fixture.repo)
             local_cycle = mock.Mock()
 
             result = MODULE.prepare_transaction(
@@ -497,6 +540,8 @@ class P5CoordinatorIntegrationTests(unittest.TestCase):
             }
             token = MODULE.SensitiveValue("fixture")
             identity = MODULE.GitHubAppIdentity(1, 2, 3)
+            run_dir = root / "state/runs/p5-live"
+            run_dir.mkdir(parents=True)
 
             def git_text(_repository, *args):
                 if args == ("rev-parse", "HEAD"):
@@ -505,7 +550,22 @@ class P5CoordinatorIntegrationTests(unittest.TestCase):
                     return "c" * 40
                 raise AssertionError(args)
 
+            def fixture_production_transaction(*, repository_root, run_root):
+                self.assertEqual(repository_root, worktree.resolve())
+                self.assertEqual(run_root, run_dir)
+                return MODULE.ProjectPathAuthority.fixture(
+                    root,
+                    repository_root=repository_root,
+                    state_root=root / "state",
+                    output_root=run_root,
+                )
+
             with (
+                mock.patch.object(
+                    MODULE.ProjectPathAuthority,
+                    "production_transaction",
+                    side_effect=fixture_production_transaction,
+                ) as authority_constructor,
                 mock.patch.object(MODULE, "git_text", side_effect=git_text),
                 mock.patch.object(
                     MODULE,
@@ -581,6 +641,10 @@ class P5CoordinatorIntegrationTests(unittest.TestCase):
                     publication,
                 )
             push.assert_called_once()
+            authority_constructor.assert_called_once_with(
+                repository_root=worktree.resolve(),
+                run_root=run_dir,
+            )
             canonical = config.canonical_path.resolve()
             git_command.assert_called_once_with(canonical, "fetch", "origin", "main")
             fast_forward.assert_called_once_with(canonical, "c" * 40)
@@ -603,6 +667,11 @@ class P5CoordinatorIntegrationTests(unittest.TestCase):
                     worktree,
                     fixture.state / "runs/p5-callback",
                     message="p5 fixture",
+                    path_authority=MODULE.routing_path_authority(
+                        config,
+                        worktree,
+                        output_root=fixture.state / "runs/p5-callback",
+                    ),
                 )
                 return {"phase": "P5", "final_commit": final}
 

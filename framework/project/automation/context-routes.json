@@ -64,7 +64,7 @@
     },
     "github_disclosure_policy": {
       "path": "framework/project/github/disclosure-policy.json",
-      "sha256": "980bd31592f2b372031ed0710386ea801870658d4fa95b3501a93b61c7771e99",
+      "sha256": "f155c48f2231d16b8fc2c510ff2eb6fc460064711bff28fc354bc1af315150e3",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -101,7 +101,7 @@
     },
     "github_workflow": {
       "path": "framework/project/github/workflow.md",
-      "sha256": "33f9ba122a36d62c4bfb1db3d5cbad15c83f41518b363cd6606ce0ddf9fc76b7",
+      "sha256": "04f05f0cf0468d969868042cef4d336fed9c4e7557c22cc7d31bf2339a84b403",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -154,7 +154,7 @@
     },
     "project_console_classifications": {
       "path": "framework/project/interfaces/project-console-classifications.json",
-      "sha256": "f7ac80994ee82d8576dcac6dcc4fcf53d4edb34a45475991b05ab5b62a9e6ec5",
+      "sha256": "8f54876cccefe036f2830d9c9b9a75b5ed7473309e583838367ccc75d76ffa15",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -163,7 +163,7 @@
     },
     "project_interface": {
       "path": "framework/project/interfaces/project-console.md",
-      "sha256": "2d8750d7ca894b8a9aa94fc44962f7c5e5a7ce75bf4781107b04a0cc6ad2bd60",
+      "sha256": "6c4b7912753d459c37c062ca9cd6414abc0b7e18d0a1155b5a7e50c170d3d9cb",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -214,7 +214,7 @@
     },
     "project_runtime_authority": {
       "path": "framework/project/automation/owner-local-runtime.md",
-      "sha256": "49c58fbaf78caaf05a4bd92bb40bdc28553d34b0ff430ff6625544454684e746",
+      "sha256": "2b13cd3f14ef045bc145e5010c1f9b016f0d2fca5c4950f9299591bf1956c47f",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -429,7 +429,7 @@
     },
     "runbook_integrity_bot": {
       "path": "framework/project/automation/runbooks/project-integrity-bot.md",
-      "sha256": "aa63e6f18c5a49c0015da544c4d545cc0d317fb0f181993bcec40339e0f65736",
+      "sha256": "74417794478b1454ecaf40358500c0ea3d9227022b56804340fb3bf0a1a0939f",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [

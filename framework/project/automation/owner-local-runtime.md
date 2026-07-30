@@ -109,6 +109,63 @@ The path-authority implementation must:
 Production publishers may choose the proposed outbound payload. They may not
 choose the authority that decides whether it is safe.
 
+## Component Registry activation readback
+
+The tracked Component Registry is reviewed configuration. A separate
+owner-local activation readback proves that one exact active configuration
+completed the required owner review, checks, merge, and canonical-remote
+readback. The readback is verification evidence only: it cannot define
+routing, alter the registry, activate a candidate, or authorize a different
+registry revision.
+
+The logical production location is
+`owner-local:records/governance/component-registry/activation-readbacks/`.
+The only valid filename is `<registry-sha256>.json`, where the production
+reader computes `registry-sha256` from the exact canonical registry itself.
+The caller cannot supply the directory, filename, digest, registry path,
+repository root, state root, readback payload, or a fallback source.
+Production resolution uses only the fixed typed path authority.
+
+Three validation modes keep tracked configuration separate from live
+activation:
+
+- `candidate_validation_only` validates the nonauthoritative candidate and
+  its explicit predecessor-import parity. It is nonexecutable and never reads
+  an activation readback.
+- `active_configuration_validation_only` validates the tracked active
+  configuration without owner-local access. It is suitable for repository and
+  CI configuration checks only and is nonauthoritative, nonexecutable, and
+  unable to claim live activation.
+- `active_component_registry` is available only to a production-canonical or
+  production-transaction reader after the exact digest-addressed readback has
+  passed every fixed-path, file-safety, schema, approval, revision, content,
+  chronology, and ancestry check. Only this mode is authoritative and
+  executable.
+
+Candidate validation retains the exact current predecessor read, digest, and
+parity checks until activation. A tracked active configuration or live active
+reader uses only the embedded Component Registry route. It never opens,
+hashes, selects, or falls back to either predecessor or its archived copy;
+their retained catalog entries and frozen digests are historical provenance
+only.
+
+The readback has no age-only expiry. It remains valid only while its exact
+registry, approval, governance-change, implementation, review, checks,
+canonical-remote, and ancestry bindings remain valid. A missing, malformed,
+unsafe, stale, incompatible, incomplete, or mismatched readback blocks before
+context construction. The reader never falls back to an older readback,
+predecessor routing source, network lookup, summary, or inferred success.
+
+Only the separately approved authenticated activation finalizer may create a
+production readback. It derives the evidence from the exact reviewed pull
+request and canonical-remote observations, creates the digest-addressed file
+once and atomically with mode `0600` beneath owner-only `0700` directories,
+and never overwrites an earlier receipt. Ordinary schedulers, agents, Console
+builders, repository validators, and generic command-line tools are read-only
+and cannot select or update this evidence. The Console is not a readback
+consumer; repository-visible projections distinguish tracked configuration
+state from live activation and never expose protected readback evidence.
+
 ## Incident and record resolution
 
 The [Operational Incident policy](operational-incidents.json), [Security

@@ -27,7 +27,11 @@ def write(root: Path, relative: str, content: str) -> None:
     path.write_text(content, encoding="utf-8")
 
 
-def boundary(root: Path) -> tuple[Path, dict, dict[str, str]]:
+def boundary(
+    root: Path,
+    *,
+    status: str = "active",
+) -> tuple[dict, dict, dict, dict[str, str]]:
     contents = {
         "framework_kernel": ("framework/FRAMEWORK.md", "# Framework\n", "pinned", True),
         "agent_rules_kernel": (
@@ -69,9 +73,7 @@ def boundary(root: Path) -> tuple[Path, dict, dict[str, str]]:
             spec["requires"] = ["framework_kernel"]
         documents[document_id] = spec
 
-    manifest = {
-        "schema_version": 2,
-        "generated_path_exclusions": [],
+    route = {
         "required_modules": [
             "framework_kernel",
             "agent_rules_kernel",
@@ -86,13 +88,64 @@ def boundary(root: Path) -> tuple[Path, dict, dict[str, str]]:
             }
         },
     }
-    manifest_path = root / "framework/project/automation/context-routes.json"
-    manifest_path.parent.mkdir(parents=True, exist_ok=True)
-    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-    manifest_sha = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
-
+    active = status == "active"
+    view = {
+        "schema_version": 1,
+        "validation_mode": (
+            "active_component_registry"
+            if active
+            else "candidate_validation_only"
+        ),
+        "registry_id": "COMPONENT-REGISTRY",
+        "registry_revision": 1,
+        "registry_status": status,
+        "registry_sha256": "d" * 64,
+        "registry_path": "framework/component-registry.json",
+        "authoritative": active,
+        "predecessor_route_consulted": not active,
+        "route": route,
+    }
+    inclusion_reasons = {
+        "framework_kernel": ["required floor"],
+        "agent_rules_kernel": ["required floor"],
+        "current_audit": ["required floor"],
+        "additional_rule": [
+            "profile comprehensive_review complete governing boundary"
+        ],
+    }
+    ordered_ids = [
+        "framework_kernel",
+        "agent_rules_kernel",
+        "current_audit",
+        "additional_rule",
+    ]
+    selection = {
+        "selection_kind": "executable_packet",
+        "executable": True,
+        "registry_id": view["registry_id"],
+        "registry_revision": view["registry_revision"],
+        "registry_status": view["registry_status"],
+        "registry_sha256": view["registry_sha256"],
+        "registry_path": view["registry_path"],
+        "authoritative": active,
+        "profile": "comprehensive_review",
+        "capabilities": [],
+        "modules": [
+            {
+                "id": document_id,
+                "path": documents[document_id]["path"],
+                "governing": documents[document_id]["governing"],
+                "hash_policy": documents[document_id]["hash_policy"],
+                "sha256": documents[document_id].get("sha256"),
+                "inclusion_reasons": inclusion_reasons[document_id],
+            }
+            for document_id in ordered_ids
+        ],
+        "sections": [],
+    }
     modules = []
-    for document_id, (path, content, policy, _) in contents.items():
+    for document_id in ordered_ids:
+        path, content, policy, _ = contents[document_id]
         modules.append(
             {
                 "document": document_id,
@@ -101,6 +154,7 @@ def boundary(root: Path) -> tuple[Path, dict, dict[str, str]]:
                 "hash_policy": policy,
                 "bytes": len(content.encode("utf-8")),
                 "content": content,
+                "inclusion_reasons": inclusion_reasons[document_id],
             }
         )
     packet = {
@@ -108,8 +162,36 @@ def boundary(root: Path) -> tuple[Path, dict, dict[str, str]]:
         "profile": "comprehensive_review",
         "repository_revision": "b" * 40,
         "manifest": {
-            "path": "framework/project/automation/context-routes.json",
-            "sha256": manifest_sha,
+            "path": view["registry_path"],
+            "sha256": view["registry_sha256"],
+        },
+        "routing_manifest": {
+            "registry_id": view["registry_id"],
+            "registry_path": view["registry_path"],
+            "registry_revision": view["registry_revision"],
+            "registry_status": view["registry_status"],
+            "registry_digest": view["registry_sha256"],
+            "selected_profile": "comprehensive_review",
+            "selected_capabilities": [],
+            "resolved_document_revisions": {
+                document_id: {
+                    "path": documents[document_id]["path"],
+                    "hash_policy": documents[document_id]["hash_policy"],
+                }
+                for document_id in ordered_ids
+            },
+            "resolved_document_digests": {
+                document_id: sha256(contents[document_id][1])
+                for document_id in ordered_ids
+            },
+            "resolved_document_order": ordered_ids,
+            "dependency_closure": {
+                document_id: documents[document_id].get("requires", [])
+                for document_id in ordered_ids
+            },
+            "exact_sections": [],
+            "dynamic_expansions": [],
+            "inclusion_reasons": inclusion_reasons,
         },
         "modules": modules,
         "sections": [],
@@ -120,8 +202,8 @@ def boundary(root: Path) -> tuple[Path, dict, dict[str, str]]:
         for path, content, _, governing in contents.values()
         if governing
     }
-    hashes["framework/project/automation/context-routes.json"] = "sha256:" + manifest_sha
-    return manifest_path, packet, hashes
+    hashes[view["registry_path"]] = "sha256:" + view["registry_sha256"]
+    return view, selection, packet, hashes
 
 
 def record(hashes: dict[str, str]) -> dict:
@@ -163,10 +245,11 @@ class ReviewEpochTests(unittest.TestCase):
     def test_validated_epoch_is_append_only_and_updates_current(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest, packet, hashes = boundary(root)
+            view, selection, packet, hashes = boundary(root)
             value = MODULE.validate(
                 record(hashes),
-                manifest_path=manifest,
+                routing_view=view,
+                routing_selection=selection,
                 context_packet=packet,
                 root=root,
             )
@@ -180,13 +263,14 @@ class ReviewEpochTests(unittest.TestCase):
     def test_next_due_must_follow_completion(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest, packet, hashes = boundary(root)
+            view, selection, packet, hashes = boundary(root)
             value = record(hashes)
             value["next_due_at"] = value["completed_at"]
             with self.assertRaisesRegex(ValueError, "must follow"):
                 MODULE.validate(
                     value,
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=packet,
                     root=root,
                 )
@@ -194,80 +278,81 @@ class ReviewEpochTests(unittest.TestCase):
     def test_partial_governing_hash_boundary_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest, packet, hashes = boundary(root)
+            view, selection, packet, hashes = boundary(root)
             del hashes["framework/standards/content/additional.md"]
             with self.assertRaisesRegex(ValueError, "boundary is incomplete"):
                 MODULE.validate(
                     record(hashes),
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=packet,
                     root=root,
                 )
 
-    def test_manifest_identity_is_required_in_governing_boundary(self):
+    def test_component_registry_identity_is_required_in_governing_boundary(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest, packet, hashes = boundary(root)
-            del hashes["framework/project/automation/context-routes.json"]
+            view, selection, packet, hashes = boundary(root)
+            del hashes["framework/component-registry.json"]
             with self.assertRaisesRegex(ValueError, "boundary is incomplete"):
                 MODULE.validate(
                     record(hashes),
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=packet,
                     root=root,
                 )
 
-    def test_manifest_argument_must_resolve_inside_the_reviewed_root(self):
-        with tempfile.TemporaryDirectory() as directory:
-            base = Path(directory)
-            root = base / "repo"
-            root.mkdir()
-            manifest, packet, hashes = boundary(root)
-            outside = base / "outside-context-routes.json"
-            outside.write_bytes(manifest.read_bytes())
-            linked = root / "framework" / "linked-context-routes.json"
-            linked.symlink_to(outside)
-
-            for candidate in (outside, linked):
-                with self.subTest(candidate=candidate.name):
-                    with self.assertRaisesRegex(
-                        ValueError,
-                        "path escapes allowed root",
-                    ):
-                        MODULE.validate(
-                            record(hashes),
-                            manifest_path=candidate,
-                            context_packet=packet,
-                            root=root,
-                        )
-
-    def test_manifest_argument_accepts_relative_and_in_root_absolute_paths(self):
+    def test_active_closeout_rejects_predecessor_authority(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest, packet, hashes = boundary(root)
-            for candidate in (
-                Path("framework/project/automation/context-routes.json"),
-                manifest,
-            ):
-                with self.subTest(candidate=str(candidate)):
-                    validated = MODULE.validate(
-                        record(hashes),
-                        manifest_path=candidate,
-                        context_packet=packet,
-                        root=root,
-                    )
-                    self.assertEqual(validated["epoch_id"], "REVIEW-2026-07-24")
-
-    def test_packet_manifest_path_cannot_redirect_boundary_hashing(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            manifest, packet, hashes = boundary(root)
-            redirected = copy.deepcopy(packet)
-            redirected["manifest"]["path"] = "../outside-context-routes.json"
-            with self.assertRaisesRegex(ValueError, "manifest identity"):
+            view, selection, packet, hashes = boundary(root)
+            view["predecessor_route_consulted"] = True
+            with self.assertRaisesRegex(ValueError, "only the authoritative"):
                 MODULE.validate(
                     record(hashes),
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
+                    context_packet=packet,
+                    root=root,
+                )
+
+    def test_candidate_closeout_requires_explicit_fixture_validation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            view, selection, packet, hashes = boundary(
+                root,
+                status="candidate",
+            )
+            with self.assertRaisesRegex(ValueError, "must be explicitly enabled"):
+                MODULE.validate(
+                    record(hashes),
+                    routing_view=view,
+                    routing_selection=selection,
+                    context_packet=packet,
+                    root=root,
+                )
+            validated = MODULE.validate(
+                record(hashes),
+                routing_view=view,
+                routing_selection=selection,
+                context_packet=packet,
+                root=root,
+                allow_candidate_validation=True,
+            )
+            self.assertEqual(validated["epoch_id"], "REVIEW-2026-07-24")
+
+    def test_packet_registry_path_cannot_redirect_boundary_hashing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            view, selection, packet, hashes = boundary(root)
+            redirected = copy.deepcopy(packet)
+            redirected["manifest"]["path"] = "../outside-context-routes.json"
+            with self.assertRaisesRegex(ValueError, "registry identity"):
+                MODULE.validate(
+                    record(hashes),
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=redirected,
                     root=root,
                 )
@@ -275,12 +360,13 @@ class ReviewEpochTests(unittest.TestCase):
     def test_noncomprehensive_packet_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest, packet, hashes = boundary(root)
+            view, selection, packet, hashes = boundary(root)
             packet["profile"] = "change_audit"
             with self.assertRaisesRegex(ValueError, "comprehensive_review"):
                 MODULE.validate(
                     record(hashes),
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=packet,
                     root=root,
                 )
@@ -288,7 +374,7 @@ class ReviewEpochTests(unittest.TestCase):
     def test_packet_missing_governing_module_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest, packet, hashes = boundary(root)
+            view, selection, packet, hashes = boundary(root)
             packet["modules"] = [
                 module
                 for module in packet["modules"]
@@ -297,21 +383,23 @@ class ReviewEpochTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "module boundary differs"):
                 MODULE.validate(
                     record(hashes),
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=packet,
                     root=root,
                 )
 
-    def test_stale_packet_manifest_identity_is_rejected(self):
+    def test_stale_packet_registry_identity_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest, packet, hashes = boundary(root)
+            view, selection, packet, hashes = boundary(root)
             stale_packet = copy.deepcopy(packet)
-            stale_packet["manifest"]["sha256"] = "d" * 64
-            with self.assertRaisesRegex(ValueError, "manifest identity"):
+            stale_packet["manifest"]["sha256"] = "e" * 64
+            with self.assertRaisesRegex(ValueError, "registry identity"):
                 MODULE.validate(
                     record(hashes),
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=stale_packet,
                     root=root,
                 )
@@ -319,13 +407,14 @@ class ReviewEpochTests(unittest.TestCase):
     def test_packet_content_hash_mismatch_is_rejected(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest, packet, hashes = boundary(root)
+            view, selection, packet, hashes = boundary(root)
             packet["modules"][0]["content"] = "# Partial\n"
             packet["modules"][0]["bytes"] = len("# Partial\n".encode("utf-8"))
             with self.assertRaisesRegex(ValueError, "content hash differs"):
                 MODULE.validate(
                     record(hashes),
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=packet,
                     root=root,
                 )
@@ -333,14 +422,15 @@ class ReviewEpochTests(unittest.TestCase):
     def test_commit_hashes_and_packet_completion_boundary_are_required(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest, packet, hashes = boundary(root)
+            view, selection, packet, hashes = boundary(root)
 
             invalid = record(hashes)
             invalid["baseline_commit"] = "not-a-commit"
             with self.assertRaisesRegex(ValueError, "40-character Git commit"):
                 MODULE.validate(
                     invalid,
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=packet,
                     root=root,
                 )
@@ -353,7 +443,8 @@ class ReviewEpochTests(unittest.TestCase):
             ):
                 MODULE.validate(
                     mismatched,
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=packet,
                     root=root,
                 )
@@ -361,7 +452,7 @@ class ReviewEpochTests(unittest.TestCase):
     def test_review_scope_and_sample_must_be_nonempty(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest, packet, hashes = boundary(root)
+            view, selection, packet, hashes = boundary(root)
             for field in ("reviewed_domains", "sampling_record"):
                 with self.subTest(field=field):
                     value = record(hashes)
@@ -369,7 +460,8 @@ class ReviewEpochTests(unittest.TestCase):
                     with self.assertRaisesRegex(ValueError, f"{field} must not be empty"):
                         MODULE.validate(
                             value,
-                            manifest_path=manifest,
+                            routing_view=view,
+                            routing_selection=selection,
                             context_packet=packet,
                             root=root,
                         )
@@ -377,14 +469,15 @@ class ReviewEpochTests(unittest.TestCase):
     def test_structured_snapshots_findings_and_automation_health_are_validated(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest, packet, hashes = boundary(root)
+            view, selection, packet, hashes = boundary(root)
 
             invalid_snapshot = record(hashes)
             invalid_snapshot["project_snapshot"]["sha256"] = "not-a-hash"
             with self.assertRaisesRegex(ValueError, "project_snapshot.sha256"):
                 MODULE.validate(
                     invalid_snapshot,
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=packet,
                     root=root,
                 )
@@ -394,7 +487,8 @@ class ReviewEpochTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "nonblank stable id"):
                 MODULE.validate(
                     invalid_resolved,
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=packet,
                     root=root,
                 )
@@ -404,7 +498,8 @@ class ReviewEpochTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "must be healthy, degraded, or failed"):
                 MODULE.validate(
                     invalid_health,
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=packet,
                     root=root,
                 )
@@ -412,7 +507,7 @@ class ReviewEpochTests(unittest.TestCase):
     def test_finding_ids_are_unique_within_and_across_status_lists(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest, packet, hashes = boundary(root)
+            view, selection, packet, hashes = boundary(root)
 
             repeated = record(hashes)
             repeated["unresolved_findings"] = [
@@ -422,7 +517,8 @@ class ReviewEpochTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "repeats finding IDs"):
                 MODULE.validate(
                     repeated,
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=packet,
                     root=root,
                 )
@@ -433,7 +529,8 @@ class ReviewEpochTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "may not appear in both"):
                 MODULE.validate(
                     contradictory,
-                    manifest_path=manifest,
+                    routing_view=view,
+                    routing_selection=selection,
                     context_packet=packet,
                     root=root,
                 )
@@ -465,12 +562,10 @@ class ReviewEpochTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve()
             input_path = root / "record.json"
-            manifest = root / "manifest.json"
             packet_path = root / "packet.json"
             ledger = root / "epochs.jsonl"
             current = root / "current.json"
             input_path.write_text("{}\n", encoding="utf-8")
-            manifest.write_text("{}\n", encoding="utf-8")
             packet_path.write_text("{}\n", encoding="utf-8")
             ledger.write_text(
                 json.dumps(
@@ -487,8 +582,6 @@ class ReviewEpochTests(unittest.TestCase):
                 "record_review_epoch.py",
                 "--input",
                 str(input_path),
-                "--manifest",
-                str(manifest),
                 "--context-packet",
                 str(packet_path),
                 "--ledger",
@@ -510,9 +603,18 @@ class ReviewEpochTests(unittest.TestCase):
                 MODULE,
                 "validate",
                 return_value=next_record,
+            ), patch.object(
+                MODULE,
+                "load_fixture_component_registry_routing_view",
+                return_value={"registry_status": "candidate"},
+            ) as fixture_loader, patch.object(
+                MODULE,
+                "routed_documents_from_view",
+                return_value={},
             ):
                 with self.assertRaisesRegex(ValueError, "LEGACY-FINDING"):
                     MODULE.main(path_authority=path_authority)
+            fixture_loader.assert_called_once_with(path_authority)
             self.assertEqual(len(ledger.read_text(encoding="utf-8").splitlines()), 1)
 
 

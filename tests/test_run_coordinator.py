@@ -17,6 +17,106 @@ assert SPEC.loader is not None
 SPEC.loader.exec_module(MODULE)
 
 
+def review_epoch_routing_boundary(
+    *,
+    status: str = "active",
+) -> tuple[dict, dict, dict[str, str]]:
+    documents = {
+        "framework_kernel": {
+            "path": "framework/FRAMEWORK.md",
+            "hash_policy": "pinned",
+            "governing": True,
+            "sha256": "a" * 64,
+        },
+        "agent_rules_kernel": {
+            "path": "framework/AGENT_OPERATING_RULES.md",
+            "hash_policy": "pinned",
+            "governing": True,
+            "sha256": "b" * 64,
+            "requires": ["framework_kernel"],
+        },
+        "current_audit": {
+            "path": "framework/records/handoffs/current-task.md",
+            "hash_policy": "runtime",
+            "governing": False,
+            "requires": ["framework_kernel", "agent_rules_kernel"],
+        },
+        "additional_rule": {
+            "path": "framework/standards/content/additional.md",
+            "hash_policy": "pinned",
+            "governing": True,
+            "sha256": "c" * 64,
+            "requires": ["framework_kernel"],
+        },
+    }
+    route = {
+        "required_modules": [
+            "framework_kernel",
+            "agent_rules_kernel",
+            "current_audit",
+        ],
+        "documents": documents,
+        "capabilities": {},
+        "profiles": {
+            "comprehensive_review": {
+                "max_bytes": 100000,
+                "include_all_governing": True,
+            }
+        },
+    }
+    active = status == "active"
+    view = {
+        "schema_version": 1,
+        "validation_mode": (
+            "active_component_registry"
+            if active
+            else "candidate_validation_only"
+        ),
+        "registry_id": "COMPONENT-REGISTRY",
+        "registry_revision": 1,
+        "registry_status": status,
+        "registry_sha256": "d" * 64,
+        "registry_path": "framework/component-registry.json",
+        "authoritative": active,
+        "predecessor_route_consulted": not active,
+        "route": route,
+    }
+    ordered_ids = [
+        "framework_kernel",
+        "agent_rules_kernel",
+        "current_audit",
+        "additional_rule",
+    ]
+    selection = {
+        "selection_kind": "executable_packet",
+        "executable": True,
+        "registry_id": view["registry_id"],
+        "registry_revision": view["registry_revision"],
+        "registry_status": view["registry_status"],
+        "registry_sha256": view["registry_sha256"],
+        "registry_path": view["registry_path"],
+        "authoritative": active,
+        "profile": "comprehensive_review",
+        "capabilities": [],
+        "modules": [
+            {
+                "id": document_id,
+                **documents[document_id],
+            }
+            for document_id in ordered_ids
+        ],
+        "sections": [],
+    }
+    hashes = {
+        documents[document_id]["path"]: "sha256:"
+        + documents[document_id]["sha256"]
+        for document_id in ordered_ids
+        if documents[document_id]["governing"]
+    }
+    hashes[view["registry_path"]] = "sha256:" + view["registry_sha256"]
+    return view, selection, hashes
+
+
 class RunCoordinatorTests(unittest.TestCase):
     def setUp(self):
         self.config = json.loads(
@@ -748,31 +848,12 @@ class RunCoordinatorTests(unittest.TestCase):
         self.assertEqual(epoch["due_reason"], "governing_boundary_changed")
         self.assertEqual(epoch["boundary_changes"], changes)
 
-    def test_review_epoch_boundary_status_compares_all_governing_hashes_and_manifest(self):
-        registry = {
-            "schema_version": 2,
-            "documents": {
-                "framework": {
-                    "path": "framework/FRAMEWORK.md",
-                    "hash_policy": "pinned",
-                    "governing": True,
-                    "sha256": "a" * 64,
-                },
-                "checkpoint": {
-                    "path": "framework/records/handoffs/current-task.md",
-                    "hash_policy": "runtime",
-                    "governing": False,
-                },
-            },
-        }
-        current = {
-            "framework/FRAMEWORK.md": "sha256:" + "a" * 64,
-            "framework/project/automation/context-routes.json": "sha256:" + "b" * 64,
-        }
+    def test_review_epoch_boundary_status_compares_governing_hashes_and_registry(self):
+        view, selection, current = review_epoch_routing_boundary()
         status = MODULE.review_epoch_boundary_status(
             {"governing_hashes": current},
-            registry,
-            "b" * 64,
+            view,
+            selection,
         )
         self.assertFalse(status["off_cycle_required"])
         self.assertEqual(status["current_governing_hashes"], current)
@@ -780,32 +861,72 @@ class RunCoordinatorTests(unittest.TestCase):
         changed = MODULE.review_epoch_boundary_status(
             {
                 "governing_hashes": {
-                    "framework/FRAMEWORK.md": "sha256:" + "c" * 64,
+                    **current,
+                    "framework/FRAMEWORK.md": "sha256:" + "e" * 64,
                 }
             },
-            registry,
-            "b" * 64,
+            view,
+            selection,
         )
         self.assertTrue(changed["off_cycle_required"])
         self.assertEqual(changed["mismatched"], ["framework/FRAMEWORK.md"])
+        self.assertEqual(changed["missing"], [])
+
+        missing_registry = dict(current)
+        del missing_registry["framework/component-registry.json"]
+        changed = MODULE.review_epoch_boundary_status(
+            {"governing_hashes": missing_registry},
+            view,
+            selection,
+        )
         self.assertEqual(
             changed["missing"],
-            ["framework/project/automation/context-routes.json"],
+            ["framework/component-registry.json"],
         )
 
-        self_registered = json.loads(json.dumps(registry))
-        self_registered["documents"]["manifest"] = {
-            "path": "framework/project/automation/context-routes.json",
-            "hash_policy": "pinned",
-            "governing": True,
-            "sha256": "b" * 64,
-        }
-        with self.assertRaisesRegex(ValueError, "must not self-register"):
+    def test_review_epoch_boundary_rejects_predecessor_or_preview_authority(self):
+        view, selection, _ = review_epoch_routing_boundary()
+        predecessor = json.loads(json.dumps(view))
+        predecessor["predecessor_route_consulted"] = True
+        with self.assertRaisesRegex(ValueError, "only the authoritative"):
             MODULE.review_epoch_boundary_status(
                 None,
-                self_registered,
-                "b" * 64,
+                predecessor,
+                selection,
             )
+
+        preview = json.loads(json.dumps(selection))
+        preview["selection_kind"] = "capability_preview"
+        preview["executable"] = False
+        preview["profile"] = None
+        with self.assertRaisesRegex(ValueError, "executable routing selection"):
+            MODULE.review_epoch_boundary_status(None, view, preview)
+
+    def test_review_epoch_boundary_candidate_requires_explicit_validation_mode(self):
+        view, selection, hashes = review_epoch_routing_boundary(
+            status="candidate"
+        )
+        with self.assertRaisesRegex(ValueError, "must be explicitly enabled"):
+            MODULE.review_epoch_boundary_status(None, view, selection)
+        accepted = MODULE.review_epoch_boundary_status(
+            {"governing_hashes": hashes},
+            view,
+            selection,
+            allow_candidate_validation=True,
+        )
+        self.assertFalse(accepted["off_cycle_required"])
+
+    def test_review_epoch_boundary_requires_exact_comprehensive_membership(self):
+        view, selection, _ = review_epoch_routing_boundary()
+        incomplete = json.loads(json.dumps(selection))
+        incomplete["modules"].pop()
+        with self.assertRaisesRegex(ValueError, "exact governing boundary"):
+            MODULE.review_epoch_boundary_status(None, view, incomplete)
+
+        extra = json.loads(json.dumps(selection))
+        extra["capabilities"] = ["github_lifecycle"]
+        with self.assertRaisesRegex(ValueError, "exact comprehensive_review"):
+            MODULE.review_epoch_boundary_status(None, view, extra)
 
     def test_lock_rejects_another_chain_and_allows_same_chain_resume(self):
         with tempfile.TemporaryDirectory() as directory:

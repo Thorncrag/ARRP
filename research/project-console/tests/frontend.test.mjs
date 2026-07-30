@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 const testDirectory = path.dirname(fileURLToPath(import.meta.url));
 const consoleDirectory = path.resolve(testDirectory, "..");
 const appPath = path.join(consoleDirectory, "app.js");
+const componentRegistryPath = path.join(consoleDirectory, "component-registry.js");
 const entrypointPath = path.join(consoleDirectory, "project-console.html");
 const localRequire = createRequire(import.meta.url);
 const testGenerationId = "project-console-test";
@@ -135,6 +136,487 @@ function privateOperationsFixture() {
   };
 }
 
+function codexUsageFixture() {
+  return {
+    schema_version: 2,
+    projection_id: "codex-usage",
+    producer_id: "owner-local-codex-usage-sampler",
+    sampler_cadence_seconds: 1800,
+    generated_at: null,
+    trustworthy_through: null,
+    availability: "unavailable",
+    completeness: "incomplete",
+    reason_code: "owner_local_projection_required",
+    current_through: null,
+    current: null,
+    history: [],
+    reset_windows: [],
+    anomalies: [],
+    estimates: {
+      available: false,
+      budget_available: false,
+      budget_reason_code: "projection_unavailable",
+      burn_rate_available: false,
+      burn_rate_reason_code: "projection_unavailable",
+      coverage_hours: null,
+      sample_count: null,
+      average_percent_per_day: null,
+      projected_exhaustion_at: null,
+      remaining_percent_per_day_budget: null,
+      confidence: null
+    }
+  };
+}
+
+function availableCodexUsageFixture() {
+  return {
+    ...codexUsageFixture(),
+    generated_at: "2026-07-29T20:20:00Z",
+    trustworthy_through: "2026-07-29T20:47:00Z",
+    availability: "current",
+    completeness: "complete",
+    reason_code: null,
+    current_through: "2026-07-29T20:17:00Z",
+    current: {
+      observed_at: "2026-07-29T20:17:00Z",
+      plan_type: "pro",
+      used_percent: 28,
+      remaining_percent: 72,
+      window_minutes: 10080,
+      resets_at: 1785908741,
+      reset_identity: "10080:29765145"
+    },
+    estimates: {
+      available: true,
+      budget_available: true,
+      budget_reason_code: null,
+      burn_rate_available: false,
+      burn_rate_reason_code: "insufficient_observation_coverage",
+      coverage_hours: 0,
+      sample_count: 1,
+      average_percent_per_day: null,
+      projected_exhaustion_at: null,
+      remaining_percent_per_day_budget: 10.1,
+      confidence: "unavailable"
+    }
+  };
+}
+
+function componentRegistryFixture() {
+  const pending = (reason = "Producer-declared pending value.") => ({
+    state: "pending",
+    reason
+  });
+  const known = (value) => ({ state: "known", value });
+  const unavailable = (reason = "Producer-declared unavailable value.") => ({
+    state: "unavailable",
+    reason
+  });
+  const moduleRecord = {
+    id: "framework_kernel",
+    path: "framework/FRAMEWORK.md",
+    governing: true,
+    hash_policy: "pinned",
+    sha256: "2".repeat(64),
+    authority_role: "governing_authority",
+    authority_scope: known("Project governance kernel."),
+    authority_exclusions: pending("No normalized exclusions are registered."),
+    dependencies: [],
+    inclusion_reasons: ["required floor"]
+  };
+  const routingRuleIds = {
+    invariants: ["ctxr.inv.router_preserves_source_authority", "ctxr.inv.required_floor_is_minimum", "ctxr.inv.additive_union", "ctxr.inv.dependencies_are_directional_minimums", "ctxr.inv.dependency_graph_is_acyclic", "ctxr.inv.stable_document_identity_is_path_independent", "ctxr.inv.bounded_context_never_omits_material_authority"],
+    selection: ["ctxr.sel.primary_profile", "ctxr.sel.required_floor_order", "ctxr.sel.profile_starting_set", "ctxr.sel.all_implicated_capabilities", "ctxr.sel.profile_never_excludes_capability", "ctxr.sel.capability_addition_requires_no_new_profile", "ctxr.sel.profile_documents_and_exact_sections", "ctxr.sel.complete_dependency_closure", "ctxr.sel.task_specific_canonical_material", "ctxr.sel.source_projection_requires_canonical_readback", "ctxr.sel.dynamic_trigger_set", "ctxr.sel.expansion_precedes_dependent_action", "ctxr.sel.multi_agent_before_delegation", "ctxr.sel.governance_recording_plus_change_audit", "ctxr.sel.interactive_route_is_minimum_not_ceiling", "ctxr.sel.automated_expansion_allowlist", "ctxr.sel.deterministic_bot_structured_inputs"],
+    validation: ["ctxr.val.registry_before_selection", "ctxr.val.integration_pinned_digest_exact", "ctxr.val.runtime_digest_at_packet_build", "ctxr.val.expansion_provenance_preserved", "ctxr.val.exact_section_unique", "ctxr.val.packet_manifest_bound", "ctxr.val.authorized_digest_update_atomic", "ctxr.val.registry_digest_external", "ctxr.val.new_authoritative_module_admission", "ctxr.val.id_rename_change_audit"],
+    failure_rules: ["ctxr.fail.unknown_or_missing_selection", "ctxr.fail.pinned_digest_absent_or_stale", "ctxr.fail.runtime_digest_unreadable", "ctxr.fail.dependency_cycle", "ctxr.fail.generated_or_excluded_as_authority", "ctxr.fail.section_identity_invalid", "ctxr.fail.section_budget_exceeded", "ctxr.fail.packet_budget_exceeded", "ctxr.fail.unresolved_material_governing_gap", "ctxr.fail.safe_failure_disposition"],
+    currentness: ["ctxr.cur.stable_governing_is_pinned", "ctxr.cur.mutable_handoff_is_runtime_hashed", "ctxr.cur.checkpoint_update_needs_no_registry_edit", "ctxr.cur.generated_rebuildables_excluded", "ctxr.cur.records_excluded_except_handoff", "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary"],
+    budgets: ["ctxr.budget.profile_max_is_fail_closed_ceiling", "ctxr.budget.ceiling_change_does_not_change_membership", "ctxr.budget.section_and_packet_limits_are_independent", "ctxr.budget.no_mandatory_trimming"],
+    comprehensive_review: ["ctxr.review.select_all_active_governing", "ctxr.review.periodic_epoch_required", "ctxr.review.boundary_exact", "ctxr.review.any_valid_boundary_difference_due", "ctxr.review.invalid_drift_is_integrity_failure", "ctxr.review.completion_fields_exact", "ctxr.review.recorder_requires_exact_current_boundary", "ctxr.review.unresolved_findings_carry_forward", "ctxr.review.next_epoch_uses_delta_and_carry_forward", "ctxr.review.efficiency_never_limits_scope_or_lookback"]
+  };
+  const ruleCounts = Object.fromEntries(
+    Object.entries(routingRuleIds).map(([namespace, ids]) => [namespace, ids.length])
+  );
+  const routingRules = Object.entries(routingRuleIds).flatMap(([namespace, ids]) =>
+    ids.map((rule_id) => ({
+      namespace,
+      rule_id,
+      rule_version: 1,
+      status: "active",
+      predicate_type: rule_id,
+      parameters: {},
+      label: `Producer label for ${rule_id}`,
+      rendered_text: `Producer-rendered description for ${rule_id}.`,
+      ...(namespace === "failure_rules" ? { failure_code: `CTXR_${rule_id.split(".").at(-1).toUpperCase()}` } : {}),
+      source_provenance: {
+        source_document_id: "context_routing",
+        source_sha256: "5".repeat(64),
+        source_heading: "Governing Context Routing",
+        clause_key: rule_id
+      },
+      verification_ids: [`test.${rule_id}`],
+      console_route: `automation:component-registry:routing?rule=${encodeURIComponent(rule_id)}`
+    }))
+  );
+  return {
+    schema_version: 1,
+    projection_id: "component-registry-console",
+    producer_id: "project-console-builder",
+    generated_at: "2026-07-29T12:00:00Z",
+    availability: "current",
+    complete: true,
+    reason_code: null,
+    routes: {
+      documents: "automation:component-registry:documents",
+      directories: "automation:component-registry:directories",
+      routing: "automation:component-registry:routing",
+      terminology: "automation:component-registry:terminology"
+    },
+    defaults: {
+      mode: "documents",
+      document: "framework_kernel",
+      directory: "framework",
+      routing: "profile:compact"
+    },
+    registry: {
+      registry_id: "arrp_component_registry",
+      registry_revision: 1,
+      registry_status: "candidate",
+      approval: pending("Activation approval is pending."),
+      configuration_validation: known(
+        "Candidate predecessor parity validated"
+      ),
+      live_activation: pending(
+        "The tracked candidate has not entered live owner activation."
+      ),
+      validation_mode: "candidate_validation_only",
+      authoritative: false,
+      executable: false,
+      live_activation_verified: false,
+      predecessor_route_consulted: true,
+      registry_sha256: "1".repeat(64),
+      repository_revision: testSourceRevision,
+      source_binding_sha256: known("2".repeat(64))
+    },
+    deferred: {
+      display_state: "Classification pending — enforcement not active",
+      reason: "Artifact classification and lifecycle mapping require complete human review.",
+      activation_requirement: "A distinct Governance Change and explicit human approval are required.",
+      namespaces: [
+        "artifact_classes",
+        "artifact_families",
+        "artifact_lifecycles"
+      ].map((namespace) => ({
+        namespace,
+        schema_version: 1,
+        activation_state: "deferred_pending_human_classification",
+        complete: false,
+        enforced: false,
+        entry_count: 0
+      }))
+    },
+    documents: [{
+      document_id: "framework_kernel",
+      official_reference_name: known("ARRP Framework"),
+      document_class: known("routed_governing_document"),
+      revision: known(1),
+      current_status: known("current_routed_source"),
+      effective_date: pending(),
+      approval_date: pending(),
+      approval_method: pending(),
+      governance_change_id: pending(),
+      purpose_scope: known("Project governance kernel."),
+      authority_role: "governing_authority",
+      authority_exclusions: pending(),
+      canonical_path: "framework/FRAMEWORK.md",
+      owner: "@Thorncrag",
+      review_policy: "owner_review_required",
+      disclosure_class: "public_by_design",
+      creation_provenance: pending(),
+      governance_revision: 1,
+      producer: "existing_repository_source",
+      authorized_writers: ["@Thorncrag"],
+      representations: ["component_registry_console_documents"],
+      dependencies: [],
+      consumers: ["codex_bootstrap"],
+      digest_policy: "pinned",
+      sha256: "2".repeat(64),
+      console_route: "operations:component-registry:documents?document=framework_kernel",
+      retention_posture: "current",
+      history: unavailable("Normalized history is not registered.")
+    }, {
+      document_id: "context_routing",
+      official_reference_name: known("Context Routing"),
+      document_class: known("routed_governing_document"),
+      revision: known(1),
+      current_status: known("current_routed_source"),
+      effective_date: pending(), approval_date: pending(), approval_method: pending(), governance_change_id: pending(),
+      purpose_scope: known("Routing requirements."), authority_role: "governing_authority", authority_exclusions: pending(),
+      canonical_path: "framework/CONTEXT_ROUTING.md", owner: "@Thorncrag", review_policy: "owner_review_required",
+      disclosure_class: "public_by_design", creation_provenance: pending(), governance_revision: 1,
+      producer: "existing_repository_source", authorized_writers: ["@Thorncrag"],
+      representations: ["component_registry_console_documents"], dependencies: [], consumers: ["codex_bootstrap"],
+      digest_policy: "pinned", sha256: "5".repeat(64),
+      console_route: "operations:component-registry:documents?document=context_routing",
+      retention_posture: "current", history: unavailable("Normalized history is not registered.")
+    }],
+    directories: [{
+      scope_id: "framework",
+      display_name: "Framework",
+      path_pattern: "framework/**",
+      match_kind: "tree",
+      specificity_rank: 1,
+      parameter_bindings: {},
+      owning_scope_selection_rule: "highest_specificity_unique",
+      ancestor_scope_ids: [],
+      placement_question: "Is this a framework authority or record?",
+      include_when: ["Tracked framework authorities and records."],
+      exclude_when: ["Owner-local material."],
+      primary_authority: "COMPONENT-REGISTRY",
+      disclosure_boundary: "public_by_design",
+      lifecycle_posture: "current",
+      authorized_creators: ["@Thorncrag"],
+      precedence: "Most-specific scope wins; ties fail closed.",
+      fallback: "human_review",
+      console_route: "automation:component-registry:directories?directory=framework",
+      permitted_artifact_classes: unavailable(
+        "Artifact classification requires complete human review."
+      ),
+      current_artifact_count: known(12)
+    }],
+    routing: {
+      schema_version: 2,
+      rule_catalog_version: 1,
+      activation_state: "candidate_import",
+      complete: true,
+      authoritative: false,
+      source_import: {
+        path: "framework/project/automation/context-routes.json",
+        sha256: "3".repeat(64),
+        schema_version: 2,
+        import_semantics: "exact_validated_snapshot"
+      },
+      predecessor_provenance: {
+        state: "not_applicable",
+        reason: "Candidate routing uses predecessor parity evidence."
+      },
+      readable_representation: {
+        state: "not_applicable",
+        reason: "The active readable representation is not adopted."
+      },
+      expected_counts: {
+        documents: 2,
+        governing_documents: 2,
+        capabilities: 1,
+        profiles: 1,
+        required_modules: 1,
+        generated_path_exclusions: 1
+      },
+      parity_policy: "exact_identity_membership_dependency_section_and_digest_parity",
+      required_modules: ["framework_kernel"],
+      generated_path_exclusions: ["research/project-console/data"],
+      documents: [{
+        document_id: "framework_kernel",
+        path: "framework/FRAMEWORK.md",
+        governing: true,
+        hash_policy: "pinned",
+        sha256: "2".repeat(64),
+        requires: []
+      }, {
+        document_id: "context_routing",
+        path: "framework/CONTEXT_ROUTING.md",
+        governing: true,
+        hash_policy: "pinned",
+        sha256: "5".repeat(64),
+        requires: []
+      }],
+      capabilities: [{
+        capability_id: "governance",
+        document_ids: ["framework_kernel"]
+      }],
+      profiles: [{
+        profile_id: "compact",
+        max_bytes: 200000,
+        modules: ["framework_kernel"],
+        capabilities: [],
+        include_all_governing: false,
+        sections: []
+      }],
+      selections: [{
+        selection_id: "profile:compact",
+        selection_kind: "profile",
+        executable: false,
+        authoritative: false,
+        live_activation_verified: false,
+        profile: "compact",
+        capabilities: [],
+        max_bytes: 200000,
+        sections: [],
+        modules: [moduleRecord],
+        console_route: "automation:component-registry:routing?selection=profile%3Acompact"
+      }, {
+        selection_id: "capability:governance",
+        selection_kind: "capability",
+        executable: false,
+        authoritative: false,
+        live_activation_verified: false,
+        profile: null,
+        capabilities: ["governance"],
+        max_bytes: null,
+        sections: [],
+        modules: [moduleRecord],
+        console_route: "automation:component-registry:routing?selection=capability%3Agovernance"
+      }],
+      rule_namespaces: Object.keys(routingRuleIds),
+      rule_counts: ruleCounts,
+      rules: routingRules,
+      validation: {
+        valid: true,
+        source_sha256: "3".repeat(64),
+        registry_route_sha256: "4".repeat(64),
+        counts: {
+          documents: 2,
+          governing_documents: 2,
+          capabilities: 1,
+          profiles: 1,
+          required_modules: 1,
+          generated_path_exclusions: 1
+        },
+        differences: [],
+        document_ids_equal: true,
+        profile_ids_equal: true,
+        capability_ids_equal: true
+      }
+    },
+    activation_readiness: {
+      available: true,
+      complete: true,
+      activation_state: "candidate_complete",
+      authoritative: false,
+      executable: false,
+      registry_revision: 1,
+      registry_sha256: "1".repeat(64),
+      current_candidate_counts: {
+        documents: 88,
+        governing_documents: 87,
+        capabilities: 19,
+        profiles: 8,
+        required_modules: 3,
+        generated_path_exclusions: 9,
+        rules: 64
+      },
+      simulated_active_counts: {
+        documents: 85,
+        governing_documents: 84,
+        capabilities: 19,
+        profiles: 8,
+        required_modules: 3,
+        generated_path_exclusions: 9,
+        rules: 64
+      },
+      requirement_count: 77,
+      exception_count: 0,
+      stage_boundaries: {
+        artifact_classes: "deferred_by_approved_stage_boundary",
+        artifact_families: "deferred_by_approved_stage_boundary",
+        artifact_lifecycles: "deferred_by_approved_stage_boundary",
+        terminology: "candidate_unpopulated",
+        repository_reference_mutation: "separately_gated"
+      },
+      activation_decision: "pending_human_activation"
+    },
+    terminology: {
+      available: false,
+      complete: false,
+      activation_state: "candidate_unpopulated",
+      reason: "Canonical terminology requires separate approval.",
+      entries: [],
+      console_route: "automation:component-registry:terminology"
+    }
+  };
+}
+
+function activeComponentRegistryFixture() {
+  const snapshot = structuredClone(componentRegistryFixture());
+  const notApplicable = (reason) => ({
+    state: "not_applicable",
+    reason
+  });
+  snapshot.registry = {
+    ...snapshot.registry,
+    registry_status: "active",
+    approval: {
+      state: "known",
+      value: "Tracked activation configuration approved"
+    },
+    configuration_validation: {
+      state: "known",
+      value: "Tracked active configuration validated"
+    },
+    live_activation: {
+      state: "unknown",
+      reason: "Live owner activation is not evaluated by this projection."
+    },
+    validation_mode: "active_configuration_validation_only",
+    authoritative: false,
+    executable: false,
+    live_activation_verified: false,
+    predecessor_route_consulted: false,
+    source_binding_sha256: notApplicable(
+      "Predecessor source binding is not active configuration authority."
+    )
+  };
+  snapshot.activation_readiness = {
+    ...snapshot.activation_readiness,
+    activation_state: "active",
+    activation_decision:
+      "tracked_active_configuration_live_readback_separate"
+  };
+  snapshot.documents = snapshot.documents.filter((record) =>
+    record.document_id !== "context_routing");
+  snapshot.routing = {
+    ...snapshot.routing,
+    activation_state: "active",
+    authoritative: false,
+    source_import: notApplicable(
+      "Predecessor routing evidence is not consulted after tracked activation."
+    ),
+    predecessor_provenance: {
+      state: "known",
+      value: "Archived predecessor provenance retained as nonauthoritative history."
+    },
+    readable_representation: {
+      state: "known",
+      representation_id: "human_readable_context_routing",
+      source_registry_revision: snapshot.registry.registry_revision,
+      authority_effect: "none",
+      executable: false
+    },
+    expected_counts: {
+      ...snapshot.routing.expected_counts,
+      documents: 1,
+      governing_documents: 1
+    },
+    parity_policy: notApplicable(
+      "Predecessor routing evidence is not consulted after tracked activation."
+    ),
+    documents: snapshot.routing.documents.filter((record) =>
+      record.document_id !== "context_routing"),
+    validation: notApplicable(
+      "Predecessor routing evidence is not consulted after tracked activation."
+    ),
+    rules: snapshot.routing.rules.map((record) => ({
+      ...record,
+      source_provenance: {
+        source_document_id: "COMPONENT-REGISTRY",
+        source_sha256: snapshot.registry.registry_sha256,
+        source_heading: "Embedded context routing rule catalog",
+        clause_key: record.rule_id
+      }
+    }))
+  };
+  return snapshot;
+}
+
 test("preserved transaction projection derives unresolved membership from retirement proof", () => {
   const { api } = loadApi();
   const current = {
@@ -188,6 +670,13 @@ function loadApi(privateSecurityAssurance = {}, projectDataOverride = {}) {
       "local-automation-status",
       "local-automation-status.js",
       "3"
+    ),
+    "codex-usage": ownerProjectionEntry(
+      "codex-usage",
+      "private-codex-usage.js",
+      "4",
+      "unavailable",
+      false
     )
   };
   const binding = {
@@ -204,6 +693,7 @@ function loadApi(privateSecurityAssurance = {}, projectDataOverride = {}) {
     privateSecurityAssurance,
     binding
   );
+  const usageWrapper = ownerProjectionWrapper("codex-usage", codexUsageFixture(), binding);
   const document = {
     body: { dataset: {}, innerHTML: "" },
     querySelectorAll() { return []; }
@@ -211,6 +701,7 @@ function loadApi(privateSecurityAssurance = {}, projectDataOverride = {}) {
   const window = {
     ARRP_HORIZON_REVIEW_DATA: projectData,
     ARRP_PRIVATE_SECURITY_ASSURANCE: securityWrapper,
+    ARRP_PRIVATE_CODEX_USAGE: usageWrapper,
     ARRP_OWNER_CONSOLE_BINDING: binding,
     location: {
       protocol: "file:",
@@ -227,6 +718,12 @@ function loadApi(privateSecurityAssurance = {}, projectDataOverride = {}) {
   globalThis.window = window;
   globalThis.document = document;
   globalThis.CSS = { escape: String };
+  const capacityModule = localRequire.resolve("../capacity.js");
+  delete localRequire.cache[capacityModule];
+  localRequire("../capacity.js");
+  const componentRegistryModule = localRequire.resolve("../component-registry.js");
+  delete localRequire.cache[componentRegistryModule];
+  localRequire("../component-registry.js");
   const appModule = localRequire.resolve("../app.js");
   delete localRequire.cache[appModule];
   try {
@@ -236,7 +733,9 @@ function loadApi(privateSecurityAssurance = {}, projectDataOverride = {}) {
       data: window.ARRP_HORIZON_REVIEW_DATA,
       binding,
       securityWrapper,
-      testWindow: window
+      usageWrapper,
+      testWindow: window,
+      componentRegistryApi: window.ARRP_COMPONENT_REGISTRY
     };
   } finally {
     for (const [name, value] of Object.entries(priorGlobals)) {
@@ -245,6 +744,290 @@ function loadApi(privateSecurityAssurance = {}, projectDataOverride = {}) {
     }
   }
 }
+
+test("Codex usage requires the typed owner-local envelope and never infers an absolute allowance", () => {
+  const { api } = loadApi();
+  assert.equal(api.validPrivateCodexUsage(codexUsageFixture()), true);
+  const available = availableCodexUsageFixture();
+  const checkedAt = Date.parse("2026-07-29T20:20:00Z");
+  assert.equal(api.validPrivateCodexUsage(available, checkedAt), true);
+  assert.equal(api.validPrivateCodexUsage({ ...available, absolute_capacity: 20 }, checkedAt), false);
+  assert.equal(api.validPrivateCodexUsage({ ...available, estimates: { ...available.estimates, available: false } }, checkedAt), false);
+  assert.equal(api.validPrivateCodexUsage({ ...available, estimates: { ...available.estimates, burn_rate_available: false, average_percent_per_day: 2 } }, checkedAt), false);
+  assert.equal(api.validPrivateCodexUsage({ ...available, current: { ...available.current, resets_at: "2026-08-05T01:45:41-04:00" } }, checkedAt), false);
+  assert.equal(api.validPrivateCodexUsage({ ...available, current: { ...available.current, used_percent: 28, remaining_percent: 28 } }, checkedAt), false);
+  assert.equal(api.validPrivateCodexUsage(available, Date.parse("2026-07-29T20:47:01Z")), false);
+});
+
+test("Codex usage payload binding uses the canonical semantic digest and rejects tampering", () => {
+  const { api, binding, usageWrapper, testWindow } = loadApi();
+  const expected = "sha256:72411d2d80862f43fbb833f924f45581f6521e755a4aa4a0131df479f975fa3e";
+  assert.equal(api.codexUsagePayloadDigest(usageWrapper.payload), expected);
+  binding.projections["codex-usage"].source_sha256 = expected;
+  usageWrapper.owner_console_envelope.source_sha256 = expected;
+  const priorWindow = globalThis.window;
+  globalThis.window = testWindow;
+  try {
+    assert.equal(api.capturePrivateCodexUsage(), true);
+    usageWrapper.payload = {
+      ...usageWrapper.payload,
+      reason_code: "usage_readback_stale"
+    };
+    testWindow.ARRP_PRIVATE_CODEX_USAGE = usageWrapper;
+    assert.equal(api.validPrivateCodexUsage(usageWrapper.payload), true);
+    assert.equal(api.capturePrivateCodexUsage(), false);
+  } finally {
+    if (priorWindow === undefined) delete globalThis.window;
+    else globalThis.window = priorWindow;
+  }
+});
+
+test("Codex usage graph is responsive, accessible, and uses typed reset boundaries", () => {
+  const app = fs.readFileSync(appPath, "utf8");
+  const capacity = fs.readFileSync(path.join(consoleDirectory, "capacity.js"), "utf8");
+  assert.match(app, /codexCapacityModule\?\.historyElements\(usage, identityPrefix/);
+  assert.match(capacity, /function historyElements\(usage, identityPrefix, helpers\)/);
+  assert.match(capacity, /role: "img"/);
+  assert.match(capacity, /tabindex: "0"/);
+  assert.match(capacity, /`\$\{identityPrefix\}-usage-title \$\{identityPrefix\}-usage-description`/);
+  assert.match(capacity, /const description = svgNode\(/);
+  assert.match(capacity, /timestamp: record\.resets_at \* 1000/);
+  assert.match(capacity, /const records = allRecords\.slice\(-48\)/);
+  assert.match(capacity, /"usage-trend-reset"/);
+  assert.match(capacity, /label\.textContent = `Reset \$\{formatDate\(boundary\.timestamp\)\}`/);
+  assert.match(capacity, /"Codex usage readings and reset boundaries"/);
+  assert.match(capacity, /usage-trend-text-summary/);
+  assert.doesNotMatch(app, /function renderUsageTrend\(\)/);
+});
+
+test("Component Registry accepts only the builder-supplied typed snapshot", () => {
+  const { componentRegistryApi } = loadApi();
+  const snapshot = componentRegistryFixture();
+  assert.equal(componentRegistryApi.validSnapshot(snapshot), true);
+  assert.equal(componentRegistryApi.pendingDisplay, "Classification pending — enforcement not active");
+  assert.equal(componentRegistryApi.validSnapshot({ ...snapshot, inferred_taxonomy: [] }), false);
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    documents: [{
+      ...snapshot.documents[0],
+      browser_classification: "miscellaneous"
+    }]
+  }), false);
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    routing: {
+      ...snapshot.routing,
+      rules: [{ ...snapshot.routing.rules[0], rule_id: "ctxr.inv.unregistered" }, ...snapshot.routing.rules.slice(1)]
+    }
+  }), false);
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    routing: {
+      ...snapshot.routing,
+      rules: [{ ...snapshot.routing.rules[0], namespace: "browser_invented" }, ...snapshot.routing.rules.slice(1)]
+    }
+  }), false);
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    routing: {
+      ...snapshot.routing,
+      rule_counts: { ...snapshot.routing.rule_counts, selection: 16 }
+    }
+  }), false);
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    routing: {
+      ...snapshot.routing,
+      rules: [{ ...snapshot.routing.rules[0], rendered_text: "Producer-rendered text only.", browser_summary: "invented" }, ...snapshot.routing.rules.slice(1)]
+    }
+  }), false);
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    registry: {
+      ...snapshot.registry,
+      registry_status: "active",
+      approval: {
+        state: "known",
+        value: "Owner activation verified"
+      }
+    },
+    routing: { ...snapshot.routing, authoritative: true }
+  }), false);
+  const active = activeComponentRegistryFixture();
+  assert.equal(componentRegistryApi.validSnapshot(active), true);
+  [
+    {
+      ...active,
+      registry: { ...active.registry, authoritative: true }
+    },
+    {
+      ...active,
+      registry: { ...active.registry, executable: true }
+    },
+    {
+      ...active,
+      registry: { ...active.registry, live_activation_verified: true }
+    },
+    {
+      ...active,
+      registry: { ...active.registry, predecessor_route_consulted: true }
+    },
+    {
+      ...active,
+      registry: {
+        ...active.registry,
+        live_activation: {
+          state: "known",
+          value: "Owner activation verified"
+        }
+      }
+    },
+    {
+      ...active,
+      registry: {
+        ...active.registry,
+        source_binding_sha256: {
+          state: "known",
+          value: "2".repeat(64)
+        }
+      }
+    },
+    {
+      ...active,
+      registry: {
+        ...active.registry,
+        activation_receipt: "must not enter the public Console"
+      }
+    },
+    {
+      ...active,
+      routing: {
+        ...active.routing,
+        source_import: snapshot.routing.source_import
+      }
+    },
+    {
+      ...active,
+      routing: {
+        ...active.routing,
+        predecessor_provenance: {
+          ...active.routing.predecessor_provenance,
+          historical_path: "framework/CONTEXT_ROUTING.md"
+        }
+      }
+    },
+    {
+      ...active,
+      routing: {
+        ...active.routing,
+        readable_representation: {
+          ...active.routing.readable_representation,
+          executable: true
+        }
+      }
+    },
+    {
+      ...active,
+      routing: {
+        ...active.routing,
+        authoritative: true
+      }
+    },
+    {
+      ...active,
+      routing: {
+        ...active.routing,
+        selections: [{
+          ...active.routing.selections[0],
+          executable: true
+        }, ...active.routing.selections.slice(1)]
+      }
+    },
+    {
+      ...active,
+      routing: {
+        ...active.routing,
+        rules: [{
+          ...active.routing.rules[0],
+          source_provenance: snapshot.routing.rules[0].source_provenance
+        }, ...active.routing.rules.slice(1)]
+      }
+    }
+  ].forEach((invalid) => {
+    assert.equal(componentRegistryApi.validSnapshot(invalid), false);
+  });
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    registry: {
+      ...snapshot.registry,
+      registry_status: "active",
+      approval: {
+        state: "known",
+        value: { owner_review_reference: "must not enter the Console" }
+      }
+    }
+  }), false);
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    routing: {
+      ...snapshot.routing,
+      validation: { ...snapshot.routing.validation, valid: false }
+    }
+  }), false);
+  assert.deepEqual(
+    componentRegistryApi.routeState(
+      "automation:component-registry:routing?selection=capability%3Agovernance",
+      snapshot
+    ),
+    { mode: "routing", selected: "capability:governance" }
+  );
+  assert.deepEqual(
+    componentRegistryApi.routeState(
+      "automation:component-registry:routing?rule=ctxr.inv.additive_union",
+      snapshot
+    ),
+    { mode: "routing", selected: "ctxr.inv.additive_union" }
+  );
+  assert.deepEqual(
+    componentRegistryApi.routeState(
+      "automation:component-registry:routing?selection=profile%3Acompact&rule=ctxr.inv.additive_union",
+      snapshot
+    ),
+    { mode: "routing", selected: "profile:compact" }
+  );
+});
+
+test("Component Registry uses only deferred module and generated-domain entrypoints", () => {
+  const html = fs.readFileSync(entrypointPath, "utf8");
+  const app = fs.readFileSync(appPath, "utf8");
+  const module = fs.readFileSync(componentRegistryPath, "utf8");
+  assert.doesNotMatch(html, /<script\s+src="component-registry\.js/);
+  assert.doesNotMatch(html, /<script\s+src="data\/component-registry\.js/);
+  assert.match(app, /const COMPONENT_REGISTRY_MODULE_PATH = "component-registry\.js\?v=1";/);
+  assert.match(app, /`data\/component-registry\.js\?v=\$\{SCRIPT_VERSION\}`/);
+  assert.match(app, /if \(source\.startsWith\("data\/"\)\) validateLoadedDomainScript\(source\);/);
+  assert.doesNotMatch(module, /miscellaneous|uncategorized|infer(?:red)?_taxonomy/i);
+});
+
+test("Component Registry is an Operations subtab after Data and before Logs", () => {
+  const html = fs.readFileSync(entrypointPath, "utf8");
+  const dataIndex = html.indexOf('id="automation-tab-data"');
+  const registryIndex = html.indexOf('id="automation-tab-component-registry"');
+  const logsIndex = html.indexOf('id="automation-tab-logs"');
+  assert.ok(dataIndex >= 0 && dataIndex < registryIndex && registryIndex < logsIndex);
+  ["documents", "directories", "routing", "terminology"].forEach((mode) => {
+    assert.match(html, new RegExp(`id="component-registry-mode-${mode}"`));
+    assert.match(html, new RegExp(`id="component-registry-panel-${mode}"`));
+  });
+  assert.match(html, /Classification pending — enforcement not active/);
+  assert.doesNotMatch(
+    html.slice(
+      html.indexOf('id="panel-overview"'),
+      html.indexOf('id="panel-progress"')
+    ),
+    /component-registry/i
+  );
+});
 
 test("term normalization uses the canonical Trump I and Trump II vocabulary", () => {
   const { api } = loadApi();
@@ -521,10 +1304,58 @@ test("owner-local projections require exact immutable file binding", async () =>
     }
   };
   try {
-    assert.equal(await api.loadLocalProjection("data/missing.js", () => false), false);
-    assert.equal(appended, 0);
     assert.equal(
-      await api.loadLocalProjection("data/private-operations.js?v=1", () => false),
+      await api.loadLocalProjection(
+        "data/missing.js",
+        "private-operations",
+        () => false
+      ),
+      false
+    );
+    assert.equal(appended, 0);
+    const swappedBinding = {
+      ...binding,
+      projections: {
+        ...binding.projections,
+        "security-assurance": {
+          ...binding.projections["security-assurance"],
+          relative_path: binding.projections["private-operations"].relative_path
+        },
+        "private-operations": {
+          ...binding.projections["private-operations"],
+          relative_path: binding.projections["security-assurance"].relative_path
+        }
+      }
+    };
+    globalThis.window.ARRP_OWNER_CONSOLE_BINDING = swappedBinding;
+    assert.equal(api.localConsoleOriginAllowed(
+      globalThis.window.location,
+      swappedBinding
+    ), true);
+    assert.equal(
+      await api.loadLocalProjection(
+        "data/private-operations.js?v=1",
+        "private-operations",
+        () => false
+      ),
+      false
+    );
+    assert.equal(
+      await api.loadLocalProjection(
+        "data/private-security-assurance.js?v=1",
+        "security-assurance",
+        () => false
+      ),
+      false
+    );
+    assert.equal(appended, 0);
+    globalThis.window.ARRP_OWNER_CONSOLE_BINDING = binding;
+    assert.equal(
+      await api.loadLocalProjection(
+        "data/private-operations.js?v=1",
+        "private-operations",
+        () => false
+      ),
       false
     );
     assert.equal(appended, 1);
@@ -1402,6 +2233,14 @@ test("Planning and Operations consolidate navigation while preserving old routes
   assert.equal(api.normalizeConsoleTarget("automation:administration"), "automation:overview");
   assert.equal(api.normalizeConsoleTarget("automation:chain"), "automation:overview");
   assert.equal(api.normalizeConsoleTarget("automation:agents"), "automation:agents:run-coordinator-bot");
+  assert.equal(
+    api.normalizeConsoleTarget("operations:component-registry:documents?document=framework_kernel"),
+    "automation:component-registry:documents?document=framework_kernel"
+  );
+  assert.equal(
+    api.normalizeConsoleTarget("automation:component-registry:documents?document=framework_kernel"),
+    "automation:component-registry:documents?document=framework_kernel"
+  );
 });
 
 test("Workbench links resolve only typed planning artifacts and retain source context", () => {
@@ -1629,10 +2468,15 @@ test("initial HTML loads only bounded scripts and stays within declared budgets"
   ]);
   assert.match(app, /const PRIVATE_SECURITY_ASSURANCE_PATH = "data\/private-security-assurance\.js\?v=1";/);
   assert.match(app, /const PRIVATE_OPERATIONS_PATH = "data\/private-operations\.js\?v=1";/);
+  assert.match(app, /const PRIVATE_CODEX_USAGE_PATH = "data\/private-codex-usage\.js\?v=1";/);
   assert.match(app, /const LOCAL_AUTOMATION_STATUS_PATH = "data\/local-automation-status\.js";/);
-  assert.match(app, /return loadLocalProjection\(\s*PRIVATE_SECURITY_ASSURANCE_PATH,\s*capturePrivateSecurityAssurance\s*\)/);
-  assert.match(app, /return loadLocalProjection\(PRIVATE_OPERATIONS_PATH, capturePrivateOperations\)/);
-  assert.match(app, /return loadLocalProjection\(\s*LOCAL_AUTOMATION_STATUS_PATH,\s*captureLocalAutomationStatus\s*\)/);
+  assert.match(app, /const CODEX_CAPACITY_MODULE_PATH = "capacity\.js\?v=1";/);
+  assert.match(app, /const COMPONENT_REGISTRY_MODULE_PATH = "component-registry\.js\?v=1";/);
+  assert.match(app, /return loadLocalProjection\(\s*PRIVATE_SECURITY_ASSURANCE_PATH,\s*"security-assurance",\s*capturePrivateSecurityAssurance\s*\)/);
+  assert.match(app, /return loadLocalProjection\(\s*PRIVATE_OPERATIONS_PATH,\s*"private-operations",\s*capturePrivateOperations\s*\)/);
+  assert.match(app, /return loadLocalProjection\(\s*PRIVATE_CODEX_USAGE_PATH,\s*"codex-usage",\s*capturePrivateCodexUsage\s*\)/);
+  assert.match(app, /return loadScriptOnce\(CODEX_CAPACITY_MODULE_PATH\)/);
+  assert.match(app, /return loadLocalProjection\(\s*LOCAL_AUTOMATION_STATUS_PATH,\s*"local-automation-status",\s*captureLocalAutomationStatus\s*\)/);
   assert.match(app, /if \(window\.__ARRP_CONSOLE_TEST_MODE__\) capturePrivateSecurityAssurance\(\);/);
   assert.doesNotMatch(app, /\n  capturePrivateSecurityAssurance\(\);/);
   assert.match(html, /data-initial-script-budget-kib="655"/);
@@ -1644,7 +2488,11 @@ test("initial HTML loads only bounded scripts and stays within declared budgets"
   const approximateElementCount = (html.match(/<[a-z][^!/][^>]*>/gi) || []).length;
   assert.ok(approximateElementCount <= 1500, `initial HTML has about ${approximateElementCount} elements`);
   assert.doesNotMatch(html, /<script\s+src="data\/(?:candidates|sources|progress|integrity|automation|logs|publication)/);
-  assert.doesNotMatch(html, /private-security-assurance|private-operations|local-automation-status/);
+  assert.doesNotMatch(html, /private-security-assurance|private-operations|private-codex-usage|local-automation-status/);
+  assert.doesNotMatch(html, /<script\s+src="capacity\.js/);
+  assert.doesNotMatch(html, /<script\s+src="component-registry\.js/);
+  assert.equal(fs.existsSync(path.join(consoleDirectory, "capacity.js")), true);
+  assert.equal(fs.existsSync(componentRegistryPath), true);
   assert.doesNotMatch(html, /role="tabpanel"[^>]*tabindex="0"/);
   assert.match(html, /Recent material activity/);
   assert.match(html, /id="pages-pagination"/);

@@ -1,0 +1,1445 @@
+{
+  "schema_version": 1,
+  "evidence_type": "context_routing_rule_migration_closure",
+  "status": "candidate",
+  "authoritative": false,
+  "purpose": "Non-authoritative migration evidence binding every approved routing rule to the pinned predecessor source without replacing either authority.",
+  "source": {
+    "document_id": "context_routing",
+    "path": "framework/CONTEXT_ROUTING.md",
+    "sha256": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+    "line_count": 121
+  },
+  "design_authorities": {
+    "base_blueprint": {
+      "design_id": "COMPONENT-REGISTRY-2026-001-STAGE-1-LOCAL-ACCEPTANCE",
+      "design_revision": "sha256:a3dd3fa31c3e02b5fbddc89b1aa293ec0164e667d45f4142ebaa884020989ac8",
+      "role": "stage_1_architectural_blueprint"
+    },
+    "supplemental_routing_catalog": {
+      "design_id": "COMPONENT-REGISTRY-2026-001-ROUTING-RULE-CATALOG",
+      "design_revision": "sha256:246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7",
+      "role": "approved_context_routing_rule_catalog_migration",
+      "approval": {
+        "date": "2026-07-30",
+        "method": "explicit_user_approval_in_primary_codex_task",
+        "reference": "codex-thread:019fa401-0c64-7c00-ab6b-636e7e516a88:2026-07-30:routing-rule-catalog-approval"
+      },
+      "closes_decision_ids": [
+        "CR-045",
+        "CR-046"
+      ]
+    },
+    "activation_authority_modes": {
+      "design_id": "COMPONENT-REGISTRY-2026-001-ACTIVATION-AUTHORITY-MODES",
+      "design_revision": "sha256:277d9e59882d3c49399526e15a50adb6f1098f4a7a1898ff8ac1941bc7f6148f",
+      "role": "approved_configuration_and_live_activation_authority_modes"
+    },
+    "active_predecessor_retirement": {
+      "design_id": "COMPONENT-REGISTRY-2026-001-ACTIVE-PREDECESSOR-RETIREMENT",
+      "design_revision": "sha256:19f03f6daacb580680cb481bf93caf2c7efdd5b4afb4e8ce1486dd9a61575f44",
+      "role": "approved_active_no_predecessor_io_and_historical_provenance_model"
+    },
+    "ultra_acceptance_corrections": {
+      "design_id": "COMPONENT-REGISTRY-2026-001-ULTRA-ACCEPTANCE-CORRECTIONS",
+      "design_revision": "sha256:6b9f8f7cf12059730ff7406feb59178bca501d23181cb0147cb6f137f60c15fb",
+      "role": "approved_terminal_acceptance_and_routing_assurance_correction"
+    }
+  },
+  "method": {
+    "atomic_clause_identity": "Each approved stable rule ID is one semantic atomic clause. A compound source paragraph may support more than one clause, and a clause may cite more than one source block.",
+    "source_block_coverage": "Every nonblank, nonheading Markdown body block in the pinned predecessor is classified exactly once as normative routing text or registered routing data.",
+    "structured_data_boundary": "The profile table and its introductory sentence are registered routing data verified independently by route parity; they are not prose-derived rules.",
+    "authority_boundary": "This matrix is immutable migration evidence only. It does not define routing behavior and cannot activate the Component Registry.",
+    "provenance_roles": "The source object identifies the exact predecessor text that supplied normative clauses. The separately named design authorities identify the approved migration decisions. A source digest is not approval evidence, and a design revision is not predecessor-source provenance."
+  },
+  "expected_counts": {
+    "rules": 64,
+    "source_blocks": 28,
+    "categories": {
+      "invariants": 7,
+      "selection": 17,
+      "validation": 10,
+      "failure_rules": 10,
+      "currentness": 6,
+      "budgets": 4,
+      "comprehensive_review": 10
+    }
+  },
+  "rule_assurance": {
+    "schema_version": 1,
+    "status": "candidate",
+    "authoritative": false,
+    "allowed_modes": [
+      "deterministic_enforcement",
+      "governing_instruction_precondition",
+      "candidate_validation_only"
+    ],
+    "mode_semantics": {
+      "deterministic_enforcement": "A named production symbol rejects the modeled negative condition; the row claims no enforcement beyond that symbol and test.",
+      "governing_instruction_precondition": "An exact pinned governing instruction is included by the named packet route; this proves the instruction precondition only, not cognitive compliance or interception.",
+      "candidate_validation_only": "A candidate-only validator closes the named source or configuration condition without creating executable or active authority."
+    },
+    "rows": [
+      {"rule_id":"ctxr.inv.router_preserves_source_authority","assurance_mode":"candidate_validation_only","registered_phase":"route_definition","registered_failure_code":"CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP","negative_fixture_id":"fixture.assurance.ctxr.inv.router_preserves_source_authority","catalog_verification_id":"test.ctxr.inv.router_preserves_source_authority","implementation_anchor":"scripts.component_registry:parity_report","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry.py::ComponentRegistryCandidateTests::test_live_candidate_validates_and_preserves_route_parity"},
+      {"rule_id":"ctxr.inv.required_floor_is_minimum","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.inv.required_floor_is_minimum","catalog_verification_id":"test.ctxr.inv.required_floor_is_minimum","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_schema_two_loads_required_modules_dependencies_and_additive_capabilities"},
+      {"rule_id":"ctxr.inv.additive_union","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.inv.additive_union","catalog_verification_id":"test.ctxr.inv.additive_union","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_schema_two_loads_required_modules_dependencies_and_additive_capabilities"},
+      {"rule_id":"ctxr.inv.dependencies_are_directional_minimums","assurance_mode":"governing_instruction_precondition","registered_phase":"route_definition","registered_failure_code":"CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP","negative_fixture_id":"fixture.assurance.ctxr.inv.dependencies_are_directional_minimums","catalog_verification_id":"test.ctxr.inv.dependencies_are_directional_minimums","implementation_anchor":"framework/FRAMEWORK.md#How to Use This Document","packet_inclusion":{"kind":"required_module","selector":"framework_kernel","document_id":"framework_kernel"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.inv.dependency_graph_is_acyclic","assurance_mode":"deterministic_enforcement","registered_phase":"route_definition","registered_failure_code":"CTXR_DEPENDENCY_CYCLE","negative_fixture_id":"fixture.assurance.ctxr.inv.dependency_graph_is_acyclic","catalog_verification_id":"test.ctxr.inv.dependency_graph_is_acyclic","implementation_anchor":"scripts.component_registry:validate_route_source","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry.py::ComponentRegistryCandidateTests::test_route_source_rejects_dependency_cycle"},
+      {"rule_id":"ctxr.inv.stable_document_identity_is_path_independent","assurance_mode":"deterministic_enforcement","registered_phase":"governance_change","registered_failure_code":"CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP","negative_fixture_id":"fixture.assurance.ctxr.inv.stable_document_identity_is_path_independent","catalog_verification_id":"test.ctxr.inv.stable_document_identity_is_path_independent","implementation_anchor":"scripts.component_registry:_validate_aliases","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry_stage1_acceptance.py::ComponentRegistryStage1AcceptanceTests::test_cr034_053_path_changes_preserve_stable_routing_identity"},
+      {"rule_id":"ctxr.inv.bounded_context_never_omits_material_authority","assurance_mode":"governing_instruction_precondition","registered_phase":"packet_build","registered_failure_code":"CTXR_PACKET_BUDGET_EXCEEDED","negative_fixture_id":"fixture.assurance.ctxr.inv.bounded_context_never_omits_material_authority","catalog_verification_id":"test.ctxr.inv.bounded_context_never_omits_material_authority","implementation_anchor":"framework/AGENT_OPERATING_RULES.md#Required Context Routing","packet_inclusion":{"kind":"required_module","selector":"agent_rules_kernel","document_id":"agent_rules_kernel"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.sel.primary_profile","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.sel.primary_profile","catalog_verification_id":"test.ctxr.sel.primary_profile","implementation_anchor":"scripts.component_registry:_routed_selection_from_view","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry.py::ComponentRegistryCandidateTests::test_executable_selection_requires_exactly_one_profile"},
+      {"rule_id":"ctxr.sel.required_floor_order","assurance_mode":"deterministic_enforcement","registered_phase":"route_definition","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.sel.required_floor_order","catalog_verification_id":"test.ctxr.sel.required_floor_order","implementation_anchor":"scripts.component_registry:validate_route_source","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry.py::ComponentRegistryCandidateTests::test_route_source_requires_exact_ordered_floor"},
+      {"rule_id":"ctxr.sel.profile_starting_set","assurance_mode":"deterministic_enforcement","registered_phase":"route_definition","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.sel.profile_starting_set","catalog_verification_id":"test.ctxr.sel.profile_starting_set","implementation_anchor":"scripts.component_registry:_routed_selection_from_view","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry.py::ComponentRegistryCandidateTests::test_profile_route_is_deterministic_and_uses_only_known_documents"},
+      {"rule_id":"ctxr.sel.all_implicated_capabilities","assurance_mode":"governing_instruction_precondition","registered_phase":"packet_build","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.sel.all_implicated_capabilities","catalog_verification_id":"test.ctxr.sel.all_implicated_capabilities","implementation_anchor":"framework/AGENT_OPERATING_RULES.md#Required Context Routing","packet_inclusion":{"kind":"required_module","selector":"agent_rules_kernel","document_id":"agent_rules_kernel"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.sel.profile_never_excludes_capability","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.sel.profile_never_excludes_capability","catalog_verification_id":"test.ctxr.sel.profile_never_excludes_capability","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::RepositorySearchBoundaryTests::test_small_profiles_allow_additive_audit_capabilities_with_headroom"},
+      {"rule_id":"ctxr.sel.capability_addition_requires_no_new_profile","assurance_mode":"deterministic_enforcement","registered_phase":"route_definition","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.sel.capability_addition_requires_no_new_profile","catalog_verification_id":"test.ctxr.sel.capability_addition_requires_no_new_profile","implementation_anchor":"scripts.component_registry:routed_capability_preview_from_view","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry.py::ComponentRegistryCandidateTests::test_capability_preview_is_not_an_executable_selection"},
+      {"rule_id":"ctxr.sel.profile_documents_and_exact_sections","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_SECTION_IDENTITY_INVALID","negative_fixture_id":"fixture.assurance.ctxr.sel.profile_documents_and_exact_sections","catalog_verification_id":"test.ctxr.sel.profile_documents_and_exact_sections","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_missing_duplicate_and_oversized_sections_fail_closed"},
+      {"rule_id":"ctxr.sel.complete_dependency_closure","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.sel.complete_dependency_closure","catalog_verification_id":"test.ctxr.sel.complete_dependency_closure","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_schema_two_loads_required_modules_dependencies_and_additive_capabilities"},
+      {"rule_id":"ctxr.sel.task_specific_canonical_material","assurance_mode":"governing_instruction_precondition","registered_phase":"packet_build","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.sel.task_specific_canonical_material","catalog_verification_id":"test.ctxr.sel.task_specific_canonical_material","implementation_anchor":"framework/AGENT_OPERATING_RULES.md#Required Context Routing","packet_inclusion":{"kind":"required_module","selector":"agent_rules_kernel","document_id":"agent_rules_kernel"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.sel.source_projection_requires_canonical_readback","assurance_mode":"governing_instruction_precondition","registered_phase":"packet_build","registered_failure_code":"CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP","negative_fixture_id":"fixture.assurance.ctxr.sel.source_projection_requires_canonical_readback","catalog_verification_id":"test.ctxr.sel.source_projection_requires_canonical_readback","implementation_anchor":"framework/AGENT_OPERATING_RULES.md#Required Context Routing","packet_inclusion":{"kind":"required_module","selector":"agent_rules_kernel","document_id":"agent_rules_kernel"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.sel.dynamic_trigger_set","assurance_mode":"governing_instruction_precondition","registered_phase":"dynamic_expansion","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.sel.dynamic_trigger_set","catalog_verification_id":"test.ctxr.sel.dynamic_trigger_set","implementation_anchor":"framework/AGENT_OPERATING_RULES.md#Required Context Routing","packet_inclusion":{"kind":"required_module","selector":"agent_rules_kernel","document_id":"agent_rules_kernel"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.sel.expansion_precedes_dependent_action","assurance_mode":"governing_instruction_precondition","registered_phase":"dynamic_expansion","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.sel.expansion_precedes_dependent_action","catalog_verification_id":"test.ctxr.sel.expansion_precedes_dependent_action","implementation_anchor":"framework/AGENT_OPERATING_RULES.md#Required Context Routing","packet_inclusion":{"kind":"required_module","selector":"agent_rules_kernel","document_id":"agent_rules_kernel"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.sel.multi_agent_before_delegation","assurance_mode":"governing_instruction_precondition","registered_phase":"dynamic_expansion","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.sel.multi_agent_before_delegation","catalog_verification_id":"test.ctxr.sel.multi_agent_before_delegation","implementation_anchor":"framework/standards/automation/multi-agent.md#Multi-Agent Use","packet_inclusion":{"kind":"capability_dependency_closure","selector":"multi_agent_execution","document_id":"agent_multi_agent"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.sel.governance_recording_plus_change_audit","assurance_mode":"governing_instruction_precondition","registered_phase":"governance_change","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.sel.governance_recording_plus_change_audit","catalog_verification_id":"test.ctxr.sel.governance_recording_plus_change_audit","implementation_anchor":"framework/project/workflows/governance-change-recording.md#Relationship to Change Audits and closeout","packet_inclusion":{"kind":"capability_dependency_closure","selector":"change_control","document_id":"operation_governance_change_recording"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.sel.interactive_route_is_minimum_not_ceiling","assurance_mode":"governing_instruction_precondition","registered_phase":"packet_build","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.sel.interactive_route_is_minimum_not_ceiling","catalog_verification_id":"test.ctxr.sel.interactive_route_is_minimum_not_ceiling","implementation_anchor":"framework/AGENT_OPERATING_RULES.md#Automated Efficiency and Interactive Comprehensiveness","packet_inclusion":{"kind":"required_module","selector":"agent_rules_kernel","document_id":"agent_rules_kernel"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.sel.automated_expansion_allowlist","assurance_mode":"governing_instruction_precondition","registered_phase":"dynamic_expansion","registered_failure_code":"CTXR_GENERATED_OR_EXCLUDED_AS_AUTHORITY","negative_fixture_id":"fixture.assurance.ctxr.sel.automated_expansion_allowlist","catalog_verification_id":"test.ctxr.sel.automated_expansion_allowlist","implementation_anchor":"framework/standards/automation/autonomous-execution.md#Authorization and bounded purpose","packet_inclusion":{"kind":"capability_dependency_closure","selector":"autonomous_execution","document_id":"agent_autonomous_execution"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.sel.deterministic_bot_structured_inputs","assurance_mode":"governing_instruction_precondition","registered_phase":"route_definition","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.sel.deterministic_bot_structured_inputs","catalog_verification_id":"test.ctxr.sel.deterministic_bot_structured_inputs","implementation_anchor":"framework/standards/automation/autonomous-execution.md#Deterministic and LLM responsibilities","packet_inclusion":{"kind":"capability_dependency_closure","selector":"autonomous_execution","document_id":"agent_autonomous_execution"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.val.registry_before_selection","assurance_mode":"deterministic_enforcement","registered_phase":"registry_state","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.val.registry_before_selection","catalog_verification_id":"test.ctxr.val.registry_before_selection","implementation_anchor":"scripts.component_registry:_validated_registry_from_view","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry.py::ComponentRegistryCandidateTests::test_route_result_explains_membership_and_binds_registry"},
+      {"rule_id":"ctxr.val.integration_pinned_digest_exact","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_PINNED_DIGEST_ABSENT_OR_STALE","negative_fixture_id":"fixture.assurance.ctxr.val.integration_pinned_digest_exact","catalog_verification_id":"test.ctxr.val.integration_pinned_digest_exact","implementation_anchor":"scripts.arrp_context:load_route_manifest","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_changed_hash_fails_closed"},
+      {"rule_id":"ctxr.val.runtime_digest_at_packet_build","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_RUNTIME_DIGEST_UNREADABLE","negative_fixture_id":"fixture.assurance.ctxr.val.runtime_digest_at_packet_build","catalog_verification_id":"test.ctxr.val.runtime_digest_at_packet_build","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_schema_two_loads_required_modules_dependencies_and_additive_capabilities"},
+      {"rule_id":"ctxr.val.expansion_provenance_preserved","assurance_mode":"governing_instruction_precondition","registered_phase":"dynamic_expansion","registered_failure_code":"CTXR_RUNTIME_DIGEST_UNREADABLE","negative_fixture_id":"fixture.assurance.ctxr.val.expansion_provenance_preserved","catalog_verification_id":"test.ctxr.val.expansion_provenance_preserved","implementation_anchor":"framework/AGENT_OPERATING_RULES.md#Required Context Routing","packet_inclusion":{"kind":"required_module","selector":"agent_rules_kernel","document_id":"agent_rules_kernel"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.val.exact_section_unique","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_SECTION_IDENTITY_INVALID","negative_fixture_id":"fixture.assurance.ctxr.val.exact_section_unique","catalog_verification_id":"test.ctxr.val.exact_section_unique","implementation_anchor":"scripts.arrp_context:extract_exact_heading","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_missing_duplicate_and_oversized_sections_fail_closed"},
+      {"rule_id":"ctxr.val.packet_manifest_bound","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.val.packet_manifest_bound","catalog_verification_id":"test.ctxr.val.packet_manifest_bound","implementation_anchor":"scripts.component_registry:build_context_packet_from_view","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry_stage1_acceptance.py::ComponentRegistryStage1AcceptanceTests::test_cr039_040_041_048_packet_is_bound_public_safe_and_candidate"},
+      {"rule_id":"ctxr.val.authorized_digest_update_atomic","assurance_mode":"governing_instruction_precondition","registered_phase":"governance_change","registered_failure_code":"CTXR_PINNED_DIGEST_ABSENT_OR_STALE","negative_fixture_id":"fixture.assurance.ctxr.val.authorized_digest_update_atomic","catalog_verification_id":"test.ctxr.val.authorized_digest_update_atomic","implementation_anchor":"framework/FRAMEWORK.md#Comprehensive Review Boundary","packet_inclusion":{"kind":"required_module","selector":"framework_kernel","document_id":"framework_kernel"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.val.registry_digest_external","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_PINNED_DIGEST_ABSENT_OR_STALE","negative_fixture_id":"fixture.assurance.ctxr.val.registry_digest_external","catalog_verification_id":"test.ctxr.val.registry_digest_external","implementation_anchor":"scripts.component_registry:build_context_packet_from_view","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry_stage1_acceptance.py::ComponentRegistryStage1AcceptanceTests::test_cr039_040_041_048_packet_is_bound_public_safe_and_candidate"},
+      {"rule_id":"ctxr.val.new_authoritative_module_admission","assurance_mode":"governing_instruction_precondition","registered_phase":"governance_change","registered_failure_code":"CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP","negative_fixture_id":"fixture.assurance.ctxr.val.new_authoritative_module_admission","catalog_verification_id":"test.ctxr.val.new_authoritative_module_admission","implementation_anchor":"framework/FRAMEWORK.md#Comprehensive Review Boundary","packet_inclusion":{"kind":"required_module","selector":"framework_kernel","document_id":"framework_kernel"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.val.id_rename_change_audit","assurance_mode":"governing_instruction_precondition","registered_phase":"governance_change","registered_failure_code":"CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP","negative_fixture_id":"fixture.assurance.ctxr.val.id_rename_change_audit","catalog_verification_id":"test.ctxr.val.id_rename_change_audit","implementation_anchor":"framework/project/workflows/governance-change-recording.md#When to record","packet_inclusion":{"kind":"capability_dependency_closure","selector":"change_control","document_id":"operation_governance_change_recording"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.fail.unknown_or_missing_selection","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.fail.unknown_or_missing_selection","catalog_verification_id":"test.ctxr.fail.unknown_or_missing_selection","implementation_anchor":"scripts.component_registry:_routed_selection_from_view","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_schema_two_rejects_dependency_cycles_and_unknown_capabilities"},
+      {"rule_id":"ctxr.fail.pinned_digest_absent_or_stale","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_PINNED_DIGEST_ABSENT_OR_STALE","negative_fixture_id":"fixture.assurance.ctxr.fail.pinned_digest_absent_or_stale","catalog_verification_id":"test.ctxr.fail.pinned_digest_absent_or_stale","implementation_anchor":"scripts.arrp_context:load_route_manifest","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_changed_hash_fails_closed"},
+      {"rule_id":"ctxr.fail.runtime_digest_unreadable","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_RUNTIME_DIGEST_UNREADABLE","negative_fixture_id":"fixture.assurance.ctxr.fail.runtime_digest_unreadable","catalog_verification_id":"test.ctxr.fail.runtime_digest_unreadable","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_schema_two_loads_required_modules_dependencies_and_additive_capabilities"},
+      {"rule_id":"ctxr.fail.dependency_cycle","assurance_mode":"deterministic_enforcement","registered_phase":"route_definition","registered_failure_code":"CTXR_DEPENDENCY_CYCLE","negative_fixture_id":"fixture.assurance.ctxr.fail.dependency_cycle","catalog_verification_id":"test.ctxr.fail.dependency_cycle","implementation_anchor":"scripts.component_registry:validate_route_source","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry.py::ComponentRegistryCandidateTests::test_route_source_rejects_dependency_cycle"},
+      {"rule_id":"ctxr.fail.generated_or_excluded_as_authority","assurance_mode":"deterministic_enforcement","registered_phase":"route_definition","registered_failure_code":"CTXR_GENERATED_OR_EXCLUDED_AS_AUTHORITY","negative_fixture_id":"fixture.assurance.ctxr.fail.generated_or_excluded_as_authority","catalog_verification_id":"test.ctxr.fail.generated_or_excluded_as_authority","implementation_anchor":"scripts.arrp_context:load_route_manifest","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_generated_paths_and_placeholder_hashes_are_rejected"},
+      {"rule_id":"ctxr.fail.section_identity_invalid","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_SECTION_IDENTITY_INVALID","negative_fixture_id":"fixture.assurance.ctxr.fail.section_identity_invalid","catalog_verification_id":"test.ctxr.fail.section_identity_invalid","implementation_anchor":"scripts.arrp_context:extract_exact_heading","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_missing_duplicate_and_oversized_sections_fail_closed"},
+      {"rule_id":"ctxr.fail.section_budget_exceeded","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_SECTION_BUDGET_EXCEEDED","negative_fixture_id":"fixture.assurance.ctxr.fail.section_budget_exceeded","catalog_verification_id":"test.ctxr.fail.section_budget_exceeded","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_missing_duplicate_and_oversized_sections_fail_closed"},
+      {"rule_id":"ctxr.fail.packet_budget_exceeded","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_PACKET_BUDGET_EXCEEDED","negative_fixture_id":"fixture.assurance.ctxr.fail.packet_budget_exceeded","catalog_verification_id":"test.ctxr.fail.packet_budget_exceeded","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::RepositorySearchBoundaryTests::test_explicit_lower_packet_ceiling_still_fails_closed"},
+      {"rule_id":"ctxr.fail.unresolved_material_governing_gap","assurance_mode":"governing_instruction_precondition","registered_phase":"packet_build","registered_failure_code":"CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP","negative_fixture_id":"fixture.assurance.ctxr.fail.unresolved_material_governing_gap","catalog_verification_id":"test.ctxr.fail.unresolved_material_governing_gap","implementation_anchor":"framework/AGENT_OPERATING_RULES.md#Required Context Routing","packet_inclusion":{"kind":"required_module","selector":"agent_rules_kernel","document_id":"agent_rules_kernel"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.fail.safe_failure_disposition","assurance_mode":"governing_instruction_precondition","registered_phase":"failure_disposition","registered_failure_code":"CTXR_SAFE_FAILURE_DISPOSITION","negative_fixture_id":"fixture.assurance.ctxr.fail.safe_failure_disposition","catalog_verification_id":"test.ctxr.fail.safe_failure_disposition","implementation_anchor":"framework/standards/automation/autonomous-execution.md#Preservation and fail-closed recovery","packet_inclusion":{"kind":"capability_dependency_closure","selector":"autonomous_execution","document_id":"agent_autonomous_execution"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"},
+      {"rule_id":"ctxr.cur.stable_governing_is_pinned","assurance_mode":"deterministic_enforcement","registered_phase":"route_definition","registered_failure_code":"CTXR_PINNED_DIGEST_ABSENT_OR_STALE","negative_fixture_id":"fixture.assurance.ctxr.cur.stable_governing_is_pinned","catalog_verification_id":"test.ctxr.cur.stable_governing_is_pinned","implementation_anchor":"scripts.component_registry:validate_route_source","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry.py::ComponentRegistryCandidateTests::test_route_source_requires_exact_hash_currentness_classes"},
+      {"rule_id":"ctxr.cur.mutable_handoff_is_runtime_hashed","assurance_mode":"deterministic_enforcement","registered_phase":"route_definition","registered_failure_code":"CTXR_RUNTIME_DIGEST_UNREADABLE","negative_fixture_id":"fixture.assurance.ctxr.cur.mutable_handoff_is_runtime_hashed","catalog_verification_id":"test.ctxr.cur.mutable_handoff_is_runtime_hashed","implementation_anchor":"scripts.component_registry:validate_route_source","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry.py::ComponentRegistryCandidateTests::test_route_source_requires_exact_hash_currentness_classes"},
+      {"rule_id":"ctxr.cur.checkpoint_update_needs_no_registry_edit","assurance_mode":"deterministic_enforcement","registered_phase":"governance_change","registered_failure_code":"CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP","negative_fixture_id":"fixture.assurance.ctxr.cur.checkpoint_update_needs_no_registry_edit","catalog_verification_id":"test.ctxr.cur.checkpoint_update_needs_no_registry_edit","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_schema_two_loads_required_modules_dependencies_and_additive_capabilities"},
+      {"rule_id":"ctxr.cur.generated_rebuildables_excluded","assurance_mode":"deterministic_enforcement","registered_phase":"route_definition","registered_failure_code":"CTXR_GENERATED_OR_EXCLUDED_AS_AUTHORITY","negative_fixture_id":"fixture.assurance.ctxr.cur.generated_rebuildables_excluded","catalog_verification_id":"test.ctxr.cur.generated_rebuildables_excluded","implementation_anchor":"scripts.arrp_context:load_route_manifest","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_generated_paths_and_placeholder_hashes_are_rejected"},
+      {"rule_id":"ctxr.cur.records_excluded_except_handoff","assurance_mode":"deterministic_enforcement","registered_phase":"route_definition","registered_failure_code":"CTXR_GENERATED_OR_EXCLUDED_AS_AUTHORITY","negative_fixture_id":"fixture.assurance.ctxr.cur.records_excluded_except_handoff","catalog_verification_id":"test.ctxr.cur.records_excluded_except_handoff","implementation_anchor":"scripts.component_registry:validate_route_source","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry.py::ComponentRegistryCandidateTests::test_route_source_excludes_shared_records_except_current_audit"},
+      {"rule_id":"ctxr.cur.runtime_nongoverning_excluded_from_review_boundary","assurance_mode":"deterministic_enforcement","registered_phase":"review_epoch","registered_failure_code":"CTXR_RUNTIME_DIGEST_UNREADABLE","negative_fixture_id":"fixture.assurance.ctxr.cur.runtime_nongoverning_excluded_from_review_boundary","catalog_verification_id":"test.ctxr.cur.runtime_nongoverning_excluded_from_review_boundary","implementation_anchor":"scripts.record_review_epoch:_validate_governing_boundary","packet_inclusion":null,"test_anchor":"tests/framework/test_component_registry.py::ComponentRegistryCandidateTests::test_comprehensive_review_definition_is_exact"},
+      {"rule_id":"ctxr.budget.profile_max_is_fail_closed_ceiling","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_PACKET_BUDGET_EXCEEDED","negative_fixture_id":"fixture.assurance.ctxr.budget.profile_max_is_fail_closed_ceiling","catalog_verification_id":"test.ctxr.budget.profile_max_is_fail_closed_ceiling","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::RepositorySearchBoundaryTests::test_explicit_lower_packet_ceiling_still_fails_closed"},
+      {"rule_id":"ctxr.budget.ceiling_change_does_not_change_membership","assurance_mode":"deterministic_enforcement","registered_phase":"governance_change","registered_failure_code":"CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP","negative_fixture_id":"fixture.assurance.ctxr.budget.ceiling_change_does_not_change_membership","catalog_verification_id":"test.ctxr.budget.ceiling_change_does_not_change_membership","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::RepositorySearchBoundaryTests::test_small_profiles_allow_additive_audit_capabilities_with_headroom"},
+      {"rule_id":"ctxr.budget.section_and_packet_limits_are_independent","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_SECTION_BUDGET_EXCEEDED","negative_fixture_id":"fixture.assurance.ctxr.budget.section_and_packet_limits_are_independent","catalog_verification_id":"test.ctxr.budget.section_and_packet_limits_are_independent","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_missing_duplicate_and_oversized_sections_fail_closed"},
+      {"rule_id":"ctxr.budget.no_mandatory_trimming","assurance_mode":"deterministic_enforcement","registered_phase":"packet_build","registered_failure_code":"CTXR_PACKET_BUDGET_EXCEEDED","negative_fixture_id":"fixture.assurance.ctxr.budget.no_mandatory_trimming","catalog_verification_id":"test.ctxr.budget.no_mandatory_trimming","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::RepositorySearchBoundaryTests::test_explicit_lower_packet_ceiling_still_fails_closed"},
+      {"rule_id":"ctxr.review.select_all_active_governing","assurance_mode":"deterministic_enforcement","registered_phase":"review_epoch","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.review.select_all_active_governing","catalog_verification_id":"test.ctxr.review.select_all_active_governing","implementation_anchor":"scripts.arrp_context:build_context_packet","packet_inclusion":null,"test_anchor":"tests/test_elim_context.py::ExactContextTests::test_schema_two_comprehensive_profile_includes_every_governing_document"},
+      {"rule_id":"ctxr.review.periodic_epoch_required","assurance_mode":"deterministic_enforcement","registered_phase":"review_epoch","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.review.periodic_epoch_required","catalog_verification_id":"test.ctxr.review.periodic_epoch_required","implementation_anchor":"scripts.run_coordinator:review_epoch","packet_inclusion":null,"test_anchor":"tests/test_run_coordinator.py::RunCoordinatorTests::test_review_epoch_is_biweekly_and_boundary_is_preserved"},
+      {"rule_id":"ctxr.review.boundary_exact","assurance_mode":"deterministic_enforcement","registered_phase":"review_epoch","registered_failure_code":"CTXR_PINNED_DIGEST_ABSENT_OR_STALE","negative_fixture_id":"fixture.assurance.ctxr.review.boundary_exact","catalog_verification_id":"test.ctxr.review.boundary_exact","implementation_anchor":"scripts.record_review_epoch:_validate_governing_boundary","packet_inclusion":null,"test_anchor":"tests/test_review_epoch.py::ReviewEpochTests::test_partial_governing_hash_boundary_is_rejected"},
+      {"rule_id":"ctxr.review.any_valid_boundary_difference_due","assurance_mode":"deterministic_enforcement","registered_phase":"review_epoch","registered_failure_code":"CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP","negative_fixture_id":"fixture.assurance.ctxr.review.any_valid_boundary_difference_due","catalog_verification_id":"test.ctxr.review.any_valid_boundary_difference_due","implementation_anchor":"scripts.run_coordinator:review_epoch_boundary_status","packet_inclusion":null,"test_anchor":"tests/test_run_coordinator.py::RunCoordinatorTests::test_review_epoch_boundary_status_compares_governing_hashes_and_registry"},
+      {"rule_id":"ctxr.review.invalid_drift_is_integrity_failure","assurance_mode":"deterministic_enforcement","registered_phase":"review_epoch","registered_failure_code":"CTXR_PINNED_DIGEST_ABSENT_OR_STALE","negative_fixture_id":"fixture.assurance.ctxr.review.invalid_drift_is_integrity_failure","catalog_verification_id":"test.ctxr.review.invalid_drift_is_integrity_failure","implementation_anchor":"scripts.record_review_epoch:validate","packet_inclusion":null,"test_anchor":"tests/test_review_epoch.py::ReviewEpochTests::test_stale_packet_registry_identity_is_rejected"},
+      {"rule_id":"ctxr.review.completion_fields_exact","assurance_mode":"deterministic_enforcement","registered_phase":"review_epoch","registered_failure_code":"CTXR_UNKNOWN_OR_MISSING_SELECTION","negative_fixture_id":"fixture.assurance.ctxr.review.completion_fields_exact","catalog_verification_id":"test.ctxr.review.completion_fields_exact","implementation_anchor":"scripts.record_review_epoch:validate","packet_inclusion":null,"test_anchor":"tests/test_review_epoch.py::ReviewEpochTests::test_structured_snapshots_findings_and_automation_health_are_validated"},
+      {"rule_id":"ctxr.review.recorder_requires_exact_current_boundary","assurance_mode":"deterministic_enforcement","registered_phase":"review_epoch","registered_failure_code":"CTXR_PINNED_DIGEST_ABSENT_OR_STALE","negative_fixture_id":"fixture.assurance.ctxr.review.recorder_requires_exact_current_boundary","catalog_verification_id":"test.ctxr.review.recorder_requires_exact_current_boundary","implementation_anchor":"scripts.record_review_epoch:validate","packet_inclusion":null,"test_anchor":"tests/test_review_epoch.py::ReviewEpochTests::test_partial_governing_hash_boundary_is_rejected"},
+      {"rule_id":"ctxr.review.unresolved_findings_carry_forward","assurance_mode":"deterministic_enforcement","registered_phase":"review_epoch","registered_failure_code":"CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP","negative_fixture_id":"fixture.assurance.ctxr.review.unresolved_findings_carry_forward","catalog_verification_id":"test.ctxr.review.unresolved_findings_carry_forward","implementation_anchor":"scripts.record_review_epoch:validate_finding_continuity","packet_inclusion":null,"test_anchor":"tests/test_review_epoch.py::ReviewEpochTests::test_finding_continuity_requires_prior_ids_to_be_open_or_resolved"},
+      {"rule_id":"ctxr.review.next_epoch_uses_delta_and_carry_forward","assurance_mode":"deterministic_enforcement","registered_phase":"review_epoch","registered_failure_code":"CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP","negative_fixture_id":"fixture.assurance.ctxr.review.next_epoch_uses_delta_and_carry_forward","catalog_verification_id":"test.ctxr.review.next_epoch_uses_delta_and_carry_forward","implementation_anchor":"scripts.run_coordinator:review_epoch","packet_inclusion":null,"test_anchor":"tests/test_run_coordinator.py::RunCoordinatorTests::test_review_epoch_preserves_boundary_trigger_reason_and_exact_delta"},
+      {"rule_id":"ctxr.review.efficiency_never_limits_scope_or_lookback","assurance_mode":"governing_instruction_precondition","registered_phase":"review_epoch","registered_failure_code":"CTXR_PACKET_BUDGET_EXCEEDED","negative_fixture_id":"fixture.assurance.ctxr.review.efficiency_never_limits_scope_or_lookback","catalog_verification_id":"test.ctxr.review.efficiency_never_limits_scope_or_lookback","implementation_anchor":"framework/standards/automation/autonomous-execution.md#Review epochs","packet_inclusion":{"kind":"capability_dependency_closure","selector":"autonomous_execution","document_id":"agent_autonomous_execution"},"test_anchor":"tests/framework/test_context_routing_rule_closure.py::ContextRoutingRuleClosureTests::test_governing_instruction_assurance_is_pinned_and_packet_included"}
+    ]
+  },
+  "candidate_to_active_predecessor_transition": {
+    "schema_version": 1,
+    "status": "candidate",
+    "authoritative": false,
+    "candidate_counts": {
+      "documents": 88,
+      "governing_documents": 87,
+      "capabilities": 19,
+      "profiles": 8,
+      "required_modules": 3,
+      "generated_path_exclusions": 9,
+      "context_routing_route_membership": 1,
+      "codex_bootstrap_context_routing_dependencies": 1
+    },
+    "active_counts": {
+      "documents": 85,
+      "governing_documents": 84,
+      "capabilities": 19,
+      "profiles": 8,
+      "required_modules": 3,
+      "generated_path_exclusions": 9,
+      "context_routing_route_membership": 0,
+      "codex_bootstrap_context_routing_dependencies": 0
+    },
+  "predecessors": [
+    {
+      "stable_id": "project_structure",
+      "artifact_kind": "markdown_authority",
+      "historical_path": "framework/PROJECT_STRUCTURE.md",
+      "archived_path": "framework/archive/authorities/PROJECT_STRUCTURE.md",
+      "frozen_sha256_binding": "operational_documents.entries.project_structure.sha256",
+      "source_schema_version": null
+    },
+    {
+      "stable_id": "context_routing",
+        "artifact_kind": "markdown_authority",
+        "historical_path": "framework/CONTEXT_ROUTING.md",
+        "archived_path": "framework/archive/authorities/CONTEXT_ROUTING.md",
+      "frozen_sha256_binding": "operational_documents.entries.context_routing.sha256",
+      "source_schema_version": null
+    },
+    {
+      "stable_id": "repository_map",
+      "artifact_kind": "markdown_authority",
+      "historical_path": "framework/project/REPOSITORY_MAP.md",
+      "archived_path": "framework/archive/authorities/REPOSITORY_MAP.md",
+      "frozen_sha256_binding": "operational_documents.entries.repository_map.sha256",
+      "source_schema_version": null
+    },
+      {
+        "stable_id": "context_routes_source",
+        "artifact_kind": "route_data_authority",
+        "historical_path": "framework/project/automation/context-routes.json",
+        "archived_path": "framework/archive/authorities/context-routes.json",
+        "frozen_sha256_binding": "context_routing.source_import.sha256",
+        "source_schema_version": 2
+      }
+    ],
+    "active_no_current_io": {
+      "authority_effect": "historical_provenance_only_no_runtime_read",
+    "forbidden_current_authority_paths": [
+      "framework/PROJECT_STRUCTURE.md",
+      "framework/CONTEXT_ROUTING.md",
+      "framework/project/REPOSITORY_MAP.md",
+      "framework/project/automation/context-routes.json",
+      "framework/archive/authorities/PROJECT_STRUCTURE.md",
+      "framework/archive/authorities/CONTEXT_ROUTING.md",
+      "framework/archive/authorities/REPOSITORY_MAP.md",
+      "framework/archive/authorities/context-routes.json"
+      ],
+      "active_loader_must_not_call": "scripts.arrp_context:load_route_manifest",
+      "provenance_digest_policy": "shape_and_internal_equality_only_no_filesystem_recompute"
+    },
+  "migration_alias_ids": [
+    "relocate_project_structure",
+    "relocate_context_routing",
+    "relocate_repository_map",
+    "relocate_context_routes_source"
+    ],
+    "readable_representation": {
+      "representation_id": "human_readable_context_routing",
+      "canonical_document_id": "COMPONENT-REGISTRY",
+      "canonical_path": "framework/project/interfaces/project-console/data/component-registry.js",
+      "generated_from": "embedded_context_routing",
+      "authority_effect": "none",
+      "executable": false
+    },
+    "verification_ids": [
+      "test_active_predecessor_provenance_is_closed",
+      "test_active_loader_does_not_read_predecessors",
+      "test_active_embedded_route_excludes_predecessors"
+    ]
+  },
+  "clauses": [
+    {
+      "clause_key": "ctxr.inv.router_preserves_source_authority",
+      "rule_id": "ctxr.inv.router_preserves_source_authority",
+      "category": "invariants",
+      "source_heading": "Governing Context Routing",
+      "source_line_ranges": [
+        [
+          10,
+          10
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.inv.required_floor_is_minimum",
+      "rule_id": "ctxr.inv.required_floor_is_minimum",
+      "category": "invariants",
+      "source_heading": "Required Floor",
+      "source_line_ranges": [
+        [
+          23,
+          23
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.inv.additive_union",
+      "rule_id": "ctxr.inv.additive_union",
+      "category": "invariants",
+      "source_heading": "Additive Routing",
+      "source_line_ranges": [
+        [
+          27,
+          27
+        ],
+        [
+          29,
+          33
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.inv.dependencies_are_directional_minimums",
+      "rule_id": "ctxr.inv.dependencies_are_directional_minimums",
+      "category": "invariants",
+      "source_heading": "Additive Routing",
+      "source_line_ranges": [
+        [
+          37,
+          37
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.inv.dependency_graph_is_acyclic",
+      "rule_id": "ctxr.inv.dependency_graph_is_acyclic",
+      "category": "invariants",
+      "source_heading": "Additive Routing",
+      "source_line_ranges": [
+        [
+          37,
+          37
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.inv.stable_document_identity_is_path_independent",
+      "rule_id": "ctxr.inv.stable_document_identity_is_path_independent",
+      "category": "invariants",
+      "source_heading": "Profiles and Capabilities",
+      "source_line_ranges": [
+        [
+          56,
+          56
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.inv.bounded_context_never_omits_material_authority",
+      "rule_id": "ctxr.inv.bounded_context_never_omits_material_authority",
+      "category": "invariants",
+      "source_heading": "Dynamic Expansion",
+      "source_line_ranges": [
+        [
+          69,
+          69
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.primary_profile",
+      "rule_id": "ctxr.sel.primary_profile",
+      "category": "selection",
+      "source_heading": "Additive Routing",
+      "source_line_ranges": [
+        [
+          29,
+          29
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.required_floor_order",
+      "rule_id": "ctxr.sel.required_floor_order",
+      "category": "selection",
+      "source_heading": "Required Floor",
+      "source_line_ranges": [
+        [
+          14,
+          14
+        ],
+        [
+          16,
+          19
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.profile_starting_set",
+      "rule_id": "ctxr.sel.profile_starting_set",
+      "category": "selection",
+      "source_heading": "Profiles and Capabilities",
+      "source_line_ranges": [
+        [
+          54,
+          54
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.all_implicated_capabilities",
+      "rule_id": "ctxr.sel.all_implicated_capabilities",
+      "category": "selection",
+      "source_heading": "Additive Routing",
+      "source_line_ranges": [
+        [
+          30,
+          30
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.profile_never_excludes_capability",
+      "rule_id": "ctxr.sel.profile_never_excludes_capability",
+      "category": "selection",
+      "source_heading": "Additive Routing",
+      "source_line_ranges": [
+        [
+          35,
+          35
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.capability_addition_requires_no_new_profile",
+      "rule_id": "ctxr.sel.capability_addition_requires_no_new_profile",
+      "category": "selection",
+      "source_heading": "Profiles and Capabilities",
+      "source_line_ranges": [
+        [
+          54,
+          54
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.profile_documents_and_exact_sections",
+      "rule_id": "ctxr.sel.profile_documents_and_exact_sections",
+      "category": "selection",
+      "source_heading": "Additive Routing",
+      "source_line_ranges": [
+        [
+          29,
+          33
+        ],
+        [
+          86,
+          92
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.complete_dependency_closure",
+      "rule_id": "ctxr.sel.complete_dependency_closure",
+      "category": "selection",
+      "source_heading": "Additive Routing",
+      "source_line_ranges": [
+        [
+          31,
+          31
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.task_specific_canonical_material",
+      "rule_id": "ctxr.sel.task_specific_canonical_material",
+      "category": "selection",
+      "source_heading": "Profiles and Capabilities",
+      "source_line_ranges": [
+        [
+          54,
+          54
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.source_projection_requires_canonical_readback",
+      "rule_id": "ctxr.sel.source_projection_requires_canonical_readback",
+      "category": "selection",
+      "source_heading": "Profiles and Capabilities",
+      "source_line_ranges": [
+        [
+          54,
+          54
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.dynamic_trigger_set",
+      "rule_id": "ctxr.sel.dynamic_trigger_set",
+      "category": "selection",
+      "source_heading": "Dynamic Expansion",
+      "source_line_ranges": [
+        [
+          60,
+          60
+        ],
+        [
+          62,
+          67
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.expansion_precedes_dependent_action",
+      "rule_id": "ctxr.sel.expansion_precedes_dependent_action",
+      "category": "selection",
+      "source_heading": "Dynamic Expansion",
+      "source_line_ranges": [
+        [
+          69,
+          69
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.multi_agent_before_delegation",
+      "rule_id": "ctxr.sel.multi_agent_before_delegation",
+      "category": "selection",
+      "source_heading": "Dynamic Expansion",
+      "source_line_ranges": [
+        [
+          69,
+          69
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.governance_recording_plus_change_audit",
+      "rule_id": "ctxr.sel.governance_recording_plus_change_audit",
+      "category": "selection",
+      "source_heading": "Dynamic Expansion",
+      "source_line_ranges": [
+        [
+          71,
+          74
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.interactive_route_is_minimum_not_ceiling",
+      "rule_id": "ctxr.sel.interactive_route_is_minimum_not_ceiling",
+      "category": "selection",
+      "source_heading": "Interactive and Automated Use",
+      "source_line_ranges": [
+        [
+          78,
+          78
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.automated_expansion_allowlist",
+      "rule_id": "ctxr.sel.automated_expansion_allowlist",
+      "category": "selection",
+      "source_heading": "Interactive and Automated Use",
+      "source_line_ranges": [
+        [
+          80,
+          80
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.sel.deterministic_bot_structured_inputs",
+      "rule_id": "ctxr.sel.deterministic_bot_structured_inputs",
+      "category": "selection",
+      "source_heading": "Interactive and Automated Use",
+      "source_line_ranges": [
+        [
+          80,
+          80
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.val.registry_before_selection",
+      "rule_id": "ctxr.val.registry_before_selection",
+      "category": "validation",
+      "source_heading": "Required Floor",
+      "source_line_ranges": [
+        [
+          10,
+          10
+        ],
+        [
+          21,
+          21
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.val.integration_pinned_digest_exact",
+      "rule_id": "ctxr.val.integration_pinned_digest_exact",
+      "category": "validation",
+      "source_heading": "Required Floor",
+      "source_line_ranges": [
+        [
+          21,
+          21
+        ],
+        [
+          99,
+          99
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.val.runtime_digest_at_packet_build",
+      "rule_id": "ctxr.val.runtime_digest_at_packet_build",
+      "category": "validation",
+      "source_heading": "Required Floor",
+      "source_line_ranges": [
+        [
+          21,
+          21
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.val.expansion_provenance_preserved",
+      "rule_id": "ctxr.val.expansion_provenance_preserved",
+      "category": "validation",
+      "source_heading": "Dynamic Expansion",
+      "source_line_ranges": [
+        [
+          69,
+          69
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.val.exact_section_unique",
+      "rule_id": "ctxr.val.exact_section_unique",
+      "category": "validation",
+      "source_heading": "Fail-Closed Rules",
+      "source_line_ranges": [
+        [
+          91,
+          91
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.val.packet_manifest_bound",
+      "rule_id": "ctxr.val.packet_manifest_bound",
+      "category": "validation",
+      "source_heading": "Hashes, Generated Artifacts, and Updates",
+      "source_line_ranges": [
+        [
+          21,
+          21
+        ],
+        [
+          69,
+          69
+        ],
+        [
+          99,
+          99
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.val.authorized_digest_update_atomic",
+      "rule_id": "ctxr.val.authorized_digest_update_atomic",
+      "category": "validation",
+      "source_heading": "Hashes, Generated Artifacts, and Updates",
+      "source_line_ranges": [
+        [
+          99,
+          99
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.val.registry_digest_external",
+      "rule_id": "ctxr.val.registry_digest_external",
+      "category": "validation",
+      "source_heading": "Hashes, Generated Artifacts, and Updates",
+      "source_line_ranges": [
+        [
+          99,
+          99
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.val.new_authoritative_module_admission",
+      "rule_id": "ctxr.val.new_authoritative_module_admission",
+      "category": "validation",
+      "source_heading": "Hashes, Generated Artifacts, and Updates",
+      "source_line_ranges": [
+        [
+          108,
+          108
+        ],
+        [
+          110,
+          115
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.val.id_rename_change_audit",
+      "rule_id": "ctxr.val.id_rename_change_audit",
+      "category": "validation",
+      "source_heading": "Profiles and Capabilities",
+      "source_line_ranges": [
+        [
+          56,
+          56
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.fail.unknown_or_missing_selection",
+      "rule_id": "ctxr.fail.unknown_or_missing_selection",
+      "category": "failure_rules",
+      "source_heading": "Fail-Closed Rules",
+      "source_line_ranges": [
+        [
+          86,
+          86
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.fail.pinned_digest_absent_or_stale",
+      "rule_id": "ctxr.fail.pinned_digest_absent_or_stale",
+      "category": "failure_rules",
+      "source_heading": "Fail-Closed Rules",
+      "source_line_ranges": [
+        [
+          87,
+          87
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.fail.runtime_digest_unreadable",
+      "rule_id": "ctxr.fail.runtime_digest_unreadable",
+      "category": "failure_rules",
+      "source_heading": "Fail-Closed Rules",
+      "source_line_ranges": [
+        [
+          88,
+          88
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.fail.dependency_cycle",
+      "rule_id": "ctxr.fail.dependency_cycle",
+      "category": "failure_rules",
+      "source_heading": "Fail-Closed Rules",
+      "source_line_ranges": [
+        [
+          89,
+          89
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.fail.generated_or_excluded_as_authority",
+      "rule_id": "ctxr.fail.generated_or_excluded_as_authority",
+      "category": "failure_rules",
+      "source_heading": "Fail-Closed Rules",
+      "source_line_ranges": [
+        [
+          90,
+          90
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.fail.section_identity_invalid",
+      "rule_id": "ctxr.fail.section_identity_invalid",
+      "category": "failure_rules",
+      "source_heading": "Fail-Closed Rules",
+      "source_line_ranges": [
+        [
+          91,
+          91
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.fail.section_budget_exceeded",
+      "rule_id": "ctxr.fail.section_budget_exceeded",
+      "category": "failure_rules",
+      "source_heading": "Fail-Closed Rules",
+      "source_line_ranges": [
+        [
+          92,
+          92
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.fail.packet_budget_exceeded",
+      "rule_id": "ctxr.fail.packet_budget_exceeded",
+      "category": "failure_rules",
+      "source_heading": "Fail-Closed Rules",
+      "source_line_ranges": [
+        [
+          92,
+          92
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.fail.unresolved_material_governing_gap",
+      "rule_id": "ctxr.fail.unresolved_material_governing_gap",
+      "category": "failure_rules",
+      "source_heading": "Fail-Closed Rules",
+      "source_line_ranges": [
+        [
+          93,
+          93
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.fail.safe_failure_disposition",
+      "rule_id": "ctxr.fail.safe_failure_disposition",
+      "category": "failure_rules",
+      "source_heading": "Fail-Closed Rules",
+      "source_line_ranges": [
+        [
+          95,
+          95
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.cur.stable_governing_is_pinned",
+      "rule_id": "ctxr.cur.stable_governing_is_pinned",
+      "category": "currentness",
+      "source_heading": "Required Floor",
+      "source_line_ranges": [
+        [
+          21,
+          21
+        ],
+        [
+          99,
+          99
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.cur.mutable_handoff_is_runtime_hashed",
+      "rule_id": "ctxr.cur.mutable_handoff_is_runtime_hashed",
+      "category": "currentness",
+      "source_heading": "Required Floor",
+      "source_line_ranges": [
+        [
+          21,
+          21
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.cur.checkpoint_update_needs_no_registry_edit",
+      "rule_id": "ctxr.cur.checkpoint_update_needs_no_registry_edit",
+      "category": "currentness",
+      "source_heading": "Required Floor",
+      "source_line_ranges": [
+        [
+          21,
+          21
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.cur.generated_rebuildables_excluded",
+      "rule_id": "ctxr.cur.generated_rebuildables_excluded",
+      "category": "currentness",
+      "source_heading": "Hashes, Generated Artifacts, and Updates",
+      "source_line_ranges": [
+        [
+          101,
+          104
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.cur.records_excluded_except_handoff",
+      "rule_id": "ctxr.cur.records_excluded_except_handoff",
+      "category": "currentness",
+      "source_heading": "Hashes, Generated Artifacts, and Updates",
+      "source_line_ranges": [
+        [
+          104,
+          106
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary",
+      "rule_id": "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary",
+      "category": "currentness",
+      "source_heading": "Comprehensive Review Boundary",
+      "source_line_ranges": [
+        [
+          119,
+          119
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.budget.profile_max_is_fail_closed_ceiling",
+      "rule_id": "ctxr.budget.profile_max_is_fail_closed_ceiling",
+      "category": "budgets",
+      "source_heading": "Profiles and Capabilities",
+      "source_line_ranges": [
+        [
+          54,
+          54
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.budget.ceiling_change_does_not_change_membership",
+      "rule_id": "ctxr.budget.ceiling_change_does_not_change_membership",
+      "category": "budgets",
+      "source_heading": "Profiles and Capabilities",
+      "source_line_ranges": [
+        [
+          54,
+          54
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.budget.section_and_packet_limits_are_independent",
+      "rule_id": "ctxr.budget.section_and_packet_limits_are_independent",
+      "category": "budgets",
+      "source_heading": "Fail-Closed Rules",
+      "source_line_ranges": [
+        [
+          92,
+          92
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.budget.no_mandatory_trimming",
+      "rule_id": "ctxr.budget.no_mandatory_trimming",
+      "category": "budgets",
+      "source_heading": "Fail-Closed Rules",
+      "source_line_ranges": [
+        [
+          23,
+          23
+        ],
+        [
+          27,
+          27
+        ],
+        [
+          29,
+          33
+        ],
+        [
+          69,
+          69
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          95,
+          95
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.review.select_all_active_governing",
+      "rule_id": "ctxr.review.select_all_active_governing",
+      "category": "comprehensive_review",
+      "source_heading": "Comprehensive Review Boundary",
+      "source_line_ranges": [
+        [
+          119,
+          119
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.review.periodic_epoch_required",
+      "rule_id": "ctxr.review.periodic_epoch_required",
+      "category": "comprehensive_review",
+      "source_heading": "Comprehensive Review Boundary",
+      "source_line_ranges": [
+        [
+          119,
+          119
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.review.boundary_exact",
+      "rule_id": "ctxr.review.boundary_exact",
+      "category": "comprehensive_review",
+      "source_heading": "Comprehensive Review Boundary",
+      "source_line_ranges": [
+        [
+          119,
+          119
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.review.any_valid_boundary_difference_due",
+      "rule_id": "ctxr.review.any_valid_boundary_difference_due",
+      "category": "comprehensive_review",
+      "source_heading": "Comprehensive Review Boundary",
+      "source_line_ranges": [
+        [
+          119,
+          119
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.review.invalid_drift_is_integrity_failure",
+      "rule_id": "ctxr.review.invalid_drift_is_integrity_failure",
+      "category": "comprehensive_review",
+      "source_heading": "Comprehensive Review Boundary",
+      "source_line_ranges": [
+        [
+          119,
+          119
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.review.completion_fields_exact",
+      "rule_id": "ctxr.review.completion_fields_exact",
+      "category": "comprehensive_review",
+      "source_heading": "Comprehensive Review Boundary",
+      "source_line_ranges": [
+        [
+          121,
+          121
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.review.recorder_requires_exact_current_boundary",
+      "rule_id": "ctxr.review.recorder_requires_exact_current_boundary",
+      "category": "comprehensive_review",
+      "source_heading": "Comprehensive Review Boundary",
+      "source_line_ranges": [
+        [
+          121,
+          121
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.review.unresolved_findings_carry_forward",
+      "rule_id": "ctxr.review.unresolved_findings_carry_forward",
+      "category": "comprehensive_review",
+      "source_heading": "Comprehensive Review Boundary",
+      "source_line_ranges": [
+        [
+          121,
+          121
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.review.next_epoch_uses_delta_and_carry_forward",
+      "rule_id": "ctxr.review.next_epoch_uses_delta_and_carry_forward",
+      "category": "comprehensive_review",
+      "source_heading": "Comprehensive Review Boundary",
+      "source_line_ranges": [
+        [
+          121,
+          121
+        ]
+      ]
+    },
+    {
+      "clause_key": "ctxr.review.efficiency_never_limits_scope_or_lookback",
+      "rule_id": "ctxr.review.efficiency_never_limits_scope_or_lookback",
+      "category": "comprehensive_review",
+      "source_heading": "Comprehensive Review Boundary",
+      "source_line_ranges": [
+        [
+          121,
+          121
+        ]
+      ]
+    }
+  ],
+  "source_blocks": [
+    {
+      "block_id": "body-001",
+      "line_range": [
+        10,
+        10
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.inv.router_preserves_source_authority",
+        "ctxr.val.registry_before_selection"
+      ]
+    },
+    {
+      "block_id": "body-002",
+      "line_range": [
+        14,
+        14
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.sel.required_floor_order"
+      ]
+    },
+    {
+      "block_id": "body-003",
+      "line_range": [
+        16,
+        19
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.sel.required_floor_order"
+      ]
+    },
+    {
+      "block_id": "body-004",
+      "line_range": [
+        21,
+        21
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.val.registry_before_selection",
+        "ctxr.val.integration_pinned_digest_exact",
+        "ctxr.val.runtime_digest_at_packet_build",
+        "ctxr.val.packet_manifest_bound",
+        "ctxr.cur.stable_governing_is_pinned",
+        "ctxr.cur.mutable_handoff_is_runtime_hashed",
+        "ctxr.cur.checkpoint_update_needs_no_registry_edit"
+      ]
+    },
+    {
+      "block_id": "body-005",
+      "line_range": [
+        23,
+        23
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.inv.required_floor_is_minimum",
+        "ctxr.budget.no_mandatory_trimming"
+      ]
+    },
+    {
+      "block_id": "body-006",
+      "line_range": [
+        27,
+        27
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.inv.additive_union"
+      ]
+    },
+    {
+      "block_id": "body-007",
+      "line_range": [
+        29,
+        33
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.inv.additive_union",
+        "ctxr.sel.primary_profile",
+        "ctxr.sel.all_implicated_capabilities",
+        "ctxr.sel.profile_documents_and_exact_sections",
+        "ctxr.sel.complete_dependency_closure",
+        "ctxr.sel.expansion_precedes_dependent_action",
+        "ctxr.budget.no_mandatory_trimming"
+      ]
+    },
+    {
+      "block_id": "body-008",
+      "line_range": [
+        35,
+        35
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.sel.profile_never_excludes_capability"
+      ]
+    },
+    {
+      "block_id": "body-009",
+      "line_range": [
+        37,
+        37
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.inv.dependencies_are_directional_minimums",
+        "ctxr.inv.dependency_graph_is_acyclic"
+      ]
+    },
+    {
+      "block_id": "body-010",
+      "line_range": [
+        41,
+        41
+      ],
+      "classification": "registered_routing_data",
+      "verification": "context_routing_profile_parity"
+    },
+    {
+      "block_id": "body-011",
+      "line_range": [
+        43,
+        52
+      ],
+      "classification": "registered_routing_data",
+      "verification": "context_routing_profile_parity"
+    },
+    {
+      "block_id": "body-012",
+      "line_range": [
+        54,
+        54
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.sel.profile_starting_set",
+        "ctxr.sel.capability_addition_requires_no_new_profile",
+        "ctxr.sel.task_specific_canonical_material",
+        "ctxr.sel.source_projection_requires_canonical_readback",
+        "ctxr.budget.profile_max_is_fail_closed_ceiling",
+        "ctxr.budget.ceiling_change_does_not_change_membership"
+      ]
+    },
+    {
+      "block_id": "body-013",
+      "line_range": [
+        56,
+        56
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.inv.stable_document_identity_is_path_independent",
+        "ctxr.val.id_rename_change_audit"
+      ]
+    },
+    {
+      "block_id": "body-014",
+      "line_range": [
+        60,
+        60
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.sel.dynamic_trigger_set"
+      ]
+    },
+    {
+      "block_id": "body-015",
+      "line_range": [
+        62,
+        67
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.sel.dynamic_trigger_set"
+      ]
+    },
+    {
+      "block_id": "body-016",
+      "line_range": [
+        69,
+        69
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.inv.bounded_context_never_omits_material_authority",
+        "ctxr.sel.expansion_precedes_dependent_action",
+        "ctxr.sel.multi_agent_before_delegation",
+        "ctxr.val.expansion_provenance_preserved",
+        "ctxr.val.packet_manifest_bound",
+        "ctxr.budget.no_mandatory_trimming"
+      ]
+    },
+    {
+      "block_id": "body-017",
+      "line_range": [
+        71,
+        74
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.sel.governance_recording_plus_change_audit"
+      ]
+    },
+    {
+      "block_id": "body-018",
+      "line_range": [
+        78,
+        78
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.sel.interactive_route_is_minimum_not_ceiling"
+      ]
+    },
+    {
+      "block_id": "body-019",
+      "line_range": [
+        80,
+        80
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.sel.automated_expansion_allowlist",
+        "ctxr.sel.deterministic_bot_structured_inputs"
+      ]
+    },
+    {
+      "block_id": "body-020",
+      "line_range": [
+        84,
+        84
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.fail.unknown_or_missing_selection",
+        "ctxr.fail.pinned_digest_absent_or_stale",
+        "ctxr.fail.runtime_digest_unreadable",
+        "ctxr.fail.dependency_cycle",
+        "ctxr.fail.generated_or_excluded_as_authority",
+        "ctxr.fail.section_identity_invalid",
+        "ctxr.fail.section_budget_exceeded",
+        "ctxr.fail.packet_budget_exceeded",
+        "ctxr.fail.unresolved_material_governing_gap"
+      ]
+    },
+    {
+      "block_id": "body-021",
+      "line_range": [
+        86,
+        93
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.sel.profile_documents_and_exact_sections",
+        "ctxr.val.exact_section_unique",
+        "ctxr.fail.unknown_or_missing_selection",
+        "ctxr.fail.pinned_digest_absent_or_stale",
+        "ctxr.fail.runtime_digest_unreadable",
+        "ctxr.fail.dependency_cycle",
+        "ctxr.fail.generated_or_excluded_as_authority",
+        "ctxr.fail.section_identity_invalid",
+        "ctxr.fail.section_budget_exceeded",
+        "ctxr.fail.packet_budget_exceeded",
+        "ctxr.fail.unresolved_material_governing_gap",
+        "ctxr.budget.section_and_packet_limits_are_independent",
+        "ctxr.budget.no_mandatory_trimming"
+      ]
+    },
+    {
+      "block_id": "body-022",
+      "line_range": [
+        95,
+        95
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.fail.safe_failure_disposition",
+        "ctxr.budget.no_mandatory_trimming"
+      ]
+    },
+    {
+      "block_id": "body-023",
+      "line_range": [
+        99,
+        99
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.val.integration_pinned_digest_exact",
+        "ctxr.val.packet_manifest_bound",
+        "ctxr.val.authorized_digest_update_atomic",
+        "ctxr.val.registry_digest_external",
+        "ctxr.cur.stable_governing_is_pinned"
+      ]
+    },
+    {
+      "block_id": "body-024",
+      "line_range": [
+        101,
+        106
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.cur.generated_rebuildables_excluded",
+        "ctxr.cur.records_excluded_except_handoff"
+      ]
+    },
+    {
+      "block_id": "body-025",
+      "line_range": [
+        108,
+        108
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.val.new_authoritative_module_admission"
+      ]
+    },
+    {
+      "block_id": "body-026",
+      "line_range": [
+        110,
+        115
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.inv.dependency_graph_is_acyclic",
+        "ctxr.sel.profile_never_excludes_capability",
+        "ctxr.val.integration_pinned_digest_exact",
+        "ctxr.val.new_authoritative_module_admission",
+        "ctxr.review.select_all_active_governing"
+      ]
+    },
+    {
+      "block_id": "body-027",
+      "line_range": [
+        119,
+        119
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary",
+        "ctxr.review.select_all_active_governing",
+        "ctxr.review.periodic_epoch_required",
+        "ctxr.review.boundary_exact",
+        "ctxr.review.any_valid_boundary_difference_due",
+        "ctxr.review.invalid_drift_is_integrity_failure"
+      ]
+    },
+    {
+      "block_id": "body-028",
+      "line_range": [
+        121,
+        121
+      ],
+      "classification": "normative",
+      "clause_keys": [
+        "ctxr.review.completion_fields_exact",
+        "ctxr.review.recorder_requires_exact_current_boundary",
+        "ctxr.review.unresolved_findings_carry_forward",
+        "ctxr.review.next_epoch_uses_delta_and_carry_forward",
+        "ctxr.review.efficiency_never_limits_scope_or_lookback"
+      ]
+    }
+  ]
+}

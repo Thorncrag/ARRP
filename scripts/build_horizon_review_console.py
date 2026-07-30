@@ -79,6 +79,46 @@ except ModuleNotFoundError:
     )
 
 try:
+    from codex_usage_projection import (
+        projection_is_valid as codex_usage_projection_is_valid,
+        unavailable_projection as build_unavailable_codex_usage_projection,
+    )
+except ModuleNotFoundError:
+    from scripts.codex_usage_projection import (
+        projection_is_valid as codex_usage_projection_is_valid,
+        unavailable_projection as build_unavailable_codex_usage_projection,
+    )
+
+try:
+    from component_registry import (
+        RegistryError as ComponentRegistryError,
+        activation_readiness_report as component_registry_activation_readiness_report,
+        audit_terminology as audit_component_registry_terminology,
+        canonical_json as component_registry_canonical_json,
+        inventory_report as component_registry_inventory_report,
+        load_component_registry_configuration_routing_view,
+        load_fixture_component_registry_configuration_routing_view,
+        parity_report as component_registry_parity_report,
+        render_context_routing_rule as component_registry_render_routing_rule,
+        routed_capability_preview_from_view as component_registry_routed_capability_preview,
+        routed_profile_preview_from_view as component_registry_routed_profile_preview,
+    )
+except ModuleNotFoundError:
+    from scripts.component_registry import (
+        RegistryError as ComponentRegistryError,
+        activation_readiness_report as component_registry_activation_readiness_report,
+        audit_terminology as audit_component_registry_terminology,
+        canonical_json as component_registry_canonical_json,
+        inventory_report as component_registry_inventory_report,
+        load_component_registry_configuration_routing_view,
+        load_fixture_component_registry_configuration_routing_view,
+        parity_report as component_registry_parity_report,
+        render_context_routing_rule as component_registry_render_routing_rule,
+        routed_capability_preview_from_view as component_registry_routed_capability_preview,
+        routed_profile_preview_from_view as component_registry_routed_profile_preview,
+    )
+
+try:
     from repository_gates import produce_repository_gate_snapshot
 except ModuleNotFoundError:
     from scripts.repository_gates import produce_repository_gate_snapshot
@@ -125,17 +165,27 @@ try:
         APPROVED_STATE_ROOT,
         PathAuthorityError,
         PrivateProjectAuthority,
+        ProjectPathAuthority,
     )
 except ModuleNotFoundError:
     from scripts.path_authority import (
         APPROVED_STATE_ROOT,
         PathAuthorityError,
         PrivateProjectAuthority,
+        ProjectPathAuthority,
     )
 
 
 ROOT = Path(__file__).resolve().parents[1]
 STATE_ROOT = APPROVED_STATE_ROOT
+COMPONENT_REGISTRY = ROOT / "framework" / "component-registry.json"
+COMPONENT_REGISTRY_SCHEMA = (
+    ROOT / "framework" / "standards" / "automation"
+    / "component-registry.schema.json"
+)
+COMPONENT_REGISTRY_ROUTE_SOURCE = (
+    ROOT / "framework" / "project" / "automation" / "context-routes.json"
+)
 CANDIDATES = ROOT / "research" / "trump-administration-preliminary-candidates.csv"
 HORIZON_LOG = ROOT / "framework" / "records" / "candidates" / "horizon-scan-log.md"
 CHANGE_AUDIT_LOG = ROOT / "framework" / "records" / "audits" / "change-audit-log.md"
@@ -177,6 +227,7 @@ CONSOLE_DATA_DIR = ROOT / "research" / "project-console" / "data"
 PRIVATE_SECURITY_ASSURANCE_OUTPUT = (
     CONSOLE_DATA_DIR / "private-security-assurance.js"
 )
+PRIVATE_CODEX_USAGE_OUTPUT = CONSOLE_DATA_DIR / "private-codex-usage.js"
 CONSOLE_CLASSIFICATION_REGISTRY = (
     ROOT / "framework" / "project" / "interfaces"
     / "project-console-classifications.json"
@@ -202,6 +253,7 @@ GOVERNANCE_SUPPLEMENTS_RELATIVE = (
 OWNER_MODE_UNAVAILABLE_MESSAGE = (
     "Data unavailable outside the bound owner-local Console."
 )
+ALLOW_PRIVATE_CONSOLE_INPUTS = True
 PARTICIPATION_OUTPUT = ROOT / "participate" / "intake-data.js"
 GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/"
 HORIZON_LOG_URL = GITHUB_BLOB_ROOT + "framework/records/candidates/horizon-scan-log.md#horizon-integration-log"
@@ -332,6 +384,14 @@ def parse_args() -> argparse.Namespace:
         "--console-only",
         action="store_true",
         help="Rebuild the ARRP Project Console without rewriting the public-input lookup.",
+    )
+    parser.add_argument(
+        "--public-only",
+        action="store_true",
+        help=(
+            "Generate only tracked public Console outputs without opening ignored "
+            "local Console projections or restoring owner-only projections."
+        ),
     )
     return parser.parse_args()
 
@@ -2675,6 +2735,60 @@ def two_column_fields(
     return {strip_markdown(row["Field"]): row["Entry"] for row in rows}
 
 
+OWNER_LOG_PUBLIC_SCHEMAS = {
+    "agents": {
+        "columns": (
+            ("date", "Date and time"),
+            ("record", "Issue or task"),
+            ("task", "Task type"),
+            ("agent", "Agent"),
+            ("run", "Run ID"),
+            ("outcome", "Outcome"),
+        ),
+        "group_options": (
+            ("task", "Task type"),
+            ("record", "Issue or task"),
+            ("agent", "Agent"),
+            ("run", "Run ID"),
+            ("outcome", "Outcome"),
+        ),
+    },
+    "elim": {
+        "columns": (
+            ("date", "Started"),
+            ("outcome", "Outcome"),
+            ("trigger", "Trigger"),
+            ("summary", "Work summary"),
+            ("usage", "Usage"),
+            ("next", "Exact next action"),
+        ),
+        "group_options": (
+            ("outcome", "Outcome"),
+            ("trigger", "Trigger"),
+        ),
+    },
+}
+
+
+def owner_log_public_schema(log_id: str) -> dict[str, object]:
+    """Return one immutable public-safe presentation schema without file I/O."""
+
+    schema = OWNER_LOG_PUBLIC_SCHEMAS.get(log_id)
+    if schema is None:
+        raise RuntimeError(f"Unknown owner-log schema: {log_id}")
+    return {
+        "columns": [
+            {"key": key, "label": label}
+            for key, label in schema["columns"]
+        ],
+        "group_options": [
+            {"key": key, "label": label}
+            for key, label in schema["group_options"]
+        ],
+        "default_sort": {"key": "date", "direction": "desc"},
+    }
+
+
 def agent_audit_log_view(
     projection_errors: list[dict[str, object]] | None = None,
 ) -> dict[str, object]:
@@ -2721,22 +2835,7 @@ def agent_audit_log_view(
         "title": "Agent Audit Log",
         "description": "Autonomous, batched, and scheduled agent-run provenance and rollback records.",
         "source_url": None,
-        "columns": [
-            {"key": "date", "label": "Date and time"},
-            {"key": "record", "label": "Issue or task"},
-            {"key": "task", "label": "Task type"},
-            {"key": "agent", "label": "Agent"},
-            {"key": "run", "label": "Run ID"},
-            {"key": "outcome", "label": "Outcome"},
-        ],
-        "group_options": [
-            {"key": "task", "label": "Task type"},
-            {"key": "record", "label": "Issue or task"},
-            {"key": "agent", "label": "Agent"},
-            {"key": "run", "label": "Run ID"},
-            {"key": "outcome", "label": "Outcome"},
-        ],
-        "default_sort": {"key": "date", "direction": "desc"},
+        **owner_log_public_schema("agents"),
         "entries": entries,
     }
 
@@ -2779,19 +2878,7 @@ def elim_run_log_view(
         "title": "Elim Run Log",
         "description": "Complete per-run operational reports for ARRP's scheduled LLM agent.",
         "source_url": None,
-        "columns": [
-            {"key": "date", "label": "Started"},
-            {"key": "outcome", "label": "Outcome"},
-            {"key": "trigger", "label": "Trigger"},
-            {"key": "summary", "label": "Work summary"},
-            {"key": "usage", "label": "Usage"},
-            {"key": "next", "label": "Exact next action"},
-        ],
-        "group_options": [
-            {"key": "outcome", "label": "Outcome"},
-            {"key": "trigger", "label": "Trigger"},
-        ],
-        "default_sort": {"key": "date", "direction": "desc"},
+        **owner_log_public_schema("elim"),
         "entries": entries,
     }
 
@@ -3054,8 +3141,25 @@ def project_log_views(
     logs: list[dict[str, object]] = []
     for log_id, builder in definitions:
         local_errors: list[dict[str, object]] = []
+        owner_source_unavailable = (
+            not ALLOW_PRIVATE_CONSOLE_INPUTS
+            and log_id in {"elim", "agents"}
+        )
+        if owner_source_unavailable:
+            schema = owner_log_public_schema(log_id)
+            record = {
+                "id": log_id,
+                "title": (
+                    "Elim Run Log" if log_id == "elim" else "Agent Audit Log"
+                ),
+                "description": OWNER_MODE_UNAVAILABLE_MESSAGE,
+                "source_url": None,
+                **schema,
+                "entries": [],
+            }
         try:
-            record = builder(local_errors)
+            if not owner_source_unavailable:
+                record = builder(local_errors)
         except OSError:
             record = {
                 "id": log_id,
@@ -3089,13 +3193,21 @@ def project_log_views(
         ]
         record.update(
             {
-                "availability": "current" if not local_errors else "stale",
-                "complete": not local_errors,
+                "availability": (
+                    "unavailable"
+                    if owner_source_unavailable
+                    else "current" if not local_errors else "stale"
+                ),
+                "complete": (
+                    False if owner_source_unavailable else not local_errors
+                ),
                 "schema_errors": local_errors,
                 "current_through": max(dates) if dates else None,
                 "producer": f"{log_id}-log-projection",
                 "reason": (
-                    ""
+                    OWNER_MODE_UNAVAILABLE_MESSAGE
+                    if owner_source_unavailable
+                    else ""
                     if not local_errors
                     else "The log projection has source or schema errors."
                 ),
@@ -4197,6 +4309,36 @@ def unavailable_transaction_recovery_projection(
     }
 
 
+def valid_codex_usage_projection(
+    snapshot: object,
+    *,
+    now: datetime | None = None,
+) -> bool:
+    """Accept only the shared minimized Codex-usage projection schema."""
+
+    return codex_usage_projection_is_valid(snapshot, now=now)
+
+
+def unavailable_codex_usage_projection() -> dict[str, object]:
+    return build_unavailable_codex_usage_projection()
+
+
+def codex_usage_projection() -> dict[str, object]:
+    """Keep the repository-source Console independent of private usage data."""
+
+    return unavailable_codex_usage_projection()
+
+
+def write_private_codex_usage(payload: dict[str, object]) -> dict[str, object]:
+    if not valid_codex_usage_projection(payload):
+        raise RuntimeError("Codex usage projection violates its strict allowlist.")
+    text = "/* Private local projection; never commit or publish. */\nwindow.ARRP_PRIVATE_CODEX_USAGE=" + json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/") + ";\n"
+    if prohibited_secret_findings("research/project-console/data/private-codex-usage.js", text.encode("utf-8")):
+        raise RuntimeError("Codex usage projection contains prohibited secret material.")
+    atomic_write_text(PRIVATE_CODEX_USAGE_OUTPUT, text)
+    return payload
+
+
 def transaction_recovery_unresolved(item: dict[str, object]) -> bool:
     """Apply the fixed queue predicate; producers cannot self-authorize closure."""
 
@@ -4468,6 +4610,14 @@ def existing_console_payload() -> dict[str, object]:
         "Object.assign(window.ARRP_HORIZON_REVIEW_DATA,"
     )
     for path in sorted(CONSOLE_DATA_DIR.glob("*.js")):
+        if (
+            not ALLOW_PRIVATE_CONSOLE_INPUTS
+            and (
+                path.name.startswith("private-")
+                or path.name == "local-automation-status.js"
+            )
+        ):
+            continue
         part_text = path.read_text(encoding="utf-8")
         if not part_text.startswith(part_prefix):
             continue
@@ -4478,7 +4628,7 @@ def existing_console_payload() -> dict[str, object]:
         if isinstance(part, dict):
             payload.update(part)
     private_operations = CONSOLE_DATA_DIR / "private-operations.js"
-    if private_operations.exists():
+    if ALLOW_PRIVATE_CONSOLE_INPUTS and private_operations.exists():
         private_prefix = (
             "/* Private local projection; never commit or publish. */\n"
             "window.ARRP_PRIVATE_OPERATIONS="
@@ -5012,8 +5162,12 @@ def write_console_bundle(
     if not generation_id_value:
         raise RuntimeError("Console bundle generation lacks a generation_id.")
     output.parent.mkdir(parents=True, exist_ok=True)
-    local_status_text = validated_local_automation_projection(
-        data_dir / "local-automation-status.js"
+    local_status_text = (
+        validated_local_automation_projection(
+            data_dir / "local-automation-status.js"
+        )
+        if ALLOW_PRIVATE_CONSOLE_INPUTS
+        else None
     )
     stage_root = Path(
         tempfile.mkdtemp(prefix=".console-generation-", dir=output.parent)
@@ -5117,6 +5271,42 @@ def write_console_bundle(
 
         prior_data = stage_root / "prior-data"
         prior_catalog = stage_root / "prior-catalog.js"
+        if not ALLOW_PRIVATE_CONSOLE_INPUTS:
+            prior_data.mkdir()
+            installed_public: list[Path] = []
+            catalog_replaced = False
+            try:
+                data_dir.mkdir(parents=True, exist_ok=True)
+                for existing in sorted(data_dir.iterdir()):
+                    if (
+                        not existing.is_file()
+                        or existing.name.startswith("private-")
+                        or existing.name == "local-automation-status.js"
+                    ):
+                        continue
+                    os.replace(existing, prior_data / existing.name)
+                for staged in sorted(stage_data.iterdir()):
+                    destination = data_dir / staged.name
+                    os.replace(staged, destination)
+                    installed_public.append(destination)
+                if output.exists():
+                    os.replace(output, prior_catalog)
+                os.replace(stage_catalog, output)
+                catalog_replaced = True
+            except Exception:
+                failed_data = stage_root / "failed-new-data"
+                failed_data.mkdir(exist_ok=True)
+                if catalog_replaced and output.exists():
+                    os.replace(output, stage_root / "failed-new-catalog.js")
+                if prior_catalog.exists():
+                    os.replace(prior_catalog, output)
+                for installed in installed_public:
+                    if installed.exists():
+                        os.replace(installed, failed_data / installed.name)
+                for prior in sorted(prior_data.iterdir()):
+                    os.replace(prior, data_dir / prior.name)
+                raise
+            return manifest
         data_replaced = False
         catalog_replaced = False
         try:
@@ -5145,7 +5335,8 @@ def write_console_bundle(
             raise
         return manifest
     finally:
-        shutil.rmtree(stage_root, ignore_errors=True)
+        if ALLOW_PRIVATE_CONSOLE_INPUTS:
+            shutil.rmtree(stage_root, ignore_errors=True)
 
 
 def snapshot_time(payload: dict[str, object]) -> datetime:
@@ -8764,7 +8955,7 @@ def overview_data(
         key=lambda item: str(item.get("occurred_at") or ""), reverse=True
     )
     next_reviews: list[dict[str, object]] = []
-    if REVIEW_EPOCHS.is_file():
+    if ALLOW_PRIVATE_CONSOLE_INPUTS and REVIEW_EPOCHS.is_file():
         epoch_rows = [
             json.loads(line)
             for line in REVIEW_EPOCHS.read_text(encoding="utf-8").splitlines()
@@ -9346,19 +9537,867 @@ def owner_incident_snapshots(
     return operational, security, relations
 
 
-def main() -> None:
-    args = parse_args()
+def _component_registry_typed_unavailable(reason: str) -> dict[str, object]:
+    return {"state": "unavailable", "reason": reason}
+
+
+def _component_registry_active_console_evidence(
+    routing: dict[str, object],
+    *,
+    registry_revision: int,
+    approval: dict[str, object],
+    operational_documents: dict[str, object],
+    representations: dict[str, object],
+) -> tuple[dict[str, object], dict[str, object]]:
+    """Validate active migration evidence and return its public-safe view."""
+
+    provenance = routing.get("predecessor_provenance")
+    representation = routing.get("readable_representation")
+    expected_provenance_fields = {
+        "schema_version",
+        "complete",
+        "authority_effect",
+        "records",
+        "migration_alias_ids",
+        "verification_ids",
+    }
+    expected_record_fields = {
+        "stable_id",
+        "artifact_kind",
+        "historical_path",
+        "archived_path",
+        "sha256",
+        "source_schema_version",
+        "state",
+        "retirement_proof",
+    }
+    expected_records = {
+        "project_structure": {
+            "artifact_kind": "markdown_authority",
+            "historical_path": "framework/PROJECT_STRUCTURE.md",
+            "archived_path":
+                "framework/archive/authorities/PROJECT_STRUCTURE.md",
+            "source_schema_version": None,
+        },
+        "context_routing": {
+            "artifact_kind": "markdown_authority",
+            "historical_path": "framework/CONTEXT_ROUTING.md",
+            "archived_path":
+                "framework/archive/authorities/CONTEXT_ROUTING.md",
+            "source_schema_version": None,
+        },
+        "repository_map": {
+            "artifact_kind": "markdown_authority",
+            "historical_path": "framework/project/REPOSITORY_MAP.md",
+            "archived_path":
+                "framework/archive/authorities/REPOSITORY_MAP.md",
+            "source_schema_version": None,
+        },
+        "context_routes_source": {
+            "artifact_kind": "route_data_authority",
+            "historical_path":
+                "framework/project/automation/context-routes.json",
+            "archived_path":
+                "framework/archive/authorities/context-routes.json",
+            "source_schema_version": 2,
+        },
+    }
+    if (
+        not isinstance(provenance, dict)
+        or set(provenance) != expected_provenance_fields
+        or provenance.get("schema_version") != 1
+        or provenance.get("complete") is not True
+        or provenance.get("authority_effect")
+        != "historical_provenance_only_no_runtime_read"
+        or not isinstance(provenance.get("records"), dict)
+        or set(provenance["records"]) != set(expected_records)
+        or provenance.get("migration_alias_ids") != [
+            "relocate_project_structure",
+            "relocate_context_routing",
+            "relocate_repository_map",
+            "relocate_context_routes_source",
+        ]
+        or provenance.get("verification_ids") != [
+            "test_active_predecessor_provenance_is_closed",
+            "test_active_loader_does_not_read_predecessors",
+            "test_active_embedded_route_excludes_predecessors",
+        ]
+    ):
+        raise RuntimeError(
+            "Active Component Registry predecessor provenance is invalid."
+        )
+    approval_value = approval.get("value")
+    if (
+        approval.get("state") != "known"
+        or not isinstance(approval_value, dict)
+        or not all(
+            isinstance(approval_value.get(field), str)
+            and approval_value[field]
+            for field in (
+                "governance_change_id",
+                "implementation_contract_id",
+                "owner_review_reference",
+            )
+        )
+    ):
+        raise RuntimeError(
+            "Active Component Registry approval evidence is invalid."
+        )
+    expected_retirement_proof = {
+        "proof_type": "authenticated_activation_cutover",
+        "governance_change_id": approval_value["governance_change_id"],
+        "implementation_contract_id": approval_value[
+            "implementation_contract_id"
+        ],
+        "owner_review_reference": approval_value[
+            "owner_review_reference"
+        ],
+    }
+    for stable_id, expected in expected_records.items():
+        record = provenance["records"].get(stable_id)
+        if (
+            not isinstance(record, dict)
+            or set(record) != expected_record_fields
+            or record.get("stable_id") != stable_id
+            or record.get("artifact_kind") != expected["artifact_kind"]
+            or record.get("historical_path") != expected["historical_path"]
+            or record.get("archived_path") != expected["archived_path"]
+            or record.get("source_schema_version")
+            != expected["source_schema_version"]
+            or record.get("state")
+            != "archived_retired_provenance_only"
+            or record.get("retirement_proof")
+            != expected_retirement_proof
+            or not isinstance(record.get("sha256"), str)
+            or re.fullmatch(r"[0-9a-f]{64}", record["sha256"]) is None
+        ):
+            raise RuntimeError(
+                "Active Component Registry predecessor provenance record "
+                "is invalid."
+            )
+        document = operational_documents.get(stable_id)
+        if (
+            not isinstance(document, dict)
+            or document.get("canonical_path") != expected["archived_path"]
+            or document.get("authority_role") != "archived_predecessor"
+            or document.get("retention_posture") != "archived"
+            or document.get("digest_policy") != "provenance_only"
+            or document.get("sha256") != record["sha256"]
+            or document.get("dependencies") != []
+            or document.get("consumers") != []
+            or document.get("current_status")
+            != {"state": "known", "value": "retired"}
+        ):
+            raise RuntimeError(
+                "Active Component Registry archived predecessor catalog "
+                "record is invalid."
+            )
+    if (
+        not isinstance(representation, dict)
+        or set(representation) != {
+            "representation_id",
+            "binding_kind",
+            "source_registry_revision",
+            "generated_from",
+            "authority_effect",
+            "executable",
+        }
+        or representation.get("representation_id")
+        != "human_readable_context_routing"
+        or representation.get("binding_kind")
+        != "component_registry_revision"
+        or representation.get("source_registry_revision")
+        != registry_revision
+        or representation.get("generated_from")
+        != "embedded_context_routing"
+        or representation.get("authority_effect") != "none"
+        or representation.get("executable") is not False
+    ):
+        raise RuntimeError(
+            "Active Component Registry readable representation binding "
+            "is invalid."
+        )
+    representation_record = representations.get(
+        "human_readable_context_routing"
+    )
+    if (
+        not isinstance(representation_record, dict)
+        or representation_record.get("representation_type")
+        != "human_readable_routing"
+        or representation_record.get("canonical_document_id")
+        != "COMPONENT-REGISTRY"
+        or representation_record.get("canonical_path")
+        != (
+            "framework/project/interfaces/project-console/data/"
+            "component-registry.js"
+        )
+        or representation_record.get("source_revision_binding")
+        != f"component_registry_revision:{registry_revision}"
+        or representation_record.get("state") != "active"
+    ):
+        raise RuntimeError(
+            "Active Component Registry readable representation record "
+            "is invalid."
+        )
+    return (
+        {
+            "state": "known",
+            "value": (
+                "Archived predecessor provenance retained as "
+                "nonauthoritative history."
+            ),
+        },
+        {
+            "state": "known",
+            "representation_id": representation["representation_id"],
+            "source_registry_revision": registry_revision,
+            "authority_effect": "none",
+            "executable": False,
+        },
+    )
+
+
+def component_registry_console_snapshot(
+    routing_view: dict[str, object],
+    *,
+    generated_at: str,
+    root: Path = ROOT,
+) -> dict[str, object]:
+    """Project one public-safe repository-configuration validation view."""
+
+    mode = routing_view.get("validation_mode")
+    expected = {
+        "candidate_validation_only": {
+            "registry_status": "candidate",
+            "authoritative": False,
+            "executable": False,
+            "live_activation_verified": False,
+            "activation_receipt_consulted": False,
+            "predecessor_route_consulted": True,
+        },
+        "active_configuration_validation_only": {
+            "registry_status": "active",
+            "authoritative": False,
+            "executable": False,
+            "live_activation_verified": False,
+            "activation_receipt_consulted": False,
+            "predecessor_route_consulted": False,
+        },
+    }.get(str(mode))
+    if (
+        routing_view.get("schema_version") != 1
+        or expected is None
+        or any(
+            routing_view.get(field) != value
+            for field, value in expected.items()
+        )
+        or routing_view.get("registry_path")
+        != "framework/component-registry.json"
+        or not isinstance(routing_view.get("route"), dict)
+        or not isinstance(routing_view.get("_validated_registry"), dict)
+    ):
+        raise RuntimeError(
+            "Component Registry configuration validation state is invalid."
+        )
+    registry = routing_view["_validated_registry"]
+    route = routing_view["route"]
+    candidate_mode = mode == "candidate_validation_only"
+    if candidate_mode:
+        if (
+            "predecessor_provenance" in registry["context_routing"]
+            or "readable_representation" in registry["context_routing"]
+        ):
+            raise RuntimeError(
+                "Component Registry candidate contains active-only "
+                "migration evidence."
+            )
+        parity: dict[str, object] = component_registry_parity_report(
+            registry,
+            route,
+        )
+        if parity.get("valid") is not True:
+            raise RuntimeError(
+                "Component Registry candidate routing parity is not exact."
+            )
+        source_import: dict[str, object] = routing_view["route"].get(
+            "source_import",
+            registry["context_routing"]["source_import"],
+        )
+        source_binding: dict[str, object] = {
+            "state": "known",
+            "value": registry["source_baseline"]["working_tree_binding"][
+                "sha256"
+            ],
+        }
+        parity_policy: object = registry["context_routing"]["parity_policy"]
+        predecessor_provenance: dict[str, object] = {
+            "state": "not_applicable",
+            "reason": (
+                "Candidate routing still uses its exact predecessor source "
+                "and parity evidence."
+            ),
+        }
+        readable_representation: dict[str, object] = {
+            "state": "not_applicable",
+            "reason": (
+                "The active readable representation binding has not been "
+                "adopted."
+            ),
+        }
+    else:
+        if (
+            "source_import" in registry["context_routing"]
+            or "parity_policy" in registry["context_routing"]
+        ):
+            raise RuntimeError(
+                "Tracked active Component Registry retains predecessor "
+                "authority fields."
+            )
+        source_reason = (
+            "Predecessor routing evidence is not consulted by a tracked "
+            "active configuration."
+        )
+        source_import = {
+            "state": "not_applicable",
+            "reason": source_reason,
+        }
+        source_binding = {
+            "state": "not_applicable",
+            "reason": source_reason,
+        }
+        parity = {
+            "state": "not_applicable",
+            "reason": source_reason,
+        }
+        parity_policy = {
+            "state": "not_applicable",
+            "reason": source_reason,
+        }
+        (
+            predecessor_provenance,
+            readable_representation,
+        ) = _component_registry_active_console_evidence(
+            registry["context_routing"],
+            registry_revision=registry["registry_revision"],
+            approval=registry["approval"],
+            operational_documents=registry["operational_documents"][
+                "entries"
+            ],
+            representations=registry["representations"]["entries"],
+        )
+    inventory = component_registry_inventory_report(
+        registry,
+        route,
+        root=root,
+    )
+    if inventory.get("classification_complete") is not True:
+        raise RuntimeError(
+            "Component Registry directory-scope inventory is incomplete."
+        )
+    registry_digest = hashlib.sha256(
+        component_registry_canonical_json(registry).encode("utf-8")
+    ).hexdigest()
+    operational = registry["operational_documents"]
+    directories = registry["directory_scopes"]
+    routing = registry["context_routing"]
+    deferred_notice = registry["deferred_namespace_notice"]
+    scope_counts = inventory.get("scope_counts") or {}
+
+    documents = []
+    for document_id, raw in sorted(operational["entries"].items()):
+        if (
+            not candidate_mode
+            and document_id in {
+                "project_structure",
+                "context_routing",
+                "repository_map",
+                "context_routes_source",
+            }
+        ):
+            continue
+        entry = dict(raw)
+        documents.append(
+            {
+                "document_id": document_id,
+                "official_reference_name": entry["official_reference_name"],
+                "document_class": entry["document_class"],
+                "revision": entry["revision"],
+                "current_status": entry["current_status"],
+                "effective_date": entry["effective_date"],
+                "approval_date": entry["approval_date"],
+                "approval_method": entry["approval_method"],
+                "governance_change_id": entry["governance_change_id"],
+                "purpose_scope": entry["purpose_scope"],
+                "authority_role": entry["authority_role"],
+                "authority_exclusions": entry["authority_exclusions"],
+                "canonical_path": entry["canonical_path"],
+                "owner": entry["owner"],
+                "review_policy": entry["review_policy"],
+                "disclosure_class": entry["disclosure_class"],
+                "creation_provenance": entry["creation_provenance"],
+                "governance_revision": entry["governance_revision"],
+                "producer": entry["producer"],
+                "authorized_writers": entry["authorized_writers"],
+                "representations": entry["representations"],
+                "dependencies": entry["dependencies"],
+                "consumers": entry["consumers"],
+                "digest_policy": entry["digest_policy"],
+                "sha256": entry.get("sha256"),
+                "console_route": entry["console_route"],
+                "retention_posture": entry["retention_posture"],
+                "history": _component_registry_typed_unavailable(
+                    "Normalized document history is not registered in the "
+                    "Stage 1 candidate."
+                ),
+            }
+        )
+
+    directory_rows = []
+    for scope_id, raw in sorted(
+        directories["entries"].items(),
+        key=lambda item: (int(item[1]["specificity_rank"]), item[0]),
+    ):
+        entry = dict(raw)
+        directory_rows.append(
+            {
+                "scope_id": scope_id,
+                "display_name": entry["display_name"],
+                "path_pattern": entry["path_pattern"],
+                "match_kind": entry["match_kind"],
+                "specificity_rank": entry["specificity_rank"],
+                "parameter_bindings": entry["parameter_bindings"],
+                "owning_scope_selection_rule": entry[
+                    "owning_scope_selection_rule"
+                ],
+                "ancestor_scope_ids": entry["ancestor_scope_ids"],
+                "placement_question": entry["placement_question"],
+                "include_when": entry["include_when"],
+                "exclude_when": entry["exclude_when"],
+                "primary_authority": entry["primary_authority"],
+                "disclosure_boundary": entry["disclosure_boundary"],
+                "lifecycle_posture": entry["lifecycle_posture"],
+                "authorized_creators": entry["authorized_creators"],
+                "precedence": entry["precedence"],
+                "fallback": entry["fallback"],
+                "console_route": (
+                    "automation:component-registry:directories?directory="
+                    + urllib.parse.quote(scope_id, safe="")
+                ),
+                "permitted_artifact_classes":
+                    _component_registry_typed_unavailable(
+                        str(deferred_notice["reason"])
+                    ),
+                "current_artifact_count": {
+                    "state": "known",
+                    "value": int(scope_counts.get(scope_id, 0)),
+                },
+            }
+        )
+
+    selections = []
+    for profile_id, profile in sorted(routing["profiles"].items()):
+        resolved = component_registry_routed_profile_preview(
+            routing_view,
+            profile_id=profile_id,
+            capability_ids=(),
+        )
+        selections.append(
+            {
+                "selection_id": f"profile:{profile_id}",
+                "selection_kind": "profile",
+                "executable": resolved["executable"],
+                "authoritative": resolved["authoritative"],
+                "live_activation_verified": resolved[
+                    "live_activation_verified"
+                ],
+                "profile": profile_id,
+                "capabilities": [],
+                "max_bytes": profile["max_bytes"],
+                "sections": profile.get("sections", []),
+                "modules": resolved["modules"],
+                "console_route": (
+                    "automation:component-registry:routing?selection="
+                    + urllib.parse.quote(f"profile:{profile_id}", safe="")
+                ),
+            }
+        )
+    for capability_id in sorted(routing["capabilities"]):
+        resolved = component_registry_routed_capability_preview(
+            routing_view,
+            capability_ids=(capability_id,),
+        )
+        selections.append(
+            {
+                "selection_id": f"capability:{capability_id}",
+                "selection_kind": "capability",
+                "executable": resolved["executable"],
+                "authoritative": resolved["authoritative"],
+                "live_activation_verified": resolved[
+                    "live_activation_verified"
+                ],
+                "profile": None,
+                "capabilities": [capability_id],
+                "max_bytes": None,
+                "sections": [],
+                "modules": resolved["modules"],
+                "console_route": (
+                    "automation:component-registry:routing?selection="
+                    + urllib.parse.quote(
+                        f"capability:{capability_id}",
+                        safe="",
+                    )
+                ),
+            }
+        )
+
+    # The Console receives rendered routing rules from the validated producer.
+    # It must not derive category, identity, or readable semantics from rule IDs
+    # or prose in the browser.
+    rule_namespaces = (
+        "invariants",
+        "selection",
+        "validation",
+        "failure_rules",
+        "currentness",
+        "budgets",
+        "comprehensive_review",
+    )
+    rules = []
+    rule_counts: dict[str, int] = {}
+    for namespace in rule_namespaces:
+        raw_rules = routing[namespace]
+        rule_counts[namespace] = len(raw_rules)
+        for rule_id, entry in sorted(raw_rules.items()):
+            rendered = component_registry_render_routing_rule(rule_id, entry)
+            row = {
+                "namespace": namespace,
+                "rule_id": rendered["rule_id"],
+                "rule_version": entry["rule_version"],
+                "status": entry["status"],
+                "predicate_type": rendered["predicate_type"],
+                "parameters": rendered["parameters"],
+                "label": rendered["label"],
+                "rendered_text": rendered["rendered_text"],
+                "source_provenance": (
+                    entry["source_provenance"]
+                    if candidate_mode
+                    else {
+                        "source_document_id": "COMPONENT-REGISTRY",
+                        "source_sha256": registry_digest,
+                        "source_heading":
+                            "Embedded context routing rule catalog",
+                        "clause_key": rule_id,
+                    }
+                ),
+                "verification_ids": entry["verification_ids"],
+                "console_route": (
+                    "automation:component-registry:routing?rule="
+                    + urllib.parse.quote(rule_id, safe="")
+                ),
+            }
+            if "failure_code" in rendered:
+                row["failure_code"] = rendered["failure_code"]
+            rules.append(row)
+
+    terminology = audit_component_registry_terminology(registry)
+    terminology["console_route"] = (
+        "automation:component-registry:terminology"
+    )
+    activation_readiness = (
+        component_registry_activation_readiness_report(
+            registry,
+            root=root,
+        )
+        if candidate_mode
+        else {
+            "available": True,
+            "complete": True,
+            "activation_state": "active",
+            "authoritative": False,
+            "executable": False,
+            "registry_revision": registry["registry_revision"],
+            "registry_sha256": registry_digest,
+            "current_candidate_counts": registry[
+                "activation_readiness"
+            ]["current_candidate_counts"],
+            "simulated_active_counts": registry[
+                "activation_readiness"
+            ]["simulated_active_counts"],
+            "requirement_count": 77,
+            "exception_count": 0,
+            "stage_boundaries": registry["activation_readiness"][
+                "stage_boundaries"
+            ],
+            "activation_decision": (
+                "tracked_active_configuration_live_readback_separate"
+            ),
+        }
+    )
+    approval = registry["approval"]
+    approval_projection = (
+        {
+            "state": "known",
+            "value": "Tracked activation configuration approved",
+        }
+        if registry["status"] == "active"
+        else {
+            "state": "pending",
+            "reason": approval["reason"],
+        }
+    )
+    configuration_validation = {
+        "state": "known",
+        "value": (
+            "Candidate predecessor parity validated"
+            if candidate_mode
+            else "Tracked active configuration validated"
+        ),
+    }
+    live_activation = (
+        {
+            "state": "pending",
+            "reason": (
+                "The tracked candidate has not entered live owner activation."
+            ),
+        }
+        if candidate_mode
+        else {
+            "state": "unknown",
+            "reason": (
+                "Live owner activation is not evaluated by the public "
+                "repository configuration projection."
+            ),
+        }
+    )
+    deferred_namespaces = [
+        {
+            "namespace": namespace,
+            "schema_version": registry[namespace]["schema_version"],
+            "activation_state": registry[namespace]["activation_state"],
+            "complete": registry[namespace]["complete"],
+            "enforced": registry[namespace]["enforced"],
+            "entry_count": len(registry[namespace]["entries"]),
+        }
+        for namespace in (
+            "artifact_classes",
+            "artifact_families",
+            "artifact_lifecycles",
+        )
+    ]
+    return {
+        "schema_version": 1,
+        "projection_id": "component-registry-console",
+        "producer_id": "project-console-builder",
+        "generated_at": generated_at,
+        "availability": "current",
+        "complete": True,
+        "reason_code": None,
+        "routes": {
+            "documents": "automation:component-registry:documents",
+            "directories": "automation:component-registry:directories",
+            "routing": "automation:component-registry:routing",
+            "terminology": "automation:component-registry:terminology",
+        },
+        "defaults": {
+            "mode": "documents",
+            "document": documents[0]["document_id"],
+            "directory": directory_rows[0]["scope_id"],
+            "routing": selections[0]["selection_id"],
+        },
+        "registry": {
+            "registry_id": registry["registry_id"],
+            "registry_revision": registry["registry_revision"],
+            "registry_status": registry["status"],
+            "approval": approval_projection,
+            "configuration_validation": configuration_validation,
+            "live_activation": live_activation,
+            "validation_mode": mode,
+            "authoritative": False,
+            "executable": False,
+            "live_activation_verified": False,
+            "predecessor_route_consulted": routing_view[
+                "predecessor_route_consulted"
+            ],
+            "registry_sha256": registry_digest,
+            "repository_revision": registry["source_baseline"][
+                "repository_revision"
+            ],
+            "source_binding_sha256": source_binding,
+        },
+        "deferred": {
+            "display_state": deferred_notice["display_state"],
+            "reason": deferred_notice["reason"],
+            "activation_requirement": deferred_notice[
+                "activation_requirement"
+            ],
+            "namespaces": deferred_namespaces,
+        },
+        "documents": documents,
+        "directories": directory_rows,
+        "routing": {
+            "schema_version": routing["schema_version"],
+            "rule_catalog_version": routing["rule_catalog_version"],
+            "activation_state": routing["activation_state"],
+            "complete": routing["complete"],
+            "authoritative": False,
+            "source_import": source_import,
+            "predecessor_provenance": predecessor_provenance,
+            "readable_representation": readable_representation,
+            "expected_counts": routing["expected_counts"],
+            "parity_policy": parity_policy,
+            "required_modules": routing["required_modules"],
+            "generated_path_exclusions": routing[
+                "generated_path_exclusions"
+            ],
+            "documents": [
+                {
+                    "document_id": document_id,
+                    "path": spec["path"],
+                    "governing": spec["governing"],
+                    "hash_policy": spec["hash_policy"],
+                    "sha256": spec.get("sha256"),
+                    "requires": spec.get("requires", []),
+                }
+                for document_id, spec in sorted(
+                    routing["documents"].items()
+                )
+            ],
+            "capabilities": [
+                {
+                    "capability_id": capability_id,
+                    "document_ids": document_ids,
+                }
+                for capability_id, document_ids in sorted(
+                    routing["capabilities"].items()
+                )
+            ],
+            "profiles": [
+                {
+                    "profile_id": profile_id,
+                    "max_bytes": profile["max_bytes"],
+                    "modules": profile.get("modules", []),
+                    "capabilities": profile.get("capabilities", []),
+                    "include_all_governing": profile.get(
+                        "include_all_governing",
+                        False,
+                    ),
+                    "sections": profile.get("sections", []),
+                }
+                for profile_id, profile in sorted(
+                    routing["profiles"].items()
+                )
+            ],
+            "selections": selections,
+            "rule_namespaces": list(rule_namespaces),
+            "rule_counts": rule_counts,
+            "rules": rules,
+            "validation": parity,
+        },
+        "activation_readiness": activation_readiness,
+        "terminology": terminology,
+    }
+
+
+def load_component_registry_console_snapshot(
+    *,
+    generated_at: str,
+    root: Path = ROOT,
+) -> dict[str, object]:
+    """Load tracked configuration without claiming live owner activation."""
+
     try:
-        private_authority = PrivateProjectAuthority.production_staging()
-    except PathAuthorityError:
+        if root.resolve() == ROOT.resolve():
+            routing_view = (
+                load_component_registry_configuration_routing_view()
+            )
+        else:
+            routing_view = (
+                load_fixture_component_registry_configuration_routing_view(
+                    ProjectPathAuthority.fixture(
+                        root,
+                        repository_root=root,
+                        state_root=root,
+                        output_root=root,
+                    )
+                )
+            )
+    except (ComponentRegistryError, PathAuthorityError) as error:
+        raise RuntimeError(
+            "Component Registry configuration validation is unavailable: "
+            f"{error}"
+        ) from error
+    return component_registry_console_snapshot(
+        routing_view,
+        generated_at=generated_at,
+        root=root,
+    )
+
+
+def component_registry_source_paths(
+    snapshot: dict[str, object],
+    *,
+    root: Path = ROOT,
+) -> list[Path]:
+    """Return only sources consulted by the declared validation mode."""
+    registry = snapshot.get("registry")
+    if not isinstance(registry, dict):
+        raise RuntimeError(
+            "Component Registry source validation state is unavailable."
+        )
+    mode = registry.get("validation_mode")
+    if mode not in {
+        "candidate_validation_only",
+        "active_configuration_validation_only",
+    }:
+        raise RuntimeError(
+            "Component Registry source validation mode is invalid."
+        )
+    paths = [
+        root / "framework" / "component-registry.json",
+        root / "framework" / "standards" / "automation"
+        / "component-registry.schema.json",
+    ]
+    if mode == "candidate_validation_only":
+        paths.extend(
+            [
+                root / "framework" / "project" / "automation"
+                / "context-routes.json",
+                root / "framework" / "receipts" / "component-registry"
+                / "stage1-requirement-closure.json",
+            ]
+        )
+    return paths
+
+
+def main() -> None:
+    global ALLOW_PRIVATE_CONSOLE_INPUTS
+    args = parse_args()
+    if args.public_only and args.refresh_github:
+        raise RuntimeError(
+            "--public-only cannot be combined with authenticated refresh."
+        )
+    ALLOW_PRIVATE_CONSOLE_INPUTS = not args.public_only
+    if args.public_only:
         private_authority = None
+    else:
+        try:
+            private_authority = PrivateProjectAuthority.production_staging()
+        except PathAuthorityError:
+            private_authority = None
     validate_console_development_log_categories()
     projection_errors: list[dict[str, object]] = []
-    (
-        operational_incidents,
-        security_incidents,
-        incident_relations,
-    ) = owner_incident_snapshots(private_authority)
+    if args.public_only:
+        operational_incidents = unavailable_incident_projection("operational")
+        security_incidents = unavailable_incident_projection("security")
+        incident_relations = unavailable_incident_relations(
+            "owner-local-data-not-loaded"
+        )
+    else:
+        (
+            operational_incidents,
+            security_incidents,
+            incident_relations,
+        ) = owner_incident_snapshots(private_authority)
     public_operational_incidents = unavailable_incident_projection(
         "operational"
     )
@@ -9372,7 +10411,9 @@ def main() -> None:
     presidential_directives = presidential_directive_records()
     horizon_records, github_synced_at = horizon_snapshot(args.refresh_github)
     private_security_assurance = (
-        security_assurance_snapshot()
+        None
+        if args.public_only
+        else security_assurance_snapshot()
         if args.refresh_github
         else read_private_security_assurance()
     )
@@ -9486,14 +10527,32 @@ def main() -> None:
     publication["delivery_items"] = delivery_items
     generated_at = utc_timestamp()
     repository_revision = source_revision(ROOT)
-    governance_change_supplements = owner_governance_supplements(
-        source_revision=repository_revision,
-        checked_at=generated_at,
-        private_authority=private_authority,
+    component_registry_snapshot = load_component_registry_console_snapshot(
+        generated_at=generated_at,
+    )
+    governance_change_supplements = (
+        unavailable_governance_supplements(
+            source_revision=repository_revision,
+            checked_at=generated_at,
+            reason_code="owner-local-data-not-loaded",
+        )
+        if args.public_only
+        else owner_governance_supplements(
+            source_revision=repository_revision,
+            checked_at=generated_at,
+            private_authority=private_authority,
+        )
     )
     public_integrity = public_safe_integrity(integrity)
-    transaction_recovery = transaction_recovery_console_projection()
+    transaction_recovery = (
+        unavailable_transaction_recovery_projection(
+            "owner-local-data-not-loaded"
+        )
+        if args.public_only
+        else transaction_recovery_console_projection()
+    )
     public_transaction_recovery = unavailable_transaction_recovery_projection()
+    private_codex_usage = codex_usage_projection()
     action_snapshot = build_action_snapshot(
         progress=progress,
         integrity=public_integrity,
@@ -9540,8 +10599,12 @@ def main() -> None:
         transaction_recovery=transaction_recovery,
         generated_at=generated_at,
     )
-    local_automation_status = local_automation_status_snapshot(
-        CONSOLE_DATA_DIR / "local-automation-status.js"
+    local_automation_status = (
+        {}
+        if args.public_only
+        else local_automation_status_snapshot(
+            CONSOLE_DATA_DIR / "local-automation-status.js"
+        )
     )
     automation_occurrences = automation_occurrence_projection(
         run_chain,
@@ -9620,6 +10683,9 @@ def main() -> None:
         PRINT_ASSEMBLY_MANIFEST,
         ROOT / "research" / "README.md",
     ]
+    input_paths.extend(
+        component_registry_source_paths(component_registry_snapshot)
+    )
     hashes = source_hashes(ROOT, input_paths)
     for feed_name, feed in (
         ("progress", progress),
@@ -9643,6 +10709,10 @@ def main() -> None:
         + sum(len(log.get("entries") or []) for log in public_project_logs)
         + len(review_recommendations)
         + len(delivery_items)
+        + len(component_registry_snapshot["documents"])
+        + len(component_registry_snapshot["directories"])
+        + len(component_registry_snapshot["routing"]["selections"])
+        + len(component_registry_snapshot["routing"]["rules"])
     )
     pagination_sources: list[dict[str, object]] = [
         {
@@ -9841,6 +10911,9 @@ def main() -> None:
             "security_assurance": public_security_assurance,
             "repository_review_recommendations": review_recommendations,
         },
+        "component-registry.js": {
+            "component_registry": component_registry_snapshot,
+        },
         "logs.js": {
             "project_logs": public_project_logs,
             "repository_review_recommendations": review_recommendations,
@@ -9861,27 +10934,29 @@ def main() -> None:
     )
     # Restore complete owner-only operations after the public generation swap.
     # This ignored projection is not part of the public manifest or catalog.
-    write_private_operations(
-        catalog_generation_id=str(generation_contract["generation_id"]),
-        source_revision=str(generation_contract["source_revision"]),
-        agent_registry=agent_registry,
-        project_logs=project_logs,
-        integrity=integrity,
-        run_chain=run_chain,
-        action_snapshot=private_action_snapshot,
-        queue_directory=private_queue_directory,
-        operational_incidents=operational_incidents,
-        security_incidents=security_incidents,
-        incident_relations=incident_relations,
-        transaction_recovery=transaction_recovery,
-        governance_change_supplements=governance_change_supplements,
-    )
-    if private_security_assurance is not None:
-        # The public bundle replaces the complete data directory atomically.
-        # Write the ignored authenticated projection only after that swap so
-        # the local file:// Console keeps it without admitting it to the
-        # public generation manifest or repository.
-        write_private_security_assurance(private_security_assurance)
+    if not args.public_only:
+        write_private_operations(
+            catalog_generation_id=str(generation_contract["generation_id"]),
+            source_revision=str(generation_contract["source_revision"]),
+            agent_registry=agent_registry,
+            project_logs=project_logs,
+            integrity=integrity,
+            run_chain=run_chain,
+            action_snapshot=private_action_snapshot,
+            queue_directory=private_queue_directory,
+            operational_incidents=operational_incidents,
+            security_incidents=security_incidents,
+            incident_relations=incident_relations,
+            transaction_recovery=transaction_recovery,
+            governance_change_supplements=governance_change_supplements,
+        )
+        if private_security_assurance is not None:
+            # The public bundle replaces the complete data directory atomically.
+            # Write the ignored authenticated projection only after that swap so
+            # the local file:// Console keeps it without admitting it to the
+            # public generation manifest or repository.
+            write_private_security_assurance(private_security_assurance)
+        write_private_codex_usage(private_codex_usage)
 
     if args.console_only:
         private_security_note = (

@@ -177,6 +177,21 @@ class ExecutionHelperTests(unittest.TestCase):
         identifiers = {row["id"] for row in plan["checks"]}
         self.assertIn("python_compile", identifiers)
         self.assertIn("repository_consistency", identifiers)
+        repository_consistency = next(
+            row
+            for row in plan["checks"]
+            if row["id"] == "repository_consistency"
+        )
+        self.assertEqual(
+            repository_consistency["command"],
+            [
+                "python3",
+                "scripts/audit_project_consistency.py",
+                "--routing-authority",
+                "repository-validation",
+                "--exit-zero-on-findings",
+            ],
+        )
         results = [
             {"id": identifier, "status": "passed", "summary": "ok"}
             for identifier in identifiers

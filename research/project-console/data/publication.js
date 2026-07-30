@@ -7628,8 +7628,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/automation-arrp console development log",
       "internal_links": [],
-      "word_count": 2157,
-      "estimated_pages": 4,
+      "word_count": 3258,
+      "estimated_pages": 6,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -7727,7 +7727,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2137,
+      "word_count": 2349,
       "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7890,12 +7890,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation-arrp owner-local runtime authority",
       "internal_links": [],
-      "word_count": 1655,
-      "estimated_pages": 3,
+      "word_count": 2087,
+      "estimated_pages": 4,
       "table_count": 2,
       "max_table_columns": 3,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 42
+      "longest_unbroken_token": 74
     },
     {
       "title": "ARRP Print Assembly Configuration",
@@ -8074,12 +8074,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 7947,
-      "estimated_pages": 13,
+      "word_count": 8905,
+      "estimated_pages": 14,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 44
+      "longest_unbroken_token": 67
     },
     {
       "title": "ARRP Project Profile",
@@ -9284,12 +9284,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 92,
+      "word_count": 105,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 13
+      "longest_unbroken_token": 15
     },
     {
       "title": "Current Task Handoff",
@@ -9307,12 +9307,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/records/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 615,
-      "estimated_pages": 1,
+      "word_count": 919,
+      "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 21
+      "longest_unbroken_token": 30
     },
     {
       "title": "Elim Agent Runbook",
@@ -9429,7 +9429,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/github-github disclosure boundary",
       "internal_links": [],
-      "word_count": 1334,
+      "word_count": 1462,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9489,7 +9489,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4933,
+      "word_count": 5140,
       "estimated_pages": 8,
       "table_count": 1,
       "max_table_columns": 2,
@@ -10230,12 +10230,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation/runbooks-project integrity bot runbook",
       "internal_links": [],
-      "word_count": 296,
-      "estimated_pages": 1,
+      "word_count": 679,
+      "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 24
+      "longest_unbroken_token": 39
     },
     {
       "title": "Project Interface Standard",
@@ -12548,12 +12548,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2207,
-      "estimated_pages": 4,
+      "word_count": 2777,
+      "estimated_pages": 5,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 52
+      "longest_unbroken_token": 67
     },
     {
       "title": "ARRP Project Console — Comprehensive Review and Assessment",
@@ -18412,16 +18412,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "integrity_validation": {
         "available": true,
-        "result": "clean",
+        "result": "findings",
         "counts": {
           "errors": 0,
-          "warnings": 0,
-          "findings": 0,
+          "warnings": 1,
+          "findings": 1,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "2cdeda92c99074a9d06c87c1787e32eff77eda74",
-        "generated_at": "2026-07-29T15:27:16+00:00"
+        "revision": "b82764f21a39c14e35c371cc6a4530d4a1b11c82",
+        "generated_at": "2026-07-30T03:10:59+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20177,6 +20177,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-297de2430b58902de8f7"
+    "publication.js": "project-console-3388c47183ffea8fd4fd"
   }
 });

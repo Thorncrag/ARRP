@@ -21,6 +21,10 @@ try:
         read_keychain_secret,
     )
     from path_authority import ProjectPathAuthority
+    from component_registry import (
+        RegistryError as ComponentRegistryError,
+        load_component_registry_configuration_routing_view,
+    )
 except ModuleNotFoundError:
     from scripts.arrp_nightly import (
         GITHUB_PROJECT_KEYCHAIN_ACCOUNT,
@@ -29,6 +33,10 @@ except ModuleNotFoundError:
         read_keychain_secret,
     )
     from scripts.path_authority import ProjectPathAuthority
+    from scripts.component_registry import (
+        RegistryError as ComponentRegistryError,
+        load_component_registry_configuration_routing_view,
+    )
 
 
 PROJECT_CREDENTIAL_ENVIRONMENT = "ARRP_PROJECT_TOKEN"
@@ -104,6 +112,46 @@ def _copy_progress_snapshot(source: Path, destination: Path) -> None:
     os.replace(temporary, destination)
 
 
+def _component_registry_configuration_state() -> str:
+    """Validate tracked configuration without consulting live owner state."""
+    try:
+        view = load_component_registry_configuration_routing_view(
+        )
+    except (ComponentRegistryError, OSError, ValueError) as error:
+        raise ConsoleRefreshError(
+            "Component Registry configuration validation is unavailable."
+        ) from error
+    mode = view.get("validation_mode")
+    expected_predecessor = mode == "candidate_validation_only"
+    expected_status = (
+        "candidate"
+        if mode == "candidate_validation_only"
+        else "active"
+    )
+    if (
+        view.get("schema_version") != 1
+        or view.get("registry_path")
+        != "framework/component-registry.json"
+        or mode
+        not in {
+            "candidate_validation_only",
+            "active_configuration_validation_only",
+        }
+        or view.get("registry_status") != expected_status
+        or view.get("authoritative") is not False
+        or view.get("executable") is not False
+        or view.get("live_activation_verified") is not False
+        or view.get("activation_receipt_consulted") is not False
+        or view.get("predecessor_route_consulted")
+        is not expected_predecessor
+    ):
+        raise ConsoleRefreshError(
+            "Component Registry configuration validation returned an "
+            "incompatible authority mode."
+        )
+    return str(mode)
+
+
 def _refresh_console(
     *,
     authority: ProjectPathAuthority,
@@ -158,6 +206,7 @@ def _refresh_console(
     )
 
     _require_clean_tracked_tree(repository, run=run)
+    component_registry_mode = _component_registry_configuration_state()
     try:
         project_token = secret_reader(
             GITHUB_PROJECT_KEYCHAIN_SERVICE,
@@ -214,6 +263,8 @@ def _refresh_console(
                 "--markdown-output",
                 str(integrity_markdown),
                 "--exit-zero-on-findings",
+                "--routing-authority",
+                "production-canonical",
             ],
             cwd=repository,
             environment=environment,
@@ -264,6 +315,7 @@ def _refresh_console(
         "status": "refreshed",
         "authority": authority.mode,
         "project_access": "read-only Keychain credential",
+        "component_registry_validation_mode": component_registry_mode,
         "console": "research/project-console/project-console.html",
     }
 

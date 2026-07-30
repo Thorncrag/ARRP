@@ -10,6 +10,7 @@ import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 try:
     from path_authority import (
@@ -32,14 +33,26 @@ if str(SCRIPTS) not in sys.path:
     sys.path.insert(0, str(SCRIPTS))
 
 from arrp_context import (  # noqa: E402
-    ContextError,
-    _profile_document_ids,
     extract_exact_heading,
-    load_route_manifest,
-    repository_file,
     sha256_path,
     within_root,
 )
+try:  # noqa: E402
+    from scripts.component_registry import (
+        RegistryError,
+        RoutingRuleFailure,
+        load_fixture_component_registry_routing_view,
+        load_validated_component_registry_routing_view,
+        routed_documents_from_view,
+    )
+except ModuleNotFoundError:  # Direct execution uses scripts/ on sys.path.
+    from component_registry import (
+        RegistryError,
+        RoutingRuleFailure,
+        load_fixture_component_registry_routing_view,
+        load_validated_component_registry_routing_view,
+        routed_documents_from_view,
+    )
 
 
 REQUIRED = {
@@ -65,9 +78,6 @@ CADENCE = {"biweekly", "monthly", "event-triggered"}
 STABILITY = {"evolving", "stable", "drift-detected"}
 SHA256_PREFIX = "sha256:"
 COMPREHENSIVE_PROFILE = "comprehensive_review"
-DEFAULT_MANIFEST = (
-    ROOT / "framework" / "project" / "automation" / "context-routes.json"
-)
 AUTOMATION_HEALTH = {"healthy", "degraded", "failed"}
 
 
@@ -195,7 +205,7 @@ def _historical_unresolved_ids(epoch: dict) -> set[str]:
     return identifiers
 
 
-def validate_finding_continuity(
+def _validate_finding_continuity_untyped(
     latest_prior_epoch: dict | None,
     current_epoch: dict,
 ) -> dict:
@@ -215,6 +225,29 @@ def validate_finding_continuity(
     return current_epoch
 
 
+def validate_finding_continuity(
+    latest_prior_epoch: dict | None,
+    current_epoch: dict,
+) -> dict:
+    """Require continuity and retain typed safe routing evidence."""
+
+    try:
+        return _validate_finding_continuity_untyped(
+            latest_prior_epoch,
+            current_epoch,
+        )
+    except ValueError as exc:
+        raise RoutingRuleFailure(
+            failure_code="CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP",
+            phase="review_epoch",
+            rule_ids=(
+                "ctxr.review.unresolved_findings_carry_forward",
+                "ctxr.review.next_epoch_uses_delta_and_carry_forward",
+            ),
+            message=f"Review Epoch finding continuity is invalid: {exc}",
+        ) from exc
+
+
 def _validate_automation_health(value: object) -> None:
     if not isinstance(value, dict):
         raise ValueError("automation_health must be an object")
@@ -230,57 +263,234 @@ def _validate_automation_health(value: object) -> None:
             raise ValueError(f"automation_health.{field} must be an array")
 
 
-def _context_manifest(
-    manifest_path: Path,
+def _valid_registry_revision(value: object) -> bool:
+    return (
+        not isinstance(value, bool)
+        and (
+            (isinstance(value, int) and value >= 1)
+            or (isinstance(value, str) and bool(value.strip()))
+        )
+    )
+
+
+def _validated_routing_authority(
+    routing_view: dict[str, Any],
+    routing_selection: dict[str, Any],
     *,
-    root: Path,
-) -> tuple[dict, Path, str]:
-    try:
-        if manifest_path.is_absolute():
-            try:
-                manifest_relative = manifest_path.relative_to(
-                    root.absolute()
-                ).as_posix()
-            except ValueError as exc:
-                raise ContextError(
-                    f"path escapes allowed root: {manifest_path}"
-                ) from exc
-        else:
-            manifest_relative = manifest_path.as_posix()
-        safe_manifest_path = repository_file(root, manifest_relative)
-        if safe_manifest_path is None:  # required=True makes this unreachable.
-            raise ContextError(
-                f"repository file is missing: {manifest_relative}"
-            )
-        manifest = load_route_manifest(
-            safe_manifest_path,
-            root=root,
-            verify_hashes=True,
-        )
-        manifest_sha = sha256_path(safe_manifest_path, root)
-    except (ContextError, OSError, ValueError) as exc:
-        raise ValueError(f"current context manifest is invalid: {exc}") from exc
-    if manifest.get("schema_version") != 2:
-        raise ValueError("Review Epoch closeout requires a schema-version-2 context manifest")
-    profile = (manifest.get("profiles") or {}).get(COMPREHENSIVE_PROFILE)
-    if not isinstance(profile, dict) or profile.get("include_all_governing") is not True:
+    allow_candidate_validation: bool,
+) -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
+    """Validate the exact Component Registry route used for epoch closeout."""
+    if routing_view.get("schema_version") != 1:
         raise ValueError(
-            "comprehensive_review must include every governing context document"
+            "Review Epoch closeout requires a validated Component Registry "
+            "routing view"
         )
-    return manifest, safe_manifest_path, manifest_relative
+    status = routing_view.get("registry_status")
+    if status == "active":
+        if (
+            routing_view.get("validation_mode") != "active_component_registry"
+            or routing_view.get("authoritative") is not True
+            or routing_view.get("predecessor_route_consulted") is not False
+        ):
+            raise ValueError(
+                "active Review Epoch closeout must use only the authoritative "
+                "Component Registry"
+            )
+        expected_authoritative = True
+    elif status == "candidate" and allow_candidate_validation:
+        if (
+            routing_view.get("validation_mode") != "candidate_validation_only"
+            or routing_view.get("authoritative") is not False
+            or routing_view.get("predecessor_route_consulted") is not True
+        ):
+            raise ValueError(
+                "candidate Review Epoch closeout lacks explicit predecessor-bound "
+                "validation"
+            )
+        expected_authoritative = False
+    else:
+        raise ValueError(
+            "Review Epoch closeout requires active Component Registry authority; "
+            "candidate validation must be explicitly enabled"
+        )
+
+    if (
+        routing_view.get("registry_path")
+        != "framework/component-registry.json"
+        or not _valid_sha256(
+            routing_view.get("registry_sha256"),
+            prefixed=False,
+        )
+        or not isinstance(routing_view.get("registry_id"), str)
+        or not routing_view["registry_id"].strip()
+        or not _valid_registry_revision(
+            routing_view.get("registry_revision")
+        )
+    ):
+        raise ValueError(
+            "Review Epoch routing has an invalid Component Registry identity"
+        )
+    if (
+        routing_selection.get("selection_kind") != "executable_packet"
+        or routing_selection.get("executable") is not True
+        or routing_selection.get("profile") != COMPREHENSIVE_PROFILE
+        or routing_selection.get("capabilities") != []
+        or routing_selection.get("authoritative") is not expected_authoritative
+    ):
+        raise ValueError(
+            "Review Epoch closeout requires the exact comprehensive_review "
+            "executable routing selection"
+        )
+    for field in (
+        "registry_id",
+        "registry_revision",
+        "registry_status",
+        "registry_sha256",
+        "registry_path",
+    ):
+        if routing_selection.get(field) != routing_view.get(field):
+            raise ValueError(
+                f"Review Epoch routing selection {field} differs from its "
+                "validated Component Registry view"
+            )
+
+    route = routing_view.get("route")
+    documents = route.get("documents") if isinstance(route, dict) else None
+    profile = (
+        (route.get("profiles") or {}).get(COMPREHENSIVE_PROFILE)
+        if isinstance(route, dict)
+        else None
+    )
+    if (
+        not isinstance(documents, dict)
+        or not documents
+        or not isinstance(profile, dict)
+        or profile.get("include_all_governing") is not True
+    ):
+        raise ValueError(
+            "Component Registry comprehensive_review routing is unavailable "
+            "or incomplete"
+        )
+    modules = routing_selection.get("modules")
+    if not isinstance(modules, list) or not modules:
+        raise ValueError(
+            "Review Epoch comprehensive routing selection has no modules"
+        )
+    by_id: dict[str, dict[str, Any]] = {}
+    ordered_ids: list[str] = []
+    for module in modules:
+        if not isinstance(module, dict):
+            raise ValueError(
+                "Review Epoch comprehensive routing contains a non-object module"
+            )
+        document_id = module.get("id")
+        path = module.get("path")
+        if (
+            not isinstance(document_id, str)
+            or not document_id
+            or document_id in by_id
+            or not isinstance(path, str)
+            or not path
+        ):
+            raise ValueError(
+                "Review Epoch comprehensive routing has an invalid or duplicate "
+                "module identity"
+            )
+        document = documents.get(document_id)
+        if (
+            not isinstance(document, dict)
+            or document.get("path") != path
+            or document.get("governing") is not module.get("governing")
+            or document.get("hash_policy") != module.get("hash_policy")
+        ):
+            raise ValueError(
+                f"Review Epoch routing module {document_id} differs from the "
+                "validated Component Registry view"
+            )
+        if module.get("governing") is True and (
+            module.get("hash_policy") != "pinned"
+            or not _valid_sha256(module.get("sha256"), prefixed=False)
+        ):
+            raise ValueError(
+                f"governing Review Epoch module {document_id} is not "
+                "integration-pinned"
+            )
+        if module.get("hash_policy") == "runtime" and (
+            document_id != "current_audit"
+            or module.get("governing") is not False
+            or module.get("sha256") is not None
+        ):
+            raise ValueError(
+                "current_audit must be the sole unpinned runtime module in the "
+                "Review Epoch route"
+            )
+        by_id[document_id] = module
+        ordered_ids.append(document_id)
+
+    seeds = [
+        *(route.get("required_modules") or []),
+        *(profile.get("modules") or []),
+    ]
+    capabilities = route.get("capabilities") or {}
+    for capability in profile.get("capabilities") or []:
+        members = capabilities.get(capability)
+        if not isinstance(members, list):
+            raise ValueError(
+                f"Review Epoch profile references unknown capability {capability}"
+            )
+        seeds.extend(members)
+    seeds.extend(
+        document_id
+        for document_id, document in documents.items()
+        if isinstance(document, dict) and document.get("governing") is True
+    )
+    expected_ids: list[str] = []
+    visiting: list[str] = []
+
+    def include(document_id: str) -> None:
+        document = documents.get(document_id)
+        if not isinstance(document, dict):
+            raise ValueError(
+                f"Review Epoch route references unknown document {document_id}"
+            )
+        if document_id in visiting:
+            raise ValueError("Review Epoch routing dependency cycle")
+        if document_id in expected_ids:
+            return
+        visiting.append(document_id)
+        dependencies = document.get("requires") or []
+        if not isinstance(dependencies, list):
+            raise ValueError(
+                f"Review Epoch document {document_id} dependencies are invalid"
+            )
+        for dependency in dependencies:
+            include(str(dependency))
+        visiting.pop()
+        expected_ids.append(document_id)
+
+    for seed in seeds:
+        include(str(seed))
+    if ordered_ids != expected_ids:
+        raise ValueError(
+            "Review Epoch comprehensive routing does not select the exact "
+            "governing boundary and dependency closure"
+        )
+    expected_sections = profile.get("sections") or []
+    if routing_selection.get("sections") != expected_sections:
+        raise ValueError(
+            "Review Epoch comprehensive routing section selection differs "
+            "from the validated Component Registry view"
+        )
+    return route, by_id
 
 
 def _packet_modules(
     packet: dict,
-    manifest: dict,
+    selected_modules: dict[str, dict[str, Any]],
     *,
     root: Path,
 ) -> dict[str, dict]:
-    profile = manifest["profiles"][COMPREHENSIVE_PROFILE]
-    try:
-        expected_ids = set(_profile_document_ids(manifest, profile))
-    except ContextError as exc:
-        raise ValueError(f"comprehensive context route is invalid: {exc}") from exc
+    expected_ids = set(selected_modules)
     modules = packet.get("modules")
     if not isinstance(modules, list):
         raise ValueError("comprehensive context packet modules must be an array")
@@ -304,7 +514,7 @@ def _packet_modules(
             f"extra={sorted(actual_ids-expected_ids)}"
         )
     for document_id, module in by_id.items():
-        spec = manifest["documents"][document_id]
+        spec = selected_modules[document_id]
         expected_path = str(spec["path"])
         if module.get("path") != expected_path:
             raise ValueError(
@@ -335,6 +545,11 @@ def _packet_modules(
                 f"comprehensive context packet hash policy differs for {document_id}"
             )
         if policy == "pinned":
+            if digest != spec.get("sha256"):
+                raise ValueError(
+                    f"comprehensive context packet pinned hash differs for "
+                    f"{document_id}"
+                )
             current = sha256_path(within_root(root, expected_path), root)
             if digest != current:
                 raise ValueError(
@@ -343,11 +558,16 @@ def _packet_modules(
     return by_id
 
 
-def _validate_packet_sections(packet: dict, manifest: dict, *, root: Path) -> None:
-    profile = manifest["profiles"][COMPREHENSIVE_PROFILE]
+def _validate_packet_sections(
+    packet: dict,
+    route: dict[str, Any],
+    expected_sections: list[dict[str, Any]],
+    *,
+    root: Path,
+) -> None:
     expected_routes = {
         (str(route["document"]), str(route["heading"])): route
-        for route in profile.get("sections") or []
+        for route in expected_sections
     }
     sections = packet.get("sections")
     if not isinstance(sections, list):
@@ -370,7 +590,7 @@ def _validate_packet_sections(packet: dict, manifest: dict, *, root: Path) -> No
             f"extra={sorted(set(actual_routes)-set(expected_routes))}"
         )
     for (document_id, heading), section in actual_routes.items():
-        spec = manifest["documents"][document_id]
+        spec = route["documents"][document_id]
         expected_path = str(spec["path"])
         if section.get("path") != expected_path:
             raise ValueError(
@@ -393,16 +613,19 @@ def _validate_packet_sections(packet: dict, manifest: dict, *, root: Path) -> No
             )
 
 
-def _validate_governing_boundary(
+def _validate_governing_boundary_untyped(
     hashes: dict,
     *,
-    manifest_path: Path,
+    routing_view: dict[str, Any],
+    routing_selection: dict[str, Any],
     context_packet: dict,
     root: Path,
+    allow_candidate_validation: bool,
 ) -> None:
-    manifest, safe_manifest_path, manifest_relative = _context_manifest(
-        manifest_path,
-        root=root,
+    route, selected_modules = _validated_routing_authority(
+        routing_view,
+        routing_selection,
+        allow_candidate_validation=allow_candidate_validation,
     )
     if not isinstance(context_packet, dict):
         raise ValueError("comprehensive context packet must be an object")
@@ -415,31 +638,135 @@ def _validate_governing_boundary(
     if context_packet.get("provenance_complete") is not True:
         raise ValueError("comprehensive context packet provenance is not complete")
 
-    manifest_identity = context_packet.get("manifest")
-    if not isinstance(manifest_identity, dict):
-        raise ValueError("comprehensive context packet has no manifest identity")
-    manifest_sha = sha256_path(safe_manifest_path, root)
-    expected_identity = {"path": manifest_relative, "sha256": manifest_sha}
-    if manifest_identity != expected_identity:
+    registry_identity = context_packet.get("manifest")
+    expected_identity = {
+        "path": routing_view["registry_path"],
+        "sha256": routing_view["registry_sha256"],
+    }
+    if registry_identity != expected_identity:
         raise ValueError(
-            "comprehensive context packet manifest identity does not match the current manifest"
+            "comprehensive context packet registry identity does not match "
+            "the validated Component Registry view"
         )
-
-    _packet_modules(context_packet, manifest, root=root)
-    _validate_packet_sections(context_packet, manifest, root=root)
+    routing_manifest = context_packet.get("routing_manifest")
+    if not isinstance(routing_manifest, dict):
+        raise ValueError(
+            "comprehensive context packet lacks its bound routing manifest"
+        )
+    expected_routing_identity = {
+        "registry_id": routing_view["registry_id"],
+        "registry_path": routing_view["registry_path"],
+        "registry_revision": routing_view["registry_revision"],
+        "registry_status": routing_view["registry_status"],
+        "registry_digest": routing_view["registry_sha256"],
+        "selected_profile": COMPREHENSIVE_PROFILE,
+        "selected_capabilities": [],
+    }
+    for field, expected in expected_routing_identity.items():
+        if routing_manifest.get(field) != expected:
+            raise ValueError(
+                f"comprehensive context packet routing {field} differs from "
+                "the validated Component Registry selection"
+            )
+    expected_order = list(selected_modules)
+    if routing_manifest.get("resolved_document_order") != expected_order:
+        raise ValueError(
+            "comprehensive context packet routed document order differs"
+        )
+    expected_closure = {
+        document_id: list(
+            route["documents"][document_id].get("requires") or []
+        )
+        for document_id in expected_order
+    }
+    if routing_manifest.get("dependency_closure") != expected_closure:
+        raise ValueError(
+            "comprehensive context packet dependency closure differs"
+        )
+    expected_revisions = {
+        document_id: {
+            "path": selected_modules[document_id]["path"],
+            "hash_policy": selected_modules[document_id]["hash_policy"],
+        }
+        for document_id in expected_order
+    }
+    if routing_manifest.get("resolved_document_revisions") != expected_revisions:
+        raise ValueError(
+            "comprehensive context packet routed document revisions differ"
+        )
+    packet_modules = _packet_modules(
+        context_packet,
+        selected_modules,
+        root=root,
+    )
+    expected_digests = {
+        document_id: packet_modules[document_id]["sha256"]
+        for document_id in expected_order
+    }
+    if routing_manifest.get("resolved_document_digests") != expected_digests:
+        raise ValueError(
+            "comprehensive context packet routed document digests differ"
+        )
+    expected_reasons = {
+        document_id: selected_modules[document_id].get(
+            "inclusion_reasons",
+            [],
+        )
+        for document_id in expected_order
+    }
+    if routing_manifest.get("inclusion_reasons") != expected_reasons:
+        raise ValueError(
+            "comprehensive context packet inclusion reasons differ"
+        )
+    if routing_manifest.get("dynamic_expansions") != []:
+        raise ValueError(
+            "Review Epoch closeout requires an exact empty dynamic-expansion "
+            "boundary"
+        )
+    expected_sections = routing_selection.get("sections")
+    _validate_packet_sections(
+        context_packet,
+        route,
+        expected_sections,
+        root=root,
+    )
+    packet_section_identity = [
+        {
+            key: section[key]
+            for key in (
+                "document",
+                "path",
+                "sha256",
+                "hash_policy",
+                "heading",
+                "start_line",
+                "end_line",
+                "bytes",
+            )
+        }
+        for section in context_packet["sections"]
+    ]
+    if routing_manifest.get("exact_sections") != packet_section_identity:
+        raise ValueError(
+            "comprehensive context packet exact-section manifest differs"
+        )
 
     expected_hashes = {
         str(spec["path"]): _prefixed_sha256(
             sha256_path(within_root(root, str(spec["path"])), root)
         )
-        for spec in manifest["documents"].values()
+        for spec in selected_modules.values()
         if spec.get("governing") is True
     }
-    if manifest_relative in expected_hashes:
+    registry_path = str(routing_view["registry_path"])
+    if registry_path in expected_hashes:
         raise ValueError(
-            "the context manifest must be represented by packet identity, not self-registered"
+            "the Component Registry must be represented by routing identity, "
+            "not self-registered"
         )
-    expected_hashes[manifest_relative] = _prefixed_sha256(manifest_sha)
+    expected_hashes[registry_path] = _prefixed_sha256(
+        str(routing_view["registry_sha256"])
+    )
     if hashes != expected_hashes:
         missing = sorted(set(expected_hashes) - set(hashes))
         extra = sorted(set(hashes) - set(expected_hashes))
@@ -454,12 +781,59 @@ def _validate_governing_boundary(
         )
 
 
-def validate(
+def _validate_governing_boundary(
+    hashes: dict,
+    *,
+    routing_view: dict[str, Any],
+    routing_selection: dict[str, Any],
+    context_packet: dict,
+    root: Path,
+    allow_candidate_validation: bool,
+) -> None:
+    """Validate the exact boundary and retain typed safe routing evidence."""
+
+    try:
+        _validate_governing_boundary_untyped(
+            hashes,
+            routing_view=routing_view,
+            routing_selection=routing_selection,
+            context_packet=context_packet,
+            root=root,
+            allow_candidate_validation=allow_candidate_validation,
+        )
+    except RoutingRuleFailure:
+        raise
+    except ValueError as exc:
+        detail = str(exc)
+        if "runtime" in detail or "current_audit" in detail:
+            failure_code = "CTXR_RUNTIME_DIGEST_UNREADABLE"
+            rule_ids = (
+                "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary",
+            )
+        else:
+            failure_code = "CTXR_PINNED_DIGEST_ABSENT_OR_STALE"
+            rule_ids = (
+                "ctxr.review.boundary_exact",
+                "ctxr.review.any_valid_boundary_difference_due",
+                "ctxr.review.invalid_drift_is_integrity_failure",
+                "ctxr.review.recorder_requires_exact_current_boundary",
+            )
+        raise RoutingRuleFailure(
+            failure_code=failure_code,
+            phase="review_epoch",
+            rule_ids=rule_ids,
+            message=f"Review Epoch governing boundary is invalid: {detail}",
+        ) from exc
+
+
+def _validate_untyped(
     value: dict,
     *,
-    manifest_path: Path,
+    routing_view: dict[str, Any],
+    routing_selection: dict[str, Any],
     context_packet: dict,
     root: Path = ROOT,
+    allow_candidate_validation: bool = False,
 ) -> dict:
     if set(value) != REQUIRED:
         raise ValueError(
@@ -488,9 +862,11 @@ def validate(
             raise ValueError("governing hash entries require path and sha256 digest")
     _validate_governing_boundary(
         hashes,
-        manifest_path=manifest_path,
+        routing_view=routing_view,
+        routing_selection=routing_selection,
         context_packet=context_packet,
         root=root,
+        allow_candidate_validation=allow_candidate_validation,
     )
     _validate_snapshot(value["project_snapshot"], "project_snapshot")
     _validate_snapshot(value["registry_snapshot"], "registry_snapshot")
@@ -503,6 +879,57 @@ def validate(
     if due <= completed:
         raise ValueError("next_due_at must follow completed_at")
     return {"schema_version": 1, **value}
+
+
+def validate(
+    value: dict,
+    *,
+    routing_view: dict[str, Any],
+    routing_selection: dict[str, Any],
+    context_packet: dict,
+    root: Path = ROOT,
+    allow_candidate_validation: bool = False,
+) -> dict:
+    """Validate closeout and retain typed safe routing evidence."""
+
+    try:
+        return _validate_untyped(
+            value,
+            routing_view=routing_view,
+            routing_selection=routing_selection,
+            context_packet=context_packet,
+            root=root,
+            allow_candidate_validation=allow_candidate_validation,
+        )
+    except RoutingRuleFailure:
+        raise
+    except ValueError as exc:
+        detail = str(exc)
+        if detail.startswith("review epoch fields differ"):
+            failure_code = "CTXR_UNKNOWN_OR_MISSING_SELECTION"
+            rule_ids = (
+                "ctxr.review.periodic_epoch_required",
+                "ctxr.review.completion_fields_exact",
+            )
+        elif "governing" in detail or "boundary" in detail:
+            failure_code = "CTXR_PINNED_DIGEST_ABSENT_OR_STALE"
+            rule_ids = (
+                "ctxr.review.periodic_epoch_required",
+                "ctxr.review.invalid_drift_is_integrity_failure",
+                "ctxr.review.recorder_requires_exact_current_boundary",
+            )
+        else:
+            failure_code = "CTXR_UNKNOWN_OR_MISSING_SELECTION"
+            rule_ids = (
+                "ctxr.review.periodic_epoch_required",
+                "ctxr.review.completion_fields_exact",
+            )
+        raise RoutingRuleFailure(
+            failure_code=failure_code,
+            phase="review_epoch",
+            rule_ids=rule_ids,
+            message=f"Review Epoch completion is invalid: {detail}",
+        ) from exc
 
 
 def append(ledger: Path, current: Path, record: dict) -> bool:
@@ -545,12 +972,6 @@ def main(
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, required=True)
     parser.add_argument(
-        "--manifest",
-        type=Path,
-        default=DEFAULT_MANIFEST,
-        help="Current schema-version-2 context registry.",
-    )
-    parser.add_argument(
         "--context-packet",
         type=Path,
         required=True,
@@ -568,7 +989,6 @@ def main(
     if path_authority is None:
         authority = ProjectPathAuthority.production()
         input_path = authority.requested_repository_file(args.input)
-        manifest_path = authority.requested_repository_file(args.manifest)
         context_packet_path = authority.requested_repository_file(
             args.context_packet
         )
@@ -586,7 +1006,6 @@ def main(
             )
         authority = path_authority
         input_path = authority.requested_repository_file(args.input)
-        manifest_path = authority.requested_repository_file(args.manifest)
         context_packet_path = authority.requested_repository_file(
             args.context_packet
         )
@@ -596,10 +1015,22 @@ def main(
         current = authority.requested_repository_file(
             args.current, required=False
         )
+    routing_view = (
+        load_fixture_component_registry_routing_view(authority)
+        if authority.mode == "fixture"
+        else load_validated_component_registry_routing_view(authority)
+    )
+    routing_selection = routed_documents_from_view(
+        routing_view,
+        profile_id=COMPREHENSIVE_PROFILE,
+    )
     record = validate(
         json.loads(input_path.read_text()),
-        manifest_path=manifest_path,
+        routing_view=routing_view,
+        routing_selection=routing_selection,
         context_packet=json.loads(context_packet_path.read_text()),
+        root=authority.repository_root,
+        allow_candidate_validation=authority.mode == "fixture",
     )
     validate_finding_continuity(_latest_epoch(ledger), record)
     changed = append(ledger, current, record)
@@ -610,5 +1041,5 @@ def main(
 if __name__ == "__main__":
     try:
         raise SystemExit(main())
-    except (OSError, json.JSONDecodeError, ValueError) as exc:
+    except (OSError, RegistryError, json.JSONDecodeError, ValueError) as exc:
         raise SystemExit(f"review-epoch: {exc}")

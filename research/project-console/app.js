@@ -71,6 +71,13 @@
       schema_version: 1, availability: "unavailable", complete: false, generated_at: null,
       items: [], reason_code: "owner-local-transaction-recovery-projection-required"
     };
+    data.codex_usage = data.codex_usage && typeof data.codex_usage === "object" ? data.codex_usage : {
+      schema_version: 2, projection_id: "codex-usage", producer_id: "owner-local-codex-usage-sampler",
+      sampler_cadence_seconds: 1800, generated_at: null, trustworthy_through: null,
+      availability: "unavailable", completeness: "incomplete", reason_code: "owner_local_projection_required", current_through: null,
+      current: null, history: [], reset_windows: [], anomalies: [],
+      estimates: { available: false, budget_available: false, budget_reason_code: "projection_unavailable", burn_rate_available: false, burn_rate_reason_code: "projection_unavailable", coverage_hours: null, sample_count: null, average_percent_per_day: null, projected_exhaustion_at: null, remaining_percent_per_day_budget: null, confidence: null }
+    };
     data.agent_registry = Array.isArray(data.agent_registry) ? data.agent_registry : [];
     data.automation_role_status = data.automation_role_status
       && typeof data.automation_role_status === "object"
@@ -89,10 +96,14 @@
   const catalogGenerationId = String(data.generation_id || data.generation_manifest?.generation_id || "");
   const PRIVATE_SECURITY_ASSURANCE_PATH = "data/private-security-assurance.js?v=1";
   const PRIVATE_OPERATIONS_PATH = "data/private-operations.js?v=1";
+  const PRIVATE_CODEX_USAGE_PATH = "data/private-codex-usage.js?v=1";
   const LOCAL_AUTOMATION_STATUS_PATH = "data/local-automation-status.js";
+  const CODEX_CAPACITY_MODULE_PATH = "capacity.js?v=1";
+  const COMPONENT_REGISTRY_MODULE_PATH = "component-registry.js?v=1";
   const OWNER_MODE_UNAVAILABLE_MESSAGE = "Data unavailable outside the bound owner-local Console.";
+  const CODEX_USAGE_UNAVAILABLE_DETAIL = "Codex usage unavailable.";
   const fieldSet = (value) => new Set(value.split(" "));
-  const OWNER_FEEDS = fieldSet("security-assurance private-operations local-automation-status");
+  const OWNER_FEEDS = fieldSet("security-assurance private-operations local-automation-status codex-usage");
   const OWNER_WRAPPER_FIELDS = fieldSet("owner_console_envelope payload");
   const OWNER_BINDING_FIELDS = fieldSet("schema_version version_id exact_decoded_file_path generation_id source_revision staged_at projections");
   const FEED_KEYS = fieldSet("feed_id relative_path source_sha256 availability complete");
@@ -137,6 +148,23 @@
     return true;
   }
   let privateOperationsSnapshot = null;
+  let privateCodexUsageSnapshot = null;
+  let codexCapacityModule = window.ARRP_CODEX_CAPACITY || null;
+  let componentRegistryModule = window.ARRP_COMPONENT_REGISTRY || null;
+  function validPrivateCodexUsage(snapshot, now = Date.now()) {
+    return codexCapacityModule?.validProjection(snapshot, now) === true;
+  }
+  function codexUsagePayloadDigest(payload) {
+    return codexCapacityModule?.payloadDigest(payload) || null;
+  }
+  function capturePrivateCodexUsage() {
+    const snapshot = ownerProjectionPayload(window.ARRP_PRIVATE_CODEX_USAGE, "codex-usage");
+    const expected = window.ARRP_OWNER_CONSOLE_BINDING?.projections?.["codex-usage"]?.source_sha256;
+    if (!validPrivateCodexUsage(snapshot) || codexUsagePayloadDigest(snapshot) !== expected) return false;
+    privateCodexUsageSnapshot = snapshot;
+    data.codex_usage = snapshot;
+    return true;
+  }
   const ACTION_COUNT_KEYS = ["human", "oversight", "all_open"];
   function exactPrivateActionCounts(items) {
     if (!Array.isArray(items)) return null;
@@ -475,6 +503,10 @@
     "source-checker": [`data/source-checker.js?v=${SCRIPT_VERSION}`],
     integrity: [`data/integrity.js?v=${SCRIPT_VERSION}`],
     automation: [`data/automation.js?v=${SCRIPT_VERSION}`],
+    "component-registry": [
+      COMPONENT_REGISTRY_MODULE_PATH,
+      `data/component-registry.js?v=${SCRIPT_VERSION}`
+    ],
     logs: [`data/logs.js?v=${SCRIPT_VERSION}`],
     publication: [`data/publication.js?v=${SCRIPT_VERSION}`]
   });
@@ -971,7 +1003,7 @@
       try {
         for (const source of scripts) {
           await loadScriptOnce(source);
-          validateLoadedDomainScript(source);
+          if (source.startsWith("data/")) validateLoadedDomainScript(source);
         }
         normalizeLoadedData();
         if (privateOperationsSnapshot) capturePrivateOperations();
@@ -1033,7 +1065,12 @@
   }
 
   function showDomainError(domain, error) {
-    const panel = byId(`panel-${domain === "candidates" ? "candidates" : domain}`);
+    const panelName = domain === "component-registry"
+      ? "automation"
+      : domain === "candidates"
+        ? "candidates"
+        : domain;
+    const panel = byId(`panel-${panelName}`);
     if (panel) panel.setAttribute("aria-busy", "false");
     announce(`${domain} data is unavailable. ${error.message}`);
   }
@@ -3829,6 +3866,9 @@
     if (parts[0] === "planning" && parts[1] === "workbench" && !parts[2]) {
       return "planning:workbench:pipeline";
     }
+    if (parts[0] === "operations" && parts[1] === "component-registry") {
+      return ["automation", ...parts.slice(1)].join(":");
+    }
     if (parts[0] === "logs") {
       return ["automation", "logs", parts[1] || "incidents", ...parts.slice(2)].join(":");
     }
@@ -3861,7 +3901,7 @@
     if (normalizedTarget !== String(target || "").replace(/^#/, "")) {
       window.history.replaceState(null, "", `#${normalizedTarget}`);
     }
-    const automationSubviews = ["overview", "agents", "gates", "security", "capacity", "platform", "data", "logs"];
+    const automationSubviews = ["overview", "agents", "gates", "security", "capacity", "platform", "data", "component-registry", "logs"];
     const selectedSubtab = parts[1] || (
       parts[0] === "planning"
         ? "workbench"
@@ -3877,6 +3917,9 @@
       activateSectionTab("automation", parts[1], false, false);
     }
     await activateDomainForTab(parts[0], selectedSubtab);
+    if (parts[0] === "automation" && parts[1] === "component-registry") {
+      renderComponentRegistry(normalizedTarget);
+    }
     if (parts[0] === "automation" && parts[1] === "logs") {
       activateLogView(parts[2] || "incidents");
       if (parts[2] === "agents" && parts[3]) {
@@ -6428,171 +6471,64 @@
     renderPlatformStatus();
   }
 
-  function renderUsageTrend() {
-    const history = data.overview?.capacity_history || {};
-    const points = (Array.isArray(history.points) ? history.points : []).map((point) => ({
-      id: point.point_id,
-      date: point.recorded_at,
-      value: point.consumed_percent,
-      windowId: point.window_id
-    })).slice(-10);
-    const measured = points.filter((point) => Number.isFinite(point.value));
-    const host = byId("overview-usage-trend");
-    if (!points.length || !measured.length) {
-      host.replaceChildren(element("p", "empty-state compact-empty", "No comparable Elim usage readings are recorded."));
-      return;
-    }
-    const maximum = Math.max(10, ...measured.map((point) => point.value));
-    const average = measured.reduce((sum, point) => sum + point.value, 0) / measured.length;
-    const heading = element("div", "usage-trend-heading");
-    heading.append(
-      element("strong", "", "Elim consumption by run"),
-      element("span", "", `${average.toFixed(1)}-point measured average`)
-    );
-    const namespace = "http://www.w3.org/2000/svg";
-    const chart = document.createElementNS(namespace, "svg");
-    chart.classList.add("usage-trend-svg");
-    chart.setAttribute("viewBox", "0 0 640 210");
-    chart.setAttribute("role", "img");
-    const description = points.map((point) =>
-      `${point.id}: ${point.value == null ? "not measured" : `${point.value} percentage points`}`).join("; ");
-    chart.setAttribute("aria-label", description);
-    const title = document.createElementNS(namespace, "title");
-    title.textContent = `Elim consumption by run. ${description}`;
-    chart.append(title);
-
-    const left = 42;
-    const right = 16;
-    const top = 18;
-    const bottom = 40;
-    const width = 640 - left - right;
-    const height = 210 - top - bottom;
-    const chartMaximum = Math.ceil(maximum / 10) * 10;
-    const xFor = (index) => points.length === 1
-      ? left + width / 2
-      : left + index * width / (points.length - 1);
-    const yFor = (value) => top + height - value / chartMaximum * height;
-    const svgNode = (name, attributes = {}, className = "") => {
-      const node = document.createElementNS(namespace, name);
-      Object.entries(attributes).forEach(([key, value]) => node.setAttribute(key, String(value)));
-      if (className) node.setAttribute("class", className);
-      return node;
-    };
-
-    [0, 0.25, 0.5, 0.75, 1].forEach((fraction) => {
-      const value = chartMaximum * fraction;
-      const y = yFor(value);
-      chart.append(svgNode("line", { x1: left, x2: left + width, y1: y, y2: y }, "usage-trend-grid"));
-      const label = svgNode("text", { x: left - 8, y: y + 4, "text-anchor": "end" }, "usage-trend-axis-label");
-      label.textContent = String(Math.round(value));
-      chart.append(label);
-    });
-
-    const epoch = Array.isArray(history.review_epochs) ? history.review_epochs[0] : null;
-    const epochAt = Date.parse(String(epoch?.completed_at || ""));
-    if (Number.isFinite(epochAt)) {
-      const dated = points
-        .map((point, index) => ({ index, distance: Math.abs(Date.parse(String(point.date || "")) - epochAt) }))
-        .filter((point) => Number.isFinite(point.distance))
-        .sort((leftPoint, rightPoint) => leftPoint.distance - rightPoint.distance)[0];
-      if (dated) {
-        const epochX = xFor(dated.index);
-        chart.append(svgNode("line", { x1: epochX, x2: epochX, y1: top, y2: top + height }, "usage-trend-epoch"));
-        const epochLabel = svgNode("text", { x: epochX + 5, y: top + 10 }, "usage-trend-epoch-label");
-        epochLabel.textContent = epoch.epoch_id || "Review Epoch";
-        chart.append(epochLabel);
-      }
-    }
-
-    let segment = [];
-    const appendSegment = () => {
-      if (!segment.length) return;
-      const path = svgNode("path", {
-        d: segment.map((point, index) => `${index ? "L" : "M"} ${point.x.toFixed(1)} ${point.y.toFixed(1)}`).join(" ")
-      }, "usage-trend-line");
-      const firstPoint = chart.querySelector(".usage-trend-point");
-      if (firstPoint) chart.insertBefore(path, firstPoint);
-      else chart.append(path);
-      segment = [];
-    };
-    points.forEach((point, index) => {
-      const x = xFor(index);
-      const xLabel = svgNode("text", { x, y: 196, "text-anchor": "middle" }, "usage-trend-axis-label usage-trend-run-label");
-      xLabel.textContent = point.id.replace("elim-run-", "#");
-      chart.append(xLabel);
-      if (!Number.isFinite(point.value)) {
-        appendSegment();
-        const missing = svgNode("text", { x, y: top + height / 2, "text-anchor": "middle" }, "usage-trend-missing");
-        missing.textContent = "—";
-        chart.append(missing);
-        return;
-      }
-      const y = yFor(point.value);
-      segment.push({ x, y });
-      const pointNode = svgNode("circle", { cx: x, cy: y, r: 4.5 }, "usage-trend-point");
-      const pointTitle = document.createElementNS(namespace, "title");
-      pointTitle.textContent = `${point.id}: ${point.value} percentage points`;
-      pointNode.append(pointTitle);
-      chart.append(pointNode);
-      const valueLabel = svgNode("text", { x, y: Math.max(12, y - 9), "text-anchor": "middle" }, "usage-trend-value-label");
-      valueLabel.textContent = String(point.value);
-      chart.append(valueLabel);
-    });
-    appendSegment();
-    host.replaceChildren(heading, chart);
+  function codexUsageHistoryElements(usage, identityPrefix) {
+    return codexCapacityModule?.historyElements(usage, identityPrefix, {
+      element,
+      formatDate,
+      pluralizeWord,
+      document
+    }) || [];
   }
 
   function renderOverviewUsage(chain) {
-    const usage = chain.usage || data.overview?.usage || {};
-    const gate = usage.gate || {};
-    const windows = Array.isArray(gate.windows) ? gate.windows : [];
-    const remainingValue = gate.lowestRemainingPercent ?? usage.remaining_percent;
-    const remaining = remainingValue === null || remainingValue === undefined || remainingValue === ""
-      ? NaN
-      : Number(remainingValue);
-    const reserve = Number(gate.reservePercent ?? usage.hard_reserve_percent ?? 15);
-    const softTarget = Number(gate.runBudget?.softTargetPercent ?? usage.soft_run_target_percent ?? 10);
-    let posture = "Unavailable";
-    let tone = "";
-    if (Number.isFinite(remaining)) {
-      if (remaining <= reserve) {
-        posture = "Protected reserve";
-        tone = "error";
-      } else if (remaining <= reserve + softTarget) {
-        posture = "Approaching reserve";
-        tone = "warning";
-      } else {
-        posture = "Safe";
-        tone = "success";
-      }
+    const codexUsage = privateCodexUsageSnapshot;
+    if (validPrivateCodexUsage(codexUsage) && codexUsage.availability === "current") {
+      const current = codexUsage.current;
+      byId("overview-usage-posture").className = "status-badge success";
+      byId("overview-usage-posture").textContent = "Current";
+      byId("overview-usage-summary").replaceChildren(
+        element("strong", "overview-usage-remaining", `${current.remaining_percent}% remaining`),
+        element("p", "", `${current.used_percent}% used · ${current.plan_type} · resets ${formatDate(current.resets_at * 1000)}`),
+        element("span", "micro-note", `Observed ${formatDate(current.observed_at)} · trustworthy through ${formatDate(codexUsage.trustworthy_through)} · estimate, not an absolute-capacity reading`)
+      );
+      byId("overview-usage-detail-summary").textContent = `${current.remaining_percent}% remaining · ${current.reset_identity}`;
+      byId("overview-usage-trend").replaceChildren(
+        ...codexUsageHistoryElements(codexUsage, "overview")
+      );
+      renderCodexUsageCapacity(codexUsage);
+      return;
     }
     const postureNode = byId("overview-usage-posture");
-    postureNode.className = `status-badge ${tone}`.trim();
-    postureNode.textContent = posture;
-    const summary = byId("overview-usage-summary");
-    if (!Number.isFinite(remaining)) {
-      summary.replaceChildren(element("p", "empty-state compact-empty", "No current host-attested usage reading is available."));
-    } else {
-      const lowestWindow = windows.find((window) => Number(window.remainingPercent) === remaining);
-      summary.replaceChildren(
-        element("strong", "overview-usage-remaining", `${remaining}% remaining`),
-        element("p", "", `${reserve}% hard reserve · ${softTarget}-point soft run target${lowestWindow?.resetsAtUtc ? ` · resets ${formatDate(lowestWindow.resetsAtUtc)}` : ""}`),
-        element("span", "micro-note", `Checked ${formatDate(gate.checkedAtUtc || chain.updated_at)}`)
-      );
-    }
-    byId("overview-usage-windows").replaceChildren(...(windows.length
-      ? windows.map((window) => {
-          const row = element("div", "overview-usage-window");
-          row.append(
-            element("strong", "", window.limitName || window.limitId || "Usage window"),
-            element("span", "", `${window.remainingPercent}% remaining`),
-            element("time", "", window.resetsAtUtc ? `Reset ${formatDate(window.resetsAtUtc)}` : "Reset not recorded")
-          );
-          return row;
-        })
-      : [element("p", "empty-state compact-empty", "No individual usage windows are recorded.")]));
-    byId("overview-usage-detail-summary").textContent = `${windows.length} window${windows.length === 1 ? "" : "s"} · ${Number.isFinite(remaining) ? `${remaining}% lowest` : "reading unavailable"}`;
-    renderUsageTrend();
+    postureNode.className = "status-badge unavailable";
+    postureNode.textContent = "Unavailable";
+    const unavailable = ownerModeUnavailableMessage(CODEX_USAGE_UNAVAILABLE_DETAIL);
+    byId("overview-usage-summary").replaceChildren(
+      element("strong", "overview-usage-remaining", "Reading unavailable"),
+      element("p", "", unavailable),
+      element("span", "micro-note", "A missing reading is not zero consumption.")
+    );
+    byId("overview-usage-windows").replaceChildren(
+      element("p", "empty-state compact-empty", unavailable)
+    );
+    byId("overview-usage-detail-summary").textContent = "Detailed history unavailable";
+    byId("overview-usage-trend").replaceChildren(
+      element("p", "empty-state compact-empty", unavailable)
+    );
+  }
+
+  function renderCodexUsageCapacity(usage) {
+    codexCapacityModule?.renderCapacity(usage, {
+      byId,
+      element,
+      formatDate,
+      formatOperationalDate,
+      pluralizeWord,
+      operationsLedgerRow,
+      logHistoryHeading,
+      document,
+      unavailableMessage:
+        ownerModeUnavailableMessage(CODEX_USAGE_UNAVAILABLE_DETAIL)
+    });
   }
 
   function queueDirectoryCard(queue) {
@@ -7727,57 +7663,29 @@
       }
     }
 
-    const usage = chain.usage || data.overview?.usage || {};
-    const usageGate = usage.gate || {};
-    const remaining = usageGate.lowestRemainingPercent ?? usage.remaining_percent;
-    const capacityBlocked = Number.isFinite(Number(remaining))
-      && Number(remaining) <= Number(usageGate.reservePercent ?? 15);
-    setButtonBlockerFlag(
-      "automation-tab-capacity",
-      capacityBlocked,
-      "Codex capacity is at or below the automation reserve"
-    );
+    setButtonBlockerFlag("automation-tab-capacity", false, "");
     const capacitySummary = byId("operations-capacity-summary");
-    if (capacitySummary) {
+    const privateUsageAvailable = validPrivateCodexUsage(privateCodexUsageSnapshot)
+      && privateCodexUsageSnapshot.availability === "current";
+    if (privateUsageAvailable) {
+      renderCodexUsageCapacity(privateCodexUsageSnapshot);
+    } else if (capacitySummary) {
       capacitySummary.replaceChildren(
-        operationsLedgerRow(
-          "Current reserve posture",
-          Number.isFinite(Number(remaining))
-            ? { tone: Number(remaining) <= Number(usageGate.reservePercent ?? 15) ? "error" : "success", label: `${remaining}% remaining` }
-            : { tone: "unavailable", label: "Unavailable" },
-          `${usageGate.reservePercent ?? 15}% hard reserve · ${usageGate.runBudget?.softTargetPercent ?? 10}-point soft run target`,
-          usageGate.checkedAtUtc || chain.updated_at
-        ),
-        operationsLedgerRow(
-          "Full Review Epoch",
-          { tone: chain.review_epoch?.due ? "warning" : "success", label: chain.review_epoch?.due ? "Due" : "Scheduled" },
-          `Last completed ${formatOperationalDate(chain.review_epoch?.last_completed_at)} · next due ${formatOperationalDate(chain.review_epoch?.next_due_at)}`,
-          chain.review_epoch?.last_completed_at
+        element(
+          "p",
+          "empty-state compact-empty",
+          ownerModeUnavailableMessage(CODEX_USAGE_UNAVAILABLE_DETAIL)
         )
       );
     }
     const capacityHistory = byId("operations-capacity-history");
-    if (capacityHistory) {
-      const history = data.overview?.capacity_history || {};
-      const points = (Array.isArray(history.points) ? history.points : []).map((point) => ({
-        id: point.point_id,
-        date: point.recorded_at,
-        value: point.consumed_percent
-      })).filter((point) => Number.isFinite(point.value)).slice(-12).reverse();
+    if (capacityHistory && !privateUsageAvailable) {
       capacityHistory.replaceChildren(
-        history.availability === "current" && history.complete === true
-          ? logHistoryHeading("Measured consumption history", points.length, "run")
-          : element(
-            "p",
-            "empty-state compact-empty",
-            history.reason || "Typed capacity history is unavailable."
-          ),
-        ...points.map((point) => operationsLedgerRow(
-          point.id,
-          { tone: "success", label: `${point.value} points` },
-          "Producer-recorded consumption for this run.",
-          point.date
-        ))
+        element(
+          "p",
+          "empty-state compact-empty",
+          ownerModeUnavailableMessage(CODEX_USAGE_UNAVAILABLE_DETAIL)
+        )
       );
     }
 
@@ -8754,18 +8662,18 @@
       : OWNER_MODE_UNAVAILABLE_MESSAGE;
   }
 
-  function ownerProjectionPathAllowed(path) {
+  function ownerProjectionPathAllowed(path, feedId) {
     const binding = window.ARRP_OWNER_CONSOLE_BINDING;
-    if (!validOwnerConsoleBinding(binding, window.location)) return false;
+    if (!validOwnerConsoleBinding(binding, window.location)
+      || !OWNER_FEEDS.has(feedId)) return false;
     const normalized = String(path || "").split("?", 1)[0];
     if (!/^data\/[a-z0-9-]+\.js$/.test(normalized)) return false;
-    return Object.values(binding.projections).some(
-      (projection) => projection.relative_path === normalized
-    );
+    return binding.projections[feedId].relative_path === normalized;
   }
 
-  function loadLocalProjection(path, capture) {
-    if (!localConsoleOriginAllowed() || !ownerProjectionPathAllowed(path)) {
+  function loadLocalProjection(path, feedId, capture) {
+    if (!localConsoleOriginAllowed()
+      || !ownerProjectionPathAllowed(path, feedId)) {
       return Promise.resolve(false);
     }
     if (capture()) return Promise.resolve(true);
@@ -8781,17 +8689,60 @@
   function loadPrivateSecurityAssurance() {
     return loadLocalProjection(
       PRIVATE_SECURITY_ASSURANCE_PATH,
+      "security-assurance",
       capturePrivateSecurityAssurance
     );
   }
 
   function loadPrivateOperations() {
-    return loadLocalProjection(PRIVATE_OPERATIONS_PATH, capturePrivateOperations);
+    return loadLocalProjection(
+      PRIVATE_OPERATIONS_PATH,
+      "private-operations",
+      capturePrivateOperations
+    );
+  }
+
+  function loadCodexCapacityModule() {
+    const valid = () => {
+      const candidate = window.ARRP_CODEX_CAPACITY;
+      if (candidate?.schemaVersion !== 1
+        || typeof candidate.validProjection !== "function"
+        || typeof candidate.payloadDigest !== "function"
+        || typeof candidate.historyElements !== "function"
+        || typeof candidate.renderCapacity !== "function") return false;
+      codexCapacityModule = candidate;
+      return true;
+    };
+    if (valid()) return Promise.resolve(true);
+    return loadScriptOnce(CODEX_CAPACITY_MODULE_PATH)
+      .then(valid)
+      .catch(() => false);
+  }
+
+  function renderComponentRegistry(
+    target = window.location.hash.replace(/^#/, "")
+  ) {
+    const candidate = window.ARRP_COMPONENT_REGISTRY;
+    if (candidate?.schemaVersion !== 1
+      || typeof candidate.validSnapshot !== "function"
+      || typeof candidate.routeState !== "function"
+      || typeof candidate.render !== "function") return false;
+    componentRegistryModule = candidate;
+    return componentRegistryModule.render(data.component_registry, target);
+  }
+
+  function loadPrivateCodexUsage() {
+    return loadLocalProjection(
+      PRIVATE_CODEX_USAGE_PATH,
+      "codex-usage",
+      capturePrivateCodexUsage
+    );
   }
 
   function loadLocalAutomationStatus() {
     return loadLocalProjection(
       LOCAL_AUTOMATION_STATUS_PATH,
+      "local-automation-status",
       captureLocalAutomationStatus
     );
   }
@@ -10786,6 +10737,9 @@
       }
       refreshLiveRunChain();
     }
+    if (domain === "component-registry") {
+      renderComponentRegistry();
+    }
     if (domain === "integrity") {
       renderIntegrity();
       refreshLiveIntegrity();
@@ -10822,6 +10776,9 @@
     }
     if (tab === "automation" && subtab === "logs") {
       dependencies = ["automation", "logs", "integrity"];
+    }
+    if (tab === "automation" && subtab === "component-registry") {
+      dependencies = ["component-registry"];
     }
     if (tab === "overview") {
       await ensureDomain("overview", { optional: true });
@@ -10952,6 +10909,10 @@
     localConsoleOriginAllowed,
     ownerModeUnavailableMessage,
     validPrivateOperationsSnapshot,
+    validPrivateCodexUsage,
+    codexUsagePayloadDigest,
+    codexUsageHistoryElements,
+    capturePrivateCodexUsage,
     validPrivateTransactionRecovery,
     transactionRecoveryUnresolved,
     capturePrivateOperations,
@@ -10963,6 +10924,8 @@
   Promise.all([
     loadPrivateSecurityAssurance(),
     loadPrivateOperations(),
+    loadCodexCapacityModule().then((available) =>
+      available ? loadPrivateCodexUsage() : false),
     loadLocalAutomationStatus()
   ]).then(initialize);
 })();

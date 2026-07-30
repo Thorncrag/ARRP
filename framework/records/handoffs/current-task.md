@@ -1,6 +1,6 @@
 ---
 title: "Current Task Handoff"
-status: inactive
+status: open
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -13,18 +13,18 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Handoff state | Inactive |
-| Active issue/task | None. |
-| Audit type/tier | None. |
-| Started | None. |
-| Last checkpoint | 2026-07-29 18:01:15 -0400 |
-| User request | None. |
-| Scope | None. |
-| Files touched | None. |
-| Completed steps | None. |
-| Next step | None. |
-| Blockers/questions | None. |
-| Validation status | Not applicable. |
+| Handoff state | Paused |
+| Active issue/task | Component Registry Stage 1 local implementation and acceptance |
+| Audit type/tier | Design-locked implementation |
+| Started | 2026-07-29 21:49:59 -0400 |
+| Last checkpoint | 2026-07-30 08:57:34 -0400 |
+| User request | Complete Component Registry Stage 1, obtain exact local acceptance, then present the activation decision before GitHub publication. |
+| Scope | Approved blueprint revision 7 and the design-locked Stage 1 candidate-readiness contracts; Component Registry schema, identity, placement, routing, ownership, relationships, representations, Console interface, migration model, activation-finalizer fixture, governance evidence, and validation. |
+| Files touched | Component Registry candidate, schema, tool, public-safe readiness receipts, finalizer, and focused tests; Project Console Component Registry and Capacity modules, builder, frontend tests, and generated public data; related Stage 1 governance and runtime integrations; this handoff. |
+| Completed steps | Preserved the candidate as nonauthoritative and nonexecutable; implemented and validated the 64-rule routing catalog, exact 77-requirement catalog, four-predecessor simulated-active model, fixture-only activation finalizer, public-only Console regeneration mode, and typed Component Registry Console projection; regenerated public Console generation `project-console-3388c47183ffea8fd4fd` as current and complete across 42 domains without opening or replacing ignored owner-only projections; corrected the unretained 773-reference evidence as historical count-only provenance and established a complete replacement baseline; passed the full Python, frontend, Project Integrity, strict-site, disclosure, and diff checks; recoverably retired superseded Console staging `.console-generation-2nwv8lri` through the guarded Trash gateway under request `ARRP-COMPREG-ULTRA-CLOSEOUT-STAGING-20260730-001`. |
+| Next step | Obtain Benjamin's separate approval for the Component Registry activation and publication transaction after independent Ultra acceptance; keep automation Paused until separately authorized. |
+| Blockers/questions | Human activation and GitHub publication remain separately required and unauthorized in this local pass. The complete historical 773-reference identity set was never retained and is explicitly not claimed as preserved. `framework/CONTEXT_ROUTING.md` and `context-routes.json` remain authoritative until activation. Stage 2 lifecycle/classification and terminology population remain separately deferred. Pre-existing `.site-build`, attachment-cache material, uncertain Python caches, and two empty side-task directories remain preserved; they were not created or retired by this closeout. |
+| Validation status | Passed for local candidate readiness. Full Python: 749 passed, 15 skipped; frontend: 58 passed; Project Integrity: 0 errors with 3 expected unavailable-authenticated-readback warnings; strict public-site build, disclosure gate, and diff checks passed. The terminal readiness receipt is refreshed only after this checkpoint so its inventory includes the final handoff and excludes the retired staging package. |
 
 ## Handoff Rules
 

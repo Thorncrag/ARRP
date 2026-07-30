@@ -10,15 +10,17 @@ print_exclusion_reason: "Internal operational report."
 
 ## Current Result
 
-- **Result:** Clean
+- **Result:** Findings require review
 - **Errors:** 0
-- **Warnings:** 0
+- **Warnings:** 1
 - **Issue pages checked:** 64
 - **Proposal pages checked:** 41
 
 ## Current Findings
 
-No repeatable integrity findings are currently reported.
+### GitHub records
+
+- **WARNING:** GitHub Project synchronization could not be verified because the registered read-only access was unavailable.
 
 ## Checks Included
 

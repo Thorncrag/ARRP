@@ -28,7 +28,8 @@ The six primary screens are:
    Publication, without an aggregate main-tab count or new planning authority.
 5. **Integrity** — the exact current Project Integrity report and findings.
 6. **Operations** — Overview, Agents & Bots, Repository gates, Security,
-   Capacity, Platform, Data, and the compact horizontal-menu Logs workspace.
+   Capacity, Platform, Data, Component Registry, and the compact
+   horizontal-menu Logs workspace.
 
 Logs defaults to Operational Incidents, followed by the retained specialist
 histories in one bounded newest-first master/detail surface. Incident view
@@ -73,6 +74,28 @@ scheduled occurrence is never combined with an older push run, and `Not due
 this chain` never becomes `Succeeded` merely because a prior run succeeded.
 Next-run, full-Review-Epoch, valid-until, and trustworthy-through facts are
 producer supplied.
+
+Operations > Component Registry follows Data and precedes Logs. It has
+Documents, Directories, Routing, and Terminology modes, all rendered from one
+typed snapshot produced from the exact candidate accepted by
+`scripts/component_registry.py`. The browser formats supplied facts only; it
+does not invent taxonomy, directory membership, context routes, identities, or
+remediation. Routing includes the producer-rendered Stage 1 catalog: schema
+version 2, catalog version 1, and 64 stable rules divided across Invariants
+(7), Selection (17), Validation (10), Failure rules (10), Currentness (6),
+Budgets (4), and Comprehensive review (10). Those candidate rules remain bound
+to `framework/CONTEXT_ROUTING.md` at
+`246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7`;
+that document and `context-routes.json` remain the live routing authorities
+until separate activation. Artifact classification and lifecycle enforcement
+remain deferred, so the feature displays
+`Classification pending — enforcement not active` and treats empty deferred
+namespaces as unavailable rather than zero. The feature has no Overview
+portlet. Its `component-registry.js` shell module and generated
+`data/component-registry.js` domain are both lazy; the owner builder copies
+both for direct `file://` use. Legacy
+`operations:component-registry:*` document routes normalize one way to the
+canonical `automation:component-registry:*` destinations.
 
 The Console reports automation state but does not directly control the runner.
 Operations Overview combines owner-only Run/Paused state, one compact
@@ -124,9 +147,11 @@ builder gates the complete catalog and every domain file as one exact
 generation before replacement. Full runtime configuration and raw operational
 logs are written afterward to `data/private-operations.js`; minimized
 security-assurance state is written to
-`data/private-security-assurance.js`. Provider-native alert content,
+`data/private-security-assurance.js`; and the strict minimized Codex usage
+projection is written to `data/private-codex-usage.js`. Provider-native alert content,
 credential metadata, affected locations, and remediation evidence never enter
-that Console projection. Both files are Git-ignored, secret-scanned before
+that Console projection. Those files and the local automation-status projection
+are Git-ignored and secret-scanned before
 persistence, loaded only by the local Console origin, and excluded from the
 public generation manifest. The public bundle therefore remains useful
 without using browser hiding as a privacy boundary.
@@ -152,10 +177,27 @@ with `file://`; no local web server is required. Its exact
 `project-console.html` path is bound to one public Console generation and one
 source revision. Its binding
 also records each copied private projection's SHA-256 digest, availability,
-and completeness, and the loader verifies that exact envelope before joining
-the data. Only that entrypoint may load the copied, individually enveloped
-Security assurance, private Operations, and local automation-status
-projections. The repository source Console remains public-only even when it is
+completeness, and exact per-feed relative path, and the loader verifies that
+exact envelope before joining the data. A requested feed cannot load through
+another registered feed's path, including when two binding entries are
+swapped. Only that entrypoint may load the copied, individually enveloped
+Security assurance, private Operations, Codex usage, and local automation-status
+projections. The Codex usage projection contains only percentages, reset
+identity, typed material history, independently available budget and burn-rate
+estimates, and explicit coverage and confidence. It contains no absolute
+allowance, account identity, prompts, task content, credentials, raw logs, or
+owner-local paths. Its schema fixes an opaque producer identity and 30-minute
+sampling cadence, treats the earlier of the next sample boundary or reset as
+the trustworthy-through limit, and fails unavailable after that instant.
+Production staging accepts no caller-selected usage source; it reads the fixed
+approved owner-local producer projection and never emits that path. The owner
+envelope and browser both verify one canonical semantic payload digest, so
+JSON formatting differences do not change identity while a payload change
+does. The strict validator, digest implementation, graph, and detailed
+Capacity renderer are deferred in public `capacity.js`. It is copied into the
+immutable owner snapshot but is not a static entrypoint script, preserving the
+655 KiB synchronous startup ceiling and direct `file://` support. The
+repository source Console remains public-only even when it is
 opened from disk. Loopback HTTP(S) is supported for public-shell and fixture
 development, but it does not load owner projections. Hosted/public HTTPS
 likewise never requests those files. A future hosted private Console would
@@ -188,6 +230,8 @@ Every view is an assembled projection:
 - Candidate workflows and the Horizon Scan Log own intake and disposition.
 - Source inventories own bibliographic records.
 - Project Integrity output owns Integrity findings.
+- The validated Component Registry candidate owns its registered documents,
+  directory scopes, context-routing import, and explicit deferred namespaces.
 - Automation runbooks and typed run records own execution meaning.
 - The [ARRP Owner-Local Runtime
   Authority](../../framework/project/automation/owner-local-runtime.md) owns
@@ -213,13 +257,18 @@ source opened that way remains a public shell; only an immutable owner version
 at its exact bound entrypoint is owner mode. The shell loads a bounded
 compatibility catalog and application script, then lazily injects
 `data/overview.js`. Opening a specialist screen loads only its required domain
-files.
+files. Opening the Component Registry subtab first loads its public shell
+module and then its separately generated domain; the non-data module is not
+treated as a generated domain, while the data file must match the catalog
+generation manifest.
 
 All generated domains declare a shared generation identity and are validated
 against `data/generation-manifest.json`. Required feeds fail closed on
 incompatible structure, mixed generations, hash mismatch, or declared
 incompleteness. Unavailable values remain unavailable rather than becoming
-zero.
+zero. Component Registry production generation additionally fails closed when
+its validated candidate is stale, when embedded and imported routing differ,
+or when the complete directory-scope inventory cannot be established.
 
 The normal initial budgets are:
 
@@ -249,18 +298,31 @@ deployed public-input lookup:
 python3 scripts/build_horizon_review_console.py --console-only
 ```
 
-After a successful public rebuild has restored the ignored owner-only source
-projections, stage a new immutable owner Console version:
+Rebuild only the tracked public Console output without opening, restoring, or
+authorizing ignored owner-only projections:
+
+```sh
+python3 scripts/build_horizon_review_console.py --public-only
+```
+
+This mode leaves every owner-only feed explicitly unavailable and cannot be
+used as the source for owner Console staging. Stage a new immutable owner
+Console version only after an authorized normal owner-bound generation has
+separately restored and validated the exact generation-bound owner-only
+projections:
 
 ```sh
 python3 scripts/build_owner_console.py
 ```
 
 The staging command never overwrites an existing owner version or activates a
-host service. Its JSON result identifies the new version directory; open that
-directory's `project-console.html` directly. Missing, malformed, stale, partial, or
-generation-incompatible private feeds fail closed and remain visibly
-unavailable.
+host service. Production has no usage-source argument: the builder resolves
+only the approved owner-local sampler projection and rejects source
+substitution. Test fixtures may inject an explicitly bounded source without
+creating a production authority. The command's JSON result identifies the new
+version directory; open that directory's `project-console.html` directly.
+Missing, malformed, stale, partial, or generation-incompatible private feeds
+fail closed and remain visibly unavailable.
 
 The production transaction performs its final Project Integrity validation and
 feed generation after Elim, then builds the Console from that same final

@@ -2206,11 +2206,10 @@ a.overview-daily-value:focus-visible { border-radius: .2rem; outline: 3px solid 
 .usage-trend-line { fill: none; stroke: var(--blue); stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; }
 .usage-trend-point { fill: white; stroke: var(--blue); stroke-width: 3; }
 .usage-trend-axis-label { fill: #65758b; font-size: 10px; }
-.usage-trend-run-label { font-size: 9px; }
-.usage-trend-value-label { fill: #34455d; font-size: 10px; font-weight: 800; }
-.usage-trend-missing { fill: #8794a6; font-size: 16px; }
-.usage-trend-epoch { stroke: #a56b12; stroke-dasharray: 4 3; stroke-width: 2; }
-.usage-trend-epoch-label { fill: #77500f; font-size: 9px; font-weight: 800; }
+.usage-trend-reset { stroke: #a56b12; stroke-dasharray: 4 3; stroke-width: 2; }
+.usage-trend-reset-label { fill: #77500f; font-size: 9px; font-weight: 800; }
+.usage-trend-svg:focus { outline: 3px solid rgba(26, 83, 153, .28); outline-offset: 3px; }
+.usage-trend-text-summary { margin-top: .25rem; }
 .overview-lower-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2387,6 +2386,87 @@ a.overview-daily-value:focus-visible { border-radius: .2rem; outline: 3px solid 
 }
 .operations-ledger-row { display: grid; grid-template-columns: minmax(10rem, .7fr) minmax(0, 1.3fr) auto; gap: .5rem 1rem; padding: .7rem; border: 1px solid var(--line); border-radius: .55rem; }
 .operations-ledger-row p { margin: 0; color: var(--muted); font-size: .68rem; }
+
+.component-registry-view { display: grid; gap: 1rem; }
+.component-registry-deferred {
+  padding: .85rem 1rem;
+  border: 1px solid #d7bb72;
+  border-radius: .65rem;
+  background: var(--gold-soft);
+}
+.component-registry-deferred strong { color: #6e4a08; }
+.component-registry-deferred p { margin: .3rem 0 0; color: #675523; font-size: .82rem; }
+.component-registry-activation { font-weight: 700; }
+.registry-mode-tab-list {
+  display: flex;
+  overflow-x: auto;
+  gap: .35rem;
+  padding-bottom: .15rem;
+}
+.registry-mode-tab-list button {
+  padding: .55rem .78rem;
+  border: 1px solid var(--line);
+  border-radius: .55rem;
+  color: var(--muted);
+  background: white;
+  font: inherit;
+  font-size: .78rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.registry-mode-tab-list button[aria-selected="true"] {
+  border-color: var(--blue);
+  color: white;
+  background: var(--blue);
+}
+.registry-mode-panel {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: .7rem;
+  background: var(--soft);
+}
+.registry-picker {
+  display: grid;
+  grid-template-columns: minmax(9rem, auto) minmax(14rem, 1fr);
+  align-items: center;
+  gap: .65rem;
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 800;
+}
+.registry-picker select {
+  width: 100%;
+  min-width: 0;
+  padding: .52rem .6rem;
+  border: 1px solid #cbd3df;
+  border-radius: .45rem;
+  color: var(--ink);
+  background: white;
+  font: inherit;
+  font-weight: 500;
+}
+.component-registry-detail {
+  min-width: 0;
+  margin-top: .85rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: .65rem;
+  background: white;
+}
+.component-registry-detail h3 { margin: 0 0 .8rem; font-size: 1.08rem; }
+.component-registry-metadata {
+  display: grid;
+  grid-template-columns: minmax(10rem, .35fr) minmax(0, 1fr);
+  gap: .45rem 1rem;
+  margin: 0;
+}
+.component-registry-metadata dt { color: var(--muted); font-size: .76rem; font-weight: 800; }
+.component-registry-metadata dd { min-width: 0; margin: 0; overflow-wrap: anywhere; font-size: .82rem; }
+.component-registry-route-table { width: 100%; margin-top: 1rem; border-collapse: collapse; font-size: .76rem; }
+.component-registry-route-table th,
+.component-registry-route-table td { padding: .55rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.component-registry-route-table th { color: var(--muted); background: var(--soft); }
 
 .action-brief {
   display: grid;
@@ -3150,6 +3230,11 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
   .app-shell { width: min(100% - 1rem, 1440px); margin-top: .5rem; }
   .workflow-summary, .queue-view, .console-tabs { border-radius: .65rem; }
   .queue-view { padding: 1rem; }
+  .registry-picker,
+  .component-registry-metadata { grid-template-columns: 1fr; }
+  .component-registry-metadata { gap: .2rem; }
+  .component-registry-metadata dd { margin-bottom: .45rem; }
+  .component-registry-route-table { display: block; overflow-x: auto; }
   .card-footer { display: block; }
   .card-footer span { display: block; }
   .watcher-summary-grid { grid-template-columns: 1fr; }
