@@ -285,6 +285,241 @@ class ConsoleDataContractTests(unittest.TestCase):
             "authoritative-head",
         )
 
+    def public_source_checker_fixture(
+        self,
+        root: Path,
+    ) -> tuple[Path, Path, dict[str, object], str]:
+        catalog = root / "inventory" / "sources.csv"
+        catalog.parent.mkdir(parents=True)
+        catalog.write_text(
+            "Source ID,URL,Title or Description,Authority / Publisher\n"
+            "SRC-1,https://example.test/1,One,Publisher\n",
+            encoding="utf-8",
+        )
+        config = root / "source-checker-config.json"
+        config.write_text(
+            json.dumps(
+                {
+                    "catalogs": ["inventory/sources.csv"],
+                    "idField": "Source ID",
+                    "urlField": "URL",
+                }
+            ),
+            encoding="utf-8",
+        )
+        stage = root / ".tmp" / "project-console-source-checker.json"
+        stage.parent.mkdir()
+        revision = "a" * 40
+        hashes = CONTRACTS.source_hashes(root, [catalog])
+        payload: dict[str, object] = {
+            "schema_version": 2,
+            "contract_schema_version": 1,
+            "agent_id": "source-checker-bot",
+            "mode": "report-only",
+            "checked_at": "2026-07-30T12:00:00+00:00",
+            "generation_id": "source-checker-test-generation",
+            "source_revision": revision,
+            "source_hashes": hashes,
+            "catalogs": ["inventory/sources.csv"],
+            "expected_count": 1,
+            "actual_count": 1,
+            "availability": "current",
+            "completeness": {
+                "complete": True,
+                "expected_count": 1,
+                "actual_count": 1,
+                "missing_count": 0,
+            },
+            "pagination": {
+                "complete": True,
+                "sources": [
+                    {
+                        "source": "inventory/sources.csv",
+                        "complete": True,
+                        "expected_count": 1,
+                        "actual_count": 1,
+                    }
+                ],
+            },
+            "projection_errors": [],
+            "eligible_urls": 1,
+            "counts": {"verified": 1},
+            "results": [
+                {
+                    "source_id": "SRC-1",
+                    "catalog": "inventory/sources.csv",
+                    "classification": "verified",
+                }
+            ],
+            "missing_source_ids": [],
+            "unexpected_source_ids": [],
+            "duplicate_result_ids": [],
+        }
+        stage.write_text(json.dumps(payload), encoding="utf-8")
+        return config, stage, payload, revision
+
+    def test_public_source_checker_stage_requires_public_only(self):
+        args = mock.Mock(
+            public_only=False,
+            refresh_github=False,
+            public_source_checker_stage=True,
+        )
+        with self.assertRaisesRegex(RuntimeError, "requires --public-only"):
+            MODULE.validate_console_modes(args)
+
+    def test_public_source_checker_stage_is_fixed_and_current(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config, stage, _, revision = self.public_source_checker_fixture(root)
+            legacy = root / ".tmp" / "source-checker.json"
+            legacy.write_text("must not open", encoding="utf-8")
+            original_open = open
+
+            def guarded_open(path, *args, **kwargs):
+                if os.path.realpath(os.fspath(path)) == os.path.realpath(legacy):
+                    raise AssertionError("legacy Source Checker cache opened")
+                return original_open(path, *args, **kwargs)
+
+            with (
+                mock.patch.object(MODULE, "ROOT", root),
+                mock.patch.object(MODULE, "SOURCE_CHECKER_CONFIG", config),
+                mock.patch.object(
+                    MODULE, "PUBLIC_SOURCE_CHECKER_STAGE", stage
+                ),
+                mock.patch.object(
+                    MODULE, "current_repository_head", return_value=revision
+                ),
+                mock.patch("builtins.open", guarded_open),
+                mock.patch.dict(
+                    os.environ,
+                    {"ARRP_SOURCE_CHECKER_SNAPSHOT": ""},
+                    clear=False,
+                ),
+            ):
+                projected = MODULE.source_checker_snapshot(
+                    public_source_checker_stage=True
+                )
+        self.assertEqual(projected["availability"], "current")
+        self.assertTrue(projected["completeness"]["complete"])
+        self.assertEqual(projected["actual_count"], 1)
+        self.assertNotIn(".tmp", json.dumps(projected))
+
+    def test_public_source_checker_stage_rejects_other_input_authority(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config, stage, _, revision = self.public_source_checker_fixture(root)
+            with (
+                mock.patch.object(MODULE, "ROOT", root),
+                mock.patch.object(MODULE, "SOURCE_CHECKER_CONFIG", config),
+                mock.patch.object(
+                    MODULE, "PUBLIC_SOURCE_CHECKER_STAGE", stage
+                ),
+                mock.patch.object(
+                    MODULE, "current_repository_head", return_value=revision
+                ),
+                mock.patch.dict(
+                    os.environ,
+                    {"ARRP_SOURCE_CHECKER_SNAPSHOT": str(stage)},
+                    clear=False,
+                ),
+            ):
+                with self.assertRaisesRegex(RuntimeError, "cannot be combined"):
+                    MODULE.source_checker_snapshot(
+                        public_source_checker_stage=True
+                    )
+
+    def test_public_source_checker_stage_rejects_missing_nonregular_and_symlink(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config, stage, _, revision = self.public_source_checker_fixture(root)
+            stage.unlink()
+            cases = ("missing", "directory", "symlink")
+            for case in cases:
+                with self.subTest(case=case):
+                    if stage.exists() or stage.is_symlink():
+                        if stage.is_dir():
+                            stage.rmdir()
+                        else:
+                            stage.unlink()
+                    if case == "directory":
+                        stage.mkdir()
+                    elif case == "symlink":
+                        target = root / "elsewhere.json"
+                        target.write_text("{}", encoding="utf-8")
+                        stage.symlink_to(target)
+                    with (
+                        mock.patch.object(MODULE, "ROOT", root),
+                        mock.patch.object(
+                            MODULE, "SOURCE_CHECKER_CONFIG", config
+                        ),
+                        mock.patch.object(
+                            MODULE, "PUBLIC_SOURCE_CHECKER_STAGE", stage
+                        ),
+                        mock.patch.object(
+                            MODULE,
+                            "current_repository_head",
+                            return_value=revision,
+                        ),
+                        mock.patch.dict(
+                            os.environ,
+                            {"ARRP_SOURCE_CHECKER_SNAPSHOT": ""},
+                            clear=False,
+                        ),
+                    ):
+                        with self.assertRaisesRegex(
+                            RuntimeError, "stage is unavailable"
+                        ):
+                            MODULE.source_checker_snapshot(
+                                public_source_checker_stage=True
+                            )
+
+    def test_public_source_checker_stage_rejects_invalid_current_report(self):
+        mutations = {
+            "producer": lambda payload: payload.update(agent_id="other"),
+            "schema": lambda payload: payload.update(schema_version=1),
+            "revision": lambda payload: payload.update(source_revision="b" * 40),
+            "hash": lambda payload: payload.update(source_hashes={}),
+            "completeness": lambda payload: payload["completeness"].update(
+                complete=False
+            ),
+            "pagination": lambda payload: payload["pagination"].update(
+                complete=False
+            ),
+            "count": lambda payload: payload.update(actual_count=0),
+            "identity": lambda payload: payload["results"][0].update(
+                source_id="SRC-OTHER"
+            ),
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                config, stage, payload, revision = (
+                    self.public_source_checker_fixture(root)
+                )
+                mutate(payload)
+                stage.write_text(json.dumps(payload), encoding="utf-8")
+                with (
+                    mock.patch.object(MODULE, "ROOT", root),
+                    mock.patch.object(MODULE, "SOURCE_CHECKER_CONFIG", config),
+                    mock.patch.object(
+                        MODULE, "PUBLIC_SOURCE_CHECKER_STAGE", stage
+                    ),
+                    mock.patch.object(
+                        MODULE,
+                        "current_repository_head",
+                        return_value=revision,
+                    ),
+                    mock.patch.dict(
+                        os.environ,
+                        {"ARRP_SOURCE_CHECKER_SNAPSHOT": ""},
+                        clear=False,
+                    ),
+                ):
+                    with self.assertRaisesRegex(RuntimeError, "stage is invalid"):
+                        MODULE.source_checker_snapshot(
+                            public_source_checker_stage=True
+                        )
+
     def test_source_checker_keeps_stale_generation_and_enumerates_missing_ids(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

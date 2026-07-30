@@ -9,7 +9,7 @@ print_exclusion_reason: "Internal workflow or tool documentation."
 The Project Console is a read-only, nonauthoritative management and
 verification interface for ARRP. Its complete product and information-
 architecture contract is
-[`framework/project/interfaces/project-console.md`](../../framework/project/interfaces/project-console.md).
+[`framework/project/interfaces/project-console.md`](../project-console.md).
 This README is limited to implementation and operator guidance; it does not
 independently define screen meaning, authority, status, or data ownership.
 
@@ -234,7 +234,7 @@ Every view is an assembled projection:
   directory scopes, context-routing import, and explicit deferred namespaces.
 - Automation runbooks and typed run records own execution meaning.
 - The [ARRP Owner-Local Runtime
-  Authority](../../framework/project/automation/owner-local-runtime.md) owns
+  Authority](../../automation/owner-local-runtime.md) owns
   current and staged path resolution, artifact classes, and cutover meaning.
 - The Operational Incident event record owns operational identity,
   occurrences, impact, recovery evidence, and operational closure.
@@ -350,7 +350,7 @@ future public default requires a separate reviewed repository update.
 
 Material Console changes receive a stable `CONSOLE-YYYY-NNN` ID and are
 recorded in
-[`console-development-log.md`](../../framework/logs/automation/console-development-log.md).
+[`console-development-log.md`](../../../logs/automation/console-development-log.md).
 Semantic implementation commits use:
 
 ```text

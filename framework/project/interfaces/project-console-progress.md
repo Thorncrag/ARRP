@@ -65,7 +65,7 @@ excluded from attainment velocity.
 
 The supported retrospective seed begins June 24, 2026. The preserved former
 combined record and its reconstructed July baseline are retained at
-[`../../records/baselines/project-console-progress.md`](../../records/baselines/project-console-progress.md).
+[`project-console-progress.md`](../../archive/baselines/project-console-progress.md).
 
 In the P6 production chain, the coordinator supplies an authenticated Project
 snapshot and exact local output paths. The bot writes current progress

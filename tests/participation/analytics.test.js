@@ -5,7 +5,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 
-const PARTICIPATE_ROOT = path.resolve(__dirname, "..");
+const PARTICIPATE_ROOT = path.resolve(__dirname, "../../participate");
 const indexHtml = fs.readFileSync(path.join(PARTICIPATE_ROOT, "index.html"), "utf8");
 const appJavaScript = fs.readFileSync(path.join(PARTICIPATE_ROOT, "app.js"), "utf8");
 const vercelConfig = JSON.parse(

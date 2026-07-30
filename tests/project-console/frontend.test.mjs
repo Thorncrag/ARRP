@@ -6,11 +6,16 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 const testDirectory = path.dirname(fileURLToPath(import.meta.url));
-const consoleDirectory = path.resolve(testDirectory, "..");
+const consoleDirectory = path.resolve(
+  testDirectory,
+  "../../framework/project/interfaces/project-console",
+);
 const appPath = path.join(consoleDirectory, "app.js");
 const componentRegistryPath = path.join(consoleDirectory, "component-registry.js");
 const entrypointPath = path.join(consoleDirectory, "project-console.html");
-const localRequire = createRequire(import.meta.url);
+const localRequire = createRequire(
+  path.join(consoleDirectory, "frontend-test-loader.js"),
+);
 const testGenerationId = "project-console-test";
 const testSourceRevision = "a".repeat(40);
 const testVersionId = `${testGenerationId}-20260729T120000000000Z`;
@@ -718,16 +723,16 @@ function loadApi(privateSecurityAssurance = {}, projectDataOverride = {}) {
   globalThis.window = window;
   globalThis.document = document;
   globalThis.CSS = { escape: String };
-  const capacityModule = localRequire.resolve("../capacity.js");
+  const capacityModule = localRequire.resolve("./capacity.js");
   delete localRequire.cache[capacityModule];
-  localRequire("../capacity.js");
-  const componentRegistryModule = localRequire.resolve("../component-registry.js");
+  localRequire("./capacity.js");
+  const componentRegistryModule = localRequire.resolve("./component-registry.js");
   delete localRequire.cache[componentRegistryModule];
-  localRequire("../component-registry.js");
-  const appModule = localRequire.resolve("../app.js");
+  localRequire("./component-registry.js");
+  const appModule = localRequire.resolve("./app.js");
   delete localRequire.cache[appModule];
   try {
-    localRequire("../app.js");
+    localRequire("./app.js");
     return {
       api: window.ARRP_CONSOLE_TEST_API,
       data: window.ARRP_HORIZON_REVIEW_DATA,

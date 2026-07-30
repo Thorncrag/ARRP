@@ -188,7 +188,7 @@ snapshot is temporary visibility, not a substitute.
 
 If Console dispatch or readback fails, preserve the audit, identify the stale
 progress value, record the remaining step in
-[`current-task.md`](../../records/handoffs/current-task.md), and do not describe
+[`current-task.md`](../../handoffs/current-task.md), and do not describe
 the Console as current. If validation, commit, or push fails, preserve the
 work, record the failed step and changed files, stop the batch, and do not
 begin another issue until repository state or access is resolved.

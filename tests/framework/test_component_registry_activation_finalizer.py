@@ -77,6 +77,15 @@ class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
         candidate = json.loads(
             finalizer.registry.DEFAULT_REGISTRY.read_text(encoding="utf-8")
         )
+        candidate["source_baseline"][
+            "repository_revision"
+        ] = pull_request_base
+        candidate["source_baseline"]["working_tree_binding"]["sha256"] = (
+            finalizer.registry._route_source_binding(
+                pull_request_base,
+                finalizer.registry._routing_snapshot(candidate),
+            )
+        )
         registry_path.write_text(
             json.dumps(candidate, indent=2) + "\n",
             encoding="utf-8",
@@ -317,6 +326,39 @@ class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
                 observations["remote_registry"] = copy.deepcopy(active)
                 with self.assertRaises(
                     finalizer.ActivationFinalizationError
+                ):
+                    finalizer._build_receipt(
+                        authority,
+                        active,
+                        observations,
+                    )
+
+    def test_candidate_parent_internal_base_and_route_binding_are_exact(self):
+        mutations = {
+            "source_baseline": lambda candidate: candidate[
+                "source_baseline"
+            ].__setitem__("repository_revision", "0" * 40),
+            "route_binding": lambda candidate: candidate[
+                "source_baseline"
+            ]["working_tree_binding"].__setitem__("sha256", "0" * 64),
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as temporary:
+                authority, active, observations = self.fixture(temporary)
+                candidate = finalizer._git_registry_at_revision(
+                    authority.repository_root,
+                    active["approval"]["value"]["base_revision"],
+                )
+                mutate(candidate)
+                with (
+                    patch.object(
+                        finalizer,
+                        "_git_registry_at_revision",
+                        return_value=candidate,
+                    ),
+                    self.assertRaises(
+                        finalizer.ActivationFinalizationError
+                    ),
                 ):
                     finalizer._build_receipt(
                         authority,

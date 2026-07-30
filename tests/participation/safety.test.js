@@ -2,7 +2,11 @@
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { containsPaymentCard, screenPrivateContact, screenPublicSubmission } = require("../api/safety");
+const {
+  containsPaymentCard,
+  screenPrivateContact,
+  screenPublicSubmission,
+} = require("../../participate/api/safety");
 
 test("public privacy screen allows ordinary policy discussion", () => {
   const result = screenPublicSubmission({

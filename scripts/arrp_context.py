@@ -2316,7 +2316,7 @@ def build_work_queue(
     source_monitor_log = contained_path(
         reviewed_repository_root
         / "framework"
-        / "records"
+        / "logs"
         / "sources"
         / "source-monitor-log.md",
         reviewed_repository_root,

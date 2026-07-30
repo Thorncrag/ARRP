@@ -9,16 +9,16 @@
     "reason": "Stage 1 candidate acceptance and distinct human activation approval have not yet occurred."
   },
   "source_baseline": {
-    "repository_revision": "0b394db1bdfbe8a76632e56bf5ed8587714e7ce2",
+    "repository_revision": "e08b39e9798e6c6cba884eccb7925ee738792404",
     "repository_state": "dirty_bound_candidate",
     "working_tree_binding": {
       "mode": "base_revision_plus_route_manifest",
       "scope": "complete_routed_authority_source",
-      "sha256": "84d07c37ae67a3b9b34a143977a136948556898d64c2d9f080763b4aa7d633d2"
+      "sha256": "ef58fb9f219e25dba00b6b50cda5aad3832b4930219a2f26c60e0783df23af11"
     },
     "route_source": {
       "path": "framework/project/automation/context-routes.json",
-      "sha256": "7d3f3f0ac65febd53e312d6a49fc0a65ec0a3d24d6cc288265b5acc540932e86",
+      "sha256": "46bb0dc4bb54cfadc26dd59ee31f2c70372bf2e60e7e939d9162c650f9ce17c6",
       "schema_version": 2
     }
   },
@@ -2297,7 +2297,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=github_disclosure_boundary",
         "retention_posture": "current",
-        "sha256": "e90882f9503b9477f6218433cc4fc4c6cdcb5b59370611bc19974b3150470a68"
+        "sha256": "1d973057838cc5949d3a026c32de13e5a75df04d55ed66a8aafa012ab3ee15b8"
       },
       "github_disclosure_policy": {
         "document_id": "github_disclosure_policy",
@@ -2367,7 +2367,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=github_disclosure_policy",
         "retention_posture": "current",
-        "sha256": "e83d0419f8caeb1f88eea6927cc1ed24319008b823f456042dddbcd44d57cab9"
+        "sha256": "0d607bbf09c1dc233509b6e5d91bf27942b7dd584340164ec9c7a09c652b2d99"
       },
       "current_audit": {
         "document_id": "current_audit",
@@ -2588,7 +2588,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=project_structure",
         "retention_posture": "current",
-        "sha256": "77faf33e0eaa4a6b8308df721dd255a3bef25eea25fc98ae2177dd1819f4400c"
+        "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350"
       },
       "github_workflow": {
         "document_id": "github_workflow",
@@ -2964,7 +2964,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=project_console_progress",
         "retention_posture": "current",
-        "sha256": "bc06e3778db66b253766a92a8100d889fe969d8555ac33592e2220be0e32965a"
+        "sha256": "fae36b5ee6ad0a97625b6af66f58118ab26311ff17f4bcc2c85641cb24eecbe1"
       },
       "project_console_classifications": {
         "document_id": "project_console_classifications",
@@ -3113,7 +3113,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=project_interface",
         "retention_posture": "current",
-        "sha256": "d4e052c9e6bb4d85107e3da0a79eee4bf9ec27540fc3740a7a3c9bb8c46e0067"
+        "sha256": "c2da4d36181ece7b94c00414f87726a6c3c6eea2fc35c80eeedc135348fe9e13"
       },
       "intake_process": {
         "document_id": "intake_process",
@@ -4424,7 +4424,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=agent_issue_candidate_work",
         "retention_posture": "current",
-        "sha256": "eb2cac861c95216c4150b12c4285812ba9743d6d69b789690d677cd33d705e89"
+        "sha256": "03554f7b71e5aa529270025f5bc2ca5a4ce22fe5b6ff31bd11e232f7b984d14d"
       },
       "agent_multi_agent": {
         "document_id": "agent_multi_agent",
@@ -6686,7 +6686,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=candidate_adjudication",
         "retention_posture": "current",
-        "sha256": "98e671ca45ec856d2104b17d65e9aeda5d696b15b7633addc9ee69e73500dfcd"
+        "sha256": "217b4ae6a6af0adf56f4e2434efc0f3de82e81c437e54af49c11e12527a18483"
       },
       "source_automated_adjudication": {
         "document_id": "source_automated_adjudication",
@@ -6988,7 +6988,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=operation_project_update",
         "retention_posture": "current",
-        "sha256": "56830dd0126a828e07bad9fa7b64f06b6ea995e10453760998eac3f2fb270aac"
+        "sha256": "b585566de05f97492f24fd9fc3612aee31f1b729ef2a0453e9535e90fa19a317"
       },
       "operation_governance_change_recording": {
         "document_id": "operation_governance_change_recording",
@@ -7062,7 +7062,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=operation_governance_change_recording",
         "retention_posture": "current",
-        "sha256": "fd532a20a9f9a9915a99efc90ba536b50aeec964594d3e15e271e5426d418176"
+        "sha256": "5a97f326d4d78f441d7a02f26b6c62813900edb1d3434d945f80910d5fa0e946"
       },
       "governance_change_registry": {
         "document_id": "governance_change_registry",
@@ -7132,7 +7132,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=governance_change_registry",
         "retention_posture": "current",
-        "sha256": "a8b901084657ddcb43e5dad5a228be183ef3594d24b2216b3bfaba018571799b"
+        "sha256": "53ca6fda3aab54639456278e084646e83a83fa1f87d65bed67dda0b53584324e"
       },
       "project_profile": {
         "document_id": "project_profile",
@@ -8374,7 +8374,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=navigation_project_sync",
         "retention_posture": "current",
-        "sha256": "04a5e251471468003ed30405636d574b92de3a0fee064acacaa12f851b34b88f"
+        "sha256": "1b6e790a1dab85298da32920600d08987ecd3f20e89b1629835e4cb2154ead29"
       },
       "project_audit_execution": {
         "document_id": "project_audit_execution",
@@ -8457,7 +8457,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=project_audit_execution",
         "retention_posture": "current",
-        "sha256": "94bfd6acde8e354b7dff4a13d33486e4c0daada0513ea3539459d6580cb3d59c"
+        "sha256": "884eb8abcdc8760f4e27f619637020cc7b571a2bb0f9c531c80e5f2ca89453b0"
       },
       "COMPONENT-REGISTRY": {
         "document_id": "COMPONENT-REGISTRY",
@@ -8662,7 +8662,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=component_registry_tool",
         "retention_posture": "current",
-        "sha256": "f2ded941ac3f0995562941fc063579c5bd658c1be8a7a1e10f2d2ffc505bfe77"
+        "sha256": "855eab407e15cc2ee9048303673203b6c941af9f4a6ddc3106e5313a56f42ecc"
       },
       "component_registry_activation_finalizer": {
         "document_id": "component_registry_activation_finalizer",
@@ -8728,7 +8728,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=component_registry_activation_finalizer",
         "retention_posture": "current",
-        "sha256": "684f7dec27da0f6af3d4ffc78c5a6980f0ba077156235381d87de3f4ad5a5447"
+        "sha256": "7f98160d06e02c826f621937215ad2bc30218c19e17a5c59d3979ff9c68cbe43"
       },
       "component_registry_tests": {
         "document_id": "component_registry_tests",
@@ -8792,7 +8792,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=component_registry_tests",
         "retention_posture": "current",
-        "sha256": "7c12675e2e7c560f0a80c3835a70604b75bb4f2ee08e7ccde198e07658b51583"
+        "sha256": "ea1657dc04813c8e1266e18a5dc0a926d4c55eb326220b11fe81a287902288e5"
       }
     }
   },
@@ -8830,7 +8830,7 @@
     "authoritative": false,
     "source_import": {
       "path": "framework/project/automation/context-routes.json",
-      "sha256": "7d3f3f0ac65febd53e312d6a49fc0a65ec0a3d24d6cc288265b5acc540932e86",
+      "sha256": "46bb0dc4bb54cfadc26dd59ee31f2c70372bf2e60e7e939d9162c650f9ce17c6",
       "schema_version": 2,
       "import_semantics": "exact_validated_snapshot"
     },
@@ -8980,7 +8980,7 @@
       },
       "github_disclosure_boundary": {
         "path": "framework/project/github/disclosure-boundary.md",
-        "sha256": "e90882f9503b9477f6218433cc4fc4c6cdcb5b59370611bc19974b3150470a68",
+        "sha256": "1d973057838cc5949d3a026c32de13e5a75df04d55ed66a8aafa012ab3ee15b8",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -8990,7 +8990,7 @@
       },
       "github_disclosure_policy": {
         "path": "framework/project/github/disclosure-policy.json",
-        "sha256": "e83d0419f8caeb1f88eea6927cc1ed24319008b823f456042dddbcd44d57cab9",
+        "sha256": "0d607bbf09c1dc233509b6e5d91bf27942b7dd584340164ec9c7a09c652b2d99",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9018,7 +9018,7 @@
       },
       "project_structure": {
         "path": "framework/PROJECT_STRUCTURE.md",
-        "sha256": "77faf33e0eaa4a6b8308df721dd255a3bef25eea25fc98ae2177dd1819f4400c",
+        "sha256": "fd53f98d5de02f67c45b7f76d75947c706fb44c58ecaf9070f06a1c737835350",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9068,7 +9068,7 @@
       },
       "project_console_progress": {
         "path": "framework/project/interfaces/project-console-progress.md",
-        "sha256": "bc06e3778db66b253766a92a8100d889fe969d8555ac33592e2220be0e32965a",
+        "sha256": "fae36b5ee6ad0a97625b6af66f58118ab26311ff17f4bcc2c85641cb24eecbe1",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9089,7 +9089,7 @@
       },
       "project_interface": {
         "path": "framework/project/interfaces/project-console.md",
-        "sha256": "d4e052c9e6bb4d85107e3da0a79eee4bf9ec27540fc3740a7a3c9bb8c46e0067",
+        "sha256": "c2da4d36181ece7b94c00414f87726a6c3c6eea2fc35c80eeedc135348fe9e13",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9267,7 +9267,7 @@
       },
       "agent_issue_candidate_work": {
         "path": "framework/project/automation/agent-policy.md",
-        "sha256": "eb2cac861c95216c4150b12c4285812ba9743d6d69b789690d677cd33d705e89",
+        "sha256": "03554f7b71e5aa529270025f5bc2ca5a4ce22fe5b6ff31bd11e232f7b984d14d",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9578,7 +9578,7 @@
       },
       "candidate_adjudication": {
         "path": "framework/project/workflows/candidate-review.md",
-        "sha256": "98e671ca45ec856d2104b17d65e9aeda5d696b15b7633addc9ee69e73500dfcd",
+        "sha256": "217b4ae6a6af0adf56f4e2434efc0f3de82e81c437e54af49c11e12527a18483",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9627,7 +9627,7 @@
       },
       "operation_project_update": {
         "path": "framework/project/workflows/project-update.md",
-        "sha256": "56830dd0126a828e07bad9fa7b64f06b6ea995e10453760998eac3f2fb270aac",
+        "sha256": "b585566de05f97492f24fd9fc3612aee31f1b729ef2a0453e9535e90fa19a317",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9643,7 +9643,7 @@
       },
       "operation_governance_change_recording": {
         "path": "framework/project/workflows/governance-change-recording.md",
-        "sha256": "fd532a20a9f9a9915a99efc90ba536b50aeec964594d3e15e271e5426d418176",
+        "sha256": "5a97f326d4d78f441d7a02f26b6c62813900edb1d3434d945f80910d5fa0e946",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9655,7 +9655,7 @@
       },
       "governance_change_registry": {
         "path": "framework/project/workflows/governance-change-registry.json",
-        "sha256": "a8b901084657ddcb43e5dad5a228be183ef3594d24b2216b3bfaba018571799b",
+        "sha256": "53ca6fda3aab54639456278e084646e83a83fa1f87d65bed67dda0b53584324e",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9820,7 +9820,7 @@
           "repository_map",
           "visual_identity"
         ],
-        "sha256": "04a5e251471468003ed30405636d574b92de3a0fee064acacaa12f851b34b88f"
+        "sha256": "1b6e790a1dab85298da32920600d08987ecd3f20e89b1629835e4cb2154ead29"
       },
       "project_audit_execution": {
         "path": "framework/project/workflows/audit-execution.md",
@@ -9840,7 +9840,7 @@
           "project_interface",
           "project_console_progress"
         ],
-        "sha256": "94bfd6acde8e354b7dff4a13d33486e4c0daada0513ea3539459d6580cb3d59c"
+        "sha256": "884eb8abcdc8760f4e27f619637020cc7b571a2bb0f9c531c80e5f2ca89453b0"
       }
     },
     "capabilities": {

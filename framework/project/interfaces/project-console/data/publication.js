@@ -7229,8 +7229,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sort_key": "framework/archive/operational-arrp agent audit summary",
       "internal_links": [
         {
-          "path": "framework/archive/operational/console-development-log.md",
-          "exists": false
+          "path": "framework/logs/automation/console-development-log.md",
+          "exists": true
         }
       ],
       "word_count": 194,
@@ -7273,8 +7273,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/records/handoffs/current-task.md",
-          "exists": false
+          "path": "framework/handoffs/current-task.md",
+          "exists": true
         },
         {
           "path": "framework/project/automation/autonomous-execution.md",
@@ -7285,8 +7285,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/records/automation/agent-audit-summary.md",
-          "exists": false
+          "path": "framework/archive/operational/agent-audit-summary.md",
+          "exists": true
         }
       ],
       "word_count": 2861,
@@ -7505,8 +7505,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/records/handoffs/current-task.md",
-          "exists": false
+          "path": "framework/handoffs/current-task.md",
+          "exists": true
         }
       ],
       "word_count": 1219,
@@ -7593,8 +7593,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/records/candidates/horizon-scan-log.md",
-          "exists": false
+          "path": "framework/logs/candidates/candidate-discovery-log.md",
+          "exists": true
         },
         {
           "path": "framework/standards/sources/source-adjudication.md",
@@ -7727,7 +7727,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2348,
+      "word_count": 2527,
       "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7751,12 +7751,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sort_key": "framework/project/workflows-arrp governance change recording",
       "internal_links": [
         {
-          "path": "framework/records/governance/governance-change-log.md",
-          "exists": false
+          "path": "framework/logs/governance/governance-change-log.md",
+          "exists": true
         },
         {
-          "path": "framework/records/audits/change-audit-log.md",
-          "exists": false
+          "path": "framework/logs/audits/change-audit-log.md",
+          "exists": true
         }
       ],
       "word_count": 893,
@@ -7859,20 +7859,20 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/records/candidates/horizon-scan-log.md",
-          "exists": false
+          "path": "framework/logs/candidates/candidate-discovery-log.md",
+          "exists": true
         },
         {
           "path": "framework/project/interfaces/visual-identity.md",
           "exists": true
         }
       ],
-      "word_count": 1111,
+      "word_count": 1109,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 49
+      "longest_unbroken_token": 48
     },
     {
       "title": "ARRP Owner-Local Runtime Authority",
@@ -8010,12 +8010,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sort_key": "framework/project/interfaces/project-console-arrp project console",
       "internal_links": [
         {
-          "path": "framework/project/framework/project/interfaces/project-console.md",
-          "exists": false
+          "path": "framework/project/interfaces/project-console.md",
+          "exists": true
         },
         {
-          "path": "framework/project/framework/logs/automation/console-development-log.md",
-          "exists": false
+          "path": "framework/logs/automation/console-development-log.md",
+          "exists": true
         }
       ],
       "word_count": 2772,
@@ -8042,16 +8042,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sort_key": "framework/project/interfaces-arrp project console progress configuration",
       "internal_links": [
         {
-          "path": "framework/records/baselines/project-console-progress.md",
-          "exists": false
+          "path": "framework/archive/baselines/project-console-progress.md",
+          "exists": true
         }
       ],
-      "word_count": 471,
+      "word_count": 469,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 56
+      "longest_unbroken_token": 38
     },
     {
       "title": "ARRP Project Console and Interface Configuration",
@@ -8102,8 +8102,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/records/automation/console-development-log.md",
-          "exists": false
+          "path": "framework/logs/automation/console-development-log.md",
+          "exists": true
         }
       ],
       "word_count": 8905,
@@ -8130,28 +8130,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sort_key": "framework/reports/interfaces-arrp project console — comprehensive review and assessment",
       "internal_links": [
         {
-          "path": "framework/framework/FRAMEWORK.md",
-          "exists": false
+          "path": "framework/FRAMEWORK.md",
+          "exists": true
         },
         {
-          "path": "framework/framework/AGENT_OPERATING_RULES.md",
-          "exists": false
+          "path": "framework/AGENT_OPERATING_RULES.md",
+          "exists": true
         },
         {
-          "path": "framework/framework/project/interfaces/project-console.md",
-          "exists": false
+          "path": "framework/project/interfaces/project-console.md",
+          "exists": true
         },
         {
-          "path": "framework/framework/project/interfaces/project-console-progress.md",
-          "exists": false
+          "path": "framework/project/interfaces/project-console-progress.md",
+          "exists": true
         },
         {
-          "path": "framework/framework/project/github/workflow.md",
-          "exists": false
+          "path": "framework/project/github/workflow.md",
+          "exists": true
         },
         {
-          "path": "framework/reports/portfolio-issue-consolidation-review.md",
-          "exists": false
+          "path": "research/portfolio-issue-consolidation-review.md",
+          "exists": true
         }
       ],
       "word_count": 9745,
@@ -8205,8 +8205,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/reports/interfaces/project-console-implementation-prompt-2026-07-25.md",
-          "exists": false
+          "path": "framework/archive/operational/project-console-implementation-prompt-2026-07-25.md",
+          "exists": true
         }
       ],
       "word_count": 3457,
@@ -8313,16 +8313,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/records/candidates/horizon-scan-log.md",
-          "exists": false
+          "path": "framework/logs/candidates/candidate-discovery-log.md",
+          "exists": true
         },
         {
           "path": "SUBJECT_INDEX.md",
           "exists": true
         },
         {
-          "path": "framework/records/handoffs/current-task.md",
-          "exists": false
+          "path": "framework/handoffs/current-task.md",
+          "exists": true
         }
       ],
       "word_count": 1543,
@@ -9442,7 +9442,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 105,
+      "word_count": 122,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9465,12 +9465,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 981,
+      "word_count": 959,
       "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 51
+      "longest_unbroken_token": 43
     },
     {
       "title": "Elim Agent Runbook",
@@ -9587,12 +9587,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/github-github disclosure boundary",
       "internal_links": [],
-      "word_count": 1462,
+      "word_count": 1460,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 79
+      "longest_unbroken_token": 54
     },
     {
       "title": "GitHub Workflow",
@@ -10552,8 +10552,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/records/README.md",
-          "exists": false
+          "path": "framework/archive/operational/framework-records-README.md",
+          "exists": true
         },
         {
           "path": "framework/FRAMEWORK.md",
@@ -10576,7 +10576,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1287,
+      "word_count": 1288,
       "estimated_pages": 2,
       "table_count": 6,
       "max_table_columns": 3,
@@ -10678,7 +10678,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/status/sources-source checker bot current report",
       "internal_links": [],
-      "word_count": 6441,
+      "word_count": 6436,
       "estimated_pages": 10,
       "table_count": 2,
       "max_table_columns": 4,
@@ -12806,8 +12806,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "research/project-console/README.md",
-          "exists": false
+          "path": "framework/project/interfaces/project-console/README.md",
+          "exists": true
         },
         {
           "path": "research/durham-report-arrp-crosswalk.md",
@@ -16749,92 +16749,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "link_export_validation": {
         "link_inventory_available": true,
         "internal_link_count": 1291,
-        "missing_link_count": 29,
+        "missing_link_count": 6,
         "missing_links": [
-          {
-            "source": "framework/archive/operational/agent-audit-summary.md",
-            "target": "framework/archive/operational/console-development-log.md"
-          },
-          {
-            "source": "framework/project/automation/agent-policy.md",
-            "target": "framework/records/handoffs/current-task.md"
-          },
-          {
-            "source": "framework/project/automation/agent-policy.md",
-            "target": "framework/records/automation/agent-audit-summary.md"
-          },
-          {
-            "source": "framework/project/workflows/audit-execution.md",
-            "target": "framework/records/handoffs/current-task.md"
-          },
-          {
-            "source": "framework/project/workflows/candidate-review.md",
-            "target": "framework/records/candidates/horizon-scan-log.md"
-          },
-          {
-            "source": "framework/project/workflows/governance-change-recording.md",
-            "target": "framework/records/governance/governance-change-log.md"
-          },
-          {
-            "source": "framework/project/workflows/governance-change-recording.md",
-            "target": "framework/records/audits/change-audit-log.md"
-          },
-          {
-            "source": "framework/project/workflows/navigation-sync.md",
-            "target": "framework/records/candidates/horizon-scan-log.md"
-          },
-          {
-            "source": "framework/project/interfaces/project-console/README.md",
-            "target": "framework/project/framework/project/interfaces/project-console.md"
-          },
-          {
-            "source": "framework/project/interfaces/project-console/README.md",
-            "target": "framework/project/framework/logs/automation/console-development-log.md"
-          },
-          {
-            "source": "framework/project/interfaces/project-console-progress.md",
-            "target": "framework/records/baselines/project-console-progress.md"
-          },
-          {
-            "source": "framework/project/interfaces/project-console.md",
-            "target": "framework/records/automation/console-development-log.md"
-          },
-          {
-            "source": "framework/reports/interfaces/project-console-comprehensive-review-2026-07-25.md",
-            "target": "framework/framework/FRAMEWORK.md"
-          },
-          {
-            "source": "framework/reports/interfaces/project-console-comprehensive-review-2026-07-25.md",
-            "target": "framework/framework/AGENT_OPERATING_RULES.md"
-          },
-          {
-            "source": "framework/reports/interfaces/project-console-comprehensive-review-2026-07-25.md",
-            "target": "framework/framework/project/interfaces/project-console.md"
-          },
-          {
-            "source": "framework/reports/interfaces/project-console-comprehensive-review-2026-07-25.md",
-            "target": "framework/framework/project/interfaces/project-console-progress.md"
-          },
-          {
-            "source": "framework/reports/interfaces/project-console-comprehensive-review-2026-07-25.md",
-            "target": "framework/framework/project/github/workflow.md"
-          },
-          {
-            "source": "framework/reports/interfaces/project-console-comprehensive-review-2026-07-25.md",
-            "target": "framework/reports/portfolio-issue-consolidation-review.md"
-          },
-          {
-            "source": "framework/reports/interfaces/project-console-implementation-report-2026-07-25.md",
-            "target": "framework/reports/interfaces/project-console-implementation-prompt-2026-07-25.md"
-          },
-          {
-            "source": "framework/project/workflows/project-update.md",
-            "target": "framework/records/candidates/horizon-scan-log.md"
-          },
-          {
-            "source": "framework/project/workflows/project-update.md",
-            "target": "framework/records/handoffs/current-task.md"
-          },
           {
             "source": "framework/archive/operational/framework-records-README.md",
             "target": "framework/archive/PROJECT_STRUCTURE.md"
@@ -16858,14 +16774,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           {
             "source": "framework/CONTEXT_ROUTING.md",
             "target": "framework/records/handoffs/current-task.md"
-          },
-          {
-            "source": "framework/PROJECT_STRUCTURE.md",
-            "target": "framework/records/README.md"
-          },
-          {
-            "source": "research/README.md",
-            "target": "research/project-console/README.md"
           }
         ],
         "export_validation_available": false,
@@ -18623,13 +18531,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "result": "findings",
         "counts": {
           "errors": 0,
-          "warnings": 1,
-          "findings": 1,
+          "warnings": 3,
+          "findings": 3,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "b82764f21a39c14e35c371cc6a4530d4a1b11c82",
-        "generated_at": "2026-07-30T03:10:59+00:00"
+        "revision": "e08b39e9798e6c6cba884eccb7925ee738792404",
+        "generated_at": "2026-07-30T15:02:37+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20385,6 +20293,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-79f3b5b0b08802ff1a48"
+    "publication.js": "project-console-b2b0b1a85945551b73ef"
   }
 });

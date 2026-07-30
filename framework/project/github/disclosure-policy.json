@@ -36,14 +36,14 @@
       "id": "public-research-and-proposals",
       "category": "public_by_design",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github", "public-release-builder"],
-      "paths": ["areas/**", "legislation/**", "topics/**", "research/**"],
+      "paths": ["areas/**", "legislation/**", "topics/**", "research/**", "framework/reports/**"],
       "exclude_paths": ["framework/project/interfaces/project-console/**"]
     },
     {
       "id": "public-source-and-workflow-records",
       "category": "public_by_design",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": ["inventory/**", "framework/records/audits/**", "framework/records/candidates/**", "framework/records/sources/**"]
+      "paths": ["inventory/**", "framework/logs/audits/**", "framework/logs/candidates/**", "framework/logs/sources/**"]
     },
     {
       "id": "public-methodology",
@@ -55,7 +55,8 @@
       "id": "public-governance-summary",
       "category": "public_operational_summary",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": ["framework/FRAMEWORK.md", "framework/PROJECT_STRUCTURE.md", "framework/component-registry.json", "framework/receipts/component-registry/**", "framework/standards/README.md", "framework/standards/interfaces/**", "framework/project/README.md", "framework/project/PROJECT_PROFILE.md", "framework/project/REPOSITORY_MAP.md", "framework/project/interfaces/**", "framework/archive/operational/framework-records-README.md", "framework/archive/baselines/**", "framework/records/governance/**", "framework/status/**"]
+      "paths": ["framework/FRAMEWORK.md", "framework/PROJECT_STRUCTURE.md", "framework/component-registry.json", "framework/receipts/component-registry/**", "framework/standards/README.md", "framework/standards/interfaces/**", "framework/project/README.md", "framework/project/PROJECT_PROFILE.md", "framework/project/REPOSITORY_MAP.md", "framework/project/interfaces/**", "framework/archive/operational/**", "framework/archive/baselines/**", "framework/logs/governance/**", "framework/status/**"],
+      "exclude_paths": ["framework/project/interfaces/project-console/**"]
     },
     {
       "id": "public-participation",
@@ -93,13 +94,14 @@
       "id": "portable-repository-administration",
       "category": "public_operational_summary",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": [".gitattributes", ".gitignore", ".rgignore", ".github/CODEOWNERS", ".github/SECURITY.md", ".github/*.json", "framework/project/automation/configuration/launchd/**", "requirements-*.txt", "exports/README.md", "framework/records/handoffs/**", "framework/project/github/disclosure-boundary.md", "framework/project/github/disclosure-policy.json"]
+      "paths": [".gitattributes", ".gitignore", ".rgignore", ".github/CODEOWNERS", ".github/SECURITY.md", ".github/*.json", "framework/project/automation/configuration/launchd/**", "requirements-*.txt", "exports/README.md", "framework/handoffs/**", "framework/project/github/disclosure-boundary.md", "framework/project/github/disclosure-policy.json"]
     },
     {
       "id": "portable-automation-and-controls",
       "category": "public_operational_summary",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": ["scripts/**", "tests/**", ".github/workflows/**", "framework/project/automation/**", "framework/records/automation/**", "framework/standards/automation/**", "AGENTS.md", "framework/AGENT_OPERATING_RULES.md", "framework/CONTEXT_ROUTING.md"]
+      "paths": ["scripts/**", "tests/**", ".github/workflows/**", "framework/project/automation/**", "framework/logs/automation/**", "framework/receipts/automation/**", "framework/receipts/disclosure/**", "framework/standards/automation/**", "AGENTS.md", "framework/AGENT_OPERATING_RULES.md", "framework/CONTEXT_ROUTING.md"],
+      "exclude_paths": ["framework/project/automation/configuration/launchd/**"]
     },
     {
       "id": "restricted-console-prototypes",

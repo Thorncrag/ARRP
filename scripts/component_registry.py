@@ -2132,6 +2132,94 @@ def _repository_head(root: Path) -> str | None:
     return value
 
 
+def _validate_candidate_repository_binding(
+    root: Path,
+    registry_path: Path,
+    repository_revision: str,
+) -> str:
+    """Validate the exact Git posture of a candidate registry.
+
+    A candidate overlay records the current HEAD from which it was built.
+    After those bytes are committed once, the same record binds the new
+    commit's sole immediate parent.  No arbitrary ancestor or current-HEAD
+    self-binding is accepted for committed candidate bytes.
+    """
+
+    head = _repository_head(root)
+    if head is None:
+        return "fixture_no_git"
+    if re.fullmatch(r"[0-9a-f]{40}", repository_revision) is None:
+        raise RegistryError("candidate source baseline is not a full revision")
+    try:
+        relative = registry_path.resolve().relative_to(root.resolve()).as_posix()
+    except ValueError as exc:
+        raise RegistryError(
+            "candidate registry is outside the repository authority"
+        ) from exc
+    tracked = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(root),
+            "ls-files",
+            "--error-unmatch",
+            "--",
+            relative,
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if tracked.returncode != 0:
+        raise RegistryError("candidate registry Git posture is not tracked")
+    differs = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(root),
+            "diff",
+            "--quiet",
+            "HEAD",
+            "--",
+            relative,
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if differs.returncode == 1:
+        if repository_revision != head:
+            raise RegistryError(
+                "candidate overlay source baseline differs from repository HEAD"
+            )
+        return "overlay"
+    if differs.returncode != 0:
+        raise RegistryError(
+            "candidate registry Git posture cannot be classified"
+        )
+    parents = _git_output(
+        root,
+        "rev-list",
+        "--parents",
+        "-n",
+        "1",
+        head,
+    ).split()
+    if len(parents) != 2 or parents[0] != head:
+        raise RegistryError(
+            "committed candidate requires one exact immediate parent"
+        )
+    if repository_revision == head:
+        raise RegistryError(
+            "committed candidate cannot bind its own repository HEAD"
+        )
+    if repository_revision != parents[1]:
+        raise RegistryError(
+            "committed candidate source baseline is not its immediate parent"
+        )
+    return "committed"
+
+
 def _registry_at_revision(
     root: Path,
     revision: str,
@@ -4257,12 +4345,12 @@ def load_validated_registry(
         raise RegistryError(
             "context route source counts differ from the candidate baseline"
         )
-    head = _repository_head(root)
     repository_revision = registry["source_baseline"]["repository_revision"]
-    if head is not None and head != repository_revision:
-        raise RegistryError(
-            "repository HEAD differs from the candidate source baseline"
-        )
+    _validate_candidate_repository_binding(
+        root,
+        registry_path,
+        repository_revision,
+    )
     binding = registry["source_baseline"]["working_tree_binding"]
     expected_binding = _route_source_binding(repository_revision, route)
     if binding["sha256"] != expected_binding:
@@ -4718,11 +4806,13 @@ def refresh_candidate_registry(
         raise RegistryError(
             "candidate working-tree binding differs from its embedded route"
         )
+    _validate_candidate_repository_binding(
+        root,
+        registry_path,
+        repository_revision,
+    )
     head = _repository_head(root)
-    if head is not None and head != repository_revision:
-        raise RegistryError(
-            "repository HEAD differs from the candidate source baseline"
-        )
+    refreshed_repository_revision = head or repository_revision
 
     candidate_for_validation = copy.deepcopy(candidate)
     _refresh_pinned_document_digests(candidate_for_validation, root=root)
@@ -4768,8 +4858,11 @@ def refresh_candidate_registry(
         "sha256": route_digest,
         "schema_version": live_route["schema_version"],
     }
+    refreshed["source_baseline"][
+        "repository_revision"
+    ] = refreshed_repository_revision
     refreshed["source_baseline"]["working_tree_binding"]["sha256"] = (
-        _route_source_binding(repository_revision, live_route)
+        _route_source_binding(refreshed_repository_revision, live_route)
     )
     refreshed_document_digests = _refresh_pinned_document_digests(
         refreshed,

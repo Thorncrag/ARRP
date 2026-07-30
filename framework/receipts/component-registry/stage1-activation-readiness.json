@@ -21,13 +21,13 @@
     "status": "candidate",
     "authoritative": false,
     "executable": false,
-    "canonical_sha256": "e932eaa73ef818205ae6eb6a91c04f7c1e9a68b3507db5b9b31b5e8709aae361"
+    "canonical_sha256": "2fa5e9035cfa046aa700c7488930ed842b6a1ff0c1719f7afe2251b685bea963"
   },
   "future_tree": {
     "complete": true,
     "source_count": 628,
     "future_count": 628,
-    "moved_count": 97,
+    "moved_count": 4,
     "items": [
       {
         "source_path": ".gitattributes",
@@ -58,12 +58,6 @@
         "future_path": ".github/case-monitor-bot.json",
         "alias_id": null,
         "owning_scope_id": "github_admin"
-      },
-      {
-        "source_path": ".github/launchd/com.thorncrag.arrp-nightly.plist.example",
-        "future_path": "framework/project/automation/configuration/launchd/com.thorncrag.arrp-nightly.plist.example",
-        "alias_id": "relocate_launchd_examples",
-        "owning_scope_id": "project_automation_launchd"
       },
       {
         "source_path": ".github/presidential-directives-bot.json",
@@ -1368,10 +1362,82 @@
         "owning_scope_id": "framework_archive_class"
       },
       {
+        "source_path": "framework/archive/baselines/project-console-progress.md",
+        "future_path": "framework/archive/baselines/project-console-progress.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_archive_class"
+      },
+      {
+        "source_path": "framework/archive/operational/agent-audit-summary.md",
+        "future_path": "framework/archive/operational/agent-audit-summary.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_archive_operational"
+      },
+      {
+        "source_path": "framework/archive/operational/elim-run-summary.md",
+        "future_path": "framework/archive/operational/elim-run-summary.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_archive_operational"
+      },
+      {
+        "source_path": "framework/archive/operational/framework-records-README.md",
+        "future_path": "framework/archive/operational/framework-records-README.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_archive_operational"
+      },
+      {
+        "source_path": "framework/archive/operational/governance-records-README.md",
+        "future_path": "framework/archive/operational/governance-records-README.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_archive_operational"
+      },
+      {
+        "source_path": "framework/archive/operational/project-console-implementation-prompt-2026-07-25.md",
+        "future_path": "framework/archive/operational/project-console-implementation-prompt-2026-07-25.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_archive_operational"
+      },
+      {
         "source_path": "framework/component-registry.json",
         "future_path": "framework/component-registry.json",
         "alias_id": null,
         "owning_scope_id": "component_registry_file"
+      },
+      {
+        "source_path": "framework/handoffs/current-task.md",
+        "future_path": "framework/handoffs/current-task.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_handoffs"
+      },
+      {
+        "source_path": "framework/logs/audits/change-audit-log.md",
+        "future_path": "framework/logs/audits/change-audit-log.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_log_owner"
+      },
+      {
+        "source_path": "framework/logs/automation/console-development-log.md",
+        "future_path": "framework/logs/automation/console-development-log.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_log_owner"
+      },
+      {
+        "source_path": "framework/logs/candidates/candidate-discovery-log.md",
+        "future_path": "framework/logs/candidates/candidate-discovery-log.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_log_owner"
+      },
+      {
+        "source_path": "framework/logs/governance/governance-change-log.md",
+        "future_path": "framework/logs/governance/governance-change-log.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_log_owner"
+      },
+      {
+        "source_path": "framework/logs/sources/source-monitor-log.md",
+        "future_path": "framework/logs/sources/source-monitor-log.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_log_owner"
       },
       {
         "source_path": "framework/project/PROJECT_PROFILE.md",
@@ -1402,6 +1468,12 @@
         "future_path": "framework/project/automation/autonomous-execution.md",
         "alias_id": null,
         "owning_scope_id": "framework_project_automation"
+      },
+      {
+        "source_path": "framework/project/automation/configuration/launchd/com.thorncrag.arrp-nightly.plist.example",
+        "future_path": "framework/project/automation/configuration/launchd/com.thorncrag.arrp-nightly.plist.example",
+        "alias_id": null,
+        "owning_scope_id": "project_automation_launchd"
       },
       {
         "source_path": "framework/project/automation/context-routes.json",
@@ -1578,6 +1650,306 @@
         "owning_scope_id": "framework_project_interfaces"
       },
       {
+        "source_path": "framework/project/interfaces/project-console/README.md",
+        "future_path": "framework/project/interfaces/project-console/README.md",
+        "alias_id": null,
+        "owning_scope_id": "project_console"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/app.js",
+        "future_path": "framework/project/interfaces/project-console/app.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/capacity.js",
+        "future_path": "framework/project/interfaces/project-console/capacity.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/catalog-data.js",
+        "future_path": "framework/project/interfaces/project-console/catalog-data.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/component-registry.js",
+        "future_path": "framework/project/interfaces/project-console/component-registry.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/automation.js",
+        "future_path": "framework/project/interfaces/project-console/data/automation.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/candidates.js",
+        "future_path": "framework/project/interfaces/project-console/data/candidates.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/component-registry.js",
+        "future_path": "framework/project/interfaces/project-console/data/component-registry.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-001.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-001.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-002.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-002.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-003.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-003.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-004.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-004.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-005.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-005.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-006.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-006.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-007.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-007.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-008.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-008.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-009.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-009.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-010.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-010.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-011.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-011.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-012.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-012.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-013.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-013.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-014.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-014.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-015.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-015.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/directives-catalog-016.js",
+        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-016.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/generation-manifest.json",
+        "future_path": "framework/project/interfaces/project-console/data/generation-manifest.json",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/integrity.js",
+        "future_path": "framework/project/interfaces/project-console/data/integrity.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/logs.js",
+        "future_path": "framework/project/interfaces/project-console/data/logs.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/overview.js",
+        "future_path": "framework/project/interfaces/project-console/data/overview.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/progress.js",
+        "future_path": "framework/project/interfaces/project-console/data/progress.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/publication.js",
+        "future_path": "framework/project/interfaces/project-console/data/publication.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/source-checker.js",
+        "future_path": "framework/project/interfaces/project-console/data/source-checker.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-001.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-001.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-002.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-002.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-003.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-003.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-004.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-004.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-005.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-005.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-006.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-006.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-007.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-007.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-008.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-008.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-009.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-009.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-010.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-010.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-011.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-011.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-012.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-012.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-013.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-013.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-014.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-014.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-015.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-015.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources-catalog-016.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-016.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/data/sources.js",
+        "future_path": "framework/project/interfaces/project-console/data/sources.js",
+        "alias_id": null,
+        "owning_scope_id": "project_console_data"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/project-console.html",
+        "future_path": "framework/project/interfaces/project-console/project-console.html",
+        "alias_id": null,
+        "owning_scope_id": "project_console"
+      },
+      {
+        "source_path": "framework/project/interfaces/project-console/styles.css",
+        "future_path": "framework/project/interfaces/project-console/styles.css",
+        "alias_id": null,
+        "owning_scope_id": "project_console"
+      },
+      {
         "source_path": "framework/project/interfaces/visual-identity.md",
         "future_path": "framework/project/interfaces/visual-identity.md",
         "alias_id": null,
@@ -1674,6 +2046,12 @@
         "owning_scope_id": "framework_project_workflows"
       },
       {
+        "source_path": "framework/receipts/automation/p6-cutover-evidence.md",
+        "future_path": "framework/receipts/automation/p6-cutover-evidence.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_receipts"
+      },
+      {
         "source_path": "framework/receipts/component-registry/context-routing-v1-rule-closure.json",
         "future_path": "framework/receipts/component-registry/context-routing-v1-rule-closure.json",
         "alias_id": null,
@@ -1692,112 +2070,40 @@
         "owning_scope_id": "framework_receipts"
       },
       {
-        "source_path": "framework/records/README.md",
-        "future_path": "framework/archive/operational/framework-records-README.md",
-        "alias_id": "retire_records_readme",
-        "owning_scope_id": "framework_archive_operational"
-      },
-      {
-        "source_path": "framework/records/audits/change-audit-log.md",
-        "future_path": "framework/logs/audits/change-audit-log.md",
-        "alias_id": "relocate_change_audit_log",
-        "owning_scope_id": "framework_log_owner"
-      },
-      {
-        "source_path": "framework/records/audits/console-consistency-remedy-2026-07-28.md",
-        "future_path": "framework/reports/interfaces/console-consistency-remedy-2026-07-28.md",
-        "alias_id": "relocate_console_consistency_report",
-        "owning_scope_id": "framework_reports"
-      },
-      {
-        "source_path": "framework/records/audits/private-runtime-dual-incident-design-2026-07-29.md",
-        "future_path": "framework/reports/automation/private-runtime-dual-incident-design-2026-07-29.md",
-        "alias_id": "relocate_private_runtime_design_report",
-        "owning_scope_id": "framework_reports"
-      },
-      {
-        "source_path": "framework/records/automation/agent-audit-summary.md",
-        "future_path": "framework/archive/operational/agent-audit-summary.md",
-        "alias_id": "retire_agent_audit_summary",
-        "owning_scope_id": "framework_archive_operational"
-      },
-      {
-        "source_path": "framework/records/automation/console-development-log.md",
-        "future_path": "framework/logs/automation/console-development-log.md",
-        "alias_id": "relocate_console_development_log",
-        "owning_scope_id": "framework_log_owner"
-      },
-      {
-        "source_path": "framework/records/automation/disclosure-classification-summary-2026-07-28.json",
+        "source_path": "framework/receipts/disclosure/disclosure-classification-summary-2026-07-28.json",
         "future_path": "framework/receipts/disclosure/disclosure-classification-summary-2026-07-28.json",
-        "alias_id": "relocate_disclosure_summary",
+        "alias_id": null,
         "owning_scope_id": "framework_receipts"
       },
       {
-        "source_path": "framework/records/automation/elim-run-summary.md",
-        "future_path": "framework/archive/operational/elim-run-summary.md",
-        "alias_id": "retire_elim_run_summary",
-        "owning_scope_id": "framework_archive_operational"
+        "source_path": "framework/reports/automation/automation-failure-observability-repair-2026-07-26.md",
+        "future_path": "framework/reports/automation/automation-failure-observability-repair-2026-07-26.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_reports"
       },
       {
-        "source_path": "framework/records/automation/p4-github-app-ordinary-fixture.txt",
-        "future_path": "tests/fixtures/github/p4-github-app-ordinary-fixture.txt",
-        "alias_id": "relocate_p4_fixture",
-        "owning_scope_id": "test_fixtures"
+        "source_path": "framework/reports/automation/private-runtime-dual-incident-design-2026-07-29.md",
+        "future_path": "framework/reports/automation/private-runtime-dual-incident-design-2026-07-29.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_reports"
       },
       {
-        "source_path": "framework/records/automation/p6-cutover-evidence.md",
-        "future_path": "framework/receipts/automation/p6-cutover-evidence.md",
-        "alias_id": "relocate_p6_evidence",
-        "owning_scope_id": "framework_receipts"
+        "source_path": "framework/reports/interfaces/console-consistency-remedy-2026-07-28.md",
+        "future_path": "framework/reports/interfaces/console-consistency-remedy-2026-07-28.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_reports"
       },
       {
-        "source_path": "framework/records/baselines/project-console-progress.md",
-        "future_path": "framework/archive/baselines/project-console-progress.md",
-        "alias_id": "relocate_framework_baselines",
-        "owning_scope_id": "framework_archive_class"
+        "source_path": "framework/reports/interfaces/project-console-comprehensive-review-2026-07-25.md",
+        "future_path": "framework/reports/interfaces/project-console-comprehensive-review-2026-07-25.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_reports"
       },
       {
-        "source_path": "framework/records/candidates/horizon-scan-log.md",
-        "future_path": "framework/logs/candidates/candidate-discovery-log.md",
-        "alias_id": "relocate_candidate_discovery_log",
-        "owning_scope_id": "framework_log_owner"
-      },
-      {
-        "source_path": "framework/records/governance/README.md",
-        "future_path": "framework/archive/operational/governance-records-README.md",
-        "alias_id": "retire_governance_records_readme",
-        "owning_scope_id": "framework_archive_operational"
-      },
-      {
-        "source_path": "framework/records/governance/governance-change-log.md",
-        "future_path": "framework/logs/governance/governance-change-log.md",
-        "alias_id": "relocate_governance_change_log",
-        "owning_scope_id": "framework_log_owner"
-      },
-      {
-        "source_path": "framework/records/handoffs/current-task.md",
-        "future_path": "framework/handoffs/current-task.md",
-        "alias_id": "relocate_current_handoff",
-        "owning_scope_id": "framework_handoffs"
-      },
-      {
-        "source_path": "framework/records/sources/source-monitor-log.md",
-        "future_path": "framework/logs/sources/source-monitor-log.md",
-        "alias_id": "relocate_source_monitor_log",
-        "owning_scope_id": "framework_log_owner"
-      },
-      {
-        "source_path": "framework/records/status/project-integrity-report.md",
-        "future_path": "framework/status/integrity/project-integrity-report.md",
-        "alias_id": "relocate_integrity_status",
-        "owning_scope_id": "framework_status"
-      },
-      {
-        "source_path": "framework/records/status/source-checker-report.md",
-        "future_path": "framework/status/sources/source-checker-report.md",
-        "alias_id": "relocate_source_checker_status",
-        "owning_scope_id": "framework_status"
+        "source_path": "framework/reports/interfaces/project-console-implementation-report-2026-07-25.md",
+        "future_path": "framework/reports/interfaces/project-console-implementation-report-2026-07-25.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_reports"
       },
       {
         "source_path": "framework/standards/README.md",
@@ -2032,6 +2338,18 @@
         "future_path": "framework/standards/sources/templates/source-development-record.md",
         "alias_id": null,
         "owning_scope_id": "framework_standard_templates"
+      },
+      {
+        "source_path": "framework/status/integrity/project-integrity-report.md",
+        "future_path": "framework/status/integrity/project-integrity-report.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_status"
+      },
+      {
+        "source_path": "framework/status/sources/source-checker-report.md",
+        "future_path": "framework/status/sources/source-checker-report.md",
+        "alias_id": null,
+        "owning_scope_id": "framework_status"
       },
       {
         "source_path": "inventory/README.md",
@@ -2418,36 +2736,6 @@
         "owning_scope_id": "participate"
       },
       {
-        "source_path": "participate/tests/analytics.test.js",
-        "future_path": "tests/participation/analytics.test.js",
-        "alias_id": "relocate_participation_tests",
-        "owning_scope_id": "tests"
-      },
-      {
-        "source_path": "participate/tests/context-url.test.js",
-        "future_path": "tests/participation/context-url.test.js",
-        "alias_id": "relocate_participation_tests",
-        "owning_scope_id": "tests"
-      },
-      {
-        "source_path": "participate/tests/modes.test.js",
-        "future_path": "tests/participation/modes.test.js",
-        "alias_id": "relocate_participation_tests",
-        "owning_scope_id": "tests"
-      },
-      {
-        "source_path": "participate/tests/safety.test.js",
-        "future_path": "tests/participation/safety.test.js",
-        "alias_id": "relocate_participation_tests",
-        "owning_scope_id": "tests"
-      },
-      {
-        "source_path": "participate/tests/submit.test.js",
-        "future_path": "tests/participation/submit.test.js",
-        "alias_id": "relocate_participation_tests",
-        "owning_scope_id": "tests"
-      },
-      {
         "source_path": "participate/vercel.json",
         "future_path": "participate/vercel.json",
         "alias_id": null,
@@ -2472,82 +2760,82 @@
         "owning_scope_id": "research"
       },
       {
+        "source_path": "research/candidate-source-development/HOR-010-source-development.md",
+        "future_path": "research/candidate-source-development/HOR-010-source-development.md",
+        "alias_id": null,
+        "owning_scope_id": "research_candidate_sources"
+      },
+      {
+        "source_path": "research/candidate-source-development/HOR-023-source-development.md",
+        "future_path": "research/candidate-source-development/HOR-023-source-development.md",
+        "alias_id": null,
+        "owning_scope_id": "research_candidate_sources"
+      },
+      {
+        "source_path": "research/candidate-source-development/HOR-031-source-development.md",
+        "future_path": "research/candidate-source-development/HOR-031-source-development.md",
+        "alias_id": null,
+        "owning_scope_id": "research_candidate_sources"
+      },
+      {
+        "source_path": "research/candidate-source-development/HOR-033-source-development.md",
+        "future_path": "research/candidate-source-development/HOR-033-source-development.md",
+        "alias_id": null,
+        "owning_scope_id": "research_candidate_sources"
+      },
+      {
+        "source_path": "research/candidate-source-development/HOR-035-source-development.md",
+        "future_path": "research/candidate-source-development/HOR-035-source-development.md",
+        "alias_id": null,
+        "owning_scope_id": "research_candidate_sources"
+      },
+      {
+        "source_path": "research/candidate-source-development/HOR-037-source-development.md",
+        "future_path": "research/candidate-source-development/HOR-037-source-development.md",
+        "alias_id": null,
+        "owning_scope_id": "research_candidate_sources"
+      },
+      {
+        "source_path": "research/candidate-source-development/HOR-039-source-development.md",
+        "future_path": "research/candidate-source-development/HOR-039-source-development.md",
+        "alias_id": null,
+        "owning_scope_id": "research_candidate_sources"
+      },
+      {
+        "source_path": "research/candidate-source-development/HOR-040-source-development.md",
+        "future_path": "research/candidate-source-development/HOR-040-source-development.md",
+        "alias_id": null,
+        "owning_scope_id": "research_candidate_sources"
+      },
+      {
+        "source_path": "research/candidate-source-development/HOR-041-source-development.md",
+        "future_path": "research/candidate-source-development/HOR-041-source-development.md",
+        "alias_id": null,
+        "owning_scope_id": "research_candidate_sources"
+      },
+      {
+        "source_path": "research/candidate-source-development/HOR-042-source-development.md",
+        "future_path": "research/candidate-source-development/HOR-042-source-development.md",
+        "alias_id": null,
+        "owning_scope_id": "research_candidate_sources"
+      },
+      {
+        "source_path": "research/candidate-source-development/HOR-044-source-development.md",
+        "future_path": "research/candidate-source-development/HOR-044-source-development.md",
+        "alias_id": null,
+        "owning_scope_id": "research_candidate_sources"
+      },
+      {
+        "source_path": "research/candidate-source-development/HOR-045-source-development.md",
+        "future_path": "research/candidate-source-development/HOR-045-source-development.md",
+        "alias_id": null,
+        "owning_scope_id": "research_candidate_sources"
+      },
+      {
         "source_path": "research/durham-report-arrp-crosswalk.md",
         "future_path": "research/durham-report-arrp-crosswalk.md",
         "alias_id": null,
         "owning_scope_id": "research"
-      },
-      {
-        "source_path": "research/horizon-source-records/HOR-010-source-development.md",
-        "future_path": "research/candidate-source-development/HOR-010-source-development.md",
-        "alias_id": "rename_candidate_source_development",
-        "owning_scope_id": "research_candidate_sources"
-      },
-      {
-        "source_path": "research/horizon-source-records/HOR-023-source-development.md",
-        "future_path": "research/candidate-source-development/HOR-023-source-development.md",
-        "alias_id": "rename_candidate_source_development",
-        "owning_scope_id": "research_candidate_sources"
-      },
-      {
-        "source_path": "research/horizon-source-records/HOR-031-source-development.md",
-        "future_path": "research/candidate-source-development/HOR-031-source-development.md",
-        "alias_id": "rename_candidate_source_development",
-        "owning_scope_id": "research_candidate_sources"
-      },
-      {
-        "source_path": "research/horizon-source-records/HOR-033-source-development.md",
-        "future_path": "research/candidate-source-development/HOR-033-source-development.md",
-        "alias_id": "rename_candidate_source_development",
-        "owning_scope_id": "research_candidate_sources"
-      },
-      {
-        "source_path": "research/horizon-source-records/HOR-035-source-development.md",
-        "future_path": "research/candidate-source-development/HOR-035-source-development.md",
-        "alias_id": "rename_candidate_source_development",
-        "owning_scope_id": "research_candidate_sources"
-      },
-      {
-        "source_path": "research/horizon-source-records/HOR-037-source-development.md",
-        "future_path": "research/candidate-source-development/HOR-037-source-development.md",
-        "alias_id": "rename_candidate_source_development",
-        "owning_scope_id": "research_candidate_sources"
-      },
-      {
-        "source_path": "research/horizon-source-records/HOR-039-source-development.md",
-        "future_path": "research/candidate-source-development/HOR-039-source-development.md",
-        "alias_id": "rename_candidate_source_development",
-        "owning_scope_id": "research_candidate_sources"
-      },
-      {
-        "source_path": "research/horizon-source-records/HOR-040-source-development.md",
-        "future_path": "research/candidate-source-development/HOR-040-source-development.md",
-        "alias_id": "rename_candidate_source_development",
-        "owning_scope_id": "research_candidate_sources"
-      },
-      {
-        "source_path": "research/horizon-source-records/HOR-041-source-development.md",
-        "future_path": "research/candidate-source-development/HOR-041-source-development.md",
-        "alias_id": "rename_candidate_source_development",
-        "owning_scope_id": "research_candidate_sources"
-      },
-      {
-        "source_path": "research/horizon-source-records/HOR-042-source-development.md",
-        "future_path": "research/candidate-source-development/HOR-042-source-development.md",
-        "alias_id": "rename_candidate_source_development",
-        "owning_scope_id": "research_candidate_sources"
-      },
-      {
-        "source_path": "research/horizon-source-records/HOR-044-source-development.md",
-        "future_path": "research/candidate-source-development/HOR-044-source-development.md",
-        "alias_id": "rename_candidate_source_development",
-        "owning_scope_id": "research_candidate_sources"
-      },
-      {
-        "source_path": "research/horizon-source-records/HOR-045-source-development.md",
-        "future_path": "research/candidate-source-development/HOR-045-source-development.md",
-        "alias_id": "rename_candidate_source_development",
-        "owning_scope_id": "research_candidate_sources"
       },
       {
         "source_path": "research/interbranch-review/JUD-011-coverage-matrix.md",
@@ -2578,336 +2866,6 @@
         "future_path": "research/portfolio-issue-consolidation-review.md",
         "alias_id": null,
         "owning_scope_id": "research"
-      },
-      {
-        "source_path": "research/project-console/README.md",
-        "future_path": "framework/project/interfaces/project-console/README.md",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console"
-      },
-      {
-        "source_path": "research/project-console/app.js",
-        "future_path": "framework/project/interfaces/project-console/app.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console"
-      },
-      {
-        "source_path": "research/project-console/capacity.js",
-        "future_path": "framework/project/interfaces/project-console/capacity.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console"
-      },
-      {
-        "source_path": "research/project-console/catalog-data.js",
-        "future_path": "framework/project/interfaces/project-console/catalog-data.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console"
-      },
-      {
-        "source_path": "research/project-console/component-registry.js",
-        "future_path": "framework/project/interfaces/project-console/component-registry.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console"
-      },
-      {
-        "source_path": "research/project-console/data/automation.js",
-        "future_path": "framework/project/interfaces/project-console/data/automation.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/candidates.js",
-        "future_path": "framework/project/interfaces/project-console/data/candidates.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/component-registry.js",
-        "future_path": "framework/project/interfaces/project-console/data/component-registry.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-001.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-001.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-002.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-002.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-003.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-003.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-004.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-004.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-005.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-005.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-006.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-006.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-007.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-007.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-008.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-008.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-009.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-009.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-010.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-010.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-011.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-011.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-012.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-012.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-013.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-013.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-014.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-014.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-015.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-015.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/directives-catalog-016.js",
-        "future_path": "framework/project/interfaces/project-console/data/directives-catalog-016.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/generation-manifest.json",
-        "future_path": "framework/project/interfaces/project-console/data/generation-manifest.json",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/integrity.js",
-        "future_path": "framework/project/interfaces/project-console/data/integrity.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/logs.js",
-        "future_path": "framework/project/interfaces/project-console/data/logs.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/overview.js",
-        "future_path": "framework/project/interfaces/project-console/data/overview.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/progress.js",
-        "future_path": "framework/project/interfaces/project-console/data/progress.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/publication.js",
-        "future_path": "framework/project/interfaces/project-console/data/publication.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/source-checker.js",
-        "future_path": "framework/project/interfaces/project-console/data/source-checker.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-001.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-001.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-002.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-002.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-003.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-003.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-004.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-004.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-005.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-005.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-006.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-006.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-007.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-007.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-008.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-008.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-009.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-009.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-010.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-010.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-011.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-011.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-012.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-012.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-013.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-013.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-014.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-014.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-015.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-015.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources-catalog-016.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources-catalog-016.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/data/sources.js",
-        "future_path": "framework/project/interfaces/project-console/data/sources.js",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console_data"
-      },
-      {
-        "source_path": "research/project-console/project-console.html",
-        "future_path": "framework/project/interfaces/project-console/project-console.html",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console"
-      },
-      {
-        "source_path": "research/project-console/styles.css",
-        "future_path": "framework/project/interfaces/project-console/styles.css",
-        "alias_id": "relocate_project_console",
-        "owning_scope_id": "project_console"
-      },
-      {
-        "source_path": "research/project-console/tests/frontend.test.mjs",
-        "future_path": "tests/project-console/frontend.test.mjs",
-        "alias_id": "relocate_project_console_tests",
-        "owning_scope_id": "tests"
-      },
-      {
-        "source_path": "research/reference-products/automation-failure-observability-repair-2026-07-26.md",
-        "future_path": "framework/reports/automation/automation-failure-observability-repair-2026-07-26.md",
-        "alias_id": "relocate_automation_failure_report",
-        "owning_scope_id": "framework_reports"
-      },
-      {
-        "source_path": "research/reference-products/project-console-comprehensive-review-2026-07-25.md",
-        "future_path": "framework/reports/interfaces/project-console-comprehensive-review-2026-07-25.md",
-        "alias_id": "relocate_console_review_report",
-        "owning_scope_id": "framework_reports"
-      },
-      {
-        "source_path": "research/reference-products/project-console-implementation-prompt-2026-07-25.md",
-        "future_path": "framework/archive/operational/project-console-implementation-prompt-2026-07-25.md",
-        "alias_id": "retire_console_implementation_prompt",
-        "owning_scope_id": "framework_archive_operational"
-      },
-      {
-        "source_path": "research/reference-products/project-console-implementation-report-2026-07-25.md",
-        "future_path": "framework/reports/interfaces/project-console-implementation-report-2026-07-25.md",
-        "alias_id": "relocate_console_implementation_report",
-        "owning_scope_id": "framework_reports"
       },
       {
         "source_path": "research/review-epochs-summary.json",
@@ -2994,12 +2952,6 @@
         "owning_scope_id": "scripts"
       },
       {
-        "source_path": "scripts/build_horizon_review_console.py",
-        "future_path": "scripts/build_project_console.py",
-        "alias_id": "rename_console_builder",
-        "owning_scope_id": "scripts"
-      },
-      {
         "source_path": "scripts/build_owner_console.py",
         "future_path": "scripts/build_owner_console.py",
         "alias_id": null,
@@ -3008,6 +2960,12 @@
       {
         "source_path": "scripts/build_participation_route_index.py",
         "future_path": "scripts/build_participation_route_index.py",
+        "alias_id": null,
+        "owning_scope_id": "scripts"
+      },
+      {
+        "source_path": "scripts/build_project_console.py",
+        "future_path": "scripts/build_project_console.py",
         "alias_id": null,
         "owning_scope_id": "scripts"
       },
@@ -3162,9 +3120,9 @@
         "owning_scope_id": "scripts"
       },
       {
-        "source_path": "scripts/refresh_horizon_review_console.py",
+        "source_path": "scripts/refresh_project_console.py",
         "future_path": "scripts/refresh_project_console.py",
-        "alias_id": "rename_console_refresher",
+        "alias_id": null,
         "owning_scope_id": "scripts"
       },
       {
@@ -3276,6 +3234,12 @@
         "owning_scope_id": "tests"
       },
       {
+        "source_path": "tests/fixtures/github/p4-github-app-ordinary-fixture.txt",
+        "future_path": "tests/fixtures/github/p4-github-app-ordinary-fixture.txt",
+        "alias_id": null,
+        "owning_scope_id": "test_fixtures"
+      },
+      {
         "source_path": "tests/fixtures/local-first/codex_fixture.py",
         "future_path": "tests/fixtures/local-first/codex_fixture.py",
         "alias_id": null,
@@ -3356,6 +3320,42 @@
       {
         "source_path": "tests/framework/test_context_routing_semantics.py",
         "future_path": "tests/framework/test_context_routing_semantics.py",
+        "alias_id": null,
+        "owning_scope_id": "tests"
+      },
+      {
+        "source_path": "tests/participation/analytics.test.js",
+        "future_path": "tests/participation/analytics.test.js",
+        "alias_id": null,
+        "owning_scope_id": "tests"
+      },
+      {
+        "source_path": "tests/participation/context-url.test.js",
+        "future_path": "tests/participation/context-url.test.js",
+        "alias_id": null,
+        "owning_scope_id": "tests"
+      },
+      {
+        "source_path": "tests/participation/modes.test.js",
+        "future_path": "tests/participation/modes.test.js",
+        "alias_id": null,
+        "owning_scope_id": "tests"
+      },
+      {
+        "source_path": "tests/participation/safety.test.js",
+        "future_path": "tests/participation/safety.test.js",
+        "alias_id": null,
+        "owning_scope_id": "tests"
+      },
+      {
+        "source_path": "tests/participation/submit.test.js",
+        "future_path": "tests/participation/submit.test.js",
+        "alias_id": null,
+        "owning_scope_id": "tests"
+      },
+      {
+        "source_path": "tests/project-console/frontend.test.mjs",
+        "future_path": "tests/project-console/frontend.test.mjs",
         "alias_id": null,
         "owning_scope_id": "tests"
       },
@@ -3885,6 +3885,18 @@
       "complete": true,
       "identity_completeness": "complete",
       "identity_preservation_claim": false,
+      "disposition_classifier": {
+        "schema_version": 1,
+        "complete": true,
+        "source_revision": "0b394db1bdfbe8a76632e56bf5ed8587714e7ce2",
+        "disposition_counts": {
+          "rewrite_current": 917,
+          "preserve_migration_definition": 37,
+          "preserve_predecessor_definition": 4,
+          "preserve_migration_evidence": 9,
+          "preserve_exact_predecessor_artifact": 9
+        }
+      },
       "finding_count": 976,
       "state_counts": {
         "requires_rewrite_or_historical_classification": 976
@@ -14818,19 +14830,7 @@
           "state": "requires_rewrite_or_historical_classification",
           "disposition": "rewrite_current"
         }
-      ],
-      "disposition_classifier": {
-        "schema_version": 1,
-        "complete": true,
-        "source_revision": "0b394db1bdfbe8a76632e56bf5ed8587714e7ce2",
-        "disposition_counts": {
-          "rewrite_current": 917,
-          "preserve_migration_definition": 37,
-          "preserve_predecessor_definition": 4,
-          "preserve_migration_evidence": 9,
-          "preserve_exact_predecessor_artifact": 9
-        }
-      }
+      ]
     }
   },
   "ignored_artifacts": {
@@ -14839,39 +14839,39 @@
     "content_read": false,
     "items": [
       {
-        "path": "research/project-console/local-automation-status.js",
+        "path": "framework/project/interfaces/project-console/local-automation-status.js",
         "disposition": "preserve_in_protected_owner_local_boundary_pending_exact_activation_authorization"
       },
       {
-        "path": "research/project-console/private-codex-usage.js",
+        "path": "framework/project/interfaces/project-console/private-codex-usage.js",
         "disposition": "preserve_in_protected_owner_local_boundary_pending_exact_activation_authorization"
       },
       {
-        "path": "research/project-console/private-operations.js",
+        "path": "framework/project/interfaces/project-console/private-operations.js",
         "disposition": "preserve_in_protected_owner_local_boundary_pending_exact_activation_authorization"
       },
       {
-        "path": "research/project-console/private-security-assurance.js",
+        "path": "framework/project/interfaces/project-console/private-security-assurance.js",
         "disposition": "preserve_in_protected_owner_local_boundary_pending_exact_activation_authorization"
       },
       {
-        "path": "research/project-console/prototypes/stage-1-review/CONSOLE_DESIGN_PREFERENCE_PROFILE.md",
+        "path": "framework/project/interfaces/project-console/prototypes/stage-1-review/CONSOLE_DESIGN_PREFERENCE_PROFILE.md",
         "disposition": "preserve_in_protected_owner_local_boundary_pending_exact_activation_authorization"
       },
       {
-        "path": "research/project-console/prototypes/stage-1-review/CONSOLE_DEVELOPMENT_LOG_DRAFT.md",
+        "path": "framework/project/interfaces/project-console/prototypes/stage-1-review/CONSOLE_DEVELOPMENT_LOG_DRAFT.md",
         "disposition": "preserve_in_protected_owner_local_boundary_pending_exact_activation_authorization"
       },
       {
-        "path": "research/project-console/prototypes/stage-1-review/PROJECT_CONSOLE_DESIGN_SPEC_DRAFT.md",
+        "path": "framework/project/interfaces/project-console/prototypes/stage-1-review/PROJECT_CONSOLE_DESIGN_SPEC_DRAFT.md",
         "disposition": "preserve_in_protected_owner_local_boundary_pending_exact_activation_authorization"
       },
       {
-        "path": "research/project-console/prototypes/stage-1-review/STAGE_1_PLAN.md",
+        "path": "framework/project/interfaces/project-console/prototypes/stage-1-review/STAGE_1_PLAN.md",
         "disposition": "preserve_in_protected_owner_local_boundary_pending_exact_activation_authorization"
       },
       {
-        "path": "research/project-console/prototypes/stage-1-review/index.html",
+        "path": "framework/project/interfaces/project-console/prototypes/stage-1-review/index.html",
         "disposition": "preserve_in_protected_owner_local_boundary_pending_exact_activation_authorization"
       }
     ]
@@ -14898,13 +14898,13 @@
     ],
     "predecessor_authority_effect": "historical_provenance_only_no_runtime_read",
     "stage1_namespace_states": {
-      "directory_scopes": "active",
       "operational_documents": "active",
       "activation_readiness": "active",
-      "ownership_and_review": "active",
-      "representations": "active",
       "temporary_directory_classes": "active",
-      "aliases_and_migrations": "active"
+      "aliases_and_migrations": "active",
+      "directory_scopes": "active",
+      "representations": "active",
+      "ownership_and_review": "active"
     }
   },
   "requirement_closure": {
@@ -14915,326 +14915,326 @@
   },
   "console_generation_readback": {
     "complete": true,
-    "generation_id": "project-console-3388c47183ffea8fd4fd",
-    "source_revision": "b82764f21a39c14e35c371cc6a4530d4a1b11c82",
+    "generation_id": "project-console-b2b0b1a85945551b73ef",
+    "source_revision": "e08b39e9798e6c6cba884eccb7925ee738792404",
     "availability": "current",
     "completeness": {
-      "actual_count": 5854,
+      "actual_count": 5859,
       "complete": true,
-      "expected_count": 5854,
+      "expected_count": 5859,
       "missing_count": 0
     },
     "catalog": {
-      "path": "research/project-console/catalog-data.js",
-      "bytes": 121239,
-      "sha256": "sha256:c9e2d5996c50eef51da8743dc029b2c04e0253cf390cf474898e1a77b00ac418"
+      "path": "framework/project/interfaces/project-console/catalog-data.js",
+      "bytes": 124845,
+      "sha256": "sha256:43a2766136f2a0650237ef9b584f6956441b67183fe814379203c904a24e09a5"
     },
     "generation_manifest": {
-      "path": "research/project-console/data/generation-manifest.json",
+      "path": "framework/project/interfaces/project-console/data/generation-manifest.json",
       "bytes": 25027,
-      "sha256": "sha256:9eda19c2af36b4d4f4ec0a10a32f78eabfe8c9e3c308830adea498283af800e7"
+      "sha256": "sha256:fa33237e90296191e15a94ae3b9ec9a0fe0064f9c88bee4ec5282d4f31642b6a"
     },
-    "source_hash_map_sha256": "7a82b7855084295bfafa10cb24a8c2e86530b2a5ce8c734af57ae591f663f2bb",
+    "source_hash_map_sha256": "68e74d54190ed68efb1be5cde63626625ed62d32fd2f9706ef641f6dd70e08dc",
     "domain_count": 42,
     "domains": [
       {
-        "path": "research/project-console/data/automation.js",
-        "bytes": 36503,
-        "sha256": "sha256:d19b89c4efda67760313a97bb55f673930ecc91258589d2fe68f9e6154b994c7",
+        "path": "framework/project/interfaces/project-console/data/automation.js",
+        "bytes": 36490,
+        "sha256": "sha256:1f454644f45159b4fb60e6f17705467ce2cb5a37fcc491ed6aab82123d59fd3b",
         "record_count": 29
       },
       {
-        "path": "research/project-console/data/candidates.js",
-        "bytes": 1419349,
-        "sha256": "sha256:615d1747da0374740e994c164078f8d493cad6387c543c4377b080c3be6908e7",
+        "path": "framework/project/interfaces/project-console/data/candidates.js",
+        "bytes": 1420246,
+        "sha256": "sha256:c11f979dd0d9a2832eca11f47e74cdaf11cbfa7865056fa17b7e46417000d8ac",
         "record_count": 43
       },
       {
-        "path": "research/project-console/data/component-registry.js",
-        "bytes": 1447216,
-        "sha256": "sha256:b35ce0296fc41b232a611c673221d9a98d92f6e1861ed89f28e31dab7ef2407e",
+        "path": "framework/project/interfaces/project-console/data/component-registry.js",
+        "bytes": 1447016,
+        "sha256": "sha256:f0d1739ee4ed095a1f3b781458aae550b40c79b606c71111325b2236373cf6f1",
         "record_count": 381
       },
       {
-        "path": "research/project-console/data/directives-catalog-001.js",
-        "bytes": 197005,
-        "sha256": "sha256:43e6d7402cac564878d5c62ccc4b0bcdb72c9c235dbf1b0387c1ad05c33abda0",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-001.js",
+        "bytes": 196998,
+        "sha256": "sha256:3e4b913c56af2bf33b9164ae4fb9933c23f944374ab974d376c14fb8ee02c47f",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-002.js",
-        "bytes": 192839,
-        "sha256": "sha256:25123b9035b91b8dbf9530acb6dbcaa41abafa76d642aa8935e05e489f2a9982",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-002.js",
+        "bytes": 192832,
+        "sha256": "sha256:2853c17331ec253f1db7e810d7a4a1d9b9aa870fdf18f5d3ad408838b1142cb1",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-003.js",
-        "bytes": 191523,
-        "sha256": "sha256:796dd0f9cc622ab9d024c77fb4e124a2e678f45e49d230071e7ea6f03b44bd7a",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-003.js",
+        "bytes": 191516,
+        "sha256": "sha256:dff3ef1073430ee32f67eafc73eb03ae9a1be475d9669afe73e00206d7c39ac3",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-004.js",
-        "bytes": 191920,
-        "sha256": "sha256:892216ec5f606416fd21a3a68e53a18a9a403a1740f77d2f92ac2a3f4ff610ec",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-004.js",
+        "bytes": 191913,
+        "sha256": "sha256:5661ce4dfedeb0e9d0e86ab054174376b7d82f209b872f4f74d3703bd9788149",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-005.js",
-        "bytes": 192479,
-        "sha256": "sha256:62528b47332782a5c8ced94eb73c02ff7c6137ddfd42fa3428222e9130e95047",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-005.js",
+        "bytes": 192472,
+        "sha256": "sha256:08207af1a53bc3cfaf40686da6f7769018134a9296a5f3d6954e9563a3ac1dba",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-006.js",
-        "bytes": 189468,
-        "sha256": "sha256:eaa3073c5804f7464486e7051fe3ed71bc952c42a7ec19e55352b7bd03d76326",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-006.js",
+        "bytes": 189461,
+        "sha256": "sha256:0fdc3edbf7df679841cbeaea77ee77dca535ddbe1de3de79bbd280a7d555c132",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-007.js",
-        "bytes": 190098,
-        "sha256": "sha256:44bb3d633ed3fa36c316ab0524bafdc499a9ee8212cb555c0f0df446117c3519",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-007.js",
+        "bytes": 190091,
+        "sha256": "sha256:a67c13a72462b6d6951b69f4316166a0eb7fe45e1cf72f66c7e35e2bc810b562",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-008.js",
-        "bytes": 191601,
-        "sha256": "sha256:c642d5bf7b756eba7cc6ff9c92a8ddb5915f76f666173be3b070736696d7b0a3",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-008.js",
+        "bytes": 191594,
+        "sha256": "sha256:211b8c2e8dbe62b6b6a94434618a129def97c43ff6d8ddf58972edaabee58e4f",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-009.js",
-        "bytes": 189867,
-        "sha256": "sha256:41df1b006db63f6379e9164a00da6386f51466de6ce3a1e064614a163b8d3d47",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-009.js",
+        "bytes": 189860,
+        "sha256": "sha256:fab477a1bbfa9b217cd954a436a0dff0065e718710ef597041334464f096306c",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-010.js",
-        "bytes": 190725,
-        "sha256": "sha256:bc30979cc5e4d1c593c9a4a55d1e0aa7d905edf9063116a31f810770da666026",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-010.js",
+        "bytes": 190718,
+        "sha256": "sha256:9544e2bbe4177894d3d1c0871d36af6c8b3013812dd89748d97b53f4c4f3a87b",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-011.js",
-        "bytes": 193159,
-        "sha256": "sha256:9d73ead0a50e3bdc363bac9a6f302960ccda479019be73196a22d397f6091bc6",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-011.js",
+        "bytes": 193152,
+        "sha256": "sha256:4e1dea4198f1aff691cc6f7ad16bb1cc990e5f01e348e6d0e913b60329d9d105",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-012.js",
-        "bytes": 193379,
-        "sha256": "sha256:f55cd54f816c3b6c43bc88ab24fbdd00f65c21f462dc3d0f410d613258b437c2",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-012.js",
+        "bytes": 193372,
+        "sha256": "sha256:9f4981318180283faaff8f1371d1a525bcfa35017f9cf9c12c667eafd7d9d493",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-013.js",
-        "bytes": 189932,
-        "sha256": "sha256:19ab6531391d375c50545ea76ea8a82d26bd1dd826eb95c96a3946311a53744f",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-013.js",
+        "bytes": 189925,
+        "sha256": "sha256:bfd0fd9bd7bcb30ccdcec11f5c246df258ae8280de629adae34f37bd0b3dc6a8",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-014.js",
-        "bytes": 191245,
-        "sha256": "sha256:efcb0fa2781320b8e6fe4e45f67844436089e2d4f14ff2ff833e6e5ae84f0fd7",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-014.js",
+        "bytes": 191238,
+        "sha256": "sha256:46330f5dd6a2475906f85859b3d71eb58d5eec920a312234816d2c0e1581bf94",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-015.js",
-        "bytes": 189986,
-        "sha256": "sha256:b2e34ce044896755826934d3dcc0d66378dde69c5b3691a624fe8eea99c4f994",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-015.js",
+        "bytes": 189979,
+        "sha256": "sha256:c6cc2a8db6881fc3a7df2f7bbea463ed106d55e9a41b33b16e9d4e4a92c17a39",
         "record_count": 189
       },
       {
-        "path": "research/project-console/data/directives-catalog-016.js",
-        "bytes": 180395,
-        "sha256": "sha256:8d85987a893ab138a7546c352fd4096e2f0e96fb48e31261cc4023cab0d2b8d0",
+        "path": "framework/project/interfaces/project-console/data/directives-catalog-016.js",
+        "bytes": 180388,
+        "sha256": "sha256:d0378727ad1ed5d7442c5f22d8648441a8b9001bed09aaeec7febaa679eb5bc5",
         "record_count": 180
       },
       {
-        "path": "research/project-console/data/integrity.js",
-        "bytes": 2148,
-        "sha256": "sha256:0fc5eae29a2405d45307641d38d1daa1558dc802d087e3079a6de8903fe969e3",
-        "record_count": 23
+        "path": "framework/project/interfaces/project-console/data/integrity.js",
+        "bytes": 3054,
+        "sha256": "sha256:a3830b33605aa249e377acaac712ad19c243454cf3faa9562427573dd5ac6209",
+        "record_count": 25
       },
       {
-        "path": "research/project-console/data/logs.js",
-        "bytes": 552381,
-        "sha256": "sha256:def21a31280eddd5ef75524b8063e89bbe8de9511c589536969da9e80b042a61",
+        "path": "framework/project/interfaces/project-console/data/logs.js",
+        "bytes": 556229,
+        "sha256": "sha256:293c5e6b04f7bca14ba1693b2e3c8ec1b01684b35f63380af7b496221c591426",
         "record_count": 9
       },
       {
-        "path": "research/project-console/data/overview.js",
-        "bytes": 102147,
-        "sha256": "sha256:20aec8e814b73a75cf9a8e8d7c9d52b07f591535b84a4a64f418ffa425f5c7e8",
-        "record_count": 115
+        "path": "framework/project/interfaces/project-console/data/overview.js",
+        "bytes": 106793,
+        "sha256": "sha256:2e52f1746d17ad954cb8f87bacb9a9af3c2b467d0ddc8f8e80b41396ffbfb190",
+        "record_count": 119
       },
       {
-        "path": "research/project-console/data/progress.js",
-        "bytes": 479234,
-        "sha256": "sha256:a5ab3bdf38d29857ca80a0ac4235673cc58816ca42b8fa790acda8a7a5a65023",
+        "path": "framework/project/interfaces/project-console/data/progress.js",
+        "bytes": 479303,
+        "sha256": "sha256:36052456de8f66932e0577b0b7beb20ec2638952c0dc5d3f904ac8ddd8838b91",
         "record_count": 364
       },
       {
-        "path": "research/project-console/data/publication.js",
-        "bytes": 693623,
-        "sha256": "sha256:1c82bf7acf199a787bd306f8de25b9f8f08c12883baf363e3963365b73454601",
-        "record_count": 747
+        "path": "framework/project/interfaces/project-console/data/publication.js",
+        "bytes": 699428,
+        "sha256": "sha256:64a823d9ebf99ed106cfcd2bde9141f3700d749399be612644cd5e3e8d24f52b",
+        "record_count": 757
       },
       {
-        "path": "research/project-console/data/source-checker.js",
-        "bytes": 1205004,
-        "sha256": "sha256:0af24174c29a6ee9bf9ace6f379850451775ec07362f4425d665b7a35153fa75",
+        "path": "framework/project/interfaces/project-console/data/source-checker.js",
+        "bytes": 1205305,
+        "sha256": "sha256:d70217e3f6c6ad8e328d0f89ff86dcb05fcce62d966b650bb1c2c4dc2e99d859",
         "record_count": 2064
       },
       {
-        "path": "research/project-console/data/sources-catalog-001.js",
-        "bytes": 132073,
-        "sha256": "sha256:b2183f0c575ffb77647e118248aa732286b7825b22a3e95a60100eb300df9104",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-001.js",
+        "bytes": 132066,
+        "sha256": "sha256:9c09a11f7cae82c1b4f77fd53447a94c6db26f9bb4fcf659a6d8c3630659c25f",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-002.js",
-        "bytes": 148337,
-        "sha256": "sha256:de18aef82e228de562d13acf6e36e554cdb95518b792944e9f182adcac1414d7",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-002.js",
+        "bytes": 148330,
+        "sha256": "sha256:feb67f5d2636eb50f909083a46dc619aeee3f4d2d801865e1379f6d08d17a67f",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-003.js",
-        "bytes": 157274,
-        "sha256": "sha256:6886eb541e1b74ad6279f43e11ce232f5f62ae045eaf4fa102f7786cbc8cad1e",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-003.js",
+        "bytes": 157267,
+        "sha256": "sha256:9659a8a5f61d0c8d6be34c5d1d67f2e4b73a877278a5f8d0cdcc90f786c26319",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-004.js",
-        "bytes": 161863,
-        "sha256": "sha256:9a7a3fccaf4a0a6c83d411364a89d3df6a85bc082b8c2cd30fe97dfa72fa87ec",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-004.js",
+        "bytes": 161876,
+        "sha256": "sha256:5e75599780db5aa3cb1332d7256109aa4e4e4a61d078f32c2d7d236b455f9c0f",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-005.js",
-        "bytes": 147692,
-        "sha256": "sha256:2380ebc5d46bdd0770963f3341ca374d69cbcd378e022b05603a2e6a73731715",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-005.js",
+        "bytes": 147685,
+        "sha256": "sha256:436aef6e371d58f2ab36666a3e347cb623b5bf81d622e535b4293fd2ec71a8bf",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-006.js",
-        "bytes": 175265,
-        "sha256": "sha256:39b318a2aa859abba70e7ce4a203fb37d94ac9c832e06cd210512ab1cd3b9fed",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-006.js",
+        "bytes": 175298,
+        "sha256": "sha256:a766b905370aa3d35d2f699d4ac4f6270f2778f0d7eef7e87f1c7410bb6f6638",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-007.js",
-        "bytes": 194692,
-        "sha256": "sha256:d162682287cbd07404c3438265aca7bbcd1fd65b09d1f38d53edbd1188e4010e",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-007.js",
+        "bytes": 194685,
+        "sha256": "sha256:a7889465b2355c8f3eefcbe71f0b2d98ff1e731dc9dd07b7da3828039887f61e",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-008.js",
-        "bytes": 165787,
-        "sha256": "sha256:b74e33b479a142c89909ee393fefb99b8036680960a615ebeca76e8871b8e648",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-008.js",
+        "bytes": 165780,
+        "sha256": "sha256:1b76cdabb0446a72569aaad67d47cc6f0ec5c873b425f86c75dae006a214c87c",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-009.js",
-        "bytes": 158635,
-        "sha256": "sha256:3997f0a76b56eb9d123578f091f70e9ddfa935cc505a748f4d98475cbc5bfec0",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-009.js",
+        "bytes": 158628,
+        "sha256": "sha256:08d71b8a8db12155728a15f295a627b3abc77ecdd1e8b7ba226b36ad4ec56a6c",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-010.js",
-        "bytes": 179908,
-        "sha256": "sha256:d4a8937e99e88aa1cef6c11cfa45ee62a6d24e7ab97481fb27da3c89a0ea0327",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-010.js",
+        "bytes": 179901,
+        "sha256": "sha256:787378733af43f375aac47d2aac79a7b8ad7993c205047df83066262018e465d",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-011.js",
-        "bytes": 185734,
-        "sha256": "sha256:cf1737981b5286ff83ed73606cc696ff1f9587011257ef4b9d9ab55bfec61b05",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-011.js",
+        "bytes": 185727,
+        "sha256": "sha256:ec392e416821135e54f38785c5bb5c92acc750834fdfee26281fd12d8852df1b",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-012.js",
-        "bytes": 189916,
-        "sha256": "sha256:8d1da91faf7b50c74eab5a474c44ed4a5bb9286e69256eab6aa631c5292b227d",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-012.js",
+        "bytes": 189909,
+        "sha256": "sha256:84c43545c870f0ddd680bbf44a85e14ec189469f791bac9fe150e4cf292f8a15",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-013.js",
-        "bytes": 184382,
-        "sha256": "sha256:904e3a1615d43d43b120701f4009895f9d0f7355c1b5eb2b3e7134b30b3b6347",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-013.js",
+        "bytes": 184375,
+        "sha256": "sha256:06c82069e85e56096d1035897d2acb13ec139d09ab8acd2b506f792b1d8758d5",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-014.js",
-        "bytes": 177061,
-        "sha256": "sha256:c525974a0d55aa080eb222de7f45fbf4fe186b567be348c834981e36b1753997",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-014.js",
+        "bytes": 177054,
+        "sha256": "sha256:35b965dbbddd348f3351686a0964a5871a8ffeb3e87806b3b5a1741c87aab5e7",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-015.js",
-        "bytes": 177535,
-        "sha256": "sha256:1a1ea943350059d0aef99817e5563f0c729a92bd5d417d128527c09cebe85c6f",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-015.js",
+        "bytes": 177528,
+        "sha256": "sha256:3a0b1a53187e2ba9695c6498a69a9c573968d4be77786efa8e49dbee26ad960f",
         "record_count": 129
       },
       {
-        "path": "research/project-console/data/sources-catalog-016.js",
-        "bytes": 149384,
-        "sha256": "sha256:b986d48a4220c8e2a2a8a506c8155e61cda6af46d863e29e00954d264593a55e",
+        "path": "framework/project/interfaces/project-console/data/sources-catalog-016.js",
+        "bytes": 149377,
+        "sha256": "sha256:1ad380d47395063d7e1d9d0639b98ea1dd48120153ff186320523ed8fb22da7a",
         "record_count": 120
       },
       {
-        "path": "research/project-console/data/sources.js",
-        "bytes": 2484662,
-        "sha256": "sha256:bd3e843bcf0a45a8c7f3c45da7d363dcd4ed1948c74debbd077ccc117ddcdaf6",
+        "path": "framework/project/interfaces/project-console/data/sources.js",
+        "bytes": 2477380,
+        "sha256": "sha256:02a19973d7e6956975e3d6fb8e6b95ba3a7936488eb54f2b4f97b1790f312e51",
         "record_count": 529
       }
     ],
     "public_file_set": [
-      "research/project-console/catalog-data.js",
-      "research/project-console/data/generation-manifest.json",
-      "research/project-console/data/automation.js",
-      "research/project-console/data/candidates.js",
-      "research/project-console/data/component-registry.js",
-      "research/project-console/data/directives-catalog-001.js",
-      "research/project-console/data/directives-catalog-002.js",
-      "research/project-console/data/directives-catalog-003.js",
-      "research/project-console/data/directives-catalog-004.js",
-      "research/project-console/data/directives-catalog-005.js",
-      "research/project-console/data/directives-catalog-006.js",
-      "research/project-console/data/directives-catalog-007.js",
-      "research/project-console/data/directives-catalog-008.js",
-      "research/project-console/data/directives-catalog-009.js",
-      "research/project-console/data/directives-catalog-010.js",
-      "research/project-console/data/directives-catalog-011.js",
-      "research/project-console/data/directives-catalog-012.js",
-      "research/project-console/data/directives-catalog-013.js",
-      "research/project-console/data/directives-catalog-014.js",
-      "research/project-console/data/directives-catalog-015.js",
-      "research/project-console/data/directives-catalog-016.js",
-      "research/project-console/data/integrity.js",
-      "research/project-console/data/logs.js",
-      "research/project-console/data/overview.js",
-      "research/project-console/data/progress.js",
-      "research/project-console/data/publication.js",
-      "research/project-console/data/source-checker.js",
-      "research/project-console/data/sources-catalog-001.js",
-      "research/project-console/data/sources-catalog-002.js",
-      "research/project-console/data/sources-catalog-003.js",
-      "research/project-console/data/sources-catalog-004.js",
-      "research/project-console/data/sources-catalog-005.js",
-      "research/project-console/data/sources-catalog-006.js",
-      "research/project-console/data/sources-catalog-007.js",
-      "research/project-console/data/sources-catalog-008.js",
-      "research/project-console/data/sources-catalog-009.js",
-      "research/project-console/data/sources-catalog-010.js",
-      "research/project-console/data/sources-catalog-011.js",
-      "research/project-console/data/sources-catalog-012.js",
-      "research/project-console/data/sources-catalog-013.js",
-      "research/project-console/data/sources-catalog-014.js",
-      "research/project-console/data/sources-catalog-015.js",
-      "research/project-console/data/sources-catalog-016.js",
-      "research/project-console/data/sources.js"
+      "framework/project/interfaces/project-console/catalog-data.js",
+      "framework/project/interfaces/project-console/data/generation-manifest.json",
+      "framework/project/interfaces/project-console/data/automation.js",
+      "framework/project/interfaces/project-console/data/candidates.js",
+      "framework/project/interfaces/project-console/data/component-registry.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-001.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-002.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-003.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-004.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-005.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-006.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-007.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-008.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-009.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-010.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-011.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-012.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-013.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-014.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-015.js",
+      "framework/project/interfaces/project-console/data/directives-catalog-016.js",
+      "framework/project/interfaces/project-console/data/integrity.js",
+      "framework/project/interfaces/project-console/data/logs.js",
+      "framework/project/interfaces/project-console/data/overview.js",
+      "framework/project/interfaces/project-console/data/progress.js",
+      "framework/project/interfaces/project-console/data/publication.js",
+      "framework/project/interfaces/project-console/data/source-checker.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-001.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-002.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-003.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-004.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-005.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-006.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-007.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-008.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-009.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-010.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-011.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-012.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-013.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-014.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-015.js",
+      "framework/project/interfaces/project-console/data/sources-catalog-016.js",
+      "framework/project/interfaces/project-console/data/sources.js"
     ]
   },
   "stage_boundaries": {

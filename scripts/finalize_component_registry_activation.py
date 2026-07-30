@@ -418,6 +418,38 @@ def _candidate_transition_evidence(
         raise ActivationFinalizationError(
             "reviewed activation parent is not a candidate registry"
         )
+    candidate_parents = _git(
+        authority.repository_root,
+        "rev-list",
+        "--parents",
+        "-n",
+        "1",
+        candidate_revision,
+    ).split()
+    if (
+        len(candidate_parents) != 2
+        or candidate_parents[0] != candidate_revision
+    ):
+        raise ActivationFinalizationError(
+            "candidate parent lacks one exact source-baseline parent"
+        )
+    candidate_base = candidate["source_baseline"]["repository_revision"]
+    if candidate_base != candidate_parents[1]:
+        raise ActivationFinalizationError(
+            "candidate parent source baseline is not its immediate parent"
+        )
+    candidate_route = registry._routing_snapshot(candidate)
+    expected_candidate_binding = registry._route_source_binding(
+        candidate_base,
+        candidate_route,
+    )
+    if (
+        candidate["source_baseline"]["working_tree_binding"]["sha256"]
+        != expected_candidate_binding
+    ):
+        raise ActivationFinalizationError(
+            "candidate parent route binding is not exact"
+        )
     candidate_digest = registry._canonical_registry_digest(candidate)
     if approval.get("candidate_registry_sha256") != candidate_digest:
         raise ActivationFinalizationError(

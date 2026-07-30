@@ -4,7 +4,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "overview": {
     "automation_occurrences": {
       "schema_version": 2,
-      "checked_at": "2026-07-30T14:02:11+00:00",
+      "checked_at": "2026-07-30T15:16:34+00:00",
       "occurrences": [
         {
           "occurrence_id": "https://github.com/Thorncrag/ARRP/actions/runs/30249971183",
@@ -185,13 +185,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         {
           "producer": "project-integrity-bot",
-          "value": "2026-07-30T03:10:59+00:00",
-          "availability": "stale"
+          "value": "2026-07-30T15:02:37+00:00",
+          "availability": "current"
         },
         {
           "producer": "source-checker-bot",
-          "value": "2026-07-29T02:16:48+00:00",
-          "availability": "stale"
+          "value": "2026-07-30T14:26:04+00:00",
+          "availability": "current"
         },
         {
           "producer": "run-coordinator-bot",
@@ -216,7 +216,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "data_directory": {
       "schema_version": 1,
-      "generated_at": "2026-07-30T14:02:11+00:00",
+      "generated_at": "2026-07-30T15:16:34+00:00",
       "rows": [
         {
           "feed_id": "progress",
@@ -234,24 +234,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "feed_id": "sources",
           "label": "Sources",
-          "availability": "stale",
-          "complete": false,
-          "reason": "The producer does not establish complete current coverage.",
-          "trustworthy_through": "2026-07-29T02:16:48+00:00",
+          "availability": "current",
+          "complete": true,
+          "reason": "The producer declares this projection complete.",
+          "trustworthy_through": "2026-07-30T14:26:04+00:00",
           "producer": "source-checker-bot",
           "route": "planning:sources",
           "recovery_route": "automation:agents:source-checker-bot",
-          "generation_id": "source-checker-52cc9626eca8f2f0f34a",
-          "schema_errors": [
-            {
-              "code": "current_catalog_hash_superseded",
-              "severity": "error",
-              "catalog": "inventory/sources.csv",
-              "message": "Current catalog content differs from the checker generation.",
-              "producer_hash": "sha256:763a125475a90c45b0b4277a26106d8f3861d3201e5bb6ee1ef9810dff006a50",
-              "current_hash": "sha256:50c8e018da9f3fdd46b18dce130815003cbd1fd935d373fa8f3121671c301326"
-            }
-          ]
+          "generation_id": "source-checker-27540246a2c1afe1fceb",
+          "schema_errors": []
         },
         {
           "feed_id": "automation_occurrences",
@@ -287,30 +278,22 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "feed_id": "integrity",
           "label": "Integrity",
-          "availability": "stale",
+          "availability": "current",
           "complete": true,
           "reason": "The producer declares this projection complete.",
-          "trustworthy_through": "2026-07-30T03:10:59+00:00",
+          "trustworthy_through": "2026-07-30T15:02:37+00:00",
           "producer": "project-integrity-bot",
           "route": "integrity",
           "recovery_route": "automation:agents:project-integrity-bot",
-          "generation_id": "project-integrity-c399975c33d69d108d53",
-          "schema_errors": [
-            {
-              "code": "repository_revision_superseded",
-              "severity": "warning",
-              "message": "Integrity generation is not bound to the authoritative repository revision.",
-              "expected_source_revision": "0b394db1bdfbe8a76632e56bf5ed8587714e7ce2",
-              "producer_source_revision": "b82764f21a39c14e35c371cc6a4530d4a1b11c82"
-            }
-          ]
+          "generation_id": "project-integrity-ecd93a60c8e266b2da1b",
+          "schema_errors": []
         }
       ]
     },
     "action_snapshot": {
       "schema_version": 1,
-      "generation_id": "action-snapshot-ed977286fe8d967be778",
-      "generated_at": "2026-07-30T14:02:11+00:00",
+      "generation_id": "action-snapshot-94eba5e759b513236057",
+      "generated_at": "2026-07-30T15:16:34+00:00",
       "availability": "partial",
       "complete": false,
       "items": [
@@ -336,7 +319,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Source Monitor recommendation",
           "message": "Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current main?",
           "source_url": "#logs:source-monitor",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "repository-decision:SMR-20260725-PR381",
@@ -360,7 +343,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Source Monitor recommendation",
           "message": "Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current main?",
           "source_url": "#logs:source-monitor",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "project-human-decision:JUD-009",
@@ -384,7 +367,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Status field",
           "message": "JUD-009: Supreme Court Ethics, Recusal, and Transparency",
           "source_url": "#actions",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:DOJ-004",
@@ -408,7 +391,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "DOJ-004 is Blocked but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:ELEC-014",
@@ -432,7 +415,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "ELEC-014 is Blocked but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-010",
@@ -456,7 +439,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-010 is Deferred but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-023",
@@ -480,7 +463,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-023 is Deferred but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-031",
@@ -504,7 +487,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-031 is Blocked but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-038",
@@ -528,7 +511,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-038 is Deferred but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-045",
@@ -552,7 +535,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-045 is Deferred but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "next-action-missing:HOR-026",
@@ -576,7 +559,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Next action field",
           "message": "HOR-026: Next action is not recorded",
           "source_url": "#integrity",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "next-action-missing:HOR-027",
@@ -600,7 +583,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Next action field",
           "message": "HOR-027: Next action is not recorded",
           "source_url": "#integrity",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "next-action-missing:HOR-029",
@@ -624,7 +607,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Next action field",
           "message": "HOR-029: Next action is not recorded",
           "source_url": "#integrity",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "next-action-missing:HOR-039",
@@ -648,7 +631,55 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Next action field",
           "message": "HOR-039: Next action is not recorded",
           "source_url": "#integrity",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
+        },
+        {
+          "item_id": "integrity:INT-37b3dd2c4710011a",
+          "work_kind": "integrity_obligation",
+          "finding_code": "github_pages_readback_unavailable",
+          "label": "GitHub Pages deployment synchronization could not be verified.",
+          "status": "open",
+          "owner": "Elim",
+          "attention_class": "oversight",
+          "authority": "Project Integrity report",
+          "source_record_id": "INT-37b3dd2c4710011a",
+          "detected_at": "2026-07-30T15:02:37+00:00",
+          "next_action": "Rerun Project Integrity with registered GitHub access.",
+          "route": "integrity",
+          "specialist_route": "integrity",
+          "resolution_predicate": "The same stable finding identity is absent from a newer complete report.",
+          "reference": "integrity:INT-37b3dd2c4710011a",
+          "category": "Integrity obligation",
+          "severity": "warning",
+          "attention": "oversight",
+          "reported_by": "Project Integrity report",
+          "message": "GitHub Pages deployment synchronization could not be verified.",
+          "source_url": "#integrity",
+          "checked_at": "2026-07-30T15:16:34+00:00"
+        },
+        {
+          "item_id": "integrity:INT-7fc8c3ac82d977f9",
+          "work_kind": "integrity_obligation",
+          "finding_code": "github_issues_readback_unavailable",
+          "label": "GitHub Issues synchronization could not be verified.",
+          "status": "open",
+          "owner": "Elim",
+          "attention_class": "oversight",
+          "authority": "Project Integrity report",
+          "source_record_id": "INT-7fc8c3ac82d977f9",
+          "detected_at": "2026-07-30T15:02:37+00:00",
+          "next_action": "Rerun Project Integrity with registered GitHub access.",
+          "route": "integrity",
+          "specialist_route": "integrity",
+          "resolution_predicate": "The same stable finding identity is absent from a newer complete report.",
+          "reference": "integrity:INT-7fc8c3ac82d977f9",
+          "category": "Integrity obligation",
+          "severity": "warning",
+          "attention": "oversight",
+          "reported_by": "Project Integrity report",
+          "message": "GitHub Issues synchronization could not be verified.",
+          "source_url": "#integrity",
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "integrity:INT-c8c79404280b5748",
@@ -660,7 +691,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "attention_class": "oversight",
           "authority": "Project Integrity report",
           "source_record_id": "INT-c8c79404280b5748",
-          "detected_at": "2026-07-30T03:10:59+00:00",
+          "detected_at": "2026-07-30T15:02:37+00:00",
           "next_action": "Run the registered authenticated Console refresh.",
           "route": "integrity",
           "specialist_route": "integrity",
@@ -672,7 +703,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "Project Integrity report",
           "message": "GitHub Project synchronization could not be verified because the registered read-only access was unavailable.",
           "source_url": "#integrity",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         }
       ],
       "counts": {
@@ -682,8 +713,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "known_counts": {
         "human": 3,
-        "oversight": 12,
-        "all_open": 15
+        "oversight": 14,
+        "all_open": 17
       },
       "sources": {
         "operational_incidents": {
@@ -712,7 +743,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "queue_directory": {
       "schema_version": 1,
       "generation_id": "queue-directory-fe74b10926ca63074939",
-      "generated_at": "2026-07-30T14:02:11+00:00",
+      "generated_at": "2026-07-30T15:16:34+00:00",
       "availability": "partial",
       "complete": false,
       "queues": [
@@ -728,7 +759,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "planning:workbench:pipeline:work_class=Preliminary%20candidate",
           "problem_route": "planning:preliminary",
           "generation_id": "queue-directory-fe74b10926ca63074939",
-          "current_through": "2026-07-30T14:02:11+00:00",
+          "current_through": "2026-07-30T15:16:34+00:00",
           "problem_state": "none",
           "impact_state": null
         },
@@ -824,7 +855,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "planning:sources:status=pending",
           "problem_route": "planning:sources",
           "generation_id": "queue-directory-fe74b10926ca63074939",
-          "current_through": "2026-07-30T14:02:11+00:00",
+          "current_through": "2026-07-30T15:16:34+00:00",
           "problem_state": "none",
           "impact_state": null
         },
@@ -856,7 +887,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "actions:my-items",
           "problem_route": "integrity",
           "generation_id": "queue-directory-fe74b10926ca63074939",
-          "current_through": "2026-07-30T14:02:11+00:00",
+          "current_through": "2026-07-30T15:16:34+00:00",
           "problem_state": "unavailable",
           "impact_state": null
         },
@@ -872,7 +903,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "automation:logs:incidents",
           "problem_route": "automation:logs:incidents",
           "generation_id": "queue-directory-fe74b10926ca63074939",
-          "current_through": "2026-07-30T14:02:11+00:00",
+          "current_through": "2026-07-30T15:16:34+00:00",
           "problem_state": "unavailable",
           "impact_state": "gray"
         },
@@ -961,7 +992,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Source Monitor recommendation",
           "message": "Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current main?",
           "source_url": "#logs:source-monitor",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "repository-decision:SMR-20260725-PR381",
@@ -985,7 +1016,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Source Monitor recommendation",
           "message": "Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current main?",
           "source_url": "#logs:source-monitor",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         },
         {
           "item_id": "project-human-decision:JUD-009",
@@ -1009,7 +1040,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Status field",
           "message": "JUD-009: Supreme Court Ethics, Recusal, and Transparency",
           "source_url": "#actions",
-          "checked_at": "2026-07-30T14:02:11+00:00"
+          "checked_at": "2026-07-30T15:16:34+00:00"
         }
       ],
       "active_incidents": null,
@@ -1154,26 +1185,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "progress"
         }
       ],
-      "integrity_findings": 1,
+      "integrity_findings": 3,
       "integrity_findings_available": true,
-      "source_checker_complete": false,
+      "source_checker_complete": true,
       "delivery_items": 12,
       "delivery_items_available": true,
       "domain_attention": [
-        {
-          "domain": "integrity",
-          "status": "stale",
-          "reason": "The feed does not completely cover its current authoritative source.",
-          "timestamp": "2026-07-30T03:10:59+00:00",
-          "route": "integrity"
-        },
-        {
-          "domain": "source_checker",
-          "status": "stale",
-          "reason": "The feed does not completely cover its current authoritative source.",
-          "timestamp": "2026-07-29T02:16:48+00:00",
-          "route": "sources:assurance"
-        },
         {
           "domain": "publication_release",
           "status": "not_determined",
@@ -1417,14 +1434,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items": 12
     },
     "integrity_summary": {
-      "generated_at": "2026-07-30T03:10:59+00:00",
-      "source_revision": "b82764f21a39c14e35c371cc6a4530d4a1b11c82",
-      "availability": "stale",
+      "generated_at": "2026-07-30T15:02:37+00:00",
+      "source_revision": "e08b39e9798e6c6cba884eccb7925ee738792404",
+      "availability": "current",
       "result": "findings",
       "counts": {
         "errors": 0,
-        "warnings": 1,
-        "findings": 1,
+        "warnings": 3,
+        "findings": 3,
         "issue_pages": 64,
         "proposal_pages": 41
       }
@@ -1446,19 +1463,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "topic_product_count": 5
     },
     "source_checker_summary": {
-      "checked_at": "2026-07-29T02:16:48+00:00",
-      "source_revision": "5672b158a9cdfda4ca754ddcaa939bd0b26509f2",
-      "availability": "stale",
+      "checked_at": "2026-07-30T14:26:04+00:00",
+      "source_revision": "e08b39e9798e6c6cba884eccb7925ee738792404",
+      "availability": "current",
       "expected_count": 2055,
       "actual_count": 2055,
       "counts": {
-        "access restricted": 689,
-        "broken": 14,
+        "access restricted": 692,
+        "broken": 13,
         "identity mismatch": 3,
-        "identity-preserving redirect": 96,
-        "review required": 80,
-        "transient failure": 17,
-        "verified": 1156
+        "identity-preserving redirect": 97,
+        "review required": 82,
+        "transient failure": 9,
+        "verified": 1159
       }
     },
     "run_chain": {
@@ -1588,7 +1605,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   },
   "automation_occurrences": {
     "schema_version": 2,
-    "checked_at": "2026-07-30T14:02:11+00:00",
+    "checked_at": "2026-07-30T15:16:34+00:00",
     "occurrences": [
       {
         "occurrence_id": "https://github.com/Thorncrag/ARRP/actions/runs/30249971183",
@@ -1723,8 +1740,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   },
   "action_snapshot": {
     "schema_version": 1,
-    "generation_id": "action-snapshot-ed977286fe8d967be778",
-    "generated_at": "2026-07-30T14:02:11+00:00",
+    "generation_id": "action-snapshot-94eba5e759b513236057",
+    "generated_at": "2026-07-30T15:16:34+00:00",
     "availability": "partial",
     "complete": false,
     "items": [
@@ -1750,7 +1767,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Source Monitor recommendation",
         "message": "Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current main?",
         "source_url": "#logs:source-monitor",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
       },
       {
         "item_id": "repository-decision:SMR-20260725-PR381",
@@ -1774,7 +1791,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Source Monitor recommendation",
         "message": "Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current main?",
         "source_url": "#logs:source-monitor",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
       },
       {
         "item_id": "project-human-decision:JUD-009",
@@ -1798,7 +1815,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Status field",
         "message": "JUD-009: Supreme Court Ethics, Recusal, and Transparency",
         "source_url": "#actions",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:DOJ-004",
@@ -1822,7 +1839,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "DOJ-004 is Blocked but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:ELEC-014",
@@ -1846,7 +1863,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "ELEC-014 is Blocked but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-010",
@@ -1870,7 +1887,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-010 is Deferred but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-023",
@@ -1894,7 +1911,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-023 is Deferred but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-031",
@@ -1918,7 +1935,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-031 is Blocked but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-038",
@@ -1942,7 +1959,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-038 is Deferred but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-045",
@@ -1966,7 +1983,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-045 is Deferred but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
       },
       {
         "item_id": "next-action-missing:HOR-026",
@@ -1990,7 +2007,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Next action field",
         "message": "HOR-026: Next action is not recorded",
         "source_url": "#integrity",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
       },
       {
         "item_id": "next-action-missing:HOR-027",
@@ -2014,7 +2031,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Next action field",
         "message": "HOR-027: Next action is not recorded",
         "source_url": "#integrity",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
       },
       {
         "item_id": "next-action-missing:HOR-029",
@@ -2038,7 +2055,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Next action field",
         "message": "HOR-029: Next action is not recorded",
         "source_url": "#integrity",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
       },
       {
         "item_id": "next-action-missing:HOR-039",
@@ -2062,7 +2079,55 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Next action field",
         "message": "HOR-039: Next action is not recorded",
         "source_url": "#integrity",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
+      },
+      {
+        "item_id": "integrity:INT-37b3dd2c4710011a",
+        "work_kind": "integrity_obligation",
+        "finding_code": "github_pages_readback_unavailable",
+        "label": "GitHub Pages deployment synchronization could not be verified.",
+        "status": "open",
+        "owner": "Elim",
+        "attention_class": "oversight",
+        "authority": "Project Integrity report",
+        "source_record_id": "INT-37b3dd2c4710011a",
+        "detected_at": "2026-07-30T15:02:37+00:00",
+        "next_action": "Rerun Project Integrity with registered GitHub access.",
+        "route": "integrity",
+        "specialist_route": "integrity",
+        "resolution_predicate": "The same stable finding identity is absent from a newer complete report.",
+        "reference": "integrity:INT-37b3dd2c4710011a",
+        "category": "Integrity obligation",
+        "severity": "warning",
+        "attention": "oversight",
+        "reported_by": "Project Integrity report",
+        "message": "GitHub Pages deployment synchronization could not be verified.",
+        "source_url": "#integrity",
+        "checked_at": "2026-07-30T15:16:34+00:00"
+      },
+      {
+        "item_id": "integrity:INT-7fc8c3ac82d977f9",
+        "work_kind": "integrity_obligation",
+        "finding_code": "github_issues_readback_unavailable",
+        "label": "GitHub Issues synchronization could not be verified.",
+        "status": "open",
+        "owner": "Elim",
+        "attention_class": "oversight",
+        "authority": "Project Integrity report",
+        "source_record_id": "INT-7fc8c3ac82d977f9",
+        "detected_at": "2026-07-30T15:02:37+00:00",
+        "next_action": "Rerun Project Integrity with registered GitHub access.",
+        "route": "integrity",
+        "specialist_route": "integrity",
+        "resolution_predicate": "The same stable finding identity is absent from a newer complete report.",
+        "reference": "integrity:INT-7fc8c3ac82d977f9",
+        "category": "Integrity obligation",
+        "severity": "warning",
+        "attention": "oversight",
+        "reported_by": "Project Integrity report",
+        "message": "GitHub Issues synchronization could not be verified.",
+        "source_url": "#integrity",
+        "checked_at": "2026-07-30T15:16:34+00:00"
       },
       {
         "item_id": "integrity:INT-c8c79404280b5748",
@@ -2074,7 +2139,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "attention_class": "oversight",
         "authority": "Project Integrity report",
         "source_record_id": "INT-c8c79404280b5748",
-        "detected_at": "2026-07-30T03:10:59+00:00",
+        "detected_at": "2026-07-30T15:02:37+00:00",
         "next_action": "Run the registered authenticated Console refresh.",
         "route": "integrity",
         "specialist_route": "integrity",
@@ -2086,7 +2151,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "Project Integrity report",
         "message": "GitHub Project synchronization could not be verified because the registered read-only access was unavailable.",
         "source_url": "#integrity",
-        "checked_at": "2026-07-30T14:02:11+00:00"
+        "checked_at": "2026-07-30T15:16:34+00:00"
       }
     ],
     "counts": {
@@ -2096,8 +2161,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "known_counts": {
       "human": 3,
-      "oversight": 12,
-      "all_open": 15
+      "oversight": 14,
+      "all_open": 17
     },
     "sources": {
       "operational_incidents": {
@@ -2126,7 +2191,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "queue_directory": {
     "schema_version": 1,
     "generation_id": "queue-directory-fe74b10926ca63074939",
-    "generated_at": "2026-07-30T14:02:11+00:00",
+    "generated_at": "2026-07-30T15:16:34+00:00",
     "availability": "partial",
     "complete": false,
     "queues": [
@@ -2142,7 +2207,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "route": "planning:workbench:pipeline:work_class=Preliminary%20candidate",
         "problem_route": "planning:preliminary",
         "generation_id": "queue-directory-fe74b10926ca63074939",
-        "current_through": "2026-07-30T14:02:11+00:00",
+        "current_through": "2026-07-30T15:16:34+00:00",
         "problem_state": "none",
         "impact_state": null
       },
@@ -2238,7 +2303,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "route": "planning:sources:status=pending",
         "problem_route": "planning:sources",
         "generation_id": "queue-directory-fe74b10926ca63074939",
-        "current_through": "2026-07-30T14:02:11+00:00",
+        "current_through": "2026-07-30T15:16:34+00:00",
         "problem_state": "none",
         "impact_state": null
       },
@@ -2270,7 +2335,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "route": "actions:my-items",
         "problem_route": "integrity",
         "generation_id": "queue-directory-fe74b10926ca63074939",
-        "current_through": "2026-07-30T14:02:11+00:00",
+        "current_through": "2026-07-30T15:16:34+00:00",
         "problem_state": "unavailable",
         "impact_state": null
       },
@@ -2286,7 +2351,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "route": "automation:logs:incidents",
         "problem_route": "automation:logs:incidents",
         "generation_id": "queue-directory-fe74b10926ca63074939",
-        "current_through": "2026-07-30T14:02:11+00:00",
+        "current_through": "2026-07-30T15:16:34+00:00",
         "problem_state": "unavailable",
         "impact_state": "gray"
       },
@@ -2449,6 +2514,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-79f3b5b0b08802ff1a48"
+    "overview.js": "project-console-b2b0b1a85945551b73ef"
   }
 });

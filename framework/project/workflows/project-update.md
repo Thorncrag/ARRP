@@ -56,7 +56,7 @@ When updating the project, check whether the change requires inventory maintenan
 4. If an issue is audited, promoted, paused, retired, merged, given legislation, or materially revised, update the issue-page audit front matter, the issue-page **Proposal Scoring** summary, the sibling `ISSUE-ID.audit.md` audit-history file, and the GitHub Project item or fields. Detailed fields such as score basis, rubric version, Required Electoral Environment, Development Priority, Adoption Friction, legislation path, and notes belong in the issue page and audit-history sidecar, not as separate GitHub Project columns. `Score`, `Runs`, `Last audit`, `Next audit`, `Rebaseline status`, and `Change audit needed` are GitHub Project fields because they are operational audit-control flags needed for safe resumption and release triage.
 5. If the scoring template, audit schema, rubric version, or audit sidecar structure changes, run a **Change Audit** across all affected issue pages with **Proposal Scoring** sections to keep front matter, visible scoring boxes, audit sidecars, GitHub Project fields, and the governing rule that owns the change synchronized. This prevents drift between human-facing scores and machine-readable metadata without creating another cumulative audit ledger.
 6. If a candidate or source-development issue has no concrete draft vehicle, its **Proposed Legislation** section may use a single `Pending development` bullet. This is a page-content placeholder, not a Project Status. Do not treat it as a broken legislation link, but replace it with a linked bullet once a vehicle exists and update the Issue Snapshot vehicle, metadata, inventories, and GitHub Project fields if the issue's development level, workflow status, score, run count, last audit, or next audit changes.
-7. If a Horizon Scan audit is run, create or update GitHub Issues for active horizon candidates and add them to the GitHub Project horizon queue. Use the [`Horizon Scan Log`](../../records/candidates/horizon-scan-log.md) for disposition and integration history, not as the active horizon queue. Do not update issue pages, legislation, scores, or source records unless the user separately approves implementation.
+7. If a Horizon Scan audit is run, create or update GitHub Issues for active horizon candidates and add them to the GitHub Project horizon queue. Use the [`Candidate Discovery Log`](../../logs/candidates/candidate-discovery-log.md) for disposition and integration history, not as the active horizon queue. Do not update issue pages, legislation, scores, or source records unless the user separately approves implementation.
 8. If an external source is newly relied upon, removed, or used for a
    materially different proposition, apply the exact catalog ownership,
    field, path, and monitoring mappings in
@@ -104,7 +104,7 @@ Before treating an audited issue as complete:
    exists, the push was attempted when a remote is available, and every
    completion-critical hosted update and readback succeeded; and
 6. leave
-   [`framework/handoffs/current-task.md`](../../records/handoffs/current-task.md)
+   [`framework/handoffs/current-task.md`](../../handoffs/current-task.md)
    `Paused` or `Blocked` with the exact remaining synchronization step when an
    approval, authentication, network, remote, workflow, or publication failure
    prevents completion. Do not mark it `Inactive` while a completion-critical

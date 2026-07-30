@@ -2,7 +2,11 @@
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { contactMode, expectedTurnstile, intakeMode } = require("../api/security");
+const {
+  contactMode,
+  expectedTurnstile,
+  intakeMode,
+} = require("../../participate/api/security");
 
 function withEnvironment(values, callback) {
   const original = Object.fromEntries(Object.keys(values).map((key) => [key, process.env[key]]));

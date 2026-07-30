@@ -37,7 +37,7 @@ and [`topic-guides.md`](../../standards/content/topic-guides.md) standards.
   public topic guides.
 - [`../../../inventory/github_issue_registry.csv`](../../../inventory/github_issue_registry.csv)
   is the stable GitHub-item-to-canonical-page registry.
-- [`../../records/candidates/horizon-scan-log.md`](../../records/candidates/horizon-scan-log.md),
+- [`candidate-discovery-log.md`](../../logs/candidates/candidate-discovery-log.md),
   closed GitHub issues, issue audit histories, area pages, registry rows, and
   source records preserve final dispositions.
 

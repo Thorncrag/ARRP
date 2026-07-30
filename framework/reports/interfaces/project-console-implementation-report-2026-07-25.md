@@ -19,7 +19,7 @@ print_exclusion_reason: "Nonauthoritative internal implementation and validation
 This report documents implementation of the accepted recommendations in
 [`project-console-comprehensive-review-2026-07-25.md`](project-console-comprehensive-review-2026-07-25.md)
 and
-[`project-console-implementation-prompt-2026-07-25.md`](project-console-implementation-prompt-2026-07-25.md).
+[`project-console-implementation-prompt-2026-07-25.md`](../../archive/operational/project-console-implementation-prompt-2026-07-25.md).
 It does not replace the Framework, Agent Operating Rules, GitHub Project,
 canonical project records, registered runbooks, or publication authority.
 

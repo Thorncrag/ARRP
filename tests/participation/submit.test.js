@@ -9,10 +9,10 @@ const {
   discussionCommentBody,
   validateContact,
   validateSubmission,
-} = require("../api/_shared");
-const { resolveRoute } = require("../api/route-index");
-const contactEndpoint = require("../api/contact");
-const submitEndpoint = require("../api/submit");
+} = require("../../participate/api/_shared");
+const { resolveRoute } = require("../../participate/api/route-index");
+const contactEndpoint = require("../../participate/api/contact");
+const submitEndpoint = require("../../participate/api/submit");
 
 test("submission validation retains public content and removes excess whitespace", () => {
   const { submission, errors } = validateSubmission({

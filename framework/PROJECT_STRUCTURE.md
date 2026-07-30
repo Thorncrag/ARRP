@@ -39,7 +39,7 @@ keep duplicate live rules merely to preserve the former file boundary.
 The layer directory guides are
 [`standards/README.md`](standards/README.md),
 [`project/README.md`](project/README.md), and
-[`records/README.md`](records/README.md).
+[`framework-records-README.md`](archive/operational/framework-records-README.md).
 
 ## Framework entry points
 

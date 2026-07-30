@@ -1898,11 +1898,37 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "direction": "desc"
       },
       "projection": {
-        "expected_rows": 19,
-        "actual_rows": 19,
+        "expected_rows": 20,
+        "actual_rows": 20,
         "complete": true
       },
       "entries": [
+        {
+          "id": "GOV-2026-020",
+          "values": {
+            "governance_change_id": "GOV-2026-020",
+            "entry_sha256": "sha256:5ce60ae0a7512731bb8a66db6d90c1c20a8aeaff6d66a6d84ae881f67ef0f432",
+            "date": "2026-07-30",
+            "status": "Proposed / unmerged",
+            "decision_class": "governance_documentation",
+            "policy_adoption": "Proposed only; not adopted before the reviewed activation merge.",
+            "live_activation": "Not active. The registry remains candidate, nonauthoritative, and nonexecutable; the activation receipt is absent and automation remains Paused.",
+            "supplement": "Required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-020",
+            "entry_sha256": "sha256:5ce60ae0a7512731bb8a66db6d90c1c20a8aeaff6d66a6d84ae881f67ef0f432",
+            "date": "2026-07-30",
+            "status": "Proposed / unmerged",
+            "decision_class": "governance_documentation",
+            "policy_adoption": "Proposed only; not adopted before the reviewed activation merge.",
+            "live_activation": "Not active. The registry remains candidate, nonauthoritative, and nonexecutable; the activation receipt is absent and automation remains Paused.",
+            "supplement": "Required"
+          },
+          "details_html": "<h2>GOV-2026-020 — Component Registry Stage 1 authority transition<\/h2>\n<ul><li><strong>Decision class:<\/strong> governance_documentation<\/li><li><strong>Authorities:<\/strong> framework/component-registry.json; framework/standards/automation/component-registry.schema.json; scripts/component<em>registry.py; scripts/finalize<\/em>component<em>registry<\/em>activation.py<\/li><li><strong>Decision:<\/strong> Proposes adopting the validated Component Registry as the sole Stage 1 component and routing authority, relocating the four frozen predecessors to provenance-only archive paths, and preserving terminology and Stage 2 lifecycle classifications as explicitly deferred.<\/li><li><strong>Evidence:<\/strong> Current activation worktree and draft PR #498. The exact final candidate commit, activation head, latest-head owner review, required checks, merge commit, canonical remote readback, and fixed activation receipt remain pending.<\/li><li><strong>Policy adoption:<\/strong> Proposed only; not adopted before the reviewed activation merge.<\/li><li><strong>Live activation:<\/strong> Not active. The registry remains candidate, nonauthoritative, and nonexecutable; the activation receipt is absent and automation remains Paused.<\/li><li><strong>Relationships:<\/strong> No supersession or refinement is claimed.<\/li><li><strong>Validation:<\/strong> Candidate registry, routing parity, Stage 1 closure, migration, disclosure, Project Integrity, Source Checker, Console, and activation finalizer checks are in progress under the approved transaction.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-020 GOV-2026-020 sha256:5ce60ae0a7512731bb8a66db6d90c1c20a8aeaff6d66a6d84ae881f67ef0f432 2026-07-30 Proposed / unmerged governance_documentation Proposed only; not adopted before the reviewed activation merge. Not active. The registry remains candidate, nonauthoritative, and nonexecutable; the activation receipt is absent and automation remains Paused. Required GOV-2026-020 sha256:5ce60ae0a7512731bb8a66db6d90c1c20a8aeaff6d66a6d84ae881f67ef0f432 2026-07-30 Proposed / unmerged governance_documentation Proposed only; not adopted before the reviewed activation merge. Not active. The registry remains candidate, nonauthoritative, and nonexecutable; the activation receipt is absent and automation remains Paused. Required",
+          "title": "Component Registry Stage 1 authority transition"
+        },
         {
           "id": "GOV-2026-019",
           "values": {
@@ -2401,7 +2427,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "availability": "current",
       "complete": true,
       "schema_errors": [],
-      "current_through": "2026-07-29",
+      "current_through": "2026-07-30",
       "producer": "governance-changes-log-projection",
       "reason": ""
     },
@@ -3334,6 +3360,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "logs.js": "project-console-79f3b5b0b08802ff1a48"
+    "logs.js": "project-console-b2b0b1a85945551b73ef"
   }
 });

@@ -126,7 +126,12 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
             / "project-console.md"
         ).read_text(encoding="utf-8")
         readme = (
-            ROOT / "research" / "project-console" / "README.md"
+            ROOT
+            / "framework"
+            / "project"
+            / "interfaces"
+            / "project-console"
+            / "README.md"
         ).read_text(encoding="utf-8")
         classification_path = (
             ROOT

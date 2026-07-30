@@ -99,7 +99,11 @@ class OwnerConsoleTests(unittest.TestCase):
         self.root = Path(self.temporary.name).resolve()
         self.repository = self.root / "ARRP"
         self.console = (
-            self.repository / "research" / "project-console"
+            self.repository
+            / "framework"
+            / "project"
+            / "interfaces"
+            / "project-console"
         )
         self.data = self.console / "data"
         self.data.mkdir(parents=True)

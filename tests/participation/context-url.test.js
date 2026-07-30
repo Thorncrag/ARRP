@@ -2,7 +2,10 @@
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { sanitizeContextUrl, resolveReturnTarget } = require("../context-url");
+const {
+  sanitizeContextUrl,
+  resolveReturnTarget,
+} = require("../../participate/context-url");
 
 test("context links accept only canonical ARRP Pages and repository URLs", () => {
   assert.equal(

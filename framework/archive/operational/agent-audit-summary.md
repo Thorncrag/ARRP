@@ -19,7 +19,7 @@ The Project Console receives a minimized, allowlisted projection of that local
 authority. The browser does not read the local ledger directly and cannot
 reconstruct omitted operational evidence. Public change history for the
 Console itself remains in
-[`console-development-log.md`](console-development-log.md).
+[`console-development-log.md`](../../logs/automation/console-development-log.md).
 
 ## Retention contract
 

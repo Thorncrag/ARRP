@@ -31,7 +31,7 @@ interface refinements unless they change a governing boundary.
 The stable identity is allocated in
 [`governance-change-registry.json`](governance-change-registry.json). Its
 matching heading in the
-[`Governance Change Log`](../../records/governance/governance-change-log.md)
+[`Governance Change Log`](../../logs/governance/governance-change-log.md)
 is the reader-facing entry. One coherent decision may cite multiple commits or
 pull requests; unrelated decisions must have separate entries.
 
@@ -123,7 +123,7 @@ healthy result.
 
 The Governance Change Log does not replace a Change Audit, issue audit history,
 Console Development Log, GitHub workflow record, or the historical
-[`Change Audit Log`](../../records/audits/change-audit-log.md). A GOV entry
+[`Change Audit Log`](../../logs/audits/change-audit-log.md). A GOV entry
 must link to an applicable Change Audit when one is required, but it does not
 create an audit run, change a score, alter a rubric, or clear a rebaseline
 marker.

@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import functools
 import hashlib
 import inspect
 import json
@@ -38,6 +39,7 @@ try:
         RegistryError as ComponentRegistryError,
         load_component_registry_configuration_routing_view,
         load_fixture_component_registry_configuration_routing_view,
+        load_validated_registry,
         load_validated_component_registry_routing_view,
     )
 except ModuleNotFoundError:  # Imported as scripts.audit_project_consistency.
@@ -45,6 +47,7 @@ except ModuleNotFoundError:  # Imported as scripts.audit_project_consistency.
         RegistryError as ComponentRegistryError,
         load_component_registry_configuration_routing_view,
         load_fixture_component_registry_configuration_routing_view,
+        load_validated_registry,
         load_validated_component_registry_routing_view,
     )
 
@@ -347,6 +350,9 @@ LOCAL_ONLY_CONSOLE_PROJECTIONS = {
     Path("framework/project/interfaces/project-console/data/private-operations.js"),
     Path("framework/project/interfaces/project-console/data/local-automation-status.js"),
 }
+LOCAL_ONLY_CONSOLE_PROJECTION_NAMES = {
+    path.name for path in LOCAL_ONLY_CONSOLE_PROJECTIONS
+}
 
 REQUIRED_ISSUE_HEADINGS = (
     "Institutional Anomaly",
@@ -424,6 +430,52 @@ def local_target(path: Path, raw_target: str) -> Path | None:
     return (link_base / target).resolve()
 
 
+@functools.lru_cache(maxsize=1)
+def candidate_migration_aliases() -> tuple[tuple[str, str, str], ...]:
+    """Return validated candidate relocation aliases for link readback only."""
+
+    try:
+        candidate, _route = load_validated_registry()
+    except (ComponentRegistryError, OSError):
+        return ()
+    aliases = []
+    for entry in candidate["aliases_and_migrations"]["entries"].values():
+        if entry["reference_policy"] != "rewrite_active":
+            continue
+        aliases.append(
+            (
+                entry["source_path"],
+                entry["target_path"],
+                entry["path_kind"],
+            )
+        )
+    return tuple(
+        sorted(aliases, key=lambda item: len(item[0]), reverse=True)
+    )
+
+
+def candidate_migration_target(target: Path) -> Path | None:
+    """Resolve a missing candidate-era link through one registered alias."""
+
+    try:
+        relative = target.relative_to(ROOT.resolve()).as_posix()
+    except ValueError:
+        return None
+    for source, destination, path_kind in candidate_migration_aliases():
+        if path_kind == "exact":
+            if relative != source:
+                continue
+            migrated = destination
+        else:
+            if relative != source and not relative.startswith(source + "/"):
+                continue
+            migrated = destination + relative[len(source) :]
+        resolved = (ROOT / migrated).resolve()
+        if resolved.exists():
+            return resolved
+    return None
+
+
 def active_project_files(*suffixes: str) -> list[Path]:
     """Return files in the active project tree, excluding generated and historical copies."""
     allowed = set(suffixes)
@@ -434,6 +486,7 @@ def active_project_files(*suffixes: str) -> list[Path]:
         and path.suffix.lower() in allowed
         and not ACTIVE_TREE_EXCLUSIONS.intersection(path.relative_to(ROOT).parts)
         and path.relative_to(ROOT) not in LOCAL_ONLY_CONSOLE_PROJECTIONS
+        and path.name not in LOCAL_ONLY_CONSOLE_PROJECTION_NAMES
         and not path.is_relative_to(
             ROOT
             / "framework"
@@ -1343,7 +1396,11 @@ def check_markdown_links(failures: list[str], warnings: list[str]) -> None:
         for raw_target in MARKDOWN_LINK_RE.findall(body):
             target = local_target(path, raw_target)
             if target and not target.exists():
-                report("ERROR", f"broken local link in {path.relative_to(ROOT)}: {raw_target}", failures, warnings)
+                migrated_target = candidate_migration_target(target)
+                if migrated_target is None:
+                    report("ERROR", f"broken local link in {path.relative_to(ROOT)}: {raw_target}", failures, warnings)
+                else:
+                    target = migrated_target
             link_text = raw_target.strip().strip("<>").split(" ", 1)[0]
             if link_text.startswith(("http://", "https://", "mailto:", "data:")):
                 continue

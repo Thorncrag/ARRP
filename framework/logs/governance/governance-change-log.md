@@ -14,6 +14,34 @@ Current governing documents remain authoritative; Git remains the exact-diff
 authority. The historical [Change Audit Log](../audits/change-audit-log.md)
 remains separate and unchanged.
 
+## GOV-2026-020 — Component Registry Stage 1 authority transition
+
+- Date: 2026-07-30
+- Status: Proposed / unmerged
+- Decision class: governance_documentation
+- Authorities: framework/component-registry.json;
+  framework/standards/automation/component-registry.schema.json;
+  scripts/component_registry.py;
+  scripts/finalize_component_registry_activation.py
+- Decision: Proposes adopting the validated Component Registry as the sole
+  Stage 1 component and routing authority, relocating the four frozen
+  predecessors to provenance-only archive paths, and preserving terminology
+  and Stage 2 lifecycle classifications as explicitly deferred.
+- Evidence: Current activation worktree and draft PR #498. The exact final
+  candidate commit, activation head, latest-head owner review, required
+  checks, merge commit, canonical remote readback, and fixed activation
+  receipt remain pending.
+- Policy adoption: Proposed only; not adopted before the reviewed activation
+  merge.
+- Live activation: Not active. The registry remains candidate,
+  nonauthoritative, and nonexecutable; the activation receipt is absent and
+  automation remains Paused.
+- Relationships: No supersession or refinement is claimed.
+- Validation: Candidate registry, routing parity, Stage 1 closure, migration,
+  disclosure, Project Integrity, Source Checker, Console, and activation
+  finalizer checks are in progress under the approved transaction.
+- Owner-local supplement: Required.
+
 ## GOV-2026-019 — Lease-bound GitHub branch retirement
 
 - Date: 2026-07-29

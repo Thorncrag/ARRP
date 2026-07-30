@@ -2,6 +2,7 @@ import copy
 import hashlib
 import json
 import shutil
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -120,6 +121,125 @@ class ComponentRegistryCandidateTests(unittest.TestCase):
             json.dumps(route, ensure_ascii=False, indent=2) + "\n",
             encoding="utf-8",
         )
+
+    @staticmethod
+    def _git(root: Path, *arguments: str) -> str:
+        result = subprocess.run(
+            ["git", "-C", str(root), *arguments],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        return result.stdout.strip()
+
+    def test_candidate_git_binding_distinguishes_overlay_and_committed_forms(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            self._git(root, "init", "-b", "main")
+            self._git(root, "config", "user.name", "ARRP Fixture")
+            self._git(
+                root,
+                "config",
+                "user.email",
+                "fixture@example.invalid",
+            )
+            marker = root / "marker.txt"
+            marker.write_text("base\n", encoding="utf-8")
+            self._git(root, "add", "marker.txt")
+            self._git(root, "commit", "-m", "base")
+            base = self._git(root, "rev-parse", "HEAD")
+
+            candidate_path = root / "framework/component-registry.json"
+            candidate_path.parent.mkdir(parents=True)
+            candidate_path.write_text('{"candidate": true}\n', encoding="utf-8")
+            self._git(root, "add", "framework/component-registry.json")
+            self.assertEqual(
+                registry._validate_candidate_repository_binding(
+                    root,
+                    candidate_path,
+                    base,
+                ),
+                "overlay",
+            )
+            self._git(root, "commit", "-m", "candidate")
+            candidate_commit = self._git(root, "rev-parse", "HEAD")
+            self.assertEqual(
+                registry._validate_candidate_repository_binding(
+                    root,
+                    candidate_path,
+                    base,
+                ),
+                "committed",
+            )
+            with self.assertRaisesRegex(
+                registry.RegistryError,
+                "cannot bind its own repository HEAD",
+            ):
+                registry._validate_candidate_repository_binding(
+                    root,
+                    candidate_path,
+                    candidate_commit,
+                )
+
+            marker.write_text("later\n", encoding="utf-8")
+            self._git(root, "add", "marker.txt")
+            self._git(root, "commit", "-m", "later")
+            with self.assertRaisesRegex(
+                registry.RegistryError,
+                "not its immediate parent",
+            ):
+                registry._validate_candidate_repository_binding(
+                    root,
+                    candidate_path,
+                    base,
+                )
+
+    def test_candidate_git_binding_rejects_root_and_merge_commits(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            self._git(root, "init", "-b", "main")
+            self._git(root, "config", "user.name", "ARRP Fixture")
+            self._git(
+                root,
+                "config",
+                "user.email",
+                "fixture@example.invalid",
+            )
+            candidate_path = root / "framework/component-registry.json"
+            candidate_path.parent.mkdir(parents=True)
+            candidate_path.write_text('{"candidate": true}\n', encoding="utf-8")
+            self._git(root, "add", ".")
+            self._git(root, "commit", "-m", "root candidate")
+            root_commit = self._git(root, "rev-parse", "HEAD")
+            with self.assertRaisesRegex(
+                registry.RegistryError,
+                "one exact immediate parent",
+            ):
+                registry._validate_candidate_repository_binding(
+                    root,
+                    candidate_path,
+                    root_commit,
+                )
+
+            self._git(root, "switch", "-c", "side")
+            (root / "side.txt").write_text("side\n", encoding="utf-8")
+            self._git(root, "add", "side.txt")
+            self._git(root, "commit", "-m", "side")
+            self._git(root, "switch", "main")
+            (root / "main.txt").write_text("main\n", encoding="utf-8")
+            self._git(root, "add", "main.txt")
+            self._git(root, "commit", "-m", "main")
+            main_parent = self._git(root, "rev-parse", "HEAD")
+            self._git(root, "merge", "--no-ff", "side", "-m", "merge")
+            with self.assertRaisesRegex(
+                registry.RegistryError,
+                "one exact immediate parent",
+            ):
+                registry._validate_candidate_repository_binding(
+                    root,
+                    candidate_path,
+                    main_parent,
+                )
 
     def test_live_candidate_validates_and_preserves_route_parity(self):
         candidate, route = registry.load_validated_registry()
@@ -1340,6 +1460,59 @@ class ComponentRegistryCandidateTests(unittest.TestCase):
                 )),
                 [],
             )
+
+    def test_committed_candidate_refresh_rebases_one_overlay_then_freezes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            candidate_path, route_path, route = self._build_refresh_fixture(
+                root
+            )
+            candidate = load_json(candidate_path)
+            candidate_path.unlink()
+            self._git(root, "init", "-b", "main")
+            self._git(root, "config", "user.name", "ARRP Fixture")
+            self._git(
+                root,
+                "config",
+                "user.email",
+                "fixture@example.invalid",
+            )
+            self._git(root, "add", ".")
+            self._git(root, "commit", "-m", "base")
+            base = self._git(root, "rev-parse", "HEAD")
+            candidate["source_baseline"]["repository_revision"] = base
+            candidate["source_baseline"]["working_tree_binding"]["sha256"] = (
+                registry._route_source_binding(base, route)
+            )
+            candidate_path.write_text(
+                json.dumps(candidate, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+            self._git(root, "add", "framework/component-registry.json")
+            registry.load_validated_registry(candidate_path, root=root)
+            self._git(root, "commit", "-m", "candidate")
+            candidate_commit = self._git(root, "rev-parse", "HEAD")
+            registry.load_validated_registry(candidate_path, root=root)
+
+            self._introduce_fixture_route_hash_drift(
+                root,
+                route_path,
+                route,
+            )
+            registry.refresh_candidate_registry(
+                candidate_path,
+                root=root,
+                acknowledged_document_ids=["public_premise"],
+            )
+            refreshed = load_json(candidate_path)
+            self.assertEqual(
+                refreshed["source_baseline"]["repository_revision"],
+                candidate_commit,
+            )
+            registry.load_validated_registry(candidate_path, root=root)
+            self._git(root, "add", ".")
+            self._git(root, "commit", "-m", "refreshed candidate")
+            registry.load_validated_registry(candidate_path, root=root)
 
     def test_candidate_refresh_rejects_unacknowledged_route_hash_drift(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -14,6 +14,7 @@ import math
 import os
 import re
 import shutil
+import stat
 import subprocess
 import tempfile
 import urllib.parse
@@ -307,6 +308,9 @@ def validated_workbench_external_url(
 
 LOCAL_INTEGRITY_FEED = ROOT / ".tmp" / "project-console-integrity.json"
 LOCAL_RUN_CHAIN_FEED = ROOT / ".tmp" / "run-chain.json"
+PUBLIC_SOURCE_CHECKER_STAGE = (
+    ROOT / ".tmp" / "project-console-source-checker.json"
+)
 SNAPSHOT_OVERRIDE_PATHS = {
     "ARRP_PROGRESS_SNAPSHOT": Path(
         ".tmp/project-console-progress-snapshot.json"
@@ -403,7 +407,26 @@ def parse_args() -> argparse.Namespace:
             "local Console projections or restoring owner-only projections."
         ),
     )
+    parser.add_argument(
+        "--public-source-checker-stage",
+        action="store_true",
+        help=(
+            "Use the fixed repository-local Source Checker staging report "
+            "for this public-only Console generation."
+        ),
+    )
     return parser.parse_args()
+
+
+def validate_console_modes(args: argparse.Namespace) -> None:
+    if args.public_only and args.refresh_github:
+        raise RuntimeError(
+            "--public-only cannot be combined with authenticated refresh."
+        )
+    if args.public_source_checker_stage and not args.public_only:
+        raise RuntimeError(
+            "--public-source-checker-stage requires --public-only."
+        )
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -6065,7 +6088,87 @@ def run_chain_snapshot() -> dict[str, object]:
     )
 
 
-def source_checker_snapshot() -> dict[str, object]:
+def current_repository_head(root: Path = ROOT) -> str:
+    completed = subprocess.run(
+        ["git", "rev-parse", "HEAD"],
+        cwd=root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    revision = completed.stdout.strip()
+    if completed.returncode != 0 or not re.fullmatch(r"[0-9a-f]{40}", revision):
+        raise RuntimeError("The current repository revision is unavailable.")
+    return revision
+
+
+def read_public_source_checker_stage() -> dict[str, object]:
+    """Read the one fixed nonproduction Source Checker staging report."""
+    stage = PUBLIC_SOURCE_CHECKER_STAGE
+    expected = ROOT / ".tmp" / "project-console-source-checker.json"
+    try:
+        if stage != expected:
+            raise RuntimeError(
+                "The public Source Checker stage is not the fixed repository slot."
+            )
+        root_stat = ROOT.lstat()
+        tmp_stat = stage.parent.lstat()
+        stage_stat = stage.lstat()
+        if (
+            stat.S_ISLNK(root_stat.st_mode)
+            or stat.S_ISLNK(tmp_stat.st_mode)
+            or stat.S_ISLNK(stage_stat.st_mode)
+            or not stat.S_ISDIR(tmp_stat.st_mode)
+            or not stat.S_ISREG(stage_stat.st_mode)
+        ):
+            raise RuntimeError(
+                "The fixed public Source Checker stage is unavailable."
+            )
+        resolved_root = ROOT.resolve(strict=True)
+        resolved_tmp = stage.parent.resolve(strict=True)
+        resolved_stage = stage.resolve(strict=True)
+        if (
+            resolved_tmp != resolved_root / ".tmp"
+            or resolved_stage.parent != resolved_tmp
+        ):
+            raise RuntimeError(
+                "The fixed public Source Checker stage is unavailable."
+            )
+        flags = os.O_RDONLY
+        if hasattr(os, "O_NOFOLLOW"):
+            flags |= os.O_NOFOLLOW
+        descriptor = os.open(stage, flags)
+        try:
+            opened_stat = os.fstat(descriptor)
+            if (
+                not stat.S_ISREG(opened_stat.st_mode)
+                or opened_stat.st_dev != stage_stat.st_dev
+                or opened_stat.st_ino != stage_stat.st_ino
+            ):
+                raise RuntimeError(
+                    "The fixed public Source Checker stage is unavailable."
+                )
+            with os.fdopen(descriptor, encoding="utf-8") as handle:
+                descriptor = -1
+                payload = json.load(handle)
+        finally:
+            if descriptor >= 0:
+                os.close(descriptor)
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RuntimeError(
+            "The fixed public Source Checker stage is unavailable."
+        ) from exc
+    if not isinstance(payload, dict):
+        raise RuntimeError(
+            "The fixed public Source Checker stage is unavailable."
+        )
+    return payload
+
+
+def source_checker_snapshot(
+    *,
+    public_source_checker_stage: bool = False,
+) -> dict[str, object]:
     """Read the published source-checker feed or its explicit offline cache."""
     try:
         config = json.loads(SOURCE_CHECKER_CONFIG.read_text(encoding="utf-8"))
@@ -6076,6 +6179,7 @@ def source_checker_snapshot() -> dict[str, object]:
         ROOT / str(relative) for relative in config.get("catalogs") or []
     ]
     current_catalog_ids: set[str] | None = set() if catalog_paths else None
+    current_catalog_ids_by_path: dict[str, set[str]] = {}
     id_field = str(config.get("idField") or "Source ID")
     url_field = str(config.get("urlField") or "URL")
     for relative in config.get("catalogs") or []:
@@ -6083,6 +6187,7 @@ def source_checker_snapshot() -> dict[str, object]:
         if not path.is_file():
             current_catalog_ids = None
             break
+        catalog_ids: set[str] = set()
         for row in read_csv(path):
             if str(row.get(url_field) or "").strip():
                 identifier = str(row.get(id_field) or "").strip()
@@ -6094,8 +6199,10 @@ def source_checker_snapshot() -> dict[str, object]:
                     break
                 if current_catalog_ids is not None:
                     current_catalog_ids.add(identifier)
+                    catalog_ids.add(identifier)
         if current_catalog_ids is None:
             break
+        current_catalog_ids_by_path[str(relative)] = catalog_ids
     current_catalog_hashes = (
         source_hashes(ROOT, catalog_paths)
         if current_catalog_ids is not None
@@ -6313,6 +6420,128 @@ def source_checker_snapshot() -> dict[str, object]:
             }
         )
         projected["freshness"] = freshness
+        return projected
+
+    def public_stage_is_valid(payload: object) -> bool:
+        if (
+            current_catalog_ids is None
+            or not current_catalog_ids_by_path
+            or not candidate_is_valid(payload)
+            or not isinstance(payload, dict)
+        ):
+            return False
+        completeness = payload.get("completeness")
+        pagination = payload.get("pagination")
+        pagination_sources = (
+            pagination.get("sources")
+            if isinstance(pagination, dict)
+            else None
+        )
+        results = payload.get("results")
+        if (
+            payload.get("schema_version") != 2
+            or payload.get("contract_schema_version") != 1
+            or payload.get("agent_id") != "source-checker-bot"
+            or payload.get("mode") != "report-only"
+            or not str(payload.get("generation_id") or "").strip()
+            or payload.get("source_revision") != current_repository_head(ROOT)
+            or payload.get("source_hashes") != current_catalog_hashes
+            or payload.get("catalogs")
+            != [str(relative) for relative in config.get("catalogs") or []]
+            or payload.get("availability") != "current"
+            or not isinstance(completeness, dict)
+            or completeness.get("complete") is not True
+            or not isinstance(pagination, dict)
+            or pagination.get("complete") is not True
+            or not isinstance(pagination_sources, list)
+            or not isinstance(results, list)
+            or payload.get("missing_source_ids") != []
+            or payload.get("unexpected_source_ids") != []
+            or payload.get("duplicate_result_ids") != []
+            or payload.get("projection_errors") != []
+        ):
+            return False
+        try:
+            expected = int(payload.get("expected_count"))
+            actual = int(payload.get("actual_count"))
+            eligible = int(payload.get("eligible_urls"))
+            classified = sum(
+                int(value) for value in (payload.get("counts") or {}).values()
+            )
+            completeness_expected = int(completeness.get("expected_count"))
+            completeness_actual = int(completeness.get("actual_count"))
+            completeness_missing = int(completeness.get("missing_count"))
+        except (AttributeError, TypeError, ValueError):
+            return False
+        result_ids = [
+            str(item.get("source_id") or "").strip()
+            for item in results
+            if isinstance(item, dict)
+        ]
+        result_catalog_ids: dict[str, set[str]] = {
+            relative: set() for relative in current_catalog_ids_by_path
+        }
+        for item in results:
+            if not isinstance(item, dict):
+                return False
+            relative = str(item.get("catalog") or "")
+            identifier = str(item.get("source_id") or "").strip()
+            if relative not in result_catalog_ids or not identifier:
+                return False
+            result_catalog_ids[relative].add(identifier)
+        pagination_by_source: dict[str, dict[str, object]] = {}
+        for item in pagination_sources:
+            if not isinstance(item, dict):
+                return False
+            relative = str(item.get("source") or "")
+            if relative in pagination_by_source:
+                return False
+            pagination_by_source[relative] = item
+        if set(pagination_by_source) != set(current_catalog_ids_by_path):
+            return False
+        for relative, identifiers in current_catalog_ids_by_path.items():
+            page = pagination_by_source[relative]
+            if (
+                page.get("complete") is not True
+                or page.get("expected_count") != len(identifiers)
+                or page.get("actual_count") != len(identifiers)
+                or result_catalog_ids.get(relative) != identifiers
+            ):
+                return False
+        total = len(current_catalog_ids)
+        return (
+            expected == total
+            and actual == total
+            and eligible == total
+            and classified == total
+            and completeness_expected == total
+            and completeness_actual == total
+            and completeness_missing == 0
+            and len(result_ids) == total
+            and set(result_ids) == current_catalog_ids
+            and len(result_ids) == len(set(result_ids))
+        )
+
+    if public_source_checker_stage:
+        if os.environ.get("ARRP_SOURCE_CHECKER_SNAPSHOT", "").strip():
+            raise RuntimeError(
+                "The fixed public Source Checker stage cannot be combined "
+                "with ARRP_SOURCE_CHECKER_SNAPSHOT."
+            )
+        stage_payload = read_public_source_checker_stage()
+        if not public_stage_is_valid(stage_payload):
+            raise RuntimeError(
+                "The fixed public Source Checker stage is invalid."
+            )
+        projected = with_current_catalog_coverage(stage_payload)
+        if (
+            projected.get("availability") != "current"
+            or not isinstance(projected.get("completeness"), dict)
+            or projected["completeness"].get("complete") is not True
+        ):
+            raise RuntimeError(
+                "The fixed public Source Checker stage is not current and complete."
+            )
         return projected
 
     override_path = os.environ.get("ARRP_SOURCE_CHECKER_SNAPSHOT", "").strip()
@@ -10382,10 +10611,7 @@ def component_registry_source_paths(
 def main() -> None:
     global ALLOW_PRIVATE_CONSOLE_INPUTS
     args = parse_args()
-    if args.public_only and args.refresh_github:
-        raise RuntimeError(
-            "--public-only cannot be combined with authenticated refresh."
-        )
+    validate_console_modes(args)
     ALLOW_PRIVATE_CONSOLE_INPUTS = not args.public_only
     if args.public_only:
         private_authority = None
@@ -10467,7 +10693,9 @@ def main() -> None:
             if isinstance(item, dict)
         ],
     }
-    source_checker = source_checker_snapshot()
+    source_checker = source_checker_snapshot(
+        public_source_checker_stage=args.public_source_checker_stage,
+    )
     for feed_name, feed in (
         ("progress", progress),
         ("integrity", integrity),

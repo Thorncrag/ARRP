@@ -905,7 +905,7 @@ screen must not change a prior Overview assertion, count, status, or selection.
 
 Material Console changes use stable IDs in the form `CONSOLE-YYYY-NNN` and are
 recorded in
-[`console-development-log.md`](../../records/automation/console-development-log.md).
+[`console-development-log.md`](../../logs/automation/console-development-log.md).
 Each semantic implementation commit carries exactly one applicable trailer:
 
 `Console-Change-ID: CONSOLE-YYYY-NNN`

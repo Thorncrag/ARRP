@@ -48,7 +48,14 @@ PUBLIC_LEVEL = "public-proposal"
 UNDER_REVIEW_PAGE = Path("UNDER_REVIEW.md")
 SUPPORT_PAGE = Path("SUPPORT.md")
 UNDER_REVIEW_DATA_MARKER = "<!-- ARRP_PUBLIC_UNDER_REVIEW_DATA -->"
-CONSOLE_SNAPSHOT = ROOT / "research" / "project-console" / "catalog-data.js"
+CONSOLE_SNAPSHOT = (
+    ROOT
+    / "framework"
+    / "project"
+    / "interfaces"
+    / "project-console"
+    / "catalog-data.js"
+)
 PUBLIC_ROOT_PAGES = {
     Path("README.md"),
     Path("PRINT_READERS_GUIDE.md"),

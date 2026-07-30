@@ -3,12 +3,12 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
-    "availability": "stale",
-    "generated_at": "2026-07-30T03:10:59+00:00",
+    "availability": "current",
+    "generated_at": "2026-07-30T15:02:37+00:00",
     "current": {
       "result": "findings",
-      "generated_at": "2026-07-30T03:10:59+00:00",
-      "revision": "b82764f21a39c14e35c371cc6a4530d4a1b11c82",
+      "generated_at": "2026-07-30T15:02:37+00:00",
+      "revision": "e08b39e9798e6c6cba884eccb7925ee738792404",
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -35,6 +35,28 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       ],
       "findings": [
         {
+          "finding_id": "INT-37b3dd2c4710011a",
+          "finding_code": "github_pages_readback_unavailable",
+          "severity": "warning",
+          "category": "GitHub records",
+          "status": "open",
+          "owner": "Elim",
+          "route": "integrity",
+          "next_action": "Rerun Project Integrity with registered GitHub access.",
+          "message": "GitHub Pages deployment synchronization could not be verified."
+        },
+        {
+          "finding_id": "INT-7fc8c3ac82d977f9",
+          "finding_code": "github_issues_readback_unavailable",
+          "severity": "warning",
+          "category": "GitHub records",
+          "status": "open",
+          "owner": "Elim",
+          "route": "integrity",
+          "next_action": "Rerun Project Integrity with registered GitHub access.",
+          "message": "GitHub Issues synchronization could not be verified."
+        },
+        {
           "finding_id": "INT-c8c79404280b5748",
           "finding_code": "github_project_access_unavailable",
           "severity": "warning",
@@ -50,6 +72,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-79f3b5b0b08802ff1a48"
+    "integrity.js": "project-console-b2b0b1a85945551b73ef"
   }
 });
