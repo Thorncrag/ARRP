@@ -21,4 +21,4 @@ For maintenance and synchronization rules, see
 [`../framework/FRAMEWORK.md`](../framework/FRAMEWORK.md) and
 [`../framework/project/github/workflow.md`](../framework/project/github/workflow.md).
 Historical project records are under
-[`../framework/records/`](../framework/records/).
+[`../framework/archive/`](../framework/archive/).
