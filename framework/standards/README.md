@@ -26,6 +26,8 @@ Standards are organized by the thing they govern:
   validation, and handoff rules.
 
 ARRP-specific configuration and named procedures belong in
-[`../project/`](../project/). State and history belong in
-[`../records/`](../records/). Actual issue, legislation, topic, source, and
-research content remains outside `framework/`.
+[`../project/`](../project/). State and history use the registered
+[`../logs/`](../logs/), [`../receipts/`](../receipts/),
+[`../reports/`](../reports/), [`../status/`](../status/), and
+[`../handoffs/`](../handoffs/) surfaces. Actual issue, legislation, topic,
+source, and research content remains outside `framework/`.

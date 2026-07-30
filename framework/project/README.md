@@ -11,9 +11,11 @@ This directory contains governing choices and procedures specific to the ARRP
 installation: its profile, GitHub workflow, named automation, exact manifests,
 and Project Console configuration.
 
-Reusable rules belong in [`../standards/`](../standards/). State and history
-belong in [`../records/`](../records/). A file may be binding ARRP authority
-without being a reusable standard.
+Reusable rules belong in [`../standards/`](../standards/). Current state and
+history use the registered [`../logs/`](../logs/),
+[`../receipts/`](../receipts/), [`../reports/`](../reports/),
+[`../status/`](../status/), and [`../handoffs/`](../handoffs/) surfaces. A file
+may be binding ARRP authority without being a reusable standard.
 
 Begin with the [ARRP Project Profile](PROJECT_PROFILE.md) for the installation
 choices and the [Component Registry](../component-registry.json) for exact
