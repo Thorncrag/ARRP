@@ -574,6 +574,29 @@ class GitHubDisclosureGateTests(unittest.TestCase):
             "public-research-and-proposals",
         )
 
+    def test_component_registry_archive_targets_have_exact_public_families(
+        self,
+    ) -> None:
+        expected = {
+            "framework/archive/authorities/PROJECT_STRUCTURE.md":
+                "public-governance-summary",
+            "framework/archive/authorities/REPOSITORY_MAP.md":
+                "public-governance-summary",
+            "framework/archive/authorities/CONTEXT_ROUTING.md":
+                "portable-automation-and-controls",
+            "framework/archive/authorities/context-routes.json":
+                "portable-automation-and-controls",
+        }
+        for path, family_id in expected.items():
+            with self.subTest(path=path):
+                family = MODULE._resolve_family(
+                    self.policy,
+                    path=path,
+                    producer="interactive-reviewed-github",
+                    requested_family=None,
+                )
+                self.assertEqual(family["id"], family_id)
+
     def test_current_repository_files_map_once_and_contain_no_secret_canary(self) -> None:
         paths = [
             item

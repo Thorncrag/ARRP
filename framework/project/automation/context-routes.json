@@ -64,7 +64,7 @@
     },
     "github_disclosure_policy": {
       "path": "framework/project/github/disclosure-policy.json",
-      "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+      "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [

@@ -9445,7 +9445,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 1009,
+      "word_count": 968,
       "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
@@ -18490,8 +18490,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "ec6456588aaec63064e42a249bcdeb436081a42d",
-        "generated_at": "2026-07-30T18:13:42+00:00"
+        "revision": "9953be3f0f7eec4976802268021ba08e8f92d695",
+        "generated_at": "2026-07-30T18:52:27+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20247,6 +20247,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-32489ba50fc51fa9e975"
+    "publication.js": "project-console-74d2c9250638aa05bcc7"
   }
 });

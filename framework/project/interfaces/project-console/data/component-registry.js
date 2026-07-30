@@ -5,7 +5,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 1,
     "projection_id": "component-registry-console",
     "producer_id": "project-console-builder",
-    "generated_at": "2026-07-30T18:14:03+00:00",
+    "generated_at": "2026-07-30T18:52:29+00:00",
     "availability": "current",
     "complete": true,
     "reason_code": null,
@@ -42,11 +42,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "executable": false,
       "live_activation_verified": false,
       "predecessor_route_consulted": true,
-      "registry_sha256": "4f0914de763bd21237eed4b3fad49a491d994c2be686aabb33ef16d04c77aa27",
-      "repository_revision": "ec6456588aaec63064e42a249bcdeb436081a42d",
+      "registry_sha256": "eeeee2d4e8326b4336e8085dca91d6ba2669800091faa1a03344564fecda1897",
+      "repository_revision": "9953be3f0f7eec4976802268021ba08e8f92d695",
       "source_binding_sha256": {
         "state": "known",
-        "value": "aa859c21c3226f83a9395d135c87794f75214e983fef67d06eb3c498ebe70641"
+        "value": "acd215f1050230162b86cee6cd59c360a6a663c7e424bf3bcf06aaf4d1ec9592"
       }
     },
     "deferred": {
@@ -2578,7 +2578,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "document:github_disclosure_boundary"
         ],
         "digest_policy": "pinned",
-        "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+        "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
         "console_route": "operations:component-registry:documents?document=github_disclosure_policy",
         "retention_posture": "current",
         "history": {
@@ -8654,7 +8654,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         "current_artifact_count": {
           "state": "known",
-          "value": 9
+          "value": 0
         }
       },
       {
@@ -9617,7 +9617,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         "current_artifact_count": {
           "state": "known",
-          "value": 51
+          "value": 7
         }
       },
       {
@@ -9745,7 +9745,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "authoritative": false,
       "source_import": {
         "path": "framework/project/automation/context-routes.json",
-        "sha256": "f30b0d113c315677827e29044fcebcded631020ebf8bb3bf60af2730262cd6fd",
+        "sha256": "f1de00a1cf3451d7f3c8b28dfac0ff772834aa7233ccbb502d0d243167c4f77a",
         "schema_version": 2,
         "import_semantics": "exact_validated_snapshot"
       },
@@ -10075,7 +10075,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "path": "framework/project/github/disclosure-policy.json",
           "governing": true,
           "hash_policy": "pinned",
-          "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+          "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
           "requires": [
             "framework_kernel"
           ]
@@ -11295,7 +11295,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -12219,7 +12219,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -13620,7 +13620,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -15906,7 +15906,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -16699,7 +16699,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -18714,7 +18714,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -20204,7 +20204,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -21065,7 +21065,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -21863,7 +21863,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -23020,7 +23020,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -23481,7 +23481,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -24104,7 +24104,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -25027,7 +25027,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -25433,7 +25433,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -25875,7 +25875,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -26039,7 +26039,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -26804,7 +26804,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -27331,7 +27331,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -27634,7 +27634,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -27799,7 +27799,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -28379,7 +28379,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -29390,7 +29390,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -29944,7 +29944,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -30447,7 +30447,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -31021,7 +31021,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -31660,7 +31660,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -32191,7 +32191,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "path": "framework/project/github/disclosure-policy.json",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "2a4b121f71226090ed85a2e81f8ce458e8d4a1c8864259a824445218d4e2ccf1",
+              "sha256": "239fb9c3c6a0fa0e0d20491b7c5fd9272f518b88212cdd797c50b1b2858afe87",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -34043,8 +34043,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       ],
       "validation": {
         "valid": true,
-        "source_sha256": "f30b0d113c315677827e29044fcebcded631020ebf8bb3bf60af2730262cd6fd",
-        "registry_route_sha256": "cc8c61bb629f30d0d0e8f15db1325a0c309e80715c16da99c816f8d9bb249446",
+        "source_sha256": "f1de00a1cf3451d7f3c8b28dfac0ff772834aa7233ccbb502d0d243167c4f77a",
+        "registry_route_sha256": "e9e09e07c5e08f23787a63ba4ca7e11ccf73c740ec0cc57d3c3a73641838c542",
         "counts": {
           "documents": 88,
           "governing_documents": 87,
@@ -34066,7 +34066,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "authoritative": false,
       "executable": false,
       "registry_revision": 1,
-      "registry_sha256": "4f0914de763bd21237eed4b3fad49a491d994c2be686aabb33ef16d04c77aa27",
+      "registry_sha256": "eeeee2d4e8326b4336e8085dca91d6ba2669800091faa1a03344564fecda1897",
       "current_candidate_counts": {
         "documents": 88,
         "governing_documents": 87,
@@ -34106,6 +34106,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "component-registry.js": "project-console-32489ba50fc51fa9e975"
+    "component-registry.js": "project-console-74d2c9250638aa05bcc7"
   }
 });

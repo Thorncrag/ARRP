@@ -1466,6 +1466,7 @@ def _current_candidate_view() -> dict[str, object]:
                         == specification["historical_path"]
                     ):
                         source = ROOT / specification["archived_path"]
+                        document["path"] = specification["archived_path"]
                         break
             document["sha256"] = hashlib.sha256(
                 source.read_bytes()

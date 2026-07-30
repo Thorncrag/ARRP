@@ -3,6 +3,7 @@ import importlib.util
 import hashlib
 import json
 import os
+import subprocess
 import tempfile
 import unittest
 from datetime import datetime, timezone
@@ -26,6 +27,33 @@ CONTRACT_SPEC = importlib.util.spec_from_file_location(
 CONTRACTS = importlib.util.module_from_spec(CONTRACT_SPEC)
 assert CONTRACT_SPEC.loader is not None
 CONTRACT_SPEC.loader.exec_module(CONTRACTS)
+
+
+def candidate_registry_fixture() -> dict[str, object]:
+    current = json.loads(MODULE.COMPONENT_REGISTRY.read_text(encoding="utf-8"))
+    if current.get("status") == "candidate":
+        return current
+    candidate_revision = current["approval"]["value"]["base_revision"]
+    completed = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(ROOT),
+            "show",
+            f"{candidate_revision}:framework/component-registry.json",
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    candidate = json.loads(completed.stdout)
+    if (
+        candidate.get("status") != "candidate"
+        or component_registry_tool._canonical_registry_digest(candidate)
+        != current["approval"]["value"]["candidate_registry_sha256"]
+    ):
+        raise AssertionError("active registry candidate parent is not exact")
+    return candidate
 
 
 class ConsoleDataContractTests(unittest.TestCase):
@@ -832,9 +860,7 @@ class ConsoleDataContractTests(unittest.TestCase):
             '"source_import": routing["source_import"]',
             projection_source,
         )
-        registry = json.loads(
-            MODULE.COMPONENT_REGISTRY.read_text(encoding="utf-8")
-        )
+        registry = candidate_registry_fixture()
         embedded = registry["context_routing"]
         view = self.component_registry_view(
             registry,
@@ -1045,9 +1071,7 @@ class ConsoleDataContractTests(unittest.TestCase):
         )
 
     def test_component_registry_active_configuration_is_not_live_activation(self):
-        registry = json.loads(
-            MODULE.COMPONENT_REGISTRY.read_text(encoding="utf-8")
-        )
+        registry = candidate_registry_fixture()
         candidate_registry = copy.deepcopy(registry)
         registry["status"] = "active"
         registry["approval"] = {

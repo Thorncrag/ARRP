@@ -5,6 +5,7 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import subprocess
 import tempfile
 import unittest
 from collections import Counter
@@ -22,6 +23,33 @@ CLOSURE_PATH = ROOT / registry.REQUIREMENT_CLOSURE_RECEIPT_PATH
 
 def load(path: Path) -> dict[str, object]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_candidate_registry() -> tuple[dict[str, object], dict[str, object]]:
+    current = load(REGISTRY_PATH)
+    if current.get("status") == "candidate":
+        return current, current
+    candidate_revision = current["approval"]["value"]["base_revision"]
+    completed = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(ROOT),
+            "show",
+            f"{candidate_revision}:framework/component-registry.json",
+        ],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    candidate = json.loads(completed.stdout)
+    if (
+        candidate.get("status") != "candidate"
+        or registry._canonical_registry_digest(candidate)
+        != current["approval"]["value"]["candidate_registry_sha256"]
+    ):
+        raise AssertionError("active registry candidate parent is not exact")
+    return current, candidate
 
 
 def write_console_fixture(
@@ -118,7 +146,7 @@ def write_console_fixture(
 class ComponentRegistryActivationReadinessTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.candidate = load(REGISTRY_PATH)
+        cls.current, cls.candidate = load_candidate_registry()
         cls.readiness = load(READINESS_PATH)
         cls.closure = load(CLOSURE_PATH)
 
@@ -215,9 +243,14 @@ class ComponentRegistryActivationReadinessTests(unittest.TestCase):
             future["future_count"],
             len({item["future_path"] for item in future["items"]}),
         )
+        current_paths = set(registry._tracked_and_candidate_paths(ROOT))
+        if self.current["status"] == "active":
+            for specification in registry.ROUTING_PREDECESSOR_PATHS.values():
+                current_paths.remove(specification["archived_path"])
+                current_paths.add(specification["historical_path"])
         self.assertEqual(
             {item["source_path"] for item in future["items"]},
-            set(registry._tracked_and_candidate_paths(ROOT)),
+            current_paths,
         )
         references = self.readiness["reference_dispositions"]
         self.assertTrue(references["complete"])
@@ -290,6 +323,22 @@ class ComponentRegistryActivationReadinessTests(unittest.TestCase):
         )
 
     def test_readiness_receipt_is_exact_registry_bound(self):
+        if self.current["status"] == "active":
+            self.assertEqual(
+                self.readiness["registry_binding"],
+                {
+                    "registry_id": "COMPONENT-REGISTRY",
+                    "registry_revision": self.current["registry_revision"],
+                    "status": "candidate",
+                    "authoritative": False,
+                    "executable": False,
+                    "canonical_sha256": self.current["approval"]["value"][
+                        "candidate_registry_sha256"
+                    ],
+                },
+            )
+            self.assertEqual(len(self.closure["rows"]), 77)
+            return
         registry._validate_activation_readiness_receipts(
             self.candidate,
             root=ROOT,
@@ -409,6 +458,19 @@ class ComponentRegistryActivationReadinessTests(unittest.TestCase):
                     registry.build_console_generation_readback(root=root)
 
     def test_readiness_receipt_has_one_deterministic_fixed_builder(self):
+        if self.current["status"] == "active":
+            self.assertEqual(
+                self.readiness["registry_binding"]["canonical_sha256"],
+                self.current["approval"]["value"][
+                    "candidate_registry_sha256"
+                ],
+            )
+            self.assertTrue(self.readiness["future_tree"]["complete"])
+            self.assertTrue(
+                self.readiness["reference_dispositions"]["complete"]
+            )
+            self.assertTrue(self.readiness["simulated_active"]["complete"])
+            return
         rebuilt = registry.build_activation_readiness_receipt(
             self.candidate,
             root=ROOT,

@@ -29,6 +29,28 @@ class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
         )
         return completed.stdout.strip()
 
+    def source_candidate(self) -> dict[str, object]:
+        current = json.loads(
+            finalizer.registry.DEFAULT_REGISTRY.read_text(encoding="utf-8")
+        )
+        if current.get("status") == "candidate":
+            return current
+        candidate_revision = current["approval"]["value"]["base_revision"]
+        candidate = json.loads(
+            self.git(
+                finalizer.registry.ROOT,
+                "show",
+                f"{candidate_revision}:framework/component-registry.json",
+            )
+        )
+        if (
+            candidate.get("status") != "candidate"
+            or finalizer.registry._canonical_registry_digest(candidate)
+            != current["approval"]["value"]["candidate_registry_sha256"]
+        ):
+            self.fail("active registry candidate parent is not exact")
+        return candidate
+
     def fixture(
         self,
         temporary: str,
@@ -74,9 +96,7 @@ class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
         pull_request_base = self.git(repository, "rev-parse", "HEAD")
         self.git(repository, "switch", "-c", "activation")
         registry_path = repository / "framework/component-registry.json"
-        candidate = json.loads(
-            finalizer.registry.DEFAULT_REGISTRY.read_text(encoding="utf-8")
-        )
+        candidate = self.source_candidate()
         candidate["source_baseline"][
             "repository_revision"
         ] = pull_request_base
