@@ -77,7 +77,7 @@ Use the following exact homes:
    `areas/<AREA>/research/<ISSUE-ID>-source-development.md`.
 4. **Formal Horizon source-development record.** Place formal-candidate source
    development at
-   `research/horizon-source-records/<HOR-ID>-source-development.md`.
+   `research/candidate-source-development/<HOR-ID>-source-development.md`.
 5. **Source-development shell.** When an admitted or unresolved area-specific
    identifier lacks a substantive issue page, keep its shell at
    `areas/<AREA>/issues/<ISSUE-ID>.md`, mark it

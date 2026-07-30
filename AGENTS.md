@@ -3,14 +3,14 @@ module_id: codex_bootstrap
 dependencies:
   - "framework/FRAMEWORK.md"
   - "framework/AGENT_OPERATING_RULES.md"
-  - "framework/records/handoffs/current-task.md"
+  - "framework/handoffs/current-task.md"
   - "framework/CONTEXT_ROUTING.md"
   - "framework/PROJECT_STRUCTURE.md"
 ---
 
 # ARRP Codex Guidance
 
-Before substantive ARRP work, read the compact mandatory kernels in [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md) and [`framework/AGENT_OPERATING_RULES.md`](framework/AGENT_OPERATING_RULES.md), plus the live continuation checkpoint in [`framework/records/handoffs/current-task.md`](framework/records/handoffs/current-task.md). These files are the required floor, not the complete context for every task.
+Before substantive ARRP work, read the compact mandatory kernels in [`framework/FRAMEWORK.md`](framework/FRAMEWORK.md) and [`framework/AGENT_OPERATING_RULES.md`](framework/AGENT_OPERATING_RULES.md), plus the live continuation checkpoint in [`framework/handoffs/current-task.md`](framework/handoffs/current-task.md). These files are the required floor, not the complete context for every task.
 
 Use the module route table in the Framework and the routing rules in [`framework/CONTEXT_ROUTING.md`](framework/CONTEXT_ROUTING.md) to load the additive union of every operation and capability implicated by the work, together with each selected module's dependencies. Expand context before taking an action that newly implicates another authority. Read [`framework/project/github/workflow.md`](framework/project/github/workflow.md) whenever GitHub issues, Project fields, lifecycle status, or authenticated synchronization may be affected.
 

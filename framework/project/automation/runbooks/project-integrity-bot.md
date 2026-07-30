@@ -10,7 +10,7 @@ schedule: "Every local chain after other deterministic inputs; no independent sc
 runtime_id: scripts/audit_project_consistency.py
 execution_environment: local-transaction-worktree
 log_path: owner-local:records/automation/agent-audit-log.md
-current_report: framework/records/status/project-integrity-report.md
+current_report: framework/status/project-integrity-report.md
 checks_included:
   - Issue and proposal structure, including Issue Snapshot concision
   - Area and topic routing

@@ -1,4 +1,4 @@
-# ARRP behaviorally active and human-reserved paths
+# Generated from framework/component-registry.json; do not edit manually.
 /.github/ @Thorncrag
 /scripts/ @Thorncrag
 /tests/ @Thorncrag
@@ -12,12 +12,14 @@
 /framework/AGENT_OPERATING_RULES.md @Thorncrag
 /framework/CONTEXT_ROUTING.md @Thorncrag
 /framework/PROJECT_STRUCTURE.md @Thorncrag
+/framework/component-registry.json @Thorncrag
 /framework/standards/ @Thorncrag
 /framework/project/ @Thorncrag
 /participate/ @Thorncrag
 /website/ @Thorncrag
-/research/project-console/README.md @Thorncrag
-/research/project-console/project-console.html @Thorncrag
-/research/project-console/app.js @Thorncrag
-/research/project-console/styles.css @Thorncrag
-/research/project-console/tests/ @Thorncrag
+/framework/project/interfaces/project-console/README.md @Thorncrag
+/framework/project/interfaces/project-console/project-console.html @Thorncrag
+/framework/project/interfaces/project-console/app.js @Thorncrag
+/framework/project/interfaces/project-console/styles.css @Thorncrag
+/tests/project-console/ @Thorncrag
+/framework/logs/ @Thorncrag

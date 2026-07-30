@@ -909,7 +909,7 @@ class GitHubDisclosureGateTests(unittest.TestCase):
         public = MODULE.evaluate_outbound_bundle(
             [
                 self.artifact(
-                    "framework/records/governance/governance-change-log.md",
+                    "framework/logs/governance/governance-change-log.md",
                     "# Public governance change log\n",
                     producer="interactive-reviewed-github",
                 ),

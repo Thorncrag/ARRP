@@ -7,7 +7,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from scripts.arrp_nightly import SensitiveValue
-from scripts.refresh_horizon_review_console import (
+from scripts.refresh_project_console import (
     ConsoleRefreshError,
     _component_registry_configuration_state,
     _production_interpreter,
@@ -96,11 +96,11 @@ def fixture_authority(root: Path) -> FakeAuthority:
         "scripts/build_project_console_progress.py",
         "scripts/audit_project_consistency.py",
         "scripts/build_project_integrity_feed.py",
-        "scripts/build_horizon_review_console.py",
+        "scripts/build_project_console.py",
         "framework/project/interfaces/project-console-progress.json",
         "inventory/github_issue_registry.csv",
-        "research/project-console/data/integrity.js",
-        "framework/records/status/project-integrity-report.md",
+        "framework/project/interfaces/project-console/data/integrity.js",
+        "framework/status/project-integrity-report.md",
     ):
         path = root / relative
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -122,7 +122,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
             "predecessor_route_consulted": False,
         }
         with patch(
-            "scripts.refresh_horizon_review_console."
+            "scripts.refresh_project_console."
             "load_component_registry_configuration_routing_view",
             return_value=view,
         ) as loader:
@@ -139,7 +139,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
             "predecessor_route_consulted": True,
         }
         with patch(
-            "scripts.refresh_horizon_review_console."
+            "scripts.refresh_project_console."
             "load_component_registry_configuration_routing_view",
             return_value=candidate,
         ) as candidate_loader:
@@ -152,7 +152,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
         incompatible = dict(view)
         incompatible["live_activation_verified"] = True
         with patch(
-            "scripts.refresh_horizon_review_console."
+            "scripts.refresh_project_console."
             "load_component_registry_configuration_routing_view",
             return_value=incompatible,
         ):
@@ -174,7 +174,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
                 return SensitiveValue("secret-canary")
 
             with patch(
-                "scripts.refresh_horizon_review_console."
+                "scripts.refresh_project_console."
                 "_component_registry_configuration_state",
                 return_value="candidate_validation_only",
             ):
@@ -203,7 +203,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
                 "build_project_console_progress.py",
                 "audit_project_consistency.py",
                 "build_project_integrity_feed.py",
-                "build_horizon_review_console.py",
+                "build_project_console.py",
             ],
         )
         integrity_command = next(
@@ -249,7 +249,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
                 "tracked tree must be clean",
             ):
                 with patch(
-                    "scripts.refresh_horizon_review_console."
+                    "scripts.refresh_project_console."
                     "_component_registry_configuration_state",
                     return_value="candidate_validation_only",
                 ):
@@ -275,7 +275,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
                 return SensitiveValue("secret-canary")
 
             with patch(
-                "scripts.refresh_horizon_review_console."
+                "scripts.refresh_project_console."
                 "_component_registry_configuration_state",
                 side_effect=ConsoleRefreshError(
                     "Component Registry configuration validation is unavailable."
@@ -303,7 +303,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
             )
             with self.assertRaises(ConsoleRefreshError) as raised:
                 with patch(
-                    "scripts.refresh_horizon_review_console."
+                    "scripts.refresh_project_console."
                     "_component_registry_configuration_state",
                     return_value="candidate_validation_only",
                 ):
@@ -332,7 +332,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
             interpreter = bin_directory / "python"
             interpreter.symlink_to(Path(sys.executable).resolve())
             with patch(
-                "scripts.refresh_horizon_review_console.sys.prefix",
+                "scripts.refresh_project_console.sys.prefix",
                 str(root / ".venv"),
             ):
                 self.assertEqual(

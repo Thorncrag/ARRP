@@ -400,7 +400,7 @@ class ProjectPathAuthorityTests(unittest.TestCase):
         for relative in (
             "scripts/append_agent_audit_log.py",
             "scripts/build_elim_context.py",
-            "scripts/build_horizon_review_console.py",
+            "scripts/build_project_console.py",
             "scripts/build_owner_console.py",
             "scripts/operational_incidents.py",
             "scripts/record_review_epoch.py",

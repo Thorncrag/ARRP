@@ -95,8 +95,8 @@ class RetiredControlPlaneTests(unittest.TestCase):
             "scripts/build_automation_health_projection.py",
             "scripts/publish_project_console_progress.py",
             "scripts/publish_immutable_data_file.py",
-            ".github/launchd/com.thorncrag.arrp-run-coordinator.plist.example",
-            ".github/launchd/com.thorncrag.arrp-run-coordinator-control.plist.example",
+            "framework/project/automation/configuration/launchd/com.thorncrag.arrp-run-coordinator.plist.example",
+            "framework/project/automation/configuration/launchd/com.thorncrag.arrp-run-coordinator-control.plist.example",
         )
         self.assertEqual(
             [relative for relative in retired if (ROOT / relative).exists()],
@@ -148,7 +148,13 @@ class GitHubIssueLinkTests(unittest.TestCase):
     def test_ignored_private_console_projection_is_an_optional_html_asset(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            console = root / "research" / "project-console"
+            console = (
+                root
+                / "framework"
+                / "project"
+                / "interfaces"
+                / "project-console"
+            )
             console.mkdir(parents=True)
             page = console / "project-console.html"
             page.write_text(
@@ -188,7 +194,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             encoding="utf-8",
         )
         (framework / "EXTRA.md").write_text("# Extra authority\n", encoding="utf-8")
-        handoffs = framework / "records" / "handoffs"
+        handoffs = framework / "handoffs"
         handoffs.mkdir(parents=True)
         (handoffs / "current-task.md").write_text(
             "# Current audit\n",
@@ -221,7 +227,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                     "governing": True,
                 },
                 "current_audit": {
-                    "path": "framework/records/handoffs/current-task.md",
+                    "path": "framework/handoffs/current-task.md",
                     "hash_policy": "runtime",
                     "governing": False,
                 },
@@ -333,7 +339,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 "documents": {
                     **baseline["documents"],
                     "current_audit": {
-                        "path": "framework/records/handoffs/current-task.md",
+                        "path": "framework/handoffs/current-task.md",
                         "hash_policy": "pinned",
                         "governing": True,
                     },
@@ -979,7 +985,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             self.assertEqual(warnings, [])
 
     def test_current_audit_handoff_state_is_coherent(self):
-        current_audit = (ROOT / "framework/records/handoffs/current-task.md").read_text(
+        current_audit = (ROOT / "framework/handoffs/current-task.md").read_text(
             encoding="utf-8"
         )
         current_table = current_audit.split("## Current Task", 1)[1].split(
@@ -1032,7 +1038,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
         )
 
     def test_current_audit_rules_separate_handoff_from_runtime_liveness(self):
-        current_audit = (ROOT / "framework/records/handoffs/current-task.md").read_text(
+        current_audit = (ROOT / "framework/handoffs/current-task.md").read_text(
             encoding="utf-8"
         )
         agent_rules = (ROOT / "framework/AGENT_OPERATING_RULES.md").read_text(
@@ -1104,7 +1110,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             "trigger": "run-chain-or-manual",
             "schedule": "Due every 168 hours in the Run Coordinator chain; no independent schedule",
             "status": "report-only-pilot",
-            "current_report": "framework/records/status/source-checker-report.md",
+            "current_report": "framework/status/source-checker-report.md",
             "current_data": "project-console-data:source-checker.json",
             "offline_cache_path": ".tmp/project-console-source-checker.json",
         }
@@ -1116,7 +1122,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 "coordinator": ".github/workflows/run-coordinator-bot.yml",
                 "dueEveryHours": 168,
             },
-            "currentReport": "framework/records/status/source-checker-report.md",
+            "currentReport": "framework/status/source-checker-report.md",
             "currentData": "project-console-data:source-checker.json",
             "offlineCachePath": ".tmp/project-console-source-checker.json",
         }
@@ -1144,7 +1150,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
         drifted_values = {
             **values,
             "execution_environment": "local-shell",
-            "current_data": "framework/records/status/source-checker.json",
+            "current_data": "framework/status/source-checker.json",
             "offline_cache_path": ".tmp/wrong.json",
         }
         drifted_config = {
@@ -1289,7 +1295,14 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertEqual(warnings, [])
 
     def test_local_link_queries_do_not_change_filesystem_target(self):
-        source = ROOT / "research" / "project-console" / "project-console.html"
+        source = (
+            ROOT
+            / "framework"
+            / "project"
+            / "interfaces"
+            / "project-console"
+            / "project-console.html"
+        )
         self.assertEqual(
             local_target(source, "app.js?v=20"),
             (source.parent / "app.js").resolve(),
@@ -2164,24 +2177,24 @@ class GitHubIssueLinkTests(unittest.TestCase):
     def test_extracts_main_branch_blob_target(self):
         body = (
             "[Horizon log](https://github.com/Thorncrag/ARRP/blob/main/"
-            "framework/records/candidates/horizon-scan-log.md#horizon-integration-log)"
+            "framework/logs/candidates/candidate-discovery-log.md#horizon-integration-log)"
         )
 
         targets = github_repository_targets(body)
 
         self.assertEqual(len(targets), 1)
-        self.assertEqual(targets[0][1], "framework/records/candidates/horizon-scan-log.md")
+        self.assertEqual(targets[0][1], "framework/logs/candidates/candidate-discovery-log.md")
 
     def test_extracts_repository_target_from_json_escaped_html(self):
         body = (
             '{"html":"<a href=\\"https://github.com/Thorncrag/ARRP/blob/main/'
-            'framework/records/candidates/horizon-scan-log.md\\" target=\\"_blank\\">log</a>"}'
+            'framework/logs/candidates/candidate-discovery-log.md\\" target=\\"_blank\\">log</a>"}'
         )
 
         targets = github_repository_targets(body)
 
         self.assertEqual(len(targets), 1)
-        self.assertEqual(targets[0][1], "framework/records/candidates/horizon-scan-log.md")
+        self.assertEqual(targets[0][1], "framework/logs/candidates/candidate-discovery-log.md")
 
     def test_ignores_non_main_branch_target(self):
         body = "https://github.com/Thorncrag/ARRP/blob/project-console-data/progress.json"

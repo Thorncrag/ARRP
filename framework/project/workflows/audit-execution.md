@@ -105,7 +105,7 @@ source-catalog record. Create a preliminary candidate only for a plausible
 distinct institutional weakness without an existing owner. The deterministic
 watcher may propose only the registry metadata authorized by its runbook,
 verify only whether a required human answer exists, and record its material
-event in `framework/records/sources/source-monitor-log.md`; it may not perform
+event in `framework/logs/sources/source-monitor-log.md`; it may not perform
 the substantive review or disposition.
 
 ## ARRP Tier Progression

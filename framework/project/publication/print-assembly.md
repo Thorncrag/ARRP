@@ -99,7 +99,7 @@ treated as an independent proposal.
 Issue source-development records at
 `areas/<AREA>/research/<ISSUE-ID>-source-development.md`, formal Horizon
 source-development records at
-`research/horizon-source-records/<HOR-ID>-source-development.md`, and
+`research/candidate-source-development/<HOR-ID>-source-development.md`, and
 area-specific source-development shells with
 `record_type: source-development` are internal records. They must use
 `print_status: excluded` with an accurate reason and must not carry

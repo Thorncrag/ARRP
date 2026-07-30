@@ -36,7 +36,7 @@ class ArrpStatusProjectionTests(unittest.TestCase):
             self.assertFalse(
                 (
                     config.canonical_path
-                    / "research/project-console/data/local-automation-status.js"
+                    / "framework/project/interfaces/project-console/data/local-automation-status.js"
                 ).exists()
             )
 

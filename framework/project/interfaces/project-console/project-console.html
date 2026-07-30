@@ -1,0 +1,1015 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <title>ARRP Project Console</title>
+    <meta name="description" content="ARRP project verification, human action, progress, planning, integrity, and operations console.">
+  <link rel="stylesheet" href="styles.css?v=55">
+  </head>
+  <body
+    data-interface-theme="arrp-tool"
+    data-initial-script-budget-kib="655"
+    data-initial-dom-budget="1500"
+  >
+    <a class="skip-link" href="#console-main">Skip to Console content</a>
+
+    <header class="app-header">
+      <div class="brand-block">
+        <span class="brand-mark" aria-hidden="true">ARRP</span>
+        <div>
+          <h1>ARRP Project Console</h1>
+          <p>Verification, human action, progress, planning, integrity, and operations in one project workspace.</p>
+        </div>
+      </div>
+      <div class="header-tools" aria-label="Console preferences">
+        <button type="button" id="workflow-summary-restore" class="secondary" hidden>Show intro</button>
+        <button type="button" id="layout-edit-toggle" aria-pressed="false">Design layout</button>
+        <button type="button" id="layout-reset-view" class="secondary">Reset this view</button>
+        <button type="button" id="layout-reset-all" class="secondary">Reset all</button>
+      </div>
+    </header>
+
+    <main class="app-shell" id="console-main" tabindex="-1">
+      <section class="workflow-summary" id="workflow-summary" aria-labelledby="workflow-heading">
+        <button type="button" class="workflow-summary-dismiss" id="workflow-summary-dismiss" aria-label="Close introductory banner">×</button>
+        <div>
+          <span class="eyebrow">One read-only project workspace</span>
+          <h2 id="workflow-heading">See what is complete, what needs review, and where every record belongs.</h2>
+        </div>
+        <ol>
+          <li><b>Verify</b><span>Confirm what the current data and latest automation run actually establish.</span></li>
+          <li><b>Act</b><span>Resolve human decisions and interventions in one linked inbox.</span></li>
+          <li><b>Plan</b><span>Sequence candidate and proposal work while progress remains independently measurable.</span></li>
+        </ol>
+      </section>
+
+      <nav class="console-tabs" id="console-tabs" aria-label="Project console views">
+        <div class="tab-list" role="tablist" aria-label="Project views">
+          <button type="button" id="tab-overview" role="tab" aria-selected="true" aria-controls="panel-overview" data-tab="overview">Overview</button>
+          <button type="button" id="tab-actions" role="tab" aria-selected="false" aria-controls="panel-actions" data-tab="actions" tabindex="-1">Action Items <span class="tab-count" id="tab-actions-count">0</span></button>
+          <button type="button" id="tab-progress" role="tab" aria-selected="false" aria-controls="panel-progress" data-tab="progress" tabindex="-1">Progress</button>
+          <button type="button" id="tab-planning" role="tab" aria-selected="false" aria-controls="panel-planning" data-tab="planning" tabindex="-1">Planning</button>
+          <button type="button" id="tab-integrity" role="tab" aria-selected="false" aria-controls="panel-integrity" data-tab="integrity" tabindex="-1">Integrity <span class="tab-count" id="tab-integrity-count">0</span></button>
+          <button type="button" id="tab-automation" role="tab" aria-selected="false" aria-controls="panel-automation" data-tab="automation" tabindex="-1">Operations <span class="tab-count" id="tab-automation-count">—</span></button>
+        </div>
+      </nav>
+
+      <p id="layout-status" class="layout-status" role="status" aria-live="polite">Layout preferences are saved in this browser.</p>
+      <p id="console-announcer" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
+
+      <section class="tab-panel" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+        <section class="queue-view overview-view" aria-labelledby="overview-heading">
+          <div class="queue-view-header overview-header">
+            <div>
+              <span class="eyebrow">Daily operations briefing</span>
+              <h2 id="overview-heading">Whole-project overview</h2>
+              <p>A compact account of what happened, what needs attention, and where to look next. Detailed progress remains on the Progress screen.</p>
+            </div>
+            <div class="overview-header-actions">
+              <p class="refresh-note">Interface generated <time id="overview-generated-at">—</time></p>
+            </div>
+          </div>
+          <section class="overview-section overview-daily-brief" id="overview-daily-section" data-layout-id="overview-daily-section" aria-labelledby="overview-daily-heading">
+            <div class="overview-daily-heading">
+              <div>
+                <span class="eyebrow">Operational posture</span>
+                <h3 id="overview-daily-heading">Current project brief</h3>
+              </div>
+              <span id="overview-daily-status" class="status-badge">Awaiting data</span>
+            </div>
+            <p id="overview-daily-summary" class="overview-daily-summary">Assembling the current operational picture…</p>
+            <div class="overview-daily-facts" id="overview-daily-facts"></div>
+            <p class="overview-daily-verification" id="overview-daily-verification">Checking the loaded snapshot…</p>
+            <dl class="overview-degraded-explanation" id="overview-degraded-explanation" hidden></dl>
+          </section>
+          <section class="overview-section" id="overview-chain-section" data-layout-id="overview-chain-section" aria-labelledby="overview-chain-heading">
+            <div class="section-heading-row">
+              <div><h3 id="overview-chain-heading">Latest automation chain</h3><p>Seven operational stages from the latest attempt. Open Operations for retained success, schedule, and recovery detail.</p></div>
+              <a class="record-link secondary compact-link" href="#automation:chain">Open full chain →</a>
+            </div>
+            <div class="overview-automation-activity-grid overview-stage-strip" id="overview-automation-activity-grid"></div>
+            <a class="overview-chain-readiness" id="overview-chain-readiness" href="#automation:gates">Future-run gates: unavailable</a>
+          </section>
+          <section class="overview-section" id="overview-indicators-section" data-layout-id="overview-indicators-section" aria-labelledby="overview-indicators-heading">
+            <div class="section-heading-row">
+              <div><h3 id="overview-indicators-heading">Operational indicators</h3><p>Five compact summaries, each routed to one complete specialist ledger.</p></div>
+            </div>
+            <div class="overview-indicator-grid" id="overview-portals"></div>
+          </section>
+          <div class="overview-lower-grid">
+            <section class="overview-section" id="overview-queues-section" data-layout-id="overview-queues-section" aria-labelledby="overview-queues-heading">
+              <div class="section-heading-row">
+                <div><h3 id="overview-queues-heading">Work queues</h3><p>Open workload by active queue. A flag appears only when the queue feed or processing path has a problem.</p></div>
+                <span id="overview-queues-summary" class="disclosure-summary-detail">Counting work…</span>
+              </div>
+              <div id="overview-queue-directory" class="overview-queue-directory"></div>
+            </section>
+            <section class="overview-section" id="overview-recent-section" data-layout-id="overview-recent-section" aria-labelledby="overview-recent-heading">
+              <div class="section-heading-row"><div><h3 id="overview-recent-heading">Recent material activity</h3><p>Touched artifacts and their score or descriptor changes.</p></div></div>
+              <div id="overview-recent-actions" class="overview-material-list"></div>
+            </section>
+          </div>
+          <div class="overview-supporting-data" hidden aria-hidden="true">
+            <div id="overview-freshness"></div>
+            <div id="overview-openai-status"></div>
+            <p id="overview-openai-checked"></p>
+            <span id="overview-usage-posture"></span>
+            <div id="overview-usage-summary"></div>
+            <span id="overview-usage-detail-summary"></span>
+            <div id="overview-usage-windows"></div>
+            <div id="overview-usage-trend"></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="tab-panel" id="panel-progress" role="tabpanel" aria-labelledby="tab-progress" hidden>
+        <section class="queue-view progress-view" aria-labelledby="progress-heading">
+          <div class="queue-view-header">
+            <div>
+              <span class="eyebrow">Review Ready goal</span>
+              <h2 id="progress-heading">Project progress</h2>
+              <p>Current portfolio progress toward bringing every eligible proposal to Review Ready by the official target date. Development level and score govern maturity; workflow status identifies the next action. GitHub Project fields remain authoritative.</p>
+            </div>
+            <p class="refresh-note">Progress data as of <time id="progress-as-of">—</time></p>
+          </div>
+          <p class="method-note" id="progress-live-note">Using the checked-in progress projection until a valid newer live feed is accepted.</p>
+          <div class="progress-summary-grid" id="progress-summary-grid"></div>
+          <div class="progress-sections" id="progress-sections">
+            <section class="progress-architecture-section" id="progress-architecture" aria-labelledby="progress-architecture-heading">
+              <div class="section-heading-row">
+                <div><h3 id="progress-architecture-heading">Portfolio architecture history</h3><p>Changes in the number of separately counted proposals are shown independently from earned Review Ready attainment.</p></div>
+                <a class="record-link secondary" id="progress-consolidation-link" href="https://github.com/Thorncrag/ARRP/blob/main/research/portfolio-issue-consolidation-review.md" target="_blank" rel="noopener noreferrer">Open adopted consolidation record ↗</a>
+              </div>
+              <div class="portfolio-history-grid" id="progress-portfolio-history"></div>
+              <p class="method-note" id="progress-architecture-note">Loading reason-coded portfolio movement…</p>
+            </section>
+            <section class="development-board-section" id="progress-development-board" aria-labelledby="development-board-heading">
+              <div class="progress-chart-heading">
+                <div><h3 id="development-board-heading">Development-level board</h3><p>All formal candidates and active proposals across the six substantive maturity stages. Cards show the stable identifier, score, live page, GitHub issue, and current workflow cue.</p><p class="development-board-accounting" id="development-board-accounting">Counting current records…</p></div>
+              </div>
+              <p class="attention-note development-board-warning" id="development-board-warning" hidden></p>
+              <div class="development-board" id="development-board"></div>
+            </section>
+            <details class="progress-disclosure" id="progress-schedule" data-disclosure-id="progress-schedule">
+              <summary><span>Schedule and trajectory</span><span id="progress-schedule-summary" class="disclosure-summary-detail">Loading progress data…</span></summary>
+              <div class="progress-disclosure-body">
+                <section class="goal-progress" aria-labelledby="goal-progress-heading">
+                  <div><h3 id="goal-progress-heading">Current portfolio coverage</h3><p id="progress-status-note">Loading progress data…</p></div>
+                  <div class="progress-track" role="progressbar" aria-label="Review Ready portfolio coverage" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-track"><span id="progress-fill"></span></div>
+                </section>
+                <section class="progress-trajectory-card" aria-labelledby="progress-trajectory-heading">
+                  <div class="progress-chart-heading">
+                    <div><h3 id="progress-trajectory-heading">Review Ready trajectory</h3><p>Actual attainment compared with the pace needed to reach the official target.</p></div>
+                    <div class="progress-chart-legend" aria-label="Chart legend"><span class="actual">Actual</span><span class="target">Target pace</span></div>
+                  </div>
+                  <div id="progress-trajectory" class="progress-trajectory" role="img" aria-label="Review Ready progress trajectory"></div>
+                </section>
+              </div>
+            </details>
+            <section class="progress-disclosure progress-area-section progress-group-index" id="progress-area-coverage" aria-labelledby="progress-area-heading">
+              <div class="progress-group-index-header"><h3 id="progress-area-heading">Review Ready coverage by area</h3><span id="progress-area-summary" class="disclosure-summary-detail">Loading area coverage…</span></div>
+              <div id="progress-area-list" class="progress-area-list progress-disclosure-body"></div>
+            </section>
+            <section class="progress-disclosure progress-holds-summary progress-group-index" id="progress-holds-summary" aria-labelledby="progress-holds-heading">
+              <div class="progress-group-index-header">
+                <div><h3 id="progress-holds-heading">Workflow holds</h3><p>Compact measurement only. Complete Blocked and Deferred records, reasons, triggers, and audit provenance live in Planning → Workbench.</p></div>
+                <span class="disclosure-summary-detail"><b id="progress-holds-count">0</b> records</span>
+              </div>
+              <div class="progress-hold-summary-row">
+                <a href="#planning:workbench:pipeline:mode=hold&amp;status=Blocked"><strong id="progress-blocked-count">0</strong><span>Blocked</span></a>
+                <a href="#planning:workbench:pipeline:mode=hold&amp;status=Deferred"><strong id="progress-deferred-count">0</strong><span>Deferred</span></a>
+                <a class="record-link secondary" href="#planning:workbench:pipeline:mode=hold">Open in Workbench →</a>
+              </div>
+            </section>
+            <section class="progress-disclosure progress-monitoring-section progress-group-index" id="progress-monitoring" aria-labelledby="progress-monitoring-heading">
+              <div class="progress-group-index-header">
+                <div><h3 id="progress-monitoring-heading">Issues being monitored</h3><p>Scan the issue list first, then expand an issue for its monitoring rationale and associated sources. Routine monitoring remains outside Action Items unless a new development creates a decision or review need.</p></div>
+                <span class="disclosure-summary-detail"><b id="manual-watch-count">0</b> monitored issues</span>
+              </div>
+              <div class="progress-disclosure-body">
+                <div class="queue-controls source-controls">
+                  <label for="manual-watch-search">Search<input id="manual-watch-search" type="search" placeholder="Issue, trigger, source, or monitoring group…"></label>
+                  <label for="manual-watch-kind">Issue type<select id="manual-watch-kind"><option value="all">All issue types</option></select></label>
+                </div>
+                <p class="result-count"><b id="manual-watch-visible">0</b> monitored issues match</p>
+                <div class="monitoring-list" id="manual-watch-list"></div>
+              </div>
+            </section>
+          </div>
+          <div class="source-list dossier-actions">
+            <a class="record-link secondary" href="https://github.com/users/Thorncrag/projects/2" target="_blank" rel="noopener noreferrer">Open authoritative GitHub Project ↗</a>
+          </div>
+        </section>
+      </section>
+
+      <section class="tab-panel" id="panel-actions" role="tabpanel" aria-labelledby="tab-actions" hidden>
+        <section class="queue-view action-items-view" aria-labelledby="action-items-heading">
+          <div class="queue-view-header">
+            <div>
+              <span class="eyebrow">Central review inbox</span>
+              <h2 id="action-items-heading">Action inbox</h2>
+              <p>Scan one consistent list, then select an item to preview its owner, decision or recovery question, timing, consequence, and authoritative route. The inbox opens with your items; work assigned elsewhere remains available for project-manager oversight.</p>
+            </div>
+            <p class="attention-note" id="action-items-note">Loading review queues…</p>
+          </div>
+          <section class="action-priority-attention" id="action-priority-attention" aria-labelledby="action-priority-heading" hidden>
+            <div class="section-heading-row">
+              <div>
+                <span class="eyebrow">Deterministic triage</span>
+                <h3 id="action-priority-heading">Priority attention</h3>
+                <p>At most five human-owned items elevated by an explicit blocking effect, Critical or High priority, due timing, or a recorded consequential decision.</p>
+              </div>
+              <span class="disclosure-summary-detail" id="action-priority-summary"></span>
+            </div>
+            <div class="action-priority-list" id="action-priority-list"></div>
+          </section>
+          <div class="action-inbox-toolbar">
+            <div class="action-inbox-filters" role="group" aria-label="Action inbox assignment filter">
+              <button type="button" class="action-inbox-filter" data-action-filter="mine" aria-pressed="true">My items <span id="assigned-actions-count">0</span></button>
+              <button type="button" class="action-inbox-filter" data-action-filter="oversight" aria-pressed="false">Oversight <span id="oversight-actions-count">0</span></button>
+              <button type="button" class="action-inbox-filter" data-action-filter="all" aria-pressed="false">All open <span id="all-actions-count">0</span></button>
+            </div>
+            <label class="action-inbox-search" for="action-inbox-search">Find an action item
+              <input id="action-inbox-search" type="search" placeholder="Title, queue, owner, or status">
+            </label>
+            <div class="action-inbox-layout" role="group" aria-label="Preview position">
+              <span>Preview</span>
+              <button type="button" data-action-layout="right" aria-pressed="true">Right</button>
+              <button type="button" data-action-layout="below" aria-pressed="false">Below</button>
+            </div>
+          </div>
+          <div class="action-inbox-workspace" id="action-inbox-workspace" data-preview-position="right">
+            <section class="action-inbox-list-pane" aria-labelledby="action-inbox-list-heading">
+              <div class="action-inbox-list-header">
+                <div><h3 id="action-inbox-list-heading">My items</h3><p id="action-inbox-result-summary">Loading items…</p></div>
+              </div>
+              <div class="action-inbox-list" id="action-items-grid" role="list" aria-label="Action items"></div>
+            </section>
+            <article class="action-inbox-preview" id="action-item-preview" aria-live="polite" aria-labelledby="action-preview-heading">
+              <div class="action-preview-empty">
+                <span class="eyebrow">Item preview</span>
+                <h3 id="action-preview-heading">Choose an action item</h3>
+                <p>Select an item from the inbox to inspect its details and open the specialist view or canonical record that owns it.</p>
+              </div>
+            </article>
+          </div>
+          <p class="method-note" id="action-items-live-note">Live pull-request heads refresh from GitHub when available and are matched against checked-in recommendations. The Action Inbox is a nonauthoritative routing index; specialist Console views and canonical records own status and disposition.</p>
+        </section>
+      </section>
+
+      <section class="tab-panel" id="panel-planning" role="tabpanel" aria-labelledby="tab-planning" hidden>
+        <nav class="section-tabs" aria-label="Planning views">
+          <div class="section-tab-list" role="tablist" aria-label="Planning views">
+            <button type="button" id="planning-tab-workbench" role="tab" aria-selected="true" aria-controls="planning-panel-workbench" data-subtab-group="planning" data-subtab="workbench">Workbench</button>
+            <button type="button" id="planning-tab-preliminary" role="tab" aria-selected="false" aria-controls="planning-panel-preliminary" data-subtab-group="planning" data-subtab="preliminary" tabindex="-1">Preliminary Candidates <span class="tab-count" id="planning-preliminary-count">0</span><span class="tab-update-count" id="planning-preliminary-update" hidden>0</span></button>
+            <button type="button" id="planning-tab-candidates" role="tab" aria-selected="false" aria-controls="planning-panel-candidates" data-subtab-group="planning" data-subtab="candidates" tabindex="-1">Candidates <span class="tab-count" id="planning-candidates-count">0</span></button>
+            <button type="button" id="planning-tab-sources" role="tab" aria-selected="false" aria-controls="planning-panel-sources" data-subtab-group="planning" data-subtab="sources" tabindex="-1">Sources <span class="tab-count" id="planning-sources-count">0</span><span class="tab-update-count" id="planning-sources-update" hidden>0</span></button>
+            <button type="button" id="planning-tab-publication" role="tab" aria-selected="false" aria-controls="planning-panel-publication" data-subtab-group="planning" data-subtab="publication" tabindex="-1">Publication</button>
+          </div>
+        </nav>
+        <div class="section-panel" id="planning-panel-workbench" role="tabpanel" aria-labelledby="planning-tab-workbench">
+          <section class="queue-view pipeline-view" aria-labelledby="pipeline-heading">
+            <div class="queue-view-header">
+              <div>
+                <span class="eyebrow">Pipeline</span>
+                <h2 id="pipeline-heading">Workbench</h2>
+                <p>A read-only planning view of candidate intake and proposal development toward Review Ready.</p>
+              </div>
+              <p class="refresh-note">Pipeline data as of <time id="pipeline-as-of">—</time></p>
+            </div>
+            <p class="method-note" id="pipeline-data-note">Loading the typed planning projection…</p>
+            <div class="pipeline-mode-switcher" role="group" aria-label="Workbench mode">
+              <button type="button" data-pipeline-mode="active" aria-pressed="true">Active Pipeline</button>
+              <button type="button" data-pipeline-mode="hold" aria-pressed="false">Blocked &amp; deferred (<span id="pipeline-hold-mode-count">0</span>)</button>
+            </div>
+            <div class="pipeline-controls">
+              <label for="pipeline-search">Search<input id="pipeline-search" type="search" placeholder="Identifier, title, or exact next action…"></label>
+              <label for="pipeline-work-class">Work class<select id="pipeline-work-class"><option value="all">All work classes</option></select></label>
+              <label for="pipeline-scope">Scope<select id="pipeline-scope"><option value="active-development">Active development</option><option value="review-ready">Review Ready+</option><option value="all">All</option></select></label>
+              <label for="pipeline-sort">Sort<select id="pipeline-sort"><option value="pipeline">Pipeline order</option><option value="priority">Priority</option><option value="due">Due date</option><option value="identifier">Identifier</option></select></label>
+              <button type="button" class="secondary pipeline-reset" id="pipeline-reset">Reset this mode</button>
+            </div>
+            <details class="pipeline-advanced-filters" id="pipeline-advanced-filters" data-disclosure-id="pipeline-advanced-filters">
+              <summary>Advanced filters <span id="pipeline-advanced-summary">None applied</span></summary>
+              <div class="pipeline-controls pipeline-controls-advanced">
+                <label for="pipeline-status">Status<select id="pipeline-status"><option value="all">All statuses</option></select></label>
+                <label for="pipeline-development">Development level<select id="pipeline-development"><option value="all">All development levels</option></select></label>
+                <label for="pipeline-area">Area<select id="pipeline-area"><option value="all">All areas</option></select></label>
+                <label for="pipeline-owner">Owner<select id="pipeline-owner"><option value="all">All owners</option></select></label>
+                <label for="pipeline-priority">Priority<select id="pipeline-priority"><option value="all">All priorities</option></select></label>
+                <label for="pipeline-release-blocker">Release blocker<select id="pipeline-release-blocker"><option value="all">All blocker states</option><option value="required">Required</option><option value="not-required">Not required</option></select></label>
+              </div>
+            </details>
+            <a class="pipeline-gap-notice" id="pipeline-gap-notice" href="#planning:workbench:pipeline:gap=next_action_missing" hidden><strong id="pipeline-gap-count">0</strong> next steps not recorded · show affected records →</a>
+            <a class="pipeline-gap-notice warning" id="pipeline-status-exception-notice" href="#integrity" hidden><strong id="pipeline-status-exception-count">0</strong> workflow status exceptions · open Integrity →</a>
+            <aside class="pipeline-context-notice" id="workbench-context-notice" hidden>
+              <p id="workbench-context-copy"></p>
+              <a class="record-link secondary" id="workbench-context-return" href="#overview">Return to source →</a>
+            </aside>
+            <div class="pipeline-workspace" id="pipeline-workspace">
+              <section class="pipeline-list-pane" aria-labelledby="pipeline-list-heading">
+                <div class="pipeline-list-header">
+                  <div><h3 id="pipeline-list-heading">Active Pipeline</h3><p id="pipeline-result-summary">Loading records…</p></div>
+                </div>
+                <div class="pipeline-list" id="pipeline-list" role="listbox" aria-label="Workbench artifacts"></div>
+              </section>
+              <article class="pipeline-preview" id="pipeline-preview" aria-live="polite" aria-labelledby="pipeline-preview-heading">
+                <div class="pipeline-preview-empty">
+                  <span class="eyebrow">Workbench preview</span>
+                  <h3 id="pipeline-preview-heading">Choose a record</h3>
+                  <p>Select an artifact to inspect its Pipeline membership, position, exact next action, readiness facts, hold provenance, and canonical routes.</p>
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
+        <div class="section-panel" id="planning-panel-candidates" role="tabpanel" aria-labelledby="planning-tab-candidates" hidden></div>
+        <div class="section-panel" id="planning-panel-preliminary" role="tabpanel" aria-labelledby="planning-tab-preliminary" hidden></div>
+        <div class="section-panel planning-composite-panel" id="planning-panel-sources" role="tabpanel" aria-labelledby="planning-tab-sources" hidden></div>
+        <div class="section-panel planning-composite-panel" id="planning-panel-publication" role="tabpanel" aria-labelledby="planning-tab-publication" hidden></div>
+      </section>
+
+      <section class="legacy-route-panel" id="panel-candidates" aria-hidden="true" hidden>
+      <nav class="section-tabs" aria-label="Candidate views">
+        <div class="section-tab-list" role="tablist" aria-label="Candidate views">
+          <button type="button" id="candidate-tab-formal" role="tab" aria-selected="true" aria-controls="candidate-panel-formal" data-subtab-group="candidates" data-subtab="formal">Candidates <span class="tab-count" id="candidate-formal-count">0</span></button>
+          <button type="button" id="candidate-tab-preliminary" role="tab" aria-selected="false" aria-controls="candidate-panel-preliminary" data-subtab-group="candidates" data-subtab="preliminary" tabindex="-1">Preliminary candidates <span class="tab-count" id="candidate-preliminary-count">0</span><span class="tab-update-count" id="candidate-preliminary-update" hidden>0</span></button>
+        </div>
+      </nav>
+      <div class="section-panel" id="candidate-panel-formal" role="tabpanel" aria-labelledby="candidate-tab-formal">
+      <section class="queue-view" id="proposed-candidates" aria-labelledby="proposed-heading">
+        <div class="queue-view-header">
+          <div>
+            <span class="eyebrow">GitHub-authoritative queue</span>
+            <h2 id="proposed-heading">Candidates <span class="count-pill" id="proposed-count">0</span></h2>
+            <p>Decision dossiers for formal open <code>HOR-###</code> records. Each view assembles the GitHub issue, substantive development level, workflow status, Horizon intake history, supporting sources and research, overlap analysis, and unresolved questions without replacing those authoritative records.</p>
+          </div>
+          <p class="refresh-note">GitHub synchronized <time id="github-synced-at">—</time></p>
+        </div>
+
+        <div class="queue-controls formal-controls">
+          <label for="proposed-search">Search<input id="proposed-search" type="search" placeholder="Issue, title, area, level, or workflow…"></label>
+          <label for="proposed-level">Development level<select id="proposed-level"><option value="all">All levels</option></select></label>
+          <label for="proposed-status">Workflow status<select id="proposed-status"><option value="all">All statuses</option></select></label>
+          <label for="proposed-area">Area<select id="proposed-area"><option value="all">All areas</option></select></label>
+          <label for="proposed-priority">Priority<select id="proposed-priority"><option value="all">All priorities</option></select></label>
+          <label for="proposed-gap">Dossier completeness<select id="proposed-gap"><option value="all">All records</option><option value="gaps">Has record gaps</option><option value="complete">Configured inputs represented</option></select></label>
+          <label for="proposed-monitoring">Monitoring<select id="proposed-monitoring"><option value="all">All monitoring states</option><option value="required">Monitoring required</option><option value="not-required">Monitoring not required</option></select></label>
+          <label for="proposed-trigger">Next trigger<select id="proposed-trigger"><option value="all">All trigger states</option><option value="recorded">Trigger recorded</option><option value="missing">Trigger missing</option></select></label>
+          <label for="proposed-sort">Order<select id="proposed-sort"><option value="attention">Decision and gap attention</option><option value="priority">Priority</option><option value="oldest">Oldest review</option><option value="identifier">Identifier</option></select></label>
+        </div>
+        <p class="result-count"><b id="proposed-visible">0</b> candidates shown</p>
+        <div class="record-list formal-list" id="proposed-list"></div>
+      </section>
+      </div>
+      <div class="section-panel" id="candidate-panel-preliminary" role="tabpanel" aria-labelledby="candidate-tab-preliminary" hidden>
+      <section class="queue-view attention-queue" id="preliminary-candidates" aria-labelledby="preliminary-heading">
+        <div class="queue-view-header">
+          <div>
+            <span class="eyebrow">Human review queue</span>
+            <h2 id="preliminary-heading">Preliminary candidates <span class="count-pill" id="preliminary-count">0</span></h2>
+            <p>Distinct possible institutional weaknesses with no formal <code>HOR-###</code> record. Supporting sources are grouped inside each candidate so you review the issue, not a stack of articles.</p>
+          </div>
+          <p class="attention-note" id="attention-note">No preliminary candidates currently require review.</p>
+        </div>
+
+        <div class="queue-controls">
+          <label for="preliminary-search">Search<input id="preliminary-search" type="search" placeholder="Candidate, defect, source, or area…"></label>
+          <label for="preliminary-term">Term<select id="preliminary-term"><option value="all">All terms</option><option value="trump-i">Trump I</option><option value="trump-ii">Trump II</option><option value="both">Both terms</option></select></label>
+          <label for="preliminary-area">Possible area<select id="preliminary-area"><option value="all">All areas</option></select></label>
+        </div>
+        <p class="result-count"><b id="preliminary-visible">0</b> candidates shown</p>
+        <div class="record-list" id="preliminary-list"></div>
+        <div class="empty-state" id="preliminary-empty" hidden>
+          <span aria-hidden="true">✓</span>
+          <h3>No preliminary candidates</h3>
+          <p>New, unowned institutional defects will appear here automatically after source screening and clustering.</p>
+        </div>
+      </section>
+      </div>
+      </section>
+
+      <section class="legacy-route-panel" id="panel-sources" aria-hidden="true" hidden>
+      <nav class="section-tabs" aria-label="Source views">
+        <div class="section-tab-list" role="tablist" aria-label="Source and monitoring views">
+          <button type="button" id="source-tab-catalog" role="tab" aria-selected="true" aria-controls="source-panel-catalog" data-subtab-group="sources" data-subtab="catalog">Sources</button>
+          <button type="button" id="source-tab-pending" role="tab" aria-selected="false" aria-controls="source-panel-pending" data-subtab-group="sources" data-subtab="pending" tabindex="-1">Pending sources <span class="tab-count" id="source-pending-count">0</span></button>
+          <button type="button" id="source-tab-watchers" role="tab" aria-selected="false" aria-controls="source-panel-watchers" data-subtab-group="sources" data-subtab="watchers" tabindex="-1">Watchers and bots <span class="tab-update-count" id="source-watchers-update" hidden>0</span></button>
+        </div>
+      </nav>
+      <div class="section-panel" id="source-panel-catalog" role="tabpanel" aria-labelledby="source-tab-catalog">
+      <section class="queue-view source-view" aria-labelledby="sources-heading">
+        <div class="queue-view-header">
+          <div>
+            <span class="eyebrow">Project bibliography</span>
+            <h2 id="sources-heading">Sources <span class="count-pill" id="sources-count">0</span></h2>
+            <p>Every source presently cataloged in <code>inventory/sources.csv</code> as supporting an assertion or analysis used by the project.</p>
+          </div>
+        </div>
+        <div class="watcher-summary-grid source-assurance-summary" id="source-assurance-summary"></div>
+        <div class="queue-controls source-controls source-assurance-controls">
+          <label for="sources-search">Search<input id="sources-search" type="search" placeholder="Source, title, publisher, or record…"></label>
+          <label for="sources-type">Source family<select id="sources-type"><option value="all">All source families</option></select></label>
+          <label for="sources-reviewed">Reviewed<select id="sources-reviewed"><option value="all">All review states</option></select></label>
+          <label for="sources-reliability">Reliability / identity<select id="sources-reliability"><option value="all">All reliability classes</option></select></label>
+          <label for="sources-monitoring">Monitoring<select id="sources-monitoring"><option value="all">All monitoring states</option></select></label>
+          <label for="sources-health">URL health<select id="sources-health"><option value="all">All health states</option></select></label>
+        </div>
+        <details class="advanced-filters" data-disclosure-id="sources-exact-type-filter"><summary>Advanced exact-type filter</summary><label for="sources-exact-type">Canonical source type<select id="sources-exact-type"><option value="all">All exact types</option></select></label></details>
+        <p class="result-count"><b id="sources-visible">0</b> sources match</p>
+        <details class="dense-data-disclosure" data-disclosure-id="sources-catalog-results">
+          <summary><span>Catalog results</span><span class="disclosure-summary-detail" id="sources-results-summary">0 sources</span></summary>
+          <div id="sources-table"></div>
+          <nav class="pagination" id="sources-pagination" aria-label="Sources pages"></nav>
+        </details>
+      </section>
+      </div>
+      <div class="section-panel" id="source-panel-pending" role="tabpanel" aria-labelledby="source-tab-pending" hidden>
+      <section class="queue-view source-view" aria-labelledby="pending-heading">
+        <div class="queue-view-header">
+          <div>
+            <span class="eyebrow">Retained for further work</span>
+            <h2 id="pending-heading">Pending sources <span class="count-pill" id="pending-count">0</span></h2>
+            <p>Sources whose accountable ARRP destination remains genuinely unclear. Each entry identifies the competing routes, explains the uncertainty, and states the next routing decision.</p>
+          </div>
+        </div>
+        <div class="queue-controls" id="pending-controls">
+          <label for="pending-search">Search<input id="pending-search" type="search" placeholder="Source, owner, rationale, or next action…"></label>
+          <label for="pending-owner">Possible destination<select id="pending-owner"><option value="all">All possible destinations</option></select></label>
+        </div>
+        <p class="result-count"><b id="pending-visible">0</b> sources still require a routing decision</p>
+        <div class="evidence-list pending-routing-list" id="pending-list"></div>
+      </section>
+      </div>
+      <div class="section-panel" id="source-panel-watchers" role="tabpanel" aria-labelledby="source-tab-watchers" hidden>
+      <section class="queue-view source-view" aria-labelledby="watchers-heading">
+        <div class="queue-view-header">
+          <div>
+            <span class="eyebrow">Changing external records</span>
+            <h2 id="watchers-heading">Source watchers and bots <span class="count-pill" id="watchers-count">0</span></h2>
+            <p>Deterministic tools that inspect changing external source records. Project issues carrying monitoring predicates now appear in Progress.</p>
+          </div>
+        </div>
+
+        <nav class="watcher-tabs" aria-label="Watcher views">
+          <div class="watcher-tab-list" role="tablist" aria-label="Watcher and bot views">
+            <button type="button" id="watcher-tab-courts" role="tab" aria-selected="true" aria-controls="watcher-panel-courts" data-watcher-tab="courts">Court cases <span class="tab-update-count" id="court-watch-update" hidden>0</span></button>
+            <button type="button" id="watcher-tab-directives" role="tab" aria-selected="false" aria-controls="watcher-panel-directives" data-watcher-tab="directives" tabindex="-1">Presidential directives <span class="tab-update-count" id="directive-watch-update" hidden>0</span></button>
+            <button type="button" id="watcher-tab-source-checker" role="tab" aria-selected="false" aria-controls="watcher-panel-source-checker" data-watcher-tab="source-checker" tabindex="-1">Source Checker Bot</button>
+          </div>
+        </nav>
+
+        <section class="watcher-panel" id="watcher-panel-courts" role="tabpanel" aria-labelledby="watcher-tab-courts">
+          <div class="watcher-panel-header">
+            <div><h3>Court-case watcher</h3><p><b id="case-watcher-mode">Current mode: loading.</b> The watcher compares cataloged, mapped court sources with Just Security's litigation tracker and uses CourtListener only to verify changed linked cases. Accepted baselines live on the individual source rows. New cases, tracker gaps, and unlisted matters remain part of source intake and the human monitoring pass.</p></div>
+            <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/case-monitor-bot.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a>
+          </div>
+          <div class="watcher-update-banner" id="court-watch-update-banner" role="status" hidden>
+            <div><span class="eyebrow">Updates awaiting review</span><strong id="court-watch-update-count">No current update proposal</strong><p id="court-watch-update-detail">Updated records are marked and shown first.</p></div>
+            <div class="watcher-update-actions"><button type="button" id="court-watch-updated-only" class="record-link secondary" aria-pressed="false">Show updated only</button><a id="court-watch-review-pr" class="record-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Review update proposal ↗</a></div>
+          </div>
+          <div class="queue-controls source-controls">
+            <label for="court-watch-search">Search<input id="court-watch-search" type="search" placeholder="Case, docket, issue, or monitoring reason…"></label>
+            <label for="court-watch-owner">ARRP owner<select id="court-watch-owner"><option value="all">All owners</option></select></label>
+          </div>
+          <p class="result-count"><b id="court-watch-visible">0</b> distinct court sources match</p>
+          <div class="monitoring-list list-at-a-glance" id="court-watch-list"></div>
+          <nav class="pagination" id="court-watch-pagination" aria-label="Court watcher pages"></nav>
+        </section>
+
+        <section class="watcher-panel" id="watcher-panel-directives" role="tabpanel" aria-labelledby="watcher-tab-directives" hidden>
+          <div class="watcher-panel-header">
+            <div><h3>Presidential-directives watcher</h3><p><b id="directive-watcher-mode">Current mode: loading.</b> The completed baseline covers official Federal Register presidential documents across Trump I, Biden, and Trump II. Material metadata changes are proposed in an owner-assigned pull request; substantive LLM screening remains separate.</p></div>
+            <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/actions/workflows/presidential-directives-bot.yml" target="_blank" rel="noopener noreferrer">Open workflow ↗</a>
+          </div>
+          <div class="watcher-update-banner" id="directive-watch-update-banner" role="status" hidden>
+            <div><span class="eyebrow">Updates awaiting review</span><strong id="directive-watch-update-count">No current update proposal</strong><p id="directive-watch-update-detail">Updated directives are marked and shown first.</p></div>
+            <div class="watcher-update-actions"><button type="button" id="directive-watch-updated-only" class="record-link secondary" aria-pressed="false">Show updated only</button><a id="directive-watch-review-pr" class="record-link" href="#" target="_blank" rel="noopener noreferrer" hidden>Review update proposal ↗</a></div>
+          </div>
+          <div class="queue-controls">
+            <label for="directive-search">Search<input id="directive-search" type="search" placeholder="Title, number, president, or ARRP record…"></label>
+            <label for="directive-administration">Administration<select id="directive-administration"><option value="all">All administrations</option></select></label>
+            <label for="directive-status">Screening status<select id="directive-status"><option value="all">All statuses</option></select></label>
+          </div>
+          <p class="result-count"><b id="directive-visible">0</b> directives match</p>
+          <details class="dense-data-disclosure" data-disclosure-id="sources-directive-results">
+            <summary><span>Directive results</span><span class="disclosure-summary-detail" id="directive-results-summary">0 directives</span></summary>
+            <div id="directive-table"></div>
+            <nav class="pagination" id="directive-pagination" aria-label="Presidential directive pages"></nav>
+          </details>
+        </section>
+
+        <section class="watcher-panel" id="watcher-panel-source-checker" role="tabpanel" aria-labelledby="watcher-tab-source-checker" hidden>
+          <div class="watcher-panel-header">
+            <div><h3>Source Checker Bot</h3><p>A read-only view of the latest deterministic URL scan. The bot verifies reachability and source identity signals; it never substitutes a source or changes evidentiary meaning.</p><p class="muted">Last checked <time id="source-checker-as-of">—</time> · <span id="source-checker-mode">Awaiting first run</span></p></div>
+            <div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/source-checker-bot.md" target="_blank" rel="noopener noreferrer">Open runbook ↗</a><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/status/source-checker-report.md" target="_blank" rel="noopener noreferrer">Open current report ↗</a></div>
+          </div>
+          <div class="watcher-summary-grid" id="source-checker-summary"></div>
+          <div class="source-checker-completeness" id="source-checker-completeness" role="status"></div>
+          <div class="queue-controls">
+            <label for="source-checker-search">Source ID or title<input id="source-checker-search" type="search" placeholder="SRC-0001, title, URL, or publisher…"></label>
+            <label for="source-checker-classification">Classification<select id="source-checker-classification"><option value="all">All classifications</option></select></label>
+            <label for="source-checker-domain">Domain<select id="source-checker-domain"><option value="all">All domains</option></select></label>
+            <label for="source-checker-owner">Owner issue<select id="source-checker-owner"><option value="all">All owner issues</option></select></label>
+          </div>
+          <p class="result-count"><b id="source-checker-visible">0</b> source checks match</p>
+          <details class="dense-data-disclosure" data-disclosure-id="sources-source-checker-results">
+            <summary><span>Source-check results</span><span class="disclosure-summary-detail" id="source-checker-results-summary">0 source checks</span></summary>
+            <div id="source-checker-table"></div>
+            <nav class="pagination" id="source-checker-pagination" aria-label="Source Checker result pages"></nav>
+          </details>
+          <p class="method-note" id="source-checker-live-note">The checked-in projection is refreshed by the local transaction.</p>
+        </section>
+      </section>
+      </div>
+      </section>
+
+      <section class="tab-panel" id="panel-integrity" role="tabpanel" aria-labelledby="tab-integrity" hidden>
+        <section class="queue-view integrity-view" aria-labelledby="integrity-heading">
+          <div class="queue-view-header">
+            <div>
+              <span class="eyebrow">Complete exception inventory</span>
+              <h2 id="integrity-heading">Project integrity</h2>
+              <p>Every currently observable problem remains inspectable here and is grouped by the person, agent, bot, or observation state accountable for its next step. The Action Items screen is only the human-attention subset.</p>
+            </div>
+            <div class="integrity-run-note"><span id="integrity-status" class="status-badge">Awaiting first run</span><p>Integrity feed checked <time id="integrity-as-of">—</time></p></div>
+          </div>
+          <div class="integrity-metrics" id="integrity-metrics"></div>
+          <div hidden aria-hidden="true">
+            <div id="integrity-components"></div>
+            <div id="integrity-log-summary"></div>
+          </div>
+          <div class="queue-controls problem-controls">
+            <label for="problem-search">Search<input id="problem-search" type="search" placeholder="Reference, issue, category, owner, or explanation…"></label>
+            <label for="problem-owner">Accountable owner<select id="problem-owner"><option value="all">All owners</option></select></label>
+            <label for="problem-severity">Severity<select id="problem-severity"><option value="all">All severities</option><option value="error">Error</option><option value="warning">Warning</option><option value="info">Information</option></select></label>
+            <label for="problem-status">State<select id="problem-status"><option value="all">All states</option></select></label>
+          </div>
+          <p class="result-count"><b id="problem-visible">0</b> problems shown</p>
+          <div class="integrity-layout">
+            <section aria-labelledby="integrity-findings-heading">
+              <div class="section-heading-row"><div><h3 id="integrity-findings-heading">Problems by accountable owner</h3><p>Each owner group states its complete count. Category, affected records, reporting source, state, severity, and direct links remain visible on each problem.</p></div><div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/status/project-integrity-report.md" target="_blank" rel="noopener noreferrer">Open current report ↗</a></div></div>
+              <div id="integrity-findings"></div>
+            </section>
+          </div>
+          <p class="method-note" id="integrity-live-note">The checked-in projection is refreshed by the local transaction.</p>
+        </section>
+      </section>
+
+      <section class="tab-panel" id="panel-automation" role="tabpanel" aria-labelledby="tab-automation" hidden>
+        <nav class="section-tabs" aria-label="Agent and bot views">
+          <div class="section-tab-list" role="tablist" aria-label="Agent and bot views">
+            <button type="button" id="automation-tab-overview" role="tab" aria-selected="true" aria-controls="automation-panel-overview" data-subtab-group="automation" data-subtab="overview">Overview</button>
+            <button type="button" id="automation-tab-agents" role="tab" aria-selected="false" aria-controls="automation-panel-agents" data-subtab-group="automation" data-subtab="agents" tabindex="-1">Agents &amp; Bots</button>
+            <button type="button" id="automation-tab-gates" role="tab" aria-selected="false" aria-controls="automation-panel-gates" data-subtab-group="automation" data-subtab="gates" tabindex="-1">Repository gates</button>
+            <button type="button" id="automation-tab-security" role="tab" aria-selected="false" aria-controls="automation-panel-security" data-subtab-group="automation" data-subtab="security" tabindex="-1">Security</button>
+            <button type="button" id="automation-tab-capacity" role="tab" aria-selected="false" aria-controls="automation-panel-capacity" data-subtab-group="automation" data-subtab="capacity" tabindex="-1">Capacity</button>
+            <button type="button" id="automation-tab-platform" role="tab" aria-selected="false" aria-controls="automation-panel-platform" data-subtab-group="automation" data-subtab="platform" tabindex="-1">Platform</button>
+            <button type="button" id="automation-tab-data" role="tab" aria-selected="false" aria-controls="automation-panel-data" data-subtab-group="automation" data-subtab="data" tabindex="-1">Data</button>
+            <button type="button" id="automation-tab-component-registry" role="tab" aria-selected="false" aria-controls="automation-panel-component-registry" data-subtab-group="automation" data-subtab="component-registry" tabindex="-1">Component Registry</button>
+            <button type="button" id="automation-tab-logs" role="tab" aria-selected="false" aria-controls="automation-panel-logs" data-subtab-group="automation" data-subtab="logs" tabindex="-1">Logs <span class="tab-count" id="automation-logs-incident-count">—</span></button>
+          </div>
+        </nav>
+
+        <div class="section-panel" id="automation-panel-overview" role="tabpanel" aria-labelledby="automation-tab-overview">
+        <section class="queue-view automation-view automation-administration-view" aria-labelledby="automation-heading">
+          <div class="queue-view-header">
+            <div>
+              <span class="eyebrow">Operations manager</span>
+              <h2 id="automation-heading">Operations overview</h2>
+              <p>Current automation state, the latest serialized run, persistent role health, and present exceptions. Complete role details and retained history remain in their specialist views.</p>
+            </div>
+          </div>
+
+          <section class="automation-chain operations-control-summary" aria-labelledby="local-automation-heading">
+            <div class="section-heading-row">
+              <div>
+                <span class="eyebrow">Authoritative local control</span>
+                <h3 id="local-automation-heading">Automation state and schedule</h3>
+                <p>The owner-only local feed reports Run or Paused, scheduling, and currentness. This display does not operate the host service.</p>
+              </div>
+            </div>
+            <p class="attention-note" id="local-automation-note">Data unavailable outside the bound owner-local Console.</p>
+            <div class="automation-chain-summary" id="local-automation-summary"></div>
+          </section>
+
+          <section class="automation-chain operations-run-chain" aria-labelledby="automation-chain-heading">
+            <div class="section-heading-row">
+              <div>
+                <span class="eyebrow">Run chain</span>
+                <h3 id="automation-chain-heading">Latest serialized run</h3>
+                <p>Seven stages from the same run, shown compactly and without substituting older successful activity for the latest attempt.</p>
+              </div>
+              <a class="record-link secondary" href="#automation:logs:agents">View history →</a>
+            </div>
+            <p class="attention-note" id="automation-chain-note">Awaiting the first Run Coordinator Bot projection.</p>
+            <p class="method-note" id="run-chain-live-note">Using the checked-in projection from the latest local transaction.</p>
+            <div id="operations-run-strip" class="operations-run-strip"></div>
+            <details class="dense-data-disclosure automation-chain-stages" id="automation-chain-stages">
+              <summary><span>View current run details</span><span class="count-pill" id="automation-chain-stage-count">0</span></summary>
+              <div class="automation-chain-summary" id="automation-chain-summary"></div>
+              <div id="automation-chain-stage-list"></div>
+            </details>
+          </section>
+
+          <section class="automation-administration-overview" aria-labelledby="automation-overview-heading">
+            <div class="section-heading-row">
+              <div>
+                <span class="eyebrow">Persistent components</span>
+                <h3 id="automation-overview-heading">Agents &amp; Bots</h3>
+                <p>Each card reports that role’s latest applicable scheduled occurrence across its own cadence.</p>
+              </div>
+              <a class="record-link secondary" href="#automation:agents:run-coordinator-bot">Open role details →</a>
+            </div>
+            <div class="automation-overview-grid automation-role-strip" id="automation-overview-grid"></div>
+          </section>
+
+          <section class="automation-incidents-section operations-current-exceptions" aria-labelledby="automation-incidents-heading">
+            <div class="section-heading-row">
+              <div>
+                <span class="eyebrow">Current exceptions only</span>
+                <h3 id="automation-incidents-heading">Needs attention</h3>
+                <p>Only active incidents, blockers, preserved transactions, and unavailable operational data appear here. Complete evidence and history remain in their specialist homes.</p>
+              </div>
+              <span class="count-pill" id="automation-incident-count">—</span>
+            </div>
+            <div id="automation-incidents" class="automation-incidents"></div>
+          </section>
+        </section>
+        </div>
+
+        <div class="section-panel" id="automation-panel-agents" role="tabpanel" aria-labelledby="automation-tab-agents" hidden>
+          <section class="queue-view automation-view" aria-labelledby="automation-agents-heading">
+            <div class="queue-view-header">
+              <div>
+                <span class="eyebrow">One role at a time</span>
+                <h2 id="automation-agents-heading">Agents &amp; Bots</h2>
+                <p>Choose a role to inspect its current posture, authority, cadence, recovery, and browser-local staged configuration.</p>
+              </div>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/registry.md" target="_blank" rel="noopener noreferrer">Open registry ↗</a>
+            </div>
+            <nav id="operations-role-menu" class="compact-specialist-menu" aria-label="Agent and bot roles">
+              <div id="operations-role-menu-list" class="compact-specialist-menu-list"></div>
+            </nav>
+            <div id="automation-role-detail" class="automation-role-detail" aria-live="polite"></div>
+          </section>
+        </div>
+        <div class="section-panel" id="automation-panel-gates" role="tabpanel" aria-labelledby="automation-tab-gates" hidden>
+          <section class="queue-view operations-ledger" aria-labelledby="operations-gates-heading">
+            <div class="queue-view-header"><div><span class="eyebrow">Typed blockers only</span><h2 id="operations-gates-heading">Repository gates</h2><p>Open pull requests appear here only when a producer explicitly declares that they block future automation.</p></div></div>
+            <div id="operations-gates-list" class="operations-ledger-list"></div>
+          </section>
+        </div>
+        <div class="section-panel" id="automation-panel-security" role="tabpanel" aria-labelledby="automation-tab-security" hidden>
+          <section class="queue-view operations-ledger" aria-labelledby="operations-security-heading">
+            <div class="queue-view-header">
+              <div>
+                <span class="eyebrow">Safe operational assurance</span>
+                <h2 id="operations-security-heading">Security</h2>
+                <p>Currentness, protected-surface review, and private-attention posture without vulnerability details or credential metadata.</p>
+              </div>
+              <div class="source-list compact-links">
+                <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/security" target="_blank" rel="noopener noreferrer">Open protected source ↗</a>
+                <button type="button" class="record-link secondary" id="refresh-security-status">Refresh authenticated status</button>
+                <button type="button" class="record-link secondary" id="prepare-security-review">Prepare security review</button>
+              </div>
+            </div>
+            <div id="operations-security-summary" class="metric-strip compact-status-strip" aria-label="Security assurance summary"></div>
+            <p id="operations-security-status" class="method-note">Data unavailable outside the bound owner-local Console.</p>
+            <div class="email-workspace" id="operations-security-workspace">
+              <div class="email-list" id="operations-security-list" role="listbox" aria-label="Security checks"></div>
+              <div class="email-preview" id="operations-security-preview" aria-live="polite"></div>
+            </div>
+          </section>
+        </div>
+        <div class="section-panel" id="automation-panel-capacity" role="tabpanel" aria-labelledby="automation-tab-capacity" hidden>
+          <section class="queue-view operations-ledger" aria-labelledby="operations-capacity-heading">
+            <div class="queue-view-header"><div><span class="eyebrow">Owner-only typed usage projection</span><h2 id="operations-capacity-heading">Codex capacity</h2><p>Current readback, reset-boundary history, conservative budgeting, and explicitly qualified estimates. Detailed usage is available only in the exact bound owner-local Console; percentages do not establish an absolute allowance.</p></div></div>
+            <div id="operations-capacity-summary"></div>
+            <div id="operations-capacity-history"></div>
+          </section>
+        </div>
+        <div class="section-panel" id="automation-panel-platform" role="tabpanel" aria-labelledby="automation-tab-platform" hidden>
+          <section class="queue-view operations-ledger" aria-labelledby="operations-platform-heading">
+            <div class="queue-view-header"><div><span class="eyebrow">Display-only external advisories</span><h2 id="operations-platform-heading">Platform status</h2><p>ARRP-relevant OpenAI, Vercel, and Cloudflare Turnstile observations with provider-specific checked time, component detail, relevant advisory incidents, and last-valid state.</p></div></div>
+            <div id="operations-platform-list" class="operations-ledger-list"></div>
+          </section>
+        </div>
+        <div class="section-panel" id="automation-panel-data" role="tabpanel" aria-labelledby="automation-tab-data" hidden>
+          <section class="queue-view operations-ledger" aria-labelledby="operations-data-heading">
+            <div class="queue-view-header"><div><span class="eyebrow">Generation and currentness</span><h2 id="operations-data-heading">Project data</h2><p>One row per principal Console feed, including reason, trustworthy-through boundary, producer identity, and recovery route.</p></div></div>
+            <div id="operations-data-list" class="operations-ledger-list"></div>
+          </section>
+        </div>
+        <div class="section-panel" id="automation-panel-component-registry" role="tabpanel" aria-labelledby="automation-tab-component-registry" hidden>
+          <section class="queue-view component-registry-view" aria-labelledby="component-registry-heading">
+            <div class="queue-view-header">
+              <div>
+                <span class="eyebrow">One typed registry generation</span>
+                <h2 id="component-registry-heading">Component Registry</h2>
+                <p>Operational documents, directory placement, context routing, and terminology from the exact builder-validated candidate. This view formats supplied registry records; it does not create categories, routes, identities, or remediation.</p>
+              </div>
+              <span id="component-registry-status" class="status-badge unavailable">Awaiting data</span>
+            </div>
+            <aside id="component-registry-deferred" class="component-registry-deferred" aria-live="polite">
+              <strong>Classification pending — enforcement not active</strong>
+              <p>Artifact classification and lifecycle mapping require complete human review.</p>
+            </aside>
+            <nav class="registry-mode-tabs" aria-label="Component Registry modes">
+              <div class="registry-mode-tab-list" role="tablist" aria-label="Component Registry modes">
+                <button type="button" id="component-registry-mode-documents" role="tab" aria-selected="true" aria-controls="component-registry-panel-documents" data-registry-mode="documents">Documents</button>
+                <button type="button" id="component-registry-mode-directories" role="tab" aria-selected="false" aria-controls="component-registry-panel-directories" data-registry-mode="directories" tabindex="-1">Directories</button>
+                <button type="button" id="component-registry-mode-routing" role="tab" aria-selected="false" aria-controls="component-registry-panel-routing" data-registry-mode="routing" tabindex="-1">Routing</button>
+                <button type="button" id="component-registry-mode-terminology" role="tab" aria-selected="false" aria-controls="component-registry-panel-terminology" data-registry-mode="terminology" tabindex="-1">Terminology</button>
+              </div>
+            </nav>
+            <div id="component-registry-panel-documents" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-documents">
+              <label class="registry-picker" for="component-registry-document-select">Operational document
+                <select id="component-registry-document-select"></select>
+              </label>
+              <article id="component-registry-document-detail" class="component-registry-detail" aria-live="polite"></article>
+            </div>
+            <div id="component-registry-panel-directories" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-directories" hidden>
+              <label class="registry-picker" for="component-registry-directory-select">Directory scope
+                <select id="component-registry-directory-select"></select>
+              </label>
+              <article id="component-registry-directory-detail" class="component-registry-detail" aria-live="polite"></article>
+            </div>
+            <div id="component-registry-panel-routing" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-routing" hidden>
+              <label class="registry-picker" for="component-registry-routing-select">Registered selection
+                <select id="component-registry-routing-select"></select>
+              </label>
+              <article id="component-registry-routing-detail" class="component-registry-detail" aria-live="polite"></article>
+            </div>
+            <div id="component-registry-panel-terminology" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-terminology" hidden>
+              <article id="component-registry-terminology-detail" class="component-registry-detail" aria-live="polite"></article>
+            </div>
+          </section>
+        </div>
+        <div class="section-panel" id="automation-panel-logs" role="tabpanel" aria-labelledby="automation-tab-logs" hidden></div>
+      </section>
+
+      <section class="legacy-route-panel" id="panel-logs" aria-hidden="true" hidden>
+        <nav class="section-tabs" aria-label="Project log views">
+          <div class="section-tab-list" role="tablist" aria-label="Project logs">
+            <button type="button" id="log-tab-incidents" role="tab" aria-selected="true" aria-controls="log-panel-incidents" data-subtab-group="logs" data-subtab="incidents">Operational incidents <span class="tab-count" id="log-incidents-count">—</span></button>
+            <button type="button" id="log-tab-security-incidents" role="tab" aria-selected="false" aria-controls="log-panel-security-incidents" data-subtab-group="logs" data-subtab="security-incidents" tabindex="-1">Security incidents <span class="tab-count" id="log-security-incidents-count">—</span></button>
+            <button type="button" id="log-tab-horizon" role="tab" aria-selected="false" aria-controls="log-panel-horizon" data-subtab-group="logs" data-subtab="horizon" tabindex="-1">Horizon</button>
+            <button type="button" id="log-tab-elim" role="tab" aria-selected="false" aria-controls="log-panel-elim" data-subtab-group="logs" data-subtab="elim" tabindex="-1">Elim</button>
+            <button type="button" id="log-tab-agents" role="tab" aria-selected="false" aria-controls="log-panel-agents" data-subtab-group="logs" data-subtab="agents" tabindex="-1">Bots</button>
+            <button type="button" id="log-tab-source-monitor" role="tab" aria-selected="false" aria-controls="log-panel-source-monitor" data-subtab-group="logs" data-subtab="source-monitor" tabindex="-1">Sources</button>
+            <button type="button" id="log-tab-integrity" role="tab" aria-selected="false" aria-controls="log-panel-integrity" data-subtab-group="logs" data-subtab="integrity" tabindex="-1">Integrity</button>
+            <button type="button" id="log-tab-changes" role="tab" aria-selected="false" aria-controls="log-panel-changes" data-subtab-group="logs" data-subtab="changes" tabindex="-1">Change audits</button>
+            <button type="button" id="log-tab-governance-changes" role="tab" aria-selected="false" aria-controls="log-panel-governance-changes" data-subtab-group="logs" data-subtab="governance-changes" tabindex="-1">Governance changes</button>
+            <button type="button" id="log-tab-console-development" role="tab" aria-selected="false" aria-controls="log-panel-console-development" data-subtab-group="logs" data-subtab="console-development" tabindex="-1">Console development</button>
+          </div>
+        </nav>
+
+        <div class="section-panel" id="log-panel-incidents" role="tabpanel" aria-labelledby="log-tab-incidents">
+          <section class="queue-view log-view incident-log-view" aria-labelledby="log-incidents-heading">
+            <div class="queue-view-header">
+              <div>
+                <span class="eyebrow">Authoritative operational recovery history</span>
+                <h2 id="log-incidents-heading">Operational incidents</h2>
+                <p>One record per incident, with exact occurrences, lifecycle, ownership, recovery evidence, and typed links to affected specialist surfaces.</p>
+              </div>
+              <span class="record-source-note">Owner-local event authority</span>
+            </div>
+            <div class="queue-controls">
+              <label for="incident-log-search">Search<input id="incident-log-search" type="search" placeholder="Incident, component, owner, prerequisite, or diagnostic…"></label>
+              <label for="incident-log-scope">Lifecycle<select id="incident-log-scope"><option value="unresolved">Unresolved</option><option value="all">Complete retained history</option></select></label>
+            </div>
+            <p id="incident-log-status" class="method-note">Data unavailable outside the bound owner-local Console.</p>
+            <p class="result-count"><b id="incident-log-visible">—</b> incidents match</p>
+            <div id="incident-log-workspace"></div>
+          </section>
+        </div>
+
+        <div class="section-panel" id="log-panel-security-incidents" role="tabpanel" aria-labelledby="log-tab-security-incidents" hidden>
+          <section class="queue-view log-view incident-log-view" aria-labelledby="log-security-incidents-heading">
+            <div class="queue-view-header">
+              <div>
+                <span class="eyebrow">Protected security lifecycle history</span>
+                <h2 id="log-security-incidents-heading">Security incidents</h2>
+                <p>Owner-local investigation, containment, remediation, verification, and security-specific closure. Operational impact and recovery remain in Operational incidents.</p>
+              </div>
+              <span class="record-source-note">Protected owner-local event authority</span>
+            </div>
+            <div class="queue-controls">
+              <label for="security-incident-log-search">Search<input id="security-incident-log-search" type="search" placeholder="Incident, security domain, protected surface, owner, or safe summary…"></label>
+              <label for="security-incident-log-scope">Lifecycle<select id="security-incident-log-scope"><option value="unresolved">Unresolved</option><option value="all">Complete retained history</option></select></label>
+            </div>
+            <p id="security-incident-log-status" class="method-note">Data unavailable outside the bound owner-local Console.</p>
+            <p class="result-count"><b id="security-incident-log-visible">—</b> Security Incidents match</p>
+            <div id="security-incident-log-workspace"></div>
+          </section>
+        </div>
+
+        <div class="section-panel" id="log-panel-horizon" role="tabpanel" aria-labelledby="log-tab-horizon" hidden>
+          <section class="queue-view log-view" aria-labelledby="log-horizon-heading">
+            <div class="queue-view-header">
+              <div><span class="eyebrow">Candidate disposition history</span><h2 id="log-horizon-heading">Horizon Scan Log</h2><p>Candidate intake, disposition, integration, and follow-up history. GitHub Issues and Project fields remain authoritative for current workflow state.</p></div>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/candidates/candidate-discovery-log.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
+            </div>
+            <div class="queue-controls"><label for="log-horizon-search">Search<input id="log-horizon-search" type="search" placeholder="Record, concern, disposition, route, or rationale…"></label><label for="log-horizon-group">Group by<select id="log-horizon-group"><option value="all">No grouping</option></select></label></div>
+            <p class="result-count"><b id="log-horizon-visible">0</b> entries match</p>
+            <div id="log-horizon-table"></div>
+          </section>
+        </div>
+
+        <div class="section-panel" id="log-panel-elim" role="tabpanel" aria-labelledby="log-tab-elim" hidden>
+          <section class="queue-view log-view" aria-labelledby="log-elim-heading">
+            <div class="queue-view-header">
+              <div><span class="eyebrow">Complete scheduled-agent history</span><h2 id="log-elim-heading">Elim Run Log</h2><p>Every Elim invocation, including usage, work examined, all actions taken, linked issue-audit records, validation, synchronization, human-review routing, stop reason, and exact continuation point.</p></div>
+              <span class="record-source-note">Owner-local authoritative log</span>
+            </div>
+            <div class="queue-controls"><label for="log-elim-search">Search<input id="log-elim-search" type="search" placeholder="Run, action, outcome, usage, issue, blocker, or next action…"></label><label for="log-elim-group">Group by<select id="log-elim-group"><option value="all">No grouping</option></select></label></div>
+            <p class="result-count"><b id="log-elim-visible">0</b> runs match</p>
+            <div id="log-elim-table"></div>
+          </section>
+        </div>
+
+        <div class="section-panel" id="log-panel-agents" role="tabpanel" aria-labelledby="log-tab-agents" hidden>
+          <section class="queue-view log-view" aria-labelledby="log-agents-heading">
+            <div class="queue-view-header">
+              <div><span class="eyebrow">Material-unit provenance</span><h2 id="log-agents-heading">Bot Activity Log</h2><p>Material bot and historical autonomous actions, validation, commits, rollback references, and unresolved blockers. Complete Elim run reports remain in the dedicated Elim log.</p></div>
+              <span class="record-source-note">Owner-local authoritative log</span>
+            </div>
+            <div class="queue-controls"><label for="log-agents-search">Search<input id="log-agents-search" type="search" placeholder="Issue, task, tier, bot, run, commit, or blocker…"></label><label for="log-agents-agent">Bot or historical automation<select id="log-agents-agent"><option value="all">All bots and historical automation</option></select></label><label for="log-agents-task">Task type<select id="log-agents-task"><option value="all">All task types</option></select></label><label for="log-agents-outcome">Outcome<select id="log-agents-outcome"><option value="all">All outcomes</option></select></label><label for="log-agents-group">Group by<select id="log-agents-group"><option value="all">No grouping</option></select></label></div>
+            <p class="result-count"><b id="log-agents-visible">0</b> entries match</p>
+            <div id="log-agents-table"></div>
+          </section>
+        </div>
+
+        <div class="section-panel" id="log-panel-source-monitor" role="tabpanel" aria-labelledby="log-tab-source-monitor" hidden>
+          <section class="queue-view log-view" aria-labelledby="log-source-monitor-heading">
+            <div class="queue-view-header">
+              <div><span class="eyebrow">Watcher change history</span><h2 id="log-source-monitor-heading">Source Monitor Log</h2><p>Material source or directive changes detected by deterministic watchers. Routine no-change runs remain in GitHub Actions.</p></div>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/sources/source-monitor-log.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
+            </div>
+            <div class="queue-controls"><label for="log-source-monitor-search">Search<input id="log-source-monitor-search" type="search" placeholder="Watcher, activity code, result, or affected record…"></label><label for="log-source-monitor-group">Group by<select id="log-source-monitor-group"><option value="all">No grouping</option></select></label></div>
+            <p class="result-count"><b id="log-source-monitor-visible">0</b> entries match</p>
+            <div id="log-source-monitor-table"></div>
+          </section>
+        </div>
+
+        <div class="section-panel" id="log-panel-integrity" role="tabpanel" aria-labelledby="log-tab-integrity" hidden>
+          <section class="queue-view log-view" aria-labelledby="log-integrity-heading">
+            <div class="queue-view-header">
+              <div><span class="eyebrow">Deterministic check history</span><h2 id="log-integrity-heading">Project Integrity Bot runs</h2><p>The bounded history of scheduled, push-triggered, and manual integrity runs. Current unresolved findings remain in Integrity; the runbook owns the check inventory.</p></div>
+              <div class="section-heading-actions"><a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/runbooks/project-integrity-bot.md" target="_blank" rel="noopener noreferrer">Open runbook ↗</a></div>
+            </div>
+            <span id="log-integrity-visible" hidden>0</span>
+            <div class="integrity-history-list" id="integrity-history"></div>
+          </section>
+        </div>
+
+        <div class="section-panel" id="log-panel-console-development" role="tabpanel" aria-labelledby="log-tab-console-development" hidden>
+          <section class="queue-view log-view" aria-labelledby="log-console-development-heading">
+            <div class="queue-view-header">
+              <div><span class="eyebrow">Product feature history</span><h2 id="log-console-development-heading">Console Development Log</h2><p>Material feature introductions, changes, moves, retirements, restorations, and reversions, bound to stable Console Change IDs and exact Git history.</p></div>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/automation/console-development-log.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
+            </div>
+            <div class="queue-controls"><label for="log-console-development-search">Search<input id="log-console-development-search" type="search" placeholder="Change ID, feature, lifecycle, state, or commit…"></label><label for="log-console-development-group">Group by<select id="log-console-development-group"><option value="all">No grouping</option></select></label></div>
+            <p class="result-count"><b id="log-console-development-visible">0</b> entries match</p>
+            <div id="log-console-development-table"></div>
+          </section>
+        </div>
+
+        <div class="section-panel" id="log-panel-changes" role="tabpanel" aria-labelledby="log-tab-changes" hidden>
+          <section class="queue-view log-view" aria-labelledby="log-changes-heading">
+            <div class="queue-view-header">
+              <div><span class="eyebrow">Method and consistency history</span><h2 id="log-changes-heading">Change Audit Log</h2><p>Project-wide methodology, structure, and consistency changes are tracked here. Current durable rules live in their governing files.</p></div>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/audits/change-audit-log.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
+            </div>
+            <div class="queue-controls"><label for="log-changes-search">Search<input id="log-changes-search" type="search" placeholder="Date, change, scope, effect, or correction…"></label><label for="log-changes-group">Group by<select id="log-changes-group"><option value="all">No grouping</option></select></label></div>
+            <p class="result-count"><b id="log-changes-visible">0</b> entries match</p>
+            <div id="log-changes-table"></div>
+          </section>
+        </div>
+
+        <div class="section-panel" id="log-panel-governance-changes" role="tabpanel" aria-labelledby="log-tab-governance-changes" hidden>
+          <section class="queue-view log-view" aria-labelledby="log-governance-changes-heading">
+            <div class="queue-view-header">
+              <div><span class="eyebrow">Governance implementation history</span><h2 id="log-governance-changes-heading">Governance Change Log</h2><p>Public-safe summaries of adopted governance changes. Change audits and Console development remain separate histories.</p></div>
+              <a class="record-link secondary" href="https://github.com/Thorncrag/ARRP/blob/main/framework/logs/governance/governance-change-log.md" target="_blank" rel="noopener noreferrer">Open authoritative log ↗</a>
+            </div>
+            <div class="queue-controls"><label for="log-governance-changes-search">Search<input id="log-governance-changes-search" type="search" placeholder="Change ID, authority, status, or public summary…"></label><label for="log-governance-changes-group">Group by<select id="log-governance-changes-group"><option value="all">No grouping</option></select></label></div>
+            <p class="result-count"><b id="log-governance-changes-visible">0</b> entries match</p>
+            <div id="log-governance-changes-table"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="legacy-route-panel" id="panel-publication" aria-hidden="true" hidden>
+        <nav class="section-tabs" aria-label="Publication views">
+          <div class="section-tab-list" role="tablist" aria-label="Publication workspace">
+            <button type="button" id="publication-tab-assignments" role="tab" aria-selected="true" aria-controls="publication-panel-assignments" data-subtab-group="publication" data-subtab="assignments">Page print assignments</button>
+            <button type="button" id="publication-tab-analysis" role="tab" aria-selected="false" aria-controls="publication-panel-analysis" data-subtab-group="publication" data-subtab="analysis" tabindex="-1">Edition analysis</button>
+            <button type="button" id="publication-tab-builder" role="tab" aria-selected="false" aria-controls="publication-panel-builder" data-subtab-group="publication" data-subtab="builder" tabindex="-1">Document builder <span class="tab-count" id="assembly-change-tab-count">0</span></button>
+          </div>
+        </nav>
+
+        <div class="section-panel" id="publication-panel-assignments" role="tabpanel" aria-labelledby="publication-tab-assignments">
+        <section class="queue-view source-view" aria-labelledby="pages-heading">
+          <div class="queue-view-header">
+            <div>
+              <span class="eyebrow">Print assembly</span>
+              <h2 id="pages-heading">Publication disposition <span class="count-pill" id="pages-count">0</span></h2>
+              <p>Every controlled Markdown page is either included in one or more editions or explicitly excluded with a reason. Unclassified pages and conflicting metadata are shown as action-required outcomes.</p>
+            </div>
+          </div>
+          <div class="print-level-summary" id="print-level-summary"></div>
+          <section class="print-change-toolbar" aria-labelledby="print-change-heading">
+            <div>
+              <h3 id="print-change-heading">Staged publication changes</h3>
+              <p>Select × to stage a removal, add an edition, or choose a documented exclusion reason. Export the change list and provide it to Codex; this console does not edit page metadata directly.</p>
+            </div>
+            <div class="print-change-actions">
+              <strong><span id="print-change-count">0</span> staged</strong>
+              <button type="button" id="export-print-changes" disabled>Export changes</button>
+              <button type="button" id="reset-print-changes" class="secondary" disabled>Reset</button>
+            </div>
+            <div class="print-change-list" id="print-change-list" aria-live="polite"></div>
+          </section>
+          <div class="queue-controls">
+            <label for="pages-search">Search<input id="pages-search" type="search" placeholder="Page title, path, section, or print level…"></label>
+            <label for="pages-level">Disposition or edition<select id="pages-level"><option value="all">All publication dispositions</option></select></label>
+            <label for="pages-section">Project section<select id="pages-section"><option value="all">All sections</option></select></label>
+          </div>
+          <p class="result-count"><b id="pages-visible">0</b> pages match</p>
+          <details class="dense-data-disclosure" data-disclosure-id="publication-page-results">
+            <summary><span>Publication page inventory</span><span class="disclosure-summary-detail" id="pages-results-summary">0 pages</span></summary>
+            <div id="pages-table"></div>
+            <nav class="pagination" id="pages-pagination" aria-label="Publication assignment pages"></nav>
+          </details>
+        </section>
+        </div>
+
+        <div class="section-panel" id="publication-panel-analysis" role="tabpanel" aria-labelledby="publication-tab-analysis" hidden>
+          <section class="queue-view publication-analysis-view" aria-labelledby="publication-analysis-heading">
+            <div class="queue-view-header">
+              <div><span class="eyebrow">Edition composition and preflight</span><h2 id="publication-analysis-heading">Edition analysis</h2><p>Review document size, section composition, existing-build status, and print-specific risks without changing canonical content.</p></div>
+              <label class="edition-picker" for="analysis-edition">Edition<select id="analysis-edition"></select></label>
+            </div>
+            <div class="publication-metrics" id="publication-metrics"></div>
+            <section class="publication-delivery-workbench" aria-labelledby="publication-delivery-heading">
+              <div class="section-heading-row"><div><h3 id="publication-delivery-heading">Product and release delivery</h3><p>Non-proposal Project work remains separate from the 98-record proposal/candidate portfolio and the Review Ready denominator.</p></div><span class="disclosure-summary-detail" id="publication-delivery-summary">Loading delivery work…</span></div>
+              <div id="publication-delivery-metrics" class="publication-metrics"></div>
+              <div id="publication-delivery-list" class="publication-delivery-list"></div>
+            </section>
+            <section class="publication-release-blockers" aria-labelledby="publication-release-blockers-heading">
+              <div class="section-heading-row"><div><h3 id="publication-release-blockers-heading">Release blockers</h3><p>The complete typed blocker worklist across proposals, formal candidates, and non-proposal delivery records. This operational union remains separate from the Review Ready denominator.</p></div><span class="disclosure-summary-detail" id="publication-release-blockers-summary">Loading blockers…</span></div>
+              <div class="queue-controls">
+                <label for="publication-blocker-status">Status<select id="publication-blocker-status"><option value="all">All statuses</option></select></label>
+                <label for="publication-blocker-priority">Priority<select id="publication-blocker-priority"><option value="all">All priorities</option></select></label>
+                <label for="publication-blocker-owner">Owner<select id="publication-blocker-owner"><option value="all">All owners</option></select></label>
+              </div>
+              <div id="publication-release-blockers-list" class="publication-delivery-list"></div>
+            </section>
+            <section class="topic-products-section" aria-labelledby="topic-products-heading">
+              <div class="section-heading-row"><div><h3 id="topic-products-heading">Topic products</h3><p>Each stable product connects an internal project crosswalk to a published topic page without becoming an issue, proposal, candidate, or evidence record.</p></div><span class="disclosure-summary-detail" id="topic-products-summary">Loading topic products…</span></div>
+              <div id="topic-products-list" class="topic-products-list"></div>
+            </section>
+            <section class="release-readiness-section" aria-labelledby="release-readiness-heading">
+              <div class="section-heading-row"><div><h3 id="release-readiness-heading">Release readiness</h3><p>Structural assembly validity is distinct from audits, blockers, review, validation, rights checks, export lineage, and the human go/no-go decision.</p></div><span class="status-badge" id="release-readiness-status">Assessing</span></div>
+              <div id="release-readiness-grid" class="release-readiness-grid"></div>
+            </section>
+            <div class="publication-analysis-grid">
+              <section aria-labelledby="composition-heading"><h3 id="composition-heading">Section composition</h3><div id="publication-composition"></div></section>
+              <section aria-labelledby="preflight-heading"><h3 id="preflight-heading">Publication preflight</h3><div id="publication-preflight"></div></section>
+            </div>
+            <section aria-labelledby="length-risks-heading"><h3 id="length-risks-heading">Complete layout-risk union</h3><p class="muted">Every record flagged for length, table width, or heading structure appears here.</p><div id="publication-length-risks"></div></section>
+            <section aria-labelledby="largest-pages-heading"><h3 id="largest-pages-heading">30 largest pages</h3><p class="muted">A separate planning view ordered by estimated page count; it is not the complete risk inventory.</p><div id="publication-largest-pages"></div></section>
+          </section>
+        </div>
+
+        <div class="section-panel" id="publication-panel-builder" role="tabpanel" aria-labelledby="publication-tab-builder" hidden>
+          <section class="queue-view publication-builder-view" aria-labelledby="publication-builder-heading">
+            <div class="queue-view-header">
+              <div><span class="eyebrow">Section-by-section print plan</span><h2 id="publication-builder-heading">Document builder</h2><p>Inspect the complete publication sequence, stage section or page-order changes, and preview the generated table of contents and appendices.</p></div>
+              <label class="edition-picker" for="builder-edition">Edition<select id="builder-edition"></select></label>
+            </div>
+            <section class="assembly-change-toolbar" aria-labelledby="assembly-change-heading">
+              <div><h3 id="assembly-change-heading">Staged assembly changes</h3><p>Changes remain local until exported and validated by Codex against the canonical assembly manifest.</p></div>
+              <div class="print-change-actions"><strong><span id="assembly-operation-count">0</span> operations · <span id="assembly-change-count">0</span> affected records</strong><button type="button" id="export-assembly-changes" disabled>Export assembly</button><button type="button" id="reset-assembly-changes" class="secondary" disabled>Reset</button></div>
+            </section>
+            <div class="publication-builder-grid">
+              <section aria-labelledby="document-outline-heading"><h3 id="document-outline-heading">Document structure</h3><div id="publication-outline" class="publication-outline"></div></section>
+              <aside class="toc-preview" aria-labelledby="toc-preview-heading"><h3 id="toc-preview-heading">Table of contents preview</h3><p id="toc-preview-note" class="muted"></p><ol id="toc-preview-list"></ol></aside>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <p class="method-note">Project data and automation status remain read-only here. Configuration edits are staged exports that require the ordinary reviewed repository and host-approval path; the Console does not silently alter the active runner.</p>
+    </main>
+
+    <button type="button" id="scroll-to-top" class="scroll-to-top" aria-label="Back to top" hidden>↑ <span>Back to top</span></button>
+
+    <script src="catalog-data.js?v=48"></script>
+    <script src="app.js?v=65"></script>
+  </body>
+</html>

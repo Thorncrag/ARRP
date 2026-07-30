@@ -2026,7 +2026,7 @@ class QueueTests(unittest.TestCase):
                         "module_id": "test-module",
                         "record_id": "HOR-035",
                         "target_path": (
-                            "research/horizon-source-records/"
+                            "research/candidate-source-development/"
                             "HOR-035-source-development.md"
                         ),
                         "added_lead_ids": ["CASELEAD-ABCDEF012345"],
@@ -2175,7 +2175,7 @@ class QueueTests(unittest.TestCase):
 - Human question: Approve the exact reviewed head for merge?
 - Reassessment trigger: Any head change invalidates this recommendation.
 """
-        untrusted_log = self.root / "framework/records/sources/source-monitor-log.md"
+        untrusted_log = self.root / "framework/logs/sources/source-monitor-log.md"
         untrusted_log.parent.mkdir(parents=True)
         untrusted_log.write_text(recommendation_text, encoding="utf-8")
         runtime_root = self.root / "reviewed-runtime"
@@ -2203,7 +2203,7 @@ class QueueTests(unittest.TestCase):
             )
         )
 
-        source_log = runtime_root / "framework/records/sources/source-monitor-log.md"
+        source_log = runtime_root / "framework/logs/sources/source-monitor-log.md"
         source_log.parent.mkdir(parents=True)
         source_log.write_text(recommendation_text, encoding="utf-8")
         with patch("arrp_context.ROOT", runtime_root):
@@ -2754,8 +2754,8 @@ class ContextRouteTests(unittest.TestCase):
 class RepositorySearchBoundaryTests(unittest.TestCase):
     def test_generated_console_and_local_artifacts_are_excluded_from_ordinary_search(self):
         policy = (ROOT / ".rgignore").read_text(encoding="utf-8")
-        self.assertIn("research/project-console/catalog-data.js", policy)
-        self.assertIn("research/project-console/data/", policy)
+        self.assertIn("framework/project/interfaces/project-console/catalog-data.js", policy)
+        self.assertIn("framework/project/interfaces/project-console/data/", policy)
         self.assertIn(".site-build/", policy)
         self.assertIn(".tmp/", policy)
         self.assertIn(".venv/", policy)
@@ -2775,7 +2775,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         current_spec = raw["documents"]["current_audit"]
         self.assertEqual(
             current_spec["path"],
-            "framework/records/handoffs/current-task.md",
+            "framework/handoffs/current-task.md",
         )
         self.assertEqual(current_spec["hash_policy"], "runtime")
         self.assertFalse(current_spec["governing"])
@@ -2829,7 +2829,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         self.assertEqual(
             current_module["sha256"],
             hashlib.sha256(
-                (ROOT / "framework/records/handoffs/current-task.md").read_bytes()
+                (ROOT / "framework/handoffs/current-task.md").read_bytes()
             ).hexdigest(),
         )
 

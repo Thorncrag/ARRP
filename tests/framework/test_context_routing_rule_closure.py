@@ -1655,7 +1655,7 @@ class ContextRoutingRuleClosureTests(unittest.TestCase):
                 _candidate_packet(view=view, max_total_bytes=1)
             elif scenario == "route_generated":
                 route["documents"]["project_interface"]["path"] = (
-                    "research/project-console/data/fixture.md"
+                    "framework/project/interfaces/project-console/data/fixture.md"
                 )
                 registry_tool.validate_route_source(route)
             elif scenario == "route_pinned":

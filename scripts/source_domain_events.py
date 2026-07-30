@@ -51,7 +51,7 @@ AGENTS: dict[str, dict[str, Any]] = {
         "allowed_paths": [
             re.compile(r"^inventory/sources(?:-pending)?\.csv$"),
             re.compile(
-                r"^research/horizon-source-records/HOR-[0-9]{3}-source-development\.md$"
+                r"^research/candidate-source-development/HOR-[0-9]{3}-source-development\.md$"
             ),
             re.compile(
                 r"^areas/[A-Z]+/research/[A-Z]+-[0-9]{3}-source-development\.md$"
@@ -67,7 +67,7 @@ AGENTS: dict[str, dict[str, Any]] = {
     "source-checker-bot": {
         "display": "Source Checker Bot",
         "allowed_paths": [
-            re.compile(r"^framework/records/status/source-checker-report\.md$"),
+            re.compile(r"^framework/status/source-checker-report\.md$"),
         ],
     },
 }

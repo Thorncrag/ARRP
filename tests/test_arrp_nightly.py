@@ -91,13 +91,13 @@ class GitFixture:
 class ArrpNightlyTransactionTests(unittest.TestCase):
     def test_capacity_module_is_a_protected_console_shell_file(self):
         self.assertIn(
-            "research/project-console/capacity.js",
+            "framework/project/interfaces/project-console/capacity.js",
             MODULE.PROTECTED_EXACT,
         )
 
     def test_component_registry_module_is_a_protected_console_shell_file(self):
         self.assertIn(
-            "research/project-console/component-registry.js",
+            "framework/project/interfaces/project-console/component-registry.js",
             MODULE.PROTECTED_EXACT,
         )
 

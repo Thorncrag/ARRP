@@ -9,7 +9,7 @@ from scripts import governance_changes as changes
 
 
 ROOT = Path(__file__).resolve().parents[1]
-LOG = ROOT / "framework/records/governance/governance-change-log.md"
+LOG = ROOT / "framework/logs/governance/governance-change-log.md"
 REGISTRY = ROOT / "framework/project/workflows/governance-change-registry.json"
 
 

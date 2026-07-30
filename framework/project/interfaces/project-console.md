@@ -115,7 +115,7 @@ publication presentations are generated views. A rebuild refreshes those views
 but does not create another workflow, source, candidate, log, or publication
 authority.
 
-`scripts/build_horizon_review_console.py --public-only` is a tracked-output
+`scripts/build_project_console.py --public-only` is a tracked-output
 operation for rebuilding only the public Console bundle. It must not open,
 restore, or authorize ignored owner-only projections, and it leaves every
 owner-only feed explicitly unavailable rather than substituting an empty or
@@ -125,7 +125,7 @@ separately been restored by an authorized normal owner-bound generation. A
 public-only rebuild by itself never satisfies that prerequisite.
 
 An owner-initiated authenticated refresh uses
-`scripts/refresh_horizon_review_console.py`. That entry point has no
+`scripts/refresh_project_console.py`. That entry point has no
 caller-selected root or credential: it requires the clean canonical checkout,
 reads the dedicated Project-only credential from the fixed macOS Keychain
 authority, removes inherited GitHub-token variables, and supplies
@@ -608,7 +608,7 @@ manifest, catalog, DOM, exports, and GitHub-bound bundle. Unavailable local
 detail is never represented as a public zero or healthy state.
 
 The maintained source package has one canonical repository home,
-`research/project-console/`, and one canonical entrypoint,
+`framework/project/interfaces/project-console/`, and one canonical entrypoint,
 `project-console.html`; compatibility aliases may not create a second source
 directory or entrypoint. The Console supports three explicit delivery modes.
 The ordinary owner-local

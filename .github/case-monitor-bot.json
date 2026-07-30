@@ -30,7 +30,7 @@
       "moduleId": "judicial-review-disposition-signals",
       "recordId": "HOR-035",
       "enabled": true,
-      "targetPath": "research/horizon-source-records/HOR-035-source-development.md",
+      "targetPath": "research/candidate-source-development/HOR-035-source-development.md",
       "insertBeforeHeading": "## General source development",
       "maximumLeads": 250,
       "matchFields": [

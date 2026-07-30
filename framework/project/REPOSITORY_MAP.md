@@ -38,7 +38,7 @@ in [`../PROJECT_STRUCTURE.md`](../PROJECT_STRUCTURE.md).
 | `inventory/sources-pending.csv` | Temporary unresolved-source routing catalog. |
 | `inventory/presidential-directives.csv` | Directive discovery and screening registry. |
 | `inventory/github_issue_registry.csv` | Stable GitHub-item-to-canonical-page registry. |
-| `framework/records/governance/governance-change-log.md` | Public-safe provenance index for material governance decisions; it does not replace the governing document, Change Audit history, or Git evidence. |
+| `framework/logs/governance/governance-change-log.md` | Public-safe provenance index for material governance decisions; it does not replace the governing document, Change Audit history, or Git evidence. |
 
 ## ARRP governing configuration
 

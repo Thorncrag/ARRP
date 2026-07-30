@@ -7,6 +7,7 @@ import hashlib
 import json
 import tempfile
 import unittest
+from collections import Counter
 from pathlib import Path
 from unittest import mock
 
@@ -227,6 +228,30 @@ class ComponentRegistryActivationReadinessTests(unittest.TestCase):
         )
         self.assertTrue(
             all(item["disposition"] for item in baseline["items"])
+        )
+        self.assertEqual(
+            baseline["disposition_classifier"],
+            {
+                "schema_version": 1,
+                "complete": True,
+                "source_revision": (
+                    "0b394db1bdfbe8a76632e56bf5ed8587714e7ce2"
+                ),
+                "disposition_counts": (
+                    registry.REFERENCE_DISPOSITION_COUNTS
+                ),
+            },
+        )
+        self.assertEqual(
+            dict(
+                sorted(
+                    Counter(
+                        item["disposition"]
+                        for item in baseline["items"]
+                    ).items()
+                )
+            ),
+            registry.REFERENCE_DISPOSITION_COUNTS,
         )
 
     def test_ignored_inventory_is_exact_and_content_was_not_read(self):
@@ -498,6 +523,11 @@ class ComponentRegistryActivationReadinessTests(unittest.TestCase):
                 "reference_dispositions"
             ]["replacement_baseline"]["items"][0].update(
                 {"disposition": "invented"}
+            ),
+            "classification_source": lambda receipt: receipt[
+                "reference_dispositions"
+            ]["replacement_baseline"]["disposition_classifier"].update(
+                {"source_revision": "0" * 40}
             ),
         }
         for name, mutate in mutations.items():

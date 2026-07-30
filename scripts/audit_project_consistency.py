@@ -270,8 +270,18 @@ AUTHORITATIVE_SOURCE_RECORDS = (
 )
 TOOL_INTERFACES = (
     (
-        ROOT / "research" / "project-console" / "project-console.html",
-        ROOT / "research" / "project-console" / "styles.css",
+        ROOT
+        / "framework"
+        / "project"
+        / "interfaces"
+        / "project-console"
+        / "project-console.html",
+        ROOT
+        / "framework"
+        / "project"
+        / "interfaces"
+        / "project-console"
+        / "styles.css",
     ),
     (ROOT / "participate" / "index.html", ROOT / "participate" / "styles.css"),
 )
@@ -284,7 +294,12 @@ CURRENT_INTAKE_WORKFLOW_FILES = (
     ROOT / "participate" / "README.md",
     ROOT / "participate" / "SECURITY.md",
     ROOT / "research" / "README.md",
-    ROOT / "research" / "project-console" / "README.md",
+    ROOT
+    / "framework"
+    / "project"
+    / "interfaces"
+    / "project-console"
+    / "README.md",
     ROOT / "research" / "trump-administration-legal-review-summary.md",
     ROOT / "website" / "README.md",
 )
@@ -324,13 +339,13 @@ REPOSITORY_LINK_TEXT_SUFFIXES = {
     ".yml",
 }
 OPTIONAL_LOCAL_HTML_ASSETS = {
-    Path("research/project-console/data/private-github-security.js"),
+    Path("framework/project/interfaces/project-console/data/private-github-security.js"),
 }
 LOCAL_ONLY_CONSOLE_PROJECTIONS = {
-    Path("research/project-console/data/private-github-security.js"),
-    Path("research/project-console/data/private-security-assurance.js"),
-    Path("research/project-console/data/private-operations.js"),
-    Path("research/project-console/data/local-automation-status.js"),
+    Path("framework/project/interfaces/project-console/data/private-github-security.js"),
+    Path("framework/project/interfaces/project-console/data/private-security-assurance.js"),
+    Path("framework/project/interfaces/project-console/data/private-operations.js"),
+    Path("framework/project/interfaces/project-console/data/local-automation-status.js"),
 }
 
 REQUIRED_ISSUE_HEADINGS = (
@@ -420,7 +435,12 @@ def active_project_files(*suffixes: str) -> list[Path]:
         and not ACTIVE_TREE_EXCLUSIONS.intersection(path.relative_to(ROOT).parts)
         and path.relative_to(ROOT) not in LOCAL_ONLY_CONSOLE_PROJECTIONS
         and not path.is_relative_to(
-            ROOT / "research" / "project-console" / "prototypes"
+            ROOT
+            / "framework"
+            / "project"
+            / "interfaces"
+            / "project-console"
+            / "prototypes"
         )
     )
 
@@ -2554,7 +2574,10 @@ def check_research_placement(failures: list[str], warnings: list[str]) -> None:
             continue
         issue_id = issue_match.group(1)
         area = issue_id.split("-", 1)[0]
-        if area == "HOR" and path.parent == ROOT / "research" / "horizon-source-records":
+        if (
+            area == "HOR"
+            and path.parent == ROOT / "research" / "candidate-source-development"
+        ):
             continue
         if path.parent == ROOT / "research" / "interbranch-review":
             # These matrices apply one issue's shared infrastructure across
@@ -3281,7 +3304,9 @@ def check_structured_files_and_repository_hygiene(
         "Supports HOR-0",
     )
     horizon_source_records = sorted(
-        (ROOT / "research" / "horizon-source-records").glob("HOR-*-source-development.md")
+        (ROOT / "research" / "candidate-source-development").glob(
+            "HOR-*-source-development.md"
+        )
     )
     for path in horizon_source_records:
         content = read(path)
@@ -3637,7 +3662,7 @@ def check_context_registry(
     documents = manifest["documents"]
     current = documents.get("current_audit") or {}
     if (
-        current.get("path") != "framework/records/handoffs/current-task.md"
+        current.get("path") != "framework/handoffs/current-task.md"
         or current.get("hash_policy") != "runtime"
         or current.get("governing")
     ):
@@ -4183,8 +4208,8 @@ def source_domain_event_pipeline_findings(root: Path = ROOT) -> list[str]:
             "scripts/build_automation_health_projection.py",
             "scripts/publish_project_console_progress.py",
             "scripts/publish_immutable_data_file.py",
-            ".github/launchd/com.thorncrag.arrp-run-coordinator.plist.example",
-            ".github/launchd/com.thorncrag.arrp-run-coordinator-control.plist.example",
+            "framework/project/automation/configuration/launchd/com.thorncrag.arrp-run-coordinator.plist.example",
+            "framework/project/automation/configuration/launchd/com.thorncrag.arrp-run-coordinator-control.plist.example",
             ".github/workflows/run-coordinator-bot.yml",
             ".github/workflows/case-monitor-bot.yml",
             ".github/workflows/presidential-directives-bot.yml",
@@ -4355,7 +4380,7 @@ def source_domain_event_pipeline_findings(root: Path = ROOT) -> list[str]:
                 "git rev-parse HEAD",
                 'git switch -C "$branch" "${SOURCE_REVISION}"',
                 '--git-base "${SOURCE_REVISION}"',
-                "framework/records/status/source-checker-report.md",
+                "framework/status/source-checker-report.md",
                 "exact report-only delta",
                 "git push --force-with-lease",
             ),

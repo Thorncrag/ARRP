@@ -736,28 +736,32 @@ class ComponentRegistryCandidateTests(unittest.TestCase):
 
     def test_future_tree_applies_registered_longest_alias(self):
         candidate, _route = registry.load_validated_registry()
+        console_tests_alias = candidate["aliases_and_migrations"]["entries"][
+            "relocate_project_console_tests"
+        ]
+        console_test_source = (
+            f"{console_tests_alias['source_path']}/frontend.test.mjs"
+        )
         result = registry.future_tree_manifest(
             candidate,
             [
-                "research/project-console/app.js",
-                "research/project-console/tests/frontend.test.mjs",
-                "research/horizon-source-records/README.md",
+                "framework/project/interfaces/project-console/app.js",
+                console_test_source,
+                "research/candidate-source-development/README.md",
                 "README.md",
             ],
         )
         by_source = {item["source_path"]: item for item in result["items"]}
         self.assertEqual(
-            by_source["research/project-console/app.js"]["future_path"],
+            by_source["framework/project/interfaces/project-console/app.js"]["future_path"],
             "framework/project/interfaces/project-console/app.js",
         )
         self.assertEqual(
-            by_source[
-                "research/project-console/tests/frontend.test.mjs"
-            ]["future_path"],
+            by_source[console_test_source]["future_path"],
             "tests/project-console/frontend.test.mjs",
         )
         self.assertEqual(
-            by_source["research/horizon-source-records/README.md"][
+            by_source["research/candidate-source-development/README.md"][
                 "future_path"
             ],
             "research/candidate-source-development/README.md",
@@ -897,7 +901,7 @@ class ComponentRegistryCandidateTests(unittest.TestCase):
                 )
         self.assertEqual(
             representations["legacy_console_redirect"]["canonical_path"],
-            "research/project-console/project-console.html",
+            "framework/project/interfaces/project-console/project-console.html",
         )
         serialized = registry.canonical_json(representations)
         self.assertNotIn("project-console/index.html", serialized)

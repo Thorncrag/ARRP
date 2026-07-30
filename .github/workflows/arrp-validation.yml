@@ -42,7 +42,7 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: "22"
-      - run: node --test research/project-console/tests/frontend.test.mjs
+      - run: node --test framework/project/interfaces/project-console/tests/frontend.test.mjs
 
   participation-tests:
     runs-on: ubuntu-latest
@@ -52,7 +52,7 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: "22"
-      - run: node --test participate/tests/*.test.js
+      - run: node --test tests/participation/*.test.js
 
   site-build:
     runs-on: ubuntu-latest

@@ -9,16 +9,16 @@
     "reason": "Stage 1 candidate acceptance and distinct human activation approval have not yet occurred."
   },
   "source_baseline": {
-    "repository_revision": "b82764f21a39c14e35c371cc6a4530d4a1b11c82",
+    "repository_revision": "0b394db1bdfbe8a76632e56bf5ed8587714e7ce2",
     "repository_state": "dirty_bound_candidate",
     "working_tree_binding": {
       "mode": "base_revision_plus_route_manifest",
       "scope": "complete_routed_authority_source",
-      "sha256": "dd54575a1c7e3f2810d00ae0fd5a7e199d6f0fc8dd06d6df41442cef40313620"
+      "sha256": "84d07c37ae67a3b9b34a143977a136948556898d64c2d9f080763b4aa7d633d2"
     },
     "route_source": {
       "path": "framework/project/automation/context-routes.json",
-      "sha256": "477eb658215b3c5db157919223c592dfc78a11ca07dffc81751abdba0235c7c5",
+      "sha256": "7d3f3f0ac65febd53e312d6a49fc0a65ec0a3d24d6cc288265b5acc540932e86",
       "schema_version": 2
     }
   },
@@ -2045,7 +2045,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=codex_bootstrap",
         "retention_posture": "current",
-        "sha256": "465045945823c6e8a25ad8363c14d8f34de201fc351c00dba46b17bb44d94d80"
+        "sha256": "3113177ff75828c40d4479c81368fdd86561fee3f6cceef0a4adf1cf8acc613a"
       },
       "framework_kernel": {
         "document_id": "framework_kernel",
@@ -2367,7 +2367,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=github_disclosure_policy",
         "retention_posture": "current",
-        "sha256": "f155c48f2231d16b8fc2c510ff2eb6fc460064711bff28fc354bc1af315150e3"
+        "sha256": "e83d0419f8caeb1f88eea6927cc1ed24319008b823f456042dddbcd44d57cab9"
       },
       "current_audit": {
         "document_id": "current_audit",
@@ -2412,7 +2412,7 @@
           "state": "pending",
           "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
         },
-        "canonical_path": "framework/records/handoffs/current-task.md",
+        "canonical_path": "framework/handoffs/current-task.md",
         "owner": "@Thorncrag",
         "review_policy": "owner_review_required",
         "disclosure_class": "public_operational_summary",
@@ -2588,7 +2588,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=project_structure",
         "retention_posture": "current",
-        "sha256": "80a47369e58ad8dec8512cff4cb9d5543df4582ee9dad557f8410cfcfe33e089"
+        "sha256": "77faf33e0eaa4a6b8308df721dd255a3bef25eea25fc98ae2177dd1819f4400c"
       },
       "github_workflow": {
         "document_id": "github_workflow",
@@ -2669,7 +2669,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=github_workflow",
         "retention_posture": "current",
-        "sha256": "04f05f0cf0468d969868042cef4d336fed9c4e7557c22cc7d31bf2339a84b403"
+        "sha256": "cd55605cd4fcee311a4259265577fa9f3d926fb22ee30974a0fd1602de433ead"
       },
       "remedy_framework": {
         "document_id": "remedy_framework",
@@ -2817,7 +2817,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=print_assembly",
         "retention_posture": "current",
-        "sha256": "81662cf8fc14a16eebe2ec5ed1e44020a2dcc2e5849312fb42d220173e4d5f38"
+        "sha256": "8071a57c114f7546a6e6d0b9e4607b3aca1bf7854303f337193aaf1786b59fe5"
       },
       "public_release": {
         "document_id": "public_release",
@@ -3113,7 +3113,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=project_interface",
         "retention_posture": "current",
-        "sha256": "6c4b7912753d459c37c062ca9cd6414abc0b7e18d0a1155b5a7e50c170d3d9cb"
+        "sha256": "d4e052c9e6bb4d85107e3da0a79eee4bf9ec27540fc3740a7a3c9bb8c46e0067"
       },
       "intake_process": {
         "document_id": "intake_process",
@@ -5099,7 +5099,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=runbook_integrity_bot",
         "retention_posture": "current",
-        "sha256": "74417794478b1454ecaf40358500c0ea3d9227022b56804340fb3bf0a1a0939f"
+        "sha256": "2b7f5db14a6ca75d772a8d279ca9803c210fc813d2a7f1a29b3684b808b79729"
       },
       "runbook_run_coordinator_bot": {
         "document_id": "runbook_run_coordinator_bot",
@@ -5242,7 +5242,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=runbook_source_checker_bot",
         "retention_posture": "current",
-        "sha256": "c2262640a1b50dd9691ac77bb560fb1ee3dab93b5e3fe699569c8159727f6f5c"
+        "sha256": "4fe01198ebfc4979363dcc05855c601968cae53f30a48f45d877ef18a4c72c73"
       },
       "audit_core": {
         "document_id": "audit_core",
@@ -6988,7 +6988,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=operation_project_update",
         "retention_posture": "current",
-        "sha256": "c2390d2fce075a3b2b8c4b522abdebe0bcf9cc802e64a52440970afa57d4836e"
+        "sha256": "56830dd0126a828e07bad9fa7b64f06b6ea995e10453760998eac3f2fb270aac"
       },
       "operation_governance_change_recording": {
         "document_id": "operation_governance_change_recording",
@@ -7132,7 +7132,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=governance_change_registry",
         "retention_posture": "current",
-        "sha256": "4ff886faa4121922ff79c72513c9a3c8477eadc7c5be5040ce844a49f87283b5"
+        "sha256": "a8b901084657ddcb43e5dad5a228be183ef3594d24b2216b3bfaba018571799b"
       },
       "project_profile": {
         "document_id": "project_profile",
@@ -7279,7 +7279,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=repository_map",
         "retention_posture": "current",
-        "sha256": "e9752ae36e6edb6cc18bde3bbd3be22d49a2cc6f0f41cb8695ecbb84a103c204"
+        "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313"
       },
       "maturity_profile": {
         "document_id": "maturity_profile",
@@ -8297,7 +8297,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=project_source_adjudication",
         "retention_posture": "current",
-        "sha256": "1202c68506ab81564dc9c45b76286479f28af7377d0b9250f5baf7d621a12d6d"
+        "sha256": "47a45caf79cf19291f5bdb699c33244a09f8924c9bcfdb77dc9561ee00802dc6"
       },
       "navigation_project_sync": {
         "document_id": "navigation_project_sync",
@@ -8457,7 +8457,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=project_audit_execution",
         "retention_posture": "current",
-        "sha256": "5a28f5867712d19955521c68940fb7c8f56a31bbd5ef1cb29637fae9d2e22296"
+        "sha256": "94bfd6acde8e354b7dff4a13d33486e4c0daada0513ea3539459d6580cb3d59c"
       },
       "COMPONENT-REGISTRY": {
         "document_id": "COMPONENT-REGISTRY",
@@ -8662,7 +8662,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=component_registry_tool",
         "retention_posture": "current",
-        "sha256": "5df545b7322a364e403c8d429b0def8d17d93db730f85e711103c6027d04526a"
+        "sha256": "f2ded941ac3f0995562941fc063579c5bd658c1be8a7a1e10f2d2ffc505bfe77"
       },
       "component_registry_activation_finalizer": {
         "document_id": "component_registry_activation_finalizer",
@@ -8792,7 +8792,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=component_registry_tests",
         "retention_posture": "current",
-        "sha256": "6c4567c6baf654d20bcae9112563d8057987914074a6e799a277b9ca90efcdb2"
+        "sha256": "7c12675e2e7c560f0a80c3835a70604b75bb4f2ee08e7ccde198e07658b51583"
       }
     }
   },
@@ -8830,7 +8830,7 @@
     "authoritative": false,
     "source_import": {
       "path": "framework/project/automation/context-routes.json",
-      "sha256": "477eb658215b3c5db157919223c592dfc78a11ca07dffc81751abdba0235c7c5",
+      "sha256": "7d3f3f0ac65febd53e312d6a49fc0a65ec0a3d24d6cc288265b5acc540932e86",
       "schema_version": 2,
       "import_semantics": "exact_validated_snapshot"
     },
@@ -8850,8 +8850,8 @@
       "__pycache__",
       "exports",
       "node_modules",
-      "research/project-console/catalog-data.js",
-      "research/project-console/data",
+      "framework/project/interfaces/project-console/catalog-data.js",
+      "framework/project/interfaces/project-console/data",
       "site"
     ],
     "scan_exclusion_bindings": {
@@ -8909,8 +8909,8 @@
         "disclosure_policy": "disclosure_gate_still_applies",
         "classification_policy": "deferred_classification_fails_closed"
       },
-      "research/project-console/catalog-data.js": {
-        "excluded_path": "research/project-console/catalog-data.js",
+      "framework/project/interfaces/project-console/catalog-data.js": {
+        "excluded_path": "framework/project/interfaces/project-console/catalog-data.js",
         "binding_kind": "representation",
         "binding_id": "scan_excluded_console_catalog",
         "authority_effect": "scan_exclusion_only_no_authority",
@@ -8918,8 +8918,8 @@
         "disclosure_policy": "disclosure_gate_still_applies",
         "classification_policy": "deferred_classification_fails_closed"
       },
-      "research/project-console/data": {
-        "excluded_path": "research/project-console/data",
+      "framework/project/interfaces/project-console/data": {
+        "excluded_path": "framework/project/interfaces/project-console/data",
         "binding_kind": "representation",
         "binding_id": "scan_excluded_console_data",
         "authority_effect": "scan_exclusion_only_no_authority",
@@ -8951,7 +8951,7 @@
       },
       "codex_bootstrap": {
         "path": "AGENTS.md",
-        "sha256": "465045945823c6e8a25ad8363c14d8f34de201fc351c00dba46b17bb44d94d80",
+        "sha256": "3113177ff75828c40d4479c81368fdd86561fee3f6cceef0a4adf1cf8acc613a",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -8990,7 +8990,7 @@
       },
       "github_disclosure_policy": {
         "path": "framework/project/github/disclosure-policy.json",
-        "sha256": "f155c48f2231d16b8fc2c510ff2eb6fc460064711bff28fc354bc1af315150e3",
+        "sha256": "e83d0419f8caeb1f88eea6927cc1ed24319008b823f456042dddbcd44d57cab9",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -8998,7 +8998,7 @@
         ]
       },
       "current_audit": {
-        "path": "framework/records/handoffs/current-task.md",
+        "path": "framework/handoffs/current-task.md",
         "hash_policy": "runtime",
         "governing": false,
         "requires": [
@@ -9018,7 +9018,7 @@
       },
       "project_structure": {
         "path": "framework/PROJECT_STRUCTURE.md",
-        "sha256": "80a47369e58ad8dec8512cff4cb9d5543df4582ee9dad557f8410cfcfe33e089",
+        "sha256": "77faf33e0eaa4a6b8308df721dd255a3bef25eea25fc98ae2177dd1819f4400c",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9027,7 +9027,7 @@
       },
       "github_workflow": {
         "path": "framework/project/github/workflow.md",
-        "sha256": "04f05f0cf0468d969868042cef4d336fed9c4e7557c22cc7d31bf2339a84b403",
+        "sha256": "cd55605cd4fcee311a4259265577fa9f3d926fb22ee30974a0fd1602de433ead",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9047,7 +9047,7 @@
       },
       "print_assembly": {
         "path": "framework/project/publication/print-assembly.md",
-        "sha256": "81662cf8fc14a16eebe2ec5ed1e44020a2dcc2e5849312fb42d220173e4d5f38",
+        "sha256": "8071a57c114f7546a6e6d0b9e4607b3aca1bf7854303f337193aaf1786b59fe5",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9089,7 +9089,7 @@
       },
       "project_interface": {
         "path": "framework/project/interfaces/project-console.md",
-        "sha256": "6c4b7912753d459c37c062ca9cd6414abc0b7e18d0a1155b5a7e50c170d3d9cb",
+        "sha256": "d4e052c9e6bb4d85107e3da0a79eee4bf9ec27540fc3740a7a3c9bb8c46e0067",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9355,7 +9355,7 @@
       },
       "runbook_integrity_bot": {
         "path": "framework/project/automation/runbooks/project-integrity-bot.md",
-        "sha256": "74417794478b1454ecaf40358500c0ea3d9227022b56804340fb3bf0a1a0939f",
+        "sha256": "2b7f5db14a6ca75d772a8d279ca9803c210fc813d2a7f1a29b3684b808b79729",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9376,7 +9376,7 @@
       },
       "runbook_source_checker_bot": {
         "path": "framework/project/automation/runbooks/source-checker-bot.md",
-        "sha256": "c2262640a1b50dd9691ac77bb560fb1ee3dab93b5e3fe699569c8159727f6f5c",
+        "sha256": "4fe01198ebfc4979363dcc05855c601968cae53f30a48f45d877ef18a4c72c73",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9627,7 +9627,7 @@
       },
       "operation_project_update": {
         "path": "framework/project/workflows/project-update.md",
-        "sha256": "c2390d2fce075a3b2b8c4b522abdebe0bcf9cc802e64a52440970afa57d4836e",
+        "sha256": "56830dd0126a828e07bad9fa7b64f06b6ea995e10453760998eac3f2fb270aac",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9655,7 +9655,7 @@
       },
       "governance_change_registry": {
         "path": "framework/project/workflows/governance-change-registry.json",
-        "sha256": "4ff886faa4121922ff79c72513c9a3c8477eadc7c5be5040ce844a49f87283b5",
+        "sha256": "a8b901084657ddcb43e5dad5a228be183ef3594d24b2216b3bfaba018571799b",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9677,7 +9677,7 @@
         "path": "framework/project/REPOSITORY_MAP.md",
         "hash_policy": "pinned",
         "governing": true,
-        "sha256": "e9752ae36e6edb6cc18bde3bbd3be22d49a2cc6f0f41cb8695ecbb84a103c204"
+        "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313"
       },
       "maturity_profile": {
         "path": "framework/project/profile/maturity-profile.md",
@@ -9807,7 +9807,7 @@
           "source_automated_adjudication",
           "source_project_monitoring"
         ],
-        "sha256": "1202c68506ab81564dc9c45b76286479f28af7377d0b9250f5baf7d621a12d6d"
+        "sha256": "47a45caf79cf19291f5bdb699c33244a09f8924c9bcfdb77dc9561ee00802dc6"
       },
       "navigation_project_sync": {
         "path": "framework/project/workflows/navigation-sync.md",
@@ -9840,7 +9840,7 @@
           "project_interface",
           "project_console_progress"
         ],
-        "sha256": "5a28f5867712d19955521c68940fb7c8f56a31bbd5ef1cb29637fae9d2e22296"
+        "sha256": "94bfd6acde8e354b7dff4a13d33486e4c0daada0513ea3539459d6580cb3d59c"
       }
     },
     "capabilities": {
@@ -11769,7 +11769,7 @@
       },
       "ownership_19_research_project_console_readme_md": {
         "ownership_id": "ownership_19_research_project_console_readme_md",
-        "path_pattern": "/research/project-console/README.md",
+        "path_pattern": "/framework/project/interfaces/project-console/README.md",
         "owners": [
           "@Thorncrag"
         ],
@@ -11781,7 +11781,7 @@
       },
       "ownership_20_research_project_console_project_console_html": {
         "ownership_id": "ownership_20_research_project_console_project_console_html",
-        "path_pattern": "/research/project-console/project-console.html",
+        "path_pattern": "/framework/project/interfaces/project-console/project-console.html",
         "owners": [
           "@Thorncrag"
         ],
@@ -11793,7 +11793,7 @@
       },
       "ownership_21_research_project_console_app_js": {
         "ownership_id": "ownership_21_research_project_console_app_js",
-        "path_pattern": "/research/project-console/app.js",
+        "path_pattern": "/framework/project/interfaces/project-console/app.js",
         "owners": [
           "@Thorncrag"
         ],
@@ -11805,7 +11805,7 @@
       },
       "ownership_22_research_project_console_styles_css": {
         "ownership_id": "ownership_22_research_project_console_styles_css",
-        "path_pattern": "/research/project-console/styles.css",
+        "path_pattern": "/framework/project/interfaces/project-console/styles.css",
         "owners": [
           "@Thorncrag"
         ],
@@ -11817,7 +11817,7 @@
       },
       "ownership_23_research_project_console_tests": {
         "ownership_id": "ownership_23_research_project_console_tests",
-        "path_pattern": "/research/project-console/tests/",
+        "path_pattern": "/tests/project-console/",
         "owners": [
           "@Thorncrag"
         ],
@@ -12208,7 +12208,7 @@
       "scan_excluded_console_catalog": {
         "representation_id": "scan_excluded_console_catalog",
         "representation_type": "scan_excluded_output",
-        "canonical_path": "research/project-console/catalog-data.js",
+        "canonical_path": "framework/project/interfaces/project-console/catalog-data.js",
         "producer": "Project Console builder",
         "generation_rule": "Generated compatibility catalog excluded from context scanning only; it never becomes Console or routing authority.",
         "source_revision_binding": "Exact Console generation and source revision binding remain mandatory.",
@@ -12219,7 +12219,7 @@
       "scan_excluded_console_data": {
         "representation_id": "scan_excluded_console_data",
         "representation_type": "scan_excluded_output",
-        "canonical_path": "research/project-console/data",
+        "canonical_path": "framework/project/interfaces/project-console/data",
         "producer": "Project Console builder",
         "generation_rule": "Generated Console data excluded from context scanning only; it never becomes source or routing authority.",
         "source_revision_binding": "Exact Console generation and source revision binding remain mandatory.",
@@ -12241,7 +12241,7 @@
       "legacy_console_redirect": {
         "representation_id": "legacy_console_redirect",
         "representation_type": "compatibility_redirect",
-        "canonical_path": "research/project-console/project-console.html",
+        "canonical_path": "framework/project/interfaces/project-console/project-console.html",
         "route": "operations:component-registry",
         "producer": "Stage 1 migration",
         "generation_rule": "Redirect the retired Project Console path without retaining a second implementation.",

@@ -104,7 +104,7 @@ Before treating an audited issue as complete:
    exists, the push was attempted when a remote is available, and every
    completion-critical hosted update and readback succeeded; and
 6. leave
-   [`framework/records/handoffs/current-task.md`](../../records/handoffs/current-task.md)
+   [`framework/handoffs/current-task.md`](../../records/handoffs/current-task.md)
    `Paused` or `Blocked` with the exact remaining synchronization step when an
    approval, authentication, network, remote, workflow, or publication failure
    prevents completion. Do not mark it `Inactive` while a completion-critical

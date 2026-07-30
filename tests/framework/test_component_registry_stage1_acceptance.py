@@ -171,11 +171,17 @@ class ComponentRegistryStage1AcceptanceTests(unittest.TestCase):
                     values,
                 )
 
+        console_tests_alias = self.candidate["aliases_and_migrations"]["entries"][
+            "relocate_project_console_tests"
+        ]
+        console_test_source = (
+            f"{console_tests_alias['source_path']}/frontend.test.mjs"
+        )
         future = registry.future_tree_manifest(
             self.candidate,
             [
-                "participate/tests/test_intake.py",
-                "research/project-console/tests/frontend.test.mjs",
+                "tests/participation/test_intake.py",
+                console_test_source,
                 "scripts/component_registry.py",
                 "participate/api/submit.js",
             ],
@@ -185,14 +191,12 @@ class ComponentRegistryStage1AcceptanceTests(unittest.TestCase):
             for item in future["items"]
         }
         self.assertTrue(
-            paths["participate/tests/test_intake.py"].startswith(
+            paths["tests/participation/test_intake.py"].startswith(
                 "tests/participation/",
             )
         )
         self.assertTrue(
-            paths[
-                "research/project-console/tests/frontend.test.mjs"
-            ].startswith("tests/project-console/")
+            paths[console_test_source].startswith("tests/project-console/")
         )
         self.assertEqual(
             paths["scripts/component_registry.py"],

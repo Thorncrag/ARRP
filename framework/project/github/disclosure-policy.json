@@ -37,7 +37,7 @@
       "category": "public_by_design",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github", "public-release-builder"],
       "paths": ["areas/**", "legislation/**", "topics/**", "research/**"],
-      "exclude_paths": ["research/project-console/**"]
+      "exclude_paths": ["framework/project/interfaces/project-console/**"]
     },
     {
       "id": "public-source-and-workflow-records",
@@ -55,7 +55,7 @@
       "id": "public-governance-summary",
       "category": "public_operational_summary",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": ["framework/FRAMEWORK.md", "framework/PROJECT_STRUCTURE.md", "framework/component-registry.json", "framework/receipts/component-registry/**", "framework/standards/README.md", "framework/standards/interfaces/**", "framework/project/README.md", "framework/project/PROJECT_PROFILE.md", "framework/project/REPOSITORY_MAP.md", "framework/project/interfaces/**", "framework/records/README.md", "framework/records/baselines/**", "framework/records/governance/**", "framework/records/status/**"]
+      "paths": ["framework/FRAMEWORK.md", "framework/PROJECT_STRUCTURE.md", "framework/component-registry.json", "framework/receipts/component-registry/**", "framework/standards/README.md", "framework/standards/interfaces/**", "framework/project/README.md", "framework/project/PROJECT_PROFILE.md", "framework/project/REPOSITORY_MAP.md", "framework/project/interfaces/**", "framework/archive/operational/framework-records-README.md", "framework/archive/baselines/**", "framework/records/governance/**", "framework/status/**"]
     },
     {
       "id": "public-participation",
@@ -74,8 +74,8 @@
       "id": "public-interface-assets",
       "category": "public_operational_summary",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github", "console-public-bundle", "public-release-builder"],
-      "paths": ["website/**", "assets/branding/**", "research/project-console/**"],
-      "exclude_paths": ["research/project-console/data/private-*.js", "research/project-console/prototypes/**"]
+      "paths": ["website/**", "assets/branding/**", "framework/project/interfaces/project-console/**"],
+      "exclude_paths": ["framework/project/interfaces/project-console/data/private-*.js", "framework/project/interfaces/project-console/prototypes/**"]
     },
     {
       "id": "public-release-artifacts",
@@ -93,7 +93,7 @@
       "id": "portable-repository-administration",
       "category": "public_operational_summary",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": [".gitattributes", ".gitignore", ".rgignore", ".github/CODEOWNERS", ".github/SECURITY.md", ".github/*.json", ".github/launchd/**", "requirements-*.txt", "exports/README.md", "framework/records/handoffs/**", "framework/project/github/disclosure-boundary.md", "framework/project/github/disclosure-policy.json"]
+      "paths": [".gitattributes", ".gitignore", ".rgignore", ".github/CODEOWNERS", ".github/SECURITY.md", ".github/*.json", "framework/project/automation/configuration/launchd/**", "requirements-*.txt", "exports/README.md", "framework/records/handoffs/**", "framework/project/github/disclosure-boundary.md", "framework/project/github/disclosure-policy.json"]
     },
     {
       "id": "portable-automation-and-controls",
@@ -105,13 +105,13 @@
       "id": "restricted-console-prototypes",
       "category": "restricted_operational",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": ["research/project-console/prototypes/**"]
+      "paths": ["framework/project/interfaces/project-console/prototypes/**"]
     },
     {
       "id": "private-local-state",
       "category": "private",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": ["**/.env", "**/.env.*", "**/PAUSED", "**/governance-change-supplements.jsonl", "**/operational-incidents.jsonl", "**/security-incidents.jsonl", "**/incident-relations.jsonl", "data/private-*.js", "research/project-console/data/private-*.js"],
+      "paths": ["**/.env", "**/.env.*", "**/PAUSED", "**/governance-change-supplements.jsonl", "**/operational-incidents.jsonl", "**/security-incidents.jsonl", "**/incident-relations.jsonl", "data/private-*.js", "framework/project/interfaces/project-console/data/private-*.js"],
       "exclude_paths": ["participate/.env.example"]
     },
     {

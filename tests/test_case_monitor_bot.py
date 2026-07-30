@@ -444,7 +444,7 @@ class CaseMonitorBotTests(unittest.TestCase):
         self.assertFalse(config["localStage"]["publication"])
         self.assertEqual(
             config["sourceDevelopmentModules"][0]["targetPath"],
-            "research/horizon-source-records/HOR-035-source-development.md",
+            "research/candidate-source-development/HOR-035-source-development.md",
         )
 
         self.assertFalse(

@@ -2117,11 +2117,11 @@ def validate_queue_canonical_record(
         )
 
     if formal_horizon:
-        if normalized != "framework/records/candidates/horizon-scan-log.md":
+        if normalized != "framework/logs/candidates/candidate-discovery-log.md":
             return (
                 None,
                 f"{identifier} formal-candidate canonicalRecord is not its GitHub Issue "
-                f"or framework/records/candidates/horizon-scan-log.md: {normalized}",
+                f"or framework/logs/candidates/candidate-discovery-log.md: {normalized}",
             )
         return normalized, None
 
@@ -2721,8 +2721,8 @@ def build_work_queue(
                         "finding_type": "source_domain_proposal",
                         "pending_proposal": pending,
                         "recommendation": recommendation,
-                        "canonicalRecord": "framework/records/sources/source-monitor-log.md",
-                        "canonical_record": "framework/records/sources/source-monitor-log.md",
+                        "canonicalRecord": "framework/logs/sources/source-monitor-log.md",
+                        "canonical_record": "framework/logs/sources/source-monitor-log.md",
                     },
                     base_priority=730,
                     reason=recommendation_reason,
@@ -2857,8 +2857,8 @@ def build_work_queue(
                         "finding_type": "source_domain_proposal",
                         "pending_proposal": pending,
                         "recommendation": recommendation,
-                        "canonicalRecord": "framework/records/sources/source-monitor-log.md",
-                        "canonical_record": "framework/records/sources/source-monitor-log.md",
+                        "canonicalRecord": "framework/logs/sources/source-monitor-log.md",
+                        "canonical_record": "framework/logs/sources/source-monitor-log.md",
                     },
                     base_priority=725,
                     reason=recommendation_reason,

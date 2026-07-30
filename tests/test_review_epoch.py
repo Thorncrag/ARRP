@@ -41,7 +41,7 @@ def boundary(
             True,
         ),
         "current_audit": (
-            "framework/records/handoffs/current-task.md",
+            "framework/handoffs/current-task.md",
             "# Current Task\n",
             "runtime",
             False,

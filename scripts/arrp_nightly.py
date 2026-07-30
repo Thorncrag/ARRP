@@ -193,12 +193,12 @@ PROTECTED_EXACT = frozenset(
         "framework/AGENT_OPERATING_RULES.md",
         "framework/CONTEXT_ROUTING.md",
         "framework/PROJECT_STRUCTURE.md",
-        "research/project-console/README.md",
-        "research/project-console/project-console.html",
-        "research/project-console/app.js",
-        "research/project-console/capacity.js",
-        "research/project-console/component-registry.js",
-        "research/project-console/styles.css",
+        "framework/project/interfaces/project-console/README.md",
+        "framework/project/interfaces/project-console/project-console.html",
+        "framework/project/interfaces/project-console/app.js",
+        "framework/project/interfaces/project-console/capacity.js",
+        "framework/project/interfaces/project-console/component-registry.js",
+        "framework/project/interfaces/project-console/styles.css",
     }
 )
 RECOGNIZED_NEW_PREFIXES = (
@@ -361,7 +361,7 @@ APP_REPOSITORY_PERMISSIONS = {
 EXPECTED_TRACKED_EXECUTABLES = frozenset(
     {
         "scripts/bootstrap_local_tools.sh",
-        "scripts/build_horizon_review_console.py",
+        "scripts/build_project_console.py",
         "scripts/congress_api_smoke_test.py",
     }
 )
@@ -2740,7 +2740,7 @@ def default_local_stage_specs(python: str | None = None) -> tuple[LocalStageSpec
                 "--json-output",
                 "{run_dir}/stages/source-checker-bot/report.json",
                 "--markdown-output",
-                "{worktree}/framework/records/status/source-checker-report.md",
+                "{worktree}/framework/status/source-checker-report.md",
             ),
             ("{run_dir}/stages/source-checker-bot/report.json",),
         ),
@@ -2788,7 +2788,7 @@ def default_local_stage_specs(python: str | None = None) -> tuple[LocalStageSpec
                 "--json-output",
                 "{run_dir}/stages/project-integrity-bot/report.json",
                 "--markdown-output",
-                "{worktree}/framework/records/status/project-integrity-report.md",
+                "{worktree}/framework/status/project-integrity-report.md",
                 "--exit-zero-on-findings",
             ),
             ("{run_dir}/stages/project-integrity-bot/report.json",),
@@ -2813,7 +2813,7 @@ def default_post_elim_validation_specs(
                 "--json-output",
                 ".tmp/project-integrity-final.json",
                 "--markdown-output",
-                "framework/records/status/project-integrity-report.md",
+                "framework/status/project-integrity-report.md",
                 "--exit-zero-on-findings",
             ),
         ),
@@ -2825,14 +2825,14 @@ def default_post_elim_validation_specs(
                 "--report",
                 ".tmp/project-integrity-final.json",
                 "--existing-file",
-                "research/project-console/data/integrity.js",
+                "framework/project/interfaces/project-console/data/integrity.js",
                 "--output",
                 ".tmp/project-console-integrity.json",
             ),
         ),
         ValidationSpec(
             "console-build",
-            (python, "scripts/build_horizon_review_console.py", "--refresh-github"),
+            (python, "scripts/build_project_console.py", "--refresh-github"),
         ),
         ValidationSpec(
             "site-prepare",
@@ -2856,11 +2856,11 @@ def default_post_elim_validation_specs(
         ),
         ValidationSpec(
             "console-tests",
-            ("node", "--test", "research/project-console/tests/frontend.test.mjs"),
+            ("node", "--test", "framework/project/interfaces/project-console/tests/frontend.test.mjs"),
         ),
         ValidationSpec(
             "participation-tests",
-            ("node", "--test", "participate/tests/*.test.js"),
+            ("node", "--test", "tests/participation/*.test.js"),
         ),
         ValidationSpec(
             "python-compile",
@@ -2869,7 +2869,7 @@ def default_post_elim_validation_specs(
         ValidationSpec("diff-check", ("git", "diff", "--check")),
         ValidationSpec(
             "launchagent-template",
-            ("plutil", "-lint", ".github/launchd/com.thorncrag.arrp-nightly.plist.example"),
+            ("plutil", "-lint", "framework/project/automation/configuration/launchd/com.thorncrag.arrp-nightly.plist.example"),
         ),
     )
 
@@ -6119,7 +6119,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         scheduled_for=scheduled_slot() if args.scheduled else None,
         console_projection=(
             canonical
-            / "research/project-console/data/local-automation-status.js"
+            / "framework/project/interfaces/project-console/data/local-automation-status.js"
         ),
         supervised_live=supervised_plan is not None,
         runtime_commit=str(args.runtime_commit) if production else None,

@@ -104,8 +104,8 @@ owner-local.
 | [`framework/records/governance/`](records/governance/) | Public-safe provenance for material governance decisions, including stable identity, Git evidence, validation, supersession, and separate adoption/activation posture. It does not replace governing authority, Change Audit history, or owner-local supplements. |
 | [`framework/records/candidates/`](records/candidates/) | Candidate discovery and disposition history. |
 | [`framework/records/sources/`](records/sources/) | Source-monitoring event history and dispositions. |
-| [`framework/records/status/`](records/status/) | Current generated or overwritten status reports. |
-| [`framework/records/baselines/`](records/baselines/) | Retired governing records retained as historical implementation baselines. |
+| [`framework/status/`](records/status/) | Current generated or overwritten status reports. |
+| [`framework/archive/baselines/`](records/baselines/) | Retired governing records retained as historical implementation baselines. |
 
 ## Repository content and support directories
 

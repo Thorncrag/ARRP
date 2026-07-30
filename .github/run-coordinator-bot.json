@@ -168,7 +168,7 @@
     },
     {
       "id": "project-integrity-bot",
-      "command": "python3 scripts/audit_project_consistency.py --routing-authority production-transaction --json-output <run-dir>/integrity.json --markdown-output framework/records/status/project-integrity-report.md --exit-zero-on-findings",
+      "command": "python3 scripts/audit_project_consistency.py --routing-authority production-transaction --json-output <run-dir>/integrity.json --markdown-output framework/status/project-integrity-report.md --exit-zero-on-findings",
       "output": "<run-dir>/integrity.json",
       "due": {
         "kind": "always"

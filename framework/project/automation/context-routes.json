@@ -7,8 +7,8 @@
     "__pycache__",
     "exports",
     "node_modules",
-    "research/project-console/catalog-data.js",
-    "research/project-console/data",
+    "framework/project/interfaces/project-console/catalog-data.js",
+    "framework/project/interfaces/project-console/data",
     "site"
   ],
   "required_modules": [
@@ -25,7 +25,7 @@
     },
     "codex_bootstrap": {
       "path": "AGENTS.md",
-      "sha256": "465045945823c6e8a25ad8363c14d8f34de201fc351c00dba46b17bb44d94d80",
+      "sha256": "3113177ff75828c40d4479c81368fdd86561fee3f6cceef0a4adf1cf8acc613a",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -64,7 +64,7 @@
     },
     "github_disclosure_policy": {
       "path": "framework/project/github/disclosure-policy.json",
-      "sha256": "f155c48f2231d16b8fc2c510ff2eb6fc460064711bff28fc354bc1af315150e3",
+      "sha256": "e83d0419f8caeb1f88eea6927cc1ed24319008b823f456042dddbcd44d57cab9",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -72,7 +72,7 @@
       ]
     },
     "current_audit": {
-      "path": "framework/records/handoffs/current-task.md",
+      "path": "framework/handoffs/current-task.md",
       "hash_policy": "runtime",
       "governing": false,
       "requires": [
@@ -92,7 +92,7 @@
     },
     "project_structure": {
       "path": "framework/PROJECT_STRUCTURE.md",
-      "sha256": "80a47369e58ad8dec8512cff4cb9d5543df4582ee9dad557f8410cfcfe33e089",
+      "sha256": "77faf33e0eaa4a6b8308df721dd255a3bef25eea25fc98ae2177dd1819f4400c",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -101,7 +101,7 @@
     },
     "github_workflow": {
       "path": "framework/project/github/workflow.md",
-      "sha256": "04f05f0cf0468d969868042cef4d336fed9c4e7557c22cc7d31bf2339a84b403",
+      "sha256": "cd55605cd4fcee311a4259265577fa9f3d926fb22ee30974a0fd1602de433ead",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -121,7 +121,7 @@
     },
     "print_assembly": {
       "path": "framework/project/publication/print-assembly.md",
-      "sha256": "81662cf8fc14a16eebe2ec5ed1e44020a2dcc2e5849312fb42d220173e4d5f38",
+      "sha256": "8071a57c114f7546a6e6d0b9e4607b3aca1bf7854303f337193aaf1786b59fe5",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -163,7 +163,7 @@
     },
     "project_interface": {
       "path": "framework/project/interfaces/project-console.md",
-      "sha256": "6c4b7912753d459c37c062ca9cd6414abc0b7e18d0a1155b5a7e50c170d3d9cb",
+      "sha256": "d4e052c9e6bb4d85107e3da0a79eee4bf9ec27540fc3740a7a3c9bb8c46e0067",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -429,7 +429,7 @@
     },
     "runbook_integrity_bot": {
       "path": "framework/project/automation/runbooks/project-integrity-bot.md",
-      "sha256": "74417794478b1454ecaf40358500c0ea3d9227022b56804340fb3bf0a1a0939f",
+      "sha256": "2b7f5db14a6ca75d772a8d279ca9803c210fc813d2a7f1a29b3684b808b79729",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -450,7 +450,7 @@
     },
     "runbook_source_checker_bot": {
       "path": "framework/project/automation/runbooks/source-checker-bot.md",
-      "sha256": "c2262640a1b50dd9691ac77bb560fb1ee3dab93b5e3fe699569c8159727f6f5c",
+      "sha256": "4fe01198ebfc4979363dcc05855c601968cae53f30a48f45d877ef18a4c72c73",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -701,7 +701,7 @@
     },
     "operation_project_update": {
       "path": "framework/project/workflows/project-update.md",
-      "sha256": "c2390d2fce075a3b2b8c4b522abdebe0bcf9cc802e64a52440970afa57d4836e",
+      "sha256": "56830dd0126a828e07bad9fa7b64f06b6ea995e10453760998eac3f2fb270aac",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -729,7 +729,7 @@
     },
     "governance_change_registry": {
       "path": "framework/project/workflows/governance-change-registry.json",
-      "sha256": "4ff886faa4121922ff79c72513c9a3c8477eadc7c5be5040ce844a49f87283b5",
+      "sha256": "a8b901084657ddcb43e5dad5a228be183ef3594d24b2216b3bfaba018571799b",
       "hash_policy": "pinned",
       "governing": true,
       "requires": [
@@ -751,7 +751,7 @@
       "path": "framework/project/REPOSITORY_MAP.md",
       "hash_policy": "pinned",
       "governing": true,
-      "sha256": "e9752ae36e6edb6cc18bde3bbd3be22d49a2cc6f0f41cb8695ecbb84a103c204"
+      "sha256": "cc79be778f2e99440823a5a86028f0f4d8b765f1bdd10154421dc5dd8b3fd313"
     },
     "maturity_profile": {
       "path": "framework/project/profile/maturity-profile.md",
@@ -881,7 +881,7 @@
         "source_automated_adjudication",
         "source_project_monitoring"
       ],
-      "sha256": "1202c68506ab81564dc9c45b76286479f28af7377d0b9250f5baf7d621a12d6d"
+      "sha256": "47a45caf79cf19291f5bdb699c33244a09f8924c9bcfdb77dc9561ee00802dc6"
     },
     "navigation_project_sync": {
       "path": "framework/project/workflows/navigation-sync.md",
@@ -914,7 +914,7 @@
         "project_interface",
         "project_console_progress"
       ],
-      "sha256": "5a28f5867712d19955521c68940fb7c8f56a31bbd5ef1cb29637fae9d2e22296"
+      "sha256": "94bfd6acde8e354b7dff4a13d33486e4c0daada0513ea3539459d6580cb3d59c"
     }
   },
   "capabilities": {

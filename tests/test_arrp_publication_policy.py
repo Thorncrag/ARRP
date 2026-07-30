@@ -175,7 +175,7 @@ class PublicationPolicyTests(unittest.TestCase):
         )
 
     def test_validation_globs_expand_only_path_arguments(self):
-        tests = self.fixture.repo / "participate/tests"
+        tests = self.fixture.repo / "tests/participation"
         tests.mkdir(parents=True)
         (tests / "first.test.js").write_text("// fixture\n", encoding="utf-8")
         (tests / "second.test.js").write_text("// fixture\n", encoding="utf-8")
@@ -189,7 +189,7 @@ class PublicationPolicyTests(unittest.TestCase):
                 "discover",
                 "-p",
                 "test_*.py",
-                "participate/tests/*.test.js",
+                "tests/participation/*.test.js",
             ),
         )
 
@@ -197,8 +197,8 @@ class PublicationPolicyTests(unittest.TestCase):
         self.assertEqual(
             expanded[-2:],
             (
-                "participate/tests/first.test.js",
-                "participate/tests/second.test.js",
+                "tests/participation/first.test.js",
+                "tests/participation/second.test.js",
             ),
         )
 
@@ -337,7 +337,7 @@ class P3FixtureTransactionTests(unittest.TestCase):
             gitignore = fixture.repo / ".gitignore"
             gitignore.write_text(
                 gitignore.read_text(encoding="utf-8")
-                + "/research/project-console/data/local-automation-status.js\n",
+                + "/framework/project/interfaces/project-console/data/local-automation-status.js\n",
                 encoding="utf-8",
             )
             run("git", "add", str(schema.relative_to(fixture.repo)), cwd=fixture.repo)
@@ -409,7 +409,7 @@ class P3FixtureTransactionTests(unittest.TestCase):
                 runtime_files=(),
                 console_projection=(
                     fixture.repo
-                    / "research/project-console/data/local-automation-status.js"
+                    / "framework/project/interfaces/project-console/data/local-automation-status.js"
                 ),
             )
 
@@ -438,7 +438,7 @@ class P3FixtureTransactionTests(unittest.TestCase):
             self.assertIsNone(status["merge_commit"])
             projection = (
                 fixture.repo
-                / "research/project-console/data/local-automation-status.js"
+                / "framework/project/interfaces/project-console/data/local-automation-status.js"
             )
             self.assertTrue(projection.is_file())
             self.assertIn('"status":"completed"', projection.read_text(encoding="utf-8"))

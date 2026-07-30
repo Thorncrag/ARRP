@@ -141,7 +141,7 @@
             "properties": {
               "path": {
                 "type": "string",
-                "pattern": "^(inventory/(sources\\.csv|sources-pending\\.csv|presidential-directives\\.csv)|framework/records/status/source-checker-report\\.md|research/horizon-source-records/HOR-[0-9]{3}-source-development\\.md|areas/[A-Z]+/research/[A-Z]+-[0-9]{3}-source-development\\.md)$"
+                "pattern": "^(inventory/(sources\\.csv|sources-pending\\.csv|presidential-directives\\.csv)|framework/status/source-checker-report\\.md|research/candidate-source-development/HOR-[0-9]{3}-source-development\\.md|areas/[A-Z]+/research/[A-Z]+-[0-9]{3}-source-development\\.md)$"
               },
               "sha256": {
                 "$ref": "#/$defs/hash"

@@ -36,7 +36,7 @@ def review_epoch_routing_boundary(
             "requires": ["framework_kernel"],
         },
         "current_audit": {
-            "path": "framework/records/handoffs/current-task.md",
+            "path": "framework/handoffs/current-task.md",
             "hash_policy": "runtime",
             "governing": False,
             "requires": ["framework_kernel", "agent_rules_kernel"],
