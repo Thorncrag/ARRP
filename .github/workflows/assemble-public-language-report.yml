@@ -7,18 +7,27 @@ on:
     paths:
       - ".github/report-parts/public-language/**"
       - ".github/workflows/assemble-public-language-report.yml"
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 permissions:
   contents: write
 
 jobs:
   assemble:
-    if: github.actor != 'github-actions[bot]'
+    if: >-
+      github.actor != 'github-actions[bot]' &&
+      (github.event_name == 'push' || github.head_ref == 'agent/public-language-report')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref_name }}
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Assemble and verify PDF
         shell: bash
@@ -37,10 +46,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          branch="${{ github.head_ref || github.ref_name }}"
           rm -rf .github/report-parts/public-language
           rm -f .github/workflows/assemble-public-language-report.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -m "Add public-language proposal review report"
-          git push origin "HEAD:${{ github.ref_name }}"
+          git push origin "HEAD:${branch}"
