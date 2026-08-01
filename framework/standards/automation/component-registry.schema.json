@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "framework/standards/automation/component-registry.schema.json",
-  "title": "ARRP Component Registry",
-  "description": "Stage 1 structural authority schema. Artifact classification and lifecycle namespaces remain explicitly deferred until separately approved.",
+  "$id": "https://arrp.org/schemas/component-registry.schema.json",
+  "title": "ARRP Component Registry Stage 2",
+  "description": "Closed Stage 2 component inventory. Semantic validation is performed by scripts/component_registry.py.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -10,367 +10,73 @@
     "schema_version",
     "registry_id",
     "registry_revision",
-    "status",
-    "approval",
-    "source_baseline",
-    "namespace_versions",
-    "directory_scopes",
-    "operational_documents",
-    "artifact_classes",
-    "artifact_families",
-    "artifact_lifecycles",
-    "deferred_namespace_notice",
-    "context_routing",
-    "component_relationships",
-    "ownership_and_review",
+    "validation",
     "terminology",
-    "repository_ref_lifecycle",
-    "temporary_directory_classes",
-    "representations",
-    "aliases_and_migrations",
-    "activation_readiness"
+    "implementation_enums",
+    "directory_scopes",
+    "components",
+    "component_lifecycles",
+    "component_authorities",
+    "relationships",
+    "migrations_and_aliases",
+    "provenance_events",
+    "routing",
+    "supporting_artifact_rules",
+    "repository_coverage"
   ],
   "properties": {
     "$schema": {
       "const": "standards/automation/component-registry.schema.json"
     },
     "schema_version": {
-      "const": 1
+      "const": 2
     },
     "registry_id": {
       "const": "COMPONENT-REGISTRY"
     },
     "registry_revision": {
-      "type": "integer",
-      "minimum": 1
+      "const": 2
     },
-    "status": {
-      "enum": [
-        "candidate",
-        "active"
-      ]
-    },
-    "approval": {
-      "$ref": "#/$defs/registryApproval"
-    },
-    "source_baseline": {
-      "$ref": "#/$defs/sourceBaseline"
-    },
-    "namespace_versions": {
-      "$ref": "#/$defs/namespaceVersions"
-    },
-    "directory_scopes": {
-      "$ref": "#/$defs/directoryScopeNamespace"
-    },
-    "operational_documents": {
-      "$ref": "#/$defs/operationalDocumentNamespace"
-    },
-    "artifact_classes": {
-      "$ref": "#/$defs/deferredNamespace"
-    },
-    "artifact_families": {
-      "$ref": "#/$defs/deferredNamespace"
-    },
-    "artifact_lifecycles": {
-      "$ref": "#/$defs/deferredNamespace"
-    },
-    "deferred_namespace_notice": {
-      "$ref": "#/$defs/deferredNotice"
-    },
-    "context_routing": {
-      "$ref": "#/$defs/contextRouting"
-    },
-    "component_relationships": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "$ref": "#/$defs/relationship"
-      }
-    },
-    "ownership_and_review": {
-      "$ref": "#/$defs/ownershipNamespace"
+    "validation": {
+      "$ref": "#/$defs/validationEnvelope"
     },
     "terminology": {
-      "$ref": "#/$defs/unpopulatedTerminology"
+      "$ref": "#/$defs/terminologyNamespace"
     },
-    "repository_ref_lifecycle": {
-      "$ref": "#/$defs/repositoryRefNamespace"
+    "implementation_enums": {
+      "$ref": "#/$defs/implementationEnums"
     },
-    "temporary_directory_classes": {
-      "$ref": "#/$defs/temporaryNamespace"
+    "directory_scopes": {
+      "$ref": "#/$defs/entriesNamespace"
     },
-    "representations": {
-      "$ref": "#/$defs/representationNamespace"
+    "components": {
+      "$ref": "#/$defs/componentNamespace"
     },
-    "aliases_and_migrations": {
-      "$ref": "#/$defs/aliasNamespace"
+    "component_lifecycles": {
+      "type": "object"
     },
-    "activation_readiness": {
-      "$ref": "#/$defs/activationReadinessNamespace"
+    "component_authorities": {
+      "type": "object"
+    },
+    "relationships": {
+      "$ref": "#/$defs/entriesNamespace"
+    },
+    "migrations_and_aliases": {
+      "$ref": "#/$defs/entriesNamespace"
+    },
+    "provenance_events": {
+      "$ref": "#/$defs/entriesNamespace"
+    },
+    "routing": {
+      "type": "object"
+    },
+    "supporting_artifact_rules": {
+      "$ref": "#/$defs/entriesNamespace"
+    },
+    "repository_coverage": {
+      "type": "object"
     }
   },
-  "allOf": [
-    {
-      "if": {
-        "required": [
-          "status"
-        ],
-        "properties": {
-          "status": {
-            "const": "candidate"
-          }
-        }
-      },
-      "then": {
-        "properties": {
-          "approval": {
-            "type": "object",
-            "required": [
-              "state"
-            ],
-            "properties": {
-              "state": {
-                "const": "pending"
-              }
-            }
-          },
-          "source_baseline": {
-            "type": "object",
-            "required": [
-              "route_source"
-            ],
-            "properties": {
-              "repository_state": {
-                "const": "dirty_bound_candidate"
-              },
-              "working_tree_binding": {
-                "type": "object",
-                "properties": {
-                  "mode": {
-                    "const": "base_revision_plus_route_manifest"
-                  },
-                  "scope": {
-                    "const": "complete_routed_authority_source"
-                  }
-                }
-              }
-            }
-          },
-          "context_routing": {
-            "type": "object",
-            "required": [
-              "activation_state",
-              "authoritative",
-              "source_import",
-              "parity_policy"
-            ],
-            "properties": {
-              "activation_state": {
-                "const": "candidate_import"
-              },
-              "authoritative": {
-                "const": false
-              }
-            },
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "predecessor_provenance"
-                  ]
-                },
-                {
-                  "required": [
-                    "readable_representation"
-                  ]
-                }
-              ]
-            }
-          },
-          "directory_scopes": {
-            "properties": {
-              "activation_state": {
-                "const": "candidate_complete"
-              }
-            }
-          },
-          "operational_documents": {
-            "properties": {
-              "activation_state": {
-                "const": "candidate_complete"
-              }
-            }
-          },
-          "ownership_and_review": {
-            "properties": {
-              "activation_state": {
-                "const": "candidate_complete"
-              }
-            }
-          },
-          "temporary_directory_classes": {
-            "properties": {
-              "activation_state": {
-                "const": "candidate_complete"
-              }
-            }
-          },
-          "representations": {
-            "properties": {
-              "activation_state": {
-                "const": "candidate_complete"
-              }
-            }
-          },
-          "aliases_and_migrations": {
-            "properties": {
-              "activation_state": {
-                "const": "candidate_complete"
-              }
-            }
-          },
-          "activation_readiness": {
-            "properties": {
-              "activation_state": {
-                "const": "candidate_complete"
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "if": {
-        "required": [
-          "status"
-        ],
-        "properties": {
-          "status": {
-            "const": "active"
-          }
-        }
-      },
-      "then": {
-        "properties": {
-          "approval": {
-            "type": "object",
-            "required": [
-              "state"
-            ],
-            "properties": {
-              "state": {
-                "const": "known"
-              }
-            }
-          },
-          "source_baseline": {
-            "type": "object",
-            "properties": {
-              "repository_state": {
-                "const": "clean_committed"
-              },
-              "working_tree_binding": {
-                "type": "object",
-                "properties": {
-                  "mode": {
-                    "const": "active_revision_plus_embedded_route"
-                  },
-                  "scope": {
-                    "const": "complete_embedded_component_registry_route"
-                  }
-                }
-              }
-            },
-            "not": {
-              "required": [
-                "route_source"
-              ]
-            }
-          },
-          "context_routing": {
-            "type": "object",
-            "required": [
-              "activation_state",
-              "authoritative",
-              "predecessor_provenance",
-              "readable_representation"
-            ],
-            "properties": {
-              "activation_state": {
-                "const": "active"
-              },
-              "authoritative": {
-                "const": true
-              }
-            },
-            "not": {
-              "anyOf": [
-                {
-                  "required": [
-                    "source_import"
-                  ]
-                },
-                {
-                  "required": [
-                    "parity_policy"
-                  ]
-                }
-              ]
-            }
-          },
-          "directory_scopes": {
-            "properties": {
-              "activation_state": {
-                "const": "active"
-              }
-            }
-          },
-          "operational_documents": {
-            "properties": {
-              "activation_state": {
-                "const": "active"
-              }
-            }
-          },
-          "ownership_and_review": {
-            "properties": {
-              "activation_state": {
-                "const": "active"
-              }
-            }
-          },
-          "temporary_directory_classes": {
-            "properties": {
-              "activation_state": {
-                "const": "active"
-              }
-            }
-          },
-          "representations": {
-            "properties": {
-              "activation_state": {
-                "const": "active"
-              }
-            }
-          },
-          "aliases_and_migrations": {
-            "properties": {
-              "activation_state": {
-                "const": "active"
-              }
-            }
-          },
-          "activation_readiness": {
-            "properties": {
-              "activation_state": {
-                "const": "active"
-              }
-            }
-          }
-        }
-      }
-    }
-  ],
   "$defs": {
     "nonemptyString": {
       "type": "string",
@@ -381,6 +87,66 @@
       "uniqueItems": true,
       "items": {
         "$ref": "#/$defs/nonemptyString"
+      }
+    },
+    "componentNamespace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "entries"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": 2
+        },
+        "entries": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "stable_id",
+              "display_name",
+              "classification",
+              "canonical_source",
+              "owner",
+              "information_handling",
+              "retention",
+              "supporting_artifacts",
+              "record_refs"
+            ],
+            "properties": {
+              "classification": {
+                "type": "object",
+                "required": [
+                  "component_class",
+                  "roles",
+                  "capabilities",
+                  "attributes"
+                ],
+                "properties": {
+                  "component_class": {
+                    "$ref": "#/$defs/nonemptyString"
+                  },
+                  "component_type": {
+                    "$ref": "#/$defs/nonemptyString"
+                  },
+                  "roles": {
+                    "$ref": "#/$defs/stringArray"
+                  },
+                  "capabilities": {
+                    "$ref": "#/$defs/stringArray"
+                  },
+                  "attributes": {
+                    "type": "object"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          }
+        }
       }
     },
     "stableId": {
@@ -527,3351 +293,283 @@
         }
       }
     },
-    "typedValue": {
-      "oneOf": [
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "state",
-            "value"
-          ],
-          "properties": {
-            "state": {
-              "const": "known"
-            },
-            "value": {}
-          }
-        },
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "state",
-            "reason"
-          ],
-          "properties": {
-            "state": {
-              "enum": [
-                "pending",
-                "not_applicable",
-                "none",
-                "unknown",
-                "unavailable"
-              ]
-            },
-            "reason": {
-              "$ref": "#/$defs/nonemptyString"
-            }
-          }
-        }
-      ]
-    },
-    "registryApproval": {
-      "oneOf": [
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "state",
-            "reason"
-          ],
-          "properties": {
-            "state": {
-              "const": "pending"
-            },
-            "reason": {
-              "$ref": "#/$defs/nonemptyString"
-            }
-          }
-        },
-        {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "state",
-            "value"
-          ],
-          "properties": {
-            "state": {
-              "const": "known"
-            },
-            "value": {
-              "$ref": "#/$defs/activationApproval"
-            }
-          }
-        }
-      ]
-    },
-    "activationApproval": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "approval_type",
-        "approved_by",
-        "approval_method",
-        "governance_change_id",
-        "implementation_contract_id",
-        "base_revision",
-        "candidate_registry_sha256",
-        "affected_stable_ids",
-        "purpose_scope",
-        "bounded_diff_sha256",
-        "approved_at",
-        "owner_review_reference"
-      ],
-      "properties": {
-        "approval_type": {
-          "const": "stage1_component_registry_activation"
-        },
-        "approved_by": {
-          "const": "@Thorncrag"
-        },
-        "approval_method": {
-          "const": "explicit_recorded_owner_activation"
-        },
-        "governance_change_id": {
-          "type": "string",
-          "pattern": "^GOV-[0-9]{4}-[0-9]{3,}$"
-        },
-        "implementation_contract_id": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "base_revision": {
-          "type": "string",
-          "pattern": "^[0-9a-f]{40}$"
-        },
-        "candidate_registry_sha256": {
-          "$ref": "#/$defs/sha256"
-        },
-        "affected_stable_ids": {
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {
-            "$ref": "#/$defs/stableId"
-          }
-        },
-        "purpose_scope": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "bounded_diff_sha256": {
-          "$ref": "#/$defs/sha256"
-        },
-        "approved_at": {
-          "type": "string",
-          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:Z|[+-][0-9]{2}:[0-9]{2})$"
-        },
-        "owner_review_reference": {
-          "type": "string",
-          "pattern": "^github-review:Thorncrag/ARRP#([1-9][0-9]*)$"
-        }
-      }
-    },
-    "sourceBaseline": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "repository_revision",
-        "repository_state",
-        "working_tree_binding"
-      ],
-      "properties": {
-        "repository_revision": {
-          "type": "string",
-          "pattern": "^[0-9a-f]{40}$"
-        },
-        "repository_state": {
-          "enum": [
-            "dirty_bound_candidate",
-            "clean_committed"
-          ]
-        },
-        "working_tree_binding": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "mode",
-            "scope",
-            "sha256"
-          ],
-          "properties": {
-            "mode": {
-              "enum": [
-                "base_revision_plus_route_manifest",
-                "active_revision_plus_embedded_route"
-              ]
-            },
-            "scope": {
-              "enum": [
-                "complete_routed_authority_source",
-                "complete_embedded_component_registry_route"
-              ]
-            },
-            "sha256": {
-              "$ref": "#/$defs/sha256"
-            }
-          }
-        },
-        "route_source": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "path",
-            "sha256",
-            "schema_version"
-          ],
-          "properties": {
-            "path": {
-              "const": "framework/project/automation/context-routes.json"
-            },
-            "sha256": {
-              "$ref": "#/$defs/sha256"
-            },
-            "schema_version": {
-              "const": 2
-            }
-          }
-        }
-      }
-    },
-    "routingPredecessorProvenance": {
+    "componentRegistryStage2AdoptionReadback": {
       "type": "object",
       "additionalProperties": false,
       "required": [
         "schema_version",
-        "complete",
-        "authority_effect",
-        "records",
-        "migration_alias_ids",
-        "verification_ids"
-      ],
-      "properties": {
-        "schema_version": {
-          "const": 1
-        },
-        "complete": {
-          "const": true
-        },
-        "authority_effect": {
-          "const": "historical_provenance_only_no_runtime_read"
-        },
-        "records": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "project_structure",
-            "context_routing",
-            "repository_map",
-            "context_routes_source"
-          ],
-          "properties": {
-            "project_structure": {
-              "$ref": "#/$defs/projectStructurePredecessor"
-            },
-            "context_routing": {
-              "$ref": "#/$defs/routingMarkdownPredecessor"
-            },
-            "repository_map": {
-              "$ref": "#/$defs/repositoryMapPredecessor"
-            },
-            "context_routes_source": {
-              "$ref": "#/$defs/routingDataPredecessor"
-            }
-          }
-        },
-        "migration_alias_ids": {
-          "const": [
-            "relocate_project_structure",
-            "relocate_context_routing",
-            "relocate_repository_map",
-            "relocate_context_routes_source"
-          ]
-        },
-        "verification_ids": {
-          "const": [
-            "test_active_predecessor_provenance_is_closed",
-            "test_active_loader_does_not_read_predecessors",
-            "test_active_embedded_route_excludes_predecessors"
-          ]
-        }
-      }
-    },
-    "projectStructurePredecessor": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "stable_id",
-        "artifact_kind",
-        "historical_path",
-        "archived_path",
-        "sha256",
-        "source_schema_version",
-        "state",
-        "retirement_proof"
-      ],
-      "properties": {
-        "stable_id": {
-          "const": "project_structure"
-        },
-        "artifact_kind": {
-          "const": "markdown_authority"
-        },
-        "historical_path": {
-          "const": "framework/PROJECT_STRUCTURE.md"
-        },
-        "archived_path": {
-          "const": "framework/archive/authorities/PROJECT_STRUCTURE.md"
-        },
-        "sha256": {
-          "$ref": "#/$defs/sha256"
-        },
-        "source_schema_version": {
-          "type": "null"
-        },
-        "state": {
-          "const": "archived_retired_provenance_only"
-        },
-        "retirement_proof": {
-          "$ref": "#/$defs/routingPredecessorRetirementProof"
-        }
-      }
-    },
-    "routingMarkdownPredecessor": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "stable_id",
-        "artifact_kind",
-        "historical_path",
-        "archived_path",
-        "sha256",
-        "source_schema_version",
-        "state",
-        "retirement_proof"
-      ],
-      "properties": {
-        "stable_id": {
-          "const": "context_routing"
-        },
-        "artifact_kind": {
-          "const": "markdown_authority"
-        },
-        "historical_path": {
-          "const": "framework/CONTEXT_ROUTING.md"
-        },
-        "archived_path": {
-          "const": "framework/archive/authorities/CONTEXT_ROUTING.md"
-        },
-        "sha256": {
-          "$ref": "#/$defs/sha256"
-        },
-        "source_schema_version": {
-          "type": "null"
-        },
-        "state": {
-          "const": "archived_retired_provenance_only"
-        },
-        "retirement_proof": {
-          "$ref": "#/$defs/routingPredecessorRetirementProof"
-        }
-      }
-    },
-    "routingDataPredecessor": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "stable_id",
-        "artifact_kind",
-        "historical_path",
-        "archived_path",
-        "sha256",
-        "source_schema_version",
-        "state",
-        "retirement_proof"
-      ],
-      "properties": {
-        "stable_id": {
-          "const": "context_routes_source"
-        },
-        "artifact_kind": {
-          "const": "route_data_authority"
-        },
-        "historical_path": {
-          "const": "framework/project/automation/context-routes.json"
-        },
-        "archived_path": {
-          "const": "framework/archive/authorities/context-routes.json"
-        },
-        "sha256": {
-          "$ref": "#/$defs/sha256"
-        },
-        "source_schema_version": {
-          "const": 2
-        },
-        "state": {
-          "const": "archived_retired_provenance_only"
-        },
-        "retirement_proof": {
-          "$ref": "#/$defs/routingPredecessorRetirementProof"
-        }
-      }
-    },
-    "repositoryMapPredecessor": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "stable_id",
-        "artifact_kind",
-        "historical_path",
-        "archived_path",
-        "sha256",
-        "source_schema_version",
-        "state",
-        "retirement_proof"
-      ],
-      "properties": {
-        "stable_id": {
-          "const": "repository_map"
-        },
-        "artifact_kind": {
-          "const": "markdown_authority"
-        },
-        "historical_path": {
-          "const": "framework/project/REPOSITORY_MAP.md"
-        },
-        "archived_path": {
-          "const": "framework/archive/authorities/REPOSITORY_MAP.md"
-        },
-        "sha256": {
-          "$ref": "#/$defs/sha256"
-        },
-        "source_schema_version": {
-          "type": "null"
-        },
-        "state": {
-          "const": "archived_retired_provenance_only"
-        },
-        "retirement_proof": {
-          "$ref": "#/$defs/routingPredecessorRetirementProof"
-        }
-      }
-    },
-    "routingPredecessorRetirementProof": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "proof_type",
-        "governance_change_id",
-        "implementation_contract_id",
-        "owner_review_reference"
-      ],
-      "properties": {
-        "proof_type": {
-          "const": "authenticated_activation_cutover"
-        },
-        "governance_change_id": {
-          "type": "string",
-          "pattern": "^GOV-[0-9]{4}-[0-9]{3,}$"
-        },
-        "implementation_contract_id": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "owner_review_reference": {
-          "type": "string",
-          "pattern": "^github-review:Thorncrag/ARRP#([1-9][0-9]*)$"
-        }
-      }
-    },
-    "routingReadableRepresentation": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "representation_id",
-        "binding_kind",
-        "source_registry_revision",
-        "generated_from",
-        "authority_effect",
-        "executable"
-      ],
-      "properties": {
-        "representation_id": {
-          "const": "human_readable_context_routing"
-        },
-        "binding_kind": {
-          "const": "component_registry_revision"
-        },
-        "source_registry_revision": {
-          "type": "integer",
-          "minimum": 1
-        },
-        "generated_from": {
-          "const": "embedded_context_routing"
-        },
-        "authority_effect": {
-          "const": "none"
-        },
-        "executable": {
-          "const": false
-        }
-      }
-    },
-    "namespaceVersions": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "directory_scopes",
-        "operational_documents",
-        "artifact_classes",
-        "artifact_families",
-        "artifact_lifecycles",
-        "context_routing",
-        "component_relationships",
-        "ownership_and_review",
-        "terminology",
-        "repository_ref_lifecycle",
-        "temporary_directory_classes",
-        "representations",
-        "aliases_and_migrations",
-        "activation_readiness"
-      ],
-      "properties": {
-        "directory_scopes": {
-          "const": 1
-        },
-        "operational_documents": {
-          "const": 1
-        },
-        "artifact_classes": {
-          "const": 1
-        },
-        "artifact_families": {
-          "const": 1
-        },
-        "artifact_lifecycles": {
-          "const": 1
-        },
-        "context_routing": {
-          "const": 2
-        },
-        "component_relationships": {
-          "const": 1
-        },
-        "ownership_and_review": {
-          "const": 1
-        },
-        "terminology": {
-          "const": 1
-        },
-        "repository_ref_lifecycle": {
-          "const": 1
-        },
-        "temporary_directory_classes": {
-          "const": 1
-        },
-        "representations": {
-          "const": 1
-        },
-        "aliases_and_migrations": {
-          "const": 1
-        },
-        "activation_readiness": {
-          "const": 1
-        }
-      }
-    },
-    "deferredNamespace": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "schema_version",
-        "activation_state",
-        "complete",
-        "enforced",
-        "entries"
-      ],
-      "properties": {
-        "schema_version": {
-          "const": 1
-        },
-        "activation_state": {
-          "const": "deferred_pending_human_classification"
-        },
-        "complete": {
-          "const": false
-        },
-        "enforced": {
-          "const": false
-        },
-        "entries": {
-          "type": "object",
-          "maxProperties": 0
-        }
-      }
-    },
-    "deferredNotice": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "display_state",
-        "reason",
-        "activation_requirement"
-      ],
-      "properties": {
-        "display_state": {
-          "const": "Classification pending — enforcement not active"
-        },
-        "reason": {
-          "const": "Artifact classification and lifecycle mapping require complete human review."
-        },
-        "activation_requirement": {
-          "const": "A separate Governance Change ID, Implementation Contract, complete classification, validation, and explicit human approval are required."
-        }
-      }
-    },
-    "qualifierNamespaceBase": {
-      "type": "object",
-      "additionalProperties": false
-    },
-    "directoryScopeNamespace": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "schema_version",
-        "activation_state",
-        "complete",
-        "entries"
-      ],
-      "properties": {
-        "schema_version": {
-          "const": 1
-        },
-        "activation_state": {
-          "enum": [
-            "candidate_complete",
-            "active"
-          ]
-        },
-        "complete": {
-          "const": true
-        },
-        "entries": {
-          "type": "object",
-          "minProperties": 1,
-          "propertyNames": {
-            "$ref": "#/$defs/stableId"
-          },
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[A-Za-z][A-Za-z0-9_.:-]*$": {
-              "$ref": "#/$defs/directoryScope"
-            }
-          }
-        }
-      }
-    },
-    "directoryScope": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "scope_id",
-        "display_name",
-        "path_pattern",
-        "match_kind",
-        "specificity_rank",
-        "parameter_bindings",
-        "owning_scope_selection_rule",
-        "ancestor_scope_ids",
-        "placement_question",
-        "include_when",
-        "exclude_when",
-        "primary_authority",
-        "disclosure_boundary",
-        "lifecycle_posture",
-        "authorized_creators",
-        "precedence",
-        "fallback"
-      ],
-      "properties": {
-        "scope_id": {
-          "$ref": "#/$defs/stableId"
-        },
-        "display_name": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "path_pattern": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "match_kind": {
-          "enum": [
-            "tree",
-            "exact_file",
-            "prefix",
-            "parameterized_prefix",
-            "parameterized_exact"
-          ]
-        },
-        "specificity_rank": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "parameter_bindings": {
-          "type": "object",
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[a-z][a-z0-9_]*$": {
-              "type": "object",
-              "additionalProperties": false,
-              "required": [
-                "allowed_values"
-              ],
-              "properties": {
-                "allowed_values": {
-                  "$ref": "#/$defs/stringArray"
-                }
-              }
-            }
-          }
-        },
-        "owning_scope_selection_rule": {
-          "const": "highest_specificity_unique"
-        },
-        "ancestor_scope_ids": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "placement_question": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "include_when": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "exclude_when": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "primary_authority": {
-          "const": "COMPONENT-REGISTRY"
-        },
-        "disclosure_boundary": {
-          "enum": [
-            "public_by_design",
-            "public_operational_summary",
-            "public_safe_only"
-          ]
-        },
-        "lifecycle_posture": {
-          "enum": [
-            "current",
-            "append_only",
-            "replaceable",
-            "immutable",
-            "archived",
-            "temporary",
-            "migration_only"
-          ]
-        },
-        "authorized_creators": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "precedence": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "fallback": {
-          "const": "human_review"
-        }
-      }
-    },
-    "operationalDocumentNamespace": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "schema_version",
-        "activation_state",
-        "complete",
-        "baseline_adoption",
-        "entries"
-      ],
-      "properties": {
-        "schema_version": {
-          "const": 1
-        },
-        "activation_state": {
-          "enum": [
-            "candidate_complete",
-            "active"
-          ]
-        },
-        "complete": {
-          "const": true
-        },
-        "baseline_adoption": {
-          "$ref": "#/$defs/typedValue"
-        },
-        "entries": {
-          "type": "object",
-          "minProperties": 1,
-          "propertyNames": {
-            "$ref": "#/$defs/stableId"
-          },
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[A-Za-z][A-Za-z0-9_.:-]*$": {
-              "$ref": "#/$defs/operationalDocument"
-            }
-          }
-        }
-      }
-    },
-    "operationalDocument": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "document_id",
-        "official_reference_name",
-        "document_class",
-        "revision",
-        "current_status",
-        "effective_date",
-        "approval_date",
-        "approval_method",
-        "governance_change_id",
-        "purpose_scope",
-        "authority_role",
-        "authority_exclusions",
-        "canonical_path",
-        "owner",
-        "review_policy",
-        "disclosure_class",
-        "creation_provenance",
-        "governance_revision",
-        "producer",
-        "authorized_writers",
-        "representations",
-        "dependencies",
-        "consumers",
-        "digest_policy",
-        "console_route",
-        "retention_posture"
-      ],
-      "properties": {
-        "document_id": {
-          "$ref": "#/$defs/stableId"
-        },
-        "official_reference_name": {
-          "$ref": "#/$defs/typedValue"
-        },
-        "document_class": {
-          "$ref": "#/$defs/typedValue"
-        },
-        "revision": {
-          "$ref": "#/$defs/typedValue"
-        },
-        "current_status": {
-          "$ref": "#/$defs/typedValue"
-        },
-        "effective_date": {
-          "$ref": "#/$defs/typedValue"
-        },
-        "approval_date": {
-          "$ref": "#/$defs/typedValue"
-        },
-        "approval_method": {
-          "$ref": "#/$defs/typedValue"
-        },
-        "governance_change_id": {
-          "$ref": "#/$defs/typedValue"
-        },
-        "purpose_scope": {
-          "$ref": "#/$defs/typedValue"
-        },
-        "authority_role": {
-          "enum": [
-            "governing_authority",
-            "adopted_implementation",
-            "configuration",
-            "runtime_checkpoint",
-            "generated_representation",
-            "archived_predecessor"
-          ]
-        },
-        "authority_exclusions": {
-          "$ref": "#/$defs/typedValue"
-        },
-        "canonical_path": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "owner": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "review_policy": {
-          "const": "owner_review_required"
-        },
-        "disclosure_class": {
-          "enum": [
-            "public_by_design",
-            "public_operational_summary",
-            "public_safe_only"
-          ]
-        },
-        "creation_provenance": {
-          "$ref": "#/$defs/typedValue"
-        },
-        "governance_revision": {
-          "type": "integer",
-          "minimum": 1
-        },
-        "producer": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "authorized_writers": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "representations": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "dependencies": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "consumers": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "digest_policy": {
-          "enum": [
-            "pinned",
-            "runtime",
-            "external",
-            "provenance_only"
-          ]
-        },
-        "sha256": {
-          "oneOf": [
-            {
-              "$ref": "#/$defs/sha256"
-            },
-            {
-              "type": "null"
-            }
-          ]
-        },
-        "console_route": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "retention_posture": {
-          "enum": [
-            "current",
-            "append_only",
-            "replaceable",
-            "archived",
-            "external_digest"
-          ]
-        }
-      }
-    },
-    "routeDocument": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "path",
-        "hash_policy",
-        "governing"
-      ],
-      "properties": {
-        "path": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "sha256": {
-          "$ref": "#/$defs/sha256"
-        },
-        "hash_policy": {
-          "enum": [
-            "pinned",
-            "runtime"
-          ]
-        },
-        "governing": {
-          "type": "boolean"
-        },
-        "requires": {
-          "$ref": "#/$defs/stringArray"
-        }
-      }
-    },
-    "routeProfile": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "max_bytes"
-      ],
-      "properties": {
-        "max_bytes": {
-          "type": "integer",
-          "minimum": 1
-        },
-        "modules": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "capabilities": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "include_all_governing": {
-          "type": "boolean"
-        },
-        "sections": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "document",
-              "heading",
-              "max_bytes"
-            ],
-            "properties": {
-              "document": {
-                "$ref": "#/$defs/nonemptyString"
-              },
-              "heading": {
-                "$ref": "#/$defs/nonemptyString"
-              },
-              "max_bytes": {
-                "type": "integer",
-                "minimum": 1
-              }
-            }
-          }
-        }
-      }
-    },
-    "contextRouting": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "schema_version",
-        "rule_catalog_version",
-        "activation_state",
-        "complete",
-        "authoritative",
-        "expected_counts",
-        "generated_path_exclusions",
-        "scan_exclusion_bindings",
-        "required_modules",
-        "documents",
-        "capabilities",
-        "profiles",
-        "invariants",
-        "selection",
-        "validation",
-        "failure_rules",
-        "currentness",
-        "budgets",
-        "comprehensive_review"
-      ],
-      "properties": {
-        "schema_version": {
-          "const": 2
-        },
-        "rule_catalog_version": {
-          "const": 1
-        },
-        "activation_state": {
-          "enum": [
-            "candidate_import",
-            "active"
-          ]
-        },
-        "complete": {
-          "const": true
-        },
-        "authoritative": {
-          "type": "boolean"
-        },
-        "source_import": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "path",
-            "sha256",
-            "schema_version",
-            "import_semantics"
-          ],
-          "properties": {
-            "path": {
-              "const": "framework/project/automation/context-routes.json"
-            },
-            "sha256": {
-              "$ref": "#/$defs/sha256"
-            },
-            "schema_version": {
-              "const": 2
-            },
-            "import_semantics": {
-              "const": "exact_validated_snapshot"
-            }
-          }
-        },
-        "predecessor_provenance": {
-          "$ref": "#/$defs/routingPredecessorProvenance"
-        },
-        "readable_representation": {
-          "$ref": "#/$defs/routingReadableRepresentation"
-        },
-        "expected_counts": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "documents",
-            "governing_documents",
-            "capabilities",
-            "profiles",
-            "required_modules",
-            "generated_path_exclusions"
-          ],
-          "properties": {
-            "documents": {
-              "type": "integer",
-              "minimum": 0
-            },
-            "governing_documents": {
-              "type": "integer",
-              "minimum": 0
-            },
-            "capabilities": {
-              "type": "integer",
-              "minimum": 0
-            },
-            "profiles": {
-              "type": "integer",
-              "minimum": 0
-            },
-            "required_modules": {
-              "type": "integer",
-              "minimum": 0
-            },
-            "generated_path_exclusions": {
-              "type": "integer",
-              "minimum": 0
-            }
-          }
-        },
-        "parity_policy": {
-          "const": "exact_identity_membership_dependency_section_and_digest_parity"
-        },
-        "generated_path_exclusions": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "scan_exclusion_bindings": {
-          "type": "object",
-          "minProperties": 1,
-          "additionalProperties": {
-            "$ref": "#/$defs/scanExclusionBinding"
-          }
-        },
-        "required_modules": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "documents": {
-          "type": "object",
-          "minProperties": 1,
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[a-z][a-z0-9_]*$": {
-              "$ref": "#/$defs/routeDocument"
-            }
-          }
-        },
-        "capabilities": {
-          "type": "object",
-          "minProperties": 1,
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[a-z][a-z0-9_]*$": {
-              "$ref": "#/$defs/stringArray"
-            }
-          }
-        },
-        "profiles": {
-          "type": "object",
-          "minProperties": 1,
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[a-z][a-z0-9_]*$": {
-              "$ref": "#/$defs/routeProfile"
-            }
-          }
-        },
-        "invariants": {
-          "$ref": "#/$defs/routingInvariantRules"
-        },
-        "selection": {
-          "$ref": "#/$defs/routingSelectionRules"
-        },
-        "validation": {
-          "$ref": "#/$defs/routingValidationRules"
-        },
-        "failure_rules": {
-          "$ref": "#/$defs/routingFailureRules"
-        },
-        "currentness": {
-          "$ref": "#/$defs/routingCurrentnessRules"
-        },
-        "budgets": {
-          "$ref": "#/$defs/routingBudgetRules"
-        },
-        "comprehensive_review": {
-          "$ref": "#/$defs/routingComprehensiveReviewRules"
-        }
-      }
-    },
-    "routingRuleProvenance": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "source_document_id",
-        "source_sha256",
-        "source_heading",
-        "clause_key"
-      ],
-      "properties": {
-        "source_document_id": {
-          "const": "context_routing"
-        },
-        "source_sha256": {
-          "const": "246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7"
-        },
-        "source_heading": {
-          "enum": [
-            "Governing Context Routing",
-            "Required Floor",
-            "Additive Routing",
-            "Profiles and Capabilities",
-            "Dynamic Expansion",
-            "Interactive and Automated Use",
-            "Fail-Closed Rules",
-            "Hashes, Generated Artifacts, and Updates",
-            "Comprehensive Review Boundary"
-          ]
-        },
-        "clause_key": {
-          "type": "string",
-          "pattern": "^ctxr\\.(?:inv|sel|val|fail|cur|budget|review)\\.[a-z][a-z0-9_]*$"
-        }
-      }
-    },
-    "routingRule": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "rule_id",
-        "rule_version",
-        "status",
-        "predicate_type",
-        "parameters",
-        "source_provenance",
-        "verification_ids"
-      ],
-      "properties": {
-        "rule_id": {
-          "$ref": "#/$defs/stableId"
-        },
-        "rule_version": {
-          "const": 1
-        },
-        "status": {
-          "const": "active"
-        },
-        "predicate_type": {
-          "$ref": "#/$defs/stableId"
-        },
-        "parameters": {
-          "type": "object"
-        },
-        "source_provenance": {
-          "$ref": "#/$defs/routingRuleProvenance"
-        },
-        "failure_code": {
-          "type": "string",
-          "pattern": "^CTXR_[A-Z0-9_]+$"
-        },
-        "verification_ids": {
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "pattern": "^test\\.ctxr\\.(?:inv|sel|val|fail|cur|budget|review)\\.[a-z][a-z0-9_]*$"
-          }
-        }
-      },
-      "allOf": [
-        {
-          "if": {
-            "required": [
-              "rule_id"
-            ],
-            "properties": {
-              "rule_id": {
-                "pattern": "^ctxr\\.fail\\."
-              }
-            }
-          },
-          "then": {
-            "required": [
-              "failure_code"
-            ]
-          },
-          "else": {
-            "not": {
-              "required": [
-                "failure_code"
-              ]
-            }
-          }
-        },
-        {
-          "oneOf": [
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.inv.router_preserves_source_authority"
-                },
-                "predicate_type": {
-                  "const": "ctxr.inv.router_preserves_source_authority"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.inv.required_floor_is_minimum"
-                },
-                "predicate_type": {
-                  "const": "ctxr.inv.required_floor_is_minimum"
-                },
-                "parameters": {
-                  "const": {
-                    "required_modules_field": "required_modules"
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.inv.additive_union"
-                },
-                "predicate_type": {
-                  "const": "ctxr.inv.additive_union"
-                },
-                "parameters": {
-                  "const": {
-                    "selection_members": [
-                      "required_floor",
-                      "primary_profile",
-                      "implicated_capabilities",
-                      "profile_documents",
-                      "profile_exact_sections",
-                      "task_specific_canonical_material",
-                      "all_governing_membership",
-                      "dependency_closure",
-                      "dynamic_expansions"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.inv.dependencies_are_directional_minimums"
-                },
-                "predicate_type": {
-                  "const": "ctxr.inv.dependencies_are_directional_minimums"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.inv.dependency_graph_is_acyclic"
-                },
-                "predicate_type": {
-                  "const": "ctxr.inv.dependency_graph_is_acyclic"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.inv.stable_document_identity_is_path_independent"
-                },
-                "predicate_type": {
-                  "const": "ctxr.inv.stable_document_identity_is_path_independent"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.inv.bounded_context_never_omits_material_authority"
-                },
-                "predicate_type": {
-                  "const": "ctxr.inv.bounded_context_never_omits_material_authority"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.primary_profile"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.primary_profile"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.required_floor_order"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.required_floor_order"
-                },
-                "parameters": {
-                  "const": {
-                    "document_ids": [
-                      "framework_kernel",
-                      "agent_rules_kernel",
-                      "current_audit"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.profile_starting_set"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.profile_starting_set"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.all_implicated_capabilities"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.all_implicated_capabilities"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.profile_never_excludes_capability"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.profile_never_excludes_capability"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.capability_addition_requires_no_new_profile"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.capability_addition_requires_no_new_profile"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.profile_documents_and_exact_sections"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.profile_documents_and_exact_sections"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.complete_dependency_closure"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.complete_dependency_closure"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.task_specific_canonical_material"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.task_specific_canonical_material"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.source_projection_requires_canonical_readback"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.source_projection_requires_canonical_readback"
-                },
-                "parameters": {
-                  "const": {
-                    "required_readbacks": [
-                      "canonical_catalog_row",
-                      "current_external_source"
-                    ],
-                    "gated_actions": [
-                      "evidentiary_reliance",
-                      "source_mutation",
-                      "audit_credit"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.dynamic_trigger_set"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.dynamic_trigger_set"
-                },
-                "parameters": {
-                  "const": {
-                    "triggers": [
-                      "task_change",
-                      "unfamiliar_operation_or_class",
-                      "conflicting_or_ambiguous_authority",
-                      "human_reserved_decision",
-                      "implicated_specialized_rule",
-                      "stale_contradictory_or_incomplete_record",
-                      "external_validation_reference"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.expansion_precedes_dependent_action"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.expansion_precedes_dependent_action"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.multi_agent_before_delegation"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.multi_agent_before_delegation"
-                },
-                "parameters": {
-                  "const": {
-                    "required_capability_id": "multi_agent_execution"
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.governance_recording_plus_change_audit"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.governance_recording_plus_change_audit"
-                },
-                "parameters": {
-                  "const": {
-                    "required_document_ids": [
-                      "operation_governance_change_recording",
-                      "governance_change_registry",
-                      "audit_change"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.interactive_route_is_minimum_not_ceiling"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.interactive_route_is_minimum_not_ceiling"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.automated_expansion_allowlist"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.automated_expansion_allowlist"
-                },
-                "parameters": {
-                  "const": {
-                    "allowed_source_classes": [
-                      "registered_documents",
-                      "registered_capabilities",
-                      "task_specific_canonical_records",
-                      "current_verified_sources"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.sel.deterministic_bot_structured_inputs"
-                },
-                "predicate_type": {
-                  "const": "ctxr.sel.deterministic_bot_structured_inputs"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.val.registry_before_selection"
-                },
-                "predicate_type": {
-                  "const": "ctxr.val.registry_before_selection"
-                },
-                "parameters": {
-                  "const": {
-                    "required_validation_states": [
-                      "schema_valid",
-                      "revision_valid",
-                      "approval_valid",
-                      "external_digest_valid"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.val.integration_pinned_digest_exact"
-                },
-                "predicate_type": {
-                  "const": "ctxr.val.integration_pinned_digest_exact"
-                },
-                "parameters": {
-                  "const": {
-                    "hash_algorithm": "sha256"
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.val.runtime_digest_at_packet_build"
-                },
-                "predicate_type": {
-                  "const": "ctxr.val.runtime_digest_at_packet_build"
-                },
-                "parameters": {
-                  "const": {
-                    "provenance_required": true
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.val.expansion_provenance_preserved"
-                },
-                "predicate_type": {
-                  "const": "ctxr.val.expansion_provenance_preserved"
-                },
-                "parameters": {
-                  "const": {
-                    "required_fields": [
-                      "source_identity",
-                      "source_digest",
-                      "inclusion_reason"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.val.exact_section_unique"
-                },
-                "predicate_type": {
-                  "const": "ctxr.val.exact_section_unique"
-                },
-                "parameters": {
-                  "const": {
-                    "required_match_count": 1,
-                    "fuzzy_fallback": false
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.val.packet_manifest_bound"
-                },
-                "predicate_type": {
-                  "const": "ctxr.val.packet_manifest_bound"
-                },
-                "parameters": {
-                  "const": {
-                    "required_fields": [
-                      "registry_revision",
-                      "registry_digest",
-                      "selected_profile",
-                      "selected_capabilities",
-                      "resolved_document_revisions",
-                      "resolved_document_digests",
-                      "exact_sections",
-                      "dynamic_expansions",
-                      "inclusion_reasons"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.val.authorized_digest_update_atomic"
-                },
-                "predicate_type": {
-                  "const": "ctxr.val.authorized_digest_update_atomic"
-                },
-                "parameters": {
-                  "const": {
-                    "update_scope": "same_reviewed_change",
-                    "revalidation_scope": "all_impacted_profiles"
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.val.registry_digest_external"
-                },
-                "predicate_type": {
-                  "const": "ctxr.val.registry_digest_external"
-                },
-                "parameters": {
-                  "const": {
-                    "digest_location": "packet_provenance",
-                    "self_hashing": false
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.val.new_authoritative_module_admission"
-                },
-                "predicate_type": {
-                  "const": "ctxr.val.new_authoritative_module_admission"
-                },
-                "parameters": {
-                  "const": {
-                    "required_properties": [
-                      "stable_id",
-                      "canonical_path",
-                      "governing_classification",
-                      "acyclic_dependencies",
-                      "profile_membership",
-                      "capability_membership",
-                      "comprehensive_review_membership",
-                      "pinned_digest",
-                      "registry_validation"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.val.id_rename_change_audit"
-                },
-                "predicate_type": {
-                  "const": "ctxr.val.id_rename_change_audit"
-                },
-                "parameters": {
-                  "const": {
-                    "required_review_surfaces": [
-                      "callers",
-                      "tests",
-                      "aliases_or_migrations",
-                      "persisted_route_references"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.fail.unknown_or_missing_selection"
-                },
-                "predicate_type": {
-                  "const": "ctxr.fail.unknown_or_missing_selection"
-                },
-                "parameters": {
-                  "const": {}
-                },
-                "failure_code": {
-                  "const": "CTXR_UNKNOWN_OR_MISSING_SELECTION"
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.fail.pinned_digest_absent_or_stale"
-                },
-                "predicate_type": {
-                  "const": "ctxr.fail.pinned_digest_absent_or_stale"
-                },
-                "parameters": {
-                  "const": {}
-                },
-                "failure_code": {
-                  "const": "CTXR_PINNED_DIGEST_ABSENT_OR_STALE"
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.fail.runtime_digest_unreadable"
-                },
-                "predicate_type": {
-                  "const": "ctxr.fail.runtime_digest_unreadable"
-                },
-                "parameters": {
-                  "const": {}
-                },
-                "failure_code": {
-                  "const": "CTXR_RUNTIME_DIGEST_UNREADABLE"
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.fail.dependency_cycle"
-                },
-                "predicate_type": {
-                  "const": "ctxr.fail.dependency_cycle"
-                },
-                "parameters": {
-                  "const": {}
-                },
-                "failure_code": {
-                  "const": "CTXR_DEPENDENCY_CYCLE"
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.fail.generated_or_excluded_as_authority"
-                },
-                "predicate_type": {
-                  "const": "ctxr.fail.generated_or_excluded_as_authority"
-                },
-                "parameters": {
-                  "const": {}
-                },
-                "failure_code": {
-                  "const": "CTXR_GENERATED_OR_EXCLUDED_AS_AUTHORITY"
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.fail.section_identity_invalid"
-                },
-                "predicate_type": {
-                  "const": "ctxr.fail.section_identity_invalid"
-                },
-                "parameters": {
-                  "const": {}
-                },
-                "failure_code": {
-                  "const": "CTXR_SECTION_IDENTITY_INVALID"
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.fail.section_budget_exceeded"
-                },
-                "predicate_type": {
-                  "const": "ctxr.fail.section_budget_exceeded"
-                },
-                "parameters": {
-                  "const": {}
-                },
-                "failure_code": {
-                  "const": "CTXR_SECTION_BUDGET_EXCEEDED"
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.fail.packet_budget_exceeded"
-                },
-                "predicate_type": {
-                  "const": "ctxr.fail.packet_budget_exceeded"
-                },
-                "parameters": {
-                  "const": {}
-                },
-                "failure_code": {
-                  "const": "CTXR_PACKET_BUDGET_EXCEEDED"
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.fail.unresolved_material_governing_gap"
-                },
-                "predicate_type": {
-                  "const": "ctxr.fail.unresolved_material_governing_gap"
-                },
-                "parameters": {
-                  "const": {}
-                },
-                "failure_code": {
-                  "const": "CTXR_UNRESOLVED_MATERIAL_GOVERNING_GAP"
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.fail.safe_failure_disposition"
-                },
-                "predicate_type": {
-                  "const": "ctxr.fail.safe_failure_disposition"
-                },
-                "parameters": {
-                  "const": {}
-                },
-                "failure_code": {
-                  "const": "CTXR_SAFE_FAILURE_DISPOSITION"
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.cur.stable_governing_is_pinned"
-                },
-                "predicate_type": {
-                  "const": "ctxr.cur.stable_governing_is_pinned"
-                },
-                "parameters": {
-                  "const": {
-                    "hash_policy": "pinned"
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.cur.mutable_handoff_is_runtime_hashed"
-                },
-                "predicate_type": {
-                  "const": "ctxr.cur.mutable_handoff_is_runtime_hashed"
-                },
-                "parameters": {
-                  "const": {
-                    "document_id": "current_audit",
-                    "hash_policy": "runtime"
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.cur.checkpoint_update_needs_no_registry_edit"
-                },
-                "predicate_type": {
-                  "const": "ctxr.cur.checkpoint_update_needs_no_registry_edit"
-                },
-                "parameters": {
-                  "const": {
-                    "document_id": "current_audit"
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.cur.generated_rebuildables_excluded"
-                },
-                "predicate_type": {
-                  "const": "ctxr.cur.generated_rebuildables_excluded"
-                },
-                "parameters": {
-                  "const": {
-                    "exclusion_field": "generated_path_exclusions"
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.cur.records_excluded_except_handoff"
-                },
-                "predicate_type": {
-                  "const": "ctxr.cur.records_excluded_except_handoff"
-                },
-                "parameters": {
-                  "const": {
-                    "exception_document_id": "current_audit"
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary"
-                },
-                "predicate_type": {
-                  "const": "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.budget.profile_max_is_fail_closed_ceiling"
-                },
-                "predicate_type": {
-                  "const": "ctxr.budget.profile_max_is_fail_closed_ceiling"
-                },
-                "parameters": {
-                  "const": {
-                    "profile_limit_field": "max_bytes"
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.budget.ceiling_change_does_not_change_membership"
-                },
-                "predicate_type": {
-                  "const": "ctxr.budget.ceiling_change_does_not_change_membership"
-                },
-                "parameters": {
-                  "const": {
-                    "profile_limit_field": "max_bytes"
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.budget.section_and_packet_limits_are_independent"
-                },
-                "predicate_type": {
-                  "const": "ctxr.budget.section_and_packet_limits_are_independent"
-                },
-                "parameters": {
-                  "const": {
-                    "section_limit_field": "max_bytes",
-                    "packet_limit_field": "max_bytes"
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.budget.no_mandatory_trimming"
-                },
-                "predicate_type": {
-                  "const": "ctxr.budget.no_mandatory_trimming"
-                },
-                "parameters": {
-                  "const": {
-                    "mandatory_selection_classes": [
-                      "required_floor",
-                      "profile_exact_sections",
-                      "implicated_capabilities",
-                      "dependencies",
-                      "comprehensive_review_members"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.review.select_all_active_governing"
-                },
-                "predicate_type": {
-                  "const": "ctxr.review.select_all_active_governing"
-                },
-                "parameters": {
-                  "const": {
-                    "profile_id": "comprehensive_review",
-                    "membership_field": "governing",
-                    "membership_value": true
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.review.periodic_epoch_required"
-                },
-                "predicate_type": {
-                  "const": "ctxr.review.periodic_epoch_required"
-                },
-                "parameters": {
-                  "const": {
-                    "profile_id": "comprehensive_review",
-                    "trigger": "periodic_review_epoch"
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.review.boundary_exact"
-                },
-                "predicate_type": {
-                  "const": "ctxr.review.boundary_exact"
-                },
-                "parameters": {
-                  "const": {
-                    "boundary_fields": [
-                      "governing_membership",
-                      "canonical_paths",
-                      "pinned_digests",
-                      "component_registry_digest"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.review.any_valid_boundary_difference_due"
-                },
-                "predicate_type": {
-                  "const": "ctxr.review.any_valid_boundary_difference_due"
-                },
-                "parameters": {
-                  "const": {
-                    "comparison": "any_exact_difference"
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.review.invalid_drift_is_integrity_failure"
-                },
-                "predicate_type": {
-                  "const": "ctxr.review.invalid_drift_is_integrity_failure"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.review.completion_fields_exact"
-                },
-                "predicate_type": {
-                  "const": "ctxr.review.completion_fields_exact"
-                },
-                "parameters": {
-                  "const": {
-                    "required_fields": [
-                      "epoch_id",
-                      "triggering_run_id",
-                      "baseline_commit",
-                      "completion_commit",
-                      "governing_hashes",
-                      "project_snapshot",
-                      "registry_snapshot",
-                      "reviewed_domains",
-                      "resolved_findings",
-                      "unresolved_findings",
-                      "automation_health",
-                      "sampling_record",
-                      "completed_at",
-                      "next_due_at",
-                      "cadence_status",
-                      "stability_status",
-                      "triggering_reason"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.review.recorder_requires_exact_current_boundary"
-                },
-                "predicate_type": {
-                  "const": "ctxr.review.recorder_requires_exact_current_boundary"
-                },
-                "parameters": {
-                  "const": {
-                    "required_match": "exact_current_boundary",
-                    "rejected_states": [
-                      "partial",
-                      "stale",
-                      "extra",
-                      "altered"
-                    ]
-                  }
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.review.unresolved_findings_carry_forward"
-                },
-                "predicate_type": {
-                  "const": "ctxr.review.unresolved_findings_carry_forward"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.review.next_epoch_uses_delta_and_carry_forward"
-                },
-                "predicate_type": {
-                  "const": "ctxr.review.next_epoch_uses_delta_and_carry_forward"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            },
-            {
-              "properties": {
-                "rule_id": {
-                  "const": "ctxr.review.efficiency_never_limits_scope_or_lookback"
-                },
-                "predicate_type": {
-                  "const": "ctxr.review.efficiency_never_limits_scope_or_lookback"
-                },
-                "parameters": {
-                  "const": {}
-                }
-              }
-            }
-          ]
-        }
-      ]
-    },
-    "routingInvariantRules": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "ctxr.inv.router_preserves_source_authority",
-        "ctxr.inv.required_floor_is_minimum",
-        "ctxr.inv.additive_union",
-        "ctxr.inv.dependencies_are_directional_minimums",
-        "ctxr.inv.dependency_graph_is_acyclic",
-        "ctxr.inv.stable_document_identity_is_path_independent",
-        "ctxr.inv.bounded_context_never_omits_material_authority"
-      ],
-      "properties": {
-        "ctxr.inv.router_preserves_source_authority": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.inv.required_floor_is_minimum": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.inv.additive_union": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.inv.dependencies_are_directional_minimums": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.inv.dependency_graph_is_acyclic": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.inv.stable_document_identity_is_path_independent": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.inv.bounded_context_never_omits_material_authority": {
-          "$ref": "#/$defs/routingRule"
-        }
-      }
-    },
-    "routingSelectionRules": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "ctxr.sel.primary_profile",
-        "ctxr.sel.required_floor_order",
-        "ctxr.sel.profile_starting_set",
-        "ctxr.sel.all_implicated_capabilities",
-        "ctxr.sel.profile_never_excludes_capability",
-        "ctxr.sel.capability_addition_requires_no_new_profile",
-        "ctxr.sel.profile_documents_and_exact_sections",
-        "ctxr.sel.complete_dependency_closure",
-        "ctxr.sel.task_specific_canonical_material",
-        "ctxr.sel.source_projection_requires_canonical_readback",
-        "ctxr.sel.dynamic_trigger_set",
-        "ctxr.sel.expansion_precedes_dependent_action",
-        "ctxr.sel.multi_agent_before_delegation",
-        "ctxr.sel.governance_recording_plus_change_audit",
-        "ctxr.sel.interactive_route_is_minimum_not_ceiling",
-        "ctxr.sel.automated_expansion_allowlist",
-        "ctxr.sel.deterministic_bot_structured_inputs"
-      ],
-      "properties": {
-        "ctxr.sel.primary_profile": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.required_floor_order": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.profile_starting_set": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.all_implicated_capabilities": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.profile_never_excludes_capability": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.capability_addition_requires_no_new_profile": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.profile_documents_and_exact_sections": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.complete_dependency_closure": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.task_specific_canonical_material": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.source_projection_requires_canonical_readback": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.dynamic_trigger_set": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.expansion_precedes_dependent_action": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.multi_agent_before_delegation": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.governance_recording_plus_change_audit": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.interactive_route_is_minimum_not_ceiling": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.automated_expansion_allowlist": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.sel.deterministic_bot_structured_inputs": {
-          "$ref": "#/$defs/routingRule"
-        }
-      }
-    },
-    "routingValidationRules": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "ctxr.val.registry_before_selection",
-        "ctxr.val.integration_pinned_digest_exact",
-        "ctxr.val.runtime_digest_at_packet_build",
-        "ctxr.val.expansion_provenance_preserved",
-        "ctxr.val.exact_section_unique",
-        "ctxr.val.packet_manifest_bound",
-        "ctxr.val.authorized_digest_update_atomic",
-        "ctxr.val.registry_digest_external",
-        "ctxr.val.new_authoritative_module_admission",
-        "ctxr.val.id_rename_change_audit"
-      ],
-      "properties": {
-        "ctxr.val.registry_before_selection": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.val.integration_pinned_digest_exact": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.val.runtime_digest_at_packet_build": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.val.expansion_provenance_preserved": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.val.exact_section_unique": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.val.packet_manifest_bound": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.val.authorized_digest_update_atomic": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.val.registry_digest_external": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.val.new_authoritative_module_admission": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.val.id_rename_change_audit": {
-          "$ref": "#/$defs/routingRule"
-        }
-      }
-    },
-    "routingFailureRules": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "ctxr.fail.unknown_or_missing_selection",
-        "ctxr.fail.pinned_digest_absent_or_stale",
-        "ctxr.fail.runtime_digest_unreadable",
-        "ctxr.fail.dependency_cycle",
-        "ctxr.fail.generated_or_excluded_as_authority",
-        "ctxr.fail.section_identity_invalid",
-        "ctxr.fail.section_budget_exceeded",
-        "ctxr.fail.packet_budget_exceeded",
-        "ctxr.fail.unresolved_material_governing_gap",
-        "ctxr.fail.safe_failure_disposition"
-      ],
-      "properties": {
-        "ctxr.fail.unknown_or_missing_selection": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.fail.pinned_digest_absent_or_stale": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.fail.runtime_digest_unreadable": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.fail.dependency_cycle": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.fail.generated_or_excluded_as_authority": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.fail.section_identity_invalid": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.fail.section_budget_exceeded": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.fail.packet_budget_exceeded": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.fail.unresolved_material_governing_gap": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.fail.safe_failure_disposition": {
-          "$ref": "#/$defs/routingRule"
-        }
-      }
-    },
-    "routingCurrentnessRules": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "ctxr.cur.stable_governing_is_pinned",
-        "ctxr.cur.mutable_handoff_is_runtime_hashed",
-        "ctxr.cur.checkpoint_update_needs_no_registry_edit",
-        "ctxr.cur.generated_rebuildables_excluded",
-        "ctxr.cur.records_excluded_except_handoff",
-        "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary"
-      ],
-      "properties": {
-        "ctxr.cur.stable_governing_is_pinned": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.cur.mutable_handoff_is_runtime_hashed": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.cur.checkpoint_update_needs_no_registry_edit": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.cur.generated_rebuildables_excluded": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.cur.records_excluded_except_handoff": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary": {
-          "$ref": "#/$defs/routingRule"
-        }
-      }
-    },
-    "routingBudgetRules": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "ctxr.budget.profile_max_is_fail_closed_ceiling",
-        "ctxr.budget.ceiling_change_does_not_change_membership",
-        "ctxr.budget.section_and_packet_limits_are_independent",
-        "ctxr.budget.no_mandatory_trimming"
-      ],
-      "properties": {
-        "ctxr.budget.profile_max_is_fail_closed_ceiling": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.budget.ceiling_change_does_not_change_membership": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.budget.section_and_packet_limits_are_independent": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.budget.no_mandatory_trimming": {
-          "$ref": "#/$defs/routingRule"
-        }
-      }
-    },
-    "routingComprehensiveReviewRules": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "ctxr.review.select_all_active_governing",
-        "ctxr.review.periodic_epoch_required",
-        "ctxr.review.boundary_exact",
-        "ctxr.review.any_valid_boundary_difference_due",
-        "ctxr.review.invalid_drift_is_integrity_failure",
-        "ctxr.review.completion_fields_exact",
-        "ctxr.review.recorder_requires_exact_current_boundary",
-        "ctxr.review.unresolved_findings_carry_forward",
-        "ctxr.review.next_epoch_uses_delta_and_carry_forward",
-        "ctxr.review.efficiency_never_limits_scope_or_lookback"
-      ],
-      "properties": {
-        "ctxr.review.select_all_active_governing": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.review.periodic_epoch_required": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.review.boundary_exact": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.review.any_valid_boundary_difference_due": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.review.invalid_drift_is_integrity_failure": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.review.completion_fields_exact": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.review.recorder_requires_exact_current_boundary": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.review.unresolved_findings_carry_forward": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.review.next_epoch_uses_delta_and_carry_forward": {
-          "$ref": "#/$defs/routingRule"
-        },
-        "ctxr.review.efficiency_never_limits_scope_or_lookback": {
-          "$ref": "#/$defs/routingRule"
-        }
-      }
-    },
-    "scanExclusionBinding": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "excluded_path",
-        "binding_kind",
-        "binding_id",
-        "authority_effect",
-        "placement_policy",
-        "disclosure_policy",
-        "classification_policy"
-      ],
-      "properties": {
-        "excluded_path": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "binding_kind": {
-          "enum": [
-            "directory_scope",
-            "representation"
-          ]
-        },
-        "binding_id": {
-          "$ref": "#/$defs/stableId"
-        },
-        "authority_effect": {
-          "const": "scan_exclusion_only_no_authority"
-        },
-        "placement_policy": {
-          "const": "registered_binding_still_applies"
-        },
-        "disclosure_policy": {
-          "const": "disclosure_gate_still_applies"
-        },
-        "classification_policy": {
-          "const": "deferred_classification_fails_closed"
-        }
-      }
-    },
-    "endpoint": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "kind",
-        "id"
-      ],
-      "properties": {
-        "kind": {
-          "enum": [
-            "document",
-            "representation",
-            "external_projection",
-            "predecessor_authority"
-          ]
-        },
-        "id": {
-          "$ref": "#/$defs/nonemptyString"
-        }
-      }
-    },
-    "relationship": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "relationship_id",
-        "relationship_type",
-        "from",
-        "to",
-        "authority_boundary"
-      ],
-      "properties": {
-        "relationship_id": {
-          "$ref": "#/$defs/stableId"
-        },
-        "relationship_type": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "from": {
-          "$ref": "#/$defs/endpoint"
-        },
-        "to": {
-          "$ref": "#/$defs/endpoint"
-        },
-        "authority_boundary": {
-          "$ref": "#/$defs/nonemptyString"
-        }
-      }
-    },
-    "ownershipNamespace": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "schema_version",
-        "activation_state",
-        "complete",
-        "generation_policy",
-        "entries"
-      ],
-      "properties": {
-        "schema_version": {
-          "const": 1
-        },
-        "activation_state": {
-          "enum": [
-            "candidate_complete",
-            "active"
-          ]
-        },
-        "complete": {
-          "const": true
-        },
-        "generation_policy": {
-          "const": "registry_ordered_github_last_match"
-        },
-        "entries": {
-          "type": "object",
-          "minProperties": 1,
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[A-Za-z][A-Za-z0-9_.:-]*$": {
-              "$ref": "#/$defs/ownership"
-            }
-          }
-        }
-      }
-    },
-    "ownership": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "ownership_id",
-        "path_pattern",
-        "owners",
-        "review_policy",
-        "ordinary_writer_policy",
-        "precedence",
-        "branch_protection",
-        "activation_state"
-      ],
-      "properties": {
-        "ownership_id": {
-          "$ref": "#/$defs/stableId"
-        },
-        "path_pattern": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "owners": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "review_policy": {
-          "const": "owner_review_required"
-        },
-        "ordinary_writer_policy": {
-          "enum": [
-            "none",
-            "validated_appender",
-            "validated_generator"
-          ]
-        },
-        "ordinary_writer_scope": {
-          "const": "validated_append_only_entry"
-        },
-        "protected_change_classes": {
-          "type": "array",
-          "minItems": 4,
-          "maxItems": 4,
-          "uniqueItems": true,
-          "items": {
-            "enum": [
-              "log_schema",
-              "writer_definition",
-              "existing_entry_immutability",
-              "governing_workflow"
-            ]
-          }
-        },
-        "precedence": {
-          "type": "integer",
-          "minimum": 0
-        },
-        "branch_protection": {
-          "const": "default_branch_owner_review"
-        },
-        "activation_state": {
-          "const": "candidate"
-        }
-      }
-    },
-    "unpopulatedTerminology": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "schema_version",
-        "activation_state",
-        "complete",
-        "entries"
-      ],
-      "properties": {
-        "schema_version": {
-          "const": 1
-        },
-        "activation_state": {
-          "const": "candidate_unpopulated"
-        },
-        "complete": {
-          "const": false
-        },
-        "entries": {
-          "type": "object",
-          "maxProperties": 0
-        }
-      }
-    },
-    "repositoryRefNamespace": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "schema_version",
-        "activation_state",
-        "complete",
-        "enforced",
-        "authority_boundary",
-        "entries"
-      ],
-      "properties": {
-        "schema_version": {
-          "const": 1
-        },
-        "activation_state": {
-          "const": "candidate_inactive"
-        },
-        "complete": {
-          "const": true
-        },
-        "enforced": {
-          "const": false
-        },
-        "authority_boundary": {
-          "const": "classification_definitions_only_no_mutation_authority"
-        },
-        "entries": {
-          "type": "object",
-          "minProperties": 5,
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[a-z][a-z0-9_]*$": {
-              "$ref": "#/$defs/repositoryRef"
-            }
-          }
-        }
-      }
-    },
-    "repositoryRef": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "reference_class_id",
-        "display_name",
-        "admission",
-        "allowed_namespaces",
-        "authorized_creator",
-        "required_bindings",
-        "allowed_merge_methods",
-        "terminal_predicate",
-        "review_cadence",
-        "recovery_requirement",
-        "retirement_authority",
-        "protected_exclusions",
-        "receipt_readback_required",
-        "mutation_activation"
-      ],
-      "properties": {
-        "reference_class_id": {
-          "$ref": "#/$defs/stableId"
-        },
-        "display_name": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "admission": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "allowed_namespaces": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "authorized_creator": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "required_bindings": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "allowed_merge_methods": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "terminal_predicate": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "review_cadence": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "recovery_requirement": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "retirement_authority": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "protected_exclusions": {
-          "$ref": "#/$defs/stringArray"
-        },
-        "receipt_readback_required": {
-          "type": "boolean"
-        },
-        "mutation_activation": {
-          "const": "separately_gated"
-        }
-      }
-    },
-    "temporaryNamespace": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "schema_version",
-        "activation_state",
-        "complete",
-        "entries"
-      ],
-      "properties": {
-        "schema_version": {
-          "const": 1
-        },
-        "activation_state": {
-          "enum": [
-            "candidate_complete",
-            "active"
-          ]
-        },
-        "complete": {
-          "const": true
-        },
-        "entries": {
-          "type": "object",
-          "minProperties": 1,
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[a-z][a-z0-9_]*$": {
-              "$ref": "#/$defs/temporaryClass"
-            }
-          }
-        }
-      }
-    },
-    "temporaryClass": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "temporary_class_id",
-        "display_name",
-        "path_scope",
-        "cleanup_authority",
-        "max_age_hours",
-        "uncertainty_disposition"
-      ],
-      "properties": {
-        "temporary_class_id": {
-          "$ref": "#/$defs/stableId"
-        },
-        "display_name": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "path_scope": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "cleanup_authority": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "max_age_hours": {
-          "type": "integer",
-          "minimum": 1
-        },
-        "uncertainty_disposition": {
-          "const": "quarantine_or_human_review"
-        }
-      }
-    },
-    "representationNamespace": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "schema_version",
-        "activation_state",
-        "complete",
-        "entries"
-      ],
-      "properties": {
-        "schema_version": {
-          "const": 1
-        },
-        "activation_state": {
-          "enum": [
-            "candidate_complete",
-            "active"
-          ]
-        },
-        "complete": {
-          "const": true
-        },
-        "entries": {
-          "type": "object",
-          "minProperties": 1,
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[A-Za-z][A-Za-z0-9_.:-]*$": {
-              "$ref": "#/$defs/representation"
-            }
-          }
-        }
-      }
-    },
-    "representation": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "representation_id",
-        "representation_type",
-        "canonical_path",
-        "producer",
-        "generation_rule",
-        "source_revision_binding",
-        "disclosure_class",
-        "loading_boundary",
-        "state"
-      ],
-      "properties": {
-        "representation_id": {
-          "$ref": "#/$defs/stableId"
-        },
-        "representation_type": {
-          "enum": [
-            "canonical_source",
-            "generated_metadata",
-            "generated_codeowners",
-            "console_specialist",
-            "console_compact",
-            "compatibility_redirect",
-            "human_readable_routing",
-            "scan_excluded_output"
-          ]
-        },
-        "canonical_document_id": {
-          "$ref": "#/$defs/stableId"
-        },
-        "canonical_path": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "route": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "producer": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "generation_rule": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "source_revision_binding": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "source_projection_id": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "disclosure_class": {
-          "enum": [
-            "public_by_design",
-            "public_operational_summary",
-            "public_safe_only"
-          ]
-        },
-        "loading_boundary": {
-          "$ref": "#/$defs/nonemptyString"
-        },
-        "state": {
-          "enum": [
-            "candidate",
-            "active",
-            "compatibility_window"
-          ]
-        },
-        "retirement_condition": {
-          "$ref": "#/$defs/nonemptyString"
-        }
-      }
-    },
-    "activationReadinessNamespace": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "schema_version",
-        "activation_state",
-        "complete",
+        "verification_type",
+        "issuer",
+        "registry_id",
+        "registry_revision",
+        "registry_sha256",
+        "canonical_revision",
         "design_id",
         "design_revision",
-        "source_design",
-        "implementation_blueprint",
-        "receipts",
-        "current_candidate_counts",
-        "simulated_active_counts",
-        "predecessor_ids",
-        "stage_boundaries",
-        "publication_sequence"
+        "validation_mode",
+        "adoption_evidence"
       ],
       "properties": {
         "schema_version": {
-          "const": 1
+          "const": 2
         },
-        "activation_state": {
-          "enum": [
-            "candidate_complete",
-            "active"
-          ]
+        "verification_type": {
+          "const": "component_registry_stage2_adoption_readback"
         },
-        "complete": {
-          "const": true
+        "issuer": {
+          "const": "component_registry_activation_finalizer"
+        },
+        "registry_id": {
+          "const": "COMPONENT-REGISTRY"
+        },
+        "registry_revision": {
+          "const": 2
+        },
+        "registry_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "canonical_revision": {
+          "$ref": "#/$defs/gitRevision"
         },
         "design_id": {
-          "const": "COMPONENT-REGISTRY-2026-001-CANDIDATE-ACTIVATION-READINESS-CLOSURE"
+          "const": "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR"
         },
         "design_revision": {
-          "const": "sha256:8a6eaf0b2e91fb86a47363ea176e793d4fbe40001f31d80d00963748c757aeba"
+          "const": "sha256:16c7801b08397a640829bcb9141de7482c68ea9d9aa793fba0d1080fea9d95b0"
         },
-        "source_design": {
-          "const": {
-            "document_id": "CR-PROPOSAL-2026-001",
-            "revision": 15,
-            "sha256": "95e6a67263a7ef228e395f8a9429ba1082d874d79939d95269d9f5d91d4f7a0d",
-            "requirement_count": 77
+        "validation_mode": {
+          "const": "live_authority_validation"
+        },
+        "adoption_evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "adopted_by",
+            "adopted_at",
+            "pull_request",
+            "reviewed_head",
+            "merge_commit",
+            "checks_revision",
+            "checks_state"
+          ],
+          "properties": {
+            "adopted_by": {
+              "const": "@Thorncrag"
+            },
+            "adopted_at": {
+              "$ref": "#/$defs/timestamp"
+            },
+            "pull_request": {
+              "type": "string",
+              "pattern": "^github-review:Thorncrag/ARRP#[0-9]+$"
+            },
+            "reviewed_head": {
+              "$ref": "#/$defs/gitRevision"
+            },
+            "merge_commit": {
+              "$ref": "#/$defs/gitRevision"
+            },
+            "checks_revision": {
+              "$ref": "#/$defs/gitRevision"
+            },
+            "checks_state": {
+              "const": "success"
+            }
           }
-        },
-        "implementation_blueprint": {
-          "const": {
-            "document_id": "CR-IMPLEMENTATION-DESIGN-2026-001",
-            "revision": 7,
-            "sha256": "a3dd3fa31c3e02b5fbddc89b1aa293ec0164e667d45f4142ebaa884020989ac8"
-          }
-        },
-        "receipts": {
-          "const": {
-            "activation_readiness": "framework/receipts/component-registry/stage1-activation-readiness.json",
-            "requirement_closure": "framework/receipts/component-registry/stage1-requirement-closure.json"
-          }
-        },
-        "current_candidate_counts": {
-          "const": {
-            "documents": 88,
-            "governing_documents": 87,
-            "capabilities": 19,
-            "profiles": 8,
-            "required_modules": 3,
-            "generated_path_exclusions": 9,
-            "rules": 64
-          }
-        },
-        "simulated_active_counts": {
-          "const": {
-            "documents": 85,
-            "governing_documents": 84,
-            "capabilities": 19,
-            "profiles": 8,
-            "required_modules": 3,
-            "generated_path_exclusions": 9,
-            "rules": 64
-          }
-        },
-        "predecessor_ids": {
-          "const": [
-            "project_structure",
-            "context_routing",
-            "repository_map",
-            "context_routes_source"
-          ]
-        },
-        "stage_boundaries": {
-          "const": {
-            "artifact_classes": "deferred_by_approved_stage_boundary",
-            "artifact_families": "deferred_by_approved_stage_boundary",
-            "artifact_lifecycles": "deferred_by_approved_stage_boundary",
-            "terminology": "candidate_unpopulated",
-            "repository_reference_mutation": "separately_gated"
-          }
-        },
-        "publication_sequence": {
-          "const": [
-            "activation_pr_exact_head_owner_review_and_checks",
-            "merge_and_remote_readback",
-            "owner_local_digest_addressed_activation_receipt",
-            "separate_closeout_pr_registry_digest_unchanged"
-          ]
         }
       }
     },
-    "aliasNamespace": {
+    "entriesNamespace": {
       "type": "object",
-      "additionalProperties": false,
       "required": [
         "schema_version",
-        "activation_state",
-        "complete",
+        "entries"
+      ],
+      "properties": {
+        "schema_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "entries": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "validationEnvelope": {
+      "type": "object",
+      "required": [
+        "mode",
+        "design_id",
+        "design_revision",
+        "repository_base_revision",
+        "live_authority"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "proposed_revision_validation",
+            "adopted_configuration_validation",
+            "live_authority_validation"
+          ]
+        },
+        "design_id": {
+          "const": "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR"
+        },
+        "design_revision": {
+          "const": "sha256:16c7801b08397a640829bcb9141de7482c68ea9d9aa793fba0d1080fea9d95b0"
+        },
+        "repository_base_revision": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "live_authority": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "terminologyNamespace": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "adopted",
+        "record_set_sha256",
+        "canonicalization",
+        "order",
         "entries"
       ],
       "properties": {
         "schema_version": {
           "const": 1
         },
-        "activation_state": {
-          "enum": [
-            "candidate_complete",
-            "active"
-          ]
-        },
-        "complete": {
+        "adopted": {
           "const": true
+        },
+        "record_set_sha256": {
+          "const": "12da8a526f4182ab366f518abcd879720bf6705935205b09566fca0f87642dae"
+        },
+        "canonicalization": {
+          "type": "object"
+        },
+        "order": {
+          "type": "array",
+          "minItems": 69,
+          "maxItems": 69,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
         },
         "entries": {
           "type": "object",
-          "minProperties": 1,
-          "additionalProperties": false,
-          "patternProperties": {
-            "^[A-Za-z][A-Za-z0-9_.:-]*$": {
-              "$ref": "#/$defs/alias"
-            }
-          }
+          "minProperties": 69,
+          "maxProperties": 69
         }
-      }
+      },
+      "additionalProperties": false
     },
-    "alias": {
+    "implementationEnums": {
       "type": "object",
-      "additionalProperties": false,
       "required": [
-        "alias_id",
-        "alias_type",
-        "source_path",
-        "target_path",
-        "path_kind",
-        "stable_component_id",
-        "reference_policy",
-        "activation_state",
-        "retirement_condition"
+        "schema_version",
+        "owner_decision",
+        "component_classes",
+        "component_types",
+        "roles",
+        "capabilities",
+        "operational_statuses",
+        "relationship_types",
+        "retention_bases",
+        "change_modes",
+        "custody_values",
+        "information_classifications",
+        "disclosure_rules",
+        "disclosure_boundaries",
+        "source_binding_bases",
+        "verification_methods",
+        "migration_kinds",
+        "coverage_treatments",
+        "authority_source_types",
+        "authority_effects"
       ],
       "properties": {
-        "alias_id": {
-          "$ref": "#/$defs/stableId"
+        "schema_version": {
+          "const": 1
         },
-        "alias_type": {
-          "enum": [
-            "relocation",
-            "technical_name",
-            "compatibility_path",
-            "retirement"
-          ]
+        "owner_decision": {
+          "type": "object"
         },
-        "source_path": {
-          "$ref": "#/$defs/nonemptyString"
+        "component_classes": {
+          "$ref": "#/$defs/enumDefinitions"
         },
-        "target_path": {
-          "$ref": "#/$defs/nonemptyString"
+        "component_types": {
+          "$ref": "#/$defs/nestedEnumDefinitions"
         },
-        "path_kind": {
-          "enum": [
-            "file",
-            "prefix"
-          ]
+        "roles": {
+          "$ref": "#/$defs/enumDefinitions"
         },
-        "stable_component_id": {
-          "$ref": "#/$defs/nonemptyString"
+        "capabilities": {
+          "$ref": "#/$defs/enumDefinitions"
         },
-        "reference_policy": {
-          "enum": [
-            "rewrite_active",
-            "preserve_historical"
-          ]
+        "operational_statuses": {
+          "$ref": "#/$defs/enumDefinitions"
         },
-        "activation_state": {
-          "const": "candidate"
+        "relationship_types": {
+          "$ref": "#/$defs/enumDefinitions"
         },
-        "retirement_condition": {
-          "$ref": "#/$defs/nonemptyString"
+        "retention_bases": {
+          "$ref": "#/$defs/enumDefinitions"
+        },
+        "change_modes": {
+          "$ref": "#/$defs/enumDefinitions"
+        },
+        "custody_values": {
+          "$ref": "#/$defs/enumDefinitions"
+        },
+        "information_classifications": {
+          "$ref": "#/$defs/enumDefinitions"
+        },
+        "disclosure_rules": {
+          "$ref": "#/$defs/enumDefinitions"
+        },
+        "disclosure_boundaries": {
+          "$ref": "#/$defs/enumDefinitions"
+        },
+        "source_binding_bases": {
+          "$ref": "#/$defs/enumDefinitions"
+        },
+        "verification_methods": {
+          "$ref": "#/$defs/enumDefinitions"
+        },
+        "migration_kinds": {
+          "$ref": "#/$defs/enumDefinitions"
+        },
+        "coverage_treatments": {
+          "$ref": "#/$defs/enumDefinitions"
+        },
+        "authority_source_types": {
+          "$ref": "#/$defs/enumDefinitions"
+        },
+        "authority_effects": {
+          "$ref": "#/$defs/enumDefinitions"
         }
+      },
+      "additionalProperties": false
+    },
+    "enumDefinitions": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "nestedEnumDefinitions": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/enumDefinitions"
       }
     }
   }

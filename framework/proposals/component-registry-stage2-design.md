@@ -1,19 +1,18 @@
 ---
-title: "Component Registry Stage 2 Design Proposal"
-status: proposed
+title: "Component Registry Stage 2 Design"
+status: adopted
 print_status: excluded
-print_exclusion_reason: "Nonauthoritative proposed Component Registry Stage 2 design."
+print_exclusion_reason: "Adopted internal Component Registry design and provenance record."
 ---
 
-# Component Registry Stage 2 Design Proposal
+# Component Registry Stage 2 Design
 
-This is the durable, nonauthoritative proposal containing the terminology and
-structural design developed during Component Registry Stage 2 planning and
-revised after read-only design audit. Every proposed decision remains subject
-to Benjamin's review. This document does not populate or activate the
-Registry's terminology namespace and does not modify the current Registry.
-Its contents become governing only through the later reviewed Stage 2 adoption
-process.
+This is the adopted design and provenance record for the terminology and
+structural model developed during Component Registry Stage 2 planning and
+revised after read-only design audit. Benjamin approved this exact design for
+implementation. The machine-readable Component Registry remains the authority
+for adopted Registry data; this document records the approved design and does
+not become a second Registry or a live-activation receipt.
 
 ## Terminology admission rule
 
@@ -88,7 +87,7 @@ the current Registry, complete repository classification, schema and validator
 updates, Console reconciliation, and human approval of the resulting exact
 Registry revision.
 
-## Proposed controlled terminology
+## Approved controlled terminology
 
 ### Namespace
 
@@ -500,7 +499,7 @@ These dimensions are not mutually exclusive. A component may concurrently be
 retired, archived, a predecessor, and superseded by another component; its
 successor may concurrently be current and, when executable, active.
 
-## Proposed structural design
+## Approved structural design
 
 ### Proposal scope and planned canonical location
 
@@ -523,13 +522,13 @@ The scope excludes substantive ARRP public-policy proposals, research, working
 notes, completed reports, adopted standards or configurations, current status
 or handoff material, temporary drafts, and restricted owner-local proposals.
 
-After final design approval and only as part of the coordinated Stage 2
-adoption transaction, this proposal moves to
-`framework/proposals/component-registry-stage2-design.md` and is registered as
+As part of the coordinated Stage 2 implementation transaction, this design is
+registered at `framework/proposals/component-registry-stage2-design.md` as
 `component_registry_stage2_design_proposal`, class `document`, type
-`specification`, role `proposal`, lifecycle `proposed`. Its real creation and
-audit history remain in provenance. The current research path becomes
-migration provenance only, not a second current component or redirect.
+`specification`, role `proposal`, lifecycle `adopted`. Its real creation,
+approval, audit, and migration history remain in provenance. The former
+research path is migration provenance only, not a second current component or
+redirect.
 
 ### Registration and repository coverage
 
@@ -982,12 +981,12 @@ The rejected umbrella concepts `representation`, `projection`, `association`,
 and `aggregation` are not reintroduced merely because the current Stage 1
 schema uses related labels.
 
-## Post-audit recommended design
+## Adopted post-audit design
 
 The frozen proposal at SHA-256
 `0866b19bbb1116855f677b7155de007467fbe80b246a4ee24c570897a8c32e13`
-received the required read-only design audit. This post-audit revision makes
-the following concrete recommendations for Benjamin's review:
+received the required read-only design audit. This post-audit revision records
+the following design decisions approved by Benjamin:
 
 1. Use exactly eight component classes: `document`, `configuration`,
    `dataset`, `script`, `log`, `agent`, `bot`, and `interface`.
@@ -1017,19 +1016,18 @@ the following concrete recommendations for Benjamin's review:
     path as a component, supporting artifact, directory or categorical rule,
     or preserved human-review failure before Stage 2 adoption.
 
-These recommendations remain nonauthoritative until Benjamin accepts, revises,
-or rejects them. Implementation remains prohibited until Benjamin approves the
-resulting exact proposal revision. Implementation then requires a separately approved
+These decisions are implemented only through the separately approved
 schema-version-2 implementation contract, bounded migration, validation,
-artifact disposition, and exact adoption readback.
+artifact disposition, and exact adoption readback. Approval of this design
+does not by itself claim that the tracked Registry revision is live.
 
-## Current next step
+## Implementation boundary
 
-Review the ten post-audit recommendations with Benjamin. Once resolved, freeze
-the accepted proposal revision and prepare the bounded Stage 2 implementation
-contract. Complete inventory classification is part of that migration and must
-stop on any item the accepted design cannot classify. Add another controlled
-term only through a later design revision approved before implementation.
+Implement the accepted design through its bound Stage 2 implementation
+contract. Complete inventory classification is part of that migration and
+must stop on any item the accepted design cannot classify. Add another
+controlled term only through a later design revision approved before
+implementation.
 
 ## Provisional current-entry classification review
 

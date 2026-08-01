@@ -3495,7 +3495,7 @@ def context_registry_dependencies_match(
 ) -> bool:
     """Compare exact route dependencies across the candidate-to-active boundary."""
 
-    if validation_mode == "candidate_validation_only":
+    if validation_mode == "proposed_revision_validation":
         if declared == expected:
             return True
         predecessor_indexes = [
@@ -3521,8 +3521,8 @@ def context_registry_dependencies_match(
         )
 
     if validation_mode in {
-        "active_configuration_validation_only",
-        "active_component_registry",
+        "adopted_configuration_validation",
+        "live_authority_validation",
     }:
         if predecessor_paths.intersection(expected):
             return False
@@ -3621,27 +3621,24 @@ def context_registry_authority_envelope(
 
     mode = str(view.get("validation_mode") or "")
     expected_posture = {
-        "candidate_validation_only": {
-            "registry_status": "candidate",
+        "proposed_revision_validation": {
             "authoritative": False,
             "executable": False,
-            "live_activation_verified": False,
-            "activation_receipt_consulted": False,
-            "predecessor_route_consulted": True,
-        },
-        "active_configuration_validation_only": {
-            "registry_status": "active",
-            "authoritative": False,
-            "executable": False,
-            "live_activation_verified": False,
+            "live_authority_verified": False,
             "activation_receipt_consulted": False,
             "predecessor_route_consulted": False,
         },
-        "active_component_registry": {
-            "registry_status": "active",
+        "adopted_configuration_validation": {
+            "authoritative": False,
+            "executable": False,
+            "live_authority_verified": False,
+            "activation_receipt_consulted": False,
+            "predecessor_route_consulted": False,
+        },
+        "live_authority_validation": {
             "authoritative": True,
             "executable": True,
-            "live_activation_verified": True,
+            "live_authority_verified": True,
             "activation_receipt_consulted": True,
             "predecessor_route_consulted": False,
         },
@@ -3654,15 +3651,15 @@ def context_registry_authority_envelope(
             "Project Integrity received an invalid routing authority posture"
         )
     expected_authority_modes = {
-        "candidate_validation_only": {
+        "proposed_revision_validation": {
             "repository-validation",
             "fixture",
         },
-        "active_configuration_validation_only": {
+        "adopted_configuration_validation": {
             "repository-validation",
             "fixture",
         },
-        "active_component_registry": {
+        "live_authority_validation": {
             "production-canonical",
             "production-transaction",
         },
@@ -3672,7 +3669,7 @@ def context_registry_authority_envelope(
             "Project Integrity routing authority mode and validation mode differ"
         )
     if (
-        view.get("schema_version") != 1
+        view.get("schema_version") != 2
         or view.get("registry_path")
         != "framework/component-registry.json"
         or not isinstance(view.get("registry_id"), str)
@@ -3692,11 +3689,10 @@ def context_registry_authority_envelope(
     return {
         "authority_mode": authority_mode,
         "validation_mode": mode,
-        "registry_status": view["registry_status"],
         "registry_revision": view["registry_revision"],
         "registry_sha256": view["registry_sha256"],
         "configuration_valid": True,
-        "live_activation_verified": view["live_activation_verified"],
+        "live_authority_verified": view["live_authority_verified"],
         "authoritative": view["authoritative"],
         "executable": view["executable"],
         "predecessor_route_consulted": view["predecessor_route_consulted"],
@@ -3714,11 +3710,10 @@ def unavailable_context_registry_authority_envelope(
     return {
         "authority_mode": authority_mode,
         "validation_mode": "unavailable",
-        "registry_status": "unavailable",
         "registry_revision": None,
         "registry_sha256": None,
         "configuration_valid": False,
-        "live_activation_verified": False,
+        "live_authority_verified": False,
         "authoritative": False,
         "executable": False,
         "predecessor_route_consulted": False,
@@ -3758,7 +3753,7 @@ def check_context_registry(
     expected_required_values = [
         "framework_kernel",
         "agent_rules_kernel",
-        "current_audit",
+        "task_handoff",
     ]
     expected_required = set(expected_required_values)
     if not expected_required <= required:
@@ -3773,14 +3768,14 @@ def check_context_registry(
         report(
             "ERROR",
             "context registry required floor must be exactly "
-            "framework_kernel, agent_rules_kernel, current_audit in that order; "
+            "framework_kernel, agent_rules_kernel, task_handoff in that order; "
             f"found={required_values!r}",
             failures,
             warnings,
         )
 
     documents = manifest["documents"]
-    current = documents.get("current_audit") or {}
+    current = documents.get("task_handoff") or {}
     if (
         current.get("path") != "framework/handoffs/current-task.md"
         or current.get("hash_policy") != "runtime"
@@ -4216,11 +4211,34 @@ def agent_runtime_invariant_findings(
 def check_agent_runbooks(failures: list[str], warnings: list[str]) -> None:
     """Validate persistent-agent identities and deployed configuration projections."""
     directory = ROOT / "framework" / "project" / "automation" / "runbooks"
-    registry = directory.parent / "registry.md"
-    if not registry.exists():
-        report("ERROR", "persistent-agent registry is missing: framework/project/automation/registry.md", failures, warnings)
+    try:
+        component_registry, _route = load_validated_registry(
+            ROOT / "framework" / "component-registry.json",
+            root=ROOT,
+        )
+    except (ComponentRegistryError, OSError, ValueError) as exc:
+        report(
+            "ERROR",
+            "central Component Registry is unavailable for persistent-agent "
+            f"validation: {exc}",
+            failures,
+            warnings,
+        )
         return
-    registry_text = read(registry)
+    component_entries = component_registry.get("components", {}).get("entries")
+    relationship_entries = component_registry.get("relationships", {}).get(
+        "entries"
+    )
+    if not isinstance(component_entries, dict) or not isinstance(
+        relationship_entries, dict
+    ):
+        report(
+            "ERROR",
+            "central Component Registry lacks agent/component relationships",
+            failures,
+            warnings,
+        )
+        return
     try:
         coordinator = json.loads(read(RUN_COORDINATOR_CONFIG))
     except (OSError, json.JSONDecodeError):
@@ -4263,8 +4281,41 @@ def check_agent_runbooks(failures: list[str], warnings: list[str]) -> None:
         if agent_id in seen:
             report("ERROR", f"duplicate persistent Agent ID: {agent_id}", failures, warnings)
         seen.add(agent_id)
-        if agent_id not in registry_text or path.name not in registry_text:
-            report("ERROR", f"agent runbook {path.relative_to(ROOT)} is not registered by ID and path", failures, warnings)
+        agent_component = component_entries.get(agent_id)
+        runbook_path = path.relative_to(ROOT).as_posix()
+        runbook_components = [
+            component_id
+            for component_id, component in component_entries.items()
+            if isinstance(component, dict)
+            and component.get("canonical_source", {}).get("locator", {}).get(
+                "value"
+            )
+            == runbook_path
+        ]
+        registered_relationship = any(
+            isinstance(relationship, dict)
+            and relationship.get("relationship_type") == "consumes"
+            and relationship.get("from")
+            == {"kind": "component", "id": agent_id}
+            and relationship.get("to")
+            == {"kind": "component", "id": runbook_id}
+            for runbook_id in runbook_components
+            for relationship in relationship_entries.values()
+        )
+        if (
+            not isinstance(agent_component, dict)
+            or agent_component.get("classification", {}).get("component_class")
+            not in {"agent", "bot"}
+            or len(runbook_components) != 1
+            or not registered_relationship
+        ):
+            report(
+                "ERROR",
+                f"agent runbook {runbook_path} lacks one exact central "
+                "Component Registry agent-to-runbook relationship",
+                failures,
+                warnings,
+            )
         runbook_text = read(path)
         for required_section in ("## Inputs and permitted writes",):
             if required_section not in runbook_text:

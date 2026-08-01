@@ -11,6 +11,7 @@ from pathlib import Path
 from unittest import mock
 
 from scripts import component_registry as registry
+from scripts import finalize_component_registry_activation as finalizer
 from scripts.path_authority import ProjectPathAuthority
 
 
@@ -66,7 +67,7 @@ def current_source_path(relative: str) -> Path:
     return source
 
 
-class ComponentRegistryActivationReadbackTests(unittest.TestCase):
+class LegacyStage1ActivationReadbackExamples:
     def git(self, repository: Path, *arguments: str) -> str:
         result = subprocess.run(
             ["git", "-C", str(repository), *arguments],
@@ -1056,6 +1057,92 @@ class ComponentRegistryActivationReadbackTests(unittest.TestCase):
                 registry.load_fixture_component_registry_routing_view(
                     forged
                 )
+
+
+class ComponentRegistryStage2ReadbackTests(unittest.TestCase):
+    def setUp(self):
+        self.stage2 = load_json(REGISTRY_PATH)
+        self.stage2_receipt = finalizer._build_stage2_synthetic_receipt(
+            self.stage2,
+            canonical_revision="1" * 40,
+            adoption_evidence={
+                "adopted_by": "@Thorncrag",
+                "adopted_at": "2026-07-31T12:00:00-04:00",
+                "pull_request": "github-review:Thorncrag/ARRP#501",
+                "reviewed_head": "2" * 40,
+                "merge_commit": "1" * 40,
+                "checks_revision": "2" * 40,
+                "checks_state": "success",
+            },
+        )
+
+    def test_stage2_receipt_selected_with_stage1_preserved(self):
+        preserved_stage1 = {
+            "verification_type": "component_registry_activation_readback",
+            "registry_sha256": "0" * 64,
+        }
+        selected = finalizer.select_component_registry_receipt(
+            self.stage2,
+            [preserved_stage1, self.stage2_receipt],
+        )
+        self.assertEqual(selected["validation_mode"], "live_authority_validation")
+        self.assertEqual(selected["receipt"], self.stage2_receipt)
+
+    def test_wrong_digest_and_duplicate_stage2_receipts_fail_closed(self):
+        wrong = copy.deepcopy(self.stage2_receipt)
+        wrong["registry_sha256"] = "f" * 64
+        with self.assertRaisesRegex(
+            finalizer.ActivationFinalizationError, "exactly one"
+        ):
+            finalizer.select_component_registry_receipt(self.stage2, [wrong])
+        with self.assertRaisesRegex(
+            finalizer.ActivationFinalizationError, "exactly one"
+        ):
+            finalizer.select_component_registry_receipt(
+                self.stage2, [self.stage2_receipt, copy.deepcopy(self.stage2_receipt)]
+            )
+
+    def test_verified_stage1_reversion_selects_preserved_stage1_receipt(self):
+        result = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(ROOT),
+                "show",
+                "HEAD:framework/component-registry.json",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        stage1_registry = json.loads(result.stdout)
+        self.assertEqual(stage1_registry["schema_version"], 1)
+        preserved_stage1 = {
+            "verification_type": "component_registry_activation_readback",
+            "registry_sha256": registry._canonical_registry_digest(stage1_registry),
+        }
+        selected = finalizer.select_component_registry_receipt(
+            stage1_registry,
+            [self.stage2_receipt, preserved_stage1],
+        )
+        self.assertEqual(selected["validation_mode"], "active_component_registry")
+        self.assertEqual(selected["receipt"], preserved_stage1)
+
+    def test_schema_closes_stage2_receipt(self):
+        schema = load_json(SCHEMA_PATH)
+        registry._validate_against_schema(
+            self.stage2_receipt,
+            schema["$defs"]["componentRegistryStage2AdoptionReadback"],
+            schema,
+        )
+        malformed = copy.deepcopy(self.stage2_receipt)
+        malformed["adoption_evidence"]["unexpected"] = True
+        with self.assertRaises(registry.RegistryError):
+            registry._validate_against_schema(
+                malformed,
+                schema["$defs"]["componentRegistryStage2AdoptionReadback"],
+                schema,
+            )
 
 
 if __name__ == "__main__":

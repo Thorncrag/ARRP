@@ -122,28 +122,20 @@ def _component_registry_configuration_state() -> str:
             "Component Registry configuration validation is unavailable."
         ) from error
     mode = view.get("validation_mode")
-    expected_predecessor = mode == "candidate_validation_only"
-    expected_status = (
-        "candidate"
-        if mode == "candidate_validation_only"
-        else "active"
-    )
     if (
-        view.get("schema_version") != 1
+        view.get("schema_version") != 2
         or view.get("registry_path")
         != "framework/component-registry.json"
         or mode
         not in {
-            "candidate_validation_only",
-            "active_configuration_validation_only",
+            "proposed_revision_validation",
+            "adopted_configuration_validation",
         }
-        or view.get("registry_status") != expected_status
         or view.get("authoritative") is not False
         or view.get("executable") is not False
-        or view.get("live_activation_verified") is not False
+        or view.get("live_authority_verified") is not False
         or view.get("activation_receipt_consulted") is not False
-        or view.get("predecessor_route_consulted")
-        is not expected_predecessor
+        or view.get("predecessor_route_consulted") is not False
     ):
         raise ConsoleRefreshError(
             "Component Registry configuration validation returned an "

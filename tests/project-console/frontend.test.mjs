@@ -633,6 +633,188 @@ function activeComponentRegistryFixture() {
   return snapshot;
 }
 
+function stage2ComponentRegistryFixture() {
+  const component = {
+    stable_id: "framework_kernel",
+    display_name: "Framework kernel",
+    classification: {
+      component_class: "document",
+      component_type: "framework",
+      roles: [],
+      capabilities: []
+    },
+    canonical_source: {
+      locator: { kind: "repository_path", value: "framework/FRAMEWORK.md" },
+      source_binding: {
+        binding_basis: "content_digest",
+        applicability: "current",
+        verification_methods: ["pinned_comparison"],
+        sha256: "1".repeat(64),
+        evidence_ref: "stage2_migration_from_stage1"
+      }
+    },
+    owner: "@Thorncrag",
+    information_handling: {
+      information_classification: "public",
+      disclosure_rule: "public_safe",
+      disclosure_boundary: "repository"
+    },
+    retention: {
+      bases: ["operational_need"],
+      change_mode: "maintained",
+      custody: "repository",
+      review_condition: "material change",
+      retirement_condition: "approved successor"
+    },
+    supporting_artifacts: [],
+    operational_status: null,
+    record_refs: {
+      lifecycle_assignments: ["lifecycle_framework_kernel"],
+      authority_assignments: ["authority_framework_kernel"],
+      relationships: ["framework_validated_by_test"],
+      migrations: [],
+      provenance_events: ["created_framework_kernel"]
+    },
+    lifecycle_records: [{
+      assignment_id: "lifecycle_framework_kernel",
+      component_id: "framework_kernel",
+      current_state: "adopted",
+      effective_date: "2026-07-31",
+      history: []
+    }],
+    authority_records: [{
+      assignment_id: "authority_framework_kernel",
+      component_id: "framework_kernel",
+      authoritative: true
+    }],
+    relationship_records: [],
+    migration_records: [],
+    provenance_records: [{ event_id: "created_framework_kernel" }],
+    console_route: "automation:component-registry:components?component=framework_kernel"
+  };
+  const terms = Array.from({ length: 69 }, (_, index) => ({
+    term_id: index === 0 ? "namespace" : `term_${index + 1}`,
+    label: index === 0 ? "Namespace" : `Term ${index + 1}`,
+    definition: index === 0
+      ? "A named domain for identifiers."
+      : `Approved definition ${index + 1}.`,
+    console_route: `automation:component-registry:terminology?term=${index === 0 ? "namespace" : `term_${index + 1}`}`
+  }));
+  return {
+    schema_version: 2,
+    projection_id: "component-registry-console",
+    producer_id: "project-console-builder",
+    generated_at: "2026-07-31T20:00:00Z",
+    availability: "current",
+    complete: true,
+    reason_code: null,
+    routes: Object.fromEntries([
+      "components", "lifecycles", "authority", "relationships",
+      "coverage", "routing", "terminology"
+    ].map((mode) => [mode, `automation:component-registry:${mode}`])),
+    defaults: {
+      mode: "components",
+      component: "framework_kernel",
+      lifecycle: "lifecycle_framework_kernel",
+      authority: "authority_framework_kernel",
+      relationship: "framework_validated_by_test",
+      coverage: "framework",
+      routing: "profile:compact",
+      terminology: "namespace"
+    },
+    registry: {
+      registry_id: "COMPONENT-REGISTRY",
+      registry_revision: 2,
+      registry_status: "proposed",
+      validation_mode: "proposed_revision_validation",
+      authoritative: false,
+      executable: false,
+      live_authority_verified: false,
+      predecessor_route_consulted: false,
+      registry_sha256: "2".repeat(64),
+      repository_revision: "3".repeat(40),
+      design_id: "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR",
+      design_revision: `sha256:${"4".repeat(64)}`
+    },
+    components: [component],
+    lifecycles: {
+      states: {
+        draft: "Registered and under development.",
+        proposed: "Submitted for adoption.",
+        adopted: "Incorporated into governed state.",
+        retired: "No longer designated for current use."
+      },
+      permitted_transitions: [["draft", "proposed"], ["proposed", "adopted"]],
+      assignments: component.lifecycle_records.map((record) => ({
+        ...record,
+        display_name: component.display_name,
+        classification: component.classification,
+        console_route: "automation:component-registry:lifecycles?assignment=lifecycle_framework_kernel"
+      }))
+    },
+    authorities: {
+      source_types: {
+        owner_authorization: "Closed authority source type value: owner authorization."
+      },
+      sources: [{ source_id: "owner_benjamin", source_type: "owner_authorization" }],
+      assignments: [{
+        ...component.authority_records[0],
+        display_name: component.display_name,
+        source_ids: ["owner_benjamin"],
+        sources: [{ source_id: "owner_benjamin", source_type: "owner_authorization" }],
+        subjects: ["project framework"],
+        effects: ["governs"],
+        exclusions: [],
+        console_route: "automation:component-registry:authority?assignment=authority_framework_kernel"
+      }],
+      history: []
+    },
+    relationships: [{
+      relationship_id: "framework_validated_by_test",
+      relationship_type: "validated_by",
+      from: { kind: "component", id: "framework_kernel" },
+      to: { kind: "component", id: "framework_kernel" },
+      authority_boundary: "Validation does not create authority.",
+      console_route: "automation:component-registry:relationships?relationship=framework_validated_by_test"
+    }],
+    coverage: {
+      records: [{
+        coverage_id: "framework",
+        coverage_kind: "directory_scope",
+        display_name: "Framework",
+        path_pattern: "framework/",
+        console_route: "automation:component-registry:coverage?coverage=framework"
+      }],
+      path_count: 1,
+      uncovered_count: 0,
+      multiply_treated_count: 0
+    },
+    routing: {
+      schema_version: 1,
+      required_components: ["framework_kernel"],
+      generated_path_exclusions: [],
+      components: [{ component_id: "framework_kernel", path: "framework/FRAMEWORK.md" }],
+      capabilities: {},
+      profiles: { compact: { components: ["framework_kernel"] } },
+      selections: [{
+        routing_id: "profile:compact",
+        routing_kind: "profile",
+        label: "compact",
+        component_ids: ["framework_kernel"],
+        details: { components: ["framework_kernel"] },
+        console_route: "automation:component-registry:routing?selection=profile%3Acompact"
+      }]
+    },
+    terminology: {
+      available: true,
+      complete: true,
+      adopted: true,
+      record_set_sha256: "5".repeat(64),
+      entries: terms
+    }
+  };
+}
+
 test("preserved transaction projection derives unresolved membership from retirement proof", () => {
   const { api } = loadApi();
   const current = {
@@ -1048,96 +1230,56 @@ test("Component Registry accepts only the builder-supplied typed snapshot", () =
   );
 });
 
-test("Component Registry uses only deferred module and generated-domain entrypoints", () => {
+test("Component Registry uses only the generated validated projection", () => {
   const html = fs.readFileSync(entrypointPath, "utf8");
   const app = fs.readFileSync(appPath, "utf8");
   const module = fs.readFileSync(componentRegistryPath, "utf8");
   assert.doesNotMatch(html, /<script\s+src="component-registry\.js/);
   assert.doesNotMatch(html, /<script\s+src="data\/component-registry\.js/);
-  assert.match(app, /const COMPONENT_REGISTRY_MODULE_PATH = "component-registry\.js\?v=7";/);
+  assert.match(app, /const COMPONENT_REGISTRY_MODULE_PATH = "component-registry\.js\?v=8";/);
   assert.match(app, /`data\/component-registry\.js\?v=\$\{SCRIPT_VERSION\}`/);
   assert.match(app, /if \(source\.startsWith\("data\/"\)\) validateLoadedDomainScript\(source\);/);
   assert.doesNotMatch(module, /miscellaneous|uncategorized|infer(?:red)?_taxonomy/i);
-  assert.match(module, /record\.authority_role/);
-  assert.match(module, /record\.lifecycle_posture/);
-  assert.match(module, /record\.rule_id[\s\S]*record\.namespace/);
-  assert.match(module, /function renderRegistryList\(/);
-  assert.match(module, /const REGISTRY_SOURCE_PATH = "\.\.\/\.\.\/\.\.\/component-registry\.json";/);
-  assert.match(module, /registryDigest !== snapshot\.registry\.registry_sha256/);
+  assert.match(module, /snapshot\.components/);
+  assert.match(module, /snapshot\.lifecycles\.assignments/);
+  assert.match(module, /snapshot\.authorities\.assignments/);
+  assert.match(module, /snapshot\.coverage\.records/);
+  assert.doesNotMatch(module, /component-registry-stage2-terminology-working-draft\.md/);
+  assert.doesNotMatch(module, /global\.fetch\(/);
   assert.match(module, /email-list-row component-registry-list-row/);
   assert.match(module, /role", "option"/);
   assert.match(module, /component-registry-\$\{mode\}-count/);
 });
 
-test("Component Registry previews only the explicit nonauthoritative terminology draft", () => {
+test("Component Registry terminology comes only from the adopted Registry projection", () => {
   const { componentRegistryApi } = loadApi();
-  const draft = `---
-status: draft
----
-
-## Approved terminology
-
-### Namespace
-
-A named domain for identifiers.
-
-### Artifact
-
-An identifiable item.
-
-These dimensions are not mutually exclusive. This note is not a definition.
-
-## Terminology decisions not adopted
-
-### Rejected term
-
-This must not be displayed.
-`;
-  assert.equal(
-    componentRegistryApi.terminologyDraftPath,
-    "../../../../research/component-registry-stage2-terminology-working-draft.md"
+  const snapshot = stage2ComponentRegistryFixture();
+  assert.equal(componentRegistryApi.validSnapshot(snapshot), true);
+  assert.equal(snapshot.terminology.entries.length, 69);
+  assert.equal(snapshot.terminology.entries[0].term_id, "namespace");
+  const matches = componentRegistryApi.filterTerminologyEntries(
+    snapshot.terminology.entries,
+    "named domain identifiers"
   );
-  assert.deepEqual(componentRegistryApi.parseTerminologyWorkingDraft(draft), [
-    { term: "Namespace", paragraphs: ["A named domain for identifiers."] },
-    { term: "Artifact", paragraphs: ["An identifiable item."] }
-  ]);
+  assert.deepEqual(matches.map((entry) => entry.term_id), ["namespace"]);
   assert.deepEqual(
-    componentRegistryApi.parseTerminologyWorkingDraft(draft.replace("status: draft", "status: active")),
-    []
-  );
-  assert.deepEqual(
-    componentRegistryApi.parseTerminologyWorkingDraft(
-      draft.replace("### Artifact", "### Namespace")
+    componentRegistryApi.filterTerminologyEntries(
+      snapshot.terminology.entries,
+      "no-such-definition"
     ),
     []
   );
-  const currentDraft = fs.readFileSync(
-    path.resolve(consoleDirectory, componentRegistryApi.terminologyDraftPath),
-    "utf8"
-  );
-  const currentEntries = componentRegistryApi.parseTerminologyWorkingDraft(currentDraft);
-  assert.ok(currentEntries.length >= 50);
-  assert.equal(currentEntries[0].term, "Namespace");
-  assert.equal(currentEntries.at(-1).term, "Consumption");
-  assert.doesNotMatch(currentEntries.at(-1).paragraphs.join(" "), /not mutually exclusive/);
-  const lifecycleMatches = componentRegistryApi.filterTerminologyEntries(
-    currentEntries,
-    "lifecycle state"
-  );
-  assert.ok(lifecycleMatches.length > 0);
-  assert.ok(lifecycleMatches.every((entry) => {
-    const searchable = `${entry.term} ${entry.paragraphs.join(" ")}`
-      .toLocaleLowerCase();
-    return searchable.includes("lifecycle") && searchable.includes("state");
-  }));
-  assert.deepEqual(
-    componentRegistryApi.filterTerminologyEntries(currentEntries, "no-such-definition"),
-    []
-  );
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    terminology: { ...snapshot.terminology, adopted: false }
+  }), false);
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    contract_payload: { private: true }
+  }), false);
   const html = fs.readFileSync(entrypointPath, "utf8");
   assert.match(html, /id="component-registry-terminology-search" type="search"/);
-  assert.match(html, /id="component-registry-terminology-type" disabled/);
-  assert.match(html, /id="component-registry-terminology-topic" disabled/);
+  assert.doesNotMatch(html, /component-registry-terminology-working-draft/);
 });
 
 test("Component Registry is an Operations subtab after Data and before Logs", () => {
@@ -1146,14 +1288,14 @@ test("Component Registry is an Operations subtab after Data and before Logs", ()
   const registryIndex = html.indexOf('id="automation-tab-component-registry"');
   const logsIndex = html.indexOf('id="automation-tab-logs"');
   assert.ok(dataIndex >= 0 && dataIndex < registryIndex && registryIndex < logsIndex);
-  ["documents", "directories", "routing", "relationships", "terminology"].forEach((mode) => {
+  ["components", "lifecycles", "authority", "relationships", "coverage", "routing", "terminology"].forEach((mode) => {
     assert.match(html, new RegExp(`id="component-registry-mode-${mode}"`));
     assert.match(html, new RegExp(`id="component-registry-panel-${mode}"`));
     assert.match(html, new RegExp(`id="component-registry-${mode}-count"`));
   });
-  assert.equal((html.match(/class="email-workspace component-registry-workspace"/g) || []).length, 5);
-  assert.equal((html.match(/class="email-list component-registry-list"/g) || []).length, 5);
-  assert.match(html, /Classification pending — enforcement not active/);
+  assert.equal((html.match(/class="email-workspace component-registry-workspace"/g) || []).length, 7);
+  assert.equal((html.match(/class="email-list component-registry-list"/g) || []).length, 7);
+  assert.match(html, /Validated, nonauthoritative Registry view/);
   assert.doesNotMatch(
     html.slice(
       html.indexOf('id="panel-overview"'),
@@ -2948,7 +3090,7 @@ test("initial HTML loads only bounded scripts and stays within declared budgets"
   assert.match(app, /const PRIVATE_CODEX_USAGE_PATH = "data\/private-codex-usage\.js\?v=1";/);
   assert.match(app, /const LOCAL_AUTOMATION_STATUS_PATH = "data\/local-automation-status\.js";/);
   assert.match(app, /const CODEX_CAPACITY_MODULE_PATH = "capacity\.js\?v=1";/);
-  assert.match(app, /const COMPONENT_REGISTRY_MODULE_PATH = "component-registry\.js\?v=7";/);
+  assert.match(app, /const COMPONENT_REGISTRY_MODULE_PATH = "component-registry\.js\?v=8";/);
   assert.match(app, /return loadLocalProjection\(\s*PRIVATE_SECURITY_ASSURANCE_PATH,\s*"security-assurance",\s*capturePrivateSecurityAssurance\s*\)/);
   assert.match(app, /return loadLocalProjection\(\s*PRIVATE_OPERATIONS_PATH,\s*"private-operations",\s*capturePrivateOperations\s*\)/);
   assert.match(app, /return loadLocalProjection\(\s*PRIVATE_CODEX_USAGE_PATH,\s*"codex-usage",\s*capturePrivateCodexUsage\s*\)/);

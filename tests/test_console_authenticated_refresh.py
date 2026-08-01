@@ -111,13 +111,12 @@ def fixture_authority(root: Path) -> FakeAuthority:
 class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
     def test_configuration_validation_is_nonlive_and_zero_argument(self) -> None:
         view = {
-            "schema_version": 1,
-            "validation_mode": "active_configuration_validation_only",
-            "registry_status": "active",
+            "schema_version": 2,
+            "validation_mode": "adopted_configuration_validation",
             "registry_path": "framework/component-registry.json",
             "authoritative": False,
             "executable": False,
-            "live_activation_verified": False,
+            "live_authority_verified": False,
             "activation_receipt_consulted": False,
             "predecessor_route_consulted": False,
         }
@@ -128,15 +127,13 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
         ) as loader:
             self.assertEqual(
                 _component_registry_configuration_state(),
-                "active_configuration_validation_only",
+                "adopted_configuration_validation",
             )
         loader.assert_called_once_with()
 
         candidate = {
             **view,
-            "validation_mode": "candidate_validation_only",
-            "registry_status": "candidate",
-            "predecessor_route_consulted": True,
+            "validation_mode": "proposed_revision_validation",
         }
         with patch(
             "scripts.refresh_project_console."
@@ -145,12 +142,12 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
         ) as candidate_loader:
             self.assertEqual(
                 _component_registry_configuration_state(),
-                "candidate_validation_only",
+                "proposed_revision_validation",
             )
         candidate_loader.assert_called_once_with()
 
         incompatible = dict(view)
-        incompatible["live_activation_verified"] = True
+        incompatible["live_authority_verified"] = True
         with patch(
             "scripts.refresh_project_console."
             "load_component_registry_configuration_routing_view",
@@ -176,7 +173,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
             with patch(
                 "scripts.refresh_project_console."
                 "_component_registry_configuration_state",
-                return_value="candidate_validation_only",
+                return_value="proposed_revision_validation",
             ):
                 result = _refresh_console(
                     authority=authority,
@@ -194,7 +191,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
         self.assertEqual(result["status"], "refreshed")
         self.assertEqual(
             result["component_registry_validation_mode"],
-            "candidate_validation_only",
+            "proposed_revision_validation",
         )
         self.assertEqual(len(keychain_calls), 1)
         self.assertEqual(
@@ -251,7 +248,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
                 with patch(
                     "scripts.refresh_project_console."
                     "_component_registry_configuration_state",
-                    return_value="candidate_validation_only",
+                    return_value="proposed_revision_validation",
                 ):
                     _refresh_console(
                         authority=authority,
@@ -305,7 +302,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
                 with patch(
                     "scripts.refresh_project_console."
                     "_component_registry_configuration_state",
-                    return_value="candidate_validation_only",
+                    return_value="proposed_revision_validation",
                 ):
                     _refresh_console(
                         authority=authority,

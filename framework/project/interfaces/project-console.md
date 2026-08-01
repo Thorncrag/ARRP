@@ -564,50 +564,40 @@ Operations owns:
    completeness, producer, reason, trustworthy-through boundary, source route,
    recovery route, and any typed incident links. The interface uses bounded
    horizontal overflow before accidental wrapping.
-8. Component Registry — one builder-supplied, typed repository-configuration
-   snapshot accepted by `scripts/component_registry.py`. Its four modes are
-   Documents, Directories, Routing, and Terminology. Documents preserve
-   registered authority, representation, dependency, consumer, digest,
-   lifecycle, and producer-supplied typed metadata. Directories preserve
-   registered placement, ownership, disclosure, precedence, and exact
-   inventory counts while artifact-class membership remains explicitly
-   unavailable. Routing preserves the exact imported route-source binding,
-   parity result, registered profiles and capabilities, and producer-resolved
-   dependency closures. It also renders the Stage 1 candidate's versioned
-   routing-rule catalog: schema version 2, catalog version 1, and 64 stable
-   rules across Invariants (7), Selection (17), Validation (10), Failure
-   rules (10), Currentness (6), Budgets (4), and Comprehensive review (10).
-   Rule meaning and readable text come from the validated producer; the
-   browser may not infer them from predecessor prose. Historical rule
-   provenance remains bound to the frozen predecessor digest
-   `246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7`.
-   A candidate registry remains explicitly predecessor-bound. An active
-   tracked configuration instead presents the embedded Component Registry
-   routing authority, frozen historical predecessor provenance, and a separately
-   identified nonauthoritative readable representation; it does not read the
-   predecessor files or present either provenance or representation as a
-   second authority. The public projection exposes only a safe retained-
-   provenance state plus the readable representation ID and current registry
-   revision; predecessor paths and digests remain outside the Console payload
-   and DOM.
-   Terminology remains unavailable while its candidate namespace is
-   unpopulated. The view always displays
-   `Classification pending — enforcement not active` until a separate approved
-   activation changes the governing registry; it performs no enforcement or
-   remediation. Candidate snapshots explicitly retain their predecessor
-   parity and source-binding evidence. A tracked active configuration uses the
-   closed `active_configuration_validation_only` state: it is
-   nonauthoritative, nonexecutable, does not consult either routing
-   predecessor, and does not read owner-local activation evidence. Its public
-   status may say `Tracked active configuration`, never `Owner activation
-   verified`. Live owner activation remains a separate production-runtime
-   determination requiring the fixed owner-local receipt; repository and
-   hosted Console data report that state as not evaluated and contain no
-   receipt identity or evidence. The browser must not invent taxonomy,
-   membership, route selection, identity, activation, or fallback facts.
-   Generation fails closed when the applicable configuration evidence, schema,
-   repository baseline, candidate source binding/parity, or directory
-   inventory is invalid or stale.
+8. Component Registry — one builder-supplied, typed, nonauthoritative view of
+   the validated central Registry. Its modes are Components, Lifecycles,
+   Authority, Relationships, Coverage, Routing, and Terminology. The browser
+   receives these dimensions from the generated Registry projection and never
+   parses the adopted design document, archived predecessor, or another prose
+   source as Registry data.
+
+   Components is the primary searchable inventory. Its selected-component
+   detail shows stable identity, class and type, roles and capabilities,
+   canonical source and source binding, owner, retention, disclosure,
+   operational status when applicable, supporting artifacts, lifecycle and
+   authority references, relationships, migrations, and provenance. The other
+   modes provide cross-component views: lifecycle state counts, definitions,
+   permitted transitions, assignments, and history; scoped authority sources,
+   assignments, effects, exclusions, precedence, and design-contract
+   bindings; directional relationships; exhaustive component/artifact/scope
+   coverage and unresolved failures; compact routing selections and resolved
+   dependency closures; and the complete searchable adopted terminology.
+
+   The Console renders only public-safe Registry facts and evidence references.
+   It does not expose private contract payloads, owner-local receipt content,
+   credentials, or restricted provenance, and it does not infer a missing
+   classification, lifecycle, authority, relationship, retention rule, source
+   binding, route, or coverage disposition. A finite result is complete only
+   when the producer says it is complete. Missing or invalid Registry data is
+   unavailable rather than zero or silently reconstructed.
+
+   Pre-merge Stage 2 output uses `proposed_revision_validation` and makes no
+   live-authority claim. After adoption, repository and hosted Console output
+   may report `adopted_configuration_validation`, which validates the exact
+   tracked configuration without reading owner-local activation evidence.
+   Only the production reader may establish `live_authority_validation` from
+   the fixed digest-addressed receipt. The public Console never includes that
+   receipt payload or promotes itself into an authority.
 
    The feature has no Overview portlet. Its public shell module
    `component-registry.js` and generated

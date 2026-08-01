@@ -296,6 +296,9 @@ class ConsoleDataContractTests(unittest.TestCase):
             "generation_id": "integrity-prior-head",
             "availability": "current",
             "completeness": {"complete": True},
+            "freshness": {
+                "equivalent_source_revisions": ["authoritative-head"],
+            },
         }
         projected = MODULE.with_repository_revision_currentness(
             payload,
@@ -312,6 +315,89 @@ class ConsoleDataContractTests(unittest.TestCase):
             projected["currentness"]["expected_source_revision"],
             "authoritative-head",
         )
+
+    def test_integrity_accepts_only_sole_parent_manifested_console_outputs(self):
+        parent = "a" * 40
+        head = "b" * 40
+        domain_path = (
+            "framework/project/interfaces/project-console/data/overview.js"
+        )
+        manifest = json.dumps({
+            "manifest_schema_version": 1,
+            "generation_id": "project-console-test",
+            "availability": "current",
+            "completeness": {"complete": True},
+            "domain_count": 1,
+            "domains": [{"file": "overview.js", "sha256": "1" * 64}],
+            "files": {"overview.js": {"sha256": "1" * 64}},
+        })
+
+        def result_for(changed, *, ancestry=None, tree_mode="100644"):
+            def fake_git_text(root, arguments):
+                if arguments[:4] == ["rev-list", "--parents", "-n", "1"]:
+                    return ancestry or f"{head} {parent}\n"
+                if arguments[:1] == ["show"]:
+                    return manifest
+                if arguments[:2] == ["ls-tree", parent] or arguments[:2] == [
+                    "ls-tree",
+                    head,
+                ]:
+                    return f"{tree_mode} blob {'2' * 40}\t{domain_path}\n"
+                if arguments[:3] == ["diff", "--name-only", "--no-renames"]:
+                    return "\0".join(changed) + "\0"
+                raise AssertionError(f"unexpected Git query: {arguments}")
+
+            with (
+                mock.patch.object(
+                    MODULE,
+                    "current_repository_head",
+                    return_value=head,
+                ),
+                mock.patch.object(
+                    MODULE,
+                    "_git_console_text",
+                    side_effect=fake_git_text,
+                ),
+            ):
+                return MODULE.integrity_parent_output_equivalent(
+                    parent,
+                    head,
+                    root=ROOT,
+                )
+
+        self.assertTrue(result_for([
+            MODULE.CONSOLE_GENERATION_CATALOG_PATH,
+            MODULE.CONSOLE_GENERATION_MANIFEST_PATH,
+            domain_path,
+            "framework/status/integrity/project-integrity-report.md",
+            "framework/status/sources/source-checker-report.md",
+        ]))
+        self.assertFalse(result_for(["scripts/build_project_console.py"]))
+        self.assertFalse(result_for([
+            "framework/project/interfaces/project-console/data/nested/overview.js"
+        ]))
+        self.assertFalse(result_for(
+            [domain_path],
+            ancestry=f"{head} {parent} {'c' * 40}\n",
+        ))
+        self.assertFalse(result_for([domain_path], tree_mode="120000"))
+        with (
+            mock.patch.object(
+                MODULE,
+                "current_repository_head",
+                return_value=head,
+            ),
+            mock.patch.object(
+                MODULE,
+                "_git_console_text",
+                return_value=f"{head} {'c' * 40}\n",
+            ),
+        ):
+            self.assertFalse(MODULE.integrity_parent_output_equivalent(
+                parent,
+                head,
+                root=ROOT,
+            ))
 
     def public_source_checker_fixture(
         self,
@@ -395,7 +481,7 @@ class ConsoleDataContractTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "requires --public-only"):
             MODULE.validate_console_modes(args)
 
-    def test_public_source_checker_stage_is_fixed_and_current(self):
+    def test_public_source_checker_stage_uses_catalog_binding_across_head_drift(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             config, stage, _, revision = self.public_source_checker_fixture(root)
@@ -415,8 +501,10 @@ class ConsoleDataContractTests(unittest.TestCase):
                     MODULE, "PUBLIC_SOURCE_CHECKER_STAGE", stage
                 ),
                 mock.patch.object(
-                    MODULE, "current_repository_head", return_value=revision
-                ),
+                    MODULE,
+                    "current_repository_head",
+                    return_value="f" * 40,
+                ) as head_reader,
                 mock.patch("builtins.open", guarded_open),
                 mock.patch.dict(
                     os.environ,
@@ -427,9 +515,11 @@ class ConsoleDataContractTests(unittest.TestCase):
                 projected = MODULE.source_checker_snapshot(
                     public_source_checker_stage=True
                 )
+        head_reader.assert_not_called()
         self.assertEqual(projected["availability"], "current")
         self.assertTrue(projected["completeness"]["complete"])
         self.assertEqual(projected["actual_count"], 1)
+        self.assertEqual(projected["source_revision"], revision)
         self.assertNotIn(".tmp", json.dumps(projected))
 
     def test_public_source_checker_stage_rejects_other_input_authority(self):
@@ -505,7 +595,6 @@ class ConsoleDataContractTests(unittest.TestCase):
         mutations = {
             "producer": lambda payload: payload.update(agent_id="other"),
             "schema": lambda payload: payload.update(schema_version=1),
-            "revision": lambda payload: payload.update(source_revision="b" * 40),
             "hash": lambda payload: payload.update(source_hashes={}),
             "completeness": lambda payload: payload["completeness"].update(
                 complete=False
@@ -844,7 +933,7 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertEqual(errors[0]["code"], "markdown_table_row_width")
         self.assertEqual(errors[0]["source"], "governed-log.md")
 
-    def test_component_registry_projection_preserves_validated_typed_state(self):
+    def _legacy_stage1_candidate_projection(self):
         projection_source = SCRIPT.read_text(encoding="utf-8").split(
             "def component_registry_console_snapshot(",
             1,
@@ -941,6 +1030,7 @@ class ConsoleDataContractTests(unittest.TestCase):
                 + snapshot["relationships"][0]["relationship_id"]
             ),
         )
+
         self.assertEqual(
             snapshot["registry"]["validation_mode"],
             "candidate_validation_only",
@@ -1082,7 +1172,117 @@ class ConsoleDataContractTests(unittest.TestCase):
             )
         )
 
-    def test_component_registry_active_configuration_is_not_live_activation(self):
+    def test_component_registry_stage2_projection_has_one_validated_source(self):
+        source = Path(MODULE.__file__).read_text(encoding="utf-8")
+        self.assertIn(
+            "def _stage2_component_registry_console_snapshot(",
+            source,
+        )
+        self.assertIn(
+            'routing_view.get("validation_mode")\n'
+            '        != "proposed_revision_validation"',
+            source,
+        )
+        for mode in (
+            "components",
+            "lifecycles",
+            "authority",
+            "relationships",
+            "coverage",
+            "routing",
+            "terminology",
+        ):
+            self.assertIn(f'                "{mode}",', source)
+        self.assertIn(
+            'terminology_entries = terminology.get("entries")',
+            source,
+        )
+        self.assertNotIn(
+            "component-registry-stage2-terminology-working-draft.md",
+            source,
+        )
+        self.assertNotIn(
+            "framework/proposals/component-registry-stage2-design.md",
+            source,
+        )
+        paths = MODULE.component_registry_source_paths(
+            {
+                "registry": {
+                    "validation_mode": "proposed_revision_validation",
+                },
+            },
+            root=Path("/tmp/arrp-stage2-console-test"),
+        )
+        self.assertEqual(
+            paths,
+            [
+                Path("/tmp/arrp-stage2-console-test/framework/component-registry.json"),
+                Path(
+                    "/tmp/arrp-stage2-console-test/framework/standards/automation/"
+                    "component-registry.schema.json"
+                ),
+            ],
+        )
+
+        snapshot = MODULE.load_component_registry_console_snapshot(
+            generated_at="2026-07-31T12:00:00Z",
+        )
+        self.assertEqual(snapshot["schema_version"], 2)
+        self.assertEqual(snapshot["availability"], "current")
+        self.assertTrue(snapshot["complete"])
+        self.assertEqual(
+            set(snapshot["routes"]),
+            {
+                "components",
+                "lifecycles",
+                "authority",
+                "relationships",
+                "coverage",
+                "routing",
+                "terminology",
+            },
+        )
+        self.assertEqual(
+            snapshot["registry"]["validation_mode"],
+            "proposed_revision_validation",
+        )
+        self.assertEqual(snapshot["registry"]["registry_status"], "proposed")
+        self.assertFalse(snapshot["registry"]["authoritative"])
+        self.assertFalse(snapshot["registry"]["executable"])
+        self.assertFalse(snapshot["registry"]["live_authority_verified"])
+        self.assertFalse(snapshot["registry"]["predecessor_route_consulted"])
+        self.assertEqual(len(snapshot["components"]), 103)
+        self.assertEqual(len(snapshot["lifecycles"]["assignments"]), 103)
+        self.assertEqual(len(snapshot["authorities"]["assignments"]), 103)
+        self.assertEqual(len(snapshot["relationships"]), 15)
+        self.assertEqual(len(snapshot["coverage"]["records"]), 57)
+        self.assertEqual(snapshot["coverage"]["uncovered_count"], 0)
+        self.assertEqual(snapshot["coverage"]["multiply_treated_count"], 0)
+        self.assertEqual(len(snapshot["routing"]["selections"]), 27)
+        self.assertTrue(snapshot["terminology"]["adopted"])
+        self.assertEqual(len(snapshot["terminology"]["entries"]), 69)
+        for component in snapshot["components"]:
+            self.assertIn("classification", component)
+            self.assertIn("canonical_source", component)
+            self.assertIn("information_handling", component)
+            self.assertIn("retention", component)
+            self.assertIn("supporting_artifacts", component)
+            self.assertIn("lifecycle_records", component)
+            self.assertIn("authority_records", component)
+            self.assertIn("relationship_records", component)
+            self.assertIn("migration_records", component)
+            self.assertIn("provenance_records", component)
+        serialized = json.dumps(snapshot, sort_keys=True)
+        self.assertNotIn(
+            "component-registry-stage2-terminology-working-draft.md",
+            serialized,
+        )
+        self.assertNotIn(
+            "framework/proposals/component-registry-stage2-design.md",
+            serialized,
+        )
+
+    def _legacy_stage1_active_projection(self):
         registry = candidate_registry_fixture()
         candidate_registry = copy.deepcopy(registry)
         registry["status"] = "active"

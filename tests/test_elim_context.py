@@ -310,10 +310,11 @@ class ExactContextTests(unittest.TestCase):
             )
             output = run / "packet.json"
             active_view = {
-                "validation_mode": "active_component_registry",
+                "schema_version": 2,
+                "validation_mode": "live_authority_validation",
                 "authoritative": True,
                 "executable": True,
-                "live_activation_verified": True,
+                "live_authority_verified": True,
                 "activation_receipt_consulted": True,
                 "predecessor_route_consulted": False,
             }
@@ -377,12 +378,13 @@ class ExactContextTests(unittest.TestCase):
             )
             output = run / "packet.json"
             candidate_view = {
-                "validation_mode": "candidate_validation_only",
+                "schema_version": 2,
+                "validation_mode": "proposed_revision_validation",
                 "authoritative": False,
                 "executable": False,
-                "live_activation_verified": False,
+                "live_authority_verified": False,
                 "activation_receipt_consulted": False,
-                "predecessor_route_consulted": True,
+                "predecessor_route_consulted": False,
             }
             with (
                 patch.object(
@@ -481,10 +483,11 @@ class ExactContextTests(unittest.TestCase):
             )
             output = run / "packet.json"
             active_view = {
-                "validation_mode": "active_component_registry",
+                "schema_version": 2,
+                "validation_mode": "live_authority_validation",
                 "authoritative": True,
                 "executable": True,
-                "live_activation_verified": True,
+                "live_authority_verified": True,
                 "activation_receipt_consulted": True,
                 "predecessor_route_consulted": False,
             }
@@ -2777,11 +2780,11 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
             {
                 "framework_kernel",
                 "agent_rules_kernel",
-                "current_audit",
+                "task_handoff",
             }
             <= set(raw["required_modules"])
         )
-        current_spec = raw["documents"]["current_audit"]
+        current_spec = raw["documents"]["task_handoff"]
         self.assertEqual(
             current_spec["path"],
             "framework/handoffs/current-task.md",
@@ -2794,7 +2797,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         )
         self.assertNotIn("sha256", current_spec)
         for document_id, document in raw["documents"].items():
-            if document_id == "current_audit":
+            if document_id == "task_handoff":
                 continue
             self.assertEqual(document.get("hash_policy"), "pinned", document_id)
             self.assertRegex(
@@ -2838,7 +2841,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
         current_module = next(
             module
             for module in packets["issue_development"]["modules"]
-            if module["document"] == "current_audit"
+            if module["document"] == "task_handoff"
         )
         self.assertEqual(current_module["hash_policy"], "runtime")
         self.assertEqual(
@@ -2866,18 +2869,18 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
                 "public_release",
             },
             "issue_development": {
-                "project_profile",
+                "project_configuration",
                 "project_source_adjudication",
                 "method_scope_admission",
                 "method_partisan_perception",
                 "issue_architecture",
                 "development_levels",
-                "maturity_profile",
+                "proposal_development_model",
                 "agent_issue_candidate_work",
                 "github_workflow",
             },
             "candidate_research": {
-                "project_profile",
+                "project_configuration",
                 "project_source_adjudication",
                 "candidate_adjudication",
                 "method_partisan_perception",
@@ -2885,24 +2888,24 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
                 "agent_issue_candidate_work",
             },
             "issue_audit": {
-                "project_profile",
+                "project_configuration",
                 "project_source_adjudication",
                 "project_audit_execution",
                 "audit_core",
                 "audit_verification",
                 "audit_tiered",
                 "audit_legal_prior_proposal",
-                "scoring_quality_rubric",
+                "proposal_scoring_model",
                 "scoring_adoption_pathway",
                 "scoring_external_international",
             },
             "change_audit": {
-                "project_profile",
+                "project_configuration",
                 "project_source_adjudication",
                 "project_audit_execution",
                 "audit_change",
                 "audit_project_consistency",
-                "scoring_quality_rubric",
+                "proposal_scoring_model",
                 "github_workflow",
             },
             "public_intake": {
@@ -2919,7 +2922,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
             },
         }
         for profile_name, expected_modules in expected_profile_modules.items():
-            if view["registry_status"] == "active":
+            if view["validation_mode"] != "proposed_revision_validation":
                 expected_modules = expected_modules - {
                     "project_structure",
                     "context_routing",
@@ -2947,7 +2950,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
             manifest["profiles"]["comprehensive_review"]["include_all_governing"]
         )
         self.assertTrue(governing <= comprehensive_modules)
-        self.assertIn("current_audit", comprehensive_modules)
+        self.assertIn("task_handoff", comprehensive_modules)
 
     def test_small_profiles_allow_additive_audit_capabilities_with_headroom(self):
         manifest, view = self.configuration_route()

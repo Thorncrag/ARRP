@@ -143,11 +143,10 @@ class GitHubIssueLinkTests(unittest.TestCase):
     CONTEXT_ROUTING_AUTHORITY_FIELDS = {
         "authority_mode",
         "validation_mode",
-        "registry_status",
         "registry_revision",
         "registry_sha256",
         "configuration_valid",
-        "live_activation_verified",
+        "live_authority_verified",
         "authoritative",
         "executable",
         "predecessor_route_consulted",
@@ -213,7 +212,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             "required_modules": [
                 "framework_kernel",
                 "agent_rules_kernel",
-                "current_audit",
+                "task_handoff",
             ],
             "documents": {
                 "codex_bootstrap": {
@@ -235,7 +234,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                     "hash_policy": "pinned",
                     "governing": True,
                 },
-                "current_audit": {
+                "task_handoff": {
                     "path": "framework/handoffs/current-task.md",
                     "hash_policy": "runtime",
                     "governing": False,
@@ -268,36 +267,33 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self,
         route: dict[str, object],
         *,
-        mode: str = "candidate_validation_only",
+        mode: str = "proposed_revision_validation",
     ) -> dict[str, object]:
         postures = {
-            "candidate_validation_only": {
-                "registry_status": "candidate",
+            "proposed_revision_validation": {
                 "authoritative": False,
                 "executable": False,
-                "live_activation_verified": False,
-                "activation_receipt_consulted": False,
-                "predecessor_route_consulted": True,
-            },
-            "active_configuration_validation_only": {
-                "registry_status": "active",
-                "authoritative": False,
-                "executable": False,
-                "live_activation_verified": False,
+                "live_authority_verified": False,
                 "activation_receipt_consulted": False,
                 "predecessor_route_consulted": False,
             },
-            "active_component_registry": {
-                "registry_status": "active",
+            "adopted_configuration_validation": {
+                "authoritative": False,
+                "executable": False,
+                "live_authority_verified": False,
+                "activation_receipt_consulted": False,
+                "predecessor_route_consulted": False,
+            },
+            "live_authority_validation": {
                 "authoritative": True,
                 "executable": True,
-                "live_activation_verified": True,
+                "live_authority_verified": True,
                 "activation_receipt_consulted": True,
                 "predecessor_route_consulted": False,
             },
         }
         return {
-            "schema_version": 1,
+            "schema_version": 2,
             "validation_mode": mode,
             "registry_id": "ARRP-COMPONENT-REGISTRY",
             "registry_revision": 1,
@@ -333,13 +329,13 @@ class GitHubIssueLinkTests(unittest.TestCase):
             self.assertEqual(warnings, [])
             self.assertEqual(
                 envelope["validation_mode"],
-                "candidate_validation_only",
+                "proposed_revision_validation",
             )
 
             variants = []
             missing_kernel = {
                 **baseline,
-                "required_modules": ["framework_kernel", "current_audit"],
+                "required_modules": ["framework_kernel", "task_handoff"],
             }
             variants.append((missing_kernel, "required floor omits: agent_rules_kernel"))
 
@@ -347,7 +343,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 **baseline,
                 "documents": {
                     **baseline["documents"],
-                    "current_audit": {
+                    "task_handoff": {
                         "path": "framework/handoffs/current-task.md",
                         "hash_policy": "pinned",
                         "governing": True,
@@ -383,7 +379,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 (
                     reversed_floor,
                     "required floor must be exactly "
-                    "framework_kernel, agent_rules_kernel, current_audit in that order",
+                    "framework_kernel, agent_rules_kernel, task_handoff in that order",
                 )
             )
 
@@ -741,7 +737,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                     consistency.context_registry_dependencies_match(
                         declared,
                         candidate_expected,
-                        validation_mode="candidate_validation_only",
+                        validation_mode="proposed_revision_validation",
                         predecessor_paths=predecessor_paths,
                     )
                 )
@@ -755,7 +751,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                     consistency.context_registry_dependencies_match(
                         declared,
                         active_expected,
-                        validation_mode="active_configuration_validation_only",
+                        validation_mode="adopted_configuration_validation",
                         predecessor_paths=predecessor_paths,
                     )
                 )
@@ -763,7 +759,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                     consistency.context_registry_dependencies_match(
                         candidate_expected,
                         active_expected,
-                        validation_mode="active_configuration_validation_only",
+                        validation_mode="adopted_configuration_validation",
                         predecessor_paths=predecessor_paths,
                     )
                 )
@@ -791,7 +787,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                     consistency.context_registry_dependencies_match(
                         invalid,
                         candidate_expected,
-                        validation_mode="candidate_validation_only",
+                        validation_mode="proposed_revision_validation",
                         predecessor_paths=predecessor_paths,
                     )
                 )
@@ -883,8 +879,8 @@ class GitHubIssueLinkTests(unittest.TestCase):
 
     def test_context_registry_configuration_modes_use_zero_argument_loader(self):
         for mode in (
-            "candidate_validation_only",
-            "active_configuration_validation_only",
+            "proposed_revision_validation",
+            "adopted_configuration_validation",
         ):
             with self.subTest(mode=mode), tempfile.TemporaryDirectory() as directory:
                 root = Path(directory)
@@ -931,7 +927,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 self.assertEqual(envelope["validation_mode"], mode)
                 self.assertFalse(envelope["authoritative"])
                 self.assertFalse(envelope["executable"])
-                self.assertFalse(envelope["live_activation_verified"])
+                self.assertFalse(envelope["live_authority_verified"])
                 self.assertFalse(envelope["activation_receipt_consulted"])
 
     def test_context_registry_production_uses_only_fixed_runtime_loader(self):
@@ -940,7 +936,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             route = self.context_registry_fixture(root)
             view = self.context_registry_view(
                 route,
-                mode="active_component_registry",
+                mode="live_authority_validation",
             )
             authority = SimpleNamespace(mode="production_transaction")
             failures: list[str] = []
@@ -983,11 +979,11 @@ class GitHubIssueLinkTests(unittest.TestCase):
             self.assertTrue(envelope["configuration_valid"])
             self.assertEqual(
                 envelope["validation_mode"],
-                "active_component_registry",
+                "live_authority_validation",
             )
             self.assertTrue(envelope["authoritative"])
             self.assertTrue(envelope["executable"])
-            self.assertTrue(envelope["live_activation_verified"])
+            self.assertTrue(envelope["live_authority_verified"])
             self.assertTrue(envelope["activation_receipt_consulted"])
 
     def test_context_registry_active_mode_checks_current_markdown_without_opening_predecessors(
@@ -998,7 +994,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             route = self.context_registry_fixture(root)
             view = self.context_registry_view(
                 route,
-                mode="active_configuration_validation_only",
+                mode="adopted_configuration_validation",
             )
             archive = root / "framework" / "archive" / "authorities"
             archive.mkdir(parents=True)
@@ -1056,7 +1052,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             self.assertTrue(predecessor_paths.isdisjoint(visited))
             self.assertEqual(
                 envelope["validation_mode"],
-                "active_configuration_validation_only",
+                "adopted_configuration_validation",
             )
             self.assertFalse(envelope["predecessor_route_consulted"])
 
@@ -1115,11 +1111,10 @@ class GitHubIssueLinkTests(unittest.TestCase):
             {
                 "authority_mode": "production-transaction",
                 "validation_mode": "unavailable",
-                "registry_status": "unavailable",
                 "registry_revision": None,
                 "registry_sha256": None,
                 "configuration_valid": False,
-                "live_activation_verified": False,
+                "live_authority_verified": False,
                 "authoritative": False,
                 "executable": False,
                 "predecessor_route_consulted": False,
@@ -1133,7 +1128,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             route = self.context_registry_fixture(root)
             invalid = self.context_registry_view(
                 route,
-                mode="active_configuration_validation_only",
+                mode="adopted_configuration_validation",
             )
             invalid["predecessor_route_consulted"] = True
             failures: list[str] = []
@@ -1163,7 +1158,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             route = self.context_registry_fixture(root)
             invalid = self.context_registry_view(
                 route,
-                mode="active_component_registry",
+                mode="live_authority_validation",
             )
             failures: list[str] = []
             warnings: list[str] = []
@@ -1189,11 +1184,11 @@ class GitHubIssueLinkTests(unittest.TestCase):
             )
             self.assertEqual(warnings, [])
 
-    def test_current_audit_handoff_state_is_coherent(self):
-        current_audit = (ROOT / "framework/handoffs/current-task.md").read_text(
+    def test_task_handoff_handoff_state_is_coherent(self):
+        task_handoff = (ROOT / "framework/handoffs/current-task.md").read_text(
             encoding="utf-8"
         )
-        current_table = current_audit.split("## Current Task", 1)[1].split(
+        current_table = task_handoff.split("## Current Task", 1)[1].split(
             "## Handoff Rules", 1
         )[0]
         rows: dict[str, str] = {}
@@ -1242,8 +1237,8 @@ class GitHubIssueLinkTests(unittest.TestCase):
             r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} [+-]\d{4}$",
         )
 
-    def test_current_audit_rules_separate_handoff_from_runtime_liveness(self):
-        current_audit = (ROOT / "framework/handoffs/current-task.md").read_text(
+    def test_task_handoff_rules_separate_handoff_from_runtime_liveness(self):
+        task_handoff = (ROOT / "framework/handoffs/current-task.md").read_text(
             encoding="utf-8"
         )
         agent_rules = (ROOT / "framework/AGENT_OPERATING_RULES.md").read_text(
@@ -1267,12 +1262,12 @@ class GitHubIssueLinkTests(unittest.TestCase):
 
         self.assertIn(
             "| Handoff state | Open / Paused / Blocked / Inactive |",
-            current_audit,
+            task_handoff,
         )
-        self.assertNotIn("| Status | Active / Paused / Blocked / Inactive |", current_audit)
-        self.assertIn("records continuation state only", current_audit)
-        self.assertIn("It is not evidence that an agent", current_audit)
-        self.assertIn("This file is not a completion ledger.", current_audit)
+        self.assertNotIn("| Status | Active / Paused / Blocked / Inactive |", task_handoff)
+        self.assertIn("records continuation state only", task_handoff)
+        self.assertIn("It is not evidence that an agent", task_handoff)
+        self.assertIn("This file is not a completion ledger.", task_handoff)
         self.assertIn("## Context Handoff", agent_rules)
         self.assertIn(
             "[`task-handoffs.md`](standards/automation/task-handoffs.md#context-handoff)",

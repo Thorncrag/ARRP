@@ -904,16 +904,17 @@ def _review_epoch_routing_boundary_untyped(
     allow_candidate_validation: bool,
 ) -> dict[str, str]:
     """Validate one Component Registry comprehensive-review boundary."""
-    if routing_view.get("schema_version") != 1:
+    if routing_view.get("schema_version") != 2:
         raise ValueError(
             "Review Epoch boundary comparison requires a validated "
             "Component Registry routing view"
         )
-    status = routing_view.get("registry_status")
-    if status == "active":
+    mode = routing_view.get("validation_mode")
+    if mode == "live_authority_validation":
         if (
-            routing_view.get("validation_mode") != "active_component_registry"
-            or routing_view.get("authoritative") is not True
+            routing_view.get("authoritative") is not True
+            or routing_view.get("executable") is not True
+            or routing_view.get("live_authority_verified") is not True
             or routing_view.get("predecessor_route_consulted") is not False
         ):
             raise ValueError(
@@ -921,17 +922,22 @@ def _review_epoch_routing_boundary_untyped(
                 "Component Registry"
             )
         expected_authoritative = True
-    elif status == "candidate" and allow_candidate_validation:
+        expected_selection_kind = "executable_packet"
+        expected_executable = True
+    elif mode == "proposed_revision_validation" and allow_candidate_validation:
         if (
-            routing_view.get("validation_mode") != "candidate_validation_only"
-            or routing_view.get("authoritative") is not False
-            or routing_view.get("predecessor_route_consulted") is not True
+            routing_view.get("authoritative") is not False
+            or routing_view.get("executable") is not False
+            or routing_view.get("live_authority_verified") is not False
+            or routing_view.get("predecessor_route_consulted") is not False
         ):
             raise ValueError(
-                "candidate Review Epoch routing lacks explicit predecessor-bound "
-                "validation"
+                "proposed Review Epoch routing lacks nonexecuting Stage 2 "
+                "configuration validation"
             )
         expected_authoritative = False
+        expected_selection_kind = "configuration_validation_packet"
+        expected_executable = False
     else:
         raise ValueError(
             "Review Epoch routing requires active authority; candidate validation "
@@ -956,8 +962,8 @@ def _review_epoch_routing_boundary_untyped(
             "Review Epoch routing has an invalid Component Registry identity"
         )
     if (
-        routing_selection.get("selection_kind") != "executable_packet"
-        or routing_selection.get("executable") is not True
+        routing_selection.get("selection_kind") != expected_selection_kind
+        or routing_selection.get("executable") is not expected_executable
         or routing_selection.get("profile") != "comprehensive_review"
         or routing_selection.get("capabilities") != []
         or routing_selection.get("authoritative") is not expected_authoritative
@@ -969,7 +975,6 @@ def _review_epoch_routing_boundary_untyped(
     for field in (
         "registry_id",
         "registry_revision",
-        "registry_status",
         "registry_sha256",
         "registry_path",
     ):
@@ -1048,12 +1053,12 @@ def _review_epoch_routing_boundary_untyped(
         elif policy == "runtime":
             runtime_ids.append(document_id)
             if (
-                document_id != "current_audit"
+                document_id != "task_handoff"
                 or module.get("governing") is not False
                 or digest is not None
             ):
                 raise ValueError(
-                    "current_audit must be the sole unpinned runtime module in "
+                    "task_handoff must be the sole unpinned runtime module in "
                     "the Review Epoch route"
                 )
         else:
@@ -1071,9 +1076,9 @@ def _review_epoch_routing_boundary_untyped(
                     f"Review Epoch routing repeats governing path {path}"
                 )
             current[path] = "sha256:" + str(digest)
-    if runtime_ids != ["current_audit"]:
+    if runtime_ids != ["task_handoff"]:
         raise ValueError(
-            "current_audit must be the sole runtime-hashed Review Epoch module"
+            "task_handoff must be the sole runtime-hashed Review Epoch module"
         )
 
     expected_seeds = [
@@ -1151,7 +1156,7 @@ def _review_epoch_routing_boundary(
         raise
     except ValueError as exc:
         detail = str(exc)
-        if "runtime" in detail or "current_audit" in detail:
+        if "runtime" in detail or "task_handoff" in detail:
             failure_code = "CTXR_RUNTIME_DIGEST_UNREADABLE"
             rule_ids = (
                 "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary",

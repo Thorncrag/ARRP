@@ -4097,22 +4097,22 @@ def governing_protected_paths(
         ) from error
     validation_mode = routing_view.get("validation_mode")
     expected_posture = {
-        "candidate_validation_only": {
+        "proposed_revision_validation": {
             "authoritative": False,
             "executable": False,
-            "live_activation_verified": False,
+            "live_authority_verified": False,
             "activation_receipt_consulted": False,
-            "predecessor_route_consulted": True,
+            "predecessor_route_consulted": False,
         },
-        "active_component_registry": {
+        "live_authority_validation": {
             "authoritative": True,
             "executable": True,
-            "live_activation_verified": True,
+            "live_authority_verified": True,
             "activation_receipt_consulted": True,
             "predecessor_route_consulted": False,
         },
     }.get(str(validation_mode))
-    if expected_posture is None or any(
+    if routing_view.get("schema_version") != 2 or expected_posture is None or any(
         routing_view.get(field) is not expected
         for field, expected in expected_posture.items()
     ):
@@ -4120,7 +4120,7 @@ def governing_protected_paths(
             "Component Registry routing view has an invalid authority posture"
         )
     if require_active_registry and (
-        validation_mode != "active_component_registry"
+        validation_mode != "live_authority_validation"
     ):
         raise TransactionError(
             "production routing requires an active Component Registry "

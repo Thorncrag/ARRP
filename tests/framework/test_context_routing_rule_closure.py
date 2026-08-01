@@ -184,10 +184,10 @@ ASSURANCE_ROW_FIELDS = {
 ASSURANCE_MODES = {
     "deterministic_enforcement",
     "governing_instruction_precondition",
-    "candidate_validation_only",
+    "proposed_revision_validation",
 }
 RULES_BY_ASSURANCE_MODE = {
-    "candidate_validation_only": {
+    "proposed_revision_validation": {
         "ctxr.inv.router_preserves_source_authority",
     },
     "governing_instruction_precondition": {
@@ -214,7 +214,7 @@ RULES_BY_ASSURANCE_MODE = {
 }
 RULES_BY_ASSURANCE_MODE["deterministic_enforcement"] = (
     ALL_APPROVED_RULES
-    - RULES_BY_ASSURANCE_MODE["candidate_validation_only"]
+    - RULES_BY_ASSURANCE_MODE["proposed_revision_validation"]
     - RULES_BY_ASSURANCE_MODE["governing_instruction_precondition"]
 )
 APPROVED_ASSURANCE_MODE_BY_RULE = {
@@ -1490,7 +1490,7 @@ def _candidate_packet(
     return registry_tool.build_context_packet_from_view(
         view or _current_candidate_view(),
         profile,
-        assurance_mode="candidate_validation_only",
+        assurance_mode="proposed_revision_validation",
         root=ROOT,
         capabilities=capabilities,
         **options,
@@ -1673,7 +1673,7 @@ class ContextRoutingRuleClosureTests(unittest.TestCase):
                     profile_id="comprehensive_review",
                 )
             elif scenario == "packet_runtime":
-                view["route"]["documents"]["current_audit"]["path"] = (
+                view["route"]["documents"]["task_handoff"]["path"] = (
                     "framework/runtime-missing.md"
                 )
                 _candidate_packet(view=view)
@@ -1704,7 +1704,7 @@ class ContextRoutingRuleClosureTests(unittest.TestCase):
                 route["documents"]["framework_kernel"]["sha256"] = None
                 registry_tool.validate_route_source(route)
             elif scenario == "route_runtime":
-                route["documents"]["current_audit"].update(
+                route["documents"]["task_handoff"].update(
                     {
                         "hash_policy": "pinned",
                         "sha256": "0" * 64,
@@ -1746,7 +1746,7 @@ class ContextRoutingRuleClosureTests(unittest.TestCase):
                     current = next(
                         item
                         for item in selection["modules"]
-                        if item["id"] == "current_audit"
+                        if item["id"] == "task_handoff"
                     )
                     current["hash_policy"] = "pinned"
                     current["sha256"] = "0" * 64

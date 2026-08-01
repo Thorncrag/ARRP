@@ -54,7 +54,7 @@ When uncertain, document the question, skip only the disputed action or affected
 ## Persistent-Agent Runbooks
 
 Every persistent named agent or bot has exactly one authoritative runbook
-registered in the [ARRP automation registry](project/automation/registry.md).
+registered in the [Component Registry](component-registry.json).
 The runbook records its stable identity, trigger, runtime, authority, inputs,
 work order, boundaries, validation, provenance, failure behavior, and outputs.
 Secrets and credentials never appear in a runbook.

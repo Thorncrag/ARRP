@@ -13,13 +13,14 @@ import errno
 import hashlib
 import json
 import os
+import re
 import secrets
 import stat
 import subprocess
 from collections.abc import Mapping
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Sequence
 
 try:
     from . import component_registry as registry
@@ -960,6 +961,160 @@ def verify_fixture_and_write(
             "fixture post-publication active posture is invalid"
         )
     return receipt
+
+
+def _build_stage2_synthetic_receipt(
+    proposed_registry: Mapping[str, Any],
+    *,
+    canonical_revision: str,
+    adoption_evidence: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Build deterministic public-safe Stage 2 evidence for a fixture only."""
+    if proposed_registry.get("schema_version") != 2:
+        raise ActivationFinalizationError("Stage 2 receipt requires schema version 2")
+    if proposed_registry.get("validation", {}).get("mode") != "proposed_revision_validation":
+        raise ActivationFinalizationError("Stage 2 receipt requires a proposed revision")
+    if registry.SHA256_RE.fullmatch(str(canonical_revision)) is not None:
+        # A Git revision is exactly forty hexadecimal characters, not a digest.
+        raise ActivationFinalizationError("canonical adoption revision has the wrong shape")
+    if re.fullmatch(r"[0-9a-f]{40}", str(canonical_revision)) is None:
+        raise ActivationFinalizationError("canonical adoption revision is invalid")
+    required_evidence = {
+        "adopted_by", "adopted_at", "pull_request", "reviewed_head",
+        "merge_commit", "checks_revision", "checks_state",
+    }
+    if set(adoption_evidence) != required_evidence:
+        raise ActivationFinalizationError("Stage 2 adoption evidence is not closed")
+    if (
+        adoption_evidence.get("adopted_by") != "@Thorncrag"
+        or adoption_evidence.get("merge_commit") != canonical_revision
+        or adoption_evidence.get("checks_revision") != adoption_evidence.get("reviewed_head")
+        or adoption_evidence.get("checks_state") != "success"
+    ):
+        raise ActivationFinalizationError("Stage 2 adoption evidence is not exact")
+    digest = registry._canonical_registry_digest(proposed_registry)
+    return {
+        "schema_version": 2,
+        "verification_type": "component_registry_stage2_adoption_readback",
+        "issuer": "component_registry_activation_finalizer",
+        "registry_id": proposed_registry["registry_id"],
+        "registry_revision": proposed_registry["registry_revision"],
+        "registry_sha256": digest,
+        "canonical_revision": canonical_revision,
+        "design_id": proposed_registry["validation"]["design_id"],
+        "design_revision": proposed_registry["validation"]["design_revision"],
+        "validation_mode": "live_authority_validation",
+        "adoption_evidence": dict(adoption_evidence),
+    }
+
+
+def select_component_registry_receipt(
+    tracked_registry: Mapping[str, Any],
+    receipts: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Select only evidence bound to the exact tracked Registry bytes.
+
+    Both Stage 1 and Stage 2 receipts may remain preserved. Selection follows
+    the tracked Registry revision and digest, so a verified revert selects the
+    preserved Stage 1 evidence without deleting or rewriting either receipt.
+    """
+    digest = registry._canonical_registry_digest(tracked_registry)
+    if tracked_registry.get("schema_version") == 2:
+        matches = [
+            receipt for receipt in receipts
+            if receipt.get("verification_type") == "component_registry_stage2_adoption_readback"
+            and receipt.get("registry_revision") == 2
+            and receipt.get("registry_sha256") == digest
+            and receipt.get("design_id") == registry.STAGE2_DESIGN_ID
+            and receipt.get("design_revision") == registry.STAGE2_DESIGN_REVISION
+            and receipt.get("validation_mode") == "live_authority_validation"
+        ]
+        selected_mode = "live_authority_validation"
+    elif tracked_registry.get("schema_version") == 1:
+        matches = [
+            receipt for receipt in receipts
+            if receipt.get("verification_type") == "component_registry_activation_readback"
+            and receipt.get("registry_sha256") == digest
+        ]
+        selected_mode = "active_component_registry"
+    else:
+        raise ActivationFinalizationError("tracked Registry revision is unsupported")
+    if len(matches) != 1:
+        raise ActivationFinalizationError("exactly one digest-bound Registry receipt is required")
+    return {
+        "validation_mode": selected_mode,
+        "registry_sha256": digest,
+        "receipt": copy.deepcopy(dict(matches[0])),
+    }
+
+
+def verify_stage2_fixture_and_write(
+    path_authority: ProjectPathAuthority,
+    proposed_registry: Mapping[str, Any],
+    *,
+    canonical_revision: str,
+    adoption_evidence: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Exercise Stage 2 receipt construction only inside a contained fixture."""
+    if path_authority.mode != "fixture":
+        raise ActivationFinalizationError("Stage 2 verifier requires fixture authority")
+    try:
+        registry.validate_stage2_registry(
+            proposed_registry,
+            root=path_authority.repository_root,
+            verify_repository_coverage=False,
+            verify_source_bindings=False,
+            verify_migration_residuals=False,
+        )
+    except registry.RegistryError as exc:
+        raise ActivationFinalizationError("fixture Stage 2 Registry validation failed") from exc
+    receipt = _build_stage2_synthetic_receipt(
+        proposed_registry,
+        canonical_revision=canonical_revision,
+        adoption_evidence=adoption_evidence,
+    )
+    try:
+        receipt_schema = registry._read_json(
+            registry.ROOT
+            / "framework"
+            / "standards"
+            / "automation"
+            / "component-registry.schema.json"
+        )
+        registry._validate_against_schema(
+            receipt,
+            receipt_schema["$defs"]["componentRegistryStage2AdoptionReadback"],
+            receipt_schema,
+        )
+    except (KeyError, TypeError, registry.RegistryError) as exc:
+        raise ActivationFinalizationError(
+            "fixture Stage 2 receipt failed its closed schema"
+        ) from exc
+    path = _write_fixed_receipt(path_authority, receipt)
+    try:
+        metadata = path.lstat()
+        readback = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ActivationFinalizationError("Stage 2 fixture receipt readback failed") from exc
+    if (
+        not stat.S_ISREG(metadata.st_mode)
+        or metadata.st_uid != os.getuid()
+        or stat.S_IMODE(metadata.st_mode) != 0o600
+        or readback != receipt
+        or path.name != f"{receipt['registry_sha256']}.json"
+    ):
+        raise ActivationFinalizationError("Stage 2 fixture receipt identity is invalid")
+    selected = select_component_registry_receipt(proposed_registry, [receipt])
+    if selected["validation_mode"] != "live_authority_validation":
+        raise ActivationFinalizationError("Stage 2 fixture receipt was not selected")
+    return {
+        "created": True,
+        "registry_revision": 2,
+        "registry_sha256": receipt["registry_sha256"],
+        "canonical_revision": canonical_revision,
+        "validation_mode": selected["validation_mode"],
+        "receipt_path": str(path.relative_to(path_authority.state_root)),
+    }
 
 
 def finalize_activation() -> dict[str, Any]:

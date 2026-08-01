@@ -272,10 +272,10 @@ def main(
                 )
                 if (
                     routing_view.get("validation_mode")
-                    != "active_component_registry"
+                    != "live_authority_validation"
                     or routing_view.get("authoritative") is not True
                     or routing_view.get("executable") is not True
-                    or routing_view.get("live_activation_verified") is not True
+                    or routing_view.get("live_authority_verified") is not True
                     or routing_view.get("activation_receipt_consulted")
                     is not True
                     or routing_view.get("predecessor_route_consulted")

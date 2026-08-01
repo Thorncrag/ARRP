@@ -129,20 +129,20 @@ Production resolution uses only the fixed typed path authority.
 Three validation modes keep tracked configuration separate from live
 activation:
 
-- `candidate_validation_only` validates the nonauthoritative candidate and
-  its explicit predecessor-import parity. It is nonexecutable and never reads
-  an activation readback.
-- `active_configuration_validation_only` validates the tracked active
+- `proposed_revision_validation` validates a nonauthoritative proposed
+  Registry revision and its embedded routing authority. It is nonexecutable,
+  never consults a predecessor, and never reads an activation readback.
+- `adopted_configuration_validation` validates the tracked active
   configuration without owner-local access. It is suitable for repository and
   CI configuration checks only and is nonauthoritative, nonexecutable, and
   unable to claim live activation.
-- `active_component_registry` is available only to a production-canonical or
+- `live_authority_validation` is available only to a production-canonical or
   production-transaction reader after the exact digest-addressed readback has
   passed every fixed-path, file-safety, schema, approval, revision, content,
   chronology, and ancestry check. Only this mode is authoritative and
   executable.
 
-Candidate validation retains the exact current predecessor read, digest, and
+Stage 1 candidate validation retained the exact predecessor read, digest, and
 parity checks until activation. A tracked active configuration or live active
 reader uses only the embedded Component Registry route. It never opens,
 hashes, selects, or falls back to either predecessor or its archived copy;

@@ -8,9 +8,6 @@
     "relationships",
     "terminology"
   ]);
-  const TERMINOLOGY_DRAFT_PATH =
-    "../../../../research/component-registry-stage2-terminology-working-draft.md";
-  const REGISTRY_SOURCE_PATH = "../../../component-registry.json";
   const PENDING_DISPLAY = "Classification pending — enforcement not active";
   const TYPED_STATES = new Set([
     "known",
@@ -277,36 +274,9 @@
   }
 
   async function loadBoundRelationships(snapshot) {
-    if (Array.isArray(boundRelationships)) return boundRelationships;
-    const response = await global.fetch(REGISTRY_SOURCE_PATH, { cache: "no-store" });
-    if (!response.ok) throw new Error("Component Registry source is unavailable.");
-    const registry = await response.json();
-    const registryDigest = await sha256(JSON.stringify(canonicalValue(registry)));
-    if (registryDigest !== snapshot.registry.registry_sha256) {
-      throw new Error("Component Registry source does not match the validated Console binding.");
-    }
-    if (!Array.isArray(registry.component_relationships)) {
-      throw new Error("Component Registry relationships are unavailable.");
-    }
-    const relationships = registry.component_relationships.map((record) => {
-      if (!exactFields(record, REGISTRY_RELATIONSHIP_FIELDS)) {
-        throw new Error("A Component Registry relationship is malformed.");
-      }
-      return {
-        ...record,
-        console_route: (
-          "automation:component-registry:relationships?relationship="
-          + encodeURIComponent(record.relationship_id)
-        )
-      };
-    });
-    if (!relationships.every(validRelationship)
-      || new Set(relationships.map((record) => record.relationship_id)).size
-        !== relationships.length) {
-      throw new Error("Component Registry relationships are invalid.");
-    }
-    boundRelationships = relationships;
-    return relationships;
+    return Array.isArray(snapshot?.relationships)
+      ? snapshot.relationships
+      : [];
   }
 
   function validRegistry(value) {
@@ -1081,64 +1051,6 @@
     ]);
   }
 
-  function parseTerminologyWorkingDraft(markdown) {
-    if (typeof markdown !== "string" || !/^status:\s*draft\s*$/m.test(markdown)) {
-      return [];
-    }
-    const approvedHeading = "## Approved terminology";
-    const approvedStart = markdown.indexOf(approvedHeading);
-    if (approvedStart < 0) return [];
-    const contentStart = approvedStart + approvedHeading.length;
-    const nextSection = markdown.indexOf("\n## ", contentStart);
-    const approved = markdown.slice(
-      contentStart,
-      nextSection < 0 ? markdown.length : nextSection
-    );
-    const headings = [...approved.matchAll(/^### (.+)$/gm)];
-    if (!headings.length) return [];
-    const entries = headings.map((match, index) => {
-      const term = match[1].trim();
-      const bodyStart = match.index + match[0].length;
-      const bodyEnd = index + 1 < headings.length
-        ? headings[index + 1].index
-        : approved.length;
-      let body = approved.slice(bodyStart, bodyEnd).trim();
-      const dimensionalNote = body.indexOf(
-        "\n\nThese dimensions are not mutually exclusive."
-      );
-      if (dimensionalNote >= 0) body = body.slice(0, dimensionalNote).trim();
-      const paragraphs = body
-        .split(/\n\s*\n/)
-        .map((paragraph) => paragraph.replace(/\s*\n\s*/g, " ").trim())
-        .filter(Boolean);
-      return { term, paragraphs };
-    });
-    const terms = entries.map((entry) => entry.term);
-    return entries.every((entry) => entry.term && entry.paragraphs.length)
-      && new Set(terms).size === terms.length
-      ? entries
-      : [];
-  }
-
-  let terminologyDraftPromise = null;
-
-  function loadTerminologyWorkingDraft() {
-    if (typeof global.fetch !== "function") return Promise.resolve([]);
-    if (!terminologyDraftPromise) {
-      terminologyDraftPromise = global.fetch(TERMINOLOGY_DRAFT_PATH, {
-        cache: "no-store",
-        credentials: "same-origin"
-      })
-        .then((response) => {
-          if (!response.ok) throw new Error("terminology draft unavailable");
-          return response.text();
-        })
-        .then(parseTerminologyWorkingDraft)
-        .catch(() => []);
-    }
-    return terminologyDraftPromise;
-  }
-
   function filterTerminologyEntries(entries, query) {
     const tokens = String(query || "")
       .trim()
@@ -1147,7 +1059,7 @@
       .filter(Boolean);
     if (!tokens.length) return [...entries];
     return entries.filter((entry) => {
-      const searchable = `${entry.term} ${entry.paragraphs.join(" ")}`
+      const searchable = `${entry.label} ${entry.definition}`
         .toLocaleLowerCase();
       return tokens.every((token) => searchable.includes(token));
     });
@@ -1594,7 +1506,6 @@
       document.getElementById("component-registry-terminology-detail"),
       snapshot.terminology
     );
-    loadTerminologyWorkingDraft().then(renderTerminologyDraft);
     applyMode(state.mode);
     return true;
   }
@@ -1604,9 +1515,683 @@
     pendingDisplay: PENDING_DISPLAY,
     validSnapshot,
     routeState,
-    parseTerminologyWorkingDraft,
     filterTerminologyEntries,
-    terminologyDraftPath: TERMINOLOGY_DRAFT_PATH,
+    render
+  });
+})(window);
+
+(function (global) {
+  "use strict";
+
+  const legacyApi = global.ARRP_COMPONENT_REGISTRY;
+
+  const MODES = Object.freeze([
+    "components",
+    "lifecycles",
+    "authority",
+    "relationships",
+    "coverage",
+    "routing",
+    "terminology"
+  ]);
+
+  function object(value) {
+    return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+  }
+
+  function text(value) {
+    return typeof value === "string" && value.length > 0;
+  }
+
+  function unique(records, key) {
+    return Array.isArray(records)
+      && records.every((record) => object(record) && text(record[key]))
+      && new Set(records.map((record) => record[key])).size === records.length;
+  }
+
+  function containsPrivatePayload(value) {
+    if (Array.isArray(value)) return value.some(containsPrivatePayload);
+    if (!object(value)) return false;
+    return Object.entries(value).some(([key, nested]) =>
+      ["private_payload", "contract_payload", "attachment_path", "credential", "secret"]
+        .includes(key)
+      || containsPrivatePayload(nested));
+  }
+
+  function validSnapshot(snapshot) {
+    if (snapshot?.schema_version === 1) {
+      return legacyApi.validSnapshot(snapshot);
+    }
+    if (!object(snapshot)
+      || snapshot.schema_version !== 2
+      || snapshot.projection_id !== "component-registry-console"
+      || snapshot.producer_id !== "project-console-builder"
+      || Number.isNaN(Date.parse(snapshot.generated_at))
+      || snapshot.availability !== "current"
+      || snapshot.complete !== true
+      || snapshot.reason_code !== null
+      || !object(snapshot.routes)
+      || !object(snapshot.defaults)
+      || !object(snapshot.registry)
+      || snapshot.registry.registry_id !== "COMPONENT-REGISTRY"
+      || snapshot.registry.registry_revision !== 2
+      || snapshot.registry.registry_status !== "proposed"
+      || snapshot.registry.validation_mode !== "proposed_revision_validation"
+      || snapshot.registry.authoritative !== false
+      || snapshot.registry.executable !== false
+      || snapshot.registry.live_authority_verified !== false
+      || snapshot.registry.predecessor_route_consulted !== false
+      || !/^[0-9a-f]{64}$/.test(snapshot.registry.registry_sha256 || "")
+      || !unique(snapshot.components, "stable_id")
+      || !object(snapshot.lifecycles)
+      || !unique(snapshot.lifecycles.assignments, "assignment_id")
+      || !object(snapshot.authorities)
+      || !unique(snapshot.authorities.assignments, "assignment_id")
+      || !unique(snapshot.relationships, "relationship_id")
+      || !object(snapshot.coverage)
+      || !unique(snapshot.coverage.records, "coverage_id")
+      || !object(snapshot.routing)
+      || !unique(snapshot.routing.selections, "routing_id")
+      || !object(snapshot.terminology)
+      || snapshot.terminology.available !== true
+      || snapshot.terminology.complete !== true
+      || snapshot.terminology.adopted !== true
+      || !/^[0-9a-f]{64}$/.test(snapshot.terminology.record_set_sha256 || "")
+      || !unique(snapshot.terminology.entries, "term_id")
+      || snapshot.terminology.entries.length !== 69
+      || containsPrivatePayload(snapshot)) return false;
+    if (!MODES.every((mode) =>
+      snapshot.routes[mode] === `automation:component-registry:${mode}`)) return false;
+    const componentIds = new Set(snapshot.components.map((record) => record.stable_id));
+    if (!snapshot.components.every((record) =>
+      text(record.display_name)
+      && object(record.classification)
+      && text(record.classification.component_class)
+      && object(record.canonical_source)
+      && (text(record.owner) || object(record.owner))
+      && object(record.information_handling)
+      && object(record.retention)
+      && Array.isArray(record.supporting_artifacts)
+      && object(record.record_refs)
+      && Array.isArray(record.lifecycle_records)
+      && Array.isArray(record.authority_records)
+      && Array.isArray(record.relationship_records)
+      && Array.isArray(record.migration_records)
+      && Array.isArray(record.provenance_records)
+      && record.console_route === (
+        "automation:component-registry:components?component="
+        + encodeURIComponent(record.stable_id)
+      ))) return false;
+    if (!snapshot.lifecycles.assignments.every((record) =>
+      componentIds.has(record.component_id))) return false;
+    if (!snapshot.authorities.assignments.every((record) =>
+      componentIds.has(record.component_id))) return false;
+    if (!snapshot.terminology.entries.every((record) =>
+      text(record.label) && text(record.definition))) return false;
+    return snapshot.defaults.mode === "components"
+      && componentIds.has(snapshot.defaults.component)
+      && snapshot.coverage.uncovered_count === 0
+      && snapshot.coverage.multiply_treated_count === 0;
+  }
+
+  function routeState(target, snapshot) {
+    if (snapshot?.schema_version === 1) {
+      return legacyApi.routeState(target, snapshot);
+    }
+    const [route, query = ""] = String(target || "").replace(/^#/, "").split("?", 2);
+    const parts = route.split(":");
+    const requested = parts[0] === "automation" && parts[1] === "component-registry"
+      ? parts[2]
+      : "";
+    const mode = MODES.includes(requested) ? requested : "components";
+    if (!validSnapshot(snapshot)) return { mode, selected: null };
+    const key = {
+      components: "component",
+      lifecycles: "assignment",
+      authority: "assignment",
+      relationships: "relationship",
+      coverage: "coverage",
+      routing: "selection",
+      terminology: "term"
+    }[mode];
+    const parameters = new URLSearchParams(query);
+    const selected = [...parameters.keys()].every((name) => name === key)
+      ? parameters.get(key)
+      : null;
+    const identities = {
+      components: snapshot.components.map((record) => record.stable_id),
+      lifecycles: snapshot.lifecycles.assignments.map((record) => record.assignment_id),
+      authority: snapshot.authorities.assignments.map((record) => record.assignment_id),
+      relationships: snapshot.relationships.map((record) => record.relationship_id),
+      coverage: snapshot.coverage.records.map((record) => record.coverage_id),
+      routing: snapshot.routing.selections.map((record) => record.routing_id),
+      terminology: snapshot.terminology.entries.map((record) => record.term_id)
+    }[mode];
+    return {
+      mode,
+      selected: identities.includes(selected) ? selected : snapshot.defaults[
+        mode === "components" ? "component"
+          : mode === "lifecycles" ? "lifecycle"
+            : mode === "relationships" ? "relationship"
+              : mode === "terminology" ? "terminology"
+                : mode
+      ]
+    };
+  }
+
+  function node(tag, className = "", value = "") {
+    const result = document.createElement(tag);
+    if (className) result.className = className;
+    if (value !== "") result.textContent = String(value);
+    return result;
+  }
+
+  function readable(value) {
+    return String(value || "Unavailable")
+      .replaceAll("_", " ")
+      .replace(/\b\w/g, (letter) => letter.toUpperCase());
+  }
+
+  function display(value) {
+    if (value === null || value === undefined || value === "") return "Not applicable";
+    if (typeof value === "boolean") return value ? "Yes" : "No";
+    if (Array.isArray(value)) return value.length ? value.map(display).join(", ") : "None";
+    if (object(value)) {
+      return Object.entries(value)
+        .map(([key, nested]) => `${readable(key)}: ${display(nested)}`)
+        .join(" · ");
+    }
+    return String(value);
+  }
+
+  function appendRows(host, rows) {
+    const list = node("dl", "component-registry-metadata");
+    rows.forEach(([label, value]) => {
+      list.append(node("dt", "", label), node("dd", "", display(value)));
+    });
+    host.append(list);
+  }
+
+  function section(host, title, rows) {
+    const value = node("section", "component-registry-detail-section");
+    value.append(node("h4", "", title));
+    appendRows(value, rows);
+    host.append(value);
+  }
+
+  function primaryLifecycle(component) {
+    const record = component.lifecycle_records[component.lifecycle_records.length - 1] || {};
+    return record.current_state || record.state || "unavailable";
+  }
+
+  function canonicalPath(component) {
+    const source = component.canonical_source || {};
+    return source.locator?.value
+      || source.locator
+      || source.path
+      || source.canonical_path
+      || "Unavailable";
+  }
+
+  function renderComponent(host, record) {
+    host.replaceChildren(node("h3", "", record.display_name));
+    section(host, "Identity and classification", [
+      ["Stable ID", record.stable_id],
+      ["Class", readable(record.classification.component_class)],
+      ["Type", readable(record.classification.component_type)],
+      ["Roles", record.classification.roles],
+      ["Capabilities", record.classification.capabilities],
+      ["Owner", record.owner]
+    ]);
+    section(host, "Lifecycle and operation", [
+      ["Lifecycle", primaryLifecycle(record)],
+      ["Operational status", record.operational_status],
+      ["Lifecycle history", record.lifecycle_records]
+    ]);
+    section(host, "Authority", [
+      ["Assignments", record.authority_records]
+    ]);
+    section(host, "Canonical source and binding", [
+      ["Canonical source", canonicalPath(record)],
+      ["Source binding", record.canonical_source.source_binding]
+    ]);
+    section(host, "Information and retention", [
+      ["Information handling", record.information_handling],
+      ["Retention", record.retention]
+    ]);
+    section(host, "Artifacts and connections", [
+      ["Supporting artifacts", record.supporting_artifacts],
+      ["Relationships", record.relationship_records],
+      ["Migrations and aliases", record.migration_records],
+      ["Provenance", record.provenance_records]
+    ]);
+  }
+
+  function renderLifecycle(host, record, snapshot) {
+    host.replaceChildren(node("h3", "", record.display_name || record.component_id));
+    const state = record.current_state || record.state;
+    const definition = snapshot.lifecycles.states[state];
+    section(host, "Current assignment", [
+      ["Component", record.component_id],
+      ["State", readable(state)],
+      ["Definition", definition],
+      ["Effective date", record.effective_date],
+      ["Transition reason", record.transition_reason]
+    ]);
+    section(host, "Lifecycle history", [
+      ["Transitions", record.history || record.transitions],
+      ["Provenance", record.provenance_ref || record.provenance_refs]
+    ]);
+  }
+
+  function renderAuthority(host, record) {
+    host.replaceChildren(node("h3", "", record.display_name || record.component_id));
+    section(host, "Authority assignment", [
+      ["Assignment ID", record.assignment_id],
+      ["Component", record.component_id],
+      ["Status", record.authoritative ? "Authoritative" : "Nonauthoritative"],
+      ["Subjects", record.subjects],
+      ["Effects", record.effects],
+      ["Exclusions", record.exclusions],
+      ["Effective date", record.effective_date],
+      ["Termination conditions", record.termination_conditions]
+    ]);
+    section(host, "Authority chain", [
+      ["Sources", record.sources],
+      ["Governing precedence", record.governing_precedence],
+      ["Provenance", record.provenance_ref || record.provenance_refs]
+    ]);
+  }
+
+  function endpoint(value) {
+    return object(value) ? `${value.id} (${readable(value.kind)})` : display(value);
+  }
+
+  function renderRelationship(host, record) {
+    host.replaceChildren(node("h3", "", readable(record.relationship_type)));
+    appendRows(host, [
+      ["Relationship ID", record.relationship_id],
+      ["From", endpoint(record.from)],
+      ["To", endpoint(record.to)],
+      ["Effective date", record.effective_date],
+      ["Provenance", record.provenance_ref || record.provenance_refs],
+      ["Authority boundary", record.authority_boundary]
+    ]);
+  }
+
+  function renderCoverage(host, record, snapshot) {
+    host.replaceChildren(node("h3", "", record.display_name || record.coverage_id));
+    appendRows(host, [
+      ["Coverage ID", record.coverage_id],
+      ["Kind", readable(record.coverage_kind)],
+      ["Path or pattern", record.path_pattern || record.path || record.pattern],
+      ["Owning component", record.component_id || record.owner_component_id],
+      ["Authorized producers", record.authorized_producers || record.producers],
+      ["Child policy", record.child_policy],
+      ["Disclosure", record.disclosure_boundary || record.information_handling],
+      ["Disposition", record.disposition || record.retirement_condition],
+      ["Fallback", record.fallback],
+      ["Covered repository paths", snapshot.coverage.path_count],
+      ["Unresolved", snapshot.coverage.uncovered_count]
+    ]);
+  }
+
+  function renderRouting(host, record) {
+    host.replaceChildren(node("h3", "", record.label));
+    appendRows(host, [
+      ["Selection ID", record.routing_id],
+      ["Kind", readable(record.routing_kind)],
+      ["Resolved components", record.component_ids],
+      ["Registered details", record.details]
+    ]);
+  }
+
+  function renderTerminology(host, record) {
+    host.replaceChildren(
+      node("h3", "", record.label),
+      node("p", "component-registry-term-id", record.term_id),
+      ...record.definition.split("\n\n").map((paragraph) => node("p", "", paragraph))
+    );
+  }
+
+  function optionValues(select, values, allLabel) {
+    if (!select || select.dataset.registryOptions === "true") return;
+    select.replaceChildren(node("option", "", allLabel));
+    select.firstElementChild.value = "";
+    [...new Set(values.filter(text))].sort().forEach((value) => {
+      const option = node("option", "", readable(value));
+      option.value = value;
+      select.append(option);
+    });
+    select.dataset.registryOptions = "true";
+  }
+
+  function searchable(record) {
+    return JSON.stringify(record).toLocaleLowerCase();
+  }
+
+  function renderList(host, records, selectedId, id, title, meta, route) {
+    host.replaceChildren();
+    if (!records.length) {
+      host.append(node("p", "empty-state compact-empty", "No records match these filters."));
+      return;
+    }
+    const rows = [];
+    records.forEach((record) => {
+      const row = node("button", "email-list-row component-registry-list-row");
+      const selected = id(record) === selectedId;
+      row.type = "button";
+      row.setAttribute("role", "option");
+      row.setAttribute("aria-selected", String(selected));
+      row.tabIndex = selected ? 0 : -1;
+      if (selected) row.classList.add("selected");
+      row.append(
+        node("strong", "email-row-title", title(record)),
+        node("span", "email-row-time", meta(record)),
+        node("span", "email-row-summary", id(record))
+      );
+      row.addEventListener("click", () => {
+        global.location.hash = `#${route(record)}`;
+      });
+      row.addEventListener("keydown", (event) => {
+        if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+        const current = rows.indexOf(row);
+        const next = event.key === "Home" ? 0
+          : event.key === "End" ? rows.length - 1
+            : event.key === "ArrowDown" ? Math.min(rows.length - 1, current + 1)
+              : Math.max(0, current - 1);
+        event.preventDefault();
+        rows[next].focus();
+      });
+      rows.push(row);
+      host.append(row);
+    });
+  }
+
+  function setCount(mode, count) {
+    const host = document.getElementById(`component-registry-${mode}-count`);
+    if (!host) return;
+    host.hidden = false;
+    host.textContent = String(count);
+  }
+
+  function bindFilter(id, render) {
+    const control = document.getElementById(id);
+    if (!control || control.dataset.registryBound === "true") return;
+    control.dataset.registryBound = "true";
+    control.addEventListener(control.tagName === "SELECT" ? "change" : "input", render);
+  }
+
+  function renderLifecycleSummary(snapshot) {
+    const portals = document.getElementById("component-registry-lifecycle-portals");
+    const flow = document.getElementById("component-registry-lifecycle-flow");
+    if (portals) {
+      portals.replaceChildren();
+      Object.entries(snapshot.lifecycles.states).forEach(([state, definition]) => {
+        const count = snapshot.lifecycles.assignments.filter((record) =>
+          (record.current_state || record.state) === state).length;
+        const card = node("article", "component-registry-state-portal");
+        card.title = display(definition);
+        card.append(node("span", "", readable(state)), node("strong", "", count));
+        portals.append(card);
+      });
+    }
+    if (flow) {
+      flow.replaceChildren();
+      snapshot.lifecycles.permitted_transitions.forEach(([from, to]) => {
+        flow.append(node("span", "component-registry-transition", `${readable(from)} → ${readable(to)}`));
+      });
+    }
+  }
+
+  function applyMode(mode) {
+    MODES.forEach((candidate) => {
+      const button = document.getElementById(`component-registry-mode-${candidate}`);
+      const panel = document.getElementById(`component-registry-panel-${candidate}`);
+      if (button) {
+        const selected = candidate === mode;
+        button.setAttribute("aria-selected", String(selected));
+        button.tabIndex = selected ? 0 : -1;
+      }
+      if (panel) panel.hidden = candidate !== mode;
+    });
+  }
+
+  function bindModes(snapshot) {
+    const buttons = MODES.map((mode) =>
+      document.getElementById(`component-registry-mode-${mode}`));
+    buttons.forEach((button, index) => {
+      if (!button || button.dataset.registryBound === "true") return;
+      button.dataset.registryBound = "true";
+      button.addEventListener("click", () => {
+        global.location.hash = `#${snapshot.routes[button.dataset.registryMode]}`;
+      });
+      button.addEventListener("keydown", (event) => {
+        let next = null;
+        if (event.key === "ArrowRight") next = (index + 1) % buttons.length;
+        if (event.key === "ArrowLeft") next = (index - 1 + buttons.length) % buttons.length;
+        if (event.key === "Home") next = 0;
+        if (event.key === "End") next = buttons.length - 1;
+        if (next === null) return;
+        event.preventDefault();
+        buttons[next].focus();
+      });
+    });
+  }
+
+  function unavailable() {
+    const status = document.getElementById("component-registry-status");
+    if (status) {
+      status.className = "status-badge unavailable";
+      status.textContent = "Unavailable";
+    }
+    MODES.forEach((mode) => {
+      const detail = document.getElementById(
+        `component-registry-${mode === "components" ? "component" : mode === "lifecycles" ? "lifecycle" : mode}-detail`
+      );
+      if (detail) detail.replaceChildren(
+        node("p", "empty-state compact-empty", "Component Registry data unavailable.")
+      );
+    });
+  }
+
+  function render(snapshot, target = "") {
+    if (snapshot?.schema_version === 1) {
+      return legacyApi.render(snapshot, target);
+    }
+    if (!validSnapshot(snapshot)) {
+      unavailable();
+      return false;
+    }
+    const state = routeState(target, snapshot);
+    const status = document.getElementById("component-registry-status");
+    status.className = "status-badge warning";
+    status.textContent = "Proposed Stage 2 revision";
+    const notice = document.getElementById("component-registry-deferred");
+    notice.replaceChildren(
+      node("strong", "", "Proposed — nonauthoritative"),
+      node("p", "", "This view is generated from the validated Stage 2 Registry revision. Live authority remains separately receipt-bound."),
+      node("p", "", `Registry revision ${snapshot.registry.registry_revision} · ${snapshot.registry.registry_sha256}`)
+    );
+    bindModes(snapshot);
+    renderLifecycleSummary(snapshot);
+
+    const componentSearch = document.getElementById("component-registry-components-search");
+    const componentClass = document.getElementById("component-registry-components-class");
+    const componentLifecycle = document.getElementById("component-registry-components-lifecycle");
+    optionValues(componentClass, snapshot.components.map((record) =>
+      record.classification.component_class), "All classes");
+    optionValues(componentLifecycle, snapshot.components.map(primaryLifecycle), "All states");
+    const renderComponents = () => {
+      const query = componentSearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.components.filter((record) =>
+        (!query || searchable(record).includes(query))
+        && (!componentClass.value || record.classification.component_class === componentClass.value)
+        && (!componentLifecycle.value || primaryLifecycle(record) === componentLifecycle.value));
+      document.getElementById("component-registry-components-results").textContent =
+        `${filtered.length} of ${snapshot.components.length} components`;
+      const selected = filtered.find((record) => record.stable_id === state.selected) || filtered[0];
+      renderList(
+        document.getElementById("component-registry-component-list"),
+        filtered,
+        selected?.stable_id,
+        (record) => record.stable_id,
+        (record) => record.display_name,
+        (record) => `${readable(record.classification.component_class)} · ${readable(primaryLifecycle(record))}`,
+        (record) => record.console_route
+      );
+      if (selected) renderComponent(document.getElementById("component-registry-component-detail"), selected);
+    };
+    ["component-registry-components-search", "component-registry-components-class", "component-registry-components-lifecycle"]
+      .forEach((id) => bindFilter(id, renderComponents));
+    renderComponents();
+
+    const lifecycleSearch = document.getElementById("component-registry-lifecycles-search");
+    const lifecycleState = document.getElementById("component-registry-lifecycles-state");
+    optionValues(lifecycleState, Object.keys(snapshot.lifecycles.states), "All states");
+    const renderLifecycles = () => {
+      const query = lifecycleSearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.lifecycles.assignments.filter((record) => {
+        const current = record.current_state || record.state;
+        return (!query || searchable(record).includes(query))
+          && (!lifecycleState.value || current === lifecycleState.value);
+      });
+      document.getElementById("component-registry-lifecycles-results").textContent =
+        `${filtered.length} of ${snapshot.lifecycles.assignments.length} assignments`;
+      const selected = filtered.find((record) => record.assignment_id === state.selected) || filtered[0];
+      renderList(document.getElementById("component-registry-lifecycle-list"), filtered,
+        selected?.assignment_id, (record) => record.assignment_id,
+        (record) => record.display_name || record.component_id,
+        (record) => readable(record.current_state || record.state),
+        (record) => record.console_route);
+      if (selected) renderLifecycle(document.getElementById("component-registry-lifecycle-detail"), selected, snapshot);
+    };
+    ["component-registry-lifecycles-search", "component-registry-lifecycles-state"]
+      .forEach((id) => bindFilter(id, renderLifecycles));
+    renderLifecycles();
+
+    const authoritySearch = document.getElementById("component-registry-authority-search");
+    const authorityStatus = document.getElementById("component-registry-authority-status");
+    const renderAuthorities = () => {
+      const query = authoritySearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.authorities.assignments.filter((record) =>
+        (!query || searchable(record).includes(query))
+        && (!authorityStatus.value
+          || (authorityStatus.value === "authoritative") === record.authoritative));
+      document.getElementById("component-registry-authority-results").textContent =
+        `${filtered.length} of ${snapshot.authorities.assignments.length} assignments`;
+      const selected = filtered.find((record) => record.assignment_id === state.selected) || filtered[0];
+      renderList(document.getElementById("component-registry-authority-list"), filtered,
+        selected?.assignment_id, (record) => record.assignment_id,
+        (record) => record.display_name || record.component_id,
+        (record) => record.authoritative ? "Authoritative" : "Nonauthoritative",
+        (record) => record.console_route);
+      if (selected) renderAuthority(document.getElementById("component-registry-authority-detail"), selected);
+    };
+    ["component-registry-authority-search", "component-registry-authority-status"]
+      .forEach((id) => bindFilter(id, renderAuthorities));
+    renderAuthorities();
+
+    const relationshipSearch = document.getElementById("component-registry-relationships-search");
+    const relationshipType = document.getElementById("component-registry-relationships-type");
+    optionValues(relationshipType, snapshot.relationships.map((record) => record.relationship_type), "All types");
+    const renderRelationships = () => {
+      const query = relationshipSearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.relationships.filter((record) =>
+        (!query || searchable(record).includes(query))
+        && (!relationshipType.value || record.relationship_type === relationshipType.value));
+      document.getElementById("component-registry-relationships-results").textContent =
+        `${filtered.length} of ${snapshot.relationships.length} relationships`;
+      const selected = filtered.find((record) => record.relationship_id === state.selected) || filtered[0];
+      renderList(document.getElementById("component-registry-relationship-list"), filtered,
+        selected?.relationship_id, (record) => record.relationship_id,
+        (record) => `${endpoint(record.from)} → ${endpoint(record.to)}`,
+        (record) => readable(record.relationship_type),
+        (record) => record.console_route);
+      if (selected) renderRelationship(document.getElementById("component-registry-relationship-detail"), selected);
+    };
+    ["component-registry-relationships-search", "component-registry-relationships-type"]
+      .forEach((id) => bindFilter(id, renderRelationships));
+    renderRelationships();
+
+    const coverageSearch = document.getElementById("component-registry-coverage-search");
+    const coverageKind = document.getElementById("component-registry-coverage-kind");
+    const renderCoverageRows = () => {
+      const query = coverageSearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.coverage.records.filter((record) =>
+        (!query || searchable(record).includes(query))
+        && (!coverageKind.value || record.coverage_kind === coverageKind.value));
+      document.getElementById("component-registry-coverage-results").textContent =
+        `${filtered.length} rules · ${snapshot.coverage.path_count} covered paths · ${snapshot.coverage.uncovered_count} unresolved`;
+      const selected = filtered.find((record) => record.coverage_id === state.selected) || filtered[0];
+      renderList(document.getElementById("component-registry-coverage-list"), filtered,
+        selected?.coverage_id, (record) => record.coverage_id,
+        (record) => record.display_name || record.coverage_id,
+        (record) => readable(record.coverage_kind),
+        (record) => record.console_route);
+      if (selected) renderCoverage(document.getElementById("component-registry-coverage-detail"), selected, snapshot);
+    };
+    ["component-registry-coverage-search", "component-registry-coverage-kind"]
+      .forEach((id) => bindFilter(id, renderCoverageRows));
+    renderCoverageRows();
+
+    const routingSearch = document.getElementById("component-registry-routing-search");
+    const renderRoutingRows = () => {
+      const query = routingSearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.routing.selections.filter((record) =>
+        !query || searchable(record).includes(query));
+      document.getElementById("component-registry-routing-results").textContent =
+        `${filtered.length} of ${snapshot.routing.selections.length} selections`;
+      const selected = filtered.find((record) => record.routing_id === state.selected) || filtered[0];
+      renderList(document.getElementById("component-registry-routing-list"), filtered,
+        selected?.routing_id, (record) => record.routing_id,
+        (record) => record.label, (record) => readable(record.routing_kind),
+        (record) => record.console_route);
+      if (selected) renderRouting(document.getElementById("component-registry-routing-detail"), selected);
+    };
+    bindFilter("component-registry-routing-search", renderRoutingRows);
+    renderRoutingRows();
+
+    const terminologySearch = document.getElementById("component-registry-terminology-search");
+    const renderTerms = () => {
+      const filtered = filterTerminologyEntries(snapshot.terminology.entries, terminologySearch.value);
+      document.getElementById("component-registry-terminology-results").textContent =
+        `${filtered.length} of ${snapshot.terminology.entries.length} adopted terms`;
+      const selected = filtered.find((record) => record.term_id === state.selected) || filtered[0];
+      renderList(document.getElementById("component-registry-terminology-list"), filtered,
+        selected?.term_id, (record) => record.term_id,
+        (record) => record.label, () => "Adopted", (record) => record.console_route);
+      if (selected) renderTerminology(document.getElementById("component-registry-terminology-detail"), selected);
+    };
+    bindFilter("component-registry-terminology-search", renderTerms);
+    renderTerms();
+
+    setCount("components", snapshot.components.length);
+    setCount("lifecycles", snapshot.lifecycles.assignments.length);
+    setCount("authority", snapshot.authorities.assignments.length);
+    setCount("relationships", snapshot.relationships.length);
+    setCount("coverage", snapshot.coverage.records.length);
+    setCount("routing", snapshot.routing.selections.length);
+    setCount("terminology", snapshot.terminology.entries.length);
+    applyMode(state.mode);
+    return true;
+  }
+
+  function filterTerminologyEntries(entries, query) {
+    const tokens = String(query || "").trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+    if (!tokens.length) return [...entries];
+    return entries.filter((entry) => {
+      const value = `${entry.term_id} ${entry.label} ${entry.definition}`.toLocaleLowerCase();
+      return tokens.every((token) => value.includes(token));
+    });
+  }
+
+  global.ARRP_COMPONENT_REGISTRY = Object.freeze({
+    schemaVersion: 1,
+    pendingDisplay: legacyApi.pendingDisplay,
+    validSnapshot,
+    routeState,
+    filterTerminologyEntries,
     render
   });
 })(window);
