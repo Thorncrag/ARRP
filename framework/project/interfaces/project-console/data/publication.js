@@ -7269,10 +7269,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
-          "exists": true
-        },
-        {
           "path": "framework/handoffs/current-task.md",
           "exists": true
         },
@@ -7289,7 +7285,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2861,
+      "word_count": 2865,
       "estimated_pages": 5,
       "table_count": 0,
       "max_table_columns": 0,
@@ -7367,13 +7363,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "path": "framework/standards/automation/multi-agent.md",
           "exists": true
-        },
-        {
-          "path": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
-          "exists": true
         }
       ],
-      "word_count": 1898,
+      "word_count": 1897,
       "estimated_pages": 3,
       "table_count": 1,
       "max_table_columns": 2,
@@ -7394,47 +7386,47 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "print_metadata_present": true,
       "invalid_print_levels": [],
       "assembly_sections": {},
-      "assembly_sort_key": "framework/project/automation-arrp agent and bot registry",
+      "assembly_sort_key": "framework/archive/authorities-arrp agent and bot registry",
       "internal_links": [
         {
           "path": "framework/FRAMEWORK.md",
           "exists": true
         },
         {
-          "path": "framework/project/automation/owner-local-runtime.md",
-          "exists": true
+          "path": "framework/archive/authorities/owner-local-runtime.md",
+          "exists": false
         },
         {
-          "path": "framework/project/automation/runbooks/run-coordinator-bot.md",
-          "exists": true
+          "path": "framework/archive/authorities/runbooks/run-coordinator-bot.md",
+          "exists": false
         },
         {
-          "path": "framework/project/automation/runbooks/elim.md",
-          "exists": true
+          "path": "framework/archive/authorities/runbooks/elim.md",
+          "exists": false
         },
         {
-          "path": "framework/project/automation/runbooks/case-monitor-bot.md",
-          "exists": true
+          "path": "framework/archive/authorities/runbooks/case-monitor-bot.md",
+          "exists": false
         },
         {
-          "path": "framework/project/automation/runbooks/presidential-directives-bot.md",
-          "exists": true
+          "path": "framework/archive/authorities/runbooks/presidential-directives-bot.md",
+          "exists": false
         },
         {
-          "path": "framework/project/automation/runbooks/source-checker-bot.md",
-          "exists": true
+          "path": "framework/archive/authorities/runbooks/source-checker-bot.md",
+          "exists": false
         },
         {
-          "path": "framework/project/automation/runbooks/project-console-progress-bot.md",
-          "exists": true
+          "path": "framework/archive/authorities/runbooks/project-console-progress-bot.md",
+          "exists": false
         },
         {
-          "path": "framework/project/automation/runbooks/project-integrity-bot.md",
-          "exists": true
+          "path": "framework/archive/authorities/runbooks/project-integrity-bot.md",
+          "exists": false
         },
         {
-          "path": "framework/project/automation/agent-policy.md",
-          "exists": true
+          "path": "framework/archive/authorities/agent-policy.md",
+          "exists": false
         }
       ],
       "word_count": 1026,
@@ -7890,7 +7882,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation-arrp owner-local runtime authority",
       "internal_links": [],
-      "word_count": 2087,
+      "word_count": 2092,
       "estimated_pages": 4,
       "table_count": 2,
       "max_table_columns": 3,
@@ -7982,7 +7974,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 190,
+      "word_count": 198,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8102,10 +8094,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 8895,
-      "estimated_pages": 14,
-      "table_count": 0,
-      "max_table_columns": 0,
+      "word_count": 10403,
+      "estimated_pages": 17,
+      "table_count": 2,
+      "max_table_columns": 2,
       "heading_issue_count": 0,
       "longest_unbroken_token": 67
     },
@@ -9296,6 +9288,29 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "longest_unbroken_token": 23
     },
     {
+      "title": "Component Registry Stage 2 Design",
+      "path": "framework/proposals/component-registry-stage2-design.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Adopted internal Component Registry design and provenance record.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/proposals/component-registry-stage2-design.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/proposals-component registry stage 2 design",
+      "internal_links": [],
+      "word_count": 6650,
+      "estimated_pages": 11,
+      "table_count": 1,
+      "max_table_columns": 5,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 66
+    },
+    {
       "title": "Console consistency remedy closure matrix",
       "path": "framework/reports/interfaces/console-consistency-remedy-2026-07-28.md",
       "section": "Framework and process",
@@ -9422,7 +9437,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 122,
+      "word_count": 152,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9445,12 +9460,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 984,
+      "word_count": 759,
       "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 43
+      "longest_unbroken_token": 55
     },
     {
       "title": "Elim Agent Runbook",
@@ -9603,10 +9618,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
-          "exists": true
-        },
-        {
           "path": "framework/project/interfaces/project-console-progress.md",
           "exists": true
         },
@@ -9627,7 +9638,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 5140,
+      "word_count": 5144,
       "estimated_pages": 8,
       "table_count": 1,
       "max_table_columns": 2,
@@ -10368,12 +10379,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation/runbooks-project integrity bot runbook",
       "internal_links": [],
-      "word_count": 679,
+      "word_count": 676,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 39
+      "longest_unbroken_token": 35
     },
     {
       "title": "Project Interface Standard",
@@ -10584,12 +10595,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 126,
+      "word_count": 133,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 16
+      "longest_unbroken_token": 17
     },
     {
       "title": "Run Coordinator Bot Runbook",
@@ -10658,12 +10669,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/status/sources-source checker bot current report",
       "internal_links": [],
-      "word_count": 6620,
-      "estimated_pages": 11,
+      "word_count": 6231,
+      "estimated_pages": 10,
       "table_count": 2,
       "max_table_columns": 4,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 188
+      "longest_unbroken_token": 126
     },
     {
       "title": "Source Checker Bot Runbook",
@@ -15295,7 +15306,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     ],
     "disposition_counts": {
       "included": 138,
-      "excluded": 233,
+      "excluded": 234,
       "unclassified": 0,
       "conflict": 0
     },
@@ -15321,6 +15332,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Nonauthoritative internal implementation and validation report.": 1,
       "Internal automation implementation report.": 1,
       "Internal operational log.": 3,
+      "Adopted internal Component Registry design and provenance record.": 1,
       "Internal interface validation record.": 1,
       "Internal operational report.": 1,
       "Internal record-directory guide.": 1,
@@ -15539,7 +15551,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "label": "Assembly structurally valid",
         "disposition_counts": {
           "included": 138,
-          "excluded": 233,
+          "excluded": 234,
           "unclassified": 0,
           "conflict": 0
         }
@@ -16615,9 +16627,45 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "link_export_validation": {
         "link_inventory_available": true,
-        "internal_link_count": 1283,
-        "missing_link_count": 19,
+        "internal_link_count": 1280,
+        "missing_link_count": 28,
         "missing_links": [
+          {
+            "source": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
+            "target": "framework/archive/authorities/owner-local-runtime.md"
+          },
+          {
+            "source": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
+            "target": "framework/archive/authorities/runbooks/run-coordinator-bot.md"
+          },
+          {
+            "source": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
+            "target": "framework/archive/authorities/runbooks/elim.md"
+          },
+          {
+            "source": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
+            "target": "framework/archive/authorities/runbooks/case-monitor-bot.md"
+          },
+          {
+            "source": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
+            "target": "framework/archive/authorities/runbooks/presidential-directives-bot.md"
+          },
+          {
+            "source": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
+            "target": "framework/archive/authorities/runbooks/source-checker-bot.md"
+          },
+          {
+            "source": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
+            "target": "framework/archive/authorities/runbooks/project-console-progress-bot.md"
+          },
+          {
+            "source": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
+            "target": "framework/archive/authorities/runbooks/project-integrity-bot.md"
+          },
+          {
+            "source": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
+            "target": "framework/archive/authorities/agent-policy.md"
+          },
           {
             "source": "framework/archive/authorities/REPOSITORY_MAP.md",
             "target": "framework/archive/PROJECT_STRUCTURE.md"
@@ -18436,13 +18484,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "result": "findings",
         "counts": {
           "errors": 0,
-          "warnings": 3,
-          "findings": 3,
+          "warnings": 7,
+          "findings": 7,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "ea46a6dc94a9bf4aa5a1386cd406f926a84041ac",
-        "generated_at": "2026-07-30T20:04:13+00:00"
+        "revision": "9707dba16996db97f0099a18228b72aa4fd2ba82",
+        "generated_at": "2026-08-01T02:13:44+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20198,6 +20246,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-eca24de18c0625560a7c"
+    "publication.js": "project-console-21b2b1ebdfb0d1c3a937"
   }
 });

@@ -5,7 +5,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 2,
     "projection_id": "component-registry-console",
     "producer_id": "project-console-builder",
-    "generated_at": "2026-07-30T20:04:15+00:00",
+    "generated_at": "2026-07-31T22:13:31-04:00",
     "availability": "current",
     "complete": true,
     "reason_code": null,
@@ -37,8 +37,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "executable": false,
       "live_authority_verified": false,
       "predecessor_route_consulted": false,
-      "registry_sha256": "d0790bbe21b0211ed12aa7d2fe6fef8a3c759ba97915f6ebbb9e688fd36ae455",
-      "repository_revision": "e9486fb724eddf7cd170056edd7f7471bd093ba6",
+      "registry_sha256": "65dd63a6e63a24f1a58aea0c5eb470394ddc1904eea8e116df3bb1d9b03ac83a",
+      "repository_revision": "50ad820728d918705ab4bbdbb6563a1995868624",
       "design_id": "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR",
       "design_revision": "sha256:16c7801b08397a640829bcb9141de7482c68ea9d9aa793fba0d1080fea9d95b0"
     },
@@ -4951,7 +4951,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "9e688cceae411cdb374deae0a17fa1ee9be13e0eaf11649638bfdae18c99fa3f",
+            "sha256": "38371d88259851e909e3776c538b2f5575fa8040ab46a3994e46f481dc85aa0f",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -5182,7 +5182,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "11308f97544725ec93d3f8c552ae2a2e197e4ee9e83e23a9db3a3bbe0e2095ee",
+            "sha256": "a189316d537417ea85c9ed8e5ff412a5d93ed9769cff13c4854a404e4120138b",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -5578,7 +5578,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "a9c0fa7f4ce25b05a2d4874259d1b91123dca46fa35ac9127f6da9dbecd08d42",
+            "sha256": "40c40cf24f622050adf33a5968c0d5e6b6fbc7ea0ab24819a22a2389c2bb5122",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -5827,7 +5827,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "a0763b9a9b05c460d9e66d2ff651f4eba918f6df58368bc841b04f5bd526a754",
+            "sha256": "51abc9104abbf148c6b6d5ff27740be75ce23c325f70c90c7030f05629d3e194",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -13417,7 +13417,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "8949ec365e9f5e2ea65804015f4d35260532bc9ba29a39890e0c2dffc0e82b5c",
+            "sha256": "0687ce5ffff0ff37c47a3f04f3f2595666a99b0a79204e55b59eb4626bfb65a6",
             "evidence_ref": "agent_bot_registry_migration"
           }
         },
@@ -14124,27 +14124,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "provenance_event_id": "stage2_stable_id_migration",
             "allowed_residual_occurrences": [
               {
-                "path": "framework/receipts/component-registry/stage1-activation-readiness.json",
-                "locator": {
-                  "kind": "json_value",
-                  "json_pointer_sha256": "039ec5a6b4f87e97dc4b6a457f87efbde97ac26bf4c405a3ce71f53ff2088728",
-                  "value_sha256": "a9bdbcdcff682cc6c53b36094697e6d164f0e308b3ecdd80bd3e759b71523f69"
-                }
-              },
-              {
                 "path": "framework/archive/authorities/context-routes.json",
                 "locator": {
                   "kind": "json_value",
                   "json_pointer_sha256": "063bec071209cf84f1d3e01bb125cc05b7257b6bba8bf3af237075c11504cf21",
                   "value_sha256": "c62305e2d6faeb0d728c195a19d2797ac0edc08ce9b6986ca2bb1debba494ec5"
-                }
-              },
-              {
-                "path": "framework/receipts/component-registry/stage1-activation-readiness.json",
-                "locator": {
-                  "kind": "json_value",
-                  "json_pointer_sha256": "2da6a6f619172b493d851d0f169ceccede0473b3cfb224b4d25ea7ff06a93b0e",
-                  "value_sha256": "a9bdbcdcff682cc6c53b36094697e6d164f0e308b3ecdd80bd3e759b71523f69"
                 }
               },
               {
@@ -14203,34 +14187,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 }
               },
               {
-                "path": "framework/receipts/component-registry/stage1-activation-readiness.json",
-                "locator": {
-                  "kind": "json_value",
-                  "json_pointer_sha256": "cd450c6a0430dc39c11f5737f80eb8df74a22e99fd7d8c3d0c3a385350ed4e60",
-                  "value_sha256": "a9bdbcdcff682cc6c53b36094697e6d164f0e308b3ecdd80bd3e759b71523f69"
-                }
-              },
-              {
                 "path": "framework/archive/authorities/context-routes.json",
                 "locator": {
                   "kind": "json_value",
                   "json_pointer_sha256": "ce81eb6ac6be0486e119bc6e4b4e497a8727f42d01148ff132382935346120a0",
                   "value_sha256": "c62305e2d6faeb0d728c195a19d2797ac0edc08ce9b6986ca2bb1debba494ec5"
-                }
-              },
-              {
-                "path": "framework/component-registry.json",
-                "locator": {
-                  "kind": "json_key",
-                  "json_pointer_sha256": "d898ff146274d90d50f64295f583cf9413f1c0b47c57bbc81f5b0d31fe265aca"
-                }
-              },
-              {
-                "path": "framework/component-registry.json",
-                "locator": {
-                  "kind": "json_value",
-                  "json_pointer_sha256": "ec5f9af59ca6f3d46375f3837c40c7a80e798aedd7f5fe92ed8787638e3f644c",
-                  "value_sha256": "a9bdbcdcff682cc6c53b36094697e6d164f0e308b3ecdd80bd3e759b71523f69"
                 }
               },
               {
@@ -22437,7 +22398,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "80b6f89477aeb1196433e9ceba4eb9c522d4996a61d595830b7fa13d6fcfa2b2",
+            "sha256": "64ef3ef52c5d8ea07ca6c5d3d644966b62616f14240a97e5af881f6582534503",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -22542,14 +22503,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 }
               },
               {
-                "path": "framework/receipts/component-registry/context-routing-v1-rule-closure.json",
-                "locator": {
-                  "kind": "json_value",
-                  "json_pointer_sha256": "1770a4ecaf2fff6392c2ca86ab1b2759b1ea74d1ab0ada21887c755a64a334af",
-                  "value_sha256": "343695dcc0d9c30f31474680dba07620e9904dc63f2345ec6e38f318960148fd"
-                }
-              },
-              {
                 "path": "framework/component-registry.json",
                 "locator": {
                   "kind": "json_value",
@@ -22571,14 +22524,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                   "kind": "json_value",
                   "json_pointer_sha256": "5ff6bddac59be71be7e7ef06eed6c893298489a53e2209544d0bcd4145808917",
                   "value_sha256": "00318e2e8ec15cb9c185faaae4b4001eaa23e6d86c7f836e9cbe951dc9a1f6d9"
-                }
-              },
-              {
-                "path": "framework/receipts/component-registry/stage1-requirement-closure.json",
-                "locator": {
-                  "kind": "json_value",
-                  "json_pointer_sha256": "9683c5b22e121fc94b3fe9189387bb94d5a182adca67b61456653d3b41b7b062",
-                  "value_sha256": "ab2f3dd37c21cdab74ff9de3632b2e9c59e2279e4bab4736f605ba655ce3fe91"
                 }
               },
               {
@@ -35824,85 +35769,85 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "github_disclosure_boundary",
             "agent_rules_kernel",
             "task_handoff",
-            "project_premise",
-            "codex_bootstrap",
+            "agent_audit_execution",
             "agent_autonomous_execution",
+            "agent_context_research",
+            "agent_handoff",
+            "agent_provenance_logging",
             "private_staging_authority_schema",
             "project_runtime_authority",
-            "github_workflow",
-            "remedy_framework",
+            "agent_issue_candidate_work",
+            "agent_multi_agent",
+            "agent_validation_closeout",
+            "audit_core",
+            "audit_project_consistency",
+            "audit_change",
             "method_neutrality_language",
-            "method_scope_admission",
             "evidence_standards",
+            "method_scope_admission",
+            "remedy_framework",
             "issue_architecture",
+            "source_catalogs",
+            "audit_verification",
+            "audit_tiered",
+            "audit_legal_prior_proposal",
+            "candidate_review_standard",
             "development_levels",
+            "github_workflow",
+            "proposal_development_model",
+            "source_automated_adjudication",
+            "candidate_adjudication",
+            "codex_bootstrap",
+            "elim_result_schema",
             "navigation_inventory",
             "print_assembly_standard",
-            "source_catalogs",
-            "source_automated_adjudication",
             "source_project_monitoring",
             "project_source_adjudication",
             "print_assembly",
             "public_release",
+            "navigation_topic_guides",
             "interface_standard",
-            "progress_view_standard",
-            "proposal_development_model",
-            "progress_config",
-            "project_console_progress",
-            "project_console_classifications",
             "visual_identity",
-            "candidate_review_standard",
-            "candidate_adjudication",
-            "project_tool_interface",
-            "agent_provenance_logging",
-            "agent_validation_closeout",
+            "navigation_project_sync",
+            "operation_project_update",
+            "operation_governance_change_recording",
+            "governance_change_registry",
+            "operational_incident_policy",
+            "security_incident_policy",
+            "incident_relation_policy",
             "public_input_standard",
             "intake_process",
-            "agent_audit_execution",
-            "operational_incident_policy",
+            "method_partisan_perception",
+            "print_manifest",
+            "progress_config",
+            "progress_view_standard",
+            "project_console_classifications",
+            "project_console_progress",
+            "project_tool_interface",
+            "project_audit_execution",
             "transaction_lifecycle_schema",
             "transaction_recovery_package_schema",
             "transaction_lifecycle",
-            "audit_core",
-            "audit_project_consistency",
-            "audit_change",
-            "navigation_topic_guides",
-            "navigation_project_sync",
-            "operation_project_update",
+            "project_autonomous_execution",
+            "project_configuration",
+            "project_premise",
             "project_reconciliation_schema",
             "project_reconciliation",
-            "project_autonomous_execution",
+            "proposal_scoring_model",
+            "release_standard",
             "repository_gate_policy",
-            "security_incident_policy",
-            "incident_relation_policy",
-            "agent_context_research",
-            "agent_handoff",
-            "agent_issue_candidate_work",
-            "agent_multi_agent",
-            "runbook_elim",
             "runbook_case_monitor_bot",
-            "runbook_presidential_directives_bot",
             "runbook_console_progress_bot",
+            "runbook_elim",
             "runbook_integrity_bot",
+            "runbook_presidential_directives_bot",
             "runbook_run_coordinator_bot",
             "runbook_source_checker_bot",
-            "audit_verification",
-            "audit_tiered",
-            "audit_legal_prior_proposal",
-            "method_partisan_perception",
-            "proposal_scoring_model",
             "scoring_adoption_pathway",
             "scoring_external_international",
-            "source_presidential_directives",
-            "operation_governance_change_recording",
-            "governance_change_registry",
-            "project_configuration",
             "scoring_standard",
-            "release_standard",
-            "work_tracking_standard",
-            "print_manifest",
-            "elim_result_schema",
-            "project_audit_execution"
+            "source_presidential_directives",
+            "work_tracking_standard"
           ],
           "details": {
             "max_bytes": 1000000,
@@ -37474,5 +37419,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         }
       ]
     }
+  },
+  "domain_generation": {
+    "component-registry.js": "project-console-21b2b1ebdfb0d1c3a937"
   }
 });
