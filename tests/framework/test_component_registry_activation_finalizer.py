@@ -1205,6 +1205,31 @@ class ComponentRegistryStage2FinalizerTests(unittest.TestCase):
                     self.registry,
                 )
 
+    def test_classic_branch_protection_supplies_closed_history_rules(self):
+        protection = {
+            "required_status_checks": {"strict": True},
+            "required_pull_request_reviews": {"required_approving_review_count": 0},
+            "allow_force_pushes": {"enabled": False},
+            "allow_deletions": {"enabled": False},
+            "enforce_admins": {"enabled": True},
+        }
+        with patch.object(finalizer, "_run_json", return_value=protection):
+            posture = finalizer._collect_classic_main_protection()
+        self.assertEqual(
+            posture["rule_types"],
+            [
+                "deletion",
+                "non_fast_forward",
+                "pull_request",
+                "required_status_checks",
+            ],
+        )
+        self.assertFalse(posture["bypass_permitted"])
+        protection["enforce_admins"] = {"enabled": False}
+        with patch.object(finalizer, "_run_json", return_value=protection):
+            posture = finalizer._collect_classic_main_protection()
+        self.assertTrue(posture["bypass_permitted"])
+
     def test_stage2_production_receipt_binds_exact_pr_merge_and_checks(self):
         class Authority:
             mode = "production_canonical"
