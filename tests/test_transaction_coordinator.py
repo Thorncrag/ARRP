@@ -136,7 +136,7 @@ class TransactionCoordinatorTests(unittest.TestCase):
                     "authorization_id": "retry:prior:1",
                     "predecessor_run_id": "prior",
                     "predecessor_terminal_digest": "sha256:" + "0" * 64,
-                    "expires_at": "2026-08-01T00:00:00Z",
+                    "expires_at": "2099-01-01T00:00:00Z",
                 },
             )
 
@@ -210,7 +210,7 @@ class TransactionCoordinatorTests(unittest.TestCase):
                 events_path,
                 predecessor_run_id="prior-run",
                 owner="benjamin",
-                expires_at="2026-08-01T00:00:00Z",
+                expires_at="2099-01-01T00:00:00Z",
             )
             retry_config = MODULE.RunnerConfig(
                 fixture.repo,

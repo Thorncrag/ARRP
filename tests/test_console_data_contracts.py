@@ -296,6 +296,9 @@ class ConsoleDataContractTests(unittest.TestCase):
             "generation_id": "integrity-prior-head",
             "availability": "current",
             "completeness": {"complete": True},
+            "freshness": {
+                "equivalent_source_revisions": ["authoritative-head"],
+            },
         }
         projected = MODULE.with_repository_revision_currentness(
             payload,
@@ -312,6 +315,89 @@ class ConsoleDataContractTests(unittest.TestCase):
             projected["currentness"]["expected_source_revision"],
             "authoritative-head",
         )
+
+    def test_integrity_accepts_only_sole_parent_manifested_console_outputs(self):
+        parent = "a" * 40
+        head = "b" * 40
+        domain_path = (
+            "framework/project/interfaces/project-console/data/overview.js"
+        )
+        manifest = json.dumps({
+            "manifest_schema_version": 1,
+            "generation_id": "project-console-test",
+            "availability": "current",
+            "completeness": {"complete": True},
+            "domain_count": 1,
+            "domains": [{"file": "overview.js", "sha256": "1" * 64}],
+            "files": {"overview.js": {"sha256": "1" * 64}},
+        })
+
+        def result_for(changed, *, ancestry=None, tree_mode="100644"):
+            def fake_git_text(root, arguments):
+                if arguments[:4] == ["rev-list", "--parents", "-n", "1"]:
+                    return ancestry or f"{head} {parent}\n"
+                if arguments[:1] == ["show"]:
+                    return manifest
+                if arguments[:2] == ["ls-tree", parent] or arguments[:2] == [
+                    "ls-tree",
+                    head,
+                ]:
+                    return f"{tree_mode} blob {'2' * 40}\t{domain_path}\n"
+                if arguments[:3] == ["diff", "--name-only", "--no-renames"]:
+                    return "\0".join(changed) + "\0"
+                raise AssertionError(f"unexpected Git query: {arguments}")
+
+            with (
+                mock.patch.object(
+                    MODULE,
+                    "current_repository_head",
+                    return_value=head,
+                ),
+                mock.patch.object(
+                    MODULE,
+                    "_git_console_text",
+                    side_effect=fake_git_text,
+                ),
+            ):
+                return MODULE.integrity_parent_output_equivalent(
+                    parent,
+                    head,
+                    root=ROOT,
+                )
+
+        self.assertTrue(result_for([
+            MODULE.CONSOLE_GENERATION_CATALOG_PATH,
+            MODULE.CONSOLE_GENERATION_MANIFEST_PATH,
+            domain_path,
+            "framework/status/integrity/project-integrity-report.md",
+            "framework/status/sources/source-checker-report.md",
+        ]))
+        self.assertFalse(result_for(["scripts/build_project_console.py"]))
+        self.assertFalse(result_for([
+            "framework/project/interfaces/project-console/data/nested/overview.js"
+        ]))
+        self.assertFalse(result_for(
+            [domain_path],
+            ancestry=f"{head} {parent} {'c' * 40}\n",
+        ))
+        self.assertFalse(result_for([domain_path], tree_mode="120000"))
+        with (
+            mock.patch.object(
+                MODULE,
+                "current_repository_head",
+                return_value=head,
+            ),
+            mock.patch.object(
+                MODULE,
+                "_git_console_text",
+                return_value=f"{head} {'c' * 40}\n",
+            ),
+        ):
+            self.assertFalse(MODULE.integrity_parent_output_equivalent(
+                parent,
+                head,
+                root=ROOT,
+            ))
 
     def public_source_checker_fixture(
         self,
@@ -395,7 +481,7 @@ class ConsoleDataContractTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "requires --public-only"):
             MODULE.validate_console_modes(args)
 
-    def test_public_source_checker_stage_is_fixed_and_current(self):
+    def test_public_source_checker_stage_uses_catalog_binding_across_head_drift(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             config, stage, _, revision = self.public_source_checker_fixture(root)
@@ -415,8 +501,10 @@ class ConsoleDataContractTests(unittest.TestCase):
                     MODULE, "PUBLIC_SOURCE_CHECKER_STAGE", stage
                 ),
                 mock.patch.object(
-                    MODULE, "current_repository_head", return_value=revision
-                ),
+                    MODULE,
+                    "current_repository_head",
+                    return_value="f" * 40,
+                ) as head_reader,
                 mock.patch("builtins.open", guarded_open),
                 mock.patch.dict(
                     os.environ,
@@ -427,9 +515,11 @@ class ConsoleDataContractTests(unittest.TestCase):
                 projected = MODULE.source_checker_snapshot(
                     public_source_checker_stage=True
                 )
+        head_reader.assert_not_called()
         self.assertEqual(projected["availability"], "current")
         self.assertTrue(projected["completeness"]["complete"])
         self.assertEqual(projected["actual_count"], 1)
+        self.assertEqual(projected["source_revision"], revision)
         self.assertNotIn(".tmp", json.dumps(projected))
 
     def test_public_source_checker_stage_rejects_other_input_authority(self):
@@ -505,7 +595,6 @@ class ConsoleDataContractTests(unittest.TestCase):
         mutations = {
             "producer": lambda payload: payload.update(agent_id="other"),
             "schema": lambda payload: payload.update(schema_version=1),
-            "revision": lambda payload: payload.update(source_revision="b" * 40),
             "hash": lambda payload: payload.update(source_hashes={}),
             "completeness": lambda payload: payload["completeness"].update(
                 complete=False
@@ -844,7 +933,7 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertEqual(errors[0]["code"], "markdown_table_row_width")
         self.assertEqual(errors[0]["source"], "governed-log.md")
 
-    def test_component_registry_projection_preserves_validated_typed_state(self):
+    def _legacy_stage1_candidate_projection(self):
         projection_source = SCRIPT.read_text(encoding="utf-8").split(
             "def component_registry_console_snapshot(",
             1,
@@ -898,6 +987,7 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "deferred",
                 "documents",
                 "directories",
+                "relationships",
                 "routing",
                 "activation_readiness",
                 "terminology",
@@ -929,6 +1019,18 @@ class ConsoleDataContractTests(unittest.TestCase):
             },
         )
         self.assertEqual(snapshot["schema_version"], 1)
+        self.assertEqual(
+            len(snapshot["relationships"]),
+            len(registry["component_relationships"]),
+        )
+        self.assertEqual(
+            snapshot["relationships"][0]["console_route"],
+            (
+                "automation:component-registry:relationships?relationship="
+                + snapshot["relationships"][0]["relationship_id"]
+            ),
+        )
+
         self.assertEqual(
             snapshot["registry"]["validation_mode"],
             "candidate_validation_only",
@@ -1070,7 +1172,184 @@ class ConsoleDataContractTests(unittest.TestCase):
             )
         )
 
-    def test_component_registry_active_configuration_is_not_live_activation(self):
+    def test_component_registry_stage2_projection_has_one_validated_source(self):
+        source = Path(MODULE.__file__).read_text(encoding="utf-8")
+        self.assertIn(
+            "def _stage2_component_registry_console_snapshot(",
+            source,
+        )
+        self.assertIn(
+            'routing_view.get("validation_mode")\n'
+            '        != "proposed_revision_validation"',
+            source,
+        )
+        for mode in (
+            "components",
+            "lifecycles",
+            "authority",
+            "relationships",
+            "coverage",
+            "routing",
+            "terminology",
+        ):
+            self.assertIn(f'                "{mode}",', source)
+        self.assertIn(
+            'terminology_entries = terminology.get("entries")',
+            source,
+        )
+        self.assertNotIn(
+            "component-registry-stage2-terminology-working-draft.md",
+            source,
+        )
+        self.assertNotIn(
+            "framework/proposals/component-registry-stage2-design.md",
+            source,
+        )
+        paths = MODULE.component_registry_source_paths(
+            {
+                "registry": {
+                    "validation_mode": "proposed_revision_validation",
+                },
+            },
+            root=Path("/tmp/arrp-stage2-console-test"),
+        )
+        self.assertEqual(
+            paths,
+            [
+                Path("/tmp/arrp-stage2-console-test/framework/component-registry.json"),
+                Path(
+                    "/tmp/arrp-stage2-console-test/framework/standards/automation/"
+                    "component-registry.schema.json"
+                ),
+            ],
+        )
+
+        snapshot = MODULE.load_component_registry_console_snapshot(
+            generated_at="2026-07-31T12:00:00Z",
+        )
+        self.assertEqual(snapshot["schema_version"], 2)
+        self.assertEqual(snapshot["availability"], "current")
+        self.assertTrue(snapshot["complete"])
+        self.assertEqual(
+            set(snapshot["routes"]),
+            {
+                "components",
+                "lifecycles",
+                "authority",
+                "relationships",
+                "coverage",
+                "routing",
+                "terminology",
+            },
+        )
+        self.assertEqual(
+            snapshot["registry"]["validation_mode"],
+            "proposed_revision_validation",
+        )
+        self.assertEqual(snapshot["registry"]["registry_status"], "proposed")
+        self.assertFalse(snapshot["registry"]["authoritative"])
+        self.assertFalse(snapshot["registry"]["executable"])
+        self.assertFalse(snapshot["registry"]["live_authority_verified"])
+        self.assertFalse(snapshot["registry"]["predecessor_route_consulted"])
+        self.assertEqual(len(snapshot["components"]), 103)
+        self.assertEqual(len(snapshot["lifecycles"]["assignments"]), 103)
+        self.assertEqual(len(snapshot["authorities"]["assignments"]), 103)
+        self.assertEqual(len(snapshot["relationships"]), 15)
+        self.assertEqual(len(snapshot["coverage"]["records"]), 57)
+        self.assertEqual(snapshot["coverage"]["uncovered_count"], 0)
+        self.assertEqual(snapshot["coverage"]["multiply_treated_count"], 0)
+        self.assertEqual(len(snapshot["routing"]["selections"]), 27)
+        self.assertTrue(snapshot["terminology"]["adopted"])
+        self.assertEqual(len(snapshot["terminology"]["entries"]), 69)
+        self.assertEqual(
+            MODULE.component_registry_projection_count(snapshot),
+            sum(
+                len(records)
+                for records in (
+                    snapshot["components"],
+                    snapshot["lifecycles"]["assignments"],
+                    snapshot["authorities"]["sources"],
+                    snapshot["authorities"]["assignments"],
+                    snapshot["authorities"]["history"],
+                    snapshot["relationships"],
+                    snapshot["coverage"]["records"],
+                    snapshot["routing"]["components"],
+                    snapshot["routing"]["selections"],
+                    snapshot["terminology"]["entries"],
+                )
+            ),
+        )
+        for component in snapshot["components"]:
+            self.assertIn("classification", component)
+            self.assertIn("canonical_source", component)
+            self.assertIn("information_handling", component)
+            self.assertIn("retention", component)
+            self.assertIn("supporting_artifacts", component)
+            self.assertIn("lifecycle_records", component)
+            self.assertIn("authority_records", component)
+            self.assertIn("relationship_records", component)
+            self.assertIn("migration_records", component)
+            self.assertIn("provenance_records", component)
+        proposal = next(
+            component
+            for component in snapshot["components"]
+            if component["stable_id"]
+            == "component_registry_stage2_design_proposal"
+        )
+        self.assertEqual(
+            proposal["canonical_source"]["locator"]["value"],
+            "framework/proposals/component-registry-stage2-design.md",
+        )
+        self.assertTrue(
+            any(
+                migration.get("source_path")
+                == "research/component-registry-stage2-terminology-working-draft.md"
+                and migration.get("target_path")
+                == "framework/proposals/component-registry-stage2-design.md"
+                and migration.get("historical_only") is True
+                for migration in proposal["migration_records"]
+            )
+        )
+
+    def test_console_generation_timestamp_is_bound_to_exact_revision(self):
+        revision = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        expected = subprocess.run(
+            ["git", "show", "-s", "--format=%cI", revision],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        self.assertEqual(
+            MODULE.repository_revision_timestamp(ROOT, revision),
+            datetime.fromisoformat(expected).isoformat(timespec="seconds"),
+        )
+        with self.assertRaisesRegex(RuntimeError, "exact Git object ID"):
+            MODULE.repository_revision_timestamp(ROOT, "HEAD")
+
+        pipeline = MODULE.build_pipeline_projection(
+            [],
+            [],
+            {
+                "goal": {"reviewReadyScore": 75},
+                "candidates": [],
+                "proposals": [],
+                "generation_id": "progress-fixture",
+                "source_revision": revision,
+                "asOf": "2026-07-31",
+                "availability": "current",
+            },
+            generated_at=expected,
+        )
+        self.assertEqual(pipeline["generatedAt"], expected)
+
+    def _legacy_stage1_active_projection(self):
         registry = candidate_registry_fixture()
         candidate_registry = copy.deepcopy(registry)
         registry["status"] = "active"
@@ -1787,90 +2066,109 @@ class ConsoleDataContractTests(unittest.TestCase):
         )
         self.assertEqual(readiness["future_run_gates"]["count"], 1)
 
-    def test_overview_activity_preserves_typed_artifact_change_events(self):
-        overview = MODULE.overview_data(
-            candidates=[],
-            active_horizon_records=[],
-            monitoring_issues=[],
-            pending_sources=[],
-            review_recommendations=[
-                {
-                    "id": "SMR-1",
-                    "recorded_at": "2026-07-25T12:01:00Z",
-                    "reviewer": "Interactive Codex",
-                    "pull_request_number": 381,
-                    "recommendation": "Review the complete exact-head delta.",
-                    "affected_records": "10 directive records",
-                    "action_owner": "Human",
-                    "human_question": "Approve the recorded disposition?",
-                    "console_target": "sources:watchers:directives",
-                }
-            ],
-            progress={},
-            integrity={},
-            run_chain={},
-            publication={},
-            project_logs=[
-                {
-                    "id": "source-monitor",
-                    "title": "Source Monitor Log",
-                    "entries": [
-                        {
-                            "id": "source-monitor-1",
-                            "values": {
-                                "date": "2026-07-25T12:01:00Z",
-                                "watcher": "Repository review recommendation SMR-1",
-                                "result": "recommendation_recorded",
-                                "activity": "SMR-1",
-                            },
-                        }
-                    ],
-                },
-                {
-                    "id": "agents",
-                    "title": "Agent Audit Log",
-                    "entries": [
-                        {
-                            "id": "agent-1",
-                            "values": {
-                                "date": "2026-07-25T12:00:00Z",
-                                "record": "TEST-001",
-                                "agent": "Elim",
-                                "outcome": "Completed",
-                            },
-                        },
-                        {
-                            "id": "agent-2",
-                            "values": {
-                                "date": "2026-07-25T11:59:00Z",
-                                "record": "TEST-001",
-                                "agent": "Elim",
-                                "outcome": "Completed",
-                            },
-                        },
-                    ],
-                },
-            ],
-            agent_registry=[],
-            watcher_metadata={},
-            source_checker={},
-        )
-        activity = overview["activity"]
-        self.assertEqual(len(activity), 3)
-        self.assertEqual(activity[0]["event_code"], "repository_review_recorded")
+    def test_active_issue_score_activity_uses_exact_issue_audit_history(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            issue_root = root / "areas" / "TEST" / "issues"
+            issue_root.mkdir(parents=True)
+            (issue_root / "TEST-001.md").write_text(
+                "# TEST-001 — Useful issue\n", encoding="utf-8"
+            )
+            (issue_root / "TEST-001.audit.md").write_text(
+                """# TEST-001 — Audit History
+
+### 2026-07-30 — Editorial follow-up
+
+**Score effect:** No Proposal Quality Score change. The score remains 74/100.
+
+### 2026-07-29 — T3 readiness audit
+
+**Score effect:** Proposal Quality Score increased from 70 to 74.
+""",
+                encoding="utf-8",
+            )
+            progress = {
+                "proposals": [
+                    {
+                        "identifier": "TEST-001",
+                        "title": "TEST-001: Useful issue",
+                        "canonicalRecord": "areas/TEST/issues/TEST-001.md",
+                        "isIssueDevelopment": True,
+                        "workflowStatus": "External review",
+                        "state": "OPEN",
+                        "score": 74,
+                    },
+                    {
+                        "identifier": "TEST-AREA",
+                        "title": "Area summary is not an issue page",
+                        "canonicalRecord": "areas/TEST/README.md",
+                        "isIssueDevelopment": True,
+                        "state": "OPEN",
+                        "score": 74,
+                    },
+                ]
+            }
+            activity = MODULE.active_issue_score_activity(
+                progress, repository_root=root
+            )
+        self.assertEqual(len(activity), 1)
+        self.assertEqual(activity[0]["event_code"], "active_issue_score_changed")
+        self.assertEqual(activity[0]["artifact_label"], "TEST-001 · Useful issue")
+        self.assertEqual(activity[0]["change_descriptor"], "T3 readiness audit")
+        self.assertEqual(activity[0]["score_change"], "70 → 74")
+        self.assertEqual(activity[0]["old_score"], 70)
+        self.assertEqual(activity[0]["new_score"], 74)
         self.assertEqual(
-            activity[0]["producer"],
-            "source-monitor-recommendation-projection",
+            activity[0]["canonical_record"], "areas/TEST/issues/TEST-001.md"
         )
-        self.assertEqual(activity[0]["route"], "sources:watchers:directives")
-        self.assertEqual(
-            [item["event_code"] for item in activity[1:]],
-            ["project_log_artifact_changed", "project_log_artifact_changed"],
-        )
-        self.assertEqual(
-            [item["source_record_id"] for item in activity[1:]],
-            ["agent-1", "agent-2"],
-        )
+
+    def test_overview_activity_uses_issue_projection_not_general_logs(self):
+        projected = {
+            "event_id": "TEST-001-score-2026-07-29",
+            "occurred_at": "2026-07-29",
+            "event_code": "active_issue_score_changed",
+            "artifact_label": "TEST-001 · Useful issue",
+            "artifact_ids": ["TEST-001"],
+            "change_descriptor": "T3 readiness audit",
+            "score_change": "70 → 74",
+            "canonical_record": "areas/TEST/issues/TEST-001.md",
+            "route": "https://example.test/TEST-001",
+        }
+        with mock.patch.object(
+            MODULE, "active_issue_score_activity", return_value=[projected]
+        ):
+            overview = MODULE.overview_data(
+                candidates=[],
+                active_horizon_records=[],
+                monitoring_issues=[],
+                pending_sources=[],
+                review_recommendations=[],
+                progress={"proposals": []},
+                integrity={},
+                run_chain={},
+                publication={},
+                project_logs=[
+                    {
+                        "id": "changes",
+                        "title": "Change Audit Log",
+                        "entries": [
+                            {
+                                "id": "generic-change",
+                                "values": {
+                                    "date": "2026-07-30",
+                                    "change": "General project change",
+                                    "scope": "Not one issue page",
+                                    "effect": "No score change.",
+                                },
+                            }
+                        ],
+                    }
+                ],
+                agent_registry=[],
+                watcher_metadata={},
+                source_checker={},
+            )
+        self.assertEqual(overview["activity"], [projected])
 
     def test_overview_uses_typed_incident_projection_without_regrouping_run_text(self):
         message_a = (

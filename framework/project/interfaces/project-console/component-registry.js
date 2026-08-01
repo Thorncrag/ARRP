@@ -5,6 +5,7 @@
     "documents",
     "directories",
     "routing",
+    "relationships",
     "terminology"
   ]);
   const PENDING_DISPLAY = "Classification pending — enforcement not active";
@@ -18,10 +19,15 @@
   ]);
   const fieldSet = (value) => new Set(value.split(" "));
   const TOP_FIELDS = fieldSet(
+    "schema_version projection_id producer_id generated_at availability complete reason_code routes defaults registry deferred documents directories relationships routing activation_readiness terminology"
+  );
+  const LEGACY_TOP_FIELDS = fieldSet(
     "schema_version projection_id producer_id generated_at availability complete reason_code routes defaults registry deferred documents directories routing activation_readiness terminology"
   );
-  const ROUTE_FIELDS = fieldSet("documents directories routing terminology");
-  const DEFAULT_FIELDS = fieldSet("mode document directory routing");
+  const ROUTE_FIELDS = fieldSet("documents directories routing relationships terminology");
+  const LEGACY_ROUTE_FIELDS = fieldSet("documents directories routing terminology");
+  const DEFAULT_FIELDS = fieldSet("mode document directory routing relationship");
+  const LEGACY_DEFAULT_FIELDS = fieldSet("mode document directory routing");
   const REGISTRY_FIELDS = fieldSet(
     "registry_id registry_revision registry_status approval configuration_validation live_activation validation_mode authoritative executable live_activation_verified predecessor_route_consulted registry_sha256 repository_revision source_binding_sha256"
   );
@@ -36,6 +42,13 @@
   );
   const DIRECTORY_FIELDS = fieldSet(
     "scope_id display_name path_pattern match_kind specificity_rank parameter_bindings owning_scope_selection_rule ancestor_scope_ids placement_question include_when exclude_when primary_authority disclosure_boundary lifecycle_posture authorized_creators precedence fallback console_route permitted_artifact_classes current_artifact_count"
+  );
+  const RELATIONSHIP_FIELDS = fieldSet(
+    "relationship_id relationship_type from to authority_boundary console_route"
+  );
+  const RELATIONSHIP_ENDPOINT_FIELDS = fieldSet("kind id");
+  const REGISTRY_RELATIONSHIP_FIELDS = fieldSet(
+    "relationship_id relationship_type from to authority_boundary"
   );
   const PARAMETER_FIELDS = fieldSet("allowed_values");
   const ROUTING_FIELDS = fieldSet(
@@ -128,6 +141,7 @@
     ]
   });
   const RULE_NAMESPACES = Object.freeze(Object.keys(RULE_NAMESPACE_COUNTS));
+  let boundRelationships = null;
   const RULE_BASE_FIELDS = fieldSet(
     "namespace rule_id rule_version status predicate_type parameters label rendered_text source_provenance verification_ids console_route"
   );
@@ -160,6 +174,10 @@
     if (!plainObject(value)) return false;
     const keys = Object.keys(value);
     return keys.length === fields.size && keys.every((key) => fields.has(key));
+  }
+
+  function exactFieldsOneOf(value, options) {
+    return options.some((fields) => exactFields(value, fields));
   }
 
   function string(value) {
@@ -217,6 +235,48 @@
     const parameters = new URLSearchParams(query);
     return [...parameters.keys()].length === 1
       && parameters.get("document") === identity;
+  }
+
+  function validRelationshipRoute(value, identity) {
+    return validSelectionRoute(value, "relationships", "relationship", identity);
+  }
+
+  function validRelationshipEndpoint(value) {
+    return exactFields(value, RELATIONSHIP_ENDPOINT_FIELDS)
+      && string(value.kind)
+      && string(value.id);
+  }
+
+  function validRelationship(value) {
+    return exactFields(value, RELATIONSHIP_FIELDS)
+      && string(value.relationship_id)
+      && string(value.relationship_type)
+      && validRelationshipEndpoint(value.from)
+      && validRelationshipEndpoint(value.to)
+      && string(value.authority_boundary)
+      && validRelationshipRoute(value.console_route, value.relationship_id);
+  }
+
+  function canonicalValue(value) {
+    if (Array.isArray(value)) return value.map(canonicalValue);
+    if (!plainObject(value)) return value;
+    return Object.fromEntries(
+      Object.keys(value).sort().map((key) => [key, canonicalValue(value[key])])
+    );
+  }
+
+  async function sha256(value) {
+    const bytes = new TextEncoder().encode(value);
+    const result = await global.crypto.subtle.digest("SHA-256", bytes);
+    return [...new Uint8Array(result)]
+      .map((byte) => byte.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  async function loadBoundRelationships(snapshot) {
+    return Array.isArray(snapshot?.relationships)
+      ? snapshot.relationships
+      : [];
   }
 
   function validRegistry(value) {
@@ -315,11 +375,16 @@
       || !stringArray(value.representations)
       || !stringArray(value.dependencies)
       || !stringArray(value.consumers)
-      || !["pinned", "runtime"].includes(value.digest_policy)
+      || ![
+        "pinned",
+        "runtime",
+        "external",
+        "provenance_only"
+      ].includes(value.digest_policy)
       || !(value.sha256 === null || digest(value.sha256))
       || !validDocumentRoute(value.console_route, value.document_id)
       || !string(value.retention_posture)) return false;
-    return value.digest_policy === "pinned"
+    return ["pinned", "provenance_only"].includes(value.digest_policy)
       ? digest(value.sha256)
       : value.sha256 === null;
   }
@@ -687,7 +752,8 @@
   }
 
   function validSnapshot(value) {
-    if (!exactFields(value, TOP_FIELDS)
+    const hasRelationships = Array.isArray(value?.relationships);
+    if (!exactFieldsOneOf(value, [TOP_FIELDS, LEGACY_TOP_FIELDS])
       || value.schema_version !== 1
       || value.projection_id !== "component-registry-console"
       || value.producer_id !== "project-console-builder"
@@ -695,9 +761,14 @@
       || value.availability !== "current"
       || value.complete !== true
       || value.reason_code !== null
-      || !exactFields(value.routes, ROUTE_FIELDS)
-      || !MODES.every((mode) => validRoute(value.routes[mode], mode))
-      || !exactFields(value.defaults, DEFAULT_FIELDS)
+      || !(hasRelationships
+        ? exactFields(value.routes, ROUTE_FIELDS)
+          && exactFields(value.defaults, DEFAULT_FIELDS)
+          && MODES.every((mode) => validRoute(value.routes[mode], mode))
+        : exactFields(value.routes, LEGACY_ROUTE_FIELDS)
+          && exactFields(value.defaults, LEGACY_DEFAULT_FIELDS)
+          && MODES.filter((mode) => mode !== "relationships")
+            .every((mode) => validRoute(value.routes[mode], mode)))
       || value.defaults.mode !== "documents"
       || !string(value.defaults.document)
       || !string(value.defaults.directory)
@@ -708,6 +779,7 @@
       || !value.documents.every(validDocument)
       || !Array.isArray(value.directories)
       || !value.directories.every(validDirectory)
+      || (hasRelationships && !value.relationships.every(validRelationship))
       || !validRouting(value.routing, value.registry)
       || value.routing.authoritative !== false
       || !validActivationReadiness(
@@ -717,10 +789,15 @@
       || !validTerminology(value.terminology)) return false;
     const documentIds = value.documents.map((record) => record.document_id);
     const directoryIds = value.directories.map((record) => record.scope_id);
+    const relationshipIds = hasRelationships
+      ? value.relationships.map((record) => record.relationship_id)
+      : [];
     return new Set(documentIds).size === documentIds.length
       && new Set(directoryIds).size === directoryIds.length
+      && new Set(relationshipIds).size === relationshipIds.length
       && documentIds.includes(value.defaults.document)
       && directoryIds.includes(value.defaults.directory)
+      && (!hasRelationships || relationshipIds.includes(value.defaults.relationship))
       && value.routing.selections.some((record) =>
         record.selection_id === value.defaults.routing)
       && value.routing.documents.every((record) =>
@@ -744,6 +821,7 @@
       documents: ["document"],
       directories: ["directory"],
       routing: ["selection", "rule"],
+      relationships: ["relationship"],
       terminology: []
     }[mode];
     const parameterKeys = [...parameters.keys()];
@@ -753,6 +831,7 @@
       documents: parameters.get("document"),
       directories: parameters.get("directory"),
       routing: parameters.get("selection") || parameters.get("rule"),
+      relationships: parameters.get("relationship"),
       terminology: null
     }[mode] : null;
     if (!validSnapshot(snapshot)) return { mode, selected: null };
@@ -763,12 +842,15 @@
         ...snapshot.routing.selections.map((record) => record.selection_id),
         ...snapshot.routing.rules.map((record) => record.rule_id)
       ],
+      relationships: (snapshot.relationships || []).map((record) =>
+        record.relationship_id),
       terminology: []
     }[mode];
     const producerDefault = {
       documents: snapshot.defaults.document,
       directories: snapshot.defaults.directory,
       routing: snapshot.defaults.routing,
+      relationships: snapshot.defaults.relationship || null,
       terminology: null
     }[mode];
     return {
@@ -854,6 +936,22 @@
       ["Fallback", record.fallback],
       ["Current artifact count", renderValue(record.current_artifact_count)],
       ["Permitted artifact classes", renderValue(record.permitted_artifact_classes)]
+    ]);
+  }
+
+  function relationshipEndpoint(value) {
+    return `${value.id} (${readableCategory(value.kind)})`;
+  }
+
+  function renderRelationship(host, record) {
+    host.replaceChildren();
+    host.append(node("h3", "", readableCategory(record.relationship_type)));
+    appendRows(host, [
+      ["Stable relationship identity", record.relationship_id],
+      ["Relationship type", readableCategory(record.relationship_type)],
+      ["From", relationshipEndpoint(record.from)],
+      ["To", relationshipEndpoint(record.to)],
+      ["Authority boundary", record.authority_boundary]
     ]);
   }
 
@@ -953,13 +1051,220 @@
     ]);
   }
 
-  function populate(select, records, identity, label) {
-    select.replaceChildren();
-    records.forEach((record) => {
-      const option = node("option", "", label(record));
-      option.value = identity(record);
-      select.append(option);
+  function filterTerminologyEntries(entries, query) {
+    const tokens = String(query || "")
+      .trim()
+      .toLocaleLowerCase()
+      .split(/\s+/)
+      .filter(Boolean);
+    if (!tokens.length) return [...entries];
+    return entries.filter((entry) => {
+      const searchable = `${entry.label} ${entry.definition}`
+        .toLocaleLowerCase();
+      return tokens.every((token) => searchable.includes(token));
     });
+  }
+
+  function renderTerminologyDraft(entries) {
+    if (!entries.length) return;
+    const listHost = document.getElementById("component-registry-terminology-list");
+    const detailHost = document.getElementById("component-registry-terminology-detail");
+    const search = document.getElementById("component-registry-terminology-search");
+    const resultCount = document.getElementById("component-registry-terminology-results");
+    if (!listHost || !detailHost || !search || !resultCount) return;
+    const count = document.getElementById("component-registry-terminology-count");
+    if (count) {
+      count.hidden = false;
+      count.textContent = `Draft ${entries.length}`;
+      count.setAttribute("aria-label", `${entries.length} working-draft definitions`);
+    }
+    const renderDetail = (entry) => {
+      detailHost.replaceChildren(
+        node("h3", "", entry.term),
+        node(
+          "p",
+          "empty-state compact-empty",
+          "Working-draft preview — nonauthoritative and not active in the Registry."
+        ),
+        ...entry.paragraphs.map((paragraph) => node("p", "", paragraph))
+      );
+    };
+    let selectedTerm = entries[0].term;
+    const renderResults = () => {
+      const filtered = filterTerminologyEntries(entries, search.value);
+      resultCount.textContent = `${filtered.length} of ${entries.length} working-draft definitions`;
+      listHost.replaceChildren();
+      if (!filtered.length) {
+        listHost.append(node(
+          "p",
+          "empty-state compact-empty",
+          "No definitions match this search."
+        ));
+        detailHost.replaceChildren(node(
+          "p",
+          "empty-state compact-empty",
+          "Clear or revise the search to inspect a definition."
+        ));
+        return;
+      }
+      const selected = filtered.find((entry) => entry.term === selectedTerm) || filtered[0];
+      selectedTerm = selected.term;
+      const rows = [];
+      const group = node(
+        "div",
+        "component-registry-group-label",
+        `Approved working draft · ${filtered.length}`
+      );
+      group.setAttribute("role", "presentation");
+      listHost.append(group);
+      filtered.forEach((entry) => {
+        const row = node("button", "email-list-row component-registry-list-row");
+        const isSelected = entry.term === selectedTerm;
+        row.type = "button";
+        row.setAttribute("role", "option");
+        row.setAttribute("aria-selected", String(isSelected));
+        row.tabIndex = isSelected ? 0 : -1;
+        if (isSelected) row.classList.add("selected");
+        row.append(
+          node("strong", "email-row-title", entry.term),
+          node("span", "email-row-time", "Draft"),
+          node("span", "email-row-summary", entry.paragraphs[0])
+        );
+        row.addEventListener("click", () => {
+          selectedTerm = entry.term;
+          rows.forEach((candidate) => {
+            const candidateSelected = candidate === row;
+            candidate.classList.toggle("selected", candidateSelected);
+            candidate.setAttribute("aria-selected", String(candidateSelected));
+            candidate.tabIndex = candidateSelected ? 0 : -1;
+          });
+          renderDetail(entry);
+        });
+        row.addEventListener("keydown", (event) => {
+          if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+          const current = rows.indexOf(row);
+          const next = event.key === "Home"
+            ? 0
+            : event.key === "End"
+              ? rows.length - 1
+              : event.key === "ArrowDown"
+                ? Math.min(rows.length - 1, current + 1)
+                : Math.max(0, current - 1);
+          event.preventDefault();
+          rows[next].focus();
+          rows[next].click();
+        });
+        rows.push(row);
+        listHost.append(row);
+      });
+      renderDetail(selected);
+    };
+    search.disabled = false;
+    search.oninput = renderResults;
+    renderResults();
+  }
+
+  function readableCategory(value) {
+    return String(value || "Unclassified")
+      .replaceAll("_", " ")
+      .replace(/\b\w/g, (letter) => letter.toUpperCase());
+  }
+
+  function renderRegistryList(
+    host,
+    records,
+    identity,
+    title,
+    summary,
+    meta,
+    category,
+    selectedIdentity
+  ) {
+    host.replaceChildren();
+    const ordered = [...records].sort((left, right) =>
+      title(left).localeCompare(title(right), undefined, { numeric: true }));
+    const groups = new Map();
+    ordered.forEach((record) => {
+      const group = category(record);
+      if (!groups.has(group)) groups.set(group, []);
+      groups.get(group).push(record);
+    });
+    const rows = [];
+    [...groups].sort(([left], [right]) => left.localeCompare(right)).forEach(([group, items]) => {
+      const groupLabel = node(
+        "div",
+        "component-registry-group-label",
+        `${group} · ${items.length}`
+      );
+      groupLabel.setAttribute("role", "presentation");
+      host.append(groupLabel);
+      items.forEach((record) => {
+        const recordIdentity = identity(record);
+        const selected = recordIdentity === selectedIdentity;
+        const row = node("button", "email-list-row component-registry-list-row");
+        row.type = "button";
+        row.dataset.registryRecord = recordIdentity;
+        row.setAttribute("role", "option");
+        row.setAttribute("aria-selected", String(selected));
+        row.tabIndex = selected ? 0 : -1;
+        if (selected) row.classList.add("selected");
+        row.append(
+          node("strong", "email-row-title", title(record)),
+          node("span", "email-row-time", meta(record)),
+          node("span", "email-row-summary", summary(record))
+        );
+        row.addEventListener("click", () => go(record.console_route));
+        row.addEventListener("keydown", (event) => {
+          if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+          const current = rows.indexOf(row);
+          const next = event.key === "Home"
+            ? 0
+            : event.key === "End"
+              ? rows.length - 1
+              : event.key === "ArrowDown"
+                ? Math.min(rows.length - 1, current + 1)
+                : Math.max(0, current - 1);
+          event.preventDefault();
+          rows[next].focus();
+          rows[next].click();
+        });
+        rows.push(row);
+        host.append(row);
+      });
+    });
+  }
+
+  function renderRelationshipRecords(records, selectedIdentity = null) {
+    const selected = records.find((record) =>
+      record.relationship_id === selectedIdentity) || records[0];
+    setModeCount("relationships", records.length, true);
+    renderRegistryList(
+      document.getElementById("component-registry-relationship-list"),
+      records,
+      (record) => record.relationship_id,
+      (record) => `${record.from.id} → ${record.to.id}`,
+      (record) => record.authority_boundary,
+      (record) => readableCategory(record.relationship_type),
+      (record) => readableCategory(record.relationship_type),
+      selected?.relationship_id
+    );
+    const detail = document.getElementById("component-registry-relationship-detail");
+    if (selected) {
+      renderRelationship(detail, selected);
+    } else if (detail) {
+      detail.replaceChildren(node(
+        "p",
+        "empty-state compact-empty",
+        "No component relationships are registered."
+      ));
+    }
+  }
+
+  function setModeCount(mode, count, available = true) {
+    const value = document.getElementById(`component-registry-${mode}-count`);
+    if (!value) return;
+    value.hidden = !available;
+    value.textContent = available ? String(count) : "";
   }
 
   function go(route) {
@@ -987,7 +1292,10 @@
       if (!button || button.dataset.registryBound === "true") return;
       button.dataset.registryBound = "true";
       button.addEventListener("click", () =>
-        go(snapshot.routes[button.dataset.registryMode]));
+        go(
+          snapshot.routes[button.dataset.registryMode]
+          || `automation:component-registry:${button.dataset.registryMode}`
+        ));
       button.addEventListener("keydown", (event) => {
         let next = null;
         if (event.key === "ArrowRight") next = (index + 1) % buttons.length;
@@ -997,25 +1305,8 @@
         if (next === null || !buttons[next]) return;
         event.preventDefault();
         buttons[next].focus();
-        go(snapshot.routes[buttons[next].dataset.registryMode]);
-      });
-    });
-    [
-      ["component-registry-document-select", snapshot.documents, "document_id"],
-      ["component-registry-directory-select", snapshot.directories, "scope_id"],
-      [
-        "component-registry-routing-select",
-        [...snapshot.routing.selections, ...snapshot.routing.rules],
-        (record) => record.selection_id || record.rule_id
-      ]
-    ].forEach(([id, records, identity]) => {
-      const select = document.getElementById(id);
-      if (!select || select.dataset.registryBound === "true") return;
-      select.dataset.registryBound = "true";
-      select.addEventListener("change", () => {
-        const record = records.find((candidate) =>
-          (typeof identity === "function" ? identity(candidate) : candidate[identity]) === select.value);
-        if (record) go(record.console_route);
+        const mode = buttons[next].dataset.registryMode;
+        go(snapshot.routes[mode] || `automation:component-registry:${mode}`);
       });
     });
   }
@@ -1030,6 +1321,7 @@
       "component-registry-document-detail",
       "component-registry-directory-detail",
       "component-registry-routing-detail",
+      "component-registry-relationship-detail",
       "component-registry-terminology-detail"
     ].forEach((id) => {
       const host = document.getElementById(id);
@@ -1086,26 +1378,21 @@
         node("p", "component-registry-activation", snapshot.deferred.activation_requirement)
       );
     }
-    const documentSelect = document.getElementById("component-registry-document-select");
-    const directorySelect = document.getElementById("component-registry-directory-select");
-    const routingSelect = document.getElementById("component-registry-routing-select");
-    populate(
-      documentSelect,
-      snapshot.documents,
-      (record) => record.document_id,
-      (record) => `${renderValue(record.official_reference_name)} · ${record.document_id}`
+    setModeCount("documents", snapshot.documents.length);
+    setModeCount("directories", snapshot.directories.length);
+    setModeCount(
+      "routing",
+      snapshot.routing.selections.length + snapshot.routing.rules.length
     );
-    populate(
-      directorySelect,
-      snapshot.directories,
-      (record) => record.scope_id,
-      (record) => `${record.display_name} · ${record.path_pattern}`
+    setModeCount(
+      "relationships",
+      (snapshot.relationships || []).length,
+      Array.isArray(snapshot.relationships)
     );
-    populate(
-      routingSelect,
-      [...snapshot.routing.selections, ...snapshot.routing.rules],
-      (record) => record.selection_id || record.rule_id,
-      (record) => record.selection_id || `${record.label} · ${record.rule_id}`
+    setModeCount(
+      "terminology",
+      snapshot.terminology.entries.length,
+      snapshot.terminology.available === true
     );
     bindControls(snapshot);
     const selectedDocument = snapshot.documents.find((record) =>
@@ -1127,27 +1414,93 @@
           ? state.selected
           : snapshot.defaults.routing
       ));
+    const relationshipRecords = snapshot.relationships || boundRelationships || [];
+    const selectedRelationship = relationshipRecords.find((record) =>
+      record.relationship_id === (
+        state.mode === "relationships"
+          ? state.selected
+          : snapshot.defaults.relationship
+      ));
+    renderRegistryList(
+      document.getElementById("component-registry-document-list"),
+      snapshot.documents,
+      (record) => record.document_id,
+      (record) => renderValue(record.official_reference_name),
+      (record) => record.canonical_path,
+      (record) => renderValue(record.current_status),
+      (record) => readableCategory(record.authority_role),
+      selectedDocument?.document_id
+    );
+    renderRegistryList(
+      document.getElementById("component-registry-directory-list"),
+      snapshot.directories,
+      (record) => record.scope_id,
+      (record) => record.display_name,
+      (record) => record.path_pattern,
+      (record) => readableCategory(record.lifecycle_posture),
+      (record) => readableCategory(record.lifecycle_posture),
+      selectedDirectory?.scope_id
+    );
+    renderRegistryList(
+      document.getElementById("component-registry-routing-list"),
+      routingRecords,
+      (record) => record.selection_id || record.rule_id,
+      (record) => record.selection_id || record.label,
+      (record) => record.rule_id || joined(record.capabilities),
+      (record) => record.rule_id ? "Rule" : readableCategory(record.selection_kind),
+      (record) => record.rule_id
+        ? `Rules · ${readableCategory(record.namespace)}`
+        : readableCategory(`${record.selection_kind}s`),
+      selectedRouting?.selection_id || selectedRouting?.rule_id
+    );
+    renderRelationshipRecords(
+      relationshipRecords,
+      selectedRelationship?.relationship_id
+    );
+    const terminologyList = document.getElementById("component-registry-terminology-list");
+    terminologyList.replaceChildren(node(
+      "p",
+      "empty-state compact-empty",
+      "No terminology entries are active."
+    ));
     if (selectedDocument) {
-      documentSelect.value = selectedDocument.document_id;
       renderDocument(
         document.getElementById("component-registry-document-detail"),
         selectedDocument
       );
     }
     if (selectedDirectory) {
-      directorySelect.value = selectedDirectory.scope_id;
       renderDirectory(
         document.getElementById("component-registry-directory-detail"),
         selectedDirectory
       );
     }
     if (selectedRouting) {
-      routingSelect.value = selectedRouting.selection_id || selectedRouting.rule_id;
       renderRouting(
         document.getElementById("component-registry-routing-detail"),
         selectedRouting,
         snapshot
       );
+    }
+    if (!relationshipRecords.length) {
+      const [path, query = ""] = String(target || "").replace(/^#/, "").split("?", 2);
+      const parameters = new URLSearchParams(query);
+      const requestedRelationship = path === "automation:component-registry:relationships"
+        && [...parameters.keys()].length === 1
+        ? parameters.get("relationship")
+        : null;
+      loadBoundRelationships(snapshot).then((records) => {
+        renderRelationshipRecords(records, requestedRelationship);
+      }).catch(() => {
+        const relationshipDetail = document.getElementById(
+          "component-registry-relationship-detail"
+        );
+        if (relationshipDetail) relationshipDetail.replaceChildren(node(
+          "p",
+          "empty-state compact-empty",
+          "Relationship data is unavailable because the current Registry binding could not be verified."
+        ));
+      });
     }
     renderTerminology(
       document.getElementById("component-registry-terminology-detail"),
@@ -1162,6 +1515,683 @@
     pendingDisplay: PENDING_DISPLAY,
     validSnapshot,
     routeState,
+    filterTerminologyEntries,
+    render
+  });
+})(window);
+
+(function (global) {
+  "use strict";
+
+  const legacyApi = global.ARRP_COMPONENT_REGISTRY;
+
+  const MODES = Object.freeze([
+    "components",
+    "lifecycles",
+    "authority",
+    "relationships",
+    "coverage",
+    "routing",
+    "terminology"
+  ]);
+
+  function object(value) {
+    return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+  }
+
+  function text(value) {
+    return typeof value === "string" && value.length > 0;
+  }
+
+  function unique(records, key) {
+    return Array.isArray(records)
+      && records.every((record) => object(record) && text(record[key]))
+      && new Set(records.map((record) => record[key])).size === records.length;
+  }
+
+  function containsPrivatePayload(value) {
+    if (Array.isArray(value)) return value.some(containsPrivatePayload);
+    if (!object(value)) return false;
+    return Object.entries(value).some(([key, nested]) =>
+      ["private_payload", "contract_payload", "attachment_path", "credential", "secret"]
+        .includes(key)
+      || containsPrivatePayload(nested));
+  }
+
+  function validSnapshot(snapshot) {
+    if (snapshot?.schema_version === 1) {
+      return legacyApi.validSnapshot(snapshot);
+    }
+    if (!object(snapshot)
+      || snapshot.schema_version !== 2
+      || snapshot.projection_id !== "component-registry-console"
+      || snapshot.producer_id !== "project-console-builder"
+      || Number.isNaN(Date.parse(snapshot.generated_at))
+      || snapshot.availability !== "current"
+      || snapshot.complete !== true
+      || snapshot.reason_code !== null
+      || !object(snapshot.routes)
+      || !object(snapshot.defaults)
+      || !object(snapshot.registry)
+      || snapshot.registry.registry_id !== "COMPONENT-REGISTRY"
+      || snapshot.registry.registry_revision !== 2
+      || snapshot.registry.registry_status !== "proposed"
+      || snapshot.registry.validation_mode !== "proposed_revision_validation"
+      || snapshot.registry.authoritative !== false
+      || snapshot.registry.executable !== false
+      || snapshot.registry.live_authority_verified !== false
+      || snapshot.registry.predecessor_route_consulted !== false
+      || !/^[0-9a-f]{64}$/.test(snapshot.registry.registry_sha256 || "")
+      || !unique(snapshot.components, "stable_id")
+      || !object(snapshot.lifecycles)
+      || !unique(snapshot.lifecycles.assignments, "assignment_id")
+      || !object(snapshot.authorities)
+      || !unique(snapshot.authorities.assignments, "assignment_id")
+      || !unique(snapshot.relationships, "relationship_id")
+      || !object(snapshot.coverage)
+      || !unique(snapshot.coverage.records, "coverage_id")
+      || !object(snapshot.routing)
+      || !unique(snapshot.routing.selections, "routing_id")
+      || !object(snapshot.terminology)
+      || snapshot.terminology.available !== true
+      || snapshot.terminology.complete !== true
+      || snapshot.terminology.adopted !== true
+      || !/^[0-9a-f]{64}$/.test(snapshot.terminology.record_set_sha256 || "")
+      || !unique(snapshot.terminology.entries, "term_id")
+      || snapshot.terminology.entries.length !== 69
+      || containsPrivatePayload(snapshot)) return false;
+    if (!MODES.every((mode) =>
+      snapshot.routes[mode] === `automation:component-registry:${mode}`)) return false;
+    const componentIds = new Set(snapshot.components.map((record) => record.stable_id));
+    if (!snapshot.components.every((record) =>
+      text(record.display_name)
+      && object(record.classification)
+      && text(record.classification.component_class)
+      && object(record.canonical_source)
+      && (text(record.owner) || object(record.owner))
+      && object(record.information_handling)
+      && object(record.retention)
+      && Array.isArray(record.supporting_artifacts)
+      && object(record.record_refs)
+      && Array.isArray(record.lifecycle_records)
+      && Array.isArray(record.authority_records)
+      && Array.isArray(record.relationship_records)
+      && Array.isArray(record.migration_records)
+      && Array.isArray(record.provenance_records)
+      && record.console_route === (
+        "automation:component-registry:components?component="
+        + encodeURIComponent(record.stable_id)
+      ))) return false;
+    if (!snapshot.lifecycles.assignments.every((record) =>
+      componentIds.has(record.component_id))) return false;
+    if (!snapshot.authorities.assignments.every((record) =>
+      componentIds.has(record.component_id))) return false;
+    if (!snapshot.terminology.entries.every((record) =>
+      text(record.label) && text(record.definition))) return false;
+    return snapshot.defaults.mode === "components"
+      && componentIds.has(snapshot.defaults.component)
+      && snapshot.coverage.uncovered_count === 0
+      && snapshot.coverage.multiply_treated_count === 0;
+  }
+
+  function routeState(target, snapshot) {
+    if (snapshot?.schema_version === 1) {
+      return legacyApi.routeState(target, snapshot);
+    }
+    const [route, query = ""] = String(target || "").replace(/^#/, "").split("?", 2);
+    const parts = route.split(":");
+    const requested = parts[0] === "automation" && parts[1] === "component-registry"
+      ? parts[2]
+      : "";
+    const mode = MODES.includes(requested) ? requested : "components";
+    if (!validSnapshot(snapshot)) return { mode, selected: null };
+    const key = {
+      components: "component",
+      lifecycles: "assignment",
+      authority: "assignment",
+      relationships: "relationship",
+      coverage: "coverage",
+      routing: "selection",
+      terminology: "term"
+    }[mode];
+    const parameters = new URLSearchParams(query);
+    const selected = [...parameters.keys()].every((name) => name === key)
+      ? parameters.get(key)
+      : null;
+    const identities = {
+      components: snapshot.components.map((record) => record.stable_id),
+      lifecycles: snapshot.lifecycles.assignments.map((record) => record.assignment_id),
+      authority: snapshot.authorities.assignments.map((record) => record.assignment_id),
+      relationships: snapshot.relationships.map((record) => record.relationship_id),
+      coverage: snapshot.coverage.records.map((record) => record.coverage_id),
+      routing: snapshot.routing.selections.map((record) => record.routing_id),
+      terminology: snapshot.terminology.entries.map((record) => record.term_id)
+    }[mode];
+    return {
+      mode,
+      selected: identities.includes(selected) ? selected : snapshot.defaults[
+        mode === "components" ? "component"
+          : mode === "lifecycles" ? "lifecycle"
+            : mode === "relationships" ? "relationship"
+              : mode === "terminology" ? "terminology"
+                : mode
+      ]
+    };
+  }
+
+  function node(tag, className = "", value = "") {
+    const result = document.createElement(tag);
+    if (className) result.className = className;
+    if (value !== "") result.textContent = String(value);
+    return result;
+  }
+
+  function readable(value) {
+    return String(value || "Unavailable")
+      .replaceAll("_", " ")
+      .replace(/\b\w/g, (letter) => letter.toUpperCase());
+  }
+
+  function display(value) {
+    if (value === null || value === undefined || value === "") return "Not applicable";
+    if (typeof value === "boolean") return value ? "Yes" : "No";
+    if (Array.isArray(value)) return value.length ? value.map(display).join(", ") : "None";
+    if (object(value)) {
+      return Object.entries(value)
+        .map(([key, nested]) => `${readable(key)}: ${display(nested)}`)
+        .join(" · ");
+    }
+    return String(value);
+  }
+
+  function appendRows(host, rows) {
+    const list = node("dl", "component-registry-metadata");
+    rows.forEach(([label, value]) => {
+      list.append(node("dt", "", label), node("dd", "", display(value)));
+    });
+    host.append(list);
+  }
+
+  function section(host, title, rows) {
+    const value = node("section", "component-registry-detail-section");
+    value.append(node("h4", "", title));
+    appendRows(value, rows);
+    host.append(value);
+  }
+
+  function primaryLifecycle(component) {
+    const record = component.lifecycle_records[component.lifecycle_records.length - 1] || {};
+    return record.current_state || record.state || "unavailable";
+  }
+
+  function canonicalPath(component) {
+    const source = component.canonical_source || {};
+    return source.locator?.value
+      || source.locator
+      || source.path
+      || source.canonical_path
+      || "Unavailable";
+  }
+
+  function renderComponent(host, record) {
+    host.replaceChildren(node("h3", "", record.display_name));
+    section(host, "Identity and classification", [
+      ["Stable ID", record.stable_id],
+      ["Class", readable(record.classification.component_class)],
+      ["Type", readable(record.classification.component_type)],
+      ["Roles", record.classification.roles],
+      ["Capabilities", record.classification.capabilities],
+      ["Owner", record.owner]
+    ]);
+    section(host, "Lifecycle and operation", [
+      ["Lifecycle", primaryLifecycle(record)],
+      ["Operational status", record.operational_status],
+      ["Lifecycle history", record.lifecycle_records]
+    ]);
+    section(host, "Authority", [
+      ["Assignments", record.authority_records]
+    ]);
+    section(host, "Canonical source and binding", [
+      ["Canonical source", canonicalPath(record)],
+      ["Source binding", record.canonical_source.source_binding]
+    ]);
+    section(host, "Information and retention", [
+      ["Information handling", record.information_handling],
+      ["Retention", record.retention]
+    ]);
+    section(host, "Artifacts and connections", [
+      ["Supporting artifacts", record.supporting_artifacts],
+      ["Relationships", record.relationship_records],
+      ["Migrations and aliases", record.migration_records],
+      ["Provenance", record.provenance_records]
+    ]);
+  }
+
+  function renderLifecycle(host, record, snapshot) {
+    host.replaceChildren(node("h3", "", record.display_name || record.component_id));
+    const state = record.current_state || record.state;
+    const definition = snapshot.lifecycles.states[state];
+    section(host, "Current assignment", [
+      ["Component", record.component_id],
+      ["State", readable(state)],
+      ["Definition", definition],
+      ["Effective date", record.effective_date],
+      ["Transition reason", record.transition_reason]
+    ]);
+    section(host, "Lifecycle history", [
+      ["Transitions", record.history || record.transitions],
+      ["Provenance", record.provenance_ref || record.provenance_refs]
+    ]);
+  }
+
+  function renderAuthority(host, record) {
+    host.replaceChildren(node("h3", "", record.display_name || record.component_id));
+    section(host, "Authority assignment", [
+      ["Assignment ID", record.assignment_id],
+      ["Component", record.component_id],
+      ["Status", record.authoritative ? "Authoritative" : "Nonauthoritative"],
+      ["Subjects", record.subjects],
+      ["Effects", record.effects],
+      ["Exclusions", record.exclusions],
+      ["Effective date", record.effective_date],
+      ["Termination conditions", record.termination_conditions]
+    ]);
+    section(host, "Authority chain", [
+      ["Sources", record.sources],
+      ["Governing precedence", record.governing_precedence],
+      ["Provenance", record.provenance_ref || record.provenance_refs]
+    ]);
+  }
+
+  function endpoint(value) {
+    return object(value) ? `${value.id} (${readable(value.kind)})` : display(value);
+  }
+
+  function renderRelationship(host, record) {
+    host.replaceChildren(node("h3", "", readable(record.relationship_type)));
+    appendRows(host, [
+      ["Relationship ID", record.relationship_id],
+      ["From", endpoint(record.from)],
+      ["To", endpoint(record.to)],
+      ["Effective date", record.effective_date],
+      ["Provenance", record.provenance_ref || record.provenance_refs],
+      ["Authority boundary", record.authority_boundary]
+    ]);
+  }
+
+  function renderCoverage(host, record, snapshot) {
+    host.replaceChildren(node("h3", "", record.display_name || record.coverage_id));
+    appendRows(host, [
+      ["Coverage ID", record.coverage_id],
+      ["Kind", readable(record.coverage_kind)],
+      ["Path or pattern", record.path_pattern || record.path || record.pattern],
+      ["Owning component", record.component_id || record.owner_component_id],
+      ["Authorized producers", record.authorized_producers || record.producers],
+      ["Child policy", record.child_policy],
+      ["Disclosure", record.disclosure_boundary || record.information_handling],
+      ["Disposition", record.disposition || record.retirement_condition],
+      ["Fallback", record.fallback],
+      ["Covered repository paths", snapshot.coverage.path_count],
+      ["Unresolved", snapshot.coverage.uncovered_count]
+    ]);
+  }
+
+  function renderRouting(host, record) {
+    host.replaceChildren(node("h3", "", record.label));
+    appendRows(host, [
+      ["Selection ID", record.routing_id],
+      ["Kind", readable(record.routing_kind)],
+      ["Resolved components", record.component_ids],
+      ["Registered details", record.details]
+    ]);
+  }
+
+  function renderTerminology(host, record) {
+    host.replaceChildren(
+      node("h3", "", record.label),
+      node("p", "component-registry-term-id", record.term_id),
+      ...record.definition.split("\n\n").map((paragraph) => node("p", "", paragraph))
+    );
+  }
+
+  function optionValues(select, values, allLabel) {
+    if (!select || select.dataset.registryOptions === "true") return;
+    select.replaceChildren(node("option", "", allLabel));
+    select.firstElementChild.value = "";
+    [...new Set(values.filter(text))].sort().forEach((value) => {
+      const option = node("option", "", readable(value));
+      option.value = value;
+      select.append(option);
+    });
+    select.dataset.registryOptions = "true";
+  }
+
+  function searchable(record) {
+    return JSON.stringify(record).toLocaleLowerCase();
+  }
+
+  function renderList(host, records, selectedId, id, title, meta, route) {
+    host.replaceChildren();
+    if (!records.length) {
+      host.append(node("p", "empty-state compact-empty", "No records match these filters."));
+      return;
+    }
+    const rows = [];
+    records.forEach((record) => {
+      const row = node("button", "email-list-row component-registry-list-row");
+      const selected = id(record) === selectedId;
+      row.type = "button";
+      row.setAttribute("role", "option");
+      row.setAttribute("aria-selected", String(selected));
+      row.tabIndex = selected ? 0 : -1;
+      if (selected) row.classList.add("selected");
+      row.append(
+        node("strong", "email-row-title", title(record)),
+        node("span", "email-row-time", meta(record)),
+        node("span", "email-row-summary", id(record))
+      );
+      row.addEventListener("click", () => {
+        global.location.hash = `#${route(record)}`;
+      });
+      row.addEventListener("keydown", (event) => {
+        if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+        const current = rows.indexOf(row);
+        const next = event.key === "Home" ? 0
+          : event.key === "End" ? rows.length - 1
+            : event.key === "ArrowDown" ? Math.min(rows.length - 1, current + 1)
+              : Math.max(0, current - 1);
+        event.preventDefault();
+        rows[next].focus();
+      });
+      rows.push(row);
+      host.append(row);
+    });
+  }
+
+  function setCount(mode, count) {
+    const host = document.getElementById(`component-registry-${mode}-count`);
+    if (!host) return;
+    host.hidden = false;
+    host.textContent = String(count);
+  }
+
+  function bindFilter(id, render) {
+    const control = document.getElementById(id);
+    if (!control || control.dataset.registryBound === "true") return;
+    control.dataset.registryBound = "true";
+    control.addEventListener(control.tagName === "SELECT" ? "change" : "input", render);
+  }
+
+  function renderLifecycleSummary(snapshot) {
+    const portals = document.getElementById("component-registry-lifecycle-portals");
+    const flow = document.getElementById("component-registry-lifecycle-flow");
+    if (portals) {
+      portals.replaceChildren();
+      Object.entries(snapshot.lifecycles.states).forEach(([state, definition]) => {
+        const count = snapshot.lifecycles.assignments.filter((record) =>
+          (record.current_state || record.state) === state).length;
+        const card = node("article", "component-registry-state-portal");
+        card.title = display(definition);
+        card.append(node("span", "", readable(state)), node("strong", "", count));
+        portals.append(card);
+      });
+    }
+    if (flow) {
+      flow.replaceChildren();
+      snapshot.lifecycles.permitted_transitions.forEach(([from, to]) => {
+        flow.append(node("span", "component-registry-transition", `${readable(from)} → ${readable(to)}`));
+      });
+    }
+  }
+
+  function applyMode(mode) {
+    MODES.forEach((candidate) => {
+      const button = document.getElementById(`component-registry-mode-${candidate}`);
+      const panel = document.getElementById(`component-registry-panel-${candidate}`);
+      if (button) {
+        const selected = candidate === mode;
+        button.setAttribute("aria-selected", String(selected));
+        button.tabIndex = selected ? 0 : -1;
+      }
+      if (panel) panel.hidden = candidate !== mode;
+    });
+  }
+
+  function bindModes(snapshot) {
+    const buttons = MODES.map((mode) =>
+      document.getElementById(`component-registry-mode-${mode}`));
+    buttons.forEach((button, index) => {
+      if (!button || button.dataset.registryBound === "true") return;
+      button.dataset.registryBound = "true";
+      button.addEventListener("click", () => {
+        global.location.hash = `#${snapshot.routes[button.dataset.registryMode]}`;
+      });
+      button.addEventListener("keydown", (event) => {
+        let next = null;
+        if (event.key === "ArrowRight") next = (index + 1) % buttons.length;
+        if (event.key === "ArrowLeft") next = (index - 1 + buttons.length) % buttons.length;
+        if (event.key === "Home") next = 0;
+        if (event.key === "End") next = buttons.length - 1;
+        if (next === null) return;
+        event.preventDefault();
+        buttons[next].focus();
+      });
+    });
+  }
+
+  function unavailable() {
+    const status = document.getElementById("component-registry-status");
+    if (status) {
+      status.className = "status-badge unavailable";
+      status.textContent = "Unavailable";
+    }
+    MODES.forEach((mode) => {
+      const detail = document.getElementById(
+        `component-registry-${mode === "components" ? "component" : mode === "lifecycles" ? "lifecycle" : mode}-detail`
+      );
+      if (detail) detail.replaceChildren(
+        node("p", "empty-state compact-empty", "Component Registry data unavailable.")
+      );
+    });
+  }
+
+  function render(snapshot, target = "") {
+    if (snapshot?.schema_version === 1) {
+      return legacyApi.render(snapshot, target);
+    }
+    if (!validSnapshot(snapshot)) {
+      unavailable();
+      return false;
+    }
+    const state = routeState(target, snapshot);
+    const status = document.getElementById("component-registry-status");
+    status.className = "status-badge warning";
+    status.textContent = "Proposed Stage 2 revision";
+    const notice = document.getElementById("component-registry-deferred");
+    notice.replaceChildren(
+      node("strong", "", "Proposed — nonauthoritative"),
+      node("p", "", "This view is generated from the validated Stage 2 Registry revision. Live authority remains separately receipt-bound."),
+      node("p", "", `Registry revision ${snapshot.registry.registry_revision} · ${snapshot.registry.registry_sha256}`)
+    );
+    bindModes(snapshot);
+    renderLifecycleSummary(snapshot);
+
+    const componentSearch = document.getElementById("component-registry-components-search");
+    const componentClass = document.getElementById("component-registry-components-class");
+    const componentLifecycle = document.getElementById("component-registry-components-lifecycle");
+    optionValues(componentClass, snapshot.components.map((record) =>
+      record.classification.component_class), "All classes");
+    optionValues(componentLifecycle, snapshot.components.map(primaryLifecycle), "All states");
+    const renderComponents = () => {
+      const query = componentSearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.components.filter((record) =>
+        (!query || searchable(record).includes(query))
+        && (!componentClass.value || record.classification.component_class === componentClass.value)
+        && (!componentLifecycle.value || primaryLifecycle(record) === componentLifecycle.value));
+      document.getElementById("component-registry-components-results").textContent =
+        `${filtered.length} of ${snapshot.components.length} components`;
+      const selected = filtered.find((record) => record.stable_id === state.selected) || filtered[0];
+      renderList(
+        document.getElementById("component-registry-component-list"),
+        filtered,
+        selected?.stable_id,
+        (record) => record.stable_id,
+        (record) => record.display_name,
+        (record) => `${readable(record.classification.component_class)} · ${readable(primaryLifecycle(record))}`,
+        (record) => record.console_route
+      );
+      if (selected) renderComponent(document.getElementById("component-registry-component-detail"), selected);
+    };
+    ["component-registry-components-search", "component-registry-components-class", "component-registry-components-lifecycle"]
+      .forEach((id) => bindFilter(id, renderComponents));
+    renderComponents();
+
+    const lifecycleSearch = document.getElementById("component-registry-lifecycles-search");
+    const lifecycleState = document.getElementById("component-registry-lifecycles-state");
+    optionValues(lifecycleState, Object.keys(snapshot.lifecycles.states), "All states");
+    const renderLifecycles = () => {
+      const query = lifecycleSearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.lifecycles.assignments.filter((record) => {
+        const current = record.current_state || record.state;
+        return (!query || searchable(record).includes(query))
+          && (!lifecycleState.value || current === lifecycleState.value);
+      });
+      document.getElementById("component-registry-lifecycles-results").textContent =
+        `${filtered.length} of ${snapshot.lifecycles.assignments.length} assignments`;
+      const selected = filtered.find((record) => record.assignment_id === state.selected) || filtered[0];
+      renderList(document.getElementById("component-registry-lifecycle-list"), filtered,
+        selected?.assignment_id, (record) => record.assignment_id,
+        (record) => record.display_name || record.component_id,
+        (record) => readable(record.current_state || record.state),
+        (record) => record.console_route);
+      if (selected) renderLifecycle(document.getElementById("component-registry-lifecycle-detail"), selected, snapshot);
+    };
+    ["component-registry-lifecycles-search", "component-registry-lifecycles-state"]
+      .forEach((id) => bindFilter(id, renderLifecycles));
+    renderLifecycles();
+
+    const authoritySearch = document.getElementById("component-registry-authority-search");
+    const authorityStatus = document.getElementById("component-registry-authority-status");
+    const renderAuthorities = () => {
+      const query = authoritySearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.authorities.assignments.filter((record) =>
+        (!query || searchable(record).includes(query))
+        && (!authorityStatus.value
+          || (authorityStatus.value === "authoritative") === record.authoritative));
+      document.getElementById("component-registry-authority-results").textContent =
+        `${filtered.length} of ${snapshot.authorities.assignments.length} assignments`;
+      const selected = filtered.find((record) => record.assignment_id === state.selected) || filtered[0];
+      renderList(document.getElementById("component-registry-authority-list"), filtered,
+        selected?.assignment_id, (record) => record.assignment_id,
+        (record) => record.display_name || record.component_id,
+        (record) => record.authoritative ? "Authoritative" : "Nonauthoritative",
+        (record) => record.console_route);
+      if (selected) renderAuthority(document.getElementById("component-registry-authority-detail"), selected);
+    };
+    ["component-registry-authority-search", "component-registry-authority-status"]
+      .forEach((id) => bindFilter(id, renderAuthorities));
+    renderAuthorities();
+
+    const relationshipSearch = document.getElementById("component-registry-relationships-search");
+    const relationshipType = document.getElementById("component-registry-relationships-type");
+    optionValues(relationshipType, snapshot.relationships.map((record) => record.relationship_type), "All types");
+    const renderRelationships = () => {
+      const query = relationshipSearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.relationships.filter((record) =>
+        (!query || searchable(record).includes(query))
+        && (!relationshipType.value || record.relationship_type === relationshipType.value));
+      document.getElementById("component-registry-relationships-results").textContent =
+        `${filtered.length} of ${snapshot.relationships.length} relationships`;
+      const selected = filtered.find((record) => record.relationship_id === state.selected) || filtered[0];
+      renderList(document.getElementById("component-registry-relationship-list"), filtered,
+        selected?.relationship_id, (record) => record.relationship_id,
+        (record) => `${endpoint(record.from)} → ${endpoint(record.to)}`,
+        (record) => readable(record.relationship_type),
+        (record) => record.console_route);
+      if (selected) renderRelationship(document.getElementById("component-registry-relationship-detail"), selected);
+    };
+    ["component-registry-relationships-search", "component-registry-relationships-type"]
+      .forEach((id) => bindFilter(id, renderRelationships));
+    renderRelationships();
+
+    const coverageSearch = document.getElementById("component-registry-coverage-search");
+    const coverageKind = document.getElementById("component-registry-coverage-kind");
+    const renderCoverageRows = () => {
+      const query = coverageSearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.coverage.records.filter((record) =>
+        (!query || searchable(record).includes(query))
+        && (!coverageKind.value || record.coverage_kind === coverageKind.value));
+      document.getElementById("component-registry-coverage-results").textContent =
+        `${filtered.length} rules · ${snapshot.coverage.path_count} covered paths · ${snapshot.coverage.uncovered_count} unresolved`;
+      const selected = filtered.find((record) => record.coverage_id === state.selected) || filtered[0];
+      renderList(document.getElementById("component-registry-coverage-list"), filtered,
+        selected?.coverage_id, (record) => record.coverage_id,
+        (record) => record.display_name || record.coverage_id,
+        (record) => readable(record.coverage_kind),
+        (record) => record.console_route);
+      if (selected) renderCoverage(document.getElementById("component-registry-coverage-detail"), selected, snapshot);
+    };
+    ["component-registry-coverage-search", "component-registry-coverage-kind"]
+      .forEach((id) => bindFilter(id, renderCoverageRows));
+    renderCoverageRows();
+
+    const routingSearch = document.getElementById("component-registry-routing-search");
+    const renderRoutingRows = () => {
+      const query = routingSearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.routing.selections.filter((record) =>
+        !query || searchable(record).includes(query));
+      document.getElementById("component-registry-routing-results").textContent =
+        `${filtered.length} of ${snapshot.routing.selections.length} selections`;
+      const selected = filtered.find((record) => record.routing_id === state.selected) || filtered[0];
+      renderList(document.getElementById("component-registry-routing-list"), filtered,
+        selected?.routing_id, (record) => record.routing_id,
+        (record) => record.label, (record) => readable(record.routing_kind),
+        (record) => record.console_route);
+      if (selected) renderRouting(document.getElementById("component-registry-routing-detail"), selected);
+    };
+    bindFilter("component-registry-routing-search", renderRoutingRows);
+    renderRoutingRows();
+
+    const terminologySearch = document.getElementById("component-registry-terminology-search");
+    const renderTerms = () => {
+      const filtered = filterTerminologyEntries(snapshot.terminology.entries, terminologySearch.value);
+      document.getElementById("component-registry-terminology-results").textContent =
+        `${filtered.length} of ${snapshot.terminology.entries.length} adopted terms`;
+      const selected = filtered.find((record) => record.term_id === state.selected) || filtered[0];
+      renderList(document.getElementById("component-registry-terminology-list"), filtered,
+        selected?.term_id, (record) => record.term_id,
+        (record) => record.label, () => "Adopted", (record) => record.console_route);
+      if (selected) renderTerminology(document.getElementById("component-registry-terminology-detail"), selected);
+    };
+    bindFilter("component-registry-terminology-search", renderTerms);
+    renderTerms();
+
+    setCount("components", snapshot.components.length);
+    setCount("lifecycles", snapshot.lifecycles.assignments.length);
+    setCount("authority", snapshot.authorities.assignments.length);
+    setCount("relationships", snapshot.relationships.length);
+    setCount("coverage", snapshot.coverage.records.length);
+    setCount("routing", snapshot.routing.selections.length);
+    setCount("terminology", snapshot.terminology.entries.length);
+    applyMode(state.mode);
+    return true;
+  }
+
+  function filterTerminologyEntries(entries, query) {
+    const tokens = String(query || "").trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+    if (!tokens.length) return [...entries];
+    return entries.filter((entry) => {
+      const value = `${entry.term_id} ${entry.label} ${entry.definition}`.toLocaleLowerCase();
+      return tokens.every((token) => value.includes(token));
+    });
+  }
+
+  global.ARRP_COMPONENT_REGISTRY = Object.freeze({
+    schemaVersion: 1,
+    pendingDisplay: legacyApi.pendingDisplay,
+    validSnapshot,
+    routeState,
+    filterTerminologyEntries,
     render
   });
 })(window);

@@ -36,7 +36,7 @@
       "id": "public-research-and-proposals",
       "category": "public_by_design",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github", "public-release-builder"],
-      "paths": ["areas/**", "legislation/**", "topics/**", "research/**", "framework/reports/**", "framework/records/audits/console-consistency-remedy-2026-07-28.md", "framework/records/audits/private-runtime-dual-incident-design-2026-07-29.md"],
+      "paths": ["areas/**", "legislation/**", "topics/**", "research/**", "framework/proposals/**", "framework/reports/**", "framework/records/audits/console-consistency-remedy-2026-07-28.md", "framework/records/audits/private-runtime-dual-incident-design-2026-07-29.md"],
       "exclude_paths": ["framework/project/interfaces/project-console/**"]
     },
     {
@@ -100,7 +100,7 @@
       "id": "portable-automation-and-controls",
       "category": "public_operational_summary",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": ["scripts/**", "tests/**", ".github/workflows/**", "framework/project/automation/**", "framework/archive/authorities/context-routes.json", "framework/logs/automation/**", "framework/receipts/automation/**", "framework/receipts/disclosure/**", "framework/standards/automation/**", "framework/records/automation/console-development-log.md", "framework/records/automation/disclosure-classification-summary-2026-07-28.json", "framework/records/automation/p4-github-app-ordinary-fixture.txt", "framework/records/automation/p6-cutover-evidence.md", "AGENTS.md", "framework/AGENT_OPERATING_RULES.md", "framework/CONTEXT_ROUTING.md", "framework/archive/authorities/CONTEXT_ROUTING.md"],
+      "paths": ["scripts/**", "tests/**", ".github/workflows/**", "framework/project/automation/**", "framework/archive/authorities/AGENT_BOT_REGISTRY.md", "framework/archive/authorities/context-routes.json", "framework/logs/automation/**", "framework/receipts/automation/**", "framework/receipts/disclosure/**", "framework/standards/automation/**", "framework/records/automation/console-development-log.md", "framework/records/automation/disclosure-classification-summary-2026-07-28.json", "framework/records/automation/p4-github-app-ordinary-fixture.txt", "framework/records/automation/p6-cutover-evidence.md", "AGENTS.md", "framework/AGENT_OPERATING_RULES.md", "framework/CONTEXT_ROUTING.md", "framework/archive/authorities/CONTEXT_ROUTING.md"],
       "exclude_paths": ["framework/project/automation/configuration/launchd/**"]
     },
     {

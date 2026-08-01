@@ -102,13 +102,156 @@ a { color: var(--blue); }
 .header-tools button.secondary { color: white; background: rgba(255,255,255,.1); }
 .header-tools button[aria-pressed="true"] { color: #533708; background: #ffedb8; }
 .header-tools button:focus-visible { outline: 3px solid rgba(255,255,255,.45); outline-offset: 2px; }
-body.layout-editing #layout-edit-toggle {
+.header-tools .interface-tools-trigger {
+  display: inline-flex;
   position: fixed;
-  z-index: 80;
+  z-index: 118;
   top: .75rem;
   right: .75rem;
+  width: 2.5rem;
+  min-height: 2.3rem;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  gap: .48rem;
+  color: #17345e;
+  box-shadow: 0 8px 24px rgba(27, 42, 67, .2);
+}
+.interface-tools-icon {
+  width: 1.28rem;
+  height: 1.28rem;
+  overflow: visible;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.interface-tools-trigger::after {
+  position: absolute;
+  top: .23rem;
+  right: .23rem;
+  width: .48rem;
+  height: .48rem;
+  border-radius: 999px;
+  background: transparent;
+  content: "";
+}
+.interface-tools-trigger.has-active-mode::after {
+  background: #c98a16;
+  box-shadow: 0 0 0 2px rgba(255, 237, 184, .52);
+}
+.interface-tools-trigger.has-active-mode {
   border-color: #d5a749;
-  box-shadow: 0 8px 24px rgba(27, 42, 67, .24);
+  box-shadow: 0 8px 24px rgba(27, 42, 67, .26);
+}
+body.interface-tools-open .interface-tools-trigger {
+  visibility: hidden;
+  pointer-events: none;
+}
+.interface-tools-drawer {
+  position: fixed;
+  z-index: 120;
+  inset: 0 0 0 auto;
+  width: min(25rem, calc(100% - 1rem));
+  padding: 1.15rem;
+  overflow-y: auto;
+  border-left: 1px solid #c8d2df;
+  color: #18253a;
+  background: #f8fafc;
+  box-shadow: -12px 0 32px rgba(24, 37, 58, .2);
+}
+.interface-tools-drawer[hidden] { display: none; }
+.interface-tools-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: .8rem;
+  border-bottom: 1px solid #d6dee9;
+}
+.interface-tools-heading h2 { margin: .12rem 0 0; font-size: 1.25rem; }
+.interface-tools-heading .eyebrow { color: #45648a; }
+.interface-tools-close {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  place-items: center;
+  border: 1px solid #c6d1de;
+  border-radius: 7px;
+  color: #304865;
+  background: white;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.15rem;
+  font-weight: 750;
+}
+.interface-tools-intro {
+  margin: .72rem 0 .15rem;
+  color: #5e6e82;
+  font-size: .72rem;
+  line-height: 1.45;
+}
+.interface-tool-group {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .75rem;
+  padding: .9rem 0;
+  border-bottom: 1px solid #dde4ed;
+}
+.interface-tool-group h3 { margin: 0; font-size: .84rem; }
+.interface-tool-group p { margin: .2rem 0 0; color: #65758a; font-size: .68rem; line-height: 1.4; }
+.interface-tool-group > button,
+.interface-tool-actions button {
+  min-height: 2rem;
+  padding: .4rem .65rem;
+  border: 1px solid #b8c6d8;
+  border-radius: 7px;
+  color: #23476f;
+  background: white;
+  cursor: pointer;
+  font: inherit;
+  font-size: .68rem;
+  font-weight: 800;
+}
+.interface-tool-group > button[aria-pressed="true"] {
+  border-color: #c89a3f;
+  color: #66420a;
+  background: #fff1c7;
+}
+.interface-tool-group > button:focus-visible,
+.interface-tool-actions button:focus-visible,
+.interface-tools-close:focus-visible {
+  outline: 3px solid rgba(36, 76, 133, .24);
+  outline-offset: 2px;
+}
+.interface-tool-maintenance {
+  display: block;
+}
+.interface-tool-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-top: .65rem;
+}
+.interface-tool-actions .danger-subtle { color: #873d39; }
+.interface-tools-drawer .layout-status {
+  margin: .85rem 0 0;
+  padding: .65rem .7rem;
+  border: 1px solid #d4deea;
+  border-radius: 7px;
+  color: #50647e;
+  background: white;
+  font-size: .68rem;
+  line-height: 1.4;
+  text-align: left;
+}
+.interface-tools-drawer .layout-status.is-editing {
+  border-color: #dfc278;
+  color: #6b4b0e;
+  background: #fff8df;
 }
 .app-shell {
   width: min(1440px, calc(100% - 2rem));
@@ -246,8 +389,15 @@ body.layout-editing #layout-edit-toggle {
 }
 .tab-update-count[hidden] { display: none; }
 .tab-panel[hidden] { display: none; }
-.layout-status { margin: .45rem .35rem 0; color: var(--muted); font-size: .72rem; text-align: right; }
-.layout-status.is-editing { color: #77500f; font-weight: 750; }
+.layout-status {
+  flex: 1 0 100%;
+  margin: 0;
+  color: #c4d3e7;
+  font-size: .68rem;
+  line-height: 1.25;
+  text-align: right;
+}
+.layout-status.is-editing { color: #ffedb8; font-weight: 750; }
 
 .section-tabs {
   margin: 1.25rem 0 .75rem;
@@ -717,7 +867,7 @@ body.layout-editing #layout-edit-toggle {
 .pipeline-mode-switcher {
   display: inline-flex;
   gap: .25rem;
-  margin: .8rem 0;
+  margin: .6rem 0 .15rem;
   padding: .24rem;
   border: 1px solid var(--line);
   border-radius: .62rem;
@@ -785,7 +935,7 @@ body.layout-editing #layout-edit-toggle {
 }
 .pipeline-gap-notice {
   display: block;
-  margin: .65rem 0;
+  margin: .5rem 0;
   padding: .52rem .65rem;
   border: 1px solid #dfc282;
   border-radius: .48rem;
@@ -814,7 +964,7 @@ body.layout-editing #layout-edit-toggle {
   grid-template-columns: minmax(18rem, .82fr) minmax(0, 1.18fr);
   height: min(68vh, 46rem);
   min-height: 31rem;
-  margin-top: .75rem;
+  margin-top: .55rem;
   border: 1px solid var(--line);
   border-radius: .72rem;
   overflow: hidden;
@@ -837,9 +987,9 @@ body.layout-editing #layout-edit-toggle {
 .pipeline-row {
   display: grid;
   width: 100%;
-  gap: .2rem;
+  gap: .24rem;
   min-width: 0;
-  padding: .62rem .72rem;
+  padding: .55rem .68rem;
   border: 0;
   border-bottom: 1px solid var(--line);
   color: inherit;
@@ -851,13 +1001,12 @@ body.layout-editing #layout-edit-toggle {
 .pipeline-row[aria-selected="true"] { background: #fff; box-shadow: inset 3px 0 var(--blue); }
 .pipeline-row:focus-visible { z-index: 1; outline: 3px solid rgba(38, 93, 165, .28); outline-offset: -3px; }
 .pipeline-row-title {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: .45rem;
+  display: block;
   min-width: 0;
   font-size: .7rem;
+  font-weight: 800;
 }
-.pipeline-row-title span,
+.pipeline-row-title,
 .pipeline-row-meta { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pipeline-row-meta { color: var(--muted); font-size: .6rem; }
 .pipeline-preview { min-width: 0; overflow-y: auto; padding: 1rem; }
@@ -871,55 +1020,6 @@ body.layout-editing #layout-edit-toggle {
 .pipeline-preview-links { display: flex; flex-wrap: wrap; gap: .45rem; padding-top: .8rem; }
 .pipeline-preview-empty { display: grid; place-content: center; min-height: 18rem; color: var(--muted); text-align: center; }
 .pipeline-preview-empty h3 { margin: .3rem 0; color: var(--ink); }
-.progress-hold-summary-row {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: .55rem;
-}
-.progress-hold-summary-row > a:not(.record-link) {
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: .35rem;
-  align-items: baseline;
-  padding: .48rem .62rem;
-  border: 1px solid var(--line);
-  border-radius: .48rem;
-  color: inherit;
-  background: #fff;
-  text-decoration: none;
-}
-.progress-hold-summary-row > a strong { color: var(--blue); }
-.progress-hold-summary-row > a span { color: var(--muted); font-size: .65rem; font-weight: 800; }
-.repository-review-state.current { color: #285c3a; background: #e4f2e8; }
-.repository-review-state.stale { color: #765412; background: #fff0c7; }
-.repository-review-state.warning { color: #7b3e13; background: #fce5d4; }
-.repository-review-meta {
-  margin: .35rem 0 0;
-  color: var(--muted);
-  font-size: .72rem;
-}
-.repository-review-recommendation,
-.repository-review-rationale,
-.repository-review-question {
-  margin: .5rem 0 0;
-  line-height: 1.45;
-}
-.repository-review-question {
-  padding: .5rem .6rem;
-  border-left: 3px solid #d69b2d;
-  color: var(--ink);
-  background: #fff8e9;
-  font-weight: 700;
-}
-.repository-review-links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: .55rem;
-  margin-top: .6rem;
-}
-.repository-review-links .record-link { padding: .32rem .48rem; font-size: .72rem; }
 .progress-summary-grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(160px, 1fr));
@@ -1007,8 +1107,9 @@ body.layout-editing #layout-edit-toggle {
 .progress-group-index-header h3 { margin: 0; font-size: .92rem; }
 .progress-group-index-header p { margin: .25rem 0 0; color: var(--muted); font-size: .76rem; }
 .disclosure-summary-detail { color: var(--muted); font-size: .72rem; font-weight: 700; text-align: right; }
-.managed-disclosure > summary { position: relative; padding-right: 9.3rem; }
+.managed-disclosure > summary { position: relative; }
 .disclosure-default-toggle {
+  display: none;
   position: absolute;
   top: 50%;
   right: .55rem;
@@ -1024,6 +1125,8 @@ body.layout-editing #layout-edit-toggle {
   font-weight: 800;
   white-space: nowrap;
 }
+body.layout-editing .managed-disclosure > summary { padding-right: 9.3rem; }
+body.layout-editing .disclosure-default-toggle { display: inline-flex; }
 .disclosure-default-toggle:hover { border-color: var(--blue); background: var(--blue-soft); }
 .disclosure-default-toggle:focus-visible { outline: 3px solid rgba(36,76,133,.22); outline-offset: 2px; }
 .progress-disclosure-body { padding: .8rem 1rem 1rem; }
@@ -1041,8 +1144,18 @@ body.layout-editing #layout-edit-toggle {
   border: 1px solid var(--line);
   border-radius: .8rem;
   background: white;
+  scroll-margin-top: 8rem;
 }
 .development-board-warning { margin: .75rem 0 0; }
+.development-board-warning[hidden] { display: none !important; }
+.progress-header-meta {
+  display: grid;
+  justify-items: end;
+  gap: .42rem;
+  text-align: right;
+}
+.progress-header-meta .refresh-note { margin: 0; }
+.progress-header-meta .record-link { width: max-content; }
 .development-board-accounting { margin: .35rem 0 0; color: var(--muted); font-size: .78rem; font-weight: 700; }
 .development-board {
   display: grid;
@@ -1050,6 +1163,46 @@ body.layout-editing #layout-edit-toggle {
   gap: .55rem;
   margin-top: .8rem;
 }
+.development-board-viewport {
+  position: relative;
+}
+.development-board-viewport.is-collapsed {
+  max-height: 24rem;
+  overflow: hidden;
+}
+.development-board-viewport.is-collapsed::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 4rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, .96) 82%);
+  content: "";
+  pointer-events: none;
+}
+.development-board-toggle {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: .38rem;
+  min-height: 1.9rem;
+  margin: -1rem auto 0;
+  padding: .3rem .72rem;
+  border: 1px solid #c8d1dd;
+  border-radius: 999px;
+  color: #294d77;
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(24, 35, 55, .12);
+  font: inherit;
+  font-size: .68rem;
+  font-weight: 780;
+  cursor: pointer;
+}
+.development-board-toggle:hover { border-color: #9eafc3; background: #f3f6fa; }
+.development-board-toggle:focus-visible { outline: 2px solid rgba(36, 76, 133, .32); outline-offset: 2px; }
+.development-board-toggle[aria-expanded="true"] { margin-top: .7rem; }
+.development-board-toggle[aria-expanded="true"] span[aria-hidden="true"] { transform: rotate(180deg); }
 .development-column {
   min-width: 0;
   padding: .5rem;
@@ -1069,19 +1222,7 @@ body.layout-editing #layout-edit-toggle {
 .development-column-heading .count-pill { flex: 0 0 auto; padding: .05rem .35rem; font-size: .62rem; }
 .development-card-list { display: grid; gap: .35rem; }
 .development-column-empty { margin: 0; padding: .55rem .2rem; color: var(--muted); font-size: .68rem; text-align: center; }
-.progress-hold-group { overflow: hidden; border: 1px solid var(--line); border-radius: .62rem; }
-.progress-hold-group + .progress-hold-group { margin-top: .6rem; }
 .list-at-a-glance { margin-top: .7rem; }
-.progress-hold-group > summary { margin: 0; padding: .65rem .75rem; background: var(--soft); cursor: pointer; }
-.progress-hold-group-title { font-size: .85rem; font-weight: 800; }
-.progress-hold-list { display: grid; gap: .7rem; }
-.progress-hold-list { padding: .7rem; }
-.progress-hold-card { padding: .85rem; border: 1px solid var(--line); border-radius: .65rem; background: white; }
-.progress-hold-header { display: flex; align-items: center; flex-wrap: wrap; gap: .4rem; }
-.progress-hold-card h5 { margin: .45rem 0 .7rem; font-size: 1rem; }
-.progress-hold-card .dossier-summary { border: 1px solid var(--line); }
-.progress-hold-card .dossier-summary + .dossier-summary { margin-top: .55rem; }
-.progress-hold-card .dossier-summary.warning { border-color: #dfb661; background: var(--gold-soft); }
 .development-card {
   min-width: 0;
   padding: .42rem;
@@ -1095,9 +1236,6 @@ body.layout-editing #layout-edit-toggle {
 .development-score { margin-left: auto; color: var(--muted); font-size: .58rem; white-space: nowrap; }
 .development-card-links { display: flex; gap: .25rem; margin-top: .3rem; }
 .development-card-links .record-link { flex: 1 1 0; padding: .12rem .2rem; border-radius: .3rem; font-size: .58rem; text-align: center; }
-.watcher-explanation { margin-top: .9rem; }
-.watcher-explanation h3 { margin: 0 0 .5rem; font-size: 1rem; }
-
 .queue-view { margin-top: 1.25rem; padding: 1.5rem; }
 .attention-queue { border-top: 4px solid var(--gold); }
 .queue-view-header {
@@ -1182,8 +1320,7 @@ body.layout-editing #layout-edit-toggle {
 .card-header h3 { margin: .18rem 0 0; font-size: 1.2rem; line-height: 1.35; }
 
 .defect-summary { padding: .9rem 1.15rem; border-top: 1px solid var(--line); background: #fbfcfe; }
-.defect-summary h4,
-.supporting-sources h4 { margin: 0 0 .3rem; color: var(--muted); font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; }
+.defect-summary h4 { margin: 0 0 .3rem; color: var(--muted); font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; }
 .defect-summary p { margin: 0; }
 .candidate-details {
   display: grid;
@@ -1199,9 +1336,7 @@ body.layout-editing #layout-edit-toggle {
 .detail-item dt { color: var(--muted); font-size: .7rem; font-weight: 800; text-transform: uppercase; }
 .detail-item dd { margin: .2rem 0 0; font-size: .9rem; }
 
-.supporting-sources { padding: .85rem 1.15rem 1rem; }
 .source-list { display: flex; flex-wrap: wrap; gap: .5rem; padding: .85rem 1.15rem 1rem; }
-.supporting-sources .source-list { padding: .25rem 0 0; }
 .record-link {
   display: inline-flex;
   align-items: center;
@@ -1339,7 +1474,6 @@ body.layout-editing #layout-edit-toggle {
 .markdown-body pre code { padding: 0; color: #f5f7fa; background: transparent; }
 .markdown-body hr { border: 0; border-top: 1px solid var(--line); }
 .markdown-body input[type="checkbox"] { margin: 0 .25rem 0 0; vertical-align: middle; }
-.markdown-table-wrap { margin: .8rem 0; overflow-x: auto; }
 .markdown-body table { width: 100%; border-collapse: collapse; font-size: .82rem; }
 .markdown-body th,
 .markdown-body td { padding: .45rem .55rem; border: 1px solid var(--line); text-align: left; vertical-align: top; }
@@ -1429,106 +1563,15 @@ th[aria-sort="descending"] .sort-indicator { color: var(--blue); }
 .source-title-cell strong { display: block; line-height: 1.35; overflow-wrap: anywhere; }
 .source-table td small { display: block; margin-top: .18rem; color: var(--muted); }
 .source-table td { overflow-wrap: anywhere; }
-.project-log-table { min-width: 1040px; }
-.project-log-table th:last-child,
-.project-log-table td:last-child { width: 10.5rem; }
-.project-log-table th:first-child,
-.project-log-table td:first-child { width: 9.5rem; }
-.project-log-table .log-cell-value { line-height: 1.4; }
-.log-group {
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: .65rem;
-  background: white;
-}
-.log-group + .log-group { margin-top: .65rem; }
-.latest-log-entry {
-  overflow: hidden;
-  margin-top: 1rem;
-  border: 1px solid #bfcde1;
-  border-left: 4px solid var(--blue);
-  border-radius: .7rem;
-  background: white;
-}
-.latest-log-entry-header,
 .log-history-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: .8rem;
 }
-.latest-log-entry-header {
-  padding: .8rem .9rem;
-  border-bottom: 1px solid var(--line);
-  background: var(--blue-soft);
-}
-.latest-log-entry-header h3,
 .log-history-heading h3 { margin: 0; font-size: 1rem; }
-.latest-log-fields {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: 0;
-}
-.latest-log-field {
-  min-width: 0;
-  padding: .8rem .9rem;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.latest-log-field:nth-child(3n) { border-right: 0; }
-.latest-log-fields .latest-log-field:nth-last-child(-n + 3) { border-bottom: 0; }
-.latest-log-field dt {
-  margin-bottom: .25rem;
-  color: var(--muted);
-  font-size: .69rem;
-  font-weight: 800;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-}
-.latest-log-field dd {
-  margin: 0;
-  color: var(--ink);
-  font-size: .84rem;
-  line-height: 1.4;
-  overflow-wrap: anywhere;
-}
-.latest-log-toggle { flex: 0 0 auto; }
-.latest-log-details { padding: .85rem .9rem; border-top: 1px solid var(--line); }
-.latest-log-details[hidden] { display: none; }
 .log-history-heading { margin: 1.2rem 0 .55rem; }
 .log-history-heading .count-pill { margin-left: 0; }
-.log-group-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: .55rem;
-  margin: 0;
-  padding: .72rem .82rem;
-  color: var(--ink);
-  background: var(--soft);
-  font-size: 1rem;
-  font-weight: 800;
-  border-bottom: 1px solid var(--line);
-}
-.log-group > .source-table-wrap { margin: 0; border: 0; border-radius: 0; }
-.log-entry-toggle {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  color: var(--blue);
-  background: transparent;
-  cursor: pointer;
-  font: inherit;
-  font-weight: 750;
-  text-align: left;
-}
-.log-entry-toggle:hover { text-decoration: underline; }
-.log-entry-toggle:focus-visible { outline: 2px solid rgba(36, 76, 133, .35); outline-offset: 3px; }
-.log-entry-expanded[hidden] { display: none; }
-.log-entry-expanded td {
-  padding: 0 .72rem .85rem;
-  background: #fbfcfe;
-}
 .log-entry-body {
   width: 100%;
   padding: .75rem;
@@ -1758,21 +1801,7 @@ th[aria-sort="descending"] .sort-indicator { color: var(--blue); }
   gap: .6rem;
   margin-top: 1rem;
 }
-.integrity-run-portals {
-  margin-bottom: 1rem;
-  padding: .85rem;
-  border: 1px solid var(--line);
-  border-radius: .7rem;
-  background: white;
-}
-.integrity-run-portals .section-heading-row { margin-bottom: 0; }
 .integrity-history-list { display: grid; }
-.integrity-history-rows { overflow: hidden; border: 1px solid var(--line); border-radius: .65rem; background: white; }
-.integrity-history-row { padding: .72rem .82rem; border-bottom: 1px solid var(--line); }
-.integrity-history-row:last-child { border-bottom: 0; }
-.integrity-history-heading { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
-.integrity-history-heading > strong { margin-right: auto; font-size: .78rem; }
-.integrity-history-row p { margin: .3rem 0 0; color: var(--muted); font-size: .7rem; }
 
 .edition-picker {
   display: grid;
@@ -1977,7 +2006,7 @@ th[aria-sort="descending"] .sort-indicator { color: var(--blue); }
   background: #fbfcfe;
 }
 .overview-section .section-heading-row { margin-bottom: .6rem; }
-.overview-section .section-heading-row h3 { margin-bottom: .12rem; }
+.overview-section .section-heading-row h3 { margin: 0 0 .12rem; }
 .overview-section .section-heading-row p { margin: 0; font-size: .75rem; }
 .overview-daily-brief {
   border-color: #b9cbe4;
@@ -2241,15 +2270,25 @@ a.overview-daily-value:focus-visible { border-radius: .2rem; outline: 3px solid 
 .overview-compact-indicator .overview-status-cell:nth-child(2n) { border-right: 0; }
 .overview-compact-indicator .overview-status-cell:nth-last-child(-n + 3) { border-bottom: 1px solid var(--line); }
 .overview-compact-indicator .overview-status-cell:nth-last-child(-n + 2) { border-bottom: 0; }
-.overview-platform-indicator .overview-status-grid {
-  grid-template-columns: repeat(5, minmax(5.2rem, 1fr));
-  overflow-x: auto;
+.overview-platform-indicator .overview-status-grid,
+.overview-data-indicator .overview-status-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  overflow: hidden;
 }
-.overview-platform-indicator .overview-status-cell {
+.overview-platform-indicator .overview-status-cell:nth-child(n),
+.overview-data-indicator .overview-status-cell:nth-child(n) {
+  min-width: 0;
   border-right: 1px solid var(--line);
   border-bottom: 0;
 }
-.overview-platform-indicator .overview-status-cell:last-child { border-right: 0; }
+.overview-platform-indicator .overview-status-cell:last-child,
+.overview-data-indicator .overview-status-cell:last-child { border-right: 0; }
+.overview-platform-indicator .overview-status-cell strong,
+.overview-data-indicator .overview-status-cell strong {
+  font-size: .62rem;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
 .overview-indicator-value { display: block; margin-top: .45rem; color: var(--blue); font-size: 1.25rem; }
 .overview-indicator-detail { min-height: 2.5em; margin: .22rem 0 .48rem; color: var(--muted); font-size: .66rem; line-height: 1.35; }
 .overview-indicator-link { color: var(--blue); font-size: .63rem; font-weight: 800; text-decoration: none; }
@@ -2300,7 +2339,7 @@ a.overview-daily-value:focus-visible { border-radius: .2rem; outline: 3px solid 
 .overview-material-list { display: grid; gap: .35rem; }
 .overview-material-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   gap: .16rem .55rem;
   align-items: center;
   padding: .48rem .52rem;
@@ -2313,8 +2352,20 @@ a.overview-daily-value:focus-visible { border-radius: .2rem; outline: 3px solid 
 .overview-material-change,
 .overview-material-row time { color: var(--muted); font-size: .61rem; }
 .overview-material-row strong { overflow: hidden; font-size: .67rem; text-overflow: ellipsis; white-space: nowrap; }
-.overview-material-change { grid-column: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.overview-material-row time { grid-column: 2; grid-row: 1 / span 2; }
+.overview-material-change { grid-column: 1 / span 2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.overview-material-score {
+  grid-column: 2;
+  grid-row: 1;
+  padding: .12rem .34rem;
+  border-radius: 999px;
+  color: #214e84;
+  background: #eaf2fb;
+  font-size: .61rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.overview-material-row time { grid-column: 3; grid-row: 1 / span 2; }
 .overview-degraded-explanation {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
@@ -2373,6 +2424,127 @@ a.overview-daily-value:focus-visible { border-radius: .2rem; outline: 3px solid 
 .email-preview-field:nth-child(2n) { border-right: 0; }
 .email-preview-field dt { color: var(--muted); font-size: .57rem; font-weight: 800; text-transform: uppercase; }
 .email-preview-field dd { margin: .15rem 0 0; overflow-wrap: anywhere; font-size: .68rem; }
+.component-registry-workspace {
+  height: min(66vh, 44rem);
+}
+.component-registry-list {
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+.component-registry-group-label {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: .38rem .7rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  background: #edf2f8;
+  font-size: .57rem;
+  font-weight: 850;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}
+.component-registry-list-row .email-row-time {
+  align-self: start;
+  white-space: nowrap;
+}
+.component-registry-terminology-controls { margin: 0 0 .65rem; }
+.component-registry-controls {
+  margin: 0 0 .65rem;
+}
+.component-registry-controls label,
+.component-registry-terminology-controls label {
+  min-width: 10rem;
+}
+.component-registry-controls label:first-child,
+.component-registry-terminology-controls label:first-child {
+  flex: 1 1 20rem;
+}
+.component-registry-controls input,
+.component-registry-terminology-controls input {
+  width: 100%;
+}
+.component-registry-state-portals {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .7rem;
+}
+.component-registry-state-portal {
+  min-width: 0;
+  padding: .75rem .85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+.component-registry-state-portal span {
+  display: block;
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+.component-registry-state-portal strong {
+  display: block;
+  margin-top: .2rem;
+  font-size: 1.25rem;
+}
+.component-registry-transition-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+  align-items: center;
+  padding: .65rem .75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--soft);
+}
+.component-registry-transition {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .3rem .55rem;
+  border: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: .74rem;
+  font-weight: 750;
+}
+.component-registry-detail-section + .component-registry-detail-section {
+  margin-top: 1rem;
+  padding-top: .85rem;
+  border-top: 1px solid var(--line);
+}
+.component-registry-detail-section h4 {
+  margin: 0 0 .55rem;
+  color: var(--ink);
+  font-size: .78rem;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}
+.component-registry-definition-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .78rem;
+}
+.component-registry-definition-table th,
+.component-registry-definition-table td {
+  padding: .5rem;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.component-registry-definition-table th {
+  background: var(--soft);
+  color: var(--muted);
+}
+.component-registry-terminology-controls select:disabled {
+  color: var(--muted);
+  background: #edf2f8;
+  cursor: not-allowed;
+}
+.component-registry-terminology-results { margin: 0 0 .65rem; }
 .operations-ledger-list { display: grid; gap: .45rem; }
 .operations-ledger-provider {
   display: flex;
@@ -2468,13 +2640,6 @@ a.overview-daily-value:focus-visible { border-radius: .2rem; outline: 3px solid 
 .component-registry-route-table td { padding: .55rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
 .component-registry-route-table th { color: var(--muted); background: var(--soft); }
 
-.action-brief {
-  display: grid;
-  gap: .3rem;
-}
-.action-brief > strong { color: var(--ink); }
-.action-brief p { margin: 0; }
-
 .source-checker-assurance {
   margin-top: .55rem;
   border-top: 1px solid var(--line);
@@ -2483,19 +2648,16 @@ a.overview-daily-value:focus-visible { border-radius: .2rem; outline: 3px solid 
 .source-checker-assurance > summary { cursor: pointer; font-weight: 700; }
 .source-checker-assurance-body { display: grid; gap: .65rem; padding-top: .65rem; }
 .source-checker-assurance-fields,
-.governance-review-fields,
-.gap-stewardship-fields {
+.governance-review-fields {
   display: grid;
   grid-template-columns: minmax(9rem, .65fr) minmax(0, 1.35fr);
   gap: .35rem .75rem;
   margin: 0;
 }
 .source-checker-assurance-fields dt,
-.governance-review-fields dt,
-.gap-stewardship-fields dt { color: var(--muted); font-weight: 700; }
+.governance-review-fields dt { color: var(--muted); font-weight: 700; }
 .source-checker-assurance-fields dd,
-.governance-review-fields dd,
-.gap-stewardship-fields dd { margin: 0; overflow-wrap: anywhere; }
+.governance-review-fields dd { margin: 0; overflow-wrap: anywhere; }
 .source-checker-catalog-coverage,
 .source-checker-hashes { margin: 0; padding-left: 1.2rem; overflow-wrap: anywhere; }
 
@@ -2508,20 +2670,8 @@ a.overview-daily-value:focus-visible { border-radius: .2rem; outline: 3px solid 
 }
 .governance-review-specialist-detail { display: grid; gap: .75rem; }
 
-.gap-stewardship-card > summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: .75rem;
-  cursor: pointer;
-}
-.gap-stewardship-body { display: grid; gap: .75rem; padding-top: .75rem; }
 .integrity-component-delta { font-weight: 700; color: var(--muted); }
 
-.publication-delivery-card .dossier-field,
-.topic-product-card .dossier-field {
-  margin-top: .35rem;
-}
 .overview-queue-card {
   min-width: 0;
   border: 1px solid var(--line);
@@ -2540,23 +2690,6 @@ a.overview-daily-value:focus-visible { border-radius: .2rem; outline: 3px solid 
 .overview-queue-card.warning { border-color: #e0c58f; background: #fffaf0; }
 .overview-queue-card.error { border-color: #dfb3ad; background: #fff6f4; }
 .overview-queue-card.unavailable { border-style: dashed; background: #f7f8fa; }
-.automation-error-alert {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: 1rem 0;
-  padding: .95rem 1rem;
-  border: 2px solid #a33232;
-  border-radius: .7rem;
-  color: #681f1f;
-  background: #fff0ee;
-  box-shadow: 0 4px 14px rgba(123, 41, 41, .12);
-}
-.automation-error-alert[hidden] { display: none; }
-.automation-error-alert h3 { margin: .15rem 0 .3rem; color: #681f1f; font-size: 1.1rem; }
-.automation-error-alert p { margin: 0; color: #7b2929; font-size: .86rem; }
-.automation-error-links { display: flex; flex: 0 0 auto; flex-wrap: wrap; gap: .45rem; }
 .record-link.error-link { color: white; border-color: #8e2929; background: #8e2929; }
 .record-link.error-link:hover { background: #681f1f; }
 
@@ -2939,9 +3072,7 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
 .release-readiness-card,
 .publication-delivery-card,
 .topic-product-card,
-.progress-next-work-card,
-.automation-incident-card,
-.gap-stewardship-card {
+.automation-incident-card {
   min-width: 0;
   padding: .85rem;
   border: 1px solid var(--line);
@@ -2962,9 +3093,7 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
 .release-readiness-card p,
 .publication-delivery-card p,
 .topic-product-card p,
-.progress-next-work-card p,
-.automation-incident-card p,
-.gap-stewardship-card p {
+.automation-incident-card p {
   margin: .25rem 0 0;
 }
 
@@ -2978,10 +3107,7 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
 }
 
 .progress-architecture-section,
-.progress-next-work-section,
-.integrity-components-section,
 .automation-incidents-section,
-.gap-stewardship-section,
 .publication-delivery-workbench,
 .publication-release-blockers,
 .topic-products-section,
@@ -2992,25 +3118,15 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
   background: var(--soft);
 }
 
-.progress-next-work-list,
 .publication-delivery-list,
 .topic-products-list,
-.automation-incidents,
-.gap-stewardship-list {
+.automation-incidents {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: .65rem;
   margin-top: .75rem;
 }
 
-.progress-next-work-heading {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: .35rem;
-}
-
-.progress-next-work-card h4,
 .publication-delivery-card h4,
 .topic-product-card h4 {
   margin: .35rem 0 0;
@@ -3113,17 +3229,12 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
   background: #fff0ee;
 }
 
-.automation-incidents-section,
-.gap-stewardship-section {
+.automation-incidents-section {
   margin-top: 1rem;
 }
 
 .automation-incident-card {
   border-left: 4px solid var(--red);
-}
-
-.gap-stewardship-card {
-  border-left: 4px solid var(--gold);
 }
 
 .micro-note {
@@ -3377,7 +3488,2299 @@ body.layout-editing .watcher-tab-list button { border-style: dashed; border-colo
 .incident-email-list .status-dot.success { background: var(--success); }
 
 @media (max-width: 760px) {
+  .component-registry-state-portals {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .incident-email-workspace { min-height: 0; }
   .incident-email-list,
   .incident-email-preview { max-height: none; }
+}
+
+/* Stage 1 prototype reconciliation: presentation-only adapter.
+   Behavior, content, data, routes, and browser-local layout identities remain
+   owned by the existing Console implementation. */
+body[data-interface-theme="arrp-tool"] {
+  --ink: #172033;
+  --muted: #5f6878;
+  --line: #d8dde6;
+  --soft: #f5f7fa;
+  --blue: #285f9f;
+  --blue-soft: #edf4ff;
+  --gold: #9b6510;
+  --gold-soft: #fff5dd;
+  --green: #24744f;
+  --red: #a13d32;
+  --shadow: 0 10px 28px rgba(24, 35, 55, .08);
+  --console-surface-subtle: #f7f9fc;
+  --console-radius-section: 10px;
+  --console-radius-control: 8px;
+  --console-space-section: 1rem;
+  --console-space-control: .75rem;
+  --console-page-gutter: 1.35rem;
+  --console-tertiary-height: 2.05rem;
+  --console-tertiary-gap: .35rem;
+  --console-tertiary-padding: .42rem .68rem;
+  --console-control-height: 2.25rem;
+  min-width: 320px;
+  background: #e9edf2;
+  line-height: 1.45;
+}
+
+body[data-interface-theme="arrp-tool"] .app-header {
+  width: min(1440px, calc(100% - 2rem));
+  margin: 1rem auto 0;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid #d2d8e1;
+  border-bottom: 0;
+  border-radius: 14px 14px 0 0;
+  color: white;
+  background: #111d31;
+  box-shadow: var(--shadow);
+}
+
+body[data-interface-theme="arrp-tool"] .brand-block { gap: .85rem; }
+
+body[data-interface-theme="arrp-tool"] .brand-mark {
+  width: 3.3rem;
+  height: 3.3rem;
+  border-radius: 7px;
+}
+
+body[data-interface-theme="arrp-tool"] .app-header h1 {
+  font-size: 1.35rem;
+}
+
+body[data-interface-theme="arrp-tool"] .app-header p {
+  color: #c4cedd;
+  font-size: .86rem;
+}
+
+body[data-interface-theme="arrp-tool"] .header-tools button {
+  border-radius: 6px;
+  font-size: .72rem;
+}
+
+body[data-interface-theme="arrp-tool"] .app-shell {
+  width: min(1440px, calc(100% - 2rem));
+  margin: 0 auto 2.5rem;
+  padding-bottom: 1.6rem;
+  overflow: hidden;
+  border: 1px solid #d2d8e1;
+  border-top: 0;
+  border-radius: 0 0 14px 14px;
+  background: white;
+  box-shadow: var(--shadow);
+}
+
+body[data-interface-theme="arrp-tool"] .console-navigation {
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid #c9d3e1;
+  background: #f1f5fa;
+  box-shadow: 0 1px 0 rgba(28, 52, 83, .04);
+}
+
+body[data-interface-theme="arrp-tool"] .console-tabs {
+  width: 100%;
+  margin: 0;
+  padding: .62rem 1.35rem 0;
+  overflow-x: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] .tab-list {
+  width: max-content;
+  min-width: 0;
+  gap: .25rem;
+}
+
+body[data-interface-theme="arrp-tool"] .tab-list button {
+  flex: 0 0 auto;
+  min-width: 0;
+  min-height: 0;
+  padding: .74rem .82rem .7rem;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  color: #263a54;
+  font-size: .82rem;
+  font-weight: 780;
+}
+
+body[data-interface-theme="arrp-tool"] .tab-list button:hover {
+  border-bottom-color: #8da8ca;
+  color: #244c7e;
+  background: #f2f6fb;
+}
+
+body[data-interface-theme="arrp-tool"] .tab-list button[aria-selected="true"] {
+  border-bottom-color: #193f70;
+  color: #193f70;
+  background: transparent;
+  font-weight: 850;
+}
+
+body[data-interface-theme="arrp-tool"] .tab-count,
+body[data-interface-theme="arrp-tool"] .tab-update-count {
+  padding: .05rem .34rem;
+  font-size: .66rem;
+}
+
+body[data-interface-theme="arrp-tool"] .console-submenu {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: .34rem 1.35rem;
+  overflow-x: auto;
+  border: 0;
+  border-top: 0;
+  border-bottom: 1px solid #d7dee8;
+  border-radius: 0;
+  background: #f8fafc;
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] .console-submenu .section-tab-list {
+  width: max-content;
+  min-width: 100%;
+  gap: .22rem;
+}
+
+body[data-interface-theme="arrp-tool"] .console-submenu .section-tab-list button {
+  display: inline-flex;
+  flex: 1 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: .26rem;
+  min-width: 6rem;
+  min-height: 2.05rem;
+  padding: .4rem .65rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #747e8d;
+  font-size: .69rem;
+  font-weight: 650;
+  line-height: 1.15;
+  text-align: center;
+  white-space: nowrap;
+}
+
+body[data-interface-theme="arrp-tool"] .console-submenu .section-tab-list button:hover {
+  color: #36516f;
+  background: rgba(255, 255, 255, .52);
+}
+
+body[data-interface-theme="arrp-tool"] .console-submenu .section-tab-list button[aria-selected="true"] {
+  border-color: rgba(131, 153, 179, .34);
+  color: #2f4d70;
+  background: rgba(255, 255, 255, .62);
+  box-shadow: none;
+  font-weight: 760;
+}
+
+body[data-interface-theme="arrp-tool"] .console-submenu .section-tab-list button[aria-selected="true"] .tab-count,
+body[data-interface-theme="arrp-tool"] .console-submenu .section-tab-list button[aria-selected="true"] .tab-update-count {
+  color: #193f70;
+  background: #e6edf6;
+}
+
+body[data-interface-theme="arrp-tool"] .operations-log-menu {
+  margin: .8rem 1.35rem .7rem;
+  border-radius: 0;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-logs > [id^="log-panel-"] .log-view {
+  margin: 0 1.35rem;
+  border-radius: 10px;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-security .queue-view-header > .source-list.compact-links {
+  width: 35rem;
+  max-width: none;
+  flex: 0 0 35rem;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-security .queue-view-header > .source-list.compact-links .record-link {
+  padding: .36rem .5rem;
+  font-size: .65rem;
+  line-height: 1.2;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-security button.record-link.secondary {
+  appearance: none;
+  border: 1px solid #c6d6e7;
+  color: #2b527f;
+  background: #eef4fa;
+  box-shadow: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-security button.record-link.secondary:hover {
+  border-color: #9eb6cf;
+  color: #193f70;
+  background: #e3edf7;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-security button.record-link.secondary:focus-visible {
+  outline: 3px solid rgba(36, 76, 133, .2);
+  outline-offset: 2px;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-security .security-action-guide {
+  margin-top: .8rem;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-security .security-request-help {
+  margin: .4rem 0 0;
+  color: var(--muted);
+  font-size: .7rem;
+  line-height: 1.4;
+}
+
+body[data-interface-theme="arrp-tool"] #operations-security-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .65rem;
+  margin-top: .95rem;
+}
+
+body[data-interface-theme="arrp-tool"] #operations-security-summary .compact-metric {
+  min-width: 0;
+  padding: .72rem .78rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f7f9fc;
+}
+
+body[data-interface-theme="arrp-tool"] #operations-security-summary .metric-label {
+  display: block;
+  color: var(--muted);
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+
+body[data-interface-theme="arrp-tool"] #operations-security-summary strong {
+  display: block;
+  margin-top: .22rem;
+  color: #244c7e;
+  font-size: .92rem;
+  line-height: 1.25;
+}
+
+body[data-interface-theme="arrp-tool"] #operations-security-status {
+  margin-top: .75rem;
+}
+
+body[data-interface-theme="arrp-tool"] #operations-security-workspace {
+  margin-top: .75rem;
+}
+
+body[data-interface-theme="arrp-tool"] #operations-security-list .email-list-copy {
+  display: grid;
+  min-width: 0;
+  gap: .2rem;
+}
+
+body[data-interface-theme="arrp-tool"] #operations-security-list .email-list-copy strong {
+  overflow: hidden;
+  font-size: .72rem;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-interface-theme="arrp-tool"] #operations-security-list .email-list-meta {
+  color: var(--muted);
+  font-size: .62rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: capitalize;
+}
+
+body[data-interface-theme="arrp-tool"] #operations-security-preview > .source-list.compact-links {
+  padding: .35rem 0 0;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-chain-stages .automation-chain-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-flow: row;
+  gap: 0;
+  margin: .65rem .75rem 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f7f9fc;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-chain-stages .automation-chain-summary .integrity-metric {
+  min-width: 0;
+  padding: .62rem .7rem;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-chain-stages .automation-chain-summary .integrity-metric:nth-child(3n) {
+  border-right: 0;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-chain-stages .automation-chain-summary .integrity-metric:nth-child(n + 4) {
+  border-bottom: 0;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-chain-stages .automation-chain-summary .integrity-metric strong {
+  margin-top: .12rem;
+  overflow-wrap: anywhere;
+  font-size: .98rem;
+  line-height: 1.25;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-chain-stages .automation-chain-summary .integrity-metric p {
+  margin-top: .18rem;
+  font-size: .66rem;
+  line-height: 1.35;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning > .section-panel:not([hidden]) > .queue-view,
+body[data-interface-theme="arrp-tool"] #panel-automation > .section-panel:not([hidden]) > .queue-view {
+  margin-top: 0;
+  margin-right: 1.35rem;
+  margin-left: 1.35rem;
+  padding: 1.25rem 1.35rem 1.6rem;
+  border: 0;
+  border-radius: 0;
+  background: white;
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] .layout-status {
+  margin: 0;
+  font-size: .68rem;
+}
+
+body[data-interface-theme="arrp-tool"] .workflow-summary,
+body[data-interface-theme="arrp-tool"] .queue-view {
+  margin-right: 1.35rem;
+  margin-left: 1.35rem;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(24, 35, 55, .04);
+}
+
+body[data-interface-theme="arrp-tool"] .workflow-summary {
+  margin-top: .6rem;
+  padding: 1rem 3.2rem 1rem 1.1rem;
+}
+
+body[data-interface-theme="arrp-tool"] .workflow-summary h2 {
+  font-size: 1.15rem;
+}
+
+body[data-interface-theme="arrp-tool"] .workflow-summary li span {
+  font-size: .8rem;
+}
+
+body[data-interface-theme="arrp-tool"] .queue-view {
+  margin-top: 1rem;
+  padding: 1.15rem;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-progress > .queue-view,
+body[data-interface-theme="arrp-tool"] #panel-actions > .queue-view,
+body[data-interface-theme="arrp-tool"] #panel-integrity > .queue-view {
+  margin-top: 0;
+  padding: 1.25rem 1.35rem 1.6rem;
+  border: 0;
+  border-radius: 0;
+  background: white;
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] .queue-view-header {
+  gap: 1.25rem;
+  margin-bottom: .85rem;
+}
+
+body[data-interface-theme="arrp-tool"] .queue-view-header h2 {
+  margin: .2rem 0 .32rem;
+  font-size: 1.45rem;
+}
+
+body[data-interface-theme="arrp-tool"] .queue-view-header p {
+  max-width: 72rem;
+  font-size: .86rem;
+  line-height: 1.45;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning .queue-view-header {
+  margin-bottom: .65rem;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning .queue-view-header + .console-message {
+  margin: 0 0 .85rem;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning .queue-view-header + .queue-controls,
+body[data-interface-theme="arrp-tool"] #panel-planning .queue-view-header + .watcher-summary-grid {
+  margin-top: .85rem;
+}
+
+/* Shared content hierarchy
+   Level 1: workspace heading
+   Level 2: major section
+   Level 3: control or metric surface
+   Level 4: row, card, or detail item */
+body[data-interface-theme="arrp-tool"] .queue-view-header .refresh-note {
+  margin: .2rem 0 0;
+  padding: 0;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  box-shadow: none;
+  font-size: .74rem;
+  line-height: 1.4;
+}
+
+body[data-interface-theme="arrp-tool"] :where(
+  .watcher-summary-card,
+  .integrity-metric,
+  .publication-metric,
+  #operations-security-summary .compact-metric
+) {
+  padding: .8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--console-radius-control);
+  background: var(--console-surface-subtle);
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] :where(
+  .watcher-summary-card,
+  .integrity-metric,
+  .publication-metric
+) > :where(.eyebrow, span:first-child) {
+  color: var(--muted);
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+body[data-interface-theme="arrp-tool"] :where(
+  .queue-controls,
+  .problem-controls,
+  .action-inbox-toolbar,
+  .pipeline-view > .pipeline-controls:not(.pipeline-controls-advanced)
+) {
+  padding: .8rem;
+  border: 0;
+  border-radius: var(--console-radius-control);
+  background: var(--console-surface-subtle);
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] .pipeline-view > .pipeline-controls:not(.pipeline-controls-advanced) {
+  margin-top: .55rem;
+}
+
+/* Shared functional-control grammar. Layout may vary by task, while labels,
+   fields, focus, density, and disabled posture remain consistent. */
+body[data-interface-theme="arrp-tool"] :where(
+  .queue-controls,
+  .pipeline-controls,
+  .action-inbox-toolbar,
+  .print-change-toolbar
+) label {
+  color: var(--muted);
+  font-size: .68rem;
+  font-weight: 800;
+}
+
+body[data-interface-theme="arrp-tool"] :where(
+  .queue-controls,
+  .pipeline-controls,
+  .action-inbox-toolbar,
+  .print-change-toolbar
+) :is(input, select) {
+  min-height: var(--console-control-height);
+  border: 1px solid #cbd3df;
+  border-radius: 8px;
+  background: white;
+  font-size: .72rem;
+}
+
+body[data-interface-theme="arrp-tool"] :where(
+  .queue-controls,
+  .pipeline-controls,
+  .action-inbox-toolbar,
+  .print-change-toolbar
+) :is(input, select):focus-visible,
+body[data-interface-theme="arrp-tool"] :where(.page-button, .pipeline-reset):focus-visible {
+  border-color: #7295c0;
+  outline: 3px solid rgba(38, 93, 165, .22);
+  outline-offset: 1px;
+}
+
+body[data-interface-theme="arrp-tool"] .pagination {
+  min-height: 2.25rem;
+  gap: .55rem;
+  margin-top: .65rem;
+}
+
+body[data-interface-theme="arrp-tool"] .page-button {
+  min-width: 6.5rem;
+  min-height: 2.1rem;
+  padding: .4rem .65rem;
+  border-radius: 8px;
+  font-size: .72rem;
+}
+
+body[data-interface-theme="arrp-tool"] .page-status {
+  min-width: 6rem;
+  font-size: .7rem;
+}
+
+body[data-interface-theme="arrp-tool"] :where(
+  .operations-ledger-row,
+  .automation-overview-card,
+  .component-registry-deferred,
+  .registry-mode-panel,
+  .integrity-run-portals
+) {
+  border-radius: var(--console-radius-control);
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] .operations-ledger-list,
+body[data-interface-theme="arrp-tool"] .integrity-history-list {
+  gap: .55rem;
+}
+
+body[data-interface-theme="arrp-tool"] .compact-empty {
+  margin: .75rem 0 0;
+  padding: .9rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--console-radius-control);
+  background: var(--console-surface-subtle);
+  text-align: left;
+}
+
+/* Shared message hierarchy
+   Quiet metadata stays inline with its owning heading. Standalone explanatory
+   and warning messages use one compact band geometry across every workspace. */
+body[data-interface-theme="arrp-tool"] .console-message {
+  display: block;
+  width: 100%;
+  margin: .75rem 0 0;
+  padding: .58rem .72rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: none;
+  font-size: .72rem;
+  line-height: 1.4;
+  text-align: left;
+}
+
+body[data-interface-theme="arrp-tool"] .console-message-info {
+  position: relative;
+  padding-left: 2rem;
+  color: #5f6878;
+  background: var(--console-surface-subtle);
+}
+
+body[data-interface-theme="arrp-tool"] .console-message-info::before {
+  position: absolute;
+  top: .64rem;
+  left: .72rem;
+  display: inline-grid;
+  width: .85rem;
+  height: .85rem;
+  place-items: center;
+  border: 1px solid #8390a3;
+  border-radius: 50%;
+  color: #68758a;
+  content: "i";
+  font-family: Georgia, serif;
+  font-size: .58rem;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1;
+}
+
+body[data-interface-theme="arrp-tool"] .console-message-warning {
+  position: relative;
+  padding-left: 2rem;
+  border-color: #e7d49f;
+  color: #6d4b0f !important;
+  background: #fff8e7;
+}
+
+body[data-interface-theme="arrp-tool"] .console-message-warning::before,
+body[data-interface-theme="arrp-tool"] .owner-unavailable-notice::before,
+body[data-interface-theme="arrp-tool"] .console-message-status.warning::before {
+  position: absolute;
+  top: .64rem;
+  left: .72rem;
+  display: inline-grid;
+  width: .85rem;
+  height: .85rem;
+  place-items: center;
+  border: 1px solid #a27625;
+  border-radius: 50%;
+  color: #8a6117;
+  content: "!";
+  font-family: Georgia, serif;
+  font-size: .58rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+body[data-interface-theme="arrp-tool"] .owner-unavailable-notice {
+  position: relative;
+  padding-left: 2rem;
+  border: 1px solid #e7d49f;
+  color: #6d4b0f !important;
+  background: #fff8e7;
+}
+
+body[data-interface-theme="arrp-tool"] .console-message-status.success {
+  border-color: #bedbc9;
+  color: #286548 !important;
+  background: #edf7f1;
+}
+
+body[data-interface-theme="arrp-tool"] .console-message-status.error {
+  border-color: #e3c1bd;
+  color: #8a332c !important;
+  background: #fff2f0;
+}
+
+body[data-interface-theme="arrp-tool"] .console-message-status.unavailable {
+  position: relative;
+  padding-left: 2rem;
+  border-color: var(--line);
+  color: #5f6878 !important;
+  background: var(--console-surface-subtle);
+}
+
+body[data-interface-theme="arrp-tool"] .console-message-status.warning {
+  position: relative;
+  padding-left: 2rem;
+  border-color: #e7d49f;
+  color: #6d4b0f !important;
+  background: #fff8e7;
+}
+
+body[data-interface-theme="arrp-tool"] .console-message-status.unavailable::before {
+  position: absolute;
+  top: .64rem;
+  left: .72rem;
+  display: inline-grid;
+  width: .85rem;
+  height: .85rem;
+  place-items: center;
+  border: 1px solid #8390a3;
+  border-radius: 50%;
+  color: #68758a;
+  content: "i";
+  font-family: Georgia, serif;
+  font-size: .58rem;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1;
+}
+
+body[data-interface-theme="arrp-tool"] .console-message + .console-message {
+  margin-top: .45rem;
+}
+
+body[data-interface-theme="arrp-tool"] .record-source-note {
+  color: var(--muted);
+  font-size: .68rem;
+  font-weight: 650;
+  line-height: 1.35;
+  text-align: right;
+}
+
+body[data-interface-theme="arrp-tool"] .console-boundary-note {
+  margin: 1.25rem 1.35rem 0;
+  padding: .75rem 0 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .68rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+body[data-interface-theme="arrp-tool"] .logs-screen-header {
+  margin: 0 1.35rem;
+  padding: 1.25rem 1.35rem 0;
+}
+
+body[data-interface-theme="arrp-tool"] .logs-screen-header h2 {
+  margin: .2rem 0 .32rem;
+  font-size: 1.45rem;
+}
+
+body[data-interface-theme="arrp-tool"] .logs-screen-header p {
+  max-width: 60rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: .86rem;
+  line-height: 1.45;
+}
+
+body[data-interface-theme="arrp-tool"] .logs-screen-header + .operations-log-menu {
+  margin-top: .8rem;
+}
+
+/* Dotted state labels occupy the upper-right status position inside
+   informational cards; navigation dots and numeric counts are unaffected. */
+body[data-interface-theme="arrp-tool"] .operations-ledger-row {
+  position: relative;
+  grid-template-columns: minmax(10rem, .7fr) minmax(0, 1.3fr);
+  padding-top: .8rem;
+}
+
+body[data-interface-theme="arrp-tool"] .operations-ledger-row > div:first-child {
+  padding-right: 7rem;
+}
+
+body[data-interface-theme="arrp-tool"] .operations-ledger-row > div:first-child .status-badge {
+  position: absolute;
+  top: .7rem;
+  right: .7rem;
+}
+
+body[data-interface-theme="arrp-tool"] .operations-ledger-row > .inline-link {
+  grid-column: 2;
+  justify-self: end;
+  font-size: .68rem;
+}
+
+body[data-interface-theme="arrp-tool"] .operations-ledger-provider .inline-link,
+body[data-interface-theme="arrp-tool"] .operations-ledger-row > .inline-link {
+  font-weight: 750;
+  text-decoration-thickness: .08em;
+  text-underline-offset: .12em;
+}
+
+body[data-interface-theme="arrp-tool"] .section-heading-link {
+  align-self: center;
+  flex: 0 0 auto;
+  font-size: .7rem;
+  font-weight: 750;
+  text-decoration-thickness: .08em;
+  text-underline-offset: .12em;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-stage-strip .overview-automation-card {
+  display: grid;
+  min-height: 8.35rem;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(2.2rem, auto) auto 1fr;
+  align-content: start;
+  row-gap: .32rem;
+}
+
+/* Operations specialist screens use the same editorial workspace dialect as
+   Operations Overview: one page surface, flat sections, and compact controls.
+   Legacy detail cards remain semantic groups without becoming nested frames. */
+body[data-interface-theme="arrp-tool"] #automation-panel-agents .automation-role-detail {
+  min-height: 0;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-agents :where(
+  .automation-role-workspace,
+  .automation-role-unavailable
+) {
+  padding: .85rem 0 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-agents .automation-role-fields {
+  margin: .9rem 0;
+  padding: .8rem 0;
+  border: solid var(--line);
+  border-width: 1px 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-agents .automation-role-incidents {
+  padding-top: .9rem;
+  border-top: 1px solid var(--line);
+}
+
+body[data-interface-theme="arrp-tool"] .operations-portal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .65rem;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-platform .operations-portal-grid {
+  grid-template-columns: repeat(5, minmax(12rem, 1fr));
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable;
+}
+
+ body[data-interface-theme="arrp-tool"] #automation-panel-data .operations-portal-grid {
+  grid-template-columns: repeat(5, minmax(12rem, 1fr));
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable;
+}
+
+body[data-interface-theme="arrp-tool"] .operations-portal-grid .operations-ledger-provider {
+  grid-column: 1 / -1;
+  min-height: 0;
+  margin: .2rem 0 -.15rem;
+  padding: .45rem 0 .2rem;
+  border: 0;
+}
+
+body[data-interface-theme="arrp-tool"] .operations-portal-grid .operations-ledger-row {
+  display: flex;
+  min-height: 9.5rem;
+  flex-direction: column;
+  gap: 0;
+  padding: .85rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: white;
+}
+
+body[data-interface-theme="arrp-tool"] .operations-portal-grid .operations-ledger-row > div:first-child {
+  padding-right: 6.75rem;
+}
+
+body[data-interface-theme="arrp-tool"] .operations-portal-grid :is(
+  .platform-provider-label,
+  .data-producer-label
+) {
+  display: block;
+  margin-bottom: .28rem;
+  color: var(--muted);
+  font-size: .61rem;
+  font-weight: 800;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}
+
+body[data-interface-theme="arrp-tool"] .operations-portal-grid .data-producer-label {
+  min-height: 2.35rem;
+  overflow: hidden;
+  line-height: 1.25;
+}
+
+body[data-interface-theme="arrp-tool"] .operations-portal-grid .operations-ledger-row > div:nth-child(2) {
+  margin-top: .65rem;
+}
+
+body[data-interface-theme="arrp-tool"] .operations-portal-grid .operations-ledger-row > .inline-link {
+  align-self: flex-end;
+  margin-top: auto;
+  padding-top: .65rem;
+}
+
+body[data-interface-theme="arrp-tool"] .data-feed-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .45rem .7rem;
+  margin-top: auto;
+  padding-top: .65rem;
+  flex-wrap: wrap;
+}
+
+body[data-interface-theme="arrp-tool"] .data-feed-actions .inline-link {
+  margin: 0;
+  padding: 0;
+  font-size: .68rem;
+  white-space: nowrap;
+}
+
+body[data-interface-theme="arrp-tool"] .operations-portal-grid .operations-ledger-row > .record-link {
+  align-self: flex-start;
+  margin-top: .45rem;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-logs .logs-screen-header {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-logs .operations-log-menu {
+  margin-top: .65rem;
+  margin-bottom: .75rem;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-logs > [id^="log-panel-"] .log-view {
+  margin-top: 0;
+  padding: .9rem 1.35rem 1.6rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-component-registry .registry-mode-panel {
+  padding: .65rem 0 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-component-registry .registry-picker {
+  padding: 0 0 .75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-component-registry .component-registry-detail {
+  margin-top: 0;
+  padding: .9rem 0 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-component-registry .component-registry-workspace .component-registry-detail {
+  padding: 1rem;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-stage-strip .overview-stage-number {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  justify-self: start;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-stage-strip .status-badge {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  justify-self: end;
+  padding: .2rem .4rem;
+  font-size: .58rem;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-stage-strip .status-badge::before {
+  width: .35rem;
+  height: .35rem;
+  flex-basis: .35rem;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-stage-strip h4 {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
+  min-height: 2.2rem;
+  margin: 0;
+  line-height: 1.18;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-stage-strip .overview-stage-time {
+  grid-column: 1;
+  grid-row: 3;
+  margin-top: 0;
+}
+
+/* Overview composition follows the approved prototype rather than inheriting
+   the legacy Console's nested-card dashboard geometry. */
+body[data-interface-theme="arrp-tool"] .overview-view {
+  margin-top: 0;
+  padding: 1.25rem 1.35rem 1.6rem;
+  border: 0;
+  border-radius: 0;
+  background: white;
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-header {
+  margin-bottom: 1rem;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-header-actions {
+  min-width: 14rem;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-header-actions .refresh-note {
+  margin: .2rem 0 0;
+  padding: 0;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  box-shadow: none;
+  font-size: .74rem;
+  line-height: 1.4;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-view > [data-layout-transfer-group="overview-portlet"] {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-daily-brief {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(28rem, .75fr);
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  margin-top: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--blue);
+  border-radius: 10px;
+  background: white;
+  margin-bottom: 1rem;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-daily-heading {
+  grid-column: 1;
+  grid-row: 1;
+  padding: 1rem 1.15rem 0;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-daily-heading h3 {
+  margin-top: .2rem;
+  font-size: 1.18rem;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-daily-summary {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
+  max-width: 68rem;
+  margin: .75rem 0 1rem;
+  padding: 0 1.15rem;
+  font-size: 1.03rem;
+  font-weight: 500;
+  line-height: 1.48;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-daily-verification {
+  grid-column: 1;
+  grid-row: 3;
+  margin: 0;
+  padding: 0 1.15rem 1rem;
+  line-height: 1.5;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-daily-facts {
+  grid-column: 2;
+  grid-row: 1 / 4;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  align-self: stretch;
+  border: 0;
+  border-left: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--line);
+}
+
+body[data-interface-theme="arrp-tool"] .overview-daily-fact {
+  padding: .95rem;
+  border: 0;
+  background: white;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-daily-fact:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-degraded-explanation {
+  grid-column: 1 / -1;
+  grid-row: 4;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .8rem;
+  margin: .9rem 1rem 1rem;
+  padding: .9rem;
+  border: 1px solid #e7c675;
+  border-left: 5px solid #c88b16;
+  border-radius: 8px;
+  background: var(--gold-soft);
+  font-size: .75rem;
+}
+
+body[data-interface-theme="arrp-tool"] #overview-chain-section {
+  margin: 0 0 1rem;
+  padding: 0;
+  overflow: hidden;
+  background: white;
+}
+
+body[data-interface-theme="arrp-tool"] #overview-chain-section > .section-heading-row {
+  margin: 0;
+  padding: .9rem 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+body[data-interface-theme="arrp-tool"] .overview-stage-strip {
+  grid-template-columns: repeat(7, minmax(8rem, 1fr));
+  gap: 0;
+  overflow-x: auto;
+  background: white;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-stage-strip .overview-automation-card {
+  min-width: 8rem;
+  min-height: 7.8rem;
+  padding: .72rem .75rem;
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-radius: 0;
+  background: white;
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-stage-strip .overview-automation-card:last-child {
+  border-right: 0;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-stage-number {
+  font-size: .65rem;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-stage-time,
+body[data-interface-theme="arrp-tool"] .overview-stage-reason {
+  font-size: .66rem;
+  line-height: 1.35;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-chain-readiness {
+  margin: 0;
+  padding: .62rem 1rem;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: #fafbfc;
+  font-size: .73rem;
+}
+
+body[data-interface-theme="arrp-tool"] #overview-indicators-section,
+body[data-interface-theme="arrp-tool"] #overview-queues-section {
+  margin-top: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] #overview-indicators-section {
+  margin-bottom: 1rem;
+}
+
+body[data-interface-theme="arrp-tool"] #overview-indicators-section > .section-heading-row,
+body[data-interface-theme="arrp-tool"] #overview-queues-section > .section-heading-row {
+  align-items: end;
+  margin: 0 0 .65rem;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-indicator-grid {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: .7rem;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-indicator-card,
+body[data-interface-theme="arrp-tool"] .overview-indicator-card.overview-compact-indicator {
+  display: flex;
+  grid-column: span 2;
+  min-height: 10.3rem;
+  flex-direction: column;
+  padding: .85rem;
+  border-radius: 10px;
+  background: white;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-indicator-card.overview-compact-indicator {
+  grid-column: span 3;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-indicator-detail {
+  margin-bottom: .65rem;
+  font-size: .69rem;
+  line-height: 1.42;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-indicator-link {
+  margin-top: auto;
+  font-size: .71rem;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-lower-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 1rem;
+  margin: 0;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-lower-grid > .overview-section {
+  min-width: 0;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-lower-grid > [data-layout-transfer-group="overview-portlet"] {
+  margin-top: 0;
+}
+
+body[data-interface-theme="arrp-tool"] #overview-queues-section,
+body[data-interface-theme="arrp-tool"] #overview-recent-section {
+  margin-top: 0;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-queue-directory {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .55rem;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-queue-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(27,42,67,.04);
+}
+
+body[data-interface-theme="arrp-tool"] .overview-queue-card:hover {
+  border-color: #b9c9df;
+  background: #f6f9fd;
+  box-shadow: 0 5px 14px rgba(27,42,67,.07);
+}
+
+body[data-interface-theme="arrp-tool"] .overview-queue-primary {
+  padding: .72rem .78rem;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-queue-card-heading strong {
+  font-size: .73rem;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-queue-count {
+  color: #193f70;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-queue-problem {
+  display: inline-flex;
+  align-items: center;
+  gap: .28rem;
+  margin: 0 .78rem .65rem;
+  padding: 0;
+  border: 0;
+  color: var(--red);
+  background: transparent;
+  font-size: .64rem;
+  font-weight: 850;
+}
+
+body[data-interface-theme="arrp-tool"] .overview-queue-problem::before {
+  content: "⚑";
+  font-size: .78rem;
+  line-height: 1;
+}
+
+body[data-interface-theme="arrp-tool"] .status-badge {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: .35rem;
+  margin-left: 0;
+  padding: .28rem .55rem;
+  border-radius: 999px;
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.15;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+body[data-interface-theme="arrp-tool"] .status-badge::before {
+  width: .43rem;
+  height: .43rem;
+  flex: 0 0 .43rem;
+  border-radius: 50%;
+  background: currentColor;
+  content: "";
+}
+
+body[data-interface-theme="arrp-tool"] .status-badge.ready,
+body[data-interface-theme="arrp-tool"] .status-badge.success,
+body[data-interface-theme="arrp-tool"] .status-badge.enabled {
+  color: var(--green);
+  background: #e9f6ef;
+}
+
+body[data-interface-theme="arrp-tool"] .status-badge.needs-review,
+body[data-interface-theme="arrp-tool"] .status-badge.error {
+  color: var(--red);
+  background: #fff0ed;
+}
+
+body[data-interface-theme="arrp-tool"] .status-badge.notice {
+  color: var(--blue);
+  background: var(--blue-soft);
+}
+
+body[data-interface-theme="arrp-tool"] .status-badge.warning,
+body[data-interface-theme="arrp-tool"] .status-badge.not-due,
+body[data-interface-theme="arrp-tool"] .status-badge.paused,
+body[data-interface-theme="arrp-tool"] .status-badge.pilot {
+  color: var(--gold);
+  background: var(--gold-soft);
+}
+
+body[data-interface-theme="arrp-tool"] .status-badge.unavailable {
+  color: #5d6675;
+  background: #edf0f4;
+}
+
+body[data-interface-theme="arrp-tool"] .section-tabs:not(.console-submenu),
+body[data-interface-theme="arrp-tool"] .watcher-tabs,
+body[data-interface-theme="arrp-tool"] .compact-specialist-menu {
+  margin-top: .85rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] .section-tabs:not(.console-submenu) .section-tab-list,
+body[data-interface-theme="arrp-tool"] .watcher-tab-list,
+body[data-interface-theme="arrp-tool"] .compact-specialist-menu-list,
+body[data-interface-theme="arrp-tool"] .registry-mode-tab-list {
+  gap: var(--console-tertiary-gap);
+}
+
+body[data-interface-theme="arrp-tool"] .section-tabs:not(.console-submenu) .section-tab-list button,
+body[data-interface-theme="arrp-tool"] .watcher-tab-list button,
+body[data-interface-theme="arrp-tool"] .compact-specialist-menu-item,
+body[data-interface-theme="arrp-tool"] .registry-mode-tab-list button,
+body[data-interface-theme="arrp-tool"] .pipeline-mode-switcher button,
+body[data-interface-theme="arrp-tool"] .action-inbox-filter,
+body[data-interface-theme="arrp-tool"] [data-action-layout] {
+  min-height: 0;
+  padding: .42rem .68rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: white;
+  box-shadow: none;
+  font-size: .7rem;
+  font-weight: 750;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+body[data-interface-theme="arrp-tool"] .section-tabs:not(.console-submenu) .section-tab-list button[aria-selected="true"],
+body[data-interface-theme="arrp-tool"] .watcher-tab-list button[aria-selected="true"],
+body[data-interface-theme="arrp-tool"] .compact-specialist-menu-item[aria-current="page"],
+body[data-interface-theme="arrp-tool"] .registry-mode-tab-list button[aria-selected="true"],
+body[data-interface-theme="arrp-tool"] .pipeline-mode-switcher button[aria-pressed="true"],
+body[data-interface-theme="arrp-tool"] .action-inbox-filter[aria-pressed="true"],
+body[data-interface-theme="arrp-tool"] [data-action-layout][aria-pressed="true"] {
+  border-color: #193f70;
+  color: white;
+  background: #193f70;
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] .pipeline-mode-switcher {
+  gap: .35rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+body[data-interface-theme="arrp-tool"] .pipeline-reset {
+  align-self: end;
+  min-height: 2.5rem;
+  padding: .5rem .75rem;
+  border: 1px solid #cbd3df;
+  border-radius: 8px;
+  color: #36516f;
+  background: white;
+  font: inherit;
+  font-size: .72rem;
+  font-weight: 750;
+}
+
+body[data-interface-theme="arrp-tool"] .pipeline-reset:hover {
+  border-color: #8da8ca;
+  background: #f2f6fb;
+}
+
+body[data-interface-theme="arrp-tool"] :is(
+  .source-workspace-menu,
+  .publication-workspace-menu
+) {
+  margin: .8rem 1.35rem 0;
+  padding: 0 0 .65rem;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+}
+
+body[data-interface-theme="arrp-tool"] :is(
+  .source-workspace-menu,
+  .publication-workspace-menu
+) .section-tab-list {
+  width: auto;
+  justify-content: flex-start;
+}
+
+body[data-interface-theme="arrp-tool"] :is(
+  .source-workspace-menu,
+  .publication-workspace-menu
+) .section-tab-list button {
+  min-width: 0;
+  flex: 0 0 auto;
+}
+
+body[data-interface-theme="arrp-tool"] .source-view > .source-workspace-menu,
+body[data-interface-theme="arrp-tool"] .queue-view > .publication-workspace-menu {
+  margin: .8rem 0 .75rem;
+  padding: 0 0 .65rem;
+}
+
+body[data-interface-theme="arrp-tool"] .source-view > .compact-view-selector {
+  margin: 0 0 .8rem;
+}
+
+/* Search and primary filters are always exposed. Only controls explicitly
+   classified as advanced use a disclosure. */
+body[data-interface-theme="arrp-tool"] :where(
+  .queue-controls,
+  .pipeline-controls,
+  .action-inbox-toolbar
+) {
+  visibility: visible;
+}
+
+/* Mail-style result portals use one internally scrolling list and preview.
+   They never combine that interaction with page-by-page navigation. */
+body[data-interface-theme="arrp-tool"] .source-email-workspace {
+  height: min(66vh, 44rem);
+  min-height: 28rem;
+}
+
+body[data-interface-theme="arrp-tool"] .source-email-list {
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning :where(
+  .candidate-card,
+  .dense-data-disclosure,
+  .monitoring-issue,
+  .advanced-filters
+) {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(24, 35, 55, .035);
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning :where(
+  .candidate-card > summary,
+  .dense-data-disclosure > summary,
+  .monitoring-issue > summary,
+  .advanced-filters > summary
+) {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: .62rem;
+  min-height: 3rem;
+  border: 0;
+  color: var(--ink);
+  background: #f7f9fb;
+  cursor: pointer;
+  list-style: none;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning :where(
+  .candidate-card > summary,
+  .dense-data-disclosure > summary,
+  .monitoring-issue > summary,
+  .advanced-filters > summary
+)::-webkit-details-marker {
+  display: none;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning :where(
+  .candidate-card > summary,
+  .dense-data-disclosure > summary,
+  .monitoring-issue > summary,
+  .advanced-filters > summary
+)::before {
+  grid-column: 1;
+  color: #526a86;
+  content: "›";
+  font-size: 1.15rem;
+  font-weight: 850;
+  line-height: 1;
+  transform: rotate(0deg);
+  transition: transform .14s ease;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning :where(
+  .candidate-card,
+  .dense-data-disclosure,
+  .monitoring-issue,
+  .advanced-filters
+)[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning :where(
+  .candidate-card > summary,
+  .dense-data-disclosure > summary,
+  .monitoring-issue > summary,
+  .advanced-filters > summary
+):hover {
+  background: #f2f6fb;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning :where(
+  .candidate-card,
+  .dense-data-disclosure,
+  .monitoring-issue,
+  .advanced-filters
+)[open] > summary {
+  border-bottom: 1px solid var(--line);
+  background: #f4f7fa;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning .candidate-card > .card-header {
+  padding: .78rem 8.6rem .75rem 1rem;
+}
+
+body[data-interface-theme="arrp-tool"] details.managed-disclosure > .standard-disclosure-summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: .62rem;
+  min-height: 3rem;
+  list-style: none;
+}
+
+body[data-interface-theme="arrp-tool"] details.managed-disclosure > .standard-disclosure-summary::-webkit-details-marker {
+  display: none;
+}
+
+body[data-interface-theme="arrp-tool"] details.managed-disclosure > .standard-disclosure-summary::before {
+  grid-column: 1;
+  color: #526a86;
+  content: "›";
+  font-size: 1.15rem;
+  font-weight: 850;
+  line-height: 1;
+  transform: rotate(0deg);
+  transition: transform .14s ease;
+}
+
+body[data-interface-theme="arrp-tool"] details.managed-disclosure[open] > .standard-disclosure-summary::before {
+  transform: rotate(90deg);
+}
+
+body[data-interface-theme="arrp-tool"] .standard-disclosure-summary > .disclosure-item-name {
+  grid-column: 2;
+  min-width: 0;
+  overflow: hidden;
+  margin: 0;
+  font-size: .82rem;
+  font-weight: 800;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-interface-theme="arrp-tool"] .standard-disclosure-summary > .disclosure-item-labels {
+  display: flex;
+  min-width: 0;
+  grid-column: 3;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: .28rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+body[data-interface-theme="arrp-tool"] .standard-disclosure-summary > .disclosure-item-labels > * {
+  flex: 0 0 auto;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning .candidate-card .card-header h3 {
+  font-size: .82rem;
+}
+
+/* Temporary page-template inspection scaffold. */
+body[data-interface-theme="arrp-tool"].template-inspection [data-template-region] {
+  --template-box: #6f87a4;
+  position: relative;
+  box-shadow: inset 0 0 0 1px var(--template-box);
+}
+
+body[data-interface-theme="arrp-tool"].template-inspection [data-template-region]::after {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: .35rem;
+  padding: .08rem .34rem;
+  border-radius: 0 0 4px 4px;
+  color: white;
+  background: var(--template-box);
+  content: attr(data-template-region);
+  font-size: .55rem;
+  font-weight: 850;
+  letter-spacing: .025em;
+  line-height: 1.35;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+body[data-interface-theme="arrp-tool"].template-inspection [data-template-region^="A"] { --template-box: #7b61a8; }
+body[data-interface-theme="arrp-tool"].template-inspection [data-template-region^="B"] { --template-box: #244c85; }
+body[data-interface-theme="arrp-tool"].template-inspection [data-template-region^="C"] { --template-box: #4d6988; }
+body[data-interface-theme="arrp-tool"].template-inspection [data-template-region^="D"] { --template-box: #a16a08; }
+body[data-interface-theme="arrp-tool"].template-inspection [data-template-region^="E"] { --template-box: #39745f; }
+body[data-interface-theme="arrp-tool"].template-inspection [data-template-region^="F"] { --template-box: #8a4e74; }
+body[data-interface-theme="arrp-tool"].template-inspection [data-template-region^="G"] { --template-box: #526a28; }
+body[data-interface-theme="arrp-tool"].template-inspection [data-template-region^="H"] { --template-box: #596273; }
+body[data-interface-theme="arrp-tool"].template-inspection [data-template-region^="N"] { --template-box: #334155; }
+
+body[data-interface-theme="arrp-tool"].template-inspection .queue-view {
+  position: relative;
+}
+
+.template-region-overlay {
+  display: none;
+}
+
+body[data-interface-theme="arrp-tool"].template-inspection .template-region-overlay {
+  display: block;
+  position: absolute;
+  z-index: 18;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+body[data-interface-theme="arrp-tool"].template-inspection [data-template-component] {
+  position: relative;
+  outline: 1px dashed rgba(47, 76, 110, .55);
+  outline-offset: -2px;
+}
+
+body[data-interface-theme="arrp-tool"].template-inspection [data-template-component]::before {
+  position: absolute;
+  z-index: 21;
+  top: 0;
+  right: .35rem;
+  padding: .06rem .3rem;
+  border-radius: 0 0 4px 4px;
+  color: #34465c;
+  background: #e9eef5;
+  content: attr(data-template-component);
+  font-size: .5rem;
+  font-weight: 850;
+  letter-spacing: .02em;
+  line-height: 1.3;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+body[data-interface-theme="arrp-tool"].template-inspection :is(
+  .console-tabs,
+  .console-submenu,
+  .source-workspace-menu,
+  .publication-workspace-menu,
+  .operations-log-menu,
+  .watcher-tabs
+) {
+  padding-top: 1.45rem !important;
+}
+
+body[data-interface-theme="arrp-tool"].layout-editing #panel-planning .managed-disclosure > summary {
+  padding-right: 8.6rem;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning .disclosure-default-toggle {
+  top: .68rem;
+  right: .65rem;
+  transform: none;
+  margin: 0;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning .record-list,
+body[data-interface-theme="arrp-tool"] #panel-planning .monitoring-list {
+  gap: .58rem;
+}
+
+#workbench-pipeline-view[hidden],
+.workbench-monitoring[hidden] {
+  display: none !important;
+}
+
+body[data-interface-theme="arrp-tool"] .workbench-monitoring {
+  margin-top: .85rem;
+  padding-top: .9rem;
+  border-top: 1px solid var(--line);
+}
+
+body[data-interface-theme="arrp-tool"] .workbench-monitoring > .section-heading-row {
+  align-items: flex-start;
+  margin-bottom: .75rem;
+}
+
+body[data-interface-theme="arrp-tool"] .workbench-monitoring > .queue-controls {
+  margin-bottom: .65rem;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning .advanced-filters {
+  overflow: hidden;
+  padding: 0;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning .advanced-filters > summary {
+  padding: .72rem 8.6rem .72rem 1rem;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-planning .advanced-filters > label {
+  margin: 0;
+  padding: .8rem 1rem 1rem;
+}
+
+body[data-interface-theme="arrp-tool"] .development-board {
+  gap: .45rem;
+}
+
+body[data-interface-theme="arrp-tool"] .development-column {
+  padding: .42rem;
+  border-radius: 8px;
+  background: #f5f7fa;
+}
+
+body[data-interface-theme="arrp-tool"] .development-card-list {
+  gap: .3rem;
+}
+
+body[data-interface-theme="arrp-tool"] .development-card {
+  display: block;
+  padding: .42rem .46rem;
+  border-radius: 7px;
+  box-shadow: 0 1px 4px rgba(24, 35, 55, .035);
+}
+
+body[data-interface-theme="arrp-tool"] .development-card-main {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+body[data-interface-theme="arrp-tool"] .development-card-main strong {
+  overflow: visible;
+  font-size: .66rem;
+  text-overflow: clip;
+}
+
+body[data-interface-theme="arrp-tool"] .development-card-main:hover strong {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+body[data-interface-theme="arrp-tool"] .development-card-main:focus-visible {
+  border-radius: 3px;
+  outline: 2px solid rgba(36, 76, 133, .32);
+  outline-offset: 2px;
+}
+
+body[data-interface-theme="arrp-tool"] .development-card-links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .34rem;
+  margin: .22rem 0 0;
+}
+
+body[data-interface-theme="arrp-tool"] .development-card-links > a {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: #31577f;
+  background: transparent;
+  font-size: .55rem;
+  font-weight: 780;
+  line-height: 1.2;
+  text-decoration: underline;
+  text-underline-offset: .12rem;
+}
+
+body[data-interface-theme="arrp-tool"] .development-card-links > a:hover {
+  color: #193f70;
+  background: transparent;
+}
+
+body[data-interface-theme="arrp-tool"] .action-inbox-toolbar {
+  margin: 1rem 0 0;
+  border-bottom: 0;
+  border-radius: 9px 9px 0 0;
+  background: #fafbfc;
+}
+
+body[data-interface-theme="arrp-tool"] .action-inbox-workspace {
+  border-radius: 0 0 9px 9px;
+  box-shadow: none;
+}
+
+/* Action Items retains the stage-1 prototype's compact, contained-scroll
+   workspace. Deterministic priority triage is a narrow index, not a second
+   dashboard above the inbox. */
+body[data-interface-theme="arrp-tool"] #panel-actions .queue-view-header {
+  margin-bottom: .5rem;
+}
+
+body[data-interface-theme="arrp-tool"] #panel-actions #action-items-note {
+  margin-top: .5rem;
+}
+
+body[data-interface-theme="arrp-tool"] .action-priority-attention {
+  margin: .55rem 0 0;
+  padding: .5rem .65rem;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+body[data-interface-theme="arrp-tool"] .action-priority-attention .section-heading-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .55rem;
+  margin: 0;
+}
+
+body[data-interface-theme="arrp-tool"] .action-priority-attention .section-heading-row > div {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  gap: .5rem;
+}
+
+body[data-interface-theme="arrp-tool"] .action-priority-attention .section-heading-row .eyebrow {
+  flex: 0 0 auto;
+  font-size: .61rem;
+}
+
+body[data-interface-theme="arrp-tool"] .action-priority-attention .section-heading-row h3 {
+  flex: 0 0 auto;
+  margin: 0;
+  font-size: .9rem;
+}
+
+body[data-interface-theme="arrp-tool"] .action-priority-attention .section-heading-row p {
+  overflow: hidden;
+  margin: 0;
+  font-size: .65rem;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-interface-theme="arrp-tool"] .action-priority-list {
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: .35rem;
+  margin-top: .4rem;
+}
+
+body[data-interface-theme="arrp-tool"] .action-priority-row {
+  min-height: 0;
+  flex-direction: row;
+  align-items: center;
+  gap: .55rem;
+  padding: .42rem .52rem;
+}
+
+body[data-interface-theme="arrp-tool"] .action-priority-copy strong {
+  overflow: hidden;
+  font-size: .68rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-interface-theme="arrp-tool"] .action-priority-copy span {
+  overflow: hidden;
+  margin-top: .12rem;
+  font-size: .59rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-interface-theme="arrp-tool"] .action-priority-open {
+  flex: 0 0 auto;
+  font-size: .59rem;
+}
+
+body[data-interface-theme="arrp-tool"] .action-inbox-toolbar {
+  gap: .6rem;
+  margin-top: .65rem;
+  padding: .58rem .65rem;
+}
+
+body[data-interface-theme="arrp-tool"] .action-inbox-workspace {
+  min-height: 28rem;
+}
+
+body[data-interface-theme="arrp-tool"] .action-inbox-list-header {
+  min-height: 3.4rem;
+  padding: .55rem .72rem;
+}
+
+body[data-interface-theme="arrp-tool"] .action-inbox-row {
+  gap: .55rem;
+  padding: .58rem .68rem;
+}
+
+body[data-interface-theme="arrp-tool"] .action-inbox-preview {
+  padding: .85rem 1rem 1rem;
+}
+
+body[data-interface-theme="arrp-tool"] .action-preview-section {
+  padding: .65rem 0;
+}
+
+body[data-interface-theme="arrp-tool"] .action-inbox-list-header,
+body[data-interface-theme="arrp-tool"] .pane-head {
+  background: #f7f9fb;
+}
+
+body[data-interface-theme="arrp-tool"] :where(
+  .overview-section,
+  .automation-chain,
+  .progress-disclosure,
+  .progress-architecture-section,
+  .development-board-section,
+  .action-priority-attention,
+  .action-inbox-workspace,
+  .pipeline-workspace,
+  .email-workspace,
+  .integrity-layout,
+  .component-registry-detail,
+  .publication-delivery-workbench,
+  .publication-analysis-section,
+  .publication-builder-section
+) {
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(24, 35, 55, .04);
+}
+
+body[data-interface-theme="arrp-tool"] .eyebrow {
+  font-size: .68rem;
+}
+
+body[data-interface-theme="arrp-tool"] :where(
+  .pipeline-mode-switcher,
+  .registry-mode-tab-list,
+  .action-inbox-filters,
+  .action-inbox-layout,
+  .watcher-tab-list
+) button {
+  border-radius: 999px;
+}
+
+body[data-interface-theme="arrp-tool"] :where(
+  .section-tabs:not(.console-submenu) .section-tab-list,
+  .watcher-tab-list,
+  .compact-specialist-menu-list,
+  .registry-mode-tab-list,
+  .pipeline-mode-switcher,
+  .action-inbox-filters,
+  .action-inbox-layout
+) button {
+  box-sizing: border-box;
+  min-height: 1.9rem;
+  padding: .34rem .62rem;
+  font-size: .68rem;
+  line-height: 1;
+}
+
+/* One tertiary-navigation rhythm across native buttons and link-backed tabs.
+   These explicit selectors intentionally outrank legacy component rules. */
+body[data-interface-theme="arrp-tool"] .section-tabs:not(.console-submenu) .section-tab-list button,
+body[data-interface-theme="arrp-tool"] .watcher-tab-list button,
+body[data-interface-theme="arrp-tool"] .compact-specialist-menu-item,
+body[data-interface-theme="arrp-tool"] .registry-mode-tab-list button,
+body[data-interface-theme="arrp-tool"] .pipeline-mode-switcher button {
+  box-sizing: border-box;
+  min-height: var(--console-tertiary-height);
+  padding: var(--console-tertiary-padding);
+  font-size: .7rem;
+  line-height: 1.25;
+}
+
+body[data-interface-theme="arrp-tool"] .source-view > .source-workspace-menu,
+body[data-interface-theme="arrp-tool"] .queue-view > .publication-workspace-menu,
+body[data-interface-theme="arrp-tool"] #operations-role-menu,
+body[data-interface-theme="arrp-tool"] #operations-log-menu,
+body[data-interface-theme="arrp-tool"] .pipeline-mode-switcher {
+  margin-top: .8rem;
+  margin-bottom: .75rem;
+}
+
+body[data-interface-theme="arrp-tool"] #automation-panel-logs #operations-log-menu {
+  margin-top: .8rem;
+  margin-bottom: .75rem;
+  padding-right: var(--console-page-gutter);
+  padding-left: var(--console-page-gutter);
+}
+
+body[data-interface-theme="arrp-tool"] :where(
+  .section-tabs:not(.console-submenu) .section-tab-list,
+  .watcher-tab-list,
+  .compact-specialist-menu-list,
+  .registry-mode-tab-list,
+  .pipeline-mode-switcher,
+  .action-inbox-filters
+) :is(.tab-count, .tab-update-count, button > span) {
+  display: inline-grid;
+  min-width: 1.1rem;
+  min-height: 1.1rem;
+  margin-left: .2rem;
+  padding: 0 .26rem;
+  place-items: center;
+  border-radius: 999px;
+  font-size: .56rem;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+body[data-interface-theme="arrp-tool"] :is(.tab-count, .tab-update-count)[hidden] {
+  display: none;
+}
+
+@media (max-width: 980px) {
+  body[data-interface-theme="arrp-tool"] .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  body[data-interface-theme="arrp-tool"] .header-tools {
+    justify-content: flex-start;
+  }
+
+  body[data-interface-theme="arrp-tool"] .tab-list,
+  body[data-interface-theme="arrp-tool"] .console-submenu .section-tab-list {
+    min-width: max-content;
+  }
+
+  body[data-interface-theme="arrp-tool"] .overview-daily-brief {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-interface-theme="arrp-tool"] .overview-daily-facts {
+    grid-column: 1;
+    grid-row: 4;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+
+  body[data-interface-theme="arrp-tool"] .overview-degraded-explanation {
+    grid-row: 5;
+  }
+
+  body[data-interface-theme="arrp-tool"] .overview-indicator-grid,
+  body[data-interface-theme="arrp-tool"] .overview-queue-directory {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-interface-theme="arrp-tool"] .overview-lower-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  body[data-interface-theme="arrp-tool"] .overview-platform-indicator,
+  body[data-interface-theme="arrp-tool"] .overview-data-indicator {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 720px) {
+  body[data-interface-theme="arrp-tool"] .app-header,
+  body[data-interface-theme="arrp-tool"] .app-shell {
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+  }
+
+  body[data-interface-theme="arrp-tool"] .app-header {
+    margin-top: 0;
+    padding: 1rem;
+  }
+
+  body[data-interface-theme="arrp-tool"] .app-shell {
+    margin-bottom: 0;
+    padding-bottom: 1rem;
+  }
+
+  body[data-interface-theme="arrp-tool"] .console-tabs {
+    padding-inline: .35rem;
+  }
+
+  body[data-interface-theme="arrp-tool"] .console-submenu {
+    margin-right: 0;
+    margin-left: 0;
+    padding-right: .85rem;
+    padding-left: .85rem;
+  }
+
+  body[data-interface-theme="arrp-tool"] .operations-log-menu {
+    margin-right: .65rem;
+    margin-left: .65rem;
+  }
+
+  body[data-interface-theme="arrp-tool"] .logs-screen-header {
+    margin-right: .65rem;
+    margin-left: .65rem;
+    padding: 1rem .8rem 0;
+  }
+
+  body[data-interface-theme="arrp-tool"] #automation-panel-logs > [id^="log-panel-"] .log-view {
+    margin-right: .65rem;
+    margin-left: .65rem;
+    border-radius: 9px;
+  }
+
+  body[data-interface-theme="arrp-tool"] #automation-panel-security .queue-view-header > .source-list.compact-links {
+    width: auto;
+    max-width: none;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  body[data-interface-theme="arrp-tool"] #operations-security-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-interface-theme="arrp-tool"] #automation-chain-stages .automation-chain-summary {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-interface-theme="arrp-tool"] #automation-chain-stages .automation-chain-summary .integrity-metric,
+  body[data-interface-theme="arrp-tool"] #automation-chain-stages .automation-chain-summary .integrity-metric:nth-child(3n),
+  body[data-interface-theme="arrp-tool"] #automation-chain-stages .automation-chain-summary .integrity-metric:nth-child(n + 4) {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  body[data-interface-theme="arrp-tool"] #automation-chain-stages .automation-chain-summary .integrity-metric:last-child {
+    border-bottom: 0;
+  }
+
+  body[data-interface-theme="arrp-tool"] .workflow-summary,
+  body[data-interface-theme="arrp-tool"] .queue-view {
+    margin-right: .65rem;
+    margin-left: .65rem;
+    border-radius: 9px;
+  }
+
+  body[data-interface-theme="arrp-tool"] #panel-progress > .queue-view,
+  body[data-interface-theme="arrp-tool"] #panel-actions > .queue-view,
+  body[data-interface-theme="arrp-tool"] #panel-integrity > .queue-view {
+    margin-right: 0;
+    margin-left: 0;
+    padding: 1rem .8rem 1.4rem;
+    border-radius: 0;
+  }
+
+  body[data-interface-theme="arrp-tool"] #panel-planning > .section-panel:not([hidden]) > .queue-view,
+  body[data-interface-theme="arrp-tool"] #panel-automation > .section-panel:not([hidden]) > .queue-view {
+    margin-right: .65rem;
+    margin-left: .65rem;
+    padding: 1rem .8rem 1.4rem;
+    border-radius: 9px;
+  }
+
+  body[data-interface-theme="arrp-tool"] .operations-ledger-row {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-interface-theme="arrp-tool"] .operations-ledger-row > :nth-child(2),
+  body[data-interface-theme="arrp-tool"] .operations-ledger-row > .inline-link {
+    grid-column: 1;
+  }
+
+  body[data-interface-theme="arrp-tool"] .layout-status {
+    text-align: left;
+  }
+
+  body[data-interface-theme="arrp-tool"] .overview-view {
+    margin-right: 0;
+    margin-left: 0;
+    padding: 1rem .85rem 1.25rem;
+  }
+
+  body[data-interface-theme="arrp-tool"] .overview-daily-facts,
+  body[data-interface-theme="arrp-tool"] .overview-indicator-grid,
+  body[data-interface-theme="arrp-tool"] .overview-queue-directory {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-interface-theme="arrp-tool"] .overview-daily-fact:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+
+  body[data-interface-theme="arrp-tool"] .overview-degraded-explanation {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-interface-theme="arrp-tool"] .overview-platform-indicator .overview-status-grid,
+  body[data-interface-theme="arrp-tool"] .overview-data-indicator .overview-status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  body[data-interface-theme="arrp-tool"] .overview-platform-indicator .overview-status-cell:nth-child(n),
+  body[data-interface-theme="arrp-tool"] .overview-data-indicator .overview-status-cell:nth-child(n) {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  body[data-interface-theme="arrp-tool"] .overview-platform-indicator .overview-status-cell:last-child,
+  body[data-interface-theme="arrp-tool"] .overview-data-indicator .overview-status-cell:last-child {
+    border-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-interface-theme="arrp-tool"] *,
+  body[data-interface-theme="arrp-tool"] *::before,
+  body[data-interface-theme="arrp-tool"] *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

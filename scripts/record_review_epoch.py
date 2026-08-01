@@ -43,6 +43,7 @@ try:  # noqa: E402
         RoutingRuleFailure,
         load_fixture_component_registry_routing_view,
         load_validated_component_registry_routing_view,
+        routed_configuration_documents_from_view,
         routed_documents_from_view,
     )
 except ModuleNotFoundError:  # Direct execution uses scripts/ on sys.path.
@@ -51,6 +52,7 @@ except ModuleNotFoundError:  # Direct execution uses scripts/ on sys.path.
         RoutingRuleFailure,
         load_fixture_component_registry_routing_view,
         load_validated_component_registry_routing_view,
+        routed_configuration_documents_from_view,
         routed_documents_from_view,
     )
 
@@ -280,16 +282,17 @@ def _validated_routing_authority(
     allow_candidate_validation: bool,
 ) -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
     """Validate the exact Component Registry route used for epoch closeout."""
-    if routing_view.get("schema_version") != 1:
+    if routing_view.get("schema_version") != 2:
         raise ValueError(
             "Review Epoch closeout requires a validated Component Registry "
             "routing view"
         )
-    status = routing_view.get("registry_status")
-    if status == "active":
+    mode = routing_view.get("validation_mode")
+    if mode == "live_authority_validation":
         if (
-            routing_view.get("validation_mode") != "active_component_registry"
-            or routing_view.get("authoritative") is not True
+            routing_view.get("authoritative") is not True
+            or routing_view.get("executable") is not True
+            or routing_view.get("live_authority_verified") is not True
             or routing_view.get("predecessor_route_consulted") is not False
         ):
             raise ValueError(
@@ -297,17 +300,22 @@ def _validated_routing_authority(
                 "Component Registry"
             )
         expected_authoritative = True
-    elif status == "candidate" and allow_candidate_validation:
+        expected_selection_kind = "executable_packet"
+        expected_executable = True
+    elif mode == "proposed_revision_validation" and allow_candidate_validation:
         if (
-            routing_view.get("validation_mode") != "candidate_validation_only"
-            or routing_view.get("authoritative") is not False
-            or routing_view.get("predecessor_route_consulted") is not True
+            routing_view.get("authoritative") is not False
+            or routing_view.get("executable") is not False
+            or routing_view.get("live_authority_verified") is not False
+            or routing_view.get("predecessor_route_consulted") is not False
         ):
             raise ValueError(
-                "candidate Review Epoch closeout lacks explicit predecessor-bound "
-                "validation"
+                "proposed Review Epoch closeout lacks nonexecuting Stage 2 "
+                "configuration validation"
             )
         expected_authoritative = False
+        expected_selection_kind = "configuration_validation_packet"
+        expected_executable = False
     else:
         raise ValueError(
             "Review Epoch closeout requires active Component Registry authority; "
@@ -331,8 +339,8 @@ def _validated_routing_authority(
             "Review Epoch routing has an invalid Component Registry identity"
         )
     if (
-        routing_selection.get("selection_kind") != "executable_packet"
-        or routing_selection.get("executable") is not True
+        routing_selection.get("selection_kind") != expected_selection_kind
+        or routing_selection.get("executable") is not expected_executable
         or routing_selection.get("profile") != COMPREHENSIVE_PROFILE
         or routing_selection.get("capabilities") != []
         or routing_selection.get("authoritative") is not expected_authoritative
@@ -344,7 +352,6 @@ def _validated_routing_authority(
     for field in (
         "registry_id",
         "registry_revision",
-        "registry_status",
         "registry_sha256",
         "registry_path",
     ):
@@ -416,12 +423,12 @@ def _validated_routing_authority(
                 "integration-pinned"
             )
         if module.get("hash_policy") == "runtime" and (
-            document_id != "current_audit"
+            document_id != "task_handoff"
             or module.get("governing") is not False
             or module.get("sha256") is not None
         ):
             raise ValueError(
-                "current_audit must be the sole unpinned runtime module in the "
+                "task_handoff must be the sole unpinned runtime module in the "
                 "Review Epoch route"
             )
         by_id[document_id] = module
@@ -657,7 +664,9 @@ def _validate_governing_boundary_untyped(
         "registry_id": routing_view["registry_id"],
         "registry_path": routing_view["registry_path"],
         "registry_revision": routing_view["registry_revision"],
-        "registry_status": routing_view["registry_status"],
+        "validation_mode": routing_view["validation_mode"],
+        "authoritative": routing_view["authoritative"],
+        "executable": routing_view["executable"],
         "registry_digest": routing_view["registry_sha256"],
         "selected_profile": COMPREHENSIVE_PROFILE,
         "selected_capabilities": [],
@@ -805,7 +814,7 @@ def _validate_governing_boundary(
         raise
     except ValueError as exc:
         detail = str(exc)
-        if "runtime" in detail or "current_audit" in detail:
+        if "runtime" in detail or "task_handoff" in detail:
             failure_code = "CTXR_RUNTIME_DIGEST_UNREADABLE"
             rule_ids = (
                 "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary",
@@ -1020,7 +1029,11 @@ def main(
         if authority.mode == "fixture"
         else load_validated_component_registry_routing_view(authority)
     )
-    routing_selection = routed_documents_from_view(
+    routing_selection = (
+        routed_configuration_documents_from_view
+        if routing_view.get("validation_mode") == "proposed_revision_validation"
+        else routed_documents_from_view
+    )(
         routing_view,
         profile_id=COMPREHENSIVE_PROFILE,
     )

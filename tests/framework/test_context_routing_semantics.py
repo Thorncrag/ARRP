@@ -80,7 +80,9 @@ class ContextRoutingPacketSemanticsTests(unittest.TestCase):
                     "registry_id",
                     "registry_path",
                     "registry_revision",
-                    "registry_status",
+                    "validation_mode",
+                    "authoritative",
+                    "executable",
                     "registry_digest",
                     "selected_profile",
                     "selected_capabilities",
@@ -97,9 +99,11 @@ class ContextRoutingPacketSemanticsTests(unittest.TestCase):
             self.assertEqual(routing["registry_id"], "context-routes")
             self.assertEqual(routing["registry_path"], "manifest.json")
             self.assertEqual(
-                routing["registry_status"],
-                "active_predecessor",
+                routing["validation_mode"],
+                "predecessor_routing",
             )
+            self.assertTrue(routing["authoritative"])
+            self.assertTrue(routing["executable"])
             self.assertEqual(
                 routing["registry_digest"],
                 digest(manifest_path),

@@ -303,12 +303,13 @@ class ArrpNightlyTransactionTests(unittest.TestCase):
             self.fixture.repo,
         )
         candidate_view = {
-            "validation_mode": "candidate_validation_only",
+            "schema_version": 2,
+            "validation_mode": "proposed_revision_validation",
             "authoritative": False,
             "executable": False,
-            "live_activation_verified": False,
+            "live_authority_verified": False,
             "activation_receipt_consulted": False,
-            "predecessor_route_consulted": True,
+            "predecessor_route_consulted": False,
             "route": {
                 "documents": {
                     "governing": {
@@ -364,10 +365,11 @@ class ArrpNightlyTransactionTests(unittest.TestCase):
             self.production_routing_authority()
         )
         active_view = {
-            "validation_mode": "active_component_registry",
+            "schema_version": 2,
+            "validation_mode": "live_authority_validation",
             "authoritative": True,
             "executable": True,
-            "live_activation_verified": True,
+            "live_authority_verified": True,
             "activation_receipt_consulted": True,
             "predecessor_route_consulted": False,
             "route": {
@@ -411,12 +413,13 @@ class ArrpNightlyTransactionTests(unittest.TestCase):
             self.production_routing_authority()
         )
         candidate_view = {
-            "validation_mode": "candidate_validation_only",
+            "schema_version": 2,
+            "validation_mode": "proposed_revision_validation",
             "authoritative": False,
             "executable": False,
-            "live_activation_verified": False,
+            "live_authority_verified": False,
             "activation_receipt_consulted": False,
-            "predecessor_route_consulted": True,
+            "predecessor_route_consulted": False,
             "route": {"documents": {}},
         }
         with (

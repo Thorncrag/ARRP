@@ -40,7 +40,7 @@ def boundary(
             "pinned",
             True,
         ),
-        "current_audit": (
+        "task_handoff": (
             "framework/handoffs/current-task.md",
             "# Current Task\n",
             "runtime",
@@ -67,7 +67,7 @@ def boundary(
             spec["sha256"] = sha256(content)
         if document_id == "agent_rules_kernel":
             spec["requires"] = ["framework_kernel"]
-        elif document_id == "current_audit":
+        elif document_id == "task_handoff":
             spec["requires"] = ["framework_kernel", "agent_rules_kernel"]
         elif document_id == "additional_rule":
             spec["requires"] = ["framework_kernel"]
@@ -77,7 +77,7 @@ def boundary(
         "required_modules": [
             "framework_kernel",
             "agent_rules_kernel",
-            "current_audit",
+            "task_handoff",
         ],
         "documents": documents,
         "capabilities": {},
@@ -90,25 +90,26 @@ def boundary(
     }
     active = status == "active"
     view = {
-        "schema_version": 1,
+        "schema_version": 2,
         "validation_mode": (
-            "active_component_registry"
+            "live_authority_validation"
             if active
-            else "candidate_validation_only"
+            else "proposed_revision_validation"
         ),
         "registry_id": "COMPONENT-REGISTRY",
         "registry_revision": 1,
-        "registry_status": status,
         "registry_sha256": "d" * 64,
         "registry_path": "framework/component-registry.json",
         "authoritative": active,
-        "predecessor_route_consulted": not active,
+        "executable": active,
+        "live_authority_verified": active,
+        "predecessor_route_consulted": False,
         "route": route,
     }
     inclusion_reasons = {
         "framework_kernel": ["required floor"],
         "agent_rules_kernel": ["required floor"],
-        "current_audit": ["required floor"],
+        "task_handoff": ["required floor"],
         "additional_rule": [
             "profile comprehensive_review complete governing boundary"
         ],
@@ -116,15 +117,16 @@ def boundary(
     ordered_ids = [
         "framework_kernel",
         "agent_rules_kernel",
-        "current_audit",
+        "task_handoff",
         "additional_rule",
     ]
     selection = {
-        "selection_kind": "executable_packet",
-        "executable": True,
+        "selection_kind": (
+            "executable_packet" if active else "configuration_validation_packet"
+        ),
+        "executable": active,
         "registry_id": view["registry_id"],
         "registry_revision": view["registry_revision"],
-        "registry_status": view["registry_status"],
         "registry_sha256": view["registry_sha256"],
         "registry_path": view["registry_path"],
         "authoritative": active,
@@ -169,7 +171,9 @@ def boundary(
             "registry_id": view["registry_id"],
             "registry_path": view["registry_path"],
             "registry_revision": view["registry_revision"],
-            "registry_status": view["registry_status"],
+            "validation_mode": view["validation_mode"],
+            "authoritative": view["authoritative"],
+            "executable": view["executable"],
             "registry_digest": view["registry_sha256"],
             "selected_profile": "comprehensive_review",
             "selected_capabilities": [],
@@ -606,10 +610,10 @@ class ReviewEpochTests(unittest.TestCase):
             ), patch.object(
                 MODULE,
                 "load_fixture_component_registry_routing_view",
-                return_value={"registry_status": "candidate"},
+                return_value={"validation_mode": "proposed_revision_validation"},
             ) as fixture_loader, patch.object(
                 MODULE,
-                "routed_documents_from_view",
+                "routed_configuration_documents_from_view",
                 return_value={},
             ):
                 with self.assertRaisesRegex(ValueError, "LEGACY-FINDING"):

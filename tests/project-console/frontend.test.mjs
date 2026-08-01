@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import crypto from "node:crypto";
 import fs from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
@@ -274,13 +275,15 @@ function componentRegistryFixture() {
       documents: "automation:component-registry:documents",
       directories: "automation:component-registry:directories",
       routing: "automation:component-registry:routing",
+      relationships: "automation:component-registry:relationships",
       terminology: "automation:component-registry:terminology"
     },
     defaults: {
       mode: "documents",
       document: "framework_kernel",
       directory: "framework",
-      routing: "profile:compact"
+      routing: "profile:compact",
+      relationship: "registry_validated_by_schema"
     },
     registry: {
       registry_id: "arrp_component_registry",
@@ -387,6 +390,14 @@ function componentRegistryFixture() {
         "Artifact classification requires complete human review."
       ),
       current_artifact_count: known(12)
+    }],
+    relationships: [{
+      relationship_id: "registry_validated_by_schema",
+      relationship_type: "validated_by",
+      from: { kind: "document", id: "COMPONENT-REGISTRY" },
+      to: { kind: "document", id: "component_registry_schema" },
+      authority_boundary: "Schema validates structure but does not approve values or activation.",
+      console_route: "automation:component-registry:relationships?relationship=registry_validated_by_schema"
     }],
     routing: {
       schema_version: 2,
@@ -620,6 +631,188 @@ function activeComponentRegistryFixture() {
     }))
   };
   return snapshot;
+}
+
+function stage2ComponentRegistryFixture() {
+  const component = {
+    stable_id: "framework_kernel",
+    display_name: "Framework kernel",
+    classification: {
+      component_class: "document",
+      component_type: "framework",
+      roles: [],
+      capabilities: []
+    },
+    canonical_source: {
+      locator: { kind: "repository_path", value: "framework/FRAMEWORK.md" },
+      source_binding: {
+        binding_basis: "content_digest",
+        applicability: "current",
+        verification_methods: ["pinned_comparison"],
+        sha256: "1".repeat(64),
+        evidence_ref: "stage2_migration_from_stage1"
+      }
+    },
+    owner: "@Thorncrag",
+    information_handling: {
+      information_classification: "public",
+      disclosure_rule: "public_safe",
+      disclosure_boundary: "repository"
+    },
+    retention: {
+      bases: ["operational_need"],
+      change_mode: "maintained",
+      custody: "repository",
+      review_condition: "material change",
+      retirement_condition: "approved successor"
+    },
+    supporting_artifacts: [],
+    operational_status: null,
+    record_refs: {
+      lifecycle_assignments: ["lifecycle_framework_kernel"],
+      authority_assignments: ["authority_framework_kernel"],
+      relationships: ["framework_validated_by_test"],
+      migrations: [],
+      provenance_events: ["created_framework_kernel"]
+    },
+    lifecycle_records: [{
+      assignment_id: "lifecycle_framework_kernel",
+      component_id: "framework_kernel",
+      current_state: "adopted",
+      effective_date: "2026-07-31",
+      history: []
+    }],
+    authority_records: [{
+      assignment_id: "authority_framework_kernel",
+      component_id: "framework_kernel",
+      authoritative: true
+    }],
+    relationship_records: [],
+    migration_records: [],
+    provenance_records: [{ event_id: "created_framework_kernel" }],
+    console_route: "automation:component-registry:components?component=framework_kernel"
+  };
+  const terms = Array.from({ length: 69 }, (_, index) => ({
+    term_id: index === 0 ? "namespace" : `term_${index + 1}`,
+    label: index === 0 ? "Namespace" : `Term ${index + 1}`,
+    definition: index === 0
+      ? "A named domain for identifiers."
+      : `Approved definition ${index + 1}.`,
+    console_route: `automation:component-registry:terminology?term=${index === 0 ? "namespace" : `term_${index + 1}`}`
+  }));
+  return {
+    schema_version: 2,
+    projection_id: "component-registry-console",
+    producer_id: "project-console-builder",
+    generated_at: "2026-07-31T20:00:00Z",
+    availability: "current",
+    complete: true,
+    reason_code: null,
+    routes: Object.fromEntries([
+      "components", "lifecycles", "authority", "relationships",
+      "coverage", "routing", "terminology"
+    ].map((mode) => [mode, `automation:component-registry:${mode}`])),
+    defaults: {
+      mode: "components",
+      component: "framework_kernel",
+      lifecycle: "lifecycle_framework_kernel",
+      authority: "authority_framework_kernel",
+      relationship: "framework_validated_by_test",
+      coverage: "framework",
+      routing: "profile:compact",
+      terminology: "namespace"
+    },
+    registry: {
+      registry_id: "COMPONENT-REGISTRY",
+      registry_revision: 2,
+      registry_status: "proposed",
+      validation_mode: "proposed_revision_validation",
+      authoritative: false,
+      executable: false,
+      live_authority_verified: false,
+      predecessor_route_consulted: false,
+      registry_sha256: "2".repeat(64),
+      repository_revision: "3".repeat(40),
+      design_id: "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR",
+      design_revision: `sha256:${"4".repeat(64)}`
+    },
+    components: [component],
+    lifecycles: {
+      states: {
+        draft: "Registered and under development.",
+        proposed: "Submitted for adoption.",
+        adopted: "Incorporated into governed state.",
+        retired: "No longer designated for current use."
+      },
+      permitted_transitions: [["draft", "proposed"], ["proposed", "adopted"]],
+      assignments: component.lifecycle_records.map((record) => ({
+        ...record,
+        display_name: component.display_name,
+        classification: component.classification,
+        console_route: "automation:component-registry:lifecycles?assignment=lifecycle_framework_kernel"
+      }))
+    },
+    authorities: {
+      source_types: {
+        owner_authorization: "Closed authority source type value: owner authorization."
+      },
+      sources: [{ source_id: "owner_benjamin", source_type: "owner_authorization" }],
+      assignments: [{
+        ...component.authority_records[0],
+        display_name: component.display_name,
+        source_ids: ["owner_benjamin"],
+        sources: [{ source_id: "owner_benjamin", source_type: "owner_authorization" }],
+        subjects: ["project framework"],
+        effects: ["governs"],
+        exclusions: [],
+        console_route: "automation:component-registry:authority?assignment=authority_framework_kernel"
+      }],
+      history: []
+    },
+    relationships: [{
+      relationship_id: "framework_validated_by_test",
+      relationship_type: "validated_by",
+      from: { kind: "component", id: "framework_kernel" },
+      to: { kind: "component", id: "framework_kernel" },
+      authority_boundary: "Validation does not create authority.",
+      console_route: "automation:component-registry:relationships?relationship=framework_validated_by_test"
+    }],
+    coverage: {
+      records: [{
+        coverage_id: "framework",
+        coverage_kind: "directory_scope",
+        display_name: "Framework",
+        path_pattern: "framework/",
+        console_route: "automation:component-registry:coverage?coverage=framework"
+      }],
+      path_count: 1,
+      uncovered_count: 0,
+      multiply_treated_count: 0
+    },
+    routing: {
+      schema_version: 1,
+      required_components: ["framework_kernel"],
+      generated_path_exclusions: [],
+      components: [{ component_id: "framework_kernel", path: "framework/FRAMEWORK.md" }],
+      capabilities: {},
+      profiles: { compact: { components: ["framework_kernel"] } },
+      selections: [{
+        routing_id: "profile:compact",
+        routing_kind: "profile",
+        label: "compact",
+        component_ids: ["framework_kernel"],
+        details: { components: ["framework_kernel"] },
+        console_route: "automation:component-registry:routing?selection=profile%3Acompact"
+      }]
+    },
+    terminology: {
+      available: true,
+      complete: true,
+      adopted: true,
+      record_set_sha256: "5".repeat(64),
+      entries: terms
+    }
+  };
 }
 
 test("preserved transaction projection derives unresolved membership from retirement proof", () => {
@@ -859,6 +1052,15 @@ test("Component Registry accepts only the builder-supplied typed snapshot", () =
     routing: { ...snapshot.routing, authoritative: true }
   }), false);
   const active = activeComponentRegistryFixture();
+  active.documents.push({
+    ...snapshot.documents[0],
+    document_id: "COMPONENT-REGISTRY",
+    canonical_path: "framework/component-registry.json",
+    digest_policy: "external",
+    sha256: null,
+    console_route:
+      "operations:component-registry:documents?document=COMPONENT-REGISTRY"
+  });
   assert.equal(componentRegistryApi.validSnapshot(active), true);
   [
     {
@@ -1000,18 +1202,84 @@ test("Component Registry accepts only the builder-supplied typed snapshot", () =
     ),
     { mode: "routing", selected: "profile:compact" }
   );
+  assert.deepEqual(
+    componentRegistryApi.routeState(
+      "automation:component-registry:relationships?relationship=registry_validated_by_schema",
+      snapshot
+    ),
+    { mode: "relationships", selected: "registry_validated_by_schema" }
+  );
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    relationships: [{
+      ...snapshot.relationships[0],
+      authority_boundary: ""
+    }]
+  }), false);
+  const legacySnapshot = JSON.parse(JSON.stringify(snapshot));
+  delete legacySnapshot.relationships;
+  delete legacySnapshot.routes.relationships;
+  delete legacySnapshot.defaults.relationship;
+  assert.equal(componentRegistryApi.validSnapshot(legacySnapshot), true);
+  assert.deepEqual(
+    componentRegistryApi.routeState(
+      "automation:component-registry:relationships",
+      legacySnapshot
+    ),
+    { mode: "relationships", selected: null }
+  );
 });
 
-test("Component Registry uses only deferred module and generated-domain entrypoints", () => {
+test("Component Registry uses only the generated validated projection", () => {
   const html = fs.readFileSync(entrypointPath, "utf8");
   const app = fs.readFileSync(appPath, "utf8");
   const module = fs.readFileSync(componentRegistryPath, "utf8");
   assert.doesNotMatch(html, /<script\s+src="component-registry\.js/);
   assert.doesNotMatch(html, /<script\s+src="data\/component-registry\.js/);
-  assert.match(app, /const COMPONENT_REGISTRY_MODULE_PATH = "component-registry\.js\?v=1";/);
+  assert.match(app, /const COMPONENT_REGISTRY_MODULE_PATH = "component-registry\.js\?v=8";/);
   assert.match(app, /`data\/component-registry\.js\?v=\$\{SCRIPT_VERSION\}`/);
   assert.match(app, /if \(source\.startsWith\("data\/"\)\) validateLoadedDomainScript\(source\);/);
   assert.doesNotMatch(module, /miscellaneous|uncategorized|infer(?:red)?_taxonomy/i);
+  assert.match(module, /snapshot\.components/);
+  assert.match(module, /snapshot\.lifecycles\.assignments/);
+  assert.match(module, /snapshot\.authorities\.assignments/);
+  assert.match(module, /snapshot\.coverage\.records/);
+  assert.doesNotMatch(module, /component-registry-stage2-terminology-working-draft\.md/);
+  assert.doesNotMatch(module, /global\.fetch\(/);
+  assert.match(module, /email-list-row component-registry-list-row/);
+  assert.match(module, /role", "option"/);
+  assert.match(module, /component-registry-\$\{mode\}-count/);
+});
+
+test("Component Registry terminology comes only from the adopted Registry projection", () => {
+  const { componentRegistryApi } = loadApi();
+  const snapshot = stage2ComponentRegistryFixture();
+  assert.equal(componentRegistryApi.validSnapshot(snapshot), true);
+  assert.equal(snapshot.terminology.entries.length, 69);
+  assert.equal(snapshot.terminology.entries[0].term_id, "namespace");
+  const matches = componentRegistryApi.filterTerminologyEntries(
+    snapshot.terminology.entries,
+    "named domain identifiers"
+  );
+  assert.deepEqual(matches.map((entry) => entry.term_id), ["namespace"]);
+  assert.deepEqual(
+    componentRegistryApi.filterTerminologyEntries(
+      snapshot.terminology.entries,
+      "no-such-definition"
+    ),
+    []
+  );
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    terminology: { ...snapshot.terminology, adopted: false }
+  }), false);
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    contract_payload: { private: true }
+  }), false);
+  const html = fs.readFileSync(entrypointPath, "utf8");
+  assert.match(html, /id="component-registry-terminology-search" type="search"/);
+  assert.doesNotMatch(html, /component-registry-terminology-working-draft/);
 });
 
 test("Component Registry is an Operations subtab after Data and before Logs", () => {
@@ -1020,11 +1288,14 @@ test("Component Registry is an Operations subtab after Data and before Logs", ()
   const registryIndex = html.indexOf('id="automation-tab-component-registry"');
   const logsIndex = html.indexOf('id="automation-tab-logs"');
   assert.ok(dataIndex >= 0 && dataIndex < registryIndex && registryIndex < logsIndex);
-  ["documents", "directories", "routing", "terminology"].forEach((mode) => {
+  ["components", "lifecycles", "authority", "relationships", "coverage", "routing", "terminology"].forEach((mode) => {
     assert.match(html, new RegExp(`id="component-registry-mode-${mode}"`));
     assert.match(html, new RegExp(`id="component-registry-panel-${mode}"`));
+    assert.match(html, new RegExp(`id="component-registry-${mode}-count"`));
   });
-  assert.match(html, /Classification pending — enforcement not active/);
+  assert.equal((html.match(/class="email-workspace component-registry-workspace"/g) || []).length, 7);
+  assert.equal((html.match(/class="email-list component-registry-list"/g) || []).length, 7);
+  assert.match(html, /Validated, nonauthoritative Registry view/);
   assert.doesNotMatch(
     html.slice(
       html.indexOf('id="panel-overview"'),
@@ -1175,11 +1446,32 @@ test("security assurance exposes staged safe actions and keyboard navigation", (
   const app = fs.readFileSync(appPath, "utf8");
   const html = fs.readFileSync(entrypointPath, "utf8");
   assert.match(html, /id="refresh-security-status"/);
+  assert.match(html, /Download status request/);
+  assert.match(html, /Download review request/);
+  assert.match(html, /Security controls are non-executing/);
+  assert.match(html, /they do not run a scan or change repository settings/);
   assert.match(app, /prepare_public_intake_state_request/);
   assert.match(app, /execution: "staged_request_only"/);
   assert.match(app, /mixed_state_response: "record_operational_incident"/);
+  assert.match(app, /Download Live-state request/);
+  assert.match(app, /Download Paused-state request/);
+  assert.match(app, /they do not change the public-intake state/);
   assert.match(app, /event\.key === "ArrowDown"/);
   assert.doesNotMatch(app, /arbitrary_command_execution"\]\s*,?\s*commands:/);
+});
+
+test("security actions and Logs tertiary navigation use the shared control grammar", () => {
+  const styles = fs.readFileSync(path.join(consoleDirectory, "styles.css"), "utf8");
+  assert.match(styles, /#automation-panel-security button\.record-link\.secondary\s*\{[^}]*border:\s*1px solid #c6d6e7/s);
+  assert.match(styles, /#automation-panel-logs \.logs-screen-header\s*\{[^}]*border-bottom:\s*0/s);
+  assert.match(styles, /#automation-panel-logs \.operations-log-menu\s*\{[^}]*border-bottom:\s*0/s);
+});
+
+test("layout-only disclosure controls stay out of ordinary run details", () => {
+  const styles = fs.readFileSync(path.join(consoleDirectory, "styles.css"), "utf8");
+  assert.match(styles, /\.disclosure-default-toggle\s*\{[^}]*display:\s*none/s);
+  assert.match(styles, /body\.layout-editing \.disclosure-default-toggle\s*\{[^}]*display:\s*inline-flex/s);
+  assert.match(styles, /#automation-chain-stages \.automation-chain-summary\s*\{[^}]*grid-template-columns:\s*repeat\(3, minmax\(0, 1fr\)\)/s);
 });
 
 test("owner-local projections require exact immutable file binding", async () => {
@@ -2087,6 +2379,21 @@ test("browser exposes no narrative activity or capacity classifier", () => {
   assert.doesNotMatch(app, /function stableProblemReference/);
 });
 
+test("Operations capacity state cannot interrupt Overview work-queue rendering", () => {
+  const app = fs.readFileSync(appPath, "utf8");
+  const capacityDefinition = app.indexOf("const capacityBlocked = Number.isFinite(capacityRemaining)");
+  const operationsSummaryUse = app.indexOf(
+    "incidentBlocking || chainBlockers.length > 0 || gateBlockers.length > 0 || capacityBlocked"
+  );
+  assert.notEqual(capacityDefinition, -1);
+  assert.notEqual(operationsSummaryUse, -1);
+  assert.ok(capacityDefinition < operationsSummaryUse);
+  assert.match(
+    app,
+    /const capacityRemaining = privateUsageAvailable\s*\?\s*Number\(privateCodexUsageSnapshot\.current\.remaining_percent\)\s*:\s*null;/
+  );
+});
+
 test("Overview renders only its immutable generated projection", () => {
   const app = fs.readFileSync(appPath, "utf8");
   const verificationStart = app.indexOf("function overviewBriefVerification(");
@@ -2127,12 +2434,64 @@ test("compact Overview activity renders only typed artifact-change fields", () =
   assert.equal(row.tone, "");
 });
 
+test("Overview material activity accepts only typed active issue score changes", () => {
+  const { api } = loadApi();
+  const rows = api.overviewMaterialActivityRecords([
+    {
+      event_id: "issue-older",
+      occurred_at: "2026-07-20",
+      event_code: "active_issue_score_changed",
+      artifact_ids: ["TEST-001"],
+      artifact_label: "TEST-001 · Test issue",
+      change_descriptor: "T2 development audit",
+      score_change: "60 → 70",
+      canonical_record: "areas/TEST/issues/TEST-001.md"
+    },
+    {
+      event_id: "issue-newer",
+      occurred_at: "2026-07-24",
+      event_code: "active_issue_score_changed",
+      artifact_ids: ["TEST-002"],
+      artifact_label: "TEST-002 · Newer issue",
+      change_descriptor: "T3 readiness audit",
+      score_change: "70 → 74",
+      canonical_record: "areas/TEST/issues/TEST-002.md"
+    },
+    {
+      event_id: "not-material",
+      occurred_at: "2026-07-30",
+      event_code: "content_product_changed",
+      artifact_ids: [],
+      change_descriptor: "General project update",
+      score_change: "No score change.",
+      canonical_record: "framework/README.md"
+    }
+  ]);
+  assert.deepEqual(rows.map((row) => row.event_id), ["issue-newer", "issue-older"]);
+  assert.equal(rows[0].artifact_label, "TEST-002 · Newer issue");
+  assert.equal(rows[0].change_descriptor, "T3 readiness audit");
+  assert.equal(rows[0].score_change, "70 → 74");
+});
+
+test("Overview loads its Change Audit domain and Capacity shows one unavailable notice", () => {
+  const app = fs.readFileSync(appPath, "utf8");
+  assert.match(
+    app,
+    /if \(tab === "overview"\) \{[\s\S]*?ensureDomain\("overview", \{ optional: true \}\)[\s\S]*?ensureDomain\("logs", \{ optional: true \}\)/
+  );
+  assert.match(app, /capacityHistory\.replaceChildren\(\);/);
+  assert.doesNotMatch(
+    app,
+    /if \(capacityHistory && !privateUsageAvailable\) \{[\s\S]*?ownerModeUnavailableMessage\(CODEX_USAGE_UNAVAILABLE_DETAIL\)/
+  );
+});
+
 test("Action Inbox uses a uniform selectable list with an adjacent preview", () => {
   const app = fs.readFileSync(appPath, "utf8");
   const html = fs.readFileSync(entrypointPath, "utf8");
   const styles = fs.readFileSync(path.join(consoleDirectory, "styles.css"), "utf8");
   const start = app.indexOf("function actionInboxRow(");
-  const end = app.indexOf("function integrityFindingNeedsHuman(", start);
+  const end = app.indexOf("function exactIntegrityProblemRecords(", start);
   const renderer = app.slice(start, end);
   assert.ok(start >= 0 && end > start);
   assert.match(renderer, /element\("button", "action-inbox-row"\)/);
@@ -2184,7 +2543,8 @@ test("Console-wide Design mode offers safe grid widths stored separately from pr
   assert.match(app, /if \(!layoutEditing\) \{/);
   assert.match(app, /classList\?\.contains\("layout-handle"\)/);
   assert.match(styles, /\.layout-zone\.layout-size-zone/);
-  assert.match(styles, /body\.layout-editing #layout-edit-toggle/);
+  assert.match(styles, /\.header-tools \.interface-tools-trigger\s*\{[^}]*position:\s*fixed[^}]*top:\s*\.75rem[^}]*right:\s*\.75rem/s);
+  assert.doesNotMatch(styles, /body\.layout-editing #layout-edit-toggle/);
   assert.match(styles, /\.layout-container-select/);
   assert.match(styles, /\[data-layout-width="half"\]/);
   assert.match(styles, /\[data-layout-width="compact"\]/);
@@ -2213,6 +2573,23 @@ test("Planning and Operations consolidate navigation while preserving old routes
     "sources",
     "publication"
   ]);
+  const navigationStart = html.indexOf('<div class="console-navigation">');
+  const workflowStart = html.indexOf('<section class="workflow-summary"');
+  const planningPanelStart = html.indexOf('id="panel-planning"');
+  const operationsPanelStart = html.indexOf('id="panel-automation"');
+  const planningMenuStart = html.indexOf("planning-submenu");
+  const operationsMenuStart = html.indexOf("operations-submenu");
+  const planningWorkspaceStart = html.indexOf('id="planning-panel-workbench"');
+  const operationsWorkspaceStart = html.indexOf('id="automation-panel-overview"');
+  assert.ok(navigationStart >= 0 && navigationStart < workflowStart);
+  assert.ok(planningMenuStart > planningPanelStart && planningMenuStart < planningWorkspaceStart);
+  assert.ok(operationsMenuStart > operationsPanelStart && operationsMenuStart < operationsWorkspaceStart);
+  assert.match(styles, /\.console-submenu\s*\{[^}]*width:\s*100%[^}]*margin:\s*0/s);
+  assert.match(styles, /\.console-submenu\s*\{[^}]*border-top:\s*0[^}]*border-bottom:\s*1px solid #d7dee8[^}]*border-radius:\s*0/s);
+  assert.match(styles, /#panel-planning > \.section-panel:not\(\[hidden\]\) > \.queue-view/);
+  assert.match(styles, /#panel-automation > \.section-panel:not\(\[hidden\]\) > \.queue-view/);
+  assert.ok(html.indexOf('class="pipeline-mode-switcher"') > planningPanelStart);
+  assert.ok(html.indexOf('class="registry-mode-tabs"') > operationsPanelStart);
   assert.match(html, /data-subtab-group="automation" data-subtab="logs"/);
   assert.doesNotMatch(html, /data-tab="(?:candidates|sources|logs|publication)"/);
   assert.match(app, /initializeLogMenu/);
@@ -2246,6 +2623,243 @@ test("Planning and Operations consolidate navigation while preserving old routes
     api.normalizeConsoleTarget("automation:component-registry:documents?document=framework_kernel"),
     "automation:component-registry:documents?document=framework_kernel"
   );
+});
+
+test("Stage 1 interface uses the approved prototype grammar while preserving behavior", () => {
+  const html = fs.readFileSync(entrypointPath, "utf8");
+  const styles = fs.readFileSync(path.join(consoleDirectory, "styles.css"), "utf8");
+  const appJs = fs.readFileSync(appPath, "utf8");
+  const consoleSpec = fs.readFileSync(path.join(consoleDirectory, "..", "project-console.md"), "utf8");
+  assert.match(html, /styles\.css\?v=104/);
+  assert.match(styles, /\.overview-section \.section-heading-row h3\s*\{\s*margin:\s*0 0 \.12rem;\s*\}/);
+  assert.match(styles, /body\[data-interface-theme="arrp-tool"\]\s*\{/);
+  assert.match(styles, /background:\s*#111d31/);
+  assert.doesNotMatch(html, /prototype-note|Prototype status|Current prototype/);
+  assert.match(consoleSpec, /### Current interface component grammar/);
+  assert.match(consoleSpec, /The approved prototype is the controlling visual direction\./);
+  assert.match(consoleSpec, /module_id: project_tool_interface/);
+  assert.match(consoleSpec, /Approved by `@Thorncrag` on 2026-07-31/);
+  assert.match(consoleSpec, /Search and primary filters remain visible together in one\s+functional-control surface\./);
+  assert.match(consoleSpec, /A mail-style master\/detail result portal uses one bounded internally scrolling\s+list with one adjacent preview and does not also paginate\./);
+  assert.match(styles, /width:\s*min\(1440px,\s*calc\(100% - 2rem\)\)/);
+  assert.match(styles, /border-radius:\s*14px 14px 0 0/);
+  assert.match(styles, /\.tab-list\s*\{[^}]*width:\s*max-content[^}]*min-width:\s*0/s);
+  assert.match(styles, /\.tab-list button\s*\{[^}]*flex:\s*0 0 auto[^}]*min-width:\s*0/s);
+  assert.match(styles, /border-bottom:\s*3px solid transparent/);
+  assert.match(styles, /border-radius:\s*10px/);
+  assert.match(styles, /\.overview-daily-brief\s*\{[^}]*grid-template-columns:\s*minmax\(0,\s*1\.25fr\)\s*minmax\(28rem,\s*\.75fr\)[^}]*border-top:\s*4px solid var\(--blue\)/s);
+  assert.match(styles, /\.overview-daily-facts\s*\{[^}]*grid-column:\s*2[^}]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/s);
+  assert.match(styles, /\.overview-stage-strip\s*\{[^}]*grid-template-columns:\s*repeat\(7,\s*minmax\(8rem,\s*1fr\)\)[^}]*gap:\s*0/s);
+  assert.match(styles, /\.overview-indicator-grid\s*\{[^}]*grid-template-columns:\s*repeat\(6,\s*minmax\(0,\s*1fr\)\)[^}]*gap:\s*\.7rem/s);
+  assert.match(styles, /\.overview-queue-directory\s*\{[^}]*grid-template-columns:\s*repeat\(4,\s*minmax\(0,\s*1fr\)\)[^}]*gap:\s*\.55rem/s);
+  assert.match(styles, /body\[data-interface-theme="arrp-tool"\] \.overview-lower-grid\s*\{[^}]*grid-template-columns:\s*repeat\(2, minmax\(0, 1fr\)\) !important/s);
+  assert.match(styles, /\.overview-platform-indicator \.overview-status-grid,[\s\S]*\.overview-data-indicator \.overview-status-grid\s*\{[^}]*repeat\(5,\s*minmax\(0,\s*1fr\)\)[^}]*overflow:\s*hidden/s);
+  assert.doesNotMatch(styles, /\.overview-platform-indicator \.overview-status-grid\s*\{[^}]*overflow-x:\s*auto/s);
+  assert.match(appJs, /statusLabel:\s*"Not due"/);
+  assert.match(styles, /\.overview-view\s*\{[^}]*border:\s*0[^}]*box-shadow:\s*none/s);
+  assert.match(styles, /\.overview-view > \[data-layout-transfer-group="overview-portlet"\]\s*\{[^}]*margin-top:\s*0[^}]*margin-bottom:\s*1rem/s);
+  assert.match(styles, /\.overview-lower-grid > \[data-layout-transfer-group="overview-portlet"\]\s*\{[^}]*margin-top:\s*0/s);
+  assert.doesNotMatch(html, /Interface generated <time id="overview-generated-at"/);
+  assert.match(html, /<div class="overview-supporting-data" hidden aria-hidden="true">\s*<time id="overview-generated-at">—<\/time>/s);
+  assert.match(styles, /\.status-badge\s*\{[^}]*display:\s*inline-flex[^}]*border-radius:\s*999px[^}]*text-transform:\s*none/s);
+  assert.match(styles, /\.status-badge::before\s*\{[^}]*border-radius:\s*50%[^}]*background:\s*currentColor[^}]*content:\s*""/s);
+  assert.match(styles, /\.overview-queue-problem::before\s*\{[^}]*content:\s*"⚑"/s);
+  assert.match(styles, /\.section-tabs:not\(\.console-submenu\) \.section-tab-list button,[\s\S]*border-radius:\s*999px/s);
+  assert.match(styles, /\.pipeline-mode-switcher button\[aria-pressed="true"\],[\s\S]*background:\s*#193f70/s);
+  assert.match(styles, /\.console-submenu\s*\{[^}]*width:\s*100%[^}]*border-bottom:\s*1px solid #d7dee8[^}]*border-radius:\s*0/s);
+  assert.match(styles, /\.tab-list button:hover\s*\{[^}]*border-bottom-color:\s*#8da8ca[^}]*background:\s*#f2f6fb/s);
+  assert.match(styles, /\.tab-list button\[aria-selected="true"\]\s*\{[^}]*border-bottom-color:\s*#193f70[^}]*font-weight:\s*850/s);
+  assert.match(styles, /\.console-submenu \.section-tab-list button\[aria-selected="true"\]\s*\{[^}]*background:\s*rgba\(255,\s*255,\s*255,\s*\.62\)[^}]*box-shadow:\s*none[^}]*font-weight:\s*760/s);
+  assert.match(styles, /\.operations-log-menu\s*\{[^}]*margin:\s*\.8rem 1\.35rem \.7rem[^}]*border-radius:\s*0/s);
+  assert.match(styles, /#automation-panel-logs > \[id\^="log-panel-"\] \.log-view\s*\{[^}]*margin:\s*0 1\.35rem[^}]*border-radius:\s*10px/s);
+  assert.match(styles, /#operations-security-summary\s*\{[^}]*grid-template-columns:\s*repeat\(4,\s*minmax\(0,\s*1fr\)\)[^}]*gap:\s*\.65rem/s);
+  assert.match(styles, /#automation-panel-security \.queue-view-header > \.source-list\.compact-links\s*\{[^}]*width:\s*35rem[^}]*flex:\s*0 0 35rem[^}]*flex-wrap:\s*nowrap[^}]*justify-content:\s*flex-end[^}]*padding:\s*0/s);
+  assert.match(styles, /#operations-security-list \.email-list-copy\s*\{[^}]*display:\s*grid[^}]*gap:\s*\.2rem/s);
+  assert.match(styles, /#operations-security-preview > \.source-list\.compact-links\s*\{[^}]*padding:\s*\.35rem 0 0/s);
+  assert.match(styles, /--console-surface-subtle:\s*#f7f9fc/);
+  assert.match(styles, /--console-page-gutter:\s*1\.35rem/);
+  assert.match(styles, /--console-tertiary-height:\s*2\.05rem/);
+  assert.match(styles, /--console-tertiary-gap:\s*\.35rem/);
+  assert.match(styles, /--console-control-height:\s*2\.25rem/);
+  assert.match(styles, /\.queue-view-header \.refresh-note\s*\{[^}]*padding:\s*0[^}]*background:\s*transparent/s);
+  assert.match(styles, /\.watcher-summary-card,[\s\S]*\.publication-metric,[\s\S]*#operations-security-summary \.compact-metric[\s\S]*background:\s*var\(--console-surface-subtle\)/s);
+  assert.match(styles, /\.pipeline-view > \.pipeline-controls:not\(\.pipeline-controls-advanced\)\s*\{[^}]*margin-top:\s*\.55rem/s);
+  assert.match(styles, /\.compact-empty\s*\{[^}]*margin:\s*\.75rem 0 0[^}]*padding:\s*\.9rem 1rem[^}]*border:\s*1px solid var\(--line\)[^}]*text-align:\s*left/s);
+  assert.match(styles, /\.console-message\s*\{[^}]*width:\s*100%[^}]*padding:\s*\.58rem \.72rem[^}]*border-radius:\s*6px[^}]*text-align:\s*left/s);
+  assert.match(styles, /\.console-message-info\s*\{[^}]*position:\s*relative[^}]*padding-left:\s*2rem[^}]*background:\s*var\(--console-surface-subtle\)/s);
+  assert.match(styles, /\.console-message-info::before\s*\{[^}]*border-radius:\s*50%[^}]*content:\s*"i"[^}]*font-size:\s*\.58rem/s);
+  assert.match(styles, /\.console-message-warning\s*\{[^}]*border-color:\s*#e7d49f[^}]*background:\s*#fff8e7/s);
+  assert.match(styles, /\.console-message-warning::before,[\s\S]*content:\s*"!"/s);
+  assert.match(styles, /\.owner-unavailable-notice\s*\{[^}]*border:\s*1px solid #e7d49f[^}]*background:\s*#fff8e7/s);
+  assert.match(styles, /\.console-message-status\.success\s*\{[^}]*border-color:\s*#bedbc9[^}]*background:\s*#edf7f1/s);
+  assert.match(styles, /\.console-message-status\.error\s*\{[^}]*border-color:\s*#e3c1bd[^}]*background:\s*#fff2f0/s);
+  assert.match(styles, /\.console-message-status\.unavailable\s*\{[^}]*background:\s*var\(--console-surface-subtle\)/s);
+  assert.match(styles, /\.console-message-status\.unavailable::before\s*\{[^}]*content:\s*"i"/s);
+  assert.match(appJs, /note\.className = `attention-note console-message console-message-status \$\{/);
+  assert.match(appJs, /host\.replaceChildren\(\);\s*host\.hidden = true;\s*return;/s);
+  assert.match(appJs, /host\.hidden = false;/);
+  assert.match(styles, /\.console-boundary-note\s*\{[^}]*border-top:\s*1px solid var\(--line\)[^}]*text-align:\s*center/s);
+  assert.match(html, /<p class="console-boundary-note">Project data and automation status remain read-only here\./);
+  assert.doesNotMatch(html, /<p class="method-note">Project data and automation status remain read-only here\./);
+  assert.match(html, /<p class="refresh-note">Catalog generated <time id="sources-as-of" data-sources-as-of>—<\/time><\/p>/);
+  assert.equal((html.match(/data-sources-as-of/g) || []).length, 3);
+  assert.match(html, /<p class="method-note console-message console-message-info" id="sources-data-note">Loading the current source catalog projection…<\/p>/);
+  assert.match(
+    appJs,
+    /const sourceCatalogCurrent = data\.availability === "current"\s*&& data\.completeness\?\.complete === true;/
+  );
+  assert.match(appJs, /Source catalog projection is current and complete for this Console generation\./);
+  assert.match(html, /<header class="logs-screen-header" aria-labelledby="operations-logs-heading">[\s\S]*<h2 id="operations-logs-heading">Logs<\/h2>[\s\S]*complete operational, governance, audit, source, and Console-development histories/s);
+  assert.match(styles, /\.logs-screen-header\s*\{[^}]*margin:\s*0 1\.35rem[^}]*padding:\s*1\.25rem 1\.35rem 0/s);
+  assert.match(styles, /\.operations-ledger-row > div:first-child \.status-badge\s*\{[^}]*position:\s*absolute[^}]*top:\s*\.7rem[^}]*right:\s*\.7rem/s);
+  assert.match(html, /class="inline-link section-heading-link" href="#automation:logs:agents">View history →<\/a>/);
+  assert.match(html, /class="inline-link section-heading-link" href="#automation:agents:run-coordinator-bot">Open role details →<\/a>/);
+  assert.match(styles, /\.section-heading-link\s*\{[^}]*align-self:\s*center[^}]*font-size:\s*\.7rem[^}]*text-underline-offset:\s*\.12em/s);
+  assert.match(styles, /\.overview-stage-strip \.status-badge\s*\{[^}]*grid-column:\s*1[^}]*grid-row:\s*1[^}]*justify-self:\s*end/s);
+  assert.match(html, />Repository Gates<\/button>/);
+  assert.match(html, /<h2 id="operations-gates-heading">Repository Gates<\/h2>/);
+  assert.match(styles, /#automation-panel-agents :where\([\s\S]*\.automation-role-workspace,[\s\S]*\.automation-role-unavailable[\s\S]*\)\s*\{[^}]*border:\s*0[^}]*background:\s*transparent/s);
+  assert.match(html, /id="operations-platform-list" class="operations-ledger-list operations-portal-grid"/);
+  assert.match(html, /id="operations-data-list" class="operations-ledger-list operations-portal-grid"/);
+  assert.match(styles, /\.operations-portal-grid\s*\{[^}]*grid-template-columns:\s*repeat\(3,[^}]*gap:\s*\.65rem/s);
+  assert.match(styles, /#automation-panel-data \.operations-portal-grid\s*\{[^}]*grid-template-columns:\s*repeat\(5,/s);
+  assert.match(styles, /\.operations-portal-grid \.operations-ledger-row\s*\{[^}]*display:\s*flex[^}]*min-height:\s*9\.5rem[^}]*border-radius:\s*10px/s);
+  assert.match(styles, /#automation-panel-logs > \[id\^="log-panel-"\] \.log-view\s*\{[^}]*margin-top:\s*0[^}]*border:\s*0[^}]*border-radius:\s*0/s);
+  assert.match(styles, /#automation-panel-component-registry \.registry-mode-panel\s*\{[^}]*border:\s*0[^}]*background:\s*transparent/s);
+  assert.match(styles, /#automation-panel-component-registry \.component-registry-detail\s*\{[^}]*border:\s*0[^}]*background:\s*transparent[^}]*box-shadow:\s*none/s);
+  assert.match(styles, /#overview-chain-section > \.section-heading-row\s*\{[^}]*padding:\s*\.9rem 1rem/s);
+  assert.match(styles, /\.overview-stage-strip \.overview-automation-card\s*\{[^}]*min-height:\s*7\.8rem[^}]*padding:\s*\.72rem \.75rem/s);
+  assert.match(styles, /\.overview-stage-strip h4\s*\{[^}]*grid-row:\s*2[^}]*min-height:\s*2\.2rem[^}]*line-height:\s*1\.18/s);
+  assert.match(styles, /\.overview-material-row\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\) auto auto/s);
+  assert.match(styles, /\.overview-material-score\s*\{[^}]*grid-column:\s*2[^}]*font-variant-numeric:\s*tabular-nums/s);
+  assert.match(styles, /\.overview-chain-readiness\s*\{[^}]*padding:\s*\.62rem 1rem/s);
+  assert.match(styles, /\.action-priority-attention\s*\{[^}]*margin:\s*\.55rem 0 0[^}]*padding:\s*\.5rem \.65rem[^}]*box-shadow:\s*none/s);
+  assert.match(styles, /\.action-priority-list\s*\{[^}]*grid-template-columns:\s*repeat\(auto-fit, minmax\(13rem, 1fr\)\)[^}]*margin-top:\s*\.4rem/s);
+  assert.match(styles, /\.action-priority-row\s*\{[^}]*min-height:\s*0[^}]*flex-direction:\s*row[^}]*padding:\s*\.42rem \.52rem/s);
+  assert.match(styles, /\.action-inbox-workspace\s*\{[^}]*min-height:\s*28rem/s);
+  assert.match(styles, /\.action-inbox-row\s*\{[^}]*padding:\s*\.58rem \.68rem/s);
+  assert.match(styles, /\.console-navigation\s*\{[^}]*background:\s*#f1f5fa/s);
+  assert.match(styles, /\.console-submenu\s*\{[^}]*padding:\s*\.34rem 1\.35rem[^}]*background:\s*#f8fafc/s);
+  assert.match(styles, /\.console-submenu \.section-tab-list button\s*\{[^}]*display:\s*inline-flex[^}]*align-items:\s*center[^}]*justify-content:\s*center[^}]*min-height:\s*2\.05rem[^}]*line-height:\s*1\.15/s);
+  assert.match(html, /<\/div>\s*<\/div>\s*<p class="attention-note console-message console-message-warning" id="action-items-note">Loading review queues…<\/p>/s);
+  assert.match(html, /id="preliminary-heading"[\s\S]*<\/div>\s*<\/div>\s*<p class="attention-note console-message console-message-warning" id="attention-note">/s);
+  assert.match(styles, /#panel-planning > \.section-panel:not\(\[hidden\]\) > \.queue-view,[\s\S]*border:\s*0[\s\S]*border-radius:\s*0[\s\S]*box-shadow:\s*none/s);
+  assert.match(styles, /\.source-workspace-menu,\s*\.publication-workspace-menu[\s\S]*margin:\s*\.8rem 1\.35rem 0[^}]*border-bottom:\s*1px solid var\(--line\)/s);
+  assert.match(styles, /\.source-workspace-menu,\s*\.publication-workspace-menu[\s\S]*\.section-tab-list button\s*\{[^}]*min-width:\s*0[^}]*flex:\s*0 0 auto/s);
+  assert.match(appJs, /initializeSectionTabs\("sources", "catalog"\)/);
+  assert.match(appJs, /function placeSourceNavigation\(name\)/);
+  assert.match(appJs, /if \(group === "sources"\) placeSourceNavigation\(selected\.dataset\.subtab\)/);
+  assert.match(appJs, /function placePublicationNavigation\(name\)/);
+  assert.match(appJs, /if \(group === "publication"\) placePublicationNavigation\(selected\.dataset\.subtab\)/);
+  assert.match(appJs, /catalog: byId\("sources-heading"\)\?\.closest\("\.queue-view"\)/);
+  assert.match(appJs, /const visible = ordered;/);
+  assert.doesNotMatch(html, /data-disclosure-id="sources-catalog-results"/);
+  assert.doesNotMatch(html, /data-disclosure-id="sources-exact-type-filter"/);
+  assert.match(html, /class="queue-controls source-controls"[\s\S]*id="sources-exact-type"[\s\S]*<\/div>\s*<p class="result-count"/);
+  assert.match(html, /<p class="result-count"><b id="sources-visible">0<\/b> sources match<\/p>\s*<div id="sources-table"><\/div>/);
+  assert.doesNotMatch(html, /id="sources-pagination"/);
+  assert.doesNotMatch(appJs, /pagination\(name, ordered\.length, state, rerender\)/);
+  assert.match(styles, /\.source-view > \.source-workspace-menu,\s*body\[data-interface-theme="arrp-tool"\] \.queue-view > \.publication-workspace-menu\s*\{[^}]*margin:\s*\.8rem 0 \.75rem/s);
+  assert.match(styles, /\.source-email-list\s*\{[^}]*scrollbar-gutter:\s*stable/s);
+  assert.match(styles, /One tertiary-navigation rhythm across native buttons and link-backed tabs/);
+  assert.match(styles, /\.compact-specialist-menu-item,[\s\S]*\.pipeline-mode-switcher button\s*\{[^}]*min-height:\s*var\(--console-tertiary-height\)[^}]*padding:\s*var\(--console-tertiary-padding\)/s);
+  assert.match(styles, /#automation-panel-logs #operations-log-menu\s*\{[^}]*margin-top:\s*\.8rem[^}]*margin-bottom:\s*\.75rem[^}]*padding-right:\s*var\(--console-page-gutter\)[^}]*padding-left:\s*var\(--console-page-gutter\)/s);
+  assert.match(styles, /:is\(\.tab-count, \.tab-update-count\)\[hidden\]\s*\{\s*display:\s*none;/);
+  assert.match(appJs, /initializeSectionTabs\("publication", "assignments"\)/);
+  assert.match(appJs, /\["sources", "publication"\]\.includes\(group\)/);
+  assert.match(appJs, /activeSourceView === "watchers" && window\.location\.hash\.startsWith\("#planning:sources"\)/);
+  assert.match(styles, /\.candidate-card > summary,[\s\S]*\.advanced-filters > summary[\s\S]*grid-template-columns:\s*auto minmax\(0,\s*1fr\) auto/s);
+  assert.match(styles, /\.candidate-card > summary,[\s\S]*\.advanced-filters > summary[\s\S]*::before\s*\{[^}]*content:\s*"›"/s);
+  assert.match(appJs, /function candidateSummaryTitle\(record\)/);
+  assert.match(appJs, /header\.append\(element\("h3", "disclosure-item-name", candidateSummaryTitle\(record\)\), badges\)/);
+  assert.match(appJs, /function standardizeDisclosureSummary\(summary, button\)/);
+  assert.match(styles, /\.standard-disclosure-summary > \.disclosure-item-name\s*\{[^}]*text-overflow:\s*ellipsis[^}]*white-space:\s*nowrap/s);
+  assert.doesNotMatch(html, /class="template-inspection"/);
+  assert.match(html, /id="interface-tools-toggle"[^>]*aria-label="Interface tools\. No mode active\."[^>]*aria-expanded="false"[^>]*><svg class="interface-tools-icon" aria-hidden="true"[^>]*>[\s\S]*<\/svg><\/button>/);
+  assert.match(styles, /\.interface-tools-icon\s*\{[^}]*width:\s*1\.28rem[^}]*stroke:\s*currentColor[^}]*stroke-width:\s*1\.9/s);
+  assert.match(html, /id="interface-tools-drawer"[^>]*hidden/);
+  assert.match(html, /id="template-inspection-toggle" aria-pressed="false">Show template boxes<\/button>/);
+  assert.match(appJs, /function initializeInterfaceTools\(\)/);
+  assert.match(appJs, /function setInterfaceToolsOpen\(open, restoreFocus = true\)/);
+  assert.match(appJs, /function updateInterfaceToolsState\(\)/);
+  assert.match(appJs, /event\.key !== "Escape"/);
+  assert.match(appJs, /setInterfaceToolsOpen\(false\)/);
+  assert.match(appJs, /function initializeTemplateInspection\(\)/);
+  assert.match(appJs, /createTemplateRegionOverlay\(page, "A", "Metadata \+ date"/);
+  assert.match(appJs, /createTemplateRegionOverlay\(page, "B", "Title \+ count"/);
+  assert.match(appJs, /createTemplateRegionOverlay\(page, "D1", "Page-wide notice"/);
+  assert.match(appJs, /`D\$\{index \+ 2\} · Subordinate notice`/);
+  assert.match(appJs, /createTemplateRegionOverlay\(page, "F", "Tertiary navigation"/);
+  assert.match(appJs, /createTemplateRegionOverlay\(page, "G", "Search \+ filters"/);
+  assert.match(appJs, /createTemplateRegionOverlay\(page, "H", "Page content"/);
+  assert.match(appJs, /page\.matches\("\.overview-view"\) \|\| page\.closest\("#automation-panel-overview"\)/);
+  assert.match(appJs, /OV · Dashboard · A–H exempt/);
+  assert.match(appJs, /\["H", "PRT", "Portal set"/);
+  assert.match(appJs, /`\$\{code\}\$\{counts\[code\]\} · \$\{name\}`/);
+  assert.match(appJs, /`\$\{region\}\.\$\{type\}\$\{counts\[type\]\} · \$\{name\}`/);
+  assert.match(appJs, /"NAV", "Tertiary nav"/);
+  assert.match(appJs, /"CTL", "Search \/ filters"/);
+  assert.match(appJs, /"MSG", "Info \/ alert"/);
+  assert.match(appJs, /"DSC", "Collapsible"/);
+  assert.match(appJs, /"COL", "Results"/);
+  assert.match(appJs, /:scope > \.pipeline-mode-switcher/);
+  assert.match(appJs, /:scope > \.pipeline-advanced-filters/);
+  assert.match(appJs, /\.pipeline-gap-notice, \.pipeline-context-notice/);
+  assert.match(appJs, /const title = element\("span", "pipeline-row-title", candidateSummaryTitle\(record\)\)/);
+  assert.match(appJs, /`\$\{record\.workClass\} · \$\{text\(record\.status, "Status unavailable"\)\}\$\{score\}`/);
+  assert.doesNotMatch(html, /class="tab-count"[^>]*>—<\/span>/);
+  assert.match(html, /Blocked &amp; deferred <span class="tab-count" id="pipeline-hold-mode-count">0<\/span>/);
+  assert.match(html, /Monitored issues <span class="tab-count" id="manual-watch-count">0<\/span>/);
+  assert.match(html, /id="tab-actions-count" hidden><\/span>/);
+  assert.match(html, /id="assigned-actions-count" hidden><\/span>/);
+  assert.match(html, /id="oversight-actions-count" hidden><\/span>/);
+  assert.match(html, /id="all-actions-count" hidden><\/span>/);
+  assert.match(appJs, /function setNavigationCount\(id, value, available\)/);
+  assert.match(appJs, /const visible = available === true && Number\.isInteger\(value\) && value >= 0/);
+  assert.match(appJs, /marker\.hidden = !visible/);
+  assert.match(appJs, /marker\.textContent = visible \? String\(value\) : ""/);
+  assert.match(appJs, /setNavigationCount\("tab-actions-count", total, complete\)/);
+  assert.match(appJs, /setNavigationCount\("assigned-actions-count", total, complete\)/);
+  assert.match(appJs, /setNavigationCount\("oversight-actions-count", oversightCount, complete\)/);
+  assert.match(appJs, /setNavigationCount\("all-actions-count", actionInboxState\.items\.length, complete\)/);
+  assert.match(styles, /\.template-region-overlay\s*\{[^}]*display:\s*none/s);
+  assert.match(styles, /\.template-inspection \.template-region-overlay\s*\{[^}]*display:\s*block[^}]*position:\s*absolute[^}]*pointer-events:\s*none/s);
+  assert.match(styles, /\.action-inbox-filters,[\s\S]*\.action-inbox-layout[\s\S]*\) button\s*\{[^}]*min-height:\s*1\.9rem[^}]*font-size:\s*\.68rem/s);
+  assert.match(styles, /\.action-inbox-filters[\s\S]*:is\(\.tab-count, \.tab-update-count, button > span\)\s*\{[^}]*min-width:\s*1\.1rem[^}]*font-size:\s*\.56rem/s);
+  assert.match(styles, /\.template-inspection \[data-template-region\]::after\s*\{[^}]*content:\s*attr\(data-template-region\)/s);
+  assert.match(styles, /\.template-inspection \[data-template-component\]::before\s*\{[^}]*content:\s*attr\(data-template-component\)/s);
+  assert.match(styles, /#panel-planning :where\(\s*\.candidate-card,\s*\.dense-data-disclosure,\s*\.monitoring-issue,\s*\.advanced-filters\s*\)[\s\S]*border-radius:\s*9px/s);
+  assert.match(styles, /#panel-planning \.disclosure-default-toggle\s*\{[^}]*top:\s*\.68rem[^}]*transform:\s*none/s);
+  assert.match(styles, /body\[data-interface-theme="arrp-tool"\] \.development-card\s*\{[^}]*display:\s*block/s);
+  assert.match(styles, /\.development-card-main strong\s*\{[^}]*overflow:\s*visible[^}]*text-overflow:\s*clip/s);
+  assert.match(styles, /\.development-card-links > a\s*\{[^}]*background:\s*transparent[^}]*text-decoration:\s*underline/s);
+  assert.match(styles, /\.development-board-warning\[hidden\]\s*\{\s*display:\s*none !important;\s*\}/);
+  assert.match(html, /class="development-board-viewport is-collapsed"[^>]*id="development-board-viewport"/);
+  assert.match(html, /id="development-board-toggle"[^>]*aria-controls="development-board-viewport"[^>]*aria-expanded="false"/);
+  assert.match(styles, /\.development-board-viewport\.is-collapsed\s*\{[^}]*max-height:\s*24rem[^}]*overflow:\s*hidden/s);
+  assert.match(styles, /\.development-board-viewport\.is-collapsed::after\s*\{[^}]*linear-gradient/s);
+  assert.match(appJs, /function initializeDevelopmentBoardToggle\(\)/);
+  assert.match(appJs, /label\.textContent = expanded \? "Show fewer cards" : "Show full board"/);
+  assert.doesNotMatch(html, /id="progress-holds-summary"|id="progress-monitoring"/);
+  assert.match(html, /class="progress-header-meta"[\s\S]*Progress data as of[\s\S]*Open authoritative GitHub Project ↗/);
+  assert.match(html, /id="workbench-monitoring-toggle"[^>]*aria-pressed="false"/);
+  assert.match(html, /id="workbench-monitoring"[^>]*aria-labelledby="workbench-monitoring-heading"[^>]*hidden/);
+  assert.match(appJs, /function setWorkbenchView\(view, updateRoute = false\)/);
+  assert.match(appJs, /"progress" && parts\[1\] === "monitoring"[\s\S]*return "planning:workbench:monitoring"/);
+  assert.match(appJs, /window\.location\.hash !== "#planning:workbench:monitoring"/);
+  assert.match(appJs, /Array\.isArray\(record\.sources\) \? record\.sources\.length : 0/);
+  assert.match(appJs, /internalInlineLink\("", workbenchTarget\)/);
+  assert.match(appJs, /if \(score\.available\) \{/);
+  assert.match(appJs, /linkButton\("Live ↗", liveUrl, true\)/);
+  assert.match(appJs, /linkButton\("Issue ↗", record\.url, true\)/);
+  assert.match(appJs, /data\.records\.length === 1 \? "requires" : "require"/);
+  assert.match(styles, /#panel-actions > \.queue-view,[\s\S]*border:\s*0[\s\S]*box-shadow:\s*none/s);
+  assert.match(styles, /\.action-inbox-toolbar\s*\{[^}]*border-bottom:\s*0[^}]*border-radius:\s*9px 9px 0 0/s);
+  assert.match(styles, /\.action-inbox-workspace\s*\{[^}]*border-radius:\s*0 0 9px 9px[^}]*box-shadow:\s*none/s);
+  assert.match(styles, /@media \(max-width:\s*980px\)/);
+  assert.match(styles, /@media \(max-width:\s*720px\)/);
+  assert.match(styles, /@media \(prefers-reduced-motion:\s*reduce\)/);
+  assert.doesNotMatch(html, /https?:\/\/[^"]+\.(?:css|woff2?|ttf)(?:\?[^"]*)?"/i);
 });
 
 test("Workbench links resolve only typed planning artifacts and retain source context", () => {
@@ -2469,14 +3083,14 @@ test("initial HTML loads only bounded scripts and stays within declared budgets"
   const scriptSources = [...html.matchAll(/<script\s+src="([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(scriptSources, [
     "catalog-data.js?v=48",
-    "app.js?v=65"
+    "app.js?v=102"
   ]);
   assert.match(app, /const PRIVATE_SECURITY_ASSURANCE_PATH = "data\/private-security-assurance\.js\?v=1";/);
   assert.match(app, /const PRIVATE_OPERATIONS_PATH = "data\/private-operations\.js\?v=1";/);
   assert.match(app, /const PRIVATE_CODEX_USAGE_PATH = "data\/private-codex-usage\.js\?v=1";/);
   assert.match(app, /const LOCAL_AUTOMATION_STATUS_PATH = "data\/local-automation-status\.js";/);
   assert.match(app, /const CODEX_CAPACITY_MODULE_PATH = "capacity\.js\?v=1";/);
-  assert.match(app, /const COMPONENT_REGISTRY_MODULE_PATH = "component-registry\.js\?v=1";/);
+  assert.match(app, /const COMPONENT_REGISTRY_MODULE_PATH = "component-registry\.js\?v=8";/);
   assert.match(app, /return loadLocalProjection\(\s*PRIVATE_SECURITY_ASSURANCE_PATH,\s*"security-assurance",\s*capturePrivateSecurityAssurance\s*\)/);
   assert.match(app, /return loadLocalProjection\(\s*PRIVATE_OPERATIONS_PATH,\s*"private-operations",\s*capturePrivateOperations\s*\)/);
   assert.match(app, /return loadLocalProjection\(\s*PRIVATE_CODEX_USAGE_PATH,\s*"codex-usage",\s*capturePrivateCodexUsage\s*\)/);
@@ -2484,12 +3098,12 @@ test("initial HTML loads only bounded scripts and stays within declared budgets"
   assert.match(app, /return loadLocalProjection\(\s*LOCAL_AUTOMATION_STATUS_PATH,\s*"local-automation-status",\s*captureLocalAutomationStatus\s*\)/);
   assert.match(app, /if \(window\.__ARRP_CONSOLE_TEST_MODE__\) capturePrivateSecurityAssurance\(\);/);
   assert.doesNotMatch(app, /\n  capturePrivateSecurityAssurance\(\);/);
-  assert.match(html, /data-initial-script-budget-kib="655"/);
-  assert.match(html, /data-initial-dom-budget="1500"/);
+  assert.match(html, /data-initial-script-budget-kib="680"/);
+  assert.match(html, /data-initial-dom-budget="2000"/);
   const bytes = ["catalog-data.js", "app.js"]
     .map((file) => fs.statSync(path.join(consoleDirectory, file)).size)
     .reduce((sum, size) => sum + size, 0);
-  assert.ok(bytes <= 655 * 1024, `synchronous JavaScript is ${bytes} bytes`);
+  assert.ok(bytes <= 680 * 1024, `synchronous JavaScript is ${bytes} bytes`);
   const approximateElementCount = (html.match(/<[a-z][^!/][^>]*>/gi) || []).length;
   assert.ok(approximateElementCount <= 1500, `initial HTML has about ${approximateElementCount} elements`);
   assert.doesNotMatch(html, /<script\s+src="data\/(?:candidates|sources|progress|integrity|automation|logs|publication)/);
@@ -2755,6 +3369,29 @@ test("platform projection has five provider-neutral cells and exact scoped depen
   assert.deepEqual(vercel.incidents.map((item) => item.id), ["relevant"]);
   assert.equal(cells.find((item) => item.label === "Cloudflare Turnstile").status, "operational");
   assert.deepEqual(cloudflare.incidents, []);
+});
+
+test("Platform specialist view renders the five service identities as peer portals", () => {
+  const app = fs.readFileSync(appPath, "utf8");
+  const styles = fs.readFileSync(path.join(consoleDirectory, "styles.css"), "utf8");
+  assert.match(app, /row\.classList\.add\("platform-service-card"\)/);
+  assert.match(app, /prepend\(element\("span", "platform-provider-label", service\.provider\)\)/);
+  assert.doesNotMatch(app, /if \(service\.provider !== priorProvider\)/);
+  assert.match(styles, /#automation-panel-platform \.operations-portal-grid\s*\{[^}]*grid-template-columns:\s*repeat\(5, minmax\(12rem, 1fr\)\)[^}]*overflow-x:\s*auto/s);
+});
+
+test("Data specialist view renders the five principal feeds as peer portals", () => {
+  const html = fs.readFileSync(entrypointPath, "utf8");
+  const app = fs.readFileSync(appPath, "utf8");
+  const styles = fs.readFileSync(path.join(consoleDirectory, "styles.css"), "utf8");
+  assert.match(html, /Five peer feed portals with exact availability/);
+  assert.match(app, /row\.classList\.add\("data-feed-card"\)/);
+  assert.match(app, /if \(feed\.producer\) \{[\s\S]*"data-producer-label",\s*humanizeKey\(feed\.producer\)/);
+  assert.doesNotMatch(app, /"Producer unavailable"/);
+  assert.match(app, /producerLabel\.setAttribute\("aria-label", `Producer: \$\{feed\.producer\}`\)/);
+  assert.match(app, /Trustworthy through \$\{formatOperationalDate\(feed\.trustworthy_through\)\}/);
+  assert.match(app, /element\("div", "data-feed-actions"\)/);
+  assert.match(styles, /#automation-panel-data \.operations-portal-grid\s*\{[^}]*grid-template-columns:\s*repeat\(5, minmax\(12rem, 1fr\)\)[^}]*overflow-x:\s*auto/s);
 });
 
 test("platform provider failures are isolated and retain last-valid identity", () => {

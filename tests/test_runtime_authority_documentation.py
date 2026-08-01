@@ -57,7 +57,7 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
         )
         self.assertIn(
             "project_runtime_authority",
-            self.routes["documents"]["project_interface"]["requires"],
+            self.routes["documents"]["project_tool_interface"]["requires"],
         )
 
     def test_runtime_authority_distinguishes_active_and_staged_state(self) -> None:
@@ -100,7 +100,13 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
             encoding="utf-8"
         )
 
-        if self.registry["status"] == "candidate":
+        if self.registry.get("schema_version") == 2:
+            self.assertEqual(
+                self.registry["validation"]["mode"],
+                "proposed_revision_validation",
+            )
+            self.assertFalse(self.registry["validation"]["live_authority"])
+        elif self.registry["status"] == "candidate":
             self.assertFalse(
                 self.registry["context_routing"]["authoritative"]
             )

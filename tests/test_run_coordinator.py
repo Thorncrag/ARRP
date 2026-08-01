@@ -35,7 +35,7 @@ def review_epoch_routing_boundary(
             "sha256": "b" * 64,
             "requires": ["framework_kernel"],
         },
-        "current_audit": {
+        "task_handoff": {
             "path": "framework/handoffs/current-task.md",
             "hash_policy": "runtime",
             "governing": False,
@@ -53,7 +53,7 @@ def review_epoch_routing_boundary(
         "required_modules": [
             "framework_kernel",
             "agent_rules_kernel",
-            "current_audit",
+            "task_handoff",
         ],
         "documents": documents,
         "capabilities": {},
@@ -66,33 +66,35 @@ def review_epoch_routing_boundary(
     }
     active = status == "active"
     view = {
-        "schema_version": 1,
+        "schema_version": 2,
         "validation_mode": (
-            "active_component_registry"
+            "live_authority_validation"
             if active
-            else "candidate_validation_only"
+            else "proposed_revision_validation"
         ),
         "registry_id": "COMPONENT-REGISTRY",
         "registry_revision": 1,
-        "registry_status": status,
         "registry_sha256": "d" * 64,
         "registry_path": "framework/component-registry.json",
         "authoritative": active,
-        "predecessor_route_consulted": not active,
+        "executable": active,
+        "live_authority_verified": active,
+        "predecessor_route_consulted": False,
         "route": route,
     }
     ordered_ids = [
         "framework_kernel",
         "agent_rules_kernel",
-        "current_audit",
+        "task_handoff",
         "additional_rule",
     ]
     selection = {
-        "selection_kind": "executable_packet",
-        "executable": True,
+        "selection_kind": (
+            "executable_packet" if active else "configuration_validation_packet"
+        ),
+        "executable": active,
         "registry_id": view["registry_id"],
         "registry_revision": view["registry_revision"],
-        "registry_status": view["registry_status"],
         "registry_sha256": view["registry_sha256"],
         "registry_path": view["registry_path"],
         "authoritative": active,

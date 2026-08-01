@@ -517,11 +517,11 @@ def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = Tru
     if canonical_manifest and required_modules != [
         "framework_kernel",
         "agent_rules_kernel",
-        "current_audit",
+        "task_handoff",
     ]:
         raise ContextError(
             "production required_modules must be exactly framework_kernel, "
-            "agent_rules_kernel, current_audit in that order"
+            "agent_rules_kernel, task_handoff in that order"
         )
     exclusions = manifest.get("generated_path_exclusions") or []
     seen_paths: dict[str, tuple[str, str]] = {}
@@ -537,10 +537,10 @@ def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = Tru
         if (
             canonical_manifest
             and relative.startswith("framework/records/")
-            and name != "current_audit"
+            and name != "task_handoff"
         ):
             raise ContextError(
-                "shared routing records are excluded except current_audit"
+                "shared routing records are excluded except task_handoff"
             )
         source = within_root(root, relative)
         canonical_source = os.path.realpath(os.fspath(source))
@@ -593,19 +593,19 @@ def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = Tru
             for name, spec in documents.items()
             if str(spec.get("hash_policy") or "pinned") == "runtime"
         }
-        if runtime_documents != {"current_audit"}:
+        if runtime_documents != {"task_handoff"}:
             raise ContextError(
-                "current_audit must be the sole runtime-hashed shared document"
+                "task_handoff must be the sole runtime-hashed shared document"
             )
-        current_audit = documents.get("current_audit")
+        task_handoff = documents.get("task_handoff")
         if (
-            not isinstance(current_audit, dict)
-            or current_audit.get("governing") is not False
-            or current_audit.get("hash_policy") != "runtime"
-            or str(current_audit.get("sha256") or "") not in PLACEHOLDER_HASHES
+            not isinstance(task_handoff, dict)
+            or task_handoff.get("governing") is not False
+            or task_handoff.get("hash_policy") != "runtime"
+            or str(task_handoff.get("sha256") or "") not in PLACEHOLDER_HASHES
         ):
             raise ContextError(
-                "current_audit must be non-governing, runtime-hashed, and unpinned"
+                "task_handoff must be non-governing, runtime-hashed, and unpinned"
             )
     _document_dependency_closure(manifest, documents)
     capabilities = manifest.get("capabilities") or {}
@@ -1001,7 +1001,9 @@ def build_context_packet(
                 "sha256",
                 "registry_id",
                 "registry_revision",
-                "registry_status",
+                "validation_mode",
+                "authoritative",
+                "executable",
                 "validated_component_registry_view",
             }
             or routing_authority_identity.get(
@@ -1018,8 +1020,21 @@ def build_context_packet(
                 routing_authority_identity.get("registry_revision"),
                 int,
             )
-            or routing_authority_identity.get("registry_status")
-            not in {"candidate", "active"}
+            or routing_authority_identity.get("validation_mode")
+            not in {
+                "candidate_validation_only",
+                "active_configuration_validation_only",
+                "active_component_registry",
+                "proposed_revision_validation",
+                "adopted_configuration_validation",
+                "live_authority_validation",
+            }
+            or not isinstance(
+                routing_authority_identity.get("authoritative"), bool
+            )
+            or not isinstance(
+                routing_authority_identity.get("executable"), bool
+            )
             or re.fullmatch(
                 r"[0-9a-f]{64}",
                 str(routing_authority_identity.get("sha256") or ""),
@@ -1038,9 +1053,13 @@ def build_context_packet(
         routing_registry_revision = int(
             routing_authority_identity["registry_revision"]
         )
-        routing_registry_status = str(
-            routing_authority_identity["registry_status"]
+        routing_validation_mode = str(
+            routing_authority_identity["validation_mode"]
         )
+        routing_authoritative = bool(
+            routing_authority_identity["authoritative"]
+        )
+        routing_executable = bool(routing_authority_identity["executable"])
     else:
         manifest_path = contained_path(manifest_path, root)
         manifest = load_route_manifest(
@@ -1054,7 +1073,9 @@ def build_context_packet(
         manifest_sha = sha256_path(manifest_path, root)
         routing_registry_id = "context-routes"
         routing_registry_revision = int(manifest["schema_version"])
-        routing_registry_status = "active_predecessor"
+        routing_validation_mode = "predecessor_routing"
+        routing_authoritative = True
+        routing_executable = True
     profile = manifest["profiles"].get(profile_name)
     if profile is None:
         raise ContextError(f"unknown context profile: {profile_name}")
@@ -1367,7 +1388,9 @@ def build_context_packet(
             "registry_id": routing_registry_id,
             "registry_path": manifest_display_path,
             "registry_revision": routing_registry_revision,
-            "registry_status": routing_registry_status,
+            "validation_mode": routing_validation_mode,
+            "authoritative": routing_authoritative,
+            "executable": routing_executable,
             "registry_digest": manifest_sha,
             "selected_profile": profile_name,
             "selected_capabilities": selected_capabilities,

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import errno
 import hashlib
 import inspect
 import json
@@ -19,7 +20,7 @@ from scripts import finalize_component_registry_activation as finalizer
 from scripts.path_authority import ProjectPathAuthority
 
 
-class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
+class LegacyStage1ActivationFinalizerExamples:
     def git(self, repository: Path, *arguments: str) -> str:
         completed = subprocess.run(
             ["git", "-C", str(repository), *arguments],
@@ -641,6 +642,352 @@ class ComponentRegistryActivationFinalizerTests(unittest.TestCase):
                     active,
                     observations,
                 )
+
+
+class ComponentRegistryStage2FinalizerTests(unittest.TestCase):
+    def setUp(self):
+        self.registry = json.loads(
+            finalizer.registry.DEFAULT_REGISTRY.read_text(encoding="utf-8")
+        )
+        self.revision = "1" * 40
+        self.evidence = {
+            "adopted_by": "@Thorncrag",
+            "adopted_at": "2026-07-31T12:00:00-04:00",
+            "pull_request": "github-review:Thorncrag/ARRP#501",
+            "base_revision": "3" * 40,
+            "reviewed_head": "2" * 40,
+            "merge_commit": self.revision,
+            "checks_revision": "2" * 40,
+            "checks_state": "success",
+        }
+
+    def authority(self, temporary: str) -> ProjectPathAuthority:
+        root = Path(temporary)
+        repository = root / "repository"
+        state = root / "state"
+        output = root / "output"
+        for directory in (repository, state, output):
+            directory.mkdir(mode=0o700)
+        return ProjectPathAuthority.fixture(
+            root,
+            repository_root=repository,
+            state_root=state,
+            output_root=output,
+        )
+
+    def test_fixture_writes_exact_owner_only_digest_receipt(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority = self.authority(temporary)
+            result = finalizer.verify_stage2_fixture_and_write(
+                authority,
+                self.registry,
+                canonical_revision=self.revision,
+                adoption_evidence=self.evidence,
+            )
+            receipt = authority.state_root / result["receipt_path"]
+            metadata = receipt.stat()
+            self.assertEqual(stat.S_IMODE(metadata.st_mode), 0o600)
+            self.assertEqual(metadata.st_uid, os.getuid())
+            self.assertEqual(receipt.stem, result["registry_sha256"])
+            payload = json.loads(receipt.read_text(encoding="utf-8"))
+            self.assertEqual(payload["validation_mode"], "live_authority_validation")
+            self.assertEqual(payload["canonical_revision"], self.revision)
+
+    def test_existing_receipt_is_never_overwritten(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority = self.authority(temporary)
+            finalizer.verify_stage2_fixture_and_write(
+                authority,
+                self.registry,
+                canonical_revision=self.revision,
+                adoption_evidence=self.evidence,
+            )
+            with self.assertRaisesRegex(
+                finalizer.ActivationFinalizationError, "already exists"
+            ):
+                finalizer.verify_stage2_fixture_and_write(
+                    authority,
+                    self.registry,
+                    canonical_revision=self.revision,
+                    adoption_evidence=self.evidence,
+                )
+
+    def test_fixture_authority_and_closed_evidence_are_required(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority = self.authority(temporary)
+            forged = copy.copy(authority)
+            object.__setattr__(forged, "mode", "repository_validation")
+            with self.assertRaisesRegex(
+                finalizer.ActivationFinalizationError, "fixture authority"
+            ):
+                finalizer.verify_stage2_fixture_and_write(
+                    forged,
+                    self.registry,
+                    canonical_revision=self.revision,
+                    adoption_evidence=self.evidence,
+                )
+            malformed = dict(self.evidence)
+            malformed["adopted_by"] = "@someone-else"
+            with self.assertRaisesRegex(
+                finalizer.ActivationFinalizationError, "not exact"
+            ):
+                finalizer.verify_stage2_fixture_and_write(
+                    authority,
+                    self.registry,
+                    canonical_revision=self.revision,
+                    adoption_evidence=malformed,
+                )
+            with self.assertRaisesRegex(
+                finalizer.ActivationFinalizationError, "revision is invalid"
+            ):
+                finalizer.verify_stage2_fixture_and_write(
+                    authority,
+                    self.registry,
+                    canonical_revision="not-a-revision",
+                    adoption_evidence=self.evidence,
+                )
+
+    def test_symlinked_receipt_ancestry_fails_closed(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority = self.authority(temporary)
+            outside = Path(temporary) / "outside"
+            outside.mkdir(mode=0o700)
+            (authority.state_root / "records").symlink_to(
+                outside,
+                target_is_directory=True,
+            )
+            with self.assertRaisesRegex(
+                finalizer.ActivationFinalizationError, "directory is unsafe"
+            ):
+                finalizer.verify_stage2_fixture_and_write(
+                    authority,
+                    self.registry,
+                    canonical_revision=self.revision,
+                    adoption_evidence=self.evidence,
+                )
+
+    def test_partial_write_leaves_no_receipt_or_temporary(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority = self.authority(temporary)
+            real_write = os.write
+            calls = 0
+
+            def interrupted(descriptor, value):
+                nonlocal calls
+                calls += 1
+                if calls > 1:
+                    raise OSError(errno.EIO, "interrupted fixture write")
+                return real_write(descriptor, value[:1])
+
+            with patch.object(finalizer.os, "write", side_effect=interrupted):
+                with self.assertRaisesRegex(
+                    finalizer.ActivationFinalizationError,
+                    "temporary write failed",
+                ):
+                    finalizer.verify_stage2_fixture_and_write(
+                        authority,
+                        self.registry,
+                        canonical_revision=self.revision,
+                        adoption_evidence=self.evidence,
+                    )
+            receipts = authority.state_root / "records" / "governance" / "component-registry" / "activation-readbacks"
+            self.assertFalse(receipts.exists() and any(receipts.iterdir()))
+
+    def test_preexisting_hidden_receipt_residue_fails_closed_and_is_preserved(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority = self.authority(temporary)
+            receipts = (
+                authority.state_root
+                / "records"
+                / "governance"
+                / "component-registry"
+                / "activation-readbacks"
+            )
+            current = authority.state_root
+            for part in (
+                "records",
+                "governance",
+                "component-registry",
+                "activation-readbacks",
+            ):
+                current = current / part
+                current.mkdir(mode=0o700)
+            receipts = current
+            residue = receipts / ".interrupted-receipt"
+            residue.write_text("preserve for review\n", encoding="utf-8")
+            residue.chmod(0o600)
+            with self.assertRaisesRegex(
+                finalizer.ActivationFinalizationError,
+                "unexpected temporary state",
+            ):
+                finalizer.verify_stage2_fixture_and_write(
+                    authority,
+                    self.registry,
+                    canonical_revision=self.revision,
+                    adoption_evidence=self.evidence,
+                )
+            self.assertEqual(
+                residue.read_text(encoding="utf-8"),
+                "preserve for review\n",
+            )
+
+    def test_receipt_selection_is_digest_bound_and_revision_aware(self):
+        stage2 = finalizer._build_stage2_synthetic_receipt(
+            self.registry,
+            canonical_revision=self.revision,
+            adoption_evidence=self.evidence,
+        )
+        stage1 = {
+            "verification_type": "component_registry_activation_readback",
+            "registry_sha256": "0" * 64,
+        }
+        selected = finalizer.select_component_registry_receipt(
+            self.registry, [stage1, stage2]
+        )
+        self.assertEqual(selected["receipt"], stage2)
+        with self.assertRaisesRegex(
+            finalizer.ActivationFinalizationError, "exactly one"
+        ):
+            finalizer.select_component_registry_receipt(self.registry, [stage1])
+
+    def test_no_argument_finalizer_uses_stage2_production_path(self):
+        receipt = {
+            "registry_sha256": finalizer.registry._canonical_registry_digest(
+                self.registry
+            )
+        }
+        adopted_view = {
+            "validation_mode": "adopted_configuration_validation",
+            "authoritative": False,
+            "executable": False,
+        }
+        live_view = {
+            "validation_mode": "live_authority_validation",
+            "authoritative": True,
+            "executable": True,
+            "live_authority_verified": True,
+            "activation_receipt_consulted": True,
+        }
+        class Authority:
+            repository_root = finalizer.registry.ROOT
+
+            def repository_path(self, _path, required=False):
+                self.required = required
+                return finalizer.registry.DEFAULT_REGISTRY
+
+        authority = Authority()
+        with (
+            patch.object(finalizer.ProjectPathAuthority, "production", return_value=authority),
+            patch.object(finalizer.registry, "_read_json", return_value=self.registry),
+            patch.object(
+                finalizer.registry,
+                "load_component_registry_configuration_routing_view",
+                return_value=adopted_view,
+            ),
+            patch.object(
+                finalizer,
+                "_collect_stage2_authenticated_observations",
+                return_value={"fixed": True},
+            ) as collect,
+            patch.object(
+                finalizer,
+                "_build_stage2_production_receipt",
+                return_value=receipt,
+            ) as build,
+            patch.object(finalizer, "_write_fixed_receipt") as write,
+            patch.object(
+                finalizer.registry,
+                "load_validated_component_registry_routing_view",
+                return_value=live_view,
+            ),
+        ):
+            result = finalizer.finalize_activation()
+        self.assertTrue(result["complete"])
+        self.assertEqual(result["verification_state"], "live_authority_validation")
+        collect.assert_called_once_with(authority)
+        build.assert_called_once_with(authority, self.registry, {"fixed": True})
+        write.assert_called_once_with(authority, receipt)
+
+    def test_stage2_production_receipt_binds_exact_pr_merge_and_checks(self):
+        class Authority:
+            mode = "production_canonical"
+            repository_root = finalizer.registry.ROOT
+
+        base = "1" * 40
+        reviewed = "2" * 40
+        merge = "3" * 40
+        observations = {
+            "repository": "Thorncrag/ARRP",
+            "default_branch": "main",
+            "pull_request_number": 501,
+            "pull_request_state": "closed",
+            "pull_request_merged": True,
+            "pull_request_auto_merge": None,
+            "merged_by": "Thorncrag",
+            "pull_request_base_repository": "Thorncrag/ARRP",
+            "pull_request_base_branch": "main",
+            "pull_request_base_revision": base,
+            "reviewed_head_revision": reviewed,
+            "merge_commit_sha": merge,
+            "merged_at": "2026-08-01T12:02:00Z",
+            "check_runs": [
+                {
+                    "name": "ARRP Validation",
+                    "head_sha": reviewed,
+                    "status": "completed",
+                    "conclusion": "success",
+                    "completed_at": "2026-08-01T12:01:00Z",
+                    "app": {"id": 1},
+                }
+            ],
+            "check_runs_total_count": 1,
+            "check_runs_complete": True,
+            "legacy_statuses": [],
+            "legacy_statuses_complete": True,
+            "required_status_checks": [
+                {"context": "ARRP Validation", "app_id": 1}
+            ],
+            "requirements_complete": True,
+            "remote_main_revision": merge,
+            "reviewed_registry": self.registry,
+            "remote_registry": self.registry,
+            "local_revision": merge,
+            "origin_main_revision": merge,
+            "verified_at": "2026-08-01T12:03:00Z",
+        }
+        with (
+            patch.object(finalizer.registry, "validate_stage2_registry"),
+            patch.object(
+                finalizer,
+                "_git",
+                return_value=f"{merge} {base} {reviewed}",
+            ),
+        ):
+            receipt = finalizer._build_stage2_production_receipt(
+                Authority(),
+                self.registry,
+                observations,
+            )
+        self.assertEqual(receipt["canonical_revision"], merge)
+        self.assertEqual(receipt["adoption_evidence"]["base_revision"], base)
+        self.assertEqual(
+            receipt["adoption_evidence"]["pull_request"],
+            "github-review:Thorncrag/ARRP#501",
+        )
+        wrong = dict(observations)
+        wrong["pull_request_number"] = 502
+        with (
+            patch.object(finalizer.registry, "validate_stage2_registry"),
+            self.assertRaisesRegex(
+                finalizer.ActivationFinalizationError,
+                "identity differs",
+            ),
+        ):
+            finalizer._build_stage2_production_receipt(
+                Authority(),
+                self.registry,
+                wrong,
+            )
 
 
 if __name__ == "__main__":

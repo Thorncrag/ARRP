@@ -574,10 +574,22 @@ class GitHubDisclosureGateTests(unittest.TestCase):
             "public-research-and-proposals",
         )
 
+    def test_public_project_proposal_scope_is_explicitly_classified(self) -> None:
+        family = MODULE._resolve_family(
+            self.policy,
+            path="framework/proposals/component-registry-stage2-design.md",
+            producer="interactive-reviewed-github",
+            requested_family=None,
+        )
+        self.assertEqual(family["id"], "public-research-and-proposals")
+        self.assertEqual(family["category"], "public_by_design")
+
     def test_component_registry_archive_targets_have_exact_public_families(
         self,
     ) -> None:
         expected = {
+            "framework/archive/authorities/AGENT_BOT_REGISTRY.md":
+                "portable-automation-and-controls",
             "framework/archive/authorities/PROJECT_STRUCTURE.md":
                 "public-governance-summary",
             "framework/archive/authorities/REPOSITORY_MAP.md":
