@@ -519,6 +519,20 @@ def _validated_required_check_evidence(
     checks = observations["check_runs"]
     statuses = observations["legacy_statuses"]
     evidence: list[dict[str, Any]] = []
+    evidence_by_identity: dict[tuple[str, int | None], dict[str, Any]] = {}
+
+    def include(item: dict[str, Any]) -> None:
+        identity = (str(item["context"]), item.get("app_id"))
+        existing = evidence_by_identity.get(identity)
+        if existing is not None:
+            if existing != item:
+                raise ActivationFinalizationError(
+                    "required check resolves to conflicting evidence"
+                )
+            return
+        evidence_by_identity[identity] = item
+        evidence.append(item)
+
     for requirement in observations["required_status_checks"]:
         context = requirement["context"]
         app_id = requirement["app_id"]
@@ -530,7 +544,7 @@ def _validated_required_check_evidence(
         ]
         if matching_checks:
             item = matching_checks[0]
-            evidence.append({
+            include({
                 "evidence_type": "check_run",
                 "context": context,
                 "app_id": item.get("app", {}).get("id"),
@@ -542,7 +556,7 @@ def _validated_required_check_evidence(
             item for item in statuses
             if item.get("context") == context and item.get("sha") == reviewed_head
         )
-        evidence.append({
+        include({
             "evidence_type": "commit_status",
             "context": context,
             "app_id": None,

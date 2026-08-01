@@ -96,7 +96,7 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         model = self.registry["authority_digest_model"]
         self.assertEqual(
             model,
-            registry._expected_stage2_authority_digest_model(2),
+            registry._expected_stage2_authority_digest_model(3),
         )
         schema = load_json(SCHEMA_PATH)
         registry._validate_against_schema(
@@ -237,7 +237,7 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         )
 
         generation = copy.deepcopy(refreshed)
-        generation["authority_digest_model"]["generation"] = 3
+        generation["authority_digest_model"]["generation"] = 4
         self.assertFalse(
             registry._stage2_currentness_only_equivalent(
                 self.registry,

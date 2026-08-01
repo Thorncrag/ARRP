@@ -7,13 +7,13 @@
     "mode": "proposed_revision_validation",
     "design_id": "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR",
     "design_revision": "sha256:16c7801b08397a640829bcb9141de7482c68ea9d9aa793fba0d1080fea9d95b0",
-    "repository_base_revision": "5f4764791315a094c50ba95140cb4fabcf70ea7f",
+    "repository_base_revision": "252980405de12d615ec3a9f315bf725f5d1d73ad",
     "live_authority": false
   },
   "authority_digest_model": {
     "schema_version": 1,
     "protocol": "component_registry_stage2_authority_digest_v1",
-    "generation": 2,
+    "generation": 3,
     "hash_algorithm": "sha256",
     "canonicalization": "utf8_sorted_key_compact_json_v1",
     "domain": "arrp.component_registry.stage2.authority_digest",
@@ -8293,7 +8293,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "9abe1d292420aa119b411c00a92fa7a6948e6b15744b37470093c6a70317a713",
+            "sha256": "18894159194109ec24cffb4fb155f983f849c9720fb6cfa39877008049ce3848",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -8357,7 +8357,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "a57f2ae20b495994a4b13cc9e4a42dfbc985700685a42cb1c5210d39e0f7ff42",
+            "sha256": "bfc87e52b541120e081ae2b4a7c068945499c9bfb86af45b72740c401d52aa2a",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -8423,7 +8423,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "6941ceb68825c511b16d239b709cc3541075104547f6afd1ba592676fb691a0b",
+            "sha256": "f987991fabf1e6e9b27574d24cdbb753f27da5af77f268b14027ceeb56e1eee2",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -8486,7 +8486,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "abaa07250a2fd9539d36e1e3594a4f9c6ce7248a2900dc1aae0855ce1f9b45c9",
+            "sha256": "50aeaeb51ed8cbace96fa7d3d2e716371b6c479e12e2f35d65a407dcdb772b2d",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -14123,6 +14123,15 @@
         "event": "component_registry_codeowners_routing_authority_revision",
         "effective_date": "2026-08-01",
         "authority_generation": 2,
+        "source_ids": [
+          "owner_benjamin_codeowners_approval",
+          "codeowners_contract_revision"
+        ]
+      },
+      {
+        "event": "authority_receipt_required_check_canonicalization",
+        "effective_date": "2026-08-01",
+        "authority_generation": 3,
         "source_ids": [
           "owner_benjamin_codeowners_approval",
           "codeowners_contract_revision"
