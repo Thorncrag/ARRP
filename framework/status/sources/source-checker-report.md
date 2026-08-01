@@ -15,13 +15,13 @@ Eligible URLs: **2055**
 
 | Classification | Count |
 |---|---:|
-| access restricted | 716 |
-| broken | 14 |
+| access restricted | 734 |
+| broken | 13 |
 | identity mismatch | 3 |
-| identity-preserving redirect | 99 |
-| review required | 81 |
-| transient failure | 13 |
-| verified | 1129 |
+| identity-preserving redirect | 97 |
+| review required | 83 |
+| transient failure | 15 |
+| verified | 1110 |
 
 ## Exceptions requiring attention
 
@@ -31,19 +31,24 @@ Eligible URLs: **2055**
 | SRC-0003 | review required | 200 | https://apnews.com/article/kilmar-abrego-garcia-trump-el-salvador-return-b844a1e652cf639be5b4400ae735003f |
 | SRC-0004 | review required | 200 | https://apnews.com/article/trump-el-salvador-deportation-appeals-court-df8ccaa328a35334c06aa9655ae005eb |
 | SRC-0006 | access restricted | 403 | HTTP 403 |
+| SRC-0007 | access restricted | 403 | HTTP 403 |
 | SRC-0009 | access restricted | 403 | HTTP 403 |
-| SRC-0011 | access restricted | 403 | HTTP 403 |
+| SRC-0010 | access restricted | 403 | HTTP 403 |
 | SRC-0012 | access restricted | 403 | HTTP 403 |
 | SRC-0013 | access restricted | 403 | HTTP 403 |
 | SRC-0014 | access restricted | 403 | HTTP 403 |
+| SRC-0015 | access restricted | 403 | HTTP 403 |
 | SRC-0016 | access restricted | 403 | HTTP 403 |
 | SRC-0017 | access restricted | 403 | HTTP 403 |
+| SRC-0018 | access restricted | 403 | HTTP 403 |
 | SRC-0019 | access restricted | 403 | HTTP 403 |
 | SRC-0020 | access restricted | 403 | HTTP 403 |
 | SRC-0021 | access restricted | 403 | HTTP 403 |
-| SRC-0022 | access restricted | 403 | HTTP 403 |
 | SRC-0023 | access restricted | 403 | HTTP 403 |
+| SRC-0024 | access restricted | 403 | HTTP 403 |
 | SRC-0025 | access restricted | 403 | HTTP 403 |
+| SRC-0026 | access restricted | 403 | HTTP 403 |
+| SRC-0035 | access restricted | 403 | HTTP 403 |
 | SRC-0036 | access restricted | 403 | HTTP 403 |
 | SRC-0037 | access restricted | 403 | HTTP 403 |
 | SRC-0045 | review required | 200 | https://www.law.cornell.edu/uscode/text/18/1385 |
@@ -58,6 +63,8 @@ Eligible URLs: **2055**
 | SRC-0060 | review required | 200 | https://www.law.cornell.edu/uscode/text/3/110 |
 | SRC-0062 | review required | 200 | https://www.law.cornell.edu/uscode/text/5/2302 |
 | SRC-0063 | broken | 404 | HTTP 404 |
+| SRC-0068 | access restricted | 403 | HTTP 403 |
+| SRC-0069 | access restricted | 403 | HTTP 403 |
 | SRC-0070 | access restricted | 403 | HTTP 403 |
 | SRC-0071 | broken | 404 | HTTP 404 |
 | SRC-0072 | access restricted | 401 | HTTP 401 |
@@ -66,52 +73,45 @@ Eligible URLs: **2055**
 | SRC-0117 | transient failure | — | The read operation timed out |
 | SRC-0119 | review required | 200 | https://unblock.federalregister.gov/ |
 | SRC-0120 | review required | 200 | https://unblock.federalregister.gov/ |
-| SRC-0125 | access restricted | 403 | HTTP 403 |
+| SRC-0123 | access restricted | 403 | HTTP 403 |
 | SRC-0135 | access restricted | 403 | HTTP 403 |
 | SRC-0156 | access restricted | 403 | HTTP 403 |
 | SRC-0167 | transient failure | — | The read operation timed out |
 | SRC-0168 | review required | 200 | https://unblock.federalregister.gov/ |
 | SRC-0172 | broken | 404 | HTTP 404 |
 | SRC-0173 | access restricted | 403 | HTTP 403 |
-| SRC-0174 | access restricted | 403 | HTTP 403 |
 | SRC-0175 | review required | 200 | https://unblock.federalregister.gov/ |
 | SRC-0178 | access restricted | 403 | HTTP 403 |
 | SRC-0182 | access restricted | 403 | HTTP 403 |
-| SRC-0183 | access restricted | 403 | HTTP 403 |
-| SRC-0192 | access restricted | 403 | HTTP 403 |
 | SRC-0193 | access restricted | 403 | HTTP 403 |
 | SRC-0195 | access restricted | 403 | HTTP 403 |
 | SRC-0201 | review required | 406 | HTTP 406 |
 | SRC-0218 | review required | 200 | https://unblock.federalregister.gov/ |
 | SRC-0219 | access restricted | 403 | HTTP 403 |
 | SRC-0220 | access restricted | 403 | HTTP 403 |
-| SRC-0226 | access restricted | 403 | HTTP 403 |
 | SRC-0228 | transient failure | — | The read operation timed out |
 | SRC-0229 | access restricted | 403 | HTTP 403 |
-| SRC-0230 | access restricted | 403 | HTTP 403 |
 | SRC-0231 | access restricted | 403 | HTTP 403 |
 | SRC-0232 | access restricted | 403 | HTTP 403 |
 | SRC-0233 | transient failure | — | The read operation timed out |
 | SRC-0236 | review required | 200 | https://www.govinfo.gov/content/pkg/PLAW-119publ21/pdf/PLAW-119publ21.pdf |
 | SRC-0237 | transient failure | — | The read operation timed out |
-| SRC-0238 | access restricted | 403 | HTTP 403 |
 | SRC-0239 | access restricted | 403 | HTTP 403 |
-| SRC-0244 | access restricted | 403 | HTTP 403 |
+| SRC-0240 | access restricted | 403 | HTTP 403 |
 | SRC-0251 | broken | 404 | HTTP 404 |
-| SRC-0253 | access restricted | 403 | HTTP 403 |
 | SRC-0255 | access restricted | 403 | HTTP 403 |
 | SRC-0256 | access restricted | 403 | HTTP 403 |
 | SRC-0261 | access restricted | 403 | HTTP 403 |
+| SRC-0265 | access restricted | 403 | HTTP 403 |
 | SRC-0266 | access restricted | 403 | HTTP 403 |
+| SRC-0272 | access restricted | 403 | HTTP 403 |
 | SRC-0273 | access restricted | 403 | HTTP 403 |
-| SRC-0285 | access restricted | 403 | HTTP 403 |
 | SRC-0286 | access restricted | 403 | HTTP 403 |
+| SRC-0287 | access restricted | 403 | HTTP 403 |
 | SRC-0288 | access restricted | 403 | HTTP 403 |
 | SRC-0290 | review required | 200 | https://www.fec.gov/resources/cms-content/documents/federalelections00.pdf |
 | SRC-0292 | review required | 200 | https://www.fec.gov/resources/cms-content/documents/federalelections2016.xlsx |
-| SRC-0294 | transient failure | — | timed out |
-| SRC-0295 | transient failure | — | timed out |
-| SRC-0296 | transient failure | — | timed out |
+| SRC-0294 | review required | 200 | https://uscode.house.gov/docnotfound.xhtml |
 | SRC-0301 | review required | 200 | https://www.govinfo.gov/content/pkg/BILLS-117s2391is/pdf/BILLS-117s2391is.pdf |
 | SRC-0302 | review required | 200 | https://www.govinfo.gov/content/pkg/BILLS-117hr5410ih/pdf/BILLS-117hr5410ih.pdf |
 | SRC-0305 | review required | 200 | https://www.justice.gov/olc/file/2011-04-01-libya-deployment/dl |
@@ -119,66 +119,79 @@ Eligible URLs: **2055**
 | SRC-0308 | access restricted | 403 | HTTP 403 |
 | SRC-0310 | access restricted | 403 | HTTP 403 |
 | SRC-0311 | review required | 200 | https://www.govinfo.gov/content/pkg/BILLS-115s2644rs/pdf/BILLS-115s2644rs.pdf |
-| SRC-0313 | access restricted | 403 | HTTP 403 |
 | SRC-0314 | access restricted | 403 | HTTP 403 |
 | SRC-0320 | review required | 200 | https://unblock.federalregister.gov/ |
 | SRC-0339 | access restricted | 403 | HTTP 403 |
 | SRC-0350 | access restricted | 403 | HTTP 403 |
 | SRC-0357 | access restricted | 403 | HTTP 403 |
 | SRC-0358 | access restricted | 403 | HTTP 403 |
+| SRC-0359 | access restricted | 403 | HTTP 403 |
+| SRC-0360 | access restricted | 403 | HTTP 403 |
 | SRC-0370 | access restricted | 403 | HTTP 403 |
 | SRC-0372 | access restricted | 403 | HTTP 403 |
-| SRC-0376 | access restricted | 403 | HTTP 403 |
+| SRC-0373 | access restricted | 403 | HTTP 403 |
+| SRC-0375 | access restricted | 403 | HTTP 403 |
 | SRC-0377 | review required | 200 | https://www.govinfo.gov/content/pkg/BILLS-119hjres54ih/html/BILLS-119hjres54ih.htm |
 | SRC-0378 | review required | 200 | https://www.govinfo.gov/content/pkg/BILLS-118hjres13ih/html/BILLS-118hjres13ih.htm |
+| SRC-0379 | access restricted | 403 | HTTP 403 |
 | SRC-0380 | access restricted | 403 | HTTP 403 |
+| SRC-0381 | access restricted | 403 | HTTP 403 |
 | SRC-0382 | access restricted | 403 | HTTP 403 |
 | SRC-0383 | access restricted | 403 | HTTP 403 |
-| SRC-0384 | access restricted | 403 | HTTP 403 |
 | SRC-0385 | access restricted | 403 | HTTP 403 |
-| SRC-0386 | access restricted | 403 | HTTP 403 |
 | SRC-0400 | transient failure | — | The read operation timed out |
 | SRC-0407 | access restricted | 403 | HTTP 403 |
 | SRC-0408 | access restricted | 403 | HTTP 403 |
+| SRC-0409 | access restricted | 403 | HTTP 403 |
+| SRC-0412 | access restricted | 403 | HTTP 403 |
 | SRC-0417 | access restricted | 403 | HTTP 403 |
+| SRC-0418 | access restricted | 403 | HTTP 403 |
 | SRC-0419 | access restricted | 403 | HTTP 403 |
-| SRC-0429 | broken | 404 | HTTP 404 |
+| SRC-0428 | access restricted | 403 | HTTP 403 |
+| SRC-0429 | access restricted | 403 | HTTP 403 |
 | SRC-0430 | access restricted | 403 | HTTP 403 |
 | SRC-0432 | broken | 404 | HTTP 404 |
+| SRC-0433 | transient failure | — | The read operation timed out |
+| SRC-0434 | transient failure | — | The read operation timed out |
 | SRC-0435 | access restricted | 403 | HTTP 403 |
 | SRC-0437 | review required | 200 | https://storage.courtlistener.com/recap/gov.uscourts.gand.284055/gov.uscourts.gand.284055.79.0.pdf |
 | SRC-0442 | broken | 404 | HTTP 404 |
-| SRC-0448 | access restricted | 403 | HTTP 403 |
+| SRC-0445 | access restricted | 403 | HTTP 403 |
 | SRC-0457 | access restricted | 403 | HTTP 403 |
+| SRC-0458 | access restricted | 403 | HTTP 403 |
+| SRC-0459 | access restricted | 403 | HTTP 403 |
 | SRC-0468 | access restricted | 403 | HTTP 403 |
-| SRC-0469 | access restricted | 403 | HTTP 403 |
-| SRC-0470 | access restricted | 403 | HTTP 403 |
+| SRC-0471 | access restricted | 403 | HTTP 403 |
+| SRC-0473 | access restricted | 403 | HTTP 403 |
+| SRC-0474 | access restricted | 403 | HTTP 403 |
+| SRC-0475 | access restricted | 403 | HTTP 403 |
 | SRC-0477 | transient failure | 500 | HTTP 500 |
 | SRC-0478 | access restricted | 403 | HTTP 403 |
 | SRC-0479 | access restricted | 403 | HTTP 403 |
 | SRC-0480 | review required | 200 | https://www.govinfo.gov/content/pkg/BILLS-119hr4632ih/html/BILLS-119hr4632ih.htm |
 | SRC-0487 | transient failure | — | [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010) |
-| SRC-0500 | access restricted | 403 | HTTP 403 |
 | SRC-0501 | access restricted | 403 | HTTP 403 |
 | SRC-0508 | review required | 406 | HTTP 406 |
 | SRC-0516 | access restricted | 403 | HTTP 403 |
-| SRC-0517 | review required | 200 | https://www.congress.gov/committee-print/116th-congress/house-committee-print/35197 |
+| SRC-0517 | access restricted | 403 | HTTP 403 |
 | SRC-0519 | access restricted | 403 | HTTP 403 |
 | SRC-0520 | access restricted | 403 | HTTP 403 |
+| SRC-0534 | access restricted | 403 | HTTP 403 |
 | SRC-0537 | transient failure | — | The read operation timed out |
+| SRC-0539 | access restricted | 403 | HTTP 403 |
 | SRC-0545 | access restricted | 403 | HTTP 403 |
 | SRC-0546 | access restricted | 403 | HTTP 403 |
 | SRC-0553 | access restricted | 403 | HTTP 403 |
 | SRC-0554 | access restricted | 403 | HTTP 403 |
 | SRC-0555 | access restricted | 403 | HTTP 403 |
 | SRC-0556 | access restricted | 403 | HTTP 403 |
+| SRC-0560 | access restricted | 403 | HTTP 403 |
 | SRC-0567 | access restricted | 403 | HTTP 403 |
 | SRC-0595 | review required | 200 | https://www.supremecourt.gov/opinions/19pdf/19-635_o7jq.pdf |
 | SRC-0608 | review required | 200 | https://oversightdemocrats.house.gov/imo/media/doc/2026-03-24garciacasarlettertocuffariremartinezdeath.pdf |
 | SRC-0610 | identity mismatch | 200 | https://clearinghouse-umich-production.s3.amazonaws.com/media/doc/171979.pdf |
 | SRC-0614 | review required | 200 | https://www.govinfo.gov/content/pkg/PLAW-113publ242/pdf/PLAW-113publ242.pdf |
 | SRC-0617 | access restricted | 403 | HTTP 403 |
-| SRC-0618 | access restricted | 403 | HTTP 403 |
 | SRC-0627 | review required | 200 | https://www.supremecourt.gov/opinions/24pdf/24a884diff2_hgdj.pdf |
 | SRC-0653 | review required | 200 | https://tile.loc.gov/storage-services/service/ll/usrep/usrep505/usrep505788/usrep505788.pdf |
 | SRC-0654 | review required | 200 | https://www.govinfo.gov/app/details/USREPORTS-71/USREPORTS-71-475 |
@@ -188,7 +201,6 @@ Eligible URLs: **2055**
 | SRC-0668 | access restricted | 403 | HTTP 403 |
 | SRC-0678 | access restricted | 403 | HTTP 403 |
 | SRC-0680 | access restricted | 403 | HTTP 403 |
-| SRC-0681 | access restricted | 403 | HTTP 403 |
 | SRC-0682 | access restricted | 403 | HTTP 403 |
 | SRC-0683 | access restricted | 403 | HTTP 403 |
 | SRC-0684 | access restricted | 403 | HTTP 403 |
@@ -199,13 +211,20 @@ Eligible URLs: **2055**
 | SRC-0695 | review required | 200 | https://www.supremecourt.gov/opinions/boundvolumes/523bv.pdf |
 | SRC-0703 | review required | 200 | https://www.supremecourt.gov/opinions/18pdf/18-281_6j37.pdf |
 | SRC-0709 | access restricted | 403 | HTTP 403 |
+| SRC-0714 | transient failure | — | timed out |
+| SRC-0715 | transient failure | — | timed out |
+| SRC-0716 | transient failure | — | timed out |
 | SRC-0717 | access restricted | 403 | HTTP 403 |
-| SRC-0738 | access restricted | 403 | HTTP 403 |
+| SRC-0726 | access restricted | 403 | HTTP 403 |
+| SRC-0727 | access restricted | 403 | HTTP 403 |
 | SRC-0739 | access restricted | 403 | HTTP 403 |
+| SRC-0743 | access restricted | 403 | HTTP 403 |
 | SRC-0744 | access restricted | 403 | HTTP 403 |
 | SRC-0754 | broken | 404 | HTTP 404 |
 | SRC-0755 | review required | 200 | https://www.supremecourt.gov/opinions/boundvolumes/567bv.pdf |
 | SRC-0756 | review required | 200 | https://www.supremecourt.gov/opinions/17pdf/16-476_dbfi.pdf |
+| SRC-0761 | access restricted | 403 | HTTP 403 |
+| SRC-0764 | access restricted | 403 | HTTP 403 |
 | SRC-0780 | access restricted | 403 | HTTP 403 |
 | SRC-0787 | access restricted | 403 | HTTP 403 |
 | SRC-0788 | access restricted | 403 | HTTP 403 |
@@ -218,10 +237,12 @@ Eligible URLs: **2055**
 | SRC-0799 | access restricted | 403 | HTTP 403 |
 | SRC-0800 | access restricted | 403 | HTTP 403 |
 | SRC-0801 | access restricted | 403 | HTTP 403 |
+| SRC-0802 | access restricted | 403 | HTTP 403 |
 | SRC-0804 | access restricted | 403 | HTTP 403 |
 | SRC-0805 | access restricted | 403 | HTTP 403 |
 | SRC-0806 | review required | 200 | https://www.fec.gov/resources/cms-content/documents/usdcdc-mem-opinion-06-03-2025.pdf |
 | SRC-0807 | review required | 200 | https://www.supremecourt.gov/opinions/23pdf/22-976new_i4dk.pdf |
+| SRC-0808 | access restricted | 403 | HTTP 403 |
 | SRC-0810 | review required | 200 | https://www.supremecourt.gov/opinions/19pdf/19-431_5i36.pdf |
 | SRC-0811 | access restricted | 403 | HTTP 403 |
 | SRC-0831 | access restricted | 403 | HTTP 403 |
@@ -438,7 +459,7 @@ Eligible URLs: **2055**
 | SRC-1923 | access restricted | 403 | HTTP 403 |
 | SRC-1924 | access restricted | 403 | HTTP 403 |
 | SRC-1926 | access restricted | 403 | HTTP 403 |
-| SRC-1927 | access restricted | 403 | HTTP 403 |
+| SRC-1927 | review required | 200 | https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2025cv03114/640571/70/ |
 | SRC-1929 | access restricted | 403 | HTTP 403 |
 | SRC-1930 | access restricted | 403 | HTTP 403 |
 | SRC-1931 | access restricted | 403 | HTTP 403 |
@@ -630,7 +651,7 @@ Eligible URLs: **2055**
 | SRC-2142 | access restricted | 403 | HTTP 403 |
 | SRC-2143 | access restricted | 403 | HTTP 403 |
 | SRC-2145 | access restricted | 403 | HTTP 403 |
-| SRC-2147 | access restricted | 403 | HTTP 403 |
+| SRC-2147 | review required | 200 | https://law.justia.com/cases/federal/appellate-courts/ca4/25-1411/25-1411-2026-04-10.html |
 | SRC-2149 | access restricted | 403 | HTTP 403 |
 | SRC-2150 | access restricted | 403 | HTTP 403 |
 | SRC-2152 | access restricted | 403 | HTTP 403 |
@@ -707,51 +728,52 @@ Eligible URLs: **2055**
 | SRC-2266 | access restricted | 403 | HTTP 403 |
 | SRC-2267 | access restricted | 403 | HTTP 403 |
 | SRC-2268 | access restricted | 403 | HTTP 403 |
-| SRC-2269 | access restricted | 403 | HTTP 403 |
-| SRC-2270 | access restricted | 403 | HTTP 403 |
-| SRC-2271 | access restricted | 403 | HTTP 403 |
-| SRC-2272 | access restricted | 403 | HTTP 403 |
-| SRC-2273 | access restricted | 403 | HTTP 403 |
-| SRC-2274 | access restricted | 403 | HTTP 403 |
-| SRC-2275 | access restricted | 403 | HTTP 403 |
-| SRC-2276 | access restricted | 403 | HTTP 403 |
-| SRC-2277 | access restricted | 403 | HTTP 403 |
-| SRC-2278 | access restricted | 403 | HTTP 403 |
-| SRC-2279 | access restricted | 403 | HTTP 403 |
-| SRC-2280 | access restricted | 403 | HTTP 403 |
-| SRC-2281 | access restricted | 403 | HTTP 403 |
-| SRC-2282 | access restricted | 403 | HTTP 403 |
-| SRC-2283 | access restricted | 403 | HTTP 403 |
-| SRC-2284 | access restricted | 403 | HTTP 403 |
-| SRC-2285 | access restricted | 403 | HTTP 403 |
-| SRC-2286 | access restricted | 403 | HTTP 403 |
-| SRC-2287 | access restricted | 403 | HTTP 403 |
-| SRC-2288 | access restricted | 403 | HTTP 403 |
-| SRC-2289 | access restricted | 403 | HTTP 403 |
+| SRC-2269 | access restricted | 429 | HTTP 429 |
+| SRC-2270 | access restricted | 429 | HTTP 429 |
+| SRC-2271 | access restricted | 429 | HTTP 429 |
+| SRC-2272 | access restricted | 429 | HTTP 429 |
+| SRC-2273 | access restricted | 429 | HTTP 429 |
+| SRC-2274 | access restricted | 429 | HTTP 429 |
+| SRC-2275 | access restricted | 429 | HTTP 429 |
+| SRC-2276 | access restricted | 429 | HTTP 429 |
+| SRC-2277 | access restricted | 429 | HTTP 429 |
+| SRC-2278 | access restricted | 429 | HTTP 429 |
+| SRC-2279 | access restricted | 429 | HTTP 429 |
+| SRC-2280 | access restricted | 429 | HTTP 429 |
+| SRC-2281 | access restricted | 429 | HTTP 429 |
+| SRC-2282 | access restricted | 429 | HTTP 429 |
+| SRC-2283 | access restricted | 429 | HTTP 429 |
+| SRC-2284 | access restricted | 429 | HTTP 429 |
+| SRC-2285 | access restricted | 429 | HTTP 429 |
+| SRC-2286 | access restricted | 429 | HTTP 429 |
+| SRC-2287 | access restricted | 429 | HTTP 429 |
+| SRC-2288 | access restricted | 429 | HTTP 429 |
+| SRC-2289 | access restricted | 429 | HTTP 429 |
 | SRC-2290 | access restricted | 403 | HTTP 403 |
 | SRC-2293 | access restricted | 403 | HTTP 403 |
-| SRC-2295 | access restricted | 403 | HTTP 403 |
-| SRC-2296 | access restricted | 403 | HTTP 403 |
-| SRC-2297 | access restricted | 403 | HTTP 403 |
-| SRC-2298 | access restricted | 403 | HTTP 403 |
-| SRC-2299 | access restricted | 403 | HTTP 403 |
-| SRC-2301 | access restricted | 403 | HTTP 403 |
-| SRC-2302 | access restricted | 403 | HTTP 403 |
-| SRC-2303 | access restricted | 403 | HTTP 403 |
-| SRC-2304 | access restricted | 403 | HTTP 403 |
-| SRC-2305 | access restricted | 403 | HTTP 403 |
-| SRC-2306 | access restricted | 403 | HTTP 403 |
-| SRC-2307 | access restricted | 403 | HTTP 403 |
-| SRC-2308 | access restricted | 403 | HTTP 403 |
-| SRC-2309 | access restricted | 403 | HTTP 403 |
-| SRC-2310 | access restricted | 403 | HTTP 403 |
-| SRC-2311 | access restricted | 403 | HTTP 403 |
-| SRC-2312 | access restricted | 403 | HTTP 403 |
+| SRC-2294 | access restricted | 403 | HTTP 403 |
+| SRC-2295 | access restricted | 429 | HTTP 429 |
+| SRC-2296 | access restricted | 429 | HTTP 429 |
+| SRC-2297 | access restricted | 429 | HTTP 429 |
+| SRC-2298 | access restricted | 429 | HTTP 429 |
+| SRC-2299 | access restricted | 429 | HTTP 429 |
+| SRC-2301 | access restricted | 429 | HTTP 429 |
+| SRC-2302 | access restricted | 429 | HTTP 429 |
+| SRC-2303 | access restricted | 429 | HTTP 429 |
+| SRC-2304 | access restricted | 429 | HTTP 429 |
+| SRC-2305 | access restricted | 429 | HTTP 429 |
+| SRC-2306 | access restricted | 429 | HTTP 429 |
+| SRC-2307 | access restricted | 429 | HTTP 429 |
+| SRC-2308 | access restricted | 429 | HTTP 429 |
+| SRC-2309 | access restricted | 429 | HTTP 429 |
+| SRC-2310 | access restricted | 429 | HTTP 429 |
+| SRC-2311 | access restricted | 429 | HTTP 429 |
+| SRC-2312 | access restricted | 429 | HTTP 429 |
 | SRC-2315 | access restricted | 403 | HTTP 403 |
 | SRC-2316 | access restricted | 403 | HTTP 403 |
-| SRC-2327 | access restricted | 403 | HTTP 403 |
-| SRC-2328 | access restricted | 403 | HTTP 403 |
-| SRC-2330 | access restricted | 403 | HTTP 403 |
+| SRC-2327 | access restricted | 429 | HTTP 429 |
+| SRC-2328 | access restricted | 429 | HTTP 429 |
+| SRC-2330 | access restricted | 429 | HTTP 429 |
 | SRC-2333 | access restricted | 429 | HTTP 429 |
 | SRC-2334 | access restricted | 429 | HTTP 429 |
 | SRC-2335 | access restricted | 429 | HTTP 429 |
@@ -836,14 +858,12 @@ Eligible URLs: **2055**
 | SRC-2597 | access restricted | 429 | HTTP 429 |
 | SRC-2598 | access restricted | 403 | HTTP 403 |
 | SRC-2599 | access restricted | 403 | HTTP 403 |
-| SRC-2601 | access restricted | 403 | HTTP 403 |
+| SRC-2600 | access restricted | 403 | HTTP 403 |
+| SRC-2602 | access restricted | 403 | HTTP 403 |
 | SRC-2603 | access restricted | 403 | HTTP 403 |
 | SRC-2608 | review required | 200 | https://www.govinfo.gov/content/pkg/USREPORTS-325/pdf/USREPORTS-325-91.pdf |
 | SRC-2609 | review required | 200 | https://www.supremecourt.gov/opinions/21pdf/21-147_g31h.pdf |
-| SRC-2610 | access restricted | 403 | HTTP 403 |
-| SRC-2611 | access restricted | 403 | HTTP 403 |
 | SRC-2612 | access restricted | 403 | HTTP 403 |
-| SRC-2613 | access restricted | 403 | HTTP 403 |
 | SRC-2622 | review required | 200 | https://storage.courtlistener.com/recap/gov.uscourts.cand.469028/gov.uscourts.cand.469028.1.0.pdf |
 | SRC-2623 | access restricted | 429 | HTTP 429 |
 | SRC-2633 | access restricted | 403 | HTTP 403 |
@@ -854,5 +874,6 @@ Eligible URLs: **2055**
 | SRC-2645 | access restricted | 403 | HTTP 403 |
 | SRC-2646 | access restricted | 403 | HTTP 403 |
 | SRC-2651 | access restricted | 403 | HTTP 403 |
+| SRC-2652 | access restricted | 403 | HTTP 403 |
 
 This report is diagnostic. The bot did not modify or substitute any cataloged source.
