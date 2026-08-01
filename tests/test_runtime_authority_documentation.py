@@ -100,7 +100,13 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
             encoding="utf-8"
         )
 
-        if self.registry["status"] == "candidate":
+        if self.registry.get("schema_version") == 2:
+            self.assertEqual(
+                self.registry["validation"]["mode"],
+                "proposed_revision_validation",
+            )
+            self.assertFalse(self.registry["validation"]["live_authority"])
+        elif self.registry["status"] == "candidate":
             self.assertFalse(
                 self.registry["context_routing"]["authoritative"]
             )
