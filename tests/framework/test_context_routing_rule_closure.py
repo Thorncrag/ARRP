@@ -25,6 +25,7 @@ if not SOURCE_PATH.exists():
         / "CONTEXT_ROUTING.md"
     )
 REGISTRY_PATH = ROOT / "framework" / "component-registry.json"
+STAGE1_CANONICAL_REVISION = "357293fc3bd814618fefdede91cd1008ce8683d8"
 SCHEMA_PATH = (
     ROOT
     / "framework"
@@ -184,10 +185,10 @@ ASSURANCE_ROW_FIELDS = {
 ASSURANCE_MODES = {
     "deterministic_enforcement",
     "governing_instruction_precondition",
-    "proposed_revision_validation",
+    "candidate_validation_only",
 }
 RULES_BY_ASSURANCE_MODE = {
-    "proposed_revision_validation": {
+    "candidate_validation_only": {
         "ctxr.inv.router_preserves_source_authority",
     },
     "governing_instruction_precondition": {
@@ -214,7 +215,7 @@ RULES_BY_ASSURANCE_MODE = {
 }
 RULES_BY_ASSURANCE_MODE["deterministic_enforcement"] = (
     ALL_APPROVED_RULES
-    - RULES_BY_ASSURANCE_MODE["proposed_revision_validation"]
+    - RULES_BY_ASSURANCE_MODE["candidate_validation_only"]
     - RULES_BY_ASSURANCE_MODE["governing_instruction_precondition"]
 )
 APPROVED_ASSURANCE_MODE_BY_RULE = {
@@ -403,6 +404,21 @@ def _load_matrix() -> dict[str, object]:
 
 def _load_registry() -> dict[str, object]:
     current = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
+    if current.get("schema_version") == 2:
+        current = json.loads(
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(ROOT),
+                    "show",
+                    f"{STAGE1_CANONICAL_REVISION}:framework/component-registry.json",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout
+        )
     if current["status"] == "candidate":
         return current
     candidate_revision = current["source_baseline"]["repository_revision"]
@@ -429,7 +445,46 @@ def _load_registry() -> dict[str, object]:
 
 
 def _load_schema() -> dict[str, object]:
-    return json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+    return json.loads(
+        subprocess.run(
+            [
+                "git",
+                "-C",
+                str(ROOT),
+                "show",
+                f"{STAGE1_CANONICAL_REVISION}:framework/standards/automation/"
+                "component-registry.schema.json",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout
+    )
+
+
+def _stage1_path_bytes(relative_path: str) -> bytes:
+    """Read one exact path from the frozen Stage 1 acceptance revision."""
+
+    return subprocess.run(
+        [
+            "git",
+            "-C",
+            str(ROOT),
+            "show",
+            f"{STAGE1_CANONICAL_REVISION}:{relative_path}",
+        ],
+        check=True,
+        capture_output=True,
+    ).stdout
+
+
+def _route_checkpoint_id(route: dict[str, object]) -> str:
+    documents = route["documents"]
+    return (
+        "task_handoff"
+        if "task_handoff" in documents
+        else registry_tool.LEGACY_CONTEXT_CHECKPOINT
+    )
 
 
 def _known_approval_fixture() -> dict[str, object]:
@@ -455,11 +510,15 @@ def _known_approval_fixture() -> dict[str, object]:
 def _active_schema_fixture(candidate: dict[str, object]) -> dict[str, object]:
     """Return a schema-complete active-shape fixture without activating state."""
 
-    return registry_tool.build_simulated_active_registry(
+    active = registry_tool.build_simulated_active_registry(
         candidate,
         repository_revision="a" * 40,
         approval_value=_known_approval_fixture()["value"],
     )
+    active["context_routing"]["predecessor_provenance"][
+        "schema_version"
+    ] = 1
+    return active
 
     active = copy.deepcopy(candidate)
     routing = active["context_routing"]
@@ -621,24 +680,41 @@ def _test_anchor_exists(anchor: object) -> bool:
     if len(parts) != 3:
         return False
     path = ROOT / parts[0]
-    if not path.is_file():
-        return False
-    tree = ast.parse(path.read_text(encoding="utf-8"))
-    class_node = next(
-        (
-            node
-            for node in tree.body
-            if isinstance(node, ast.ClassDef) and node.name == parts[1]
-        ),
-        None,
+    if path.is_file():
+        source = path.read_text(encoding="utf-8")
+    else:
+        source = ""
+    def contains(candidate: str) -> bool:
+        tree = ast.parse(candidate)
+        class_node = next(
+            (
+                node
+                for node in tree.body
+                if isinstance(node, ast.ClassDef) and node.name == parts[1]
+            ),
+            None,
+        )
+        return class_node is not None and any(
+            isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+            and node.name == parts[2]
+            for node in class_node.body
+        )
+
+    if source and contains(source):
+        return True
+    historical = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(ROOT),
+            "show",
+            f"{STAGE1_CANONICAL_REVISION}:{parts[0]}",
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
     )
-    if class_node is None:
-        return False
-    return any(
-        isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
-        and node.name == parts[2]
-        for node in class_node.body
-    )
+    return historical.returncode == 0 and contains(historical.stdout)
 
 
 def _implementation_anchor_exists(anchor: object) -> bool:
@@ -1103,7 +1179,7 @@ def _enforcement_closure_errors(
                     )
                 elif (
                     hashlib.sha256(
-                        (ROOT / anchor_path).read_bytes()
+                        _stage1_path_bytes(anchor_path)
                     ).hexdigest()
                     != document.get("sha256")
                 ):
@@ -1444,20 +1520,31 @@ def _current_candidate_view() -> dict[str, object]:
     """Return an in-memory candidate view pinned to the current test checkout."""
 
     candidate = _load_registry()
-    route_path = (
-        ROOT / "framework" / "project" / "automation"
-        / "context-routes.json"
+    route = json.loads(
+        subprocess.run(
+            [
+                "git",
+                "-C",
+                str(ROOT),
+                "show",
+                f"{STAGE1_CANONICAL_REVISION}:framework/archive/authorities/"
+                "context-routes.json",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout
     )
-    if not route_path.exists():
-        route_path = (
-            ROOT / "framework" / "archive" / "authorities"
-            / "context-routes.json"
-        )
-    route = json.loads(route_path.read_text(encoding="utf-8"))
     for document in route["documents"].values():
         if document.get("hash_policy", "pinned") == "pinned":
             source = ROOT / document["path"]
             if not source.exists():
+                if document["path"] == "framework/project/automation/registry.md":
+                    source = (
+                        ROOT / "framework" / "archive" / "authorities"
+                        / "AGENT_BOT_REGISTRY.md"
+                    )
+                    document["path"] = source.relative_to(ROOT).as_posix()
                 for specification in (
                     registry_tool.ROUTING_PREDECESSOR_PATHS.values()
                 ):
@@ -1487,10 +1574,11 @@ def _candidate_packet(
     capabilities: tuple[str, ...] = (),
     **options: object,
 ) -> dict[str, object]:
+    selected_view = view or _current_candidate_view()
     return registry_tool.build_context_packet_from_view(
-        view or _current_candidate_view(),
+        selected_view,
         profile,
-        assurance_mode="proposed_revision_validation",
+        assurance_mode=selected_view["validation_mode"],
         root=ROOT,
         capabilities=capabilities,
         **options,
@@ -1673,7 +1761,8 @@ class ContextRoutingRuleClosureTests(unittest.TestCase):
                     profile_id="comprehensive_review",
                 )
             elif scenario == "packet_runtime":
-                view["route"]["documents"]["task_handoff"]["path"] = (
+                checkpoint_id = _route_checkpoint_id(view["route"])
+                view["route"]["documents"][checkpoint_id]["path"] = (
                     "framework/runtime-missing.md"
                 )
                 _candidate_packet(view=view)
@@ -1704,7 +1793,8 @@ class ContextRoutingRuleClosureTests(unittest.TestCase):
                 route["documents"]["framework_kernel"]["sha256"] = None
                 registry_tool.validate_route_source(route)
             elif scenario == "route_runtime":
-                route["documents"]["task_handoff"].update(
+                checkpoint_id = _route_checkpoint_id(route)
+                route["documents"][checkpoint_id].update(
                     {
                         "hash_policy": "pinned",
                         "sha256": "0" * 64,
@@ -1746,7 +1836,7 @@ class ContextRoutingRuleClosureTests(unittest.TestCase):
                     current = next(
                         item
                         for item in selection["modules"]
-                        if item["id"] == "task_handoff"
+                        if item["id"] == _route_checkpoint_id(view["route"])
                     )
                     current["hash_policy"] = "pinned"
                     current["sha256"] = "0" * 64

@@ -7,7 +7,7 @@
     "mode": "proposed_revision_validation",
     "design_id": "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR",
     "design_revision": "sha256:16c7801b08397a640829bcb9141de7482c68ea9d9aa793fba0d1080fea9d95b0",
-    "repository_base_revision": "b94f6d71c5027517513c48222c87d345f0ea18e1",
+    "repository_base_revision": "fc1fb23be9e1db1c7630e1da37bebaa63274c869",
     "live_authority": false
   },
   "terminology": {
@@ -7392,7 +7392,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "16d3b0d0af87289689fdee7ef927ade4cd57b03f05b4e5a94d59218cdce641bf",
+            "sha256": "51abc9104abbf148c6b6d5ff27740be75ce23c325f70c90c7030f05629d3e194",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },

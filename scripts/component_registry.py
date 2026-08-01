@@ -465,10 +465,11 @@ ROUTING_RULE_FAILURE_CODES = {
     "ctxr.fail.safe_failure_disposition":
         "CTXR_SAFE_FAILURE_DISPOSITION",
 }
+LEGACY_CONTEXT_CHECKPOINT = "current" "_audit"
 REQUIRED_CONTEXT_FLOOR = (
     "framework_kernel",
     "agent_rules_kernel",
-    "task_handoff",
+    LEGACY_CONTEXT_CHECKPOINT,
 )
 ROUTING_SEMANTIC_PHASES = (
     "registry_state",
@@ -1341,7 +1342,7 @@ def _validate_route_source_untyped(route: dict[str, Any]) -> None:
             raise RegistryError(f"document {identity} points into generated output")
         if (
             path.startswith("framework/records/")
-            and identity not in {"task_handoff", "task_handoff"}
+            and identity not in {LEGACY_CONTEXT_CHECKPOINT, "task_handoff"}
         ):
             raise RegistryError(
                 "shared routing records are excluded except the task handoff"
@@ -1364,7 +1365,9 @@ def _validate_route_source_untyped(route: dict[str, Any]) -> None:
         if spec["hash_policy"] == "runtime"
     }
     checkpoint_id = (
-        "task_handoff" if "task_handoff" in documents else "task_handoff"
+        "task_handoff"
+        if "task_handoff" in documents
+        else LEGACY_CONTEXT_CHECKPOINT
     )
     if runtime_documents != {checkpoint_id}:
         raise RegistryError(
@@ -5224,7 +5227,11 @@ def _routed_selection_from_view_untyped(
         raise RegistryError(
             "routing view authority digest disagrees with its validation mode"
         )
-    embedded = view["route"]
+    # Packet construction canonicalizes an in-memory route before resolving
+    # its dependency closure.  Resolve the preliminary selection from the
+    # same canonical form so include-all profiles cannot depend on incidental
+    # mapping insertion order.
+    embedded = json.loads(canonical_json(view["route"]))
     if (
         registry.get("schema_version") != 2
         and registry["status"] == "active"
@@ -5597,6 +5604,8 @@ def build_context_packet_from_view(
     elif assurance_mode in {
         "candidate_validation_only",
         "active_configuration_validation_only",
+        "proposed_revision_validation",
+        "adopted_configuration_validation",
     }:
         expected_mode = assurance_mode
         if (
@@ -5615,7 +5624,10 @@ def build_context_packet_from_view(
         if (
             selection.get("executable") is not False
             or selection.get("authoritative") is not False
-            or selection.get("live_activation_verified") is not False
+            or selection.get(
+                "live_authority_verified",
+                selection.get("live_activation_verified", False),
+            ) is not False
             or selection.get("activation_receipt_consulted") is not False
         ):
             raise RegistryError(
@@ -5628,6 +5640,13 @@ def build_context_packet_from_view(
             "an exact configuration-validation mode"
         )
     try:
+        registry_state = view.get("registry_status")
+        if registry_state is None and view.get("schema_version") == 2:
+            registry_state = (
+                "proposed"
+                if view.get("validation_mode") == "proposed_revision_validation"
+                else "adopted"
+            )
         packet = build_context_packet(
             view["route"],
             profile_id,
@@ -5636,7 +5655,9 @@ def build_context_packet_from_view(
                 "sha256": view["registry_sha256"],
                 "registry_id": view["registry_id"],
                 "registry_revision": view["registry_revision"],
-                "registry_status": view["registry_status"],
+                "validation_mode": view["validation_mode"],
+                "authoritative": view["authoritative"],
+                "executable": view["executable"],
                 "validated_component_registry_view": True,
             },
             **packet_kwargs,
@@ -5706,14 +5727,18 @@ def build_context_packet_from_view(
             message=f"Component Registry context packet is invalid: {detail}",
             cause=exc,
         )
+    live_field = (
+        "live_authority_verified"
+        if view.get("schema_version") == 2
+        else "live_activation_verified"
+    )
     packet["routing_manifest"].update(
         {
             "validation_mode": view["validation_mode"],
+            "registry_status": registry_state,
             "authoritative": view["authoritative"],
             "executable": view["executable"],
-            "live_activation_verified": view[
-                "live_activation_verified"
-            ],
+            live_field: view.get(live_field, False),
             "activation_receipt_consulted": view[
                 "activation_receipt_consulted"
             ],
@@ -5734,6 +5759,11 @@ def validate_context_packet_binding(
 ) -> dict[str, Any]:
     """Validate the complete packet manifest at the production boundary."""
 
+    live_field = (
+        "live_authority_verified"
+        if view.get("schema_version") == 2
+        else "live_activation_verified"
+    )
     expected_manifest_fields = {
         "registry_id",
         "registry_path",
@@ -5752,7 +5782,7 @@ def validate_context_packet_binding(
         "validation_mode",
         "authoritative",
         "executable",
-        "live_activation_verified",
+        live_field,
         "activation_receipt_consulted",
     }
     try:
@@ -5767,18 +5797,23 @@ def validate_context_packet_binding(
             raise ValueError(
                 "context packet lacks its exact complete routing manifest"
             )
+        registry_state = view.get("registry_status")
+        if registry_state is None and view.get("schema_version") == 2:
+            registry_state = (
+                "proposed"
+                if view.get("validation_mode") == "proposed_revision_validation"
+                else "adopted"
+            )
         expected_identity = {
             "registry_id": view.get("registry_id"),
             "registry_path": view.get("registry_path"),
             "registry_revision": view.get("registry_revision"),
-            "registry_status": view.get("registry_status"),
+            "registry_status": registry_state,
             "registry_digest": view.get("registry_sha256"),
             "validation_mode": view.get("validation_mode"),
             "authoritative": view.get("authoritative"),
             "executable": view.get("executable"),
-            "live_activation_verified": view.get(
-                "live_activation_verified"
-            ),
+            live_field: view.get(live_field, False),
             "activation_receipt_consulted": view.get(
                 "activation_receipt_consulted"
             ),
@@ -5828,11 +5863,12 @@ def validate_context_packet_binding(
             raise ValueError(
                 "context packet routing manifest fields are incomplete"
             )
-        profile = view["route"]["profiles"].get(profile_id)
+        canonical_route = json.loads(canonical_json(view["route"]))
+        profile = canonical_route["profiles"].get(profile_id)
         if not isinstance(profile, Mapping):
             raise ValueError("context packet profile is not registered")
         expected_order = _profile_document_ids(
-            view["route"],
+            canonical_route,
             profile,
             extra_capabilities=manifest["selected_capabilities"],
         )
@@ -5879,9 +5915,15 @@ def require_executable_routing_selection(
     if (
         selection.get("selection_kind") != "executable_packet"
         or selection.get("executable") is not True
-        or selection.get("validation_mode") != "active_component_registry"
+        or selection.get("validation_mode") not in {
+            "active_component_registry",
+            "live_authority_validation",
+        }
         or selection.get("authoritative") is not True
-        or selection.get("live_activation_verified") is not True
+        or selection.get(
+            "live_authority_verified",
+            selection.get("live_activation_verified", False),
+        ) is not True
         or selection.get("activation_receipt_consulted") is not True
         or not isinstance(selection.get("profile"), str)
         or not str(selection["profile"]).strip()

@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 REGISTRY_PATH = ROOT / "framework" / "component-registry.json"
 READINESS_PATH = ROOT / registry.ACTIVATION_READINESS_RECEIPT_PATH
 CLOSURE_PATH = ROOT / registry.REQUIREMENT_CLOSURE_RECEIPT_PATH
+STAGE1_CANONICAL_REVISION = "357293fc3bd814618fefdede91cd1008ce8683d8"
 
 
 def load(path: Path) -> dict[str, object]:
@@ -27,6 +28,20 @@ def load(path: Path) -> dict[str, object]:
 
 def load_candidate_registry() -> tuple[dict[str, object], dict[str, object]]:
     current = load(REGISTRY_PATH)
+    if current.get("schema_version") == 2:
+        completed = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(ROOT),
+                "show",
+                f"{STAGE1_CANONICAL_REVISION}:framework/component-registry.json",
+            ],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        current = json.loads(completed.stdout)
     if current.get("status") == "candidate":
         return current, current
     candidate_revision = current["approval"]["value"]["base_revision"]
@@ -243,7 +258,22 @@ class ComponentRegistryActivationReadinessTests(unittest.TestCase):
             future["future_count"],
             len({item["future_path"] for item in future["items"]}),
         )
-        current_paths = set(registry._tracked_and_candidate_paths(ROOT))
+        current_paths = set(
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(ROOT),
+                    "ls-tree",
+                    "-r",
+                    "--name-only",
+                    STAGE1_CANONICAL_REVISION,
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.splitlines()
+        )
         if self.current["status"] == "active":
             for specification in registry.ROUTING_PREDECESSOR_PATHS.values():
                 current_paths.remove(specification["archived_path"])

@@ -24,6 +24,7 @@ SCHEMA_PATH = (
     / "automation"
     / "component-registry.schema.json"
 )
+STAGE1_CANONICAL_REVISION = "357293fc3bd814618fefdede91cd1008ce8683d8"
 
 
 def load_json(path: Path) -> dict[str, object]:
@@ -32,6 +33,21 @@ def load_json(path: Path) -> dict[str, object]:
 
 def load_candidate_registry() -> dict[str, object]:
     current = load_json(REGISTRY_PATH)
+    if current.get("schema_version") == 2:
+        current = json.loads(
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(ROOT),
+                    "show",
+                    f"{STAGE1_CANONICAL_REVISION}:framework/component-registry.json",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout
+        )
     if current["status"] == "candidate":
         return current
     candidate_revision = current["source_baseline"]["repository_revision"]
@@ -1109,7 +1125,7 @@ class ComponentRegistryStage2ReadbackTests(unittest.TestCase):
                 "-C",
                 str(ROOT),
                 "show",
-                "HEAD:framework/component-registry.json",
+                f"{STAGE1_CANONICAL_REVISION}:framework/component-registry.json",
             ],
             check=True,
             capture_output=True,

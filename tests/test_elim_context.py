@@ -2922,7 +2922,11 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
             },
         }
         for profile_name, expected_modules in expected_profile_modules.items():
-            if view["validation_mode"] != "proposed_revision_validation":
+            if not {
+                "project_structure",
+                "context_routing",
+                "repository_map",
+            } <= set(manifest["documents"]):
                 expected_modules = expected_modules - {
                     "project_structure",
                     "context_routing",
