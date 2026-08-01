@@ -1211,7 +1211,7 @@ class ConsoleDataContractTests(unittest.TestCase):
         paths = MODULE.component_registry_source_paths(
             {
                 "registry": {
-                    "validation_mode": "proposed_revision_validation",
+                    "validation_mode": "adopted_configuration_validation",
                 },
             },
             root=Path("/tmp/arrp-stage2-console-test"),

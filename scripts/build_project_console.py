@@ -11308,6 +11308,7 @@ def component_registry_source_paths(
         "candidate_validation_only",
         "active_configuration_validation_only",
         "proposed_revision_validation",
+        "adopted_configuration_validation",
     }:
         raise RuntimeError(
             "Component Registry source validation mode is invalid."
