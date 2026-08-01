@@ -82,7 +82,8 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
     def test_stage2_top_level_is_closed_and_has_no_family_construct(self):
         expected = {
             "$schema", "schema_version", "registry_id", "registry_revision",
-            "validation", "terminology", "implementation_enums",
+            "validation", "authority_digest_model", "terminology",
+            "implementation_enums",
             "directory_scopes", "components", "component_lifecycles",
             "component_authorities", "relationships", "migrations_and_aliases",
             "provenance_events", "routing", "supporting_artifact_rules",
@@ -90,6 +91,172 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         }
         self.assertEqual(set(self.registry), expected)
         self.assertFalse(any("famil" in key.lower() for key in self.registry))
+
+    def test_authority_digest_model_is_exact_and_schema_closed(self):
+        model = self.registry["authority_digest_model"]
+        self.assertEqual(
+            model,
+            registry._expected_stage2_authority_digest_model(1),
+        )
+        schema = load_json(SCHEMA_PATH)
+        registry._validate_against_schema(
+            model,
+            schema["$defs"]["authorityDigestModel"],
+            schema,
+        )
+        altered = copy.deepcopy(model)
+        altered["uncontrolled_normalization"] = True
+        with self.assertRaises(registry.RegistryError):
+            registry._validate_against_schema(
+                altered,
+                schema["$defs"]["authorityDigestModel"],
+                schema,
+            )
+
+    def test_authority_digest_has_fixed_cross_implementation_vector(self):
+        vector = {
+            "authority_digest_model": (
+                registry._expected_stage2_authority_digest_model(1)
+            ),
+            "validation": {"repository_base_revision": "b" * 40},
+            "components": {
+                "entries": {
+                    "alpha": {
+                        "canonical_source": {
+                            "source_binding": {
+                                "binding_basis": "content_digest",
+                                "sha256": "a" * 64,
+                            }
+                        },
+                        "label": "café",
+                    }
+                }
+            },
+        }
+        self.assertEqual(
+            registry._stage2_authority_digest(vector),
+            "274bddfdab278ac633fe67f27ec3d445e58b887904c07404aa91f1223ec9e07a",
+        )
+
+    def test_registry_json_parser_rejects_duplicate_keys_at_any_depth(self):
+        with self.assertRaisesRegex(registry.RegistryError, "duplicate field"):
+            registry._parse_closed_json_object(
+                '{"outer":{"sha256":"' + "a" * 64
+                + '","sha256":"' + "b" * 64 + '"}}',
+                "duplicate fixture",
+            )
+
+    def test_authority_digest_normalizes_every_currentness_location_only(self):
+        expected = registry._stage2_authority_digest(self.registry)
+        altered = copy.deepcopy(self.registry)
+        altered["validation"]["repository_base_revision"] = "f" * 40
+        self.assertEqual(registry._stage2_authority_digest(altered), expected)
+
+        content_bound_ids = []
+        for component_id, component in self.registry["components"]["entries"].items():
+            binding = component["canonical_source"]["source_binding"]
+            if binding["binding_basis"] != "content_digest":
+                continue
+            content_bound_ids.append(component_id)
+            altered = copy.deepcopy(self.registry)
+            digest = altered["components"]["entries"][component_id][
+                "canonical_source"
+            ]["source_binding"]["sha256"]
+            altered["components"]["entries"][component_id][
+                "canonical_source"
+            ]["source_binding"]["sha256"] = (
+                ("0" if digest[0] != "0" else "1") + digest[1:]
+            )
+            self.assertEqual(
+                registry._stage2_authority_digest(altered),
+                expected,
+                component_id,
+            )
+        self.assertEqual(len(content_bound_ids), 101)
+
+    def test_authority_digest_is_sensitive_to_all_other_change_classes(self):
+        expected = registry._stage2_authority_digest(self.registry)
+        mutations = []
+
+        scalar = copy.deepcopy(self.registry)
+        scalar["registry_id"] = "DIFFERENT-REGISTRY"
+        mutations.append(scalar)
+
+        structural_addition = copy.deepcopy(self.registry)
+        structural_addition["unexpected"] = True
+        mutations.append(structural_addition)
+
+        structural_removal = copy.deepcopy(self.registry)
+        del structural_removal["terminology"]
+        mutations.append(structural_removal)
+
+        ordered_array = copy.deepcopy(self.registry)
+        ordered_array["terminology"]["order"] = list(
+            reversed(ordered_array["terminology"]["order"])
+        )
+        mutations.append(ordered_array)
+
+        semantic_binding = copy.deepcopy(self.registry)
+        semantic_binding["components"]["entries"]["elim"][
+            "canonical_source"
+        ]["source_binding"]["external_identifier"] += "-changed"
+        mutations.append(semantic_binding)
+
+        for altered in mutations:
+            self.assertNotEqual(
+                registry._stage2_authority_digest(altered),
+                expected,
+            )
+
+    def test_currentness_only_equivalence_rejects_semantic_or_generation_change(self):
+        refreshed = copy.deepcopy(self.registry)
+        refreshed["validation"]["repository_base_revision"] = "f" * 40
+        first_component = next(
+            component
+            for component in refreshed["components"]["entries"].values()
+            if component["canonical_source"]["source_binding"]["binding_basis"]
+            == "content_digest"
+        )
+        first_component["canonical_source"]["source_binding"]["sha256"] = (
+            "e" * 64
+        )
+        self.assertTrue(
+            registry._stage2_currentness_only_equivalent(
+                self.registry,
+                refreshed,
+            )
+        )
+
+        semantic = copy.deepcopy(refreshed)
+        semantic["registry_id"] = "DIFFERENT-REGISTRY"
+        self.assertFalse(
+            registry._stage2_currentness_only_equivalent(
+                self.registry,
+                semantic,
+            )
+        )
+
+        generation = copy.deepcopy(refreshed)
+        generation["authority_digest_model"]["generation"] = 2
+        self.assertFalse(
+            registry._stage2_currentness_only_equivalent(
+                self.registry,
+                generation,
+            )
+        )
+
+    def test_authority_digest_sentinels_are_outside_live_value_domains(self):
+        self.assertIsNone(
+            registry.SHA256_RE.fullmatch(
+                registry.STAGE2_AUTHORITY_CONTENT_DIGEST_SENTINEL
+            )
+        )
+        self.assertIsNone(
+            registry.re.fullmatch(
+                r"[0-9a-f]{40}",
+                registry.STAGE2_AUTHORITY_BASE_REVISION_SENTINEL,
+            )
+        )
 
     def test_exact_eight_component_classes_are_defined_and_used(self):
         definitions = self.registry["implementation_enums"]["component_classes"]
@@ -227,9 +394,15 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         self.assertNotIn("registry_status", view)
         self.assertFalse(view["authoritative"])
         self.assertFalse(view["executable"])
-        self.assertFalse(view["live_authority_verified"])
         self.assertFalse(view["activation_receipt_consulted"])
         self.assertFalse(view["predecessor_route_consulted"])
+        self.assertFalse(view["authority_effective"])
+        self.assertFalse(view["source_revision_authorized"])
+        self.assertFalse(view["source_bytes_current"])
+        self.assertFalse(view["canonical_history_confirmed"])
+        self.assertFalse(view["receipt_trusted"])
+        self.assertEqual(view["runtime_live"], "not_checked")
+        self.assertFalse(view["registry_component_executable"])
 
     def test_proposed_view_rejects_executable_selection(self):
         view = registry.load_component_registry_configuration_routing_view()

@@ -1027,7 +1027,7 @@ def build_context_packet(
                 "active_component_registry",
                 "proposed_revision_validation",
                 "adopted_configuration_validation",
-                "live_authority_validation",
+                "online_governed_eligibility",
             }
             or not isinstance(
                 routing_authority_identity.get("authoritative"), bool

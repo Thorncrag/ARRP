@@ -133,7 +133,12 @@ def _component_registry_configuration_state() -> str:
         }
         or view.get("authoritative") is not False
         or view.get("executable") is not False
-        or view.get("live_authority_verified") is not False
+        or view.get("authority_effective") is not False
+        or view.get("source_revision_authorized") is not False
+        or view.get("source_bytes_current") is not False
+        or view.get("canonical_history_confirmed") is not False
+        or view.get("receipt_trusted") is not False
+        or view.get("runtime_live") != "not_checked"
         or view.get("activation_receipt_consulted") is not False
         or view.get("predecessor_route_consulted") is not False
     ):

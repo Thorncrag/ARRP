@@ -82,7 +82,8 @@ class ComponentRegistryStage2AcceptanceTests(unittest.TestCase):
     def test_stage2_top_level_is_closed_and_has_no_family_construct(self):
         expected = {
             "$schema", "schema_version", "registry_id", "registry_revision",
-            "validation", "terminology", "implementation_enums",
+            "validation", "authority_digest_model", "terminology",
+            "implementation_enums",
             "directory_scopes", "components", "component_lifecycles",
             "component_authorities", "relationships", "migrations_and_aliases",
             "provenance_events", "routing", "supporting_artifact_rules",
@@ -227,9 +228,15 @@ class ComponentRegistryStage2AcceptanceTests(unittest.TestCase):
         self.assertNotIn("registry_status", view)
         self.assertFalse(view["authoritative"])
         self.assertFalse(view["executable"])
-        self.assertFalse(view["live_authority_verified"])
         self.assertFalse(view["activation_receipt_consulted"])
         self.assertFalse(view["predecessor_route_consulted"])
+        self.assertFalse(view["authority_effective"])
+        self.assertFalse(view["source_revision_authorized"])
+        self.assertFalse(view["source_bytes_current"])
+        self.assertFalse(view["canonical_history_confirmed"])
+        self.assertFalse(view["receipt_trusted"])
+        self.assertEqual(view["runtime_live"], "not_checked")
+        self.assertFalse(view["registry_component_executable"])
 
     def test_proposed_view_rejects_executable_selection(self):
         view = registry.load_component_registry_configuration_routing_view()

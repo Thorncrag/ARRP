@@ -1133,3 +1133,29 @@ taxonomy.
 | `component_registry_activation_finalizer` | `maintained_implementation` | `script` | `operator` | — |
 | `component_registry_tests` | `test_source` | `script` | `test_suite` | — |
 | `context_routes_source` | `archived_route_data_authority` | `configuration` | — | Retired archived predecessor; routing purpose is historical provenance |
+
+## Authority and currentness correction
+
+This section supersedes the earlier validation-mode wording without altering
+the historical migration table above. Authority-digest protocol
+`component_registry_stage2_authority_digest_v1` separates stable Registry
+semantics from mechanical source currentness. Its stable digest includes the
+protocol model and every Registry semantic field while normalizing only
+`validation.repository_base_revision` and schema-typed canonical-source
+SHA-256 bindings whose basis is `content_digest`. Full schema, source-set,
+source-hash, path-containment, and semantic validation remain mandatory.
+
+`adopted_configuration_validation` recognizes exact adopted bytes or a
+committed currentness-only descendant with the same authority protocol,
+generation, and stable digest. It remains nonauthoritative and nonexecutable
+and does not consult owner-local evidence.
+
+`online_governed_eligibility` additionally requires the immutable authority-v1
+receipt, authenticated canonical history, exact source-revision authorization,
+current source bytes, and present repository-protection evidence. It reports
+authority effectiveness, source authorization, source currentness,
+canonical-history confirmation, and receipt trust separately. The Registry
+remains nonexecutable, and runtime liveness remains `not_checked`; a separately
+validated executable routing packet is available only when every governed
+eligibility facet succeeds. Legacy Stage 1 and full-digest Stage 2 receipts
+remain historical provenance and are never fallback authority.

@@ -4100,14 +4100,24 @@ def governing_protected_paths(
         "proposed_revision_validation": {
             "authoritative": False,
             "executable": False,
-            "live_authority_verified": False,
+            "authority_effective": False,
+            "source_revision_authorized": False,
+            "source_bytes_current": False,
+            "canonical_history_confirmed": False,
+            "receipt_trusted": False,
+            "runtime_live": "not_checked",
             "activation_receipt_consulted": False,
             "predecessor_route_consulted": False,
         },
-        "live_authority_validation": {
+        "online_governed_eligibility": {
             "authoritative": True,
-            "executable": True,
-            "live_authority_verified": True,
+            "executable": False,
+            "authority_effective": True,
+            "source_revision_authorized": True,
+            "source_bytes_current": True,
+            "canonical_history_confirmed": True,
+            "receipt_trusted": True,
+            "runtime_live": "not_checked",
             "activation_receipt_consulted": True,
             "predecessor_route_consulted": False,
         },
@@ -4120,11 +4130,11 @@ def governing_protected_paths(
             "Component Registry routing view has an invalid authority posture"
         )
     if require_active_registry and (
-        validation_mode != "live_authority_validation"
+        validation_mode != "online_governed_eligibility"
     ):
         raise TransactionError(
-            "production routing requires an active Component Registry "
-            "with authenticated activation readback"
+            "production routing requires governed-eligible Component Registry "
+            "authority with authenticated receipt evidence"
         )
     route = routing_view.get("route")
     documents = route.get("documents") if isinstance(route, Mapping) else None

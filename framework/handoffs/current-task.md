@@ -13,17 +13,17 @@ This file is the first place to check when an ARRP audit, source-development pas
 
 | Field | Entry |
 | --- | --- |
-| Handoff state | Open |
-| Active issue/task | Component Registry Stage 2 implementation and pull request |
+| Handoff state | Paused |
+| Active issue/task | Component Registry Stage 2 authority/currentness correction and closeout |
 | Audit type/tier | Design-locked implementation |
-| Started | 2026-07-31 20:33:13 -0400 |
-| Last checkpoint | 2026-07-31 21:31:52 -0400 |
-| User request | Implement the approved Component Registry Stage 2 design under `COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR`. |
-| Scope | Stage 2 Registry/schema/tooling migration, proposal and Agent/Bot Registry moves, repository coverage, terminology, Console projection, validation, one branch, and one pull request. |
-| Files touched | Exact 23-leaf predecessor bundle is preserved in checkpoint commit `e9486fb724eddf7cd170056edd7f7471bd093ba6`; the bounded Stage 2 implementation is ready to freeze before final generated evidence. |
-| Completed steps | Design lock and major-plan review complete; proposal and predecessor moves complete; Stage 2 Registry/schema/tooling, exact coverage, 69-term vocabulary, implementation-enum definitions, Console views, consumer reconciliation, and fixed-point generation correction implemented; core validation and focused suites pass. |
-| Next step | Commit the frozen implementation parent; rebuild Source Checker and Project Integrity evidence against it; generate the public Console once; run final validation and disclosure; create the review pull request. |
-| Blockers/questions | None. |
+| Started | 2026-08-01 07:31:18 -0400 |
+| Last checkpoint | 2026-08-01 08:01:45 -0400 |
+| User request | Implement the approved stable-authority/currentness separation and complete Stage 2 closeout under `COMPONENT-REGISTRY-2026-002-AUTHORITY-CURRENTNESS-SEPARATION-CLOSEOUT`. |
+| Scope | Registry authority-digest model; schema, validator, loader, finalizer, and tests; currentness refresh; public Console and Integrity evidence; one reviewed correction pull request; one immutable owner-local authority-v1 receipt. |
+| Files touched | Component Registry, schema, validator, finalizer, routing consumers, focused tests, adopted Stage 2 design, Console projection contract, and this handoff; terminal currentness and generated evidence remain pending. |
+| Completed steps | Exact design locks and MAJOR reviews complete; stable authority-digest model, strict parser, currentness separation, authority-v1 verifier/finalizer, governed-eligibility envelopes, routing-consumer reconciliation, adopted-design correction, and focused regressions implemented; 121 integrated Python tests, 14 new authority tests, 90 automation/review tests, 40 context tests, and 67 frontend tests are green. |
+| Next step | Current implementation task resumes with the single Stage 2 currentness refresh, terminal validation and generated evidence, reviewed correction PR and merge, canonical synchronization, authority-v1 receipt issuance/readback, then the separately authorized handoff-only Inactive closeout PR. |
+| Blockers/questions | Resumer: current implementation task. Resume condition: continue the approved correction transaction from the source/currentness commit through generated evidence, reviewed merge, receipt verification, and the handoff-only closeout PR. |
 | Validation status | In progress. |
 
 ## Handoff Rules

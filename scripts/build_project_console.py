@@ -10076,7 +10076,12 @@ def _stage2_component_registry_console_snapshot(
         != "proposed_revision_validation"
         or routing_view.get("authoritative") is not False
         or routing_view.get("executable") is not False
-        or routing_view.get("live_authority_verified") is not False
+        or routing_view.get("authority_effective") is not False
+        or routing_view.get("source_revision_authorized") is not False
+        or routing_view.get("source_bytes_current") is not False
+        or routing_view.get("canonical_history_confirmed") is not False
+        or routing_view.get("receipt_trusted") is not False
+        or routing_view.get("runtime_live") != "not_checked"
         or routing_view.get("predecessor_route_consulted") is not False
         or not isinstance(registry, dict)
         or registry.get("schema_version") != 2
@@ -10371,7 +10376,12 @@ def _stage2_component_registry_console_snapshot(
             "validation_mode": routing_view["validation_mode"],
             "authoritative": False,
             "executable": False,
-            "live_authority_verified": False,
+            "authority_effective": False,
+            "source_revision_authorized": False,
+            "source_bytes_current": False,
+            "canonical_history_confirmed": False,
+            "receipt_trusted": False,
+            "runtime_live": "not_checked",
             "predecessor_route_consulted": False,
             "registry_sha256": registry_digest,
             "repository_revision": registry["validation"][

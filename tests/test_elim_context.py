@@ -311,10 +311,15 @@ class ExactContextTests(unittest.TestCase):
             output = run / "packet.json"
             active_view = {
                 "schema_version": 2,
-                "validation_mode": "live_authority_validation",
+                "validation_mode": "online_governed_eligibility",
                 "authoritative": True,
-                "executable": True,
-                "live_authority_verified": True,
+                "executable": False,
+                "authority_effective": True,
+                "source_revision_authorized": True,
+                "source_bytes_current": True,
+                "canonical_history_confirmed": True,
+                "receipt_trusted": True,
+                "runtime_live": "not_checked",
                 "activation_receipt_consulted": True,
                 "predecessor_route_consulted": False,
             }
@@ -382,7 +387,12 @@ class ExactContextTests(unittest.TestCase):
                 "validation_mode": "proposed_revision_validation",
                 "authoritative": False,
                 "executable": False,
-                "live_authority_verified": False,
+                "authority_effective": False,
+                "source_revision_authorized": False,
+                "source_bytes_current": False,
+                "canonical_history_confirmed": False,
+                "receipt_trusted": False,
+                "runtime_live": "not_checked",
                 "activation_receipt_consulted": False,
                 "predecessor_route_consulted": False,
             }
@@ -422,7 +432,7 @@ class ExactContextTests(unittest.TestCase):
             blocked = json.loads(output.read_text(encoding="utf-8"))
             self.assertEqual(blocked["status"], "blocked")
             self.assertIn(
-                "requires active Component Registry routing",
+                "requires governed-eligible Component Registry routing",
                 blocked["error"],
             )
 
@@ -484,10 +494,15 @@ class ExactContextTests(unittest.TestCase):
             output = run / "packet.json"
             active_view = {
                 "schema_version": 2,
-                "validation_mode": "live_authority_validation",
+                "validation_mode": "online_governed_eligibility",
                 "authoritative": True,
-                "executable": True,
-                "live_authority_verified": True,
+                "executable": False,
+                "authority_effective": True,
+                "source_revision_authorized": True,
+                "source_bytes_current": True,
+                "canonical_history_confirmed": True,
+                "receipt_trusted": True,
+                "runtime_live": "not_checked",
                 "activation_receipt_consulted": True,
                 "predecessor_route_consulted": False,
             }

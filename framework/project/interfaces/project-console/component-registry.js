@@ -1579,7 +1579,12 @@
       || snapshot.registry.validation_mode !== "proposed_revision_validation"
       || snapshot.registry.authoritative !== false
       || snapshot.registry.executable !== false
-      || snapshot.registry.live_authority_verified !== false
+      || snapshot.registry.authority_effective !== false
+      || snapshot.registry.source_revision_authorized !== false
+      || snapshot.registry.source_bytes_current !== false
+      || snapshot.registry.canonical_history_confirmed !== false
+      || snapshot.registry.receipt_trusted !== false
+      || snapshot.registry.runtime_live !== "not_checked"
       || snapshot.registry.predecessor_route_consulted !== false
       || !/^[0-9a-f]{64}$/.test(snapshot.registry.registry_sha256 || "")
       || !unique(snapshot.components, "stable_id")

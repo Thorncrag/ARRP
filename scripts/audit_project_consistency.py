@@ -3530,7 +3530,7 @@ def context_registry_dependencies_match(
 
     if validation_mode in {
         "adopted_configuration_validation",
-        "live_authority_validation",
+        "online_governed_eligibility",
     }:
         if predecessor_paths.intersection(expected):
             return False
@@ -3632,21 +3632,36 @@ def context_registry_authority_envelope(
         "proposed_revision_validation": {
             "authoritative": False,
             "executable": False,
-            "live_authority_verified": False,
+            "authority_effective": False,
+            "source_revision_authorized": False,
+            "source_bytes_current": False,
+            "canonical_history_confirmed": False,
+            "receipt_trusted": False,
+            "runtime_live": "not_checked",
             "activation_receipt_consulted": False,
             "predecessor_route_consulted": False,
         },
         "adopted_configuration_validation": {
             "authoritative": False,
             "executable": False,
-            "live_authority_verified": False,
+            "authority_effective": False,
+            "source_revision_authorized": False,
+            "source_bytes_current": False,
+            "canonical_history_confirmed": False,
+            "receipt_trusted": False,
+            "runtime_live": "not_checked",
             "activation_receipt_consulted": False,
             "predecessor_route_consulted": False,
         },
-        "live_authority_validation": {
+        "online_governed_eligibility": {
             "authoritative": True,
-            "executable": True,
-            "live_authority_verified": True,
+            "executable": False,
+            "authority_effective": True,
+            "source_revision_authorized": True,
+            "source_bytes_current": True,
+            "canonical_history_confirmed": True,
+            "receipt_trusted": True,
+            "runtime_live": "not_checked",
             "activation_receipt_consulted": True,
             "predecessor_route_consulted": False,
         },
@@ -3667,7 +3682,7 @@ def context_registry_authority_envelope(
             "repository-validation",
             "fixture",
         },
-        "live_authority_validation": {
+        "online_governed_eligibility": {
             "production-canonical",
             "production-transaction",
         },
@@ -3700,9 +3715,18 @@ def context_registry_authority_envelope(
         "registry_revision": view["registry_revision"],
         "registry_sha256": view["registry_sha256"],
         "configuration_valid": True,
-        "live_authority_verified": view["live_authority_verified"],
         "authoritative": view["authoritative"],
         "executable": view["executable"],
+        "authority_effective": view["authority_effective"],
+        "source_revision_authorized": view[
+            "source_revision_authorized"
+        ],
+        "source_bytes_current": view["source_bytes_current"],
+        "canonical_history_confirmed": view[
+            "canonical_history_confirmed"
+        ],
+        "receipt_trusted": view["receipt_trusted"],
+        "runtime_live": view["runtime_live"],
         "predecessor_route_consulted": view["predecessor_route_consulted"],
         "activation_receipt_consulted": view[
             "activation_receipt_consulted"
@@ -3721,9 +3745,14 @@ def unavailable_context_registry_authority_envelope(
         "registry_revision": None,
         "registry_sha256": None,
         "configuration_valid": False,
-        "live_authority_verified": False,
         "authoritative": False,
         "executable": False,
+        "authority_effective": False,
+        "source_revision_authorized": False,
+        "source_bytes_current": False,
+        "canonical_history_confirmed": False,
+        "receipt_trusted": False,
+        "runtime_live": "not_checked",
         "predecessor_route_consulted": False,
         "activation_receipt_consulted": False,
     }

@@ -56,6 +56,12 @@ ACTIVATION_READBACK_DIRECTORY = (
 ACTIVATION_READBACK_SCHEMA_DEFINITION = (
     "componentRegistryActivationReadback"
 )
+STAGE2_AUTHORITY_READBACK_DIRECTORY = (
+    f"{ACTIVATION_READBACK_DIRECTORY}/authority-v1"
+)
+STAGE2_AUTHORITY_READBACK_SCHEMA_DEFINITION = (
+    "componentRegistryStage2AuthorityReadback"
+)
 ACTIVATION_READBACK_MAX_BYTES = 64 * 1024
 ACTIVATION_READINESS_RECEIPT_PATH = (
     "framework/receipts/component-registry/"
@@ -272,6 +278,38 @@ STAGE2_VALIDATION_MODES = frozenset(
         "live_authority_validation",
     }
 )
+STAGE2_AUTHORITY_DIGEST_PROTOCOL = (
+    "component_registry_stage2_authority_digest_v1"
+)
+STAGE2_AUTHORITY_DIGEST_DOMAIN = (
+    "arrp.component_registry.stage2.authority_digest"
+)
+STAGE2_AUTHORITY_DIGEST_CANONICALIZATION = (
+    "utf8_sorted_key_compact_json_v1"
+)
+STAGE2_SOURCE_REVISION_ADMISSION_PREDICATE = (
+    "component_registry_source_revision_admission_v1"
+)
+STAGE2_AUTHORITY_BASE_REVISION_SENTINEL = (
+    "__AUTHORITY_CURRENTNESS_REPOSITORY_BASE_REVISION__"
+)
+STAGE2_AUTHORITY_CONTENT_DIGEST_SENTINEL = (
+    "__AUTHORITY_CURRENTNESS_CONTENT_SHA256__"
+)
+STAGE2_AUTHORITY_NORMALIZATIONS = [
+    {
+        "json_pointer_pattern": "/validation/repository_base_revision",
+        "condition": "always",
+        "replacement": STAGE2_AUTHORITY_BASE_REVISION_SENTINEL,
+    },
+    {
+        "json_pointer_pattern": (
+            "/components/entries/*/canonical_source/source_binding/sha256"
+        ),
+        "condition": "binding_basis_equals_content_digest",
+        "replacement": STAGE2_AUTHORITY_CONTENT_DIGEST_SENTINEL,
+    },
+]
 OWNER_REVIEW_REFERENCE_RE = re.compile(
     r"^github-review:Thorncrag/ARRP#([1-9][0-9]*)$"
 )
@@ -924,14 +962,32 @@ def _routing_rule_failure(
     return failure
 
 
+def _parse_closed_json_object(text: str, label: str) -> dict[str, Any]:
+    """Parse one JSON object while rejecting duplicate keys at every depth."""
+
+    def closed_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+        value: dict[str, Any] = {}
+        for key, item in pairs:
+            if key in value:
+                raise RegistryError(f"{label} contains duplicate field {key!r}")
+            value[key] = item
+        return value
+
+    try:
+        value = json.loads(text, object_pairs_hook=closed_object)
+    except json.JSONDecodeError as exc:
+        raise RegistryError(f"{label} is not valid JSON: {exc}") from exc
+    if not isinstance(value, dict):
+        raise RegistryError(f"{label} must contain one JSON object")
+    return value
+
+
 def _read_json(path: Path) -> dict[str, Any]:
     try:
-        value = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
-        raise RegistryError(f"cannot read valid JSON from {path.name}: {exc}") from exc
-    if not isinstance(value, dict):
-        raise RegistryError(f"{path.name} must contain one JSON object")
-    return value
+        text = path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise RegistryError(f"cannot read JSON from {path.name}: {exc}") from exc
+    return _parse_closed_json_object(text, path.name)
 
 
 def _sha256(path: Path) -> str:
@@ -2100,6 +2156,119 @@ def _canonical_registry_digest(registry: Mapping[str, Any]) -> str:
     ).hexdigest()
 
 
+def _expected_stage2_authority_digest_model(
+    generation: int,
+) -> dict[str, Any]:
+    return {
+        "schema_version": 1,
+        "protocol": STAGE2_AUTHORITY_DIGEST_PROTOCOL,
+        "generation": generation,
+        "hash_algorithm": "sha256",
+        "canonicalization": STAGE2_AUTHORITY_DIGEST_CANONICALIZATION,
+        "domain": STAGE2_AUTHORITY_DIGEST_DOMAIN,
+        "source_revision_admission_predicate": (
+            STAGE2_SOURCE_REVISION_ADMISSION_PREDICATE
+        ),
+        "normalizations": copy.deepcopy(STAGE2_AUTHORITY_NORMALIZATIONS),
+    }
+
+
+def _validate_stage2_authority_digest_model(
+    registry: Mapping[str, Any],
+) -> Mapping[str, Any]:
+    model = registry.get("authority_digest_model")
+    generation = model.get("generation") if isinstance(model, Mapping) else None
+    if (
+        not isinstance(generation, int)
+        or isinstance(generation, bool)
+        or generation < 1
+        or dict(model) != _expected_stage2_authority_digest_model(generation)
+    ):
+        raise RegistryError(
+            "Stage 2 authority-digest model is not the exact closed protocol"
+        )
+    return model
+
+
+def _normalized_stage2_authority_registry(
+    registry: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Normalize only the two schema-typed Stage 2 currentness locations."""
+
+    _validate_stage2_authority_digest_model(registry)
+    normalized = copy.deepcopy(dict(registry))
+    validation = normalized.get("validation")
+    if not isinstance(validation, dict) or re.fullmatch(
+        r"[0-9a-f]{40}",
+        str(validation.get("repository_base_revision") or ""),
+    ) is None:
+        raise RegistryError(
+            "Stage 2 authority digest requires an exact repository base revision"
+        )
+    validation["repository_base_revision"] = (
+        STAGE2_AUTHORITY_BASE_REVISION_SENTINEL
+    )
+    components = normalized.get("components")
+    entries = components.get("entries") if isinstance(components, Mapping) else None
+    if not isinstance(entries, dict):
+        raise RegistryError(
+            "Stage 2 authority digest requires the component inventory"
+        )
+    for component_id, component in entries.items():
+        if not isinstance(component, dict):
+            raise RegistryError(
+                f"Stage 2 authority digest component {component_id!r} is invalid"
+            )
+        source = component.get("canonical_source")
+        binding = source.get("source_binding") if isinstance(source, Mapping) else None
+        if not isinstance(binding, dict):
+            continue
+        if binding.get("binding_basis") != "content_digest":
+            continue
+        digest = binding.get("sha256")
+        if not isinstance(digest, str) or SHA256_RE.fullmatch(digest) is None:
+            raise RegistryError(
+                f"Stage 2 authority digest component {component_id!r} "
+                "lacks its exact content digest"
+            )
+        binding["sha256"] = STAGE2_AUTHORITY_CONTENT_DIGEST_SENTINEL
+    return normalized
+
+
+def _stage2_authority_digest(registry: Mapping[str, Any]) -> str:
+    model = _validate_stage2_authority_digest_model(registry)
+    preimage = {
+        "domain": model["domain"],
+        "protocol": model["protocol"],
+        "registry": _normalized_stage2_authority_registry(registry),
+    }
+    return hashlib.sha256(canonical_json(preimage).encode("utf-8")).hexdigest()
+
+
+def _stage2_currentness_only_equivalent(
+    first: Mapping[str, Any],
+    second: Mapping[str, Any],
+) -> bool:
+    """Recognize exact equality after only protocol-controlled normalization."""
+
+    first_model = first.get("authority_digest_model")
+    second_model = second.get("authority_digest_model")
+    if not isinstance(first_model, Mapping) or not isinstance(
+        second_model, Mapping
+    ):
+        return False
+    _validate_stage2_authority_digest_model(first)
+    _validate_stage2_authority_digest_model(second)
+    if dict(first_model) != dict(second_model):
+        return False
+    first_normalized = _normalized_stage2_authority_registry(first)
+    second_normalized = _normalized_stage2_authority_registry(second)
+    return (
+        canonical_json(first_normalized) == canonical_json(second_normalized)
+        and _stage2_authority_digest(first) == _stage2_authority_digest(second)
+    )
+
+
 def _parse_activation_timestamp(value: object, label: str) -> datetime:
     if not isinstance(value, str) or re.fullmatch(
         r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:"
@@ -2276,17 +2445,10 @@ def _registry_at_revision(
         "show",
         f"{revision}:{CANONICAL_REGISTRY_PATH}",
     )
-    try:
-        value = json.loads(text)
-    except json.JSONDecodeError as exc:
-        raise RegistryError(
-            "activation revision does not contain a valid Component Registry"
-        ) from exc
-    if not isinstance(value, dict):
-        raise RegistryError(
-            "activation revision Component Registry is not an object"
-        )
-    return value
+    return _parse_closed_json_object(
+        text,
+        "activation revision Component Registry",
+    )
 
 
 def _validate_activation_repository_binding(
@@ -2397,6 +2559,18 @@ def _activation_readback_logical_path(registry_digest: str) -> str:
         )
     return (
         f"{ACTIVATION_READBACK_DIRECTORY}/{registry_digest}.json"
+    )
+
+
+def _stage2_authority_readback_logical_path(
+    authority_digest: str,
+) -> str:
+    if SHA256_RE.fullmatch(authority_digest) is None:
+        raise RegistryError(
+            "Stage 2 authority digest cannot select authority evidence"
+        )
+    return (
+        f"{STAGE2_AUTHORITY_READBACK_DIRECTORY}/{authority_digest}.json"
     )
 
 
@@ -2564,6 +2738,41 @@ def _validate_stage2_adoption_readback_schema(
         schema,
         "$stage2_adoption_readback",
     )
+
+
+def _validate_stage2_authority_readback_schema(
+    readback: Mapping[str, Any],
+    *,
+    schema: Mapping[str, Any],
+) -> None:
+    definitions = schema.get("$defs")
+    definition = (
+        definitions.get(STAGE2_AUTHORITY_READBACK_SCHEMA_DEFINITION)
+        if isinstance(definitions, Mapping)
+        else None
+    )
+    if not isinstance(definition, Mapping):
+        raise RegistryError(
+            "Component Registry schema lacks Stage 2 authority readback "
+            "definition"
+        )
+    _validate_against_schema(
+        readback,
+        definition,
+        schema,
+        "$stage2_authority_readback",
+    )
+    original = readback.get("original_adoption_evidence")
+    correction = readback.get("correction_evidence")
+    if (
+        not isinstance(original, Mapping)
+        or "approved_by" in original
+        or not isinstance(correction, Mapping)
+        or correction.get("approved_by") != "@Thorncrag"
+    ):
+        raise RegistryError(
+            "Stage 2 authority receipt approval evidence is not exact"
+        )
 
 
 def _validate_stage2_adoption_repository_binding(
@@ -4601,20 +4810,30 @@ def _stage2_proposed_view_from_authority(
     if proposed.get("validation", {}).get("mode") != "proposed_revision_validation":
         raise RegistryError("Stage 2 pre-merge Registry must use proposed revision validation")
     digest = _canonical_registry_digest(proposed)
+    authority_model = _validate_stage2_authority_digest_model(proposed)
     return {
         "schema_version": 2,
         "registry_id": proposed["registry_id"],
         "registry_revision": proposed["registry_revision"],
         "registry_sha256": digest,
-        "routing_authority_sha256": digest,
+        "authority_sha256": _stage2_authority_digest(proposed),
+        "authority_protocol": authority_model["protocol"],
+        "authority_generation": authority_model["generation"],
+        "routing_authority_sha256": _stage2_authority_digest(proposed),
         "registry_path": CANONICAL_REGISTRY_PATH,
         "route": route,
         "validation_mode": "proposed_revision_validation",
         "authoritative": False,
         "executable": False,
-        "live_authority_verified": False,
         "activation_receipt_consulted": False,
         "predecessor_route_consulted": False,
+        "authority_effective": False,
+        "source_revision_authorized": False,
+        "source_bytes_current": False,
+        "canonical_history_confirmed": False,
+        "receipt_trusted": False,
+        "runtime_live": "not_checked",
+        "registry_component_executable": False,
         "_validated_registry": proposed,
     }
 
@@ -4683,10 +4902,17 @@ def _stage2_configuration_is_adopted(
         authority.repository_root,
         origin_main,
     )
-    return (
-        origin_registry.get("schema_version") == 2
-        and canonical_json(origin_registry) == canonical_json(stage2_registry)
-    )
+    if origin_registry.get("schema_version") != 2:
+        return False
+    if canonical_json(origin_registry) == canonical_json(stage2_registry):
+        return True
+    try:
+        return _stage2_currentness_only_equivalent(
+            origin_registry,
+            stage2_registry,
+        )
+    except RegistryError:
+        return False
 
 
 def _stage2_adopted_configuration_view_from_authority(
@@ -4741,6 +4967,80 @@ def _stage2_live_view_from_authority(
         "live_authority_verified": True,
         "activation_receipt_consulted": True,
         "predecessor_route_consulted": False,
+        "_validated_registry": proposed,
+    }
+
+
+def _stage2_online_governed_eligibility_view_from_authority(
+    authority: ProjectPathAuthority,
+    registry_path: Path,
+    stage2_registry: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Verify Stage 2 governed eligibility without claiming runtime liveness."""
+
+    proposed, route = load_validated_registry(
+        registry_path,
+        root=authority.repository_root,
+    )
+    if canonical_json(proposed) != canonical_json(stage2_registry):
+        raise RegistryError(
+            "Stage 2 governed eligibility Registry changed during validation"
+        )
+    try:
+        from scripts.finalize_component_registry_activation import (
+            verify_stage2_authority_v1_online_eligibility,
+        )
+    except (ImportError, AttributeError) as exc:
+        raise RegistryError(
+            "Stage 2 governed eligibility verifier is unavailable"
+        ) from exc
+    try:
+        eligibility = verify_stage2_authority_v1_online_eligibility(
+            authority,
+            proposed,
+        )
+    except Exception as exc:
+        # The finalizer owns the authenticated observation and receipt
+        # details. The routing loader exposes only a stable fail-closed class.
+        raise RegistryError(
+            "Stage 2 governed eligibility verification failed"
+        ) from exc
+    model = _validate_stage2_authority_digest_model(proposed)
+    registry_digest = _canonical_registry_digest(proposed)
+    authority_digest = _stage2_authority_digest(proposed)
+    expected = {
+        "validation_mode": "online_governed_eligibility",
+        "registry_sha256": registry_digest,
+        "authority_sha256": authority_digest,
+        "authority_protocol": model["protocol"],
+        "authority_generation": model["generation"],
+        "authority_effective": True,
+        "source_revision_authorized": True,
+        "source_bytes_current": True,
+        "canonical_history_confirmed": True,
+        "receipt_trusted": True,
+        "runtime_live": "not_checked",
+    }
+    if not isinstance(eligibility, Mapping) or any(
+        eligibility.get(field) != value
+        for field, value in expected.items()
+    ):
+        raise RegistryError(
+            "Stage 2 governed eligibility facets are incomplete or inconsistent"
+        )
+    return {
+        "schema_version": 2,
+        "registry_id": proposed["registry_id"],
+        "registry_revision": proposed["registry_revision"],
+        **expected,
+        "routing_authority_sha256": authority_digest,
+        "registry_path": CANONICAL_REGISTRY_PATH,
+        "route": route,
+        "authoritative": True,
+        "executable": False,
+        "activation_receipt_consulted": True,
+        "predecessor_route_consulted": False,
+        "registry_component_executable": False,
         "_validated_registry": proposed,
     }
 
@@ -4820,11 +5120,10 @@ def load_validated_component_registry_routing_view(
             registry,
         ):
             return _stage2_proposed_view_from_authority(authority, registry_path)
-        return _stage2_live_view_from_authority(
+        return _stage2_online_governed_eligibility_view_from_authority(
             authority,
             registry_path,
             registry,
-            schema=schema,
         )
     if registry.get("status") == "candidate":
         return _candidate_view_from_authority(authority, registry_path)
@@ -5430,6 +5729,9 @@ def _routed_selection_from_view_untyped(
             "active_configuration_validation_only",
             "active_component_registry",
             "proposed_revision_validation",
+            "adopted_configuration_validation",
+            "live_authority_validation",
+            "online_governed_eligibility",
         }
         or not isinstance(view.get("route"), Mapping)
         or view.get("registry_path")
@@ -5442,9 +5744,48 @@ def _routed_selection_from_view_untyped(
         "proposed_revision_validation": {
             "authoritative": False,
             "executable": False,
-            "live_authority_verified": False,
             "activation_receipt_consulted": False,
             "predecessor_route_consulted": False,
+            "authority_effective": False,
+            "source_revision_authorized": False,
+            "source_bytes_current": False,
+            "canonical_history_confirmed": False,
+            "receipt_trusted": False,
+            "runtime_live": "not_checked",
+            "registry_component_executable": False,
+        },
+        "adopted_configuration_validation": {
+            "authoritative": False,
+            "executable": False,
+            "activation_receipt_consulted": False,
+            "predecessor_route_consulted": False,
+            "authority_effective": False,
+            "source_revision_authorized": False,
+            "source_bytes_current": False,
+            "canonical_history_confirmed": False,
+            "receipt_trusted": False,
+            "runtime_live": "not_checked",
+            "registry_component_executable": False,
+        },
+        "live_authority_validation": {
+            "authoritative": True,
+            "executable": True,
+            "live_authority_verified": True,
+            "activation_receipt_consulted": True,
+            "predecessor_route_consulted": False,
+        },
+        "online_governed_eligibility": {
+            "authoritative": True,
+            "executable": False,
+            "activation_receipt_consulted": True,
+            "predecessor_route_consulted": False,
+            "authority_effective": True,
+            "source_revision_authorized": True,
+            "source_bytes_current": True,
+            "canonical_history_confirmed": True,
+            "receipt_trusted": True,
+            "runtime_live": "not_checked",
+            "registry_component_executable": False,
         },
         "candidate_validation_only": {
             "registry_status": "candidate",
@@ -5478,11 +5819,18 @@ def _routed_selection_from_view_untyped(
         raise RegistryError(
             "routing view authority flags disagree with its validation mode"
         )
-    expected_routing_authority_sha256 = (
-        registry["context_routing"]["source_import"]["sha256"]
-        if mode == "candidate_validation_only" and registry.get("schema_version") != 2
-        else view["registry_sha256"]
-    )
+    if mode == "candidate_validation_only" and registry.get("schema_version") != 2:
+        expected_routing_authority_sha256 = registry["context_routing"][
+            "source_import"
+        ]["sha256"]
+    elif mode in {
+        "proposed_revision_validation",
+        "adopted_configuration_validation",
+        "online_governed_eligibility",
+    }:
+        expected_routing_authority_sha256 = view["authority_sha256"]
+    else:
+        expected_routing_authority_sha256 = view["registry_sha256"]
     if (
         view.get("routing_authority_sha256")
         != expected_routing_authority_sha256
@@ -5521,7 +5869,19 @@ def _routed_selection_from_view_untyped(
         raise RegistryError(
             "candidate routing lacks exact predecessor validation"
         )
-    if executable and view.get("executable") is not True:
+    online_eligible = (
+        mode == "online_governed_eligibility"
+        and view.get("authoritative") is True
+        and view.get("executable") is False
+        and view.get("authority_effective") is True
+        and view.get("source_revision_authorized") is True
+        and view.get("source_bytes_current") is True
+        and view.get("canonical_history_confirmed") is True
+        and view.get("receipt_trusted") is True
+        and view.get("activation_receipt_consulted") is True
+        and view.get("runtime_live") == "not_checked"
+    )
+    if executable and view.get("executable") is not True and not online_eligible:
         raise RegistryError(
             "configuration validation routing cannot satisfy an executable "
             "consumer"
@@ -5624,7 +5984,7 @@ def _routed_selection_from_view_untyped(
             assignment.get("subjects", []),
             assignment.get("exclusions", []),
         )
-    return {
+    selection = {
         "selection_kind": selection_kind,
         "executable": executable,
         "registry_id": registry["registry_id"],
@@ -5670,6 +6030,20 @@ def _routed_selection_from_view_untyped(
         ],
         "sections": sections,
     }
+    if mode == "online_governed_eligibility":
+        selection.update({
+            "authority_sha256": view["authority_sha256"],
+            "authority_protocol": view["authority_protocol"],
+            "authority_generation": view["authority_generation"],
+            "authority_effective": view["authority_effective"],
+            "source_revision_authorized": view["source_revision_authorized"],
+            "source_bytes_current": view["source_bytes_current"],
+            "canonical_history_confirmed": view["canonical_history_confirmed"],
+            "receipt_trusted": view["receipt_trusted"],
+            "runtime_live": view["runtime_live"],
+            "registry_component_executable": False,
+        })
+    return selection
 
 
 def _routed_selection_from_view(
@@ -6175,18 +6549,29 @@ def require_executable_routing_selection(
     require_authoritative: bool = True,
 ) -> Mapping[str, Any]:
     """Reject preview or malformed selections at an execution boundary."""
+    mode = selection.get("validation_mode")
+    legacy_live = (
+        mode in {"active_component_registry", "live_authority_validation"}
+        and selection.get(
+            "live_authority_verified",
+            selection.get("live_activation_verified", False),
+        ) is True
+    )
+    online_eligible = (
+        mode == "online_governed_eligibility"
+        and selection.get("authority_effective") is True
+        and selection.get("source_revision_authorized") is True
+        and selection.get("source_bytes_current") is True
+        and selection.get("canonical_history_confirmed") is True
+        and selection.get("receipt_trusted") is True
+        and selection.get("runtime_live") == "not_checked"
+        and selection.get("registry_component_executable") is False
+    )
     if (
         selection.get("selection_kind") != "executable_packet"
         or selection.get("executable") is not True
-        or selection.get("validation_mode") not in {
-            "active_component_registry",
-            "live_authority_validation",
-        }
+        or not (legacy_live or online_eligible)
         or selection.get("authoritative") is not True
-        or selection.get(
-            "live_authority_verified",
-            selection.get("live_activation_verified", False),
-        ) is not True
         or selection.get("activation_receipt_consulted") is not True
         or not isinstance(selection.get("profile"), str)
         or not str(selection["profile"]).strip()
@@ -8126,7 +8511,8 @@ def _validate_stage2_semantics(
 ) -> None:
     required_top = {
         "$schema", "schema_version", "registry_id", "registry_revision",
-        "validation", "terminology", "implementation_enums",
+        "validation", "authority_digest_model", "terminology",
+        "implementation_enums",
         "directory_scopes", "components", "component_lifecycles",
         "component_authorities", "relationships", "migrations_and_aliases",
         "provenance_events", "routing", "supporting_artifact_rules",
@@ -8141,6 +8527,7 @@ def _validate_stage2_semantics(
         raise RegistryError("Stage 2 Registry must use schema and registry revision 2")
     if any("famil" in key.lower() for key in registry):
         raise RegistryError("Stage 2 Registry cannot contain a component-family construct")
+    _validate_stage2_authority_digest_model(registry)
     validation = registry.get("validation")
     if (
         not isinstance(validation, Mapping)
@@ -8337,6 +8724,7 @@ def validate_stage2_registry(
         verify_migration_residuals=verify_migration_residuals,
     )
     route = _stage2_route_snapshot(registry)
+    authority_model = _validate_stage2_authority_digest_model(registry)
     return {
         "valid": True,
         "registry_id": registry["registry_id"],
@@ -8345,6 +8733,10 @@ def validate_stage2_registry(
         "authoritative": False,
         "executable": False,
         "live_authority": False,
+        "registry_sha256": _canonical_registry_digest(registry),
+        "authority_sha256": _stage2_authority_digest(registry),
+        "authority_protocol": authority_model["protocol"],
+        "authority_generation": authority_model["generation"],
         "component_count": len(registry["components"]["entries"]),
         "terminology_count": len(registry["terminology"]["entries"]),
         "terminology_record_set_sha256": registry["terminology"]["record_set_sha256"],
@@ -8371,6 +8763,8 @@ def refresh_stage2_registry_currentness(
     registry = _read_json(path)
     if registry.get("schema_version") != 2:
         raise RegistryError("Stage 2 currentness refresh requires schema version 2")
+    authority_model = _validate_stage2_authority_digest_model(registry)
+    authority_digest = _stage2_authority_digest(registry)
     refreshed = copy.deepcopy(registry)
     exact_residuals = _stage2_residual_occurrences(refreshed, root=root)
     for migration in refreshed["migrations_and_aliases"]["entries"].values():
@@ -8427,6 +8821,15 @@ def refresh_stage2_registry_currentness(
     )
     _validate_against_schema(refreshed, schema, schema)
     _validate_stage2_semantics(refreshed, root=root)
+    refreshed_model = _validate_stage2_authority_digest_model(refreshed)
+    if (
+        dict(refreshed_model) != dict(authority_model)
+        or _stage2_authority_digest(refreshed) != authority_digest
+        or not _stage2_currentness_only_equivalent(registry, refreshed)
+    ):
+        raise RegistryError(
+            "Stage 2 currentness refresh would change governed authority"
+        )
     rendered = json.dumps(refreshed, ensure_ascii=False, indent=2) + "\n"
     with tempfile.NamedTemporaryFile(
         mode="w", encoding="utf-8", dir=path.parent,
@@ -8439,7 +8842,6 @@ def refresh_stage2_registry_currentness(
     os.replace(temporary, path)
     validated = _read_json(path)
     result = validate_stage2_registry(validated, root=root)
-    result["registry_sha256"] = _canonical_registry_digest(validated)
     return result
 
 
