@@ -10085,7 +10085,10 @@ def _stage2_component_registry_console_snapshot(
     if (
         routing_view.get("schema_version") != 2
         or routing_view.get("validation_mode")
-        != "proposed_revision_validation"
+        not in {
+            "proposed_revision_validation",
+            "adopted_configuration_validation",
+        }
         or routing_view.get("authoritative") is not False
         or routing_view.get("executable") is not False
         or routing_view.get("authority_effective") is not False

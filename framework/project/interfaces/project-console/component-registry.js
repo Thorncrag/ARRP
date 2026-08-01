@@ -1577,7 +1577,11 @@
       || snapshot.registry.registry_id !== "COMPONENT-REGISTRY"
       || snapshot.registry.registry_revision !== 2
       || snapshot.registry.registry_status !== "proposed"
-      || snapshot.registry.validation_mode !== "proposed_revision_validation"
+      || (
+        snapshot.registry.validation_mode !== "proposed_revision_validation"
+        && snapshot.registry.validation_mode
+          !== "adopted_configuration_validation"
+      )
       || snapshot.registry.authoritative !== false
       || snapshot.registry.executable !== false
       || snapshot.registry.authority_effective !== false

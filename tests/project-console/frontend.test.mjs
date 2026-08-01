@@ -1297,6 +1297,10 @@ test("Component Registry terminology comes only from the adopted Registry projec
   const { componentRegistryApi } = loadApi();
   const snapshot = stage2ComponentRegistryFixture();
   assert.equal(componentRegistryApi.validSnapshot(snapshot), true);
+  const adoptedConfiguration = structuredClone(snapshot);
+  adoptedConfiguration.registry.validation_mode =
+    "adopted_configuration_validation";
+  assert.equal(componentRegistryApi.validSnapshot(adoptedConfiguration), true);
   assert.equal(snapshot.terminology.entries.length, 69);
   assert.equal(snapshot.terminology.entries[0].term_id, "namespace");
   const matches = componentRegistryApi.filterTerminologyEntries(
