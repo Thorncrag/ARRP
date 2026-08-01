@@ -5,7 +5,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 2,
     "projection_id": "component-registry-console",
     "producer_id": "project-console-builder",
-    "generated_at": "2026-08-01T11:15:27-04:00",
+    "generated_at": "2026-08-01T11:40:48-04:00",
     "availability": "current",
     "complete": true,
     "reason_code": null,
@@ -34,7 +34,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "registry_id": "COMPONENT-REGISTRY",
       "registry_revision": 2,
       "registry_status": "proposed",
-      "validation_mode": "proposed_revision_validation",
+      "validation_mode": "adopted_configuration_validation",
       "authoritative": false,
       "executable": false,
       "authority_effective": false,
@@ -44,8 +44,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "receipt_trusted": false,
       "runtime_live": "not_checked",
       "predecessor_route_consulted": false,
-      "registry_sha256": "54206dc07dc8306ed7e0e0beca0e36173fdbb72c69fd92aefe8fe0a07b469a73",
-      "repository_revision": "9b7a06a7d089c61f1d6b99503dfb6349259f46f9",
+      "registry_sha256": "9c1fd6b2991699f1b5e6614294777e75153ee4551e457f9199d2bd4c6ad73da7",
+      "repository_revision": "f65a793d9544008cccecebd75abdceb8a01621e3",
       "design_id": "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR",
       "design_revision": "sha256:16c7801b08397a640829bcb9141de7482c68ea9d9aa793fba0d1080fea9d95b0"
     },
@@ -5073,7 +5073,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "f987991fabf1e6e9b27574d24cdbb753f27da5af77f268b14027ceeb56e1eee2",
+            "sha256": "cbff43de2b056ff1e60265ff4eb8a8361c488096c63820f2bdce2c6f4a1e97a0",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -41473,6 +41473,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "component-registry.js": "project-console-58189ffac193bab7f0db"
+    "component-registry.js": "project-console-9b8ba60f74ea111f3fd5"
   }
 });
