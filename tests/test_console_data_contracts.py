@@ -1333,6 +1333,22 @@ class ConsoleDataContractTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "exact Git object ID"):
             MODULE.repository_revision_timestamp(ROOT, "HEAD")
 
+        pipeline = MODULE.build_pipeline_projection(
+            [],
+            [],
+            {
+                "goal": {"reviewReadyScore": 75},
+                "candidates": [],
+                "proposals": [],
+                "generation_id": "progress-fixture",
+                "source_revision": revision,
+                "asOf": "2026-07-31",
+                "availability": "current",
+            },
+            generated_at=expected,
+        )
+        self.assertEqual(pipeline["generatedAt"], expected)
+
     def _legacy_stage1_active_projection(self):
         registry = candidate_registry_fixture()
         candidate_registry = copy.deepcopy(registry)

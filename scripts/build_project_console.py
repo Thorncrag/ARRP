@@ -7498,6 +7498,8 @@ def build_pipeline_projection(
     preliminary_records: list[dict[str, object]],
     horizon_records: list[dict[str, object]],
     progress: dict[str, object],
+    *,
+    generated_at: str,
 ) -> dict[str, object]:
     """Build the typed cross-cutting planning index consumed by the Console."""
     threshold = float((progress.get("goal") or {}).get("reviewReadyScore") or 75)
@@ -7819,7 +7821,7 @@ def build_pipeline_projection(
     hold_items = [item for item in items if item["mode"] == "hold"]
     return {
         "schemaVersion": 1,
-        "generatedAt": utc_timestamp(),
+        "generatedAt": generated_at,
         "progressGenerationId": progress.get("generation_id"),
         "progressSourceRevision": progress.get("source_revision"),
         "asOf": progress.get("asOf"),
@@ -11412,10 +11414,13 @@ def main() -> None:
     active_horizon_records = [
         record for record in horizon_records if record["issue_state"] == "Open"
     ]
+    repository_revision = source_revision(ROOT)
+    generated_at = repository_revision_timestamp(ROOT, repository_revision)
     progress["pipeline"] = build_pipeline_projection(
         candidates,
         active_horizon_records,
         progress,
+        generated_at=generated_at,
     )
     delivery_items = (
         progress.get("delivery_items")
@@ -11429,8 +11434,6 @@ def main() -> None:
         integrity,
     )
     publication["delivery_items"] = delivery_items
-    repository_revision = source_revision(ROOT)
-    generated_at = repository_revision_timestamp(ROOT, repository_revision)
     component_registry_snapshot = load_component_registry_console_snapshot(
         generated_at=generated_at,
     )
