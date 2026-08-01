@@ -1354,46 +1354,156 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "activity": [
       {
-        "event_id": "source-monitor-006",
-        "occurred_at": "2026-07-28T02:07:41+00:00",
-        "event_code": "project_log_artifact_changed",
-        "artifact_label": "Source Monitor Log · Case monitor bot",
-        "artifact_ids": [],
-        "change_descriptor": "changes_detected",
-        "score_change": null,
+        "event_id": "REG-001-score-2026-07-13",
+        "occurred_at": "2026-07-13",
+        "event_code": "active_issue_score_changed",
+        "artifact_label": "REG-001 · Agency Independence and Functional Nullification",
+        "artifact_ids": [
+          "REG-001"
+        ],
+        "change_descriptor": "T4 publication-ready audit",
+        "score_change": "81 → 83",
+        "old_score": 81,
+        "new_score": 83,
         "owner": null,
-        "affected_count": null,
-        "route": "logs:source-monitor",
-        "producer": "Source Monitor Log",
-        "source_record_id": "source-monitor-006"
+        "affected_count": 1,
+        "route": "https://github.com/Thorncrag/ARRP/blob/main/areas/REG/issues/REG-001.md",
+        "producer": "Issue audit history",
+        "source_record_id": "areas/REG/issues/REG-001.audit.md",
+        "canonical_record": "areas/REG/issues/REG-001.md"
       },
       {
-        "event_id": "SMR-20260725-PR381",
-        "occurred_at": "2026-07-25T22:17:40Z",
-        "event_code": "repository_review_recorded",
-        "artifact_label": "Interactive Codex · PR #381",
-        "artifact_ids": "10 directives in the bound event: 2019-05370, 2019-16383, 2026-14990, 2026-14991, 2026-14992, 2026-14997, 2026-14998, 2026-14999, 2026-15003, and 2026-15024.",
-        "change_descriptor": "Repository review recommendation recorded",
-        "score_change": null,
-        "owner": "Human",
-        "affected_count": 10,
-        "route": "logs:source-monitor",
-        "producer": "source-monitor-recommendation-projection",
-        "source_record_id": "SMR-20260725-PR381"
+        "event_id": "JUD-011-score-2026-07-13",
+        "occurred_at": "2026-07-13",
+        "event_code": "active_issue_score_changed",
+        "artifact_label": "JUD-011 · Executive Nullification of Congressional Mandates",
+        "artifact_ids": [
+          "JUD-011"
+        ],
+        "change_descriptor": "T4 publication-ready audit",
+        "score_change": "80 → 82",
+        "old_score": 80,
+        "new_score": 82,
+        "owner": null,
+        "affected_count": 1,
+        "route": "https://github.com/Thorncrag/ARRP/blob/main/areas/JUD/issues/JUD-011.md",
+        "producer": "Issue audit history",
+        "source_record_id": "areas/JUD/issues/JUD-011.audit.md",
+        "canonical_record": "areas/JUD/issues/JUD-011.md"
       },
       {
-        "event_id": "SMR-20260725-PR380",
-        "occurred_at": "2026-07-25T22:17:39Z",
-        "event_code": "repository_review_recorded",
-        "artifact_label": "Interactive Codex · PR #380",
-        "artifact_ids": "43 records in the bound event: HOR-035 and 42 source records, including SRC-2238.",
-        "change_descriptor": "Repository review recommendation recorded",
-        "score_change": null,
-        "owner": "Human",
-        "affected_count": 43,
-        "route": "logs:source-monitor",
-        "producer": "source-monitor-recommendation-projection",
-        "source_record_id": "SMR-20260725-PR380"
+        "event_id": "FUND-001-score-2026-07-13",
+        "occurred_at": "2026-07-13",
+        "event_code": "active_issue_score_changed",
+        "artifact_label": "FUND-001 · Fiscal Implementation of Ultra Vires Executive Directives",
+        "artifact_ids": [
+          "FUND-001"
+        ],
+        "change_descriptor": "T4 publication-ready audit",
+        "score_change": "81 → 83",
+        "old_score": 81,
+        "new_score": 83,
+        "owner": null,
+        "affected_count": 1,
+        "route": "https://github.com/Thorncrag/ARRP/blob/main/areas/FUND/issues/FUND-001.md",
+        "producer": "Issue audit history",
+        "source_record_id": "areas/FUND/issues/FUND-001.audit.md",
+        "canonical_record": "areas/FUND/issues/FUND-001.md"
+      },
+      {
+        "event_id": "EMOL-015-score-2026-07-13",
+        "occurred_at": "2026-07-13",
+        "event_code": "active_issue_score_changed",
+        "artifact_label": "EMOL-015 · Executive Self-Litigation and Settlement Conflicts",
+        "artifact_ids": [
+          "EMOL-015"
+        ],
+        "change_descriptor": "T4 publication-ready audit",
+        "score_change": "81 → 83",
+        "old_score": 81,
+        "new_score": 83,
+        "owner": null,
+        "affected_count": 1,
+        "route": "https://github.com/Thorncrag/ARRP/blob/main/areas/EMOL/issues/EMOL-015.md",
+        "producer": "Issue audit history",
+        "source_record_id": "areas/EMOL/issues/EMOL-015.audit.md",
+        "canonical_record": "areas/EMOL/issues/EMOL-015.md"
+      },
+      {
+        "event_id": "ELEC-013-score-2026-07-09",
+        "occurred_at": "2026-07-09",
+        "event_code": "active_issue_score_changed",
+        "artifact_label": "ELEC-013 · Federal Candidate Access, Ballot Access, and Debate Gatekeeping",
+        "artifact_ids": [
+          "ELEC-013"
+        ],
+        "change_descriptor": "External-review readiness push / Review Ready source-development audit",
+        "score_change": "72 → 75",
+        "old_score": 72,
+        "new_score": 75,
+        "owner": null,
+        "affected_count": 1,
+        "route": "https://github.com/Thorncrag/ARRP/blob/main/areas/ELEC/issues/ELEC-013.md",
+        "producer": "Issue audit history",
+        "source_record_id": "areas/ELEC/issues/ELEC-013.audit.md",
+        "canonical_record": "areas/ELEC/issues/ELEC-013.md"
+      },
+      {
+        "event_id": "ELEC-012-score-2026-07-04",
+        "occurred_at": "2026-07-04",
+        "event_code": "active_issue_score_changed",
+        "artifact_label": "ELEC-012 · Campaign Finance, Dark Money, and Corporate Political Spending",
+        "artifact_ids": [
+          "ELEC-012"
+        ],
+        "change_descriptor": "T4 FECA Drafting-Conversion Follow-Up",
+        "score_change": "72 → 75",
+        "old_score": 72,
+        "new_score": 75,
+        "owner": null,
+        "affected_count": 1,
+        "route": "https://github.com/Thorncrag/ARRP/blob/main/areas/ELEC/issues/ELEC-012.md",
+        "producer": "Issue audit history",
+        "source_record_id": "areas/ELEC/issues/ELEC-012.audit.md",
+        "canonical_record": "areas/ELEC/issues/ELEC-012.md"
+      },
+      {
+        "event_id": "ELEC-011-score-2026-07-04",
+        "occurred_at": "2026-07-04",
+        "event_code": "active_issue_score_changed",
+        "artifact_label": "ELEC-011 · Algorithmic Redistricting Baseline and Representation Safeguards",
+        "artifact_ids": [
+          "ELEC-011"
+        ],
+        "change_descriptor": "T4 publication-readiness / external-review readiness audit",
+        "score_change": "74 → 77",
+        "old_score": 74,
+        "new_score": 77,
+        "owner": null,
+        "affected_count": 1,
+        "route": "https://github.com/Thorncrag/ARRP/blob/main/areas/ELEC/issues/ELEC-011.md",
+        "producer": "Issue audit history",
+        "source_record_id": "areas/ELEC/issues/ELEC-011.audit.md",
+        "canonical_record": "areas/ELEC/issues/ELEC-011.md"
+      },
+      {
+        "event_id": "ELEC-004-score-2026-07-04",
+        "occurred_at": "2026-07-04",
+        "event_code": "active_issue_score_changed",
+        "artifact_label": "ELEC-004 · Abuse of Election Litigation and Civil Process",
+        "artifact_ids": [
+          "ELEC-004"
+        ],
+        "change_descriptor": "Score Recalibration / Review-Ready Threshold",
+        "score_change": "73 → 75",
+        "old_score": 73,
+        "new_score": 75,
+        "owner": null,
+        "affected_count": 1,
+        "route": "https://github.com/Thorncrag/ARRP/blob/main/areas/ELEC/issues/ELEC-004.md",
+        "producer": "Issue audit history",
+        "source_record_id": "areas/ELEC/issues/ELEC-004.audit.md",
+        "canonical_record": "areas/ELEC/issues/ELEC-004.md"
       }
     ],
     "agents": {

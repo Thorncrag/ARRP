@@ -5,8 +5,12 @@
     "documents",
     "directories",
     "routing",
+    "relationships",
     "terminology"
   ]);
+  const TERMINOLOGY_DRAFT_PATH =
+    "../../../../research/component-registry-stage2-terminology-working-draft.md";
+  const REGISTRY_SOURCE_PATH = "../../../component-registry.json";
   const PENDING_DISPLAY = "Classification pending — enforcement not active";
   const TYPED_STATES = new Set([
     "known",
@@ -18,10 +22,15 @@
   ]);
   const fieldSet = (value) => new Set(value.split(" "));
   const TOP_FIELDS = fieldSet(
+    "schema_version projection_id producer_id generated_at availability complete reason_code routes defaults registry deferred documents directories relationships routing activation_readiness terminology"
+  );
+  const LEGACY_TOP_FIELDS = fieldSet(
     "schema_version projection_id producer_id generated_at availability complete reason_code routes defaults registry deferred documents directories routing activation_readiness terminology"
   );
-  const ROUTE_FIELDS = fieldSet("documents directories routing terminology");
-  const DEFAULT_FIELDS = fieldSet("mode document directory routing");
+  const ROUTE_FIELDS = fieldSet("documents directories routing relationships terminology");
+  const LEGACY_ROUTE_FIELDS = fieldSet("documents directories routing terminology");
+  const DEFAULT_FIELDS = fieldSet("mode document directory routing relationship");
+  const LEGACY_DEFAULT_FIELDS = fieldSet("mode document directory routing");
   const REGISTRY_FIELDS = fieldSet(
     "registry_id registry_revision registry_status approval configuration_validation live_activation validation_mode authoritative executable live_activation_verified predecessor_route_consulted registry_sha256 repository_revision source_binding_sha256"
   );
@@ -36,6 +45,13 @@
   );
   const DIRECTORY_FIELDS = fieldSet(
     "scope_id display_name path_pattern match_kind specificity_rank parameter_bindings owning_scope_selection_rule ancestor_scope_ids placement_question include_when exclude_when primary_authority disclosure_boundary lifecycle_posture authorized_creators precedence fallback console_route permitted_artifact_classes current_artifact_count"
+  );
+  const RELATIONSHIP_FIELDS = fieldSet(
+    "relationship_id relationship_type from to authority_boundary console_route"
+  );
+  const RELATIONSHIP_ENDPOINT_FIELDS = fieldSet("kind id");
+  const REGISTRY_RELATIONSHIP_FIELDS = fieldSet(
+    "relationship_id relationship_type from to authority_boundary"
   );
   const PARAMETER_FIELDS = fieldSet("allowed_values");
   const ROUTING_FIELDS = fieldSet(
@@ -128,6 +144,7 @@
     ]
   });
   const RULE_NAMESPACES = Object.freeze(Object.keys(RULE_NAMESPACE_COUNTS));
+  let boundRelationships = null;
   const RULE_BASE_FIELDS = fieldSet(
     "namespace rule_id rule_version status predicate_type parameters label rendered_text source_provenance verification_ids console_route"
   );
@@ -160,6 +177,10 @@
     if (!plainObject(value)) return false;
     const keys = Object.keys(value);
     return keys.length === fields.size && keys.every((key) => fields.has(key));
+  }
+
+  function exactFieldsOneOf(value, options) {
+    return options.some((fields) => exactFields(value, fields));
   }
 
   function string(value) {
@@ -217,6 +238,75 @@
     const parameters = new URLSearchParams(query);
     return [...parameters.keys()].length === 1
       && parameters.get("document") === identity;
+  }
+
+  function validRelationshipRoute(value, identity) {
+    return validSelectionRoute(value, "relationships", "relationship", identity);
+  }
+
+  function validRelationshipEndpoint(value) {
+    return exactFields(value, RELATIONSHIP_ENDPOINT_FIELDS)
+      && string(value.kind)
+      && string(value.id);
+  }
+
+  function validRelationship(value) {
+    return exactFields(value, RELATIONSHIP_FIELDS)
+      && string(value.relationship_id)
+      && string(value.relationship_type)
+      && validRelationshipEndpoint(value.from)
+      && validRelationshipEndpoint(value.to)
+      && string(value.authority_boundary)
+      && validRelationshipRoute(value.console_route, value.relationship_id);
+  }
+
+  function canonicalValue(value) {
+    if (Array.isArray(value)) return value.map(canonicalValue);
+    if (!plainObject(value)) return value;
+    return Object.fromEntries(
+      Object.keys(value).sort().map((key) => [key, canonicalValue(value[key])])
+    );
+  }
+
+  async function sha256(value) {
+    const bytes = new TextEncoder().encode(value);
+    const result = await global.crypto.subtle.digest("SHA-256", bytes);
+    return [...new Uint8Array(result)]
+      .map((byte) => byte.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  async function loadBoundRelationships(snapshot) {
+    if (Array.isArray(boundRelationships)) return boundRelationships;
+    const response = await global.fetch(REGISTRY_SOURCE_PATH, { cache: "no-store" });
+    if (!response.ok) throw new Error("Component Registry source is unavailable.");
+    const registry = await response.json();
+    const registryDigest = await sha256(JSON.stringify(canonicalValue(registry)));
+    if (registryDigest !== snapshot.registry.registry_sha256) {
+      throw new Error("Component Registry source does not match the validated Console binding.");
+    }
+    if (!Array.isArray(registry.component_relationships)) {
+      throw new Error("Component Registry relationships are unavailable.");
+    }
+    const relationships = registry.component_relationships.map((record) => {
+      if (!exactFields(record, REGISTRY_RELATIONSHIP_FIELDS)) {
+        throw new Error("A Component Registry relationship is malformed.");
+      }
+      return {
+        ...record,
+        console_route: (
+          "automation:component-registry:relationships?relationship="
+          + encodeURIComponent(record.relationship_id)
+        )
+      };
+    });
+    if (!relationships.every(validRelationship)
+      || new Set(relationships.map((record) => record.relationship_id)).size
+        !== relationships.length) {
+      throw new Error("Component Registry relationships are invalid.");
+    }
+    boundRelationships = relationships;
+    return relationships;
   }
 
   function validRegistry(value) {
@@ -315,11 +405,16 @@
       || !stringArray(value.representations)
       || !stringArray(value.dependencies)
       || !stringArray(value.consumers)
-      || !["pinned", "runtime"].includes(value.digest_policy)
+      || ![
+        "pinned",
+        "runtime",
+        "external",
+        "provenance_only"
+      ].includes(value.digest_policy)
       || !(value.sha256 === null || digest(value.sha256))
       || !validDocumentRoute(value.console_route, value.document_id)
       || !string(value.retention_posture)) return false;
-    return value.digest_policy === "pinned"
+    return ["pinned", "provenance_only"].includes(value.digest_policy)
       ? digest(value.sha256)
       : value.sha256 === null;
   }
@@ -687,7 +782,8 @@
   }
 
   function validSnapshot(value) {
-    if (!exactFields(value, TOP_FIELDS)
+    const hasRelationships = Array.isArray(value?.relationships);
+    if (!exactFieldsOneOf(value, [TOP_FIELDS, LEGACY_TOP_FIELDS])
       || value.schema_version !== 1
       || value.projection_id !== "component-registry-console"
       || value.producer_id !== "project-console-builder"
@@ -695,9 +791,14 @@
       || value.availability !== "current"
       || value.complete !== true
       || value.reason_code !== null
-      || !exactFields(value.routes, ROUTE_FIELDS)
-      || !MODES.every((mode) => validRoute(value.routes[mode], mode))
-      || !exactFields(value.defaults, DEFAULT_FIELDS)
+      || !(hasRelationships
+        ? exactFields(value.routes, ROUTE_FIELDS)
+          && exactFields(value.defaults, DEFAULT_FIELDS)
+          && MODES.every((mode) => validRoute(value.routes[mode], mode))
+        : exactFields(value.routes, LEGACY_ROUTE_FIELDS)
+          && exactFields(value.defaults, LEGACY_DEFAULT_FIELDS)
+          && MODES.filter((mode) => mode !== "relationships")
+            .every((mode) => validRoute(value.routes[mode], mode)))
       || value.defaults.mode !== "documents"
       || !string(value.defaults.document)
       || !string(value.defaults.directory)
@@ -708,6 +809,7 @@
       || !value.documents.every(validDocument)
       || !Array.isArray(value.directories)
       || !value.directories.every(validDirectory)
+      || (hasRelationships && !value.relationships.every(validRelationship))
       || !validRouting(value.routing, value.registry)
       || value.routing.authoritative !== false
       || !validActivationReadiness(
@@ -717,10 +819,15 @@
       || !validTerminology(value.terminology)) return false;
     const documentIds = value.documents.map((record) => record.document_id);
     const directoryIds = value.directories.map((record) => record.scope_id);
+    const relationshipIds = hasRelationships
+      ? value.relationships.map((record) => record.relationship_id)
+      : [];
     return new Set(documentIds).size === documentIds.length
       && new Set(directoryIds).size === directoryIds.length
+      && new Set(relationshipIds).size === relationshipIds.length
       && documentIds.includes(value.defaults.document)
       && directoryIds.includes(value.defaults.directory)
+      && (!hasRelationships || relationshipIds.includes(value.defaults.relationship))
       && value.routing.selections.some((record) =>
         record.selection_id === value.defaults.routing)
       && value.routing.documents.every((record) =>
@@ -744,6 +851,7 @@
       documents: ["document"],
       directories: ["directory"],
       routing: ["selection", "rule"],
+      relationships: ["relationship"],
       terminology: []
     }[mode];
     const parameterKeys = [...parameters.keys()];
@@ -753,6 +861,7 @@
       documents: parameters.get("document"),
       directories: parameters.get("directory"),
       routing: parameters.get("selection") || parameters.get("rule"),
+      relationships: parameters.get("relationship"),
       terminology: null
     }[mode] : null;
     if (!validSnapshot(snapshot)) return { mode, selected: null };
@@ -763,12 +872,15 @@
         ...snapshot.routing.selections.map((record) => record.selection_id),
         ...snapshot.routing.rules.map((record) => record.rule_id)
       ],
+      relationships: (snapshot.relationships || []).map((record) =>
+        record.relationship_id),
       terminology: []
     }[mode];
     const producerDefault = {
       documents: snapshot.defaults.document,
       directories: snapshot.defaults.directory,
       routing: snapshot.defaults.routing,
+      relationships: snapshot.defaults.relationship || null,
       terminology: null
     }[mode];
     return {
@@ -854,6 +966,22 @@
       ["Fallback", record.fallback],
       ["Current artifact count", renderValue(record.current_artifact_count)],
       ["Permitted artifact classes", renderValue(record.permitted_artifact_classes)]
+    ]);
+  }
+
+  function relationshipEndpoint(value) {
+    return `${value.id} (${readableCategory(value.kind)})`;
+  }
+
+  function renderRelationship(host, record) {
+    host.replaceChildren();
+    host.append(node("h3", "", readableCategory(record.relationship_type)));
+    appendRows(host, [
+      ["Stable relationship identity", record.relationship_id],
+      ["Relationship type", readableCategory(record.relationship_type)],
+      ["From", relationshipEndpoint(record.from)],
+      ["To", relationshipEndpoint(record.to)],
+      ["Authority boundary", record.authority_boundary]
     ]);
   }
 
@@ -953,13 +1081,278 @@
     ]);
   }
 
-  function populate(select, records, identity, label) {
-    select.replaceChildren();
-    records.forEach((record) => {
-      const option = node("option", "", label(record));
-      option.value = identity(record);
-      select.append(option);
+  function parseTerminologyWorkingDraft(markdown) {
+    if (typeof markdown !== "string" || !/^status:\s*draft\s*$/m.test(markdown)) {
+      return [];
+    }
+    const approvedHeading = "## Approved terminology";
+    const approvedStart = markdown.indexOf(approvedHeading);
+    if (approvedStart < 0) return [];
+    const contentStart = approvedStart + approvedHeading.length;
+    const nextSection = markdown.indexOf("\n## ", contentStart);
+    const approved = markdown.slice(
+      contentStart,
+      nextSection < 0 ? markdown.length : nextSection
+    );
+    const headings = [...approved.matchAll(/^### (.+)$/gm)];
+    if (!headings.length) return [];
+    const entries = headings.map((match, index) => {
+      const term = match[1].trim();
+      const bodyStart = match.index + match[0].length;
+      const bodyEnd = index + 1 < headings.length
+        ? headings[index + 1].index
+        : approved.length;
+      let body = approved.slice(bodyStart, bodyEnd).trim();
+      const dimensionalNote = body.indexOf(
+        "\n\nThese dimensions are not mutually exclusive."
+      );
+      if (dimensionalNote >= 0) body = body.slice(0, dimensionalNote).trim();
+      const paragraphs = body
+        .split(/\n\s*\n/)
+        .map((paragraph) => paragraph.replace(/\s*\n\s*/g, " ").trim())
+        .filter(Boolean);
+      return { term, paragraphs };
     });
+    const terms = entries.map((entry) => entry.term);
+    return entries.every((entry) => entry.term && entry.paragraphs.length)
+      && new Set(terms).size === terms.length
+      ? entries
+      : [];
+  }
+
+  let terminologyDraftPromise = null;
+
+  function loadTerminologyWorkingDraft() {
+    if (typeof global.fetch !== "function") return Promise.resolve([]);
+    if (!terminologyDraftPromise) {
+      terminologyDraftPromise = global.fetch(TERMINOLOGY_DRAFT_PATH, {
+        cache: "no-store",
+        credentials: "same-origin"
+      })
+        .then((response) => {
+          if (!response.ok) throw new Error("terminology draft unavailable");
+          return response.text();
+        })
+        .then(parseTerminologyWorkingDraft)
+        .catch(() => []);
+    }
+    return terminologyDraftPromise;
+  }
+
+  function filterTerminologyEntries(entries, query) {
+    const tokens = String(query || "")
+      .trim()
+      .toLocaleLowerCase()
+      .split(/\s+/)
+      .filter(Boolean);
+    if (!tokens.length) return [...entries];
+    return entries.filter((entry) => {
+      const searchable = `${entry.term} ${entry.paragraphs.join(" ")}`
+        .toLocaleLowerCase();
+      return tokens.every((token) => searchable.includes(token));
+    });
+  }
+
+  function renderTerminologyDraft(entries) {
+    if (!entries.length) return;
+    const listHost = document.getElementById("component-registry-terminology-list");
+    const detailHost = document.getElementById("component-registry-terminology-detail");
+    const search = document.getElementById("component-registry-terminology-search");
+    const resultCount = document.getElementById("component-registry-terminology-results");
+    if (!listHost || !detailHost || !search || !resultCount) return;
+    const count = document.getElementById("component-registry-terminology-count");
+    if (count) {
+      count.hidden = false;
+      count.textContent = `Draft ${entries.length}`;
+      count.setAttribute("aria-label", `${entries.length} working-draft definitions`);
+    }
+    const renderDetail = (entry) => {
+      detailHost.replaceChildren(
+        node("h3", "", entry.term),
+        node(
+          "p",
+          "empty-state compact-empty",
+          "Working-draft preview — nonauthoritative and not active in the Registry."
+        ),
+        ...entry.paragraphs.map((paragraph) => node("p", "", paragraph))
+      );
+    };
+    let selectedTerm = entries[0].term;
+    const renderResults = () => {
+      const filtered = filterTerminologyEntries(entries, search.value);
+      resultCount.textContent = `${filtered.length} of ${entries.length} working-draft definitions`;
+      listHost.replaceChildren();
+      if (!filtered.length) {
+        listHost.append(node(
+          "p",
+          "empty-state compact-empty",
+          "No definitions match this search."
+        ));
+        detailHost.replaceChildren(node(
+          "p",
+          "empty-state compact-empty",
+          "Clear or revise the search to inspect a definition."
+        ));
+        return;
+      }
+      const selected = filtered.find((entry) => entry.term === selectedTerm) || filtered[0];
+      selectedTerm = selected.term;
+      const rows = [];
+      const group = node(
+        "div",
+        "component-registry-group-label",
+        `Approved working draft · ${filtered.length}`
+      );
+      group.setAttribute("role", "presentation");
+      listHost.append(group);
+      filtered.forEach((entry) => {
+        const row = node("button", "email-list-row component-registry-list-row");
+        const isSelected = entry.term === selectedTerm;
+        row.type = "button";
+        row.setAttribute("role", "option");
+        row.setAttribute("aria-selected", String(isSelected));
+        row.tabIndex = isSelected ? 0 : -1;
+        if (isSelected) row.classList.add("selected");
+        row.append(
+          node("strong", "email-row-title", entry.term),
+          node("span", "email-row-time", "Draft"),
+          node("span", "email-row-summary", entry.paragraphs[0])
+        );
+        row.addEventListener("click", () => {
+          selectedTerm = entry.term;
+          rows.forEach((candidate) => {
+            const candidateSelected = candidate === row;
+            candidate.classList.toggle("selected", candidateSelected);
+            candidate.setAttribute("aria-selected", String(candidateSelected));
+            candidate.tabIndex = candidateSelected ? 0 : -1;
+          });
+          renderDetail(entry);
+        });
+        row.addEventListener("keydown", (event) => {
+          if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+          const current = rows.indexOf(row);
+          const next = event.key === "Home"
+            ? 0
+            : event.key === "End"
+              ? rows.length - 1
+              : event.key === "ArrowDown"
+                ? Math.min(rows.length - 1, current + 1)
+                : Math.max(0, current - 1);
+          event.preventDefault();
+          rows[next].focus();
+          rows[next].click();
+        });
+        rows.push(row);
+        listHost.append(row);
+      });
+      renderDetail(selected);
+    };
+    search.disabled = false;
+    search.oninput = renderResults;
+    renderResults();
+  }
+
+  function readableCategory(value) {
+    return String(value || "Unclassified")
+      .replaceAll("_", " ")
+      .replace(/\b\w/g, (letter) => letter.toUpperCase());
+  }
+
+  function renderRegistryList(
+    host,
+    records,
+    identity,
+    title,
+    summary,
+    meta,
+    category,
+    selectedIdentity
+  ) {
+    host.replaceChildren();
+    const ordered = [...records].sort((left, right) =>
+      title(left).localeCompare(title(right), undefined, { numeric: true }));
+    const groups = new Map();
+    ordered.forEach((record) => {
+      const group = category(record);
+      if (!groups.has(group)) groups.set(group, []);
+      groups.get(group).push(record);
+    });
+    const rows = [];
+    [...groups].sort(([left], [right]) => left.localeCompare(right)).forEach(([group, items]) => {
+      const groupLabel = node(
+        "div",
+        "component-registry-group-label",
+        `${group} · ${items.length}`
+      );
+      groupLabel.setAttribute("role", "presentation");
+      host.append(groupLabel);
+      items.forEach((record) => {
+        const recordIdentity = identity(record);
+        const selected = recordIdentity === selectedIdentity;
+        const row = node("button", "email-list-row component-registry-list-row");
+        row.type = "button";
+        row.dataset.registryRecord = recordIdentity;
+        row.setAttribute("role", "option");
+        row.setAttribute("aria-selected", String(selected));
+        row.tabIndex = selected ? 0 : -1;
+        if (selected) row.classList.add("selected");
+        row.append(
+          node("strong", "email-row-title", title(record)),
+          node("span", "email-row-time", meta(record)),
+          node("span", "email-row-summary", summary(record))
+        );
+        row.addEventListener("click", () => go(record.console_route));
+        row.addEventListener("keydown", (event) => {
+          if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+          const current = rows.indexOf(row);
+          const next = event.key === "Home"
+            ? 0
+            : event.key === "End"
+              ? rows.length - 1
+              : event.key === "ArrowDown"
+                ? Math.min(rows.length - 1, current + 1)
+                : Math.max(0, current - 1);
+          event.preventDefault();
+          rows[next].focus();
+          rows[next].click();
+        });
+        rows.push(row);
+        host.append(row);
+      });
+    });
+  }
+
+  function renderRelationshipRecords(records, selectedIdentity = null) {
+    const selected = records.find((record) =>
+      record.relationship_id === selectedIdentity) || records[0];
+    setModeCount("relationships", records.length, true);
+    renderRegistryList(
+      document.getElementById("component-registry-relationship-list"),
+      records,
+      (record) => record.relationship_id,
+      (record) => `${record.from.id} → ${record.to.id}`,
+      (record) => record.authority_boundary,
+      (record) => readableCategory(record.relationship_type),
+      (record) => readableCategory(record.relationship_type),
+      selected?.relationship_id
+    );
+    const detail = document.getElementById("component-registry-relationship-detail");
+    if (selected) {
+      renderRelationship(detail, selected);
+    } else if (detail) {
+      detail.replaceChildren(node(
+        "p",
+        "empty-state compact-empty",
+        "No component relationships are registered."
+      ));
+    }
+  }
+
+  function setModeCount(mode, count, available = true) {
+    const value = document.getElementById(`component-registry-${mode}-count`);
+    if (!value) return;
+    value.hidden = !available;
+    value.textContent = available ? String(count) : "";
   }
 
   function go(route) {
@@ -987,7 +1380,10 @@
       if (!button || button.dataset.registryBound === "true") return;
       button.dataset.registryBound = "true";
       button.addEventListener("click", () =>
-        go(snapshot.routes[button.dataset.registryMode]));
+        go(
+          snapshot.routes[button.dataset.registryMode]
+          || `automation:component-registry:${button.dataset.registryMode}`
+        ));
       button.addEventListener("keydown", (event) => {
         let next = null;
         if (event.key === "ArrowRight") next = (index + 1) % buttons.length;
@@ -997,25 +1393,8 @@
         if (next === null || !buttons[next]) return;
         event.preventDefault();
         buttons[next].focus();
-        go(snapshot.routes[buttons[next].dataset.registryMode]);
-      });
-    });
-    [
-      ["component-registry-document-select", snapshot.documents, "document_id"],
-      ["component-registry-directory-select", snapshot.directories, "scope_id"],
-      [
-        "component-registry-routing-select",
-        [...snapshot.routing.selections, ...snapshot.routing.rules],
-        (record) => record.selection_id || record.rule_id
-      ]
-    ].forEach(([id, records, identity]) => {
-      const select = document.getElementById(id);
-      if (!select || select.dataset.registryBound === "true") return;
-      select.dataset.registryBound = "true";
-      select.addEventListener("change", () => {
-        const record = records.find((candidate) =>
-          (typeof identity === "function" ? identity(candidate) : candidate[identity]) === select.value);
-        if (record) go(record.console_route);
+        const mode = buttons[next].dataset.registryMode;
+        go(snapshot.routes[mode] || `automation:component-registry:${mode}`);
       });
     });
   }
@@ -1030,6 +1409,7 @@
       "component-registry-document-detail",
       "component-registry-directory-detail",
       "component-registry-routing-detail",
+      "component-registry-relationship-detail",
       "component-registry-terminology-detail"
     ].forEach((id) => {
       const host = document.getElementById(id);
@@ -1086,26 +1466,21 @@
         node("p", "component-registry-activation", snapshot.deferred.activation_requirement)
       );
     }
-    const documentSelect = document.getElementById("component-registry-document-select");
-    const directorySelect = document.getElementById("component-registry-directory-select");
-    const routingSelect = document.getElementById("component-registry-routing-select");
-    populate(
-      documentSelect,
-      snapshot.documents,
-      (record) => record.document_id,
-      (record) => `${renderValue(record.official_reference_name)} · ${record.document_id}`
+    setModeCount("documents", snapshot.documents.length);
+    setModeCount("directories", snapshot.directories.length);
+    setModeCount(
+      "routing",
+      snapshot.routing.selections.length + snapshot.routing.rules.length
     );
-    populate(
-      directorySelect,
-      snapshot.directories,
-      (record) => record.scope_id,
-      (record) => `${record.display_name} · ${record.path_pattern}`
+    setModeCount(
+      "relationships",
+      (snapshot.relationships || []).length,
+      Array.isArray(snapshot.relationships)
     );
-    populate(
-      routingSelect,
-      [...snapshot.routing.selections, ...snapshot.routing.rules],
-      (record) => record.selection_id || record.rule_id,
-      (record) => record.selection_id || `${record.label} · ${record.rule_id}`
+    setModeCount(
+      "terminology",
+      snapshot.terminology.entries.length,
+      snapshot.terminology.available === true
     );
     bindControls(snapshot);
     const selectedDocument = snapshot.documents.find((record) =>
@@ -1127,32 +1502,99 @@
           ? state.selected
           : snapshot.defaults.routing
       ));
+    const relationshipRecords = snapshot.relationships || boundRelationships || [];
+    const selectedRelationship = relationshipRecords.find((record) =>
+      record.relationship_id === (
+        state.mode === "relationships"
+          ? state.selected
+          : snapshot.defaults.relationship
+      ));
+    renderRegistryList(
+      document.getElementById("component-registry-document-list"),
+      snapshot.documents,
+      (record) => record.document_id,
+      (record) => renderValue(record.official_reference_name),
+      (record) => record.canonical_path,
+      (record) => renderValue(record.current_status),
+      (record) => readableCategory(record.authority_role),
+      selectedDocument?.document_id
+    );
+    renderRegistryList(
+      document.getElementById("component-registry-directory-list"),
+      snapshot.directories,
+      (record) => record.scope_id,
+      (record) => record.display_name,
+      (record) => record.path_pattern,
+      (record) => readableCategory(record.lifecycle_posture),
+      (record) => readableCategory(record.lifecycle_posture),
+      selectedDirectory?.scope_id
+    );
+    renderRegistryList(
+      document.getElementById("component-registry-routing-list"),
+      routingRecords,
+      (record) => record.selection_id || record.rule_id,
+      (record) => record.selection_id || record.label,
+      (record) => record.rule_id || joined(record.capabilities),
+      (record) => record.rule_id ? "Rule" : readableCategory(record.selection_kind),
+      (record) => record.rule_id
+        ? `Rules · ${readableCategory(record.namespace)}`
+        : readableCategory(`${record.selection_kind}s`),
+      selectedRouting?.selection_id || selectedRouting?.rule_id
+    );
+    renderRelationshipRecords(
+      relationshipRecords,
+      selectedRelationship?.relationship_id
+    );
+    const terminologyList = document.getElementById("component-registry-terminology-list");
+    terminologyList.replaceChildren(node(
+      "p",
+      "empty-state compact-empty",
+      "No terminology entries are active."
+    ));
     if (selectedDocument) {
-      documentSelect.value = selectedDocument.document_id;
       renderDocument(
         document.getElementById("component-registry-document-detail"),
         selectedDocument
       );
     }
     if (selectedDirectory) {
-      directorySelect.value = selectedDirectory.scope_id;
       renderDirectory(
         document.getElementById("component-registry-directory-detail"),
         selectedDirectory
       );
     }
     if (selectedRouting) {
-      routingSelect.value = selectedRouting.selection_id || selectedRouting.rule_id;
       renderRouting(
         document.getElementById("component-registry-routing-detail"),
         selectedRouting,
         snapshot
       );
     }
+    if (!relationshipRecords.length) {
+      const [path, query = ""] = String(target || "").replace(/^#/, "").split("?", 2);
+      const parameters = new URLSearchParams(query);
+      const requestedRelationship = path === "automation:component-registry:relationships"
+        && [...parameters.keys()].length === 1
+        ? parameters.get("relationship")
+        : null;
+      loadBoundRelationships(snapshot).then((records) => {
+        renderRelationshipRecords(records, requestedRelationship);
+      }).catch(() => {
+        const relationshipDetail = document.getElementById(
+          "component-registry-relationship-detail"
+        );
+        if (relationshipDetail) relationshipDetail.replaceChildren(node(
+          "p",
+          "empty-state compact-empty",
+          "Relationship data is unavailable because the current Registry binding could not be verified."
+        ));
+      });
+    }
     renderTerminology(
       document.getElementById("component-registry-terminology-detail"),
       snapshot.terminology
     );
+    loadTerminologyWorkingDraft().then(renderTerminologyDraft);
     applyMode(state.mode);
     return true;
   }
@@ -1162,6 +1604,9 @@
     pendingDisplay: PENDING_DISPLAY,
     validSnapshot,
     routeState,
+    parseTerminologyWorkingDraft,
+    filterTerminologyEntries,
+    terminologyDraftPath: TERMINOLOGY_DRAFT_PATH,
     render
   });
 })(window);

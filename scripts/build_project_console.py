@@ -2223,6 +2223,120 @@ def strip_markdown(value: str) -> str:
     return re.sub(r"\s+", " ", value).strip()
 
 
+ISSUE_PAGE_PATTERN = re.compile(
+    r"^areas/(?P<area>[A-Z0-9-]+)/issues/(?P<issue_id>[A-Z0-9-]+)\.md$"
+)
+AUDIT_ENTRY_PATTERN = re.compile(
+    r"(?m)^###\s+(?P<date>20\d{2}-\d{2}-\d{2})\s+[—-]\s+(?P<title>.+?)\s*$"
+)
+SCORE_EFFECT_LINE_PATTERN = re.compile(
+    r"(?im)^\*\*Score[^*\n]*:\*\*\s*(?P<effect>[^\n]+)$"
+)
+SCORE_TRANSITION_PATTERN = re.compile(
+    r"(?i)\b(?:increase[sd]?|decrease[sd]?|change[sd]?|move[sd]?|advance[sd]?|rise[sd]?)\s+from\s+"
+    r"(?P<old>[0-9]{1,3})\s+to\s+(?P<new>[0-9]{1,3})\b"
+)
+
+
+def active_issue_score_activity(
+    progress: dict[str, object],
+    *,
+    repository_root: Path = ROOT,
+    limit: int = 8,
+) -> list[dict[str, object]]:
+    """Project latest score-changing audit entries for current issue pages.
+
+    The Project issue-development registry determines membership.  Exact issue
+    pages and their declared sibling audit histories supply the displayed
+    change summary and score transition; general project logs are not an
+    activity fallback.
+    """
+    proposals = progress.get("proposals")
+    if not isinstance(proposals, list):
+        return []
+    root = repository_root.resolve()
+    activity: list[dict[str, object]] = []
+    for record in proposals:
+        if not isinstance(record, dict) or record.get("isIssueDevelopment") is not True:
+            continue
+        if str(record.get("state") or "").upper() not in {"", "OPEN"}:
+            continue
+        identifier = str(record.get("identifier") or "").strip()
+        canonical_record = str(record.get("canonicalRecord") or "").strip()
+        match = ISSUE_PAGE_PATTERN.fullmatch(canonical_record)
+        if not match or match.group("issue_id") != identifier:
+            continue
+        issue_path = (root / canonical_record).resolve()
+        try:
+            issue_path.relative_to(root)
+        except ValueError:
+            continue
+        audit_path = issue_path.with_name(f"{identifier}.audit.md")
+        if not issue_path.is_file() or not audit_path.is_file():
+            continue
+        try:
+            current_score = float(record.get("score"))
+        except (TypeError, ValueError):
+            continue
+        audit_text = audit_path.read_text(encoding="utf-8")
+        entries = list(AUDIT_ENTRY_PATTERN.finditer(audit_text))
+        latest_change: dict[str, object] | None = None
+        for index, entry in enumerate(entries):
+            end = entries[index + 1].start() if index + 1 < len(entries) else len(audit_text)
+            body = audit_text[entry.end():end]
+            transition = next(
+                (
+                    candidate
+                    for effect_line in SCORE_EFFECT_LINE_PATTERN.finditer(body)
+                    if (
+                        candidate := SCORE_TRANSITION_PATTERN.search(
+                            effect_line.group("effect")
+                        )
+                    )
+                ),
+                None,
+            )
+            if not transition:
+                continue
+            old_score = int(transition.group("old"))
+            new_score = int(transition.group("new"))
+            if not math.isclose(float(new_score), current_score):
+                continue
+            display_title = re.sub(
+                rf"^{re.escape(identifier)}\s*[:—-]\s*",
+                "",
+                str(record.get("title") or identifier).strip(),
+            )
+            latest_change = {
+                "event_id": f"{identifier}-score-{entry.group('date')}",
+                "occurred_at": entry.group("date"),
+                "event_code": "active_issue_score_changed",
+                "artifact_label": f"{identifier} · {display_title}",
+                "artifact_ids": [identifier],
+                "change_descriptor": strip_markdown(entry.group("title")),
+                "score_change": f"{old_score} → {new_score}",
+                "old_score": old_score,
+                "new_score": new_score,
+                "owner": record.get("owner"),
+                "affected_count": 1,
+                "route": f"{GITHUB_BLOB_ROOT}{canonical_record}",
+                "producer": "Issue audit history",
+                "source_record_id": audit_path.relative_to(root).as_posix(),
+                "canonical_record": canonical_record,
+            }
+            break
+        if latest_change:
+            activity.append(latest_change)
+    activity.sort(
+        key=lambda item: (
+            str(item.get("occurred_at") or ""),
+            str(item.get("artifact_label") or ""),
+        ),
+        reverse=True,
+    )
+    return activity[:limit]
+
+
 SAFE_LINK_SCHEMES = {"http", "https", "mailto"}
 
 
@@ -8843,7 +8957,7 @@ def overview_data(
     for log in project_logs:
         log_id = str(log.get("id") or "").strip()
         log_title = str(log.get("title") or log_id or "Project log").strip()
-        for entry in (log.get("entries") or [])[-4:]:
+        for entry in log.get("entries") or []:
             if not isinstance(entry, dict):
                 continue
             values = entry.get("values") if isinstance(entry.get("values"), dict) else {}
@@ -8869,6 +8983,7 @@ def overview_data(
                 values.get("affected")
                 or values.get("record")
                 or values.get("record_ids")
+                or values.get("scope")
             )
             summary = (
                 values.get("summary")
@@ -8880,6 +8995,7 @@ def overview_data(
                 values.get("manager_action")
                 or values.get("manager_effect")
                 or values.get("next_action")
+                or values.get("effect")
             )
             headline = (
                 values.get("record")
@@ -9140,62 +9256,7 @@ def overview_data(
                 "route": "publication:analysis",
             }
         )
-    material_changes: list[dict[str, object]] = [
-        {
-            "event_id": item.get("id"),
-            "occurred_at": item.get("recorded_at"),
-            "event_code": "repository_review_recorded",
-            "artifact_label": (
-                f"{item.get('reviewer') or 'Repository reviewer'} · "
-                f"PR #{item.get('pull_request_number')}"
-            ),
-            "artifact_ids": item.get("affected_records")
-            or (
-                (item.get("affected") or {}).get("record_ids")
-                if isinstance(item.get("affected"), dict)
-                else None
-            )
-            or [],
-            "change_descriptor": "Repository review recommendation recorded",
-            "score_change": None,
-            "owner": item.get("action_owner"),
-            "affected_count": (
-                (item.get("affected") or {}).get("total_count")
-                if isinstance(item.get("affected"), dict)
-                else None
-            ),
-            "route": item.get("console_target") or "logs:source-monitor",
-            "producer": "source-monitor-recommendation-projection",
-            "source_record_id": item.get("id"),
-        }
-        for item in review_recommendations
-    ]
-    material_changes.extend(
-        {
-            "event_id": item.get("id"),
-            "occurred_at": item.get("date"),
-            "event_code": "project_log_artifact_changed",
-            "artifact_label": item.get("record") or item.get("title"),
-            "artifact_ids": (
-                [item.get("record")] if item.get("record") else []
-            ),
-            "change_descriptor": item.get("outcome") or item.get("summary"),
-            "score_change": None,
-            "owner": item.get("owner"),
-            "affected_count": None,
-            "route": item.get("route"),
-            "producer": item.get("source"),
-            "source_record_id": item.get("id"),
-        }
-        for item in activity
-        if item.get("id")
-        and item.get("date")
-        and (item.get("outcome") or item.get("summary"))
-        and (item.get("record") or item.get("affected_scope"))
-    )
-    material_changes.sort(
-        key=lambda item: str(item.get("occurred_at") or ""), reverse=True
-    )
+    material_changes = active_issue_score_activity(progress)
     next_reviews: list[dict[str, object]] = []
     if ALLOW_PRIVATE_CONSOLE_INPUTS and REVIEW_EPOCHS.is_file():
         epoch_rows = [
@@ -10407,6 +10468,23 @@ def component_registry_console_snapshot(
             "artifact_lifecycles",
         )
     ]
+    relationships = [
+        {
+            "relationship_id": entry["relationship_id"],
+            "relationship_type": entry["relationship_type"],
+            "from": dict(entry["from"]),
+            "to": dict(entry["to"]),
+            "authority_boundary": entry["authority_boundary"],
+            "console_route": (
+                "automation:component-registry:relationships?relationship="
+                + urllib.parse.quote(entry["relationship_id"], safe="")
+            ),
+        }
+        for entry in sorted(
+            registry["component_relationships"],
+            key=lambda item: item["relationship_id"],
+        )
+    ]
     return {
         "schema_version": 1,
         "projection_id": "component-registry-console",
@@ -10419,6 +10497,7 @@ def component_registry_console_snapshot(
             "documents": "automation:component-registry:documents",
             "directories": "automation:component-registry:directories",
             "routing": "automation:component-registry:routing",
+            "relationships": "automation:component-registry:relationships",
             "terminology": "automation:component-registry:terminology",
         },
         "defaults": {
@@ -10426,6 +10505,7 @@ def component_registry_console_snapshot(
             "document": documents[0]["document_id"],
             "directory": directory_rows[0]["scope_id"],
             "routing": selections[0]["selection_id"],
+            "relationship": relationships[0]["relationship_id"],
         },
         "registry": {
             "registry_id": registry["registry_id"],
@@ -10457,6 +10537,7 @@ def component_registry_console_snapshot(
         },
         "documents": documents,
         "directories": directory_rows,
+        "relationships": relationships,
         "routing": {
             "schema_version": routing["schema_version"],
             "rule_catalog_version": routing["rule_catalog_version"],
@@ -10937,6 +11018,7 @@ def main() -> None:
         + len(component_registry_snapshot["directories"])
         + len(component_registry_snapshot["routing"]["selections"])
         + len(component_registry_snapshot["routing"]["rules"])
+        + len(component_registry_snapshot["relationships"])
     )
     pagination_sources: list[dict[str, object]] = [
         {

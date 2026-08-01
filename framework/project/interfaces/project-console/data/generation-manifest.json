@@ -1,9 +1,9 @@
 {
   "availability": "current",
   "completeness": {
-    "actual_count": 5846,
+    "actual_count": 5851,
     "complete": true,
-    "expected_count": 5846,
+    "expected_count": 5851,
     "missing_count": 0
   },
   "domain_count": 42,
@@ -37,13 +37,13 @@
       "sha256": "sha256:399998ab81eae05fe2c8dbaa4b13ee9a49d4be3cd3009639a4613bfdd938f7c2"
     },
     {
-      "bytes": 1388663,
+      "bytes": 1388812,
       "file": "component-registry.js",
       "keys": [
         "component_registry"
       ],
       "record_count": 369,
-      "sha256": "sha256:f2f7540502d9c37884b1cdfce73a0d09ee284b399e6308db618224eae42bbce0"
+      "sha256": "sha256:36dc239500e52f0ece00ac62b86d938e85d2e4ea5c74298a8854ee6449955131"
     },
     {
       "bytes": 196998,
@@ -209,7 +209,7 @@
       "sha256": "sha256:cdf26bc78beebf9d949257bc53ca901856e0b37afb5f74e146718bcf9a80351b"
     },
     {
-      "bytes": 106794,
+      "bytes": 111178,
       "file": "overview.js",
       "keys": [
         "action_snapshot",
@@ -218,8 +218,8 @@
         "queue_directory",
         "run_chain"
       ],
-      "record_count": 119,
-      "sha256": "sha256:f00a4f5a53dc8bbc1f9c59cfa5c1acfb8e0e8dfdb1dc91622a23a7983679ab4e"
+      "record_count": 124,
+      "sha256": "sha256:0d6212e62c1b4fc54cc88ceac26295e40ccd89015023d1258c8d1493a814620e"
     },
     {
       "bytes": 479303,
@@ -440,13 +440,13 @@
       "sha256": "sha256:399998ab81eae05fe2c8dbaa4b13ee9a49d4be3cd3009639a4613bfdd938f7c2"
     },
     "component-registry.js": {
-      "bytes": 1388663,
+      "bytes": 1388812,
       "generation_id": "project-console-eca24de18c0625560a7c",
       "keys": [
         "component_registry"
       ],
       "record_count": 369,
-      "sha256": "sha256:f2f7540502d9c37884b1cdfce73a0d09ee284b399e6308db618224eae42bbce0"
+      "sha256": "sha256:36dc239500e52f0ece00ac62b86d938e85d2e4ea5c74298a8854ee6449955131"
     },
     "directives-catalog-001.js": {
       "bytes": 196998,

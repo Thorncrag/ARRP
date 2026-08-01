@@ -2220,8 +2220,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
         self.assertIn("catalog-data.js?v=48", console_html)
-        self.assertIn("app.js?v=65", console_html)
-        self.assertIn("styles.css?v=55", console_html)
+        self.assertIn("app.js?v=99", console_html)
+        self.assertIn("styles.css?v=104", console_html)
         self.assertEqual(
             re.findall(r'<script src="(data/[^"]+)"', console_html),
             [],
@@ -2275,15 +2275,15 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Decision dossiers", console_html)
         self.assertIn("Project bibliography", console_html)
         self.assertIn("Issues being monitored", console_html)
-        self.assertIn('id="progress-monitoring"', console_html)
+        self.assertIn('id="workbench-monitoring"', console_html)
         self.assertNotIn('id="watcher-tab-manual"', console_html)
         self.assertNotIn('id="watcher-panel-manual"', console_html)
         self.assertIn("Court-case watcher", console_html)
         self.assertIn("Presidential-directives watcher", console_html)
         self.assertIn("Central review inbox", console_html)
         self.assertIn('id="development-board"', console_html)
-        self.assertIn('id="progress-holds-summary"', console_html)
-        self.assertIn('class="progress-disclosure progress-holds-summary progress-group-index"', console_html)
+        self.assertIn('id="pipeline-hold-mode-count"', console_html)
+        self.assertNotIn('id="progress-holds-summary"', console_html)
         self.assertNotIn('id="progress-holds"', console_html)
         self.assertNotIn('element("details", "progress-hold-group")', console_app)
         self.assertIn('id="pipeline-workspace"', console_html)
@@ -2293,11 +2293,11 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn('data-pipeline-mode="hold"', console_html)
         self.assertNotIn('id="progress-next-work"', console_html)
         self.assertNotIn("nextWorkCohort", console_app)
-        self.assertIn('class="progress-disclosure progress-monitoring-section progress-group-index"', console_html)
-        self.assertNotIn('<details class="progress-disclosure progress-monitoring-section"', console_html)
+        self.assertIn('class="workbench-monitoring" id="workbench-monitoring"', console_html)
+        self.assertNotIn('progress-monitoring-section', console_html)
         self.assertNotIn('data-disclosure-id="sources-court-results"', console_html)
         self.assertIn('class="monitoring-list list-at-a-glance" id="court-watch-list"', console_html)
-        self.assertIn('`progress-monitoring-${record.id}`', console_app)
+        self.assertIn('`workbench-monitoring-${record.id}`', console_app)
         self.assertIn('`sources-court-${records[0].owner_id}-${layoutSlug(records[0].monitoring_group || label)}`', console_app)
         self.assertIn('class="progress-disclosure progress-area-section progress-group-index"', console_html)
         self.assertNotIn('<details class="progress-disclosure progress-area-section"', console_html)
@@ -2305,7 +2305,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertNotIn("count > 0 && items.length <= 4", console_app)
         self.assertNotIn("items.length <= 3", console_app)
         self.assertNotIn('details.open = section.id === "unplaced"', console_app)
-        self.assertIn('["Deferred", "Blocked", "Human decision needed"]', console_app)
+        self.assertIn('["Blocked", "Deferred"].includes(item.status)', console_app)
+        self.assertIn('if (status === "Human decision needed") return "actions";', console_app)
         self.assertIn("APPROVED_WORKFLOW_STATUSES", console_app)
         self.assertIn("WORKFLOW_EXPLANATION_REQUIRED", console_app)
         self.assertIn("required hold reason is not recorded", console_app)
@@ -2449,7 +2450,6 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("workflow_status_invalid", console_app)
         self.assertIn("dense-data-disclosure", console_html)
         for summary_id in {
-            "sources-results-summary",
             "directive-results-summary",
             "source-checker-results-summary",
             "pages-results-summary",
@@ -2516,10 +2516,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("producerProblemRecords", console_app)
         self.assertNotIn("repositoryHumanActions.length", console_app)
         self.assertIn("Open specialist administration", console_app)
-        self.assertIn('record.workflowStatus === "Human decision needed"', console_app)
-        self.assertIn("integrityFindingNeedsHuman", console_app)
         self.assertNotIn('"foundation decision"', console_app)
-        self.assertIn('String(finding.attention || "").toLowerCase() === "human"', console_app)
+        self.assertIn('.filter((finding) => finding.attention === "human")', console_app)
         self.assertIn("integrityHumanFindings.map", console_app)
         self.assertIn("renderActionInboxPreview", console_app)
         self.assertIn("integrityActionLink", console_app)
@@ -2564,8 +2562,8 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("refreshLiveIntegrity", console_app)
         self.assertIn('setAttribute("aria-sort"', console_app)
         self.assertIn("sort-button", console_css)
-        self.assertIn("project-log-table", console_css)
-        self.assertIn("log-entry-expanded", console_css)
+        self.assertIn("email-workspace", console_css)
+        self.assertIn("email-preview-fields", console_css)
         self.assertIn("publication-builder-grid", console_css)
         self.assertIn("scroll-to-top", console_css)
         self.assertIn("integrity-finding-group", console_css)
@@ -2603,11 +2601,10 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn(".automation-overview-grid", console_css)
         self.assertIn(".automation-config-panel", console_css)
         self.assertIn("updateDenseDisclosureSummary", console_app)
-        source_catalog_disclosure = console_html.split(
-            'data-disclosure-id="sources-catalog-results"',
-            1,
-        )[1].split("</details>", 1)[0]
-        self.assertIn('id="sources-pagination"', source_catalog_disclosure)
+        self.assertNotIn('data-disclosure-id="sources-catalog-results"', console_html)
+        self.assertNotIn('data-disclosure-id="sources-exact-type-filter"', console_html)
+        self.assertIn('id="sources-table"', console_html)
+        self.assertNotIn('id="sources-pagination"', console_html)
         source_checker_renderer = console_app.split(
             "function renderSourceChecker()",
             1,
@@ -2644,7 +2641,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("window.localStorage.setItem(LAYOUT_STORAGE_KEY", console_app)
         self.assertNotIn("localStorage.setItem(\"arrp-publication", console_app)
         self.assertIn("PAGE_SIZE = 50", console_app)
-        self.assertIn('inlineLink("Open ↗", record.url)', console_app)
+        self.assertIn('inlineLink("Open ↗", record.official_url)', console_app)
         self.assertIn("GitHub intake record", console_app)
         self.assertIn("Source inventory records", console_app)
         self.assertIn("Project research mentioning this candidate", console_app)

@@ -898,6 +898,7 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "deferred",
                 "documents",
                 "directories",
+                "relationships",
                 "routing",
                 "activation_readiness",
                 "terminology",
@@ -929,6 +930,17 @@ class ConsoleDataContractTests(unittest.TestCase):
             },
         )
         self.assertEqual(snapshot["schema_version"], 1)
+        self.assertEqual(
+            len(snapshot["relationships"]),
+            len(registry["component_relationships"]),
+        )
+        self.assertEqual(
+            snapshot["relationships"][0]["console_route"],
+            (
+                "automation:component-registry:relationships?relationship="
+                + snapshot["relationships"][0]["relationship_id"]
+            ),
+        )
         self.assertEqual(
             snapshot["registry"]["validation_mode"],
             "candidate_validation_only",
@@ -1787,90 +1799,109 @@ class ConsoleDataContractTests(unittest.TestCase):
         )
         self.assertEqual(readiness["future_run_gates"]["count"], 1)
 
-    def test_overview_activity_preserves_typed_artifact_change_events(self):
-        overview = MODULE.overview_data(
-            candidates=[],
-            active_horizon_records=[],
-            monitoring_issues=[],
-            pending_sources=[],
-            review_recommendations=[
-                {
-                    "id": "SMR-1",
-                    "recorded_at": "2026-07-25T12:01:00Z",
-                    "reviewer": "Interactive Codex",
-                    "pull_request_number": 381,
-                    "recommendation": "Review the complete exact-head delta.",
-                    "affected_records": "10 directive records",
-                    "action_owner": "Human",
-                    "human_question": "Approve the recorded disposition?",
-                    "console_target": "sources:watchers:directives",
-                }
-            ],
-            progress={},
-            integrity={},
-            run_chain={},
-            publication={},
-            project_logs=[
-                {
-                    "id": "source-monitor",
-                    "title": "Source Monitor Log",
-                    "entries": [
-                        {
-                            "id": "source-monitor-1",
-                            "values": {
-                                "date": "2026-07-25T12:01:00Z",
-                                "watcher": "Repository review recommendation SMR-1",
-                                "result": "recommendation_recorded",
-                                "activity": "SMR-1",
-                            },
-                        }
-                    ],
-                },
-                {
-                    "id": "agents",
-                    "title": "Agent Audit Log",
-                    "entries": [
-                        {
-                            "id": "agent-1",
-                            "values": {
-                                "date": "2026-07-25T12:00:00Z",
-                                "record": "TEST-001",
-                                "agent": "Elim",
-                                "outcome": "Completed",
-                            },
-                        },
-                        {
-                            "id": "agent-2",
-                            "values": {
-                                "date": "2026-07-25T11:59:00Z",
-                                "record": "TEST-001",
-                                "agent": "Elim",
-                                "outcome": "Completed",
-                            },
-                        },
-                    ],
-                },
-            ],
-            agent_registry=[],
-            watcher_metadata={},
-            source_checker={},
-        )
-        activity = overview["activity"]
-        self.assertEqual(len(activity), 3)
-        self.assertEqual(activity[0]["event_code"], "repository_review_recorded")
+    def test_active_issue_score_activity_uses_exact_issue_audit_history(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            issue_root = root / "areas" / "TEST" / "issues"
+            issue_root.mkdir(parents=True)
+            (issue_root / "TEST-001.md").write_text(
+                "# TEST-001 — Useful issue\n", encoding="utf-8"
+            )
+            (issue_root / "TEST-001.audit.md").write_text(
+                """# TEST-001 — Audit History
+
+### 2026-07-30 — Editorial follow-up
+
+**Score effect:** No Proposal Quality Score change. The score remains 74/100.
+
+### 2026-07-29 — T3 readiness audit
+
+**Score effect:** Proposal Quality Score increased from 70 to 74.
+""",
+                encoding="utf-8",
+            )
+            progress = {
+                "proposals": [
+                    {
+                        "identifier": "TEST-001",
+                        "title": "TEST-001: Useful issue",
+                        "canonicalRecord": "areas/TEST/issues/TEST-001.md",
+                        "isIssueDevelopment": True,
+                        "workflowStatus": "External review",
+                        "state": "OPEN",
+                        "score": 74,
+                    },
+                    {
+                        "identifier": "TEST-AREA",
+                        "title": "Area summary is not an issue page",
+                        "canonicalRecord": "areas/TEST/README.md",
+                        "isIssueDevelopment": True,
+                        "state": "OPEN",
+                        "score": 74,
+                    },
+                ]
+            }
+            activity = MODULE.active_issue_score_activity(
+                progress, repository_root=root
+            )
+        self.assertEqual(len(activity), 1)
+        self.assertEqual(activity[0]["event_code"], "active_issue_score_changed")
+        self.assertEqual(activity[0]["artifact_label"], "TEST-001 · Useful issue")
+        self.assertEqual(activity[0]["change_descriptor"], "T3 readiness audit")
+        self.assertEqual(activity[0]["score_change"], "70 → 74")
+        self.assertEqual(activity[0]["old_score"], 70)
+        self.assertEqual(activity[0]["new_score"], 74)
         self.assertEqual(
-            activity[0]["producer"],
-            "source-monitor-recommendation-projection",
+            activity[0]["canonical_record"], "areas/TEST/issues/TEST-001.md"
         )
-        self.assertEqual(activity[0]["route"], "sources:watchers:directives")
-        self.assertEqual(
-            [item["event_code"] for item in activity[1:]],
-            ["project_log_artifact_changed", "project_log_artifact_changed"],
-        )
-        self.assertEqual(
-            [item["source_record_id"] for item in activity[1:]],
-            ["agent-1", "agent-2"],
-        )
+
+    def test_overview_activity_uses_issue_projection_not_general_logs(self):
+        projected = {
+            "event_id": "TEST-001-score-2026-07-29",
+            "occurred_at": "2026-07-29",
+            "event_code": "active_issue_score_changed",
+            "artifact_label": "TEST-001 · Useful issue",
+            "artifact_ids": ["TEST-001"],
+            "change_descriptor": "T3 readiness audit",
+            "score_change": "70 → 74",
+            "canonical_record": "areas/TEST/issues/TEST-001.md",
+            "route": "https://example.test/TEST-001",
+        }
+        with mock.patch.object(
+            MODULE, "active_issue_score_activity", return_value=[projected]
+        ):
+            overview = MODULE.overview_data(
+                candidates=[],
+                active_horizon_records=[],
+                monitoring_issues=[],
+                pending_sources=[],
+                review_recommendations=[],
+                progress={"proposals": []},
+                integrity={},
+                run_chain={},
+                publication={},
+                project_logs=[
+                    {
+                        "id": "changes",
+                        "title": "Change Audit Log",
+                        "entries": [
+                            {
+                                "id": "generic-change",
+                                "values": {
+                                    "date": "2026-07-30",
+                                    "change": "General project change",
+                                    "scope": "Not one issue page",
+                                    "effect": "No score change.",
+                                },
+                            }
+                        ],
+                    }
+                ],
+                agent_registry=[],
+                watcher_metadata={},
+                source_checker={},
+            )
+        self.assertEqual(overview["activity"], [projected])
 
     def test_overview_uses_typed_incident_projection_without_regrouping_run_text(self):
         message_a = (

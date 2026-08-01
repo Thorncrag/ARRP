@@ -42,7 +42,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "executable": false,
       "live_activation_verified": false,
       "predecessor_route_consulted": false,
-      "registry_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+      "registry_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
       "repository_revision": "33d1e46b564d67e04bf2c72f4f494ffea8e851b4",
       "source_binding_sha256": {
         "state": "not_applicable",
@@ -1510,7 +1510,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         ],
         "consumers": [
           "capability:scope_and_candidates",
-          "document:project_interface",
+          "document:project_tool_interface",
           "profile:candidate_research"
         ],
         "digest_policy": "pinned",
@@ -1875,7 +1875,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "dependencies": [],
         "consumers": [],
         "digest_policy": "pinned",
-        "sha256": "b419d692911c32b7b8249c5d6e691a63a5dd51146b8c1dca9a04bf340b562576",
+        "sha256": "a9c0fa7f4ce25b05a2d4874259d1b91123dca46fa35ac9127f6da9dbecd08d42",
         "console_route": "operations:component-registry:documents?document=component_registry_tests",
         "retention_posture": "current",
         "history": {
@@ -2884,7 +2884,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "capability:interface_governance",
           "document:progress_view_standard",
           "document:project_console_classifications",
-          "document:project_interface",
+          "document:project_tool_interface",
           "document:public_input_standard",
           "document:visual_identity"
         ],
@@ -4211,7 +4211,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "consumers": [
           "capability:interface_governance",
           "document:project_console_progress",
-          "document:project_interface"
+          "document:project_tool_interface"
         ],
         "digest_policy": "pinned",
         "sha256": "0b456d08c5a06750e3a041a1dc1f31c8dfdb149e8fb344a502e36dc283240b22",
@@ -4292,7 +4292,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "github_workflow",
           "navigation_project_sync",
           "project_source_adjudication",
-          "project_interface",
+          "project_tool_interface",
           "project_console_progress"
         ],
         "consumers": [
@@ -4460,7 +4460,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         ],
         "consumers": [
           "capability:interface_governance",
-          "document:project_interface"
+          "document:project_tool_interface"
         ],
         "digest_policy": "pinned",
         "sha256": "8f54876cccefe036f2830d9c9b9a75b5ed7473309e583838367ccc75d76ffa15",
@@ -4539,93 +4539,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "consumers": [
           "capability:interface_governance",
           "document:project_audit_execution",
-          "document:project_interface"
+          "document:project_tool_interface"
         ],
         "digest_policy": "pinned",
         "sha256": "fae36b5ee6ad0a97625b6af66f58118ab26311ff17f4bcc2c85641cb24eecbe1",
         "console_route": "operations:component-registry:documents?document=project_console_progress",
-        "retention_posture": "current",
-        "history": {
-          "state": "unavailable",
-          "reason": "Normalized document history is not registered in the Stage 1 candidate."
-        }
-      },
-      {
-        "document_id": "project_interface",
-        "official_reference_name": {
-          "state": "known",
-          "value": "ARRP Project Console and Interface Configuration"
-        },
-        "document_class": {
-          "state": "known",
-          "value": "routed_governing_document"
-        },
-        "revision": {
-          "state": "pending",
-          "reason": "The routed predecessor does not carry a normalized document revision."
-        },
-        "current_status": {
-          "state": "known",
-          "value": "current_routed_source"
-        },
-        "effective_date": {
-          "state": "pending",
-          "reason": "The routed predecessor does not carry a normalized effective date."
-        },
-        "approval_date": {
-          "state": "pending",
-          "reason": "Historical approval date is not established by the routed predecessor."
-        },
-        "approval_method": {
-          "state": "pending",
-          "reason": "Historical approval method is not established by the routed predecessor."
-        },
-        "governance_change_id": {
-          "state": "pending",
-          "reason": "Baseline adoption awaits the explicit Stage 1 activation decision."
-        },
-        "purpose_scope": {
-          "state": "pending",
-          "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
-        },
-        "authority_role": "governing_authority",
-        "authority_exclusions": {
-          "state": "pending",
-          "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
-        },
-        "canonical_path": "framework/project/interfaces/project-console.md",
-        "owner": "@Thorncrag",
-        "review_policy": "owner_review_required",
-        "disclosure_class": "public_by_design",
-        "creation_provenance": {
-          "state": "pending",
-          "reason": "Original creation provenance is not normalized in the routed predecessor."
-        },
-        "governance_revision": 1,
-        "producer": "existing_repository_source",
-        "authorized_writers": [
-          "@Thorncrag"
-        ],
-        "representations": [
-          "component_registry_console_documents"
-        ],
-        "dependencies": [
-          "interface_standard",
-          "progress_view_standard",
-          "visual_identity",
-          "project_console_classifications",
-          "project_console_progress",
-          "candidate_adjudication",
-          "project_source_adjudication",
-          "project_runtime_authority"
-        ],
-        "consumers": [
-          "capability:interface_governance",
-          "document:project_audit_execution"
-        ],
-        "digest_policy": "pinned",
-        "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
-        "console_route": "operations:component-registry:documents?document=project_interface",
         "retention_posture": "current",
         "history": {
           "state": "unavailable",
@@ -4937,7 +4855,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "document:agent_registry",
           "document:github_workflow",
           "document:project_autonomous_execution",
-          "document:project_interface",
+          "document:project_tool_interface",
           "document:project_reconciliation",
           "document:runbook_run_coordinator_bot",
           "document:transaction_lifecycle"
@@ -5023,7 +4941,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "document:operation_project_update",
           "document:print_assembly",
           "document:project_audit_execution",
-          "document:project_interface",
+          "document:project_tool_interface",
           "document:source_presidential_directives",
           "profile:candidate_research",
           "profile:change_audit",
@@ -5034,6 +4952,88 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "digest_policy": "pinned",
         "sha256": "47a45caf79cf19291f5bdb699c33244a09f8924c9bcfdb77dc9561ee00802dc6",
         "console_route": "operations:component-registry:documents?document=project_source_adjudication",
+        "retention_posture": "current",
+        "history": {
+          "state": "unavailable",
+          "reason": "Normalized document history is not registered in the Stage 1 candidate."
+        }
+      },
+      {
+        "document_id": "project_tool_interface",
+        "official_reference_name": {
+          "state": "known",
+          "value": "ARRP Project Console and Interface Configuration"
+        },
+        "document_class": {
+          "state": "known",
+          "value": "routed_governing_document"
+        },
+        "revision": {
+          "state": "known",
+          "value": "1.1"
+        },
+        "current_status": {
+          "state": "known",
+          "value": "current_routed_source"
+        },
+        "effective_date": {
+          "state": "known",
+          "value": "2026-07-31"
+        },
+        "approval_date": {
+          "state": "known",
+          "value": "2026-07-31"
+        },
+        "approval_method": {
+          "state": "known",
+          "value": "explicit_recorded_owner_approval"
+        },
+        "governance_change_id": {
+          "state": "pending",
+          "reason": "Direct owner approval was recorded on 2026-07-31 without a separate Governance Change ID."
+        },
+        "purpose_scope": {
+          "state": "pending",
+          "reason": "A normalized concise scope awaits baseline metadata review; current routing remains exact."
+        },
+        "authority_role": "governing_authority",
+        "authority_exclusions": {
+          "state": "pending",
+          "reason": "Normalized exclusions await baseline metadata review and are not inferred from prose."
+        },
+        "canonical_path": "framework/project/interfaces/project-console.md",
+        "owner": "@Thorncrag",
+        "review_policy": "owner_review_required",
+        "disclosure_class": "public_by_design",
+        "creation_provenance": {
+          "state": "pending",
+          "reason": "Original creation provenance is not normalized in the routed predecessor."
+        },
+        "governance_revision": 2,
+        "producer": "existing_repository_source",
+        "authorized_writers": [
+          "@Thorncrag"
+        ],
+        "representations": [
+          "component_registry_console_documents"
+        ],
+        "dependencies": [
+          "interface_standard",
+          "progress_view_standard",
+          "visual_identity",
+          "project_console_classifications",
+          "project_console_progress",
+          "candidate_adjudication",
+          "project_source_adjudication",
+          "project_runtime_authority"
+        ],
+        "consumers": [
+          "capability:interface_governance",
+          "document:project_audit_execution"
+        ],
+        "digest_policy": "pinned",
+        "sha256": "2d2b1b8136f287151a70c72e734c83964e73f6c9d8862e9c40f8c09eccd39458",
+        "console_route": "operations:component-registry:documents?document=project_tool_interface",
         "retention_posture": "current",
         "history": {
           "state": "unavailable",
@@ -7011,7 +7011,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "consumers": [
           "capability:interface_governance",
           "document:navigation_project_sync",
-          "document:project_interface"
+          "document:project_tool_interface"
         ],
         "digest_policy": "pinned",
         "sha256": "f685b6fc553ba52f3bc68d38bd9923e0ec2960c27ebbd41c9271520c35a608c4",
@@ -8749,7 +8749,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         "current_artifact_count": {
           "state": "known",
-          "value": 5
+          "value": 9
         }
       },
       {
@@ -9867,7 +9867,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "github_workflow",
             "navigation_project_sync",
             "project_source_adjudication",
-            "project_interface",
+            "project_tool_interface",
             "project_console_progress"
           ]
         },
@@ -9905,23 +9905,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "maturity_profile",
             "github_workflow",
             "progress_config"
-          ]
-        },
-        {
-          "document_id": "project_interface",
-          "path": "framework/project/interfaces/project-console.md",
-          "governing": true,
-          "hash_policy": "pinned",
-          "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
-          "requires": [
-            "interface_standard",
-            "progress_view_standard",
-            "visual_identity",
-            "project_console_classifications",
-            "project_console_progress",
-            "candidate_adjudication",
-            "project_source_adjudication",
-            "project_runtime_authority"
           ]
         },
         {
@@ -9983,6 +9966,23 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "source_catalogs",
             "source_automated_adjudication",
             "source_project_monitoring"
+          ]
+        },
+        {
+          "document_id": "project_tool_interface",
+          "path": "framework/project/interfaces/project-console.md",
+          "governing": true,
+          "hash_policy": "pinned",
+          "sha256": "2d2b1b8136f287151a70c72e734c83964e73f6c9d8862e9c40f8c09eccd39458",
+          "requires": [
+            "interface_standard",
+            "progress_view_standard",
+            "visual_identity",
+            "project_console_classifications",
+            "project_console_progress",
+            "candidate_adjudication",
+            "project_source_adjudication",
+            "project_runtime_authority"
           ]
         },
         {
@@ -10362,7 +10362,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "visual_identity",
             "project_console_classifications",
             "project_console_progress",
-            "project_interface",
+            "project_tool_interface",
             "progress_config"
           ]
         },
@@ -12048,7 +12048,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of project_audit_execution",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "profile change_audit"
               ]
             },
@@ -12121,7 +12121,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of agent_registry",
                 "dependency of github_workflow",
                 "dependency of project_autonomous_execution",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "dependency of transaction_lifecycle"
               ]
             },
@@ -12645,7 +12645,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "inclusion_reasons": [
                 "dependency of progress_view_standard",
                 "dependency of project_console_classifications",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "dependency of visual_identity"
               ]
             },
@@ -12669,7 +12669,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of navigation_project_sync",
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -12718,7 +12718,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of project_console_progress",
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -12740,7 +12740,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "interface_standard"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -12810,7 +12810,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of project_audit_execution",
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -12861,15 +12861,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "github_workflow"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
-              "id": "project_interface",
+              "id": "project_tool_interface",
               "path": "framework/project/interfaces/project-console.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
+              "sha256": "2d2b1b8136f287151a70c72e734c83964e73f6c9d8862e9c40f8c09eccd39458",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -12919,7 +12919,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "github_workflow",
                 "navigation_project_sync",
                 "project_source_adjudication",
-                "project_interface",
+                "project_tool_interface",
                 "project_console_progress"
               ],
               "inclusion_reasons": [
@@ -13310,8 +13310,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of agent_registry",
                 "dependency of github_workflow",
                 "dependency of project_autonomous_execution",
-                "dependency of project_interface",
                 "dependency of project_reconciliation",
+                "dependency of project_tool_interface",
                 "dependency of runbook_run_coordinator_bot",
                 "dependency of transaction_lifecycle",
                 "profile comprehensive_review complete governing boundary"
@@ -13922,7 +13922,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "github_workflow"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "profile comprehensive_review complete governing boundary"
               ]
             },
@@ -14072,7 +14072,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of operation_project_update",
                 "dependency of print_assembly",
                 "dependency of project_audit_execution",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "dependency of source_presidential_directives",
                 "profile comprehensive_review complete governing boundary"
               ]
@@ -14171,7 +14171,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "inclusion_reasons": [
                 "dependency of progress_view_standard",
                 "dependency of project_console_classifications",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "dependency of public_input_standard",
                 "dependency of visual_identity",
                 "profile comprehensive_review complete governing boundary"
@@ -14197,7 +14197,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of navigation_project_sync",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "profile comprehensive_review complete governing boundary"
               ]
             },
@@ -14513,7 +14513,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of project_console_progress",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "profile comprehensive_review complete governing boundary"
               ]
             },
@@ -14536,7 +14536,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "interface_standard"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "profile comprehensive_review complete governing boundary"
               ]
             },
@@ -14563,16 +14563,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of project_audit_execution",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "profile comprehensive_review complete governing boundary"
               ]
             },
             {
-              "id": "project_interface",
+              "id": "project_tool_interface",
               "path": "framework/project/interfaces/project-console.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
+              "sha256": "2d2b1b8136f287151a70c72e734c83964e73f6c9d8862e9c40f8c09eccd39458",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -14623,7 +14623,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "github_workflow",
                 "navigation_project_sync",
                 "project_source_adjudication",
-                "project_interface",
+                "project_tool_interface",
                 "project_console_progress"
               ],
               "inclusion_reasons": [
@@ -16149,7 +16149,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of agent_registry",
                 "dependency of github_workflow",
                 "dependency of project_autonomous_execution",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "dependency of runbook_run_coordinator_bot",
                 "dependency of transaction_lifecycle",
                 "profile integrity_reconciliation capability autonomous_execution",
@@ -16789,7 +16789,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "github_workflow"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "profile integrity_reconciliation capability scope_and_candidates"
               ]
             },
@@ -16913,7 +16913,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of intake_process",
                 "dependency of operation_project_update",
                 "dependency of print_assembly",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "dependency of source_presidential_directives",
                 "profile integrity_reconciliation capability evidence_and_sources",
                 "profile integrity_reconciliation capability specialized_source_monitoring"
@@ -17065,7 +17065,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "inclusion_reasons": [
                 "dependency of progress_view_standard",
                 "dependency of project_console_classifications",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "dependency of public_input_standard",
                 "dependency of visual_identity",
                 "profile integrity_reconciliation capability interface_governance"
@@ -17091,7 +17091,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of navigation_project_sync",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "profile integrity_reconciliation capability interface_governance"
               ]
             },
@@ -17408,7 +17408,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of project_console_progress",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "profile integrity_reconciliation capability interface_governance"
               ]
             },
@@ -17431,7 +17431,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "interface_standard"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "profile integrity_reconciliation capability interface_governance"
               ]
             },
@@ -17478,16 +17478,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "progress_config"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "profile integrity_reconciliation capability interface_governance"
               ]
             },
             {
-              "id": "project_interface",
+              "id": "project_tool_interface",
               "path": "framework/project/interfaces/project-console.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
+              "sha256": "2d2b1b8136f287151a70c72e734c83964e73f6c9d8862e9c40f8c09eccd39458",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -18292,7 +18292,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of project_audit_execution",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "profile issue_audit"
               ]
             },
@@ -18498,7 +18498,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "dependency of agent_registry",
                 "dependency of github_workflow",
                 "dependency of project_autonomous_execution",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "dependency of transaction_lifecycle"
               ]
             },
@@ -18944,7 +18944,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "inclusion_reasons": [
                 "dependency of progress_view_standard",
                 "dependency of project_console_classifications",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "dependency of visual_identity"
               ]
             },
@@ -18968,7 +18968,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of navigation_project_sync",
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -19017,7 +19017,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of project_console_progress",
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -19039,7 +19039,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "interface_standard"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -19109,7 +19109,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of project_audit_execution",
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -19160,15 +19160,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "github_workflow"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
-              "id": "project_interface",
+              "id": "project_tool_interface",
               "path": "framework/project/interfaces/project-console.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
+              "sha256": "2d2b1b8136f287151a70c72e734c83964e73f6c9d8862e9c40f8c09eccd39458",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -19218,7 +19218,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "github_workflow",
                 "navigation_project_sync",
                 "project_source_adjudication",
-                "project_interface",
+                "project_tool_interface",
                 "project_console_progress"
               ],
               "inclusion_reasons": [
@@ -21528,7 +21528,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "inclusion_reasons": [
                 "dependency of agent_issue_candidate_work",
                 "dependency of github_workflow",
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -21702,7 +21702,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "inclusion_reasons": [
                 "dependency of progress_view_standard",
                 "dependency of project_console_classifications",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "dependency of visual_identity"
               ]
             },
@@ -21726,7 +21726,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of navigation_project_sync",
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -21802,7 +21802,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of project_audit_execution",
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -21826,7 +21826,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of project_console_progress",
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -21848,7 +21848,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "interface_standard"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -21918,7 +21918,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of project_audit_execution",
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -21969,15 +21969,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "github_workflow"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
-              "id": "project_interface",
+              "id": "project_tool_interface",
               "path": "framework/project/interfaces/project-console.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
+              "sha256": "2d2b1b8136f287151a70c72e734c83964e73f6c9d8862e9c40f8c09eccd39458",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -22027,7 +22027,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "github_workflow",
                 "navigation_project_sync",
                 "project_source_adjudication",
-                "project_interface",
+                "project_tool_interface",
                 "project_console_progress"
               ],
               "inclusion_reasons": [
@@ -25054,7 +25054,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "inclusion_reasons": [
                 "dependency of progress_view_standard",
                 "dependency of project_console_classifications",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "dependency of visual_identity",
                 "requested capability interface_governance"
               ]
@@ -25233,7 +25233,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of project_console_progress",
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "requested capability interface_governance"
               ]
             },
@@ -25256,7 +25256,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "interface_standard"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "requested capability interface_governance"
               ]
             },
@@ -25279,7 +25279,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "interface_standard"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "requested capability interface_governance"
               ]
             },
@@ -25348,7 +25348,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               ],
               "inclusion_reasons": [
                 "dependency of github_workflow",
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -25444,7 +25444,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "progress_config"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface",
+                "dependency of project_tool_interface",
                 "requested capability interface_governance"
               ]
             },
@@ -25548,7 +25548,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "github_workflow"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
@@ -25596,15 +25596,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "source_project_monitoring"
               ],
               "inclusion_reasons": [
-                "dependency of project_interface"
+                "dependency of project_tool_interface"
               ]
             },
             {
-              "id": "project_interface",
+              "id": "project_tool_interface",
               "path": "framework/project/interfaces/project-console.md",
               "governing": true,
               "hash_policy": "pinned",
-              "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
+              "sha256": "2d2b1b8136f287151a70c72e734c83964e73f6c9d8862e9c40f8c09eccd39458",
               "authority_role": "governing_authority",
               "authority_scope": {
                 "state": "pending",
@@ -31181,7 +31181,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Additive Union — selection members: required floor, primary profile, implicated capabilities, profile documents, profile exact sections, task specific canonical material, all governing membership, dependency closure, dynamic expansions",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.inv.additive_union"
           },
@@ -31201,7 +31201,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Bounded Context Never Omits Material Authority",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.inv.bounded_context_never_omits_material_authority"
           },
@@ -31221,7 +31221,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Dependencies Are Directional Minimums",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.inv.dependencies_are_directional_minimums"
           },
@@ -31241,7 +31241,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Dependency Graph Is Acyclic",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.inv.dependency_graph_is_acyclic"
           },
@@ -31263,7 +31263,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Required Floor Is Minimum — required modules field: required modules",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.inv.required_floor_is_minimum"
           },
@@ -31283,7 +31283,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Router Preserves Source Authority",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.inv.router_preserves_source_authority"
           },
@@ -31303,7 +31303,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Stable Document Identity Is Path Independent",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.inv.stable_document_identity_is_path_independent"
           },
@@ -31323,7 +31323,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "All Implicated Capabilities",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.all_implicated_capabilities"
           },
@@ -31350,7 +31350,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Automated Expansion Allowlist — allowed source classes: registered documents, registered capabilities, task specific canonical records, current verified sources",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.automated_expansion_allowlist"
           },
@@ -31370,7 +31370,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Capability Addition Requires No New Profile",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.capability_addition_requires_no_new_profile"
           },
@@ -31390,7 +31390,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Complete Dependency Closure",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.complete_dependency_closure"
           },
@@ -31410,7 +31410,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Deterministic Bot Structured Inputs",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.deterministic_bot_structured_inputs"
           },
@@ -31440,7 +31440,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Dynamic Trigger Set — triggers: task change, unfamiliar operation or class, conflicting or ambiguous authority, human reserved decision, implicated specialized rule, stale contradictory or incomplete record, external validation reference",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.dynamic_trigger_set"
           },
@@ -31460,7 +31460,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Expansion Precedes Dependent Action",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.expansion_precedes_dependent_action"
           },
@@ -31486,7 +31486,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Governance Recording Plus Change Audit — required document ids: operation governance change recording, governance change registry, audit change",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.governance_recording_plus_change_audit"
           },
@@ -31506,7 +31506,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Interactive Route Is Minimum Not Ceiling",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.interactive_route_is_minimum_not_ceiling"
           },
@@ -31528,7 +31528,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Multi Agent Before Delegation — required capability id: multi agent execution",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.multi_agent_before_delegation"
           },
@@ -31548,7 +31548,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Primary Profile",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.primary_profile"
           },
@@ -31568,7 +31568,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Profile Documents And Exact Sections",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.profile_documents_and_exact_sections"
           },
@@ -31588,7 +31588,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Profile Never Excludes Capability",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.profile_never_excludes_capability"
           },
@@ -31608,7 +31608,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Profile Starting Set",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.profile_starting_set"
           },
@@ -31634,7 +31634,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Required Floor Order — document ids: framework kernel, agent rules kernel, current audit",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.required_floor_order"
           },
@@ -31664,7 +31664,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Source Projection Requires Canonical Readback — gated actions: evidentiary reliance, source mutation, audit credit; required readbacks: canonical catalog row, current external source",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.source_projection_requires_canonical_readback"
           },
@@ -31684,7 +31684,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Task Specific Canonical Material",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.sel.task_specific_canonical_material"
           },
@@ -31707,7 +31707,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Authorized Digest Update Atomic — revalidation scope: all impacted profiles; update scope: same reviewed change",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.val.authorized_digest_update_atomic"
           },
@@ -31730,7 +31730,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Exact Section Unique — fuzzy fallback: false; required match count: 1",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.val.exact_section_unique"
           },
@@ -31756,7 +31756,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Expansion Provenance Preserved — required fields: source identity, source digest, inclusion reason",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.val.expansion_provenance_preserved"
           },
@@ -31783,7 +31783,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Id Rename Change Audit — required review surfaces: callers, tests, aliases or migrations, persisted route references",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.val.id_rename_change_audit"
           },
@@ -31805,7 +31805,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Integration Pinned Digest Exact — hash algorithm: sha256",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.val.integration_pinned_digest_exact"
           },
@@ -31837,7 +31837,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "New Authoritative Module Admission — required properties: stable id, canonical path, governing classification, acyclic dependencies, profile membership, capability membership, comprehensive review membership, pinned digest, registry validation",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.val.new_authoritative_module_admission"
           },
@@ -31869,7 +31869,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Packet Manifest Bound — required fields: registry revision, registry digest, selected profile, selected capabilities, resolved document revisions, resolved document digests, exact sections, dynamic expansions, inclusion reasons",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.val.packet_manifest_bound"
           },
@@ -31896,7 +31896,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Registry Before Selection — required validation states: schema valid, revision valid, approval valid, external digest valid",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.val.registry_before_selection"
           },
@@ -31919,7 +31919,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Registry Digest External — digest location: packet provenance; self hashing: false",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.val.registry_digest_external"
           },
@@ -31941,7 +31941,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Runtime Digest At Packet Build — provenance required: true",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.val.runtime_digest_at_packet_build"
           },
@@ -31961,7 +31961,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Dependency Cycle",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.fail.dependency_cycle"
           },
@@ -31982,7 +31982,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Generated Or Excluded As Authority",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.fail.generated_or_excluded_as_authority"
           },
@@ -32003,7 +32003,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Packet Budget Exceeded",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.fail.packet_budget_exceeded"
           },
@@ -32024,7 +32024,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Pinned Digest Absent Or Stale",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.fail.pinned_digest_absent_or_stale"
           },
@@ -32045,7 +32045,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Runtime Digest Unreadable",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.fail.runtime_digest_unreadable"
           },
@@ -32066,7 +32066,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Safe Failure Disposition",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.fail.safe_failure_disposition"
           },
@@ -32087,7 +32087,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Section Budget Exceeded",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.fail.section_budget_exceeded"
           },
@@ -32108,7 +32108,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Section Identity Invalid",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.fail.section_identity_invalid"
           },
@@ -32129,7 +32129,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Unknown Or Missing Selection",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.fail.unknown_or_missing_selection"
           },
@@ -32150,7 +32150,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Unresolved Material Governing Gap",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.fail.unresolved_material_governing_gap"
           },
@@ -32173,7 +32173,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Checkpoint Update Needs No Registry Edit — document id: current audit",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.cur.checkpoint_update_needs_no_registry_edit"
           },
@@ -32195,7 +32195,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Generated Rebuildables Excluded — exclusion field: generated path exclusions",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.cur.generated_rebuildables_excluded"
           },
@@ -32218,7 +32218,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Mutable Handoff Is Runtime Hashed — document id: current audit; hash policy: runtime",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.cur.mutable_handoff_is_runtime_hashed"
           },
@@ -32240,7 +32240,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Records Excluded Except Handoff — exception document id: current audit",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.cur.records_excluded_except_handoff"
           },
@@ -32260,7 +32260,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Runtime Nongoverning Excluded From Review Boundary",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.cur.runtime_nongoverning_excluded_from_review_boundary"
           },
@@ -32282,7 +32282,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Stable Governing Is Pinned — hash policy: pinned",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.cur.stable_governing_is_pinned"
           },
@@ -32304,7 +32304,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Ceiling Change Does Not Change Membership — profile limit field: max bytes",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.budget.ceiling_change_does_not_change_membership"
           },
@@ -32332,7 +32332,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "No Mandatory Trimming — mandatory selection classes: required floor, profile exact sections, implicated capabilities, dependencies, comprehensive review members",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.budget.no_mandatory_trimming"
           },
@@ -32354,7 +32354,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Profile Max Is Fail Closed Ceiling — profile limit field: max bytes",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.budget.profile_max_is_fail_closed_ceiling"
           },
@@ -32377,7 +32377,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Section And Packet Limits Are Independent — packet limit field: max bytes; section limit field: max bytes",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.budget.section_and_packet_limits_are_independent"
           },
@@ -32399,7 +32399,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Any Valid Boundary Difference Due — comparison: any exact difference",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.review.any_valid_boundary_difference_due"
           },
@@ -32426,7 +32426,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Boundary Exact — boundary fields: governing membership, canonical paths, pinned digests, component registry digest",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.review.boundary_exact"
           },
@@ -32466,7 +32466,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Completion Fields Exact — required fields: epoch id, triggering run id, baseline commit, completion commit, governing hashes, project snapshot, registry snapshot, reviewed domains, resolved findings, unresolved findings, automation health, sampling record, completed at, next due at, cadence status, stability status, triggering reason",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.review.completion_fields_exact"
           },
@@ -32486,7 +32486,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Efficiency Never Limits Scope Or Lookback",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.review.efficiency_never_limits_scope_or_lookback"
           },
@@ -32506,7 +32506,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Invalid Drift Is Integrity Failure",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.review.invalid_drift_is_integrity_failure"
           },
@@ -32526,7 +32526,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Next Epoch Uses Delta And Carry Forward",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.review.next_epoch_uses_delta_and_carry_forward"
           },
@@ -32549,7 +32549,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Periodic Epoch Required — profile id: comprehensive review; trigger: periodic review epoch",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.review.periodic_epoch_required"
           },
@@ -32577,7 +32577,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Recorder Requires Exact Current Boundary — rejected states: partial, stale, extra, altered; required match: exact current boundary",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.review.recorder_requires_exact_current_boundary"
           },
@@ -32601,7 +32601,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Select All Active Governing — membership field: governing; membership value: true; profile id: comprehensive review",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.review.select_all_active_governing"
           },
@@ -32621,7 +32621,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "rendered_text": "Unresolved Findings Carry Forward",
           "source_provenance": {
             "source_document_id": "COMPONENT-REGISTRY",
-            "source_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+            "source_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
             "source_heading": "Embedded context routing rule catalog",
             "clause_key": "ctxr.review.unresolved_findings_carry_forward"
           },
@@ -32643,7 +32643,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "authoritative": false,
       "executable": false,
       "registry_revision": 1,
-      "registry_sha256": "7356839ffdd1832ee716c4725a5ca4f3c3a3c2c5a104f56e7ee2efeb6859259b",
+      "registry_sha256": "bdced563ab0cc1d474e11b5dee14d70b1f8667820d7e6768225c5b37aeab6008",
       "current_candidate_counts": {
         "documents": 88,
         "governing_documents": 87,

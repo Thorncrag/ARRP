@@ -29,7 +29,7 @@
     "working_tree_binding": {
       "mode": "active_revision_plus_embedded_route",
       "scope": "complete_embedded_component_registry_route",
-      "sha256": "a1a0b56abfa20d242e797491daaa0dae42918c9b4d901c2dd4c45dd925868608"
+      "sha256": "b8da8f7e78aa4d6987995efd1b4e44fc00757fb819ae58ff34a1aa1a6522f942"
     }
   },
   "namespace_versions": {
@@ -2776,7 +2776,7 @@
         "consumers": [
           "capability:interface_governance",
           "document:project_audit_execution",
-          "document:project_interface"
+          "document:project_tool_interface"
         ],
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=project_console_progress",
@@ -2847,15 +2847,15 @@
         ],
         "consumers": [
           "capability:interface_governance",
-          "document:project_interface"
+          "document:project_tool_interface"
         ],
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=project_console_classifications",
         "retention_posture": "current",
         "sha256": "8f54876cccefe036f2830d9c9b9a75b5ed7473309e583838367ccc75d76ffa15"
       },
-      "project_interface": {
-        "document_id": "project_interface",
+      "project_tool_interface": {
+        "document_id": "project_tool_interface",
         "official_reference_name": {
           "state": "known",
           "value": "ARRP Project Console and Interface Configuration"
@@ -2865,28 +2865,28 @@
           "value": "routed_governing_document"
         },
         "revision": {
-          "state": "pending",
-          "reason": "The routed predecessor does not carry a normalized document revision."
+          "state": "known",
+          "value": "1.1"
         },
         "current_status": {
           "state": "known",
           "value": "current_routed_source"
         },
         "effective_date": {
-          "state": "pending",
-          "reason": "The routed predecessor does not carry a normalized effective date."
+          "state": "known",
+          "value": "2026-07-31"
         },
         "approval_date": {
-          "state": "pending",
-          "reason": "Historical approval date is not established by the routed predecessor."
+          "state": "known",
+          "value": "2026-07-31"
         },
         "approval_method": {
-          "state": "pending",
-          "reason": "Historical approval method is not established by the routed predecessor."
+          "state": "known",
+          "value": "explicit_recorded_owner_approval"
         },
         "governance_change_id": {
           "state": "pending",
-          "reason": "Baseline adoption awaits the explicit Stage 1 activation decision."
+          "reason": "Direct owner approval was recorded on 2026-07-31 without a separate Governance Change ID."
         },
         "purpose_scope": {
           "state": "pending",
@@ -2905,7 +2905,7 @@
           "state": "pending",
           "reason": "Original creation provenance is not normalized in the routed predecessor."
         },
-        "governance_revision": 1,
+        "governance_revision": 2,
         "producer": "existing_repository_source",
         "authorized_writers": [
           "@Thorncrag"
@@ -2928,9 +2928,9 @@
           "document:project_audit_execution"
         ],
         "digest_policy": "pinned",
-        "console_route": "operations:component-registry:documents?document=project_interface",
+        "console_route": "operations:component-registry:documents?document=project_tool_interface",
         "retention_posture": "current",
-        "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce"
+        "sha256": "2d2b1b8136f287151a70c72e734c83964e73f6c9d8862e9c40f8c09eccd39458"
       },
       "intake_process": {
         "document_id": "intake_process",
@@ -3287,7 +3287,7 @@
           "document:agent_registry",
           "document:github_workflow",
           "document:project_autonomous_execution",
-          "document:project_interface",
+          "document:project_tool_interface",
           "document:project_reconciliation",
           "document:runbook_run_coordinator_bot",
           "document:transaction_lifecycle"
@@ -6494,7 +6494,7 @@
         ],
         "consumers": [
           "capability:scope_and_candidates",
-          "document:project_interface",
+          "document:project_tool_interface",
           "profile:candidate_research"
         ],
         "digest_policy": "pinned",
@@ -7516,7 +7516,7 @@
           "capability:interface_governance",
           "document:progress_view_standard",
           "document:project_console_classifications",
-          "document:project_interface",
+          "document:project_tool_interface",
           "document:public_input_standard",
           "document:visual_identity"
         ],
@@ -7591,7 +7591,7 @@
         "consumers": [
           "capability:interface_governance",
           "document:project_console_progress",
-          "document:project_interface"
+          "document:project_tool_interface"
         ],
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=progress_view_standard",
@@ -7807,7 +7807,7 @@
         "consumers": [
           "capability:interface_governance",
           "document:navigation_project_sync",
-          "document:project_interface"
+          "document:project_tool_interface"
         ],
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=visual_identity",
@@ -8091,7 +8091,7 @@
           "document:operation_project_update",
           "document:print_assembly",
           "document:project_audit_execution",
-          "document:project_interface",
+          "document:project_tool_interface",
           "document:source_presidential_directives",
           "profile:candidate_research",
           "profile:change_audit",
@@ -8250,7 +8250,7 @@
           "github_workflow",
           "navigation_project_sync",
           "project_source_adjudication",
-          "project_interface",
+          "project_tool_interface",
           "project_console_progress"
         ],
         "consumers": [
@@ -8596,7 +8596,7 @@
         "digest_policy": "pinned",
         "console_route": "operations:component-registry:documents?document=component_registry_tests",
         "retention_posture": "current",
-        "sha256": "b419d692911c32b7b8249c5d6e691a63a5dd51146b8c1dca9a04bf340b562576"
+        "sha256": "a9c0fa7f4ce25b05a2d4874259d1b91123dca46fa35ac9127f6da9dbecd08d42"
       },
       "context_routes_source": {
         "document_id": "context_routes_source",
@@ -8928,9 +8928,9 @@
           "interface_standard"
         ]
       },
-      "project_interface": {
+      "project_tool_interface": {
         "path": "framework/project/interfaces/project-console.md",
-        "sha256": "6c28e3681c0a74cf738d33c62f11b9f8204728cc8159c90670cb42cc313586ce",
+        "sha256": "2d2b1b8136f287151a70c72e734c83964e73f6c9d8862e9c40f8c09eccd39458",
         "hash_policy": "pinned",
         "governing": true,
         "requires": [
@@ -9671,7 +9671,7 @@
           "github_workflow",
           "navigation_project_sync",
           "project_source_adjudication",
-          "project_interface",
+          "project_tool_interface",
           "project_console_progress"
         ],
         "sha256": "884eb8abcdc8760f4e27f619637020cc7b571a2bb0f9c531c80e5f2ca89453b0"
@@ -9770,7 +9770,7 @@
         "visual_identity",
         "project_console_classifications",
         "project_console_progress",
-        "project_interface",
+        "project_tool_interface",
         "progress_config"
       ],
       "interbranch_review": [

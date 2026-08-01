@@ -99,7 +99,7 @@
   const PRIVATE_CODEX_USAGE_PATH = "data/private-codex-usage.js?v=1";
   const LOCAL_AUTOMATION_STATUS_PATH = "data/local-automation-status.js";
   const CODEX_CAPACITY_MODULE_PATH = "capacity.js?v=1";
-  const COMPONENT_REGISTRY_MODULE_PATH = "component-registry.js?v=1";
+  const COMPONENT_REGISTRY_MODULE_PATH = "component-registry.js?v=7";
   const OWNER_MODE_UNAVAILABLE_MESSAGE = "Data unavailable outside the bound owner-local Console.";
   const CODEX_USAGE_UNAVAILABLE_DETAIL = "Codex usage unavailable.";
   const fieldSet = (value) => new Set(value.split(" "));
@@ -1268,20 +1268,25 @@
     return fragment;
   }
 
+  function candidateSummaryTitle(record) {
+    const identifier = text(record.id, "Unidentified item");
+    let title = text(record.title, "Untitled item").trim();
+    const colonPrefix = `${identifier}:`;
+    if (title.startsWith(colonPrefix)) title = title.slice(colonPrefix.length).trim();
+    return `${identifier} · ${title}`;
+  }
+
   function preliminaryCard(record) {
     const card = element("details", "candidate-card");
     card.id = `candidate-${record.id}`;
     card.dataset.disclosureId = `candidates-preliminary-${record.id}`;
     const header = element("summary", "card-header");
-    const heading = element("div");
-    const badges = element("div", "badges");
+    const badges = element("div", "badges disclosure-item-labels");
     badges.append(
-      element("span", "badge primary", "Preliminary candidate"),
-      element("span", "badge", termLabel(record.term)),
-      element("span", "badge", text(record.proposed_area, "Area undecided"))
+      element("span", "badge primary", "Preliminary"),
+      element("span", "badge", termLabel(record.term))
     );
-    heading.append(badges, element("p", "record-id", record.id), element("h3", "", record.title));
-    header.append(heading);
+    header.append(element("h3", "disclosure-item-name", candidateSummaryTitle(record)), badges);
 
     const defect = element("section", "defect-summary");
     defect.append(element("h4", "", "Possible institutional defect"), element("p", "", record.summary));
@@ -1319,16 +1324,13 @@
     card.id = `candidate-${record.id}`;
     card.dataset.disclosureId = `candidates-formal-${record.id}`;
     const header = element("summary", "card-header");
-    const heading = element("div");
-    const badges = element("div", "badges");
+    const badges = element("div", "badges disclosure-item-labels");
     badges.append(
       element("span", "badge formal", text(record.development_level, "Development level unavailable")),
       element("span", "badge", text(record.workflow_status, "Workflow status unavailable")),
-      element("span", "badge", text(record.area, "Area unassigned")),
       element("span", "badge", text(record.priority, "Priority unassigned"))
     );
-    heading.append(badges, element("p", "record-id", record.id), element("h3", "", record.title));
-    header.append(heading);
+    header.append(element("h3", "disclosure-item-name", candidateSummaryTitle(record)), badges);
 
     const history = record.horizon_history || {};
     const summary = element("div", "dossier-grid");
@@ -1487,6 +1489,30 @@
     button.setAttribute("aria-label", `${label}: ${defaultOpen ? "open" : "collapsed"} by default. Activate to use ${defaultOpen ? "collapsed" : "open"} by default.`);
   }
 
+  function standardizeDisclosureSummary(summary, button) {
+    [...summary.childNodes]
+      .filter((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim())
+      .forEach((node) => {
+        const name = element("span", "disclosure-item-name", node.textContent.trim());
+        summary.replaceChild(name, node);
+      });
+    const content = [...summary.children].filter((node) => node !== button);
+    if (!content.length) return;
+    content[0].classList.add("disclosure-item-name");
+    if (content.length > 1) {
+      const labels = content[1].classList.contains("disclosure-item-labels")
+        ? content[1]
+        : element("span", "disclosure-item-labels");
+      if (labels !== content[1]) {
+        summary.insertBefore(labels, button);
+        content.slice(1).forEach((node) => labels.append(node));
+      } else {
+        content.slice(2).forEach((node) => labels.append(node));
+      }
+    }
+    summary.classList.add("standard-disclosure-summary");
+  }
+
   function refreshDisclosurePreferences(root = document) {
     const preferences = readDisclosurePreferences();
     root.querySelectorAll("details").forEach((details) => {
@@ -1516,6 +1542,7 @@
       });
       button.addEventListener("keydown", (event) => event.stopPropagation());
       summary.append(button);
+      standardizeDisclosureSummary(summary, button);
       details.classList.add("managed-disclosure");
       details.dataset.disclosurePreference = "true";
     });
@@ -1897,6 +1924,229 @@
     byId("workflow-summary-restore").addEventListener("click", () => setWorkflowSummaryHidden(false));
   }
 
+  function updateInterfaceToolsState() {
+    const trigger = byId("interface-tools-toggle");
+    if (!trigger) return;
+    const activeModes = [];
+    if (document.body.classList.contains("template-inspection")) activeModes.push("template inspection");
+    if (layoutEditing) activeModes.push("layout design");
+    trigger.classList.toggle("has-active-mode", activeModes.length > 0);
+    trigger.setAttribute(
+      "aria-label",
+      activeModes.length
+        ? `Interface tools. Active: ${activeModes.join(" and ")}.`
+        : "Interface tools. No mode active."
+    );
+    const status = byId("layout-status");
+    status.classList.toggle("is-editing", layoutEditing);
+    status.textContent = activeModes.length
+      ? `${activeModes.map((mode) => mode[0].toUpperCase() + mode.slice(1)).join(" and ")} ${activeModes.length === 1 ? "is" : "are"} active.`
+      : "No interface mode is active. Layout preferences remain saved in this browser.";
+  }
+
+  function setInterfaceToolsOpen(open, restoreFocus = true) {
+    const drawer = byId("interface-tools-drawer");
+    const trigger = byId("interface-tools-toggle");
+    drawer.hidden = !open;
+    trigger.setAttribute("aria-expanded", String(open));
+    document.body.classList.toggle("interface-tools-open", open);
+    if (open) window.requestAnimationFrame(() => byId("interface-tools-close").focus());
+    else if (restoreFocus) trigger.focus();
+  }
+
+  function initializeInterfaceTools() {
+    const trigger = byId("interface-tools-toggle");
+    trigger.addEventListener("click", () => {
+      setInterfaceToolsOpen(byId("interface-tools-drawer").hidden);
+    });
+    byId("interface-tools-close").addEventListener("click", () => setInterfaceToolsOpen(false));
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || byId("interface-tools-drawer").hidden) return;
+      event.preventDefault();
+      setInterfaceToolsOpen(false);
+    });
+    updateInterfaceToolsState();
+  }
+
+  function markTemplateRegion(node, code, name, counts) {
+    if (!node || node.dataset.templateRegion) return;
+    counts[code] = (counts[code] || 0) + 1;
+    node.dataset.templateRegion = `${code}${counts[code]} · ${name}`;
+  }
+
+  function markTemplateComponent(node, region, type, name, counts) {
+    if (!node || node.dataset.templateComponent) return;
+    counts[type] = (counts[type] || 0) + 1;
+    node.dataset.templateComponent = `${region}.${type}${counts[type]} · ${name}`;
+  }
+
+  function createTemplateRegionOverlay(page, code, name, members) {
+    if (!page || !members.length) return;
+    const overlay = document.createElement("div");
+    overlay.className = "template-region-overlay";
+    overlay.dataset.templateRegion = `${code} · ${name}`;
+    overlay.ariaHidden = "true";
+    page.append(overlay);
+
+    const position = () => {
+      const pageRect = page.getBoundingClientRect();
+      const rects = members.map((node) => node.getBoundingClientRect()).filter((rect) => rect.width && rect.height);
+      if (!rects.length) {
+        overlay.hidden = true;
+        return;
+      }
+      overlay.hidden = false;
+      const left = Math.min(...rects.map((rect) => rect.left));
+      const top = Math.min(...rects.map((rect) => rect.top));
+      const right = Math.max(...rects.map((rect) => rect.right));
+      const bottom = Math.max(...rects.map((rect) => rect.bottom));
+      overlay.style.left = `${left - pageRect.left}px`;
+      overlay.style.top = `${top - pageRect.top}px`;
+      overlay.style.width = `${right - left}px`;
+      overlay.style.height = `${bottom - top}px`;
+    };
+
+    const resizeObserver = new ResizeObserver(position);
+    resizeObserver.observe(page);
+    window.requestAnimationFrame(position);
+  }
+
+  function refreshTemplateComponentIdentifiers(page) {
+    page.querySelectorAll("[data-template-component]").forEach((node) => {
+      delete node.dataset.templateComponent;
+    });
+    const counts = {};
+    [
+      ["F", "NAV", "Tertiary nav", ":scope > nav, :scope > .section-tabs, :scope > .watcher-tabs, :scope > .pipeline-mode-switcher"],
+      ["G", "CTL", "Search / filters", ":scope > .queue-controls, :scope > [class*='toolbar'], :scope > .edition-picker, :scope > [class*='controls'], :scope > .pipeline-advanced-filters"],
+      ["D", "MSG", "Info / alert", ".console-message, .attention-note, .method-note, .owner-unavailable-notice"],
+      ["H", "COL", "Results", ".record-list, .monitoring-list, .evidence-list, .pipeline-list, .action-inbox-list, .development-board, .log-entry-list"],
+      ["H", "DSC", "Collapsible", ".candidate-card, .dense-data-disclosure, .progress-disclosure, .monitoring-issue, .advanced-filters"],
+      ["H", "WRK", "Workspace", ".action-inbox-workspace, .pipeline-workspace, .email-workspace, .publication-delivery-workbench, .component-registry-detail"],
+      ["H", "PRT", "Portal set", ".overview-indicator-grid, .overview-queue-directory, .automation-overview-grid"],
+      ["H", "PAG", "Pagination", ".pagination"]
+    ].forEach(([region, type, name, selector]) => {
+      page.querySelectorAll(selector).forEach((node) => markTemplateComponent(node, region, type, name, counts));
+    });
+  }
+
+  function initializeTemplateInspection() {
+    document.querySelectorAll("[data-template-region], [data-template-member], [data-template-component]").forEach((node) => {
+      delete node.dataset.templateRegion;
+      delete node.dataset.templateMember;
+      delete node.dataset.templateComponent;
+    });
+    document.querySelectorAll(".template-region-overlay").forEach((node) => node.remove());
+
+    const navigationCounts = {};
+    markTemplateRegion(document.querySelector(".console-tabs"), "N", "Main menu · outside page template", navigationCounts);
+    document.querySelectorAll(".console-submenu").forEach((node) => {
+      markTemplateRegion(node, "N", "Subordinate menu · outside page template", navigationCounts);
+    });
+    document.querySelectorAll([
+      ".source-workspace-menu",
+      ".publication-workspace-menu",
+      ".operations-log-menu",
+      ".watcher-tabs"
+    ].join(",")).forEach((node) => {
+      if (!node.closest(".queue-view")) {
+        markTemplateRegion(node, "F", "Tertiary navigation", navigationCounts);
+      }
+    });
+    const globalComponentCounts = {};
+    markTemplateComponent(document.querySelector(".console-tabs"), "N", "NAV", "Main navigation", globalComponentCounts);
+    document.querySelectorAll(".console-submenu").forEach((node) => {
+      markTemplateComponent(node, "N", "NAV", "Subordinate navigation", globalComponentCounts);
+    });
+    document.querySelectorAll([
+      ".source-workspace-menu",
+      ".publication-workspace-menu",
+      ".operations-log-menu"
+    ].join(",")).forEach((node) => {
+      if (!node.closest(".queue-view")) {
+        markTemplateComponent(node, "F", "NAV", "Tertiary navigation", globalComponentCounts);
+      }
+    });
+
+    document.querySelectorAll(".queue-view").forEach((page) => {
+      const members = {
+        A: [],
+        B: [],
+        C: [],
+        D: [],
+        E: [],
+        F: [],
+        G: [],
+        H: []
+      };
+      const header = page.querySelector(":scope > .queue-view-header, :scope > .logs-screen-header");
+      if (header) {
+        members.A.push(...header.querySelectorAll(".eyebrow, .refresh-note"));
+        members.A.push(...[...header.querySelectorAll("time")].filter((node) => !node.closest(".refresh-note")));
+        members.B.push(...header.querySelectorAll("h2"));
+        members.C.push(...header.querySelectorAll("p:not(.refresh-note)"));
+        members.G.push(...header.querySelectorAll(":scope > label, :scope > a"));
+      }
+      [...page.children].forEach((node) => {
+        if (node === header || node.matches(".template-region-overlay")) return;
+        if (node.matches("nav, .section-tabs, .watcher-tabs, .source-workspace-menu, .publication-workspace-menu, .operations-log-menu, .pipeline-mode-switcher")) {
+          members.F.push(node);
+        } else if (node.matches(".console-message, .attention-note, .method-note, .owner-unavailable-notice")) {
+          members.D.push(node);
+        } else if (node.matches(".queue-controls, [class*='toolbar'], .edition-picker, [class*='controls'], .pipeline-advanced-filters")) {
+          members.G.push(node);
+        } else if (node.matches(".pipeline-gap-notice, .pipeline-context-notice")) {
+          // Scoped notice: labeled below rather than absorbed into page content.
+        } else if (node.matches([
+          ".watcher-summary-grid",
+          ".print-level-summary",
+          ".publication-metrics",
+          ".operations-summary-grid",
+          ".overview-daily-brief",
+          ".action-priority-attention"
+        ].join(","))) {
+          members.E.push(node);
+        } else {
+          members.H.push(node);
+        }
+      });
+      Object.entries(members).forEach(([code, nodes]) => {
+        nodes.forEach((node) => { node.dataset.templateMember = code; });
+      });
+      if (page.matches(".overview-view") || page.closest("#automation-panel-overview")) {
+        page.dataset.templateRegion = "OV · Dashboard · A–H exempt";
+      } else {
+        createTemplateRegionOverlay(page, "A", "Metadata + date", members.A);
+        createTemplateRegionOverlay(page, "B", "Title + count", members.B);
+        createTemplateRegionOverlay(page, "C", "Page description", members.C);
+        createTemplateRegionOverlay(page, "D1", "Page-wide notice", members.D);
+        createTemplateRegionOverlay(page, "E", "Context / summary", members.E);
+        createTemplateRegionOverlay(page, "F", "Tertiary navigation", members.F);
+        createTemplateRegionOverlay(page, "G", "Search + filters", members.G);
+        createTemplateRegionOverlay(page, "H", "Page content", members.H);
+        [...page.querySelectorAll(".console-message, .attention-note, .method-note, .owner-unavailable-notice, .pipeline-gap-notice, .pipeline-context-notice")]
+          .filter((node) => !members.D.includes(node) && !node.closest(".queue-view-header, .logs-screen-header"))
+          .forEach((node, index) => {
+            node.dataset.templateRegion = `D${index + 2} · Subordinate notice`;
+          });
+      }
+
+      refreshTemplateComponentIdentifiers(page);
+      new MutationObserver(() => {
+        window.requestAnimationFrame(() => refreshTemplateComponentIdentifiers(page));
+      }).observe(page, { childList: true, subtree: true });
+    });
+
+    const toggle = byId("template-inspection-toggle");
+    toggle.addEventListener("click", () => {
+      const enabled = document.body.classList.toggle("template-inspection");
+      toggle.setAttribute("aria-pressed", String(enabled));
+      toggle.textContent = enabled ? "Hide template boxes" : "Show template boxes";
+      updateInterfaceToolsState();
+      setInterfaceToolsOpen(false);
+    });
+  }
+
   function movePanelContents(sourceId, destinationId, stacked = false) {
     const source = byId(sourceId);
     const destination = byId(destinationId);
@@ -1911,23 +2161,27 @@
   function prepareConsolidatedNavigation() {
     movePanelContents("candidate-panel-formal", "planning-panel-candidates");
     movePanelContents("candidate-panel-preliminary", "planning-panel-preliminary");
+    const sourceWorkspace = byId("planning-panel-sources");
+    const sourceNavigation = byId("panel-sources")?.querySelector(".section-tabs");
+    if (sourceWorkspace && sourceNavigation) {
+      sourceNavigation.hidden = false;
+      sourceNavigation.classList.add("source-workspace-menu");
+      sourceWorkspace.append(sourceNavigation);
+    }
     ["catalog", "pending", "watchers"].forEach((name) => {
       const source = byId(`source-panel-${name}`);
-      if (!source) return;
-      source.hidden = false;
-      source.removeAttribute("role");
-      source.removeAttribute("aria-labelledby");
-      source.classList.add("planning-stacked-section");
-      byId("planning-panel-sources").append(...source.children);
+      if (sourceWorkspace && source) sourceWorkspace.append(source);
     });
+    const publicationWorkspace = byId("planning-panel-publication");
+    const publicationNavigation = byId("panel-publication")?.querySelector(".section-tabs");
+    if (publicationWorkspace && publicationNavigation) {
+      publicationNavigation.hidden = false;
+      publicationNavigation.classList.add("publication-workspace-menu");
+      publicationWorkspace.append(publicationNavigation);
+    }
     ["assignments", "analysis", "builder"].forEach((name) => {
       const source = byId(`publication-panel-${name}`);
-      if (!source) return;
-      source.hidden = false;
-      source.removeAttribute("role");
-      source.removeAttribute("aria-labelledby");
-      source.classList.add("planning-stacked-section");
-      byId("planning-panel-publication").append(...source.children);
+      if (publicationWorkspace && source) publicationWorkspace.append(source);
     });
 
     const watcherTabs = document.querySelector(".watcher-tabs");
@@ -1976,13 +2230,15 @@
         button.dataset.logView = value;
         button.setAttribute("aria-current", "false");
         if (value === "incidents") {
-          const count = element("span", "tab-count", "—");
+          const count = element("span", "tab-count");
           count.id = "operations-log-menu-incident-count";
+          count.hidden = true;
           button.append(count);
         }
         if (value === "security-incidents") {
-          const count = element("span", "tab-count", "—");
+          const count = element("span", "tab-count");
           count.id = "operations-log-menu-security-incident-count";
+          count.hidden = true;
           button.append(count);
         }
         menuList.append(button);
@@ -1994,13 +2250,41 @@
     }
 
     [
-      ["panel-candidates", ".section-tabs"],
-      ["panel-sources", ".section-tabs"],
-      ["panel-publication", ".section-tabs"]
+      ["panel-candidates", ".section-tabs"]
     ].forEach(([panelId, selector]) => {
       const navigation = byId(panelId)?.querySelector(selector);
       if (navigation) navigation.hidden = true;
     });
+  }
+
+  function placeSourceNavigation(name) {
+    const navigation = document.querySelector(".source-workspace-menu");
+    const panel = byId(`source-panel-${name}`);
+    const page = panel?.querySelector(":scope > .queue-view");
+    const header = page?.querySelector(":scope > .queue-view-header");
+    if (!navigation || !page || !header) return;
+    const anchor = name === "catalog"
+      ? byId("source-assurance-summary") || byId("sources-data-note") || header
+      : header;
+    anchor.after(navigation);
+    if (name === "watchers") {
+      const selector = byId("source-workspace-selector")?.closest("label") || byId("source-workspace-selector");
+      if (selector) navigation.after(selector);
+    }
+  }
+
+  function placePublicationNavigation(name) {
+    const navigation = document.querySelector(".publication-workspace-menu");
+    const panel = byId(`publication-panel-${name}`);
+    const page = panel?.querySelector(":scope > .queue-view");
+    const header = page?.querySelector(":scope > .queue-view-header");
+    if (!navigation || !page || !header) return;
+    const anchor = name === "assignments"
+      ? byId("print-level-summary") || header
+      : name === "analysis"
+        ? byId("publication-metrics") || header
+        : header;
+    anchor.after(navigation);
   }
 
   function initializePersonalLayout() {
@@ -2063,11 +2347,9 @@
       document.body.classList.toggle("layout-editing", layoutEditing);
       toggle.setAttribute("aria-pressed", String(layoutEditing));
       toggle.textContent = layoutEditing ? "Done designing" : "Design layout";
-      byId("layout-status").classList.toggle("is-editing", layoutEditing);
-      byId("layout-status").textContent = layoutEditing
-        ? "Drag highlighted items, use the arrow controls, or choose a safe grid width. Changes save automatically in this browser."
-        : "Layout preferences are saved in this browser.";
       refreshLayoutZones();
+      updateInterfaceToolsState();
+      setInterfaceToolsOpen(false);
     });
     byId("layout-reset-view").addEventListener("click", resetLayoutForCurrentView);
     byId("layout-reset-all").addEventListener("click", () => {
@@ -2181,10 +2463,18 @@
       tab.tabIndex = active ? 0 : -1;
       byId(tab.getAttribute("aria-controls")).hidden = !active;
     });
+    if (group === "sources") placeSourceNavigation(selected.dataset.subtab);
+    if (group === "publication") placePublicationNavigation(selected.dataset.subtab);
     if (focus) selected.focus();
     const activeTopLevel = document.querySelector('[role="tab"][data-tab][aria-selected="true"]')?.dataset.tab;
     if (activeTopLevel === group && !window.location.hash.startsWith(`#${group}:${selected.dataset.subtab}`)) {
       window.history.replaceState(null, "", `#${group}:${selected.dataset.subtab}`);
+    }
+    const activePlanning = document.querySelector('[data-subtab-group="planning"][aria-selected="true"]')?.dataset.subtab;
+    const planningNestedGroup = ["sources", "publication"].includes(group);
+    if (planningNestedGroup && activeTopLevel === "planning" && activePlanning === group
+      && !window.location.hash.startsWith(`#planning:${group}:${selected.dataset.subtab}`)) {
+      window.history.replaceState(null, "", `#planning:${group}:${selected.dataset.subtab}`);
     }
     if (activeTopLevel === group && hydrate) {
       void activateDomainForTab(group, selected.dataset.subtab);
@@ -2209,7 +2499,12 @@
       });
     });
     const parts = window.location.hash.replace(/^#/, "").split(":");
-    const requested = parts[0] === group ? parts[1] : fallback;
+    const requested = ["sources", "publication"].includes(group)
+      && parts[0] === "planning" && parts[1] === group
+      ? parts[2]
+      : parts[0] === group
+        ? parts[1]
+        : fallback;
     activateSectionTab(group, tabs.some((tab) => tab.dataset.subtab === requested) ? requested : fallback);
   }
 
@@ -2228,7 +2523,8 @@
       selector.value = selected.dataset.watcherTab;
       if (focus) selector.focus();
     }
-    if (window.location.hash.startsWith("#planning:sources")
+    const activeSourceView = document.querySelector('[data-subtab-group="sources"][aria-selected="true"]')?.dataset.subtab;
+    if ((activeSourceView === "watchers" && window.location.hash.startsWith("#planning:sources"))
       || window.location.hash.startsWith("#sources:watchers")) {
       window.history.replaceState(null, "", `#planning:sources:watchers:${selected.dataset.watcherTab}`);
     }
@@ -2463,8 +2759,8 @@
 
   function updateIncidentNavigationCounts() {
     const projection = operationalIncidentProjection();
-    const display = projection.complete ? String(projection.unresolvedCount) : "—";
-    ["tab-automation-count", "automation-logs-incident-count", "log-incidents-count", "operations-log-menu-incident-count"].forEach((id) => { if (byId(id)) byId(id).textContent = display; });
+    ["tab-automation-count", "automation-logs-incident-count", "log-incidents-count", "operations-log-menu-incident-count"]
+      .forEach((id) => setNavigationCount(id, projection.unresolvedCount, projection.complete));
   }
 
   function renderIncidentList(c) {
@@ -2475,8 +2771,11 @@
     if (!p.complete) {
       const message = ownerModeUnavailableMessage(c.unavailable(p));
       status.textContent = message; visible.textContent = "—";
-      host.replaceChildren(element("p", "empty-state", message)); return;
+      host.replaceChildren();
+      host.hidden = true;
+      return;
     }
+    host.hidden = false;
     const q = c.state.search.trim().toLowerCase();
     const items = p.items.filter((record) => c.state.scope === "all" || c.unresolved(record))
       .filter((record) => !q || c.search(record).filter(Boolean).join(" ").toLowerCase().includes(q))
@@ -2587,8 +2886,8 @@
 
   function updateSecurityCounts() {
     const projection = securityProjection();
-    const display = projection.complete ? String(projection.unresolvedCount) : "—";
-    ["log-security-incidents-count", "operations-log-menu-security-incident-count"].forEach((id) => { if (byId(id)) byId(id).textContent = display; });
+    ["log-security-incidents-count", "operations-log-menu-security-incident-count"]
+      .forEach((id) => setNavigationCount(id, projection.unresolvedCount, projection.complete));
   }
 
   function renderSecurityLog() {
@@ -2622,68 +2921,6 @@
       record.monitoring_group,
       ...(record.record_ids || [])]
       .filter(Boolean).join(" ").toLowerCase();
-  }
-
-  function sourceTable(records, state, render) {
-    if (!records.length) {
-      const empty = element("div", "empty-state compact-empty");
-      empty.append(element("h3", "", "No matching sources"), element("p", "", "Adjust the search or filter."));
-      return empty;
-    }
-    const wrapper = element("div", "source-table-wrap");
-    const table = element("table", "source-table");
-    const head = element("thead");
-    const headRow = element("tr");
-    [
-      ["Source", "source"],
-      ["Publisher", "publisher"],
-      ["Date / type", "date"],
-      ["Assurance", "assurance"],
-      ["Associated records", "records"],
-      ["Monitor", "monitor"],
-      ["Link", "link"]
-    ].forEach(([label, key]) => headRow.append(sortableHeader(label, key, state, render)));
-    head.append(headRow);
-    const body = element("tbody");
-    records.forEach((record) => {
-      const row = element("tr");
-      const sourceCell = element("td", "source-title-cell");
-      sourceCell.append(element("span", "record-id", record.id), element("strong", "", text(record.title, "Untitled source")));
-      const publisherCell = element("td", "", text(record.publisher));
-      const detailsCell = element("td");
-      detailsCell.append(element("span", "", text(record.date)), element("small", "", text(record.type)));
-      const assuranceCell = element("td");
-      const health = sourceCheckerRecords().find((result) => result.source_id === record.id);
-      assuranceCell.append(
-        element("span", "source-assurance-value", text(record.reviewed, "Review not recorded")),
-        element("small", "", text(record.reliability, "Reliability not recorded")),
-        element("small", "", health ? text(health.classification) : "URL health unavailable")
-      );
-      const ownerCell = element("td");
-      const owners = record.record_ids || [];
-      ownerCell.textContent = owners.length ? owners.join(" · ") : "—";
-      const monitoringCell = element("td");
-      monitoringCell.append(element(
-        "span",
-        record.monitoring === "Yes" ? "monitoring-flag active" : "monitoring-flag",
-        record.monitoring === "Yes" ? "Yes" : "No"
-      ));
-      if (record.monitoring === "Yes") {
-        monitoringCell.append(element("small", "", record.monitoring_rationale || "No source-specific rationale recorded"));
-        monitoringCell.append(element(
-          "small",
-          "",
-          record.monitoring_baseline_present ? "Watcher baseline accepted" : "No automated baseline"
-        ));
-      }
-      const linkCell = element("td", "source-link-cell");
-      linkCell.append(record.url ? inlineLink("Open ↗", record.url) : element("span", "muted", "No link"));
-      row.append(sourceCell, publisherCell, detailsCell, assuranceCell, ownerCell, monitoringCell, linkCell);
-      body.append(row);
-    });
-    table.append(head, body);
-    wrapper.append(table);
-    return wrapper;
   }
 
   function paginationControls(name, total, state, render, pageSize = PAGE_SIZE) {
@@ -2745,12 +2982,8 @@
           link: record.url
         })[key])
       : [...filtered].sort(monitoredSourcesFirst);
-    const pages = Math.max(1, Math.ceil(ordered.length / PAGE_SIZE));
-    state.page = Math.min(state.page, pages);
-    const start = (state.page - 1) * PAGE_SIZE;
-    const rerender = () => renderSourceView(name, records, filterField);
     byId(`${name}-visible`).textContent = ordered.length;
-    const visible = ordered.slice(start, start + PAGE_SIZE);
+    const visible = ordered;
     const host = byId(`${name}-table`);
     if (!visible.length) {
       host.replaceChildren(element("p", "empty-state", "No sources match the current filters."));
@@ -2815,8 +3048,7 @@
       host.replaceChildren(workspace);
       showSource(visible.find((record) => record.id === state.selectedId) || visible[0]);
     }
-    pagination(name, ordered.length, state, rerender);
-    updateDenseDisclosureSummary(`${name}-results-summary`, ordered.length, "source", `page ${state.page} of ${pages}`);
+    updateDenseDisclosureSummary(`${name}-results-summary`, ordered.length, "source", "scroll list");
     const monitored = records.filter((record) => record.monitoring === "Yes").length;
     const unreviewed = records.filter((record) => !record.reviewed || /no|not|pending/i.test(record.reviewed)).length;
     const unhealthy = [...healthIndex.values()].filter((classification) =>
@@ -2831,18 +3063,24 @@
 
   function monitoringIssueCard(record) {
     const details = element("details", "monitoring-issue");
-    details.dataset.disclosureId = `progress-monitoring-${record.id}`;
+    details.dataset.disclosureId = `workbench-monitoring-${record.id}`;
     const summary = element("summary");
     const identity = element("div", "monitoring-identity");
     identity.append(element("span", "record-id", record.id), element("strong", "", record.title));
     const metadata = element("div", "monitoring-metadata");
-    metadata.append(
-      element("span", "badge formal", record.kind),
-      element("span", "badge", record.area),
-      element("span", "badge formal", record.development_level),
-      element("span", "badge", record.workflow_status),
-      element("span", "badge", `${record.source_count} source${record.source_count === 1 ? "" : "s"}`)
-    );
+    [
+      [record.kind, "badge formal"],
+      [record.area, "badge"],
+      [record.development_level, "badge formal"],
+      [record.workflow_status, "badge"]
+    ].forEach(([value, className]) => {
+      if (String(value || "").trim()) metadata.append(element("span", className, value));
+    });
+    const recordedSourceCount = Number(record.source_count);
+    const sourceCount = Number.isInteger(recordedSourceCount) && recordedSourceCount >= 0
+      ? recordedSourceCount
+      : (Array.isArray(record.sources) ? record.sources.length : 0);
+    metadata.append(element("span", "badge", `${sourceCount} source${sourceCount === 1 ? "" : "s"}`));
     summary.append(identity, metadata);
     const body = element("div", "monitoring-body");
     const actions = element("div", "source-list compact-links");
@@ -3304,15 +3542,6 @@
     return idMatch ? Number(idMatch[1]) : -Infinity;
   }
 
-  function latestLogEntryId(entries) {
-    return entries.reduce((best, entry) => {
-      if (!best) return entry;
-      const candidate = logEntryLatestValue(entry);
-      const bestValue = logEntryLatestValue(best);
-      return candidate > bestValue ? entry : best;
-    }, null)?.id || null;
-  }
-
   function logHistoryHeading(label, count, singular = "entry") {
     const heading = element("div", "log-history-heading");
     heading.append(
@@ -3526,6 +3755,14 @@
     badge.setAttribute("aria-label", `${count} new or updated`);
   }
 
+  function setNavigationCount(id, value, available) {
+    const marker = byId(id);
+    if (!marker) return;
+    const visible = available === true && Number.isInteger(value) && value >= 0;
+    marker.hidden = !visible;
+    marker.textContent = visible ? String(value) : "";
+  }
+
   function setNavigationMarker(id, value, status = "", label = "") {
     const marker = byId(id);
     if (!marker) return;
@@ -3644,12 +3881,6 @@
     return [...candidates, ...proposals];
   }
 
-  function humanDecisionRecords() {
-    return currentLifecycleRecords().filter(
-      (record) => record.workflowStatus === "Human decision needed"
-    );
-  }
-
   function workbenchArtifactRecord(identifier) {
     const id = String(identifier || "").trim();
     if (!id) return null;
@@ -3674,8 +3905,8 @@
         "overview",
         "actions",
         "progress",
-        "progress:monitoring",
         "planning",
+        "planning:workbench:monitoring",
         "planning:preliminary",
         "planning:candidates",
         "planning:sources",
@@ -3823,7 +4054,7 @@
     const cohort = parameters.get("cohort") || "";
     const status = parameters.get("status") || "";
     if (cohort === "Human-reserved") return "actions";
-    if (cohort === "Fired monitoring") return "progress:monitoring";
+    if (cohort === "Fired monitoring") return "planning:workbench:monitoring";
     if (status === "Human decision needed") return "actions";
     if (status === "Publication approval") return "planning:publication";
     if (["Blocked", "Deferred"].includes(status)) parameters.set("mode", "hold");
@@ -3859,6 +4090,9 @@
     }
     if (parts[0] === "progress" && parts[1] === "next-work") {
       return legacyNextWorkTarget(parts.slice(2).join(":"));
+    }
+    if (parts[0] === "progress" && parts[1] === "monitoring") {
+      return "planning:workbench:monitoring";
     }
     if (parts[0] === "planning" && parts[1] === "pipeline") {
       return ["planning", "workbench", "pipeline", ...parts.slice(2)].join(":");
@@ -3936,12 +4170,19 @@
       }
     }
     if (parts[0] === "planning" && parts[1] === "workbench" && parts[2] === "pipeline") {
+      setWorkbenchView("pipeline");
       resetPipelineMode("active");
       if (parts[3]) applyPipelineParameters(parts.slice(3).join(":"));
       if (loadedDomains.has("progress")) renderPipeline();
     }
+    if (parts[0] === "planning" && parts[1] === "workbench" && parts[2] === "monitoring") {
+      setWorkbenchView("monitoring");
+    }
     if (parts[0] === "planning" && parts[1] === "sources"
-      && parts[2] === "watchers" && parts[3]) activateWatcherTab(parts[3]);
+      && parts[2]) {
+      activateSectionTab("sources", parts[2], false, false);
+      if (parts[2] === "watchers" && parts[3]) activateWatcherTab(parts[3]);
+    }
     let destination = byId(`panel-${parts[0]}`);
     if (parts[0] === "progress" && parts[1]) {
       const section = byId(`progress-${parts[1]}`);
@@ -3954,9 +4195,9 @@
     }
     if (parts[0] === "planning" && parts[1] === "sources" && parts[2]) {
       destination = {
-        catalog: byId("sources-heading"),
-        pending: byId("pending-heading"),
-        watchers: byId("watchers-heading")
+        catalog: byId("sources-heading")?.closest(".queue-view"),
+        pending: byId("pending-heading")?.closest(".queue-view"),
+        watchers: byId("watchers-heading")?.closest(".queue-view")
       }[parts[2]] || destination;
     }
     if (parts[0] === "planning"
@@ -3975,6 +4216,9 @@
         analysis: byId("publication-analysis-heading"),
         builder: byId("publication-builder-heading")
       }[parts[2]] || destination;
+    }
+    if (parts[0] === "planning" && parts[1] === "workbench" && parts[2] === "monitoring") {
+      destination = byId("pipeline-heading") || destination;
     }
     destination?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
@@ -4350,15 +4594,6 @@
     });
   }
 
-  function integrityFindingNeedsHuman(finding) {
-    return String(finding.attention || "").toLowerCase() === "human";
-  }
-
-  function workflowHoldRecords() {
-    return currentLifecycleRecords().filter((record) =>
-      ["Deferred", "Blocked", "Human decision needed"].includes(record.workflowStatus));
-  }
-
   function exactIntegrityProblemRecords(feed = data.integrity) {
     const current = feed && typeof feed.current === "object" ? feed.current : {};
     return (Array.isArray(current.findings) ? current.findings : [])
@@ -4729,10 +4964,9 @@
         + operationalOversightActions.length
         + oversightProblems.length
       : null;
-    const countDisplay = total === null ? "—" : String(total);
-    byId("tab-actions-count").textContent = countDisplay;
-    byId("assigned-actions-count").textContent = countDisplay;
-    byId("oversight-actions-count").textContent = oversightCount === null ? "—" : String(oversightCount);
+    setNavigationCount("tab-actions-count", total, complete);
+    setNavigationCount("assigned-actions-count", total, complete);
+    setNavigationCount("oversight-actions-count", oversightCount, complete);
     byId("action-items-note").textContent = !complete
       ? "Known action records are shown from a partial snapshot; queue counts are unavailable."
       : total
@@ -4871,21 +5105,9 @@
       blockingItems.length > 0,
       `${pluralizeWord(blockingItems.length, "blocker")} represented in Action Items`
     );
-    byId("all-actions-count").textContent = complete
-      ? String(actionInboxState.items.length)
-      : "—";
+    setNavigationCount("all-actions-count", actionInboxState.items.length, complete);
     renderPriorityAttention();
     renderActionInboxRows();
-  }
-
-  function parseCount(body, label) {
-    const match = String(body || "").match(new RegExp(`${label}:\\s*\\*\\*(\\d+)\\*\\*`, "i"));
-    return match ? Number(match[1]) : 0;
-  }
-
-  function completeProposalCount(body) {
-    const match = String(body || "").match(/Affected records\s*\((\d+)\):/i);
-    return match ? Number(match[1]) : 0;
   }
 
   function renderReviewSignals() {
@@ -5067,27 +5289,40 @@
   function developmentBoardCard(record) {
     const card = element("article", "development-card");
     card.title = record.title || record.identifier;
-    const identity = element("div", "development-card-identity");
-    const workflow = element("span", "workflow-dot", "●");
-    workflow.title = `Workflow: ${text(record.workflowStatus, "Not recorded")}`;
-    workflow.setAttribute("aria-label", workflow.title);
-    const score = scorePresentation(record.score);
-    identity.append(
-      element("strong", "", record.identifier),
-      workflow,
-      element("span", score.valid ? "development-score" : "development-score invalid", score.label)
-    );
-    const links = element("div", "development-card-links");
     const workbenchTarget = workbenchTargetForArtifact(record.identifier, {
       source: "Progress",
       reference: record.identifier,
       returnTarget: "progress"
     });
-    if (workbenchTarget) links.append(internalInlineLink("Open in Workbench", workbenchTarget));
+    const identity = workbenchTarget
+      ? internalInlineLink("", workbenchTarget)
+      : element("div");
+    identity.className = "development-card-identity development-card-main";
+    if (workbenchTarget) identity.setAttribute("aria-label", `Open ${record.identifier} in Workbench`);
+    const workflow = element("span", "workflow-dot", "●");
+    workflow.title = `Workflow: ${text(record.workflowStatus, "Not recorded")}`;
+    workflow.setAttribute("aria-label", workflow.title);
+    const score = scorePresentation(record.score);
+    identity.append(element("strong", "", record.identifier), workflow);
+    if (score.available) {
+      identity.append(element("span", score.valid ? "development-score" : "development-score invalid", score.label));
+    }
+    const links = element("div", "development-card-links");
     const liveUrl = proposalLiveUrl(record);
-    if (liveUrl) links.append(linkButton("Live", liveUrl, true));
-    if (record.url) links.append(linkButton("Issue", record.url, true));
-    card.append(identity, links);
+    if (liveUrl) {
+      const live = linkButton("Live ↗", liveUrl, true);
+      live.className = "development-external-link";
+      live.setAttribute("aria-label", `Open the live page for ${record.identifier}`);
+      links.append(live);
+    }
+    if (record.url) {
+      const issue = linkButton("Issue ↗", record.url, true);
+      issue.className = "development-external-link";
+      issue.setAttribute("aria-label", `Open the GitHub issue for ${record.identifier}`);
+      links.append(issue);
+    }
+    card.append(identity);
+    if (links.childElementCount) card.append(links);
     return card;
   }
 
@@ -5138,15 +5373,24 @@
       : "";
   }
 
-  function renderProgressHolds(snapshot) {
-    const items = Array.isArray(snapshot.pipeline?.items)
-      ? snapshot.pipeline.items.filter((item) => item.mode === "hold")
-      : [];
-    const blocked = items.filter((item) => item.status === "Blocked").length;
-    const deferred = items.filter((item) => item.status === "Deferred").length;
-    byId("progress-holds-count").textContent = items.length;
-    byId("progress-blocked-count").textContent = blocked;
-    byId("progress-deferred-count").textContent = deferred;
+  function initializeDevelopmentBoardToggle() {
+    const viewport = byId("development-board-viewport");
+    const trigger = byId("development-board-toggle");
+    if (!viewport || !trigger) return;
+    const label = trigger.querySelector("span");
+    const setExpanded = (expanded) => {
+      viewport.classList.toggle("is-collapsed", !expanded);
+      trigger.setAttribute("aria-expanded", String(expanded));
+      if (label) label.textContent = expanded ? "Show fewer cards" : "Show full board";
+    };
+    setExpanded(false);
+    trigger.addEventListener("click", () => {
+      const expanded = trigger.getAttribute("aria-expanded") !== "true";
+      setExpanded(expanded);
+      if (!expanded) {
+        byId("progress-development-board")?.scrollIntoView({ block: "start", behavior: "smooth" });
+      }
+    });
   }
 
   function portfolioArchitecturePoints(snapshot) {
@@ -5252,6 +5496,26 @@
       sourceReference: "",
       returnTarget: ""
     });
+  }
+
+  function setWorkbenchView(view, updateRoute = false) {
+    const monitoring = view === "monitoring";
+    const pipelineView = byId("workbench-pipeline-view");
+    const monitoringView = byId("workbench-monitoring");
+    const monitoringButton = byId("workbench-monitoring-toggle");
+    if (!pipelineView || !monitoringView || !monitoringButton) return;
+    pipelineView.hidden = monitoring;
+    monitoringView.hidden = !monitoring;
+    monitoringButton.setAttribute("aria-pressed", String(monitoring));
+    if (monitoring) {
+      document.querySelectorAll("[data-pipeline-mode]").forEach((button) => {
+        button.setAttribute("aria-pressed", "false");
+      });
+      renderManualWatch();
+      if (updateRoute) window.history.replaceState(null, "", "#planning:workbench:monitoring");
+    } else if (updateRoute) {
+      updatePipelineRoute();
+    }
   }
 
   function pipelineStatusMatches(record) {
@@ -5373,7 +5637,8 @@
 
   function updatePipelineRoute() {
     if (window.location.hash
-      && !window.location.hash.startsWith("#planning:workbench:pipeline")) return;
+      && !window.location.hash.startsWith("#planning:workbench:pipeline")
+      && window.location.hash !== "#planning:workbench:monitoring") return;
     const parameters = pipelineRouteParameters();
     window.history.replaceState(null, "", `#planning:workbench:pipeline${parameters ? `:${parameters}` : ""}`);
   }
@@ -5482,20 +5747,14 @@
     row.setAttribute("role", "option");
     row.setAttribute("aria-selected", String(pipelineState.selectedId === record.id));
     row.tabIndex = pipelineState.selectedId === record.id ? 0 : -1;
-    const title = element("span", "pipeline-row-title");
-    title.append(element("strong", "", record.id), element("span", "", text(record.title, "Untitled record")));
+    const title = element("span", "pipeline-row-title", candidateSummaryTitle(record));
     const score = record.workClass === "Proposal"
       ? ` · ${scorePresentation(record.score).label}`
       : "";
-    const nextAction = record.nextAction || (
-      record.mode === "hold"
-        ? record.hold?.trigger || "Trigger not recorded"
-        : "Next step not recorded"
-    );
     const meta = element(
       "span",
       "pipeline-row-meta",
-      `${record.workClass} · ${text(record.status, "Status unavailable")}${score} · ${nextAction}`
+      `${record.workClass} · ${text(record.status, "Status unavailable")}${score}`
     );
     row.append(title, meta);
     row.addEventListener("click", () => selectPipelineItem(record.id, false, true));
@@ -5573,8 +5832,9 @@
     });
     byId("pipeline-scope").disabled = pipelineState.mode === "hold";
     byId("pipeline-search").value = pipelineState.search;
+    const pipelineVisible = !byId("workbench-pipeline-view")?.hidden;
     document.querySelectorAll("[data-pipeline-mode]").forEach((button) => {
-      button.setAttribute("aria-pressed", String(button.dataset.pipelineMode === pipelineState.mode));
+      button.setAttribute("aria-pressed", String(pipelineVisible && button.dataset.pipelineMode === pipelineState.mode));
     });
     const filtered = filteredPipelineItems();
     const focusedRecord = pipelineState.focused
@@ -5650,7 +5910,6 @@
       renderProgressTrajectory(snapshot);
       byId("progress-area-list").replaceChildren(element("p", "muted", "Area data unavailable."));
       byId("development-board").replaceChildren(element("p", "muted", "Development-level data unavailable."));
-      renderProgressHolds(snapshot);
       renderPortfolioArchitecture(snapshot);
       renderPipeline();
       return;
@@ -5671,7 +5930,6 @@
     byId("progress-track").setAttribute("aria-valuenow", String(percent));
     renderProgressTrajectory(snapshot);
     renderDevelopmentBoard(snapshot);
-    renderProgressHolds(snapshot);
     renderPortfolioArchitecture(snapshot);
     renderPipeline();
 
@@ -5690,18 +5948,6 @@
       return row;
     }));
     renderOverview();
-  }
-
-  function overviewCard(label, value, detail, target, tone = "") {
-    const card = element("a", `overview-card ${tone}`.trim());
-    card.dataset.layoutId = `overview-${layoutSlug(label)}`;
-    card.href = target.startsWith("http") ? target : `#${target}`;
-    if (target.startsWith("http")) {
-      card.target = "_blank";
-      card.rel = "noopener noreferrer";
-    }
-    card.append(element("span", "eyebrow", label), element("strong", "", String(value)), element("p", "", detail));
-    return card;
   }
 
   function projectionStatusCard(label, feed, target, fallbackTimestamp = "") {
@@ -5746,15 +5992,6 @@
     return formatDate(candidate);
   }
 
-  function agePosture(value) {
-    const timestamp = dateTimestamp(value);
-    if (!timestamp) return "No timestamp";
-    const hours = Math.max(0, (Date.now() - timestamp) / 3600000);
-    if (hours < 1) return "Within the hour";
-    if (hours < 24) return `${Math.round(hours)}h old`;
-    return `${Math.round(hours / 24)}d old`;
-  }
-
   function effectiveRunChainStatus(chain) {
     const raw = String(chain.host_status || chain.status || chain.outcome || "");
     const launchRecommended = chain.elim_decision?.launch_recommended === true
@@ -5785,7 +6022,7 @@
     if (/success|succeed|pass/.test(value)) return { icon: "✓", statusLabel: "Succeeded", tone: "success" };
     if (/complete|healthy/.test(value)) return { icon: "✓", statusLabel: "Succeeded", tone: "success" };
     if (/operational/.test(value)) return { icon: "✓", statusLabel: "Operational", tone: "success" };
-    if (/not_due|no.?op|current/.test(value)) return { icon: "—", statusLabel: "Not due this chain", tone: "not-due" };
+    if (/not_due|no.?op|current/.test(value)) return { icon: "—", statusLabel: "Not due", tone: "not-due" };
     return { icon: "○", statusLabel: serviceStatusLabel(value), tone: "unavailable" };
   }
 
@@ -6034,20 +6271,6 @@
       dateTimestamp(right.values?.date) - dateTimestamp(left.values?.date))[0] || null;
   }
 
-  function overviewLogRow({ title, meta, summary, target, tone = "" }) {
-    const row = element("details", `overview-expandable-row ${tone}`.trim());
-    row.dataset.disclosureId = `overview-log-${layoutSlug(`${target}-${title}`)}`;
-    const heading = element("summary", "");
-    heading.append(element("strong", "", title), element("span", "overview-row-meta", meta));
-    const body = element("div", "overview-row-body");
-    body.append(element("p", "", summary || "No summary recorded."));
-    const link = element("a", "record-link secondary compact-link", "Open complete record →");
-    link.href = `#${target}`;
-    body.append(link);
-    row.append(heading, body);
-    return row;
-  }
-
   function compactActivityPresentation(activity = {}) {
     return {
       title: activity.artifact_label || activity.event_id || "Typed artifact change",
@@ -6056,6 +6279,22 @@
       target: String(activity.route || activity.target || "logs").replace(/^#/, ""),
       tone: ""
     };
+  }
+
+  function overviewMaterialActivityRecords(
+    generatedActivity = data.overview?.activity
+  ) {
+    return (Array.isArray(generatedActivity) ? generatedActivity : [])
+      .filter((record) =>
+        record?.event_code === "active_issue_score_changed"
+        && Array.isArray(record.artifact_ids)
+        && record.artifact_ids.length === 1
+        && typeof record.change_descriptor === "string"
+        && typeof record.score_change === "string"
+        && typeof record.canonical_record === "string")
+      .sort((left, right) =>
+        dateTimestamp(right.occurred_at) - dateTimestamp(left.occurred_at))
+      .slice(0, 8);
   }
 
   function logEntryHeadline(log, entry) {
@@ -6081,7 +6320,7 @@
   }
 
   function renderOverviewRecentActivity() {
-    const activity = Array.isArray(data.overview?.activity) ? data.overview.activity.slice(0, 8) : [];
+    const activity = overviewMaterialActivityRecords();
     const rows = activity.map((record) => {
       const target = String(record.route || record.target || "logs").replace(/^#/, "");
       const row = element("a", "overview-material-row");
@@ -6091,14 +6330,13 @@
       const artifact = rawArtifact.length > 96 && affectedItems.length > 1
         ? `${affectedItems.length} touched artifacts`
         : rawArtifact;
-      const descriptor = text(
-        record.score_change
-          || record.change_descriptor,
-        "Change recorded"
-      );
+      const descriptor = text(record.change_descriptor, "Change recorded");
+      const scoreChange = text(record.score_change, "Score change unavailable");
+      row.title = `${descriptor} · ${scoreChange}`;
       row.append(
         element("strong", "", artifact),
         element("span", "overview-material-change", descriptor),
+        element("span", "overview-material-score", scoreChange),
         element("time", "", overviewDisplayDate(record.occurred_at))
       );
       return row;
@@ -6138,7 +6376,7 @@
     const intake = queueById.get("candidate_intake") || {};
     const humanActions = queueById.get("human_actions") || {};
     const makeCard = (title, value, detail, target, tone = "") => {
-      const card = element("article", `overview-indicator-card ${tone}`.trim());
+      const card = element("article", "overview-indicator-card");
       card.dataset.layoutId = `overview-portlet-${layoutSlug(title)}`;
       card.dataset.layoutTransferGroup = "overview-portlet";
       const heading = element("div", "overview-card-heading");
@@ -6204,7 +6442,7 @@
       internalInlineLink("View platform status →", "automation:platform")
     );
 
-    const dataCard = element("article", "overview-indicator-card overview-compact-indicator");
+    const dataCard = element("article", "overview-indicator-card overview-compact-indicator overview-data-indicator");
     dataCard.dataset.layoutId = "overview-portlet-project-data";
     dataCard.dataset.layoutTransferGroup = "overview-portlet";
     const dataHeading = element("div", "overview-card-heading");
@@ -6508,11 +6746,11 @@
       element("span", "micro-note", "A missing reading is not zero consumption.")
     );
     byId("overview-usage-windows").replaceChildren(
-      element("p", "empty-state compact-empty", unavailable)
+      element("p", "empty-state compact-empty owner-unavailable-notice", unavailable)
     );
     byId("overview-usage-detail-summary").textContent = "Detailed history unavailable";
     byId("overview-usage-trend").replaceChildren(
-      element("p", "empty-state compact-empty", unavailable)
+      element("p", "empty-state compact-empty owner-unavailable-notice", unavailable)
     );
   }
 
@@ -6577,8 +6815,8 @@
             : "",
       problemTarget: queue.problem_route,
       problemLabel: queue.complete === true
-        ? "Open specialist ledger →"
-        : "Producer unavailable →"
+        ? "Problem · open log →"
+        : "Unavailable · open log →"
     }));
     const active = queues.filter((queue) => queue.count != null && queue.count > 0);
     const empty = queues.filter((queue) => queue.count === 0);
@@ -7038,13 +7276,6 @@
     refreshLayoutZones();
   }
 
-  function automationStatusClass(status) {
-    if (/^enabled$/i.test(status)) return "enabled";
-    if (/pilot/i.test(status)) return "pilot";
-    if (/paused/i.test(status)) return "paused";
-    return "";
-  }
-
   function runChainStages(chain) {
     if (Array.isArray(chain.stages)) return chain.stages;
     if (chain.stages && typeof chain.stages === "object") {
@@ -7101,15 +7332,6 @@
       return explicitFailure || /fail|error|stale|block/.test(classification)
         || stage.stale === true || stage.blocking === true || blockingFailure;
     });
-  }
-
-  function botFailureSummary(stage) {
-    return stage.diagnostic
-      || stage.details
-      || stage.reason
-      || stage.message
-      || stage.failure_summary
-      || `${String(stage.status || "Error").replaceAll("_", " ")} in the current run chain.`;
   }
 
   function runChainQueue(chain) {
@@ -7201,7 +7423,7 @@
       : controlState === "paused"
         ? "Paused"
         : "Unavailable";
-    note.className = `attention-note ${
+    note.className = `attention-note console-message console-message-status ${
       controlState === "paused" ? "warning" : presentation.tone
     }`.trim();
     note.textContent = `${controlLabel} · ${presentation.label} · ${presentation.summary}`;
@@ -7277,7 +7499,7 @@
     const phaseDetail = `Cloud ${cloudStatus} · Host ${hostStatus}${hostCommit}`;
 
     const note = byId("automation-chain-note");
-    note.className = `attention-note ${runChainStatusClass(status)}`.trim();
+    note.className = `attention-note console-message console-message-status ${runChainStatusClass(status)}`.trim();
     const hasPublishedChain = Boolean(chain.chain_id || chain.id || chain.status || chain.outcome);
     note.textContent = hasPublishedChain
       ? `${chainId} · ${String(status).replaceAll("_", " ")} · ${phaseDetail} · ${chain.trigger || chain.trigger_type || "trigger not recorded"}`
@@ -7527,18 +7749,25 @@
         };
         links.append(
           securityWorkOrderButton(
-            "Prepare Live request",
+            "Download Live-state request",
             "arrp-public-intake-live-request.json",
             { ...sharedRequest, requested_state: "live" }
           ),
           securityWorkOrderButton(
-            "Prepare Paused request",
+            "Download Paused-state request",
             "arrp-public-intake-paused-request.json",
             { ...sharedRequest, requested_state: "paused" }
           )
         );
       }
-      preview.replaceChildren(heading, element("p", "automation-purpose", tool.purpose || "High-level scope unavailable."), fields, links);
+      const actionHelp = element(
+        "p",
+        "micro-note security-request-help",
+        tool.tool_id === "public-intake-protection"
+          ? "These downloads stage JSON requests for later review; they do not change the public-intake state."
+          : "The protected source opens outside the Console and does not change repository settings."
+      );
+      preview.replaceChildren(heading, element("p", "automation-purpose", tool.purpose || "High-level scope unavailable."), fields, links, actionHelp);
     };
     const selectTool = (tool) => {
       selectedId = tool.tool_id;
@@ -7663,30 +7892,33 @@
       }
     }
 
-    setButtonBlockerFlag("automation-tab-capacity", false, "");
-    const capacitySummary = byId("operations-capacity-summary");
     const privateUsageAvailable = validPrivateCodexUsage(privateCodexUsageSnapshot)
       && privateCodexUsageSnapshot.availability === "current";
+    const capacityRemaining = privateUsageAvailable
+      ? Number(privateCodexUsageSnapshot.current.remaining_percent)
+      : null;
+    const capacityBlocked = Number.isFinite(capacityRemaining)
+      && capacityRemaining <= 15;
+    setButtonBlockerFlag(
+      "automation-tab-capacity",
+      capacityBlocked,
+      "Codex capacity is at or below the automation reserve"
+    );
+    const capacitySummary = byId("operations-capacity-summary");
     if (privateUsageAvailable) {
       renderCodexUsageCapacity(privateCodexUsageSnapshot);
     } else if (capacitySummary) {
       capacitySummary.replaceChildren(
         element(
           "p",
-          "empty-state compact-empty",
+          "empty-state compact-empty owner-unavailable-notice",
           ownerModeUnavailableMessage(CODEX_USAGE_UNAVAILABLE_DETAIL)
         )
       );
     }
     const capacityHistory = byId("operations-capacity-history");
     if (capacityHistory && !privateUsageAvailable) {
-      capacityHistory.replaceChildren(
-        element(
-          "p",
-          "empty-state compact-empty",
-          ownerModeUnavailableMessage(CODEX_USAGE_UNAVAILABLE_DETAIL)
-        )
-      );
+      capacityHistory.replaceChildren();
     }
 
     const services = platformCellProjection();
@@ -7700,17 +7932,7 @@
     const platformHost = byId("operations-platform-list");
     if (platformHost) {
       const providerRows = [];
-      let priorProvider = "";
       services.forEach((service) => {
-        if (service.provider !== priorProvider) {
-          const providerHeading = element("div", "operations-ledger-provider");
-          providerHeading.append(
-            element("strong", "", service.provider),
-            inlineLink("Official source ↗", service.source)
-          );
-          providerRows.push(providerHeading);
-          priorProvider = service.provider;
-        }
         const presentation = platformStatusPresentation(service.status);
         const retained = service.lastValid?.checkedAt
           ? ` · last valid ${formatOperationalDate(service.lastValid.checkedAt)}`
@@ -7725,6 +7947,8 @@
           service.checkedAt,
           service.source
         );
+        row.classList.add("platform-service-card");
+        row.firstElementChild?.prepend(element("span", "platform-provider-label", service.provider));
         activeIncidentIdsForTypedLink(`platform:${layoutSlug(service.label)}`).forEach((incidentId) => {
           row.append(consoleLinkButton(
             `${incidentId} →`,
@@ -7772,19 +7996,40 @@
                 : "error",
             label: humanizeKey(feed.availability || "unavailable")
           },
-          `${feed.reason || "No producer reason supplied"} · Complete: ${feed.complete === true ? "yes" : "no"} · Producer: ${feed.producer || "unavailable"} · Trustworthy through: ${formatDate(feed.trustworthy_through)}`,
+          feed.reason || "No producer reason supplied",
           feed.trustworthy_through,
-          feed.route
+          null
         );
+        row.classList.add("data-feed-card");
+        if (feed.producer) {
+          const producerLabel = element(
+            "span",
+            "data-producer-label",
+            humanizeKey(feed.producer)
+          );
+          producerLabel.title = feed.producer;
+          producerLabel.setAttribute("aria-label", `Producer: ${feed.producer}`);
+          row.firstElementChild?.prepend(producerLabel);
+        }
+        const currentness = row.querySelector(".micro-note");
+        if (currentness) {
+          const boundary = feed.trustworthy_through
+            ? `Trustworthy through ${formatOperationalDate(feed.trustworthy_through)}`
+            : "Trustworthy-through boundary not recorded";
+          currentness.textContent = `${feed.complete === true ? "Complete" : "Incomplete"} · ${boundary}`;
+        }
+        const actions = element("div", "data-feed-actions");
+        if (feed.route) actions.append(internalInlineLink("Feed →", feed.route));
         if (feed.recovery_route) {
-          row.append(consoleLinkButton("Recovery →", `#${feed.recovery_route}`));
+          actions.append(internalInlineLink("Recovery →", feed.recovery_route));
         }
         activeIncidentIdsForTypedLink(`data:${feed.feed_id}`).forEach((incidentId) => {
-          row.append(consoleLinkButton(
+          actions.append(internalInlineLink(
             `${incidentId} →`,
-            `#automation:logs:incidents:selected=${encodeURIComponent(incidentId)}`
+            `automation:logs:incidents:selected=${encodeURIComponent(incidentId)}`
           ));
         });
+        if (actions.childNodes.length) row.append(actions);
         return row;
       }));
     }
@@ -10422,10 +10667,14 @@
     });
     document.querySelectorAll("[data-pipeline-mode]").forEach((button) => {
       button.addEventListener("click", () => {
+        setWorkbenchView("pipeline");
         resetPipelineMode(button.dataset.pipelineMode);
         renderPipeline();
         updatePipelineRoute();
       });
+    });
+    byId("workbench-monitoring-toggle").addEventListener("click", () => {
+      setWorkbenchView("monitoring", true);
     });
     byId("pipeline-search").addEventListener("input", (event) => {
       pipelineState.search = event.target.value;
@@ -10588,7 +10837,7 @@
     byId("planning-candidates-count").textContent = candidates.length;
     byId("planning-preliminary-count").textContent = data.records.length;
     byId("attention-note").textContent = data.records.length
-      ? `${pluralizeWord(data.records.length, "preliminary candidate")} require human review.`
+      ? `${pluralizeWord(data.records.length, "preliminary candidate")} ${data.records.length === 1 ? "requires" : "require"} human review.`
       : "No preliminary candidates currently require review.";
     populateSelect(byId("preliminary-area"), [...new Set(data.records.map((record) => record.proposed_area))], "All areas");
     populateSelect(byId("proposed-level"), [...new Set(candidates.map((record) => record.development_level))], "All levels");
@@ -10604,6 +10853,16 @@
       .filter((record) => /^(New|Changed) since/.test(record.review_status || ""));
     reviewSignals.directives.count = changedDirectives.length;
     reviewSignals.directives.ids = new Set(changedDirectives.map((record) => record.id));
+    document.querySelectorAll("[data-sources-as-of]").forEach((time) => {
+      time.textContent = formatDate(data.generated_at);
+    });
+    const sourceDataNote = byId("sources-data-note");
+    const sourceCatalogCurrent = data.availability === "current"
+      && data.completeness?.complete === true;
+    sourceDataNote.className = `method-note console-message ${sourceCatalogCurrent ? "console-message-info" : "console-message-warning"}`;
+    sourceDataNote.textContent = sourceCatalogCurrent
+      ? "Source catalog projection is current and complete for this Console generation."
+      : "Source catalog projection is not current and complete; use the recorded availability and completeness details before relying on these results.";
     byId("sources-count").textContent = data.cited_sources.length;
     byId("pending-count").textContent = data.pending_sources.length;
     byId("source-pending-count").textContent = data.pending_sources.length;
@@ -10781,7 +11040,10 @@
       dependencies = ["component-registry"];
     }
     if (tab === "overview") {
-      await ensureDomain("overview", { optional: true });
+      await Promise.all([
+        ensureDomain("overview", { optional: true }),
+        ensureDomain("logs", { optional: true })
+      ]);
       renderOverview();
     } else {
       await Promise.all(dependencies.map((domain) => ensureDomain(domain)));
@@ -10809,18 +11071,25 @@
     const initialHumanQueue = (data.overview?.queue_directory?.queues || []).find(
       (queue) => queue.queue_id === "human_actions"
     );
-    byId("tab-actions-count").textContent = initialHumanQueue?.complete === true
-      ? initialHumanQueue.count
-      : "—";
+    setNavigationCount(
+      "tab-actions-count",
+      initialHumanQueue?.count,
+      initialHumanQueue?.complete === true
+    );
     byId("manual-watch-count").textContent = data.monitoring_issues.length;
     initializeStaticControls();
     initializeActionInboxControls();
     initializeWorkflowSummary();
     prepareConsolidatedNavigation();
+    initializeTemplateInspection();
     initializePersonalLayout();
+    initializeInterfaceTools();
+    initializeDevelopmentBoardToggle();
     initializeTabs();
     initializeSectionTabs("planning", "workbench");
     initializeSectionTabs("automation", "overview");
+    initializeSectionTabs("sources", "catalog");
+    initializeSectionTabs("publication", "assignments");
     initializeWatcherTabs();
     initializeLogMenu();
     initializeIncidentLog();
@@ -10875,6 +11144,7 @@
     releaseBlockerProjectionState,
     topicProducts,
     compactActivityPresentation,
+    overviewMaterialActivityRecords,
     priorityAttentionReasons,
     priorityAttentionItems,
     normalizeConsoleTarget,

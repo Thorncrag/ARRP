@@ -71,6 +71,44 @@ class ComponentRegistryCandidateTests(unittest.TestCase):
         self.candidate = load_candidate_registry()
         self.schema = load_json(SCHEMA_PATH)
         self.route = registry._routing_snapshot(self.candidate)
+        self.candidate_source_directory = tempfile.TemporaryDirectory()
+        self.candidate_project_interface = (
+            Path(self.candidate_source_directory.name)
+            / "framework/project/interfaces/project-console.md"
+        )
+        self.candidate_project_interface.parent.mkdir(parents=True)
+        candidate_revision = self.candidate["source_baseline"][
+            "repository_revision"
+        ]
+        candidate_source = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(ROOT),
+                "show",
+                f"{candidate_revision}:framework/project/interfaces/project-console.md",
+            ],
+            check=True,
+            capture_output=True,
+        ).stdout
+        self.candidate_project_interface.write_bytes(candidate_source)
+        self.candidate_registry_tests = (
+            Path(self.candidate_source_directory.name)
+            / "tests/framework/test_component_registry.py"
+        )
+        self.candidate_registry_tests.parent.mkdir(parents=True)
+        candidate_test_source = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(ROOT),
+                "show",
+                f"{candidate_revision}:tests/framework/test_component_registry.py",
+            ],
+            check=True,
+            capture_output=True,
+        ).stdout
+        self.candidate_registry_tests.write_bytes(candidate_test_source)
         original_loader = registry.load_validated_registry
         original_contained_file = registry._contained_file
 
@@ -83,6 +121,18 @@ class ComponentRegistryCandidateTests(unittest.TestCase):
             return original_loader(*args, **kwargs)
 
         def candidate_contained_file(root, relative, label):
+            if (
+                root.resolve() == ROOT.resolve()
+                and str(relative)
+                == "framework/project/interfaces/project-console.md"
+            ):
+                return self.candidate_project_interface.resolve()
+            if (
+                root.resolve() == ROOT.resolve()
+                and str(relative)
+                == "tests/framework/test_component_registry.py"
+            ):
+                return self.candidate_registry_tests.resolve()
             if (
                 root.resolve() == ROOT.resolve()
                 and not (ROOT / str(relative)).exists()
@@ -112,6 +162,7 @@ class ComponentRegistryCandidateTests(unittest.TestCase):
     def tearDown(self) -> None:
         self.contained_file_patch.stop()
         self.loader_patch.stop()
+        self.candidate_source_directory.cleanup()
 
     def _build_refresh_fixture(
         self,

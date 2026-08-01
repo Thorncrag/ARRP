@@ -505,14 +505,14 @@ class GitHubIssueLinkTests(unittest.TestCase):
             module.parent.mkdir(parents=True)
             module.write_text(
                 "---\n"
-                "module_id: project_interface\n"
+                "module_id: project_tool_interface\n"
                 "dependencies:\n"
                 '  - "AGENT_OPERATING_RULES.md"\n'
                 "---\n\n"
                 "# Interface\n",
                 encoding="utf-8",
             )
-            manifest["documents"]["project_interface"] = {
+            manifest["documents"]["project_tool_interface"] = {
                 "path": "framework/project/interfaces/project-console.md",
                 "hash_policy": "pinned",
                 "governing": True,
@@ -538,7 +538,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
 
             self.assertTrue(
                 any(
-                    "project_interface front-matter dependencies differ" in failure
+                    "project_tool_interface front-matter dependencies differ" in failure
                     and "framework/project/interfaces/AGENT_OPERATING_RULES.md"
                     in failure
                     and "framework/FRAMEWORK.md" in failure

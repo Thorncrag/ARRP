@@ -2860,7 +2860,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
                 "evidence_standards",
                 "source_project_monitoring",
                 "project_console_progress",
-                "project_interface",
+                "project_tool_interface",
                 "runbook_run_coordinator_bot",
                 "print_assembly",
                 "public_release",
