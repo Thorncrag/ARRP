@@ -5,7 +5,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 2,
     "projection_id": "component-registry-console",
     "producer_id": "project-console-builder",
-    "generated_at": "2026-08-01T04:06:36-04:00",
+    "generated_at": "2026-08-01T08:18:39-04:00",
     "availability": "current",
     "complete": true,
     "reason_code": null,
@@ -35,10 +35,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "validation_mode": "proposed_revision_validation",
       "authoritative": false,
       "executable": false,
-      "live_authority_verified": false,
+      "authority_effective": false,
+      "source_revision_authorized": false,
+      "source_bytes_current": false,
+      "canonical_history_confirmed": false,
+      "receipt_trusted": false,
+      "runtime_live": "not_checked",
       "predecessor_route_consulted": false,
-      "registry_sha256": "cfdcc68500fca953863aa34b77e7b5d687f13bda2f0ad63214373111959056e7",
-      "repository_revision": "1a02879ed2c18657bbf8555768831ff6cc081de1",
+      "registry_sha256": "7d06c710f79691f8a54980e834857c10459185a96b394d4608e7e27ae64cb2a7",
+      "repository_revision": "c1c0b8ecbdcc1b4c7994b33f1a1cc72d61a20214",
       "design_id": "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR",
       "design_revision": "sha256:16c7801b08397a640829bcb9141de7482c68ea9d9aa793fba0d1080fea9d95b0"
     },
@@ -4951,7 +4956,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "aab7431b0be0d85f0feeec962910a33380cec3c80c577ecdd3aa07a40bf28ab4",
+            "sha256": "6941ceb68825c511b16d239b709cc3541075104547f6afd1ba592676fb691a0b",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -5182,7 +5187,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "6bdc074de13c9a9521197bd08546aa21d5a4a98c52506a73acb469315eb2f7b0",
+            "sha256": "bf877c7c3eeddd7fbb87f442858dd531fa2d778dec4f60d857d81fa864d0003c",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -5430,7 +5435,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "1075189ee0f5beed3ae5c29629918134dc380181b29d814b7a6c13191d5c9e21",
+            "sha256": "a50cd05f2a3dd11038c0eec2aeee0401c36ea631948b97f287543f7d4345fa05",
             "evidence_ref": "stage2_design_approval"
           }
         },
@@ -5578,7 +5583,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "40c40cf24f622050adf33a5968c0d5e6b6fbc7ea0ab24819a22a2389c2bb5122",
+            "sha256": "5447bde78eecc4ac9eb3f5151ddd9f9c90d0c3293954908f12235f582ed89cf9",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -5827,7 +5832,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "23df7abb44fba0a9b12d0e49337e1926b4ba3a1d15dea738cf52f290863681d6",
+            "sha256": "1adfe8032160b08625cd03d191f3eaa3cbb241dcb6962a8cf036198c73bf6033",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -13417,7 +13422,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "0687ce5ffff0ff37c47a3f04f3f2595666a99b0a79204e55b59eb4626bfb65a6",
+            "sha256": "7a9ce2aef6ca09633e23db2f54042a255d32caac969087f324137ed05fb9743d",
             "evidence_ref": "agent_bot_registry_migration"
           }
         },
@@ -18530,7 +18535,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "0cac9b9f532a84ce1c0116f5a3eaa6a9ad2198f78f21b1ec9bfb7aa5a02107ed",
+            "sha256": "f842797e69547ceaaec8bf74e22e6bcd0c8a70cc9518b53f03900db3bf9b64de",
             "evidence_ref": "agent_bot_registry_migration"
           }
         },
@@ -22398,7 +22403,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "64ef3ef52c5d8ea07ca6c5d3d644966b62616f14240a97e5af881f6582534503",
+            "sha256": "6e62ca0f3867524e7497f93026d166ce5806925b10fb77d7b427cb4ee49d0052",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -37421,6 +37426,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "component-registry.js": "project-console-1fcfb8ee89dd8b96354c"
+    "component-registry.js": "project-console-9c83a5dca8ef7f231882"
   }
 });
