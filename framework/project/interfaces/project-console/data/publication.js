@@ -10669,7 +10669,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/status/sources-source checker bot current report",
       "internal_links": [],
-      "word_count": 6734,
+      "word_count": 6624,
       "estimated_pages": 11,
       "table_count": 2,
       "max_table_columns": 4,
@@ -18489,8 +18489,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "7b36d42fa1da50cb111e14f4e4c1c432ad6557b5",
-        "generated_at": "2026-08-01T14:02:44+00:00"
+        "revision": "0f1d133af462fbcc13e6b6067252cb178c08eb58",
+        "generated_at": "2026-08-01T14:32:54+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20246,6 +20246,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-badda6a33b24f7a54f80"
+    "publication.js": "project-console-c22c5671ad77de5af489"
   }
 });

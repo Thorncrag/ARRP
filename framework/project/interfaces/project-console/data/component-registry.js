@@ -5,7 +5,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 2,
     "projection_id": "component-registry-console",
     "producer_id": "project-console-builder",
-    "generated_at": "2026-08-01T09:53:51-04:00",
+    "generated_at": "2026-08-01T10:26:03-04:00",
     "availability": "current",
     "complete": true,
     "reason_code": null,
@@ -44,8 +44,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "receipt_trusted": false,
       "runtime_live": "not_checked",
       "predecessor_route_consulted": false,
-      "registry_sha256": "ce112289d5244f48236a383db2e561e270a213f7c1c440c1e7578ebed5e034c0",
-      "repository_revision": "5f4764791315a094c50ba95140cb4fabcf70ea7f",
+      "registry_sha256": "029c4b6a55c6c1511827c6edaff1f22851b9f33f4dffe11dc0610460ec4b0884",
+      "repository_revision": "0f1d133af462fbcc13e6b6067252cb178c08eb58",
       "design_id": "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR",
       "design_revision": "sha256:16c7801b08397a640829bcb9141de7482c68ea9d9aa793fba0d1080fea9d95b0"
     },
@@ -5073,7 +5073,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "6941ceb68825c511b16d239b709cc3541075104547f6afd1ba592676fb691a0b",
+            "sha256": "f987991fabf1e6e9b27574d24cdbb753f27da5af77f268b14027ceeb56e1eee2",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -5309,7 +5309,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "9abe1d292420aa119b411c00a92fa7a6948e6b15744b37470093c6a70317a713",
+            "sha256": "18894159194109ec24cffb4fb155f983f849c9720fb6cfa39877008049ce3848",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -5715,7 +5715,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "abaa07250a2fd9539d36e1e3594a4f9c6ce7248a2900dc1aae0855ce1f9b45c9",
+            "sha256": "50aeaeb51ed8cbace96fa7d3d2e716371b6c479e12e2f35d65a407dcdb772b2d",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -5969,7 +5969,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "a57f2ae20b495994a4b13cc9e4a42dfbc985700685a42cb1c5210d39e0f7ff42",
+            "sha256": "bfc87e52b541120e081ae2b4a7c068945499c9bfb86af45b72740c401d52aa2a",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -32682,6 +32682,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "owner_benjamin_codeowners_approval",
             "codeowners_contract_revision"
           ]
+        },
+        {
+          "event": "authority_receipt_required_check_canonicalization",
+          "effective_date": "2026-08-01",
+          "authority_generation": 3,
+          "source_ids": [
+            "owner_benjamin_codeowners_approval",
+            "codeowners_contract_revision"
+          ]
         }
       ]
     },
@@ -41464,6 +41473,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "component-registry.js": "project-console-badda6a33b24f7a54f80"
+    "component-registry.js": "project-console-c22c5671ad77de5af489"
   }
 });

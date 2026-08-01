@@ -2788,6 +2788,27 @@ def _validate_stage2_authority_readback_schema(
         raise RegistryError(
             "Stage 2 authority receipt approval evidence is not exact"
         )
+    for label, evidence in (
+        ("original", original),
+        ("correction", correction),
+    ):
+        checks = evidence.get("required_checks")
+        if not isinstance(checks, list):
+            raise RegistryError(
+                f"Stage 2 authority {label} check evidence is unavailable"
+            )
+        identities: set[tuple[object, object]] = set()
+        for check in checks:
+            if not isinstance(check, Mapping):
+                raise RegistryError(
+                    f"Stage 2 authority {label} check evidence is invalid"
+                )
+            identity = (check.get("context"), check.get("app_id"))
+            if identity in identities:
+                raise RegistryError(
+                    f"Stage 2 authority {label} check evidence is duplicated"
+                )
+            identities.add(identity)
 
 
 def _validate_stage2_adoption_repository_binding(

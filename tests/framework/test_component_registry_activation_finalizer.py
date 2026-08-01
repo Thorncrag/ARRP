@@ -956,6 +956,46 @@ class ComponentRegistryStage2FinalizerTests(unittest.TestCase):
                         conflicting,
                     )
 
+    def test_typed_and_untyped_requirement_share_one_receipt_evidence(self):
+        reviewed = "a" * 40
+        observations = {
+            "check_runs": [
+                {
+                    "id": 41,
+                    "name": "Build",
+                    "head_sha": reviewed,
+                    "status": "completed",
+                    "conclusion": "success",
+                    "completed_at": "2026-08-01T12:00:00Z",
+                    "app": {"id": 7},
+                }
+            ],
+            "check_runs_total_count": 1,
+            "check_runs_complete": True,
+            "legacy_statuses": [],
+            "legacy_statuses_complete": True,
+            "required_status_checks": [
+                {"context": "Build", "app_id": None},
+                {"context": "Build", "app_id": 7},
+            ],
+            "requirements_complete": True,
+        }
+        self.assertEqual(
+            finalizer._validated_required_check_evidence(
+                observations,
+                reviewed_head=reviewed,
+            ),
+            [
+                {
+                    "evidence_type": "check_run",
+                    "context": "Build",
+                    "app_id": 7,
+                    "run_id": 41,
+                    "completed_at": "2026-08-01T12:00:00Z",
+                }
+            ],
+        )
+
     def test_authority_v1_merge_and_history_are_exact(self):
         repository = Path("/fixture/repository")
         base = "1" * 40
