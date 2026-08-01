@@ -2543,6 +2543,113 @@ def _validate_activation_readback_schema(
     )
 
 
+def _validate_stage2_adoption_readback_schema(
+    readback: Mapping[str, Any],
+    *,
+    schema: Mapping[str, Any],
+) -> None:
+    definitions = schema.get("$defs")
+    definition = (
+        definitions.get("componentRegistryStage2AdoptionReadback")
+        if isinstance(definitions, Mapping)
+        else None
+    )
+    if not isinstance(definition, Mapping):
+        raise RegistryError(
+            "Component Registry schema lacks Stage 2 adoption readback definition"
+        )
+    _validate_against_schema(
+        readback,
+        definition,
+        schema,
+        "$stage2_adoption_readback",
+    )
+
+
+def _validate_stage2_adoption_repository_binding(
+    registry: Mapping[str, Any],
+    readback: Mapping[str, Any],
+    *,
+    root: Path,
+) -> None:
+    digest = _canonical_registry_digest(registry)
+    evidence = readback.get("adoption_evidence")
+    canonical_revision = str(readback.get("canonical_revision") or "")
+    if (
+        readback.get("registry_id") != registry.get("registry_id")
+        or readback.get("registry_revision") != registry.get("registry_revision")
+        or readback.get("registry_sha256") != digest
+        or readback.get("design_id") != registry.get("validation", {}).get("design_id")
+        or readback.get("design_revision")
+        != registry.get("validation", {}).get("design_revision")
+        or readback.get("validation_mode") != "live_authority_validation"
+        or not isinstance(evidence, Mapping)
+        or evidence.get("pull_request") != "github-review:Thorncrag/ARRP#501"
+        or evidence.get("merge_commit") != canonical_revision
+        or evidence.get("checks_revision") != evidence.get("reviewed_head")
+        or evidence.get("checks_state") != "success"
+    ):
+        raise RegistryError("Stage 2 adoption readback identity differs")
+    _parse_activation_timestamp(evidence.get("adopted_at"), "Stage 2 adoption")
+    revisions = [
+        canonical_revision,
+        str(evidence.get("base_revision") or ""),
+        str(evidence.get("reviewed_head") or ""),
+    ]
+    if any(re.fullmatch(r"[0-9a-f]{40}", value) is None for value in revisions):
+        raise RegistryError("Stage 2 adoption readback revision is invalid")
+    parents = _git_output(
+        root,
+        "rev-list",
+        "--parents",
+        "-n",
+        "1",
+        canonical_revision,
+    ).split()
+    if parents != [canonical_revision, revisions[1], revisions[2]]:
+        raise RegistryError("Stage 2 adoption merge parents differ")
+    head = _repository_head(root)
+    origin_main = _git_output(root, "rev-parse", "refs/remotes/origin/main").strip()
+    if (
+        head is None
+        or re.fullmatch(r"[0-9a-f]{40}", origin_main) is None
+        or not _git_is_ancestor(root, canonical_revision, head)
+        or not _git_is_ancestor(root, canonical_revision, origin_main)
+    ):
+        raise RegistryError("Stage 2 adoption is not canonical repository ancestry")
+    for revision in (canonical_revision, head, origin_main):
+        bound = _registry_at_revision(root, revision)
+        if canonical_json(bound) != canonical_json(registry):
+            raise RegistryError("Stage 2 adopted Registry bytes differ from canonical Git")
+
+
+def _load_fixed_stage2_adoption_readback(
+    authority: ProjectPathAuthority,
+    registry: Mapping[str, Any],
+    *,
+    schema: Mapping[str, Any],
+) -> dict[str, Any]:
+    registry_digest = _canonical_registry_digest(registry)
+    logical_path = _activation_readback_logical_path(registry_digest)
+    try:
+        receipt_path = authority.state_path(
+            logical_path,
+            required=True,
+            owner_only=True,
+        )
+    except PathAuthorityError as exc:
+        raise RegistryError("fixed Stage 2 adoption readback is unavailable") from exc
+    _validate_owner_only_receipt_path(authority, receipt_path)
+    readback = _read_owner_only_json_object(receipt_path)
+    _validate_stage2_adoption_readback_schema(readback, schema=schema)
+    _validate_stage2_adoption_repository_binding(
+        registry,
+        readback,
+        root=authority.repository_root,
+    )
+    return readback
+
+
 def _load_fixed_activation_readback(
     authority: ProjectPathAuthority,
     registry: Mapping[str, Any],
@@ -4512,6 +4619,132 @@ def _stage2_proposed_view_from_authority(
     }
 
 
+def _stage2_configuration_is_adopted(
+    authority: ProjectPathAuthority,
+    registry_path: Path,
+    stage2_registry: Mapping[str, Any],
+) -> bool:
+    """Recognize only Registry bytes already present on canonical origin/main.
+
+    A feature-branch proposal remains proposed.  A canonical checkout, or a
+    descendant closeout branch whose Registry bytes are unchanged from
+    origin/main, is an adopted tracked configuration.  This check never reads
+    owner-local evidence.
+    """
+    if authority.mode == "fixture" or _repository_head(authority.repository_root) is None:
+        return False
+    try:
+        relative = registry_path.resolve().relative_to(
+            authority.repository_root.resolve()
+        ).as_posix()
+    except ValueError as exc:
+        raise RegistryError("Stage 2 Registry is outside repository authority") from exc
+    dirty = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(authority.repository_root),
+            "status",
+            "--porcelain",
+            "--",
+            relative,
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if dirty.returncode != 0:
+        raise RegistryError("Stage 2 Registry Git posture is unavailable")
+    if dirty.stdout.strip():
+        return False
+    origin_result = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(authority.repository_root),
+            "rev-parse",
+            "refs/remotes/origin/main",
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if origin_result.returncode != 0:
+        return False
+    origin_main = origin_result.stdout.strip()
+    head = _repository_head(authority.repository_root)
+    if (
+        head is None
+        or re.fullmatch(r"[0-9a-f]{40}", origin_main) is None
+        or not _git_is_ancestor(authority.repository_root, origin_main, head)
+    ):
+        return False
+    origin_registry = _registry_at_revision(
+        authority.repository_root,
+        origin_main,
+    )
+    return (
+        origin_registry.get("schema_version") == 2
+        and canonical_json(origin_registry) == canonical_json(stage2_registry)
+    )
+
+
+def _stage2_adopted_configuration_view_from_authority(
+    authority: ProjectPathAuthority,
+    registry_path: Path,
+) -> dict[str, Any]:
+    view = _stage2_proposed_view_from_authority(authority, registry_path)
+    view["validation_mode"] = "adopted_configuration_validation"
+    return view
+
+
+def _stage2_live_view_from_authority(
+    authority: ProjectPathAuthority,
+    registry_path: Path,
+    stage2_registry: Mapping[str, Any],
+    *,
+    schema: Mapping[str, Any],
+    adoption_readback: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    if adoption_readback is None:
+        adoption_readback = _load_fixed_stage2_adoption_readback(
+            authority,
+            stage2_registry,
+            schema=schema,
+        )
+    else:
+        _validate_stage2_adoption_readback_schema(
+            adoption_readback,
+            schema=schema,
+        )
+        _validate_stage2_adoption_repository_binding(
+            stage2_registry,
+            adoption_readback,
+            root=authority.repository_root,
+        )
+    proposed, route = load_validated_registry(
+        registry_path,
+        root=authority.repository_root,
+    )
+    digest = _canonical_registry_digest(proposed)
+    return {
+        "schema_version": 2,
+        "registry_id": proposed["registry_id"],
+        "registry_revision": proposed["registry_revision"],
+        "registry_sha256": digest,
+        "routing_authority_sha256": digest,
+        "registry_path": CANONICAL_REGISTRY_PATH,
+        "route": route,
+        "validation_mode": "live_authority_validation",
+        "authoritative": True,
+        "executable": True,
+        "live_authority_verified": True,
+        "activation_receipt_consulted": True,
+        "predecessor_route_consulted": False,
+        "_validated_registry": proposed,
+    }
+
+
 def _active_view_from_authority(
     authority: ProjectPathAuthority,
     registry: Mapping[str, Any],
@@ -4579,10 +4812,19 @@ def load_validated_component_registry_routing_view(
         authority
     )
     if registry.get("schema_version") == 2:
-        if registry.get("validation", {}).get("mode") == "proposed_revision_validation":
+        if registry.get("validation", {}).get("mode") != "proposed_revision_validation":
+            raise RegistryError("Stage 2 tracked Registry posture is invalid")
+        if not _stage2_configuration_is_adopted(
+            authority,
+            registry_path,
+            registry,
+        ):
             return _stage2_proposed_view_from_authority(authority, registry_path)
-        raise RegistryError(
-            "Stage 2 live authority requires the separately contracted fixed receipt selector"
+        return _stage2_live_view_from_authority(
+            authority,
+            registry_path,
+            registry,
+            schema=schema,
         )
     if registry.get("status") == "candidate":
         return _candidate_view_from_authority(authority, registry_path)
@@ -4614,6 +4856,15 @@ def _configuration_routing_view_from_authority(
         _registry_and_schema_from_authority(authority)
     )
     if registry.get("schema_version") == 2:
+        if _stage2_configuration_is_adopted(
+            authority,
+            registry_path,
+            registry,
+        ):
+            return _stage2_adopted_configuration_view_from_authority(
+                authority,
+                registry_path,
+            )
         return _stage2_proposed_view_from_authority(authority, registry_path)
     if registry.get("status") == "candidate":
         return _candidate_view_from_authority(authority, registry_path)
@@ -4683,6 +4934,18 @@ def load_fixture_component_registry_routing_view(
     registry_path, registry, schema = _registry_and_schema_from_authority(
         authority
     )
+    if registry.get("schema_version") == 2:
+        if activation_readback is None:
+            raise RegistryError(
+                "Stage 2 live fixture routing requires adoption readback"
+            )
+        return _stage2_live_view_from_authority(
+            authority,
+            registry_path,
+            registry,
+            schema=schema,
+            adoption_readback=activation_readback,
+        )
     if registry.get("status") == "candidate":
         if activation_readback is not None:
             raise RegistryError(

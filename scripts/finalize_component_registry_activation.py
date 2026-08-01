@@ -34,6 +34,9 @@ class ActivationFinalizationError(RuntimeError):
     """Raised when exact activation evidence cannot authorize a receipt."""
 
 
+STAGE2_PULL_REQUEST_NUMBER = 501
+
+
 def _run_json(*arguments: str) -> Any:
     try:
         completed = subprocess.run(
@@ -311,6 +314,89 @@ def _collect_authenticated_observations(
         "verified_at": datetime.now(timezone.utc).isoformat().replace(
             "+00:00",
             "Z",
+        ),
+    }
+
+
+def _collect_stage2_authenticated_observations(
+    authority: ProjectPathAuthority,
+) -> dict[str, Any]:
+    """Collect the fixed PR #501 Stage 2 adoption evidence."""
+    if authority.mode != "production_canonical":
+        raise ActivationFinalizationError(
+            "Stage 2 observation collection requires fixed production authority"
+        )
+    pull_request = _run_json(
+        "gh",
+        "api",
+        f"repos/Thorncrag/ARRP/pulls/{STAGE2_PULL_REQUEST_NUMBER}",
+    )
+    branch = _run_json("gh", "api", "repos/Thorncrag/ARRP/branches/main")
+    reviewed_head = str(pull_request.get("head", {}).get("sha") or "")
+    checks, check_total = _paginated_check_runs(
+        f"repos/Thorncrag/ARRP/commits/{reviewed_head}/check-runs?per_page=100"
+    )
+    statuses = _paginated_array(
+        f"repos/Thorncrag/ARRP/commits/{reviewed_head}/statuses?per_page=100"
+    )
+    rules = _paginated_array(
+        "repos/Thorncrag/ARRP/rules/branches/main?per_page=100"
+    )
+    remote_main = str(branch.get("commit", {}).get("sha") or "")
+    reviewed_registry = _run_json(
+        "gh",
+        "api",
+        "-H",
+        "Accept: application/vnd.github.raw+json",
+        (
+            "repos/Thorncrag/ARRP/contents/"
+            f"{registry.CANONICAL_REGISTRY_PATH}?ref={reviewed_head}"
+        ),
+    )
+    remote_registry = _run_json(
+        "gh",
+        "api",
+        "-H",
+        "Accept: application/vnd.github.raw+json",
+        (
+            "repos/Thorncrag/ARRP/contents/"
+            f"{registry.CANONICAL_REGISTRY_PATH}?ref={remote_main}"
+        ),
+    )
+    return {
+        "repository": "Thorncrag/ARRP",
+        "default_branch": "main",
+        "pull_request_number": STAGE2_PULL_REQUEST_NUMBER,
+        "pull_request_state": pull_request.get("state"),
+        "pull_request_merged": pull_request.get("merged") is True,
+        "pull_request_auto_merge": pull_request.get("auto_merge"),
+        "merged_by": pull_request.get("merged_by", {}).get("login"),
+        "pull_request_base_repository": pull_request.get("base", {})
+        .get("repo", {})
+        .get("full_name"),
+        "pull_request_base_branch": pull_request.get("base", {}).get("ref"),
+        "pull_request_base_revision": pull_request.get("base", {}).get("sha"),
+        "reviewed_head_revision": reviewed_head,
+        "merge_commit_sha": pull_request.get("merge_commit_sha"),
+        "merged_at": pull_request.get("merged_at"),
+        "check_runs": checks,
+        "check_runs_total_count": check_total,
+        "check_runs_complete": True,
+        "legacy_statuses": statuses,
+        "legacy_statuses_complete": True,
+        "required_status_checks": _required_status_checks(branch, rules),
+        "requirements_complete": True,
+        "remote_main_revision": remote_main,
+        "reviewed_registry": reviewed_registry,
+        "remote_registry": remote_registry,
+        "local_revision": _git(authority.repository_root, "rev-parse", "HEAD"),
+        "origin_main_revision": _git(
+            authority.repository_root,
+            "rev-parse",
+            "refs/remotes/origin/main",
+        ),
+        "verified_at": datetime.now(timezone.utc).isoformat().replace(
+            "+00:00", "Z"
         ),
     }
 
@@ -803,6 +889,20 @@ def _write_fixed_receipt(
                 )
     path = current / parts[-1]
     try:
+        unexpected_temporaries = [
+            entry
+            for entry in current.iterdir()
+            if entry.name.startswith(".")
+        ]
+    except OSError as exc:
+        raise ActivationFinalizationError(
+            "activation receipt directory cannot be inventoried safely"
+        ) from exc
+    if unexpected_temporaries:
+        raise ActivationFinalizationError(
+            "activation receipt directory contains unexpected temporary state"
+        )
+    try:
         path.lstat()
     except FileNotFoundError:
         pass
@@ -980,8 +1080,8 @@ def _build_stage2_synthetic_receipt(
     if re.fullmatch(r"[0-9a-f]{40}", str(canonical_revision)) is None:
         raise ActivationFinalizationError("canonical adoption revision is invalid")
     required_evidence = {
-        "adopted_by", "adopted_at", "pull_request", "reviewed_head",
-        "merge_commit", "checks_revision", "checks_state",
+        "adopted_by", "adopted_at", "pull_request", "base_revision",
+        "reviewed_head", "merge_commit", "checks_revision", "checks_state",
     }
     if set(adoption_evidence) != required_evidence:
         raise ActivationFinalizationError("Stage 2 adoption evidence is not closed")
@@ -1006,6 +1106,125 @@ def _build_stage2_synthetic_receipt(
         "validation_mode": "live_authority_validation",
         "adoption_evidence": dict(adoption_evidence),
     }
+
+
+def _build_stage2_production_receipt(
+    authority: ProjectPathAuthority,
+    proposed_registry: Mapping[str, Any],
+    observations: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Bind the exact merged PR #501 and canonical Registry into one receipt."""
+    if authority.mode != "production_canonical":
+        raise ActivationFinalizationError(
+            "Stage 2 production receipt requires fixed production authority"
+        )
+    try:
+        registry.validate_stage2_registry(proposed_registry, root=authority.repository_root)
+    except registry.RegistryError as exc:
+        raise ActivationFinalizationError(
+            "Stage 2 adopted Registry validation failed"
+        ) from exc
+    reviewed_head = str(observations.get("reviewed_head_revision") or "")
+    merge_commit = str(observations.get("merge_commit_sha") or "")
+    remote_main = str(observations.get("remote_main_revision") or "")
+    local_revision = str(observations.get("local_revision") or "")
+    origin_main = str(observations.get("origin_main_revision") or "")
+    base_revision = str(observations.get("pull_request_base_revision") or "")
+    revisions = (
+        reviewed_head,
+        merge_commit,
+        remote_main,
+        local_revision,
+        origin_main,
+        base_revision,
+    )
+    if (
+        observations.get("repository") != "Thorncrag/ARRP"
+        or observations.get("default_branch") != "main"
+        or observations.get("pull_request_number") != STAGE2_PULL_REQUEST_NUMBER
+        or observations.get("pull_request_base_repository") != "Thorncrag/ARRP"
+        or observations.get("pull_request_base_branch") != "main"
+        or observations.get("pull_request_state") != "closed"
+        or observations.get("pull_request_merged") is not True
+        or observations.get("pull_request_auto_merge") is not None
+        or observations.get("merged_by") != "Thorncrag"
+        or any(re.fullmatch(r"[0-9a-f]{40}", value) is None for value in revisions)
+        or merge_commit != remote_main
+        or local_revision != merge_commit
+        or origin_main != merge_commit
+    ):
+        raise ActivationFinalizationError(
+            "Stage 2 pull request or repository identity differs"
+        )
+    parents = _git(
+        authority.repository_root,
+        "rev-list",
+        "--parents",
+        "-n",
+        "1",
+        merge_commit,
+    ).split()
+    if parents != [merge_commit, base_revision, reviewed_head]:
+        raise ActivationFinalizationError(
+            "Stage 2 adoption merge parents are not exact"
+        )
+    checks_completed_at = _validate_required_checks(
+        observations,
+        reviewed_head=reviewed_head,
+    )
+    merged_time = _exact_timestamp(observations.get("merged_at"), "Stage 2 merge")
+    verified_time = _exact_timestamp(
+        observations.get("verified_at"),
+        "Stage 2 verification",
+    )
+    if not checks_completed_at <= merged_time <= verified_time:
+        raise ActivationFinalizationError("Stage 2 adoption chronology is invalid")
+    reviewed_registry = observations.get("reviewed_registry")
+    remote_registry = observations.get("remote_registry")
+    if (
+        not isinstance(reviewed_registry, Mapping)
+        or not isinstance(remote_registry, Mapping)
+        or registry.canonical_json(reviewed_registry)
+        != registry.canonical_json(proposed_registry)
+        or registry.canonical_json(remote_registry)
+        != registry.canonical_json(proposed_registry)
+    ):
+        raise ActivationFinalizationError(
+            "Stage 2 remote Registry differs from the adopted authority"
+        )
+    receipt = _build_stage2_synthetic_receipt(
+        proposed_registry,
+        canonical_revision=merge_commit,
+        adoption_evidence={
+            "adopted_by": "@Thorncrag",
+            "adopted_at": str(observations["merged_at"]),
+            "pull_request": (
+                f"github-review:Thorncrag/ARRP#{STAGE2_PULL_REQUEST_NUMBER}"
+            ),
+            "base_revision": base_revision,
+            "reviewed_head": reviewed_head,
+            "merge_commit": merge_commit,
+            "checks_revision": reviewed_head,
+            "checks_state": "success",
+        },
+    )
+    try:
+        schema = registry._read_json(
+            authority.repository_root
+            / "framework"
+            / "standards"
+            / "automation"
+            / "component-registry.schema.json"
+        )
+        registry._validate_stage2_adoption_readback_schema(
+            receipt,
+            schema=schema,
+        )
+    except registry.RegistryError as exc:
+        raise ActivationFinalizationError(
+            "Stage 2 adoption receipt failed its closed schema"
+        ) from exc
+    return receipt
 
 
 def select_component_registry_receipt(
@@ -1131,6 +1350,54 @@ def finalize_activation() -> dict[str, Any]:
             "fixed production authority is unavailable"
         ) from exc
     active_registry = registry._read_json(registry_path)
+    if active_registry.get("schema_version") == 2:
+        try:
+            configuration_view = (
+                registry.load_component_registry_configuration_routing_view()
+            )
+        except registry.RegistryError as exc:
+            raise ActivationFinalizationError(
+                "Stage 2 adopted configuration validation failed before observation"
+            ) from exc
+        if (
+            configuration_view.get("validation_mode")
+            != "adopted_configuration_validation"
+            or configuration_view.get("authoritative") is not False
+            or configuration_view.get("executable") is not False
+        ):
+            raise ActivationFinalizationError(
+                "Stage 2 adopted configuration posture is invalid"
+            )
+        observations = _collect_stage2_authenticated_observations(authority)
+        receipt = _build_stage2_production_receipt(
+            authority,
+            active_registry,
+            observations,
+        )
+        _write_fixed_receipt(authority, receipt)
+        try:
+            active_view = registry.load_validated_component_registry_routing_view(
+                authority
+            )
+        except registry.RegistryError as exc:
+            raise ActivationFinalizationError(
+                "Stage 2 post-publication production readback failed"
+            ) from exc
+        if (
+            active_view.get("validation_mode") != "live_authority_validation"
+            or active_view.get("authoritative") is not True
+            or active_view.get("executable") is not True
+            or active_view.get("live_authority_verified") is not True
+            or active_view.get("activation_receipt_consulted") is not True
+        ):
+            raise ActivationFinalizationError(
+                "Stage 2 post-publication live posture is invalid"
+            )
+        return {
+            "complete": True,
+            "registry_sha256": receipt["registry_sha256"],
+            "verification_state": "live_authority_validation",
+        }
     try:
         configuration_view = (
             registry.load_component_registry_configuration_routing_view()

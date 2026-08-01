@@ -347,6 +347,7 @@
             "adopted_by",
             "adopted_at",
             "pull_request",
+            "base_revision",
             "reviewed_head",
             "merge_commit",
             "checks_revision",
@@ -362,6 +363,9 @@
             "pull_request": {
               "type": "string",
               "pattern": "^github-review:Thorncrag/ARRP#[0-9]+$"
+            },
+            "base_revision": {
+              "$ref": "#/$defs/gitRevision"
             },
             "reviewed_head": {
               "$ref": "#/$defs/gitRevision"

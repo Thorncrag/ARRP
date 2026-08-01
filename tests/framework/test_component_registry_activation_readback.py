@@ -1085,12 +1085,205 @@ class ComponentRegistryStage2ReadbackTests(unittest.TestCase):
                 "adopted_by": "@Thorncrag",
                 "adopted_at": "2026-07-31T12:00:00-04:00",
                 "pull_request": "github-review:Thorncrag/ARRP#501",
+                "base_revision": "3" * 40,
                 "reviewed_head": "2" * 40,
                 "merge_commit": "1" * 40,
                 "checks_revision": "2" * 40,
                 "checks_state": "success",
             },
         )
+
+    def build_adopted_fixture(
+        self,
+        temporary: str,
+    ) -> tuple[
+        ProjectPathAuthority,
+        Path,
+        str,
+        str,
+        str,
+        dict[str, object],
+    ]:
+        root = Path(temporary)
+        repository = root / "repository"
+        state = root / "state"
+        output = root / "output"
+        for directory in (repository, state, output):
+            directory.mkdir(mode=0o700)
+        subprocess.run(["git", "init", "-b", "main", repository], check=True, capture_output=True)
+        for key, value in (("user.name", "ARRP Fixture"), ("user.email", "fixture@example.invalid")):
+            subprocess.run(
+                ["git", "-C", repository, "config", key, value],
+                check=True,
+            )
+        schema = repository / "framework/standards/automation/component-registry.schema.json"
+        schema.parent.mkdir(parents=True)
+        shutil.copy2(SCHEMA_PATH, schema)
+        subprocess.run(["git", "-C", repository, "add", str(schema)], check=True)
+        subprocess.run(["git", "-C", repository, "commit", "-m", "base"], check=True, capture_output=True)
+        base = subprocess.run(
+            ["git", "-C", repository, "rev-parse", "HEAD"],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        subprocess.run(["git", "-C", repository, "switch", "-c", "stage2"], check=True, capture_output=True)
+        registry_path = repository / registry.CANONICAL_REGISTRY_PATH
+        registry_path.parent.mkdir(parents=True, exist_ok=True)
+        registry_path.write_text(json.dumps(self.stage2, indent=2) + "\n", encoding="utf-8")
+        subprocess.run(["git", "-C", repository, "add", str(registry_path)], check=True)
+        subprocess.run(["git", "-C", repository, "commit", "-m", "stage2"], check=True, capture_output=True)
+        reviewed = subprocess.run(
+            ["git", "-C", repository, "rev-parse", "HEAD"],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        authority = ProjectPathAuthority.fixture(
+            root,
+            repository_root=repository,
+            state_root=state,
+            output_root=output,
+        )
+        proposed = registry._stage2_configuration_is_adopted(
+            ProjectPathAuthority.repository_validation(repository),
+            registry_path,
+            self.stage2,
+        )
+        self.assertFalse(proposed)
+        subprocess.run(["git", "-C", repository, "switch", "main"], check=True, capture_output=True)
+        subprocess.run(
+            ["git", "-C", repository, "merge", "--no-ff", "stage2", "-m", "adopt stage2"],
+            check=True,
+            capture_output=True,
+        )
+        merge = subprocess.run(
+            ["git", "-C", repository, "rev-parse", "HEAD"],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        subprocess.run(
+            ["git", "-C", repository, "update-ref", "refs/remotes/origin/main", merge],
+            check=True,
+        )
+        receipt = finalizer._build_stage2_synthetic_receipt(
+            self.stage2,
+            canonical_revision=merge,
+            adoption_evidence={
+                "adopted_by": "@Thorncrag",
+                "adopted_at": "2026-07-31T12:00:00-04:00",
+                "pull_request": "github-review:Thorncrag/ARRP#501",
+                "base_revision": base,
+                "reviewed_head": reviewed,
+                "merge_commit": merge,
+                "checks_revision": reviewed,
+                "checks_state": "success",
+            },
+        )
+        return authority, registry_path, base, reviewed, merge, receipt
+
+    def test_proposed_adopted_and_live_postures_are_distinct(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority, registry_path, _base, _reviewed, _merge, receipt = (
+                self.build_adopted_fixture(temporary)
+            )
+            repository_authority = ProjectPathAuthority.repository_validation(
+                authority.repository_root
+            )
+            self.assertTrue(
+                registry._stage2_configuration_is_adopted(
+                    repository_authority,
+                    registry_path,
+                    self.stage2,
+                )
+            )
+            with mock.patch.object(
+                registry,
+                "load_validated_registry",
+                return_value=(self.stage2, registry._stage2_route_snapshot(self.stage2)),
+            ):
+                adopted = registry._stage2_adopted_configuration_view_from_authority(
+                    repository_authority,
+                    registry_path,
+                )
+                self.assertEqual(adopted["validation_mode"], "adopted_configuration_validation")
+                self.assertFalse(adopted["authoritative"])
+                self.assertFalse(adopted["executable"])
+                live = registry._stage2_live_view_from_authority(
+                    authority,
+                    registry_path,
+                    self.stage2,
+                    schema=load_json(SCHEMA_PATH),
+                    adoption_readback=receipt,
+                )
+                self.assertEqual(live["validation_mode"], "live_authority_validation")
+                self.assertTrue(live["authoritative"])
+                self.assertTrue(live["executable"])
+                self.assertTrue(live["activation_receipt_consulted"])
+
+    def test_stage2_receipt_mismatch_fails_without_fallback(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority, registry_path, _base, _reviewed, _merge, receipt = (
+                self.build_adopted_fixture(temporary)
+            )
+            malformed = copy.deepcopy(receipt)
+            malformed["registry_sha256"] = "f" * 64
+            with mock.patch.object(
+                registry,
+                "load_validated_registry",
+                return_value=(self.stage2, registry._stage2_route_snapshot(self.stage2)),
+            ):
+                with self.assertRaises(registry.RegistryError):
+                    registry._stage2_live_view_from_authority(
+                        authority,
+                        registry_path,
+                        self.stage2,
+                        schema=load_json(SCHEMA_PATH),
+                        adoption_readback=malformed,
+                    )
+
+    def test_stage2_missing_receipt_fails_without_fallback(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority, _registry_path, _base, _reviewed, _merge, _receipt = (
+                self.build_adopted_fixture(temporary)
+            )
+            with self.assertRaisesRegex(
+                registry.RegistryError,
+                "requires adoption readback",
+            ):
+                registry.load_fixture_component_registry_routing_view(
+                    authority
+                )
+
+    def test_stage2_receipt_remains_valid_on_descendant_with_same_registry(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority, registry_path, _base, _reviewed, _merge, receipt = (
+                self.build_adopted_fixture(temporary)
+            )
+            marker = authority.repository_root / "closeout.txt"
+            marker.write_text("closeout\n", encoding="utf-8")
+            subprocess.run(["git", "-C", authority.repository_root, "add", str(marker)], check=True)
+            subprocess.run(
+                ["git", "-C", authority.repository_root, "commit", "-m", "closeout"],
+                check=True,
+                capture_output=True,
+            )
+            descendant = subprocess.run(
+                ["git", "-C", authority.repository_root, "rev-parse", "HEAD"],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+            subprocess.run(
+                ["git", "-C", authority.repository_root, "update-ref", "refs/remotes/origin/main", descendant],
+                check=True,
+            )
+            registry._validate_stage2_adoption_repository_binding(
+                self.stage2,
+                receipt,
+                root=authority.repository_root,
+            )
 
     def test_stage2_receipt_selected_with_stage1_preserved(self):
         preserved_stage1 = {
