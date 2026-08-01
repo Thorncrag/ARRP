@@ -1311,6 +1311,28 @@ class ConsoleDataContractTests(unittest.TestCase):
             )
         )
 
+    def test_console_generation_timestamp_is_bound_to_exact_revision(self):
+        revision = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        expected = subprocess.run(
+            ["git", "show", "-s", "--format=%cI", revision],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        self.assertEqual(
+            MODULE.repository_revision_timestamp(ROOT, revision),
+            datetime.fromisoformat(expected).isoformat(timespec="seconds"),
+        )
+        with self.assertRaisesRegex(RuntimeError, "exact Git object ID"):
+            MODULE.repository_revision_timestamp(ROOT, "HEAD")
+
     def _legacy_stage1_active_projection(self):
         registry = candidate_registry_fixture()
         candidate_registry = copy.deepcopy(registry)

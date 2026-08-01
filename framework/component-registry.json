@@ -7,7 +7,7 @@
     "mode": "proposed_revision_validation",
     "design_id": "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR",
     "design_revision": "sha256:16c7801b08397a640829bcb9141de7482c68ea9d9aa793fba0d1080fea9d95b0",
-    "repository_base_revision": "1c2f8e537293c45ef59d2a008773c0a830e577e0",
+    "repository_base_revision": "1f4652b1ae2985c831ab83a0b94b088288770459",
     "live_authority": false
   },
   "terminology": {

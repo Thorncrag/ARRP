@@ -1793,6 +1793,29 @@ def repository_revision_for_path(path: Path) -> str | None:
     return revision if completed.returncode == 0 and revision else None
 
 
+def repository_revision_timestamp(root: Path, revision: str) -> str:
+    """Return the immutable commit timestamp for a generated revision."""
+
+    if re.fullmatch(r"[0-9a-f]{40}", revision) is None:
+        raise RuntimeError("Console source revision is not an exact Git object ID.")
+    completed = subprocess.run(
+        ["git", "-C", str(root), "show", "-s", "--format=%cI", revision],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    value = completed.stdout.strip()
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise RuntimeError(
+            "Console source revision lacks an exact commit timestamp."
+        ) from exc
+    if completed.returncode != 0 or parsed.tzinfo is None:
+        raise RuntimeError("Console source revision timestamp is unavailable.")
+    return parsed.isoformat(timespec="seconds")
+
+
 def publication_release_readiness(
     page_inventory: list[dict[str, object]],
     builds: list[dict[str, object]],
@@ -11406,8 +11429,8 @@ def main() -> None:
         integrity,
     )
     publication["delivery_items"] = delivery_items
-    generated_at = utc_timestamp()
     repository_revision = source_revision(ROOT)
+    generated_at = repository_revision_timestamp(ROOT, repository_revision)
     component_registry_snapshot = load_component_registry_console_snapshot(
         generated_at=generated_at,
     )
