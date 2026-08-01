@@ -1180,7 +1180,9 @@ class ConsoleDataContractTests(unittest.TestCase):
         )
         self.assertIn(
             'routing_view.get("validation_mode")\n'
-            '        != "proposed_revision_validation"',
+            '        not in {\n'
+            '            "proposed_revision_validation",\n'
+            '            "adopted_configuration_validation",',
             source,
         )
         for mode in (
@@ -1209,7 +1211,7 @@ class ConsoleDataContractTests(unittest.TestCase):
         paths = MODULE.component_registry_source_paths(
             {
                 "registry": {
-                    "validation_mode": "proposed_revision_validation",
+                    "validation_mode": "adopted_configuration_validation",
                 },
             },
             root=Path("/tmp/arrp-stage2-console-test"),
@@ -1244,9 +1246,12 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "terminology",
             },
         )
-        self.assertEqual(
+        self.assertIn(
             snapshot["registry"]["validation_mode"],
-            "proposed_revision_validation",
+            {
+                "proposed_revision_validation",
+                "adopted_configuration_validation",
+            },
         )
         self.assertEqual(snapshot["registry"]["registry_status"], "proposed")
         self.assertFalse(snapshot["registry"]["authoritative"])

@@ -296,6 +296,13 @@ STAGE2_AUTHORITY_BASE_REVISION_SENTINEL = (
 STAGE2_AUTHORITY_CONTENT_DIGEST_SENTINEL = (
     "__AUTHORITY_CURRENTNESS_CONTENT_SHA256__"
 )
+STAGE2_GENERATION2_FAILED_RECEIPT_AUTHORITY_SHA256 = (
+    "03742998a4f880351b84a09d1442cd96bfe5c6c1407da35abd3ad4dfe1ea2017"
+)
+STAGE2_GENERATION2_FAILED_RECEIPT_CHECK_IDENTITIES = Counter({
+    ("ARRP Validation", 15368): 2,
+    ("CodeQL", 57789): 2,
+})
 STAGE2_AUTHORITY_NORMALIZATIONS = [
     {
         "json_pointer_pattern": "/validation/repository_base_revision",
@@ -2755,6 +2762,54 @@ def _validate_stage2_adoption_readback_schema(
     )
 
 
+def _validate_stage2_authority_check_identities(
+    readback: Mapping[str, Any],
+) -> None:
+    original = readback.get("original_adoption_evidence")
+    correction = readback.get("correction_evidence")
+    if not isinstance(original, Mapping) or not isinstance(correction, Mapping):
+        raise RegistryError("Stage 2 authority check evidence is unavailable")
+    evidence_sets = (
+        ("original", original),
+        ("correction", correction),
+    )
+    identity_counts: dict[str, Counter[tuple[object, object]]] = {}
+    for label, evidence in evidence_sets:
+        checks = evidence.get("required_checks")
+        if not isinstance(checks, list):
+            raise RegistryError(
+                f"Stage 2 authority {label} check evidence is unavailable"
+            )
+        identities: Counter[tuple[object, object]] = Counter()
+        for check in checks:
+            if not isinstance(check, Mapping):
+                raise RegistryError(
+                    f"Stage 2 authority {label} check evidence is invalid"
+                )
+            identity = (check.get("context"), check.get("app_id"))
+            identities[identity] += 1
+        identity_counts[label] = identities
+    if any(
+        count > 1
+        for identities in identity_counts.values()
+        for count in identities.values()
+    ):
+        exact_failed_generation2 = (
+            readback.get("generation") == 2
+            and readback.get("authority_sha256")
+            == STAGE2_GENERATION2_FAILED_RECEIPT_AUTHORITY_SHA256
+            and all(
+                identities
+                == STAGE2_GENERATION2_FAILED_RECEIPT_CHECK_IDENTITIES
+                for identities in identity_counts.values()
+            )
+        )
+        if not exact_failed_generation2:
+            raise RegistryError(
+                "Stage 2 authority check evidence is duplicated"
+            )
+
+
 def _validate_stage2_authority_readback_schema(
     readback: Mapping[str, Any],
     *,
@@ -2788,27 +2843,7 @@ def _validate_stage2_authority_readback_schema(
         raise RegistryError(
             "Stage 2 authority receipt approval evidence is not exact"
         )
-    for label, evidence in (
-        ("original", original),
-        ("correction", correction),
-    ):
-        checks = evidence.get("required_checks")
-        if not isinstance(checks, list):
-            raise RegistryError(
-                f"Stage 2 authority {label} check evidence is unavailable"
-            )
-        identities: set[tuple[object, object]] = set()
-        for check in checks:
-            if not isinstance(check, Mapping):
-                raise RegistryError(
-                    f"Stage 2 authority {label} check evidence is invalid"
-                )
-            identity = (check.get("context"), check.get("app_id"))
-            if identity in identities:
-                raise RegistryError(
-                    f"Stage 2 authority {label} check evidence is duplicated"
-                )
-            identities.add(identity)
+    _validate_stage2_authority_check_identities(readback)
 
 
 def _validate_stage2_adoption_repository_binding(
