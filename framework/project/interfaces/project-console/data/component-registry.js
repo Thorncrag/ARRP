@@ -5,7 +5,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 2,
     "projection_id": "component-registry-console",
     "producer_id": "project-console-builder",
-    "generated_at": "2026-08-01T08:18:39-04:00",
+    "generated_at": "2026-08-01T09:53:51-04:00",
     "availability": "current",
     "complete": true,
     "reason_code": null,
@@ -16,7 +16,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "relationships": "automation:component-registry:relationships",
       "coverage": "automation:component-registry:coverage",
       "routing": "automation:component-registry:routing",
-      "terminology": "automation:component-registry:terminology"
+      "terminology": "automation:component-registry:terminology",
+      "codeowners": "automation:component-registry:codeowners"
     },
     "defaults": {
       "mode": "components",
@@ -26,7 +27,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "relationship": "case-monitor-bot_consumes_runbook_case_monitor_bot",
       "coverage": "area",
       "routing": "profile:candidate_research",
-      "terminology": "namespace"
+      "terminology": "namespace",
+      "codeowners": "scope:area"
     },
     "registry": {
       "registry_id": "COMPONENT-REGISTRY",
@@ -42,8 +44,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "receipt_trusted": false,
       "runtime_live": "not_checked",
       "predecessor_route_consulted": false,
-      "registry_sha256": "7d06c710f79691f8a54980e834857c10459185a96b394d4608e7e27ae64cb2a7",
-      "repository_revision": "c1c0b8ecbdcc1b4c7994b33f1a1cc72d61a20214",
+      "registry_sha256": "ce112289d5244f48236a383db2e561e270a213f7c1c440c1e7578ebed5e034c0",
+      "repository_revision": "5f4764791315a094c50ba95140cb4fabcf70ea7f",
       "design_id": "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR",
       "design_revision": "sha256:16c7801b08397a640829bcb9141de7482c68ea9d9aa793fba0d1080fea9d95b0"
     },
@@ -110,6 +112,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "none"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "COMPONENT-REGISTRY",
@@ -135,7 +142,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "source_ids": [
               "owner_benjamin_stage2_approval",
               "stage2_design_revision",
-              "stage2_contract_revision"
+              "stage2_contract_revision",
+              "owner_benjamin_codeowners_approval",
+              "codeowners_contract_revision"
             ],
             "subjects": [
               {
@@ -156,7 +165,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "governing_precedence": [
               "owner_benjamin_stage2_approval",
               "stage2_design_revision",
-              "stage2_contract_revision"
+              "stage2_contract_revision",
+              "owner_benjamin_codeowners_approval",
+              "codeowners_contract_revision"
             ],
             "provenance_event_id": "stage2_baseline_migration"
           }
@@ -432,6 +443,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "agent_audit_execution",
@@ -661,6 +677,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -892,6 +913,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "agent_context_research",
@@ -1121,6 +1147,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -1352,6 +1383,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "agent_issue_candidate_work",
@@ -1582,6 +1618,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "agent_multi_agent",
@@ -1811,6 +1852,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -2046,6 +2092,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "agent_registry",
@@ -2267,7 +2318,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "6be2849593aec9d33024b7cc8b6667c450f3b98d4e3b41f3883222c124884916",
+            "sha256": "47539112655e1bb28ef89c54b24eb4c4047da03cad898507a61af3f97c08c198",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -2299,6 +2350,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
         },
         "lifecycle_records": [
           {
@@ -2530,6 +2589,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "agent_validation_closeout",
@@ -2759,6 +2823,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -2990,6 +3059,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "audit_core",
@@ -3219,6 +3293,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -3450,6 +3529,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "audit_project_consistency",
@@ -3679,6 +3763,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -3910,6 +3999,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "audit_verification",
@@ -4140,6 +4234,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "candidate_adjudication",
@@ -4369,6 +4468,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -4606,6 +4710,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "agent_bot_registry_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "case-monitor-bot",
@@ -4756,6 +4865,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
         },
         "lifecycle_records": [
           {
@@ -4990,6 +5107,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ]
         },
         "operational_status": "inactive",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "component_registry_activation_finalizer",
@@ -5187,7 +5309,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "bf877c7c3eeddd7fbb87f442858dd531fa2d778dec4f60d857d81fa864d0003c",
+            "sha256": "9abe1d292420aa119b411c00a92fa7a6948e6b15744b37470093c6a70317a713",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -5221,6 +5343,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -5435,7 +5562,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "a50cd05f2a3dd11038c0eec2aeee0401c36ea631948b97f287543f7d4345fa05",
+            "sha256": "a374b353e95154de19efbae5c48353c45f077baad8ac423dd22f5145704fbbaa",
             "evidence_ref": "stage2_design_approval"
           }
         },
@@ -5470,6 +5597,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_design_adoption"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -5583,7 +5715,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "5447bde78eecc4ac9eb3f5151ddd9f9c90d0c3293954908f12235f582ed89cf9",
+            "sha256": "abaa07250a2fd9539d36e1e3594a4f9c6ce7248a2900dc1aae0855ce1f9b45c9",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -5619,6 +5751,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ]
         },
         "operational_status": "inactive",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "component_registry_tests",
@@ -5832,7 +5969,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "1adfe8032160b08625cd03d191f3eaa3cbb241dcb6962a8cf036198c73bf6033",
+            "sha256": "a57f2ae20b495994a4b13cc9e4a42dfbc985700685a42cb1c5210d39e0f7ff42",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -5869,6 +6006,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ]
         },
         "operational_status": "inactive",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "component_registry_tool",
@@ -6129,6 +6271,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "context_routes_source",
@@ -6387,6 +6534,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "context_routing",
@@ -6640,6 +6795,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -7025,6 +7185,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "elim_result_schema",
@@ -7255,6 +7420,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "evidence_standards",
@@ -7452,7 +7622,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
+            "sha256": "976a81942a5226a2569c99de1e340e146467987b8a71a55834d9e1c3e964174e",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -7484,6 +7654,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
         },
         "lifecycle_records": [
           {
@@ -7715,6 +7893,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "github_disclosure_boundary",
@@ -7945,6 +8128,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "github_disclosure_policy",
@@ -8142,7 +8330,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "052a855508cb2f678e815382c79f0f47e6aa58d61e0956076260419d08dbe9a1",
+            "sha256": "2d2fdf96b6e37b8399ee8327498b20c2b74f9dbe8befa3e15ba2b1293d593fb9",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -8174,6 +8362,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -8408,6 +8601,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_inventory_classification"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "governance_change_log",
@@ -8544,6 +8742,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -8775,6 +8978,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "incident_relation_policy",
@@ -9004,6 +9212,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -9235,6 +9448,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "interface_standard",
@@ -9464,6 +9682,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -9695,6 +9918,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "method_neutrality_language",
@@ -9924,6 +10152,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -10155,6 +10388,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "method_scope_admission",
@@ -10384,6 +10622,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -10615,6 +10858,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "navigation_project_sync",
@@ -10844,6 +11092,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -11075,6 +11328,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "operation_governance_change_recording",
@@ -11305,6 +11563,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "operation_project_update",
@@ -11534,6 +11797,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -11771,6 +12039,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "agent_bot_registry_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "presidential-directives-bot",
@@ -11918,6 +12191,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -12149,6 +12427,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "print_assembly_standard",
@@ -12378,6 +12661,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -12609,6 +12897,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "private_staging_authority_schema",
@@ -12837,6 +13130,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -13067,6 +13365,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -13304,6 +13607,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "agent_bot_registry_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "project-console-progress-bot",
@@ -13458,6 +13766,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "agent_bot_registry_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "project-integrity-bot",
@@ -13605,6 +13918,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -13835,6 +14153,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -14067,6 +14390,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "project_configuration",
@@ -14203,7 +14531,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "path": "framework/proposals/component-registry-stage2-design.md",
                 "locator": {
                   "kind": "text_line",
-                  "line_number": 1112,
+                  "line_number": 1149,
                   "line_sha256": "47dfbd6b0bbdca2cc7a840acf8b2348f31e76729531207fe516e74cb3266e121",
                   "occurrence_index": 1
                 }
@@ -14396,6 +14724,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -14626,6 +14959,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -14859,6 +15197,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "project_premise",
@@ -14939,7 +15282,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "path": "framework/proposals/component-registry-stage2-design.md",
                 "locator": {
                   "kind": "text_line",
-                  "line_number": 1042,
+                  "line_number": 1079,
                   "line_sha256": "0c6fba4e9dca4b792484a48605407540a4eda668dba559fcc5b9b9a669539041",
                   "occurrence_index": 1
                 }
@@ -15132,6 +15475,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -15363,6 +15711,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "project_reconciliation_schema",
@@ -15593,6 +15946,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "project_runtime_authority",
@@ -15822,6 +16180,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -16056,6 +16419,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
         },
         "lifecycle_records": [
           {
@@ -16311,6 +16682,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "project_tool_interface",
@@ -16543,6 +16919,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "proposal_development_model",
@@ -16663,7 +17044,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "path": "framework/proposals/component-registry-stage2-design.md",
                 "locator": {
                   "kind": "text_line",
-                  "line_number": 1114,
+                  "line_number": 1151,
                   "line_sha256": "5835bc5daf39eaf3e6866ea0dc3cf60f64fbd8e8dede176439bae71fecf70082",
                   "occurrence_index": 1
                 }
@@ -16859,6 +17240,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "proposal_scoring_model",
@@ -16963,7 +17349,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "path": "framework/proposals/component-registry-stage2-design.md",
                 "locator": {
                   "kind": "text_line",
-                  "line_number": 1092,
+                  "line_number": 1129,
                   "line_sha256": "0a2050164053e5befcd0cc2c17d9155ce596b9f480c74572a9249f98324166bc",
                   "occurrence_index": 1
                 }
@@ -17156,6 +17542,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -17387,6 +17778,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "public_release",
@@ -17616,6 +18012,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -17847,6 +18248,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "remedy_framework",
@@ -18076,6 +18482,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -18310,6 +18721,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -18571,6 +18987,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "agent_bot_registry_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "run-coordinator-bot",
@@ -18720,6 +19141,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -18967,6 +19393,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "runbook_console_progress_bot",
@@ -19212,6 +19643,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -19459,6 +19895,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "runbook_integrity_bot",
@@ -19704,6 +20145,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -19951,6 +20397,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "runbook_run_coordinator_bot",
@@ -20197,6 +20648,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "runbook_source_checker_bot",
@@ -20441,6 +20897,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "scoring_adoption_pathway",
@@ -20670,6 +21131,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -20901,6 +21367,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "scoring_standard",
@@ -21130,6 +21601,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -21367,6 +21843,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "agent_bot_registry_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "source-checker-bot",
@@ -21514,6 +21995,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -21745,6 +22231,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "source_catalogs",
@@ -21974,6 +22465,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -22205,6 +22701,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "source_project_monitoring",
@@ -22403,7 +22904,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "6e62ca0f3867524e7497f93026d166ce5806925b10fb77d7b427cb4ee49d0052",
+            "sha256": "a303f39ff9bf3d5edb10929377c9a122715fd4f50fb5e39de66bc5568f9a5550",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -22437,6 +22938,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -22566,7 +23072,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                 "path": "framework/proposals/component-registry-stage2-design.md",
                 "locator": {
                   "kind": "text_line",
-                  "line_number": 1048,
+                  "line_number": 1036,
+                  "line_sha256": "ddd56bb8af5bc27510d0e6b02c40aec9e2286cfd10650b86ce4f76a43938e119",
+                  "occurrence_index": 1
+                }
+              },
+              {
+                "path": "framework/proposals/component-registry-stage2-design.md",
+                "locator": {
+                  "kind": "text_line",
+                  "line_number": 1085,
                   "line_sha256": "2ed3c41db121c9c682afe8eb1db0aa27ce42958127aeb615913070df59aeb87d",
                   "occurrence_index": 1
                 }
@@ -22577,15 +23092,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
                   "kind": "text_line",
                   "line_number": 682,
                   "line_sha256": "cac32401ab2ca296cfaa85013f0bdffea810e240c5220e3d8ffeff53d49f756c",
-                  "occurrence_index": 1
-                }
-              },
-              {
-                "path": "framework/proposals/component-registry-stage2-design.md",
-                "locator": {
-                  "kind": "text_line",
-                  "line_number": 999,
-                  "line_sha256": "ddd56bb8af5bc27510d0e6b02c40aec9e2286cfd10650b86ce4f76a43938e119",
                   "occurrence_index": 1
                 }
               }
@@ -22768,6 +23274,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -22999,6 +23510,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "transaction_lifecycle_schema",
@@ -23228,6 +23744,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -23459,6 +23980,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "stage2_baseline_migration"
           ]
         },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        },
         "lifecycle_records": [
           {
             "component_id": "visual_identity",
@@ -23688,6 +24214,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         },
         "lifecycle_records": [
           {
@@ -26527,6 +27058,18 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "sources": [
         {
+          "source_id": "codeowners_contract_revision",
+          "source_type": "design_contract_revision",
+          "design_id": "COMPONENT-REGISTRY-2026-002-CODEOWNERS-ROUTING-CONSOLE-AMENDMENT",
+          "revision": "sha256:15db9a4d716cc85fe4af23781fafcbd5c4ba1451fa4c3a2b3298f0af7c72266e"
+        },
+        {
+          "source_id": "owner_benjamin_codeowners_approval",
+          "source_type": "owner_authorization",
+          "revision": "2026-08-01",
+          "public_reference": "recorded_owner_approval"
+        },
+        {
           "source_id": "owner_benjamin_stage2_approval",
           "source_type": "owner_authorization",
           "revision": "2026-07-31",
@@ -26553,7 +27096,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "source_ids": [
             "owner_benjamin_stage2_approval",
             "stage2_design_revision",
-            "stage2_contract_revision"
+            "stage2_contract_revision",
+            "owner_benjamin_codeowners_approval",
+            "codeowners_contract_revision"
           ],
           "subjects": [
             {
@@ -26574,7 +27119,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "governing_precedence": [
             "owner_benjamin_stage2_approval",
             "stage2_design_revision",
-            "stage2_contract_revision"
+            "stage2_contract_revision",
+            "owner_benjamin_codeowners_approval",
+            "codeowners_contract_revision"
           ],
           "provenance_event_id": "stage2_baseline_migration",
           "display_name": "ARRP Component Registry",
@@ -26596,6 +27143,18 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "source_type": "design_contract_revision",
               "design_id": "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR",
               "revision": "sha256:16c7801b08397a640829bcb9141de7482c68ea9d9aa793fba0d1080fea9d95b0"
+            },
+            {
+              "source_id": "owner_benjamin_codeowners_approval",
+              "source_type": "owner_authorization",
+              "revision": "2026-08-01",
+              "public_reference": "recorded_owner_approval"
+            },
+            {
+              "source_id": "codeowners_contract_revision",
+              "source_type": "design_contract_revision",
+              "design_id": "COMPONENT-REGISTRY-2026-002-CODEOWNERS-ROUTING-CONSOLE-AMENDMENT",
+              "revision": "sha256:15db9a4d716cc85fe4af23781fafcbd5c4ba1451fa4c3a2b3298f0af7c72266e"
             }
           ],
           "console_route": "automation:component-registry:authority?assignment=authority_COMPONENT-REGISTRY"
@@ -32114,6 +32673,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "event": "stage2_baseline_authority_migration",
           "effective_date": "2026-07-31",
           "provenance_event_id": "stage2_baseline_migration"
+        },
+        {
+          "event": "component_registry_codeowners_routing_authority_revision",
+          "effective_date": "2026-08-01",
+          "authority_generation": 2,
+          "source_ids": [
+            "owner_benjamin_codeowners_approval",
+            "codeowners_contract_revision"
+          ]
         }
       ]
     },
@@ -32387,6 +32955,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "area",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=area"
@@ -32448,6 +33021,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 30; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "area_evidence",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=area_evidence"
@@ -32509,6 +33087,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 30; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "area_issues",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=area_issues"
@@ -32570,6 +33153,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 30; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "area_research",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=area_research"
@@ -32600,6 +33188,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 10; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "areas",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=areas"
@@ -32630,6 +33223,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 10; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "assets",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=assets"
@@ -32660,6 +33258,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 100; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "component_registry_file",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=component_registry_file"
@@ -32700,6 +33303,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "export_format",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=export_format"
@@ -32730,6 +33338,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 10; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "exports",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=exports"
@@ -32760,6 +33373,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 10; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework"
@@ -32791,6 +33409,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_archive",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_archive"
@@ -32833,6 +33456,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 30; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_archive_class",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_archive_class"
@@ -32866,6 +33494,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 40; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_archive_operational",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_archive_operational"
@@ -32897,6 +33530,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_handoffs",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_handoffs"
@@ -32939,6 +33577,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 30; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_log_owner",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_log_owner"
@@ -32970,6 +33613,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "direct",
+              "owners": [
+                "@Thorncrag"
+              ]
+            }
+          },
           "coverage_id": "framework_logs",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_logs"
@@ -33001,6 +33652,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "direct",
+              "owners": [
+                "@Thorncrag"
+              ]
+            }
+          },
           "coverage_id": "framework_project",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_project"
@@ -33033,6 +33692,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 30; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_project_automation",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_project_automation"
@@ -33065,6 +33729,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 30; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_project_github",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_project_github"
@@ -33097,6 +33766,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 30; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_project_interfaces",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_project_interfaces"
@@ -33129,6 +33803,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 30; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_project_profile",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_project_profile"
@@ -33161,6 +33840,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 30; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_project_publication",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_project_publication"
@@ -33193,6 +33877,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 30; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_project_workflows",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_project_workflows"
@@ -33237,6 +33926,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "lifecycle_posture": "current",
           "fallback": "human_review",
           "purpose": "public-safe project designs, plans, governance changes, and implementation proposals that are not themselves adopted governing authorities or implementations",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_proposals",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_proposals"
@@ -33268,6 +33962,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_receipts",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_receipts"
@@ -33299,6 +33998,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_reports",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_reports"
@@ -33342,6 +34046,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 30; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_standard_subject",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_standard_subject"
@@ -33382,6 +34091,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 40; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_standard_templates",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_standard_templates"
@@ -33413,6 +34127,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "direct",
+              "owners": [
+                "@Thorncrag"
+              ]
+            }
+          },
           "coverage_id": "framework_standards",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_standards"
@@ -33444,6 +34166,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "framework_status",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=framework_status"
@@ -33474,6 +34201,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 10; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "direct",
+              "owners": [
+                "@Thorncrag"
+              ]
+            }
+          },
           "coverage_id": "github_admin",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=github_admin"
@@ -33505,6 +34240,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "github_issue_templates",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=github_issue_templates"
@@ -33536,6 +34276,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "github_workflows",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=github_workflows"
@@ -33566,6 +34311,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 10; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "inventory",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=inventory"
@@ -33596,6 +34346,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 10; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "legislation",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=legislation"
@@ -33626,6 +34381,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 10; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "direct",
+              "owners": [
+                "@Thorncrag"
+              ]
+            }
+          },
           "coverage_id": "participate",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=participate"
@@ -33657,6 +34420,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "participate_api",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=participate_api"
@@ -33690,6 +34458,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 40; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "project_automation_configuration",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=project_automation_configuration"
@@ -33724,6 +34497,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 50; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "project_automation_launchd",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=project_automation_launchd"
@@ -33757,6 +34535,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 40; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "project_automation_runbooks",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=project_automation_runbooks"
@@ -33790,6 +34573,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 40; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "project_automation_schemas",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=project_automation_schemas"
@@ -33823,6 +34611,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 40; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "project_console",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=project_console"
@@ -33857,6 +34650,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 50; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "project_console_data",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=project_console_data"
@@ -33885,6 +34683,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 0; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "none"
+            }
+          },
           "coverage_id": "repository_root",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=repository_root"
@@ -33919,6 +34722,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "lifecycle_posture": "current",
           "fallback": "human_review",
           "purpose": "Closed scope for bounded temporary run artifacts.",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "repository_tmp",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=repository_tmp"
@@ -33949,6 +34757,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 10; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "research",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=research"
@@ -33980,6 +34793,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "research_candidate_sources",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=research_candidate_sources"
@@ -34011,9 +34829,204 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "research_interbranch",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=research_interbranch"
+        },
+        {
+          "scope_id": "root_package_lock",
+          "display_name": "Node package lock",
+          "path_pattern": "package-lock.json",
+          "match_kind": "exact_file",
+          "specificity_rank": 100,
+          "parameter_bindings": {},
+          "owning_scope_selection_rule": "highest_specificity_unique",
+          "ancestor_scope_ids": [
+            "repository_root"
+          ],
+          "placement_question": "Is this the canonical node package lock file?",
+          "include_when": [
+            "Only the canonical repository-root node package lock file."
+          ],
+          "exclude_when": [
+            "Any other repository artifact or owner-local material."
+          ],
+          "primary_authority": "COMPONENT-REGISTRY",
+          "disclosure_boundary": "public_by_design",
+          "lifecycle_posture": "current",
+          "authorized_creators": [
+            "@Thorncrag"
+          ],
+          "precedence": "Most-specific scope rank 100; ties fail closed.",
+          "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "direct",
+              "owners": [
+                "@Thorncrag"
+              ]
+            }
+          },
+          "coverage_id": "root_package_lock",
+          "coverage_kind": "directory_scope",
+          "console_route": "automation:component-registry:coverage?coverage=root_package_lock"
+        },
+        {
+          "scope_id": "root_package_manifest",
+          "display_name": "Node package manifest",
+          "path_pattern": "package.json",
+          "match_kind": "exact_file",
+          "specificity_rank": 100,
+          "parameter_bindings": {},
+          "owning_scope_selection_rule": "highest_specificity_unique",
+          "ancestor_scope_ids": [
+            "repository_root"
+          ],
+          "placement_question": "Is this the canonical node package manifest file?",
+          "include_when": [
+            "Only the canonical repository-root node package manifest file."
+          ],
+          "exclude_when": [
+            "Any other repository artifact or owner-local material."
+          ],
+          "primary_authority": "COMPONENT-REGISTRY",
+          "disclosure_boundary": "public_by_design",
+          "lifecycle_posture": "current",
+          "authorized_creators": [
+            "@Thorncrag"
+          ],
+          "precedence": "Most-specific scope rank 100; ties fail closed.",
+          "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "direct",
+              "owners": [
+                "@Thorncrag"
+              ]
+            }
+          },
+          "coverage_id": "root_package_manifest",
+          "coverage_kind": "directory_scope",
+          "console_route": "automation:component-registry:coverage?coverage=root_package_manifest"
+        },
+        {
+          "scope_id": "root_pyproject_configuration",
+          "display_name": "Python project configuration",
+          "path_pattern": "pyproject.toml",
+          "match_kind": "exact_file",
+          "specificity_rank": 100,
+          "parameter_bindings": {},
+          "owning_scope_selection_rule": "highest_specificity_unique",
+          "ancestor_scope_ids": [
+            "repository_root"
+          ],
+          "placement_question": "Is this the canonical python project configuration file?",
+          "include_when": [
+            "Only the canonical repository-root python project configuration file."
+          ],
+          "exclude_when": [
+            "Any other repository artifact or owner-local material."
+          ],
+          "primary_authority": "COMPONENT-REGISTRY",
+          "disclosure_boundary": "public_by_design",
+          "lifecycle_posture": "current",
+          "authorized_creators": [
+            "@Thorncrag"
+          ],
+          "precedence": "Most-specific scope rank 100; ties fail closed.",
+          "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "direct",
+              "owners": [
+                "@Thorncrag"
+              ]
+            }
+          },
+          "coverage_id": "root_pyproject_configuration",
+          "coverage_kind": "directory_scope",
+          "console_route": "automation:component-registry:coverage?coverage=root_pyproject_configuration"
+        },
+        {
+          "scope_id": "root_requirements_local_tools",
+          "display_name": "Local tool requirements",
+          "path_pattern": "requirements-local-tools.txt",
+          "match_kind": "exact_file",
+          "specificity_rank": 100,
+          "parameter_bindings": {},
+          "owning_scope_selection_rule": "highest_specificity_unique",
+          "ancestor_scope_ids": [
+            "repository_root"
+          ],
+          "placement_question": "Is this the canonical local tool requirements file?",
+          "include_when": [
+            "Only the canonical repository-root local tool requirements file."
+          ],
+          "exclude_when": [
+            "Any other repository artifact or owner-local material."
+          ],
+          "primary_authority": "COMPONENT-REGISTRY",
+          "disclosure_boundary": "public_by_design",
+          "lifecycle_posture": "current",
+          "authorized_creators": [
+            "@Thorncrag"
+          ],
+          "precedence": "Most-specific scope rank 100; ties fail closed.",
+          "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "direct",
+              "owners": [
+                "@Thorncrag"
+              ]
+            }
+          },
+          "coverage_id": "root_requirements_local_tools",
+          "coverage_kind": "directory_scope",
+          "console_route": "automation:component-registry:coverage?coverage=root_requirements_local_tools"
+        },
+        {
+          "scope_id": "root_requirements_pages",
+          "display_name": "Public site requirements",
+          "path_pattern": "requirements-pages.txt",
+          "match_kind": "exact_file",
+          "specificity_rank": 100,
+          "parameter_bindings": {},
+          "owning_scope_selection_rule": "highest_specificity_unique",
+          "ancestor_scope_ids": [
+            "repository_root"
+          ],
+          "placement_question": "Is this the canonical public site requirements file?",
+          "include_when": [
+            "Only the canonical repository-root public site requirements file."
+          ],
+          "exclude_when": [
+            "Any other repository artifact or owner-local material."
+          ],
+          "primary_authority": "COMPONENT-REGISTRY",
+          "disclosure_boundary": "public_by_design",
+          "lifecycle_posture": "current",
+          "authorized_creators": [
+            "@Thorncrag"
+          ],
+          "precedence": "Most-specific scope rank 100; ties fail closed.",
+          "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "direct",
+              "owners": [
+                "@Thorncrag"
+              ]
+            }
+          },
+          "coverage_id": "root_requirements_pages",
+          "coverage_kind": "directory_scope",
+          "console_route": "automation:component-registry:coverage?coverage=root_requirements_pages"
         },
         {
           "scope_id": "scripts",
@@ -34041,6 +35054,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 10; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "direct",
+              "owners": [
+                "@Thorncrag"
+              ]
+            }
+          },
           "coverage_id": "scripts",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=scripts"
@@ -34071,6 +35092,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 10; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "sources",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=sources"
@@ -34102,6 +35128,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "test_fixtures",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=test_fixtures"
@@ -34132,6 +35163,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 10; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "direct",
+              "owners": [
+                "@Thorncrag"
+              ]
+            }
+          },
           "coverage_id": "tests",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=tests"
@@ -34162,6 +35201,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 10; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "topics",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=topics"
@@ -34192,6 +35236,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 10; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "direct",
+              "owners": [
+                "@Thorncrag"
+              ]
+            }
+          },
           "coverage_id": "website",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=website"
@@ -34223,6 +35275,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "website_overrides",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=website_overrides"
@@ -34254,6 +35311,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           ],
           "precedence": "Most-specific scope rank 20; ties fail closed.",
           "fallback": "human_review",
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "inherit"
+            }
+          },
           "coverage_id": "website_partials",
           "coverage_kind": "directory_scope",
           "console_route": "automation:component-registry:coverage?coverage=website_partials"
@@ -34386,7 +35448,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "framework_kernel",
             "github_disclosure_boundary"
           ],
-          "sha256": "6be2849593aec9d33024b7cc8b6667c450f3b98d4e3b41f3883222c124884916"
+          "sha256": "47539112655e1bb28ef89c54b24eb4c4047da03cad898507a61af3f97c08c198"
         },
         {
           "component_id": "agent_validation_closeout",
@@ -34543,7 +35605,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "hash_policy": "pinned",
           "governing": true,
           "requires": [],
-          "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6"
+          "sha256": "976a81942a5226a2569c99de1e340e146467987b8a71a55834d9e1c3e964174e"
         },
         {
           "component_id": "github_disclosure_boundary",
@@ -34576,7 +35638,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "github_disclosure_boundary",
             "project_runtime_authority"
           ],
-          "sha256": "052a855508cb2f678e815382c79f0f47e6aa58d61e0956076260419d08dbe9a1"
+          "sha256": "2d2fdf96b6e37b8399ee8327498b20c2b74f9dbe8befa3e15ba2b1293d593fb9"
         },
         {
           "component_id": "governance_change_registry",
@@ -37423,9 +38485,2985 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "console_route": "automation:component-registry:terminology?term=consumption"
         }
       ]
+    },
+    "codeowners": {
+      "available": true,
+      "complete": true,
+      "authoritative": false,
+      "authority_effect": "github_review_routing_only",
+      "summary": {
+        "direct": 18,
+        "inherited": 143,
+        "none": 2,
+        "problems": 0
+      },
+      "records": [
+        {
+          "assignment_id": "scope:area",
+          "record_kind": "directory_scope",
+          "stable_id": "area",
+          "display_name": "Registered subject area",
+          "path_pattern": "areas/{area}/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aarea"
+        },
+        {
+          "assignment_id": "scope:area_evidence",
+          "record_kind": "directory_scope",
+          "stable_id": "area_evidence",
+          "display_name": "Area evidence",
+          "path_pattern": "areas/{area}/evidence/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aarea_evidence"
+        },
+        {
+          "assignment_id": "scope:area_issues",
+          "record_kind": "directory_scope",
+          "stable_id": "area_issues",
+          "display_name": "Area issues",
+          "path_pattern": "areas/{area}/issues/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aarea_issues"
+        },
+        {
+          "assignment_id": "scope:area_research",
+          "record_kind": "directory_scope",
+          "stable_id": "area_research",
+          "display_name": "Area research",
+          "path_pattern": "areas/{area}/research/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aarea_research"
+        },
+        {
+          "assignment_id": "scope:areas",
+          "record_kind": "directory_scope",
+          "stable_id": "areas",
+          "display_name": "Project subject areas",
+          "path_pattern": "areas/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aareas"
+        },
+        {
+          "assignment_id": "scope:assets",
+          "record_kind": "directory_scope",
+          "stable_id": "assets",
+          "display_name": "Assets",
+          "path_pattern": "assets/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aassets"
+        },
+        {
+          "assignment_id": "scope:component_registry_file",
+          "record_kind": "directory_scope",
+          "stable_id": "component_registry_file",
+          "display_name": "Component Registry",
+          "path_pattern": "framework/component-registry.json",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Acomponent_registry_file"
+        },
+        {
+          "assignment_id": "scope:export_format",
+          "record_kind": "directory_scope",
+          "stable_id": "export_format",
+          "display_name": "Export format",
+          "path_pattern": "exports/{format}/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aexport_format"
+        },
+        {
+          "assignment_id": "scope:exports",
+          "record_kind": "directory_scope",
+          "stable_id": "exports",
+          "display_name": "Exports",
+          "path_pattern": "exports/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aexports"
+        },
+        {
+          "assignment_id": "scope:framework",
+          "record_kind": "directory_scope",
+          "stable_id": "framework",
+          "display_name": "Framework",
+          "path_pattern": "framework/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework"
+        },
+        {
+          "assignment_id": "scope:framework_archive",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_archive",
+          "display_name": "Framework archive",
+          "path_pattern": "framework/archive/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_archive"
+        },
+        {
+          "assignment_id": "scope:framework_archive_class",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_archive_class",
+          "display_name": "Framework archive class",
+          "path_pattern": "framework/archive/{archive_class}/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_archive_class"
+        },
+        {
+          "assignment_id": "scope:framework_archive_operational",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_archive_operational",
+          "display_name": "Archived operational predecessors",
+          "path_pattern": "framework/archive/operational/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_archive_operational"
+        },
+        {
+          "assignment_id": "scope:framework_handoffs",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_handoffs",
+          "display_name": "Public-safe active handoffs",
+          "path_pattern": "framework/handoffs/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_handoffs"
+        },
+        {
+          "assignment_id": "scope:framework_log_owner",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_log_owner",
+          "display_name": "Public-safe authority log",
+          "path_pattern": "framework/logs/{owner}/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_logs",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_log_owner"
+        },
+        {
+          "assignment_id": "scope:framework_logs",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_logs",
+          "display_name": "Public-safe logs",
+          "path_pattern": "framework/logs/",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/framework/logs/",
+          "generated_line": "/framework/logs/ @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_logs"
+        },
+        {
+          "assignment_id": "scope:framework_project",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_project",
+          "display_name": "Project implementation",
+          "path_pattern": "framework/project/",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/framework/project/",
+          "generated_line": "/framework/project/ @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_project"
+        },
+        {
+          "assignment_id": "scope:framework_project_automation",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_project_automation",
+          "display_name": "Project automation",
+          "path_pattern": "framework/project/automation/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_project_automation"
+        },
+        {
+          "assignment_id": "scope:framework_project_github",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_project_github",
+          "display_name": "Project github",
+          "path_pattern": "framework/project/github/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_project_github"
+        },
+        {
+          "assignment_id": "scope:framework_project_interfaces",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_project_interfaces",
+          "display_name": "Project interfaces",
+          "path_pattern": "framework/project/interfaces/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_project_interfaces"
+        },
+        {
+          "assignment_id": "scope:framework_project_profile",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_project_profile",
+          "display_name": "Project profile",
+          "path_pattern": "framework/project/profile/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_project_profile"
+        },
+        {
+          "assignment_id": "scope:framework_project_publication",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_project_publication",
+          "display_name": "Project publication",
+          "path_pattern": "framework/project/publication/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_project_publication"
+        },
+        {
+          "assignment_id": "scope:framework_project_workflows",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_project_workflows",
+          "display_name": "Project workflows",
+          "path_pattern": "framework/project/workflows/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_project_workflows"
+        },
+        {
+          "assignment_id": "scope:framework_proposals",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_proposals",
+          "display_name": "Public-safe project proposals",
+          "path_pattern": "framework/proposals/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_proposals"
+        },
+        {
+          "assignment_id": "scope:framework_receipts",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_receipts",
+          "display_name": "Public-safe operation receipts",
+          "path_pattern": "framework/receipts/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_receipts"
+        },
+        {
+          "assignment_id": "scope:framework_reports",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_reports",
+          "display_name": "Public-safe completed reports",
+          "path_pattern": "framework/reports/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_reports"
+        },
+        {
+          "assignment_id": "scope:framework_standard_subject",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_standard_subject",
+          "display_name": "Reusable standard subject",
+          "path_pattern": "framework/standards/{subject}/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_standard_subject"
+        },
+        {
+          "assignment_id": "scope:framework_standard_templates",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_standard_templates",
+          "display_name": "Reusable standard templates",
+          "path_pattern": "framework/standards/{subject}/templates/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_standard_templates"
+        },
+        {
+          "assignment_id": "scope:framework_standards",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_standards",
+          "display_name": "Reusable standards",
+          "path_pattern": "framework/standards/",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/framework/standards/",
+          "generated_line": "/framework/standards/ @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_standards"
+        },
+        {
+          "assignment_id": "scope:framework_status",
+          "record_kind": "directory_scope",
+          "stable_id": "framework_status",
+          "display_name": "Public-safe current status",
+          "path_pattern": "framework/status/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aframework_status"
+        },
+        {
+          "assignment_id": "scope:github_admin",
+          "record_kind": "directory_scope",
+          "stable_id": "github_admin",
+          "display_name": "GitHub administration",
+          "path_pattern": ".github/",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/.github/",
+          "generated_line": "/.github/ @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Agithub_admin"
+        },
+        {
+          "assignment_id": "scope:github_issue_templates",
+          "record_kind": "directory_scope",
+          "stable_id": "github_issue_templates",
+          "display_name": "GitHub Issue templates",
+          "path_pattern": ".github/ISSUE_TEMPLATE/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:github_admin",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Agithub_issue_templates"
+        },
+        {
+          "assignment_id": "scope:github_workflows",
+          "record_kind": "directory_scope",
+          "stable_id": "github_workflows",
+          "display_name": "GitHub Actions workflows",
+          "path_pattern": ".github/workflows/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:github_admin",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Agithub_workflows"
+        },
+        {
+          "assignment_id": "scope:inventory",
+          "record_kind": "directory_scope",
+          "stable_id": "inventory",
+          "display_name": "Inventory",
+          "path_pattern": "inventory/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Ainventory"
+        },
+        {
+          "assignment_id": "scope:legislation",
+          "record_kind": "directory_scope",
+          "stable_id": "legislation",
+          "display_name": "Legislation",
+          "path_pattern": "legislation/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Alegislation"
+        },
+        {
+          "assignment_id": "scope:participate",
+          "record_kind": "directory_scope",
+          "stable_id": "participate",
+          "display_name": "Public participation",
+          "path_pattern": "participate/",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/participate/",
+          "generated_line": "/participate/ @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aparticipate"
+        },
+        {
+          "assignment_id": "scope:participate_api",
+          "record_kind": "directory_scope",
+          "stable_id": "participate_api",
+          "display_name": "Public participation API",
+          "path_pattern": "participate/api/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:participate",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aparticipate_api"
+        },
+        {
+          "assignment_id": "scope:project_automation_configuration",
+          "record_kind": "directory_scope",
+          "stable_id": "project_automation_configuration",
+          "display_name": "Project automation configuration",
+          "path_pattern": "framework/project/automation/configuration/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aproject_automation_configuration"
+        },
+        {
+          "assignment_id": "scope:project_automation_launchd",
+          "record_kind": "directory_scope",
+          "stable_id": "project_automation_launchd",
+          "display_name": "Portable launchd examples",
+          "path_pattern": "framework/project/automation/configuration/launchd/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aproject_automation_launchd"
+        },
+        {
+          "assignment_id": "scope:project_automation_runbooks",
+          "record_kind": "directory_scope",
+          "stable_id": "project_automation_runbooks",
+          "display_name": "Project automation runbooks",
+          "path_pattern": "framework/project/automation/runbooks/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aproject_automation_runbooks"
+        },
+        {
+          "assignment_id": "scope:project_automation_schemas",
+          "record_kind": "directory_scope",
+          "stable_id": "project_automation_schemas",
+          "display_name": "Project automation schemas",
+          "path_pattern": "framework/project/automation/schemas/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aproject_automation_schemas"
+        },
+        {
+          "assignment_id": "scope:project_console",
+          "record_kind": "directory_scope",
+          "stable_id": "project_console",
+          "display_name": "Project Console application",
+          "path_pattern": "framework/project/interfaces/project-console/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aproject_console"
+        },
+        {
+          "assignment_id": "scope:project_console_data",
+          "record_kind": "directory_scope",
+          "stable_id": "project_console_data",
+          "display_name": "Project Console public-safe data",
+          "path_pattern": "framework/project/interfaces/project-console/data/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aproject_console_data"
+        },
+        {
+          "assignment_id": "scope:repository_root",
+          "record_kind": "directory_scope",
+          "stable_id": "repository_root",
+          "display_name": "Repository root",
+          "path_pattern": "**",
+          "declared_mode": "none",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": null,
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Arepository_root"
+        },
+        {
+          "assignment_id": "scope:repository_tmp",
+          "record_kind": "directory_scope",
+          "stable_id": "repository_tmp",
+          "display_name": "Repository-local temporary run artifacts",
+          "path_pattern": ".tmp/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Arepository_tmp"
+        },
+        {
+          "assignment_id": "scope:research",
+          "record_kind": "directory_scope",
+          "stable_id": "research",
+          "display_name": "Research",
+          "path_pattern": "research/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aresearch"
+        },
+        {
+          "assignment_id": "scope:research_candidate_sources",
+          "record_kind": "directory_scope",
+          "stable_id": "research_candidate_sources",
+          "display_name": "Candidate source development",
+          "path_pattern": "research/candidate-source-development/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aresearch_candidate_sources"
+        },
+        {
+          "assignment_id": "scope:research_interbranch",
+          "record_kind": "directory_scope",
+          "stable_id": "research_interbranch",
+          "display_name": "Interbranch research",
+          "path_pattern": "research/interbranch/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aresearch_interbranch"
+        },
+        {
+          "assignment_id": "scope:root_package_lock",
+          "record_kind": "directory_scope",
+          "stable_id": "root_package_lock",
+          "display_name": "Node package lock",
+          "path_pattern": "package-lock.json",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/package-lock.json",
+          "generated_line": "/package-lock.json @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aroot_package_lock"
+        },
+        {
+          "assignment_id": "scope:root_package_manifest",
+          "record_kind": "directory_scope",
+          "stable_id": "root_package_manifest",
+          "display_name": "Node package manifest",
+          "path_pattern": "package.json",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/package.json",
+          "generated_line": "/package.json @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aroot_package_manifest"
+        },
+        {
+          "assignment_id": "scope:root_pyproject_configuration",
+          "record_kind": "directory_scope",
+          "stable_id": "root_pyproject_configuration",
+          "display_name": "Python project configuration",
+          "path_pattern": "pyproject.toml",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/pyproject.toml",
+          "generated_line": "/pyproject.toml @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aroot_pyproject_configuration"
+        },
+        {
+          "assignment_id": "scope:root_requirements_local_tools",
+          "record_kind": "directory_scope",
+          "stable_id": "root_requirements_local_tools",
+          "display_name": "Local tool requirements",
+          "path_pattern": "requirements-local-tools.txt",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/requirements-local-tools.txt",
+          "generated_line": "/requirements-local-tools.txt @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aroot_requirements_local_tools"
+        },
+        {
+          "assignment_id": "scope:root_requirements_pages",
+          "record_kind": "directory_scope",
+          "stable_id": "root_requirements_pages",
+          "display_name": "Public site requirements",
+          "path_pattern": "requirements-pages.txt",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/requirements-pages.txt",
+          "generated_line": "/requirements-pages.txt @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Aroot_requirements_pages"
+        },
+        {
+          "assignment_id": "scope:scripts",
+          "record_kind": "directory_scope",
+          "stable_id": "scripts",
+          "display_name": "Project scripts",
+          "path_pattern": "scripts/",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/scripts/",
+          "generated_line": "/scripts/ @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Ascripts"
+        },
+        {
+          "assignment_id": "scope:sources",
+          "record_kind": "directory_scope",
+          "stable_id": "sources",
+          "display_name": "Sources",
+          "path_pattern": "sources/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Asources"
+        },
+        {
+          "assignment_id": "scope:test_fixtures",
+          "record_kind": "directory_scope",
+          "stable_id": "test_fixtures",
+          "display_name": "Synthetic test fixtures",
+          "path_pattern": "tests/fixtures/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:tests",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Atest_fixtures"
+        },
+        {
+          "assignment_id": "scope:tests",
+          "record_kind": "directory_scope",
+          "stable_id": "tests",
+          "display_name": "Project tests",
+          "path_pattern": "tests/",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/tests/",
+          "generated_line": "/tests/ @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Atests"
+        },
+        {
+          "assignment_id": "scope:topics",
+          "record_kind": "directory_scope",
+          "stable_id": "topics",
+          "display_name": "Reader topic guides",
+          "path_pattern": "topics/",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Atopics"
+        },
+        {
+          "assignment_id": "scope:website",
+          "record_kind": "directory_scope",
+          "stable_id": "website",
+          "display_name": "Website",
+          "path_pattern": "website/",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/website/",
+          "generated_line": "/website/ @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Awebsite"
+        },
+        {
+          "assignment_id": "scope:website_overrides",
+          "record_kind": "directory_scope",
+          "stable_id": "website_overrides",
+          "display_name": "Website overrides",
+          "path_pattern": "website/overrides/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:website",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Awebsite_overrides"
+        },
+        {
+          "assignment_id": "scope:website_partials",
+          "record_kind": "directory_scope",
+          "stable_id": "website_partials",
+          "display_name": "Website partials",
+          "path_pattern": "website/partials/",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:website",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=scope%3Awebsite_partials"
+        },
+        {
+          "assignment_id": "component:COMPONENT-REGISTRY",
+          "record_kind": "component",
+          "stable_id": "COMPONENT-REGISTRY",
+          "display_name": "ARRP Component Registry",
+          "path_pattern": "framework/component-registry.json",
+          "declared_mode": "none",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": null,
+          "generated_pattern": "/framework/component-registry.json",
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3ACOMPONENT-REGISTRY"
+        },
+        {
+          "assignment_id": "component:agent_audit_execution",
+          "record_kind": "component",
+          "stable_id": "agent_audit_execution",
+          "display_name": "Audit Execution Standard",
+          "path_pattern": "framework/standards/automation/audit-execution.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aagent_audit_execution"
+        },
+        {
+          "assignment_id": "component:agent_autonomous_execution",
+          "record_kind": "component",
+          "stable_id": "agent_autonomous_execution",
+          "display_name": "Autonomous and Scheduled Execution Standard",
+          "path_pattern": "framework/standards/automation/autonomous-execution.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aagent_autonomous_execution"
+        },
+        {
+          "assignment_id": "component:agent_context_research",
+          "record_kind": "component",
+          "stable_id": "agent_context_research",
+          "display_name": "Agent Rules — Context and Research",
+          "path_pattern": "framework/standards/automation/context-and-research.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aagent_context_research"
+        },
+        {
+          "assignment_id": "component:agent_handoff",
+          "record_kind": "component",
+          "stable_id": "agent_handoff",
+          "display_name": "Agent Rules — Context Handoff",
+          "path_pattern": "framework/standards/automation/task-handoffs.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aagent_handoff"
+        },
+        {
+          "assignment_id": "component:agent_issue_candidate_work",
+          "record_kind": "component",
+          "stable_id": "agent_issue_candidate_work",
+          "display_name": "ARRP Agent Authority Policy",
+          "path_pattern": "framework/project/automation/agent-policy.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aagent_issue_candidate_work"
+        },
+        {
+          "assignment_id": "component:agent_multi_agent",
+          "record_kind": "component",
+          "stable_id": "agent_multi_agent",
+          "display_name": "Agent Rules — Multi-Agent Work",
+          "path_pattern": "framework/standards/automation/multi-agent.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aagent_multi_agent"
+        },
+        {
+          "assignment_id": "component:agent_provenance_logging",
+          "record_kind": "component",
+          "stable_id": "agent_provenance_logging",
+          "display_name": "Agent Rules — Provenance and Logging",
+          "path_pattern": "framework/standards/automation/provenance-and-recovery.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aagent_provenance_logging"
+        },
+        {
+          "assignment_id": "component:agent_registry",
+          "record_kind": "component",
+          "stable_id": "agent_registry",
+          "display_name": "ARRP Agent and Bot Registry",
+          "path_pattern": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aagent_registry"
+        },
+        {
+          "assignment_id": "component:agent_rules_kernel",
+          "record_kind": "component",
+          "stable_id": "agent_rules_kernel",
+          "display_name": "ARRP Agent Operating Rules",
+          "path_pattern": "framework/AGENT_OPERATING_RULES.md",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/framework/AGENT_OPERATING_RULES.md",
+          "generated_line": "/framework/AGENT_OPERATING_RULES.md @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aagent_rules_kernel"
+        },
+        {
+          "assignment_id": "component:agent_validation_closeout",
+          "record_kind": "component",
+          "stable_id": "agent_validation_closeout",
+          "display_name": "Agent Rules — Validation and Closeout",
+          "path_pattern": "framework/standards/automation/validation-and-closeout.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aagent_validation_closeout"
+        },
+        {
+          "assignment_id": "component:audit_change",
+          "record_kind": "component",
+          "stable_id": "audit_change",
+          "display_name": "Change Audits",
+          "path_pattern": "framework/standards/audits/change-audits.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aaudit_change"
+        },
+        {
+          "assignment_id": "component:audit_core",
+          "record_kind": "component",
+          "stable_id": "audit_core",
+          "display_name": "Audit Core",
+          "path_pattern": "framework/standards/audits/core.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aaudit_core"
+        },
+        {
+          "assignment_id": "component:audit_legal_prior_proposal",
+          "record_kind": "component",
+          "stable_id": "audit_legal_prior_proposal",
+          "display_name": "Legal and Prior-Proposal Review",
+          "path_pattern": "framework/standards/audits/legal-and-prior-work.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aaudit_legal_prior_proposal"
+        },
+        {
+          "assignment_id": "component:audit_project_consistency",
+          "record_kind": "component",
+          "stable_id": "audit_project_consistency",
+          "display_name": "Project Consistency Audits",
+          "path_pattern": "framework/standards/audits/project-consistency.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aaudit_project_consistency"
+        },
+        {
+          "assignment_id": "component:audit_tiered",
+          "record_kind": "component",
+          "stable_id": "audit_tiered",
+          "display_name": "Tiered Audit and Formatting Requirements",
+          "path_pattern": "framework/standards/audits/levels.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aaudit_tiered"
+        },
+        {
+          "assignment_id": "component:audit_verification",
+          "record_kind": "component",
+          "stable_id": "audit_verification",
+          "display_name": "Hallucination-Resistance and Verification Protocol",
+          "path_pattern": "framework/standards/audits/verification.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aaudit_verification"
+        },
+        {
+          "assignment_id": "component:candidate_adjudication",
+          "record_kind": "component",
+          "stable_id": "candidate_adjudication",
+          "display_name": "ARRP Candidate Discovery and Adjudication",
+          "path_pattern": "framework/project/workflows/candidate-review.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Acandidate_adjudication"
+        },
+        {
+          "assignment_id": "component:candidate_review_standard",
+          "record_kind": "component",
+          "stable_id": "candidate_review_standard",
+          "display_name": "Candidate Discovery and Review Standard",
+          "path_pattern": "framework/standards/content/candidate-review.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Acandidate_review_standard"
+        },
+        {
+          "assignment_id": "component:case-monitor-bot",
+          "record_kind": "component",
+          "stable_id": "case-monitor-bot",
+          "display_name": "Case Monitor Bot",
+          "path_pattern": "scripts/check_case_updates.py",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:scripts",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Acase-monitor-bot"
+        },
+        {
+          "assignment_id": "component:codex_bootstrap",
+          "record_kind": "component",
+          "stable_id": "codex_bootstrap",
+          "display_name": "ARRP Codex Guidance",
+          "path_pattern": "AGENTS.md",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/AGENTS.md",
+          "generated_line": "/AGENTS.md @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Acodex_bootstrap"
+        },
+        {
+          "assignment_id": "component:component_registry_activation_finalizer",
+          "record_kind": "component",
+          "stable_id": "component_registry_activation_finalizer",
+          "display_name": "Component Registry Activation Finalizer",
+          "path_pattern": "scripts/finalize_component_registry_activation.py",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:scripts",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Acomponent_registry_activation_finalizer"
+        },
+        {
+          "assignment_id": "component:component_registry_schema",
+          "record_kind": "component",
+          "stable_id": "component_registry_schema",
+          "display_name": "ARRP Component Registry Schema",
+          "path_pattern": "framework/standards/automation/component-registry.schema.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Acomponent_registry_schema"
+        },
+        {
+          "assignment_id": "component:component_registry_stage2_design_proposal",
+          "record_kind": "component",
+          "stable_id": "component_registry_stage2_design_proposal",
+          "display_name": "Component Registry Stage 2 Design",
+          "path_pattern": "framework/proposals/component-registry-stage2-design.md",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Acomponent_registry_stage2_design_proposal"
+        },
+        {
+          "assignment_id": "component:component_registry_tests",
+          "record_kind": "component",
+          "stable_id": "component_registry_tests",
+          "display_name": "Component Registry Deterministic Tests",
+          "path_pattern": "tests/framework/test_component_registry.py",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:tests",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Acomponent_registry_tests"
+        },
+        {
+          "assignment_id": "component:component_registry_tool",
+          "record_kind": "component",
+          "stable_id": "component_registry_tool",
+          "display_name": "Component Registry Deterministic Tool",
+          "path_pattern": "scripts/component_registry.py",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:scripts",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Acomponent_registry_tool"
+        },
+        {
+          "assignment_id": "component:context_routes_source",
+          "record_kind": "component",
+          "stable_id": "context_routes_source",
+          "display_name": "Historical Context Route Data",
+          "path_pattern": "framework/archive/authorities/context-routes.json",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Acontext_routes_source"
+        },
+        {
+          "assignment_id": "component:context_routing",
+          "record_kind": "component",
+          "stable_id": "context_routing",
+          "display_name": "Governing Context Routing",
+          "path_pattern": "framework/archive/authorities/CONTEXT_ROUTING.md",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/framework/archive/authorities/CONTEXT_ROUTING.md",
+          "generated_line": "/framework/archive/authorities/CONTEXT_ROUTING.md @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Acontext_routing"
+        },
+        {
+          "assignment_id": "component:development_levels",
+          "record_kind": "component",
+          "stable_id": "development_levels",
+          "display_name": "Content Maturity and Development Gates",
+          "path_pattern": "framework/standards/content/maturity-and-gates.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Adevelopment_levels"
+        },
+        {
+          "assignment_id": "component:elim_result_schema",
+          "record_kind": "component",
+          "stable_id": "elim_result_schema",
+          "display_name": "Elim work-unit result",
+          "path_pattern": "framework/project/automation/schemas/elim-work-unit-result.schema.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aelim_result_schema"
+        },
+        {
+          "assignment_id": "component:evidence_standards",
+          "record_kind": "component",
+          "stable_id": "evidence_standards",
+          "display_name": "Annotation, Claims, and Source Standards",
+          "path_pattern": "framework/standards/sources/claims-and-citations.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aevidence_standards"
+        },
+        {
+          "assignment_id": "component:framework_kernel",
+          "record_kind": "component",
+          "stable_id": "framework_kernel",
+          "display_name": "American Restoration and Resilience Project — Framework and Methodology",
+          "path_pattern": "framework/FRAMEWORK.md",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/framework/FRAMEWORK.md",
+          "generated_line": "/framework/FRAMEWORK.md @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aframework_kernel"
+        },
+        {
+          "assignment_id": "component:github_disclosure_boundary",
+          "record_kind": "component",
+          "stable_id": "github_disclosure_boundary",
+          "display_name": "GitHub Disclosure Boundary",
+          "path_pattern": "framework/project/github/disclosure-boundary.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Agithub_disclosure_boundary"
+        },
+        {
+          "assignment_id": "component:github_disclosure_policy",
+          "record_kind": "component",
+          "stable_id": "github_disclosure_policy",
+          "display_name": "Github Disclosure Policy",
+          "path_pattern": "framework/project/github/disclosure-policy.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Agithub_disclosure_policy"
+        },
+        {
+          "assignment_id": "component:github_workflow",
+          "record_kind": "component",
+          "stable_id": "github_workflow",
+          "display_name": "GitHub Workflow",
+          "path_pattern": "framework/project/github/workflow.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Agithub_workflow"
+        },
+        {
+          "assignment_id": "component:governance_change_log",
+          "record_kind": "component",
+          "stable_id": "governance_change_log",
+          "display_name": "Governance Change Log",
+          "path_pattern": "framework/logs/governance/governance-change-log.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_logs",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Agovernance_change_log"
+        },
+        {
+          "assignment_id": "component:governance_change_registry",
+          "record_kind": "component",
+          "stable_id": "governance_change_registry",
+          "display_name": "ARRP Governance Change Registry",
+          "path_pattern": "framework/project/workflows/governance-change-registry.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Agovernance_change_registry"
+        },
+        {
+          "assignment_id": "component:incident_relation_policy",
+          "record_kind": "component",
+          "stable_id": "incident_relation_policy",
+          "display_name": "Incident Relation Policy",
+          "path_pattern": "framework/project/automation/incident-relations.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aincident_relation_policy"
+        },
+        {
+          "assignment_id": "component:intake_process",
+          "record_kind": "component",
+          "stable_id": "intake_process",
+          "display_name": "ARRP Public-Input Review Process",
+          "path_pattern": "framework/project/workflows/public-input-review.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aintake_process"
+        },
+        {
+          "assignment_id": "component:interface_standard",
+          "record_kind": "component",
+          "stable_id": "interface_standard",
+          "display_name": "Project Interface Standard",
+          "path_pattern": "framework/standards/interfaces/standard.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Ainterface_standard"
+        },
+        {
+          "assignment_id": "component:issue_architecture",
+          "record_kind": "component",
+          "stable_id": "issue_architecture",
+          "display_name": "Issue-Page Architecture and Concision",
+          "path_pattern": "framework/standards/content/record-architecture.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aissue_architecture"
+        },
+        {
+          "assignment_id": "component:method_neutrality_language",
+          "record_kind": "component",
+          "stable_id": "method_neutrality_language",
+          "display_name": "Neutral Characterization and Reader-Facing Language",
+          "path_pattern": "framework/standards/content/neutrality-and-language.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Amethod_neutrality_language"
+        },
+        {
+          "assignment_id": "component:method_partisan_perception",
+          "record_kind": "component",
+          "stable_id": "method_partisan_perception",
+          "display_name": "ARRP Public-Actor and Coalition Conventions",
+          "path_pattern": "framework/project/profile/public-actor-conventions.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Amethod_partisan_perception"
+        },
+        {
+          "assignment_id": "component:method_scope_admission",
+          "record_kind": "component",
+          "stable_id": "method_scope_admission",
+          "display_name": "Institutional Scope and Issue Admission",
+          "path_pattern": "framework/standards/content/scope-and-admission.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Amethod_scope_admission"
+        },
+        {
+          "assignment_id": "component:navigation_inventory",
+          "record_kind": "component",
+          "stable_id": "navigation_inventory",
+          "display_name": "Content Navigation, Indexes, and Synchronization",
+          "path_pattern": "framework/standards/content/navigation-and-indexes.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Anavigation_inventory"
+        },
+        {
+          "assignment_id": "component:navigation_project_sync",
+          "record_kind": "component",
+          "stable_id": "navigation_project_sync",
+          "display_name": "ARRP Navigation and Index Synchronization",
+          "path_pattern": "framework/project/workflows/navigation-sync.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Anavigation_project_sync"
+        },
+        {
+          "assignment_id": "component:navigation_topic_guides",
+          "record_kind": "component",
+          "stable_id": "navigation_topic_guides",
+          "display_name": "Public Topic Guide Standard",
+          "path_pattern": "framework/standards/content/topic-guides.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Anavigation_topic_guides"
+        },
+        {
+          "assignment_id": "component:operation_governance_change_recording",
+          "record_kind": "component",
+          "stable_id": "operation_governance_change_recording",
+          "display_name": "ARRP Governance Change Recording",
+          "path_pattern": "framework/project/workflows/governance-change-recording.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aoperation_governance_change_recording"
+        },
+        {
+          "assignment_id": "component:operation_project_update",
+          "record_kind": "component",
+          "stable_id": "operation_project_update",
+          "display_name": "ARRP Project Update Workflow",
+          "path_pattern": "framework/project/workflows/project-update.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aoperation_project_update"
+        },
+        {
+          "assignment_id": "component:operational_incident_policy",
+          "record_kind": "component",
+          "stable_id": "operational_incident_policy",
+          "display_name": "Operational Incident Policy",
+          "path_pattern": "framework/project/automation/operational-incidents.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aoperational_incident_policy"
+        },
+        {
+          "assignment_id": "component:presidential-directives-bot",
+          "record_kind": "component",
+          "stable_id": "presidential-directives-bot",
+          "display_name": "Presidential Directives Bot",
+          "path_pattern": "scripts/check_presidential_directives.py",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:scripts",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Apresidential-directives-bot"
+        },
+        {
+          "assignment_id": "component:print_assembly",
+          "record_kind": "component",
+          "stable_id": "print_assembly",
+          "display_name": "ARRP Print Assembly Configuration",
+          "path_pattern": "framework/project/publication/print-assembly.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aprint_assembly"
+        },
+        {
+          "assignment_id": "component:print_assembly_standard",
+          "record_kind": "component",
+          "stable_id": "print_assembly_standard",
+          "display_name": "Print and Edition Assembly Standard",
+          "path_pattern": "framework/standards/publication/print-assembly.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aprint_assembly_standard"
+        },
+        {
+          "assignment_id": "component:print_manifest",
+          "record_kind": "component",
+          "stable_id": "print_manifest",
+          "display_name": "Print Manifest",
+          "path_pattern": "framework/project/publication/print-assembly.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aprint_manifest"
+        },
+        {
+          "assignment_id": "component:private_staging_authority_schema",
+          "record_kind": "component",
+          "stable_id": "private_staging_authority_schema",
+          "display_name": "ARRP Private Staging Authority Descriptor",
+          "path_pattern": "framework/project/automation/schemas/private-staging-authority.schema.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aprivate_staging_authority_schema"
+        },
+        {
+          "assignment_id": "component:progress_config",
+          "record_kind": "component",
+          "stable_id": "progress_config",
+          "display_name": "Progress Config",
+          "path_pattern": "framework/project/interfaces/project-console-progress.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aprogress_config"
+        },
+        {
+          "assignment_id": "component:progress_view_standard",
+          "record_kind": "component",
+          "stable_id": "progress_view_standard",
+          "display_name": "Progress View Standard",
+          "path_pattern": "framework/standards/interfaces/progress-views.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aprogress_view_standard"
+        },
+        {
+          "assignment_id": "component:project-console-progress-bot",
+          "record_kind": "component",
+          "stable_id": "project-console-progress-bot",
+          "display_name": "Project Console Progress Bot",
+          "path_pattern": "scripts/build_project_console_progress.py",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:scripts",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproject-console-progress-bot"
+        },
+        {
+          "assignment_id": "component:project-integrity-bot",
+          "record_kind": "component",
+          "stable_id": "project-integrity-bot",
+          "display_name": "Project Integrity Bot",
+          "path_pattern": "scripts/audit_project_consistency.py",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:scripts",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproject-integrity-bot"
+        },
+        {
+          "assignment_id": "component:project_audit_execution",
+          "record_kind": "component",
+          "stable_id": "project_audit_execution",
+          "display_name": "ARRP Audit Execution and Closeout",
+          "path_pattern": "framework/project/workflows/audit-execution.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproject_audit_execution"
+        },
+        {
+          "assignment_id": "component:project_autonomous_execution",
+          "record_kind": "component",
+          "stable_id": "project_autonomous_execution",
+          "display_name": "ARRP Autonomous and Scheduled Execution",
+          "path_pattern": "framework/project/automation/autonomous-execution.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproject_autonomous_execution"
+        },
+        {
+          "assignment_id": "component:project_configuration",
+          "record_kind": "component",
+          "stable_id": "project_configuration",
+          "display_name": "ARRP Project Profile",
+          "path_pattern": "framework/project/PROJECT_PROFILE.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproject_configuration"
+        },
+        {
+          "assignment_id": "component:project_console_classifications",
+          "record_kind": "component",
+          "stable_id": "project_console_classifications",
+          "display_name": "Project Console Classifications",
+          "path_pattern": "framework/project/interfaces/project-console-classifications.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproject_console_classifications"
+        },
+        {
+          "assignment_id": "component:project_console_progress",
+          "record_kind": "component",
+          "stable_id": "project_console_progress",
+          "display_name": "ARRP Project Console Progress Configuration",
+          "path_pattern": "framework/project/interfaces/project-console-progress.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproject_console_progress"
+        },
+        {
+          "assignment_id": "component:project_premise",
+          "record_kind": "component",
+          "stable_id": "project_premise",
+          "display_name": "American Restoration and Resilience Project (ARRP)",
+          "path_pattern": "README.md",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproject_premise"
+        },
+        {
+          "assignment_id": "component:project_reconciliation",
+          "record_kind": "component",
+          "stable_id": "project_reconciliation",
+          "display_name": "Project Reconciliation",
+          "path_pattern": "framework/project/automation/project-wide-reconciliation.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproject_reconciliation"
+        },
+        {
+          "assignment_id": "component:project_reconciliation_schema",
+          "record_kind": "component",
+          "stable_id": "project_reconciliation_schema",
+          "display_name": "ARRP owner-local project-wide reconciliation disposition ledger",
+          "path_pattern": "framework/project/automation/project-wide-reconciliation.schema.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproject_reconciliation_schema"
+        },
+        {
+          "assignment_id": "component:project_runtime_authority",
+          "record_kind": "component",
+          "stable_id": "project_runtime_authority",
+          "display_name": "ARRP Owner-Local Runtime Authority",
+          "path_pattern": "framework/project/automation/owner-local-runtime.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproject_runtime_authority"
+        },
+        {
+          "assignment_id": "component:project_source_adjudication",
+          "record_kind": "component",
+          "stable_id": "project_source_adjudication",
+          "display_name": "ARRP Source Catalog and Adjudication Workflow",
+          "path_pattern": "framework/project/workflows/source-adjudication.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproject_source_adjudication"
+        },
+        {
+          "assignment_id": "component:project_structure",
+          "record_kind": "component",
+          "stable_id": "project_structure",
+          "display_name": "Repository Structure",
+          "path_pattern": "framework/archive/authorities/PROJECT_STRUCTURE.md",
+          "declared_mode": "direct",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": null,
+          "generated_pattern": "/framework/archive/authorities/PROJECT_STRUCTURE.md",
+          "generated_line": "/framework/archive/authorities/PROJECT_STRUCTURE.md @Thorncrag",
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproject_structure"
+        },
+        {
+          "assignment_id": "component:project_tool_interface",
+          "record_kind": "component",
+          "stable_id": "project_tool_interface",
+          "display_name": "ARRP Project Console and Interface Configuration",
+          "path_pattern": "framework/project/interfaces/project-console.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproject_tool_interface"
+        },
+        {
+          "assignment_id": "component:proposal_development_model",
+          "record_kind": "component",
+          "stable_id": "proposal_development_model",
+          "display_name": "ARRP Maturity Profile",
+          "path_pattern": "framework/project/profile/maturity-profile.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproposal_development_model"
+        },
+        {
+          "assignment_id": "component:proposal_scoring_model",
+          "record_kind": "component",
+          "stable_id": "proposal_scoring_model",
+          "display_name": "ARRP Proposal Quality Scoring Profile",
+          "path_pattern": "framework/project/profile/scoring-rubric.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aproposal_scoring_model"
+        },
+        {
+          "assignment_id": "component:public_input_standard",
+          "record_kind": "component",
+          "stable_id": "public_input_standard",
+          "display_name": "Public-Input Standard",
+          "path_pattern": "framework/standards/interfaces/public-input.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Apublic_input_standard"
+        },
+        {
+          "assignment_id": "component:public_release",
+          "record_kind": "component",
+          "stable_id": "public_release",
+          "display_name": "ARRP First Public Release Plan",
+          "path_pattern": "framework/project/publication/first-release.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Apublic_release"
+        },
+        {
+          "assignment_id": "component:release_standard",
+          "record_kind": "component",
+          "stable_id": "release_standard",
+          "display_name": "Release Standard",
+          "path_pattern": "framework/standards/publication/releases.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Arelease_standard"
+        },
+        {
+          "assignment_id": "component:remedy_framework",
+          "record_kind": "component",
+          "stable_id": "remedy_framework",
+          "display_name": "Remedy Selection and Design Standard",
+          "path_pattern": "framework/standards/content/remedies.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Aremedy_framework"
+        },
+        {
+          "assignment_id": "component:repository_gate_policy",
+          "record_kind": "component",
+          "stable_id": "repository_gate_policy",
+          "display_name": "Repository Gate Policy",
+          "path_pattern": "framework/project/automation/repository-gates.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Arepository_gate_policy"
+        },
+        {
+          "assignment_id": "component:repository_map",
+          "record_kind": "component",
+          "stable_id": "repository_map",
+          "display_name": "ARRP Repository Map",
+          "path_pattern": "framework/archive/authorities/REPOSITORY_MAP.md",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Arepository_map"
+        },
+        {
+          "assignment_id": "component:run-coordinator-bot",
+          "record_kind": "component",
+          "stable_id": "run-coordinator-bot",
+          "display_name": "Run Coordinator Bot",
+          "path_pattern": "scripts/arrp_nightly.py",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:scripts",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Arun-coordinator-bot"
+        },
+        {
+          "assignment_id": "component:runbook_case_monitor_bot",
+          "record_kind": "component",
+          "stable_id": "runbook_case_monitor_bot",
+          "display_name": "Case Monitor Bot Runbook",
+          "path_pattern": "framework/project/automation/runbooks/case-monitor-bot.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Arunbook_case_monitor_bot"
+        },
+        {
+          "assignment_id": "component:runbook_console_progress_bot",
+          "record_kind": "component",
+          "stable_id": "runbook_console_progress_bot",
+          "display_name": "Project Console Progress Bot Runbook",
+          "path_pattern": "framework/project/automation/runbooks/project-console-progress-bot.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Arunbook_console_progress_bot"
+        },
+        {
+          "assignment_id": "component:runbook_elim",
+          "record_kind": "component",
+          "stable_id": "runbook_elim",
+          "display_name": "Elim Agent Runbook",
+          "path_pattern": "framework/project/automation/runbooks/elim.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Arunbook_elim"
+        },
+        {
+          "assignment_id": "component:runbook_integrity_bot",
+          "record_kind": "component",
+          "stable_id": "runbook_integrity_bot",
+          "display_name": "Project Integrity Bot Runbook",
+          "path_pattern": "framework/project/automation/runbooks/project-integrity-bot.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Arunbook_integrity_bot"
+        },
+        {
+          "assignment_id": "component:runbook_presidential_directives_bot",
+          "record_kind": "component",
+          "stable_id": "runbook_presidential_directives_bot",
+          "display_name": "Presidential Directives Bot Runbook",
+          "path_pattern": "framework/project/automation/runbooks/presidential-directives-bot.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Arunbook_presidential_directives_bot"
+        },
+        {
+          "assignment_id": "component:runbook_run_coordinator_bot",
+          "record_kind": "component",
+          "stable_id": "runbook_run_coordinator_bot",
+          "display_name": "Run Coordinator Bot Runbook",
+          "path_pattern": "framework/project/automation/runbooks/run-coordinator-bot.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Arunbook_run_coordinator_bot"
+        },
+        {
+          "assignment_id": "component:runbook_source_checker_bot",
+          "record_kind": "component",
+          "stable_id": "runbook_source_checker_bot",
+          "display_name": "Source Checker Bot Runbook",
+          "path_pattern": "framework/project/automation/runbooks/source-checker-bot.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Arunbook_source_checker_bot"
+        },
+        {
+          "assignment_id": "component:scoring_adoption_pathway",
+          "record_kind": "component",
+          "stable_id": "scoring_adoption_pathway",
+          "display_name": "Adoption and Enactment Pathway Analysis",
+          "path_pattern": "framework/standards/audits/adoption-and-pathways.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Ascoring_adoption_pathway"
+        },
+        {
+          "assignment_id": "component:scoring_external_international",
+          "record_kind": "component",
+          "stable_id": "scoring_external_international",
+          "display_name": "External and International Review",
+          "path_pattern": "framework/standards/audits/external-review.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Ascoring_external_international"
+        },
+        {
+          "assignment_id": "component:scoring_standard",
+          "record_kind": "component",
+          "stable_id": "scoring_standard",
+          "display_name": "Scoring Standard",
+          "path_pattern": "framework/standards/audits/scoring.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Ascoring_standard"
+        },
+        {
+          "assignment_id": "component:security_incident_policy",
+          "record_kind": "component",
+          "stable_id": "security_incident_policy",
+          "display_name": "Security Incident Policy",
+          "path_pattern": "framework/project/automation/security-incidents.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Asecurity_incident_policy"
+        },
+        {
+          "assignment_id": "component:source-checker-bot",
+          "record_kind": "component",
+          "stable_id": "source-checker-bot",
+          "display_name": "Source Checker Bot",
+          "path_pattern": "scripts/check_source_urls.py",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:scripts",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Asource-checker-bot"
+        },
+        {
+          "assignment_id": "component:source_automated_adjudication",
+          "record_kind": "component",
+          "stable_id": "source_automated_adjudication",
+          "display_name": "Automated Source Adjudication",
+          "path_pattern": "framework/standards/sources/source-adjudication.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Asource_automated_adjudication"
+        },
+        {
+          "assignment_id": "component:source_catalogs",
+          "record_kind": "component",
+          "stable_id": "source_catalogs",
+          "display_name": "Source and Evidence Records",
+          "path_pattern": "framework/standards/sources/source-records.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Asource_catalogs"
+        },
+        {
+          "assignment_id": "component:source_presidential_directives",
+          "record_kind": "component",
+          "stable_id": "source_presidential_directives",
+          "display_name": "Presidential-Directive Completeness and Review",
+          "path_pattern": "framework/project/workflows/presidential-directive-review.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Asource_presidential_directives"
+        },
+        {
+          "assignment_id": "component:source_project_monitoring",
+          "record_kind": "component",
+          "stable_id": "source_project_monitoring",
+          "display_name": "Content and Project Monitoring Standard",
+          "path_pattern": "framework/standards/sources/monitoring.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Asource_project_monitoring"
+        },
+        {
+          "assignment_id": "component:task_handoff",
+          "record_kind": "component",
+          "stable_id": "task_handoff",
+          "display_name": "Current Task Handoff",
+          "path_pattern": "framework/handoffs/current-task.md",
+          "declared_mode": "inherit",
+          "effective_mode": "none",
+          "owners": [],
+          "inherited_from": "scope:repository_root",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Atask_handoff"
+        },
+        {
+          "assignment_id": "component:transaction_lifecycle",
+          "record_kind": "component",
+          "stable_id": "transaction_lifecycle",
+          "display_name": "ARRP Transaction Lifecycle and Recovery Authority",
+          "path_pattern": "framework/project/automation/transaction-lifecycle.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Atransaction_lifecycle"
+        },
+        {
+          "assignment_id": "component:transaction_lifecycle_schema",
+          "record_kind": "component",
+          "stable_id": "transaction_lifecycle_schema",
+          "display_name": "ARRP owner-local transaction lifecycle event",
+          "path_pattern": "framework/project/automation/transaction-lifecycle.schema.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Atransaction_lifecycle_schema"
+        },
+        {
+          "assignment_id": "component:transaction_recovery_package_schema",
+          "record_kind": "component",
+          "stable_id": "transaction_recovery_package_schema",
+          "display_name": "ARRP owner-local non-checkout transaction recovery package manifest",
+          "path_pattern": "framework/project/automation/transaction-recovery-package.schema.json",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Atransaction_recovery_package_schema"
+        },
+        {
+          "assignment_id": "component:visual_identity",
+          "record_kind": "component",
+          "stable_id": "visual_identity",
+          "display_name": "ARRP Tool Visual Identity",
+          "path_pattern": "framework/project/interfaces/visual-identity.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_project",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Avisual_identity"
+        },
+        {
+          "assignment_id": "component:work_tracking_standard",
+          "record_kind": "component",
+          "stable_id": "work_tracking_standard",
+          "display_name": "Work-Tracking Standard",
+          "path_pattern": "framework/standards/interfaces/work-tracking.md",
+          "declared_mode": "inherit",
+          "effective_mode": "direct",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "inherited_from": "scope:framework_standards",
+          "generated_pattern": null,
+          "generated_line": null,
+          "validation_problems": [],
+          "console_route": "automation:component-registry:codeowners?assignment=component%3Awork_tracking_standard"
+        }
+      ],
+      "generated_rows": [
+        {
+          "pattern": "/.github/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "scope:github_admin"
+        },
+        {
+          "pattern": "/participate/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "scope:participate"
+        },
+        {
+          "pattern": "/scripts/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "scope:scripts"
+        },
+        {
+          "pattern": "/tests/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "scope:tests"
+        },
+        {
+          "pattern": "/website/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "scope:website"
+        },
+        {
+          "pattern": "/framework/logs/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "scope:framework_logs"
+        },
+        {
+          "pattern": "/framework/project/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "scope:framework_project"
+        },
+        {
+          "pattern": "/framework/standards/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "scope:framework_standards"
+        },
+        {
+          "pattern": "/package-lock.json",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "scope:root_package_lock"
+        },
+        {
+          "pattern": "/package.json",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "scope:root_package_manifest"
+        },
+        {
+          "pattern": "/pyproject.toml",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "scope:root_pyproject_configuration"
+        },
+        {
+          "pattern": "/requirements-local-tools.txt",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "scope:root_requirements_local_tools"
+        },
+        {
+          "pattern": "/requirements-pages.txt",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "scope:root_requirements_pages"
+        },
+        {
+          "pattern": "/AGENTS.md",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "component:codex_bootstrap"
+        },
+        {
+          "pattern": "/framework/AGENT_OPERATING_RULES.md",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "component:agent_rules_kernel"
+        },
+        {
+          "pattern": "/framework/FRAMEWORK.md",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "component:framework_kernel"
+        },
+        {
+          "pattern": "/framework/archive/authorities/CONTEXT_ROUTING.md",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "component:context_routing"
+        },
+        {
+          "pattern": "/framework/archive/authorities/PROJECT_STRUCTURE.md",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "source_id": "component:project_structure"
+        }
+      ],
+      "checked_in_rows": [
+        {
+          "pattern": "/.github/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 2
+        },
+        {
+          "pattern": "/participate/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 3
+        },
+        {
+          "pattern": "/scripts/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 4
+        },
+        {
+          "pattern": "/tests/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 5
+        },
+        {
+          "pattern": "/website/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 6
+        },
+        {
+          "pattern": "/framework/logs/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 7
+        },
+        {
+          "pattern": "/framework/project/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 8
+        },
+        {
+          "pattern": "/framework/standards/",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 9
+        },
+        {
+          "pattern": "/package-lock.json",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 10
+        },
+        {
+          "pattern": "/package.json",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 11
+        },
+        {
+          "pattern": "/pyproject.toml",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 12
+        },
+        {
+          "pattern": "/requirements-local-tools.txt",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 13
+        },
+        {
+          "pattern": "/requirements-pages.txt",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 14
+        },
+        {
+          "pattern": "/AGENTS.md",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 15
+        },
+        {
+          "pattern": "/framework/AGENT_OPERATING_RULES.md",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 16
+        },
+        {
+          "pattern": "/framework/FRAMEWORK.md",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 17
+        },
+        {
+          "pattern": "/framework/archive/authorities/CONTEXT_ROUTING.md",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 18
+        },
+        {
+          "pattern": "/framework/archive/authorities/PROJECT_STRUCTURE.md",
+          "owners": [
+            "@Thorncrag"
+          ],
+          "line_number": 19
+        }
+      ],
+      "generated_sha256": "a2c7a27b5ac99c0a2eb116eb1e5180c4fc8666b7bbf077427e1ada7ffa149000",
+      "current_sha256": "a2c7a27b5ac99c0a2eb116eb1e5180c4fc8666b7bbf077427e1ada7ffa149000",
+      "problems": []
     }
   },
   "domain_generation": {
-    "component-registry.js": "project-console-9c83a5dca8ef7f231882"
+    "component-registry.js": "project-console-badda6a33b24f7a54f80"
   }
 });

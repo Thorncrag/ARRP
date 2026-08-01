@@ -12,7 +12,7 @@ print_exclusion_reason: "Internal operational report."
 
 - **Result:** Findings require review
 - **Errors:** 0
-- **Warnings:** 7
+- **Warnings:** 5
 - **Issue pages checked:** 64
 - **Proposal pages checked:** 41
 
@@ -20,8 +20,6 @@ print_exclusion_reason: "Internal operational report."
 
 ### GitHub records
 
-- **WARNING:** GitHub Pages deployment synchronization could not be verified.
-- **WARNING:** GitHub Issues synchronization could not be verified.
 - **WARNING:** GitHub Project synchronization could not be verified because the registered read-only access was unavailable.
 
 ### Internal links

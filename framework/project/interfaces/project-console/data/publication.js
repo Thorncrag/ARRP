@@ -7365,8 +7365,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 1897,
-      "estimated_pages": 3,
+      "word_count": 1974,
+      "estimated_pages": 4,
       "table_count": 1,
       "max_table_columns": 2,
       "heading_issue_count": 0,
@@ -8968,7 +8968,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3617,
+      "word_count": 3708,
       "estimated_pages": 6,
       "table_count": 5,
       "max_table_columns": 2,
@@ -9303,7 +9303,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/proposals-component registry stage 2 design",
       "internal_links": [],
-      "word_count": 6847,
+      "word_count": 7084,
       "estimated_pages": 11,
       "table_count": 1,
       "max_table_columns": 5,
@@ -9437,7 +9437,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 152,
+      "word_count": 135,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9460,12 +9460,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 820,
+      "word_count": 845,
       "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 72
+      "longest_unbroken_token": 67
     },
     {
       "title": "Elim Agent Runbook",
@@ -9638,7 +9638,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 5144,
+      "word_count": 5198,
       "estimated_pages": 8,
       "table_count": 1,
       "max_table_columns": 2,
@@ -10669,8 +10669,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/status/sources-source checker bot current report",
       "internal_links": [],
-      "word_count": 6231,
-      "estimated_pages": 10,
+      "word_count": 6734,
+      "estimated_pages": 11,
       "table_count": 2,
       "max_table_columns": 4,
       "heading_issue_count": 0,
@@ -18484,13 +18484,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "result": "findings",
         "counts": {
           "errors": 0,
-          "warnings": 7,
-          "findings": 7,
+          "warnings": 5,
+          "findings": 5,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "b19f8f8b73300afa98b3e49895cbd8247aa6d568",
-        "generated_at": "2026-08-01T12:19:20+00:00"
+        "revision": "7b36d42fa1da50cb111e14f4e4c1c432ad6557b5",
+        "generated_at": "2026-08-01T14:02:44+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20246,6 +20246,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-9c83a5dca8ef7f231882"
+    "publication.js": "project-console-badda6a33b24f7a54f80"
   }
 });
