@@ -809,6 +809,7 @@ ROUTING_PREDECESSOR_VERIFICATION_IDS = [
 ]
 CODEOWNERS_HEADER = "# Generated from framework/component-registry.json; do not edit manually."
 OWNER_RE = re.compile(r"^@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?$")
+STAGE2_CODEOWNERS_MODES = frozenset({"direct", "inherit", "none"})
 PATH_TOKEN_RE = re.compile(r"^\{([a-z][a-z0-9_]*)\}$")
 PUBLIC_DISCLOSURE_CLASSES = {
     "public_by_design",
@@ -1230,14 +1231,28 @@ def _validate_against_schema(
                     schema_root,
                     f"{location}.{key}",
                 )
+            matched_pattern = False
             for pattern, pattern_schema in compiled_patterns:
                 if pattern.search(key):
+                    matched_pattern = True
                     _validate_against_schema(
                         child,
                         pattern_schema,
                         schema_root,
                         f"{location}.{key}",
                     )
+            additional = schema.get("additionalProperties")
+            if (
+                child_schema is None
+                and not matched_pattern
+                and isinstance(additional, Mapping)
+            ):
+                _validate_against_schema(
+                    child,
+                    additional,
+                    schema_root,
+                    f"{location}.{key}",
+                )
     if isinstance(value, list):
         maximum = schema.get("maxItems")
         if isinstance(maximum, int) and len(value) > maximum:
@@ -3068,6 +3083,12 @@ def _codeowners_pattern_matches(path: str, pattern: str) -> bool:
 
 
 def generate_codeowners_text(registry: Mapping[str, Any]) -> str:
+    if registry.get("schema_version") == 2:
+        return stage2_codeowners_projection(
+            registry,
+            root=ROOT,
+            compare_current=False,
+        )["generated_text"]
     entries = registry["ownership_and_review"]["entries"]
     ordered = sorted(
         entries.values(),
@@ -3083,6 +3104,391 @@ def generate_codeowners_text(registry: Mapping[str, Any]) -> str:
         owners = entry["owners"]
         lines.append(f"{pattern} {' '.join(owners)}")
     return "\n".join(lines) + "\n"
+
+
+def _stage2_codeowners_setting(
+    record: Mapping[str, Any],
+    label: str,
+) -> Mapping[str, Any]:
+    controls = record.get("repository_controls")
+    if not isinstance(controls, Mapping) or set(controls) != {
+        "github_codeowners"
+    }:
+        raise RegistryError(
+            f"{label} lacks the exact repository review-routing controls"
+        )
+    setting = controls.get("github_codeowners")
+    if not isinstance(setting, Mapping):
+        raise RegistryError(f"{label} CODEOWNERS setting is invalid")
+    mode = setting.get("mode")
+    if mode not in STAGE2_CODEOWNERS_MODES:
+        raise RegistryError(f"{label} CODEOWNERS mode is invalid")
+    if mode == "direct":
+        if set(setting) != {"mode", "owners"}:
+            raise RegistryError(
+                f"{label} direct CODEOWNERS setting is not closed"
+            )
+        owners = setting.get("owners")
+        if (
+            not isinstance(owners, list)
+            or not owners
+            or len(owners) != len(set(owners))
+            or any(
+                not isinstance(owner, str)
+                or OWNER_RE.fullmatch(owner) is None
+                for owner in owners
+            )
+        ):
+            raise RegistryError(f"{label} direct CODEOWNERS owners are invalid")
+    elif set(setting) != {"mode"}:
+        raise RegistryError(
+            f"{label} {mode} CODEOWNERS setting cannot declare owners"
+        )
+    return setting
+
+
+def _stage2_codeowners_pattern_for_scope(
+    scope_id: str,
+    scope: Mapping[str, Any],
+) -> str:
+    kind = scope.get("match_kind")
+    pattern = scope.get("path_pattern")
+    if not isinstance(pattern, str):
+        raise RegistryError(f"directory scope {scope_id} has no path pattern")
+    if kind not in {"prefix", "exact_file"}:
+        raise RegistryError(
+            f"directory scope {scope_id} cannot declare a direct CODEOWNERS "
+            "rule for its match kind"
+        )
+    normalized = _normalized_repository_path(
+        pattern.rstrip("/") if kind == "prefix" else pattern,
+        f"directory scope {scope_id} CODEOWNERS pattern",
+    )
+    return f"/{normalized}{'/' if kind == 'prefix' else ''}"
+
+
+def _stage2_codeowners_pattern_for_component(
+    component_id: str,
+    component: Mapping[str, Any],
+) -> str:
+    path = _stage2_component_path(component)
+    if path is None:
+        raise RegistryError(
+            f"component {component_id} cannot declare direct CODEOWNERS "
+            "routing without a repository path"
+        )
+    return "/" + path
+
+
+def _parse_codeowners_text(value: str) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    patterns: set[str] = set()
+    for line_number, raw in enumerate(value.splitlines(), 1):
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        parts = line.split()
+        pattern, owners = parts[0], parts[1:]
+        if not pattern.startswith("/"):
+            raise RegistryError(
+                f"CODEOWNERS line {line_number} is not root anchored"
+            )
+        if pattern in patterns:
+            raise RegistryError(f"duplicate CODEOWNERS pattern {pattern}")
+        if any(OWNER_RE.fullmatch(owner) is None for owner in owners):
+            raise RegistryError(f"CODEOWNERS line {line_number} has an invalid owner")
+        patterns.add(pattern)
+        rows.append(
+            {
+                "pattern": pattern,
+                "owners": owners,
+                "line_number": line_number,
+            }
+        )
+    return rows
+
+
+def stage2_codeowners_projection(
+    registry: Mapping[str, Any],
+    *,
+    root: Path = ROOT,
+    compare_current: bool = True,
+) -> dict[str, Any]:
+    """Resolve typed Stage 2 review routing and compare its generated file."""
+
+    if registry.get("schema_version") != 2:
+        raise RegistryError("Stage 2 CODEOWNERS projection requires schema 2")
+    scope_namespace = registry.get("directory_scopes")
+    component_namespace = registry.get("components")
+    scopes = (
+        scope_namespace.get("entries")
+        if isinstance(scope_namespace, Mapping)
+        else None
+    )
+    components = (
+        component_namespace.get("entries")
+        if isinstance(component_namespace, Mapping)
+        else None
+    )
+    if not isinstance(scopes, Mapping) or not isinstance(components, Mapping):
+        raise RegistryError("Stage 2 CODEOWNERS inputs are unavailable")
+
+    resolved_scopes: dict[str, dict[str, Any]] = {}
+    resolving: set[str] = set()
+
+    def resolve_scope(scope_id: str) -> dict[str, Any]:
+        if scope_id in resolved_scopes:
+            return resolved_scopes[scope_id]
+        if scope_id in resolving:
+            raise RegistryError("CODEOWNERS directory-scope inheritance cycles")
+        scope = scopes.get(scope_id)
+        if not isinstance(scope, Mapping):
+            raise RegistryError(
+                f"CODEOWNERS inheritance references unknown scope {scope_id}"
+            )
+        resolving.add(scope_id)
+        setting = _stage2_codeowners_setting(
+            scope,
+            f"directory scope {scope_id}",
+        )
+        if setting["mode"] == "inherit":
+            ancestors = scope.get("ancestor_scope_ids")
+            if not isinstance(ancestors, list) or not ancestors:
+                raise RegistryError(
+                    f"directory scope {scope_id} cannot inherit without an ancestor"
+                )
+            ranked = []
+            for ancestor_id in ancestors:
+                ancestor = scopes.get(ancestor_id)
+                if not isinstance(ancestor_id, str) or not isinstance(
+                    ancestor, Mapping
+                ):
+                    raise RegistryError(
+                        f"directory scope {scope_id} has an unknown inheritance ancestor"
+                    )
+                rank = ancestor.get("specificity_rank")
+                if not isinstance(rank, int) or isinstance(rank, bool):
+                    raise RegistryError(
+                        f"directory scope {ancestor_id} has invalid specificity"
+                    )
+                ranked.append((rank, ancestor_id))
+            highest = max(rank for rank, _identity in ranked)
+            parents = sorted(
+                identity for rank, identity in ranked if rank == highest
+            )
+            if len(parents) != 1:
+                raise RegistryError(
+                    f"directory scope {scope_id} has ambiguous CODEOWNERS inheritance"
+                )
+            parent_id = parents[0]
+            parent = resolve_scope(parent_id)
+            result = {
+                "declared_mode": "inherit",
+                "effective_mode": parent["effective_mode"],
+                "owners": list(parent["owners"]),
+                "inherited_from": parent["effective_source_id"],
+                "effective_source_id": parent["effective_source_id"],
+            }
+        else:
+            result = {
+                "declared_mode": setting["mode"],
+                "effective_mode": setting["mode"],
+                "owners": list(setting.get("owners", [])),
+                "inherited_from": None,
+                "effective_source_id": f"scope:{scope_id}",
+            }
+        resolving.remove(scope_id)
+        resolved_scopes[scope_id] = result
+        return result
+
+    explicit: list[dict[str, Any]] = []
+    records: list[dict[str, Any]] = []
+    for scope_id, scope in sorted(scopes.items()):
+        if not isinstance(scope, Mapping):
+            raise RegistryError(f"directory scope {scope_id} is invalid")
+        result = resolve_scope(scope_id)
+        pattern = None
+        if result["declared_mode"] in {"direct", "none"} and scope.get(
+            "match_kind"
+        ) != "tree":
+            pattern = _stage2_codeowners_pattern_for_scope(scope_id, scope)
+            explicit.append(
+                {
+                    "record_id": f"scope:{scope_id}",
+                    "specificity": int(scope["specificity_rank"]),
+                    "pattern": pattern,
+                    "mode": result["declared_mode"],
+                    "owners": list(result["owners"]),
+                }
+            )
+        records.append(
+            {
+                "assignment_id": f"scope:{scope_id}",
+                "record_kind": "directory_scope",
+                "stable_id": scope_id,
+                "display_name": scope.get("display_name", scope_id),
+                "path_pattern": scope.get("path_pattern"),
+                "declared_mode": result["declared_mode"],
+                "effective_mode": result["effective_mode"],
+                "owners": list(result["owners"]),
+                "inherited_from": result["inherited_from"],
+                "generated_pattern": pattern,
+                "generated_line": None,
+                "validation_problems": [],
+            }
+        )
+
+    for component_id, component in sorted(components.items()):
+        if not isinstance(component, Mapping):
+            raise RegistryError(f"component {component_id} is invalid")
+        path = _stage2_component_path(component)
+        if path is None:
+            if "repository_controls" in component:
+                raise RegistryError(
+                    f"nonrepository component {component_id} cannot declare "
+                    "GitHub CODEOWNERS routing"
+                )
+            continue
+        setting = _stage2_codeowners_setting(
+            component,
+            f"component {component_id}",
+        )
+        pattern = None
+        inherited_from = None
+        if setting["mode"] == "inherit":
+            scope_id = select_owning_scope(path, scopes)
+            parent = resolve_scope(scope_id)
+            effective_mode = parent["effective_mode"]
+            owners = list(parent["owners"])
+            inherited_from = parent["effective_source_id"]
+        else:
+            effective_mode = setting["mode"]
+            owners = list(setting.get("owners", []))
+            pattern = _stage2_codeowners_pattern_for_component(
+                component_id,
+                component,
+            )
+            explicit.append(
+                {
+                    "record_id": f"component:{component_id}",
+                    "specificity": 1000,
+                    "pattern": pattern,
+                    "mode": setting["mode"],
+                    "owners": owners,
+                }
+            )
+        records.append(
+            {
+                "assignment_id": f"component:{component_id}",
+                "record_kind": "component",
+                "stable_id": component_id,
+                "display_name": component.get("display_name", component_id),
+                "path_pattern": path,
+                "declared_mode": setting["mode"],
+                "effective_mode": effective_mode,
+                "owners": owners,
+                "inherited_from": inherited_from,
+                "generated_pattern": pattern,
+                "generated_line": None,
+                "validation_problems": [],
+            }
+        )
+
+    ordered = sorted(
+        explicit,
+        key=lambda item: (
+            item["specificity"],
+            item["pattern"],
+            item["record_id"],
+        ),
+    )
+    generated_rows: list[dict[str, Any]] = []
+    seen_patterns: dict[str, dict[str, Any]] = {}
+    for item in ordered:
+        prior = seen_patterns.get(item["pattern"])
+        if prior is not None:
+            qualifier = (
+                "conflicting"
+                if prior["mode"] != item["mode"]
+                or prior["owners"] != item["owners"]
+                else "duplicate"
+            )
+            raise RegistryError(
+                f"{qualifier} generated CODEOWNERS pattern {item['pattern']}"
+            )
+        emit = item["mode"] == "direct"
+        if item["mode"] == "none":
+            target = item["pattern"].lstrip("/").rstrip("/")
+            if item["pattern"].endswith("/"):
+                target += "/__codeowners_scope_member__"
+            emit = any(
+                row["owners"]
+                and _codeowners_pattern_matches(target, row["pattern"])
+                for row in generated_rows
+            )
+        if emit:
+            generated_rows.append(
+                {
+                    "pattern": item["pattern"],
+                    "owners": list(item["owners"]),
+                    "source_id": item["record_id"],
+                }
+            )
+        seen_patterns[item["pattern"]] = item
+
+    lines = [CODEOWNERS_HEADER]
+    line_by_source: dict[str, str] = {}
+    for row in generated_rows:
+        line = row["pattern"]
+        if row["owners"]:
+            line += " " + " ".join(row["owners"])
+        lines.append(line)
+        line_by_source[row["source_id"]] = line
+    generated = "\n".join(lines) + "\n"
+    for record in records:
+        record["generated_line"] = line_by_source.get(record["assignment_id"])
+
+    current_text = None
+    current_rows: list[dict[str, Any]] = []
+    problems: list[dict[str, Any]] = []
+    if compare_current:
+        current_path = _contained_file(root, ".github/CODEOWNERS", "CODEOWNERS")
+        current_text = current_path.read_text(encoding="utf-8")
+        current_rows = _parse_codeowners_text(current_text)
+        if current_text != generated:
+            problems.append(
+                {
+                    "code": "checked_in_codeowners_drift",
+                    "message": (
+                        "Checked-in CODEOWNERS differs from the exact Registry "
+                        "review-routing projection."
+                    ),
+                }
+            )
+    counts = Counter(record["declared_mode"] for record in records)
+    return {
+        "available": True,
+        "complete": not problems,
+        "authoritative": False,
+        "authority_effect": "github_review_routing_only",
+        "records": records,
+        "summary": {
+            "direct": counts.get("direct", 0),
+            "inherited": counts.get("inherit", 0),
+            "none": counts.get("none", 0),
+            "problems": len(problems),
+        },
+        "generated_rows": generated_rows,
+        "checked_in_rows": current_rows,
+        "problems": problems,
+        "generated_text": generated,
+        "generated_sha256": hashlib.sha256(generated.encode("utf-8")).hexdigest(),
+        "current_sha256": (
+            hashlib.sha256(current_text.encode("utf-8")).hexdigest()
+            if current_text is not None
+            else None
+        ),
+    }
 
 
 def _validate_directory_scopes(registry: Mapping[str, Any]) -> None:
@@ -8625,6 +9031,15 @@ def _validate_stage2_semantics(
                     raise RegistryError(
                         f"component {component_id!r} source digest is stale"
                     )
+    codeowners = stage2_codeowners_projection(
+        registry,
+        root=root,
+        compare_current=verify_repository_coverage,
+    )
+    if verify_repository_coverage and codeowners["problems"]:
+        raise RegistryError(
+            "Stage 2 CODEOWNERS differs from its exact Registry projection"
+        )
     lifecycle = registry.get("component_lifecycles")
     if not isinstance(lifecycle, Mapping) or tuple(lifecycle.get("states", {})) != (
         "draft", "proposed", "adopted", "retired"
@@ -8746,6 +9161,11 @@ def validate_stage2_registry(
             "uncovered": registry["repository_coverage"]["uncovered_count"],
             "multiply_treated": registry["repository_coverage"]["multiply_treated_count"],
         },
+        "codeowners": stage2_codeowners_projection(
+            registry,
+            root=root,
+            compare_current=verify_repository_coverage,
+        )["summary"],
     }
 
 

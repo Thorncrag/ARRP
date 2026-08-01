@@ -14,16 +14,16 @@ This file is the first place to check when an ARRP audit, source-development pas
 | Field | Entry |
 | --- | --- |
 | Handoff state | Paused |
-| Active issue/task | Component Registry Stage 2 authority/currentness correction and closeout |
+| Active issue/task | Component Registry Stage 2 CODEOWNERS routing amendment and closeout |
 | Audit type/tier | Design-locked implementation |
 | Started | 2026-08-01 07:31:18 -0400 |
-| Last checkpoint | 2026-08-01 08:01:45 -0400 |
-| User request | Implement the approved stable-authority/currentness separation and complete Stage 2 closeout under `COMPONENT-REGISTRY-2026-002-AUTHORITY-CURRENTNESS-SEPARATION-CLOSEOUT`. |
-| Scope | Registry authority-digest model; schema, validator, loader, finalizer, and tests; currentness refresh; public Console and Integrity evidence; one reviewed correction pull request; one immutable owner-local authority-v1 receipt. |
-| Files touched | Component Registry, schema, validator, finalizer, routing consumers, focused tests, adopted Stage 2 design, Console projection contract, and this handoff; terminal currentness and generated evidence remain pending. |
-| Completed steps | Exact design locks and MAJOR reviews complete; stable authority-digest model, strict parser, currentness separation, authority-v1 verifier/finalizer, governed-eligibility envelopes, routing-consumer reconciliation, adopted-design correction, and focused regressions implemented; 121 integrated Python tests, 14 new authority tests, 90 automation/review tests, 40 context tests, and 67 frontend tests are green. |
-| Next step | Current implementation task resumes with the single Stage 2 currentness refresh, terminal validation and generated evidence, reviewed correction PR and merge, canonical synchronization, authority-v1 receipt issuance/readback, then the separately authorized handoff-only Inactive closeout PR. |
-| Blockers/questions | Resumer: current implementation task. Resume condition: continue the approved correction transaction from the source/currentness commit through generated evidence, reviewed merge, receipt verification, and the handoff-only closeout PR. |
+| Last checkpoint | 2026-08-01 09:47:56 -0400 |
+| User request | Implement approved Registry-governed CODEOWNERS routing, remove effective GitHub code ownership from the Registry file while preserving Benjamin's authorization rule, add the read-only Console interface, and complete Stage 2 closeout under `COMPONENT-REGISTRY-2026-002-CODEOWNERS-ROUTING-CONSOLE-AMENDMENT`. |
+| Scope | Typed direct/inherit/none review routing; deterministic CODEOWNERS generation and validation; governance-rule reconciliation; Registry authority generation 2; read-only Console CODEOWNERS screen; currentness, Integrity, disclosure, PR, receipt, and handoff closeout. |
+| Files touched | Component Registry, schema, validator/generator, generated CODEOWNERS configuration, Framework and operating/GitHub rules, adopted Stage 2 design, Console builder/interface/tests, focused Registry tests, and this handoff; terminal currentness and generated evidence remain pending. |
+| Completed steps | Exact design lock and preflight passed; all prior effective CODEOWNERS mappings were migrated with the Registry file as the sole approved semantic change; typed schema/validator/generator, authority generation 2, governance wording, read-only Console screen, and focused regressions are implemented; exact semantic comparison and 68 frontend tests are green. |
+| Next step | Freeze tracked source writers, refresh Stage 2 currentness, validate and commit the semantic amendment, regenerate repository-validation Integrity and public Console evidence once from that exact commit, run the required suites and disclosure gate, push the exact PR #502 successor head, and stop for Benjamin's exact-head approval before merge. |
+| Blockers/questions | None. The next human-reserved boundary is Benjamin's exact PR-head approval after checks succeed. |
 | Validation status | In progress. |
 
 ## Handoff Rules

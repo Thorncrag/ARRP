@@ -753,6 +753,7 @@
                 <button type="button" id="component-registry-mode-relationships" role="tab" aria-selected="false" aria-controls="component-registry-panel-relationships" data-registry-mode="relationships" tabindex="-1">Relationships <span class="tab-count" id="component-registry-relationships-count"></span></button>
                 <button type="button" id="component-registry-mode-coverage" role="tab" aria-selected="false" aria-controls="component-registry-panel-coverage" data-registry-mode="coverage" tabindex="-1">Coverage <span class="tab-count" id="component-registry-coverage-count"></span></button>
                 <button type="button" id="component-registry-mode-routing" role="tab" aria-selected="false" aria-controls="component-registry-panel-routing" data-registry-mode="routing" tabindex="-1">Routing <span class="tab-count" id="component-registry-routing-count"></span></button>
+                <button type="button" id="component-registry-mode-codeowners" role="tab" aria-selected="false" aria-controls="component-registry-panel-codeowners" data-registry-mode="codeowners" tabindex="-1">CODEOWNERS <span class="tab-count" id="component-registry-codeowners-count"></span></button>
                 <button type="button" id="component-registry-mode-terminology" role="tab" aria-selected="false" aria-controls="component-registry-panel-terminology" data-registry-mode="terminology" tabindex="-1">Terminology <span class="tab-count" id="component-registry-terminology-count" hidden></span></button>
               </div>
             </nav>
@@ -822,6 +823,21 @@
               <div class="email-workspace component-registry-workspace">
                 <div id="component-registry-routing-list" class="email-list component-registry-list" role="listbox" aria-label="Routing selections and rules"></div>
                 <article id="component-registry-routing-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
+              </div>
+            </div>
+            <div id="component-registry-panel-codeowners" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-codeowners" hidden>
+              <p id="component-registry-codeowners-notice" class="method-note console-message console-message-info component-registry-codeowners-notice">CODEOWNERS controls GitHub review routing only. It does not create project authority or replace Benjamin's recorded authorization.</p>
+              <div id="component-registry-codeowners-portals" class="component-registry-state-portals" aria-label="CODEOWNERS resolution counts"></div>
+              <div class="queue-controls component-registry-controls" aria-label="CODEOWNERS assignment filters">
+                <label for="component-registry-codeowners-search">Search<input id="component-registry-codeowners-search" type="search" placeholder="Path, component, scope, owner, or assignment…"></label>
+                <label for="component-registry-codeowners-mode">Resolution<select id="component-registry-codeowners-mode"><option value="">All modes</option><option value="direct">Direct</option><option value="inherited">Inherited</option><option value="none">None</option><option value="problem">Problem</option></select></label>
+                <label for="component-registry-codeowners-kind">Kind<select id="component-registry-codeowners-kind"><option value="">All kinds</option><option value="component">Component</option><option value="directory_scope">Directory scope</option></select></label>
+                <label for="component-registry-codeowners-owner">Owner<select id="component-registry-codeowners-owner"><option value="">All owners</option></select></label>
+              </div>
+              <p id="component-registry-codeowners-results" class="result-count" aria-live="polite"></p>
+              <div class="email-workspace component-registry-workspace">
+                <div id="component-registry-codeowners-list" class="email-list component-registry-list" role="listbox" aria-label="Resolved CODEOWNERS assignments"></div>
+                <article id="component-registry-codeowners-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
               </div>
             </div>
             <div id="component-registry-panel-terminology" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-terminology" hidden>

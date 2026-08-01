@@ -98,11 +98,16 @@ All ordinary authorized tracked work uses one nightly pull request and
 `merge_method=merge`. The broker verifies the exact remote head and base,
 requires `ARRP Validation`, CodeQL, and every reported completed check, then
 merges only with the expected head SHA and reads back the merge parents.
-Any CODEOWNERS, governing, runtime, technical, security, configuration,
-dependency, schema, test, deployment, interface, new-file-class, or
-human-reserved change protects the complete pull request and requires
-Benjamin's code-owner approval. `.github/workflows/**` is never App-pushed;
-Benjamin reviews and publishes workflow changes with his own credential.
+GitHub review routing is generated from the Component Registry's explicit
+`repository_controls.github_codeowners` settings. `.github/CODEOWNERS` is
+nonauthoritative GitHub configuration: it requests or requires review where
+the Registry assigns it, but it does not create project authority or prove a
+separately reserved owner decision. Benjamin's explicit Codex or ChatGPT
+approval of an exact bounded implementation plan is sufficient recorded owner
+authorization for that scope, and its mechanical implementation needs no
+second GitHub approval. Material or out-of-scope changes require new recorded
+authorization. `.github/workflows/**` is never App-pushed; Benjamin reviews
+and publishes workflow changes with his own credential.
 
 Elim may return only a typed request. The broker independently requires a
 registered operation, this repository, an exact source revision and prior

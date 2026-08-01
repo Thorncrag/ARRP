@@ -1190,6 +1190,7 @@ class ConsoleDataContractTests(unittest.TestCase):
             "relationships",
             "coverage",
             "routing",
+            "codeowners",
             "terminology",
         ):
             self.assertIn(f'                "{mode}",', source)
@@ -1239,6 +1240,7 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "relationships",
                 "coverage",
                 "routing",
+                "codeowners",
                 "terminology",
             },
         )
@@ -1260,10 +1262,32 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertEqual(len(snapshot["lifecycles"]["assignments"]), 103)
         self.assertEqual(len(snapshot["authorities"]["assignments"]), 103)
         self.assertEqual(len(snapshot["relationships"]), 15)
-        self.assertEqual(len(snapshot["coverage"]["records"]), 57)
+        self.assertEqual(len(snapshot["coverage"]["records"]), 62)
         self.assertEqual(snapshot["coverage"]["uncovered_count"], 0)
         self.assertEqual(snapshot["coverage"]["multiply_treated_count"], 0)
         self.assertEqual(len(snapshot["routing"]["selections"]), 27)
+        self.assertTrue(snapshot["codeowners"]["available"])
+        self.assertTrue(snapshot["codeowners"]["complete"])
+        self.assertFalse(snapshot["codeowners"]["authoritative"])
+        self.assertEqual(
+            snapshot["codeowners"]["authority_effect"],
+            "github_review_routing_only",
+        )
+        self.assertEqual(snapshot["codeowners"]["summary"]["problems"], 0)
+        self.assertEqual(
+            snapshot["codeowners"]["generated_sha256"],
+            snapshot["codeowners"]["current_sha256"],
+        )
+        self.assertEqual(len(snapshot["codeowners"]["records"]), 163)
+        registry_routing = next(
+            record
+            for record in snapshot["codeowners"]["records"]
+            if record["assignment_id"] == "component:COMPONENT-REGISTRY"
+        )
+        self.assertEqual(registry_routing["declared_mode"], "none")
+        self.assertEqual(registry_routing["effective_mode"], "none")
+        self.assertEqual(registry_routing["owners"], [])
+        self.assertIsNone(registry_routing["generated_line"])
         self.assertTrue(snapshot["terminology"]["adopted"])
         self.assertEqual(len(snapshot["terminology"]["entries"]), 69)
         self.assertEqual(
@@ -1280,6 +1304,7 @@ class ConsoleDataContractTests(unittest.TestCase):
                     snapshot["coverage"]["records"],
                     snapshot["routing"]["components"],
                     snapshot["routing"]["selections"],
+                    snapshot["codeowners"]["records"],
                     snapshot["terminology"]["entries"],
                 )
             ),

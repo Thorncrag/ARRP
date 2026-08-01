@@ -710,7 +710,7 @@ function stage2ComponentRegistryFixture() {
     reason_code: null,
     routes: Object.fromEntries([
       "components", "lifecycles", "authority", "relationships",
-      "coverage", "routing", "terminology"
+      "coverage", "routing", "codeowners", "terminology"
     ].map((mode) => [mode, `automation:component-registry:${mode}`])),
     defaults: {
       mode: "components",
@@ -720,6 +720,7 @@ function stage2ComponentRegistryFixture() {
       relationship: "framework_validated_by_test",
       coverage: "framework",
       routing: "profile:compact",
+      codeowners: "component:framework_kernel",
       terminology: "namespace"
     },
     registry: {
@@ -809,6 +810,41 @@ function stage2ComponentRegistryFixture() {
         details: { components: ["framework_kernel"] },
         console_route: "automation:component-registry:routing?selection=profile%3Acompact"
       }]
+    },
+    codeowners: {
+      available: true,
+      complete: true,
+      authoritative: false,
+      authority_effect: "github_review_routing_only",
+      summary: { direct: 1, inherited: 0, none: 0, problems: 0 },
+      records: [{
+        assignment_id: "component:framework_kernel",
+        record_kind: "component",
+        stable_id: "framework_kernel",
+        display_name: "Framework kernel",
+        path_pattern: "framework/FRAMEWORK.md",
+        declared_mode: "direct",
+        effective_mode: "direct",
+        owners: ["@Thorncrag"],
+        inherited_from: null,
+        generated_pattern: "/framework/FRAMEWORK.md",
+        generated_line: "/framework/FRAMEWORK.md @Thorncrag",
+        validation_problems: [],
+        console_route: "automation:component-registry:codeowners?assignment=component%3Aframework_kernel"
+      }],
+      generated_rows: [{
+        source_id: "component:framework_kernel",
+        pattern: "/framework/FRAMEWORK.md",
+        owners: ["@Thorncrag"]
+      }],
+      checked_in_rows: [{
+        line_number: 2,
+        pattern: "/framework/FRAMEWORK.md",
+        owners: ["@Thorncrag"]
+      }],
+      generated_sha256: "6".repeat(64),
+      current_sha256: "6".repeat(64),
+      problems: []
     },
     terminology: {
       available: true,
@@ -1249,6 +1285,7 @@ test("Component Registry uses only the generated validated projection", () => {
   assert.match(module, /snapshot\.lifecycles\.assignments/);
   assert.match(module, /snapshot\.authorities\.assignments/);
   assert.match(module, /snapshot\.coverage\.records/);
+  assert.match(module, /snapshot\.codeowners\.records/);
   assert.doesNotMatch(module, /component-registry-stage2-terminology-working-draft\.md/);
   assert.doesNotMatch(module, /global\.fetch\(/);
   assert.match(module, /email-list-row component-registry-list-row/);
@@ -1287,19 +1324,51 @@ test("Component Registry terminology comes only from the adopted Registry projec
   assert.doesNotMatch(html, /component-registry-terminology-working-draft/);
 });
 
+test("Component Registry CODEOWNERS view is typed, searchable, and read-only", () => {
+  const { componentRegistryApi } = loadApi();
+  const snapshot = stage2ComponentRegistryFixture();
+  assert.equal(componentRegistryApi.validSnapshot(snapshot), true);
+  assert.deepEqual(
+    componentRegistryApi.routeState(
+      "automation:component-registry:codeowners?assignment=component%3Aframework_kernel",
+      snapshot
+    ),
+    { mode: "codeowners", selected: "component:framework_kernel" }
+  );
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    codeowners: { ...snapshot.codeowners, authoritative: true }
+  }), false);
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...snapshot,
+    codeowners: {
+      ...snapshot.codeowners,
+      current_sha256: "7".repeat(64),
+      problems: [{ code: "checked_in_codeowners_drift" }]
+    }
+  }), false);
+  const html = fs.readFileSync(entrypointPath, "utf8");
+  assert.match(html, /id="component-registry-codeowners-search" type="search"/);
+  assert.match(html, /id="component-registry-codeowners-mode"/);
+  assert.match(html, /id="component-registry-codeowners-kind"/);
+  assert.match(html, /id="component-registry-codeowners-owner"/);
+  assert.match(html, /CODEOWNERS controls GitHub review routing only/);
+  assert.doesNotMatch(html, /component-registry-codeowners[^\n]*contenteditable/);
+});
+
 test("Component Registry is an Operations subtab after Data and before Logs", () => {
   const html = fs.readFileSync(entrypointPath, "utf8");
   const dataIndex = html.indexOf('id="automation-tab-data"');
   const registryIndex = html.indexOf('id="automation-tab-component-registry"');
   const logsIndex = html.indexOf('id="automation-tab-logs"');
   assert.ok(dataIndex >= 0 && dataIndex < registryIndex && registryIndex < logsIndex);
-  ["components", "lifecycles", "authority", "relationships", "coverage", "routing", "terminology"].forEach((mode) => {
+  ["components", "lifecycles", "authority", "relationships", "coverage", "routing", "codeowners", "terminology"].forEach((mode) => {
     assert.match(html, new RegExp(`id="component-registry-mode-${mode}"`));
     assert.match(html, new RegExp(`id="component-registry-panel-${mode}"`));
     assert.match(html, new RegExp(`id="component-registry-${mode}-count"`));
   });
-  assert.equal((html.match(/class="email-workspace component-registry-workspace"/g) || []).length, 7);
-  assert.equal((html.match(/class="email-list component-registry-list"/g) || []).length, 7);
+  assert.equal((html.match(/class="email-workspace component-registry-workspace"/g) || []).length, 8);
+  assert.equal((html.match(/class="email-list component-registry-list"/g) || []).length, 8);
   assert.match(html, /Validated, nonauthoritative Registry view/);
   assert.doesNotMatch(
     html.slice(

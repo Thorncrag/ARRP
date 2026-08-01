@@ -755,6 +755,32 @@ The current `authority_role` field is removed. Its former values are assigned
 to their actual dimensions: authority, component class, lifecycle, evidence,
 relationship, or retention.
 
+### Repository review routing
+
+GitHub CODEOWNERS review routing is governed separately from authority. Every
+repository-backed component and governed directory scope records one explicit
+`repository_controls.github_codeowners` mode:
+
+- `direct` assigns an exact nonempty owner list;
+- `inherit` resolves through the unique nearest governed ancestor; and
+- `none` resolves to no GitHub code owner.
+
+Every governed repository path resolves to exactly one effective result by
+deterministic most-specific precedence. The generator emits direct rules,
+omits redundant inherited rules, and emits an ownerless override when GitHub's
+last-matching-pattern behavior requires one to enforce `none`. Missing,
+ambiguous, cyclic, duplicate, conflicting, or unexplained routing fails
+validation. Ownership, authority, class, path, and filename never imply a
+CODEOWNERS assignment.
+
+The Component Registry itself uses `none`. Its revision still requires
+Benjamin's recorded authorization, which may be supplied by explicit Codex or
+ChatGPT approval of the exact change or bounded implementation plan. Work
+already inside that approval does not require a second GitHub approval;
+material or out-of-scope change requires new authorization. The generated
+`.github/CODEOWNERS` file is nonauthoritative configuration and never creates
+or substitutes for project authority.
+
 ### Retention
 
 The overloaded `retention_posture` field is replaced by structured retention.
@@ -903,6 +929,17 @@ Operations > Component Registry > Authority includes:
 - effective and termination conditions;
 - exact design-contract bindings; and
 - the authority chain applicable to each component.
+
+Operations > Component Registry > CODEOWNERS includes:
+
+- direct, inherited, none, and validation-problem counts;
+- searchable component and directory-scope assignments;
+- declared and effective modes, owners, inheritance, and generated patterns;
+- selected-assignment detail; and
+- an exact expected-versus-checked-in `.github/CODEOWNERS` comparison.
+
+This interface is read-only and explicitly describes CODEOWNERS as GitHub
+review routing rather than project authority.
 
 The Console never exposes private authorization or design-contract payloads;
 it displays only the public-safe identities, scopes, and bindings supplied by

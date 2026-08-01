@@ -51,7 +51,7 @@
       "$ref": "#/$defs/implementationEnums"
     },
     "directory_scopes": {
-      "$ref": "#/$defs/entriesNamespace"
+      "$ref": "#/$defs/directoryScopeNamespace"
     },
     "components": {
       "$ref": "#/$defs/componentNamespace"
@@ -199,6 +199,87 @@
                   }
                 },
                 "additionalProperties": false
+              },
+              "repository_controls": {
+                "$ref": "#/$defs/repositoryControls"
+              }
+            }
+          }
+        }
+      }
+    },
+    "repositoryControls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "github_codeowners"
+      ],
+      "properties": {
+        "github_codeowners": {
+          "oneOf": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "mode",
+                "owners"
+              ],
+              "properties": {
+                "mode": {
+                  "const": "direct"
+                },
+                "owners": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "pattern": "^@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?$"
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "mode"
+              ],
+              "properties": {
+                "mode": {
+                  "enum": [
+                    "inherit",
+                    "none"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "directoryScopeNamespace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "entries"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": 2
+        },
+        "entries": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "required": [
+              "repository_controls"
+            ],
+            "properties": {
+              "repository_controls": {
+                "$ref": "#/$defs/repositoryControls"
               }
             }
           }
@@ -921,7 +1002,14 @@
       "type": "object",
       "minProperties": 1,
       "additionalProperties": {
-        "$ref": "#/$defs/enumDefinitions"
+        "$ref": "#/$defs/possiblyEmptyEnumDefinitions"
+      }
+    },
+    "possiblyEmptyEnumDefinitions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
       }
     }
   }
