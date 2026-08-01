@@ -792,6 +792,37 @@ class GitHubIssueLinkTests(unittest.TestCase):
                     )
                 )
 
+        stage2_expected = [
+            "framework/FRAMEWORK.md",
+            "framework/handoffs/current-task.md",
+        ]
+        stage2_declared = [
+            "framework/FRAMEWORK.md",
+            registry_path,
+            "framework/handoffs/current-task.md",
+        ]
+        self.assertTrue(
+            consistency.context_registry_dependencies_match(
+                stage2_declared,
+                stage2_expected,
+                validation_mode="proposed_revision_validation",
+                predecessor_paths=predecessor_paths,
+            )
+        )
+        for invalid in (
+            [registry_path, registry_path, *stage2_expected],
+            [registry_path, *reversed(stage2_expected)],
+            [*stage2_expected, "framework/PROJECT_STRUCTURE.md"],
+        ):
+            self.assertFalse(
+                consistency.context_registry_dependencies_match(
+                    invalid,
+                    stage2_expected,
+                    validation_mode="proposed_revision_validation",
+                    predecessor_paths=predecessor_paths,
+                )
+            )
+
     def test_context_registry_rejects_standard_dependency_on_project_layer(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

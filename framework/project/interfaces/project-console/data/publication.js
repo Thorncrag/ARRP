@@ -7269,7 +7269,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/project/automation/registry.md",
+          "path": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
           "exists": true
         },
         {
@@ -7369,7 +7369,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/project/automation/registry.md",
+          "path": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
           "exists": true
         }
       ],
@@ -7382,14 +7382,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     {
       "title": "ARRP Agent and Bot Registry",
-      "path": "framework/project/automation/registry.md",
+      "path": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
       "section": "Framework and process",
       "print_levels": [],
       "print_level_labels": [],
       "print_status": "excluded",
       "print_exclusion_reason": "Internal automation configuration.",
       "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/registry.md",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/archive/authorities/AGENT_BOT_REGISTRY.md",
       "document_type": "technical",
       "print_metadata_present": true,
       "invalid_print_levels": [],
@@ -9603,7 +9603,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/project/automation/registry.md",
+          "path": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
           "exists": true
         },
         {

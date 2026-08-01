@@ -3504,7 +3504,15 @@ def context_registry_dependencies_match(
             if dependency in predecessor_paths
         ]
         if not predecessor_indexes:
-            return False
+            if predecessor_paths.intersection(declared):
+                return False
+            if declared.count(COMPONENT_REGISTRY_DEPENDENCY_PATH) != 1:
+                return False
+            return [
+                dependency
+                for dependency in declared
+                if dependency != COMPONENT_REGISTRY_DEPENDENCY_PATH
+            ] == expected
         first = predecessor_indexes[0]
         last = predecessor_indexes[-1]
         if predecessor_indexes != list(range(first, last + 1)):
