@@ -4883,6 +4883,45 @@ def payload_count(value: object) -> int:
     return 0
 
 
+def component_registry_projection_count(snapshot: dict[str, object]) -> int:
+    """Count complete projected records for either Registry schema generation."""
+
+    if snapshot.get("schema_version") == 2:
+        lifecycles = snapshot.get("lifecycles")
+        authorities = snapshot.get("authorities")
+        coverage = snapshot.get("coverage")
+        routing = snapshot.get("routing")
+        terminology = snapshot.get("terminology")
+        if not all(
+            isinstance(value, dict)
+            for value in (lifecycles, authorities, coverage, routing, terminology)
+        ):
+            raise RuntimeError("Component Registry Stage 2 projection is incomplete.")
+        collections = (
+            snapshot.get("components"),
+            lifecycles.get("assignments"),
+            authorities.get("sources"),
+            authorities.get("assignments"),
+            authorities.get("history"),
+            snapshot.get("relationships"),
+            coverage.get("records"),
+            routing.get("components"),
+            routing.get("selections"),
+            terminology.get("entries"),
+        )
+        if any(not isinstance(value, list) for value in collections):
+            raise RuntimeError("Component Registry Stage 2 record set is incomplete.")
+        return sum(len(value) for value in collections)
+
+    return (
+        len(snapshot["documents"])
+        + len(snapshot["directories"])
+        + len(snapshot["routing"]["selections"])
+        + len(snapshot["routing"]["rules"])
+        + len(snapshot["relationships"])
+    )
+
+
 def atomic_write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temporary_name = tempfile.mkstemp(
@@ -11551,11 +11590,7 @@ def main() -> None:
         + sum(len(log.get("entries") or []) for log in public_project_logs)
         + len(review_recommendations)
         + len(delivery_items)
-        + len(component_registry_snapshot["documents"])
-        + len(component_registry_snapshot["directories"])
-        + len(component_registry_snapshot["routing"]["selections"])
-        + len(component_registry_snapshot["routing"]["rules"])
-        + len(component_registry_snapshot["relationships"])
+        + component_registry_projection_count(component_registry_snapshot)
     )
     pagination_sources: list[dict[str, object]] = [
         {

@@ -1261,6 +1261,24 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertEqual(len(snapshot["routing"]["selections"]), 27)
         self.assertTrue(snapshot["terminology"]["adopted"])
         self.assertEqual(len(snapshot["terminology"]["entries"]), 69)
+        self.assertEqual(
+            MODULE.component_registry_projection_count(snapshot),
+            sum(
+                len(records)
+                for records in (
+                    snapshot["components"],
+                    snapshot["lifecycles"]["assignments"],
+                    snapshot["authorities"]["sources"],
+                    snapshot["authorities"]["assignments"],
+                    snapshot["authorities"]["history"],
+                    snapshot["relationships"],
+                    snapshot["coverage"]["records"],
+                    snapshot["routing"]["components"],
+                    snapshot["routing"]["selections"],
+                    snapshot["terminology"]["entries"],
+                )
+            ),
+        )
         for component in snapshot["components"]:
             self.assertIn("classification", component)
             self.assertIn("canonical_source", component)
@@ -1272,14 +1290,25 @@ class ConsoleDataContractTests(unittest.TestCase):
             self.assertIn("relationship_records", component)
             self.assertIn("migration_records", component)
             self.assertIn("provenance_records", component)
-        serialized = json.dumps(snapshot, sort_keys=True)
-        self.assertNotIn(
-            "component-registry-stage2-terminology-working-draft.md",
-            serialized,
+        proposal = next(
+            component
+            for component in snapshot["components"]
+            if component["stable_id"]
+            == "component_registry_stage2_design_proposal"
         )
-        self.assertNotIn(
+        self.assertEqual(
+            proposal["canonical_source"]["locator"]["value"],
             "framework/proposals/component-registry-stage2-design.md",
-            serialized,
+        )
+        self.assertTrue(
+            any(
+                migration.get("source_path")
+                == "research/component-registry-stage2-terminology-working-draft.md"
+                and migration.get("target_path")
+                == "framework/proposals/component-registry-stage2-design.md"
+                and migration.get("historical_only") is True
+                for migration in proposal["migration_records"]
+            )
         )
 
     def _legacy_stage1_active_projection(self):
