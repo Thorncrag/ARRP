@@ -113,6 +113,35 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
                 schema,
             )
 
+    def test_only_exact_failed_generation2_receipt_may_retain_duplicates(self):
+        duplicated = [
+            {"context": "ARRP Validation", "app_id": 15368},
+            {"context": "ARRP Validation", "app_id": 15368},
+            {"context": "CodeQL", "app_id": 57789},
+            {"context": "CodeQL", "app_id": 57789},
+        ]
+        readback = {
+            "generation": 2,
+            "authority_sha256": (
+                registry.STAGE2_GENERATION2_FAILED_RECEIPT_AUTHORITY_SHA256
+            ),
+            "original_adoption_evidence": {
+                "required_checks": copy.deepcopy(duplicated),
+            },
+            "correction_evidence": {
+                "required_checks": copy.deepcopy(duplicated),
+            },
+        }
+        registry._validate_stage2_authority_check_identities(readback)
+        current = copy.deepcopy(readback)
+        current["generation"] = 3
+        with self.assertRaisesRegex(registry.RegistryError, "duplicated"):
+            registry._validate_stage2_authority_check_identities(current)
+        different = copy.deepcopy(readback)
+        different["authority_sha256"] = "f" * 64
+        with self.assertRaisesRegex(registry.RegistryError, "duplicated"):
+            registry._validate_stage2_authority_check_identities(different)
+
     def test_authority_digest_has_fixed_cross_implementation_vector(self):
         vector = {
             "authority_digest_model": (
