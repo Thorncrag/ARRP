@@ -447,6 +447,45 @@ def _collect_effective_main_rules() -> dict[str, Any]:
     }
 
 
+def _collect_classic_main_protection() -> dict[str, Any]:
+    """Return the closed rule posture supplied by classic branch protection."""
+
+    protection = _run_json(
+        "gh",
+        "api",
+        "repos/Thorncrag/ARRP/branches/main/protection",
+    )
+    if not isinstance(protection, Mapping):
+        raise ActivationFinalizationError(
+            "classic main branch protection is unavailable"
+        )
+    rule_types: set[str] = set()
+    if isinstance(protection.get("required_status_checks"), Mapping):
+        rule_types.add("required_status_checks")
+    if isinstance(protection.get("required_pull_request_reviews"), Mapping):
+        rule_types.add("pull_request")
+    allow_force_pushes = protection.get("allow_force_pushes")
+    allow_deletions = protection.get("allow_deletions")
+    enforce_admins = protection.get("enforce_admins")
+    if not all(
+        isinstance(value, Mapping)
+        and isinstance(value.get("enabled"), bool)
+        for value in (allow_force_pushes, allow_deletions, enforce_admins)
+    ):
+        raise ActivationFinalizationError(
+            "classic main branch protection posture is incomplete"
+        )
+    if allow_force_pushes["enabled"] is False:
+        rule_types.add("non_fast_forward")
+    if allow_deletions["enabled"] is False:
+        rule_types.add("deletion")
+    return {
+        "rule_types": sorted(rule_types),
+        "bypass_permitted": enforce_admins["enabled"] is False,
+        "complete": True,
+    }
+
+
 def _merge_evidence(
     repository: Path,
     pull_request: Mapping[str, Any],
@@ -2340,9 +2379,10 @@ def verify_stage2_authority_v1_online_eligibility(
             reviewed_head=str(merge["reviewed_head"]),
         )
     present_rules = _collect_effective_main_rules()
+    classic_protection = _collect_classic_main_protection()
     present_rule_types = {
         item.get("type") for item in present_rules["effective_rules"]
-    }
+    } | set(classic_protection["rule_types"])
     if (
         not {
             "deletion",
@@ -2351,6 +2391,7 @@ def verify_stage2_authority_v1_online_eligibility(
             "required_status_checks",
         }
         <= present_rule_types
+        or classic_protection["bypass_permitted"] is True
         or any(
             detail.get("bypass_actors")
             for detail in present_rules["rulesets"]
