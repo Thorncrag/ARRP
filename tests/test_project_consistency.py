@@ -146,9 +146,14 @@ class GitHubIssueLinkTests(unittest.TestCase):
         "registry_revision",
         "registry_sha256",
         "configuration_valid",
-        "live_authority_verified",
         "authoritative",
         "executable",
+        "authority_effective",
+        "source_revision_authorized",
+        "source_bytes_current",
+        "canonical_history_confirmed",
+        "receipt_trusted",
+        "runtime_live",
         "predecessor_route_consulted",
         "activation_receipt_consulted",
     }
@@ -273,21 +278,36 @@ class GitHubIssueLinkTests(unittest.TestCase):
             "proposed_revision_validation": {
                 "authoritative": False,
                 "executable": False,
-                "live_authority_verified": False,
+                "authority_effective": False,
+                "source_revision_authorized": False,
+                "source_bytes_current": False,
+                "canonical_history_confirmed": False,
+                "receipt_trusted": False,
+                "runtime_live": "not_checked",
                 "activation_receipt_consulted": False,
                 "predecessor_route_consulted": False,
             },
             "adopted_configuration_validation": {
                 "authoritative": False,
                 "executable": False,
-                "live_authority_verified": False,
+                "authority_effective": False,
+                "source_revision_authorized": False,
+                "source_bytes_current": False,
+                "canonical_history_confirmed": False,
+                "receipt_trusted": False,
+                "runtime_live": "not_checked",
                 "activation_receipt_consulted": False,
                 "predecessor_route_consulted": False,
             },
-            "live_authority_validation": {
+            "online_governed_eligibility": {
                 "authoritative": True,
-                "executable": True,
-                "live_authority_verified": True,
+                "executable": False,
+                "authority_effective": True,
+                "source_revision_authorized": True,
+                "source_bytes_current": True,
+                "canonical_history_confirmed": True,
+                "receipt_trusted": True,
+                "runtime_live": "not_checked",
                 "activation_receipt_consulted": True,
                 "predecessor_route_consulted": False,
             },
@@ -958,7 +978,12 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 self.assertEqual(envelope["validation_mode"], mode)
                 self.assertFalse(envelope["authoritative"])
                 self.assertFalse(envelope["executable"])
-                self.assertFalse(envelope["live_authority_verified"])
+                self.assertFalse(envelope["authority_effective"])
+                self.assertFalse(envelope["source_revision_authorized"])
+                self.assertFalse(envelope["source_bytes_current"])
+                self.assertFalse(envelope["canonical_history_confirmed"])
+                self.assertFalse(envelope["receipt_trusted"])
+                self.assertEqual(envelope["runtime_live"], "not_checked")
                 self.assertFalse(envelope["activation_receipt_consulted"])
 
     def test_context_registry_production_uses_only_fixed_runtime_loader(self):
@@ -967,7 +992,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             route = self.context_registry_fixture(root)
             view = self.context_registry_view(
                 route,
-                mode="live_authority_validation",
+                mode="online_governed_eligibility",
             )
             authority = SimpleNamespace(mode="production_transaction")
             failures: list[str] = []
@@ -1010,11 +1035,16 @@ class GitHubIssueLinkTests(unittest.TestCase):
             self.assertTrue(envelope["configuration_valid"])
             self.assertEqual(
                 envelope["validation_mode"],
-                "live_authority_validation",
+                "online_governed_eligibility",
             )
             self.assertTrue(envelope["authoritative"])
-            self.assertTrue(envelope["executable"])
-            self.assertTrue(envelope["live_authority_verified"])
+            self.assertFalse(envelope["executable"])
+            self.assertTrue(envelope["authority_effective"])
+            self.assertTrue(envelope["source_revision_authorized"])
+            self.assertTrue(envelope["source_bytes_current"])
+            self.assertTrue(envelope["canonical_history_confirmed"])
+            self.assertTrue(envelope["receipt_trusted"])
+            self.assertEqual(envelope["runtime_live"], "not_checked")
             self.assertTrue(envelope["activation_receipt_consulted"])
 
     def test_context_registry_active_mode_checks_current_markdown_without_opening_predecessors(
@@ -1145,9 +1175,14 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 "registry_revision": None,
                 "registry_sha256": None,
                 "configuration_valid": False,
-                "live_authority_verified": False,
                 "authoritative": False,
                 "executable": False,
+                "authority_effective": False,
+                "source_revision_authorized": False,
+                "source_bytes_current": False,
+                "canonical_history_confirmed": False,
+                "receipt_trusted": False,
+                "runtime_live": "not_checked",
                 "predecessor_route_consulted": False,
                 "activation_receipt_consulted": False,
             },
@@ -1183,13 +1218,62 @@ class GitHubIssueLinkTests(unittest.TestCase):
             self.assertIn("invalid routing authority posture", failures[0])
             self.assertEqual(warnings, [])
 
+    def test_context_registry_rejects_incoherent_online_eligibility_facets(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            route = self.context_registry_fixture(root)
+            authority = SimpleNamespace(mode="production_transaction")
+            invalid_values = {
+                "authority_effective": False,
+                "source_revision_authorized": False,
+                "source_bytes_current": False,
+                "canonical_history_confirmed": False,
+                "receipt_trusted": False,
+                "runtime_live": "running",
+            }
+            for field, invalid_value in invalid_values.items():
+                with self.subTest(field=field):
+                    invalid = self.context_registry_view(
+                        route,
+                        mode="online_governed_eligibility",
+                    )
+                    invalid[field] = invalid_value
+                    failures: list[str] = []
+                    warnings: list[str] = []
+                    with (
+                        patch.object(consistency, "ROOT", root),
+                        patch.object(
+                            consistency,
+                            "_production_context_registry_path_authority",
+                            return_value=authority,
+                        ),
+                        patch.object(
+                            consistency,
+                            "load_validated_component_registry_routing_view",
+                            return_value=invalid,
+                        ),
+                    ):
+                        envelope = check_context_registry(
+                            failures,
+                            warnings,
+                            authority_mode="production-transaction",
+                        )
+
+                    self.assertIsNone(envelope)
+                    self.assertEqual(len(failures), 1)
+                    self.assertIn(
+                        "invalid routing authority posture",
+                        failures[0],
+                    )
+                    self.assertEqual(warnings, [])
+
     def test_context_registry_rejects_authority_mode_validation_mode_mismatch(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             route = self.context_registry_fixture(root)
             invalid = self.context_registry_view(
                 route,
-                mode="live_authority_validation",
+                mode="online_governed_eligibility",
             )
             failures: list[str] = []
             warnings: list[str] = []

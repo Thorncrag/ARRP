@@ -7,8 +7,29 @@
     "mode": "proposed_revision_validation",
     "design_id": "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR",
     "design_revision": "sha256:16c7801b08397a640829bcb9141de7482c68ea9d9aa793fba0d1080fea9d95b0",
-    "repository_base_revision": "1a02879ed2c18657bbf8555768831ff6cc081de1",
+    "repository_base_revision": "5f4764791315a094c50ba95140cb4fabcf70ea7f",
     "live_authority": false
+  },
+  "authority_digest_model": {
+    "schema_version": 1,
+    "protocol": "component_registry_stage2_authority_digest_v1",
+    "generation": 2,
+    "hash_algorithm": "sha256",
+    "canonicalization": "utf8_sorted_key_compact_json_v1",
+    "domain": "arrp.component_registry.stage2.authority_digest",
+    "source_revision_admission_predicate": "component_registry_source_revision_admission_v1",
+    "normalizations": [
+      {
+        "json_pointer_pattern": "/validation/repository_base_revision",
+        "condition": "always",
+        "replacement": "__AUTHORITY_CURRENTNESS_REPOSITORY_BASE_REVISION__"
+      },
+      {
+        "json_pointer_pattern": "/components/entries/*/canonical_source/source_binding/sha256",
+        "condition": "binding_basis_equals_content_digest",
+        "replacement": "__AUTHORITY_CURRENTNESS_CONTENT_SHA256__"
+      }
+    ]
   },
   "terminology": {
     "schema_version": 1,
@@ -626,7 +647,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 0; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "none"
+          }
+        }
       },
       "github_admin": {
         "scope_id": "github_admin",
@@ -653,7 +679,15 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 10; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
+        }
       },
       "github_issue_templates": {
         "scope_id": "github_issue_templates",
@@ -681,7 +715,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "github_workflows": {
         "scope_id": "github_workflows",
@@ -709,7 +748,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "component_registry_file": {
         "scope_id": "component_registry_file",
@@ -736,7 +780,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 100; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework": {
         "scope_id": "framework",
@@ -763,7 +812,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 10; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_standards": {
         "scope_id": "framework_standards",
@@ -791,7 +845,15 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
+        }
       },
       "framework_standard_subject": {
         "scope_id": "framework_standard_subject",
@@ -831,7 +893,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 30; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_standard_templates": {
         "scope_id": "framework_standard_templates",
@@ -868,7 +935,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 40; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_project": {
         "scope_id": "framework_project",
@@ -896,7 +968,15 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
+        }
       },
       "framework_project_profile": {
         "scope_id": "framework_project_profile",
@@ -925,7 +1005,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 30; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_project_github": {
         "scope_id": "framework_project_github",
@@ -954,7 +1039,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 30; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_project_workflows": {
         "scope_id": "framework_project_workflows",
@@ -983,7 +1073,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 30; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_project_publication": {
         "scope_id": "framework_project_publication",
@@ -1012,7 +1107,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 30; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_project_interfaces": {
         "scope_id": "framework_project_interfaces",
@@ -1041,7 +1141,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 30; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_project_automation": {
         "scope_id": "framework_project_automation",
@@ -1070,7 +1175,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 30; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "project_console": {
         "scope_id": "project_console",
@@ -1100,7 +1210,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 40; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "project_console_data": {
         "scope_id": "project_console_data",
@@ -1131,7 +1246,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 50; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "project_automation_runbooks": {
         "scope_id": "project_automation_runbooks",
@@ -1161,7 +1281,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 40; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "project_automation_schemas": {
         "scope_id": "project_automation_schemas",
@@ -1191,7 +1316,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 40; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "project_automation_configuration": {
         "scope_id": "project_automation_configuration",
@@ -1221,7 +1351,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 40; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "project_automation_launchd": {
         "scope_id": "project_automation_launchd",
@@ -1252,7 +1387,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 50; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_logs": {
         "scope_id": "framework_logs",
@@ -1280,7 +1420,15 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
+        }
       },
       "framework_log_owner": {
         "scope_id": "framework_log_owner",
@@ -1319,7 +1467,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 30; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_reports": {
         "scope_id": "framework_reports",
@@ -1347,7 +1500,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_status": {
         "scope_id": "framework_status",
@@ -1375,7 +1533,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_handoffs": {
         "scope_id": "framework_handoffs",
@@ -1403,7 +1566,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_receipts": {
         "scope_id": "framework_receipts",
@@ -1431,7 +1599,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_archive": {
         "scope_id": "framework_archive",
@@ -1459,7 +1632,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_archive_class": {
         "scope_id": "framework_archive_class",
@@ -1498,7 +1676,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 30; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_archive_operational": {
         "scope_id": "framework_archive_operational",
@@ -1528,7 +1711,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 40; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "areas": {
         "scope_id": "areas",
@@ -1555,7 +1743,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 10; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "area": {
         "scope_id": "area",
@@ -1612,7 +1805,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "area_issues": {
         "scope_id": "area_issues",
@@ -1670,7 +1868,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 30; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "area_research": {
         "scope_id": "area_research",
@@ -1728,7 +1931,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 30; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "area_evidence": {
         "scope_id": "area_evidence",
@@ -1786,7 +1994,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 30; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "legislation": {
         "scope_id": "legislation",
@@ -1813,7 +2026,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 10; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "topics": {
         "scope_id": "topics",
@@ -1840,7 +2058,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 10; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "research": {
         "scope_id": "research",
@@ -1867,7 +2090,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 10; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "inventory": {
         "scope_id": "inventory",
@@ -1894,7 +2122,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 10; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "sources": {
         "scope_id": "sources",
@@ -1921,7 +2154,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 10; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "assets": {
         "scope_id": "assets",
@@ -1948,7 +2186,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 10; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "exports": {
         "scope_id": "exports",
@@ -1975,7 +2218,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 10; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "participate": {
         "scope_id": "participate",
@@ -2002,7 +2250,15 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 10; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
+        }
       },
       "website": {
         "scope_id": "website",
@@ -2029,7 +2285,15 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 10; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
+        }
       },
       "scripts": {
         "scope_id": "scripts",
@@ -2056,7 +2320,15 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 10; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
+        }
       },
       "tests": {
         "scope_id": "tests",
@@ -2083,7 +2355,15 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 10; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
+        }
       },
       "research_candidate_sources": {
         "scope_id": "research_candidate_sources",
@@ -2111,7 +2391,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "research_interbranch": {
         "scope_id": "research_interbranch",
@@ -2139,7 +2424,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "participate_api": {
         "scope_id": "participate_api",
@@ -2167,7 +2457,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "website_overrides": {
         "scope_id": "website_overrides",
@@ -2195,7 +2490,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "website_partials": {
         "scope_id": "website_partials",
@@ -2223,7 +2523,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "test_fixtures": {
         "scope_id": "test_fixtures",
@@ -2251,7 +2556,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "export_format": {
         "scope_id": "export_format",
@@ -2288,7 +2598,12 @@
           "@Thorncrag"
         ],
         "precedence": "Most-specific scope rank 20; ties fail closed.",
-        "fallback": "human_review"
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "framework_proposals": {
         "parameter_bindings": {},
@@ -2329,7 +2644,12 @@
         "disclosure_boundary": "public_safe_only",
         "lifecycle_posture": "current",
         "fallback": "human_review",
-        "purpose": "public-safe project designs, plans, governance changes, and implementation proposals that are not themselves adopted governing authorities or implementations"
+        "purpose": "public-safe project designs, plans, governance changes, and implementation proposals that are not themselves adopted governing authorities or implementations",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "repository_tmp": {
         "parameter_bindings": {},
@@ -2360,7 +2680,187 @@
         "disclosure_boundary": "not_for_publication",
         "lifecycle_posture": "current",
         "fallback": "human_review",
-        "purpose": "Closed scope for bounded temporary run artifacts."
+        "purpose": "Closed scope for bounded temporary run artifacts.",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
+      },
+      "root_requirements_local_tools": {
+        "scope_id": "root_requirements_local_tools",
+        "display_name": "Local tool requirements",
+        "path_pattern": "requirements-local-tools.txt",
+        "match_kind": "exact_file",
+        "specificity_rank": 100,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root"
+        ],
+        "placement_question": "Is this the canonical local tool requirements file?",
+        "include_when": [
+          "Only the canonical repository-root local tool requirements file."
+        ],
+        "exclude_when": [
+          "Any other repository artifact or owner-local material."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "current",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 100; ties fail closed.",
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
+        }
+      },
+      "root_requirements_pages": {
+        "scope_id": "root_requirements_pages",
+        "display_name": "Public site requirements",
+        "path_pattern": "requirements-pages.txt",
+        "match_kind": "exact_file",
+        "specificity_rank": 100,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root"
+        ],
+        "placement_question": "Is this the canonical public site requirements file?",
+        "include_when": [
+          "Only the canonical repository-root public site requirements file."
+        ],
+        "exclude_when": [
+          "Any other repository artifact or owner-local material."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "current",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 100; ties fail closed.",
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
+        }
+      },
+      "root_pyproject_configuration": {
+        "scope_id": "root_pyproject_configuration",
+        "display_name": "Python project configuration",
+        "path_pattern": "pyproject.toml",
+        "match_kind": "exact_file",
+        "specificity_rank": 100,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root"
+        ],
+        "placement_question": "Is this the canonical python project configuration file?",
+        "include_when": [
+          "Only the canonical repository-root python project configuration file."
+        ],
+        "exclude_when": [
+          "Any other repository artifact or owner-local material."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "current",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 100; ties fail closed.",
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
+        }
+      },
+      "root_package_manifest": {
+        "scope_id": "root_package_manifest",
+        "display_name": "Node package manifest",
+        "path_pattern": "package.json",
+        "match_kind": "exact_file",
+        "specificity_rank": 100,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root"
+        ],
+        "placement_question": "Is this the canonical node package manifest file?",
+        "include_when": [
+          "Only the canonical repository-root node package manifest file."
+        ],
+        "exclude_when": [
+          "Any other repository artifact or owner-local material."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "current",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 100; ties fail closed.",
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
+        }
+      },
+      "root_package_lock": {
+        "scope_id": "root_package_lock",
+        "display_name": "Node package lock",
+        "path_pattern": "package-lock.json",
+        "match_kind": "exact_file",
+        "specificity_rank": 100,
+        "parameter_bindings": {},
+        "owning_scope_selection_rule": "highest_specificity_unique",
+        "ancestor_scope_ids": [
+          "repository_root"
+        ],
+        "placement_question": "Is this the canonical node package lock file?",
+        "include_when": [
+          "Only the canonical repository-root node package lock file."
+        ],
+        "exclude_when": [
+          "Any other repository artifact or owner-local material."
+        ],
+        "primary_authority": "COMPONENT-REGISTRY",
+        "disclosure_boundary": "public_by_design",
+        "lifecycle_posture": "current",
+        "authorized_creators": [
+          "@Thorncrag"
+        ],
+        "precedence": "Most-specific scope rank 100; ties fail closed.",
+        "fallback": "human_review",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
+        }
       }
     }
   },
@@ -2422,6 +2922,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "codex_bootstrap": {
@@ -2480,6 +2985,14 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
         }
       },
       "framework_kernel": {
@@ -2503,7 +3016,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "4a250e8349c0da017bb2be8839655ff7d16b9f4cc5eecf9c5c353d60ac3fcac6",
+            "sha256": "976a81942a5226a2569c99de1e340e146467987b8a71a55834d9e1c3e964174e",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -2535,6 +3048,14 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
         }
       },
       "agent_rules_kernel": {
@@ -2558,7 +3079,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "6be2849593aec9d33024b7cc8b6667c450f3b98d4e3b41f3883222c124884916",
+            "sha256": "47539112655e1bb28ef89c54b24eb4c4047da03cad898507a61af3f97c08c198",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -2590,6 +3111,14 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
         }
       },
       "github_disclosure_boundary": {
@@ -2645,6 +3174,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "github_disclosure_policy": {
@@ -2700,6 +3234,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "task_handoff": {
@@ -2724,7 +3263,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "64ef3ef52c5d8ea07ca6c5d3d644966b62616f14240a97e5af881f6582534503",
+            "sha256": "a303f39ff9bf3d5edb10929377c9a122715fd4f50fb5e39de66bc5568f9a5550",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -2758,6 +3297,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "context_routing": {
@@ -2817,6 +3361,14 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
         }
       },
       "project_structure": {
@@ -2876,6 +3428,14 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "direct",
+            "owners": [
+              "@Thorncrag"
+            ]
+          }
         }
       },
       "github_workflow": {
@@ -2899,7 +3459,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "052a855508cb2f678e815382c79f0f47e6aa58d61e0956076260419d08dbe9a1",
+            "sha256": "2d2fdf96b6e37b8399ee8327498b20c2b74f9dbe8befa3e15ba2b1293d593fb9",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -2931,6 +3491,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "remedy_framework": {
@@ -2986,6 +3551,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "print_assembly": {
@@ -3041,6 +3611,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "public_release": {
@@ -3096,6 +3671,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "project_console_progress": {
@@ -3151,6 +3731,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "project_console_classifications": {
@@ -3206,6 +3791,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "project_tool_interface": {
@@ -3261,6 +3851,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "intake_process": {
@@ -3316,6 +3911,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "agent_audit_execution": {
@@ -3371,6 +3971,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "agent_autonomous_execution": {
@@ -3426,6 +4031,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "private_staging_authority_schema": {
@@ -3481,6 +4091,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "project_runtime_authority": {
@@ -3536,6 +4151,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "transaction_lifecycle": {
@@ -3591,6 +4211,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "transaction_lifecycle_schema": {
@@ -3646,6 +4271,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "transaction_recovery_package_schema": {
@@ -3701,6 +4331,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "project_reconciliation": {
@@ -3756,6 +4391,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "project_reconciliation_schema": {
@@ -3811,6 +4451,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "project_autonomous_execution": {
@@ -3866,6 +4511,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "repository_gate_policy": {
@@ -3921,6 +4571,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "operational_incident_policy": {
@@ -3976,6 +4631,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "security_incident_policy": {
@@ -4031,6 +4691,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "incident_relation_policy": {
@@ -4086,6 +4751,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "agent_context_research": {
@@ -4141,6 +4811,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "agent_handoff": {
@@ -4196,6 +4871,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "agent_issue_candidate_work": {
@@ -4251,6 +4931,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "agent_multi_agent": {
@@ -4306,6 +4991,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "agent_provenance_logging": {
@@ -4361,6 +5051,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "agent_validation_closeout": {
@@ -4416,6 +5111,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "agent_registry": {
@@ -4475,6 +5175,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "runbook_elim": {
@@ -4532,6 +5237,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "runbook_case_monitor_bot": {
@@ -4589,6 +5299,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "runbook_presidential_directives_bot": {
@@ -4646,6 +5361,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "runbook_console_progress_bot": {
@@ -4703,6 +5423,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "runbook_integrity_bot": {
@@ -4760,6 +5485,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "runbook_run_coordinator_bot": {
@@ -4817,6 +5547,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "runbook_source_checker_bot": {
@@ -4874,6 +5609,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "audit_core": {
@@ -4929,6 +5669,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "audit_verification": {
@@ -4984,6 +5729,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "audit_tiered": {
@@ -5039,6 +5789,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "audit_legal_prior_proposal": {
@@ -5094,6 +5849,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "audit_project_consistency": {
@@ -5149,6 +5909,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "proposal_scoring_model": {
@@ -5206,6 +5971,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "audit_change": {
@@ -5261,6 +6031,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "scoring_adoption_pathway": {
@@ -5316,6 +6091,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "scoring_external_international": {
@@ -5371,6 +6151,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "method_neutrality_language": {
@@ -5426,6 +6211,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "method_scope_admission": {
@@ -5481,6 +6271,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "method_partisan_perception": {
@@ -5536,6 +6331,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "evidence_standards": {
@@ -5591,6 +6391,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "source_catalogs": {
@@ -5646,6 +6451,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "issue_architecture": {
@@ -5701,6 +6511,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "development_levels": {
@@ -5756,6 +6571,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "navigation_inventory": {
@@ -5811,6 +6631,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "navigation_topic_guides": {
@@ -5866,6 +6691,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "candidate_adjudication": {
@@ -5921,6 +6751,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "source_automated_adjudication": {
@@ -5976,6 +6811,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "source_presidential_directives": {
@@ -6031,6 +6871,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "source_project_monitoring": {
@@ -6086,6 +6931,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "operation_project_update": {
@@ -6141,6 +6991,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "operation_governance_change_recording": {
@@ -6196,6 +7051,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "governance_change_registry": {
@@ -6251,6 +7111,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "project_configuration": {
@@ -6307,6 +7172,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "repository_map": {
@@ -6366,6 +7236,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "proposal_development_model": {
@@ -6423,6 +7298,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "scoring_standard": {
@@ -6478,6 +7358,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "candidate_review_standard": {
@@ -6533,6 +7418,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "print_assembly_standard": {
@@ -6588,6 +7478,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "release_standard": {
@@ -6643,6 +7538,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "interface_standard": {
@@ -6698,6 +7598,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "progress_view_standard": {
@@ -6753,6 +7658,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "public_input_standard": {
@@ -6808,6 +7718,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "work_tracking_standard": {
@@ -6863,6 +7778,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "visual_identity": {
@@ -6918,6 +7838,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "print_manifest": {
@@ -6973,6 +7898,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "progress_config": {
@@ -7027,6 +7957,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "elim_result_schema": {
@@ -7082,6 +8017,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "project_source_adjudication": {
@@ -7137,6 +8077,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "navigation_project_sync": {
@@ -7192,6 +8137,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "project_audit_execution": {
@@ -7247,6 +8197,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "COMPONENT-REGISTRY": {
@@ -7310,6 +8265,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "none"
+          }
         }
       },
       "component_registry_schema": {
@@ -7333,7 +8293,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "6bdc074de13c9a9521197bd08546aa21d5a4a98c52506a73acb469315eb2f7b0",
+            "sha256": "9abe1d292420aa119b411c00a92fa7a6948e6b15744b37470093c6a70317a713",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -7367,6 +8327,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "component_registry_tool": {
@@ -7392,7 +8357,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "23df7abb44fba0a9b12d0e49337e1926b4ba3a1d15dea738cf52f290863681d6",
+            "sha256": "a57f2ae20b495994a4b13cc9e4a42dfbc985700685a42cb1c5210d39e0f7ff42",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -7428,7 +8393,12 @@
             "stage2_baseline_migration"
           ]
         },
-        "operational_status": "inactive"
+        "operational_status": "inactive",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "component_registry_activation_finalizer": {
         "stable_id": "component_registry_activation_finalizer",
@@ -7453,7 +8423,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "aab7431b0be0d85f0feeec962910a33380cec3c80c577ecdd3aa07a40bf28ab4",
+            "sha256": "6941ceb68825c511b16d239b709cc3541075104547f6afd1ba592676fb691a0b",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -7486,7 +8456,12 @@
             "stage2_baseline_migration"
           ]
         },
-        "operational_status": "inactive"
+        "operational_status": "inactive",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "component_registry_tests": {
         "stable_id": "component_registry_tests",
@@ -7511,7 +8486,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "40c40cf24f622050adf33a5968c0d5e6b6fbc7ea0ab24819a22a2389c2bb5122",
+            "sha256": "abaa07250a2fd9539d36e1e3594a4f9c6ce7248a2900dc1aae0855ce1f9b45c9",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -7546,7 +8521,12 @@
             "stage2_baseline_migration"
           ]
         },
-        "operational_status": "inactive"
+        "operational_status": "inactive",
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
+        }
       },
       "context_routes_source": {
         "stable_id": "context_routes_source",
@@ -7604,6 +8584,11 @@
           "provenance_events": [
             "stage2_baseline_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "component_registry_stage2_design_proposal": {
@@ -7629,7 +8614,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "1075189ee0f5beed3ae5c29629918134dc380181b29d814b7a6c13191d5c9e21",
+            "sha256": "a374b353e95154de19efbae5c48353c45f077baad8ac423dd22f5145704fbbaa",
             "evidence_ref": "stage2_design_approval"
           }
         },
@@ -7664,6 +8649,11 @@
           "provenance_events": [
             "stage2_design_adoption"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "run-coordinator-bot": {
@@ -7690,7 +8680,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "0cac9b9f532a84ce1c0116f5a3eaa6a9ad2198f78f21b1ec9bfb7aa5a02107ed",
+            "sha256": "f842797e69547ceaaec8bf74e22e6bcd0c8a70cc9518b53f03900db3bf9b64de",
             "evidence_ref": "agent_bot_registry_migration"
           }
         },
@@ -7725,6 +8715,11 @@
           "provenance_events": [
             "agent_bot_registry_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "elim": {
@@ -7847,6 +8842,11 @@
           "provenance_events": [
             "agent_bot_registry_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "presidential-directives-bot": {
@@ -7908,6 +8908,11 @@
           "provenance_events": [
             "agent_bot_registry_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "source-checker-bot": {
@@ -7969,6 +8974,11 @@
           "provenance_events": [
             "agent_bot_registry_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "project-console-progress-bot": {
@@ -8030,6 +9040,11 @@
           "provenance_events": [
             "agent_bot_registry_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "project-integrity-bot": {
@@ -8056,7 +9071,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "0687ce5ffff0ff37c47a3f04f3f2595666a99b0a79204e55b59eb4626bfb65a6",
+            "sha256": "7a9ce2aef6ca09633e23db2f54042a255d32caac969087f324137ed05fb9743d",
             "evidence_ref": "agent_bot_registry_migration"
           }
         },
@@ -8091,6 +9106,11 @@
           "provenance_events": [
             "agent_bot_registry_migration"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       },
       "governance_change_log": {
@@ -8149,6 +9169,11 @@
           "provenance_events": [
             "stage2_inventory_classification"
           ]
+        },
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "inherit"
+          }
         }
       }
     }
@@ -9772,6 +10797,18 @@
         "source_type": "design_contract_revision",
         "design_id": "COMPONENT-REGISTRY-2026-002-STAGE2-IMPLEMENTATION-PR",
         "revision": "sha256:16c7801b08397a640829bcb9141de7482c68ea9d9aa793fba0d1080fea9d95b0"
+      },
+      "owner_benjamin_codeowners_approval": {
+        "source_id": "owner_benjamin_codeowners_approval",
+        "source_type": "owner_authorization",
+        "revision": "2026-08-01",
+        "public_reference": "recorded_owner_approval"
+      },
+      "codeowners_contract_revision": {
+        "source_id": "codeowners_contract_revision",
+        "source_type": "design_contract_revision",
+        "design_id": "COMPONENT-REGISTRY-2026-002-CODEOWNERS-ROUTING-CONSOLE-AMENDMENT",
+        "revision": "sha256:15db9a4d716cc85fe4af23781fafcbd5c4ba1451fa4c3a2b3298f0af7c72266e"
       }
     },
     "assignments": {
@@ -12598,7 +13635,9 @@
         "source_ids": [
           "owner_benjamin_stage2_approval",
           "stage2_design_revision",
-          "stage2_contract_revision"
+          "stage2_contract_revision",
+          "owner_benjamin_codeowners_approval",
+          "codeowners_contract_revision"
         ],
         "subjects": [
           {
@@ -12619,7 +13658,9 @@
         "governing_precedence": [
           "owner_benjamin_stage2_approval",
           "stage2_design_revision",
-          "stage2_contract_revision"
+          "stage2_contract_revision",
+          "owner_benjamin_codeowners_approval",
+          "codeowners_contract_revision"
         ],
         "provenance_event_id": "stage2_baseline_migration"
       },
@@ -13077,6 +14118,15 @@
         "event": "stage2_baseline_authority_migration",
         "effective_date": "2026-07-31",
         "provenance_event_id": "stage2_baseline_migration"
+      },
+      {
+        "event": "component_registry_codeowners_routing_authority_revision",
+        "effective_date": "2026-08-01",
+        "authority_generation": 2,
+        "source_ids": [
+          "owner_benjamin_codeowners_approval",
+          "codeowners_contract_revision"
+        ]
       }
     ]
   },
@@ -13643,7 +14693,7 @@
             "path": "framework/proposals/component-registry-stage2-design.md",
             "locator": {
               "kind": "text_line",
-              "line_number": 1042,
+              "line_number": 1079,
               "line_sha256": "0c6fba4e9dca4b792484a48605407540a4eda668dba559fcc5b9b9a669539041",
               "occurrence_index": 1
             }
@@ -13734,7 +14784,16 @@
             "path": "framework/proposals/component-registry-stage2-design.md",
             "locator": {
               "kind": "text_line",
-              "line_number": 1048,
+              "line_number": 1036,
+              "line_sha256": "ddd56bb8af5bc27510d0e6b02c40aec9e2286cfd10650b86ce4f76a43938e119",
+              "occurrence_index": 1
+            }
+          },
+          {
+            "path": "framework/proposals/component-registry-stage2-design.md",
+            "locator": {
+              "kind": "text_line",
+              "line_number": 1085,
               "line_sha256": "2ed3c41db121c9c682afe8eb1db0aa27ce42958127aeb615913070df59aeb87d",
               "occurrence_index": 1
             }
@@ -13745,15 +14804,6 @@
               "kind": "text_line",
               "line_number": 682,
               "line_sha256": "cac32401ab2ca296cfaa85013f0bdffea810e240c5220e3d8ffeff53d49f756c",
-              "occurrence_index": 1
-            }
-          },
-          {
-            "path": "framework/proposals/component-registry-stage2-design.md",
-            "locator": {
-              "kind": "text_line",
-              "line_number": 999,
-              "line_sha256": "ddd56bb8af5bc27510d0e6b02c40aec9e2286cfd10650b86ce4f76a43938e119",
               "occurrence_index": 1
             }
           }
@@ -13842,7 +14892,7 @@
             "path": "framework/proposals/component-registry-stage2-design.md",
             "locator": {
               "kind": "text_line",
-              "line_number": 1112,
+              "line_number": 1149,
               "line_sha256": "47dfbd6b0bbdca2cc7a840acf8b2348f31e76729531207fe516e74cb3266e121",
               "occurrence_index": 1
             }
@@ -13925,7 +14975,7 @@
             "path": "framework/proposals/component-registry-stage2-design.md",
             "locator": {
               "kind": "text_line",
-              "line_number": 1114,
+              "line_number": 1151,
               "line_sha256": "5835bc5daf39eaf3e6866ea0dc3cf60f64fbd8e8dede176439bae71fecf70082",
               "occurrence_index": 1
             }
@@ -13992,7 +15042,7 @@
             "path": "framework/proposals/component-registry-stage2-design.md",
             "locator": {
               "kind": "text_line",
-              "line_number": 1092,
+              "line_number": 1129,
               "line_sha256": "0a2050164053e5befcd0cc2c17d9155ce596b9f480c74572a9249f98324166bc",
               "occurrence_index": 1
             }
@@ -18325,11 +19375,11 @@
       },
       "requirements-local-tools.txt": {
         "treatment": "directory_scope",
-        "scope_id": "repository_root"
+        "scope_id": "root_requirements_local_tools"
       },
       "requirements-pages.txt": {
         "treatment": "directory_scope",
-        "scope_id": "repository_root"
+        "scope_id": "root_requirements_pages"
       },
       "research/README.md": {
         "treatment": "directory_scope",

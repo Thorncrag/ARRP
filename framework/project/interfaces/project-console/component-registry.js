@@ -1532,6 +1532,7 @@
     "relationships",
     "coverage",
     "routing",
+    "codeowners",
     "terminology"
   ]);
 
@@ -1579,7 +1580,12 @@
       || snapshot.registry.validation_mode !== "proposed_revision_validation"
       || snapshot.registry.authoritative !== false
       || snapshot.registry.executable !== false
-      || snapshot.registry.live_authority_verified !== false
+      || snapshot.registry.authority_effective !== false
+      || snapshot.registry.source_revision_authorized !== false
+      || snapshot.registry.source_bytes_current !== false
+      || snapshot.registry.canonical_history_confirmed !== false
+      || snapshot.registry.receipt_trusted !== false
+      || snapshot.registry.runtime_live !== "not_checked"
       || snapshot.registry.predecessor_route_consulted !== false
       || !/^[0-9a-f]{64}$/.test(snapshot.registry.registry_sha256 || "")
       || !unique(snapshot.components, "stable_id")
@@ -1592,6 +1598,19 @@
       || !unique(snapshot.coverage.records, "coverage_id")
       || !object(snapshot.routing)
       || !unique(snapshot.routing.selections, "routing_id")
+      || !object(snapshot.codeowners)
+      || snapshot.codeowners.available !== true
+      || snapshot.codeowners.complete !== true
+      || snapshot.codeowners.authoritative !== false
+      || snapshot.codeowners.authority_effect !== "github_review_routing_only"
+      || !object(snapshot.codeowners.summary)
+      || !unique(snapshot.codeowners.records, "assignment_id")
+      || !Array.isArray(snapshot.codeowners.generated_rows)
+      || !Array.isArray(snapshot.codeowners.checked_in_rows)
+      || !Array.isArray(snapshot.codeowners.problems)
+      || snapshot.codeowners.problems.length !== 0
+      || !/^[0-9a-f]{64}$/.test(snapshot.codeowners.generated_sha256 || "")
+      || snapshot.codeowners.current_sha256 !== snapshot.codeowners.generated_sha256
       || !object(snapshot.terminology)
       || snapshot.terminology.available !== true
       || snapshot.terminology.complete !== true
@@ -1600,6 +1619,14 @@
       || !unique(snapshot.terminology.entries, "term_id")
       || snapshot.terminology.entries.length !== 69
       || containsPrivatePayload(snapshot)) return false;
+    if (!["direct", "inherited", "none", "problems"].every((key) =>
+      Number.isInteger(snapshot.codeowners.summary[key])
+      && snapshot.codeowners.summary[key] >= 0)
+      || snapshot.codeowners.summary.direct
+        + snapshot.codeowners.summary.inherited
+        + snapshot.codeowners.summary.none
+        !== snapshot.codeowners.records.length
+      || snapshot.codeowners.summary.problems !== 0) return false;
     if (!MODES.every((mode) =>
       snapshot.routes[mode] === `automation:component-registry:${mode}`)) return false;
     const componentIds = new Set(snapshot.components.map((record) => record.stable_id));
@@ -1628,8 +1655,17 @@
       componentIds.has(record.component_id))) return false;
     if (!snapshot.terminology.entries.every((record) =>
       text(record.label) && text(record.definition))) return false;
+    if (!snapshot.codeowners.records.every((record) =>
+      ["component", "directory_scope"].includes(record.record_kind)
+      && ["direct", "inherit", "none"].includes(record.declared_mode)
+      && ["direct", "none"].includes(record.effective_mode)
+      && Array.isArray(record.owners)
+      && Array.isArray(record.validation_problems)
+      && text(record.console_route))) return false;
     return snapshot.defaults.mode === "components"
       && componentIds.has(snapshot.defaults.component)
+      && snapshot.codeowners.records.some((record) =>
+        record.assignment_id === snapshot.defaults.codeowners)
       && snapshot.coverage.uncovered_count === 0
       && snapshot.coverage.multiply_treated_count === 0;
   }
@@ -1652,6 +1688,7 @@
       relationships: "relationship",
       coverage: "coverage",
       routing: "selection",
+      codeowners: "assignment",
       terminology: "term"
     }[mode];
     const parameters = new URLSearchParams(query);
@@ -1665,6 +1702,7 @@
       relationships: snapshot.relationships.map((record) => record.relationship_id),
       coverage: snapshot.coverage.records.map((record) => record.coverage_id),
       routing: snapshot.routing.selections.map((record) => record.routing_id),
+      codeowners: snapshot.codeowners.records.map((record) => record.assignment_id),
       terminology: snapshot.terminology.entries.map((record) => record.term_id)
     }[mode];
     return {
@@ -1846,6 +1884,37 @@
     ]);
   }
 
+  function codeownersMode(record) {
+    if (record.validation_problems.length) return "problem";
+    if (record.declared_mode === "inherit") return "inherited";
+    return record.declared_mode;
+  }
+
+  function renderCodeowners(host, record, snapshot) {
+    host.replaceChildren(node("h3", "", record.display_name));
+    section(host, "Resolved GitHub review routing", [
+      ["Assignment ID", record.assignment_id],
+      ["Record kind", readable(record.record_kind)],
+      ["Stable ID", record.stable_id],
+      ["Path or pattern", record.path_pattern],
+      ["Declared mode", readable(record.declared_mode)],
+      ["Effective result", record.effective_mode === "none"
+        ? "No GitHub code owner"
+        : `Direct review routing to ${record.owners.join(", ")}`],
+      ["Inherited from", record.inherited_from],
+      ["Owners", record.owners],
+      ["Generated pattern", record.generated_pattern],
+      ["Generated line", record.generated_line]
+    ]);
+    section(host, "Expected versus checked-in", [
+      ["Expected CODEOWNERS SHA-256", snapshot.codeowners.generated_sha256],
+      ["Checked-in CODEOWNERS SHA-256", snapshot.codeowners.current_sha256],
+      ["Exact byte match", snapshot.codeowners.generated_sha256 === snapshot.codeowners.current_sha256],
+      ["Assignment problems", record.validation_problems],
+      ["Projection problems", snapshot.codeowners.problems]
+    ]);
+  }
+
   function renderTerminology(host, record) {
     host.replaceChildren(
       node("h3", "", record.label),
@@ -1944,6 +2013,22 @@
     }
   }
 
+  function renderCodeownersSummary(snapshot) {
+    const portals = document.getElementById("component-registry-codeowners-portals");
+    if (!portals) return;
+    portals.replaceChildren();
+    [
+      ["Direct", snapshot.codeowners.summary.direct],
+      ["Inherited", snapshot.codeowners.summary.inherited],
+      ["None", snapshot.codeowners.summary.none],
+      ["Problems", snapshot.codeowners.summary.problems]
+    ].forEach(([label, count]) => {
+      const card = node("article", "component-registry-state-portal");
+      card.append(node("span", "", label), node("strong", "", count));
+      portals.append(card);
+    });
+  }
+
   function applyMode(mode) {
     MODES.forEach((candidate) => {
       const button = document.getElementById(`component-registry-mode-${candidate}`);
@@ -2015,6 +2100,15 @@
     );
     bindModes(snapshot);
     renderLifecycleSummary(snapshot);
+    renderCodeownersSummary(snapshot);
+    const codeownersNotice = document.getElementById("component-registry-codeowners-notice");
+    if (codeownersNotice) {
+      codeownersNotice.textContent =
+        "CODEOWNERS controls GitHub review routing only; it does not create project authority "
+        + `or replace Benjamin's recorded authorization. Registry revision `
+        + `${snapshot.registry.registry_revision} · current projection · `
+        + `${new Date(snapshot.generated_at).toLocaleString()}.`;
+    }
 
     const componentSearch = document.getElementById("component-registry-components-search");
     const componentClass = document.getElementById("component-registry-components-class");
@@ -2152,6 +2246,49 @@
     bindFilter("component-registry-routing-search", renderRoutingRows);
     renderRoutingRows();
 
+    const codeownersSearch = document.getElementById("component-registry-codeowners-search");
+    const codeownersModeFilter = document.getElementById("component-registry-codeowners-mode");
+    const codeownersKind = document.getElementById("component-registry-codeowners-kind");
+    const codeownersOwner = document.getElementById("component-registry-codeowners-owner");
+    optionValues(
+      codeownersOwner,
+      snapshot.codeowners.records.flatMap((record) => record.owners),
+      "All owners"
+    );
+    const renderCodeownersRows = () => {
+      const query = codeownersSearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.codeowners.records.filter((record) =>
+        (!query || searchable(record).includes(query))
+        && (!codeownersModeFilter.value
+          || codeownersMode(record) === codeownersModeFilter.value)
+        && (!codeownersKind.value || record.record_kind === codeownersKind.value)
+        && (!codeownersOwner.value || record.owners.includes(codeownersOwner.value)));
+      document.getElementById("component-registry-codeowners-results").textContent =
+        `${filtered.length} of ${snapshot.codeowners.records.length} assignments · `
+        + `${snapshot.codeowners.summary.problems} problems`;
+      const selected = filtered.find((record) => record.assignment_id === state.selected)
+        || filtered[0];
+      renderList(document.getElementById("component-registry-codeowners-list"), filtered,
+        selected?.assignment_id, (record) => record.assignment_id,
+        (record) => record.display_name,
+        (record) => `${readable(codeownersMode(record))} · ${record.path_pattern}`,
+        (record) => record.console_route);
+      if (selected) {
+        renderCodeowners(
+          document.getElementById("component-registry-codeowners-detail"),
+          selected,
+          snapshot
+        );
+      }
+    };
+    [
+      "component-registry-codeowners-search",
+      "component-registry-codeowners-mode",
+      "component-registry-codeowners-kind",
+      "component-registry-codeowners-owner"
+    ].forEach((id) => bindFilter(id, renderCodeownersRows));
+    renderCodeownersRows();
+
     const terminologySearch = document.getElementById("component-registry-terminology-search");
     const renderTerms = () => {
       const filtered = filterTerminologyEntries(snapshot.terminology.entries, terminologySearch.value);
@@ -2172,6 +2309,7 @@
     setCount("relationships", snapshot.relationships.length);
     setCount("coverage", snapshot.coverage.records.length);
     setCount("routing", snapshot.routing.selections.length);
+    setCount("codeowners", snapshot.codeowners.records.length);
     setCount("terminology", snapshot.terminology.entries.length);
     applyMode(state.mode);
     return true;

@@ -68,7 +68,7 @@ def review_epoch_routing_boundary(
     view = {
         "schema_version": 2,
         "validation_mode": (
-            "live_authority_validation"
+            "online_governed_eligibility"
             if active
             else "proposed_revision_validation"
         ),
@@ -77,8 +77,14 @@ def review_epoch_routing_boundary(
         "registry_sha256": "d" * 64,
         "registry_path": "framework/component-registry.json",
         "authoritative": active,
-        "executable": active,
-        "live_authority_verified": active,
+        "executable": False,
+        "authority_effective": active,
+        "source_revision_authorized": active,
+        "source_bytes_current": active,
+        "canonical_history_confirmed": active,
+        "receipt_trusted": active,
+        "runtime_live": "not_checked",
+        "activation_receipt_consulted": active,
         "predecessor_route_consulted": False,
         "route": route,
     }
@@ -890,7 +896,7 @@ class RunCoordinatorTests(unittest.TestCase):
         view, selection, _ = review_epoch_routing_boundary()
         predecessor = json.loads(json.dumps(view))
         predecessor["predecessor_route_consulted"] = True
-        with self.assertRaisesRegex(ValueError, "only the authoritative"):
+        with self.assertRaisesRegex(ValueError, "governed-eligible"):
             MODULE.review_epoch_boundary_status(
                 None,
                 predecessor,

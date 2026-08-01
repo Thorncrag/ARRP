@@ -288,16 +288,22 @@ def _validated_routing_authority(
             "routing view"
         )
     mode = routing_view.get("validation_mode")
-    if mode == "live_authority_validation":
+    if mode == "online_governed_eligibility":
         if (
             routing_view.get("authoritative") is not True
-            or routing_view.get("executable") is not True
-            or routing_view.get("live_authority_verified") is not True
+            or routing_view.get("executable") is not False
+            or routing_view.get("authority_effective") is not True
+            or routing_view.get("source_revision_authorized") is not True
+            or routing_view.get("source_bytes_current") is not True
+            or routing_view.get("canonical_history_confirmed") is not True
+            or routing_view.get("receipt_trusted") is not True
+            or routing_view.get("runtime_live") != "not_checked"
+            or routing_view.get("activation_receipt_consulted") is not True
             or routing_view.get("predecessor_route_consulted") is not False
         ):
             raise ValueError(
-                "active Review Epoch closeout must use only the authoritative "
-                "Component Registry"
+                "Review Epoch closeout must use governed-eligible Component "
+                "Registry authority"
             )
         expected_authoritative = True
         expected_selection_kind = "executable_packet"
@@ -306,7 +312,13 @@ def _validated_routing_authority(
         if (
             routing_view.get("authoritative") is not False
             or routing_view.get("executable") is not False
-            or routing_view.get("live_authority_verified") is not False
+            or routing_view.get("authority_effective") is not False
+            or routing_view.get("source_revision_authorized") is not False
+            or routing_view.get("source_bytes_current") is not False
+            or routing_view.get("canonical_history_confirmed") is not False
+            or routing_view.get("receipt_trusted") is not False
+            or routing_view.get("runtime_live") != "not_checked"
+            or routing_view.get("activation_receipt_consulted") is not False
             or routing_view.get("predecessor_route_consulted") is not False
         ):
             raise ValueError(

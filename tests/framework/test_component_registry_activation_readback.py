@@ -1222,6 +1222,140 @@ class ComponentRegistryStage2ReadbackTests(unittest.TestCase):
                 self.assertTrue(live["executable"])
                 self.assertTrue(live["activation_receipt_consulted"])
 
+    def test_currentness_only_descendant_remains_adopted_configuration(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority, registry_path, _base, _reviewed, merge, _receipt = (
+                self.build_adopted_fixture(temporary)
+            )
+            refreshed = copy.deepcopy(self.stage2)
+            refreshed["validation"]["repository_base_revision"] = "f" * 40
+            component = next(
+                item
+                for item in refreshed["components"]["entries"].values()
+                if item["canonical_source"]["source_binding"]["binding_basis"]
+                == "content_digest"
+            )
+            component["canonical_source"]["source_binding"]["sha256"] = "e" * 64
+            registry_path.write_text(
+                json.dumps(refreshed, indent=2) + "\n",
+                encoding="utf-8",
+            )
+            subprocess.run(
+                ["git", "-C", authority.repository_root, "add", str(registry_path)],
+                check=True,
+            )
+            subprocess.run(
+                [
+                    "git", "-C", authority.repository_root, "commit", "-m",
+                    "refresh currentness",
+                ],
+                check=True,
+                capture_output=True,
+            )
+            subprocess.run(
+                [
+                    "git", "-C", authority.repository_root, "update-ref",
+                    "refs/remotes/origin/main", merge,
+                ],
+                check=True,
+            )
+            repository_authority = ProjectPathAuthority.repository_validation(
+                authority.repository_root
+            )
+            self.assertTrue(
+                registry._stage2_configuration_is_adopted(
+                    repository_authority,
+                    registry_path,
+                    refreshed,
+                )
+            )
+
+            semantic = copy.deepcopy(refreshed)
+            semantic["registry_id"] = "DIFFERENT-REGISTRY"
+            registry_path.write_text(
+                json.dumps(semantic, indent=2) + "\n",
+                encoding="utf-8",
+            )
+            self.assertFalse(
+                registry._stage2_configuration_is_adopted(
+                    repository_authority,
+                    registry_path,
+                    semantic,
+                )
+            )
+
+    def test_online_governed_eligibility_is_separate_and_nonexecutable(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority, registry_path, _base, _reviewed, _merge, _receipt = (
+                self.build_adopted_fixture(temporary)
+            )
+            authority_digest = registry._stage2_authority_digest(self.stage2)
+            model = self.stage2["authority_digest_model"]
+            eligibility = {
+                "validation_mode": "online_governed_eligibility",
+                "registry_sha256": registry._canonical_registry_digest(self.stage2),
+                "authority_sha256": authority_digest,
+                "authority_protocol": model["protocol"],
+                "authority_generation": model["generation"],
+                "authority_effective": True,
+                "source_revision_authorized": True,
+                "source_bytes_current": True,
+                "canonical_history_confirmed": True,
+                "receipt_trusted": True,
+                "runtime_live": "not_checked",
+            }
+            with mock.patch.object(
+                registry,
+                "load_validated_registry",
+                return_value=(
+                    self.stage2,
+                    registry._stage2_route_snapshot(self.stage2),
+                ),
+            ), mock.patch.object(
+                finalizer,
+                "verify_stage2_authority_v1_online_eligibility",
+                return_value=eligibility,
+                create=True,
+            ):
+                view = (
+                    registry._stage2_online_governed_eligibility_view_from_authority(
+                        authority,
+                        registry_path,
+                        self.stage2,
+                    )
+                )
+                self.assertEqual(
+                    view["validation_mode"],
+                    "online_governed_eligibility",
+                )
+                self.assertTrue(view["authoritative"])
+                self.assertFalse(view["executable"])
+                self.assertFalse(view["registry_component_executable"])
+                self.assertEqual(view["runtime_live"], "not_checked")
+                selection = registry.routed_documents_from_view(
+                    view,
+                    profile_id="integrity_reconciliation",
+                )
+                registry.require_executable_routing_selection(selection)
+
+                incomplete = copy.deepcopy(eligibility)
+                incomplete["receipt_trusted"] = False
+                with mock.patch.object(
+                    finalizer,
+                    "verify_stage2_authority_v1_online_eligibility",
+                    return_value=incomplete,
+                    create=True,
+                ):
+                    with self.assertRaisesRegex(
+                        registry.RegistryError,
+                        "facets are incomplete",
+                    ):
+                        registry._stage2_online_governed_eligibility_view_from_authority(
+                            authority,
+                            registry_path,
+                            self.stage2,
+                        )
+
     def test_stage2_receipt_mismatch_fails_without_fallback(self):
         with tempfile.TemporaryDirectory() as temporary:
             authority, registry_path, _base, _reviewed, _merge, receipt = (

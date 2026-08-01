@@ -4,11 +4,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
     "availability": "current",
-    "generated_at": "2026-08-01T08:07:34+00:00",
+    "generated_at": "2026-08-01T14:02:44+00:00",
     "current": {
       "result": "findings",
-      "generated_at": "2026-08-01T08:07:34+00:00",
-      "revision": "f86f44020db792584c49188094e7fb487bc0bf1d",
+      "generated_at": "2026-08-01T14:02:44+00:00",
+      "revision": "7b36d42fa1da50cb111e14f4e4c1c432ad6557b5",
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -57,28 +57,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "message": "A typed integrity finding requires review."
         },
         {
-          "finding_id": "INT-37b3dd2c4710011a",
-          "finding_code": "github_pages_readback_unavailable",
-          "severity": "warning",
-          "category": "GitHub records",
-          "status": "open",
-          "owner": "Elim",
-          "route": "integrity",
-          "next_action": "Rerun Project Integrity with registered GitHub access.",
-          "message": "GitHub Pages deployment synchronization could not be verified."
-        },
-        {
-          "finding_id": "INT-7fc8c3ac82d977f9",
-          "finding_code": "github_issues_readback_unavailable",
-          "severity": "warning",
-          "category": "GitHub records",
-          "status": "open",
-          "owner": "Elim",
-          "route": "integrity",
-          "next_action": "Rerun Project Integrity with registered GitHub access.",
-          "message": "GitHub Issues synchronization could not be verified."
-        },
-        {
           "finding_id": "INT-a0cd25c89e570ebf",
           "finding_code": "project_integrity_condition",
           "severity": "warning",
@@ -116,6 +94,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-1fcfb8ee89dd8b96354c"
+    "integrity.js": "project-console-badda6a33b24f7a54f80"
   }
 });

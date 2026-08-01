@@ -272,18 +272,24 @@ def main(
                 )
                 if (
                     routing_view.get("validation_mode")
-                    != "live_authority_validation"
+                    != "online_governed_eligibility"
                     or routing_view.get("authoritative") is not True
-                    or routing_view.get("executable") is not True
-                    or routing_view.get("live_authority_verified") is not True
+                    or routing_view.get("executable") is not False
+                    or routing_view.get("authority_effective") is not True
+                    or routing_view.get("source_revision_authorized") is not True
+                    or routing_view.get("source_bytes_current") is not True
+                    or routing_view.get("canonical_history_confirmed") is not True
+                    or routing_view.get("receipt_trusted") is not True
+                    or routing_view.get("runtime_live") != "not_checked"
                     or routing_view.get("activation_receipt_consulted")
                     is not True
                     or routing_view.get("predecessor_route_consulted")
                     is not False
                 ):
                     raise RegistryError(
-                        "production Elim context requires active Component "
-                        "Registry routing without predecessor consultation"
+                        "production Elim context requires governed-eligible "
+                        "Component Registry routing without predecessor "
+                        "consultation"
                     )
                 value = build_context_packet_from_view(
                     routing_view,

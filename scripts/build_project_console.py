@@ -104,6 +104,7 @@ try:
         render_context_routing_rule as component_registry_render_routing_rule,
         routed_capability_preview_from_view as component_registry_routed_capability_preview,
         routed_profile_preview_from_view as component_registry_routed_profile_preview,
+        stage2_codeowners_projection as component_registry_codeowners_projection,
     )
 except ModuleNotFoundError:
     from scripts.component_registry import (
@@ -119,6 +120,7 @@ except ModuleNotFoundError:
         render_context_routing_rule as component_registry_render_routing_rule,
         routed_capability_preview_from_view as component_registry_routed_capability_preview,
         routed_profile_preview_from_view as component_registry_routed_profile_preview,
+        stage2_codeowners_projection as component_registry_codeowners_projection,
     )
 
 try:
@@ -4915,9 +4917,17 @@ def component_registry_projection_count(snapshot: dict[str, object]) -> int:
         coverage = snapshot.get("coverage")
         routing = snapshot.get("routing")
         terminology = snapshot.get("terminology")
+        codeowners = snapshot.get("codeowners")
         if not all(
             isinstance(value, dict)
-            for value in (lifecycles, authorities, coverage, routing, terminology)
+            for value in (
+                lifecycles,
+                authorities,
+                coverage,
+                routing,
+                terminology,
+                codeowners,
+            )
         ):
             raise RuntimeError("Component Registry Stage 2 projection is incomplete.")
         collections = (
@@ -4931,6 +4941,7 @@ def component_registry_projection_count(snapshot: dict[str, object]) -> int:
             routing.get("components"),
             routing.get("selections"),
             terminology.get("entries"),
+            codeowners.get("records"),
         )
         if any(not isinstance(value, list) for value in collections):
             raise RuntimeError("Component Registry Stage 2 record set is incomplete.")
@@ -10065,6 +10076,7 @@ def _stage2_component_registry_console_snapshot(
     routing_view: dict[str, object],
     *,
     generated_at: str,
+    root: Path = ROOT,
 ) -> dict[str, object]:
     """Project the validated Stage 2 Registry without another data authority."""
 
@@ -10076,7 +10088,12 @@ def _stage2_component_registry_console_snapshot(
         != "proposed_revision_validation"
         or routing_view.get("authoritative") is not False
         or routing_view.get("executable") is not False
-        or routing_view.get("live_authority_verified") is not False
+        or routing_view.get("authority_effective") is not False
+        or routing_view.get("source_revision_authorized") is not False
+        or routing_view.get("source_bytes_current") is not False
+        or routing_view.get("canonical_history_confirmed") is not False
+        or routing_view.get("receipt_trusted") is not False
+        or routing_view.get("runtime_live") != "not_checked"
         or routing_view.get("predecessor_route_consulted") is not False
         or not isinstance(registry, dict)
         or registry.get("schema_version") != 2
@@ -10333,6 +10350,20 @@ def _stage2_component_registry_console_snapshot(
     registry_digest = hashlib.sha256(
         component_registry_canonical_json(registry).encode("utf-8")
     ).hexdigest()
+    codeowners = component_registry_codeowners_projection(
+        registry,
+        root=root,
+        compare_current=True,
+    )
+    if not codeowners["complete"]:
+        raise RuntimeError(
+            "Component Registry CODEOWNERS projection is not current."
+        )
+    for record in codeowners["records"]:
+        record["console_route"] = (
+            "automation:component-registry:codeowners?assignment="
+            + urllib.parse.quote(record["assignment_id"], safe="")
+        )
     defaults = {
         "mode": "components",
         "component": components[0]["stable_id"],
@@ -10342,6 +10373,7 @@ def _stage2_component_registry_console_snapshot(
         "coverage": coverage_rows[0]["coverage_id"],
         "routing": routing_rows[0]["routing_id"],
         "terminology": terms[0]["term_id"],
+        "codeowners": codeowners["records"][0]["assignment_id"],
     }
     return {
         "schema_version": 2,
@@ -10361,6 +10393,7 @@ def _stage2_component_registry_console_snapshot(
                 "coverage",
                 "routing",
                 "terminology",
+                "codeowners",
             )
         },
         "defaults": defaults,
@@ -10371,7 +10404,12 @@ def _stage2_component_registry_console_snapshot(
             "validation_mode": routing_view["validation_mode"],
             "authoritative": False,
             "executable": False,
-            "live_authority_verified": False,
+            "authority_effective": False,
+            "source_revision_authorized": False,
+            "source_bytes_current": False,
+            "canonical_history_confirmed": False,
+            "receipt_trusted": False,
+            "runtime_live": "not_checked",
             "predecessor_route_consulted": False,
             "registry_sha256": registry_digest,
             "repository_revision": registry["validation"][
@@ -10428,6 +10466,19 @@ def _stage2_component_registry_console_snapshot(
             "adopted": terminology.get("adopted"),
             "record_set_sha256": terminology.get("record_set_sha256"),
             "entries": terms,
+        },
+        "codeowners": {
+            "available": codeowners["available"],
+            "complete": codeowners["complete"],
+            "authoritative": codeowners["authoritative"],
+            "authority_effect": codeowners["authority_effect"],
+            "summary": copy.deepcopy(codeowners["summary"]),
+            "records": copy.deepcopy(codeowners["records"]),
+            "generated_rows": copy.deepcopy(codeowners["generated_rows"]),
+            "checked_in_rows": copy.deepcopy(codeowners["checked_in_rows"]),
+            "generated_sha256": codeowners["generated_sha256"],
+            "current_sha256": codeowners["current_sha256"],
+            "problems": copy.deepcopy(codeowners["problems"]),
         },
     }
 
@@ -10645,6 +10696,7 @@ def component_registry_console_snapshot(
         return _stage2_component_registry_console_snapshot(
             routing_view,
             generated_at=generated_at,
+            root=root,
         )
 
     mode = routing_view.get("validation_mode")

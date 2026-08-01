@@ -851,9 +851,11 @@ class ComponentRegistryStage2FinalizerTests(unittest.TestCase):
             finalizer.select_component_registry_receipt(self.registry, [stage1])
 
     def test_no_argument_finalizer_uses_stage2_production_path(self):
+        legacy_registry = copy.deepcopy(self.registry)
+        legacy_registry.pop("authority_digest_model", None)
         receipt = {
             "registry_sha256": finalizer.registry._canonical_registry_digest(
-                self.registry
+                legacy_registry
             )
         }
         adopted_view = {
@@ -878,7 +880,7 @@ class ComponentRegistryStage2FinalizerTests(unittest.TestCase):
         authority = Authority()
         with (
             patch.object(finalizer.ProjectPathAuthority, "production", return_value=authority),
-            patch.object(finalizer.registry, "_read_json", return_value=self.registry),
+            patch.object(finalizer.registry, "_read_json", return_value=legacy_registry),
             patch.object(
                 finalizer.registry,
                 "load_component_registry_configuration_routing_view",
@@ -905,8 +907,263 @@ class ComponentRegistryStage2FinalizerTests(unittest.TestCase):
         self.assertTrue(result["complete"])
         self.assertEqual(result["verification_state"], "live_authority_validation")
         collect.assert_called_once_with(authority)
+        build.assert_called_once_with(authority, legacy_registry, {"fixed": True})
+        write.assert_called_once_with(authority, receipt)
+
+    def test_authority_v1_receipt_is_distinct_and_crash_idempotent(self):
+        digest = "a" * 64
+        receipt = {
+            "authority_sha256": digest,
+            "generation": 1,
+            "verification_type": (
+                "component_registry_stage2_authority_readback"
+            ),
+        }
+        logical = (
+            "records/governance/component-registry/activation-readbacks/"
+            f"authority-v1/{digest}.json"
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            authority = self.authority(temporary)
+            with patch.object(
+                finalizer.registry,
+                "_stage2_authority_readback_logical_path",
+                create=True,
+                return_value=logical,
+            ):
+                path, created = finalizer._write_stage2_authority_receipt(
+                    authority,
+                    receipt,
+                )
+                repeated_path, repeated_created = (
+                    finalizer._write_stage2_authority_receipt(
+                        authority,
+                        receipt,
+                    )
+                )
+                self.assertTrue(created)
+                self.assertFalse(repeated_created)
+                self.assertEqual(repeated_path, path)
+                self.assertEqual(stat.S_IMODE(path.stat().st_mode), 0o600)
+                self.assertIn("authority-v1", path.parts)
+                conflicting = dict(receipt, generation=2)
+                with self.assertRaisesRegex(
+                    finalizer.ActivationFinalizationError,
+                    "conflicts",
+                ):
+                    finalizer._write_stage2_authority_receipt(
+                        authority,
+                        conflicting,
+                    )
+
+    def test_authority_v1_merge_and_history_are_exact(self):
+        repository = Path("/fixture/repository")
+        base = "1" * 40
+        head = "2" * 40
+        merge = "3" * 40
+        pull_request = {
+            "id": 41,
+            "node_id": "PR_node",
+            "number": 502,
+            "state": "closed",
+            "merged": True,
+            "merged_at": "2026-08-01T12:02:00Z",
+            "merge_commit_sha": merge,
+            "auto_merge": None,
+            "base": {
+                "ref": "main",
+                "repo": {"full_name": "Thorncrag/ARRP"},
+            },
+            "head": {"sha": head},
+            "merged_by": {
+                "login": "Thorncrag",
+                "id": 7,
+                "node_id": "USER_node",
+            },
+        }
+
+        def git_readback(_repository, *arguments):
+            if arguments[:3] == ("rev-list", "--parents", "-n"):
+                return f"{merge} {base} {head}"
+            if arguments[0] == "merge-base":
+                return base
+            if arguments[0] == "show" and arguments[-1] == merge:
+                return "tree-id"
+            if arguments[0] == "show" and arguments[-1] == head:
+                return "tree-id"
+            if arguments[:3] == ("rev-list", "--first-parent", "--reverse"):
+                return merge
+            self.fail(f"unexpected Git readback: {arguments!r}")
+
+        with patch.object(finalizer, "_git", side_effect=git_readback):
+            evidence = finalizer._merge_evidence(
+                repository,
+                pull_request,
+                merge,
+            )
+            history = finalizer._validate_canonical_pull_request_history(
+                repository,
+                correction_merge=merge,
+                remote_main=merge,
+                pull_requests=[pull_request],
+            )
+        self.assertEqual(evidence["base_revision"], base)
+        self.assertEqual(evidence["reviewed_head"], head)
+        self.assertEqual(history, [evidence])
+        wrong_tree = dict(pull_request)
+        with (
+            patch.object(
+                finalizer,
+                "_git",
+                side_effect=[
+                    f"{merge} {base} {head}",
+                    base,
+                    "merge-tree",
+                    "reviewed-tree",
+                ],
+            ),
+            self.assertRaisesRegex(
+                finalizer.ActivationFinalizationError,
+                "merge evidence differs",
+            ),
+        ):
+            finalizer._merge_evidence(repository, wrong_tree, merge)
+
+    def test_authority_v1_finalizer_uses_read_only_online_verifier(self):
+        authority_digest = finalizer.registry._stage2_authority_digest(
+            self.registry
+        )
+        receipt = {
+            "authority_sha256": authority_digest,
+            "generation": 1,
+            "issuance_revision": "4" * 40,
+        }
+        configuration_view = {
+            "validation_mode": "adopted_configuration_validation",
+            "authoritative": False,
+            "executable": False,
+        }
+        online_view = {
+            "validation_mode": "online_governed_eligibility",
+            "registry_sha256": finalizer.registry._canonical_registry_digest(
+                self.registry
+            ),
+            "authority_sha256": authority_digest,
+            "authority_protocol": finalizer.STAGE2_AUTHORITY_PROTOCOL,
+            "authority_generation": 1,
+            "authoritative": True,
+            "executable": False,
+            "activation_receipt_consulted": True,
+            "runtime_live": "not_checked",
+            "authority_effective": True,
+            "source_revision_authorized": True,
+            "source_bytes_current": True,
+            "canonical_history_confirmed": True,
+            "receipt_trusted": True,
+        }
+
+        class Authority:
+            mode = "production_canonical"
+            repository_root = finalizer.registry.ROOT
+
+            def repository_path(self, _path, required=False):
+                self.required = required
+                return finalizer.registry.DEFAULT_REGISTRY
+
+        authority = Authority()
+        with (
+            patch.object(
+                finalizer.ProjectPathAuthority,
+                "production",
+                return_value=authority,
+            ),
+            patch.object(
+                finalizer.registry,
+                "_read_json",
+                return_value=self.registry,
+            ),
+            patch.object(
+                finalizer.registry,
+                "load_component_registry_configuration_routing_view",
+                return_value=configuration_view,
+            ),
+            patch.object(
+                finalizer,
+                "_collect_stage2_authority_observations",
+                return_value={"fixed": True},
+            ) as collect,
+            patch.object(
+                finalizer,
+                "_build_stage2_authority_receipt",
+                return_value=receipt,
+            ) as build,
+            patch.object(
+                finalizer,
+                "_write_stage2_authority_receipt",
+                return_value=(Path("receipt.json"), True),
+            ) as write,
+            patch.object(
+                finalizer,
+                "verify_stage2_authority_v1_online_eligibility",
+                return_value=online_view,
+            ) as verify,
+        ):
+            result = finalizer.finalize_activation()
+        self.assertTrue(result["complete"])
+        self.assertTrue(result["created"])
+        self.assertEqual(result["runtime_live"], "not_checked")
+        collect.assert_called_once_with(authority, self.registry)
         build.assert_called_once_with(authority, self.registry, {"fixed": True})
         write.assert_called_once_with(authority, receipt)
+        verify.assert_called_once_with(authority, self.registry)
+
+    def test_authority_v1_correction_digest_is_not_current_full_digest(self):
+        correction = copy.deepcopy(self.registry)
+        current = copy.deepcopy(correction)
+        current["validation"]["repository_base_revision"] = "f" * 40
+        correction_full_digest = (
+            finalizer.registry._canonical_registry_digest(correction)
+        )
+        current_full_digest = finalizer.registry._canonical_registry_digest(
+            current
+        )
+        authority_digest = finalizer.registry._stage2_authority_digest(
+            current
+        )
+        self.assertNotEqual(correction_full_digest, current_full_digest)
+        self.assertEqual(
+            finalizer.registry._stage2_authority_digest(correction),
+            authority_digest,
+        )
+        model = finalizer._stage2_authority_model(current)
+        finalizer._validate_stage2_correction_registry_binding(
+            correction,
+            {"correction_registry_sha256": correction_full_digest},
+            current_authority_digest=authority_digest,
+            current_model=model,
+        )
+        with self.assertRaisesRegex(
+            finalizer.ActivationFinalizationError,
+            "binding differs",
+        ):
+            finalizer._validate_stage2_correction_registry_binding(
+                correction,
+                {"correction_registry_sha256": current_full_digest},
+                current_authority_digest=authority_digest,
+                current_model=model,
+            )
+
+    def test_online_verifier_rejects_nonproduction_authority_before_io(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority = self.authority(temporary)
+            with self.assertRaisesRegex(
+                finalizer.ActivationFinalizationError,
+                "fixed production authority",
+            ):
+                finalizer.verify_stage2_authority_v1_online_eligibility(
+                    authority,
+                    self.registry,
+                )
 
     def test_stage2_production_receipt_binds_exact_pr_merge_and_checks(self):
         class Authority:

@@ -82,7 +82,8 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
     def test_stage2_top_level_is_closed_and_has_no_family_construct(self):
         expected = {
             "$schema", "schema_version", "registry_id", "registry_revision",
-            "validation", "terminology", "implementation_enums",
+            "validation", "authority_digest_model", "terminology",
+            "implementation_enums",
             "directory_scopes", "components", "component_lifecycles",
             "component_authorities", "relationships", "migrations_and_aliases",
             "provenance_events", "routing", "supporting_artifact_rules",
@@ -90,6 +91,172 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         }
         self.assertEqual(set(self.registry), expected)
         self.assertFalse(any("famil" in key.lower() for key in self.registry))
+
+    def test_authority_digest_model_is_exact_and_schema_closed(self):
+        model = self.registry["authority_digest_model"]
+        self.assertEqual(
+            model,
+            registry._expected_stage2_authority_digest_model(2),
+        )
+        schema = load_json(SCHEMA_PATH)
+        registry._validate_against_schema(
+            model,
+            schema["$defs"]["authorityDigestModel"],
+            schema,
+        )
+        altered = copy.deepcopy(model)
+        altered["uncontrolled_normalization"] = True
+        with self.assertRaises(registry.RegistryError):
+            registry._validate_against_schema(
+                altered,
+                schema["$defs"]["authorityDigestModel"],
+                schema,
+            )
+
+    def test_authority_digest_has_fixed_cross_implementation_vector(self):
+        vector = {
+            "authority_digest_model": (
+                registry._expected_stage2_authority_digest_model(1)
+            ),
+            "validation": {"repository_base_revision": "b" * 40},
+            "components": {
+                "entries": {
+                    "alpha": {
+                        "canonical_source": {
+                            "source_binding": {
+                                "binding_basis": "content_digest",
+                                "sha256": "a" * 64,
+                            }
+                        },
+                        "label": "café",
+                    }
+                }
+            },
+        }
+        self.assertEqual(
+            registry._stage2_authority_digest(vector),
+            "274bddfdab278ac633fe67f27ec3d445e58b887904c07404aa91f1223ec9e07a",
+        )
+
+    def test_registry_json_parser_rejects_duplicate_keys_at_any_depth(self):
+        with self.assertRaisesRegex(registry.RegistryError, "duplicate field"):
+            registry._parse_closed_json_object(
+                '{"outer":{"sha256":"' + "a" * 64
+                + '","sha256":"' + "b" * 64 + '"}}',
+                "duplicate fixture",
+            )
+
+    def test_authority_digest_normalizes_every_currentness_location_only(self):
+        expected = registry._stage2_authority_digest(self.registry)
+        altered = copy.deepcopy(self.registry)
+        altered["validation"]["repository_base_revision"] = "f" * 40
+        self.assertEqual(registry._stage2_authority_digest(altered), expected)
+
+        content_bound_ids = []
+        for component_id, component in self.registry["components"]["entries"].items():
+            binding = component["canonical_source"]["source_binding"]
+            if binding["binding_basis"] != "content_digest":
+                continue
+            content_bound_ids.append(component_id)
+            altered = copy.deepcopy(self.registry)
+            digest = altered["components"]["entries"][component_id][
+                "canonical_source"
+            ]["source_binding"]["sha256"]
+            altered["components"]["entries"][component_id][
+                "canonical_source"
+            ]["source_binding"]["sha256"] = (
+                ("0" if digest[0] != "0" else "1") + digest[1:]
+            )
+            self.assertEqual(
+                registry._stage2_authority_digest(altered),
+                expected,
+                component_id,
+            )
+        self.assertEqual(len(content_bound_ids), 101)
+
+    def test_authority_digest_is_sensitive_to_all_other_change_classes(self):
+        expected = registry._stage2_authority_digest(self.registry)
+        mutations = []
+
+        scalar = copy.deepcopy(self.registry)
+        scalar["registry_id"] = "DIFFERENT-REGISTRY"
+        mutations.append(scalar)
+
+        structural_addition = copy.deepcopy(self.registry)
+        structural_addition["unexpected"] = True
+        mutations.append(structural_addition)
+
+        structural_removal = copy.deepcopy(self.registry)
+        del structural_removal["terminology"]
+        mutations.append(structural_removal)
+
+        ordered_array = copy.deepcopy(self.registry)
+        ordered_array["terminology"]["order"] = list(
+            reversed(ordered_array["terminology"]["order"])
+        )
+        mutations.append(ordered_array)
+
+        semantic_binding = copy.deepcopy(self.registry)
+        semantic_binding["components"]["entries"]["elim"][
+            "canonical_source"
+        ]["source_binding"]["external_identifier"] += "-changed"
+        mutations.append(semantic_binding)
+
+        for altered in mutations:
+            self.assertNotEqual(
+                registry._stage2_authority_digest(altered),
+                expected,
+            )
+
+    def test_currentness_only_equivalence_rejects_semantic_or_generation_change(self):
+        refreshed = copy.deepcopy(self.registry)
+        refreshed["validation"]["repository_base_revision"] = "f" * 40
+        first_component = next(
+            component
+            for component in refreshed["components"]["entries"].values()
+            if component["canonical_source"]["source_binding"]["binding_basis"]
+            == "content_digest"
+        )
+        first_component["canonical_source"]["source_binding"]["sha256"] = (
+            "e" * 64
+        )
+        self.assertTrue(
+            registry._stage2_currentness_only_equivalent(
+                self.registry,
+                refreshed,
+            )
+        )
+
+        semantic = copy.deepcopy(refreshed)
+        semantic["registry_id"] = "DIFFERENT-REGISTRY"
+        self.assertFalse(
+            registry._stage2_currentness_only_equivalent(
+                self.registry,
+                semantic,
+            )
+        )
+
+        generation = copy.deepcopy(refreshed)
+        generation["authority_digest_model"]["generation"] = 3
+        self.assertFalse(
+            registry._stage2_currentness_only_equivalent(
+                self.registry,
+                generation,
+            )
+        )
+
+    def test_authority_digest_sentinels_are_outside_live_value_domains(self):
+        self.assertIsNone(
+            registry.SHA256_RE.fullmatch(
+                registry.STAGE2_AUTHORITY_CONTENT_DIGEST_SENTINEL
+            )
+        )
+        self.assertIsNone(
+            registry.re.fullmatch(
+                r"[0-9a-f]{40}",
+                registry.STAGE2_AUTHORITY_BASE_REVISION_SENTINEL,
+            )
+        )
 
     def test_exact_eight_component_classes_are_defined_and_used(self):
         definitions = self.registry["implementation_enums"]["component_classes"]
@@ -220,6 +387,258 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         self.assertEqual(scope["path_pattern"], ".tmp/")
         self.assertIn("repository_tmp_children", self.registry["supporting_artifact_rules"]["entries"])
 
+    def test_codeowners_is_exact_generated_nonauthoritative_configuration(self):
+        result = registry.stage2_codeowners_projection(self.registry, root=ROOT)
+        self.assertTrue(result["available"])
+        self.assertTrue(result["complete"])
+        self.assertFalse(result["authoritative"])
+        self.assertEqual(result["problems"], [])
+        self.assertEqual(
+            result["generated_text"],
+            (ROOT / ".github" / "CODEOWNERS").read_text(encoding="utf-8"),
+        )
+        registry_record = next(
+            record for record in result["records"]
+            if record["assignment_id"] == "component:COMPONENT-REGISTRY"
+        )
+        self.assertEqual(registry_record["declared_mode"], "none")
+        self.assertEqual(registry_record["effective_mode"], "none")
+        self.assertEqual(registry_record["owners"], [])
+        self.assertIsNone(registry_record["generated_line"])
+
+    def test_codeowners_direct_inherit_and_none_are_closed(self):
+        result = registry.stage2_codeowners_projection(
+            self.registry,
+            root=ROOT,
+            compare_current=False,
+        )
+        records = {record["assignment_id"]: record for record in result["records"]}
+        self.assertEqual(records["scope:tests"]["effective_mode"], "direct")
+        self.assertEqual(records["scope:tests"]["owners"], ["@Thorncrag"])
+        self.assertEqual(
+            records["scope:test_fixtures"]["declared_mode"],
+            "inherit",
+        )
+        self.assertEqual(records["scope:test_fixtures"]["effective_mode"], "direct")
+        self.assertEqual(
+            records["scope:test_fixtures"]["inherited_from"],
+            "scope:tests",
+        )
+        self.assertEqual(
+            records["scope:repository_root"]["effective_mode"],
+            "none",
+        )
+
+    def test_codeowners_none_emits_ownerless_override_only_when_needed(self):
+        altered = copy.deepcopy(self.registry)
+        altered["directory_scopes"]["entries"]["framework"][
+            "repository_controls"
+        ] = {"github_codeowners": {"mode": "direct", "owners": ["@Thorncrag"]}}
+        result = registry.stage2_codeowners_projection(
+            altered,
+            root=ROOT,
+            compare_current=False,
+        )
+        self.assertIn("/framework/ @Thorncrag\n", result["generated_text"])
+        self.assertIn("/framework/component-registry.json\n", result["generated_text"])
+
+    def test_codeowners_rejects_invalid_shape_and_inheritance_cycle(self):
+        invalid = copy.deepcopy(self.registry)
+        invalid["components"]["entries"]["COMPONENT-REGISTRY"][
+            "repository_controls"
+        ] = {"github_codeowners": {"mode": "none", "owners": []}}
+        with self.assertRaisesRegex(registry.RegistryError, "cannot declare owners"):
+            registry.stage2_codeowners_projection(
+                invalid,
+                root=ROOT,
+                compare_current=False,
+            )
+
+        cyclic = copy.deepcopy(self.registry)
+        scopes = cyclic["directory_scopes"]["entries"]
+        scopes["framework"]["ancestor_scope_ids"] = ["framework_project"]
+        scopes["framework_project"]["repository_controls"] = {
+            "github_codeowners": {"mode": "inherit"}
+        }
+        scopes["framework_project"]["ancestor_scope_ids"] = ["framework"]
+        with self.assertRaisesRegex(registry.RegistryError, "cycles"):
+            registry.stage2_codeowners_projection(
+                cyclic,
+                root=ROOT,
+                compare_current=False,
+            )
+
+    def test_codeowners_rejects_unknown_missing_and_invalid_direct_values(self):
+        schema = load_json(SCHEMA_PATH)
+        for setting, message in (
+            ({"mode": "automatic"}, "mode is invalid"),
+            ({"mode": "direct"}, "not closed"),
+            ({"mode": "direct", "owners": ["Thorncrag"]}, "owners are invalid"),
+        ):
+            with self.subTest(setting=setting):
+                altered = copy.deepcopy(self.registry)
+                altered["components"]["entries"]["framework_kernel"][
+                    "repository_controls"
+                ] = {"github_codeowners": setting}
+                with self.assertRaises(registry.RegistryError):
+                    registry._validate_against_schema(altered, schema, schema)
+                with self.assertRaisesRegex(registry.RegistryError, message):
+                    registry.stage2_codeowners_projection(
+                        altered,
+                        root=ROOT,
+                        compare_current=False,
+                    )
+
+    def test_codeowners_rejects_ambiguous_and_duplicate_patterns(self):
+        ambiguous = copy.deepcopy(self.registry)
+        ambiguous["directory_scopes"]["entries"]["test_fixtures"][
+            "ancestor_scope_ids"
+        ] = ["tests", "scripts"]
+        with self.assertRaisesRegex(registry.RegistryError, "ambiguous"):
+            registry.stage2_codeowners_projection(
+                ambiguous,
+                root=ROOT,
+                compare_current=False,
+            )
+
+        duplicate = copy.deepcopy(self.registry)
+        duplicate["components"]["entries"]["agent_rules_kernel"][
+            "canonical_source"
+        ]["locator"]["value"] = "framework/FRAMEWORK.md"
+        with self.assertRaisesRegex(registry.RegistryError, "duplicate generated"):
+            registry.stage2_codeowners_projection(
+                duplicate,
+                root=ROOT,
+                compare_current=False,
+            )
+
+    def test_codeowners_rejects_nonrepository_use_and_checked_in_drift(self):
+        nonrepository = copy.deepcopy(self.registry)
+        identity = next(
+            component_id
+            for component_id, component in nonrepository["components"]["entries"].items()
+            if component["canonical_source"]["locator"]["kind"]
+            != "repository_path"
+        )
+        nonrepository["components"]["entries"][identity]["repository_controls"] = {
+            "github_codeowners": {"mode": "none"}
+        }
+        with self.assertRaisesRegex(registry.RegistryError, "nonrepository"):
+            registry.stage2_codeowners_projection(
+                nonrepository,
+                root=ROOT,
+                compare_current=False,
+            )
+
+        with tempfile.TemporaryDirectory() as directory:
+            temporary_root = Path(directory)
+            codeowners = temporary_root / ".github" / "CODEOWNERS"
+            codeowners.parent.mkdir()
+            expected = registry.stage2_codeowners_projection(
+                self.registry,
+                root=ROOT,
+                compare_current=False,
+            )["generated_text"]
+            codeowners.write_text(
+                expected + "/unexplained/ @Thorncrag\n",
+                encoding="utf-8",
+            )
+            result = registry.stage2_codeowners_projection(
+                self.registry,
+                root=temporary_root,
+            )
+        self.assertFalse(result["complete"])
+        self.assertEqual(
+            [problem["code"] for problem in result["problems"]],
+            ["checked_in_codeowners_drift"],
+        )
+
+    def test_codeowners_generation_is_ordered_idempotent_and_stage2_native(self):
+        first = registry.stage2_codeowners_projection(
+            self.registry,
+            root=ROOT,
+            compare_current=False,
+        )
+        second = registry.stage2_codeowners_projection(
+            self.registry,
+            root=ROOT,
+            compare_current=False,
+        )
+        self.assertEqual(first["generated_text"], second["generated_text"])
+        self.assertEqual(first["generated_rows"], second["generated_rows"])
+        self.assertNotIn("ownership_and_review", self.registry)
+        self.assertEqual(
+            registry.generate_codeowners_text(self.registry),
+            first["generated_text"],
+        )
+        generated_lines = [
+            line
+            for line in first["generated_text"].splitlines()
+            if line and not line.startswith("#")
+        ]
+        self.assertEqual(
+            generated_lines,
+            [
+                " ".join([row["pattern"], *row["owners"]]).rstrip()
+                for row in first["generated_rows"]
+            ],
+        )
+
+    def test_codeowners_migration_preserves_every_covered_path_except_registry(self):
+        prior_rows = [
+            ("/.github/", ["@Thorncrag"]),
+            ("/scripts/", ["@Thorncrag"]),
+            ("/tests/", ["@Thorncrag"]),
+            ("/AGENTS.md", ["@Thorncrag"]),
+            ("/requirements*.txt", ["@Thorncrag"]),
+            ("/pyproject.toml", ["@Thorncrag"]),
+            ("/package.json", ["@Thorncrag"]),
+            ("/package-lock.json", ["@Thorncrag"]),
+            ("/**/*.schema.json", ["@Thorncrag"]),
+            ("/framework/FRAMEWORK.md", ["@Thorncrag"]),
+            ("/framework/AGENT_OPERATING_RULES.md", ["@Thorncrag"]),
+            ("/framework/archive/authorities/CONTEXT_ROUTING.md", ["@Thorncrag"]),
+            ("/framework/archive/authorities/PROJECT_STRUCTURE.md", ["@Thorncrag"]),
+            ("/framework/component-registry.json", ["@Thorncrag"]),
+            ("/framework/standards/", ["@Thorncrag"]),
+            ("/framework/project/", ["@Thorncrag"]),
+            ("/participate/", ["@Thorncrag"]),
+            ("/website/", ["@Thorncrag"]),
+            ("/framework/project/interfaces/project-console/README.md", ["@Thorncrag"]),
+            ("/framework/project/interfaces/project-console/project-console.html", ["@Thorncrag"]),
+            ("/framework/project/interfaces/project-console/app.js", ["@Thorncrag"]),
+            ("/framework/project/interfaces/project-console/styles.css", ["@Thorncrag"]),
+            ("/tests/project-console/", ["@Thorncrag"]),
+            ("/framework/logs/", ["@Thorncrag"]),
+        ]
+        generated = registry.stage2_codeowners_projection(
+            self.registry,
+            root=ROOT,
+            compare_current=False,
+        )
+
+        def resolve(path, rows):
+            owners = []
+            for pattern, candidate in rows:
+                if registry._codeowners_pattern_matches(path, pattern):
+                    owners = candidate
+            return owners
+
+        generated_rows = [
+            (row["pattern"], row["owners"])
+            for row in generated["generated_rows"]
+        ]
+        differences = {}
+        for path in self.registry["repository_coverage"]["entries"]:
+            before = resolve(path, prior_rows)
+            after = resolve(path, generated_rows)
+            if before != after:
+                differences[path] = (before, after)
+        self.assertEqual(
+            differences,
+            {"framework/component-registry.json": (["@Thorncrag"], [])},
+        )
+
     def test_proposed_routing_view_has_no_status_or_receipt_claim(self):
         view = registry.load_component_registry_configuration_routing_view()
         self.assertEqual(view["schema_version"], 2)
@@ -227,9 +646,15 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         self.assertNotIn("registry_status", view)
         self.assertFalse(view["authoritative"])
         self.assertFalse(view["executable"])
-        self.assertFalse(view["live_authority_verified"])
         self.assertFalse(view["activation_receipt_consulted"])
         self.assertFalse(view["predecessor_route_consulted"])
+        self.assertFalse(view["authority_effective"])
+        self.assertFalse(view["source_revision_authorized"])
+        self.assertFalse(view["source_bytes_current"])
+        self.assertFalse(view["canonical_history_confirmed"])
+        self.assertFalse(view["receipt_trusted"])
+        self.assertEqual(view["runtime_live"], "not_checked")
+        self.assertFalse(view["registry_component_executable"])
 
     def test_proposed_view_rejects_executable_selection(self):
         view = registry.load_component_registry_configuration_routing_view()

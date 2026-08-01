@@ -48,6 +48,7 @@ human-readable.
 | Cross-cutting project principles, authority, and routing | This kernel |
 | Detailed scope, methodology, issue, evidence, lifecycle, source, candidate, audit, and scoring rules | The modules registered below and in the [`Component Registry`](component-registry.json) |
 | Repository directories, stable document identities, and file purposes | [`Component Registry`](component-registry.json) |
+| Repository CODEOWNERS review routing | Explicit `repository_controls.github_codeowners` assignments in the [`Component Registry`](component-registry.json); the generated `.github/CODEOWNERS` file is nonauthoritative configuration |
 | GitHub Issues, Project fields, lifecycle synchronization, workflow Status, and holds | [`project/github/workflow.md`](project/github/workflow.md) |
 | Remedy selection, categories, repair and prevention, and trigger stages | [`standards/content/remedies.md`](standards/content/remedies.md) |
 | Print selection, order, page locators, and compiled editions | [`standards/publication/print-assembly.md`](standards/publication/print-assembly.md), [`project/publication/print-assembly.md`](project/publication/print-assembly.md), and [`project/publication/print-assembly.json`](project/publication/print-assembly.json) |
@@ -98,6 +99,7 @@ The scope rule follows from the same principle: **If an institutional design pre
 ## Cross-Cutting Rules and Conventions
 
 - **One authority and one primary home.** Each governing rule family and each institutional defect has one authoritative home. Other records link to it rather than create competing definitions. Repository placement is controlled by the [`Component Registry`](component-registry.json).
+- **Registry authorization is not CODEOWNERS routing.** A Component Registry revision requires Benjamin's recorded authorization. His explicit approval in Codex or ChatGPT, including approval of an exact bounded implementation plan, is sufficient within its stated scope; mechanical implementation already inside that scope needs no second GitHub approval. The Registry separately governs GitHub CODEOWNERS routing through explicit typed settings. Neither repository ownership nor `.github/CODEOWNERS` creates or substitutes for project authority.
 - **Neutral standards, candid conclusions.** Apply the same evidentiary, legal, and remedial standards regardless of party, ideology, officeholder, administration, or movement. Distinguish fact, law, dispute or uncertainty, and ARRP's own institutional analysis. Party-neutral method does not require positionlessness or false symmetry.
 - **Evidence before favorable credit.** Do not invent or infer unsupported facts, authorities, review, public support, professional validation, or outcomes. Unverified favorable propositions receive no favorable score credit.
 - **Repair without reproducing arbitrariness.** Every remedy must address the independently repairable defect, preserve legitimate governmental discretion, and be tested for abuse, selective enforcement, personalization, inadequate constraint, and failure of review or correction.

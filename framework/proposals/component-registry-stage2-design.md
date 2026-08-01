@@ -755,6 +755,32 @@ The current `authority_role` field is removed. Its former values are assigned
 to their actual dimensions: authority, component class, lifecycle, evidence,
 relationship, or retention.
 
+### Repository review routing
+
+GitHub CODEOWNERS review routing is governed separately from authority. Every
+repository-backed component and governed directory scope records one explicit
+`repository_controls.github_codeowners` mode:
+
+- `direct` assigns an exact nonempty owner list;
+- `inherit` resolves through the unique nearest governed ancestor; and
+- `none` resolves to no GitHub code owner.
+
+Every governed repository path resolves to exactly one effective result by
+deterministic most-specific precedence. The generator emits direct rules,
+omits redundant inherited rules, and emits an ownerless override when GitHub's
+last-matching-pattern behavior requires one to enforce `none`. Missing,
+ambiguous, cyclic, duplicate, conflicting, or unexplained routing fails
+validation. Ownership, authority, class, path, and filename never imply a
+CODEOWNERS assignment.
+
+The Component Registry itself uses `none`. Its revision still requires
+Benjamin's recorded authorization, which may be supplied by explicit Codex or
+ChatGPT approval of the exact change or bounded implementation plan. Work
+already inside that approval does not require a second GitHub approval;
+material or out-of-scope change requires new authorization. The generated
+`.github/CODEOWNERS` file is nonauthoritative configuration and never creates
+or substitutes for project authority.
+
 ### Retention
 
 The overloaded `retention_posture` field is replaced by structured retention.
@@ -903,6 +929,17 @@ Operations > Component Registry > Authority includes:
 - effective and termination conditions;
 - exact design-contract bindings; and
 - the authority chain applicable to each component.
+
+Operations > Component Registry > CODEOWNERS includes:
+
+- direct, inherited, none, and validation-problem counts;
+- searchable component and directory-scope assignments;
+- declared and effective modes, owners, inheritance, and generated patterns;
+- selected-assignment detail; and
+- an exact expected-versus-checked-in `.github/CODEOWNERS` comparison.
+
+This interface is read-only and explicitly describes CODEOWNERS as GitHub
+review routing rather than project authority.
 
 The Console never exposes private authorization or design-contract payloads;
 it displays only the public-safe identities, scopes, and bindings supplied by
@@ -1133,3 +1170,29 @@ taxonomy.
 | `component_registry_activation_finalizer` | `maintained_implementation` | `script` | `operator` | — |
 | `component_registry_tests` | `test_source` | `script` | `test_suite` | — |
 | `context_routes_source` | `archived_route_data_authority` | `configuration` | — | Retired archived predecessor; routing purpose is historical provenance |
+
+## Authority and currentness correction
+
+This section supersedes the earlier validation-mode wording without altering
+the historical migration table above. Authority-digest protocol
+`component_registry_stage2_authority_digest_v1` separates stable Registry
+semantics from mechanical source currentness. Its stable digest includes the
+protocol model and every Registry semantic field while normalizing only
+`validation.repository_base_revision` and schema-typed canonical-source
+SHA-256 bindings whose basis is `content_digest`. Full schema, source-set,
+source-hash, path-containment, and semantic validation remain mandatory.
+
+`adopted_configuration_validation` recognizes exact adopted bytes or a
+committed currentness-only descendant with the same authority protocol,
+generation, and stable digest. It remains nonauthoritative and nonexecutable
+and does not consult owner-local evidence.
+
+`online_governed_eligibility` additionally requires the immutable authority-v1
+receipt, authenticated canonical history, exact source-revision authorization,
+current source bytes, and present repository-protection evidence. It reports
+authority effectiveness, source authorization, source currentness,
+canonical-history confirmation, and receipt trust separately. The Registry
+remains nonexecutable, and runtime liveness remains `not_checked`; a separately
+validated executable routing packet is available only when every governed
+eligibility facet succeeds. Legacy Stage 1 and full-digest Stage 2 receipts
+remain historical provenance and are never fallback authority.

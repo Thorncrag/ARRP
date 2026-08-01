@@ -45,6 +45,15 @@ Bounded context is an efficiency mechanism, not permission to ignore a material 
 
 Agents and bots may act only within authority supplied by the Framework, this kernel, all implicated modules, and—when persistent—the applicable runbook. Deterministic classification, queue placement, context projection, metadata, scoring arithmetic, or a generated report does not create substantive authority.
 
+A Component Registry revision requires Benjamin's recorded authorization. An
+explicit approval in Codex or ChatGPT, including approval of an exact bounded
+implementation plan, satisfies that requirement within its stated scope.
+Mechanical work already authorized by that approval needs no second GitHub
+approval; a material or out-of-scope change requires new recorded approval.
+The Registry's typed CODEOWNERS settings and generated `.github/CODEOWNERS`
+file route GitHub review only. They never confer authority or replace the
+recorded owner decision.
+
 Only the human author may make a permanent candidate or issue disposition; answer or revise the human reversed-control question; define or materially change a proposal's institutional failure, essential boundaries, remedy, or remedy vehicle; make another reserved foundational or materially consequential departure; authorize final circulation or publication; or change project scope, methodology, an audit rubric, or the scoring system. A record-specific human decision may be implemented by an authorized agent, but standing, class-wide, or blanket permission does not substitute for the required decision where the Framework requires one.
 
 These reservations limit decision and implementation authority; they do not remove a subject from the agent's duty of review. When a reserved matter is relevant, the agent must examine the applicable record and evidence, identify material options and consequences, state a reasoned recommendation and important uncertainty, formulate the exact decision requiring human authority, preserve completed work, and continue nonconflicting work while withholding only the reserved decision and actions that depend upon it. Detailed issue and candidate boundaries are maintained in [`project/automation/agent-policy.md`](project/automation/agent-policy.md#human-review-stop-conditions).

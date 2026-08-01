@@ -116,7 +116,12 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
             "registry_path": "framework/component-registry.json",
             "authoritative": False,
             "executable": False,
-            "live_authority_verified": False,
+            "authority_effective": False,
+            "source_revision_authorized": False,
+            "source_bytes_current": False,
+            "canonical_history_confirmed": False,
+            "receipt_trusted": False,
+            "runtime_live": "not_checked",
             "activation_receipt_consulted": False,
             "predecessor_route_consulted": False,
         }
@@ -146,18 +151,27 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
             )
         candidate_loader.assert_called_once_with()
 
-        incompatible = dict(view)
-        incompatible["live_authority_verified"] = True
-        with patch(
-            "scripts.refresh_project_console."
-            "load_component_registry_configuration_routing_view",
-            return_value=incompatible,
-        ):
-            with self.assertRaisesRegex(
-                ConsoleRefreshError,
-                "incompatible authority mode",
-            ):
-                _component_registry_configuration_state()
+        invalid_values = {
+            "authority_effective": True,
+            "source_revision_authorized": True,
+            "source_bytes_current": True,
+            "canonical_history_confirmed": True,
+            "receipt_trusted": True,
+            "runtime_live": "running",
+        }
+        for field, invalid_value in invalid_values.items():
+            with self.subTest(field=field):
+                incompatible = {**view, field: invalid_value}
+                with patch(
+                    "scripts.refresh_project_console."
+                    "load_component_registry_configuration_routing_view",
+                    return_value=incompatible,
+                ):
+                    with self.assertRaisesRegex(
+                        ConsoleRefreshError,
+                        "incompatible authority mode",
+                    ):
+                        _component_registry_configuration_state()
 
     def test_exact_subprocesses_receive_only_the_project_token(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
