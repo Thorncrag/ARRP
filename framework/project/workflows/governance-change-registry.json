@@ -407,7 +407,7 @@
       "authority": ["framework/component-registry.json", "framework/component-registry.schema.json", "scripts/component_registry.py", "scripts/arrp_context.py", "scripts/run_coordinator.py", "scripts/finalize_component_registry_activation.py", "framework/project/automation/owner-local-runtime.md", "framework/project/interfaces/project-console/specification.md"],
       "source": {"kind": "current_worktree", "commits": [], "pull_requests": []},
       "destination": "framework/logs/governance/governance-change-log.md#gov-2026-021",
-      "resolution": "Proposed schema-version-4 semantic-minimal Registry authority; canonical adoption, supersession of GOV-2026-020, final Change Audit, and live readback remain reserved for the approved closeout pull request.",
+      "resolution": "Project-wide Change Audit complete on exact PR1 merge baseline 15405bb3d4d709678a68c6aacadc1d7d02c8c5c5: affected Registry, routing, CODEOWNERS, Console, consumer, governance, disclosure, continuity, and Paused-activation surfaces are reconciled; findings and corrections are incorporated in their owning PR1 files and tests; no score, rubric, rebaseline, or Runs effect exists; unresolved findings are None. Canonical adoption, one-way supersession of GOV-2026-020, exact PR2 evidence, merge readback, and owner-local readback remain reserved for the separately approved closeout merge.",
       "consumers": ["project_update_closeout", "governance_change_review", "console_builder", "change_audit_review", "console_governance_review"],
       "status": "Proposed / unmerged",
       "policy_adoption": "Proposed only; not adopted before the separately approved implementation and closeout merges.",

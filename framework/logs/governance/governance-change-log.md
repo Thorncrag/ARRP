@@ -31,13 +31,15 @@ remains separate and unchanged.
   generated nonauthoritative representations. Exact-only version-4 loaders,
   a schema-version-2 same-family readback, and five receipt-bound interpreter
   blobs replace live compatibility with earlier Registry formats.
-- Evidence: Owner-authorized design `CR-SM-2026-08-02` revision R6; preserved
-  baseline commit `07fe5f357f2604f25d6393e6f6fd14c1ab337165`; exact 11-key,
+- Evidence: Owner-authorized design `CR-SM-2026-08-02` revision R7; preserved
+  baseline commit `07fe5f357f2604f25d6393e6f6fd14c1ab337165`; exact PR1 head
+  `eb569526c0c5281816485683af3bf5fb7a91c662`, PR #511, and merge
+  `15405bb3d4d709678a68c6aacadc1d7d02c8c5c5`; exact 11-key,
   105-component, 87-term, 59-scope, 64-rule, 16-relationship, and
   three-exemption inventory; normalized pre/post field parity; exact helper
   coverage transition; byte-reproducible Console generation; and generated
-  CODEOWNERS equality. The implementation head, pull request, canonical merge,
-  closeout audit, supersession, and owner-local readback remain pending.
+  CODEOWNERS equality. The closeout PR number and exact head, supersession,
+  closeout merge readback, and owner-local activation readback remain pending.
   Consumer closure map:
   `canonical_authority` — `framework/component-registry.json` and
     `framework/component-registry.schema.json`; validated by
@@ -127,10 +129,22 @@ remains separate and unchanged.
 - Relationships: No supersession or refinement is claimed in PR1.
 - Validation: Mapped Python, browser, deterministic generation, normalized
   parity, CODEOWNERS preservation, helper coverage, exact-version, and
-  continuity-gate checks pass. The final Change Audit and canonical readbacks
-  remain pending.
-  Change Audit: Pending. The historical Change Audit Log is unchanged in PR1;
-  the separately approved closeout pull request owns the final audit evidence.
+  continuity-gate checks pass. Historical Change Audit Log SHA-256
+  `8cd8dfec677d5edfa354431becc6024544f0d23fec090cfba31e1660b2b7eb6b`,
+  GOV-2026-020 raw JSON SHA-256
+  `337f9476be11c3fbcbe4d43fd2248cf51b5effd6ece24a12c167ce9ba4528b85`,
+  and GOV-2026-020 raw Markdown SHA-256
+  `0dee6703d2c7b3a7e2bff9171e7b27df92e8ede7358a4d06e5cea90e4e0ac5ca`
+  are the exact PR1 merge baselines. Project-wide Change Audit — affected
+  scope: Registry, routing, generated CODEOWNERS, all twelve Console modes,
+  active consumers, governance, disclosure, continuity, and Paused activation;
+  findings and corrections: the approved semantic subtraction, exact-version
+  migration, protected-path preservation, Console parity, executable-fixture
+  correction, and historical-log authority correction are incorporated in
+  their owning PR1 files and tests; score, rubric, rebaseline, and Runs effect:
+  None; owning evidence: the consumer closure map above, exact Git history, and
+  the mapped validation seams; unresolved findings: None. Exact PR2 evidence,
+  merge readback, and the owner-local activation readback remain pending.
 - Owner-local supplement: Required.
 
 ## GOV-2026-020 — Component Registry Stage 1 authority transition
