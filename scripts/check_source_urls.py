@@ -38,7 +38,7 @@ except ModuleNotFoundError:
     )
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = ROOT / ".github" / "source-checker-bot.json"
+DEFAULT_CONFIG = ROOT / "framework/project/automation/configuration/bots/source-checker-bot.json"
 USER_AGENT = "ARRP source-checker-bot/1.0 (+https://github.com/Thorncrag/ARRP)"
 CLASSIFICATIONS = {
     "verified", "identity-preserving redirect", "access restricted",

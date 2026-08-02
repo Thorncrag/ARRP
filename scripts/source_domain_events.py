@@ -22,7 +22,7 @@ from typing import Any
 
 
 SCHEMA_VERSION = 1
-SCHEMA_URI = ".github/source-domain-event.schema.json"
+SCHEMA_URI = "framework/project/automation/schemas/source-domain-event.schema.json"
 KIND = "source-domain-event"
 HASH_RE = re.compile(r"^sha256:[a-f0-9]{64}$")
 REVISION_RE = re.compile(r"^[a-f0-9]{40}$")

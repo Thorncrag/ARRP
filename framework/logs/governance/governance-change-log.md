@@ -20,7 +20,7 @@ remains separate and unchanged.
 - Status: Proposed / unmerged
 - Decision class: governance_documentation
 - Authorities: framework/component-registry.json;
-  framework/standards/automation/component-registry.schema.json;
+  framework/component-registry.schema.json;
   scripts/component_registry.py;
   scripts/finalize_component_registry_activation.py
 - Decision: Proposes adopting the validated Component Registry as the sole
@@ -266,7 +266,7 @@ remains separate and unchanged.
 - Date: 2026-07-29
 - Status: Canonical
 - Decision class: security_privacy_disclosure
-- Authorities: framework/project/interfaces/project-console.md; scripts/refresh_project_console.py
+- Authorities: framework/project/interfaces/project-console/specification.md; scripts/refresh_project_console.py
 - Decision: Separates owner-invoked authenticated refresh from a credential-free
   static Console that cannot initiate refresh.
 - Evidence: PRs #485–486; merges
@@ -285,7 +285,7 @@ remains separate and unchanged.
 - Date: 2026-07-28
 - Status: Canonical
 - Decision class: data_provenance_integrity
-- Authorities: framework/project/interfaces/project-console-classifications.json; framework/project/interfaces/project-console.md
+- Authorities: framework/project/interfaces/project-console/configuration/classifications.json; framework/project/interfaces/project-console/specification.md
 - Decision: Makes typed classification enforceable and requires unavailable,
   rather than zero or healthy, treatment for missing or protected data.
 - Evidence: PRs #483–484; merges
@@ -333,7 +333,7 @@ remains separate and unchanged.
 - Date: 2026-07-28
 - Status: Canonical
 - Decision class: security_privacy_disclosure
-- Authorities: framework/project/interfaces/project-console-classifications.json; framework/standards/interfaces/standard.md
+- Authorities: framework/project/interfaces/project-console/configuration/classifications.json; framework/standards/interfaces/standard.md
 - Decision: Adopts allowlisted security-assurance presentation while excluding
   protected evidence and operational detail from public surfaces.
 - Evidence: PR #480; merge `6e0b4708cd714f39c1a5b7c9f3bcd3405a72431d`.
@@ -412,7 +412,7 @@ remains separate and unchanged.
 - Date: 2026-07-28
 - Status: Canonical
 - Decision class: interface_information_architecture
-- Authorities: framework/project/interfaces/project-console.md
+- Authorities: framework/project/interfaces/project-console/specification.md
 - Decision: Establishes the compact six-tab Console architecture and bounded,
   nonauthoritative specialist projections.
 - Evidence: PR #479; merge `93a01eb24dfb94c848a1f937e9e1bdfeea72c74d`.

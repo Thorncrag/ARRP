@@ -1524,13 +1524,34 @@
   "use strict";
 
   const legacyApi = global.ARRP_COMPONENT_REGISTRY;
+  let activeSnapshot = null;
 
-  const MODES = Object.freeze([
+  const PROJECTION_MODES = Object.freeze([
     "components",
+    "classes",
+    "types",
     "lifecycles",
     "authority",
     "relationships",
     "coverage",
+    "directories",
+    "exemptions",
+    "unresolved",
+    "routing",
+    "codeowners",
+    "terminology"
+  ]);
+
+  const MODES = Object.freeze([
+    "components",
+    "classes",
+    "types",
+    "lifecycles",
+    "authority",
+    "relationships",
+    "directories",
+    "exemptions",
+    "unresolved",
     "routing",
     "codeowners",
     "terminology"
@@ -1564,7 +1585,7 @@
       return legacyApi.validSnapshot(snapshot);
     }
     if (!object(snapshot)
-      || snapshot.schema_version !== 2
+      || ![2, 3].includes(snapshot.schema_version)
       || snapshot.projection_id !== "component-registry-console"
       || snapshot.producer_id !== "project-console-builder"
       || Number.isNaN(Date.parse(snapshot.generated_at))
@@ -1575,8 +1596,10 @@
       || !object(snapshot.defaults)
       || !object(snapshot.registry)
       || snapshot.registry.registry_id !== "COMPONENT-REGISTRY"
-      || snapshot.registry.registry_revision !== 2
-      || snapshot.registry.registry_status !== "proposed"
+      || snapshot.registry.registry_revision !== snapshot.schema_version
+      || snapshot.registry.registry_status !== (
+        snapshot.schema_version === 3 ? "adopted" : "proposed"
+      )
       || (
         snapshot.registry.validation_mode !== "proposed_revision_validation"
         && snapshot.registry.validation_mode
@@ -1586,13 +1609,16 @@
       || snapshot.registry.executable !== false
       || snapshot.registry.authority_effective !== false
       || snapshot.registry.source_revision_authorized !== false
-      || snapshot.registry.source_bytes_current !== false
+      || snapshot.registry.source_bytes_current !== (snapshot.schema_version === 3)
       || snapshot.registry.canonical_history_confirmed !== false
       || snapshot.registry.receipt_trusted !== false
       || snapshot.registry.runtime_live !== "not_checked"
       || snapshot.registry.predecessor_route_consulted !== false
       || !/^[0-9a-f]{64}$/.test(snapshot.registry.registry_sha256 || "")
       || !unique(snapshot.components, "stable_id")
+      || !object(snapshot.classifications)
+      || !unique(snapshot.classifications.classes, "class_id")
+      || !unique(snapshot.classifications.types, "classification_id")
       || !object(snapshot.lifecycles)
       || !unique(snapshot.lifecycles.assignments, "assignment_id")
       || !object(snapshot.authorities)
@@ -1621,7 +1647,9 @@
       || snapshot.terminology.adopted !== true
       || !/^[0-9a-f]{64}$/.test(snapshot.terminology.record_set_sha256 || "")
       || !unique(snapshot.terminology.entries, "term_id")
-      || snapshot.terminology.entries.length !== 69
+      || snapshot.terminology.entries.length !== (
+        snapshot.schema_version === 3 ? 87 : 69
+      )
       || containsPrivatePayload(snapshot)) return false;
     if (!["direct", "inherited", "none", "problems"].every((key) =>
       Number.isInteger(snapshot.codeowners.summary[key])
@@ -1631,9 +1659,26 @@
         + snapshot.codeowners.summary.none
         !== snapshot.codeowners.records.length
       || snapshot.codeowners.summary.problems !== 0) return false;
-    if (!MODES.every((mode) =>
+    if (!PROJECTION_MODES.every((mode) =>
       snapshot.routes[mode] === `automation:component-registry:${mode}`)) return false;
     const componentIds = new Set(snapshot.components.map((record) => record.stable_id));
+    if (!snapshot.classifications.classes.every((record) =>
+      text(record.class_id)
+      && text(record.label)
+      && ["bound", "unbound"].includes(record.binding_state)
+      && Array.isArray(record.permitted_type_ids)
+      && Array.isArray(record.component_ids)
+      && Number.isInteger(record.usage_count)
+      && text(record.console_route))
+      || !snapshot.classifications.types.every((record) =>
+        text(record.classification_id)
+        && text(record.class_id)
+        && text(record.type_id)
+        && text(record.label)
+        && ["bound", "unbound"].includes(record.binding_state)
+        && Array.isArray(record.component_ids)
+        && Number.isInteger(record.usage_count)
+        && text(record.console_route))) return false;
     if (!snapshot.components.every((record) =>
       text(record.display_name)
       && object(record.classification)
@@ -1668,6 +1713,10 @@
       && text(record.console_route))) return false;
     return snapshot.defaults.mode === "components"
       && componentIds.has(snapshot.defaults.component)
+      && snapshot.classifications.classes.some((record) =>
+        record.class_id === snapshot.defaults.class)
+      && snapshot.classifications.types.some((record) =>
+        record.classification_id === snapshot.defaults.type)
       && snapshot.codeowners.records.some((record) =>
         record.assignment_id === snapshot.defaults.codeowners)
       && snapshot.coverage.uncovered_count === 0
@@ -1683,42 +1732,86 @@
     const requested = parts[0] === "automation" && parts[1] === "component-registry"
       ? parts[2]
       : "";
-    const mode = MODES.includes(requested) ? requested : "components";
+    let mode = MODES.includes(requested)
+      ? requested
+      : requested === "coverage" ? "directories" : "components";
     if (!validSnapshot(snapshot)) return { mode, selected: null };
+    const parameters = new URLSearchParams(query);
+    if (requested === "coverage") {
+      const legacyCoverage = snapshot.coverage.records.find((record) =>
+        record.coverage_id === parameters.get("coverage"));
+      mode = legacyCoverage ? coverageMode(legacyCoverage) : "directories";
+    }
     const key = {
       components: "component",
+      classes: "class",
+      types: "type",
       lifecycles: "assignment",
       authority: "assignment",
       relationships: "relationship",
-      coverage: "coverage",
+      directories: "coverage",
+      exemptions: "coverage",
+      unresolved: "coverage",
       routing: "selection",
       codeowners: "assignment",
       terminology: "term"
     }[mode];
-    const parameters = new URLSearchParams(query);
     const selected = [...parameters.keys()].every((name) => name === key)
       ? parameters.get(key)
       : null;
     const identities = {
       components: snapshot.components.map((record) => record.stable_id),
+      classes: snapshot.classifications.classes.map((record) => record.class_id),
+      types: snapshot.classifications.types.map((record) => record.classification_id),
       lifecycles: snapshot.lifecycles.assignments.map((record) => record.assignment_id),
       authority: snapshot.authorities.assignments.map((record) => record.assignment_id),
       relationships: snapshot.relationships.map((record) => record.relationship_id),
-      coverage: snapshot.coverage.records.map((record) => record.coverage_id),
+      directories: snapshot.coverage.records.filter((record) =>
+        coverageMode(record) === "directories").map((record) => record.coverage_id),
+      exemptions: snapshot.coverage.records.filter((record) =>
+        coverageMode(record) === "exemptions").map((record) => record.coverage_id),
+      unresolved: snapshot.coverage.records.filter((record) =>
+        coverageMode(record) === "unresolved").map((record) => record.coverage_id),
       routing: snapshot.routing.selections.map((record) => record.routing_id),
       codeowners: snapshot.codeowners.records.map((record) => record.assignment_id),
       terminology: snapshot.terminology.entries.map((record) => record.term_id)
     }[mode];
-    return {
-      mode,
-      selected: identities.includes(selected) ? selected : snapshot.defaults[
+    const fallback = ["directories", "exemptions", "unresolved"].includes(mode)
+      ? (identities.includes(snapshot.defaults.coverage)
+        ? snapshot.defaults.coverage
+        : identities[0] || null)
+      : snapshot.defaults[
         mode === "components" ? "component"
+          : mode === "classes" ? "class"
+            : mode === "types" ? "type"
           : mode === "lifecycles" ? "lifecycle"
             : mode === "relationships" ? "relationship"
               : mode === "terminology" ? "terminology"
                 : mode
-      ]
+      ];
+    return {
+      mode,
+      selected: identities.includes(selected) ? selected : fallback
     };
+  }
+
+  function coverageMode(record) {
+    if (record?.coverage_kind === "directory_scope") return "directories";
+    if (["supporting_artifact_rule", "registration_exemption"].includes(
+      record?.coverage_kind
+    )) return "exemptions";
+    return "unresolved";
+  }
+
+  function coverageLabel(record) {
+    return coverageMode(record) === "directories"
+      ? "Directory scope"
+      : coverageMode(record) === "exemptions" ? "Categorical exemption" : "Unresolved";
+  }
+
+  function coverageRoute(record) {
+    return `automation:component-registry:${coverageMode(record)}?coverage=`
+      + encodeURIComponent(record.coverage_id);
   }
 
   function node(tag, className = "", value = "") {
@@ -1758,6 +1851,20 @@
     const value = node("section", "component-registry-detail-section");
     value.append(node("h4", "", title));
     appendRows(value, rows);
+    host.append(value);
+  }
+
+  function appendLinks(host, title, links) {
+    const available = links.filter((link) => text(link.route));
+    if (!available.length) return;
+    const value = node("nav", "component-registry-detail-links");
+    value.setAttribute("aria-label", title);
+    value.append(node("h4", "", title));
+    available.forEach((link) => {
+      const anchor = node("a", "button-link subtle", link.label);
+      anchor.href = `#${link.route}`;
+      value.append(anchor);
+    });
     host.append(value);
   }
 
@@ -1807,6 +1914,43 @@
       ["Migrations and aliases", record.migration_records],
       ["Provenance", record.provenance_records]
     ]);
+    appendLinks(host, "Inspect related Registry records", [
+      ...record.lifecycle_records.map((item) => ({
+        label: "Lifecycle", route: item.console_route
+      })),
+      ...record.authority_records.map((item) => ({
+        label: "Authority", route: item.console_route
+      })),
+      ...record.relationship_records.map((item) => ({
+        label: readable(item.relationship_type), route: item.console_route
+      }))
+    ]);
+  }
+
+  function renderClass(host, record) {
+    host.replaceChildren(node("h3", "", record.label));
+    section(host, "Controlled class", [
+      ["Class ID", record.class_id],
+      ["Terminology binding", record.term_id],
+      ["Binding state", readable(record.binding_state)],
+      ["Definition", record.definition || "No approved terminology binding is recorded."],
+      ["Permitted types", record.permitted_type_ids],
+      ["Components using this class", record.component_ids],
+      ["Usage count", record.usage_count]
+    ]);
+  }
+
+  function renderType(host, record) {
+    host.replaceChildren(node("h3", "", record.label));
+    section(host, "Controlled type", [
+      ["Type ID", record.type_id],
+      ["Parent class", record.class_id],
+      ["Terminology binding", record.term_id],
+      ["Binding state", readable(record.binding_state)],
+      ["Definition", record.definition || "No approved terminology binding is recorded."],
+      ["Components using this type", record.component_ids],
+      ["Usage count", record.usage_count]
+    ]);
   }
 
   function renderLifecycle(host, record, snapshot) {
@@ -1822,8 +1966,12 @@
     ]);
     section(host, "Lifecycle history", [
       ["Transitions", record.history || record.transitions],
-      ["Provenance", record.provenance_ref || record.provenance_refs]
+      ["Provenance", record.provenance_records]
     ]);
+    appendLinks(host, "Related component", [{
+      label: record.display_name || record.component_id,
+      route: record.component_route
+    }]);
   }
 
   function renderAuthority(host, record) {
@@ -1841,8 +1989,12 @@
     section(host, "Authority chain", [
       ["Sources", record.sources],
       ["Governing precedence", record.governing_precedence],
-      ["Provenance", record.provenance_ref || record.provenance_refs]
+      ["Provenance", record.provenance_records]
     ]);
+    appendLinks(host, "Related component", [{
+      label: record.display_name || record.component_id,
+      route: record.component_route
+    }]);
   }
 
   function endpoint(value) {
@@ -1856,24 +2008,42 @@
       ["From", endpoint(record.from)],
       ["To", endpoint(record.to)],
       ["Effective date", record.effective_date],
-      ["Provenance", record.provenance_ref || record.provenance_refs],
+      ["Provenance", record.provenance_records],
       ["Authority boundary", record.authority_boundary]
+    ]);
+    appendLinks(host, "Relationship endpoints", [
+      {label: `From: ${endpoint(record.from)}`, route: record.from_route},
+      {label: `To: ${endpoint(record.to)}`, route: record.to_route}
     ]);
   }
 
   function renderCoverage(host, record, snapshot) {
     host.replaceChildren(node("h3", "", record.display_name || record.coverage_id));
     appendRows(host, [
-      ["Coverage ID", record.coverage_id],
-      ["Kind", readable(record.coverage_kind)],
+      ["Entry ID", record.coverage_id],
+      ["Treatment", coverageLabel(record)],
       ["Path or pattern", record.path_pattern || record.path || record.pattern],
       ["Owning component", record.component_id || record.owner_component_id],
       ["Authorized producers", record.authorized_producers || record.producers],
-      ["Child policy", record.child_policy],
+      ["Purpose", record.purpose],
+      ["Placement question", record.placement_question],
+      ["Includes", record.include_when],
+      ["Excludes", record.exclude_when],
+      ["Match kind", record.match_kind],
+      ["Specificity", record.specificity_rank],
+      ["Ancestors", record.ancestor_scope_ids],
+      ["Owner", record.ownership],
+      ["Review policy", record.review_policy],
+      ["Child policy", record.child_artifact_policy],
+      ["Allows ordinary children", record.allow_children],
+      ["Revision mode", record.revision_mode],
+      ["Repository controls", record.repository_controls],
       ["Disclosure", record.disclosure_boundary || record.information_handling],
-      ["Disposition", record.disposition || record.retirement_condition],
+      ["Disposition", record.post_run_disposition || record.disposition || record.retirement_condition],
+      ["Exemption end conditions", record.exemption_end_conditions],
       ["Fallback", record.fallback],
-      ["Covered repository paths", snapshot.coverage.path_count],
+      ["Covered repository paths", record.resolved_path_count],
+      ["Resolved members", record.resolved_paths],
       ["Unresolved", snapshot.coverage.uncovered_count]
     ]);
   }
@@ -1922,7 +2092,6 @@
   function renderTerminology(host, record) {
     host.replaceChildren(
       node("h3", "", record.label),
-      node("p", "component-registry-term-id", record.term_id),
       ...record.definition.split("\n\n").map((paragraph) => node("p", "", paragraph))
     );
   }
@@ -1943,7 +2112,17 @@
     return JSON.stringify(record).toLocaleLowerCase();
   }
 
-  function renderList(host, records, selectedId, id, title, meta, route) {
+  function renderList(
+    host,
+    records,
+    selectedId,
+    id,
+    title,
+    meta,
+    route,
+    summary = id,
+    onSelect = null
+  ) {
     host.replaceChildren();
     if (!records.length) {
       host.append(node("p", "empty-state compact-empty", "No records match these filters."));
@@ -1960,11 +2139,26 @@
       if (selected) row.classList.add("selected");
       row.append(
         node("strong", "email-row-title", title(record)),
-        node("span", "email-row-time", meta(record)),
-        node("span", "email-row-summary", id(record))
+        node("span", "email-row-time", meta(record))
       );
+      const summaryValue = summary(record);
+      if (text(summaryValue)) row.append(node("span", "email-row-summary", summaryValue));
       row.addEventListener("click", () => {
-        global.location.hash = `#${route(record)}`;
+        if (onSelect) {
+          rows.forEach((candidate) => {
+            const candidateSelected = candidate === row;
+            candidate.classList.toggle("selected", candidateSelected);
+            candidate.setAttribute("aria-selected", String(candidateSelected));
+            candidate.tabIndex = candidateSelected ? 0 : -1;
+          });
+          onSelect(record);
+          return;
+        }
+        const target = `#${route(record)}`;
+        if (global.history?.replaceState && activeSnapshot) {
+          global.history.replaceState(null, "", target);
+          render(activeSnapshot, target);
+        } else global.location.hash = target;
       });
       row.addEventListener("keydown", (event) => {
         if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
@@ -1990,9 +2184,9 @@
 
   function bindFilter(id, render) {
     const control = document.getElementById(id);
-    if (!control || control.dataset.registryBound === "true") return;
-    control.dataset.registryBound = "true";
-    control.addEventListener(control.tagName === "SELECT" ? "change" : "input", render);
+    if (!control) return;
+    if (control.tagName === "SELECT") control.onchange = render;
+    else control.oninput = render;
   }
 
   function renderLifecycleSummary(snapshot) {
@@ -2053,7 +2247,11 @@
       if (!button || button.dataset.registryBound === "true") return;
       button.dataset.registryBound = "true";
       button.addEventListener("click", () => {
-        global.location.hash = `#${snapshot.routes[button.dataset.registryMode]}`;
+        const mode = button.dataset.registryMode;
+        const route = ["directories", "exemptions", "unresolved"].includes(mode)
+          ? `automation:component-registry:${mode}`
+          : snapshot.routes[mode];
+        global.location.hash = `#${route}`;
       });
       button.addEventListener("keydown", (event) => {
         let next = null;
@@ -2089,17 +2287,24 @@
       return legacyApi.render(snapshot, target);
     }
     if (!validSnapshot(snapshot)) {
+      activeSnapshot = null;
       unavailable();
       return false;
     }
+    activeSnapshot = snapshot;
     const state = routeState(target, snapshot);
     const status = document.getElementById("component-registry-status");
-    status.className = "status-badge warning";
-    status.textContent = "Proposed Stage 2 revision";
+    const adopted = snapshot.registry.registry_status === "adopted";
+    status.className = adopted ? "status-badge current" : "status-badge warning";
+    status.textContent = adopted ? "Adopted configuration" : "Proposed revision";
     const notice = document.getElementById("component-registry-deferred");
     notice.replaceChildren(
-      node("strong", "", "Proposed — nonauthoritative"),
-      node("p", "", "This view is generated from the validated Stage 2 Registry revision. Live authority remains separately receipt-bound."),
+      node("strong", "", adopted
+        ? "Adopted — current configuration"
+        : "Proposed — nonauthoritative"),
+      node("p", "", adopted
+        ? "This nonauthoritative Console view is generated directly from the validated adopted Registry configuration. Live authority remains separately receipt-bound."
+        : "This view is generated from the validated proposed Registry revision. Live authority remains separately receipt-bound."),
       node("p", "", `Registry revision ${snapshot.registry.registry_revision} · ${snapshot.registry.registry_sha256}`)
     );
     bindModes(snapshot);
@@ -2138,11 +2343,62 @@
         (record) => `${readable(record.classification.component_class)} · ${readable(primaryLifecycle(record))}`,
         (record) => record.console_route
       );
-      if (selected) renderComponent(document.getElementById("component-registry-component-detail"), selected);
+      const detail = document.getElementById("component-registry-component-detail");
+      if (selected) renderComponent(detail, selected);
+      else detail.replaceChildren(node("p", "empty-state compact-empty", "No components match these filters."));
     };
     ["component-registry-components-search", "component-registry-components-class", "component-registry-components-lifecycle"]
       .forEach((id) => bindFilter(id, renderComponents));
     renderComponents();
+
+    const classesSearch = document.getElementById("component-registry-classes-search");
+    const renderClasses = () => {
+      const query = classesSearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.classifications.classes.filter((record) =>
+        !query || searchable(record).includes(query));
+      document.getElementById("component-registry-classes-results").textContent =
+        `${filtered.length} of ${snapshot.classifications.classes.length} classes · `
+        + `${snapshot.classifications.unbound_class_count} unbound`;
+      const selected = filtered.find((record) => record.class_id === state.selected)
+        || filtered[0];
+      renderList(document.getElementById("component-registry-classes-list"), filtered,
+        selected?.class_id, (record) => record.class_id,
+        (record) => record.label,
+        (record) => `${record.usage_count} components · ${readable(record.binding_state)}`,
+        (record) => record.console_route);
+      const detail = document.getElementById("component-registry-classes-detail");
+      if (selected) renderClass(detail, selected);
+      else detail.replaceChildren(node("p", "empty-state compact-empty", "No classes match this search."));
+    };
+    bindFilter("component-registry-classes-search", renderClasses);
+    renderClasses();
+
+    const typesSearch = document.getElementById("component-registry-types-search");
+    const typesClass = document.getElementById("component-registry-types-class");
+    optionValues(typesClass, snapshot.classifications.types.map((record) =>
+      record.class_id), "All parent classes");
+    const renderTypes = () => {
+      const query = typesSearch.value.trim().toLocaleLowerCase();
+      const filtered = snapshot.classifications.types.filter((record) =>
+        (!query || searchable(record).includes(query))
+        && (!typesClass.value || record.class_id === typesClass.value));
+      document.getElementById("component-registry-types-results").textContent =
+        `${filtered.length} of ${snapshot.classifications.types.length} types · `
+        + `${snapshot.classifications.unbound_type_count} unbound`;
+      const selected = filtered.find((record) =>
+        record.classification_id === state.selected) || filtered[0];
+      renderList(document.getElementById("component-registry-types-list"), filtered,
+        selected?.classification_id, (record) => record.classification_id,
+        (record) => record.label,
+        (record) => `${readable(record.class_id)} · ${record.usage_count} components`,
+        (record) => record.console_route);
+      const detail = document.getElementById("component-registry-types-detail");
+      if (selected) renderType(detail, selected);
+      else detail.replaceChildren(node("p", "empty-state compact-empty", "No types match these filters."));
+    };
+    ["component-registry-types-search", "component-registry-types-class"]
+      .forEach((id) => bindFilter(id, renderTypes));
+    renderTypes();
 
     const lifecycleSearch = document.getElementById("component-registry-lifecycles-search");
     const lifecycleState = document.getElementById("component-registry-lifecycles-state");
@@ -2162,7 +2418,9 @@
         (record) => record.display_name || record.component_id,
         (record) => readable(record.current_state || record.state),
         (record) => record.console_route);
-      if (selected) renderLifecycle(document.getElementById("component-registry-lifecycle-detail"), selected, snapshot);
+      const detail = document.getElementById("component-registry-lifecycle-detail");
+      if (selected) renderLifecycle(detail, selected, snapshot);
+      else detail.replaceChildren(node("p", "empty-state compact-empty", "No lifecycle assignments match these filters."));
     };
     ["component-registry-lifecycles-search", "component-registry-lifecycles-state"]
       .forEach((id) => bindFilter(id, renderLifecycles));
@@ -2184,7 +2442,9 @@
         (record) => record.display_name || record.component_id,
         (record) => record.authoritative ? "Authoritative" : "Nonauthoritative",
         (record) => record.console_route);
-      if (selected) renderAuthority(document.getElementById("component-registry-authority-detail"), selected);
+      const detail = document.getElementById("component-registry-authority-detail");
+      if (selected) renderAuthority(detail, selected);
+      else detail.replaceChildren(node("p", "empty-state compact-empty", "No authority assignments match these filters."));
     };
     ["component-registry-authority-search", "component-registry-authority-status"]
       .forEach((id) => bindFilter(id, renderAuthorities));
@@ -2206,32 +2466,48 @@
         (record) => `${endpoint(record.from)} → ${endpoint(record.to)}`,
         (record) => readable(record.relationship_type),
         (record) => record.console_route);
-      if (selected) renderRelationship(document.getElementById("component-registry-relationship-detail"), selected);
+      const detail = document.getElementById("component-registry-relationship-detail");
+      if (selected) renderRelationship(detail, selected);
+      else detail.replaceChildren(node("p", "empty-state compact-empty", "No relationships match these filters."));
     };
     ["component-registry-relationships-search", "component-registry-relationships-type"]
       .forEach((id) => bindFilter(id, renderRelationships));
     renderRelationships();
 
-    const coverageSearch = document.getElementById("component-registry-coverage-search");
-    const coverageKind = document.getElementById("component-registry-coverage-kind");
-    const renderCoverageRows = () => {
-      const query = coverageSearch.value.trim().toLocaleLowerCase();
-      const filtered = snapshot.coverage.records.filter((record) =>
-        (!query || searchable(record).includes(query))
-        && (!coverageKind.value || record.coverage_kind === coverageKind.value));
-      document.getElementById("component-registry-coverage-results").textContent =
-        `${filtered.length} rules · ${snapshot.coverage.path_count} covered paths · ${snapshot.coverage.uncovered_count} unresolved`;
-      const selected = filtered.find((record) => record.coverage_id === state.selected) || filtered[0];
-      renderList(document.getElementById("component-registry-coverage-list"), filtered,
-        selected?.coverage_id, (record) => record.coverage_id,
-        (record) => record.display_name || record.coverage_id,
-        (record) => readable(record.coverage_kind),
-        (record) => record.console_route);
-      if (selected) renderCoverage(document.getElementById("component-registry-coverage-detail"), selected, snapshot);
+    const renderCoverageMode = (mode, resultLabel) => {
+      const search = document.getElementById(`component-registry-${mode}-search`);
+      const records = snapshot.coverage.records.filter((record) => coverageMode(record) === mode);
+      const renderRows = () => {
+        const query = search.value.trim().toLocaleLowerCase();
+        const filtered = records.filter((record) => !query || searchable(record).includes(query));
+        document.getElementById(`component-registry-${mode}-results`).textContent =
+          `${filtered.length} of ${records.length} ${resultLabel}`;
+        const selected = filtered.find((record) => record.coverage_id === state.selected) || filtered[0];
+        renderList(document.getElementById(`component-registry-${mode}-list`), filtered,
+          selected?.coverage_id, (record) => record.coverage_id,
+          (record) => record.display_name || record.coverage_id,
+          (record) => coverageLabel(record), coverageRoute);
+        const detail = document.getElementById(`component-registry-${mode}-detail`);
+        if (selected) renderCoverage(detail, selected, snapshot);
+        else detail.replaceChildren(node("p", "empty-state compact-empty", `No ${resultLabel} match this search.`));
+      };
+      bindFilter(`component-registry-${mode}-search`, renderRows);
+      renderRows();
     };
-    ["component-registry-coverage-search", "component-registry-coverage-kind"]
-      .forEach((id) => bindFilter(id, renderCoverageRows));
-    renderCoverageRows();
+    renderCoverageMode("directories", "directory scopes");
+    renderCoverageMode("exemptions", "categorical exemptions");
+
+    const unresolvedRecords = snapshot.coverage.records.filter((record) =>
+      coverageMode(record) === "unresolved");
+    const unresolvedCount = snapshot.coverage.uncovered_count
+      + snapshot.coverage.multiply_treated_count;
+    document.getElementById("component-registry-unresolved-results").textContent =
+      `${snapshot.coverage.uncovered_count} uncovered · `
+      + `${snapshot.coverage.multiply_treated_count} multiply treated`;
+    document.getElementById("component-registry-unresolved-detail").textContent =
+      unresolvedCount === 0 && unresolvedRecords.length === 0
+        ? "No unresolved coverage. Every path in the validated Registry universe has exactly one treatment."
+        : `${unresolvedCount || unresolvedRecords.length} unresolved coverage items require review.`;
 
     const routingSearch = document.getElementById("component-registry-routing-search");
     const renderRoutingRows = () => {
@@ -2245,7 +2521,9 @@
         selected?.routing_id, (record) => record.routing_id,
         (record) => record.label, (record) => readable(record.routing_kind),
         (record) => record.console_route);
-      if (selected) renderRouting(document.getElementById("component-registry-routing-detail"), selected);
+      const detail = document.getElementById("component-registry-routing-detail");
+      if (selected) renderRouting(detail, selected);
+      else detail.replaceChildren(node("p", "empty-state compact-empty", "No routing selections match this search."));
     };
     bindFilter("component-registry-routing-search", renderRoutingRows);
     renderRoutingRows();
@@ -2283,7 +2561,9 @@
           selected,
           snapshot
         );
-      }
+      } else document.getElementById("component-registry-codeowners-detail").replaceChildren(
+        node("p", "empty-state compact-empty", "No CODEOWNERS assignments match these filters.")
+      );
     };
     [
       "component-registry-codeowners-search",
@@ -2294,6 +2574,14 @@
     renderCodeownersRows();
 
     const terminologySearch = document.getElementById("component-registry-terminology-search");
+    const terminologyDetail = document.getElementById("component-registry-terminology-detail");
+    const selectTerm = (record) => {
+      state.selected = record.term_id;
+      const target = `#${record.console_route}`;
+      if (global.history?.replaceState) global.history.replaceState(null, "", target);
+      else global.location.hash = target;
+      renderTerminology(terminologyDetail, record);
+    };
     const renderTerms = () => {
       const filtered = filterTerminologyEntries(snapshot.terminology.entries, terminologySearch.value);
       document.getElementById("component-registry-terminology-results").textContent =
@@ -2301,17 +2589,28 @@
       const selected = filtered.find((record) => record.term_id === state.selected) || filtered[0];
       renderList(document.getElementById("component-registry-terminology-list"), filtered,
         selected?.term_id, (record) => record.term_id,
-        (record) => record.label, () => "Adopted", (record) => record.console_route);
-      if (selected) renderTerminology(document.getElementById("component-registry-terminology-detail"), selected);
+        (record) => record.label, () => "Adopted", (record) => record.console_route,
+        () => "", selectTerm);
+      if (selected) renderTerminology(terminologyDetail, selected);
+      else terminologyDetail.replaceChildren(
+        node("p", "empty-state compact-empty", "No terminology entries match this search.")
+      );
     };
     bindFilter("component-registry-terminology-search", renderTerms);
     renderTerms();
 
     setCount("components", snapshot.components.length);
+    setCount("classes", snapshot.classifications.classes.length);
+    setCount("types", snapshot.classifications.types.length);
     setCount("lifecycles", snapshot.lifecycles.assignments.length);
     setCount("authority", snapshot.authorities.assignments.length);
     setCount("relationships", snapshot.relationships.length);
-    setCount("coverage", snapshot.coverage.records.length);
+    setCount("directories", snapshot.coverage.records.filter((record) =>
+      coverageMode(record) === "directories").length);
+    setCount("exemptions", snapshot.coverage.records.filter((record) =>
+      coverageMode(record) === "exemptions").length);
+    setCount("unresolved", snapshot.coverage.uncovered_count
+      + snapshot.coverage.multiply_treated_count);
     setCount("routing", snapshot.routing.selections.length);
     setCount("codeowners", snapshot.codeowners.records.length);
     setCount("terminology", snapshot.terminology.entries.length);

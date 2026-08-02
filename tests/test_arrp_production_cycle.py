@@ -126,7 +126,12 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
         self.run_dir = self.state / "runs/run-1"
         self.run_dir.mkdir(parents=True)
         (self.worktree / ".github").mkdir()
-        (self.worktree / ".github/run-coordinator-bot.json").write_text(
+        coordinator_config = (
+            self.worktree
+            / "framework/project/automation/configuration/bots/run-coordinator-bot.json"
+        )
+        coordinator_config.parent.mkdir(parents=True)
+        coordinator_config.write_text(
             json.dumps(
                 {
                     "usageGate": {"hardReservePercent": 15},

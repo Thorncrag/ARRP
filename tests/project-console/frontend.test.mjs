@@ -709,12 +709,14 @@ function stage2ComponentRegistryFixture() {
     complete: true,
     reason_code: null,
     routes: Object.fromEntries([
-      "components", "lifecycles", "authority", "relationships",
-      "coverage", "routing", "codeowners", "terminology"
+      "components", "classes", "types", "lifecycles", "authority", "relationships",
+      "coverage", "directories", "exemptions", "unresolved", "routing", "codeowners", "terminology"
     ].map((mode) => [mode, `automation:component-registry:${mode}`])),
     defaults: {
       mode: "components",
       component: "framework_kernel",
+      class: "document",
+      type: "document:framework",
       lifecycle: "lifecycle_framework_kernel",
       authority: "authority_framework_kernel",
       relationship: "framework_validated_by_test",
@@ -743,6 +745,33 @@ function stage2ComponentRegistryFixture() {
       design_revision: `sha256:${"4".repeat(64)}`
     },
     components: [component],
+    classifications: {
+      classes: [{
+        class_id: "document",
+        term_id: "document",
+        label: "Document",
+        definition: "A whole readable information artifact.",
+        binding_state: "bound",
+        permitted_type_ids: ["framework"],
+        component_ids: ["framework_kernel"],
+        usage_count: 1,
+        console_route: "automation:component-registry:classes?class=document"
+      }],
+      types: [{
+        classification_id: "document:framework",
+        class_id: "document",
+        type_id: "framework",
+        term_id: null,
+        label: "Framework",
+        definition: null,
+        binding_state: "unbound",
+        component_ids: ["framework_kernel"],
+        usage_count: 1,
+        console_route: "automation:component-registry:types?type=document%3Aframework"
+      }],
+      unbound_class_count: 0,
+      unbound_type_count: 1
+    },
     lifecycles: {
       states: {
         draft: "Registered and under development.",
@@ -790,6 +819,12 @@ function stage2ComponentRegistryFixture() {
         display_name: "Framework",
         path_pattern: "framework/",
         console_route: "automation:component-registry:coverage?coverage=framework"
+      }, {
+        coverage_id: "repository_tmp_children",
+        coverage_kind: "supporting_artifact_rule",
+        display_name: "Repository temporary run artifacts",
+        path_pattern: ".tmp/",
+        console_route: "automation:component-registry:coverage?coverage=repository_tmp_children"
       }],
       path_count: 1,
       uncovered_count: 0,
@@ -1277,7 +1312,7 @@ test("Component Registry uses only the generated validated projection", () => {
   const module = fs.readFileSync(componentRegistryPath, "utf8");
   assert.doesNotMatch(html, /<script\s+src="component-registry\.js/);
   assert.doesNotMatch(html, /<script\s+src="data\/component-registry\.js/);
-  assert.match(app, /const COMPONENT_REGISTRY_MODULE_PATH = "component-registry\.js\?v=8";/);
+  assert.match(app, /const COMPONENT_REGISTRY_MODULE_PATH = "component-registry\.js\?v=10";/);
   assert.match(app, /`data\/component-registry\.js\?v=\$\{SCRIPT_VERSION\}`/);
   assert.match(app, /if \(source\.startsWith\("data\/"\)\) validateLoadedDomainScript\(source\);/);
   assert.doesNotMatch(module, /miscellaneous|uncategorized|infer(?:red)?_taxonomy/i);
@@ -1326,6 +1361,11 @@ test("Component Registry terminology comes only from the adopted Registry projec
   const html = fs.readFileSync(entrypointPath, "utf8");
   assert.match(html, /id="component-registry-terminology-search" type="search"/);
   assert.doesNotMatch(html, /component-registry-terminology-working-draft/);
+  const module = fs.readFileSync(componentRegistryPath, "utf8");
+  assert.doesNotMatch(module, /node\("p", "component-registry-term-id", record\.term_id\)/);
+  assert.match(module, /\(record\) => record\.console_route,\s*\(\) => ""/);
+  assert.match(module, /global\.history\?\.replaceState/);
+  assert.match(module, /renderTerminology\(terminologyDetail, record\)/);
 });
 
 test("Component Registry CODEOWNERS view is typed, searchable, and read-only", () => {
@@ -1360,19 +1400,78 @@ test("Component Registry CODEOWNERS view is typed, searchable, and read-only", (
   assert.doesNotMatch(html, /component-registry-codeowners[^\n]*contenteditable/);
 });
 
+test("Component Registry separates directories, exemptions, and unresolved coverage", () => {
+  const { componentRegistryApi } = loadApi();
+  const snapshot = stage2ComponentRegistryFixture();
+  assert.deepEqual(
+    componentRegistryApi.routeState(
+      "automation:component-registry:directories?coverage=framework",
+      snapshot
+    ),
+    { mode: "directories", selected: "framework" }
+  );
+  assert.deepEqual(
+    componentRegistryApi.routeState(
+      "automation:component-registry:exemptions?coverage=repository_tmp_children",
+      snapshot
+    ),
+    { mode: "exemptions", selected: "repository_tmp_children" }
+  );
+  assert.deepEqual(
+    componentRegistryApi.routeState(
+      "automation:component-registry:coverage?coverage=repository_tmp_children",
+      snapshot
+    ),
+    { mode: "exemptions", selected: "repository_tmp_children" }
+  );
+  assert.deepEqual(
+    componentRegistryApi.routeState(
+      "automation:component-registry:unresolved",
+      snapshot
+    ),
+    { mode: "unresolved", selected: null }
+  );
+});
+
+test("Component Registry exposes distinct Classes and Types reference views", () => {
+  const { componentRegistryApi } = loadApi();
+  const snapshot = stage2ComponentRegistryFixture();
+  assert.deepEqual(
+    componentRegistryApi.routeState(
+      "automation:component-registry:classes?class=document",
+      snapshot
+    ),
+    { mode: "classes", selected: "document" }
+  );
+  assert.deepEqual(
+    componentRegistryApi.routeState(
+      "automation:component-registry:types?type=document%3Aframework",
+      snapshot
+    ),
+    { mode: "types", selected: "document:framework" }
+  );
+  const html = fs.readFileSync(entrypointPath, "utf8");
+  assert.match(html, /id="component-registry-mode-classes"/);
+  assert.match(html, /id="component-registry-mode-types"/);
+  assert.match(html, /id="component-registry-classes-search"/);
+  assert.match(html, /id="component-registry-types-class"/);
+});
+
 test("Component Registry is an Operations subtab after Data and before Logs", () => {
   const html = fs.readFileSync(entrypointPath, "utf8");
   const dataIndex = html.indexOf('id="automation-tab-data"');
   const registryIndex = html.indexOf('id="automation-tab-component-registry"');
   const logsIndex = html.indexOf('id="automation-tab-logs"');
   assert.ok(dataIndex >= 0 && dataIndex < registryIndex && registryIndex < logsIndex);
-  ["components", "lifecycles", "authority", "relationships", "coverage", "routing", "codeowners", "terminology"].forEach((mode) => {
+  ["components", "classes", "types", "lifecycles", "authority", "relationships", "directories", "exemptions", "unresolved", "routing", "codeowners", "terminology"].forEach((mode) => {
     assert.match(html, new RegExp(`id="component-registry-mode-${mode}"`));
     assert.match(html, new RegExp(`id="component-registry-panel-${mode}"`));
     assert.match(html, new RegExp(`id="component-registry-${mode}-count"`));
   });
-  assert.equal((html.match(/class="email-workspace component-registry-workspace"/g) || []).length, 8);
-  assert.equal((html.match(/class="email-list component-registry-list"/g) || []).length, 8);
+  assert.equal((html.match(/class="email-workspace component-registry-workspace"/g) || []).length, 11);
+  assert.equal((html.match(/class="email-list component-registry-list"/g) || []).length, 11);
+  assert.doesNotMatch(html, /id="component-registry-mode-coverage"/);
+  assert.doesNotMatch(html, /Artifact rule/);
   assert.match(html, /Validated, nonauthoritative Registry view/);
   assert.doesNotMatch(
     html.slice(
@@ -2707,7 +2806,7 @@ test("Stage 1 interface uses the approved prototype grammar while preserving beh
   const html = fs.readFileSync(entrypointPath, "utf8");
   const styles = fs.readFileSync(path.join(consoleDirectory, "styles.css"), "utf8");
   const appJs = fs.readFileSync(appPath, "utf8");
-  const consoleSpec = fs.readFileSync(path.join(consoleDirectory, "..", "project-console.md"), "utf8");
+  const consoleSpec = fs.readFileSync(path.join(consoleDirectory, "specification.md"), "utf8");
   assert.match(html, /styles\.css\?v=104/);
   assert.match(styles, /\.overview-section \.section-heading-row h3\s*\{\s*margin:\s*0 0 \.12rem;\s*\}/);
   assert.match(styles, /body\[data-interface-theme="arrp-tool"\]\s*\{/);
@@ -3161,14 +3260,14 @@ test("initial HTML loads only bounded scripts and stays within declared budgets"
   const scriptSources = [...html.matchAll(/<script\s+src="([^"]+)"/g)].map((match) => match[1]);
   assert.deepEqual(scriptSources, [
     "catalog-data.js?v=48",
-    "app.js?v=102"
+    "app.js?v=104"
   ]);
   assert.match(app, /const PRIVATE_SECURITY_ASSURANCE_PATH = "data\/private-security-assurance\.js\?v=1";/);
   assert.match(app, /const PRIVATE_OPERATIONS_PATH = "data\/private-operations\.js\?v=1";/);
   assert.match(app, /const PRIVATE_CODEX_USAGE_PATH = "data\/private-codex-usage\.js\?v=1";/);
   assert.match(app, /const LOCAL_AUTOMATION_STATUS_PATH = "data\/local-automation-status\.js";/);
   assert.match(app, /const CODEX_CAPACITY_MODULE_PATH = "capacity\.js\?v=1";/);
-  assert.match(app, /const COMPONENT_REGISTRY_MODULE_PATH = "component-registry\.js\?v=8";/);
+  assert.match(app, /const COMPONENT_REGISTRY_MODULE_PATH = "component-registry\.js\?v=10";/);
   assert.match(app, /return loadLocalProjection\(\s*PRIVATE_SECURITY_ASSURANCE_PATH,\s*"security-assurance",\s*capturePrivateSecurityAssurance\s*\)/);
   assert.match(app, /return loadLocalProjection\(\s*PRIVATE_OPERATIONS_PATH,\s*"private-operations",\s*capturePrivateOperations\s*\)/);
   assert.match(app, /return loadLocalProjection\(\s*PRIVATE_CODEX_USAGE_PATH,\s*"codex-usage",\s*capturePrivateCodexUsage\s*\)/);

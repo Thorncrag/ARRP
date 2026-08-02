@@ -373,7 +373,7 @@ class CaseMonitorBotTests(unittest.TestCase):
         self.assertEqual(results["courtlistener:200"]["outcome"], "unverified")
 
     def test_main_initialization_then_change_apply_updates_log(self):
-        config = json.loads((ROOT / ".github" / "case-monitor-bot.json").read_text())
+        config = json.loads((ROOT / "framework/project/automation/configuration/bots/case-monitor-bot.json").read_text())
         config["tracker"]["minimumEntries"] = 1
         config["tracker"]["maximumEntries"] = 10
         config["verification"]["requestIntervalSeconds"] = 0
@@ -431,7 +431,7 @@ class CaseMonitorBotTests(unittest.TestCase):
                 self.assertEqual(len(list(csv.DictReader(handle))), 0)
 
     def test_config_is_enabled_local_stage_without_tracking_issue_dependency(self):
-        config = json.loads((ROOT / ".github" / "case-monitor-bot.json").read_text())
+        config = json.loads((ROOT / "framework/project/automation/configuration/bots/case-monitor-bot.json").read_text())
         self.assertEqual(config["schemaVersion"], 6)
         self.assertTrue(config["enabled"])
         self.assertEqual(config["deploymentStatus"], "local-first-enabled")
@@ -452,7 +452,7 @@ class CaseMonitorBotTests(unittest.TestCase):
         )
 
     def test_source_development_module_generates_stable_unreviewed_leads(self):
-        config = json.loads((ROOT / ".github" / "case-monitor-bot.json").read_text())
+        config = json.loads((ROOT / "framework/project/automation/configuration/bots/case-monitor-bot.json").read_text())
         config["tracker"]["minimumEntries"] = 1
         config["tracker"]["maximumEntries"] = 10
         module = config["sourceDevelopmentModules"][0]
@@ -559,7 +559,7 @@ class CaseMonitorBotTests(unittest.TestCase):
             self.assertEqual(fourth[0]["lead_count"], 1)
 
     def test_source_development_module_rejects_unsafe_or_unconventional_target(self):
-        config = json.loads((ROOT / ".github" / "case-monitor-bot.json").read_text())
+        config = json.loads((ROOT / "framework/project/automation/configuration/bots/case-monitor-bot.json").read_text())
         module = dict(config["sourceDevelopmentModules"][0])
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

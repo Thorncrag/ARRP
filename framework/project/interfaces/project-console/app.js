@@ -99,7 +99,7 @@
   const PRIVATE_CODEX_USAGE_PATH = "data/private-codex-usage.js?v=1";
   const LOCAL_AUTOMATION_STATUS_PATH = "data/local-automation-status.js";
   const CODEX_CAPACITY_MODULE_PATH = "capacity.js?v=1";
-  const COMPONENT_REGISTRY_MODULE_PATH = "component-registry.js?v=8";
+  const COMPONENT_REGISTRY_MODULE_PATH = "component-registry.js?v=10";
   const OWNER_MODE_UNAVAILABLE_MESSAGE = "Data unavailable outside the bound owner-local Console.";
   const CODEX_USAGE_UNAVAILABLE_DETAIL = "Codex usage unavailable.";
   const fieldSet = (value) => new Set(value.split(" "));

@@ -29,7 +29,9 @@ class IncidentAuthorityContractTest(unittest.TestCase):
                 / "framework"
                 / "project"
                 / "interfaces"
-                / "project-console-classifications.json"
+                / "project-console"
+                / "configuration"
+                / "classifications.json"
             ).read_text(encoding="utf-8")
         )
         registry = json.loads(
@@ -73,7 +75,7 @@ class IncidentAuthorityContractTest(unittest.TestCase):
 
     def test_interface_contract_preserves_inactive_runtime_staging(self) -> None:
         interface = (
-            ROOT / "framework" / "project" / "interfaces" / "project-console.md"
+            ROOT / "framework/project/interfaces/project-console/specification.md"
         ).read_text(encoding="utf-8")
         self.assertIn("current production runtime remains at", interface)
         self.assertIn(
@@ -110,7 +112,7 @@ class IncidentAuthorityContractTest(unittest.TestCase):
 
     def test_loopback_is_public_shell_only(self) -> None:
         interface = (
-            ROOT / "framework" / "project" / "interfaces" / "project-console.md"
+            ROOT / "framework/project/interfaces/project-console/specification.md"
         ).read_text(encoding="utf-8")
         self.assertIn("public-shell and fixture", interface)
         self.assertIn("must not request or load ignored private projections", interface)

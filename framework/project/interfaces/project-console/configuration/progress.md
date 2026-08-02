@@ -7,7 +7,7 @@ dependencies:
   - "../../standards/interfaces/progress-views.md"
   - "../profile/maturity-profile.md"
   - "../github/workflow.md"
-  - "project-console-progress.json"
+  - "progress.json"
 print_status: excluded
 print_exclusion_reason: "Internal interface configuration."
 ---
@@ -27,7 +27,7 @@ work-sequencing projection.
 ARRP's goal is to bring every eligible active proposal to at least
 `Review ready` by December 31, 2026. The exact target, field mappings, baseline,
 forecast window, and eligible maturity values are maintained in
-[`project-console-progress.json`](project-console-progress.json).
+[`progress.json`](progress.json).
 
 Eligibility comes from active `proposal` rows in
 `inventory/github_issue_registry.csv`. Closed merged records remain preserved
@@ -65,7 +65,7 @@ excluded from attainment velocity.
 
 The supported retrospective seed begins June 24, 2026. The preserved former
 combined record and its reconstructed July baseline are retained at
-[`project-console-progress.md`](../../archive/baselines/project-console-progress.md).
+[`project-console-progress.md`](../../../../archive/baselines/project-console-progress.md).
 
 In the P6 production chain, the coordinator supplies an authenticated Project
 snapshot and exact local output paths. The bot writes current progress
@@ -74,7 +74,7 @@ to a data branch, obtain credentials through Elim, or mutate Project fields.
 Scheduling, credential isolation, local history carry-forward, failure
 behavior, validation, and the production boundary belong to the [Project
 Console Progress Bot
-runbook](../automation/runbooks/project-console-progress-bot.md).
+runbook](../../../automation/runbooks/project-console-progress-bot.md).
 
 Changes to eligibility, readiness, the official target, or historical baseline
 require a project-level Change Audit.

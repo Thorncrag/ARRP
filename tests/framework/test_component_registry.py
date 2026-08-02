@@ -13,13 +13,7 @@ from scripts import component_registry as registry
 
 ROOT = Path(__file__).resolve().parents[2]
 REGISTRY_PATH = ROOT / "framework" / "component-registry.json"
-SCHEMA_PATH = (
-    ROOT
-    / "framework"
-    / "standards"
-    / "automation"
-    / "component-registry.schema.json"
-)
+SCHEMA_PATH = ROOT / "framework" / "component-registry.schema.json"
 ROUTE_PATH = (
     ROOT / "framework" / "archive" / "authorities" / "context-routes.json"
 )
@@ -66,27 +60,27 @@ def current_source_path(relative: str) -> Path:
     return source
 
 
-class ComponentRegistryStage2Tests(unittest.TestCase):
+class ComponentRegistryStage3Tests(unittest.TestCase):
     def setUp(self) -> None:
         self.registry = load_json(REGISTRY_PATH)
         self.route = registry._stage2_route_snapshot(self.registry)
 
-    def test_stage2_registry_validates_in_proposed_mode(self):
-        result = registry.validate_stage2_registry(self.registry, root=ROOT)
+    def test_stage3_registry_validates_as_adopted_configuration(self):
+        result = registry.validate_stage3_registry(self.registry, root=ROOT)
         self.assertTrue(result["valid"])
-        self.assertEqual(result["validation_mode"], "proposed_revision_validation")
+        self.assertEqual(result["validation_mode"], "adopted_configuration_validation")
         self.assertFalse(result["authoritative"])
         self.assertFalse(result["executable"])
         self.assertFalse(result["live_authority"])
 
-    def test_stage2_top_level_is_closed_and_has_no_family_construct(self):
+    def test_stage3_top_level_is_closed_and_has_no_family_construct(self):
         expected = {
             "$schema", "schema_version", "registry_id", "registry_revision",
             "validation", "authority_digest_model", "terminology",
             "implementation_enums",
             "directory_scopes", "components", "component_lifecycles",
             "component_authorities", "relationships", "migrations_and_aliases",
-            "provenance_events", "routing", "supporting_artifact_rules",
+            "provenance_events", "routing", "registration_exemptions",
             "repository_coverage",
         }
         self.assertEqual(set(self.registry), expected)
@@ -96,7 +90,7 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         model = self.registry["authority_digest_model"]
         self.assertEqual(
             model,
-            registry._expected_stage2_authority_digest_model(3),
+            registry._expected_stage2_authority_digest_model(4),
         )
         schema = load_json(SCHEMA_PATH)
         registry._validate_against_schema(
@@ -266,7 +260,7 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         )
 
         generation = copy.deepcopy(refreshed)
-        generation["authority_digest_model"]["generation"] = 4
+        generation["authority_digest_model"]["generation"] = 5
         self.assertFalse(
             registry._stage2_currentness_only_equivalent(
                 self.registry,
@@ -296,12 +290,12 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         }
         self.assertTrue(used <= set(registry.STAGE2_COMPONENT_CLASSES))
 
-    def test_exact_69_term_glossary_and_digest(self):
-        records = registry._stage2_term_records(self.registry)
-        self.assertEqual(len(records), 69)
+    def test_exact_stage3_terminology_and_digest(self):
+        records = registry._stage3_term_records(self.registry)
+        self.assertEqual(len(records), 87)
         self.assertEqual(
-            self.registry["terminology"]["record_set_sha256"],
-            registry.STAGE2_TERMINOLOGY_SHA256,
+            len(self.registry["terminology"]["record_set_sha256"]),
+            64,
         )
 
     def test_enum_definitions_preserve_owner_glossary_decision(self):
@@ -309,16 +303,17 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         self.assertEqual(
             enums["owner_decision"],
             {
-                "decision": "closed_implementation_enums_are_schema_metadata_not_glossary_terms",
-                "terminology_record_count": 69,
-                "terminology_record_set_sha256": registry.STAGE2_TERMINOLOGY_SHA256,
+                "decision": "approved_terms_bind_new_stage3_values_legacy_values_remain_explicitly_unbound",
+                "terminology_record_count": 87,
+                "terminology_record_set_sha256": self.registry["terminology"]["record_set_sha256"],
+                "deferred_audit": "component_registry_110_value_operative_use_audit",
             },
         )
-        self.assertTrue(all(value.strip() for group in enums.values() if isinstance(group, dict) for value in group.values() if isinstance(value, str)))
+        registry._stage3_validate_new_term_bindings(self.registry)
 
     def test_component_inventory_has_unique_ids_and_canonical_paths(self):
         components = self.registry["components"]["entries"]
-        self.assertEqual(len(components), 103)
+        self.assertEqual(len(components), 105)
         paths = [
             registry._stage2_component_path(component)
             for component in components.values()
@@ -326,17 +321,21 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         paths = [path for path in paths if path is not None]
         self.assertEqual(len(paths), len(set(paths)))
 
-    def test_five_stable_id_migrations_are_exact(self):
+    def test_seven_stable_id_migrations_are_exact(self):
         components = self.registry["components"]["entries"]
         migrations = self.registry["migrations_and_aliases"]["entries"]
         records = [
             value for value in migrations.values()
             if value["kind"] == "stable_id_migration"
         ]
-        self.assertEqual(len(records), 5)
+        self.assertEqual(len(records), 7)
         self.assertEqual(
-            {value["target_id"] for value in records},
-            registry.STAGE2_STABLE_ID_TARGETS,
+            {value["source_id"] for value in records},
+            {
+                "public_premise", "current_audit", "project_profile",
+                "maturity_profile", "scoring_quality_rubric",
+                "project_console_progress", "project_console_classifications",
+            },
         )
         for value in records:
             self.assertNotIn(value["source_id"], components)
@@ -358,7 +357,7 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
             self.assertEqual("operational_status" in component, executable)
 
     def test_component_record_references_are_unique_and_resolve(self):
-        registry.validate_stage2_registry(self.registry, root=ROOT)
+        registry.validate_stage3_registry(self.registry, root=ROOT)
         for component in self.registry["components"]["entries"].values():
             for values in component["record_refs"].values():
                 self.assertEqual(len(values), len(set(values)))
@@ -368,7 +367,7 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         refs = altered["components"]["entries"]["COMPONENT-REGISTRY"]["record_refs"]["relationships"]
         refs.append(refs[0])
         with self.assertRaisesRegex(registry.RegistryError, "duplicate"):
-            registry.validate_stage2_registry(altered, root=ROOT)
+            registry.validate_stage3_registry(altered, root=ROOT)
 
     def test_relationships_have_only_approved_types_and_known_components(self):
         allowed = {"implemented_by", "validated_by", "verified_by", "consumes", "supersedes"}
@@ -401,7 +400,7 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
             self.assertNotIn("path", record)
             self.assertNotIn("sha256", record)
         self.assertEqual(registry.route_counts(self.route), {
-            "documents": 84, "governing_documents": 83, "capabilities": 19,
+            "documents": 82, "governing_documents": 81, "capabilities": 19,
             "profiles": 8, "required_modules": 3, "generated_path_exclusions": 9,
         })
 
@@ -411,10 +410,26 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         self.assertEqual(coverage["multiply_treated_count"], 0)
         self.assertEqual(set(coverage["entries"]), set(registry._tracked_and_candidate_paths(ROOT)))
 
+    def test_current_path_universe_excludes_unstaged_move_sources(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / ".git").mkdir()
+            (root / "current.txt").write_text("current\n", encoding="utf-8")
+            (root / "future.txt").write_text("future\n", encoding="utf-8")
+            with mock.patch.object(
+                registry,
+                "_git_output",
+                return_value="current.txt\nremoved-source.txt\nfuture.txt\n",
+            ):
+                self.assertEqual(
+                    registry._tracked_and_candidate_paths(root),
+                    ["current.txt", "future.txt"],
+                )
+
     def test_repository_tmp_is_categorical_not_component(self):
         scope = self.registry["directory_scopes"]["entries"]["repository_tmp"]
         self.assertEqual(scope["path_pattern"], ".tmp/")
-        self.assertIn("repository_tmp_children", self.registry["supporting_artifact_rules"]["entries"])
+        self.assertIn("repository_tmp_children", self.registry["registration_exemptions"]["entries"])
 
     def test_codeowners_is_exact_generated_nonauthoritative_configuration(self):
         result = registry.stage2_codeowners_projection(self.registry, root=ROOT)
@@ -541,7 +556,7 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
                 compare_current=False,
             )
 
-    def test_codeowners_rejects_nonrepository_use_and_checked_in_drift(self):
+    def test_codeowners_allows_none_but_rejects_direct_for_nonrepository_sources(self):
         nonrepository = copy.deepcopy(self.registry)
         identity = next(
             component_id
@@ -551,6 +566,14 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         )
         nonrepository["components"]["entries"][identity]["repository_controls"] = {
             "github_codeowners": {"mode": "none"}
+        }
+        registry.stage2_codeowners_projection(
+            nonrepository,
+            root=ROOT,
+            compare_current=False,
+        )
+        nonrepository["components"]["entries"][identity]["repository_controls"] = {
+            "github_codeowners": {"mode": "direct", "owners": ["@Thorncrag"]}
         }
         with self.assertRaisesRegex(registry.RegistryError, "nonrepository"):
             registry.stage2_codeowners_projection(
@@ -582,7 +605,7 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
             ["checked_in_codeowners_drift"],
         )
 
-    def test_codeowners_generation_is_ordered_idempotent_and_stage2_native(self):
+    def test_codeowners_generation_is_ordered_idempotent_and_registry_native(self):
         first = registry.stage2_codeowners_projection(
             self.registry,
             root=ROOT,
@@ -668,24 +691,24 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
             {"framework/component-registry.json": (["@Thorncrag"], [])},
         )
 
-    def test_proposed_routing_view_has_no_status_or_receipt_claim(self):
+    def test_adopted_configuration_view_has_no_live_authority_claim(self):
         view = registry.load_component_registry_configuration_routing_view()
-        self.assertEqual(view["schema_version"], 2)
-        self.assertEqual(view["validation_mode"], "proposed_revision_validation")
-        self.assertNotIn("registry_status", view)
+        self.assertEqual(view["schema_version"], 3)
+        self.assertEqual(view["validation_mode"], "adopted_configuration_validation")
+        self.assertEqual(view["registry_status"], "adopted")
         self.assertFalse(view["authoritative"])
         self.assertFalse(view["executable"])
         self.assertFalse(view["activation_receipt_consulted"])
         self.assertFalse(view["predecessor_route_consulted"])
         self.assertFalse(view["authority_effective"])
         self.assertFalse(view["source_revision_authorized"])
-        self.assertFalse(view["source_bytes_current"])
+        self.assertTrue(view["source_bytes_current"])
         self.assertFalse(view["canonical_history_confirmed"])
         self.assertFalse(view["receipt_trusted"])
         self.assertEqual(view["runtime_live"], "not_checked")
         self.assertFalse(view["registry_component_executable"])
 
-    def test_proposed_view_rejects_executable_selection(self):
+    def test_configuration_view_rejects_executable_selection(self):
         view = registry.load_component_registry_configuration_routing_view()
         with self.assertRaises(registry.RegistryError):
             registry.require_executable_routing_selection(view)
@@ -706,12 +729,11 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
             "component_type"
         ] = None
         with self.assertRaisesRegex(registry.RegistryError, "optional component type"):
-            registry.validate_stage2_registry(
+            registry.validate_stage3_registry(
                 altered,
                 root=ROOT,
                 verify_repository_coverage=False,
                 verify_source_bindings=False,
-                verify_migration_residuals=False,
             )
 
     def test_schema_rejects_unknown_top_level_field(self):
@@ -721,26 +743,34 @@ class ComponentRegistryStage2Tests(unittest.TestCase):
         with self.assertRaises(registry.RegistryError):
             registry._validate_against_schema(altered, schema, schema)
 
-    def test_stable_id_residuals_are_bound_to_exact_typed_occurrences(self):
+    def test_root_scope_has_no_placement_fallback(self):
         altered = copy.deepcopy(self.registry)
-        migration = next(
-            value
-            for value in altered["migrations_and_aliases"]["entries"].values()
-            if value.get("kind") == "stable_id_migration"
-        )
-        migration["allowed_residual_occurrences"].append({
-            "path": "invented/current-reference.md",
-            "locator": {
-                "kind": "text_line",
-                "line_number": 1,
-                "line_sha256": "0" * 64,
-                "occurrence_index": 1,
-            },
-        })
-        with self.assertRaisesRegex(registry.RegistryError, "exact typed locators"):
-            registry.validate_stage2_registry(
-                altered,
-                root=ROOT,
-                verify_repository_coverage=False,
-                verify_source_bindings=False,
-            )
+        scopes = altered["directory_scopes"]["entries"]
+        with self.assertRaisesRegex(registry.RegistryError, "no non-root placement scope"):
+            registry.select_stage3_placement_scope("UNREGISTERED.unknown", scopes)
+
+    def test_equal_specificity_scope_tie_fails_closed(self):
+        scopes = copy.deepcopy(self.registry["directory_scopes"]["entries"])
+        duplicate = copy.deepcopy(scopes["framework"])
+        duplicate["scope_id"] = "framework_duplicate"
+        scopes["framework_duplicate"] = duplicate
+        with self.assertRaisesRegex(registry.RegistryError, "multiple equally specific"):
+            registry.select_stage3_placement_scope("framework/example.txt", scopes)
+
+    def test_source_checker_execution_controls_are_exact(self):
+        registry._validate_stage3_execution_controls(self.registry)
+        altered = copy.deepcopy(self.registry)
+        altered["components"]["entries"]["source-checker-bot"][
+            "execution_controls"
+        ]["prohibited_purposes"].remove("console_currentness")
+        with self.assertRaisesRegex(registry.RegistryError, "Source Checker"):
+            registry._validate_stage3_execution_controls(altered)
+
+    def test_registry_modification_authority_is_exactly_contract_bound(self):
+        registry._validate_stage3_authority_binding(self.registry)
+        altered = copy.deepcopy(self.registry)
+        altered["component_authorities"]["registry_modification_control"][
+            "active_mode"
+        ] = "owner_direct"
+        with self.assertRaisesRegex(registry.RegistryError, "modification control"):
+            registry._validate_stage3_authority_binding(altered)

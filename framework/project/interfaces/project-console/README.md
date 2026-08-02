@@ -9,7 +9,7 @@ print_exclusion_reason: "Internal workflow or tool documentation."
 The Project Console is a read-only, nonauthoritative management and
 verification interface for ARRP. Its complete product and information-
 architecture contract is
-[`framework/project/interfaces/project-console.md`](../project-console.md).
+[`framework/project/interfaces/project-console/specification.md`](specification.md).
 This README is limited to implementation and operator guidance; it does not
 independently define screen meaning, authority, status, or data ownership.
 

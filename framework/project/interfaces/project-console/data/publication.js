@@ -7473,7 +7473,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/project/interfaces/project-console.md",
+          "path": "framework/project/interfaces/project-console/specification.md",
           "exists": true
         },
         {
@@ -7593,7 +7593,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/project/interfaces/project-console.md",
+          "path": "framework/project/interfaces/project-console/specification.md",
           "exists": true
         }
       ],
@@ -7719,12 +7719,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2529,
+      "word_count": 2532,
       "estimated_pages": 4,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 66
+      "longest_unbroken_token": 80
     },
     {
       "title": "ARRP Governance Change Recording",
@@ -7998,7 +7998,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sort_key": "framework/project/interfaces/project-console-arrp project console",
       "internal_links": [
         {
-          "path": "framework/project/interfaces/project-console.md",
+          "path": "framework/project/interfaces/project-console/specification.md",
           "exists": true
         },
         {
@@ -8006,7 +8006,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2776,
+      "word_count": 2777,
       "estimated_pages": 5,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8015,26 +8015,26 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     {
       "title": "ARRP Project Console Progress Configuration",
-      "path": "framework/project/interfaces/project-console-progress.md",
+      "path": "framework/project/interfaces/project-console/configuration/progress.md",
       "section": "Framework and process",
       "print_levels": [],
       "print_level_labels": [],
       "print_status": "excluded",
       "print_exclusion_reason": "Internal interface configuration.",
       "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/interfaces/project-console-progress.md",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/interfaces/project-console/configuration/progress.md",
       "document_type": "technical",
       "print_metadata_present": true,
       "invalid_print_levels": [],
       "assembly_sections": {},
-      "assembly_sort_key": "framework/project/interfaces-arrp project console progress configuration",
+      "assembly_sort_key": "framework/project/interfaces/project-console/configuration-arrp project console progress configuration",
       "internal_links": [
         {
           "path": "framework/archive/baselines/project-console-progress.md",
           "exists": true
         }
       ],
-      "word_count": 469,
+      "word_count": 467,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8043,19 +8043,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     {
       "title": "ARRP Project Console and Interface Configuration",
-      "path": "framework/project/interfaces/project-console.md",
+      "path": "framework/project/interfaces/project-console/specification.md",
       "section": "Framework and process",
       "print_levels": [],
       "print_level_labels": [],
       "print_status": "excluded",
       "print_exclusion_reason": "Internal interface-governance documentation.",
       "publication_disposition": "excluded",
-      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/interfaces/project-console.md",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/interfaces/project-console/specification.md",
       "document_type": "technical",
       "print_metadata_present": true,
       "invalid_print_levels": [],
       "assembly_sections": {},
-      "assembly_sort_key": "framework/project/interfaces-arrp project console and interface configuration",
+      "assembly_sort_key": "framework/project/interfaces/project-console-arrp project console and interface configuration",
       "internal_links": [
         {
           "path": "framework/standards/interfaces/standard.md",
@@ -8094,7 +8094,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 10403,
+      "word_count": 10571,
       "estimated_pages": 17,
       "table_count": 2,
       "max_table_columns": 2,
@@ -8126,11 +8126,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/project/interfaces/project-console.md",
+          "path": "framework/project/interfaces/project-console/specification.md",
           "exists": true
         },
         {
-          "path": "framework/project/interfaces/project-console-progress.md",
+          "path": "framework/project/interfaces/project-console/configuration/progress.md",
           "exists": true
         },
         {
@@ -8952,7 +8952,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/project/interfaces/project-console.md",
+          "path": "framework/project/interfaces/project-console/specification.md",
           "exists": true
         },
         {
@@ -8960,7 +8960,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/project/interfaces/project-console-progress.md",
+          "path": "framework/project/interfaces/project-console/configuration/progress.md",
           "exists": true
         },
         {
@@ -8968,12 +8968,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3708,
+      "word_count": 3710,
       "estimated_pages": 6,
       "table_count": 5,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 50
+      "longest_unbroken_token": 64
     },
     {
       "title": "Annotation, Claims, and Source Standards",
@@ -9437,7 +9437,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 135,
+      "word_count": 122,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9460,12 +9460,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 615,
-      "estimated_pages": 1,
+      "word_count": 940,
+      "estimated_pages": 2,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 21
+      "longest_unbroken_token": 74
     },
     {
       "title": "Elim Agent Runbook",
@@ -9618,7 +9618,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         },
         {
-          "path": "framework/project/interfaces/project-console-progress.md",
+          "path": "framework/project/interfaces/project-console/configuration/progress.md",
           "exists": true
         },
         {
@@ -9638,7 +9638,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 5198,
+      "word_count": 5196,
       "estimated_pages": 8,
       "table_count": 1,
       "max_table_columns": 2,
@@ -10330,7 +10330,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         {
           "path": "framework/project/interfaces/project-console-progress.md",
-          "exists": true
+          "exists": false
         }
       ],
       "word_count": 1600,
@@ -10356,12 +10356,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation/runbooks-project console progress bot runbook",
       "internal_links": [],
-      "word_count": 256,
+      "word_count": 257,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 51
+      "longest_unbroken_token": 65
     },
     {
       "title": "Project Integrity Bot Runbook",
@@ -10618,12 +10618,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation/runbooks-run coordinator bot runbook",
       "internal_links": [],
-      "word_count": 1149,
+      "word_count": 1153,
       "estimated_pages": 2,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 35
+      "longest_unbroken_token": 75
     },
     {
       "title": "Scoring Standard",
@@ -16628,7 +16628,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "link_export_validation": {
         "link_inventory_available": true,
         "internal_link_count": 1280,
-        "missing_link_count": 28,
+        "missing_link_count": 29,
         "missing_links": [
           {
             "source": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
@@ -16717,6 +16717,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           {
             "source": "framework/archive/authorities/CONTEXT_ROUTING.md",
             "target": "framework/archive/authorities/records/handoffs/current-task.md"
+          },
+          {
+            "source": "framework/archive/baselines/project-console-progress.md",
+            "target": "framework/project/interfaces/project-console-progress.md"
           },
           {
             "source": "framework/archive/authorities/PROJECT_STRUCTURE.md",
@@ -18484,13 +18488,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "result": "findings",
         "counts": {
           "errors": 0,
-          "warnings": 5,
-          "findings": 5,
+          "warnings": 3,
+          "findings": 3,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "21f7fc6ca8a168ad9be5efca26fe309d5f1926a4",
-        "generated_at": "2026-08-01T16:03:31+00:00"
+        "revision": "fad1ea5bf69a0ef17d48879ad78a1fa27f2e694b",
+        "generated_at": "2026-08-02T10:33:52+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20246,6 +20250,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-f8e1bf9aac508897681c"
+    "publication.js": "project-console-6976cf05fa319af81bcb"
   }
 });

@@ -9,7 +9,7 @@ trigger: local-chain-when-due
 schedule: "Due every 24 hours within the 02:00 America/New_York local chain; no independent schedule"
 runtime_id: scripts/build_project_console_progress.py
 execution_environment: local-transaction-worktree
-runtime_config: framework/project/interfaces/project-console-progress.json
+runtime_config: framework/project/interfaces/project-console/configuration/progress.json
 log_path: owner-local:records/automation/agent-audit-log.md
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
@@ -41,7 +41,7 @@ from Elim, require GitHub Actions variables, publish to
 
 The Project field names, goal, baseline, target, readiness rule, source
 registry, and history seed remain defined in
-[`../../interfaces/project-console-progress.json`](../../interfaces/project-console-progress.json).
+[`../../interfaces/project-console/configuration/progress.json`](../../interfaces/project-console/configuration/progress.json).
 A valid typed prior history may be carried forward through the runner.
 Missing, malformed, stale, or unhashed prior output makes the stage due.
 

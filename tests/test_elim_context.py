@@ -1215,7 +1215,7 @@ class QueueTests(unittest.TestCase):
         result = {
             "run_id": "chain-prior",
             "unit_id": "selected-gap-prior",
-            "files_touched": ["framework/records/automation/elim-run-log.md"],
+            "files_touched": ["framework/logs/automation/elim-run-log.md"],
             "discovered_work_units": [
                 {
                     "id": "DISC-1",
@@ -1239,7 +1239,7 @@ class QueueTests(unittest.TestCase):
                         if authority_disposition == "permitted"
                         else "Retain evidence without implementing the prohibited change."
                     ),
-                    "changed_files": ["framework/records/automation/elim-run-log.md"],
+                    "changed_files": ["framework/logs/automation/elim-run-log.md"],
                     "affected_surfaces": ["repository", "automation", "console"],
                     "validation_readback": [
                         {
@@ -1249,8 +1249,8 @@ class QueueTests(unittest.TestCase):
                         }
                     ],
                     "disposition": "reported",
-                    "canonical_detail": "framework/records/automation/elim-run-log.md",
-                    "provenance": ["framework/records/automation/elim-run-log.md#gap-1"],
+                    "canonical_detail": "framework/logs/automation/elim-run-log.md",
+                    "provenance": ["framework/logs/automation/elim-run-log.md#gap-1"],
                     "owner": "Elim",
                     "next_action": "Recheck the route and apply only an authorized repair.",
                     "next_trigger": "The route or authority record changes.",
@@ -1273,7 +1273,7 @@ class QueueTests(unittest.TestCase):
         result = {
             "run_id": "chain-governance-prior",
             "unit_id": "governance-review-prior",
-            "files_touched": ["framework/records/automation/elim-run-log.md"],
+            "files_touched": ["framework/logs/automation/elim-run-log.md"],
             "discovered_work_units": [
                 {
                     "id": "DISC-governance-control",
@@ -1285,7 +1285,7 @@ class QueueTests(unittest.TestCase):
                     "evidence": ["All minimum domains were reviewed at the pinned boundary."],
                     "reasoning": "No material defect was established.",
                     "uncertainty": None,
-                    "affected_records": ["framework/records/automation/elim-run-log.md"],
+                    "affected_records": ["framework/logs/automation/elim-run-log.md"],
                     "consequence": "The quiet-queue review is current for its cadence.",
                     "authority": {
                         "classification": "delegated_judgment",
@@ -1293,7 +1293,7 @@ class QueueTests(unittest.TestCase):
                         "disposition": "permitted",
                     },
                     "action_rationale": "Record a clean review without inventing work.",
-                    "changed_files": ["framework/records/automation/elim-run-log.md"],
+                    "changed_files": ["framework/logs/automation/elim-run-log.md"],
                     "affected_surfaces": ["repository", "automation", "console"],
                     "validation_readback": [
                         {
@@ -1303,8 +1303,8 @@ class QueueTests(unittest.TestCase):
                         }
                     ],
                     "disposition": "no_material_finding",
-                    "canonical_detail": "framework/records/automation/elim-run-log.md",
-                    "provenance": ["framework/records/automation/elim-run-log.md#governance-review"],
+                    "canonical_detail": "framework/logs/automation/elim-run-log.md",
+                    "provenance": ["framework/logs/automation/elim-run-log.md#governance-review"],
                     "owner": "Elim",
                     "next_action": "Wait for the next due governance review.",
                     "next_trigger": "The 168-hour minimum interval elapses.",
@@ -1423,7 +1423,7 @@ class QueueTests(unittest.TestCase):
 
     def test_queue_cli_reconstructs_governance_state_when_cache_is_missing(self):
         integrity, progress, intake, chain = self.quiet_inputs()
-        config = self.root / ".github/run-coordinator-bot.json"
+        config = self.root / "framework/project/automation/configuration/bots/run-coordinator-bot.json"
         config.parent.mkdir(parents=True, exist_ok=True)
         write_json(
             config,
@@ -1436,7 +1436,7 @@ class QueueTests(unittest.TestCase):
                 }
             },
         )
-        run_log = self.root / "framework/records/automation/elim-run-log.md"
+        run_log = self.root / "framework/logs/automation/elim-run-log.md"
         run_log.parent.mkdir(parents=True, exist_ok=True)
         from elim_execution import render_discovery_markers  # noqa: E402
 
@@ -1446,7 +1446,7 @@ class QueueTests(unittest.TestCase):
                 {
                     "run_id": "chain-governance-prior",
                     "unit_id": "governance-review-prior",
-                    "files_touched": ["framework/records/automation/elim-run-log.md"],
+                    "files_touched": ["framework/logs/automation/elim-run-log.md"],
                     "discovered_work_units": [
                         {
                             "id": "DISC-governance-control",
@@ -1458,7 +1458,7 @@ class QueueTests(unittest.TestCase):
                             "evidence": ["The complete minimum domain list was reviewed."],
                             "reasoning": "No material defect was established.",
                             "uncertainty": None,
-                            "affected_records": ["framework/records/automation/elim-run-log.md"],
+                            "affected_records": ["framework/logs/automation/elim-run-log.md"],
                             "consequence": "The review is current for its cadence.",
                             "authority": {
                                 "classification": "delegated_judgment",
@@ -1466,7 +1466,7 @@ class QueueTests(unittest.TestCase):
                                 "disposition": "permitted",
                             },
                             "action_rationale": "Record a clean review.",
-                            "changed_files": ["framework/records/automation/elim-run-log.md"],
+                            "changed_files": ["framework/logs/automation/elim-run-log.md"],
                             "affected_surfaces": [
                                 "repository",
                                 "automation",
@@ -1480,9 +1480,9 @@ class QueueTests(unittest.TestCase):
                                 }
                             ],
                             "disposition": "no_material_finding",
-                            "canonical_detail": "framework/records/automation/elim-run-log.md",
+                            "canonical_detail": "framework/logs/automation/elim-run-log.md",
                             "provenance": [
-                                "framework/records/automation/elim-run-log.md#governance"
+                                "framework/logs/automation/elim-run-log.md#governance"
                             ],
                             "owner": "Elim",
                             "next_action": "Wait for the next due review.",
@@ -1520,9 +1520,13 @@ class QueueTests(unittest.TestCase):
             capture_output=True,
             text=True,
         )
-        self.assertEqual(completed.returncode, 0, completed.stderr)
+        queue_output = self.root / "queue.json"
+        failure_detail = completed.stderr or completed.stdout
+        if queue_output.is_file():
+            failure_detail += queue_output.read_text(encoding="utf-8")
+        self.assertEqual(completed.returncode, 0, failure_detail)
         self.assertEqual(completed.stdout, "")
-        queue = json.loads((self.root / "queue.json").read_text())
+        queue = json.loads(queue_output.read_text())
         self.assertTrue(queue["governance_discovery"]["current_for_cadence"])
         self.assertEqual(
             queue["governance_discovery"]["minimum_interval_hours"],
@@ -2877,7 +2881,7 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
                 "github_workflow",
                 "evidence_standards",
                 "source_project_monitoring",
-                "project_console_progress",
+                "progress_config",
                 "project_tool_interface",
                 "runbook_run_coordinator_bot",
                 "print_assembly",

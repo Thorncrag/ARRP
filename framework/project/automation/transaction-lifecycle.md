@@ -5,8 +5,8 @@ authority_scope: "Owner-local append-only transaction attempt history, retry aut
 dependencies:
   - "owner-local-runtime.md"
   - "operational-incidents.json"
-  - "transaction-lifecycle.schema.json"
-  - "transaction-recovery-package.schema.json"
+  - "schemas/transaction-lifecycle.schema.json"
+  - "schemas/transaction-recovery-package.schema.json"
 print_status: excluded
 print_exclusion_reason: "Internal workflow or tool documentation."
 ---
@@ -58,7 +58,7 @@ event digest. Before claim, the predecessor must be reconciled/superseded or
 sealed in a recovery package; an unresolved predecessor fails closed.
 
 Recovery manifests conform to
-[`transaction-recovery-package.schema.json`](transaction-recovery-package.schema.json).
+[`transaction-recovery-package.schema.json`](schemas/transaction-recovery-package.schema.json).
 They are owner-only non-checkout archives sufficient to reconstruct commits,
 diffs, and untracked material. A manifest authorizes neither deletion nor
 retirement. Exact target approval and recoverable handling remain separate.

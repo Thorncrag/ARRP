@@ -1,7 +1,7 @@
 ---
 title: "ARRP Project Console and Interface Configuration"
 status: active
-version: "1.1"
+version: "1.2"
 authority_scope: "ARRP Project Console product purpose, information architecture, interface design system, screen requirements, data projections, operating modes, generation, validation, and product traceability."
 print_status: excluded
 print_exclusion_reason: "Internal interface-governance documentation."
@@ -9,14 +9,13 @@ module_id: project_tool_interface
 load_when:
   - "Designing, changing, or reviewing an ARRP dashboard, console, form, or other application-like interface."
 dependencies:
-  - "../../standards/interfaces/standard.md"
-  - "../../standards/interfaces/progress-views.md"
-  - "visual-identity.md"
-  - "project-console-classifications.json"
-  - "project-console-progress.md"
-  - "../workflows/candidate-review.md"
-  - "../workflows/source-adjudication.md"
-  - "../automation/owner-local-runtime.md"
+  - "../../../standards/interfaces/standard.md"
+  - "../../../standards/interfaces/progress-views.md"
+  - "../visual-identity.md"
+  - "configuration/progress.json"
+  - "../../workflows/candidate-review.md"
+  - "../../workflows/source-adjudication.md"
+  - "../../automation/owner-local-runtime.md"
 ---
 
 # ARRP Project Console and Interface Configuration
@@ -28,34 +27,33 @@ dependencies:
 | Field | Current value |
 |---|---|
 | Stable document identity | `project_tool_interface` |
-| Version | `1.1` |
+| Version | `1.2` |
 | Status | Active |
 | Approval | Approved by `@Thorncrag` on 2026-07-31 |
 | Authority role | Governing configuration for the ARRP Project Console and related project-operated interfaces |
 | Owner and review | `@Thorncrag`; owner review required |
-| Canonical source | `framework/project/interfaces/project-console.md` |
+| Canonical source | `framework/project/interfaces/project-console/specification.md` |
 
-Version 1.1 is the approved edition of this specification. It retains the
-version 1.0 visual baseline while adopting the stable identity
-`project_tool_interface` and retiring the prototype-status banner from the
-approved interface. Earlier development history remains available through Git
-and the Console Development Log; no retrospective version numbers are assigned
-without contemporaneous evidence.
+Version 1.2 retains the approved version 1.0 visual baseline and version 1.1
+stable identity while aligning the Component Registry reference interface with
+the adopted Stage 3 data model. Earlier development history remains available
+through Git and the Console Development Log; no retrospective version numbers
+are assigned without contemporaneous evidence.
 
 ### Purpose and Governing Authorities
 
 This file configures the ARRP Project Console under the reusable
-[Project Interface Standard](../../standards/interfaces/standard.md), the
-[Progress View Standard](../../standards/interfaces/progress-views.md), and
-ARRP's [tool visual identity](visual-identity.md).
+[Project Interface Standard](../../../standards/interfaces/standard.md), the
+[Progress View Standard](../../../standards/interfaces/progress-views.md), and
+ARRP's [tool visual identity](../visual-identity.md).
 
 Candidate terminology and identifiers are governed by the
-[ARRP candidate workflow](../workflows/candidate-review.md#preliminary-candidate-synthesis-and-promotion),
+[ARRP candidate workflow](../../workflows/candidate-review.md#preliminary-candidate-synthesis-and-promotion),
 and the exact source catalogs and routing fields are governed by the
-[ARRP source workflow](../workflows/source-adjudication.md). This file governs
+[ARRP source workflow](../../workflows/source-adjudication.md). This file governs
 where and how those records are presented in project-operated interfaces.
 
-Console views are nonauthoritative projections: lifecycle and candidate authority remains in GitHub, bibliographic authority remains in the two source catalogs, canonical Markdown logs remain authoritative for their named histories, the immutable validated Operational Incident record is the sole authority for `INC` identity, occurrence history, operational recovery, and closure, and the distinct owner-local Security Incident record is the sole authority for `SEC` identity, investigation, containment, remediation, restricted evidence, security verification, and closure. A typed relation journal may link one `INC` and one `SEC` without changing either authority or lifecycle. Committed Elim Run Log discovery markers remain the durable gap-reconstruction authority, presidential-directive identity and review history remains in the directive registry, and print disposition and assembly authority remain in page front matter and [`print-assembly.json`](../publication/print-assembly.json). The Publication assignment view must make included, explicitly excluded, unclassified, and conflicting outcomes independently visible. Routine issue monitoring remains in Planning > Workbench and does not count as a human Action Item unless it produces an exception or decision requiring attention; automated watcher and source-bot operations remain in Sources. Routine Elim-owned gap review, and retained `forbidden`, `unsafe`, `out_of_scope`, or `uncertain` observations that do not require a human act, remain in Integrity or Agents & Bots. They enter Action Items only when an exact human judgment, credential, unsafe external action, owner-gated decision, or intervention is required. Locally staged publication changes remain in Publication and likewise do not count as Action Items. The Action Items view must route each count to its complete owning view and must not duplicate narrative workflow records. The Logs view is read-only, retains complete entries without pagination, and links to each authoritative log or retained bounded feed; it must not become a separately maintained ledger. Publication controls may stage and export instruction lists for Codex, but do not persist drafts or edit canonical files.
+Console views are nonauthoritative projections: lifecycle and candidate authority remains in GitHub, bibliographic authority remains in the two source catalogs, canonical Markdown logs remain authoritative for their named histories, the immutable validated Operational Incident record is the sole authority for `INC` identity, occurrence history, operational recovery, and closure, and the distinct owner-local Security Incident record is the sole authority for `SEC` identity, investigation, containment, remediation, restricted evidence, security verification, and closure. A typed relation journal may link one `INC` and one `SEC` without changing either authority or lifecycle. Committed Elim Run Log discovery markers remain the durable gap-reconstruction authority, presidential-directive identity and review history remains in the directive registry, and print disposition and assembly authority remain in page front matter and [`print-assembly.json`](../../publication/print-assembly.json). The Publication assignment view must make included, explicitly excluded, unclassified, and conflicting outcomes independently visible. Routine issue monitoring remains in Planning > Workbench and does not count as a human Action Item unless it produces an exception or decision requiring attention; automated watcher and source-bot operations remain in Sources. Routine Elim-owned gap review, and retained `forbidden`, `unsafe`, `out_of_scope`, or `uncertain` observations that do not require a human act, remain in Integrity or Agents & Bots. They enter Action Items only when an exact human judgment, credential, unsafe external action, owner-gated decision, or intervention is required. Locally staged publication changes remain in Publication and likewise do not count as Action Items. The Action Items view must route each count to its complete owning view and must not duplicate narrative workflow records. The Logs view is read-only, retains complete entries without pagination, and links to each authoritative log or retained bounded feed; it must not become a separately maintained ledger. Publication controls may stage and export instruction lists for Codex, but do not persist drafts or edit canonical files.
 
 ## 2. Product Definition
 
@@ -459,7 +457,7 @@ GitHub Issues and the Project Monitoring view are the issue-level monitoring-wor
 
 Every view must distinguish: (1) the external matter being watched; (2) why it is materially relevant to future issue development; (3) what development triggers reassessment; (4) whether a deterministic watcher, an LLM-assisted pass, or another stated checking method covers it; and (5) its latest known posture. Routine issue monitoring is intended for automated LLM-assisted review and is not itself a human Action Item merely because `needs: monitoring` remains present. Only a detected development, exception, or resulting decision that requires human attention enters Action Items. The console does not create, close, edit, or adjudicate an issue.
 
-The **Sources** and **Pending sources** subviews expose each source's `Monitoring` value so a changing docket or similar record remains identifiable even when the owning issue is not currently in an issue-wide monitoring pass. Ordinary badges state the complete queue size. A visually distinct update badge states only a genuinely new or changed record awaiting review, using the directive registry status or an unresolved deterministic-watcher pull request; do not use the update color merely to restate a queue total. The substantive distinctions among issue monitoring, source monitoring, deferral, and blockage remain governed by [`monitoring.md`](../../standards/sources/monitoring.md), [`source-records.md`](../../standards/sources/source-records.md), and the [ARRP GitHub workflow](../github/workflow.md).
+The **Sources** and **Pending sources** subviews expose each source's `Monitoring` value so a changing docket or similar record remains identifiable even when the owning issue is not currently in an issue-wide monitoring pass. Ordinary badges state the complete queue size. A visually distinct update badge states only a genuinely new or changed record awaiting review, using the directive registry status or an unresolved deterministic-watcher pull request; do not use the update color merely to restate a queue total. The substantive distinctions among issue monitoring, source monitoring, deferral, and blockage remain governed by [`monitoring.md`](../../../standards/sources/monitoring.md), [`source-records.md`](../../../standards/sources/source-records.md), and the [ARRP GitHub workflow](../../github/workflow.md).
 
 #### Pending Source Presentation
 
@@ -495,7 +493,7 @@ Operations owns:
    reusable repository-gate producer as blocking future automation. The
    append-only declaration authority is the owner-local path
    `records/automation/repository-gates.jsonl` under the governed
-   [repository-gate policy](../automation/repository-gates.json). Authenticated
+   [repository-gate policy](../../automation/repository-gates.json). Authenticated
    Console refresh and scheduled/manual coordinator execution consume the same
    schema. A current future-run snapshot never rewrites historical run state;
    a gate counts against the latest attempt only when the coordinator applied
@@ -506,7 +504,7 @@ Operations owns:
    `Required`, or `Unavailable`; and a typed active-incident indicator. Its
    bounded master/detail workspace contains exactly the seven registered tool
    identities in
-   [`project-console-classifications.json`](project-console-classifications.json):
+   [`classifications.json`](configuration/classifications.json):
    Public-intake protection, Repository change protection, Protected-surface
    change review, Automation isolation, Credential and access review,
    Disclosure-boundary verification, and Recovery readiness. Previews explain
@@ -565,23 +563,42 @@ Operations owns:
    recovery route, and any typed incident links. The interface uses bounded
    horizontal overflow before accidental wrapping.
 8. Component Registry — one builder-supplied, typed, nonauthoritative view of
-   the validated central Registry. Its modes are Components, Lifecycles,
-   Authority, Relationships, Coverage, Routing, and Terminology. The browser
-   receives these dimensions from the generated Registry projection and never
-   parses the adopted design document, archived predecessor, or another prose
-   source as Registry data.
+   the validated central Registry. Its modes are Components, Classes, Types,
+   Lifecycles, Authority, Relationships, Directories, Exemptions, Unresolved,
+   Routing, CODEOWNERS, and Terminology. The browser receives these dimensions
+   from the generated Registry projection and never parses the adopted design
+   document, archived predecessor, or another prose source as Registry data.
 
    Components is the primary searchable inventory. Its selected-component
    detail shows stable identity, class and type, roles and capabilities,
    canonical source and source binding, owner, retention, disclosure,
    operational status when applicable, supporting artifacts, lifecycle and
    authority references, relationships, migrations, and provenance. The other
-   modes provide cross-component views: lifecycle state counts, definitions,
-   permitted transitions, assignments, and history; scoped authority sources,
-   assignments, effects, exclusions, precedence, and design-contract
-   bindings; directional relationships; exhaustive component/artifact/scope
-   coverage and unresolved failures; compact routing selections and resolved
-   dependency closures; and the complete searchable adopted terminology.
+   modes provide cross-component views. Classes and Types are separate
+   reference screens over the Registry's controlled classification values;
+   they show the exact governing term binding when one exists, permitted
+   subordinate values, usage counts, and components using each value. They do
+   not register vocabulary values as components and do not infer definitions
+   from current component usage. Lifecycles shows state counts, definitions,
+   permitted transitions, assignments, and history. Authority shows scoped
+   sources, assignments, effects, exclusions, precedence, and design-contract
+   bindings. Relationships shows directional endpoints and provenance.
+   Directories shows governed repository scopes and each scope's exact resolved
+   membership. Exemptions shows categorical registration exemptions joined to
+   their governing scopes. Unresolved shows only paths with no valid treatment
+   or conflicting treatments. Routing shows compact selections and resolved
+   dependency closures. CODEOWNERS shows the generated review-routing result,
+   distinct from Registry governance. Terminology shows the complete adopted
+   controlled vocabulary.
+
+   Every selected detail uses typed provenance from the projection and links
+   to related Registry records when the related destination exists. Search or
+   filtering that produces no results clears the prior selection rather than
+   leaving stale detail visible. Selecting a record updates the semantic route
+   without scrolling the whole Console panel away from the user's position.
+   Directory membership counts are resolved per scope; the interface must not
+   display the repository-wide path count as though it belonged to every
+   directory or exemption.
 
    The Console renders only public-safe Registry facts and evidence references.
    It does not expose private contract payloads, owner-local receipt content,
@@ -591,10 +608,10 @@ Operations owns:
    when the producer says it is complete. Missing or invalid Registry data is
    unavailable rather than zero or silently reconstructed.
 
-   Pre-merge Stage 2 output uses `proposed_revision_validation` and makes no
-   live-authority claim. After adoption, repository and hosted Console output
-   may report `adopted_configuration_validation`, which validates the exact
-   tracked configuration without reading owner-local activation evidence.
+   A proposed revision uses `proposed_revision_validation` and makes no
+   live-authority claim. The adopted Stage 3 repository and hosted Console
+   output reports `adopted_configuration_validation`, which validates the
+   exact tracked configuration without reading owner-local authority evidence.
    Only the production reader may establish `live_authority_validation` from
    the fixed digest-addressed receipt. The public Console never includes that
    receipt payload or promotes itself into an authority.
@@ -749,7 +766,7 @@ incident total from the relation journal.
 ### Typed classification and projection authority
 
 The Console implements the reusable Interface Standard through
-[`project-console-classifications.json`](project-console-classifications.json).
+[`classifications.json`](configuration/classifications.json).
 The registry has distinct namespaces for work kinds, finding codes, queue IDs,
 workflow views, Security tools, and Console-development categories. A builder
 must validate every emitted queue, finding, action item, work class, and
@@ -929,7 +946,7 @@ Rebuild the ARRP Project Console whenever candidate data, either canonical
 source catalog, a source-monitoring designation, an issue-level monitoring
 label, the presidential-directive registry, watcher configuration, a canonical
 project log, page-level publication-disposition metadata, or
-[`print-assembly.json`](../publication/print-assembly.json) changes. Rebuild
+[`print-assembly.json`](../../publication/print-assembly.json) changes. Rebuild
 also when the Component Registry configuration or schema changes. While the
 registry is a candidate, its exact imported context-route predecessor is also
 validated and hashed into the generation specification. A tracked active
@@ -1036,7 +1053,7 @@ as that heading. The umbrella metadata retains every applicable Console Change
 ID, title, and relevant implementation commit. Within it, every material change
 has exactly one primary `###` category drawn from the registered
 `console_development_category` namespace in
-[`project-console-classifications.json`](project-console-classifications.json):
+[`classifications.json`](configuration/classifications.json):
 Interface & information architecture; Planning & work management; Operations &
 automation; Data, provenance & integrity; Security, privacy & disclosure;
 Reliability, accessibility & performance; and Governance & documentation.
@@ -1075,7 +1092,7 @@ category-specific commits, lifecycle, state, material change, and validation.
 
 Material Console changes use stable IDs in the form `CONSOLE-YYYY-NNN` and are
 recorded in
-[`console-development-log.md`](../../logs/automation/console-development-log.md).
+[`console-development-log.md`](../../../logs/automation/console-development-log.md).
 Each semantic implementation commit carries exactly one applicable trailer:
 
 `Console-Change-ID: CONSOLE-YYYY-NNN`

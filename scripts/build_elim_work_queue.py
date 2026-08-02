@@ -112,7 +112,7 @@ def main() -> int:
             run_log = contained_path(
                 repository_root
                 / "framework"
-                / "records"
+                / "logs"
                 / "automation"
                 / "elim-run-log.md",
                 repository_root,
@@ -131,7 +131,7 @@ def main() -> int:
             gap_obligations.write_bytes(canonical_json(reconstructed) + b"\n")
         governance_minimum_interval_hours = 168
         coordinator_config = contained_path(
-            repository_root / ".github/run-coordinator-bot.json",
+            repository_root / "framework/project/automation/configuration/bots/run-coordinator-bot.json",
             repository_root,
         )
         if coordinator_config.is_file():

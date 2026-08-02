@@ -33,7 +33,7 @@ except ModuleNotFoundError:  # Direct script execution uses scripts/ on sys.path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = ROOT / ".github" / "run-coordinator-bot.json"
+DEFAULT_CONFIG = ROOT / "framework/project/automation/configuration/bots/run-coordinator-bot.json"
 TERMINAL_SUCCESS = {"succeeded", "not_due", "skipped"}
 STAGE_STATUSES = {
     "pending",

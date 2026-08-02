@@ -534,13 +534,9 @@ def load_route_manifest(path: Path, root: Path = ROOT, verify_hashes: bool = Tru
             raise ContextError(f"document {name} requires must be an array")
         if path_is_excluded(relative, exclusions):
             raise ContextError(f"document {name} points to an excluded generated path: {relative}")
-        if (
-            canonical_manifest
-            and relative.startswith("framework/records/")
-            and name != "task_handoff"
-        ):
+        if canonical_manifest and relative.startswith("framework/records/"):
             raise ContextError(
-                "shared routing records are excluded except task_handoff"
+                "canonical routing cannot use the retired framework/records path"
             )
         source = within_root(root, relative)
         canonical_source = os.path.realpath(os.fspath(source))
@@ -1279,7 +1275,7 @@ def build_context_packet(
         }
         total += len(canonical_json(dossier))
     logs: dict[str, Any] = {}
-    repository_log_root = within_root(root, "framework/records/automation")
+    repository_log_root = within_root(root, "framework/logs/automation")
     use_owner_local_logs = (
         path_authority is not None
         and path_authority.mode
@@ -1297,7 +1293,7 @@ def build_context_packet(
             (
                 "owner-local:records/automation/elim-run-log.md"
                 if use_owner_local_logs
-                else "framework/records/automation/elim-run-log.md"
+                else "framework/logs/automation/elim-run-log.md"
             ),
             "## Runs",
             "newest-last",
@@ -1308,7 +1304,7 @@ def build_context_packet(
             (
                 "owner-local:records/automation/agent-audit-log.md"
                 if use_owner_local_logs
-                else "framework/records/automation/agent-audit-log.md"
+                else "framework/logs/automation/agent-audit-log.md"
             ),
             "## Log",
             "newest-last",

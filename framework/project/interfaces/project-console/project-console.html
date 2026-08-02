@@ -737,7 +737,7 @@
               <div>
                 <span class="eyebrow">Validated, nonauthoritative Registry view</span>
                 <h2 id="component-registry-heading">Component Registry</h2>
-                <p>Components, lifecycle, authority, relationships, coverage, routing, and terminology from the exact validated Registry. This interface filters and formats supplied records; it does not create identities, classifications, authority, or lifecycle state.</p>
+                <p>Components, lifecycle, authority, relationships, directories, exemptions, unresolved items, routing, and terminology from the exact validated Registry. This interface filters and formats supplied records; it does not create identities, classifications, authority, or lifecycle state.</p>
               </div>
               <span id="component-registry-status" class="status-badge unavailable">Awaiting data</span>
             </div>
@@ -748,10 +748,14 @@
             <nav class="registry-mode-tabs" aria-label="Component Registry modes">
               <div class="registry-mode-tab-list" role="tablist" aria-label="Component Registry modes">
                 <button type="button" id="component-registry-mode-components" role="tab" aria-selected="true" aria-controls="component-registry-panel-components" data-registry-mode="components">Components <span class="tab-count" id="component-registry-components-count"></span></button>
+                <button type="button" id="component-registry-mode-classes" role="tab" aria-selected="false" aria-controls="component-registry-panel-classes" data-registry-mode="classes" tabindex="-1">Classes <span class="tab-count" id="component-registry-classes-count"></span></button>
+                <button type="button" id="component-registry-mode-types" role="tab" aria-selected="false" aria-controls="component-registry-panel-types" data-registry-mode="types" tabindex="-1">Types <span class="tab-count" id="component-registry-types-count"></span></button>
                 <button type="button" id="component-registry-mode-lifecycles" role="tab" aria-selected="false" aria-controls="component-registry-panel-lifecycles" data-registry-mode="lifecycles" tabindex="-1">Lifecycles <span class="tab-count" id="component-registry-lifecycles-count"></span></button>
                 <button type="button" id="component-registry-mode-authority" role="tab" aria-selected="false" aria-controls="component-registry-panel-authority" data-registry-mode="authority" tabindex="-1">Authority <span class="tab-count" id="component-registry-authority-count"></span></button>
                 <button type="button" id="component-registry-mode-relationships" role="tab" aria-selected="false" aria-controls="component-registry-panel-relationships" data-registry-mode="relationships" tabindex="-1">Relationships <span class="tab-count" id="component-registry-relationships-count"></span></button>
-                <button type="button" id="component-registry-mode-coverage" role="tab" aria-selected="false" aria-controls="component-registry-panel-coverage" data-registry-mode="coverage" tabindex="-1">Coverage <span class="tab-count" id="component-registry-coverage-count"></span></button>
+                <button type="button" id="component-registry-mode-directories" role="tab" aria-selected="false" aria-controls="component-registry-panel-directories" data-registry-mode="directories" tabindex="-1">Directories <span class="tab-count" id="component-registry-directories-count"></span></button>
+                <button type="button" id="component-registry-mode-exemptions" role="tab" aria-selected="false" aria-controls="component-registry-panel-exemptions" data-registry-mode="exemptions" tabindex="-1">Exemptions <span class="tab-count" id="component-registry-exemptions-count"></span></button>
+                <button type="button" id="component-registry-mode-unresolved" role="tab" aria-selected="false" aria-controls="component-registry-panel-unresolved" data-registry-mode="unresolved" tabindex="-1">Unresolved <span class="tab-count" id="component-registry-unresolved-count"></span></button>
                 <button type="button" id="component-registry-mode-routing" role="tab" aria-selected="false" aria-controls="component-registry-panel-routing" data-registry-mode="routing" tabindex="-1">Routing <span class="tab-count" id="component-registry-routing-count"></span></button>
                 <button type="button" id="component-registry-mode-codeowners" role="tab" aria-selected="false" aria-controls="component-registry-panel-codeowners" data-registry-mode="codeowners" tabindex="-1">CODEOWNERS <span class="tab-count" id="component-registry-codeowners-count"></span></button>
                 <button type="button" id="component-registry-mode-terminology" role="tab" aria-selected="false" aria-controls="component-registry-panel-terminology" data-registry-mode="terminology" tabindex="-1">Terminology <span class="tab-count" id="component-registry-terminology-count" hidden></span></button>
@@ -767,6 +771,27 @@
               <div class="email-workspace component-registry-workspace">
                 <div id="component-registry-component-list" class="email-list component-registry-list" role="listbox" aria-label="Registered components"></div>
                 <article id="component-registry-component-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
+              </div>
+            </div>
+            <div id="component-registry-panel-classes" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-classes" hidden>
+              <div class="queue-controls component-registry-controls" aria-label="Component class filters">
+                <label for="component-registry-classes-search">Search<input id="component-registry-classes-search" type="search" placeholder="Class, definition, type, or component…"></label>
+              </div>
+              <p id="component-registry-classes-results" class="result-count" aria-live="polite"></p>
+              <div class="email-workspace component-registry-workspace">
+                <div id="component-registry-classes-list" class="email-list component-registry-list" role="listbox" aria-label="Controlled component classes"></div>
+                <article id="component-registry-classes-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
+              </div>
+            </div>
+            <div id="component-registry-panel-types" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-types" hidden>
+              <div class="queue-controls component-registry-controls" aria-label="Component type filters">
+                <label for="component-registry-types-search">Search<input id="component-registry-types-search" type="search" placeholder="Type, definition, class, or component…"></label>
+                <label for="component-registry-types-class">Class<select id="component-registry-types-class"><option value="">All parent classes</option></select></label>
+              </div>
+              <p id="component-registry-types-results" class="result-count" aria-live="polite"></p>
+              <div class="email-workspace component-registry-workspace">
+                <div id="component-registry-types-list" class="email-list component-registry-list" role="listbox" aria-label="Controlled component types"></div>
+                <article id="component-registry-types-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
               </div>
             </div>
             <div id="component-registry-panel-lifecycles" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-lifecycles" hidden>
@@ -804,16 +829,29 @@
                 <article id="component-registry-relationship-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
               </div>
             </div>
-            <div id="component-registry-panel-coverage" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-coverage" hidden>
-              <div class="queue-controls component-registry-controls" aria-label="Coverage filters">
-                <label for="component-registry-coverage-search">Search<input id="component-registry-coverage-search" type="search" placeholder="Path, scope, rule, or owner…"></label>
-                <label for="component-registry-coverage-kind">Kind<select id="component-registry-coverage-kind"><option value="">All coverage</option><option value="directory_scope">Directory scope</option><option value="supporting_artifact_rule">Artifact rule</option><option value="unresolved">Unresolved</option></select></label>
+            <div id="component-registry-panel-directories" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-directories" hidden>
+              <div class="queue-controls component-registry-controls" aria-label="Directory filters">
+                <label for="component-registry-directories-search">Search<input id="component-registry-directories-search" type="search" placeholder="Directory, scope, pattern, or owner…"></label>
               </div>
-              <p id="component-registry-coverage-results" class="result-count" aria-live="polite"></p>
+              <p id="component-registry-directories-results" class="result-count" aria-live="polite"></p>
               <div class="email-workspace component-registry-workspace">
-                <div id="component-registry-coverage-list" class="email-list component-registry-list" role="listbox" aria-label="Repository coverage records"></div>
-                <article id="component-registry-coverage-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
+                <div id="component-registry-directories-list" class="email-list component-registry-list" role="listbox" aria-label="Governed directory scopes"></div>
+                <article id="component-registry-directories-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
               </div>
+            </div>
+            <div id="component-registry-panel-exemptions" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-exemptions" hidden>
+              <div class="queue-controls component-registry-controls" aria-label="Exemption filters">
+                <label for="component-registry-exemptions-search">Search<input id="component-registry-exemptions-search" type="search" placeholder="Scope, producer, condition, or disposition…"></label>
+              </div>
+              <p id="component-registry-exemptions-results" class="result-count" aria-live="polite"></p>
+              <div class="email-workspace component-registry-workspace">
+                <div id="component-registry-exemptions-list" class="email-list component-registry-list" role="listbox" aria-label="Categorical registration exemptions"></div>
+                <article id="component-registry-exemptions-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
+              </div>
+            </div>
+            <div id="component-registry-panel-unresolved" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-unresolved" hidden>
+              <p id="component-registry-unresolved-results" class="result-count" aria-live="polite"></p>
+              <div id="component-registry-unresolved-detail" class="empty-state compact-empty" aria-live="polite"></div>
             </div>
             <div id="component-registry-panel-routing" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-routing" hidden>
               <div class="queue-controls component-registry-controls" aria-label="Routing filters">
@@ -1120,6 +1158,6 @@
     <button type="button" id="scroll-to-top" class="scroll-to-top" aria-label="Back to top" hidden>↑ <span>Back to top</span></button>
 
     <script src="catalog-data.js?v=48"></script>
-  <script src="app.js?v=102"></script>
+  <script src="app.js?v=104"></script>
   </body>
 </html>

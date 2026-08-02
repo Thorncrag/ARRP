@@ -517,19 +517,19 @@ class GitHubIssueLinkTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             manifest = self.context_registry_fixture(root)
-            module = root / "framework/project/interfaces/project-console.md"
+            module = root / "framework/project/interfaces/project-console/specification.md"
             module.parent.mkdir(parents=True)
             module.write_text(
                 "---\n"
                 "module_id: project_tool_interface\n"
                 "dependencies:\n"
-                '  - "AGENT_OPERATING_RULES.md"\n'
+                '  - "../AGENT_OPERATING_RULES.md"\n'
                 "---\n\n"
                 "# Interface\n",
                 encoding="utf-8",
             )
             manifest["documents"]["project_tool_interface"] = {
-                "path": "framework/project/interfaces/project-console.md",
+                "path": "framework/project/interfaces/project-console/specification.md",
                 "hash_policy": "pinned",
                 "governing": True,
                 "requires": ["framework_kernel"],
@@ -2365,7 +2365,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
         registry = consistency.json.loads(
             (
                 ROOT
-                / "framework/project/interfaces/project-console-classifications.json"
+                / "framework/project/interfaces/project-console/configuration/classifications.json"
             ).read_text(encoding="utf-8")
         )
         registered_findings = {
@@ -2596,6 +2596,31 @@ class GitHubIssueLinkTests(unittest.TestCase):
             self.assertIn(f'title: "{registry_title}"', issue_text, issue_id)
             area_index = (ROOT / f"areas/{area}/README.md").read_text(encoding="utf-8")
             self.assertIn(f"(issues/{issue_id}.md)", area_index, issue_id)
+
+
+class Stage3MigrationAuthorityTests(unittest.TestCase):
+    def test_applied_stage3_migrations_are_not_current_link_fallbacks(self):
+        consistency.candidate_migration_aliases.cache_clear()
+        with patch.object(
+            consistency,
+            "load_validated_registry",
+            return_value=(
+                {
+                    "schema_version": 3,
+                    "migrations_and_aliases": {
+                        "entries": {
+                            "historical": {
+                                "source_path": "old/path.md",
+                                "target_path": "new/path.md",
+                            }
+                        }
+                    },
+                },
+                {},
+            ),
+        ):
+            self.assertEqual(consistency.candidate_migration_aliases(), ())
+        consistency.candidate_migration_aliases.cache_clear()
 
 
 if __name__ == "__main__":

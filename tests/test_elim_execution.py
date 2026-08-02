@@ -72,7 +72,7 @@ class ExecutionHelperTests(unittest.TestCase):
                 "disposition": authority_disposition,
             },
             "action_rationale": "Retain the gap until the ownership evidence is conclusive.",
-            "changed_files": ["framework/records/automation/elim-run-log.md"],
+            "changed_files": ["framework/logs/automation/elim-run-log.md"],
             "affected_surfaces": ["repository", "automation", "console"],
             "validation_readback": [
                 {
@@ -82,8 +82,8 @@ class ExecutionHelperTests(unittest.TestCase):
                 }
             ],
             "disposition": disposition,
-            "canonical_detail": "framework/records/automation/elim-run-log.md",
-            "provenance": ["framework/records/automation/elim-run-log.md#gap-structure-1"],
+            "canonical_detail": "framework/logs/automation/elim-run-log.md",
+            "provenance": ["framework/logs/automation/elim-run-log.md#gap-structure-1"],
             "owner": "Elim",
             "next_action": "Recheck the owning record at the next current revision.",
             "next_trigger": "A governing or ownership record changes.",
@@ -91,7 +91,7 @@ class ExecutionHelperTests(unittest.TestCase):
         }
         return {
             "run_id": "chain-1",
-            "files_touched": ["framework/records/automation/elim-run-log.md"],
+            "files_touched": ["framework/logs/automation/elim-run-log.md"],
             "discovered_work_units": [unit],
             "gap_obligation_updates": [
                 {
@@ -113,7 +113,7 @@ class ExecutionHelperTests(unittest.TestCase):
         return {
             "run_id": "chain-governance",
             "unit_id": "selected-governance",
-            "files_touched": ["framework/records/automation/elim-run-log.md"],
+            "files_touched": ["framework/logs/automation/elim-run-log.md"],
             "discovered_work_units": [
                 {
                     "id": "DISC-governance-control",
@@ -125,7 +125,7 @@ class ExecutionHelperTests(unittest.TestCase):
                     "evidence": ["The bounded review covered every required domain."],
                     "reasoning": "The review outcome is recorded without inventing work.",
                     "uncertainty": None,
-                    "affected_records": ["framework/records/automation/elim-run-log.md"],
+                    "affected_records": ["framework/logs/automation/elim-run-log.md"],
                     "consequence": "Governance discovery is current for its cadence.",
                     "authority": {
                         "classification": "delegated_judgment",
@@ -133,7 +133,7 @@ class ExecutionHelperTests(unittest.TestCase):
                         "disposition": "permitted",
                     },
                     "action_rationale": "Record the review result and next trigger.",
-                    "changed_files": ["framework/records/automation/elim-run-log.md"],
+                    "changed_files": ["framework/logs/automation/elim-run-log.md"],
                     "affected_surfaces": ["repository", "automation", "console"],
                     "validation_readback": [
                         {
@@ -143,8 +143,8 @@ class ExecutionHelperTests(unittest.TestCase):
                         }
                     ],
                     "disposition": disposition,
-                    "canonical_detail": "framework/records/automation/elim-run-log.md",
-                    "provenance": ["framework/records/automation/elim-run-log.md#governance"],
+                    "canonical_detail": "framework/logs/automation/elim-run-log.md",
+                    "provenance": ["framework/logs/automation/elim-run-log.md#governance"],
                     "owner": "Elim",
                     "next_action": "Wait for the recorded next trigger.",
                     "next_trigger": "The 168-hour minimum interval elapses.",
@@ -498,7 +498,7 @@ class ExecutionHelperTests(unittest.TestCase):
             },
         )
         fixed["discovered_work_units"][0]["changed_files"] = [
-            "framework/records/automation/elim-run-log.md"
+            "framework/logs/automation/elim-run-log.md"
         ]
         validate_discovery_records(fixed)
         for missing in (

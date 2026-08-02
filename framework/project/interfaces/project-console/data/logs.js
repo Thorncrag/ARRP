@@ -1907,7 +1907,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "id": "GOV-2026-020",
           "values": {
             "governance_change_id": "GOV-2026-020",
-            "entry_sha256": "sha256:5ce60ae0a7512731bb8a66db6d90c1c20a8aeaff6d66a6d84ae881f67ef0f432",
+            "entry_sha256": "sha256:5f576db3f023aa09efbfd5db03665364ad83204ca4e98a3015f835a0f586adca",
             "date": "2026-07-30",
             "status": "Proposed / unmerged",
             "decision_class": "governance_documentation",
@@ -1917,7 +1917,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           },
           "values_html": {
             "governance_change_id": "GOV-2026-020",
-            "entry_sha256": "sha256:5ce60ae0a7512731bb8a66db6d90c1c20a8aeaff6d66a6d84ae881f67ef0f432",
+            "entry_sha256": "sha256:5f576db3f023aa09efbfd5db03665364ad83204ca4e98a3015f835a0f586adca",
             "date": "2026-07-30",
             "status": "Proposed / unmerged",
             "decision_class": "governance_documentation",
@@ -1925,8 +1925,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "live_activation": "Not active. The registry remains candidate, nonauthoritative, and nonexecutable; the activation receipt is absent and automation remains Paused.",
             "supplement": "Required"
           },
-          "details_html": "<h2>GOV-2026-020 — Component Registry Stage 1 authority transition<\/h2>\n<ul><li><strong>Decision class:<\/strong> governance_documentation<\/li><li><strong>Authorities:<\/strong> framework/component-registry.json; framework/standards/automation/component-registry.schema.json; scripts/component<em>registry.py; scripts/finalize<\/em>component<em>registry<\/em>activation.py<\/li><li><strong>Decision:<\/strong> Proposes adopting the validated Component Registry as the sole Stage 1 component and routing authority, relocating the four frozen predecessors to provenance-only archive paths, and preserving terminology and Stage 2 lifecycle classifications as explicitly deferred.<\/li><li><strong>Evidence:<\/strong> Current activation worktree and draft PR #498. The exact final candidate commit, activation head, latest-head owner review, required checks, merge commit, canonical remote readback, and fixed activation receipt remain pending.<\/li><li><strong>Policy adoption:<\/strong> Proposed only; not adopted before the reviewed activation merge.<\/li><li><strong>Live activation:<\/strong> Not active. The registry remains candidate, nonauthoritative, and nonexecutable; the activation receipt is absent and automation remains Paused.<\/li><li><strong>Relationships:<\/strong> No supersession or refinement is claimed.<\/li><li><strong>Validation:<\/strong> Candidate registry, routing parity, Stage 1 closure, migration, disclosure, Project Integrity, Source Checker, Console, and activation finalizer checks are in progress under the approved transaction.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
-          "search_text": "GOV-2026-020 GOV-2026-020 sha256:5ce60ae0a7512731bb8a66db6d90c1c20a8aeaff6d66a6d84ae881f67ef0f432 2026-07-30 Proposed / unmerged governance_documentation Proposed only; not adopted before the reviewed activation merge. Not active. The registry remains candidate, nonauthoritative, and nonexecutable; the activation receipt is absent and automation remains Paused. Required GOV-2026-020 sha256:5ce60ae0a7512731bb8a66db6d90c1c20a8aeaff6d66a6d84ae881f67ef0f432 2026-07-30 Proposed / unmerged governance_documentation Proposed only; not adopted before the reviewed activation merge. Not active. The registry remains candidate, nonauthoritative, and nonexecutable; the activation receipt is absent and automation remains Paused. Required",
+          "details_html": "<h2>GOV-2026-020 — Component Registry Stage 1 authority transition<\/h2>\n<ul><li><strong>Decision class:<\/strong> governance_documentation<\/li><li><strong>Authorities:<\/strong> framework/component-registry.json; framework/component-registry.schema.json; scripts/component<em>registry.py; scripts/finalize<\/em>component<em>registry<\/em>activation.py<\/li><li><strong>Decision:<\/strong> Proposes adopting the validated Component Registry as the sole Stage 1 component and routing authority, relocating the four frozen predecessors to provenance-only archive paths, and preserving terminology and Stage 2 lifecycle classifications as explicitly deferred.<\/li><li><strong>Evidence:<\/strong> Current activation worktree and draft PR #498. The exact final candidate commit, activation head, latest-head owner review, required checks, merge commit, canonical remote readback, and fixed activation receipt remain pending.<\/li><li><strong>Policy adoption:<\/strong> Proposed only; not adopted before the reviewed activation merge.<\/li><li><strong>Live activation:<\/strong> Not active. The registry remains candidate, nonauthoritative, and nonexecutable; the activation receipt is absent and automation remains Paused.<\/li><li><strong>Relationships:<\/strong> No supersession or refinement is claimed.<\/li><li><strong>Validation:<\/strong> Candidate registry, routing parity, Stage 1 closure, migration, disclosure, Project Integrity, Source Checker, Console, and activation finalizer checks are in progress under the approved transaction.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-020 GOV-2026-020 sha256:5f576db3f023aa09efbfd5db03665364ad83204ca4e98a3015f835a0f586adca 2026-07-30 Proposed / unmerged governance_documentation Proposed only; not adopted before the reviewed activation merge. Not active. The registry remains candidate, nonauthoritative, and nonexecutable; the activation receipt is absent and automation remains Paused. Required GOV-2026-020 sha256:5f576db3f023aa09efbfd5db03665364ad83204ca4e98a3015f835a0f586adca 2026-07-30 Proposed / unmerged governance_documentation Proposed only; not adopted before the reviewed activation merge. Not active. The registry remains candidate, nonauthoritative, and nonexecutable; the activation receipt is absent and automation remains Paused. Required",
           "title": "Component Registry Stage 1 authority transition"
         },
         {
@@ -2167,7 +2167,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "id": "GOV-2026-010",
           "values": {
             "governance_change_id": "GOV-2026-010",
-            "entry_sha256": "sha256:527212c761de96ad75f8e94390caa06e567fc375552a71727a760e334d8ec6b4",
+            "entry_sha256": "sha256:50b104f25a509bbc0c34a71efdfcf8322a0b15532849dd1001c379f0782a2c49",
             "date": "2026-07-29",
             "status": "Canonical",
             "decision_class": "security_privacy_disclosure",
@@ -2177,7 +2177,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           },
           "values_html": {
             "governance_change_id": "GOV-2026-010",
-            "entry_sha256": "sha256:527212c761de96ad75f8e94390caa06e567fc375552a71727a760e334d8ec6b4",
+            "entry_sha256": "sha256:50b104f25a509bbc0c34a71efdfcf8322a0b15532849dd1001c379f0782a2c49",
             "date": "2026-07-29",
             "status": "Canonical",
             "decision_class": "security<em>privacy<\/em>disclosure",
@@ -2185,15 +2185,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "live_activation": "No host service is activated by this record.",
             "supplement": "Required"
           },
-          "details_html": "<h2>GOV-2026-010 — Authenticated owner refresh boundary<\/h2>\n<ul><li><strong>Decision class:<\/strong> security<em>privacy<\/em>disclosure<\/li><li><strong>Authorities:<\/strong> framework/project/interfaces/project-console.md; scripts/refresh<em>project<\/em>console.py<\/li><li><strong>Decision:<\/strong> Separates owner-invoked authenticated refresh from a credential-free static Console that cannot initiate refresh.<\/li><li><strong>Evidence:<\/strong> PRs #485–486; merges <code>10ec1342713e11543377b89de5f5ffc8cf5ddf8d<\/code> and <code>572e1db1ebfff49cc26004cced1d0933934fa4c6<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host service is activated by this record.<\/li><li><strong>Relationships:<\/strong> Refines GOV-2026-003; refined by GOV-2026-011 for owner-local location resolution only.<\/li><li><strong>Validation:<\/strong> Authenticated-refresh, credential-confinement, data-contract, and closeout checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
-          "search_text": "GOV-2026-010 GOV-2026-010 sha256:527212c761de96ad75f8e94390caa06e567fc375552a71727a760e334d8ec6b4 2026-07-29 Canonical security_privacy_disclosure Adopted on canonical history. No host service is activated by this record. Required GOV-2026-010 sha256:527212c761de96ad75f8e94390caa06e567fc375552a71727a760e334d8ec6b4 2026-07-29 Canonical security_privacy_disclosure Adopted on canonical history. No host service is activated by this record. Required",
+          "details_html": "<h2>GOV-2026-010 — Authenticated owner refresh boundary<\/h2>\n<ul><li><strong>Decision class:<\/strong> security<em>privacy<\/em>disclosure<\/li><li><strong>Authorities:<\/strong> framework/project/interfaces/project-console/specification.md; scripts/refresh<em>project<\/em>console.py<\/li><li><strong>Decision:<\/strong> Separates owner-invoked authenticated refresh from a credential-free static Console that cannot initiate refresh.<\/li><li><strong>Evidence:<\/strong> PRs #485–486; merges <code>10ec1342713e11543377b89de5f5ffc8cf5ddf8d<\/code> and <code>572e1db1ebfff49cc26004cced1d0933934fa4c6<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host service is activated by this record.<\/li><li><strong>Relationships:<\/strong> Refines GOV-2026-003; refined by GOV-2026-011 for owner-local location resolution only.<\/li><li><strong>Validation:<\/strong> Authenticated-refresh, credential-confinement, data-contract, and closeout checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-010 GOV-2026-010 sha256:50b104f25a509bbc0c34a71efdfcf8322a0b15532849dd1001c379f0782a2c49 2026-07-29 Canonical security_privacy_disclosure Adopted on canonical history. No host service is activated by this record. Required GOV-2026-010 sha256:50b104f25a509bbc0c34a71efdfcf8322a0b15532849dd1001c379f0782a2c49 2026-07-29 Canonical security_privacy_disclosure Adopted on canonical history. No host service is activated by this record. Required",
           "title": "Authenticated owner refresh boundary"
         },
         {
           "id": "GOV-2026-009",
           "values": {
             "governance_change_id": "GOV-2026-009",
-            "entry_sha256": "sha256:1f97bf774a117793ad836e8f548e58227cf89fdabbd11da09dae44916db119ec",
+            "entry_sha256": "sha256:936aaf27500e21a13458170b9dd5be6c4cf671e3c1a7a8d9ffbb29a0ccbe55e3",
             "date": "2026-07-28",
             "status": "Canonical",
             "decision_class": "data_provenance_integrity",
@@ -2203,7 +2203,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           },
           "values_html": {
             "governance_change_id": "GOV-2026-009",
-            "entry_sha256": "sha256:1f97bf774a117793ad836e8f548e58227cf89fdabbd11da09dae44916db119ec",
+            "entry_sha256": "sha256:936aaf27500e21a13458170b9dd5be6c4cf671e3c1a7a8d9ffbb29a0ccbe55e3",
             "date": "2026-07-28",
             "status": "Canonical",
             "decision_class": "data<em>provenance<\/em>integrity",
@@ -2211,8 +2211,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "live_activation": "No host activation is represented.",
             "supplement": "Required"
           },
-          "details_html": "<h2>GOV-2026-009 — Typed classifications and unavailable-state discipline<\/h2>\n<ul><li><strong>Decision class:<\/strong> data<em>provenance<\/em>integrity<\/li><li><strong>Authorities:<\/strong> framework/project/interfaces/project-console-classifications.json; framework/project/interfaces/project-console.md<\/li><li><strong>Decision:<\/strong> Makes typed classification enforceable and requires unavailable, rather than zero or healthy, treatment for missing or protected data.<\/li><li><strong>Evidence:<\/strong> PRs #483–484; merges <code>1da18c49db38d4f6d6bc50fe1f5d21d46ac9f5e3<\/code> and <code>4e6f2c293daf47a4584d1c25866cb6fc4f4e36ac<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Refines GOV-2026-001 and GOV-2026-006 without replacing their independent authorities.<\/li><li><strong>Validation:<\/strong> Classification, consistency, stale-feed, public-bundle, and frontend checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
-          "search_text": "GOV-2026-009 GOV-2026-009 sha256:1f97bf774a117793ad836e8f548e58227cf89fdabbd11da09dae44916db119ec 2026-07-28 Canonical data_provenance_integrity Adopted on canonical history. No host activation is represented. Required GOV-2026-009 sha256:1f97bf774a117793ad836e8f548e58227cf89fdabbd11da09dae44916db119ec 2026-07-28 Canonical data_provenance_integrity Adopted on canonical history. No host activation is represented. Required",
+          "details_html": "<h2>GOV-2026-009 — Typed classifications and unavailable-state discipline<\/h2>\n<ul><li><strong>Decision class:<\/strong> data<em>provenance<\/em>integrity<\/li><li><strong>Authorities:<\/strong> framework/project/interfaces/project-console/configuration/classifications.json; framework/project/interfaces/project-console/specification.md<\/li><li><strong>Decision:<\/strong> Makes typed classification enforceable and requires unavailable, rather than zero or healthy, treatment for missing or protected data.<\/li><li><strong>Evidence:<\/strong> PRs #483–484; merges <code>1da18c49db38d4f6d6bc50fe1f5d21d46ac9f5e3<\/code> and <code>4e6f2c293daf47a4584d1c25866cb6fc4f4e36ac<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Refines GOV-2026-001 and GOV-2026-006 without replacing their independent authorities.<\/li><li><strong>Validation:<\/strong> Classification, consistency, stale-feed, public-bundle, and frontend checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-009 GOV-2026-009 sha256:936aaf27500e21a13458170b9dd5be6c4cf671e3c1a7a8d9ffbb29a0ccbe55e3 2026-07-28 Canonical data_provenance_integrity Adopted on canonical history. No host activation is represented. Required GOV-2026-009 sha256:936aaf27500e21a13458170b9dd5be6c4cf671e3c1a7a8d9ffbb29a0ccbe55e3 2026-07-28 Canonical data_provenance_integrity Adopted on canonical history. No host activation is represented. Required",
           "title": "Typed classifications and unavailable-state discipline"
         },
         {
@@ -2271,7 +2271,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "id": "GOV-2026-006",
           "values": {
             "governance_change_id": "GOV-2026-006",
-            "entry_sha256": "sha256:7b35d52d7a51939f8d128f386601a4cd3c6f89c7b7799aefa8350d3f54ea87a8",
+            "entry_sha256": "sha256:6ca917c86dc0185fcbfd0f6ba4b24a686f73b04deaf319824039cf78210805f2",
             "date": "2026-07-28",
             "status": "Canonical",
             "decision_class": "security_privacy_disclosure",
@@ -2281,7 +2281,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           },
           "values_html": {
             "governance_change_id": "GOV-2026-006",
-            "entry_sha256": "sha256:7b35d52d7a51939f8d128f386601a4cd3c6f89c7b7799aefa8350d3f54ea87a8",
+            "entry_sha256": "sha256:6ca917c86dc0185fcbfd0f6ba4b24a686f73b04deaf319824039cf78210805f2",
             "date": "2026-07-28",
             "status": "Canonical",
             "decision_class": "security<em>privacy<\/em>disclosure",
@@ -2289,8 +2289,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "live_activation": "No host activation is represented.",
             "supplement": "Required"
           },
-          "details_html": "<h2>GOV-2026-006 — Public-safe security assurance<\/h2>\n<ul><li><strong>Decision class:<\/strong> security<em>privacy<\/em>disclosure<\/li><li><strong>Authorities:<\/strong> framework/project/interfaces/project-console-classifications.json; framework/standards/interfaces/standard.md<\/li><li><strong>Decision:<\/strong> Adopts allowlisted security-assurance presentation while excluding protected evidence and operational detail from public surfaces.<\/li><li><strong>Evidence:<\/strong> PR #480; merge <code>6e0b4708cd714f39c1a5b7c9f3bcd3405a72431d<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Refined by GOV-2026-009 for typed display discipline.<\/li><li><strong>Validation:<\/strong> Assurance allowlist, no-detail, and frontend checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
-          "search_text": "GOV-2026-006 GOV-2026-006 sha256:7b35d52d7a51939f8d128f386601a4cd3c6f89c7b7799aefa8350d3f54ea87a8 2026-07-28 Canonical security_privacy_disclosure Adopted on canonical history. No host activation is represented. Required GOV-2026-006 sha256:7b35d52d7a51939f8d128f386601a4cd3c6f89c7b7799aefa8350d3f54ea87a8 2026-07-28 Canonical security_privacy_disclosure Adopted on canonical history. No host activation is represented. Required",
+          "details_html": "<h2>GOV-2026-006 — Public-safe security assurance<\/h2>\n<ul><li><strong>Decision class:<\/strong> security<em>privacy<\/em>disclosure<\/li><li><strong>Authorities:<\/strong> framework/project/interfaces/project-console/configuration/classifications.json; framework/standards/interfaces/standard.md<\/li><li><strong>Decision:<\/strong> Adopts allowlisted security-assurance presentation while excluding protected evidence and operational detail from public surfaces.<\/li><li><strong>Evidence:<\/strong> PR #480; merge <code>6e0b4708cd714f39c1a5b7c9f3bcd3405a72431d<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Refined by GOV-2026-009 for typed display discipline.<\/li><li><strong>Validation:<\/strong> Assurance allowlist, no-detail, and frontend checks.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-006 GOV-2026-006 sha256:6ca917c86dc0185fcbfd0f6ba4b24a686f73b04deaf319824039cf78210805f2 2026-07-28 Canonical security_privacy_disclosure Adopted on canonical history. No host activation is represented. Required GOV-2026-006 sha256:6ca917c86dc0185fcbfd0f6ba4b24a686f73b04deaf319824039cf78210805f2 2026-07-28 Canonical security_privacy_disclosure Adopted on canonical history. No host activation is represented. Required",
           "title": "Public-safe security assurance"
         },
         {
@@ -2401,7 +2401,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "id": "GOV-2026-001",
           "values": {
             "governance_change_id": "GOV-2026-001",
-            "entry_sha256": "sha256:f1be38bf8919c49c5e5ab9f46d07faf8a2fff9af548ea6c6ecc98f07b0b55ecc",
+            "entry_sha256": "sha256:acda1f73de91ae52effc7739dd4c1f81f160f1f72d480a5a4f8d50017227d32e",
             "date": "2026-07-28",
             "status": "Canonical",
             "decision_class": "interface_information_architecture",
@@ -2411,7 +2411,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           },
           "values_html": {
             "governance_change_id": "GOV-2026-001",
-            "entry_sha256": "sha256:f1be38bf8919c49c5e5ab9f46d07faf8a2fff9af548ea6c6ecc98f07b0b55ecc",
+            "entry_sha256": "sha256:acda1f73de91ae52effc7739dd4c1f81f160f1f72d480a5a4f8d50017227d32e",
             "date": "2026-07-28",
             "status": "Canonical",
             "decision_class": "interface<em>information<\/em>architecture",
@@ -2419,8 +2419,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "live_activation": "No host activation is represented.",
             "supplement": "Not required"
           },
-          "details_html": "<h2>GOV-2026-001 — Console information architecture<\/h2>\n<ul><li><strong>Decision class:<\/strong> interface<em>information<\/em>architecture<\/li><li><strong>Authorities:<\/strong> framework/project/interfaces/project-console.md<\/li><li><strong>Decision:<\/strong> Establishes the compact six-tab Console architecture and bounded, nonauthoritative specialist projections.<\/li><li><strong>Evidence:<\/strong> PR #479; merge <code>93a01eb24dfb94c848a1f937e9e1bdfeea72c74d<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Refined by GOV-2026-009 only for data-state display.<\/li><li><strong>Validation:<\/strong> Navigation, bounded-workspace, and frontend interaction checks.<\/li><li><strong>Owner-local supplement:<\/strong> Not required.<\/li><\/ul>",
-          "search_text": "GOV-2026-001 GOV-2026-001 sha256:f1be38bf8919c49c5e5ab9f46d07faf8a2fff9af548ea6c6ecc98f07b0b55ecc 2026-07-28 Canonical interface_information_architecture Adopted on canonical history. No host activation is represented. Not required GOV-2026-001 sha256:f1be38bf8919c49c5e5ab9f46d07faf8a2fff9af548ea6c6ecc98f07b0b55ecc 2026-07-28 Canonical interface_information_architecture Adopted on canonical history. No host activation is represented. Not required",
+          "details_html": "<h2>GOV-2026-001 — Console information architecture<\/h2>\n<ul><li><strong>Decision class:<\/strong> interface<em>information<\/em>architecture<\/li><li><strong>Authorities:<\/strong> framework/project/interfaces/project-console/specification.md<\/li><li><strong>Decision:<\/strong> Establishes the compact six-tab Console architecture and bounded, nonauthoritative specialist projections.<\/li><li><strong>Evidence:<\/strong> PR #479; merge <code>93a01eb24dfb94c848a1f937e9e1bdfeea72c74d<\/code>.<\/li><li><strong>Policy adoption:<\/strong> Adopted on canonical history.<\/li><li><strong>Live activation:<\/strong> No host activation is represented.<\/li><li><strong>Relationships:<\/strong> Refined by GOV-2026-009 only for data-state display.<\/li><li><strong>Validation:<\/strong> Navigation, bounded-workspace, and frontend interaction checks.<\/li><li><strong>Owner-local supplement:<\/strong> Not required.<\/li><\/ul>",
+          "search_text": "GOV-2026-001 GOV-2026-001 sha256:acda1f73de91ae52effc7739dd4c1f81f160f1f72d480a5a4f8d50017227d32e 2026-07-28 Canonical interface_information_architecture Adopted on canonical history. No host activation is represented. Not required GOV-2026-001 sha256:acda1f73de91ae52effc7739dd4c1f81f160f1f72d480a5a4f8d50017227d32e 2026-07-28 Canonical interface_information_architecture Adopted on canonical history. No host activation is represented. Not required",
           "title": "Console information architecture"
         }
       ],
@@ -3360,6 +3360,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "logs.js": "project-console-f8e1bf9aac508897681c"
+    "logs.js": "project-console-6976cf05fa319af81bcb"
   }
 });

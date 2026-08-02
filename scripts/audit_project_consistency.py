@@ -93,13 +93,15 @@ PROJECT_INTEGRITY_RUNBOOK = (
     / "runbooks"
     / "project-integrity-bot.md"
 )
-RUN_COORDINATOR_CONFIG = ROOT / ".github" / "run-coordinator-bot.json"
+RUN_COORDINATOR_CONFIG = ROOT / "framework/project/automation/configuration/bots/run-coordinator-bot.json"
 CONSOLE_CLASSIFICATION_REGISTRY = (
     ROOT
     / "framework"
     / "project"
     / "interfaces"
-    / "project-console-classifications.json"
+    / "project-console"
+    / "configuration"
+    / "classifications.json"
 )
 CONTEXT_MANAGED_DIRECTORIES = ("standards", "project")
 CONTEXT_ROUTING_AUTHORITY_MODES = (
@@ -330,6 +332,9 @@ ACTIVE_TREE_EXCLUSIONS = {
     "__pycache__",
     "archive",
 }
+ORPHAN_MARKDOWN_EXCLUDED_ROOTS = (
+    ROOT / "research" / "project-console" / "prototypes",
+)
 REPOSITORY_LINK_TEXT_SUFFIXES = {
     ".csv",
     ".html",
@@ -438,8 +443,14 @@ def candidate_migration_aliases() -> tuple[tuple[str, str, str], ...]:
         candidate, _route = load_validated_registry()
     except (ComponentRegistryError, OSError):
         return ()
+    namespace = candidate.get("aliases_and_migrations")
+    if not isinstance(namespace, dict):
+        # Stage 3 has already applied its migrations. Its retained
+        # migrations_and_aliases records are provenance, not a current-link
+        # fallback authority.
+        return ()
     aliases = []
-    for entry in candidate["aliases_and_migrations"]["entries"].values():
+    for entry in namespace["entries"].values():
         if entry["reference_policy"] != "rewrite_active":
             continue
         aliases.append(
@@ -1462,6 +1473,8 @@ def check_orphaned_markdown_pages(failures: list[str], warnings: list[str]) -> N
         resolved = path.resolve()
         if resolved in entry_points or resolved not in page_set:
             continue
+        if any(path.is_relative_to(root) for root in ORPHAN_MARKDOWN_EXCLUDED_ROOTS):
+            continue
         if incoming[resolved] == 0:
             report(
                 "WARNING",
@@ -1701,7 +1714,7 @@ def fetch_github_project_items(failures: list[str], warnings: list[str]) -> list
         return None
     config = json.loads(
         (
-            ROOT / "framework/project/interfaces/project-console-progress.json"
+            ROOT / "framework/project/interfaces/project-console/configuration/progress.json"
         ).read_text(encoding="utf-8")
     )
     try:
@@ -3531,6 +3544,7 @@ def context_registry_dependencies_match(
     if validation_mode in {
         "adopted_configuration_validation",
         "online_governed_eligibility",
+        "live_authority_validation",
     }:
         if predecessor_paths.intersection(expected):
             return False
@@ -3646,7 +3660,7 @@ def context_registry_authority_envelope(
             "executable": False,
             "authority_effective": False,
             "source_revision_authorized": False,
-            "source_bytes_current": False,
+            "source_bytes_current": view.get("schema_version") == 3,
             "canonical_history_confirmed": False,
             "receipt_trusted": False,
             "runtime_live": "not_checked",
@@ -3654,6 +3668,18 @@ def context_registry_authority_envelope(
             "predecessor_route_consulted": False,
         },
         "online_governed_eligibility": {
+            "authoritative": True,
+            "executable": False,
+            "authority_effective": True,
+            "source_revision_authorized": True,
+            "source_bytes_current": True,
+            "canonical_history_confirmed": True,
+            "receipt_trusted": True,
+            "runtime_live": "not_checked",
+            "activation_receipt_consulted": True,
+            "predecessor_route_consulted": False,
+        },
+        "live_authority_validation": {
             "authoritative": True,
             "executable": False,
             "authority_effective": True,
@@ -3686,13 +3712,17 @@ def context_registry_authority_envelope(
             "production-canonical",
             "production-transaction",
         },
+        "live_authority_validation": {
+            "production-canonical",
+            "production-transaction",
+        },
     }[mode]
     if authority_mode not in expected_authority_modes:
         raise ComponentRegistryError(
             "Project Integrity routing authority mode and validation mode differ"
         )
     if (
-        view.get("schema_version") != 2
+        view.get("schema_version") not in {2, 3}
         or view.get("registry_path")
         != "framework/component-registry.json"
         or not isinstance(view.get("registry_id"), str)
@@ -3866,7 +3896,28 @@ def check_context_registry(
         for spec in documents.values()
         if bool(spec.get("governing"))
     }
-    unregistered = sorted(managed_paths - registered_paths)
+    validated_registry = view.get("_validated_registry")
+    supporting_markdown_paths: set[str] = set()
+    if isinstance(validated_registry, dict):
+        component_entries = (
+            validated_registry.get("components", {}).get("entries", {})
+        )
+        if isinstance(component_entries, dict):
+            for component in component_entries.values():
+                if not isinstance(component, dict):
+                    continue
+                for artifact in component.get("supporting_artifacts", []):
+                    if not isinstance(artifact, dict):
+                        continue
+                    artifact_path = artifact.get("path")
+                    if (
+                        isinstance(artifact_path, str)
+                        and artifact_path.endswith(".md")
+                    ):
+                        supporting_markdown_paths.add(artifact_path)
+    unregistered = sorted(
+        managed_paths - registered_paths - supporting_markdown_paths
+    )
     if unregistered:
         report(
             "ERROR",
@@ -4415,7 +4466,7 @@ def source_domain_event_pipeline_findings(root: Path = ROOT) -> list[str]:
     findings: list[str] = []
     try:
         coordinator_config = json.loads(
-            (root / ".github/run-coordinator-bot.json").read_text(encoding="utf-8")
+            (root / "framework/project/automation/configuration/bots/run-coordinator-bot.json").read_text(encoding="utf-8")
         )
     except (OSError, json.JSONDecodeError):
         coordinator_config = {}
@@ -4452,7 +4503,7 @@ def source_domain_event_pipeline_findings(root: Path = ROOT) -> list[str]:
             return ""
         return path.read_text(encoding="utf-8")
 
-    schema_text = require_file(".github/source-domain-event.schema.json")
+    schema_text = require_file("framework/project/automation/schemas/source-domain-event.schema.json")
     event_tool = require_file("scripts/source_domain_events.py")
     publisher = require_file("scripts/publish_immutable_data_file.py")
     coordinator = require_file("scripts/run_coordinator.py")
@@ -4633,7 +4684,7 @@ def source_domain_event_pipeline_findings(root: Path = ROOT) -> list[str]:
                     f"{agent_id} source-domain workflow lacks critical contract: {required}"
                 )
         for required in (
-            "domain_event_schema: .github/source-domain-event.schema.json",
+            "domain_event_schema: framework/project/automation/schemas/source-domain-event.schema.json",
             "domain_event_data: project-console-data:source-domain-events/",
             "`proposed`",
             "immutable `accepted` event",

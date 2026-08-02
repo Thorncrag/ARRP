@@ -45,7 +45,7 @@ class TemporaryRepository:
         run("git", "config", "user.email", "source-event@example.test", cwd=root)
         for log in (
             "framework/logs/sources/source-monitor-log.md",
-            "framework/records/automation/agent-audit-log.md",
+            "framework/logs/automation/agent-audit-log.md",
         ):
             path = root / log
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -272,12 +272,12 @@ class SourceDomainEventTests(unittest.TestCase):
                 changed = events.render_event(
                     accepted,
                     Path("framework/logs/sources/source-monitor-log.md"),
-                    Path("framework/records/automation/agent-audit-log.md"),
+                    Path("framework/logs/automation/agent-audit-log.md"),
                 )
                 unchanged = events.render_event(
                     accepted,
                     Path("framework/logs/sources/source-monitor-log.md"),
-                    Path("framework/records/automation/agent-audit-log.md"),
+                    Path("framework/logs/automation/agent-audit-log.md"),
                 )
             finally:
                 os.chdir(previous)
@@ -290,7 +290,7 @@ class SourceDomainEventTests(unittest.TestCase):
             self.assertFalse(unchanged)
             for relative in (
                 "framework/logs/sources/source-monitor-log.md",
-                "framework/records/automation/agent-audit-log.md",
+                "framework/logs/automation/agent-audit-log.md",
             ):
                 text = (repository.root / relative).read_text(encoding="utf-8")
                 marker_suffix = (
@@ -616,7 +616,7 @@ class SourceDomainEventTests(unittest.TestCase):
             TemporaryRepository(root)
             run("git", "checkout", "main", cwd=root)
             source_log = root / "framework/logs/sources/source-monitor-log.md"
-            agent_log = root / "framework/records/automation/agent-audit-log.md"
+            agent_log = root / "framework/logs/automation/agent-audit-log.md"
             run("git", "checkout", "-b", "event-log", cwd=root)
             source_log.write_text(
                 "# SOURCE_MONITOR_LOG\n\nUnrelated edit.\n",
@@ -653,7 +653,7 @@ class SourceDomainEventTests(unittest.TestCase):
                         base_ref="main",
                         branch_ref="event-log",
                         source_log=Path("framework/logs/sources/source-monitor-log.md"),
-                        agent_log=Path("framework/records/automation/agent-audit-log.md"),
+                        agent_log=Path("framework/logs/automation/agent-audit-log.md"),
                     )
             finally:
                 os.chdir(previous)
@@ -917,7 +917,7 @@ class SourceDomainWorkflowContractTests(unittest.TestCase):
             "publish_immutable_data_file.py",
             'trusted-source-domain-events.py" render',
             "framework/logs/sources/source-monitor-log.md",
-            "framework/records/automation/agent-audit-log.md",
+            "framework/logs/automation/agent-audit-log.md",
             "Prove the accepted pull request contains only watcher-owned data",
             'git diff --name-status "${BASE_SHA}...${HEAD_SHA}"',
             "Accepted merge changed trusted execution code",
@@ -936,7 +936,7 @@ class SourceDomainWorkflowContractTests(unittest.TestCase):
 
     def test_checked_in_schema_is_version_one_and_closed(self):
         schema = json.loads(
-            (ROOT / ".github/source-domain-event.schema.json").read_text(
+            (ROOT / "framework/project/automation/schemas/source-domain-event.schema.json").read_text(
                 encoding="utf-8"
             )
         )
@@ -959,7 +959,7 @@ class SourceDomainWorkflowContractTests(unittest.TestCase):
 
     def test_live_project_integrity_detects_removed_human_merge_gate(self):
         critical = (
-            ".github/source-domain-event.schema.json",
+            "framework/project/automation/schemas/source-domain-event.schema.json",
             ".github/workflows/source-domain-event-acceptance.yml",
             ".github/workflows/case-monitor-bot.yml",
             ".github/workflows/presidential-directives-bot.yml",

@@ -97,7 +97,7 @@ def fixture_authority(root: Path) -> FakeAuthority:
         "scripts/audit_project_consistency.py",
         "scripts/build_project_integrity_feed.py",
         "scripts/build_project_console.py",
-        "framework/project/interfaces/project-console-progress.json",
+        "framework/project/interfaces/project-console/configuration/progress.json",
         "inventory/github_issue_registry.csv",
         "framework/project/interfaces/project-console/data/integrity.js",
         "framework/status/project-integrity-report.md",

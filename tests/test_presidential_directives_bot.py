@@ -46,7 +46,7 @@ def result(
 class PresidentialDirectivesBotTests(unittest.TestCase):
     def setUp(self):
         self.config = json.loads(
-            (ROOT / ".github" / "presidential-directives-bot.json").read_text()
+            (ROOT / "framework/project/automation/configuration/bots/presidential-directives-bot.json").read_text()
         )
 
     def test_scope_covers_trump_biden_trump_without_other_presidents(self):

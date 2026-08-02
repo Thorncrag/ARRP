@@ -9,7 +9,7 @@ trigger: scheduled-local-chain-or-owner-manual
 schedule: "02:00 America/New_York through com.thorncrag.arrp-nightly, with RunAtLoad due evaluation"
 runtime_id: scripts/arrp_nightly.py
 execution_environment: reviewed-local-runtime-and-transaction-worktree
-runtime_config: .github/run-coordinator-bot.json
+runtime_config: framework/project/automation/configuration/bots/run-coordinator-bot.json
 log_path: owner-local:records/automation/agent-audit-log.md
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
@@ -102,7 +102,7 @@ after the attempt. Later Console refreshes publish a separate current
 repository-gates snapshot and do not rewrite that historical outcome.
 
 The coordinator then runs the due deterministic stages in the order declared
-in `.github/run-coordinator-bot.json`. `not_due` requires a present, valid,
+in `framework/project/automation/configuration/bots/run-coordinator-bot.json`. `not_due` requires a present, valid,
 hashable, in-cadence prior typed output; otherwise the stage is due. Blocking
 failure stops dependent work. A degraded stage may permit independent work,
 but becomes blocking when the selected unit depends on it.
