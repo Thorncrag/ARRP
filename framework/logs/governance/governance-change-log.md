@@ -17,7 +17,7 @@ remains separate and unchanged.
 ## GOV-2026-021 — Component Registry semantic-minimal authority
 
 - Date: 2026-08-02
-- Status: Proposed / unmerged
+- Status: Canonical
 - Decision class: governance_documentation
 - Authorities: framework/component-registry.json;
   framework/component-registry.schema.json; scripts/component_registry.py;
@@ -25,7 +25,7 @@ remains separate and unchanged.
   scripts/finalize_component_registry_activation.py;
   framework/project/automation/owner-local-runtime.md;
   framework/project/interfaces/project-console/specification.md
-- Decision: Proposes schema and revision 4 as the exact semantic-minimal
+- Decision: Adopts schema and revision 4 as the exact semantic-minimal
   Component Registry. The Registry remains the sole component, routing, and
   CODEOWNERS authority; `.github/CODEOWNERS` and the Console snapshot are
   generated nonauthoritative representations. Exact-only version-4 loaders,
@@ -34,12 +34,15 @@ remains separate and unchanged.
 - Evidence: Owner-authorized design `CR-SM-2026-08-02` revision R7; preserved
   baseline commit `07fe5f357f2604f25d6393e6f6fd14c1ab337165`; exact PR1 head
   `eb569526c0c5281816485683af3bf5fb7a91c662`, PR #511, and merge
-  `15405bb3d4d709678a68c6aacadc1d7d02c8c5c5`; exact 11-key,
+  `15405bb3d4d709678a68c6aacadc1d7d02c8c5c5`; PR2 anchor commit
+  `8b9f56a92eb27233c62ad881589cf9760460ef22` and PR #512; exact 11-key,
   105-component, 87-term, 59-scope, 64-rule, 16-relationship, and
   three-exemption inventory; normalized pre/post field parity; exact helper
   coverage transition; byte-reproducible Console generation; and generated
-  CODEOWNERS equality. The closeout PR number and exact head, supersession,
-  closeout merge readback, and owner-local activation readback remain pending.
+  CODEOWNERS equality. The exact final PR2 head is the final commit containing
+  this record and is separately approved and read back before merge. Its merge
+  evidence is established by canonical-main readback and the separately
+  governed owner-local activation receipt after merge.
   Consumer closure map:
   `canonical_authority` — `framework/component-registry.json` and
     `framework/component-registry.schema.json`; validated by
@@ -122,11 +125,14 @@ remains separate and unchanged.
     v4 assertion, unchanged generic seam, unrelated disclosure or intake
     fixture, or explicit historical rejection fixture and is not a production
     parser.
-- Policy adoption: Proposed only; not adopted before the separately approved
-  implementation and closeout merges.
-- Live activation: Not active. No activation readback exists, the Registry
-  component remains nonexecutable, and automation remains Paused.
-- Relationships: No supersession or refinement is claimed in PR1.
+- Policy adoption: Adopted on canonical history through PR #511 and PR #512.
+- Live activation: Canonical policy adoption does not itself activate
+  execution. The Registry is nonexecutable and automation remains Paused; live
+  readback is established only by the separately governed schema-version-2
+  owner-local receipt.
+- Relationships: Supersedes GOV-2026-020 one-way. GOV-2026-020 remains
+  byte-preserved as historical provenance and does not supersede or refine
+  GOV-2026-021.
 - Validation: Mapped Python, browser, deterministic generation, normalized
   parity, CODEOWNERS preservation, helper coverage, exact-version, and
   continuity-gate checks pass. Historical Change Audit Log SHA-256
@@ -143,8 +149,11 @@ remains separate and unchanged.
   correction, and historical-log authority correction are incorporated in
   their owning PR1 files and tests; score, rubric, rebaseline, and Runs effect:
   None; owning evidence: the consumer closure map above, exact Git history, and
-  the mapped validation seams; unresolved findings: None. Exact PR2 evidence,
-  merge readback, and the owner-local activation readback remain pending.
+  the mapped validation seams; unresolved findings: None. On the exact final
+  PR2 candidate, the diff remains limited to these two governance files and
+  the three named preservation hashes remain unchanged. Canonical-main merge
+  readback and the owner-local activation receipt follow only after exact-head
+  approval and merge.
 - Owner-local supplement: Required.
 
 ## GOV-2026-020 — Component Registry Stage 1 authority transition
