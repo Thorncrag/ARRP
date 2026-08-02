@@ -76,27 +76,26 @@ Next-run, full-Review-Epoch, valid-until, and trustworthy-through facts are
 producer supplied.
 
 Operations > Component Registry follows Data and precedes Logs. It has
-Documents, Directories, Routing, and Terminology modes, all rendered from one
-typed snapshot produced from the exact candidate accepted by
-`scripts/component_registry.py`. The browser formats supplied facts only; it
-does not invent taxonomy, directory membership, context routes, identities, or
-remediation. Routing includes the producer-rendered Stage 1 catalog: schema
-version 2, catalog version 1, and 64 stable rules divided across Invariants
-(7), Selection (17), Validation (10), Failure rules (10), Currentness (6),
-Budgets (4), and Comprehensive review (10). Historical rule provenance remains
-bound to the frozen predecessor digest
-`246a2bc927fa232507ac733192c42f42e469557b3b25cd92d74c111ef6d5e4a7`.
-Candidate configuration remains explicitly predecessor-bound; after
-activation, the embedded Component Registry route is the sole current routing
-authority. Artifact classification and lifecycle enforcement
-remain deferred, so the feature displays
-`Classification pending — enforcement not active` and treats empty deferred
-namespaces as unavailable rather than zero. The feature has no Overview
-portlet. Its `component-registry.js` shell module and generated
-`data/component-registry.js` domain are both lazy; the owner builder copies
-both for direct `file://` use. Legacy
-`operations:component-registry:*` document routes normalize one way to the
-canonical `automation:component-registry:*` destinations.
+Components, Classes, Types, Lifecycles, Authority, Relationships,
+Directories, Exemptions, Unresolved, Routing, CODEOWNERS, and Terminology
+modes. All are rendered from one exact schema-version-4 snapshot produced by
+`scripts/build_project_console.py` from the validated Registry. Canonical
+records are stored once; linked identities, derived views, and display defaults
+are separate structural namespaces. The browser formats allowlisted supplied
+facts only and does not parse a predecessor format, infer source URLs, inspect
+hidden whole records for search, or invent taxonomy, ownership, directory
+membership, context routes, identities, or remediation. Routing retains
+catalog version 2 and 64 stable rules divided across Invariants (7), Selection
+(17), Validation (10), Failure rules (10), Currentness (6), Budgets (4), and
+Comprehensive review (10). Historical rule provenance remains historical
+rather than active configuration. The tracked Registry is the sole current
+component, routing, and CODEOWNERS authority. The checked-in GitHub CODEOWNERS
+file and Console domain are deterministic representations and are byte-checked
+or structurally validated against that authority. The Console plainly
+distinguishes tracked configuration from the separate owner-local live
+readback. The feature has no Overview portlet. Its `component-registry.js`
+shell module and generated `data/component-registry.js` domain are both lazy;
+the owner builder copies both for direct `file://` use.
 
 The Console reports automation state but does not directly control the runner.
 Operations Overview combines owner-only Run/Paused state, one compact
@@ -231,8 +230,9 @@ Every view is an assembled projection:
 - Candidate workflows and the Horizon Scan Log own intake and disposition.
 - Source inventories own bibliographic records.
 - Project Integrity output owns Integrity findings.
-- The validated Component Registry candidate owns its registered documents,
-  directory scopes, context-routing import, and explicit deferred namespaces.
+- The schema-version-4 Component Registry owns registered components,
+  directory scopes, relationships, exemptions, routing, terminology, and every
+  CODEOWNERS default, inheritance rule, direct rule, and explicit absence.
 - Automation runbooks and typed run records own execution meaning.
 - The [ARRP Owner-Local Runtime
   Authority](../../automation/owner-local-runtime.md) owns
@@ -267,9 +267,10 @@ All generated domains declare a shared generation identity and are validated
 against `data/generation-manifest.json`. Required feeds fail closed on
 incompatible structure, mixed generations, hash mismatch, or declared
 incompleteness. Unavailable values remain unavailable rather than becoming
-zero. Component Registry production generation additionally fails closed when
-its validated candidate is stale, when embedded and imported routing differ,
-or when the complete directory-scope inventory cannot be established.
+zero. Component Registry generation additionally fails closed unless the
+Registry, returned routing view, and Console snapshot are exact version 4; the
+tracked CODEOWNERS bytes match their generated projection; and all governed
+counts, relationships, routes, and directory-scope identities validate.
 
 The normal initial budgets are:
 

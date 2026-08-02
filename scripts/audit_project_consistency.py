@@ -3508,42 +3508,8 @@ def context_registry_dependencies_match(
 ) -> bool:
     """Compare exact route dependencies across the candidate-to-active boundary."""
 
-    if validation_mode == "proposed_revision_validation":
-        if declared == expected:
-            return True
-        predecessor_indexes = [
-            index
-            for index, dependency in enumerate(expected)
-            if dependency in predecessor_paths
-        ]
-        if not predecessor_indexes:
-            if predecessor_paths.intersection(declared):
-                return False
-            if declared.count(COMPONENT_REGISTRY_DEPENDENCY_PATH) != 1:
-                return False
-            return [
-                dependency
-                for dependency in declared
-                if dependency != COMPONENT_REGISTRY_DEPENDENCY_PATH
-            ] == expected
-        first = predecessor_indexes[0]
-        last = predecessor_indexes[-1]
-        if predecessor_indexes != list(range(first, last + 1)):
-            return False
-        projected = [
-            *expected[:first],
-            COMPONENT_REGISTRY_DEPENDENCY_PATH,
-            *expected[last + 1 :],
-        ]
-        return (
-            declared.count(COMPONENT_REGISTRY_DEPENDENCY_PATH) == 1
-            and not predecessor_paths.intersection(declared)
-            and declared == projected
-        )
-
     if validation_mode in {
         "adopted_configuration_validation",
-        "online_governed_eligibility",
         "live_authority_validation",
     }:
         if predecessor_paths.intersection(expected):
@@ -3643,40 +3609,16 @@ def context_registry_authority_envelope(
 
     mode = str(view.get("validation_mode") or "")
     expected_posture = {
-        "proposed_revision_validation": {
-            "authoritative": False,
-            "executable": False,
-            "authority_effective": False,
-            "source_revision_authorized": False,
-            "source_bytes_current": False,
-            "canonical_history_confirmed": False,
-            "receipt_trusted": False,
-            "runtime_live": "not_checked",
-            "activation_receipt_consulted": False,
-            "predecessor_route_consulted": False,
-        },
         "adopted_configuration_validation": {
             "authoritative": False,
             "executable": False,
             "authority_effective": False,
             "source_revision_authorized": False,
-            "source_bytes_current": view.get("schema_version") == 3,
+            "source_bytes_current": view.get("schema_version") == 4,
             "canonical_history_confirmed": False,
             "receipt_trusted": False,
             "runtime_live": "not_checked",
             "activation_receipt_consulted": False,
-            "predecessor_route_consulted": False,
-        },
-        "online_governed_eligibility": {
-            "authoritative": True,
-            "executable": False,
-            "authority_effective": True,
-            "source_revision_authorized": True,
-            "source_bytes_current": True,
-            "canonical_history_confirmed": True,
-            "receipt_trusted": True,
-            "runtime_live": "not_checked",
-            "activation_receipt_consulted": True,
             "predecessor_route_consulted": False,
         },
         "live_authority_validation": {
@@ -3700,17 +3642,9 @@ def context_registry_authority_envelope(
             "Project Integrity received an invalid routing authority posture"
         )
     expected_authority_modes = {
-        "proposed_revision_validation": {
-            "repository-validation",
-            "fixture",
-        },
         "adopted_configuration_validation": {
             "repository-validation",
             "fixture",
-        },
-        "online_governed_eligibility": {
-            "production-canonical",
-            "production-transaction",
         },
         "live_authority_validation": {
             "production-canonical",
@@ -3722,7 +3656,7 @@ def context_registry_authority_envelope(
             "Project Integrity routing authority mode and validation mode differ"
         )
     if (
-        view.get("schema_version") not in {2, 3}
+        view.get("schema_version") != 4
         or view.get("registry_path")
         != "framework/component-registry.json"
         or not isinstance(view.get("registry_id"), str)
@@ -4371,22 +4305,27 @@ def check_agent_runbooks(failures: list[str], warnings: list[str]) -> None:
         seen.add(agent_id)
         agent_component = component_entries.get(agent_id)
         runbook_path = path.relative_to(ROOT).as_posix()
+
+        def component_source_value(component: object) -> object:
+            if not isinstance(component, dict):
+                return None
+            source = component.get("canonical_source")
+            if isinstance(source, str):
+                return source
+            if isinstance(source, dict):
+                return source.get("value")
+            return None
+
         runbook_components = [
             component_id
             for component_id, component in component_entries.items()
-            if isinstance(component, dict)
-            and component.get("canonical_source", {}).get("locator", {}).get(
-                "value"
-            )
-            == runbook_path
+            if component_source_value(component) == runbook_path
         ]
         registered_relationship = any(
             isinstance(relationship, dict)
             and relationship.get("relationship_type") == "consumes"
-            and relationship.get("from")
-            == {"kind": "component", "id": agent_id}
-            and relationship.get("to")
-            == {"kind": "component", "id": runbook_id}
+            and relationship.get("from") == agent_id
+            and relationship.get("to") == runbook_id
             for runbook_id in runbook_components
             for relationship in relationship_entries.values()
         )

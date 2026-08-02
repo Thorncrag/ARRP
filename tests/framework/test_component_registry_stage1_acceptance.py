@@ -66,7 +66,7 @@ def current_source_path(relative: str) -> Path:
     return source
 
 
-class ComponentRegistryStage2AcceptanceTests(unittest.TestCase):
+class HistoricalComponentRegistryStage2AcceptanceTests:
     def setUp(self) -> None:
         self.registry = load_json(REGISTRY_PATH)
         self.route = registry._stage2_route_snapshot(self.registry)
@@ -297,3 +297,39 @@ class ComponentRegistryStage2AcceptanceTests(unittest.TestCase):
                 verify_repository_coverage=False,
                 verify_source_bindings=False,
             )
+
+
+class ComponentRegistryV4AcceptanceTests(unittest.TestCase):
+    def setUp(self):
+        self.registry = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def test_semantic_minimal_registry_is_accepted(self):
+        result = registry.validate_v4_registry(self.registry, root=ROOT)
+        self.assertTrue(result["valid"])
+        self.assertEqual(result["registry_revision"], 4)
+        self.assertEqual(result["codeowners"]["problems"], 0)
+
+    def test_removed_stage_namespaces_do_not_reappear(self):
+        removed = {
+            "validation", "authority_digest_model", "component_lifecycles",
+            "component_authorities", "migrations_and_aliases",
+            "provenance_events", "repository_coverage", "supporting_artifact_rules",
+        }
+        self.assertTrue(removed.isdisjoint(self.registry))
+        self.assertIn("registration_exemptions", self.registry)
+
+    def test_registration_exemptions_are_categorical_not_components(self):
+        components = self.registry["components"]["entries"]
+        exemptions = self.registry["registration_exemptions"]["entries"]
+        self.assertEqual(
+            set(exemptions),
+            {"repository_tmp_children", "project_console_generated_data", "maintained_root_files"},
+        )
+        self.assertTrue(set(exemptions).isdisjoint(components))
+
+    def test_historical_stage3_helper_is_not_an_active_supporting_artifact(self):
+        artifacts = self.registry["components"]["entries"]["component_registry_tool"].get(
+            "supporting_artifacts", []
+        )
+        self.assertNotIn("scripts/apply_component_registry_stage3_migration.py", artifacts)
+        self.assertTrue((ROOT / "scripts/apply_component_registry_stage3_migration.py").is_file())

@@ -60,7 +60,7 @@ def current_source_path(relative: str) -> Path:
     return source
 
 
-class ComponentRegistryStage3Tests(unittest.TestCase):
+class HistoricalComponentRegistryStage3Tests:
     def setUp(self) -> None:
         self.registry = load_json(REGISTRY_PATH)
         self.route = registry._stage2_route_snapshot(self.registry)
@@ -805,3 +805,319 @@ class ComponentRegistryStage3Tests(unittest.TestCase):
         ] = "owner_direct"
         with self.assertRaisesRegex(registry.RegistryError, "modification control"):
             registry._validate_stage3_authority_binding(altered)
+
+
+class ComponentRegistryV4Tests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.registry = load_json(REGISTRY_PATH)
+
+    def test_v4_registry_validates_as_nonauthoritative_adopted_configuration(self):
+        result = registry.validate_v4_registry(self.registry, root=ROOT)
+        self.assertTrue(result["valid"])
+        self.assertEqual(result["registry_revision"], 4)
+        self.assertEqual(result["validation_mode"], "adopted_configuration_validation")
+        self.assertFalse(result["authoritative"])
+        self.assertFalse(result["executable"])
+
+    def test_top_level_is_exact_semantic_minimal_schema(self):
+        self.assertEqual(set(self.registry), registry.V4_TOP_LEVEL_KEYS)
+        self.assertEqual(self.registry["schema_version"], 4)
+        self.assertIs(type(self.registry["schema_version"]), int)
+        for removed in {
+            "authority_digest_model", "component_authorities",
+            "component_lifecycles", "migrations_and_aliases",
+            "provenance_events", "repository_coverage", "validation",
+        }:
+            self.assertNotIn(removed, self.registry)
+
+    def test_schema_rejects_prior_future_boolean_and_unknown_top_level(self):
+        schema = load_json(SCHEMA_PATH)
+        for version in (1, 2, 3, 5, True, "4", None):
+            altered = copy.deepcopy(self.registry)
+            altered["schema_version"] = version
+            with self.subTest(version=version), self.assertRaises(registry.RegistryError):
+                registry._validate_against_schema(altered, schema, schema)
+        altered = copy.deepcopy(self.registry)
+        altered["component_families"] = {}
+        with self.assertRaises(registry.RegistryError):
+            registry._validate_against_schema(altered, schema, schema)
+
+    def test_map_keys_are_the_only_stable_record_identities(self):
+        for namespace, id_field in (
+            ("components", "stable_id"),
+            ("directory_scopes", "scope_id"),
+            ("relationships", "relationship_id"),
+            ("registration_exemptions", "exemption_id"),
+        ):
+            entries = self.registry[namespace]["entries"]
+            self.assertEqual(len(entries), len(set(entries)))
+            self.assertTrue(all(id_field not in record for record in entries.values()))
+
+    def test_exact_inventory_counts_and_defaults(self):
+        self.assertEqual(len(self.registry["components"]["entries"]), 105)
+        self.assertEqual(len(self.registry["terminology"]["entries"]), 87)
+        self.assertEqual(len(self.registry["directory_scopes"]["entries"]), 59)
+        self.assertEqual(len(self.registry["relationships"]["entries"]), 16)
+        self.assertEqual(len(self.registry["registration_exemptions"]["entries"]), 3)
+        self.assertEqual(
+            sum(len(group) for group in self.registry["routing"]["rules"].values()),
+            64,
+        )
+
+    def test_component_defaults_and_historical_exceptions_are_exact(self):
+        components = self.registry["components"]["entries"]
+        retired = {
+            component_id for component_id, component in components.items()
+            if component.get("lifecycle", "adopted") == "retired"
+        }
+        immutable = {
+            component_id for component_id, component in components.items()
+            if component.get("revision_mode", "maintained") == "immutable"
+        }
+        expected = {
+            "context_routing", "project_structure", "agent_registry",
+            "repository_map", "context_routes_source",
+        }
+        self.assertEqual(retired, expected)
+        self.assertEqual(immutable, expected)
+        self.assertEqual(
+            components["governance_change_log"]["revision_mode"],
+            "append_only",
+        )
+        self.assertEqual(
+            components["COMPONENT-REGISTRY"]["display_name"],
+            "ARRP Component Registry",
+        )
+
+    def test_empty_roles_capabilities_and_supporting_artifact_wrappers_are_absent(self):
+        for component in self.registry["components"]["entries"].values():
+            classification = component["classification"]
+            self.assertNotEqual(classification.get("roles"), [])
+            self.assertNotEqual(classification.get("capabilities"), [])
+            for artifact in component.get("supporting_artifacts", []):
+                self.assertIsInstance(artifact, str)
+
+    def test_relationships_resolve_known_components(self):
+        component_ids = set(self.registry["components"]["entries"])
+        relationship_types = set(self.registry["implementation_enums"]["relationship_types"])
+        for relationship in self.registry["relationships"]["entries"].values():
+            self.assertIn(relationship["relationship_type"], relationship_types)
+            self.assertIn(relationship["from"], component_ids)
+            self.assertIn(relationship["to"], component_ids)
+            self.assertTrue(relationship["authority_boundary"])
+
+    def test_routing_catalog_is_compact_and_exact(self):
+        routing = self.registry["routing"]
+        self.assertEqual(routing["schema_version"], 4)
+        self.assertEqual(routing["rule_catalog_version"], 2)
+        forbidden = {
+            "rule_id", "rule_version", "status", "predicate_type",
+            "source_provenance", "verification_ids",
+        }
+        for namespace, rules in routing["rules"].items():
+            for rule_id, rule in rules.items():
+                self.assertTrue(rule_id.startswith("ctxr."), namespace)
+                self.assertTrue(forbidden.isdisjoint(rule))
+
+    def test_adopted_routing_view_is_v4_and_has_no_live_claim(self):
+        view = registry.validated_component_registry_routing_view(self.registry)
+        digest = registry._canonical_registry_digest(self.registry)
+        self.assertEqual(view["schema_version"], 4)
+        self.assertEqual(view["authority_sha256"], digest)
+        self.assertEqual(view["routing_authority_sha256"], digest)
+        self.assertEqual(view["authority_protocol"], "full_registry_sha256_v1")
+        self.assertFalse(view["authoritative"])
+        self.assertFalse(view["executable"])
+        self.assertFalse(view["live_authority_verified"])
+        self.assertFalse(view["predecessor_route_consulted"])
+
+    def test_predecessor_routing_input_is_rejected(self):
+        with self.assertRaisesRegex(registry.RegistryError, "forbids predecessor"):
+            registry.validated_component_registry_routing_view(
+                self.registry,
+                candidate_source_route={"schema_version": 2},
+            )
+
+    def test_codeowners_is_generated_from_all_registry_semantics(self):
+        projection = registry.stage2_codeowners_projection(self.registry, root=ROOT)
+        self.assertEqual(projection["summary"]["direct"], 17)
+        self.assertEqual(projection["summary"]["inherited"], 145)
+        self.assertEqual(projection["summary"]["none"], 2)
+        self.assertEqual(projection["summary"]["problems"], 0)
+        self.assertEqual(projection["generated_text"], (ROOT / ".github/CODEOWNERS").read_text())
+        records = {record["assignment_id"]: record for record in projection["records"]}
+        self.assertEqual(records["component:COMPONENT-REGISTRY"]["declared_mode"], "direct")
+        self.assertEqual(records["scope:repository_root"]["declared_mode"], "none")
+        self.assertEqual(records["component:elim"]["declared_mode"], "none")
+
+    def test_codeowners_preserves_every_baseline_rule_and_protected_path(self):
+        baseline_revision = "07fe5f357f2604f25d6393e6f6fd14c1ab337165"
+        baseline = subprocess.run(
+            ["git", "-C", str(ROOT), "show", f"{baseline_revision}:.github/CODEOWNERS"],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout
+        current = (ROOT / ".github/CODEOWNERS").read_text(encoding="utf-8")
+
+        def rows(text):
+            return [
+                tuple(line.split())
+                for line in text.splitlines()
+                if line.strip() and not line.lstrip().startswith("#")
+            ]
+
+        baseline_rows = rows(baseline)
+        current_rows = rows(current)
+        self.assertEqual(set(baseline_rows) - set(current_rows), set())
+        self.assertEqual(
+            set(current_rows) - set(baseline_rows),
+            {("/framework/component-registry.json", "@Thorncrag")},
+        )
+
+        tracked = subprocess.run(
+            ["git", "-C", str(ROOT), "ls-files"],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.splitlines()
+
+        def effective(path, codeowner_rows):
+            selected = ()
+            rooted = f"/{path}"
+            for pattern, *owners in codeowner_rows:
+                if "*" in pattern:
+                    self.fail(f"baseline audit needs explicit wildcard semantics: {pattern}")
+                if (pattern.endswith("/") and rooted.startswith(pattern)) or rooted == pattern:
+                    selected = tuple(owners)
+            return selected
+
+        changed = {
+            path: (effective(path, baseline_rows), effective(path, current_rows))
+            for path in tracked
+            if effective(path, baseline_rows) != effective(path, current_rows)
+        }
+        self.assertEqual(
+            changed,
+            {"framework/component-registry.json": ((), ("@Thorncrag",))},
+        )
+
+    def test_stage3_helper_becomes_only_an_ordinary_scoped_child(self):
+        baseline_revision = "07fe5f357f2604f25d6393e6f6fd14c1ab337165"
+        baseline = json.loads(
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(ROOT),
+                    "show",
+                    f"{baseline_revision}:framework/component-registry.json",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout
+        )
+        helper = "scripts/apply_component_registry_stage3_migration.py"
+        self.assertEqual(
+            subprocess.run(
+                ["git", "-C", str(ROOT), "hash-object", helper],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip(),
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(ROOT),
+                    "rev-parse",
+                    f"{baseline_revision}:{helper}",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip(),
+        )
+
+        baseline_coverage = baseline["repository_coverage"]["entries"]
+        current_classification = registry.classify_repository_paths(
+            self.registry,
+            list(baseline_coverage),
+        )
+        self.assertTrue(current_classification["complete"])
+        self.assertEqual(
+            {
+                item["path"]: item["owning_scope_id"]
+                for item in current_classification["items"]
+            },
+            {
+                path: record["placement"]["scope_id"]
+                for path, record in baseline_coverage.items()
+            },
+        )
+
+        components = self.registry["components"]["entries"]
+        canonical_paths = {
+            component["canonical_source"]: component_id
+            for component_id, component in components.items()
+            if isinstance(component["canonical_source"], str)
+        }
+        supporting_paths = {
+            path: component_id
+            for component_id, component in components.items()
+            for path in component.get("supporting_artifacts", [])
+        }
+        exemptions = self.registry["registration_exemptions"]["entries"]
+
+        def current_treatment(path, scope_id):
+            if path in canonical_paths:
+                return ("component", canonical_paths[path])
+            if path in supporting_paths:
+                return ("supporting_artifact", supporting_paths[path])
+            for exemption_id, exemption in exemptions.items():
+                if path in exemption.get("excluded_paths", []):
+                    continue
+                if path in exemption.get("exact_paths", []):
+                    return ("registration_exemption", exemption_id)
+                if scope_id == exemption.get("scope_id") or scope_id in exemption.get(
+                    "scope_ids", []
+                ):
+                    return ("registration_exemption", exemption_id)
+            return ("ordinary_scoped_child", None)
+
+        for path, record in baseline_coverage.items():
+            treatment = record["treatment"]
+            before = (
+                treatment["kind"],
+                treatment.get("component_id")
+                or treatment.get("exemption_id"),
+            )
+            after = current_treatment(path, record["placement"]["scope_id"])
+            if path == helper:
+                self.assertEqual(
+                    before,
+                    ("supporting_artifact", "component_registry_tool"),
+                )
+                self.assertEqual(after, ("ordinary_scoped_child", None))
+            else:
+                self.assertEqual(after, before, path)
+
+    def test_codeowners_direct_requires_exact_owner_list(self):
+        altered = copy.deepcopy(self.registry)
+        setting = altered["components"]["entries"]["framework_kernel"]["repository_controls"]["github_codeowners"]
+        setting.pop("owners")
+        with self.assertRaisesRegex(registry.RegistryError, "direct CODEOWNERS"):
+            registry.stage2_codeowners_projection(altered, root=ROOT, compare_current=False)
+
+    def test_schema_and_runtime_reject_repeated_component_identity(self):
+        altered = copy.deepcopy(self.registry)
+        altered["components"]["entries"]["framework_kernel"]["stable_id"] = "framework_kernel"
+        with self.assertRaisesRegex(registry.RegistryError, "repeats derived identity"):
+            registry.validate_v4_registry(altered, root=ROOT, compare_codeowners=False)
+
+    def test_inventory_and_cli_use_v4_counts(self):
+        route = registry._v4_route_snapshot(self.registry, root=ROOT)
+        counts = registry.route_counts(route)
+        self.assertEqual(counts["documents"], 82)
+        self.assertEqual(counts["governing_documents"], 81)

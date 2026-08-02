@@ -123,19 +123,18 @@ def _component_registry_configuration_state() -> str:
         ) from error
     mode = view.get("validation_mode")
     if (
-        view.get("schema_version") != 2
+        view.get("schema_version") != 4
         or view.get("registry_path")
         != "framework/component-registry.json"
         or mode
         not in {
-            "proposed_revision_validation",
             "adopted_configuration_validation",
         }
         or view.get("authoritative") is not False
         or view.get("executable") is not False
         or view.get("authority_effective") is not False
         or view.get("source_revision_authorized") is not False
-        or view.get("source_bytes_current") is not False
+        or view.get("source_bytes_current") is not True
         or view.get("canonical_history_confirmed") is not False
         or view.get("receipt_trusted") is not False
         or view.get("runtime_live") != "not_checked"

@@ -398,6 +398,22 @@
       "live_activation": "Not active. The registry remains candidate, nonauthoritative, and nonexecutable; the activation receipt is absent and automation remains Paused.",
       "relationships": {"supersedes": [], "refines": [], "refined_by": [], "proposed_refinements": []},
       "private_supplement_required": true
+    },
+    {
+      "id": "GOV-2026-021",
+      "date": "2026-08-02",
+      "title": "Component Registry semantic-minimal authority",
+      "decision_class": "governance_documentation",
+      "authority": ["framework/component-registry.json", "framework/component-registry.schema.json", "scripts/component_registry.py", "scripts/arrp_context.py", "scripts/run_coordinator.py", "scripts/finalize_component_registry_activation.py", "framework/project/automation/owner-local-runtime.md", "framework/project/interfaces/project-console/specification.md"],
+      "source": {"kind": "current_worktree", "commits": [], "pull_requests": []},
+      "destination": "framework/logs/governance/governance-change-log.md#gov-2026-021",
+      "resolution": "Proposed schema-version-4 semantic-minimal Registry authority; canonical adoption, supersession of GOV-2026-020, final Change Audit, and live readback remain reserved for the approved closeout pull request.",
+      "consumers": ["project_update_closeout", "governance_change_review", "console_builder", "change_audit_review", "console_governance_review"],
+      "status": "Proposed / unmerged",
+      "policy_adoption": "Proposed only; not adopted before the separately approved implementation and closeout merges.",
+      "live_activation": "Not active. No activation readback exists, the Registry component remains nonexecutable, and automation remains Paused.",
+      "relationships": {"supersedes": [], "refines": [], "refined_by": [], "proposed_refinements": []},
+      "private_supplement_required": true
     }
   ]
 }

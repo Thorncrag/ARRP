@@ -4097,19 +4097,19 @@ def governing_protected_paths(
         ) from error
     validation_mode = routing_view.get("validation_mode")
     expected_posture = {
-        "proposed_revision_validation": {
+        "adopted_configuration_validation": {
             "authoritative": False,
             "executable": False,
             "authority_effective": False,
             "source_revision_authorized": False,
-            "source_bytes_current": False,
+            "source_bytes_current": True,
             "canonical_history_confirmed": False,
             "receipt_trusted": False,
             "runtime_live": "not_checked",
             "activation_receipt_consulted": False,
             "predecessor_route_consulted": False,
         },
-        "online_governed_eligibility": {
+        "live_authority_validation": {
             "authoritative": True,
             "executable": False,
             "authority_effective": True,
@@ -4122,7 +4122,7 @@ def governing_protected_paths(
             "predecessor_route_consulted": False,
         },
     }.get(str(validation_mode))
-    if routing_view.get("schema_version") != 2 or expected_posture is None or any(
+    if routing_view.get("schema_version") != 4 or expected_posture is None or any(
         routing_view.get(field) is not expected
         for field, expected in expected_posture.items()
     ):
@@ -4130,10 +4130,10 @@ def governing_protected_paths(
             "Component Registry routing view has an invalid authority posture"
         )
     if require_active_registry and (
-        validation_mode != "online_governed_eligibility"
+        validation_mode != "live_authority_validation"
     ):
         raise TransactionError(
-            "production routing requires governed-eligible Component Registry "
+            "production routing requires live Registry v4 Component Registry "
             "authority with authenticated receipt evidence"
         )
     route = routing_view.get("route")

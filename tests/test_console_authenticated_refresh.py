@@ -111,14 +111,14 @@ def fixture_authority(root: Path) -> FakeAuthority:
 class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
     def test_configuration_validation_is_nonlive_and_zero_argument(self) -> None:
         view = {
-            "schema_version": 2,
+            "schema_version": 4,
             "validation_mode": "adopted_configuration_validation",
             "registry_path": "framework/component-registry.json",
             "authoritative": False,
             "executable": False,
             "authority_effective": False,
             "source_revision_authorized": False,
-            "source_bytes_current": False,
+            "source_bytes_current": True,
             "canonical_history_confirmed": False,
             "receipt_trusted": False,
             "runtime_live": "not_checked",
@@ -145,16 +145,14 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
             "load_component_registry_configuration_routing_view",
             return_value=candidate,
         ) as candidate_loader:
-            self.assertEqual(
-                _component_registry_configuration_state(),
-                "proposed_revision_validation",
-            )
+            with self.assertRaises(ConsoleRefreshError):
+                _component_registry_configuration_state()
         candidate_loader.assert_called_once_with()
 
         invalid_values = {
             "authority_effective": True,
             "source_revision_authorized": True,
-            "source_bytes_current": True,
+            "source_bytes_current": False,
             "canonical_history_confirmed": True,
             "receipt_trusted": True,
             "runtime_live": "running",
@@ -187,7 +185,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
             with patch(
                 "scripts.refresh_project_console."
                 "_component_registry_configuration_state",
-                return_value="proposed_revision_validation",
+                return_value="adopted_configuration_validation",
             ):
                 result = _refresh_console(
                     authority=authority,
@@ -205,7 +203,7 @@ class ConsoleAuthenticatedRefreshTest(unittest.TestCase):
         self.assertEqual(result["status"], "refreshed")
         self.assertEqual(
             result["component_registry_validation_mode"],
-            "proposed_revision_validation",
+            "adopted_configuration_validation",
         )
         self.assertEqual(len(keychain_calls), 1)
         self.assertEqual(

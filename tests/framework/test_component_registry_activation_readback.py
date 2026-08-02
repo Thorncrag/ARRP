@@ -1075,7 +1075,7 @@ class LegacyStage1ActivationReadbackExamples:
                 )
 
 
-class ComponentRegistryStage2ReadbackTests(unittest.TestCase):
+class HistoricalComponentRegistryStage2ReadbackTests:
     def setUp(self):
         self.stage2 = load_json(REGISTRY_PATH)
         self.stage2_receipt = finalizer._build_stage2_synthetic_receipt(
@@ -1486,6 +1486,125 @@ class ComponentRegistryStage2ReadbackTests(unittest.TestCase):
                 schema["$defs"]["componentRegistryStage2AdoptionReadback"],
                 schema,
             )
+
+
+class ComponentRegistryV4ReadbackTests(unittest.TestCase):
+    def setUp(self):
+        self.registry = load_json(REGISTRY_PATH)
+        self.schema = load_json(ROOT / "framework/component-registry.schema.json")
+        self.merge_evidence = {
+            "pull_request_number": 601,
+            "pull_request_id": 601,
+            "pull_request_node_id": "fixture-pr",
+            "base_revision": "1" * 40,
+            "reviewed_head": "2" * 40,
+            "reviewed_tree": "3" * 40,
+            "merge_commit": "4" * 40,
+            "merge_tree": "5" * 40,
+            "merged_by": "Thorncrag",
+            "merged_by_id": 1,
+            "merged_by_node_id": "fixture-owner",
+            "merged_at": "2026-08-02T12:02:00Z",
+            "approved_by": "@Thorncrag",
+            "required_checks": [{
+                "evidence_type": "check_run",
+                "context": "ARRP validation",
+                "app_id": 1,
+                "run_id": 41,
+                "completed_at": "2026-08-02T12:01:00Z",
+            }],
+        }
+
+    def receipt(self):
+        return finalizer._stage3_authority_receipt_payload(
+            self.registry,
+            repository_evidence={"id": 1, "node_id": "fixture"},
+            canonical_revision="6" * 40,
+            merge_evidence=self.merge_evidence,
+            verified_at="2026-08-02T12:03:00Z",
+        )
+
+    def test_schema2_readback_family_and_exact_interpreter_set(self):
+        receipt = self.receipt()
+        registry._validate_stage3_authority_readback_schema(
+            receipt, schema=self.schema
+        )
+        self.assertEqual(receipt["schema_version"], 2)
+        self.assertEqual(
+            receipt["verification_type"],
+            "component_registry_stage3_authority_readback",
+        )
+        self.assertEqual(
+            set(receipt["interpreter_bindings"]),
+            set(finalizer.V4_RECEIPT_BINDING_PATHS),
+        )
+
+    def test_receipt_selector_accepts_only_exact_registry_v4(self):
+        receipt = self.receipt()
+        selected = finalizer.select_component_registry_receipt(
+            self.registry,
+            [receipt],
+        )
+        self.assertEqual(
+            selected["validation_mode"], "live_authority_validation"
+        )
+        self.assertEqual(selected["receipt"], receipt)
+        for value in (1, 2, 3, 5, True, "4", None):
+            altered = copy.deepcopy(self.registry)
+            altered["schema_version"] = value
+            with self.subTest(value=value), self.assertRaisesRegex(
+                finalizer.ActivationFinalizationError,
+                "exact Registry schema version 4",
+            ):
+                finalizer.select_component_registry_receipt(
+                    altered,
+                    [receipt],
+                )
+
+    def test_readback_rejects_missing_extra_and_changed_binding_fields(self):
+        receipt = self.receipt()
+        missing = copy.deepcopy(receipt)
+        missing["interpreter_bindings"].pop("scripts/arrp_context.py")
+        extra = copy.deepcopy(receipt)
+        extra["interpreter_bindings"]["scripts/arrp_nightly.py"] = "0" * 64
+        malformed = copy.deepcopy(receipt)
+        malformed["interpreter_bindings"]["scripts/run_coordinator.py"] = True
+        for altered in (missing, extra, malformed):
+            with self.assertRaises(registry.RegistryError):
+                registry._validate_stage3_authority_readback_schema(
+                    altered, schema=self.schema
+                )
+
+    def test_live_view_is_exact_v4_and_nonauthoritative_runtime(self):
+        receipt = self.receipt()
+        route = registry._v4_route_snapshot(self.registry, root=ROOT)
+        authority = mock.Mock(repository_root=ROOT)
+        with (
+            mock.patch.object(
+                registry,
+                "_load_fixed_stage3_authority_readback",
+                return_value=receipt,
+            ),
+            mock.patch.object(
+                registry,
+                "load_validated_registry",
+                return_value=(self.registry, route),
+            ),
+        ):
+            view = registry._stage3_live_authority_view_from_authority(
+                authority,
+                REGISTRY_PATH,
+                self.registry,
+                schema=self.schema,
+            )
+        self.assertEqual(view["schema_version"], 4)
+        self.assertEqual(view["validation_mode"], "live_authority_validation")
+        self.assertTrue(view["authoritative"])
+        self.assertFalse(view["executable"])
+        self.assertTrue(view["receipt_trusted"])
+        self.assertEqual(
+            view["receipt_verification_type"], receipt["verification_type"]
+        )
 
 
 if __name__ == "__main__":

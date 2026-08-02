@@ -905,83 +905,38 @@ def _review_epoch_routing_boundary_untyped(
 ) -> dict[str, str]:
     """Validate one Component Registry comprehensive-review boundary."""
     schema_version = routing_view.get("schema_version")
-    if schema_version not in {1, 2}:
+    if schema_version != 4:
         raise ValueError(
             "Review Epoch boundary comparison requires a validated "
             "Component Registry routing view"
         )
     mode = routing_view.get("validation_mode")
     status = routing_view.get("registry_status")
-    if schema_version == 1 and status == "active":
-        if (
-            mode != "active_component_registry"
-            or routing_view.get("authoritative") is not True
-            or routing_view.get("predecessor_route_consulted") is not False
-        ):
-            raise ValueError(
-                "active Review Epoch routing must use only the authoritative "
-                "Component Registry"
-            )
-        expected_authoritative = True
-        expected_selection_kind = "executable_packet"
-        expected_executable = True
-    elif (
-        schema_version == 1
-        and status == "candidate"
-        and allow_candidate_validation
-    ):
-        if (
-            mode != "candidate_validation_only"
-            or routing_view.get("authoritative") is not False
-            or routing_view.get("predecessor_route_consulted") is not True
-        ):
-            raise ValueError(
-                "candidate Review Epoch routing lacks explicit "
-                "predecessor-bound validation"
-            )
-        expected_authoritative = False
-        expected_selection_kind = "executable_packet"
-        expected_executable = True
-    elif schema_version == 2 and mode == "online_governed_eligibility":
+    if schema_version == 4 and mode == "live_authority_validation":
         if (
             routing_view.get("authoritative") is not True
             or routing_view.get("executable") is not False
-            or routing_view.get("authority_effective") is not True
-            or routing_view.get("source_revision_authorized") is not True
-            or routing_view.get("source_bytes_current") is not True
-            or routing_view.get("canonical_history_confirmed") is not True
-            or routing_view.get("receipt_trusted") is not True
-            or routing_view.get("runtime_live") != "not_checked"
-            or routing_view.get("activation_receipt_consulted") is not True
             or routing_view.get("predecessor_route_consulted") is not False
         ):
             raise ValueError(
-                "Review Epoch routing must use governed-eligible Component "
-                "Registry authority"
+                "live Review Epoch routing must use exact Registry v4 authority"
             )
         expected_authoritative = True
-        expected_selection_kind = "executable_packet"
-        expected_executable = True
+        expected_selection_kind = "configuration_validation_packet"
+        expected_executable = False
     elif (
-        schema_version == 2
-        and mode == "proposed_revision_validation"
+        schema_version == 4
+        and mode == "adopted_configuration_validation"
         and allow_candidate_validation
     ):
         if (
             routing_view.get("authoritative") is not False
             or routing_view.get("executable") is not False
-            or routing_view.get("authority_effective") is not False
-            or routing_view.get("source_revision_authorized") is not False
-            or routing_view.get("source_bytes_current") is not False
-            or routing_view.get("canonical_history_confirmed") is not False
-            or routing_view.get("receipt_trusted") is not False
-            or routing_view.get("runtime_live") != "not_checked"
-            or routing_view.get("activation_receipt_consulted") is not False
+            or routing_view.get("source_bytes_current") is not True
             or routing_view.get("predecessor_route_consulted") is not False
         ):
             raise ValueError(
-                "proposed Review Epoch routing lacks nonexecuting Stage 2 "
-                "configuration validation"
+                "Review Epoch configuration validation lacks exact Registry v4 posture"
             )
         expected_authoritative = False
         expected_selection_kind = "configuration_validation_packet"
@@ -1026,8 +981,6 @@ def _review_epoch_routing_boundary_untyped(
         "registry_sha256",
         "registry_path",
     ]
-    if schema_version == 1:
-        identity_fields.append("registry_status")
     for field in identity_fields:
         if routing_selection.get(field) != routing_view.get(field):
             raise ValueError(

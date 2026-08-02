@@ -1018,12 +1018,8 @@ def build_context_packet(
             )
             or routing_authority_identity.get("validation_mode")
             not in {
-                "candidate_validation_only",
-                "active_configuration_validation_only",
-                "active_component_registry",
-                "proposed_revision_validation",
                 "adopted_configuration_validation",
-                "online_governed_eligibility",
+                "live_authority_validation",
             }
             or not isinstance(
                 routing_authority_identity.get("authoritative"), bool

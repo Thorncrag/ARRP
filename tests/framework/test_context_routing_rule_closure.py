@@ -1673,7 +1673,7 @@ def _require_instruction_packet(
     return module
 
 
-class ContextRoutingRuleClosureTests(unittest.TestCase):
+class HistoricalContextRoutingRuleClosureTests:
     def setUp(self) -> None:
         self.matrix = _load_matrix()
         self.source = SOURCE_PATH.read_bytes()
@@ -2332,6 +2332,77 @@ class ContextRoutingRuleClosureTests(unittest.TestCase):
                 )
             )
         )
+
+
+class ContextRoutingV4RuleClosureTests(unittest.TestCase):
+    def setUp(self):
+        self.registry = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
+
+    def rule_ids(self):
+        return {
+            rule_id
+            for group in self.registry["routing"]["rules"].values()
+            for rule_id in group
+        }
+
+    def test_all_64_rule_identities_are_map_keys_and_match_runtime_catalog(self):
+        ids = self.rule_ids()
+        expected = {
+            rule_id
+            for namespace in registry_tool.ROUTING_RULE_MAPS
+            for rule_id in registry_tool.ROUTING_RULE_IDS[namespace]
+        }
+        self.assertEqual(len(ids), 64)
+        self.assertEqual(ids, expected)
+        self.assertEqual(
+            set(registry_tool.ROUTING_RULE_SEMANTIC_IMPLEMENTATION_PLAN), ids
+        )
+
+    def test_compact_rules_derive_predicate_version_status_and_verification(self):
+        for namespace, rules in self.registry["routing"]["rules"].items():
+            for rule_id, compact in rules.items():
+                self.assertTrue({
+                    "rule_id", "predicate_type", "rule_version", "status",
+                    "source_provenance", "verification_ids",
+                }.isdisjoint(compact))
+                derived = {
+                    "predicate_type": rule_id,
+                    "parameters": copy.deepcopy(compact.get("parameters", {})),
+                }
+                if "failure_code" in compact:
+                    derived["failure_code"] = compact["failure_code"]
+                validated = registry_tool.validate_routing_rule_definition(rule_id, derived)
+                self.assertEqual(validated["rule_id"], rule_id)
+                self.assertEqual(validated["predicate_type"], rule_id)
+                self.assertEqual(namespace, next(
+                    name for name, values in registry_tool.ROUTING_RULE_IDS.items()
+                    if rule_id in values
+                ))
+
+    def test_rule_definition_rejects_wrong_derived_identity_and_parameters(self):
+        rule_id = "ctxr.inv.additive_union"
+        compact = self.registry["routing"]["rules"]["invariants"][rule_id]
+        valid = {
+            "predicate_type": rule_id,
+            "parameters": copy.deepcopy(compact["parameters"]),
+        }
+        wrong_identity = copy.deepcopy(valid)
+        wrong_identity["predicate_type"] = "ctxr.inv.required_floor_is_minimum"
+        wrong_parameters = copy.deepcopy(valid)
+        wrong_parameters["parameters"] = {}
+        for altered in (wrong_identity, wrong_parameters):
+            with self.assertRaises(registry_tool.RegistryError):
+                registry_tool.validate_routing_rule_definition(rule_id, altered)
+
+    def test_v4_registry_rejects_reintroduced_rule_metadata(self):
+        altered = copy.deepcopy(self.registry)
+        altered["routing"]["rules"]["invariants"][
+            "ctxr.inv.router_preserves_source_authority"
+        ]["rule_version"] = 1
+        with self.assertRaisesRegex(registry_tool.RegistryError, "repeats derived data"):
+            registry_tool.validate_v4_registry(
+                altered, root=ROOT, compare_codeowners=False
+            )
 
 
 if __name__ == "__main__":

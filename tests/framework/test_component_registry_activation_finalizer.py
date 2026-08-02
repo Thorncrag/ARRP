@@ -644,7 +644,7 @@ class LegacyStage1ActivationFinalizerExamples:
                 )
 
 
-class ComponentRegistryStage2FinalizerTests(unittest.TestCase):
+class HistoricalComponentRegistryStage2FinalizerTests:
     def setUp(self):
         self.registry = json.loads(
             subprocess.run(
@@ -1326,7 +1326,7 @@ class ComponentRegistryStage2FinalizerTests(unittest.TestCase):
             )
 
 
-class ComponentRegistryStage3FinalizerTests(unittest.TestCase):
+class HistoricalComponentRegistryStage3FinalizerTests:
     def setUp(self):
         self.registry = json.loads(
             finalizer.registry.DEFAULT_REGISTRY.read_text(encoding="utf-8")
@@ -1580,9 +1580,187 @@ class ComponentRegistryStage3FinalizerTests(unittest.TestCase):
             result = finalizer.finalize_activation()
         self.assertTrue(result["complete"])
         self.assertEqual(result["verification_state"], "live_authority_validation")
-        collect.assert_called_once_with(authority)
-        build.assert_called_once_with(authority, self.registry, {"fixed": True})
-        write.assert_called_once_with(authority, receipt)
+
+
+class ComponentRegistryV4FinalizerTests(unittest.TestCase):
+    def setUp(self):
+        self.registry = json.loads(
+            finalizer.registry.DEFAULT_REGISTRY.read_text(encoding="utf-8")
+        )
+        self.merge_evidence = {
+            "pull_request_number": 601,
+            "pull_request_id": 601,
+            "pull_request_node_id": "fixture-pr",
+            "base_revision": "1" * 40,
+            "reviewed_head": "2" * 40,
+            "reviewed_tree": "3" * 40,
+            "merge_commit": "4" * 40,
+            "merge_tree": "5" * 40,
+            "merged_by": "Thorncrag",
+            "merged_by_id": 1,
+            "merged_by_node_id": "fixture-owner",
+            "merged_at": "2026-08-02T12:02:00Z",
+            "approved_by": "@Thorncrag",
+            "required_checks": [{
+                "evidence_type": "check_run",
+                "context": "ARRP validation",
+                "app_id": 1,
+                "run_id": 41,
+                "completed_at": "2026-08-02T12:01:00Z",
+            }],
+        }
+
+    def authority(self, temporary: str) -> ProjectPathAuthority:
+        root = Path(temporary)
+        repository = root / "repository"
+        state = root / "state"
+        output = root / "output"
+        for directory in (repository, state, output):
+            directory.mkdir(mode=0o700)
+        return ProjectPathAuthority.fixture(
+            root,
+            repository_root=repository,
+            state_root=state,
+            output_root=output,
+        )
+
+    def test_production_entrypoint_rejects_every_non_v4_registry(self):
+        class Authority:
+            repository_root = finalizer.registry.ROOT
+
+            def repository_path(self, _path, required=False):
+                return finalizer.registry.DEFAULT_REGISTRY
+
+        for value in (1, 2, 3, 5, True, "4", None):
+            altered = copy.deepcopy(self.registry)
+            altered["schema_version"] = value
+            with (
+                self.subTest(value=value),
+                patch.object(
+                    finalizer.ProjectPathAuthority,
+                    "production",
+                    return_value=Authority(),
+                ),
+                patch.object(
+                    finalizer.registry,
+                    "_read_json",
+                    return_value=altered,
+                ),
+                patch.object(
+                    finalizer,
+                    "_collect_stage3_authority_observations",
+                ) as collect,
+                self.assertRaisesRegex(
+                    finalizer.ActivationFinalizationError,
+                    "exact Registry schema version 4",
+                ),
+            ):
+                finalizer.finalize_activation()
+            collect.assert_not_called()
+
+    def test_fixture_writes_schema2_digest_addressed_owner_only_receipt(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority = self.authority(temporary)
+            result = finalizer.verify_stage3_fixture_and_write(
+                authority,
+                self.registry,
+                canonical_revision="6" * 40,
+                merge_evidence=self.merge_evidence,
+                verified_at="2026-08-02T12:03:00Z",
+            )
+            path = authority.state_root / result["receipt_path"]
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(stat.S_IMODE(path.stat().st_mode), 0o600)
+            self.assertEqual(path.stem, result["registry_sha256"])
+            self.assertEqual(payload["schema_version"], 2)
+            self.assertEqual(
+                payload["verification_type"],
+                "component_registry_stage3_authority_readback",
+            )
+            self.assertEqual(
+                set(payload["interpreter_bindings"]),
+                set(finalizer.V4_RECEIPT_BINDING_PATHS),
+            )
+            self.assertNotIn("authority_sha256", payload)
+            self.assertNotIn("design_contract", payload)
+
+    def test_existing_digest_receipt_is_never_overwritten(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority = self.authority(temporary)
+            arguments = dict(
+                canonical_revision="6" * 40,
+                merge_evidence=self.merge_evidence,
+                verified_at="2026-08-02T12:03:00Z",
+            )
+            finalizer.verify_stage3_fixture_and_write(
+                authority, self.registry, **arguments
+            )
+            with self.assertRaises(finalizer.ActivationFinalizationError):
+                finalizer.verify_stage3_fixture_and_write(
+                    authority, self.registry, **arguments
+                )
+
+    def test_receipt_rejects_prior_future_boolean_and_malformed_v4(self):
+        for value in (1, 2, 3, 5, True, "4", None):
+            altered = copy.deepcopy(self.registry)
+            altered["schema_version"] = value
+            with self.subTest(value=value), self.assertRaises(
+                finalizer.ActivationFinalizationError
+            ):
+                finalizer._stage3_authority_receipt_payload(
+                    altered,
+                    repository_evidence={"id": 1, "node_id": "fixture"},
+                    canonical_revision="6" * 40,
+                    merge_evidence=self.merge_evidence,
+                    verified_at="2026-08-02T12:03:00Z",
+                )
+
+    def test_receipt_bindings_are_field_closed_and_byte_sensitive(self):
+        payload = finalizer._stage3_authority_receipt_payload(
+            self.registry,
+            repository_evidence={"id": 1, "node_id": "fixture"},
+            canonical_revision="6" * 40,
+            merge_evidence=self.merge_evidence,
+            verified_at="2026-08-02T12:03:00Z",
+        )
+        schema = finalizer.registry._read_json(
+            finalizer.registry.ROOT / "framework/component-registry.schema.json"
+        )
+        finalizer.registry._validate_stage3_authority_readback_schema(
+            payload, schema=schema
+        )
+        altered = copy.deepcopy(payload)
+        altered["interpreter_bindings"]["scripts/component_registry.py"] = "0" * 64
+        self.assertNotEqual(altered["interpreter_bindings"], payload["interpreter_bindings"])
+
+    def test_approved_head_continuity_gate_accepts_equal_and_rejects_drift(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            repository = Path(temporary)
+            subprocess.run(["git", "-C", str(repository), "init", "-b", "main"], check=True, capture_output=True)
+            subprocess.run(["git", "-C", str(repository), "config", "user.name", "ARRP Fixture"], check=True)
+            subprocess.run(["git", "-C", str(repository), "config", "user.email", "fixture@example.invalid"], check=True)
+            for relative in finalizer.V4_RECEIPT_BINDING_PATHS:
+                destination = repository / relative
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                destination.write_bytes((finalizer.registry.ROOT / relative).read_bytes())
+            subprocess.run(["git", "-C", str(repository), "add", "."], check=True)
+            subprocess.run(["git", "-C", str(repository), "commit", "-m", "approved"], check=True, capture_output=True)
+            head = subprocess.run(
+                ["git", "-C", str(repository), "rev-parse", "HEAD"],
+                check=True, capture_output=True, text=True,
+            ).stdout.strip()
+            expected = finalizer.verify_v4_interpreter_continuity(
+                repository, approved_head=head
+            )
+            self.assertEqual(tuple(expected), finalizer.V4_RECEIPT_BINDING_PATHS)
+            (repository / "scripts/arrp_context.py").write_text("drift\n", encoding="utf-8")
+            with self.assertRaisesRegex(
+                finalizer.ActivationFinalizationError,
+                "approved-head interpreter continuity differs",
+            ):
+                finalizer.verify_v4_interpreter_continuity(
+                    repository, approved_head=head
+                )
 
 
 if __name__ == "__main__":

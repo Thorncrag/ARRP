@@ -60,6 +60,74 @@ STAGE2_SOURCE_ADMISSION_PREDICATE = (
 STAGE2_AUTHORITY_RECEIPT_DIRECTORY = (
     "records/governance/component-registry/activation-readbacks/authority-v1"
 )
+V4_RECEIPT_BINDING_PATHS = (
+    "framework/component-registry.schema.json",
+    "scripts/component_registry.py",
+    "scripts/arrp_context.py",
+    "scripts/run_coordinator.py",
+    "scripts/finalize_component_registry_activation.py",
+)
+
+
+def _v4_interpreter_bindings(
+    repository: Path,
+    *,
+    revision: str | None = None,
+) -> dict[str, str]:
+    """Hash the exact closed v4 interpreter set from disk or one Git revision."""
+
+    bindings: dict[str, str] = {}
+    for relative in V4_RECEIPT_BINDING_PATHS:
+        if revision is None:
+            path = repository / relative
+            try:
+                payload = path.read_bytes()
+            except OSError as exc:
+                raise ActivationFinalizationError(
+                    f"v4 interpreter binding is unavailable: {relative}"
+                ) from exc
+        else:
+            if re.fullmatch(r"[0-9a-f]{40}", revision) is None:
+                raise ActivationFinalizationError(
+                    "v4 interpreter binding revision is invalid"
+                )
+            try:
+                payload = subprocess.run(
+                    ["git", "-C", str(repository), "show", f"{revision}:{relative}"],
+                    check=True,
+                    capture_output=True,
+                    timeout=30,
+                ).stdout
+            except (OSError, subprocess.SubprocessError) as exc:
+                raise ActivationFinalizationError(
+                    f"v4 interpreter binding is unavailable at revision: {relative}"
+                ) from exc
+        bindings[relative] = hashlib.sha256(payload).hexdigest()
+    return bindings
+
+
+def verify_v4_interpreter_continuity(
+    repository: Path,
+    *,
+    approved_head: str,
+    observed_revision: str | None = None,
+) -> dict[str, str]:
+    """Enforce one of the four approved-head continuity gates."""
+
+    approved = _v4_interpreter_bindings(repository, revision=approved_head)
+    observed = _v4_interpreter_bindings(
+        repository,
+        revision=observed_revision,
+    )
+    if observed != approved:
+        changed = sorted(
+            path for path in V4_RECEIPT_BINDING_PATHS
+            if observed.get(path) != approved.get(path)
+        )
+        raise ActivationFinalizationError(
+            "v4 approved-head interpreter continuity differs: " + ", ".join(changed)
+        )
+    return approved
 
 
 def _run_json(*arguments: str) -> Any:
@@ -2617,37 +2685,29 @@ def select_component_registry_receipt(
     tracked_registry: Mapping[str, Any],
     receipts: Sequence[Mapping[str, Any]],
 ) -> dict[str, Any]:
-    """Select only evidence bound to the exact tracked Registry bytes.
-
-    Both Stage 1 and Stage 2 receipts may remain preserved. Selection follows
-    the tracked Registry revision and digest, so a verified revert selects the
-    preserved Stage 1 evidence without deleting or rewriting either receipt.
-    """
+    """Select only exact v4 evidence bound to the tracked Registry bytes."""
+    if (
+        isinstance(tracked_registry.get("schema_version"), bool)
+        or tracked_registry.get("schema_version") != 4
+    ):
+        raise ActivationFinalizationError(
+            "receipt selection requires exact Registry schema version 4"
+        )
     digest = registry._canonical_registry_digest(tracked_registry)
-    if tracked_registry.get("schema_version") == 2:
-        matches = [
-            receipt for receipt in receipts
-            if receipt.get("verification_type") == "component_registry_stage2_adoption_readback"
-            and receipt.get("registry_revision") == 2
-            and receipt.get("registry_sha256") == digest
-            and receipt.get("design_id") == registry.STAGE2_DESIGN_ID
-            and receipt.get("design_revision") == registry.STAGE2_DESIGN_REVISION
-            and receipt.get("validation_mode") == "live_authority_validation"
-        ]
-        selected_mode = "live_authority_validation"
-    elif tracked_registry.get("schema_version") == 1:
-        matches = [
-            receipt for receipt in receipts
-            if receipt.get("verification_type") == "component_registry_activation_readback"
-            and receipt.get("registry_sha256") == digest
-        ]
-        selected_mode = "active_component_registry"
-    else:
-        raise ActivationFinalizationError("tracked Registry revision is unsupported")
+    matches = [
+        receipt
+        for receipt in receipts
+        if receipt.get("schema_version") == 2
+        and receipt.get("verification_type")
+        == "component_registry_stage3_authority_readback"
+        and receipt.get("registry_revision") == 4
+        and receipt.get("registry_sha256") == digest
+        and receipt.get("validation_mode") == "live_authority_validation"
+    ]
     if len(matches) != 1:
         raise ActivationFinalizationError("exactly one digest-bound Registry receipt is required")
     return {
-        "validation_mode": selected_mode,
+        "validation_mode": "live_authority_validation",
         "registry_sha256": digest,
         "receipt": copy.deepcopy(dict(matches[0])),
     }
@@ -2797,10 +2857,18 @@ def _stage3_authority_receipt_payload(
     canonical_revision: str,
     merge_evidence: Mapping[str, Any],
     verified_at: str,
+    repository_root: Path = registry.ROOT,
 ) -> dict[str, Any]:
-    model = registry._validate_stage2_authority_digest_model(stage3_registry)
+    try:
+        registry.validate_v4_registry(
+            stage3_registry,
+            root=repository_root,
+            compare_codeowners=False,
+        )
+    except registry.RegistryError as exc:
+        raise ActivationFinalizationError("v4 Registry validation failed") from exc
     receipt = {
-        "schema_version": 1,
+        "schema_version": 2,
         "verification_type": "component_registry_stage3_authority_readback",
         "issuer": "component_registry_activation_finalizer",
         "repository": {
@@ -2812,17 +2880,8 @@ def _stage3_authority_receipt_payload(
         "registry_id": stage3_registry["registry_id"],
         "registry_revision": stage3_registry["registry_revision"],
         "registry_sha256": registry._canonical_registry_digest(stage3_registry),
-        "authority_sha256": registry._stage2_authority_digest(stage3_registry),
-        "authority_protocol": model["protocol"],
-        "authority_generation": model["generation"],
+        "interpreter_bindings": _v4_interpreter_bindings(repository_root),
         "canonical_revision": canonical_revision,
-        "design_contract": {
-            "design_id": registry.STAGE3_DESIGN_ID,
-            "design_revision": registry.STAGE3_DESIGN_REVISION,
-            "contract_revision": 1,
-            "external_evidence_id": registry.STAGE3_EXTERNAL_EVIDENCE_ID,
-            "contract_sha256": registry.STAGE3_CONTRACT_SHA256,
-        },
         "validation_mode": "live_authority_validation",
         "merge_evidence": dict(merge_evidence),
         "verified_at": verified_at,
@@ -2849,7 +2908,7 @@ def _build_stage3_authority_receipt(
             "Stage 3 authority receipt requires fixed production authority"
         )
     try:
-        registry.validate_stage3_registry(stage3_registry, root=authority.repository_root)
+        registry.validate_v4_registry(stage3_registry, root=authority.repository_root)
     except registry.RegistryError as exc:
         raise ActivationFinalizationError("Stage 3 Registry validation failed") from exc
     repository_evidence = observations.get("repository")
@@ -2894,6 +2953,7 @@ def _build_stage3_authority_receipt(
         canonical_revision=remote_main,
         merge_evidence={**merge, "approved_by": "@Thorncrag", "required_checks": required_checks},
         verified_at=str(observations["verified_at"]),
+        repository_root=authority.repository_root,
     )
 
 
@@ -2910,7 +2970,11 @@ def verify_stage3_fixture_and_write(
     if path_authority.mode != "fixture":
         raise ActivationFinalizationError("Stage 3 fixture requires fixture authority")
     try:
-        registry.validate_stage3_registry(stage3_registry, root=registry.ROOT)
+        registry.validate_v4_registry(
+            stage3_registry,
+            root=registry.ROOT,
+            compare_codeowners=False,
+        )
     except registry.RegistryError as exc:
         raise ActivationFinalizationError("Stage 3 fixture Registry is invalid") from exc
     receipt = _stage3_authority_receipt_payload(
@@ -2922,13 +2986,13 @@ def verify_stage3_fixture_and_write(
         canonical_revision=canonical_revision,
         merge_evidence=merge_evidence,
         verified_at=verified_at,
+        repository_root=registry.ROOT,
     )
     path = _write_fixed_receipt(path_authority, receipt)
     return {
         "created": True,
-        "registry_revision": 3,
+        "registry_revision": 4,
         "registry_sha256": receipt["registry_sha256"],
-        "authority_sha256": receipt["authority_sha256"],
         "canonical_revision": canonical_revision,
         "validation_mode": "live_authority_validation",
         "receipt_path": str(path.relative_to(path_authority.state_root)),
@@ -2949,14 +3013,21 @@ def finalize_activation() -> dict[str, Any]:
             "fixed production authority is unavailable"
         ) from exc
     active_registry = registry._read_json(registry_path)
-    if active_registry.get("schema_version") == 3:
+    if (
+        isinstance(active_registry.get("schema_version"), bool)
+        or active_registry.get("schema_version") != 4
+    ):
+        raise ActivationFinalizationError(
+            "activation finalization requires exact Registry schema version 4"
+        )
+    if active_registry.get("schema_version") == 4:
         try:
             configuration_view = (
                 registry.load_component_registry_configuration_routing_view()
             )
         except registry.RegistryError as exc:
             raise ActivationFinalizationError(
-                "Stage 3 adopted configuration validation failed before observation"
+                "v4 adopted configuration validation failed before observation"
             ) from exc
         if (
             configuration_view.get("validation_mode")
@@ -2966,7 +3037,7 @@ def finalize_activation() -> dict[str, Any]:
             or configuration_view.get("source_bytes_current") is not True
         ):
             raise ActivationFinalizationError(
-                "Stage 3 adopted configuration posture is invalid"
+                "v4 adopted configuration posture is invalid"
             )
         observations = _collect_stage3_authority_observations(authority)
         receipt = _build_stage3_authority_receipt(
@@ -2981,7 +3052,7 @@ def finalize_activation() -> dict[str, Any]:
             )
         except registry.RegistryError as exc:
             raise ActivationFinalizationError(
-                "Stage 3 post-publication authority readback failed"
+                "v4 post-publication authority readback failed"
             ) from exc
         if (
             live_view.get("validation_mode") != "live_authority_validation"
@@ -2995,12 +3066,12 @@ def finalize_activation() -> dict[str, Any]:
             or live_view.get("runtime_live") != "not_checked"
         ):
             raise ActivationFinalizationError(
-                "Stage 3 authority posture is invalid"
+                "v4 authority posture is invalid"
             )
         return {
             "complete": True,
             "registry_sha256": receipt["registry_sha256"],
-            "authority_sha256": receipt["authority_sha256"],
+            "interpreter_bindings": receipt["interpreter_bindings"],
             "canonical_revision": receipt["canonical_revision"],
             "verification_state": "live_authority_validation",
             "runtime_live": "not_checked",
