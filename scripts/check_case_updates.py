@@ -36,7 +36,7 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_CONFIG = ROOT / ".github" / "case-monitor-bot.json"
+DEFAULT_CONFIG = ROOT / "framework/project/automation/configuration/bots/case-monitor-bot.json"
 DEFAULT_SOURCES = ROOT / "inventory" / "sources.csv"
 DEFAULT_PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
 DEFAULT_LOG = (

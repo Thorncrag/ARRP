@@ -7,9 +7,6 @@
 /framework/logs/ @Thorncrag
 /framework/project/ @Thorncrag
 /framework/standards/ @Thorncrag
-/package-lock.json @Thorncrag
-/package.json @Thorncrag
-/pyproject.toml @Thorncrag
 /requirements-local-tools.txt @Thorncrag
 /requirements-pages.txt @Thorncrag
 /AGENTS.md @Thorncrag
@@ -17,3 +14,4 @@
 /framework/FRAMEWORK.md @Thorncrag
 /framework/archive/authorities/CONTEXT_ROUTING.md @Thorncrag
 /framework/archive/authorities/PROJECT_STRUCTURE.md @Thorncrag
+/framework/component-registry.schema.json @Thorncrag

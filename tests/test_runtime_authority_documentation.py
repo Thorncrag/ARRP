@@ -100,7 +100,13 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
             encoding="utf-8"
         )
 
-        if self.registry.get("schema_version") == 2:
+        if self.registry.get("schema_version") == 3:
+            self.assertEqual(
+                self.registry["validation"]["mode"],
+                "adopted_configuration_validation",
+            )
+            self.assertFalse(self.registry["validation"]["live_authority"])
+        elif self.registry.get("schema_version") == 2:
             self.assertEqual(
                 self.registry["validation"]["mode"],
                 "proposed_revision_validation",
@@ -137,7 +143,8 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
             / "framework"
             / "project"
             / "interfaces"
-            / "project-console.md"
+            / "project-console"
+            / "specification.md"
         ).read_text(encoding="utf-8")
         readme = (
             ROOT
@@ -152,7 +159,9 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
             / "framework"
             / "project"
             / "interfaces"
-            / "project-console-classifications.json"
+            / "project-console"
+            / "configuration"
+            / "classifications.json"
         )
         classifications = json.loads(
             classification_path.read_text(encoding="utf-8")
@@ -179,15 +188,16 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
         }
         for queue_id in ("operational_incidents", "security_incidents"):
             self.assertIn("unavailable outside", queues[queue_id]["meaning"])
-        registry_document = self.routes["documents"][
-            "project_console_classifications"
-        ]
-        self.assertTrue(registry_document["governing"])
-        self.assertEqual(registry_document["hash_policy"], "pinned")
-        self.assertEqual(
-            registry_document["sha256"],
-            hashlib.sha256(classification_path.read_bytes()).hexdigest(),
+        project_console = self.registry["components"]["entries"]["project_console"]
+        self.assertIn(
+            "framework/project/interfaces/project-console/configuration/classifications.json",
+            {
+                artifact["path"]
+                for artifact in project_console["supporting_artifacts"]
+            },
         )
+        self.assertIn("component_classes", self.registry["implementation_enums"])
+        self.assertIn("component_types", self.registry["implementation_enums"])
 
 
 if __name__ == "__main__":

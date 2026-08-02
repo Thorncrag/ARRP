@@ -182,7 +182,7 @@ def _refresh_console(
         "scripts/build_project_console.py"
     )
     progress_config = authority.repository_path(
-        "framework/project/interfaces/project-console-progress.json"
+        "framework/project/interfaces/project-console/configuration/progress.json"
     )
     registry = authority.repository_path(
         "inventory/github_issue_registry.csv"

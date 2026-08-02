@@ -34,7 +34,7 @@
     "transaction_recovery": "records/reconciliation/transaction-recovery",
     "caller_substitution": false
   },
-  "ledger_schema": "framework/project/automation/project-wide-reconciliation.schema.json",
+  "ledger_schema": "framework/project/automation/schemas/project-wide-reconciliation.schema.json",
   "required_inventories": [
     "canonical_checkout",
     "remote_revision",

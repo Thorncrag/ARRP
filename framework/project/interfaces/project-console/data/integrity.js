@@ -4,11 +4,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
     "availability": "current",
-    "generated_at": "2026-08-01T16:03:31+00:00",
+    "generated_at": "2026-08-02T10:33:52+00:00",
     "current": {
       "result": "findings",
-      "generated_at": "2026-08-01T16:03:31+00:00",
-      "revision": "21f7fc6ca8a168ad9be5efca26fe309d5f1926a4",
+      "generated_at": "2026-08-02T10:33:52+00:00",
+      "revision": "fad1ea5bf69a0ef17d48879ad78a1fa27f2e694b",
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -35,37 +35,26 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       ],
       "findings": [
         {
-          "finding_id": "INT-0ae51c815506a254",
-          "finding_code": "project_integrity_condition",
+          "finding_id": "INT-37b3dd2c4710011a",
+          "finding_code": "github_pages_readback_unavailable",
           "severity": "warning",
-          "category": "Internal links",
+          "category": "GitHub records",
           "status": "open",
           "owner": "Elim",
           "route": "integrity",
-          "next_action": "Open Integrity and resolve the registered producer condition.",
-          "message": "A typed integrity finding requires review."
+          "next_action": "Rerun Project Integrity with registered GitHub access.",
+          "message": "GitHub Pages deployment synchronization could not be verified."
         },
         {
-          "finding_id": "INT-10761461c2a25b99",
-          "finding_code": "project_integrity_condition",
+          "finding_id": "INT-7fc8c3ac82d977f9",
+          "finding_code": "github_issues_readback_unavailable",
           "severity": "warning",
-          "category": "Internal links",
+          "category": "GitHub records",
           "status": "open",
           "owner": "Elim",
           "route": "integrity",
-          "next_action": "Open Integrity and resolve the registered producer condition.",
-          "message": "A typed integrity finding requires review."
-        },
-        {
-          "finding_id": "INT-a0cd25c89e570ebf",
-          "finding_code": "project_integrity_condition",
-          "severity": "warning",
-          "category": "Internal links",
-          "status": "open",
-          "owner": "Elim",
-          "route": "integrity",
-          "next_action": "Open Integrity and resolve the registered producer condition.",
-          "message": "A typed integrity finding requires review."
+          "next_action": "Rerun Project Integrity with registered GitHub access.",
+          "message": "GitHub Issues synchronization could not be verified."
         },
         {
           "finding_id": "INT-c8c79404280b5748",
@@ -77,23 +66,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "integrity",
           "next_action": "Run the registered authenticated Console refresh.",
           "message": "GitHub Project synchronization could not be verified because the registered read-only access was unavailable."
-        },
-        {
-          "finding_id": "INT-e0ec97cfac83ccf5",
-          "finding_code": "project_integrity_condition",
-          "severity": "warning",
-          "category": "Internal links",
-          "status": "open",
-          "owner": "Elim",
-          "route": "integrity",
-          "next_action": "Open Integrity and resolve the registered producer condition.",
-          "message": "A typed integrity finding requires review."
         }
       ]
     },
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-f8e1bf9aac508897681c"
+    "integrity.js": "project-console-6976cf05fa319af81bcb"
   }
 });

@@ -253,7 +253,7 @@ class LocalStageTests(unittest.TestCase):
             "production-transaction",
         )
         coordinator = json.loads(
-            (ROOT / ".github" / "run-coordinator-bot.json").read_text(
+            (ROOT / "framework/project/automation/configuration/bots/run-coordinator-bot.json").read_text(
                 encoding="utf-8"
             )
         )

@@ -522,6 +522,34 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertEqual(projected["source_revision"], revision)
         self.assertNotIn(".tmp", json.dumps(projected))
 
+    def test_public_only_reuses_disclosed_source_checker_without_legacy_cache(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config, _stage, payload, _revision = self.public_source_checker_fixture(root)
+            legacy = root / ".tmp" / "source-checker.json"
+            legacy.write_text("must not open", encoding="utf-8")
+            original_read_text = Path.read_text
+
+            def guarded_read_text(path: Path, *args, **kwargs):
+                if os.path.realpath(path) == os.path.realpath(legacy):
+                    raise AssertionError("legacy Source Checker cache opened")
+                return original_read_text(path, *args, **kwargs)
+
+            with (
+                mock.patch.object(MODULE, "ROOT", root),
+                mock.patch.object(MODULE, "SOURCE_CHECKER_CONFIG", config),
+                mock.patch.object(
+                    MODULE,
+                    "existing_console_payload",
+                    return_value={"source_checker": payload},
+                ),
+                mock.patch.object(Path, "read_text", guarded_read_text),
+            ):
+                projected = MODULE.source_checker_snapshot(public_only=True)
+        self.assertEqual(projected["availability"], "current")
+        self.assertTrue(projected["completeness"]["complete"])
+        self.assertEqual(projected["actual_count"], 1)
+
     def test_public_source_checker_stage_rejects_other_input_authority(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -1172,7 +1200,7 @@ class ConsoleDataContractTests(unittest.TestCase):
             )
         )
 
-    def test_component_registry_stage2_projection_has_one_validated_source(self):
+    def test_component_registry_stage3_projection_has_one_validated_source(self):
         source = Path(MODULE.__file__).read_text(encoding="utf-8")
         self.assertIn(
             "def _stage2_component_registry_console_snapshot(",
@@ -1187,10 +1215,15 @@ class ConsoleDataContractTests(unittest.TestCase):
         )
         for mode in (
             "components",
+            "classes",
+            "types",
             "lifecycles",
             "authority",
             "relationships",
             "coverage",
+            "directories",
+            "exemptions",
+            "unresolved",
             "routing",
             "codeowners",
             "terminology",
@@ -1221,7 +1254,7 @@ class ConsoleDataContractTests(unittest.TestCase):
             [
                 Path("/tmp/arrp-stage2-console-test/framework/component-registry.json"),
                 Path(
-                    "/tmp/arrp-stage2-console-test/framework/standards/automation/"
+                    "/tmp/arrp-stage2-console-test/framework/"
                     "component-registry.schema.json"
                 ),
             ],
@@ -1230,17 +1263,22 @@ class ConsoleDataContractTests(unittest.TestCase):
         snapshot = MODULE.load_component_registry_console_snapshot(
             generated_at="2026-07-31T12:00:00Z",
         )
-        self.assertEqual(snapshot["schema_version"], 2)
+        self.assertEqual(snapshot["schema_version"], 3)
         self.assertEqual(snapshot["availability"], "current")
         self.assertTrue(snapshot["complete"])
         self.assertEqual(
             set(snapshot["routes"]),
             {
                 "components",
+                "classes",
+                "types",
                 "lifecycles",
                 "authority",
                 "relationships",
                 "coverage",
+                "directories",
+                "exemptions",
+                "unresolved",
                 "routing",
                 "codeowners",
                 "terminology",
@@ -1253,21 +1291,26 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "adopted_configuration_validation",
             },
         )
-        self.assertEqual(snapshot["registry"]["registry_status"], "proposed")
+        self.assertEqual(snapshot["registry"]["registry_status"], "adopted")
         self.assertFalse(snapshot["registry"]["authoritative"])
         self.assertFalse(snapshot["registry"]["executable"])
         self.assertFalse(snapshot["registry"]["authority_effective"])
         self.assertFalse(snapshot["registry"]["source_revision_authorized"])
-        self.assertFalse(snapshot["registry"]["source_bytes_current"])
+        self.assertTrue(snapshot["registry"]["source_bytes_current"])
         self.assertFalse(snapshot["registry"]["canonical_history_confirmed"])
         self.assertFalse(snapshot["registry"]["receipt_trusted"])
         self.assertEqual(snapshot["registry"]["runtime_live"], "not_checked")
         self.assertFalse(snapshot["registry"]["predecessor_route_consulted"])
-        self.assertEqual(len(snapshot["components"]), 103)
-        self.assertEqual(len(snapshot["lifecycles"]["assignments"]), 103)
-        self.assertEqual(len(snapshot["authorities"]["assignments"]), 103)
-        self.assertEqual(len(snapshot["relationships"]), 15)
+        self.assertEqual(len(snapshot["components"]), 105)
+        self.assertEqual(len(snapshot["classifications"]["classes"]), 8)
+        self.assertEqual(len(snapshot["classifications"]["types"]), 37)
+        self.assertEqual(len(snapshot["lifecycles"]["assignments"]), 105)
+        self.assertEqual(len(snapshot["authorities"]["assignments"]), 105)
+        self.assertEqual(len(snapshot["relationships"]), 16)
         self.assertEqual(len(snapshot["coverage"]["records"]), 62)
+        self.assertEqual(len(snapshot["coverage"]["directories"]), 59)
+        self.assertEqual(len(snapshot["coverage"]["exemptions"]), 3)
+        self.assertEqual(len(snapshot["coverage"]["unresolved"]), 0)
         self.assertEqual(snapshot["coverage"]["uncovered_count"], 0)
         self.assertEqual(snapshot["coverage"]["multiply_treated_count"], 0)
         self.assertEqual(len(snapshot["routing"]["selections"]), 27)
@@ -1283,7 +1326,7 @@ class ConsoleDataContractTests(unittest.TestCase):
             snapshot["codeowners"]["generated_sha256"],
             snapshot["codeowners"]["current_sha256"],
         )
-        self.assertEqual(len(snapshot["codeowners"]["records"]), 163)
+        self.assertEqual(len(snapshot["codeowners"]["records"]), 164)
         registry_routing = next(
             record
             for record in snapshot["codeowners"]["records"]
@@ -1294,13 +1337,15 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertEqual(registry_routing["owners"], [])
         self.assertIsNone(registry_routing["generated_line"])
         self.assertTrue(snapshot["terminology"]["adopted"])
-        self.assertEqual(len(snapshot["terminology"]["entries"]), 69)
+        self.assertEqual(len(snapshot["terminology"]["entries"]), 87)
         self.assertEqual(
             MODULE.component_registry_projection_count(snapshot),
             sum(
                 len(records)
                 for records in (
                     snapshot["components"],
+                    snapshot["classifications"]["classes"],
+                    snapshot["classifications"]["types"],
                     snapshot["lifecycles"]["assignments"],
                     snapshot["authorities"]["sources"],
                     snapshot["authorities"]["assignments"],

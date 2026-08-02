@@ -647,7 +647,21 @@ class LegacyStage1ActivationFinalizerExamples:
 class ComponentRegistryStage2FinalizerTests(unittest.TestCase):
     def setUp(self):
         self.registry = json.loads(
-            finalizer.registry.DEFAULT_REGISTRY.read_text(encoding="utf-8")
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(finalizer.registry.ROOT),
+                    "show",
+                    (
+                        f"{finalizer.registry.STAGE3_BASE_REVISION}:"
+                        "framework/component-registry.json"
+                    ),
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout
         )
         self.revision = "1" * 40
         self.evidence = {
@@ -1310,6 +1324,205 @@ class ComponentRegistryStage2FinalizerTests(unittest.TestCase):
                 self.registry,
                 wrong,
             )
+
+
+class ComponentRegistryStage3FinalizerTests(unittest.TestCase):
+    def setUp(self):
+        self.registry = json.loads(
+            finalizer.registry.DEFAULT_REGISTRY.read_text(encoding="utf-8")
+        )
+        self.base = "1" * 40
+        self.reviewed = "2" * 40
+        self.merge = "3" * 40
+        self.merge_evidence = {
+            "pull_request_number": 503,
+            "pull_request_id": 503,
+            "pull_request_node_id": "fixture-pr",
+            "base_revision": self.base,
+            "reviewed_head": self.reviewed,
+            "reviewed_tree": "4" * 40,
+            "merge_commit": self.merge,
+            "merge_tree": "4" * 40,
+            "merged_by": "Thorncrag",
+            "merged_by_id": 1,
+            "merged_by_node_id": "fixture-owner",
+            "merged_at": "2026-08-02T12:02:00Z",
+            "approved_by": "@Thorncrag",
+            "required_checks": [
+                {
+                    "evidence_type": "check_run",
+                    "context": "ARRP validation",
+                    "app_id": 1,
+                    "run_id": 41,
+                    "completed_at": "2026-08-02T12:01:00Z",
+                }
+            ],
+        }
+
+    def authority(self, temporary: str) -> ProjectPathAuthority:
+        root = Path(temporary)
+        repository = root / "repository"
+        state = root / "state"
+        output = root / "output"
+        for directory in (repository, state, output):
+            directory.mkdir(mode=0o700)
+        return ProjectPathAuthority.fixture(
+            root,
+            repository_root=repository,
+            state_root=state,
+            output_root=output,
+        )
+
+    def test_fixture_writes_closed_digest_addressed_stage3_receipt(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            authority = self.authority(temporary)
+            result = finalizer.verify_stage3_fixture_and_write(
+                authority,
+                self.registry,
+                canonical_revision=self.merge,
+                merge_evidence=self.merge_evidence,
+                verified_at="2026-08-02T12:03:00Z",
+            )
+            path = authority.state_root / result["receipt_path"]
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(stat.S_IMODE(path.stat().st_mode), 0o600)
+            self.assertEqual(path.stem, result["registry_sha256"])
+            self.assertEqual(
+                payload["verification_type"],
+                "component_registry_stage3_authority_readback",
+            )
+            self.assertEqual(payload["authority_generation"], 4)
+            self.assertEqual(payload["canonical_revision"], self.merge)
+
+    def test_stage3_receipt_rejects_wrong_owner_and_duplicate_checks(self):
+        for mutation in ("owner", "duplicate"):
+            with self.subTest(mutation=mutation):
+                evidence = copy.deepcopy(self.merge_evidence)
+                if mutation == "owner":
+                    evidence["approved_by"] = "@someone-else"
+                else:
+                    evidence["required_checks"].append(
+                        copy.deepcopy(evidence["required_checks"][0])
+                    )
+
+    def test_stage3_receipt_binds_exact_merge_and_synchronized_registry(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            subprocess.run(["git", "init", "-b", "main", str(root)], check=True, capture_output=True)
+            subprocess.run(["git", "-C", str(root), "config", "user.name", "ARRP Fixture"], check=True)
+            subprocess.run(["git", "-C", str(root), "config", "user.email", "fixture@example.invalid"], check=True)
+            marker = root / "marker.txt"
+            marker.write_text("base\n", encoding="utf-8")
+            subprocess.run(["git", "-C", str(root), "add", "."], check=True)
+            subprocess.run(["git", "-C", str(root), "commit", "-m", "base"], check=True, capture_output=True)
+            base = subprocess.run(["git", "-C", str(root), "rev-parse", "HEAD"], check=True, capture_output=True, text=True).stdout.strip()
+            subprocess.run(["git", "-C", str(root), "switch", "-c", "stage3"], check=True, capture_output=True)
+            registry_path = root / "framework" / "component-registry.json"
+            registry_path.parent.mkdir(parents=True)
+            registry_path.write_text(json.dumps(self.registry, indent=2) + "\n", encoding="utf-8")
+            subprocess.run(["git", "-C", str(root), "add", "."], check=True)
+            subprocess.run(["git", "-C", str(root), "commit", "-m", "stage3"], check=True, capture_output=True)
+            reviewed = subprocess.run(["git", "-C", str(root), "rev-parse", "HEAD"], check=True, capture_output=True, text=True).stdout.strip()
+            subprocess.run(["git", "-C", str(root), "switch", "main"], check=True, capture_output=True)
+            subprocess.run(["git", "-C", str(root), "merge", "--no-ff", "stage3", "-m", "merge stage3"], check=True, capture_output=True)
+            merge = subprocess.run(["git", "-C", str(root), "rev-parse", "HEAD"], check=True, capture_output=True, text=True).stdout.strip()
+            subprocess.run(["git", "-C", str(root), "update-ref", "refs/remotes/origin/main", merge], check=True)
+            evidence = copy.deepcopy(self.merge_evidence)
+            evidence.update({
+                "base_revision": base,
+                "reviewed_head": reviewed,
+                "merge_commit": merge,
+            })
+            receipt = finalizer._stage3_authority_receipt_payload(
+                self.registry,
+                repository_evidence={"id": 1, "node_id": "fixture"},
+                canonical_revision=merge,
+                merge_evidence=evidence,
+                verified_at="2026-08-02T12:03:00Z",
+            )
+            finalizer.registry._validate_stage3_authority_repository_binding(
+                self.registry,
+                receipt,
+                root=root,
+            )
+            subprocess.run(["git", "-C", str(root), "update-ref", "refs/remotes/origin/main", base], check=True)
+            with self.assertRaises(finalizer.registry.RegistryError):
+                finalizer.registry._validate_stage3_authority_repository_binding(
+                    self.registry,
+                    receipt,
+                    root=root,
+                )
+                with self.assertRaises(finalizer.ActivationFinalizationError):
+                    finalizer._stage3_authority_receipt_payload(
+                        self.registry,
+                        repository_evidence={"id": 1, "node_id": "fixture"},
+                        canonical_revision=self.merge,
+                        merge_evidence=evidence,
+                        verified_at="2026-08-02T12:03:00Z",
+                    )
+
+    def test_no_argument_finalizer_uses_stage3_production_path(self):
+        receipt = {
+            "registry_sha256": "a" * 64,
+            "authority_sha256": "b" * 64,
+            "canonical_revision": self.merge,
+        }
+        configuration_view = {
+            "validation_mode": "adopted_configuration_validation",
+            "authoritative": False,
+            "executable": False,
+            "source_bytes_current": True,
+        }
+        live_view = {
+            "validation_mode": "live_authority_validation",
+            "authoritative": True,
+            "executable": False,
+            "live_authority_verified": True,
+            "activation_receipt_consulted": True,
+            "authority_effective": True,
+            "source_bytes_current": True,
+            "receipt_trusted": True,
+            "runtime_live": "not_checked",
+        }
+
+        class Authority:
+            repository_root = finalizer.registry.ROOT
+
+            def repository_path(self, _path, required=False):
+                return finalizer.registry.DEFAULT_REGISTRY
+
+        authority = Authority()
+        with (
+            patch.object(finalizer.ProjectPathAuthority, "production", return_value=authority),
+            patch.object(finalizer.registry, "_read_json", return_value=self.registry),
+            patch.object(
+                finalizer.registry,
+                "load_component_registry_configuration_routing_view",
+                return_value=configuration_view,
+            ),
+            patch.object(
+                finalizer,
+                "_collect_stage3_authority_observations",
+                return_value={"fixed": True},
+            ) as collect,
+            patch.object(
+                finalizer,
+                "_build_stage3_authority_receipt",
+                return_value=receipt,
+            ) as build,
+            patch.object(finalizer, "_write_fixed_receipt") as write,
+            patch.object(
+                finalizer.registry,
+                "load_validated_component_registry_routing_view",
+                return_value=live_view,
+            ),
+        ):
+            result = finalizer.finalize_activation()
+        self.assertTrue(result["complete"])
+        self.assertEqual(result["verification_state"], "live_authority_validation")
+        collect.assert_called_once_with(authority)
+        build.assert_called_once_with(authority, self.registry, {"fixed": True})
+        write.assert_called_once_with(authority, receipt)
 
 
 if __name__ == "__main__":

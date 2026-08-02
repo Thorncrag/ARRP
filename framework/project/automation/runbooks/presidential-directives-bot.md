@@ -9,7 +9,7 @@ trigger: local-chain-when-due
 schedule: "Due every 24 hours within the 02:00 America/New_York local chain; no independent schedule"
 runtime_id: scripts/check_presidential_directives.py
 execution_environment: local-transaction-worktree
-runtime_config: .github/presidential-directives-bot.json
+runtime_config: framework/project/automation/configuration/bots/presidential-directives-bot.json
 log_path: owner-local:records/automation/agent-audit-log.md
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."

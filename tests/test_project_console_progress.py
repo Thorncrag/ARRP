@@ -340,7 +340,7 @@ class ProjectConsoleProgressTests(unittest.TestCase):
 
     def test_production_config_projects_only_approved_workflow_statuses(self):
         config = MODULE.read_json(
-            ROOT / "framework/project/interfaces/project-console-progress.json"
+            ROOT / "framework/project/interfaces/project-console/configuration/progress.json"
         )
         self.assertEqual(
             tuple(config["workflowStatuses"]),
@@ -393,9 +393,9 @@ class ProjectConsoleProgressTests(unittest.TestCase):
         self.assertEqual(payload["history"][0]["date"], "2026-06-24")
 
     def test_repository_retrospective_seed_preserves_baseline_after_scope_changes(self):
-        seed = MODULE.read_json(ROOT / ".github" / "progress-history-seed.json")
+        seed = MODULE.read_json(ROOT / "framework/project/interfaces/project-console/configuration/progress-history-seed.json")
         config = MODULE.read_json(
-            ROOT / "framework/project/interfaces/project-console-progress.json"
+            ROOT / "framework/project/interfaces/project-console/configuration/progress.json"
         )
         registry = MODULE.read_registry(ROOT / "inventory" / "github_issue_registry.csv")
         evidence = seed["attainmentEvidence"]
@@ -444,7 +444,7 @@ class ProjectConsoleProgressTests(unittest.TestCase):
 
     def test_portfolio_architecture_separates_scope_from_earned_readiness(self):
         config = MODULE.read_json(
-            ROOT / "framework/project/interfaces/project-console-progress.json"
+            ROOT / "framework/project/interfaces/project-console/configuration/progress.json"
         )
         architecture = MODULE.portfolio_architecture(
             {
@@ -479,7 +479,7 @@ class ProjectConsoleProgressTests(unittest.TestCase):
 
     def test_portfolio_architecture_rejects_noncanonical_record_path(self):
         config = MODULE.read_json(
-            ROOT / "framework/project/interfaces/project-console-progress.json"
+            ROOT / "framework/project/interfaces/project-console/configuration/progress.json"
         )
         config["portfolioArchitectureRecord"] = "../../outside.md"
         with self.assertRaisesRegex(ValueError, "canonical allowlisted record"):

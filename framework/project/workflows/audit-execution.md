@@ -14,8 +14,8 @@ dependencies:
   - "../github/workflow.md"
   - "navigation-sync.md"
   - "source-adjudication.md"
-  - "../interfaces/project-console.md"
-  - "../interfaces/project-console-progress.md"
+  - "../interfaces/project-console/specification.md"
+  - "../interfaces/project-console/configuration/progress.json"
 print_status: excluded
 print_exclusion_reason: "Internal project workflow."
 ---
@@ -68,7 +68,7 @@ workflow Status as a substitute for source or issue monitoring.
 
 Use the exact source catalogs, fields, paths, and reconciliation rules in
 [ARRP Source Catalog and Adjudication](source-adjudication.md). Apply the
-[Project Console source-projection refresh](../interfaces/project-console.md#source-projection-refresh)
+[Project Console source-projection refresh](../interfaces/project-console/specification.md#source-projection-refresh)
 whenever one of its canonical inputs changes. Source and Console
 reconciliation does not create another audit run.
 

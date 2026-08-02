@@ -321,7 +321,7 @@ class SourceCheckerTests(unittest.TestCase):
 
     def test_runtime_config_names_local_typed_data_and_prior_success(self):
         config = json.loads(
-            (ROOT / ".github" / "source-checker-bot.json").read_text(encoding="utf-8")
+            (ROOT / "framework/project/automation/configuration/bots/source-checker-bot.json").read_text(encoding="utf-8")
         )
         self.assertEqual(config["deploymentStatus"], "local-first-enabled")
         self.assertNotIn("dataBranch", config)

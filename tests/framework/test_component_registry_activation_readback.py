@@ -1116,7 +1116,7 @@ class ComponentRegistryStage2ReadbackTests(unittest.TestCase):
                 ["git", "-C", repository, "config", key, value],
                 check=True,
             )
-        schema = repository / "framework/standards/automation/component-registry.schema.json"
+        schema = repository / "framework/component-registry.schema.json"
         schema.parent.mkdir(parents=True)
         shutil.copy2(SCHEMA_PATH, schema)
         subprocess.run(["git", "-C", repository, "add", str(schema)], check=True)

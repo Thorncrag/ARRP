@@ -991,7 +991,7 @@ class HorizonIntakeTest(unittest.TestCase):
 
     def test_console_has_no_retired_control_plane_authority(self) -> None:
         interface = (
-            ROOT / "framework" / "project" / "interfaces" / "project-console.md"
+            ROOT / "framework/project/interfaces/project-console/specification.md"
         ).read_text(encoding="utf-8")
         self.assertIn("retired localhost coordinator control plane", interface)
         self.assertIn("has no current authority", interface)
@@ -1864,15 +1864,15 @@ class HorizonIntakeTest(unittest.TestCase):
 
         framework = (ROOT / "framework" / "FRAMEWORK.md").read_text(encoding="utf-8")
         interface = (
-            ROOT / "framework" / "project" / "interfaces" / "project-console.md"
+            ROOT / "framework/project/interfaces/project-console/specification.md"
         ).read_text(encoding="utf-8")
         self.assertEqual(
             framework.count("### Project-Operated Interface Visual Standard"),
             1,
         )
         self.assertIn(
-            "[`project/interfaces/project-console.md`]"
-            "(project/interfaces/project-console.md)",
+            "[`project/interfaces/project-console/specification.md`]"
+            "(project/interfaces/project-console/specification.md)",
             framework,
         )
         self.assertIn(
@@ -2220,7 +2220,7 @@ class HorizonIntakeTest(unittest.TestCase):
         self.assertIn("Preliminary candidates", console_html)
         self.assertIn("ARRP Project Console", console_html)
         self.assertIn("catalog-data.js?v=48", console_html)
-        self.assertIn("app.js?v=102", console_html)
+        self.assertIn("app.js?v=104", console_html)
         self.assertIn("styles.css?v=104", console_html)
         self.assertEqual(
             re.findall(r'<script src="(data/[^"]+)"', console_html),

@@ -212,7 +212,7 @@ RECOGNIZED_NEW_PREFIXES = (
     "topics/",
     "research/",
     "inventory/",
-    "framework/records/",
+    "framework/logs/",
 )
 PRIVATE_NAMES = frozenset({".env", ".env.local", "PAUSED"})
 RUNTIME_FILES = (
@@ -2769,7 +2769,7 @@ def default_local_stage_specs(python: str | None = None) -> tuple[LocalStageSpec
                 interpreter,
                 "{worktree}/scripts/build_project_console_progress.py",
                 "--config",
-                "{worktree}/framework/project/interfaces/project-console-progress.json",
+                "{worktree}/framework/project/interfaces/project-console/configuration/progress.json",
                 "--registry",
                 "{worktree}/inventory/github_issue_registry.csv",
                 "--output",
@@ -3462,7 +3462,7 @@ def run_production_cycle(
     run_dir = config.state_root / "runs" / transaction.run_id
     ensure_owner_directory(run_dir)
     coordinator = runtime / "scripts/run_coordinator.py"
-    coordinator_config = worktree / ".github/run-coordinator-bot.json"
+    coordinator_config = worktree / "framework/project/automation/configuration/bots/run-coordinator-bot.json"
     chain = run_dir / "run-chain.json"
     signals = run_dir / "signals.json"
     atomic_write_json(
@@ -5335,7 +5335,7 @@ def publish_production_transaction(
     ]:
         raise TransactionError("production cycle has no publishable evidence")
     run_config = read_json_object(
-        worktree / ".github/run-coordinator-bot.json"
+        worktree / "framework/project/automation/configuration/bots/run-coordinator-bot.json"
     )
     publication = run_config.get("publication")
     required = {

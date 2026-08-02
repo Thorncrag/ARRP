@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/Thorncrag/ARRP/blob/main/.github/source-domain-event.schema.json",
+  "$id": "https://github.com/Thorncrag/ARRP/blob/main/framework/project/automation/schemas/source-domain-event.schema.json",
   "title": "ARRP source-domain event",
   "description": "A minimized, immutable provenance record for a deterministic source watcher proposal and its separately verified human-acceptance boundary.",
   "type": "object",
@@ -28,7 +28,7 @@
       "const": 1
     },
     "schema_uri": {
-      "const": ".github/source-domain-event.schema.json"
+      "const": "framework/project/automation/schemas/source-domain-event.schema.json"
     },
     "kind": {
       "const": "source-domain-event"

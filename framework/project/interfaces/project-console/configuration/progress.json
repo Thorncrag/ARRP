@@ -51,7 +51,7 @@
     "velocityWindowDays": 28,
     "minimumForecastDays": 7
   },
-  "historySeedPath": ".github/progress-history-seed.json",
+  "historySeedPath": "framework/project/interfaces/project-console/configuration/progress-history-seed.json",
   "historyInput": "<last-success>/project-console-progress-bot/history.json",
   "historyOutput": "<run-dir>/progress/history.json"
 }

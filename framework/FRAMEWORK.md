@@ -174,8 +174,8 @@ The following routes are cumulative. Each linked module states its own load trig
 | Security Incident identity, protected investigation, containment, verification, or closure | [`security-incidents.json`](project/automation/security-incidents.json) |
 | Reciprocal `INC`/`SEC` relationship identity or navigation | [`incident-relations.json`](project/automation/incident-relations.json) |
 | Material governance-decision identity, public provenance, adoption, supersession, validation, activation posture, or protected-supplement requirement | [`ARRP Governance Change Recording`](project/workflows/governance-change-recording.md) and [`governance-change-registry.json`](project/workflows/governance-change-registry.json) |
-| Project-operated interface layout and behavior | [`standards/interfaces/standard.md`](standards/interfaces/standard.md) and [`project/interfaces/project-console.md`](project/interfaces/project-console.md) |
-| Console progress calculation and display | [`standards/interfaces/progress-views.md`](standards/interfaces/progress-views.md) and [`project/interfaces/project-console-progress.md`](project/interfaces/project-console-progress.md) |
+| Project-operated interface layout and behavior | [`standards/interfaces/standard.md`](standards/interfaces/standard.md) and [`project/interfaces/project-console/specification.md`](project/interfaces/project-console/specification.md) |
+| Console progress calculation and display | [`standards/interfaces/progress-views.md`](standards/interfaces/progress-views.md) and [`project/interfaces/project-console/configuration/progress.md`](project/interfaces/project-console/configuration/progress.md) |
 | Publication and compiled editions | [`standards/publication/`](standards/publication/), [`project/publication/`](project/publication/), and [`project/publication/print-assembly.json`](project/publication/print-assembly.json) |
 
 ## Comprehensive Review Boundary

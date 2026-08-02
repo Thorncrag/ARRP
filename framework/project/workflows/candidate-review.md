@@ -95,7 +95,7 @@ preliminary queue or leave evidence routes pointing to obsolete
 `INTAKE-GAP-*` identifiers.
 
 The
-[Project Console candidate views](../interfaces/project-console.md#project-console-information-architecture)
+[Project Console candidate views](../interfaces/project-console/specification.md#project-console-information-architecture)
 are read-only projections of these records and do not change a disposition.
 
 ## Horizon Candidate Adjudication Workflow

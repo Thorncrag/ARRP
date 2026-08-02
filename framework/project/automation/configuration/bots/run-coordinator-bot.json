@@ -158,7 +158,7 @@
     },
     {
       "id": "project-console-progress-bot",
-      "command": "python3 scripts/build_project_console_progress.py --config framework/project/interfaces/project-console-progress.json --registry inventory/github_issue_registry.csv --output <run-dir>/progress",
+      "command": "python3 scripts/build_project_console_progress.py --config framework/project/interfaces/project-console/configuration/progress.json --registry inventory/github_issue_registry.csv --output <run-dir>/progress",
       "output": "<run-dir>/progress",
       "due": {
         "kind": "interval",

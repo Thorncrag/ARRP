@@ -1243,8 +1243,6 @@ def _build_receipt(
         schema = registry._read_json(
             authority.repository_root
             / "framework"
-            / "standards"
-            / "automation"
             / "component-registry.schema.json"
         )
         registry._validate_activation_readback_schema(
@@ -1569,8 +1567,6 @@ def verify_fixture_and_write(
         schema = registry._read_json(
             path_authority.repository_root
             / "framework"
-            / "standards"
-            / "automation"
             / "component-registry.schema.json"
         )
         registry._validate_against_schema(
@@ -2027,8 +2023,6 @@ def _build_stage2_authority_receipt(
         schema = registry._read_json(
             authority.repository_root
             / "framework"
-            / "standards"
-            / "automation"
             / "component-registry.schema.json"
         )
         validator(receipt, schema=schema)
@@ -2050,8 +2044,6 @@ def _load_stage2_authority_receipt(
         schema = registry._read_json(
             authority.repository_root
             / "framework"
-            / "standards"
-            / "automation"
             / "component-registry.schema.json"
         )
     except (OSError, registry.RegistryError) as exc:
@@ -2608,8 +2600,6 @@ def _build_stage2_production_receipt(
         schema = registry._read_json(
             authority.repository_root
             / "framework"
-            / "standards"
-            / "automation"
             / "component-registry.schema.json"
         )
         registry._validate_stage2_adoption_readback_schema(
@@ -2692,8 +2682,6 @@ def verify_stage2_fixture_and_write(
         receipt_schema = registry._read_json(
             registry.ROOT
             / "framework"
-            / "standards"
-            / "automation"
             / "component-registry.schema.json"
         )
         registry._validate_against_schema(
@@ -2732,6 +2720,213 @@ def verify_stage2_fixture_and_write(
     }
 
 
+def _collect_stage3_authority_observations(
+    authority: ProjectPathAuthority,
+) -> dict[str, Any]:
+    """Collect one coherent exact-main observation for the Stage 3 merge."""
+
+    if authority.mode != "production_canonical":
+        raise ActivationFinalizationError(
+            "Stage 3 authority observation requires fixed production authority"
+        )
+    repository_start = _run_json("gh", "api", "repos/Thorncrag/ARRP")
+    branch_start = _run_json("gh", "api", "repos/Thorncrag/ARRP/branches/main")
+    if not isinstance(repository_start, Mapping) or not isinstance(branch_start, Mapping):
+        raise ActivationFinalizationError("Stage 3 repository observation is malformed")
+    remote_main = str(branch_start.get("commit", {}).get("sha") or "")
+    pull_request = _pull_request_for_merge_commit(remote_main)
+    effective_rules = _collect_effective_main_rules()
+    checks = _collect_pull_request_checks(
+        pull_request,
+        branch=branch_start,
+        effective_rules=effective_rules["effective_rules"],
+    )
+    reviewed_head = str(pull_request.get("head", {}).get("sha") or "")
+    reviewed_registry = _run_json(
+        "gh", "api", "-H", "Accept: application/vnd.github.raw+json",
+        "repos/Thorncrag/ARRP/contents/"
+        f"{registry.CANONICAL_REGISTRY_PATH}?ref={reviewed_head}",
+    )
+    remote_registry = _run_json(
+        "gh", "api", "-H", "Accept: application/vnd.github.raw+json",
+        "repos/Thorncrag/ARRP/contents/"
+        f"{registry.CANONICAL_REGISTRY_PATH}?ref={remote_main}",
+    )
+    repository_end = _run_json("gh", "api", "repos/Thorncrag/ARRP")
+    branch_end = _run_json("gh", "api", "repos/Thorncrag/ARRP/branches/main")
+    if (
+        not isinstance(repository_end, Mapping)
+        or not isinstance(branch_end, Mapping)
+        or repository_end.get("id") != repository_start.get("id")
+        or repository_end.get("node_id") != repository_start.get("node_id")
+        or repository_end.get("full_name") != repository_start.get("full_name")
+        or branch_end.get("commit", {}).get("sha") != remote_main
+    ):
+        raise ActivationFinalizationError(
+            "remote repository moved during Stage 3 authority observation"
+        )
+    return {
+        "repository": repository_start,
+        "remote_main_revision": remote_main,
+        "pull_request": pull_request,
+        "checks": checks,
+        "reviewed_registry": reviewed_registry,
+        "remote_registry": remote_registry,
+        "local_revision": _git(authority.repository_root, "rev-parse", "HEAD"),
+        "origin_main_revision": _git(
+            authority.repository_root,
+            "rev-parse",
+            "refs/remotes/origin/main",
+        ),
+        "verified_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+    }
+
+
+def _stage3_authority_receipt_payload(
+    stage3_registry: Mapping[str, Any],
+    *,
+    repository_evidence: Mapping[str, Any],
+    canonical_revision: str,
+    merge_evidence: Mapping[str, Any],
+    verified_at: str,
+) -> dict[str, Any]:
+    model = registry._validate_stage2_authority_digest_model(stage3_registry)
+    receipt = {
+        "schema_version": 1,
+        "verification_type": "component_registry_stage3_authority_readback",
+        "issuer": "component_registry_activation_finalizer",
+        "repository": {
+            "id": repository_evidence["id"],
+            "node_id": repository_evidence["node_id"],
+            "full_name": "Thorncrag/ARRP",
+            "default_branch": "main",
+        },
+        "registry_id": stage3_registry["registry_id"],
+        "registry_revision": stage3_registry["registry_revision"],
+        "registry_sha256": registry._canonical_registry_digest(stage3_registry),
+        "authority_sha256": registry._stage2_authority_digest(stage3_registry),
+        "authority_protocol": model["protocol"],
+        "authority_generation": model["generation"],
+        "canonical_revision": canonical_revision,
+        "design_contract": {
+            "design_id": registry.STAGE3_DESIGN_ID,
+            "design_revision": registry.STAGE3_DESIGN_REVISION,
+            "contract_revision": 1,
+            "external_evidence_id": registry.STAGE3_EXTERNAL_EVIDENCE_ID,
+            "contract_sha256": registry.STAGE3_CONTRACT_SHA256,
+        },
+        "validation_mode": "live_authority_validation",
+        "merge_evidence": dict(merge_evidence),
+        "verified_at": verified_at,
+    }
+    try:
+        schema = registry._read_json(
+            registry.ROOT / "framework" / "component-registry.schema.json"
+        )
+        registry._validate_stage3_authority_readback_schema(receipt, schema=schema)
+    except registry.RegistryError as exc:
+        raise ActivationFinalizationError(
+            "Stage 3 authority receipt failed its closed schema"
+        ) from exc
+    return receipt
+
+
+def _build_stage3_authority_receipt(
+    authority: ProjectPathAuthority,
+    stage3_registry: Mapping[str, Any],
+    observations: Mapping[str, Any],
+) -> dict[str, Any]:
+    if authority.mode != "production_canonical":
+        raise ActivationFinalizationError(
+            "Stage 3 authority receipt requires fixed production authority"
+        )
+    try:
+        registry.validate_stage3_registry(stage3_registry, root=authority.repository_root)
+    except registry.RegistryError as exc:
+        raise ActivationFinalizationError("Stage 3 Registry validation failed") from exc
+    repository_evidence = observations.get("repository")
+    pull_request = observations.get("pull_request")
+    remote_main = str(observations.get("remote_main_revision") or "")
+    if (
+        not isinstance(repository_evidence, Mapping)
+        or not isinstance(repository_evidence.get("id"), int)
+        or not isinstance(repository_evidence.get("node_id"), str)
+        or repository_evidence.get("full_name") != "Thorncrag/ARRP"
+        or repository_evidence.get("default_branch") != "main"
+        or not isinstance(pull_request, Mapping)
+        or observations.get("local_revision") != remote_main
+        or observations.get("origin_main_revision") != remote_main
+    ):
+        raise ActivationFinalizationError("Stage 3 canonical repository identity differs")
+    merge = _merge_evidence(authority.repository_root, pull_request, remote_main)
+    required_checks = _validated_required_check_evidence(
+        observations["checks"],
+        reviewed_head=merge["reviewed_head"],
+    )
+    check_time = max(
+        _exact_timestamp(item["completed_at"], "Stage 3 required check")
+        for item in required_checks
+    )
+    merged_at = _exact_timestamp(merge["merged_at"], "Stage 3 merge")
+    verified_at = _exact_timestamp(observations.get("verified_at"), "Stage 3 verification")
+    if check_time > merged_at or merged_at > verified_at:
+        raise ActivationFinalizationError("Stage 3 authority chronology differs")
+    reviewed_registry = observations.get("reviewed_registry")
+    remote_registry = observations.get("remote_registry")
+    if (
+        not isinstance(reviewed_registry, Mapping)
+        or registry.canonical_json(reviewed_registry) != registry.canonical_json(stage3_registry)
+        or not isinstance(remote_registry, Mapping)
+        or registry.canonical_json(remote_registry) != registry.canonical_json(stage3_registry)
+    ):
+        raise ActivationFinalizationError("Stage 3 Registry merge bytes differ")
+    return _stage3_authority_receipt_payload(
+        stage3_registry,
+        repository_evidence=repository_evidence,
+        canonical_revision=remote_main,
+        merge_evidence={**merge, "approved_by": "@Thorncrag", "required_checks": required_checks},
+        verified_at=str(observations["verified_at"]),
+    )
+
+
+def verify_stage3_fixture_and_write(
+    path_authority: ProjectPathAuthority,
+    stage3_registry: Mapping[str, Any],
+    *,
+    canonical_revision: str,
+    merge_evidence: Mapping[str, Any],
+    verified_at: str,
+) -> dict[str, Any]:
+    """Exercise the Stage 3 closed receipt only in contained fixtures."""
+
+    if path_authority.mode != "fixture":
+        raise ActivationFinalizationError("Stage 3 fixture requires fixture authority")
+    try:
+        registry.validate_stage3_registry(stage3_registry, root=registry.ROOT)
+    except registry.RegistryError as exc:
+        raise ActivationFinalizationError("Stage 3 fixture Registry is invalid") from exc
+    receipt = _stage3_authority_receipt_payload(
+        stage3_registry,
+        repository_evidence={
+            "id": 1,
+            "node_id": "fixture-repository",
+        },
+        canonical_revision=canonical_revision,
+        merge_evidence=merge_evidence,
+        verified_at=verified_at,
+    )
+    path = _write_fixed_receipt(path_authority, receipt)
+    return {
+        "created": True,
+        "registry_revision": 3,
+        "registry_sha256": receipt["registry_sha256"],
+        "authority_sha256": receipt["authority_sha256"],
+        "canonical_revision": canonical_revision,
+        "validation_mode": "live_authority_validation",
+        "receipt_path": str(path.relative_to(path_authority.state_root)),
+    }
+
+
 def finalize_activation() -> dict[str, Any]:
     """Finalize one active registry using only fixed production authorities."""
 
@@ -2746,6 +2941,62 @@ def finalize_activation() -> dict[str, Any]:
             "fixed production authority is unavailable"
         ) from exc
     active_registry = registry._read_json(registry_path)
+    if active_registry.get("schema_version") == 3:
+        try:
+            configuration_view = (
+                registry.load_component_registry_configuration_routing_view()
+            )
+        except registry.RegistryError as exc:
+            raise ActivationFinalizationError(
+                "Stage 3 adopted configuration validation failed before observation"
+            ) from exc
+        if (
+            configuration_view.get("validation_mode")
+            != "adopted_configuration_validation"
+            or configuration_view.get("authoritative") is not False
+            or configuration_view.get("executable") is not False
+            or configuration_view.get("source_bytes_current") is not True
+        ):
+            raise ActivationFinalizationError(
+                "Stage 3 adopted configuration posture is invalid"
+            )
+        observations = _collect_stage3_authority_observations(authority)
+        receipt = _build_stage3_authority_receipt(
+            authority,
+            active_registry,
+            observations,
+        )
+        _write_fixed_receipt(authority, receipt)
+        try:
+            live_view = registry.load_validated_component_registry_routing_view(
+                authority
+            )
+        except registry.RegistryError as exc:
+            raise ActivationFinalizationError(
+                "Stage 3 post-publication authority readback failed"
+            ) from exc
+        if (
+            live_view.get("validation_mode") != "live_authority_validation"
+            or live_view.get("authoritative") is not True
+            or live_view.get("executable") is not False
+            or live_view.get("live_authority_verified") is not True
+            or live_view.get("activation_receipt_consulted") is not True
+            or live_view.get("authority_effective") is not True
+            or live_view.get("source_bytes_current") is not True
+            or live_view.get("receipt_trusted") is not True
+            or live_view.get("runtime_live") != "not_checked"
+        ):
+            raise ActivationFinalizationError(
+                "Stage 3 authority posture is invalid"
+            )
+        return {
+            "complete": True,
+            "registry_sha256": receipt["registry_sha256"],
+            "authority_sha256": receipt["authority_sha256"],
+            "canonical_revision": receipt["canonical_revision"],
+            "verification_state": "live_authority_validation",
+            "runtime_live": "not_checked",
+        }
     if active_registry.get("schema_version") == 2:
         try:
             configuration_view = (

@@ -132,7 +132,7 @@ checks uses `Monitoring = Yes` in the catalog that owns it. These states are
 independent.
 
 The [Project Console source projections and rebuild
-triggers](../interfaces/project-console.md#source-projection-refresh) and the
+triggers](../interfaces/project-console/specification.md#source-projection-refresh) and the
 [publication source-list rules](../publication/print-assembly.md#generated-sources-and-supporting-materials-list)
 are downstream views of these canonical records; neither creates another
 source authority.

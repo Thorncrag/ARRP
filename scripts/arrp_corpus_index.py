@@ -29,7 +29,7 @@ def corpus_paths(root: Path) -> list[Path]:
         "areas/*/research/*.md",
         "legislation/*.md",
         "research/*.md",
-        "framework/records/**/*.md",
+        "framework/logs/**/*.md",
     ):
         paths.extend(root.glob(pattern))
     return sorted(

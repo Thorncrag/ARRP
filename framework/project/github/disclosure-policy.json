@@ -36,14 +36,14 @@
       "id": "public-research-and-proposals",
       "category": "public_by_design",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github", "public-release-builder"],
-      "paths": ["areas/**", "legislation/**", "topics/**", "research/**", "framework/proposals/**", "framework/reports/**", "framework/records/audits/console-consistency-remedy-2026-07-28.md", "framework/records/audits/private-runtime-dual-incident-design-2026-07-29.md"],
+      "paths": ["areas/**", "legislation/**", "topics/**", "research/**", "framework/proposals/**", "framework/reports/**"],
       "exclude_paths": ["framework/project/interfaces/project-console/**"]
     },
     {
       "id": "public-source-and-workflow-records",
       "category": "public_by_design",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": ["inventory/**", "framework/logs/audits/**", "framework/logs/candidates/**", "framework/logs/sources/**", "framework/records/audits/change-audit-log.md", "framework/records/candidates/horizon-scan-log.md", "framework/records/sources/source-monitor-log.md"]
+      "paths": ["inventory/**", "framework/logs/audits/**", "framework/logs/candidates/**", "framework/logs/sources/**"]
     },
     {
       "id": "public-methodology",
@@ -55,7 +55,7 @@
       "id": "public-governance-summary",
       "category": "public_operational_summary",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": ["framework/FRAMEWORK.md", "framework/PROJECT_STRUCTURE.md", "framework/archive/authorities/PROJECT_STRUCTURE.md", "framework/component-registry.json", "framework/receipts/component-registry/**", "framework/standards/README.md", "framework/standards/interfaces/**", "framework/project/README.md", "framework/project/PROJECT_PROFILE.md", "framework/project/REPOSITORY_MAP.md", "framework/archive/authorities/REPOSITORY_MAP.md", "framework/project/interfaces/**", "framework/archive/operational/**", "framework/archive/baselines/**", "framework/logs/governance/**", "framework/status/**", "framework/records/README.md", "framework/records/automation/agent-audit-summary.md", "framework/records/automation/elim-run-summary.md", "framework/records/baselines/project-console-progress.md", "framework/records/governance/README.md", "framework/records/governance/governance-change-log.md", "framework/records/status/project-integrity-report.md", "framework/records/status/source-checker-report.md"],
+      "paths": ["framework/FRAMEWORK.md", "framework/PROJECT_STRUCTURE.md", "framework/archive/authorities/PROJECT_STRUCTURE.md", "framework/component-registry.json", "framework/component-registry.schema.json", "framework/receipts/component-registry/**", "framework/standards/README.md", "framework/standards/interfaces/**", "framework/project/README.md", "framework/project/PROJECT_PROFILE.md", "framework/project/REPOSITORY_MAP.md", "framework/archive/authorities/REPOSITORY_MAP.md", "framework/project/interfaces/**", "framework/archive/operational/**", "framework/archive/baselines/**", "framework/logs/governance/**", "framework/status/**"],
       "exclude_paths": ["framework/project/interfaces/project-console/**"]
     },
     {
@@ -94,13 +94,13 @@
       "id": "portable-repository-administration",
       "category": "public_operational_summary",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": [".gitattributes", ".gitignore", ".rgignore", ".github/CODEOWNERS", ".github/SECURITY.md", ".github/*.json", ".github/launchd/com.thorncrag.arrp-nightly.plist.example", "framework/project/automation/configuration/launchd/**", "requirements-*.txt", "exports/README.md", "framework/handoffs/**", "framework/records/handoffs/current-task.md", "framework/project/github/disclosure-boundary.md", "framework/project/github/disclosure-policy.json"]
+      "paths": [".gitattributes", ".gitignore", ".rgignore", ".github/CODEOWNERS", ".github/SECURITY.md", ".github/*.json", ".github/launchd/com.thorncrag.arrp-nightly.plist.example", "framework/project/automation/configuration/launchd/**", "requirements-*.txt", "exports/README.md", "framework/handoffs/**", "framework/project/github/disclosure-boundary.md", "framework/project/github/disclosure-policy.json"]
     },
     {
       "id": "portable-automation-and-controls",
       "category": "public_operational_summary",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github"],
-      "paths": ["scripts/**", "tests/**", ".github/workflows/**", "framework/project/automation/**", "framework/archive/authorities/AGENT_BOT_REGISTRY.md", "framework/archive/authorities/context-routes.json", "framework/logs/automation/**", "framework/receipts/automation/**", "framework/receipts/disclosure/**", "framework/standards/automation/**", "framework/records/automation/console-development-log.md", "framework/records/automation/disclosure-classification-summary-2026-07-28.json", "framework/records/automation/p4-github-app-ordinary-fixture.txt", "framework/records/automation/p6-cutover-evidence.md", "AGENTS.md", "framework/AGENT_OPERATING_RULES.md", "framework/CONTEXT_ROUTING.md", "framework/archive/authorities/CONTEXT_ROUTING.md"],
+      "paths": ["scripts/**", "tests/**", ".github/workflows/**", "framework/project/automation/**", "framework/archive/authorities/AGENT_BOT_REGISTRY.md", "framework/archive/authorities/context-routes.json", "framework/logs/automation/**", "framework/receipts/automation/**", "framework/receipts/disclosure/**", "framework/standards/automation/**", "AGENTS.md", "framework/AGENT_OPERATING_RULES.md", "framework/CONTEXT_ROUTING.md", "framework/archive/authorities/CONTEXT_ROUTING.md"],
       "exclude_paths": ["framework/project/automation/configuration/launchd/**"]
     },
     {

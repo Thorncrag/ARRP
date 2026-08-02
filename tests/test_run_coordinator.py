@@ -128,7 +128,7 @@ def review_epoch_routing_boundary(
 class RunCoordinatorTests(unittest.TestCase):
     def setUp(self):
         self.config = json.loads(
-            (ROOT / ".github" / "run-coordinator-bot.json").read_text()
+            (ROOT / "framework/project/automation/configuration/bots/run-coordinator-bot.json").read_text()
         )
         self.now = datetime(2026, 7, 24, 8, tzinfo=timezone.utc)
 
@@ -146,7 +146,7 @@ class RunCoordinatorTests(unittest.TestCase):
                 "discovered_work_unit_id": "discovery-control-1",
                 "source_revision": "b" * 40,
                 "disposition": "no_material_finding",
-                "canonical_detail": "framework/records/automation/elim-run-log.md",
+                "canonical_detail": "framework/logs/automation/elim-run-log.md",
                 "next_trigger": "Repeat at the minimum cadence or when new work appears.",
             }
             if current
@@ -186,7 +186,7 @@ class RunCoordinatorTests(unittest.TestCase):
             "last_checked": "2026-07-24T08:00:00+00:00",
             "occurrence_count": 2,
             "age_days": 4,
-            "canonical_detail": "framework/records/automation/elim-run-log.md",
+            "canonical_detail": "framework/logs/automation/elim-run-log.md",
             "exact_next_action": "Retain the finding until its recorded trigger.",
             "next_trigger": "A governing rule authorizes the change.",
             "source_revision": "c" * 40,
@@ -208,8 +208,8 @@ class RunCoordinatorTests(unittest.TestCase):
                 "obligation_id": "GAP-001",
                 "obligation_status": "open",
                 "obligation_projection": projection,
-                "canonicalRecord": "framework/records/automation/elim-run-log.md",
-                "canonical_record": "framework/records/automation/elim-run-log.md",
+                "canonicalRecord": "framework/logs/automation/elim-run-log.md",
+                "canonical_record": "framework/logs/automation/elim-run-log.md",
             },
         }
 
@@ -233,7 +233,7 @@ class RunCoordinatorTests(unittest.TestCase):
             root = Path(directory)
             output = root / "run-chain.json"
             args = mock.Mock(
-                config=ROOT / ".github/run-coordinator-bot.json",
+                config=ROOT / "framework/project/automation/configuration/bots/run-coordinator-bot.json",
                 previous=None,
                 signals=None,
                 now="2026-07-24T08:00:00+00:00",
@@ -999,7 +999,7 @@ class RunCoordinatorTests(unittest.TestCase):
                 "Args",
                 (),
                 {
-                    "config": ROOT / ".github" / "run-coordinator-bot.json",
+                    "config": ROOT / "framework/project/automation/configuration/bots/run-coordinator-bot.json",
                     "manifest": path,
                     "stage_results": results,
                     "output": None,
@@ -1057,7 +1057,7 @@ class RunCoordinatorTests(unittest.TestCase):
                 "Args",
                 (),
                 {
-                    "config": ROOT / ".github" / "run-coordinator-bot.json",
+                    "config": ROOT / "framework/project/automation/configuration/bots/run-coordinator-bot.json",
                     "manifest": path,
                     "stage_results": results,
                     "output": None,
@@ -1145,7 +1145,7 @@ class RunCoordinatorTests(unittest.TestCase):
                 "Args",
                 (),
                 {
-                    "config": ROOT / ".github/run-coordinator-bot.json",
+                    "config": ROOT / "framework/project/automation/configuration/bots/run-coordinator-bot.json",
                     "manifest": path,
                     "stage_results": results,
                     "output": None,
@@ -1239,7 +1239,7 @@ class RunCoordinatorTests(unittest.TestCase):
                 "Args",
                 (),
                 {
-                    "config": ROOT / ".github" / "run-coordinator-bot.json",
+                    "config": ROOT / "framework/project/automation/configuration/bots/run-coordinator-bot.json",
                     "manifest": path,
                     "stage_results": results,
                     "output": None,
@@ -1324,7 +1324,7 @@ class RunCoordinatorTests(unittest.TestCase):
                 "Args",
                 (),
                 {
-                    "config": ROOT / ".github" / "run-coordinator-bot.json",
+                    "config": ROOT / "framework/project/automation/configuration/bots/run-coordinator-bot.json",
                     "manifest": path,
                     "stage_results": results,
                     "output": None,
@@ -1393,7 +1393,7 @@ class RunCoordinatorTests(unittest.TestCase):
                 "Args",
                 (),
                 {
-                    "config": ROOT / ".github" / "run-coordinator-bot.json",
+                    "config": ROOT / "framework/project/automation/configuration/bots/run-coordinator-bot.json",
                     "manifest": path,
                     "stage_results": results,
                     "output": None,
@@ -1775,7 +1775,7 @@ class RunCoordinatorTests(unittest.TestCase):
         self.assertEqual(projected["authority_disposition"], "forbidden")
         self.assertEqual(
             projected["canonical_detail"],
-            "framework/records/automation/elim-run-log.md",
+            "framework/logs/automation/elim-run-log.md",
         )
         self.assertNotIn("evidence", projected)
         self.assertNotIn("reasoning", projected)
