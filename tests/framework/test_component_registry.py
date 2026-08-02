@@ -195,7 +195,7 @@ class ComponentRegistryStage3Tests(unittest.TestCase):
                 expected,
                 component_id,
             )
-        self.assertEqual(len(content_bound_ids), 101)
+        self.assertEqual(len(content_bound_ids), 100)
 
     def test_authority_digest_is_sensitive_to_all_other_change_classes(self):
         expected = registry._stage2_authority_digest(self.registry)
@@ -734,6 +734,37 @@ class ComponentRegistryStage3Tests(unittest.TestCase):
                 root=ROOT,
                 verify_repository_coverage=False,
                 verify_source_bindings=False,
+            )
+
+    def test_task_handoff_uses_runtime_observation_without_weakening_other_sources(self):
+        handoff_binding = self.registry["components"]["entries"]["task_handoff"][
+            "canonical_source"
+        ]["source_binding"]
+        self.assertEqual(handoff_binding["binding_basis"], "runtime_observation")
+        self.assertEqual(
+            handoff_binding["verification_methods"], ["runtime_verification"]
+        )
+        self.assertNotIn("sha256", handoff_binding)
+        route = registry._stage2_route_snapshot(self.registry)
+        self.assertEqual(route["documents"]["task_handoff"]["hash_policy"], "runtime")
+        self.assertNotIn("sha256", route["documents"]["task_handoff"])
+
+        ordinary_binding = self.registry["components"]["entries"]["framework_kernel"][
+            "canonical_source"
+        ]["source_binding"]
+        self.assertEqual(ordinary_binding["binding_basis"], "content_digest")
+        self.assertRegex(ordinary_binding["sha256"], r"^[0-9a-f]{64}$")
+
+        altered = copy.deepcopy(self.registry)
+        altered["components"]["entries"]["framework_kernel"]["canonical_source"][
+            "source_binding"
+        ]["sha256"] = "0" * 64
+        with self.assertRaisesRegex(registry.RegistryError, "source digest is stale"):
+            registry.validate_stage3_registry(
+                altered,
+                root=ROOT,
+                verify_repository_coverage=False,
+                verify_source_bindings=True,
             )
 
     def test_schema_rejects_unknown_top_level_field(self):

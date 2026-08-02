@@ -3360,6 +3360,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "logs.js": "project-console-6976cf05fa319af81bcb"
+    "logs.js": "project-console-0190622e65aa208fbcb9"
   }
 });

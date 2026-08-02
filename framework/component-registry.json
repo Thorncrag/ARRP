@@ -3675,12 +3675,11 @@
             "value": "framework/handoffs/current-task.md"
           },
           "source_binding": {
-            "binding_basis": "content_digest",
+            "binding_basis": "runtime_observation",
             "applicability": "current",
             "verification_methods": [
-              "pinned_comparison"
+              "runtime_verification"
             ],
-            "sha256": "c7583f8b3a3a11ac7d7ab581ddacbedc7157c46e9e7b1bbbbdec7b36eda369df",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -8687,7 +8686,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "b1703867c9f9787b13c8a395bd0aec4a922c50f31a5a59c487ffd203ac88bf57",
+            "sha256": "107b288a2852bf64c729bffc7114bcd07c21e4c8539d71c765cd1721e10fb08a",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -8761,7 +8760,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "a91e316755cb0c28baee0e9264128e23fb1955aa9079b098b8a7960489d85b52",
+            "sha256": "8ba5d128b58b1e25eb7da747d1d717528b015d100d69b9f811854106794b547a",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },
@@ -8824,7 +8823,7 @@
             "verification_methods": [
               "pinned_comparison"
             ],
-            "sha256": "931876ae1234c0c916cef0b4482f6645841964f4bbd8182db27f7a3c3b0119b8",
+            "sha256": "bbbd889067d0b5b0689798d1f850c6891cbce0716fce6ac0b2b66f3e6729928f",
             "evidence_ref": "stage2_migration_from_stage1"
           }
         },

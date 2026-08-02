@@ -2778,8 +2778,16 @@ def _collect_stage3_authority_observations(
             "rev-parse",
             "refs/remotes/origin/main",
         ),
-        "verified_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "verified_at": _stage3_verified_at(),
     }
+
+
+def _stage3_verified_at() -> str:
+    """Return the closed Stage 3 receipt timestamp at whole-second precision."""
+
+    return datetime.now(timezone.utc).isoformat(timespec="seconds").replace(
+        "+00:00", "Z"
+    )
 
 
 def _stage3_authority_receipt_payload(

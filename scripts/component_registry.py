@@ -3006,9 +3006,24 @@ def _validate_stage3_authority_repository_binding(
         raise RegistryError("Stage 3 authority merge parents differ")
     head = _repository_head(root)
     origin_main = _git_output(root, "rev-parse", "refs/remotes/origin/main").strip()
-    if head != canonical_revision or origin_main != canonical_revision:
+    if (
+        head is None
+        or re.fullmatch(r"[0-9a-f]{40}", origin_main) is None
+        or head != origin_main
+        or not _git_is_ancestor(root, canonical_revision, head)
+        or not _git_is_ancestor(root, canonical_revision, origin_main)
+    ):
         raise RegistryError("Stage 3 authority is not synchronized to canonical main")
-    for revision in (revisions[2], canonical_revision):
+    if _git_output(
+        root,
+        "status",
+        "--porcelain",
+        "--untracked-files=no",
+        "--",
+        CANONICAL_REGISTRY_PATH,
+    ).strip():
+        raise RegistryError("Stage 3 authority Registry checkout is not clean")
+    for revision in (revisions[2], canonical_revision, head, origin_main):
         bound = _registry_at_revision(root, revision)
         if canonical_json(bound) != canonical_json(stage3_registry):
             raise RegistryError("Stage 3 authority Registry bytes differ from canonical Git")
@@ -9022,8 +9037,27 @@ def _stage2_route_snapshot(registry: Mapping[str, Any]) -> dict[str, Any]:
         path = _stage2_component_path(component)
         binding = component.get("canonical_source", {}).get("source_binding", {})
         digest = binding.get("sha256") if isinstance(binding, Mapping) else None
-        if path is None or not isinstance(digest, str) or SHA256_RE.fullmatch(digest) is None:
+        if path is None:
             raise RegistryError(f"Stage 2 route component {component_id!r} lacks an exact source binding")
+        if component_id == "task_handoff" and registry.get("schema_version") == 3:
+            if (
+                not isinstance(binding, Mapping)
+                or binding.get("binding_basis") != "runtime_observation"
+                or binding.get("verification_methods") != ["runtime_verification"]
+                or "sha256" in binding
+            ):
+                raise RegistryError(
+                    "Stage 2 task handoff lacks its exact runtime source binding"
+                )
+        elif component_id == "task_handoff":
+            if not isinstance(digest, str) or SHA256_RE.fullmatch(digest) is None:
+                raise RegistryError(
+                    "Stage 2 task handoff lacks its exact candidate source binding"
+                )
+        elif not isinstance(digest, str) or SHA256_RE.fullmatch(digest) is None:
+            raise RegistryError(
+                f"Stage 2 route component {component_id!r} lacks an exact source binding"
+            )
         documents[component_id] = {
             "path": path,
             "hash_policy": "runtime" if component_id == "task_handoff" else "pinned",
