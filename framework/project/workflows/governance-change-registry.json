@@ -405,14 +405,14 @@
       "title": "Component Registry semantic-minimal authority",
       "decision_class": "governance_documentation",
       "authority": ["framework/component-registry.json", "framework/component-registry.schema.json", "scripts/component_registry.py", "scripts/arrp_context.py", "scripts/run_coordinator.py", "scripts/finalize_component_registry_activation.py", "framework/project/automation/owner-local-runtime.md", "framework/project/interfaces/project-console/specification.md"],
-      "source": {"kind": "current_worktree", "commits": [], "pull_requests": []},
+      "source": {"kind": "git_merge", "commits": ["eb569526c0c5281816485683af3bf5fb7a91c662", "15405bb3d4d709678a68c6aacadc1d7d02c8c5c5", "8b9f56a92eb27233c62ad881589cf9760460ef22"], "pull_requests": [511, 512]},
       "destination": "framework/logs/governance/governance-change-log.md#gov-2026-021",
-      "resolution": "Proposed schema-version-4 semantic-minimal Registry authority; canonical adoption, supersession of GOV-2026-020, final Change Audit, and live readback remain reserved for the approved closeout pull request.",
+      "resolution": "Adopts the schema-version-4 semantic-minimal Component Registry as sole component, routing, and CODEOWNERS authority through PRs #511 and #512 and supersedes GOV-2026-020 one-way. Project-wide Change Audit on exact PR1 merge baseline 15405bb3d4d709678a68c6aacadc1d7d02c8c5c5 covers Registry, routing, generated CODEOWNERS, all twelve Console modes, active consumers, governance, disclosure, continuity, and Paused activation; the approved semantic subtraction, exact-version migration, protected-path preservation, Console parity, executable-fixture correction, and historical-log authority correction are incorporated in their owning PR1 files and tests; score, rubric, rebaseline, and Runs effect are None; owning evidence is the consumer closure map, exact Git history, and mapped validation seams; unresolved findings are None.",
       "consumers": ["project_update_closeout", "governance_change_review", "console_builder", "change_audit_review", "console_governance_review"],
-      "status": "Proposed / unmerged",
-      "policy_adoption": "Proposed only; not adopted before the separately approved implementation and closeout merges.",
-      "live_activation": "Not active. No activation readback exists, the Registry component remains nonexecutable, and automation remains Paused.",
-      "relationships": {"supersedes": [], "refines": [], "refined_by": [], "proposed_refinements": []},
+      "status": "Canonical",
+      "policy_adoption": "Adopted on canonical history through PR #511 and PR #512.",
+      "live_activation": "Canonical policy adoption does not itself activate execution. The Registry is nonexecutable and automation remains Paused; live readback is established only by the separately governed schema-version-2 owner-local receipt.",
+      "relationships": {"supersedes": ["GOV-2026-020"], "refines": [], "refined_by": [], "proposed_refinements": []},
       "private_supplement_required": true
     }
   ]
