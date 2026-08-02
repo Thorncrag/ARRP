@@ -3988,6 +3988,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "directives-catalog-004.js": "project-console-6976cf05fa319af81bcb"
+    "directives-catalog-004.js": "project-console-0190622e65aa208fbcb9"
   }
 });

@@ -1404,6 +1404,29 @@ class ComponentRegistryStage3FinalizerTests(unittest.TestCase):
                     evidence["required_checks"].append(
                         copy.deepcopy(evidence["required_checks"][0])
                     )
+                with self.assertRaises(finalizer.ActivationFinalizationError):
+                    finalizer._stage3_authority_receipt_payload(
+                        self.registry,
+                        repository_evidence={"id": 1, "node_id": "fixture"},
+                        canonical_revision=self.merge,
+                        merge_evidence=evidence,
+                        verified_at="2026-08-02T12:03:00Z",
+                    )
+
+    def test_stage3_verified_at_is_whole_second_utc(self):
+        verified_at = finalizer._stage3_verified_at()
+        self.assertRegex(
+            verified_at,
+            r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$",
+        )
+        with self.assertRaises(finalizer.ActivationFinalizationError):
+            finalizer._stage3_authority_receipt_payload(
+                self.registry,
+                repository_evidence={"id": 1, "node_id": "fixture"},
+                canonical_revision=self.merge,
+                merge_evidence=self.merge_evidence,
+                verified_at="2026-08-02T12:03:00.123456Z",
+            )
 
     def test_stage3_receipt_binds_exact_merge_and_synchronized_registry(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -1445,21 +1468,58 @@ class ComponentRegistryStage3FinalizerTests(unittest.TestCase):
                 receipt,
                 root=root,
             )
-            subprocess.run(["git", "-C", str(root), "update-ref", "refs/remotes/origin/main", base], check=True)
+
+            descendant_marker = root / "handoff.txt"
+            descendant_marker.write_text("inactive\n", encoding="utf-8")
+            subprocess.run(["git", "-C", str(root), "add", "handoff.txt"], check=True)
+            subprocess.run(
+                ["git", "-C", str(root), "commit", "-m", "close handoff"],
+                check=True,
+                capture_output=True,
+            )
+            descendant = subprocess.run(
+                ["git", "-C", str(root), "rev-parse", "HEAD"],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip()
+            subprocess.run(
+                [
+                    "git", "-C", str(root), "update-ref",
+                    "refs/remotes/origin/main", descendant,
+                ],
+                check=True,
+            )
+            finalizer.registry._validate_stage3_authority_repository_binding(
+                self.registry,
+                receipt,
+                root=root,
+            )
+
+            registry_path.write_text(
+                json.dumps({**self.registry, "registry_id": "changed"}, indent=2) + "\n",
+                encoding="utf-8",
+            )
+            with self.assertRaises(finalizer.registry.RegistryError):
+                finalizer.registry._validate_stage3_authority_repository_binding(
+                    json.loads(registry_path.read_text(encoding="utf-8")),
+                    receipt,
+                    root=root,
+                )
+            registry_path.write_text(
+                json.dumps(self.registry, indent=2) + "\n",
+                encoding="utf-8",
+            )
+            subprocess.run(
+                ["git", "-C", str(root), "update-ref", "refs/remotes/origin/main", merge],
+                check=True,
+            )
             with self.assertRaises(finalizer.registry.RegistryError):
                 finalizer.registry._validate_stage3_authority_repository_binding(
                     self.registry,
                     receipt,
                     root=root,
                 )
-                with self.assertRaises(finalizer.ActivationFinalizationError):
-                    finalizer._stage3_authority_receipt_payload(
-                        self.registry,
-                        repository_evidence={"id": 1, "node_id": "fixture"},
-                        canonical_revision=self.merge,
-                        merge_evidence=evidence,
-                        verified_at="2026-08-02T12:03:00Z",
-                    )
 
     def test_no_argument_finalizer_uses_stage3_production_path(self):
         receipt = {
