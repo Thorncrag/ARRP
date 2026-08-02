@@ -28,10 +28,15 @@ const testOwnerPath = "/owner-console-fixture/review-copy/project-console.html";
 const testStagedAt = "2026-07-29T12:00:00.000000Z";
 
 function v4ComponentRegistryFixture() {
-  const fixtureWindow = { ARRP_HORIZON_REVIEW_DATA: {} };
   const source = fs.readFileSync(componentRegistryDataPath, "utf8");
-  Function("window", source)(fixtureWindow);
-  return structuredClone(fixtureWindow.ARRP_HORIZON_REVIEW_DATA.component_registry);
+  const assignmentMarker = "Object.assign(window.ARRP_HORIZON_REVIEW_DATA,";
+  const payloadStart = source.indexOf(assignmentMarker);
+  assert.notEqual(payloadStart, -1, "generated registry assignment marker must exist");
+  assert.equal(source.trimEnd().endsWith(");"), true, "generated registry assignment must terminate");
+  const payload = JSON.parse(
+    source.slice(payloadStart + assignmentMarker.length, source.trimEnd().length - 2),
+  );
+  return structuredClone(payload.component_registry);
 }
 
 function ownerProjectionEntry(feedId, filename, marker, availability = "current", complete = true) {
