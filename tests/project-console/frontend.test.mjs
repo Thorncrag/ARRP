@@ -1466,7 +1466,7 @@ test("Component Registry is an Operations subtab after Data and before Logs", ()
   ["components", "classes", "types", "lifecycles", "authority", "relationships", "directories", "exemptions", "unresolved", "routing", "codeowners", "terminology"].forEach((mode) => {
     assert.match(html, new RegExp(`id="component-registry-mode-${mode}"`));
     assert.match(html, new RegExp(`id="component-registry-panel-${mode}"`));
-    assert.match(html, new RegExp(`id="component-registry-${mode}-count"`));
+    assert.doesNotMatch(html, new RegExp(`id="component-registry-${mode}-count"`));
   });
   assert.equal((html.match(/class="email-workspace component-registry-workspace"/g) || []).length, 11);
   assert.equal((html.match(/class="email-list component-registry-list"/g) || []).length, 11);
@@ -1480,6 +1480,21 @@ test("Component Registry is an Operations subtab after Data and before Logs", ()
     ),
     /component-registry/i
   );
+});
+
+test("Component details distinguish entry fields, linked records, and presentation labels", () => {
+  const module = fs.readFileSync(componentRegistryPath, "utf8");
+  assert.match(module, /"Component entry"/);
+  assert.match(module, /"Linked Registry records"/);
+  assert.match(module, /Component entry marks values stored on this component/);
+  assert.match(module, /resolved only through its explicit record references/);
+  assert.match(module, /missing Registry values are never inferred/);
+  assert.match(module, /"Registered component"/);
+  assert.match(module, /"Canonical file"/);
+  assert.match(module, /https:\/\/github\.com\/Thorncrag\/ARRP\/blob\/main\//);
+  assert.match(module, /\["Record references", record\.record_refs\]/);
+  assert.match(module, /\["Component boundary", record\.component_boundary\]/);
+  assert.match(module, /\["Execution controls", record\.execution_controls\]/);
 });
 
 test("term normalization uses the canonical Trump I and Trump II vocabulary", () => {

@@ -1344,40 +1344,6 @@
         ? "Tracked active configuration"
         : "Candidate";
     }
-    const deferred = document.getElementById("component-registry-deferred");
-    if (deferred) {
-      deferred.replaceChildren();
-      deferred.append(
-        node("strong", "", snapshot.deferred.display_state),
-        node(
-          "p",
-          "component-registry-configuration",
-          renderValue(snapshot.registry.configuration_validation)
-        ),
-        node(
-          "p",
-          "component-registry-live-activation",
-          `Live activation — ${renderValue(snapshot.registry.live_activation)}`
-        ),
-        node(
-          "p",
-          "component-registry-readiness",
-          (
-            `Activation readiness — ${snapshot.activation_readiness.requirement_count}`
-            + " requirements cataloged; "
-            + `${snapshot.activation_readiness.exception_count} exceptions; `
-            + (
-              snapshot.activation_readiness.activation_decision
-                === "pending_human_activation"
-                ? "human activation pending"
-                : "tracked configuration active; live readback remains separate"
-            )
-          )
-        ),
-        node("p", "", snapshot.deferred.reason),
-        node("p", "component-registry-activation", snapshot.deferred.activation_requirement)
-      );
-    }
     setModeCount("documents", snapshot.documents.length);
     setModeCount("directories", snapshot.directories.length);
     setModeCount(
@@ -1847,9 +1813,18 @@
     host.append(list);
   }
 
-  function section(host, title, rows) {
+  function section(host, title, rows, sourceKind = "") {
     const value = node("section", "component-registry-detail-section");
-    value.append(node("h4", "", title));
+    const heading = node("div", "component-registry-detail-heading");
+    heading.append(node("h4", "", title));
+    if (sourceKind) {
+      heading.append(node(
+        "span",
+        `component-registry-source-label ${sourceKind}`,
+        sourceKind === "entry" ? "Component entry" : "Linked Registry records"
+      ));
+    }
+    value.append(heading);
     appendRows(value, rows);
     host.append(value);
   }
@@ -1882,8 +1857,56 @@
       || "Unavailable";
   }
 
+  function githubFileUrl(repositoryPath) {
+    const encodedPath = String(repositoryPath)
+      .split("/")
+      .map((part) => encodeURIComponent(part))
+      .join("/");
+    return `https://github.com/Thorncrag/ARRP/blob/main/${encodedPath}`;
+  }
+
+  function componentHeading(record) {
+    const heading = node("div", "component-registry-component-heading");
+    const identity = node("div", "component-registry-component-identity");
+    identity.append(
+      node("p", "component-registry-component-eyebrow", "Registered component"),
+      node("h3", "", record.display_name)
+    );
+    const source = record.canonical_source || {};
+    const locatorKind = source.locator?.kind || source.locator_kind;
+    const locatorLabel = locatorKind === "repository_path" ? "Canonical file" : "Canonical locator";
+    const locator = canonicalPath(record);
+    const locatorLine = node("p", "component-registry-component-locator");
+    locatorLine.append(document.createTextNode(`${locatorLabel}: `));
+    if (locatorKind === "repository_path" && locator !== "Unavailable") {
+      const link = node("a", "inline-link", locator);
+      link.href = githubFileUrl(locator);
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      locatorLine.append(link);
+    } else {
+      locatorLine.append(document.createTextNode(locator));
+    }
+    identity.append(locatorLine);
+    const classification = record.classification || {};
+    heading.append(
+      identity,
+      node(
+        "span",
+        "component-registry-component-kind",
+        `${readable(classification.component_class)} · ${readable(classification.component_type)}`
+      )
+    );
+    return heading;
+  }
+
   function renderComponent(host, record) {
-    host.replaceChildren(node("h3", "", record.display_name));
+    host.replaceChildren(componentHeading(record));
+    host.append(node(
+      "p",
+      "component-registry-source-note",
+      "Component entry marks values stored on this component. Linked Registry records are resolved only through its explicit record references. Labels and summaries are presentation-only; missing Registry values are never inferred."
+    ));
     section(host, "Identity and classification", [
       ["Stable ID", record.stable_id],
       ["Class", readable(record.classification.component_class)],
@@ -1891,29 +1914,35 @@
       ["Roles", record.classification.roles],
       ["Capabilities", record.classification.capabilities],
       ["Owner", record.owner]
-    ]);
-    section(host, "Lifecycle and operation", [
-      ["Lifecycle", primaryLifecycle(record)],
-      ["Operational status", record.operational_status],
-      ["Lifecycle history", record.lifecycle_records]
-    ]);
-    section(host, "Authority", [
-      ["Assignments", record.authority_records]
-    ]);
+    ], "entry");
     section(host, "Canonical source and binding", [
       ["Canonical source", canonicalPath(record)],
       ["Source binding", record.canonical_source.source_binding]
-    ]);
+    ], "entry");
     section(host, "Information and retention", [
       ["Information handling", record.information_handling],
       ["Retention", record.retention]
-    ]);
-    section(host, "Artifacts and connections", [
+    ], "entry");
+    section(host, "Controls, artifacts, and references", [
+      ["Operational status", record.operational_status],
+      ["Component boundary", record.component_boundary],
+      ["Execution controls", record.execution_controls],
+      ["Repository controls", record.repository_controls],
       ["Supporting artifacts", record.supporting_artifacts],
+      ["Record references", record.record_refs]
+    ], "entry");
+    section(host, "Lifecycle", [
+      ["Current lifecycle", primaryLifecycle(record)],
+      ["Lifecycle records", record.lifecycle_records]
+    ], "linked");
+    section(host, "Authority", [
+      ["Authority records", record.authority_records]
+    ], "linked");
+    section(host, "Relationships and provenance", [
       ["Relationships", record.relationship_records],
       ["Migrations and aliases", record.migration_records],
       ["Provenance", record.provenance_records]
-    ]);
+    ], "linked");
     appendLinks(host, "Inspect related Registry records", [
       ...record.lifecycle_records.map((item) => ({
         label: "Lifecycle", route: item.console_route
@@ -2297,16 +2326,6 @@
     const adopted = snapshot.registry.registry_status === "adopted";
     status.className = adopted ? "status-badge current" : "status-badge warning";
     status.textContent = adopted ? "Adopted configuration" : "Proposed revision";
-    const notice = document.getElementById("component-registry-deferred");
-    notice.replaceChildren(
-      node("strong", "", adopted
-        ? "Adopted — current configuration"
-        : "Proposed — nonauthoritative"),
-      node("p", "", adopted
-        ? "This nonauthoritative Console view is generated directly from the validated adopted Registry configuration. Live authority remains separately receipt-bound."
-        : "This view is generated from the validated proposed Registry revision. Live authority remains separately receipt-bound."),
-      node("p", "", `Registry revision ${snapshot.registry.registry_revision} · ${snapshot.registry.registry_sha256}`)
-    );
     bindModes(snapshot);
     renderLifecycleSummary(snapshot);
     renderCodeownersSummary(snapshot);
