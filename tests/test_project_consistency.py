@@ -272,34 +272,22 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self,
         route: dict[str, object],
         *,
-        mode: str = "proposed_revision_validation",
+        mode: str = "adopted_configuration_validation",
     ) -> dict[str, object]:
         postures = {
-            "proposed_revision_validation": {
-                "authoritative": False,
-                "executable": False,
-                "authority_effective": False,
-                "source_revision_authorized": False,
-                "source_bytes_current": False,
-                "canonical_history_confirmed": False,
-                "receipt_trusted": False,
-                "runtime_live": "not_checked",
-                "activation_receipt_consulted": False,
-                "predecessor_route_consulted": False,
-            },
             "adopted_configuration_validation": {
                 "authoritative": False,
                 "executable": False,
                 "authority_effective": False,
                 "source_revision_authorized": False,
-                "source_bytes_current": False,
+                "source_bytes_current": True,
                 "canonical_history_confirmed": False,
                 "receipt_trusted": False,
                 "runtime_live": "not_checked",
                 "activation_receipt_consulted": False,
                 "predecessor_route_consulted": False,
             },
-            "online_governed_eligibility": {
+            "live_authority_validation": {
                 "authoritative": True,
                 "executable": False,
                 "authority_effective": True,
@@ -313,10 +301,10 @@ class GitHubIssueLinkTests(unittest.TestCase):
             },
         }
         return {
-            "schema_version": 2,
+            "schema_version": 4,
             "validation_mode": mode,
-            "registry_id": "ARRP-COMPONENT-REGISTRY",
-            "registry_revision": 1,
+            "registry_id": "COMPONENT-REGISTRY",
+            "registry_revision": 4,
             "registry_sha256": "a" * 64,
             "registry_path": "framework/component-registry.json",
             **postures[mode],
@@ -349,7 +337,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             self.assertEqual(warnings, [])
             self.assertEqual(
                 envelope["validation_mode"],
-                "proposed_revision_validation",
+                "adopted_configuration_validation",
             )
 
             variants = []
@@ -753,11 +741,11 @@ class GitHubIssueLinkTests(unittest.TestCase):
 
         for document_id, (candidate_expected, declared) in transitions.items():
             with self.subTest(document_id=document_id, mode="candidate"):
-                self.assertTrue(
+                self.assertFalse(
                     consistency.context_registry_dependencies_match(
                         declared,
                         candidate_expected,
-                        validation_mode="proposed_revision_validation",
+                        validation_mode="adopted_configuration_validation",
                         predecessor_paths=predecessor_paths,
                     )
                 )
@@ -807,7 +795,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                     consistency.context_registry_dependencies_match(
                         invalid,
                         candidate_expected,
-                        validation_mode="proposed_revision_validation",
+                        validation_mode="adopted_configuration_validation",
                         predecessor_paths=predecessor_paths,
                     )
                 )
@@ -825,7 +813,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             consistency.context_registry_dependencies_match(
                 stage2_declared,
                 stage2_expected,
-                validation_mode="proposed_revision_validation",
+                validation_mode="adopted_configuration_validation",
                 predecessor_paths=predecessor_paths,
             )
         )
@@ -838,7 +826,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 consistency.context_registry_dependencies_match(
                     invalid,
                     stage2_expected,
-                    validation_mode="proposed_revision_validation",
+                    validation_mode="adopted_configuration_validation",
                     predecessor_paths=predecessor_paths,
                 )
             )
@@ -929,10 +917,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 self.assertEqual(warnings, [])
 
     def test_context_registry_configuration_modes_use_zero_argument_loader(self):
-        for mode in (
-            "proposed_revision_validation",
-            "adopted_configuration_validation",
-        ):
+        for mode in ("adopted_configuration_validation",):
             with self.subTest(mode=mode), tempfile.TemporaryDirectory() as directory:
                 root = Path(directory)
                 route = self.context_registry_fixture(root)
@@ -980,7 +965,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 self.assertFalse(envelope["executable"])
                 self.assertFalse(envelope["authority_effective"])
                 self.assertFalse(envelope["source_revision_authorized"])
-                self.assertFalse(envelope["source_bytes_current"])
+                self.assertTrue(envelope["source_bytes_current"])
                 self.assertFalse(envelope["canonical_history_confirmed"])
                 self.assertFalse(envelope["receipt_trusted"])
                 self.assertEqual(envelope["runtime_live"], "not_checked")
@@ -992,7 +977,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             route = self.context_registry_fixture(root)
             view = self.context_registry_view(
                 route,
-                mode="online_governed_eligibility",
+                mode="live_authority_validation",
             )
             authority = SimpleNamespace(mode="production_transaction")
             failures: list[str] = []
@@ -1035,7 +1020,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             self.assertTrue(envelope["configuration_valid"])
             self.assertEqual(
                 envelope["validation_mode"],
-                "online_governed_eligibility",
+                "live_authority_validation",
             )
             self.assertTrue(envelope["authoritative"])
             self.assertFalse(envelope["executable"])
@@ -1235,7 +1220,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 with self.subTest(field=field):
                     invalid = self.context_registry_view(
                         route,
-                        mode="online_governed_eligibility",
+                        mode="live_authority_validation",
                     )
                     invalid[field] = invalid_value
                     failures: list[str] = []
@@ -1273,7 +1258,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             route = self.context_registry_fixture(root)
             invalid = self.context_registry_view(
                 route,
-                mode="online_governed_eligibility",
+                mode="live_authority_validation",
             )
             failures: list[str] = []
             warnings: list[str] = []

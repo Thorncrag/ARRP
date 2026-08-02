@@ -1200,7 +1200,7 @@ class ConsoleDataContractTests(unittest.TestCase):
             )
         )
 
-    def test_component_registry_stage3_projection_has_one_validated_source(self):
+    def historical_component_registry_stage3_projection_has_one_validated_source(self):
         source = Path(MODULE.__file__).read_text(encoding="utf-8")
         self.assertIn(
             "def _stage2_component_registry_console_snapshot(",
@@ -1390,6 +1390,341 @@ class ConsoleDataContractTests(unittest.TestCase):
                 for migration in proposal["migration_records"]
             )
         )
+
+    def test_component_registry_v4_projection_has_one_validated_source(self):
+        source = Path(MODULE.__file__).read_text(encoding="utf-8")
+        self.assertIn("def component_registry_console_snapshot(", source)
+        self.assertNotIn("def _stage2_component_registry_console_snapshot(", source)
+        self.assertNotIn("proposed_revision_validation", source)
+        self.assertNotIn("online_governed_eligibility", source)
+        self.assertNotIn("component-registry-stage2-terminology-working-draft.md", source)
+
+        snapshot = MODULE.load_component_registry_console_snapshot(
+            generated_at="2026-08-02T12:00:00Z",
+        )
+        self.assertEqual(snapshot["schema_version"], 4)
+        self.assertEqual(snapshot["registry"]["validation_mode"], "adopted_configuration_validation")
+        self.assertFalse(snapshot["registry"]["authoritative"])
+        self.assertFalse(snapshot["registry"]["executable"])
+        self.assertEqual(
+            set(snapshot["routes"]),
+            {
+                "components", "classes", "types", "lifecycles", "authority",
+                "relationships", "directories", "exemptions", "unresolved",
+                "routing", "terminology", "codeowners",
+            },
+        )
+        self.assertEqual(
+            {key: len(value) for key, value in snapshot["records"].items()},
+            {
+                "components": 105,
+                "relationships": 16,
+                "directory_scopes": 59,
+                "registration_exemptions": 3,
+                "routing_rules": 64,
+                "terminology": 87,
+            },
+        )
+        self.assertEqual(MODULE.component_registry_projection_count(snapshot), 334)
+        self.assertEqual(len(snapshot["derived"]["classifications"]["classes"]), 8)
+        self.assertEqual(len(snapshot["derived"]["classifications"]["types"]), 37)
+        self.assertEqual(len(snapshot["derived"]["lifecycles"]["assignments"]), 105)
+        self.assertEqual(len(snapshot["derived"]["authorities"]["assignments"]), 105)
+        self.assertEqual(len(snapshot["derived"]["routing"]["selections"]), 27)
+        self.assertEqual(len(snapshot["derived"]["codeowners"]["records"]), 164)
+        self.assertEqual(snapshot["derived"]["coverage"]["uncovered_count"], 0)
+        self.assertEqual(snapshot["derived"]["coverage"]["multiply_treated_count"], 0)
+        self.assertEqual(
+            snapshot["derived"]["codeowners"]["generated_sha256"],
+            snapshot["derived"]["codeowners"]["current_sha256"],
+        )
+        registry_assignment = next(
+            record
+            for record in snapshot["derived"]["codeowners"]["records"]
+            if record["assignment_id"] == "component:COMPONENT-REGISTRY"
+        )
+        self.assertEqual(registry_assignment["declared_mode"], "direct")
+        self.assertEqual(registry_assignment["owners"], ["@Thorncrag"])
+        paths = MODULE.component_registry_source_paths(
+            snapshot,
+            root=Path("/tmp/arrp-v4-console-test"),
+        )
+        self.assertEqual(
+            paths,
+            [
+                Path("/tmp/arrp-v4-console-test/framework/component-registry.json"),
+                Path("/tmp/arrp-v4-console-test/framework/component-registry.schema.json"),
+            ],
+        )
+
+    def test_component_registry_v4_preserves_normalized_console_fields(self):
+        baseline_commit = "07fe5f357f2604f25d6393e6f6fd14c1ab337165"
+        baseline = json.loads(
+            subprocess.run(
+                [
+                    "git",
+                    "show",
+                    f"{baseline_commit}:framework/component-registry.json",
+                ],
+                cwd=ROOT,
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout
+        )
+        current_registry = json.loads(
+            MODULE.COMPONENT_REGISTRY.read_text(encoding="utf-8")
+        )
+        snapshot = MODULE.load_component_registry_console_snapshot(
+            generated_at="2026-08-02T12:00:00Z",
+        )
+
+        baseline_components = baseline["components"]["entries"]
+        current_components = {
+            record["stable_id"]: record
+            for record in snapshot["records"]["components"]
+        }
+        self.assertEqual(set(current_components), set(baseline_components))
+        for component_id, before in baseline_components.items():
+            after = current_components[component_id]
+            locator = before["canonical_source"]["locator"]
+            before_information = before["information_handling"]
+            before_supporting_paths = [
+                artifact["path"]
+                for artifact in before.get("supporting_artifacts", [])
+                if artifact["path"]
+                != "scripts/apply_component_registry_stage3_migration.py"
+            ]
+            self.assertEqual(
+                {
+                    "display_name": before["display_name"],
+                    "classification": {
+                        "component_class": before["classification"][
+                            "component_class"
+                        ],
+                        **(
+                            {
+                                "component_type": before["classification"][
+                                    "component_type"
+                                ]
+                            }
+                            if "component_type" in before["classification"]
+                            else {}
+                        ),
+                        **(
+                            {"roles": before["classification"]["roles"]}
+                            if before["classification"].get("roles")
+                            else {}
+                        ),
+                        **(
+                            {
+                                "capabilities": before["classification"][
+                                    "capabilities"
+                                ]
+                            }
+                            if before["classification"].get("capabilities")
+                            else {}
+                        ),
+                    },
+                    "canonical_source": {
+                        "kind": locator["kind"],
+                        "value": locator["value"],
+                    },
+                    "owner": before["owner"],
+                    "information_handling": {
+                        "information_classification": before_information[
+                            "information_classification"
+                        ],
+                        "disclosure_rule": before_information.get(
+                            "disclosure_rule", "public_by_design"
+                        ),
+                    },
+                    "lifecycle": baseline["component_lifecycles"][
+                        "assignments"
+                    ][component_id]["current_state"],
+                    "revision_mode": before["retention"]["revision_mode"],
+                    "retention_bases": before["retention"]["bases"],
+                    "supporting_artifacts": before_supporting_paths,
+                    "operational_status": before.get("operational_status"),
+                    "execution_controls": before.get("execution_controls"),
+                },
+                {
+                    "display_name": after["display_name"],
+                    "classification": after["classification"],
+                    "canonical_source": {
+                        "kind": after["canonical_source"]["kind"],
+                        "value": after["canonical_source"]["value"],
+                    },
+                    "owner": after["owner"],
+                    "information_handling": after["information_handling"],
+                    "lifecycle": after["lifecycle"],
+                    "revision_mode": after["revision_mode"],
+                    "retention_bases": after["retention_bases"],
+                    "supporting_artifacts": after["supporting_artifacts"],
+                    "operational_status": after["operational_status"],
+                    "execution_controls": after.get("execution_controls"),
+                },
+                component_id,
+            )
+
+        before_authority = {
+            record["component_id"]: record["authoritative"]
+            for record in baseline["component_authorities"][
+                "assignments"
+            ].values()
+        }
+        after_authority = {
+            record["component_id"]: record["authoritative"]
+            for record in snapshot["derived"]["authorities"][
+                "assignments"
+            ]
+        }
+        self.assertEqual(after_authority, before_authority)
+
+        before_scopes = baseline["directory_scopes"]["entries"]
+        after_scopes = {
+            record["scope_id"]: record
+            for record in snapshot["records"]["directory_scopes"]
+        }
+        placement_fields = (
+            "display_name",
+            "path_pattern",
+            "match_kind",
+            "specificity_rank",
+            "parameter_bindings",
+            "ancestor_scope_ids",
+            "purpose",
+            "placement_question",
+            "include_when",
+            "exclude_when",
+            "allow_children",
+        )
+        self.assertEqual(set(after_scopes), set(before_scopes))
+        for scope_id, before in before_scopes.items():
+            after = after_scopes[scope_id]
+            self.assertEqual(
+                {
+                    field: before.get(
+                        field,
+                        {} if field == "parameter_bindings" else [],
+                    )
+                    for field in placement_fields
+                },
+                {
+                    field: after.get(
+                        field,
+                        {} if field == "parameter_bindings" else [],
+                    )
+                    for field in placement_fields
+                },
+                scope_id,
+            )
+
+        before_relationships = {
+            relationship_id: {
+                "relationship_type": record["relationship_type"],
+                "from": record["from"]["id"],
+                "to": record["to"]["id"],
+                "authority_boundary": record["authority_boundary"],
+            }
+            for relationship_id, record in baseline["relationships"][
+                "entries"
+            ].items()
+        }
+        after_relationships = {
+            record["relationship_id"]: {
+                "relationship_type": record["relationship_type"],
+                "from": record["from"],
+                "to": record["to"],
+                "authority_boundary": record["authority_boundary"],
+            }
+            for record in snapshot["records"]["relationships"]
+        }
+        self.assertEqual(after_relationships, before_relationships)
+
+        before_exemptions = {
+            exemption_id: {
+                key: value
+                for key, value in record.items()
+                if key not in {"exemption_id", "term_id"}
+            }
+            for exemption_id, record in baseline[
+                "registration_exemptions"
+            ]["entries"].items()
+        }
+        after_exemptions = {
+            record["exemption_id"]: {
+                key: value
+                for key, value in record.items()
+                if key not in {"exemption_id", "console_route"}
+            }
+            for record in snapshot["records"]["registration_exemptions"]
+        }
+        self.assertEqual(after_exemptions, before_exemptions)
+
+        self.assertEqual(
+            list(current_registry["terminology"]["entries"]),
+            baseline["terminology"]["order"],
+        )
+        self.assertEqual(
+            current_registry["terminology"]["entries"],
+            {
+                term_id: {
+                    "label": record["label"],
+                    "definition": record["definition"],
+                }
+                for term_id, record in baseline["terminology"][
+                    "entries"
+                ].items()
+            },
+        )
+
+        for field in (
+            "required_components",
+            "generated_path_exclusions",
+            "components",
+            "capabilities",
+            "profiles",
+        ):
+            self.assertEqual(
+                current_registry["routing"][field],
+                baseline["routing"][field],
+                field,
+            )
+        self.assertEqual(baseline["routing"]["rule_catalog_version"], 1)
+        self.assertEqual(current_registry["routing"]["rule_catalog_version"], 2)
+        approved_parameter_updates = {
+            "ctxr.sel.required_floor_order": {
+                "document_ids": [
+                    "framework_kernel",
+                    "agent_rules_kernel",
+                    "task_handoff",
+                ]
+            },
+            "ctxr.cur.mutable_handoff_is_runtime_hashed": {
+                "document_id": "task_handoff",
+                "hash_policy": "runtime",
+            },
+            "ctxr.cur.checkpoint_update_needs_no_registry_edit": {
+                "document_id": "task_handoff",
+            },
+            "ctxr.cur.records_excluded_except_handoff": {
+                "exception_document_id": "task_handoff",
+            },
+        }
+        for namespace, before_rules in baseline["routing"]["rules"].items():
+            after_rules = current_registry["routing"]["rules"][namespace]
+            self.assertEqual(set(after_rules), set(before_rules), namespace)
+            for rule_id, before in before_rules.items():
+                expected = {}
+                parameters = approved_parameter_updates.get(
+                    rule_id, before.get("parameters")
+                )
+                if parameters:
+                    expected["parameters"] = parameters
+                if "failure_code" in before:
+                    expected["failure_code"] = before["failure_code"]
+                self.assertEqual(after_rules[rule_id], expected, rule_id)
 
     def test_console_generation_timestamp_is_bound_to_exact_revision(self):
         revision = subprocess.run(

@@ -14,6 +14,125 @@ Current governing documents remain authoritative; Git remains the exact-diff
 authority. The historical [Change Audit Log](../audits/change-audit-log.md)
 remains separate and unchanged.
 
+## GOV-2026-021 — Component Registry semantic-minimal authority
+
+- Date: 2026-08-02
+- Status: Proposed / unmerged
+- Decision class: governance_documentation
+- Authorities: framework/component-registry.json;
+  framework/component-registry.schema.json; scripts/component_registry.py;
+  scripts/arrp_context.py; scripts/run_coordinator.py;
+  scripts/finalize_component_registry_activation.py;
+  framework/project/automation/owner-local-runtime.md;
+  framework/project/interfaces/project-console/specification.md
+- Decision: Proposes schema and revision 4 as the exact semantic-minimal
+  Component Registry. The Registry remains the sole component, routing, and
+  CODEOWNERS authority; `.github/CODEOWNERS` and the Console snapshot are
+  generated nonauthoritative representations. Exact-only version-4 loaders,
+  a schema-version-2 same-family readback, and five receipt-bound interpreter
+  blobs replace live compatibility with earlier Registry formats.
+- Evidence: Owner-authorized design `CR-SM-2026-08-02` revision R6; preserved
+  baseline commit `07fe5f357f2604f25d6393e6f6fd14c1ab337165`; exact 11-key,
+  105-component, 87-term, 59-scope, 64-rule, 16-relationship, and
+  three-exemption inventory; normalized pre/post field parity; exact helper
+  coverage transition; byte-reproducible Console generation; and generated
+  CODEOWNERS equality. The implementation head, pull request, canonical merge,
+  closeout audit, supersession, and owner-local readback remain pending.
+  Consumer closure map:
+  `canonical_authority` — `framework/component-registry.json` and
+    `framework/component-registry.schema.json`; validated by
+    `tests/framework/test_component_registry.py` and the schema-negative
+    fixtures.
+  `generated_output` — `.github/CODEOWNERS` and
+    `framework/project/interfaces/project-console/data/component-registry.js`;
+    validated by exact regeneration, protected-path comparison,
+    `tests/framework/test_component_registry.py`, and
+    `tests/test_console_data_contracts.py`.
+  `active_v4_interpreter_receipt_bound` — `scripts/component_registry.py`,
+    `scripts/arrp_context.py`, `scripts/run_coordinator.py`, and
+    `scripts/finalize_component_registry_activation.py`; validated by the
+    component, routing-closure, coordinator, finalizer, readiness, and
+    readback tests.
+  `active_v4_producer_or_operational_consumer` —
+    `scripts/build_project_console.py`, `scripts/arrp_nightly.py`,
+    `scripts/audit_project_consistency.py`,
+    `scripts/record_review_epoch.py`, and
+    `scripts/refresh_project_console.py`; validated respectively by Console
+    data contracts plus frontend tests, nightly tests, consistency tests,
+    review-epoch tests, and authenticated-refresh tests.
+  `current_console_ui_documentation_or_metadata` —
+    `framework/project/interfaces/project-console/README.md`,
+    `framework/project/interfaces/project-console/app.js`,
+    `framework/project/interfaces/project-console/component-registry.js`,
+    `framework/project/interfaces/project-console/configuration/classifications.json`,
+    `framework/project/interfaces/project-console/project-console.html`,
+    `framework/project/interfaces/project-console/specification.md`, and
+    `framework/project/interfaces/project-console/styles.css`; validated by
+    `tests/test_console_data_contracts.py` and
+    `tests/project-console/frontend.test.mjs` across all twelve modes.
+  `current_guidance_dependency_or_configured_entrypoint` —
+    `.github/workflows/arrp-validation.yml`, `framework/FRAMEWORK.md`,
+    `framework/AGENT_OPERATING_RULES.md`, `framework/project/README.md`,
+    `framework/project/automation/agent-policy.md`,
+    `framework/project/automation/owner-local-runtime.md`,
+    `framework/project/automation/runbooks/project-integrity-bot.md`,
+    `framework/project/github/disclosure-policy.json`,
+    `framework/project/github/workflow.md`,
+    `framework/project/publication/print-assembly.md`,
+    `framework/project/workflows/governance-change-recording.md`,
+    `framework/project/workflows/navigation-sync.md`,
+    `framework/project/workflows/project-update.md`,
+    `framework/standards/content/navigation-and-indexes.md`,
+    `framework/standards/interfaces/standard.md`, and
+    `framework/standards/sources/source-records.md`; these are dependency,
+    authority-link, disclosure-family, or exact CLI-entrypoint references,
+    validated by the v4 CLI, runtime-documentation, and project-consistency
+    seams without another Registry parser.
+  `unchanged_generic_or_opaque_consumer` —
+    `scripts/build_elim_context.py` and `scripts/build_owner_console.py`;
+    validated by `tests/test_elim_context.py`,
+    `tests/test_owner_console.py`, and
+    `tests/test_incident_authority_contracts.py` without source changes.
+  `historical_only_or_explicit_rejection` —
+    `scripts/apply_component_registry_stage3_migration.py`, archived Registry
+    authorities, preserved receipts and proposals, and prior-version fixture
+    methods; validated by the helper blob and coverage comparison, active-loader
+    no-predecessor tests, and exact rejection of missing, Boolean, malformed,
+    prior, and future versions.
+  `direct_test_or_fixture_reference` —
+    `tests/framework/test_component_registry.py`,
+    `tests/framework/test_component_registry_activation_finalizer.py`,
+    `tests/framework/test_component_registry_activation_readback.py`,
+    `tests/framework/test_component_registry_activation_readiness.py`,
+    `tests/framework/test_component_registry_stage1_acceptance.py`,
+    `tests/framework/test_context_routing_rule_closure.py`,
+    `tests/framework/test_context_routing_semantics.py`,
+    `tests/project-console/frontend.test.mjs`,
+    `tests/test_arrp_nightly.py`,
+    `tests/test_console_authenticated_refresh.py`,
+    `tests/test_console_data_contracts.py`,
+    `tests/test_elim_context.py`, `tests/test_elim_execution.py`,
+    `tests/test_github_disclosure_gate.py`, `tests/test_horizon_intake.py`,
+    `tests/test_incident_authority_contracts.py`,
+    `tests/test_owner_console.py`, `tests/test_project_consistency.py`,
+    `tests/test_review_epoch.py`, `tests/test_run_coordinator.py`, and
+    `tests/test_runtime_authority_documentation.py`; each is either a mapped
+    v4 assertion, unchanged generic seam, unrelated disclosure or intake
+    fixture, or explicit historical rejection fixture and is not a production
+    parser.
+- Policy adoption: Proposed only; not adopted before the separately approved
+  implementation and closeout merges.
+- Live activation: Not active. No activation readback exists, the Registry
+  component remains nonexecutable, and automation remains Paused.
+- Relationships: No supersession or refinement is claimed in PR1.
+- Validation: Mapped Python, browser, deterministic generation, normalized
+  parity, CODEOWNERS preservation, helper coverage, exact-version, and
+  continuity-gate checks pass. The final Change Audit and canonical readbacks
+  remain pending.
+  Change Audit: Pending. The historical Change Audit Log is unchanged in PR1;
+  the separately approved closeout pull request owns the final audit evidence.
+- Owner-local supplement: Required.
+
 ## GOV-2026-020 — Component Registry Stage 1 authority transition
 
 - Date: 2026-07-30

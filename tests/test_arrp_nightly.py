@@ -303,13 +303,13 @@ class ArrpNightlyTransactionTests(unittest.TestCase):
             self.fixture.repo,
         )
         candidate_view = {
-            "schema_version": 2,
-            "validation_mode": "proposed_revision_validation",
+            "schema_version": 4,
+            "validation_mode": "adopted_configuration_validation",
             "authoritative": False,
             "executable": False,
             "authority_effective": False,
             "source_revision_authorized": False,
-            "source_bytes_current": False,
+            "source_bytes_current": True,
             "canonical_history_confirmed": False,
             "receipt_trusted": False,
             "runtime_live": "not_checked",
@@ -370,8 +370,8 @@ class ArrpNightlyTransactionTests(unittest.TestCase):
             self.production_routing_authority()
         )
         active_view = {
-            "schema_version": 2,
-            "validation_mode": "online_governed_eligibility",
+            "schema_version": 4,
+            "validation_mode": "live_authority_validation",
             "authoritative": True,
             "executable": False,
             "authority_effective": True,
@@ -423,13 +423,13 @@ class ArrpNightlyTransactionTests(unittest.TestCase):
             self.production_routing_authority()
         )
         candidate_view = {
-            "schema_version": 2,
-            "validation_mode": "proposed_revision_validation",
+            "schema_version": 4,
+            "validation_mode": "adopted_configuration_validation",
             "authoritative": False,
             "executable": False,
             "authority_effective": False,
             "source_revision_authorized": False,
-            "source_bytes_current": False,
+            "source_bytes_current": True,
             "canonical_history_confirmed": False,
             "receipt_trusted": False,
             "runtime_live": "not_checked",
@@ -445,7 +445,7 @@ class ArrpNightlyTransactionTests(unittest.TestCase):
             ),
             self.assertRaisesRegex(
                 MODULE.TransactionError,
-                "production routing requires governed-eligible Component Registry",
+                "production routing requires live Registry v4 Component Registry",
             ),
         ):
             MODULE.governing_protected_paths(

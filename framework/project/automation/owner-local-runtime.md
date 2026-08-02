@@ -111,12 +111,13 @@ choose the authority that decides whether it is safe.
 
 ## Component Registry activation readback
 
-The tracked Component Registry is reviewed configuration. A separate
-owner-local activation readback proves that one exact active configuration
-completed the required owner review, checks, merge, and canonical-remote
-readback. The readback is verification evidence only: it cannot define
-routing, alter the registry, activate a candidate, or authorize a different
-registry revision.
+The tracked schema-version-4 Component Registry is reviewed configuration. A
+separate schema-version-2 owner-local activation readback proves that the exact
+Registry and its closed interpreter set completed the required owner review,
+checks, merge, closeout, and canonical-remote readback. The verification-family
+identifier remains `component_registry_stage3_authority_readback`. The readback
+is evidence only: it cannot define routing, alter the Registry, authorize a
+different revision, or make an operational component executable.
 
 The logical production location is
 `owner-local:records/governance/component-registry/activation-readbacks/`.
@@ -126,12 +127,9 @@ The caller cannot supply the directory, filename, digest, registry path,
 repository root, state root, readback payload, or a fallback source.
 Production resolution uses only the fixed typed path authority.
 
-Three validation modes keep tracked configuration separate from live
-activation:
+Two exact version-4 validation modes keep tracked configuration separate from
+live authority:
 
-- `proposed_revision_validation` validates a nonauthoritative proposed
-  Registry revision and its embedded routing authority. It is nonexecutable,
-  never consults a predecessor, and never reads an activation readback.
 - `adopted_configuration_validation` validates the tracked active
   configuration without owner-local access. It is suitable for repository and
   CI configuration checks only and is nonauthoritative, nonexecutable, and
@@ -139,22 +137,38 @@ activation:
 - `live_authority_validation` is available only to a production-canonical or
   production-transaction reader after the exact digest-addressed readback has
   passed every fixed-path, file-safety, schema, approval, revision, content,
-  chronology, and ancestry check. Only this mode is authoritative and
-  executable.
+  chronology, interpreter, continuity, and ancestry check. This mode is
+  authoritative verification but remains nonexecutable.
 
-Stage 1 candidate validation retained the exact predecessor read, digest, and
-parity checks until activation. A tracked active configuration or live active
-reader uses only the embedded Component Registry route. It never opens,
-hashes, selects, or falls back to either predecessor or its archived copy;
-their retained catalog entries and frozen digests are historical provenance
-only.
+Version 4 never opens, hashes, selects, or falls back to a predecessor Registry
+or routing source. Versions 1 through 3 remain rejection fixtures or historical
+provenance only; they are not accepted compatibility inputs.
+
+The readback binds exactly these five interpreter files, by SHA-256, in
+addition to the full Registry SHA-256:
+
+- `framework/component-registry.schema.json`
+- `scripts/component_registry.py`
+- `scripts/arrp_context.py`
+- `scripts/run_coordinator.py`
+- `scripts/finalize_component_registry_activation.py`
+
+The approved implementation pull-request head anchors the Registry and all
+five interpreter blobs. Their canonical bytes must remain identical to that
+head at four continuity gates: after the implementation merge and before the
+closeout branch is created; before the closeout pull request is merged; before
+the owner-local receipt is created after that merge; and during every live
+readback. Added consumers do not become receipt-bound authorities. Any byte
+change to one of the five files requires a new Registry revision, full Registry
+digest, approval, and receipt.
 
 The readback has no age-only expiry. It remains valid only while its exact
-registry, approval, governance-change, implementation, review, checks,
-canonical-remote, and ancestry bindings remain valid. A missing, malformed,
-unsafe, stale, incompatible, incomplete, or mismatched readback blocks before
-context construction. The reader never falls back to an older readback,
-predecessor routing source, network lookup, summary, or inferred success.
+Registry, five interpreter digests, approval, governance-change,
+implementation, review, checks, canonical-remote, and ancestry bindings remain
+valid. A missing, malformed, unsafe, stale, incompatible, incomplete, or
+mismatched readback blocks before context construction. The reader never falls
+back to an older readback, predecessor routing source, network lookup, summary,
+or inferred success.
 
 Only the separately approved authenticated activation finalizer may create a
 production readback. It derives the evidence from the exact reviewed pull

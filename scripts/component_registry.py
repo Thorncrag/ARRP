@@ -2178,6 +2178,299 @@ def _canonical_registry_digest(registry: Mapping[str, Any]) -> str:
     ).hexdigest()
 
 
+V4_TOP_LEVEL_KEYS = {
+    "$schema",
+    "schema_version",
+    "registry_id",
+    "registry_revision",
+    "terminology",
+    "implementation_enums",
+    "directory_scopes",
+    "components",
+    "relationships",
+    "registration_exemptions",
+    "routing",
+}
+V4_COMPONENT_DEFAULT_OWNER = "@Thorncrag"
+V4_COMPONENT_DEFAULT_LIFECYCLE = "adopted"
+V4_COMPONENT_DEFAULT_REVISION_MODE = "maintained"
+V4_CODEOWNERS_DIRECT_COMPONENTS = {
+    "codex_bootstrap",
+    "framework_kernel",
+    "agent_rules_kernel",
+    "context_routing",
+    "project_structure",
+    "component_registry_schema",
+    "COMPONENT-REGISTRY",
+}
+V4_CODEOWNERS_NONE_COMPONENTS = {"elim"}
+V4_CODEOWNERS_DIRECT_SCOPES = {
+    "github_admin",
+    "framework_standards",
+    "framework_project",
+    "framework_logs",
+    "participate",
+    "website",
+    "scripts",
+    "tests",
+    "root_requirements_local_tools",
+    "root_requirements_pages",
+}
+
+
+def _exact_v4_integer(value: object, expected: int) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool) and value == expected
+
+
+def _v4_namespace_entries(
+    registry: Mapping[str, Any],
+    namespace: str,
+) -> Mapping[str, Any]:
+    value = registry.get(namespace)
+    if not isinstance(value, Mapping) or set(value) != {"schema_version", "entries"}:
+        raise RegistryError(f"Registry v4 namespace {namespace} is not exact")
+    if not _exact_v4_integer(value.get("schema_version"), 4):
+        raise RegistryError(f"Registry v4 namespace {namespace} has the wrong version")
+    entries = value.get("entries")
+    if not isinstance(entries, Mapping):
+        raise RegistryError(f"Registry v4 namespace {namespace} entries are unavailable")
+    return entries
+
+
+def _v4_component_source(
+    component_id: str,
+    component: Mapping[str, Any],
+) -> tuple[str, str]:
+    source = component.get("canonical_source")
+    if isinstance(source, str) and source:
+        return "repository_path", source
+    if (
+        isinstance(source, Mapping)
+        and set(source) == {"kind", "value"}
+        and source.get("kind")
+        in {"repository_directory", "governed_external_identifier"}
+        and isinstance(source.get("value"), str)
+        and source.get("value")
+    ):
+        return str(source["kind"]), str(source["value"])
+    raise RegistryError(f"Registry v4 component {component_id} has an invalid source")
+
+
+def _v4_route_snapshot(
+    registry: Mapping[str, Any],
+    *,
+    root: Path = ROOT,
+) -> dict[str, Any]:
+    components = _v4_namespace_entries(registry, "components")
+    routing = registry.get("routing")
+    if not isinstance(routing, Mapping):
+        raise RegistryError("Registry v4 routing is unavailable")
+    route_components = routing.get("components")
+    if not isinstance(route_components, Mapping):
+        raise RegistryError("Registry v4 routing components are unavailable")
+    documents: dict[str, Any] = {}
+    for component_id, route_record in route_components.items():
+        component = components.get(component_id)
+        if not isinstance(component, Mapping) or not isinstance(route_record, Mapping):
+            raise RegistryError(f"Registry v4 route component {component_id!r} is unknown")
+        source_kind, source_value = _v4_component_source(component_id, component)
+        if source_kind != "repository_path":
+            raise RegistryError(
+                f"Registry v4 route component {component_id!r} is not a repository file"
+            )
+        document = {
+            "path": source_value,
+            "hash_policy": "runtime" if component_id == "task_handoff" else "pinned",
+            "governing": bool(route_record.get("governing", True)),
+            "requires": list(route_record.get("requires", [])),
+        }
+        if component_id != "task_handoff":
+            document["sha256"] = _sha256(
+                _contained_file(root, source_value, f"component {component_id} source")
+            )
+        documents[component_id] = document
+    profiles = copy.deepcopy(dict(routing.get("profiles", {})))
+    for profile in profiles.values():
+        if isinstance(profile, dict):
+            if "components" in profile:
+                profile["modules"] = profile.pop("components")
+            for section in profile.get("sections", []):
+                if isinstance(section, dict) and "component" in section:
+                    section["document"] = section.pop("component")
+    return {
+        "schema_version": 2,
+        "generated_path_exclusions": list(routing.get("generated_path_exclusions", [])),
+        "required_modules": list(routing.get("required_components", [])),
+        "documents": documents,
+        "capabilities": copy.deepcopy(dict(routing.get("capabilities", {}))),
+        "profiles": profiles,
+    }
+
+
+def validate_v4_registry(
+    registry: Mapping[str, Any],
+    *,
+    root: Path = ROOT,
+    compare_codeowners: bool = True,
+) -> dict[str, Any]:
+    if set(registry) != V4_TOP_LEVEL_KEYS:
+        raise RegistryError(
+            "Registry v4 top-level fields differ: "
+            + ", ".join(sorted(set(registry) ^ V4_TOP_LEVEL_KEYS))
+        )
+    if not _exact_v4_integer(registry.get("schema_version"), 4):
+        raise RegistryError("Component Registry requires exact schema version 4")
+    if not _exact_v4_integer(registry.get("registry_revision"), 4):
+        raise RegistryError("Component Registry requires exact registry revision 4")
+    if registry.get("$schema") != "component-registry.schema.json":
+        raise RegistryError("Component Registry uses an unapproved schema authority")
+    if registry.get("registry_id") != "COMPONENT-REGISTRY":
+        raise RegistryError("Component Registry identity differs")
+
+    components = _v4_namespace_entries(registry, "components")
+    scopes = _v4_namespace_entries(registry, "directory_scopes")
+    relationships = _v4_namespace_entries(registry, "relationships")
+    exemptions = _v4_namespace_entries(registry, "registration_exemptions")
+    terminology = registry.get("terminology")
+    if (
+        not isinstance(terminology, Mapping)
+        or set(terminology) != {"schema_version", "order", "entries"}
+        or not _exact_v4_integer(terminology.get("schema_version"), 4)
+        or not isinstance(terminology.get("order"), list)
+        or not isinstance(terminology.get("entries"), Mapping)
+    ):
+        raise RegistryError("Registry v4 terminology is not exact")
+    terms = terminology["entries"]
+    if (
+        len(components) != 105
+        or len(scopes) != 59
+        or len(relationships) != 16
+        or len(exemptions) != 3
+        or len(terms) != 87
+        or terminology["order"] != list(terms)
+    ):
+        raise RegistryError("Registry v4 governed inventory counts differ")
+
+    canonical_paths: dict[str, str] = {}
+    for component_id, component in components.items():
+        if not isinstance(component_id, str) or not isinstance(component, Mapping):
+            raise RegistryError("Registry v4 component identity is invalid")
+        if "stable_id" in component or "record_refs" in component:
+            raise RegistryError(f"Registry v4 component {component_id} repeats derived identity")
+        classification = component.get("classification")
+        if (
+            not isinstance(classification, Mapping)
+            or classification.get("component_class") not in STAGE2_COMPONENT_CLASSES
+            or "attributes" in classification
+            or classification.get("roles") == []
+            or classification.get("capabilities") == []
+        ):
+            raise RegistryError(f"Registry v4 component {component_id} classification is invalid")
+        source_kind, source_value = _v4_component_source(component_id, component)
+        if source_kind in {"repository_path", "repository_directory"}:
+            normalized = _normalized_repository_path(
+                source_value.rstrip("/") if source_kind == "repository_directory" else source_value,
+                f"component {component_id} source",
+            )
+            if normalized in canonical_paths:
+                raise RegistryError(f"Registry v4 source {source_value!r} is duplicated")
+            canonical_paths[normalized] = component_id
+        if component.get("owner", V4_COMPONENT_DEFAULT_OWNER) != V4_COMPONENT_DEFAULT_OWNER:
+            raise RegistryError(f"Registry v4 component {component_id} owner differs")
+        if component.get("lifecycle", V4_COMPONENT_DEFAULT_LIFECYCLE) not in {
+            "adopted", "retired"
+        }:
+            raise RegistryError(f"Registry v4 component {component_id} lifecycle is invalid")
+        if component.get("revision_mode", V4_COMPONENT_DEFAULT_REVISION_MODE) not in {
+            "maintained", "append_only", "immutable"
+        }:
+            raise RegistryError(f"Registry v4 component {component_id} revision mode is invalid")
+        artifacts = component.get("supporting_artifacts", [])
+        if (
+            not isinstance(artifacts, list)
+            or len(artifacts) != len(set(artifacts))
+            or any(not isinstance(path, str) or not path for path in artifacts)
+        ):
+            raise RegistryError(f"Registry v4 component {component_id} supporting artifacts are invalid")
+    if (
+        components["COMPONENT-REGISTRY"].get("display_name")
+        != "ARRP Component Registry"
+    ):
+        raise RegistryError("Component Registry display name differs")
+
+    retired = {
+        component_id
+        for component_id, component in components.items()
+        if component.get("lifecycle", V4_COMPONENT_DEFAULT_LIFECYCLE) == "retired"
+    }
+    immutable = {
+        component_id
+        for component_id, component in components.items()
+        if component.get("revision_mode", V4_COMPONENT_DEFAULT_REVISION_MODE) == "immutable"
+    }
+    expected_historical = {
+        "context_routing", "project_structure", "agent_registry",
+        "repository_map", "context_routes_source",
+    }
+    if retired != expected_historical or immutable != expected_historical:
+        raise RegistryError("Registry v4 historical component posture differs")
+    if components["governance_change_log"].get("revision_mode") != "append_only":
+        raise RegistryError("Registry v4 governance log is not append-only")
+
+    for scope_id, scope in scopes.items():
+        if not isinstance(scope, Mapping) or "scope_id" in scope:
+            raise RegistryError(f"Registry v4 directory scope {scope_id} is invalid")
+        if scope.get("ownership", V4_COMPONENT_DEFAULT_OWNER) != V4_COMPONENT_DEFAULT_OWNER:
+            raise RegistryError(f"Registry v4 directory scope {scope_id} owner differs")
+    if scopes["repository_root"].get("allow_children", False) is not False:
+        raise RegistryError("Registry v4 repository root must be structural")
+
+    routing = registry.get("routing")
+    if (
+        not isinstance(routing, Mapping)
+        or not _exact_v4_integer(routing.get("schema_version"), 4)
+        or not _exact_v4_integer(routing.get("rule_catalog_version"), 2)
+        or not isinstance(routing.get("rules"), Mapping)
+        or sum(len(group) for group in routing["rules"].values()) != 64
+    ):
+        raise RegistryError("Registry v4 routing catalog is invalid")
+    for group in routing["rules"].values():
+        if not isinstance(group, Mapping):
+            raise RegistryError("Registry v4 routing rule group is invalid")
+        for rule_id, rule in group.items():
+            if not isinstance(rule, Mapping) or any(
+                field in rule
+                for field in {
+                    "rule_id", "rule_version", "status", "predicate_type",
+                    "source_provenance", "verification_ids",
+                }
+            ):
+                raise RegistryError(f"Registry v4 routing rule {rule_id} repeats derived data")
+
+    route = _v4_route_snapshot(registry, root=root)
+    validate_route_source(route)
+    codeowners = stage2_codeowners_projection(
+        registry,
+        root=root,
+        compare_current=compare_codeowners,
+    )
+    if compare_codeowners and codeowners["problems"]:
+        raise RegistryError("Registry v4 CODEOWNERS projection differs from the tracked file")
+    return {
+        "valid": True,
+        "registry_id": registry["registry_id"],
+        "registry_revision": 4,
+        "validation_mode": "adopted_configuration_validation",
+        "authoritative": False,
+        "executable": False,
+        "registry_sha256": _canonical_registry_digest(registry),
+        "component_count": len(components),
+        "terminology_count": len(terms),
+        "routing_counts": route_counts(route),
+        "codeowners": codeowners["summary"],
+    }
+
+
 def _expected_stage2_authority_digest_model(
     generation: int,
 ) -> dict[str, Any]:
@@ -2971,49 +3264,52 @@ def _validate_stage3_authority_repository_binding(
     root: Path,
 ) -> None:
     registry_digest = _canonical_registry_digest(stage3_registry)
-    authority_digest = _stage2_authority_digest(stage3_registry)
-    model = _validate_stage2_authority_digest_model(stage3_registry)
-    design = readback.get("design_contract")
+    interpreter_paths = (
+        "framework/component-registry.schema.json",
+        "scripts/component_registry.py",
+        "scripts/arrp_context.py",
+        "scripts/run_coordinator.py",
+        "scripts/finalize_component_registry_activation.py",
+    )
+    bindings = readback.get("interpreter_bindings")
     merge = readback.get("merge_evidence")
     canonical_revision = str(readback.get("canonical_revision") or "")
     if (
-        readback.get("registry_id") != stage3_registry.get("registry_id")
-        or readback.get("registry_revision") != 3
+        readback.get("schema_version") != 2
+        or readback.get("registry_id") != stage3_registry.get("registry_id")
+        or readback.get("registry_revision") != 4
         or readback.get("registry_sha256") != registry_digest
-        or readback.get("authority_sha256") != authority_digest
-        or readback.get("authority_protocol") != model.get("protocol")
-        or readback.get("authority_generation") != model.get("generation")
+        or not isinstance(bindings, Mapping)
+        or set(bindings) != set(interpreter_paths)
         or readback.get("validation_mode") != "live_authority_validation"
-        or not isinstance(design, Mapping)
-        or design.get("design_id") != STAGE3_DESIGN_ID
-        or design.get("design_revision") != STAGE3_DESIGN_REVISION
-        or design.get("contract_revision") != 1
-        or design.get("external_evidence_id") != STAGE3_EXTERNAL_EVIDENCE_ID
-        or design.get("contract_sha256") != STAGE3_CONTRACT_SHA256
         or not isinstance(merge, Mapping)
-        or merge.get("merge_commit") != canonical_revision
+        or merge.get("approved_by") != "@Thorncrag"
     ):
-        raise RegistryError("Stage 3 authority readback identity differs")
+        raise RegistryError("Registry v4 authority readback identity differs")
     revisions = (
         canonical_revision,
         str(merge.get("base_revision") or ""),
         str(merge.get("reviewed_head") or ""),
+        str(merge.get("merge_commit") or ""),
     )
     if any(re.fullmatch(r"[0-9a-f]{40}", value) is None for value in revisions):
-        raise RegistryError("Stage 3 authority readback revision is invalid")
-    parents = _git_output(root, "rev-list", "--parents", "-n", "1", canonical_revision).split()
-    if parents != [canonical_revision, revisions[1], revisions[2]]:
-        raise RegistryError("Stage 3 authority merge parents differ")
+        raise RegistryError("Registry v4 authority readback revision is invalid")
+    parents = _git_output(
+        root, "rev-list", "--parents", "-n", "1", revisions[3]
+    ).split()
+    if parents != [revisions[3], revisions[1], revisions[2]]:
+        raise RegistryError("Registry v4 implementation merge parents differ")
     head = _repository_head(root)
     origin_main = _git_output(root, "rev-parse", "refs/remotes/origin/main").strip()
     if (
         head is None
         or re.fullmatch(r"[0-9a-f]{40}", origin_main) is None
         or head != origin_main
+        or not _git_is_ancestor(root, revisions[3], canonical_revision)
         or not _git_is_ancestor(root, canonical_revision, head)
         or not _git_is_ancestor(root, canonical_revision, origin_main)
     ):
-        raise RegistryError("Stage 3 authority is not synchronized to canonical main")
+        raise RegistryError("Registry v4 authority is not synchronized to canonical main")
     if _git_output(
         root,
         "status",
@@ -3021,21 +3317,47 @@ def _validate_stage3_authority_repository_binding(
         "--untracked-files=no",
         "--",
         CANONICAL_REGISTRY_PATH,
+        *interpreter_paths,
     ).strip():
-        raise RegistryError("Stage 3 authority Registry checkout is not clean")
-    for revision in (revisions[2], canonical_revision, head, origin_main):
+        raise RegistryError("Registry v4 authority checkout is not clean")
+    for revision in (revisions[2], revisions[3], canonical_revision, head, origin_main):
         bound = _registry_at_revision(root, revision)
         if canonical_json(bound) != canonical_json(stage3_registry):
-            raise RegistryError("Stage 3 authority Registry bytes differ from canonical Git")
-    merged_at = _parse_activation_timestamp(merge.get("merged_at"), "Stage 3 merge")
-    verified_at = _parse_activation_timestamp(readback.get("verified_at"), "Stage 3 verification")
+            raise RegistryError("Registry v4 bytes differ from canonical Git")
+    for relative in interpreter_paths:
+        try:
+            current_digest = _sha256(root / relative)
+        except OSError as exc:
+            raise RegistryError("Registry v4 interpreter binding is unavailable") from exc
+        if bindings.get(relative) != current_digest:
+            raise RegistryError("Registry v4 interpreter binding differs from current bytes")
+        for revision in (revisions[2], revisions[3], canonical_revision, head, origin_main):
+            try:
+                payload = subprocess.run(
+                    ["git", "-C", str(root), "show", f"{revision}:{relative}"],
+                    check=True,
+                    capture_output=True,
+                    timeout=30,
+                ).stdout
+            except (OSError, subprocess.SubprocessError) as exc:
+                raise RegistryError("Registry v4 interpreter Git binding is unavailable") from exc
+            if hashlib.sha256(payload).hexdigest() != bindings.get(relative):
+                raise RegistryError(
+                    "Registry v4 interpreter differs from approved implementation head"
+                )
+    merged_at = _parse_activation_timestamp(
+        merge.get("merged_at"), "Registry v4 implementation merge"
+    )
+    verified_at = _parse_activation_timestamp(
+        readback.get("verified_at"), "Registry v4 verification"
+    )
     checks = merge.get("required_checks")
     if not isinstance(checks, list) or any(
-        _parse_activation_timestamp(item.get("completed_at"), "Stage 3 check") > merged_at
+        _parse_activation_timestamp(item.get("completed_at"), "Registry v4 check") > merged_at
         for item in checks
         if isinstance(item, Mapping)
     ) or merged_at > verified_at:
-        raise RegistryError("Stage 3 authority chronology differs")
+        raise RegistryError("Registry v4 authority chronology differs")
 
 
 def _load_fixed_stage3_authority_readback(
@@ -3282,7 +3604,7 @@ def _codeowners_pattern_matches(path: str, pattern: str) -> bool:
 
 
 def generate_codeowners_text(registry: Mapping[str, Any]) -> str:
-    if registry.get("schema_version") in {2, 3}:
+    if _exact_v4_integer(registry.get("schema_version"), 4):
         return stage2_codeowners_projection(
             registry,
             root=ROOT,
@@ -3310,6 +3632,8 @@ def _stage2_codeowners_setting(
     label: str,
 ) -> Mapping[str, Any]:
     controls = record.get("repository_controls")
+    if controls is None:
+        return {"mode": "inherit"}
     if not isinstance(controls, Mapping) or set(controls) != {
         "github_codeowners"
     }:
@@ -3415,8 +3739,8 @@ def stage2_codeowners_projection(
 ) -> dict[str, Any]:
     """Resolve typed Stage 2 review routing and compare its generated file."""
 
-    if registry.get("schema_version") not in {2, 3}:
-        raise RegistryError("typed CODEOWNERS projection requires Registry schema 2 or 3")
+    if not _exact_v4_integer(registry.get("schema_version"), 4):
+        raise RegistryError("typed CODEOWNERS projection requires exact Registry schema 4")
     scope_namespace = registry.get("directory_scopes")
     component_namespace = registry.get("components")
     scopes = (
@@ -3542,11 +3866,9 @@ def stage2_codeowners_projection(
             raise RegistryError(f"component {component_id} is invalid")
         path = _stage2_component_path(component)
         if path is None:
-            if (
-                registry.get("schema_version") == 3
-                and component.get("repository_controls")
-                == {"github_codeowners": {"mode": "none"}}
-            ):
+            if component.get("repository_controls") == {
+                "github_codeowners": {"mode": "none"}
+            }:
                 records.append({
                     "assignment_id": f"component:{component_id}",
                     "record_kind": "component",
@@ -5243,25 +5565,17 @@ def _validate_active_predecessor_exclusion(
 
 
 def _routing_snapshot(registry: Mapping[str, Any]) -> dict[str, Any]:
-    if registry.get("schema_version") in {2, 3}:
-        return _stage2_route_snapshot(registry)
-    routing = registry["context_routing"]
-    return {
-        "schema_version": routing["schema_version"],
-        "generated_path_exclusions": routing["generated_path_exclusions"],
-        "required_modules": routing["required_modules"],
-        "documents": routing["documents"],
-        "capabilities": routing["capabilities"],
-        "profiles": routing["profiles"],
-    }
+    if not _exact_v4_integer(registry.get("schema_version"), 4):
+        raise RegistryError("active routing requires exact Registry schema version 4")
+    return _v4_route_snapshot(registry)
 
 
 def parity_report(
     registry: Mapping[str, Any],
     source_route: Mapping[str, Any],
 ) -> dict[str, Any]:
-    if registry.get("schema_version") in {2, 3}:
-        snapshot = _stage2_route_snapshot(registry)
+    if _exact_v4_integer(registry.get("schema_version"), 4):
+        snapshot = _v4_route_snapshot(registry)
         differences = [
             key for key in ROUTE_SOURCE_KEYS
             if canonical_json(snapshot[key]) != canonical_json(source_route[key])
@@ -5334,61 +5648,10 @@ def load_validated_registry(
         raise RegistryError("candidate registry uses an unapproved schema authority")
     schema = _read_json(schema_path)
     _validate_against_schema(registry, schema, schema)
-    if registry.get("schema_version") == 2:
-        validate_stage2_registry(registry, root=root)
-        return registry, _stage2_route_snapshot(registry)
-    if registry.get("schema_version") == 3:
-        validate_stage3_registry(registry, root=root)
-        return registry, _stage2_route_snapshot(registry)
-    if registry.get("status") != "candidate":
-        raise RegistryError(
-            "predecessor-bound registry loader accepts candidate state only"
-        )
-    source_spec = registry["context_routing"]["source_import"]
-    baseline_spec = registry["source_baseline"]["route_source"]
-    if {
-        "path": source_spec["path"],
-        "sha256": source_spec["sha256"],
-        "schema_version": source_spec["schema_version"],
-    } != baseline_spec:
-        raise RegistryError("context route import and source baseline disagree")
-    source_path = _contained_file(root, source_spec["path"], "context route source")
-    actual_digest = _sha256(source_path)
-    if actual_digest != source_spec["sha256"]:
-        raise RegistryError(
-            "context route source digest differs from the candidate baseline"
-        )
-    route = _read_json(source_path)
-    validate_route_source(route)
-    try:
-        load_route_manifest(source_path, root=root, verify_hashes=True)
-    except (ContextError, OSError) as exc:
-        raise RegistryError(f"context route source validation failed: {exc}") from exc
-    actual_counts = route_counts(route)
-    if actual_counts != registry["context_routing"]["expected_counts"]:
-        raise RegistryError(
-            "context route source counts differ from the candidate baseline"
-        )
-    repository_revision = registry["source_baseline"]["repository_revision"]
-    _validate_candidate_repository_binding(
-        root,
-        registry_path,
-        repository_revision,
-    )
-    binding = registry["source_baseline"]["working_tree_binding"]
-    expected_binding = _route_source_binding(repository_revision, route)
-    if binding["sha256"] != expected_binding:
-        raise RegistryError(
-            "candidate working-tree source binding differs from the routed authority"
-        )
-    parity = parity_report(registry, route)
-    if not parity["valid"]:
-        raise RegistryError(
-            "embedded context routing differs from the exact source import: "
-            + ", ".join(parity["differences"])
-        )
-    _validate_stage1_semantics(registry, route, root=root)
-    return registry, route
+    if not _exact_v4_integer(registry.get("schema_version"), 4):
+        raise RegistryError("Component Registry requires exact schema version 4")
+    validate_v4_registry(registry, root=root)
+    return registry, _v4_route_snapshot(registry, root=root)
 
 
 def _registry_and_schema_from_authority(
@@ -5569,21 +5832,19 @@ def _stage3_adopted_configuration_view_from_authority(
         registry_path,
         root=authority.repository_root,
     )
-    if registry.get("validation", {}).get("mode") != "adopted_configuration_validation":
-        raise RegistryError("Stage 3 tracked Registry posture is invalid")
+    if not _exact_v4_integer(registry.get("schema_version"), 4):
+        raise RegistryError("Registry v4 tracked configuration posture is invalid")
     digest = _canonical_registry_digest(registry)
-    authority_model = _validate_stage2_authority_digest_model(registry)
-    authority_digest = _stage2_authority_digest(registry)
     return {
-        "schema_version": 3,
+        "schema_version": 4,
         "registry_id": registry["registry_id"],
         "registry_revision": registry["registry_revision"],
         "registry_status": "adopted",
         "registry_sha256": digest,
-        "authority_sha256": authority_digest,
-        "authority_protocol": authority_model["protocol"],
-        "authority_generation": authority_model["generation"],
-        "routing_authority_sha256": authority_digest,
+        "authority_sha256": digest,
+        "authority_protocol": "full_registry_sha256_v1",
+        "authority_generation": 4,
+        "routing_authority_sha256": digest,
         "registry_path": CANONICAL_REGISTRY_PATH,
         "route": route,
         "validation_mode": "adopted_configuration_validation",
@@ -5622,18 +5883,16 @@ def _stage3_live_authority_view_from_authority(
     if canonical_json(validated) != canonical_json(stage3_registry):
         raise RegistryError("Stage 3 authority Registry changed during readback")
     digest = _canonical_registry_digest(validated)
-    authority_digest = _stage2_authority_digest(validated)
-    model = _validate_stage2_authority_digest_model(validated)
     return {
-        "schema_version": 3,
+        "schema_version": 4,
         "registry_id": validated["registry_id"],
         "registry_revision": validated["registry_revision"],
         "registry_status": "adopted",
         "registry_sha256": digest,
-        "authority_sha256": authority_digest,
-        "authority_protocol": model["protocol"],
-        "authority_generation": model["generation"],
-        "routing_authority_sha256": authority_digest,
+        "authority_sha256": digest,
+        "authority_protocol": "full_registry_sha256_v1",
+        "authority_generation": 4,
+        "routing_authority_sha256": digest,
         "registry_path": CANONICAL_REGISTRY_PATH,
         "route": route,
         "validation_mode": "live_authority_validation",
@@ -5842,42 +6101,14 @@ def load_validated_component_registry_routing_view(
     registry_path, registry, schema = _registry_and_schema_from_authority(
         authority
     )
-    if registry.get("schema_version") == 2:
-        if registry.get("validation", {}).get("mode") != "proposed_revision_validation":
-            raise RegistryError("Stage 2 tracked Registry posture is invalid")
-        if not _stage2_configuration_is_adopted(
-            authority,
-            registry_path,
-            registry,
-        ):
-            return _stage2_proposed_view_from_authority(authority, registry_path)
-        return _stage2_online_governed_eligibility_view_from_authority(
-            authority,
-            registry_path,
-            registry,
-        )
-    if registry.get("schema_version") == 3:
+    if _exact_v4_integer(registry.get("schema_version"), 4):
         return _stage3_live_authority_view_from_authority(
             authority,
             registry_path,
             registry,
             schema=schema,
         )
-    if registry.get("status") == "candidate":
-        return _candidate_view_from_authority(authority, registry_path)
-    if registry.get("status") != "active":
-        raise RegistryError("Component Registry has an invalid status")
-    activation_readback = _load_fixed_activation_readback(
-        authority,
-        registry,
-        schema=schema,
-    )
-    return _active_view_from_authority(
-        authority,
-        registry,
-        schema=schema,
-        activation_readback=activation_readback,
-    )
+    raise RegistryError("Component Registry requires exact schema version 4")
 
 
 def _configuration_routing_view_from_authority(
@@ -5892,30 +6123,12 @@ def _configuration_routing_view_from_authority(
     registry_path, registry, _schema = (
         _registry_and_schema_from_authority(authority)
     )
-    if registry.get("schema_version") == 2:
-        if _stage2_configuration_is_adopted(
-            authority,
-            registry_path,
-            registry,
-        ):
-            return _stage2_adopted_configuration_view_from_authority(
-                authority,
-                registry_path,
-            )
-        return _stage2_proposed_view_from_authority(authority, registry_path)
-    if registry.get("schema_version") == 3:
+    if _exact_v4_integer(registry.get("schema_version"), 4):
         return _stage3_adopted_configuration_view_from_authority(
             authority,
             registry_path,
         )
-    if registry.get("status") == "candidate":
-        return _candidate_view_from_authority(authority, registry_path)
-    if registry.get("status") == "active":
-        return _active_configuration_view_from_authority(
-            authority,
-            registry,
-        )
-    raise RegistryError("Component Registry has an invalid status")
+    raise RegistryError("Component Registry requires exact schema version 4")
 
 
 def load_component_registry_configuration_routing_view() -> dict[str, Any]:
@@ -5946,14 +6159,11 @@ def load_fixture_component_registry_configuration_routing_view(
 
 
 def load_candidate_component_registry_routing_view() -> dict[str, Any]:
-    """Load a nonauthoritative candidate from the executing checkout."""
+    """Legacy name for the exact nonauthoritative v4 configuration view."""
     view = load_component_registry_configuration_routing_view()
-    if view.get("validation_mode") not in {
-        "candidate_validation_only",
-        "proposed_revision_validation",
-    }:
+    if view.get("validation_mode") != "adopted_configuration_validation":
         raise RegistryError(
-            "repository validation cannot authorize an active registry"
+            "repository validation must return exact v4 configuration posture"
         )
     return view
 
@@ -5976,36 +6186,22 @@ def load_fixture_component_registry_routing_view(
     registry_path, registry, schema = _registry_and_schema_from_authority(
         authority
     )
-    if registry.get("schema_version") == 2:
+    if _exact_v4_integer(registry.get("schema_version"), 4):
         if activation_readback is None:
             raise RegistryError(
-                "Stage 2 live fixture routing requires adoption readback"
+                "Registry v4 live fixture routing requires authority readback"
             )
-        return _stage2_live_view_from_authority(
+        _validate_stage3_authority_readback_schema(
+            activation_readback,
+            schema=schema,
+        )
+        return _stage3_live_authority_view_from_authority(
             authority,
             registry_path,
             registry,
             schema=schema,
-            adoption_readback=activation_readback,
         )
-    if registry.get("status") == "candidate":
-        if activation_readback is not None:
-            raise RegistryError(
-                "candidate routing cannot consume activation readback"
-            )
-        return _candidate_view_from_authority(authority, registry_path)
-    if registry.get("status") != "active":
-        raise RegistryError("Component Registry has an invalid status")
-    if activation_readback is None:
-        raise RegistryError(
-            "active fixture routing requires injected activation readback"
-        )
-    return _active_view_from_authority(
-        authority,
-        registry,
-        schema=schema,
-        activation_readback=activation_readback,
-    )
+    raise RegistryError("Component Registry requires exact schema version 4")
 
 
 def _canonical_registry_file(
@@ -6437,25 +6633,43 @@ def _validated_component_registry_routing_view(
 def validated_component_registry_routing_view(
     registry: Mapping[str, Any],
     *,
-    candidate_source_route: Mapping[str, Any],
+    candidate_source_route: Mapping[str, Any] | None = None,
     registry_path: str = CANONICAL_REGISTRY_PATH,
 ) -> dict[str, Any]:
-    """Validate one in-memory candidate for parity inspection only.
-
-    Active routing is deliberately unavailable through an in-memory public
-    adapter.  Production active routing must pass through the fixed
-    ProjectPathAuthority reader, and fixture active routing must pass through
-    the explicit contained fixture loader.
-    """
-    if registry.get("status") != "candidate":
-        raise RegistryError(
-            "active routing is available only through fixed path authority"
-        )
-    return _validated_component_registry_routing_view(
-        registry,
-        candidate_source_route=candidate_source_route,
-        registry_path=registry_path,
-    )
+    """Validate one exact in-memory v4 configuration for inspection only."""
+    if candidate_source_route is not None:
+        raise RegistryError("Registry v4 forbids predecessor routing input")
+    if registry_path != CANONICAL_REGISTRY_PATH:
+        raise RegistryError("Registry v4 requires its canonical path identity")
+    validate_v4_registry(registry, compare_codeowners=False)
+    digest = _canonical_registry_digest(registry)
+    return {
+        "schema_version": 4,
+        "registry_id": registry["registry_id"],
+        "registry_revision": 4,
+        "registry_status": "adopted",
+        "registry_sha256": digest,
+        "authority_sha256": digest,
+        "authority_protocol": "full_registry_sha256_v1",
+        "authority_generation": 4,
+        "routing_authority_sha256": digest,
+        "registry_path": registry_path,
+        "route": _v4_route_snapshot(registry),
+        "validation_mode": "adopted_configuration_validation",
+        "authoritative": False,
+        "executable": False,
+        "live_authority_verified": False,
+        "activation_receipt_consulted": False,
+        "predecessor_route_consulted": False,
+        "authority_effective": False,
+        "source_revision_authorized": False,
+        "source_bytes_current": True,
+        "canonical_history_confirmed": False,
+        "receipt_trusted": False,
+        "runtime_live": "not_checked",
+        "registry_component_executable": False,
+        "_validated_registry": registry,
+    }
 
 
 def _routed_selection_from_view_untyped(
@@ -6469,16 +6683,11 @@ def _routed_selection_from_view_untyped(
 ) -> dict[str, Any]:
     mode = view.get("validation_mode")
     if (
-        view.get("schema_version") not in {1, 2, 3}
+        not _exact_v4_integer(view.get("schema_version"), 4)
         or mode
         not in {
-            "candidate_validation_only",
-            "active_configuration_validation_only",
-            "active_component_registry",
-            "proposed_revision_validation",
             "adopted_configuration_validation",
             "live_authority_validation",
-            "online_governed_eligibility",
         }
         or not isinstance(view.get("route"), Mapping)
         or view.get("registry_path")
@@ -6488,19 +6697,6 @@ def _routed_selection_from_view_untyped(
             "routing view is not a validated Component Registry view"
         )
     expected_mode_state = {
-        "proposed_revision_validation": {
-            "authoritative": False,
-            "executable": False,
-            "activation_receipt_consulted": False,
-            "predecessor_route_consulted": False,
-            "authority_effective": False,
-            "source_revision_authorized": False,
-            "source_bytes_current": False,
-            "canonical_history_confirmed": False,
-            "receipt_trusted": False,
-            "runtime_live": "not_checked",
-            "registry_component_executable": False,
-        },
         "adopted_configuration_validation": {
             "authoritative": False,
             "executable": False,
@@ -6508,7 +6704,7 @@ def _routed_selection_from_view_untyped(
             "predecessor_route_consulted": False,
             "authority_effective": False,
             "source_revision_authorized": False,
-            "source_bytes_current": False,
+            "source_bytes_current": True,
             "canonical_history_confirmed": False,
             "receipt_trusted": False,
             "runtime_live": "not_checked",
@@ -6521,52 +6717,7 @@ def _routed_selection_from_view_untyped(
             "activation_receipt_consulted": True,
             "predecessor_route_consulted": False,
         },
-        "online_governed_eligibility": {
-            "authoritative": True,
-            "executable": False,
-            "activation_receipt_consulted": True,
-            "predecessor_route_consulted": False,
-            "authority_effective": True,
-            "source_revision_authorized": True,
-            "source_bytes_current": True,
-            "canonical_history_confirmed": True,
-            "receipt_trusted": True,
-            "runtime_live": "not_checked",
-            "registry_component_executable": False,
-        },
-        "candidate_validation_only": {
-            "registry_status": "candidate",
-            "authoritative": False,
-            "executable": False,
-            "live_activation_verified": False,
-            "activation_receipt_consulted": False,
-            "predecessor_route_consulted": True,
-        },
-        "active_configuration_validation_only": {
-            "registry_status": "active",
-            "authoritative": False,
-            "executable": False,
-            "live_activation_verified": False,
-            "activation_receipt_consulted": False,
-            "predecessor_route_consulted": False,
-        },
-        "active_component_registry": {
-            "registry_status": "active",
-            "authoritative": True,
-            "executable": True,
-            "live_activation_verified": True,
-            "activation_receipt_consulted": True,
-            "predecessor_route_consulted": False,
-        },
     }[str(mode)]
-    if (
-        mode == "adopted_configuration_validation"
-        and view.get("schema_version") == 3
-    ):
-        expected_mode_state = {
-            **expected_mode_state,
-            "source_bytes_current": True,
-        }
     if any(
         view.get(field) != expected
         for field, expected in expected_mode_state.items()
@@ -6574,15 +6725,7 @@ def _routed_selection_from_view_untyped(
         raise RegistryError(
             "routing view authority flags disagree with its validation mode"
         )
-    if mode == "candidate_validation_only" and registry.get("schema_version") not in {2, 3}:
-        expected_routing_authority_sha256 = registry["context_routing"][
-            "source_import"
-        ]["sha256"]
-    elif mode in {
-        "proposed_revision_validation",
-        "adopted_configuration_validation",
-        "online_governed_eligibility",
-    }:
+    if mode == "adopted_configuration_validation":
         expected_routing_authority_sha256 = view["authority_sha256"]
     else:
         expected_routing_authority_sha256 = view["registry_sha256"]
@@ -6598,45 +6741,9 @@ def _routed_selection_from_view_untyped(
     # same canonical form so include-all profiles cannot depend on incidental
     # mapping insertion order.
     embedded = json.loads(canonical_json(view["route"]))
-    if (
-        registry.get("schema_version") not in {2, 3}
-        and registry["status"] == "active"
-        and (
-            mode
-            not in {
-                "active_configuration_validation_only",
-                "active_component_registry",
-            }
-            or view.get("predecessor_route_consulted") is not False
-        )
-    ):
-        raise RegistryError(
-            "active Component Registry routing cannot use predecessor authority"
-        )
-    if (
-        registry.get("schema_version") not in {2, 3}
-        and registry["status"] == "candidate"
-        and (
-            view.get("validation_mode") != "candidate_validation_only"
-            or view.get("predecessor_route_consulted") is not True
-        )
-    ):
-        raise RegistryError(
-            "candidate routing lacks exact predecessor validation"
-        )
-    online_eligible = (
-        mode == "online_governed_eligibility"
-        and view.get("authoritative") is True
-        and view.get("executable") is False
-        and view.get("authority_effective") is True
-        and view.get("source_revision_authorized") is True
-        and view.get("source_bytes_current") is True
-        and view.get("canonical_history_confirmed") is True
-        and view.get("receipt_trusted") is True
-        and view.get("activation_receipt_consulted") is True
-        and view.get("runtime_live") == "not_checked"
-    )
-    if executable and view.get("executable") is not True and not online_eligible:
+    if view.get("predecessor_route_consulted") is not False:
+        raise RegistryError("Registry v4 routing forbids predecessor authority")
+    if executable and view.get("executable") is not True:
         raise RegistryError(
             "configuration validation routing cannot satisfy an executable "
             "consumer"
@@ -6716,39 +6823,22 @@ def _routed_selection_from_view_untyped(
             inclusion_reasons.setdefault(dependency, set()).add(
                 f"dependency of {identity}"
             )
-    operational_documents = (
-        registry["operational_documents"]["entries"]
-        if registry.get("schema_version") not in {2, 3}
-        else None
-    )
-    stage2_components = (
-        registry["components"]["entries"]
-        if registry.get("schema_version") in {2, 3}
-        else None
-    )
+    stage2_components = registry["components"]["entries"]
     def authority_metadata(identity: str) -> tuple[object, object, object]:
-        if operational_documents is not None:
-            entry = operational_documents[identity]
-            return entry["authority_role"], entry["purpose_scope"], entry["authority_exclusions"]
         component = stage2_components[identity]
-        assignment_ids = component["record_refs"]["authority_assignments"]
-        assignments = registry["component_authorities"]["assignments"]
-        assignment = assignments[assignment_ids[0]] if assignment_ids else {}
+        governing = registry["routing"]["components"][identity].get(
+            "governing", True
+        )
         return (
-            "authoritative" if assignment.get("authoritative") else "nonauthoritative",
-            assignment.get("subjects", []),
-            assignment.get("exclusions", []),
+            "authoritative" if governing else "nonauthoritative",
+            component.get("authority_scope", []),
+            component.get("authority_exclusions", []),
         )
     selection = {
         "selection_kind": selection_kind,
         "executable": executable,
         "registry_id": registry["registry_id"],
         "registry_revision": registry["registry_revision"],
-        **(
-            {"registry_status": registry["status"]}
-            if registry.get("schema_version") not in {2, 3}
-            else {}
-        ),
         "registry_sha256": view["registry_sha256"],
         "registry_path": view["registry_path"],
         "validation_mode": mode,
@@ -7033,12 +7123,10 @@ def build_context_packet_from_view(
         )
     try:
         registry_state = view.get("registry_status")
-        if registry_state is None and view.get("schema_version") in {2, 3}:
-            registry_state = (
-                "proposed"
-                if view.get("validation_mode") == "proposed_revision_validation"
-                else "adopted"
-            )
+        if registry_state is None and _exact_v4_integer(
+            view.get("schema_version"), 4
+        ):
+            registry_state = "adopted"
         packet = build_context_packet(
             view["route"],
             profile_id,
@@ -7121,8 +7209,6 @@ def build_context_packet_from_view(
         )
     live_field = (
         "live_authority_verified"
-        if view.get("schema_version") in {2, 3}
-        else "live_activation_verified"
     )
     packet["routing_manifest"].update(
         {
@@ -7153,8 +7239,6 @@ def validate_context_packet_binding(
 
     live_field = (
         "live_authority_verified"
-        if view.get("schema_version") in {2, 3}
-        else "live_activation_verified"
     )
     expected_manifest_fields = {
         "registry_id",
@@ -7190,12 +7274,10 @@ def validate_context_packet_binding(
                 "context packet lacks its exact complete routing manifest"
             )
         registry_state = view.get("registry_status")
-        if registry_state is None and view.get("schema_version") in {2, 3}:
-            registry_state = (
-                "proposed"
-                if view.get("validation_mode") == "proposed_revision_validation"
-                else "adopted"
-            )
+        if registry_state is None and _exact_v4_integer(
+            view.get("schema_version"), 4
+        ):
+            registry_state = "adopted"
         expected_identity = {
             "registry_id": view.get("registry_id"),
             "registry_path": view.get("registry_path"),
@@ -8356,17 +8438,23 @@ def audit_terminology(
     registry: Mapping[str, Any],
 ) -> dict[str, Any]:
     terminology = registry["terminology"]
-    if registry.get("schema_version") in {2, 3}:
-        records = (
-            _stage3_term_records(registry)
-            if registry.get("schema_version") == 3
-            else _stage2_term_records(registry)
-        )
+    if _exact_v4_integer(registry.get("schema_version"), 4):
+        entries = terminology.get("entries")
+        order = terminology.get("order")
+        if not isinstance(entries, Mapping) or not isinstance(order, list):
+            raise RegistryError("Registry v4 terminology is unavailable")
+        records = [
+            {"term_id": term_id, **dict(entries[term_id])}
+            for term_id in order
+        ]
+        record_set_sha256 = hashlib.sha256(
+            (canonical_json(records) + "\n").encode("utf-8")
+        ).hexdigest()
         return {
             "available": True,
             "complete": True,
             "adopted": True,
-            "record_set_sha256": terminology["record_set_sha256"],
+            "record_set_sha256": record_set_sha256,
             "entry_count": len(records),
             "entries": records,
         }
@@ -9004,6 +9092,16 @@ def _stage2_term_records(registry: Mapping[str, Any]) -> list[dict[str, str]]:
 
 def _stage2_component_path(component: Mapping[str, Any]) -> str | None:
     source = component.get("canonical_source")
+    if isinstance(source, str) and source:
+        return source
+    if (
+        isinstance(source, Mapping)
+        and source.get("kind") == "repository_directory"
+        and isinstance(source.get("value"), str)
+        and source.get("value")
+    ):
+        return str(source["value"])
+    source = component.get("canonical_source")
     if not isinstance(source, Mapping):
         return None
     locator = source.get("locator")
@@ -9022,6 +9120,8 @@ def _stage2_route_snapshot(registry: Mapping[str, Any]) -> dict[str, Any]:
     This adapter preserves existing routing consumers without retaining the
     removed Stage 1 namespaces or duplicating paths and digests in routing.
     """
+    if _exact_v4_integer(registry.get("schema_version"), 4):
+        return _v4_route_snapshot(registry)
     routing = registry.get("routing")
     components = registry.get("components", {}).get("entries", {})
     if not isinstance(routing, Mapping) or not isinstance(components, Mapping):
@@ -10443,33 +10543,16 @@ def main(argv: Sequence[str] | None = None) -> int:
             registry, route = load_validated_registry(args.registry)
             routing_view = validated_component_registry_routing_view(
                 registry,
-                candidate_source_route=route,
+                candidate_source_route=None,
             )
         if args.command == "validate":
-            if registry.get("schema_version") == 3:
-                _emit(validate_stage3_registry(registry, root=ROOT))
-            elif registry.get("schema_version") == 2:
-                _emit(validate_stage2_registry(registry, root=ROOT))
-            else:
-                _emit({
-                    "valid": True,
-                    "registry_id": registry["registry_id"],
-                    "registry_revision": registry["registry_revision"],
-                    "status": registry["status"],
-                    "validation_mode": routing_view["validation_mode"],
-                    "authoritative": False,
-                    "executable": False,
-                    "source_binding_sha256": registry["source_baseline"][
-                        "working_tree_binding"
-                    ]["sha256"],
-                    "stage2_classification_available": False,
-                })
+            _emit(validate_v4_registry(registry, root=ROOT))
         elif args.command == "inventory":
-            if registry.get("schema_version") in {2, 3}:
+            if _exact_v4_integer(registry.get("schema_version"), 4):
                 _emit({
                     "registry_id": registry["registry_id"],
                     "registry_revision": registry["registry_revision"],
-                    "validation_mode": registry["validation"]["mode"],
+                    "validation_mode": routing_view["validation_mode"],
                     "component_count": len(registry["components"]["entries"]),
                     "component_class_counts": dict(sorted(Counter(
                         component["classification"]["component_class"]
@@ -10478,7 +10561,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                     "terminology_count": len(registry["terminology"]["entries"]),
                     "directory_scope_count": len(registry["directory_scopes"]["entries"]),
                     "relationship_count": len(registry["relationships"]["entries"]),
-                    "coverage_path_count": len(registry["repository_coverage"]["entries"]),
+                    "routing_rule_count": sum(
+                        len(group) for group in registry["routing"]["rules"].values()
+                    ),
                 })
             else:
                 _emit(inventory_report(registry, route, root=ROOT))

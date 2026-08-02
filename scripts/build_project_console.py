@@ -4911,55 +4911,16 @@ def payload_count(value: object) -> int:
 
 
 def component_registry_projection_count(snapshot: dict[str, object]) -> int:
-    """Count complete projected records for either Registry schema generation."""
+    """Count canonical v4 records once, excluding linked and derived views."""
 
-    if snapshot.get("schema_version") in {2, 3}:
-        lifecycles = snapshot.get("lifecycles")
-        authorities = snapshot.get("authorities")
-        coverage = snapshot.get("coverage")
-        routing = snapshot.get("routing")
-        terminology = snapshot.get("terminology")
-        codeowners = snapshot.get("codeowners")
-        classifications = snapshot.get("classifications")
-        if not all(
-            isinstance(value, dict)
-            for value in (
-                lifecycles,
-                authorities,
-                coverage,
-                routing,
-                terminology,
-                codeowners,
-                classifications,
-            )
-        ):
-            raise RuntimeError("Component Registry Stage 2 projection is incomplete.")
-        collections = (
-            snapshot.get("components"),
-            classifications.get("classes"),
-            classifications.get("types"),
-            lifecycles.get("assignments"),
-            authorities.get("sources"),
-            authorities.get("assignments"),
-            authorities.get("history"),
-            snapshot.get("relationships"),
-            coverage.get("records"),
-            routing.get("components"),
-            routing.get("selections"),
-            terminology.get("entries"),
-            codeowners.get("records"),
-        )
-        if any(not isinstance(value, list) for value in collections):
-            raise RuntimeError("Component Registry Stage 2 record set is incomplete.")
-        return sum(len(value) for value in collections)
-
-    return (
-        len(snapshot["documents"])
-        + len(snapshot["directories"])
-        + len(snapshot["routing"]["selections"])
-        + len(snapshot["routing"]["rules"])
-        + len(snapshot["relationships"])
-    )
+    if snapshot.get("schema_version") != 4:
+        raise RuntimeError("Component Registry projection requires schema 4.")
+    records = snapshot.get("records")
+    if not isinstance(records, dict) or any(
+        not isinstance(value, list) for value in records.values()
+    ):
+        raise RuntimeError("Component Registry v4 record set is incomplete.")
+    return sum(len(value) for value in records.values())
 
 
 def atomic_write_text(path: Path, text: str) -> None:
@@ -10066,857 +10027,58 @@ def owner_incident_snapshots(
     return operational, security, relations
 
 
-def _component_registry_typed_unavailable(reason: str) -> dict[str, object]:
-    return {"state": "unavailable", "reason": reason}
-
-
-def _stage2_entries(
-    registry: dict[str, object],
-    namespace: str,
+def _component_registry_source_record(
+    component_id: str,
+    component: dict[str, object],
 ) -> dict[str, object]:
-    value = registry.get(namespace)
-    if not isinstance(value, dict) or not isinstance(value.get("entries"), dict):
-        raise RuntimeError(
-            f"Component Registry Stage 2 namespace {namespace!r} is unavailable."
-        )
-    return value["entries"]
-
-
-def _stage2_component_registry_console_snapshot(
-    routing_view: dict[str, object],
-    *,
-    generated_at: str,
-    root: Path = ROOT,
-) -> dict[str, object]:
-    """Project a validated Stage 2 or Stage 3 Registry without another authority."""
-
-    registry = routing_view.get("_validated_registry")
-    route = routing_view.get("route")
-    registry_schema_version = (
-        registry.get("schema_version") if isinstance(registry, dict) else None
-    )
-    stage3 = registry_schema_version == 3
-    if (
-        routing_view.get("schema_version") not in {2, 3}
-        or routing_view.get("validation_mode")
-        not in {
-            "proposed_revision_validation",
-            "adopted_configuration_validation",
+    source = component["canonical_source"]
+    if isinstance(source, str):
+        return {
+            "kind": "repository_path",
+            "value": source,
+            "url": (
+                "https://github.com/Thorncrag/ARRP/blob/main/"
+                + urllib.parse.quote(source)
+            ),
         }
-        or routing_view.get("authoritative") is not False
-        or routing_view.get("executable") is not False
-        or routing_view.get("authority_effective") is not False
-        or routing_view.get("source_revision_authorized") is not False
-        or routing_view.get("source_bytes_current") is not stage3
-        or routing_view.get("canonical_history_confirmed") is not False
-        or routing_view.get("receipt_trusted") is not False
-        or routing_view.get("runtime_live") != "not_checked"
-        or routing_view.get("predecessor_route_consulted") is not False
-        or not isinstance(registry, dict)
-        or registry_schema_version not in {2, 3}
-        or (
-            stage3
-            and routing_view.get("registry_status") != "adopted"
-        )
-        or not isinstance(route, dict)
-    ):
+    if not isinstance(source, dict):
         raise RuntimeError(
-            "Component Registry configuration validation state is invalid."
+            f"Component {component_id} has no canonical source."
         )
-
-    components_by_id = _stage2_entries(registry, "components")
-    relationships_by_id = _stage2_entries(registry, "relationships")
-    migrations_by_id = _stage2_entries(registry, "migrations_and_aliases")
-    provenance_by_id = _stage2_entries(registry, "provenance_events")
-    directory_scopes_by_id = _stage2_entries(registry, "directory_scopes")
-    artifact_rules_by_id = _stage2_entries(
-        registry,
-        "registration_exemptions" if stage3 else "supporting_artifact_rules",
-    )
-    implementation_enums = registry.get("implementation_enums")
-    lifecycles = registry.get("component_lifecycles")
-    authorities = registry.get("component_authorities")
-    terminology = registry.get("terminology")
-    coverage = registry.get("repository_coverage")
-    if not all(
-        isinstance(value, dict)
-        for value in (
-            lifecycles, authorities, terminology, coverage,
-            implementation_enums,
-        )
-    ):
-        raise RuntimeError("Component Registry Stage 2 metadata is unavailable.")
-
-    lifecycle_assignments = lifecycles.get("assignments")
-    authority_sources = authorities.get("sources")
-    authority_assignments = authorities.get("assignments")
-    terminology_entries = terminology.get("entries")
-    terminology_order = terminology.get("order")
-    coverage_entries = coverage.get("entries")
-    if not all(
-        isinstance(value, dict)
-        for value in (
-            lifecycle_assignments,
-            authority_sources,
-            authority_assignments,
-            terminology_entries,
-            coverage_entries,
-        )
-    ) or not isinstance(terminology_order, list):
-        raise RuntimeError("Component Registry Stage 2 records are unavailable.")
-
-    def records_for(
-        identities: object,
-        records: dict[str, object],
-        label: str,
-    ) -> list[dict[str, object]]:
-        if not isinstance(identities, list):
-            raise RuntimeError(f"Component Registry {label} references are invalid.")
-        projected = []
-        for identity in identities:
-            if not isinstance(identity, str) or not isinstance(
-                records.get(identity), dict
-            ):
-                raise RuntimeError(
-                    f"Component Registry {label} reference is unresolved."
-                )
-            projected.append(copy.deepcopy(records[identity]))
-        return projected
-
-    components = []
-    for component_id, raw in sorted(components_by_id.items()):
-        if not isinstance(raw, dict) or raw.get("stable_id") != component_id:
-            raise RuntimeError("Component Registry component identity is invalid.")
-        refs = raw.get("record_refs")
-        if not isinstance(refs, dict):
-            raise RuntimeError(
-                f"Component Registry component {component_id!r} lacks record references."
-            )
-        component = copy.deepcopy(raw)
-        lifecycle_ids = refs.get("lifecycle_assignments", [])
-        component["lifecycle_records"] = records_for(
-            lifecycle_ids,
-            lifecycle_assignments,
-            "lifecycle",
-        )
-        for identity, record in zip(lifecycle_ids, component["lifecycle_records"]):
-            record.setdefault("assignment_id", identity)
-            record["console_route"] = (
-                "automation:component-registry:lifecycles?assignment="
-                + urllib.parse.quote(identity, safe="")
-            )
-        authority_ids = refs.get("authority_assignments", [])
-        component["authority_records"] = records_for(
-            authority_ids,
-            authority_assignments,
-            "authority",
-        )
-        for identity, record in zip(authority_ids, component["authority_records"]):
-            record.setdefault("assignment_id", identity)
-            record["console_route"] = (
-                "automation:component-registry:authority?assignment="
-                + urllib.parse.quote(identity, safe="")
-            )
-        relationship_ids = refs.get("relationships", [])
-        component["relationship_records"] = records_for(
-            relationship_ids,
-            relationships_by_id,
-            "relationship",
-        )
-        for identity, record in zip(relationship_ids, component["relationship_records"]):
-            record.setdefault("relationship_id", identity)
-            record["console_route"] = (
-                "automation:component-registry:relationships?relationship="
-                + urllib.parse.quote(identity, safe="")
-            )
-        component["migration_records"] = records_for(
-            refs.get("migrations", []),
-            migrations_by_id,
-            "migration",
-        )
-        component["provenance_records"] = records_for(
-            refs.get("provenance_events", []),
-            provenance_by_id,
-            "provenance",
-        )
-        component["console_route"] = (
-            "automation:component-registry:components?component="
-            + urllib.parse.quote(component_id, safe="")
-        )
-        components.append(component)
-
-    lifecycle_rows = []
-    for assignment_id, raw in sorted(lifecycle_assignments.items()):
-        if not isinstance(raw, dict):
-            raise RuntimeError("Component lifecycle assignment is invalid.")
-        row = copy.deepcopy(raw)
-        row.setdefault("assignment_id", assignment_id)
-        component_id = str(row.get("component_id") or "")
-        component = components_by_id.get(component_id)
-        if not isinstance(component, dict):
-            raise RuntimeError("Component lifecycle assignment is unresolved.")
-        row["display_name"] = component.get("display_name", component_id)
-        row["classification"] = copy.deepcopy(component.get("classification"))
-        row["component_route"] = (
-            "automation:component-registry:components?component="
-            + urllib.parse.quote(component_id, safe="")
-        )
-        lifecycle_provenance_ids = []
-        for transition in row.get("history", []):
-            if (
-                isinstance(transition, dict)
-                and isinstance(transition.get("provenance_event_id"), str)
-                and transition["provenance_event_id"] not in lifecycle_provenance_ids
-            ):
-                lifecycle_provenance_ids.append(transition["provenance_event_id"])
-        row["provenance_records"] = records_for(
-            lifecycle_provenance_ids,
-            provenance_by_id,
-            "lifecycle provenance",
-        )
-        row["console_route"] = (
-            "automation:component-registry:lifecycles?assignment="
-            + urllib.parse.quote(assignment_id, safe="")
-        )
-        lifecycle_rows.append(row)
-
-    authority_rows = []
-    for assignment_id, raw in sorted(authority_assignments.items()):
-        if not isinstance(raw, dict):
-            raise RuntimeError("Component authority assignment is invalid.")
-        row = copy.deepcopy(raw)
-        row.setdefault("assignment_id", assignment_id)
-        component_id = str(row.get("component_id") or "")
-        component = components_by_id.get(component_id)
-        if not isinstance(component, dict):
-            raise RuntimeError("Component authority assignment is unresolved.")
-        row["display_name"] = component.get("display_name", component_id)
-        row["component_route"] = (
-            "automation:component-registry:components?component="
-            + urllib.parse.quote(component_id, safe="")
-        )
-        source_ids = row.get("source_ids", row.get("authority_source_ids", []))
-        row["sources"] = records_for(
-            source_ids,
-            authority_sources,
-            "authority source",
-        )
-        provenance_event_id = row.get("provenance_event_id")
-        row["provenance_records"] = records_for(
-            [provenance_event_id] if isinstance(provenance_event_id, str) else [],
-            provenance_by_id,
-            "authority provenance",
-        )
-        row["console_route"] = (
-            "automation:component-registry:authority?assignment="
-            + urllib.parse.quote(assignment_id, safe="")
-        )
-        authority_rows.append(row)
-
-    relationships = []
-    for relationship_id, raw in sorted(relationships_by_id.items()):
-        if not isinstance(raw, dict):
-            raise RuntimeError("Component relationship is invalid.")
-        row = copy.deepcopy(raw)
-        row.setdefault("relationship_id", relationship_id)
-        for endpoint_name in ("from", "to"):
-            endpoint_record = row.get(endpoint_name)
-            if (
-                isinstance(endpoint_record, dict)
-                and endpoint_record.get("kind") == "component"
-                and isinstance(endpoint_record.get("id"), str)
-            ):
-                row[f"{endpoint_name}_route"] = (
-                    "automation:component-registry:components?component="
-                    + urllib.parse.quote(endpoint_record["id"], safe="")
-                )
-        provenance_event_id = row.get("provenance_event_id")
-        row["provenance_records"] = records_for(
-            [provenance_event_id] if isinstance(provenance_event_id, str) else [],
-            provenance_by_id,
-            "relationship provenance",
-        )
-        row["console_route"] = (
-            "automation:component-registry:relationships?relationship="
-            + urllib.parse.quote(relationship_id, safe="")
-        )
-        relationships.append(row)
-
-    coverage_rows = []
-    for scope_id, raw in sorted(directory_scopes_by_id.items()):
-        if not isinstance(raw, dict):
-            raise RuntimeError("Component Registry directory scope is invalid.")
-        row = copy.deepcopy(raw)
-        row.update(
-            {
-                "coverage_id": scope_id,
-                "coverage_kind": "directory_scope",
-                "resolved_paths": sorted(
-                    path
-                    for path, treatment in coverage_entries.items()
-                    if isinstance(treatment, dict)
-                    and (
-                        treatment.get("placement", {}).get("scope_id")
-                        if stage3
-                        else treatment.get("scope_id")
-                    ) == scope_id
-                ),
-                "console_route": (
-                    "automation:component-registry:directories?coverage="
-                    + urllib.parse.quote(scope_id, safe="")
-                ),
-            }
-        )
-        row["resolved_path_count"] = len(row["resolved_paths"])
-        coverage_rows.append(row)
-    for rule_id, raw in sorted(artifact_rules_by_id.items()):
-        if not isinstance(raw, dict):
-            raise RuntimeError("Component Registry artifact rule is invalid.")
-        row = copy.deepcopy(raw)
-        row.update(
-            {
-                "coverage_id": rule_id,
-                "coverage_kind": (
-                    "registration_exemption"
-                    if stage3
-                    else "supporting_artifact_rule"
-                ),
-                "resolved_paths": sorted(
-                    path
-                    for path, treatment in coverage_entries.items()
-                    if isinstance(treatment, dict)
-                    and (
-                        treatment.get("treatment", {}).get("exemption_id")
-                        if stage3
-                        else treatment.get("rule_id")
-                    ) == rule_id
-                ),
-                "console_route": (
-                    "automation:component-registry:exemptions?coverage="
-                    + urllib.parse.quote(rule_id, safe="")
-                ),
-            }
-        )
-        row["resolved_path_count"] = len(row["resolved_paths"])
-        coverage_rows.append(row)
-    unresolved_rows = []
-    for index, raw in enumerate(coverage.get("unresolved", []), start=1):
-        if not isinstance(raw, dict):
-            raise RuntimeError("Component Registry unresolved coverage is invalid.")
-        unresolved_id = str(raw.get("path") or f"unresolved-{index}")
-        unresolved_rows.append({
-            **copy.deepcopy(raw),
-            "coverage_id": unresolved_id,
-            "coverage_kind": "unresolved",
-            "console_route": (
-                "automation:component-registry:unresolved?coverage="
-                + urllib.parse.quote(unresolved_id, safe="")
-            ),
-        })
-    coverage_rows.extend(unresolved_rows)
-
-    route_components = route.get("documents")
-    route_capabilities = route.get("capabilities")
-    route_profiles = route.get("profiles")
-    if not all(
-        isinstance(value, dict)
-        for value in (route_components, route_capabilities, route_profiles)
-    ):
-        raise RuntimeError("Component Registry routing projection is invalid.")
-    routing_rows = []
-    for profile_id in sorted(route_profiles):
-        resolved = component_registry_routed_profile_preview(
-            routing_view,
-            profile_id=profile_id,
-            capability_ids=(),
-        )
-        routing_rows.append(
-            {
-                "routing_id": f"profile:{profile_id}",
-                "routing_kind": "profile",
-                "label": profile_id,
-                "component_ids": [
-                    module["id"] for module in resolved["modules"]
-                ],
-                "details": copy.deepcopy(route_profiles[profile_id]),
-                "console_route": (
-                    "automation:component-registry:routing?selection="
-                    + urllib.parse.quote(f"profile:{profile_id}", safe="")
-                ),
-            }
-        )
-    for capability_id in sorted(route_capabilities):
-        resolved = component_registry_routed_capability_preview(
-            routing_view,
-            capability_ids=(capability_id,),
-        )
-        routing_rows.append(
-            {
-                "routing_id": f"capability:{capability_id}",
-                "routing_kind": "capability",
-                "label": capability_id,
-                "component_ids": [
-                    module["id"] for module in resolved["modules"]
-                ],
-                "details": {"declared_components": route_capabilities[capability_id]},
-                "console_route": (
-                    "automation:component-registry:routing?selection="
-                    + urllib.parse.quote(f"capability:{capability_id}", safe="")
-                ),
-            }
-        )
-
-    terms = []
-    for term_id in terminology_order:
-        record = terminology_entries.get(term_id)
-        if not isinstance(term_id, str) or not isinstance(record, dict):
-            raise RuntimeError("Component Registry terminology order is invalid.")
-        term = copy.deepcopy(record)
-        term["console_route"] = (
-            "automation:component-registry:terminology?term="
-            + urllib.parse.quote(term_id, safe="")
-        )
-        terms.append(term)
-
-    component_class_table = implementation_enums.get("component_classes")
-    component_type_table = implementation_enums.get("component_types")
-    if not isinstance(component_class_table, dict) or not isinstance(
-        component_type_table, dict
-    ):
-        raise RuntimeError("Component Registry classification tables are unavailable.")
-
-    def classification_term(binding: object) -> dict[str, object] | None:
-        if not isinstance(binding, dict) or set(binding) != {"term_id"}:
-            return None
-        term_id = binding.get("term_id")
-        record = terminology_entries.get(term_id)
-        if not isinstance(term_id, str) or not isinstance(record, dict):
-            raise RuntimeError("Component Registry classification term binding is unresolved.")
-        return copy.deepcopy(record)
-
-    classes = []
-    types = []
-    for class_id, class_binding in component_class_table.items():
-        if not isinstance(class_id, str):
-            raise RuntimeError("Component Registry class identifier is invalid.")
-        class_term = classification_term(class_binding)
-        class_components = sorted(
-            component_id
-            for component_id, component in components_by_id.items()
-            if isinstance(component, dict)
-            and component.get("classification", {}).get("component_class")
-            == class_id
-        )
-        permitted = component_type_table.get(class_id, {})
-        if not isinstance(permitted, dict):
-            raise RuntimeError("Component Registry type table is invalid.")
-        classes.append({
-            "class_id": class_id,
-            "term_id": class_term.get("term_id") if class_term else None,
-            "label": class_term.get("label") if class_term else class_id.replace("_", " ").title(),
-            "definition": class_term.get("definition") if class_term else None,
-            "binding_state": "bound" if class_term else "unbound",
-            "permitted_type_ids": sorted(permitted),
-            "component_ids": class_components,
-            "usage_count": len(class_components),
-            "console_route": (
-                "automation:component-registry:classes?class="
-                + urllib.parse.quote(class_id, safe="")
-            ),
-        })
-        for type_id, type_binding in permitted.items():
-            if not isinstance(type_id, str):
-                raise RuntimeError("Component Registry type identifier is invalid.")
-            type_term = classification_term(type_binding)
-            type_components = sorted(
-                component_id
-                for component_id, component in components_by_id.items()
-                if isinstance(component, dict)
-                and component.get("classification", {}).get("component_class")
-                == class_id
-                and component.get("classification", {}).get("component_type")
-                == type_id
-            )
-            classification_id = f"{class_id}:{type_id}"
-            types.append({
-                "classification_id": classification_id,
-                "class_id": class_id,
-                "type_id": type_id,
-                "term_id": type_term.get("term_id") if type_term else None,
-                "label": type_term.get("label") if type_term else type_id.replace("_", " ").title(),
-                "definition": type_term.get("definition") if type_term else None,
-                "binding_state": "bound" if type_term else "unbound",
-                "component_ids": type_components,
-                "usage_count": len(type_components),
-                "console_route": (
-                    "automation:component-registry:types?type="
-                    + urllib.parse.quote(classification_id, safe="")
-                ),
-            })
-
-    registry_digest = hashlib.sha256(
-        component_registry_canonical_json(registry).encode("utf-8")
-    ).hexdigest()
-    codeowners = component_registry_codeowners_projection(
-        registry,
-        root=root,
-        compare_current=True,
-    )
-    if not codeowners["complete"]:
+    kind = source.get("kind")
+    value = source.get("value")
+    if not isinstance(kind, str) or not isinstance(value, str):
         raise RuntimeError(
-            "Component Registry CODEOWNERS projection is not current."
+            f"Component {component_id} has an invalid canonical source."
         )
-    for record in codeowners["records"]:
-        record["console_route"] = (
-            "automation:component-registry:codeowners?assignment="
-            + urllib.parse.quote(record["assignment_id"], safe="")
+    url = None
+    if kind == "repository_directory":
+        url = (
+            "https://github.com/Thorncrag/ARRP/tree/main/"
+            + urllib.parse.quote(value.rstrip("/"))
         )
-    defaults = {
-        "mode": "components",
-        "component": components[0]["stable_id"],
-        "class": classes[0]["class_id"],
-        "type": types[0]["classification_id"],
-        "lifecycle": lifecycle_rows[0]["assignment_id"],
-        "authority": authority_rows[0]["assignment_id"],
-        "relationship": relationships[0]["relationship_id"],
-        "coverage": coverage_rows[0]["coverage_id"],
-        "routing": routing_rows[0]["routing_id"],
-        "terminology": terms[0]["term_id"],
-        "codeowners": codeowners["records"][0]["assignment_id"],
-    }
+    return {"kind": kind, "value": value, "url": url}
+
+
+def _component_registry_console_routes() -> dict[str, str]:
+    modes = (
+        "components",
+        "classes",
+        "types",
+        "lifecycles",
+        "authority",
+        "relationships",
+        "directories",
+        "exemptions",
+        "unresolved",
+        "routing",
+        "terminology",
+        "codeowners",
+    )
     return {
-        "schema_version": 3 if stage3 else 2,
-        "projection_id": "component-registry-console",
-        "producer_id": "project-console-builder",
-        "generated_at": generated_at,
-        "availability": "current",
-        "complete": True,
-        "reason_code": None,
-        "routes": {
-            mode: f"automation:component-registry:{mode}"
-            for mode in (
-                "components",
-                "classes",
-                "types",
-                "lifecycles",
-                "authority",
-                "relationships",
-                "coverage",
-                "directories",
-                "exemptions",
-                "unresolved",
-                "routing",
-                "terminology",
-                "codeowners",
-            )
-        },
-        "defaults": defaults,
-        "registry": {
-            "registry_id": registry["registry_id"],
-            "registry_revision": registry["registry_revision"],
-            "registry_status": (
-                routing_view.get("registry_status", "adopted")
-                if stage3
-                else "proposed"
-            ),
-            "validation_mode": routing_view["validation_mode"],
-            "authoritative": False,
-            "executable": False,
-            "authority_effective": False,
-            "source_revision_authorized": False,
-            "source_bytes_current": stage3,
-            "canonical_history_confirmed": False,
-            "receipt_trusted": False,
-            "runtime_live": "not_checked",
-            "predecessor_route_consulted": False,
-            "registry_sha256": registry_digest,
-            "repository_revision": registry["validation"][
-                "repository_base_revision"
-            ],
-            "design_id": registry["validation"]["design_id"],
-            "design_revision": registry["validation"]["design_revision"],
-        },
-        "components": components,
-        "classifications": {
-            "classes": classes,
-            "types": types,
-            "unbound_class_count": sum(
-                record["binding_state"] == "unbound" for record in classes
-            ),
-            "unbound_type_count": sum(
-                record["binding_state"] == "unbound" for record in types
-            ),
-        },
-        "lifecycles": {
-            "states": copy.deepcopy(lifecycles.get("states")),
-            "permitted_transitions": copy.deepcopy(
-                lifecycles.get("permitted_transitions")
-            ),
-            "assignments": lifecycle_rows,
-        },
-        "authorities": {
-            "source_types": copy.deepcopy(authorities.get("source_types")),
-            "sources": [
-                {"source_id": identity, **copy.deepcopy(record)}
-                for identity, record in sorted(authority_sources.items())
-                if isinstance(record, dict)
-            ],
-            "assignments": authority_rows,
-            "history": copy.deepcopy(authorities.get("history", [])),
-        },
-        "relationships": relationships,
-        "coverage": {
-            "records": coverage_rows,
-            "directories": [
-                record for record in coverage_rows
-                if record["coverage_kind"] == "directory_scope"
-            ],
-            "exemptions": [
-                record for record in coverage_rows
-                if record["coverage_kind"] in {
-                    "registration_exemption", "supporting_artifact_rule"
-                }
-            ],
-            "unresolved": unresolved_rows,
-            "path_count": len(coverage_entries),
-            "uncovered_count": coverage.get("uncovered_count"),
-            "multiply_treated_count": coverage.get("multiply_treated_count"),
-        },
-        "routing": {
-            "schema_version": route.get("schema_version"),
-            "required_components": copy.deepcopy(
-                registry["routing"].get("required_components", [])
-            ),
-            "generated_path_exclusions": copy.deepcopy(
-                route.get("generated_path_exclusions", [])
-            ),
-            "components": [
-                {"component_id": identity, **copy.deepcopy(record)}
-                for identity, record in sorted(route_components.items())
-                if isinstance(record, dict)
-            ],
-            "capabilities": copy.deepcopy(route_capabilities),
-            "profiles": copy.deepcopy(route_profiles),
-            "selections": routing_rows,
-        },
-        "terminology": {
-            "available": True,
-            "complete": True,
-            "adopted": terminology.get("adopted"),
-            "record_set_sha256": terminology.get("record_set_sha256"),
-            "entries": terms,
-        },
-        "codeowners": {
-            "available": codeowners["available"],
-            "complete": codeowners["complete"],
-            "authoritative": codeowners["authoritative"],
-            "authority_effect": codeowners["authority_effect"],
-            "summary": copy.deepcopy(codeowners["summary"]),
-            "records": copy.deepcopy(codeowners["records"]),
-            "generated_rows": copy.deepcopy(codeowners["generated_rows"]),
-            "checked_in_rows": copy.deepcopy(codeowners["checked_in_rows"]),
-            "generated_sha256": codeowners["generated_sha256"],
-            "current_sha256": codeowners["current_sha256"],
-            "problems": copy.deepcopy(codeowners["problems"]),
-        },
+        mode: f"automation:component-registry:{mode}"
+        for mode in modes
     }
-
-
-def _component_registry_active_console_evidence(
-    routing: dict[str, object],
-    *,
-    registry_revision: int,
-    approval: dict[str, object],
-    operational_documents: dict[str, object],
-    representations: dict[str, object],
-) -> tuple[dict[str, object], dict[str, object]]:
-    """Validate active migration evidence and return its public-safe view."""
-
-    provenance = routing.get("predecessor_provenance")
-    representation = routing.get("readable_representation")
-    expected_provenance_fields = {
-        "schema_version",
-        "complete",
-        "authority_effect",
-        "records",
-        "migration_alias_ids",
-        "verification_ids",
-    }
-    expected_record_fields = {
-        "stable_id",
-        "artifact_kind",
-        "historical_path",
-        "archived_path",
-        "sha256",
-        "source_schema_version",
-        "state",
-        "retirement_proof",
-    }
-    expected_records = {
-        identity: {
-            key: specification[key]
-            for key in (
-                "artifact_kind",
-                "historical_path",
-                "archived_path",
-                "source_schema_version",
-            )
-        }
-        for identity, specification in ROUTING_PREDECESSOR_PATHS.items()
-    }
-    if (
-        not isinstance(provenance, dict)
-        or set(provenance) != expected_provenance_fields
-        or provenance.get("schema_version") != 2
-        or provenance.get("complete") is not True
-        or provenance.get("authority_effect")
-        != "historical_provenance_only_no_runtime_read"
-        or not isinstance(provenance.get("records"), dict)
-        or set(provenance["records"]) != set(expected_records)
-        or provenance.get("migration_alias_ids") != [
-            "relocate_project_structure",
-            "relocate_context_routing",
-            "relocate_repository_map",
-            "relocate_context_routes_source",
-        ]
-        or provenance.get("verification_ids") != [
-            "test_active_predecessor_provenance_is_closed",
-            "test_active_loader_does_not_read_predecessors",
-            "test_active_embedded_route_excludes_predecessors",
-        ]
-    ):
-        raise RuntimeError(
-            "Active Component Registry predecessor provenance is invalid."
-        )
-    approval_value = approval.get("value")
-    if (
-        approval.get("state") != "known"
-        or not isinstance(approval_value, dict)
-        or not all(
-            isinstance(approval_value.get(field), str)
-            and approval_value[field]
-            for field in (
-                "governance_change_id",
-                "implementation_contract_id",
-                "owner_review_reference",
-            )
-        )
-    ):
-        raise RuntimeError(
-            "Active Component Registry approval evidence is invalid."
-        )
-    expected_retirement_proof = {
-        "proof_type": "authenticated_activation_cutover",
-        "governance_change_id": approval_value["governance_change_id"],
-        "implementation_contract_id": approval_value[
-            "implementation_contract_id"
-        ],
-        "owner_review_reference": approval_value[
-            "owner_review_reference"
-        ],
-    }
-    for stable_id, expected in expected_records.items():
-        record = provenance["records"].get(stable_id)
-        if (
-            not isinstance(record, dict)
-            or set(record) != expected_record_fields
-            or record.get("stable_id") != stable_id
-            or record.get("artifact_kind") != expected["artifact_kind"]
-            or record.get("historical_path") != expected["historical_path"]
-            or record.get("archived_path") != expected["archived_path"]
-            or record.get("source_schema_version")
-            != expected["source_schema_version"]
-            or record.get("state")
-            != "archived_retired_provenance_only"
-            or record.get("retirement_proof")
-            != expected_retirement_proof
-            or not isinstance(record.get("sha256"), str)
-            or re.fullmatch(r"[0-9a-f]{64}", record["sha256"]) is None
-        ):
-            raise RuntimeError(
-                "Active Component Registry predecessor provenance record "
-                "is invalid."
-            )
-        document = operational_documents.get(stable_id)
-        if (
-            not isinstance(document, dict)
-            or document.get("canonical_path") != expected["archived_path"]
-            or document.get("authority_role") != "archived_predecessor"
-            or document.get("retention_posture") != "archived"
-            or document.get("digest_policy") != "provenance_only"
-            or document.get("sha256") != record["sha256"]
-            or document.get("dependencies") != []
-            or document.get("consumers") != []
-            or document.get("current_status")
-            != {"state": "known", "value": "retired"}
-        ):
-            raise RuntimeError(
-                "Active Component Registry archived predecessor catalog "
-                "record is invalid."
-            )
-    if (
-        not isinstance(representation, dict)
-        or set(representation) != {
-            "representation_id",
-            "binding_kind",
-            "source_registry_revision",
-            "generated_from",
-            "authority_effect",
-            "executable",
-        }
-        or representation.get("representation_id")
-        != "human_readable_context_routing"
-        or representation.get("binding_kind")
-        != "component_registry_revision"
-        or representation.get("source_registry_revision")
-        != registry_revision
-        or representation.get("generated_from")
-        != "embedded_context_routing"
-        or representation.get("authority_effect") != "none"
-        or representation.get("executable") is not False
-    ):
-        raise RuntimeError(
-            "Active Component Registry readable representation binding "
-            "is invalid."
-        )
-    representation_record = representations.get(
-        "human_readable_context_routing"
-    )
-    if (
-        not isinstance(representation_record, dict)
-        or representation_record.get("representation_type")
-        != "human_readable_routing"
-        or representation_record.get("canonical_document_id")
-        != "COMPONENT-REGISTRY"
-        or representation_record.get("canonical_path")
-        != (
-            "framework/project/interfaces/project-console/data/"
-            "component-registry.js"
-        )
-        or representation_record.get("source_revision_binding")
-        != f"component_registry_revision:{registry_revision}"
-        or representation_record.get("state") != "active"
-    ):
-        raise RuntimeError(
-            "Active Component Registry readable representation record "
-            "is invalid."
-        )
-    return (
-        {
-            "state": "known",
-            "value": (
-                "Archived predecessor provenance retained as "
-                "nonauthoritative history."
-            ),
-        },
-        {
-            "state": "known",
-            "representation_id": representation["representation_id"],
-            "source_registry_revision": registry_revision,
-            "authority_effect": "none",
-            "executable": False,
-        },
-    )
 
 
 def component_registry_console_snapshot(
@@ -10925,571 +10087,359 @@ def component_registry_console_snapshot(
     generated_at: str,
     root: Path = ROOT,
 ) -> dict[str, object]:
-    """Project one public-safe repository-configuration validation view."""
+    """Project exact Registry v4 facts without duplicating canonical records."""
 
-    registry_value = routing_view.get("_validated_registry")
     if (
-        isinstance(registry_value, dict)
-        and registry_value.get("schema_version") in {2, 3}
-    ):
-        return _stage2_component_registry_console_snapshot(
-            routing_view,
-            generated_at=generated_at,
-            root=root,
-        )
-
-    mode = routing_view.get("validation_mode")
-    expected = {
-        "candidate_validation_only": {
-            "registry_status": "candidate",
-            "authoritative": False,
-            "executable": False,
-            "live_activation_verified": False,
-            "activation_receipt_consulted": False,
-            "predecessor_route_consulted": True,
-        },
-        "active_configuration_validation_only": {
-            "registry_status": "active",
-            "authoritative": False,
-            "executable": False,
-            "live_activation_verified": False,
-            "activation_receipt_consulted": False,
-            "predecessor_route_consulted": False,
-        },
-    }.get(str(mode))
-    if (
-        routing_view.get("schema_version") != 1
-        or expected is None
-        or any(
-            routing_view.get(field) != value
-            for field, value in expected.items()
-        )
-        or routing_view.get("registry_path")
-        != "framework/component-registry.json"
-        or not isinstance(routing_view.get("route"), dict)
+        routing_view.get("schema_version") != 4
+        or routing_view.get("validation_mode")
+        != "adopted_configuration_validation"
+        or routing_view.get("authoritative") is not False
+        or routing_view.get("executable") is not False
+        or routing_view.get("source_bytes_current") is not True
+        or routing_view.get("predecessor_route_consulted") is not False
         or not isinstance(routing_view.get("_validated_registry"), dict)
     ):
         raise RuntimeError(
-            "Component Registry configuration validation state is invalid."
+            "Console requires the exact Registry v4 configuration view."
         )
     registry = routing_view["_validated_registry"]
-    route = routing_view["route"]
-    candidate_mode = mode == "candidate_validation_only"
-    if candidate_mode:
-        if (
-            "predecessor_provenance" in registry["context_routing"]
-            or "readable_representation" in registry["context_routing"]
-        ):
-            raise RuntimeError(
-                "Component Registry candidate contains active-only "
-                "migration evidence."
-            )
-        parity: dict[str, object] = component_registry_parity_report(
-            registry,
-            route,
-        )
-        if parity.get("valid") is not True:
-            raise RuntimeError(
-                "Component Registry candidate routing parity is not exact."
-            )
-        source_import: dict[str, object] = routing_view["route"].get(
-            "source_import",
-            registry["context_routing"]["source_import"],
-        )
-        source_binding: dict[str, object] = {
-            "state": "known",
-            "value": registry["source_baseline"]["working_tree_binding"][
-                "sha256"
-            ],
-        }
-        parity_policy: object = registry["context_routing"]["parity_policy"]
-        predecessor_provenance: dict[str, object] = {
-            "state": "not_applicable",
-            "reason": (
-                "Candidate routing still uses its exact predecessor source "
-                "and parity evidence."
-            ),
-        }
-        readable_representation: dict[str, object] = {
-            "state": "not_applicable",
-            "reason": (
-                "The active readable representation binding has not been "
-                "adopted."
-            ),
-        }
-    else:
-        if (
-            "source_import" in registry["context_routing"]
-            or "parity_policy" in registry["context_routing"]
-        ):
-            raise RuntimeError(
-                "Tracked active Component Registry retains predecessor "
-                "authority fields."
-            )
-        source_reason = (
-            "Predecessor routing evidence is not consulted by a tracked "
-            "active configuration."
-        )
-        source_import = {
-            "state": "not_applicable",
-            "reason": source_reason,
-        }
-        source_binding = {
-            "state": "not_applicable",
-            "reason": source_reason,
-        }
-        parity = {
-            "state": "not_applicable",
-            "reason": source_reason,
-        }
-        parity_policy = {
-            "state": "not_applicable",
-            "reason": source_reason,
-        }
-        (
-            predecessor_provenance,
-            readable_representation,
-        ) = _component_registry_active_console_evidence(
-            registry["context_routing"],
-            registry_revision=registry["registry_revision"],
-            approval=registry["approval"],
-            operational_documents=registry["operational_documents"][
-                "entries"
-            ],
-            representations=registry["representations"]["entries"],
-        )
-    inventory = component_registry_inventory_report(
-        registry,
-        route,
-        root=root,
-    )
-    if inventory.get("classification_complete") is not True:
-        raise RuntimeError(
-            "Component Registry directory-scope inventory is incomplete."
-        )
-    registry_digest = hashlib.sha256(
-        component_registry_canonical_json(registry).encode("utf-8")
-    ).hexdigest()
-    operational = registry["operational_documents"]
-    directories = registry["directory_scopes"]
-    routing = registry["context_routing"]
-    deferred_notice = registry["deferred_namespace_notice"]
-    scope_counts = inventory.get("scope_counts") or {}
-
-    documents = []
-    for document_id, raw in sorted(operational["entries"].items()):
-        if (
-            not candidate_mode
-            and document_id in {
-                "project_structure",
-                "context_routing",
-                "repository_map",
-                "context_routes_source",
-            }
-        ):
-            continue
-        entry = dict(raw)
-        documents.append(
-            {
-                "document_id": document_id,
-                "official_reference_name": entry["official_reference_name"],
-                "document_class": entry["document_class"],
-                "revision": entry["revision"],
-                "current_status": entry["current_status"],
-                "effective_date": entry["effective_date"],
-                "approval_date": entry["approval_date"],
-                "approval_method": entry["approval_method"],
-                "governance_change_id": entry["governance_change_id"],
-                "purpose_scope": entry["purpose_scope"],
-                "authority_role": entry["authority_role"],
-                "authority_exclusions": entry["authority_exclusions"],
-                "canonical_path": entry["canonical_path"],
-                "owner": entry["owner"],
-                "review_policy": entry["review_policy"],
-                "disclosure_class": entry["disclosure_class"],
-                "creation_provenance": entry["creation_provenance"],
-                "governance_revision": entry["governance_revision"],
-                "producer": entry["producer"],
-                "authorized_writers": entry["authorized_writers"],
-                "representations": entry["representations"],
-                "dependencies": entry["dependencies"],
-                "consumers": entry["consumers"],
-                "digest_policy": entry["digest_policy"],
-                "sha256": entry.get("sha256"),
-                "console_route": entry["console_route"],
-                "retention_posture": entry["retention_posture"],
-                "history": _component_registry_typed_unavailable(
-                    "Normalized document history is not registered in the "
-                    "Stage 1 candidate."
-                ),
-            }
-        )
-
-    directory_rows = []
-    for scope_id, raw in sorted(
-        directories["entries"].items(),
-        key=lambda item: (int(item[1]["specificity_rank"]), item[0]),
+    if (
+        registry.get("schema_version") != 4
+        or registry.get("registry_revision") != 4
     ):
-        entry = dict(raw)
-        directory_rows.append(
-            {
-                "scope_id": scope_id,
-                "display_name": entry["display_name"],
-                "path_pattern": entry["path_pattern"],
-                "match_kind": entry["match_kind"],
-                "specificity_rank": entry["specificity_rank"],
-                "parameter_bindings": entry["parameter_bindings"],
-                "owning_scope_selection_rule": entry[
-                    "owning_scope_selection_rule"
-                ],
-                "ancestor_scope_ids": entry["ancestor_scope_ids"],
-                "placement_question": entry["placement_question"],
-                "include_when": entry["include_when"],
-                "exclude_when": entry["exclude_when"],
-                "primary_authority": entry["primary_authority"],
-                "disclosure_boundary": entry["disclosure_boundary"],
-                "lifecycle_posture": entry["lifecycle_posture"],
-                "authorized_creators": entry["authorized_creators"],
-                "precedence": entry["precedence"],
-                "fallback": entry["fallback"],
-                "console_route": (
-                    "automation:component-registry:directories?directory="
-                    + urllib.parse.quote(scope_id, safe="")
-                ),
-                "permitted_artifact_classes":
-                    _component_registry_typed_unavailable(
-                        str(deferred_notice["reason"])
-                    ),
-                "current_artifact_count": {
-                    "state": "known",
-                    "value": int(scope_counts.get(scope_id, 0)),
-                },
-            }
+        raise RuntimeError(
+            "Console requires exact Registry schema and revision 4."
         )
 
-    selections = []
-    for profile_id, profile in sorted(routing["profiles"].items()):
-        resolved = component_registry_routed_profile_preview(
-            routing_view,
-            profile_id=profile_id,
-            capability_ids=(),
-        )
-        selections.append(
+    component_entries = registry["components"]["entries"]
+    relationship_entries = registry["relationships"]["entries"]
+    scope_entries = registry["directory_scopes"]["entries"]
+    exemption_entries = registry["registration_exemptions"]["entries"]
+    routes = _component_registry_console_routes()
+
+    components: list[dict[str, object]] = []
+    for component_id, component in component_entries.items():
+        components.append(
             {
-                "selection_id": f"profile:{profile_id}",
-                "selection_kind": "profile",
-                "executable": resolved["executable"],
-                "authoritative": resolved["authoritative"],
-                "live_activation_verified": resolved.get(
-                    "live_activation_verified",
-                    resolved.get("live_authority_verified", False),
+                "stable_id": component_id,
+                "display_name": component["display_name"],
+                "classification": copy.deepcopy(
+                    component["classification"]
                 ),
-                "profile": profile_id,
-                "capabilities": [],
-                "max_bytes": profile["max_bytes"],
-                "sections": profile.get("sections", []),
-                "modules": resolved["modules"],
-                "console_route": (
-                    "automation:component-registry:routing?selection="
-                    + urllib.parse.quote(f"profile:{profile_id}", safe="")
+                "canonical_source": _component_registry_source_record(
+                    component_id,
+                    component,
                 ),
-            }
-        )
-    for capability_id in sorted(routing["capabilities"]):
-        resolved = component_registry_routed_capability_preview(
-            routing_view,
-            capability_ids=(capability_id,),
-        )
-        selections.append(
-            {
-                "selection_id": f"capability:{capability_id}",
-                "selection_kind": "capability",
-                "executable": resolved["executable"],
-                "authoritative": resolved["authoritative"],
-                "live_activation_verified": resolved.get(
-                    "live_activation_verified",
-                    resolved.get("live_authority_verified", False),
-                ),
-                "profile": None,
-                "capabilities": [capability_id],
-                "max_bytes": None,
-                "sections": [],
-                "modules": resolved["modules"],
-                "console_route": (
-                    "automation:component-registry:routing?selection="
-                    + urllib.parse.quote(
-                        f"capability:{capability_id}",
-                        safe="",
+                "owner": component.get("owner", "@Thorncrag"),
+                "information_handling": copy.deepcopy(
+                    component.get(
+                        "information_handling",
+                        {
+                            "information_classification": "public",
+                            "disclosure_rule": "public_by_design",
+                        },
                     )
                 ),
-            }
-        )
-
-    # The Console receives rendered routing rules from the validated producer.
-    # It must not derive category, identity, or readable semantics from rule IDs
-    # or prose in the browser.
-    rule_namespaces = (
-        "invariants",
-        "selection",
-        "validation",
-        "failure_rules",
-        "currentness",
-        "budgets",
-        "comprehensive_review",
-    )
-    rules = []
-    rule_counts: dict[str, int] = {}
-    for namespace in rule_namespaces:
-        raw_rules = routing[namespace]
-        rule_counts[namespace] = len(raw_rules)
-        for rule_id, entry in sorted(raw_rules.items()):
-            rendered = component_registry_render_routing_rule(rule_id, entry)
-            row = {
-                "namespace": namespace,
-                "rule_id": rendered["rule_id"],
-                "rule_version": entry["rule_version"],
-                "status": entry["status"],
-                "predicate_type": rendered["predicate_type"],
-                "parameters": rendered["parameters"],
-                "label": rendered["label"],
-                "rendered_text": rendered["rendered_text"],
-                "source_provenance": (
-                    entry["source_provenance"]
-                    if candidate_mode
-                    else {
-                        "source_document_id": "COMPONENT-REGISTRY",
-                        "source_sha256": registry_digest,
-                        "source_heading":
-                            "Embedded context routing rule catalog",
-                        "clause_key": rule_id,
-                    }
+                "lifecycle": component.get("lifecycle", "adopted"),
+                "revision_mode": component.get(
+                    "revision_mode", "maintained"
                 ),
-                "verification_ids": entry["verification_ids"],
+                "retention_bases": list(
+                    component.get("retention_bases", ["operational_need"])
+                ),
+                "supporting_artifacts": list(
+                    component.get("supporting_artifacts", [])
+                ),
+                "operational_status": component.get("operational_status"),
+                "execution_controls": copy.deepcopy(
+                    component.get("execution_controls")
+                ),
                 "console_route": (
-                    "automation:component-registry:routing?rule="
-                    + urllib.parse.quote(rule_id, safe="")
+                    f"{routes['components']}?component="
+                    + urllib.parse.quote(component_id)
                 ),
             }
-            if "failure_code" in rendered:
-                row["failure_code"] = rendered["failure_code"]
-            rules.append(row)
+        )
 
-    terminology = audit_component_registry_terminology(registry)
-    terminology["console_route"] = (
-        "automation:component-registry:terminology"
-    )
-    activation_readiness = (
-        component_registry_activation_readiness_report(
-            registry,
-            root=root,
+    enums = registry["implementation_enums"]
+    class_records: list[dict[str, object]] = []
+    type_records: list[dict[str, object]] = []
+    for class_id in enums["component_classes"]:
+        member_ids = [
+            record["stable_id"]
+            for record in components
+            if record["classification"]["component_class"] == class_id
+        ]
+        type_ids = list(enums["component_types"].get(class_id, []))
+        class_records.append(
+            {
+                "class_id": class_id,
+                "label": class_id.replace("_", " "),
+                "permitted_type_ids": type_ids,
+                "component_ids": member_ids,
+                "usage_count": len(member_ids),
+                "console_route": (
+                    f"{routes['classes']}?class="
+                    + urllib.parse.quote(class_id)
+                ),
+            }
         )
-        if candidate_mode
-        else {
-            "available": True,
-            "complete": True,
-            "activation_state": "active",
-            "authoritative": False,
-            "executable": False,
-            "registry_revision": registry["registry_revision"],
-            "registry_sha256": registry_digest,
-            "current_candidate_counts": registry[
-                "activation_readiness"
-            ]["current_candidate_counts"],
-            "simulated_active_counts": registry[
-                "activation_readiness"
-            ]["simulated_active_counts"],
-            "requirement_count": 77,
-            "exception_count": 0,
-            "stage_boundaries": registry["activation_readiness"][
-                "stage_boundaries"
-            ],
-            "activation_decision": (
-                "tracked_active_configuration_live_readback_separate"
+        for type_id in type_ids:
+            type_members = [
+                record["stable_id"]
+                for record in components
+                if record["classification"].get("component_class")
+                == class_id
+                and record["classification"].get("component_type")
+                == type_id
+            ]
+            classification_id = f"{class_id}:{type_id}"
+            type_records.append(
+                {
+                    "classification_id": classification_id,
+                    "class_id": class_id,
+                    "type_id": type_id,
+                    "label": type_id.replace("_", " "),
+                    "component_ids": type_members,
+                    "usage_count": len(type_members),
+                    "console_route": (
+                        f"{routes['types']}?type="
+                        + urllib.parse.quote(classification_id)
+                    ),
+                }
+            )
+
+    lifecycle_assignments = [
+        {
+            "assignment_id": f"lifecycle:{record['stable_id']}",
+            "component_id": record["stable_id"],
+            "state": record["lifecycle"],
+            "revision_mode": record["revision_mode"],
+            "console_route": (
+                f"{routes['lifecycles']}?assignment="
+                + urllib.parse.quote(str(record["stable_id"]))
             ),
         }
-    )
-    approval = registry["approval"]
-    approval_projection = (
-        {
-            "state": "known",
-            "value": "Tracked activation configuration approved",
-        }
-        if registry["status"] == "active"
-        else {
-            "state": "pending",
-            "reason": approval["reason"],
-        }
-    )
-    configuration_validation = {
-        "state": "known",
-        "value": (
-            "Candidate predecessor parity validated"
-            if candidate_mode
-            else "Tracked active configuration validated"
-        ),
-    }
-    live_activation = (
-        {
-            "state": "pending",
-            "reason": (
-                "The tracked candidate has not entered live owner activation."
-            ),
-        }
-        if candidate_mode
-        else {
-            "state": "unknown",
-            "reason": (
-                "Live owner activation is not evaluated by the public "
-                "repository configuration projection."
-            ),
-        }
-    )
-    deferred_namespaces = [
-        {
-            "namespace": namespace,
-            "schema_version": registry[namespace]["schema_version"],
-            "activation_state": registry[namespace]["activation_state"],
-            "complete": registry[namespace]["complete"],
-            "enforced": registry[namespace]["enforced"],
-            "entry_count": len(registry[namespace]["entries"]),
-        }
-        for namespace in (
-            "artifact_classes",
-            "artifact_families",
-            "artifact_lifecycles",
-        )
+        for record in components
     ]
+    authority_assignments = [
+        {
+            "assignment_id": f"authority:{record['stable_id']}",
+            "component_id": record["stable_id"],
+            "authoritative": (
+                record["lifecycle"] == "adopted"
+                and record["classification"]["component_class"]
+                in {"document", "configuration", "log"}
+            ),
+            "source": "component_registry",
+            "effects": (
+                ["govern_content"]
+                if (
+                    record["lifecycle"] == "adopted"
+                    and record["classification"]["component_class"]
+                    in {"document", "configuration", "log"}
+                )
+                else []
+            ),
+            "console_route": (
+                f"{routes['authority']}?assignment="
+                + urllib.parse.quote(str(record["stable_id"]))
+            ),
+        }
+        for record in components
+    ]
+
     relationships = [
         {
-            "relationship_id": entry["relationship_id"],
-            "relationship_type": entry["relationship_type"],
-            "from": dict(entry["from"]),
-            "to": dict(entry["to"]),
-            "authority_boundary": entry["authority_boundary"],
+            "relationship_id": relationship_id,
+            **copy.deepcopy(relationship),
             "console_route": (
-                "automation:component-registry:relationships?relationship="
-                + urllib.parse.quote(entry["relationship_id"], safe="")
+                f"{routes['relationships']}?relationship="
+                + urllib.parse.quote(relationship_id)
             ),
         }
-        for entry in sorted(
-            registry["component_relationships"],
-            key=lambda item: item["relationship_id"],
-        )
+        for relationship_id, relationship in relationship_entries.items()
     ]
+    directories = [
+        {
+            "scope_id": scope_id,
+            **copy.deepcopy(scope),
+            "owner": scope.get("ownership", "@Thorncrag"),
+            "console_route": (
+                f"{routes['directories']}?directory="
+                + urllib.parse.quote(scope_id)
+            ),
+        }
+        for scope_id, scope in scope_entries.items()
+    ]
+    exemptions = [
+        {
+            "exemption_id": exemption_id,
+            **copy.deepcopy(exemption),
+            "console_route": (
+                f"{routes['exemptions']}?exemption="
+                + urllib.parse.quote(exemption_id)
+            ),
+        }
+        for exemption_id, exemption in exemption_entries.items()
+    ]
+
+    route = routing_view["route"]
+    routing_selections: list[dict[str, object]] = []
+    for profile_id, profile in route["profiles"].items():
+        routing_selections.append(
+            {
+                "routing_id": f"profile:{profile_id}",
+                "routing_kind": "profile",
+                "label": profile_id.replace("_", " "),
+                "components": list(profile.get("modules", [])),
+                "capabilities": list(profile.get("capabilities", [])),
+                "console_route": (
+                    f"{routes['routing']}?selection="
+                    + urllib.parse.quote(f"profile:{profile_id}")
+                ),
+            }
+        )
+    for capability_id, component_ids in route["capabilities"].items():
+        routing_selections.append(
+            {
+                "routing_id": f"capability:{capability_id}",
+                "routing_kind": "capability",
+                "label": capability_id.replace("_", " "),
+                "components": list(component_ids),
+                "capabilities": [capability_id],
+                "console_route": (
+                    f"{routes['routing']}?selection="
+                    + urllib.parse.quote(f"capability:{capability_id}")
+                ),
+            }
+        )
+    routing_rules = [
+        {
+            "rule_id": rule_id,
+            "namespace": namespace,
+            "rule_version": 1,
+            "status": "active",
+            "predicate_type": rule_id,
+            **copy.deepcopy(rule),
+            "console_route": (
+                f"{routes['routing']}?rule="
+                + urllib.parse.quote(rule_id)
+            ),
+        }
+        for namespace, group in registry["routing"]["rules"].items()
+        for rule_id, rule in group.items()
+    ]
+
+    codeowners = component_registry_codeowners_projection(
+        registry,
+        root=root,
+        compare_current=True,
+    )
+    if codeowners["problems"]:
+        raise RuntimeError(
+            "Tracked CODEOWNERS differs from the Registry authority."
+        )
+    for record in codeowners["records"]:
+        record["console_route"] = (
+            f"{routes['codeowners']}?assignment="
+            + urllib.parse.quote(record["assignment_id"])
+        )
+    terminology = audit_component_registry_terminology(registry)
+    for record in terminology["entries"]:
+        record["console_route"] = (
+            f"{routes['terminology']}?term="
+            + urllib.parse.quote(record["term_id"])
+        )
+
+    component_relationships = {
+        component_id: [
+            record["relationship_id"]
+            for record in relationships
+            if record["from"] == component_id
+            or record["to"] == component_id
+        ]
+        for component_id in component_entries
+    }
+    component_dependencies = {
+        component_id: list(record.get("requires", []))
+        for component_id, record in registry["routing"]["components"].items()
+    }
     return {
-        "schema_version": 1,
+        "schema_version": 4,
         "projection_id": "component-registry-console",
         "producer_id": "project-console-builder",
         "generated_at": generated_at,
         "availability": "current",
         "complete": True,
         "reason_code": None,
-        "routes": {
-            "documents": "automation:component-registry:documents",
-            "directories": "automation:component-registry:directories",
-            "routing": "automation:component-registry:routing",
-            "relationships": "automation:component-registry:relationships",
-            "terminology": "automation:component-registry:terminology",
-        },
+        "routes": routes,
         "defaults": {
-            "mode": "documents",
-            "document": documents[0]["document_id"],
-            "directory": directory_rows[0]["scope_id"],
-            "routing": selections[0]["selection_id"],
+            "mode": "components",
+            "component": "COMPONENT-REGISTRY",
+            "class": class_records[0]["class_id"],
+            "type": type_records[0]["classification_id"],
+            "lifecycle": lifecycle_assignments[0]["assignment_id"],
+            "authority": authority_assignments[0]["assignment_id"],
             "relationship": relationships[0]["relationship_id"],
+            "directory": directories[0]["scope_id"],
+            "exemption": exemptions[0]["exemption_id"],
+            "routing": routing_selections[0]["routing_id"],
+            "terminology": terminology["entries"][0]["term_id"],
+            "codeowners": codeowners["records"][0]["assignment_id"],
         },
         "registry": {
             "registry_id": registry["registry_id"],
-            "registry_revision": registry["registry_revision"],
-            "registry_status": registry["status"],
-            "approval": approval_projection,
-            "configuration_validation": configuration_validation,
-            "live_activation": live_activation,
-            "validation_mode": mode,
+            "registry_revision": 4,
+            "registry_status": "adopted",
+            "validation_mode": routing_view["validation_mode"],
             "authoritative": False,
             "executable": False,
-            "live_activation_verified": False,
-            "predecessor_route_consulted": routing_view[
-                "predecessor_route_consulted"
-            ],
-            "registry_sha256": registry_digest,
-            "repository_revision": registry["source_baseline"][
-                "repository_revision"
-            ],
-            "source_binding_sha256": source_binding,
+            "source_bytes_current": True,
+            "predecessor_route_consulted": False,
+            "registry_sha256": routing_view["registry_sha256"],
+            "source_url": (
+                "https://github.com/Thorncrag/ARRP/blob/main/"
+                "framework/component-registry.json"
+            ),
+            "tracked_live_notice": (
+                "This view reflects tracked Registry configuration. Live "
+                "authority is established only by the separately verified "
+                "owner-local readback."
+            ),
         },
-        "deferred": {
-            "display_state": deferred_notice["display_state"],
-            "reason": deferred_notice["reason"],
-            "activation_requirement": deferred_notice[
-                "activation_requirement"
-            ],
-            "namespaces": deferred_namespaces,
+        "records": {
+            "components": components,
+            "relationships": relationships,
+            "directory_scopes": directories,
+            "registration_exemptions": exemptions,
+            "routing_rules": routing_rules,
+            "terminology": terminology["entries"],
         },
-        "documents": documents,
-        "directories": directory_rows,
-        "relationships": relationships,
-        "routing": {
-            "schema_version": routing["schema_version"],
-            "rule_catalog_version": routing["rule_catalog_version"],
-            "activation_state": routing["activation_state"],
-            "complete": routing["complete"],
-            "authoritative": False,
-            "source_import": source_import,
-            "predecessor_provenance": predecessor_provenance,
-            "readable_representation": readable_representation,
-            "expected_counts": routing["expected_counts"],
-            "parity_policy": parity_policy,
-            "required_modules": routing["required_modules"],
-            "generated_path_exclusions": routing[
-                "generated_path_exclusions"
-            ],
-            "documents": [
-                {
-                    "document_id": document_id,
-                    "path": spec["path"],
-                    "governing": spec["governing"],
-                    "hash_policy": spec["hash_policy"],
-                    "sha256": spec.get("sha256"),
-                    "requires": spec.get("requires", []),
-                }
-                for document_id, spec in sorted(
-                    routing["documents"].items()
-                )
-            ],
-            "capabilities": [
-                {
-                    "capability_id": capability_id,
-                    "document_ids": document_ids,
-                }
-                for capability_id, document_ids in sorted(
-                    routing["capabilities"].items()
-                )
-            ],
-            "profiles": [
-                {
-                    "profile_id": profile_id,
-                    "max_bytes": profile["max_bytes"],
-                    "modules": profile.get("modules", []),
-                    "capabilities": profile.get("capabilities", []),
-                    "include_all_governing": profile.get(
-                        "include_all_governing",
-                        False,
-                    ),
-                    "sections": profile.get("sections", []),
-                }
-                for profile_id, profile in sorted(
-                    routing["profiles"].items()
-                )
-            ],
-            "selections": selections,
-            "rule_namespaces": list(rule_namespaces),
-            "rule_counts": rule_counts,
-            "rules": rules,
-            "validation": parity,
+        "linked": {
+            "component_relationships": component_relationships,
+            "component_dependencies": component_dependencies,
         },
-        "activation_readiness": activation_readiness,
-        "terminology": terminology,
+        "derived": {
+            "classifications": {
+                "classes": class_records,
+                "types": type_records,
+            },
+            "lifecycles": {"assignments": lifecycle_assignments},
+            "authorities": {"assignments": authority_assignments},
+            "coverage": {
+                "directories": directories,
+                "exemptions": exemptions,
+                "unresolved": [],
+                "uncovered_count": 0,
+                "multiply_treated_count": 0,
+            },
+            "routing": {
+                "selections": routing_selections,
+                "rules": routing_rules,
+            },
+            "codeowners": codeowners,
+        },
     }
 
 
@@ -11540,12 +10490,7 @@ def component_registry_source_paths(
             "Component Registry source validation state is unavailable."
         )
     mode = registry.get("validation_mode")
-    if mode not in {
-        "candidate_validation_only",
-        "active_configuration_validation_only",
-        "proposed_revision_validation",
-        "adopted_configuration_validation",
-    }:
+    if mode != "adopted_configuration_validation":
         raise RuntimeError(
             "Component Registry source validation mode is invalid."
         )
@@ -11553,17 +10498,6 @@ def component_registry_source_paths(
         root / "framework" / "component-registry.json",
         root / "framework" / "component-registry.schema.json",
     ]
-    if mode == "candidate_validation_only":
-        paths.extend(
-            [
-                root
-                / ROUTING_PREDECESSOR_PATHS["context_routes_source"][
-                    "historical_path"
-                ],
-                root / "framework" / "receipts" / "component-registry"
-                / "stage1-requirement-closure.json",
-            ]
-        )
     return paths
 
 

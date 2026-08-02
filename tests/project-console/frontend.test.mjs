@@ -13,6 +13,10 @@ const consoleDirectory = path.resolve(
 );
 const appPath = path.join(consoleDirectory, "app.js");
 const componentRegistryPath = path.join(consoleDirectory, "component-registry.js");
+const componentRegistryDataPath = path.join(
+  consoleDirectory,
+  "data/component-registry.js",
+);
 const entrypointPath = path.join(consoleDirectory, "project-console.html");
 const localRequire = createRequire(
   path.join(consoleDirectory, "frontend-test-loader.js"),
@@ -22,6 +26,13 @@ const testSourceRevision = "a".repeat(40);
 const testVersionId = `${testGenerationId}-20260729T120000000000Z`;
 const testOwnerPath = "/owner-console-fixture/review-copy/project-console.html";
 const testStagedAt = "2026-07-29T12:00:00.000000Z";
+
+function v4ComponentRegistryFixture() {
+  const fixtureWindow = { ARRP_HORIZON_REVIEW_DATA: {} };
+  const source = fs.readFileSync(componentRegistryDataPath, "utf8");
+  Function("window", source)(fixtureWindow);
+  return structuredClone(fixtureWindow.ARRP_HORIZON_REVIEW_DATA.component_registry);
+}
 
 function ownerProjectionEntry(feedId, filename, marker, availability = "current", complete = true) {
   return {
@@ -1076,187 +1087,31 @@ test("Codex usage graph is responsive, accessible, and uses typed reset boundari
 
 test("Component Registry accepts only the builder-supplied typed snapshot", () => {
   const { componentRegistryApi } = loadApi();
-  const snapshot = componentRegistryFixture();
+  const snapshot = v4ComponentRegistryFixture();
   assert.equal(componentRegistryApi.validSnapshot(snapshot), true);
-  assert.equal(componentRegistryApi.pendingDisplay, "Classification pending — enforcement not active");
-  assert.equal(componentRegistryApi.validSnapshot({ ...snapshot, inferred_taxonomy: [] }), false);
-  assert.equal(componentRegistryApi.validSnapshot({
-    ...snapshot,
-    documents: [{
-      ...snapshot.documents[0],
-      browser_classification: "miscellaneous"
-    }]
-  }), false);
-  assert.equal(componentRegistryApi.validSnapshot({
-    ...snapshot,
-    routing: {
-      ...snapshot.routing,
-      rules: [{ ...snapshot.routing.rules[0], rule_id: "ctxr.inv.unregistered" }, ...snapshot.routing.rules.slice(1)]
-    }
-  }), false);
-  assert.equal(componentRegistryApi.validSnapshot({
-    ...snapshot,
-    routing: {
-      ...snapshot.routing,
-      rules: [{ ...snapshot.routing.rules[0], namespace: "browser_invented" }, ...snapshot.routing.rules.slice(1)]
-    }
-  }), false);
-  assert.equal(componentRegistryApi.validSnapshot({
-    ...snapshot,
-    routing: {
-      ...snapshot.routing,
-      rule_counts: { ...snapshot.routing.rule_counts, selection: 16 }
-    }
-  }), false);
-  assert.equal(componentRegistryApi.validSnapshot({
-    ...snapshot,
-    routing: {
-      ...snapshot.routing,
-      rules: [{ ...snapshot.routing.rules[0], rendered_text: "Producer-rendered text only.", browser_summary: "invented" }, ...snapshot.routing.rules.slice(1)]
-    }
-  }), false);
-  assert.equal(componentRegistryApi.validSnapshot({
-    ...snapshot,
-    registry: {
-      ...snapshot.registry,
-      registry_status: "active",
-      approval: {
-        state: "known",
-        value: "Owner activation verified"
-      }
-    },
-    routing: { ...snapshot.routing, authoritative: true }
-  }), false);
-  const active = activeComponentRegistryFixture();
-  active.documents.push({
-    ...snapshot.documents[0],
-    document_id: "COMPONENT-REGISTRY",
-    canonical_path: "framework/component-registry.json",
-    digest_policy: "external",
-    sha256: null,
-    console_route:
-      "operations:component-registry:documents?document=COMPONENT-REGISTRY"
+  assert.equal(Object.keys(snapshot.routes).length, 12);
+  assert.equal(snapshot.records.components.length, 105);
+  assert.equal(snapshot.records.relationships.length, 16);
+  assert.equal(snapshot.records.directory_scopes.length, 59);
+  assert.equal(snapshot.records.registration_exemptions.length, 3);
+  assert.equal(snapshot.records.routing_rules.length, 64);
+  assert.equal(snapshot.records.terminology.length, 87);
+  [1, 2, 3, 5, true, "4", null].forEach((schemaVersion) => {
+    assert.equal(componentRegistryApi.validSnapshot({
+      ...snapshot,
+      schema_version: schemaVersion
+    }), false);
   });
-  assert.equal(componentRegistryApi.validSnapshot(active), true);
   [
-    {
-      ...active,
-      registry: { ...active.registry, authoritative: true }
-    },
-    {
-      ...active,
-      registry: { ...active.registry, executable: true }
-    },
-    {
-      ...active,
-      registry: { ...active.registry, live_activation_verified: true }
-    },
-    {
-      ...active,
-      registry: { ...active.registry, predecessor_route_consulted: true }
-    },
-    {
-      ...active,
-      registry: {
-        ...active.registry,
-        live_activation: {
-          state: "known",
-          value: "Owner activation verified"
-        }
-      }
-    },
-    {
-      ...active,
-      registry: {
-        ...active.registry,
-        source_binding_sha256: {
-          state: "known",
-          value: "2".repeat(64)
-        }
-      }
-    },
-    {
-      ...active,
-      registry: {
-        ...active.registry,
-        activation_receipt: "must not enter the public Console"
-      }
-    },
-    {
-      ...active,
-      routing: {
-        ...active.routing,
-        source_import: snapshot.routing.source_import
-      }
-    },
-    {
-      ...active,
-      routing: {
-        ...active.routing,
-        predecessor_provenance: {
-          ...active.routing.predecessor_provenance,
-          historical_path: "framework/CONTEXT_ROUTING.md"
-        }
-      }
-    },
-    {
-      ...active,
-      routing: {
-        ...active.routing,
-        readable_representation: {
-          ...active.routing.readable_representation,
-          executable: true
-        }
-      }
-    },
-    {
-      ...active,
-      routing: {
-        ...active.routing,
-        authoritative: true
-      }
-    },
-    {
-      ...active,
-      routing: {
-        ...active.routing,
-        selections: [{
-          ...active.routing.selections[0],
-          executable: true
-        }, ...active.routing.selections.slice(1)]
-      }
-    },
-    {
-      ...active,
-      routing: {
-        ...active.routing,
-        rules: [{
-          ...active.routing.rules[0],
-          source_provenance: snapshot.routing.rules[0].source_provenance
-        }, ...active.routing.rules.slice(1)]
-      }
-    }
-  ].forEach((invalid) => {
-    assert.equal(componentRegistryApi.validSnapshot(invalid), false);
-  });
-  assert.equal(componentRegistryApi.validSnapshot({
-    ...snapshot,
-    registry: {
-      ...snapshot.registry,
-      registry_status: "active",
-      approval: {
-        state: "known",
-        value: { owner_review_reference: "must not enter the Console" }
-      }
-    }
-  }), false);
-  assert.equal(componentRegistryApi.validSnapshot({
-    ...snapshot,
-    routing: {
-      ...snapshot.routing,
-      validation: { ...snapshot.routing.validation, valid: false }
-    }
-  }), false);
+    { ...snapshot, contract_payload: { private: true } },
+    { ...snapshot, source_binding: { sha256: "1".repeat(64) } },
+    { ...snapshot, routes: { ...snapshot.routes, documents: "automation:component-registry:documents" } },
+    { ...snapshot, registry: { ...snapshot.registry, authoritative: true } },
+    { ...snapshot, registry: { ...snapshot.registry, predecessor_route_consulted: true } },
+    { ...snapshot, records: { ...snapshot.records, terminology: snapshot.records.terminology.slice(1) } },
+    { ...snapshot, derived: { ...snapshot.derived, coverage: { ...snapshot.derived.coverage, uncovered_count: 1 } } },
+    { ...snapshot, derived: { ...snapshot.derived, codeowners: { ...snapshot.derived.codeowners, current_sha256: "0".repeat(64) } } }
+  ].forEach((invalid) => assert.equal(componentRegistryApi.validSnapshot(invalid), false));
   assert.deepEqual(
     componentRegistryApi.routeState(
       "automation:component-registry:routing?selection=capability%3Agovernance",
@@ -1285,25 +1140,6 @@ test("Component Registry accepts only the builder-supplied typed snapshot", () =
     ),
     { mode: "relationships", selected: "registry_validated_by_schema" }
   );
-  assert.equal(componentRegistryApi.validSnapshot({
-    ...snapshot,
-    relationships: [{
-      ...snapshot.relationships[0],
-      authority_boundary: ""
-    }]
-  }), false);
-  const legacySnapshot = JSON.parse(JSON.stringify(snapshot));
-  delete legacySnapshot.relationships;
-  delete legacySnapshot.routes.relationships;
-  delete legacySnapshot.defaults.relationship;
-  assert.equal(componentRegistryApi.validSnapshot(legacySnapshot), true);
-  assert.deepEqual(
-    componentRegistryApi.routeState(
-      "automation:component-registry:relationships",
-      legacySnapshot
-    ),
-    { mode: "relationships", selected: null }
-  );
 });
 
 test("Component Registry uses only the generated validated projection", () => {
@@ -1316,44 +1152,38 @@ test("Component Registry uses only the generated validated projection", () => {
   assert.match(app, /`data\/component-registry\.js\?v=\$\{SCRIPT_VERSION\}`/);
   assert.match(app, /if \(source\.startsWith\("data\/"\)\) validateLoadedDomainScript\(source\);/);
   assert.doesNotMatch(module, /miscellaneous|uncategorized|infer(?:red)?_taxonomy/i);
-  assert.match(module, /snapshot\.components/);
-  assert.match(module, /snapshot\.lifecycles\.assignments/);
-  assert.match(module, /snapshot\.authorities\.assignments/);
-  assert.match(module, /snapshot\.coverage\.records/);
-  assert.match(module, /snapshot\.codeowners\.records/);
+  assert.match(module, /snapshot\.records\.components/);
+  assert.match(module, /derived\.lifecycles\.assignments/);
+  assert.match(module, /derived\.authorities\.assignments/);
+  assert.match(module, /derived\.coverage/);
+  assert.match(module, /derived\.codeowners\.records/);
   assert.doesNotMatch(module, /component-registry-stage2-terminology-working-draft\.md/);
   assert.doesNotMatch(module, /global\.fetch\(/);
-  assert.match(module, /email-list-row component-registry-list-row/);
-  assert.match(module, /role", "option"/);
-  assert.match(module, /component-registry-\$\{mode\}-count/);
+  assert.doesNotMatch(module, /JSON\.stringify\(record\)/);
+  assert.match(module, /const FORBIDDEN_KEYS = new Set/);
+  assert.match(module, /function safeSearchRecord\(mode, record\)/);
+  assert.match(module, /components: records\.components/);
 });
 
 test("Component Registry terminology comes only from the adopted Registry projection", () => {
   const { componentRegistryApi } = loadApi();
-  const snapshot = stage2ComponentRegistryFixture();
+  const snapshot = v4ComponentRegistryFixture();
   assert.equal(componentRegistryApi.validSnapshot(snapshot), true);
-  const adoptedConfiguration = structuredClone(snapshot);
-  adoptedConfiguration.registry.validation_mode =
-    "adopted_configuration_validation";
-  assert.equal(componentRegistryApi.validSnapshot(adoptedConfiguration), true);
-  assert.equal(snapshot.terminology.entries.length, 69);
-  assert.equal(snapshot.terminology.entries[0].term_id, "namespace");
+  assert.equal(snapshot.records.terminology.length, 87);
+  const namespace = snapshot.records.terminology.find((entry) => entry.term_id === "namespace");
+  assert.ok(namespace);
   const matches = componentRegistryApi.filterTerminologyEntries(
-    snapshot.terminology.entries,
-    "named domain identifiers"
+    snapshot.records.terminology,
+    namespace.definition
   );
-  assert.deepEqual(matches.map((entry) => entry.term_id), ["namespace"]);
+  assert.ok(matches.some((entry) => entry.term_id === "namespace"));
   assert.deepEqual(
     componentRegistryApi.filterTerminologyEntries(
-      snapshot.terminology.entries,
+      snapshot.records.terminology,
       "no-such-definition"
     ),
     []
   );
-  assert.equal(componentRegistryApi.validSnapshot({
-    ...snapshot,
-    terminology: { ...snapshot.terminology, adopted: false }
-  }), false);
   assert.equal(componentRegistryApi.validSnapshot({
     ...snapshot,
     contract_payload: { private: true }
@@ -1362,15 +1192,15 @@ test("Component Registry terminology comes only from the adopted Registry projec
   assert.match(html, /id="component-registry-terminology-search" type="search"/);
   assert.doesNotMatch(html, /component-registry-terminology-working-draft/);
   const module = fs.readFileSync(componentRegistryPath, "utf8");
-  assert.doesNotMatch(module, /node\("p", "component-registry-term-id", record\.term_id\)/);
-  assert.match(module, /\(record\) => record\.console_route,\s*\(\) => ""/);
+  assert.match(module, /terminology: \["term_id", "label", "definition"\]/);
+  assert.doesNotMatch(module, /source_provenance|verification_ids/);
   assert.match(module, /global\.history\?\.replaceState/);
-  assert.match(module, /renderTerminology\(terminologyDetail, record\)/);
+  assert.match(module, /filterTerminologyEntries/);
 });
 
 test("Component Registry CODEOWNERS view is typed, searchable, and read-only", () => {
   const { componentRegistryApi } = loadApi();
-  const snapshot = stage2ComponentRegistryFixture();
+  const snapshot = v4ComponentRegistryFixture();
   assert.equal(componentRegistryApi.validSnapshot(snapshot), true);
   assert.deepEqual(
     componentRegistryApi.routeState(
@@ -1379,16 +1209,18 @@ test("Component Registry CODEOWNERS view is typed, searchable, and read-only", (
     ),
     { mode: "codeowners", selected: "component:framework_kernel" }
   );
+  assert.equal(snapshot.derived.codeowners.available, true);
+  assert.equal(snapshot.derived.codeowners.complete, true);
+  assert.equal(snapshot.derived.codeowners.problems.length, 0);
+  assert.equal(snapshot.derived.codeowners.current_sha256, snapshot.derived.codeowners.generated_sha256);
   assert.equal(componentRegistryApi.validSnapshot({
     ...snapshot,
-    codeowners: { ...snapshot.codeowners, authoritative: true }
-  }), false);
-  assert.equal(componentRegistryApi.validSnapshot({
-    ...snapshot,
-    codeowners: {
-      ...snapshot.codeowners,
-      current_sha256: "7".repeat(64),
-      problems: [{ code: "checked_in_codeowners_drift" }]
+    derived: {
+      ...snapshot.derived,
+      codeowners: {
+        ...snapshot.derived.codeowners,
+        current_sha256: "7".repeat(64)
+      }
     }
   }), false);
   const html = fs.readFileSync(entrypointPath, "utf8");
@@ -1402,17 +1234,17 @@ test("Component Registry CODEOWNERS view is typed, searchable, and read-only", (
 
 test("Component Registry separates directories, exemptions, and unresolved coverage", () => {
   const { componentRegistryApi } = loadApi();
-  const snapshot = stage2ComponentRegistryFixture();
+  const snapshot = v4ComponentRegistryFixture();
   assert.deepEqual(
     componentRegistryApi.routeState(
-      "automation:component-registry:directories?coverage=framework",
+      "automation:component-registry:directories?directory=framework",
       snapshot
     ),
     { mode: "directories", selected: "framework" }
   );
   assert.deepEqual(
     componentRegistryApi.routeState(
-      "automation:component-registry:exemptions?coverage=repository_tmp_children",
+      "automation:component-registry:exemptions?exemption=repository_tmp_children",
       snapshot
     ),
     { mode: "exemptions", selected: "repository_tmp_children" }
@@ -1422,7 +1254,7 @@ test("Component Registry separates directories, exemptions, and unresolved cover
       "automation:component-registry:coverage?coverage=repository_tmp_children",
       snapshot
     ),
-    { mode: "exemptions", selected: "repository_tmp_children" }
+    { mode: "components", selected: null }
   );
   assert.deepEqual(
     componentRegistryApi.routeState(
@@ -1435,7 +1267,7 @@ test("Component Registry separates directories, exemptions, and unresolved cover
 
 test("Component Registry exposes distinct Classes and Types reference views", () => {
   const { componentRegistryApi } = loadApi();
-  const snapshot = stage2ComponentRegistryFixture();
+  const snapshot = v4ComponentRegistryFixture();
   assert.deepEqual(
     componentRegistryApi.routeState(
       "automation:component-registry:classes?class=document",
@@ -1484,17 +1316,14 @@ test("Component Registry is an Operations subtab after Data and before Logs", ()
 
 test("Component details distinguish entry fields, linked records, and presentation labels", () => {
   const module = fs.readFileSync(componentRegistryPath, "utf8");
-  assert.match(module, /"Component entry"/);
-  assert.match(module, /"Linked Registry records"/);
-  assert.match(module, /Component entry marks values stored on this component/);
-  assert.match(module, /resolved only through its explicit record references/);
-  assert.match(module, /missing Registry values are never inferred/);
-  assert.match(module, /"Registered component"/);
-  assert.match(module, /"Canonical file"/);
-  assert.match(module, /https:\/\/github\.com\/Thorncrag\/ARRP\/blob\/main\//);
-  assert.match(module, /\["Record references", record\.record_refs\]/);
-  assert.match(module, /\["Component boundary", record\.component_boundary\]/);
-  assert.match(module, /\["Execution controls", record\.execution_controls\]/);
+  assert.match(module, /const source = record\.canonical_source/);
+  assert.match(module, /"Open canonical source ↗"/);
+  assert.match(module, /\["console_route", "canonical_source"\]\.includes\(key\)/);
+  assert.match(module, /"Canonical source"/);
+  assert.doesNotMatch(module, /https:\/\/github\.com\/Thorncrag\/ARRP\/blob\/main\//);
+  assert.doesNotMatch(module, /record\.record_refs/);
+  assert.doesNotMatch(module, /record\.component_boundary/);
+  assert.doesNotMatch(module, /record\.execution_controls/);
 });
 
 test("term normalization uses the canonical Trump I and Trump II vocabulary", () => {
@@ -2830,7 +2659,7 @@ test("Stage 1 interface uses the approved prototype grammar while preserving beh
   assert.match(consoleSpec, /### Current interface component grammar/);
   assert.match(consoleSpec, /The approved prototype is the controlling visual direction\./);
   assert.match(consoleSpec, /module_id: project_tool_interface/);
-  assert.match(consoleSpec, /Approved by `@Thorncrag` on 2026-07-31/);
+  assert.match(consoleSpec, /Approved by `@Thorncrag` on 2026-08-02/);
   assert.match(consoleSpec, /Search and primary filters remain visible together in one\s+functional-control surface\./);
   assert.match(consoleSpec, /A mail-style master\/detail result portal uses one bounded internally scrolling\s+list with one adjacent preview and does not also paginate\./);
   assert.match(styles, /width:\s*min\(1440px,\s*calc\(100% - 2rem\)\)/);

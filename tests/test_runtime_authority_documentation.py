@@ -100,18 +100,15 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
             encoding="utf-8"
         )
 
-        if self.registry.get("schema_version") == 3:
-            self.assertEqual(
-                self.registry["validation"]["mode"],
-                "adopted_configuration_validation",
-            )
-            self.assertFalse(self.registry["validation"]["live_authority"])
+        if self.registry.get("schema_version") == 4:
+            self.assertEqual(self.registry["registry_revision"], 4)
+            self.assertNotIn("validation", self.registry)
+            self.assertEqual(self.registry["routing"]["schema_version"], 4)
+            self.assertEqual(self.registry["routing"]["rule_catalog_version"], 2)
+        elif self.registry.get("schema_version") == 3:
+            self.fail("Registry schema version 3 is historical rejection input")
         elif self.registry.get("schema_version") == 2:
-            self.assertEqual(
-                self.registry["validation"]["mode"],
-                "proposed_revision_validation",
-            )
-            self.assertFalse(self.registry["validation"]["live_authority"])
+            self.fail("Registry schema version 2 is historical rejection input")
         elif self.registry["status"] == "candidate":
             self.assertFalse(
                 self.registry["context_routing"]["authoritative"]
@@ -191,13 +188,30 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
         project_console = self.registry["components"]["entries"]["project_console"]
         self.assertIn(
             "framework/project/interfaces/project-console/configuration/classifications.json",
-            {
-                artifact["path"]
-                for artifact in project_console["supporting_artifacts"]
-            },
+            set(project_console["supporting_artifacts"]),
         )
         self.assertIn("component_classes", self.registry["implementation_enums"])
         self.assertIn("component_types", self.registry["implementation_enums"])
+
+    def test_registry_readback_binds_exact_v4_interpreters_and_four_gates(self) -> None:
+        compact_runtime = " ".join(self.runtime.split())
+        self.assertIn("schema-version-2 owner-local activation readback", self.runtime)
+        self.assertIn("component_registry_stage3_authority_readback", self.runtime)
+        for relative in (
+            "framework/component-registry.schema.json",
+            "scripts/component_registry.py",
+            "scripts/arrp_context.py",
+            "scripts/run_coordinator.py",
+            "scripts/finalize_component_registry_activation.py",
+        ):
+            self.assertIn(f"`{relative}`", self.runtime)
+        for phrase in (
+            "before the closeout branch is created",
+            "before the closeout pull request is merged",
+            "before the owner-local receipt is created",
+            "during every live readback",
+        ):
+            self.assertIn(phrase, compact_runtime)
 
 
 if __name__ == "__main__":

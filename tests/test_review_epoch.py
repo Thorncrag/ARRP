@@ -90,21 +90,22 @@ def boundary(
     }
     active = status == "active"
     view = {
-        "schema_version": 2,
+        "schema_version": 4,
         "validation_mode": (
-            "online_governed_eligibility"
+            "live_authority_validation"
             if active
-            else "proposed_revision_validation"
+            else "adopted_configuration_validation"
         ),
+        "registry_status": "adopted",
         "registry_id": "COMPONENT-REGISTRY",
-        "registry_revision": 1,
+        "registry_revision": 4,
         "registry_sha256": "d" * 64,
         "registry_path": "framework/component-registry.json",
         "authoritative": active,
         "executable": False,
         "authority_effective": active,
         "source_revision_authorized": active,
-        "source_bytes_current": active,
+        "source_bytes_current": True,
         "canonical_history_confirmed": active,
         "receipt_trusted": active,
         "runtime_live": "not_checked",
@@ -127,10 +128,8 @@ def boundary(
         "additional_rule",
     ]
     selection = {
-        "selection_kind": (
-            "executable_packet" if active else "configuration_validation_packet"
-        ),
-        "executable": active,
+        "selection_kind": "configuration_validation_packet",
+        "executable": False,
         "registry_id": view["registry_id"],
         "registry_revision": view["registry_revision"],
         "registry_sha256": view["registry_sha256"],

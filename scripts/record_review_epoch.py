@@ -282,13 +282,13 @@ def _validated_routing_authority(
     allow_candidate_validation: bool,
 ) -> tuple[dict[str, Any], dict[str, dict[str, Any]]]:
     """Validate the exact Component Registry route used for epoch closeout."""
-    if routing_view.get("schema_version") != 2:
+    if routing_view.get("schema_version") != 4:
         raise ValueError(
             "Review Epoch closeout requires a validated Component Registry "
             "routing view"
         )
     mode = routing_view.get("validation_mode")
-    if mode == "online_governed_eligibility":
+    if mode == "live_authority_validation":
         if (
             routing_view.get("authoritative") is not True
             or routing_view.get("executable") is not False
@@ -306,15 +306,15 @@ def _validated_routing_authority(
                 "Registry authority"
             )
         expected_authoritative = True
-        expected_selection_kind = "executable_packet"
-        expected_executable = True
-    elif mode == "proposed_revision_validation" and allow_candidate_validation:
+        expected_selection_kind = "configuration_validation_packet"
+        expected_executable = False
+    elif mode == "adopted_configuration_validation" and allow_candidate_validation:
         if (
             routing_view.get("authoritative") is not False
             or routing_view.get("executable") is not False
             or routing_view.get("authority_effective") is not False
             or routing_view.get("source_revision_authorized") is not False
-            or routing_view.get("source_bytes_current") is not False
+            or routing_view.get("source_bytes_current") is not True
             or routing_view.get("canonical_history_confirmed") is not False
             or routing_view.get("receipt_trusted") is not False
             or routing_view.get("runtime_live") != "not_checked"
@@ -322,8 +322,7 @@ def _validated_routing_authority(
             or routing_view.get("predecessor_route_consulted") is not False
         ):
             raise ValueError(
-                "proposed Review Epoch closeout lacks nonexecuting Stage 2 "
-                "configuration validation"
+                "Review Epoch closeout lacks exact Registry v4 configuration validation"
             )
         expected_authoritative = False
         expected_selection_kind = "configuration_validation_packet"

@@ -27,16 +27,16 @@ dependencies:
 | Field | Current value |
 |---|---|
 | Stable document identity | `project_tool_interface` |
-| Version | `1.2` |
+| Version | `1.3` |
 | Status | Active |
-| Approval | Approved by `@Thorncrag` on 2026-07-31 |
+| Approval | Approved by `@Thorncrag` on 2026-08-02 |
 | Authority role | Governing configuration for the ARRP Project Console and related project-operated interfaces |
 | Owner and review | `@Thorncrag`; owner review required |
 | Canonical source | `framework/project/interfaces/project-console/specification.md` |
 
-Version 1.2 retains the approved version 1.0 visual baseline and version 1.1
+Version 1.3 retains the approved version 1.0 visual baseline and version 1.1
 stable identity while aligning the Component Registry reference interface with
-the adopted Stage 3 data model. Earlier development history remains available
+the semantic-minimal schema-version-4 data model. Earlier development history remains available
 through Git and the Console Development Log; no retrospective version numbers
 are assigned without contemporaneous evidence.
 
@@ -570,10 +570,14 @@ Operations owns:
    document, archived predecessor, or another prose source as Registry data.
 
    Components is the primary searchable inventory. Its selected-component
-   detail shows stable identity, class and type, roles and capabilities,
-   canonical source and source binding, owner, retention, disclosure,
-   operational status when applicable, supporting artifacts, lifecycle and
-   authority references, relationships, migrations, and provenance. The other
+   detail shows stable identity, class and type, nonempty roles and
+   capabilities, producer-supplied canonical source URL, resolved owner,
+   retention, disclosure, operational status when applicable, and supporting
+   artifact paths. Canonical component, relationship, directory, exemption,
+   routing-rule, and terminology records occur once in the projection;
+   relationship links, dependency links, lifecycle posture, authority posture,
+   classifications, routing selections, coverage, and CODEOWNERS are derived
+   namespaces rather than duplicated records. The other
    modes provide cross-component views. Classes and Types are separate
    reference screens over the Registry's controlled classification values;
    they show the exact governing term binding when one exists, permitted
@@ -587,8 +591,10 @@ Operations owns:
    membership. Exemptions shows categorical registration exemptions joined to
    their governing scopes. Unresolved shows only paths with no valid treatment
    or conflicting treatments. Routing shows compact selections and resolved
-   dependency closures. CODEOWNERS shows the generated review-routing result,
-   distinct from Registry governance. Terminology shows the complete adopted
+   dependency closures. CODEOWNERS shows every Registry-defined default,
+   inherited result, direct rule, and explicit none rule together with the
+   generated GitHub representation; the representation has no independent
+   authority. Terminology shows the complete adopted
    controlled vocabulary.
 
    Every selected detail uses typed provenance from the projection and links
@@ -603,18 +609,20 @@ Operations owns:
    The Console renders only public-safe Registry facts and evidence references.
    It does not expose private contract payloads, owner-local receipt content,
    credentials, or restricted provenance, and it does not infer a missing
-   classification, lifecycle, authority, relationship, retention rule, source
-   binding, route, or coverage disposition. A finite result is complete only
+   classification, lifecycle, authority, relationship, retention rule, route,
+   or coverage disposition. Search is limited to explicit public-safe fields;
+   hidden whole-record serialization is prohibited. A finite result is complete only
    when the producer says it is complete. Missing or invalid Registry data is
    unavailable rather than zero or silently reconstructed.
 
-   A proposed revision uses `proposed_revision_validation` and makes no
-   live-authority claim. The adopted Stage 3 repository and hosted Console
-   output reports `adopted_configuration_validation`, which validates the
-   exact tracked configuration without reading owner-local authority evidence.
-   Only the production reader may establish `live_authority_validation` from
-   the fixed digest-addressed receipt. The public Console never includes that
-   receipt payload or promotes itself into an authority.
+   The adopted schema-version-4 repository and hosted Console output report
+   `adopted_configuration_validation`, which validates exact tracked
+   configuration without reading owner-local authority evidence. Prior, future,
+   missing, Boolean, malformed, or coerced Registry, routing-view, and Console
+   snapshot versions fail closed. Only the production reader may establish
+   `live_authority_validation` from the fixed digest-addressed schema-version-2
+   receipt. The public Console never includes that receipt payload or promotes
+   itself into an authority.
 
    The feature has no Overview portlet. Its public shell module
    `component-registry.js` and generated

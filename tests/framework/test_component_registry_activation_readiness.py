@@ -158,7 +158,7 @@ def write_console_fixture(
     }
 
 
-class ComponentRegistryActivationReadinessTests(unittest.TestCase):
+class HistoricalComponentRegistryActivationReadinessTests:
     @classmethod
     def setUpClass(cls) -> None:
         cls.current, cls.candidate = load_candidate_registry()
@@ -632,6 +632,37 @@ class ComponentRegistryActivationReadinessTests(unittest.TestCase):
                     altered,
                     self.candidate,
                     root=ROOT,
+                )
+
+
+class ComponentRegistryV4ConfigurationReadinessTests(unittest.TestCase):
+    def setUp(self):
+        self.registry = load(REGISTRY_PATH)
+
+    def test_v4_configuration_is_complete_without_a_legacy_readiness_namespace(self):
+        result = registry.validate_v4_registry(self.registry, root=ROOT)
+        self.assertTrue(result["valid"])
+        self.assertNotIn("activation_readiness", self.registry)
+        self.assertEqual(result["component_count"], 105)
+        self.assertEqual(result["terminology_count"], 87)
+
+    def test_configuration_view_is_exact_v4_and_not_live_authority(self):
+        view = registry.load_component_registry_configuration_routing_view()
+        self.assertEqual(view["schema_version"], 4)
+        self.assertEqual(view["registry_revision"], 4)
+        self.assertEqual(view["validation_mode"], "adopted_configuration_validation")
+        self.assertFalse(view["authoritative"])
+        self.assertFalse(view["executable"])
+        self.assertFalse(view["activation_receipt_consulted"])
+        self.assertTrue(view["source_bytes_current"])
+
+    def test_malformed_versions_fail_before_configuration_readiness(self):
+        for value in (None, True, 1, 2, 3, 5, "4"):
+            altered = copy.deepcopy(self.registry)
+            altered["schema_version"] = value
+            with self.subTest(value=value), self.assertRaises(registry.RegistryError):
+                registry.validate_v4_registry(
+                    altered, root=ROOT, compare_codeowners=False
                 )
 
 
