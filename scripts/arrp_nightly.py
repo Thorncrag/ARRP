@@ -2312,6 +2312,11 @@ def run_local_stages(
         stage_environment.update(
             (environment_by_stage or {}).get(spec.identifier, {})
         )
+        # The reviewed bootstrap uses ``-B`` for this coordinator process, but
+        # that interpreter flag is not inherited by child Python processes.
+        # Enforce the same invariant in every deterministic stage so a run
+        # cannot add bytecode to its reviewed runtime or transaction worktree.
+        stage_environment["PYTHONDONTWRITEBYTECODE"] = "1"
         process = subprocess.run(
             command,
             cwd=worktree,
@@ -2357,6 +2362,12 @@ def run_local_stages(
             else "succeeded"
         )
         envelope_path = stage_dir / "stage-result.json"
+        stderr_diagnostic = process.stderr.decode("utf-8", "replace").strip()
+        diagnostic_parts = []
+        if output_error is not None:
+            diagnostic_parts.append(f"output validation: {output_error}")
+        if stderr_diagnostic:
+            diagnostic_parts.append(f"stderr: {stderr_diagnostic}")
         atomic_write_json(
             envelope_path,
             {
@@ -2367,8 +2378,7 @@ def run_local_stages(
                 "completed_at": iso_utc(current),
                 "returncode": process.returncode,
                 "outputs": output_rows,
-                "diagnostic": output_error
-                or process.stderr.decode("utf-8", "replace")[:500],
+                "diagnostic": "\n".join(diagnostic_parts)[:1000],
             },
         )
         results.append(
@@ -2929,6 +2939,7 @@ def run_validation_specs(
         spec_environment.update(
             (environment_by_spec or {}).get(spec.identifier, {})
         )
+        spec_environment["PYTHONDONTWRITEBYTECODE"] = "1"
         result = subprocess.run(
             command,
             cwd=worktree,
@@ -3295,13 +3306,15 @@ def _run_production_command(
     accepted: frozenset[int] = frozenset({0}),
     environment: Mapping[str, str] | None = None,
 ) -> subprocess.CompletedProcess[bytes]:
+    process_environment = dict(environment or os.environ)
+    process_environment["PYTHONDONTWRITEBYTECODE"] = "1"
     result = subprocess.run(
         list(command),
         cwd=cwd,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         check=False,
-        env=dict(environment or os.environ),
+        env=process_environment,
     )
     if result.returncode not in accepted:
         raise TransactionError(

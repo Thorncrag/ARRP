@@ -34,6 +34,24 @@ def git(*arguments: str, cwd: Path) -> str:
 
 
 class ArrpProductionRuntimeTests(unittest.TestCase):
+    def test_production_subprocesses_cannot_write_python_bytecode(self):
+        completed = subprocess.CompletedProcess(["fixture"], 0, b"", b"")
+        with mock.patch.object(
+            MODULE.subprocess,
+            "run",
+            return_value=completed,
+        ) as run:
+            MODULE._run_production_command(
+                ("fixture",),
+                cwd=ROOT,
+                environment={"PYTHONDONTWRITEBYTECODE": "0"},
+            )
+
+        self.assertEqual(
+            run.call_args.kwargs["env"]["PYTHONDONTWRITEBYTECODE"],
+            "1",
+        )
+
     def test_scheduled_slot_uses_most_recent_two_am_new_york(self):
         before = datetime(2026, 7, 27, 5, 30, tzinfo=timezone.utc)
         after = datetime(2026, 7, 27, 8, 30, tzinfo=timezone.utc)

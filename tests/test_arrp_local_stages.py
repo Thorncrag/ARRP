@@ -215,6 +215,37 @@ class LocalStageTests(unittest.TestCase):
                 [row.status for row in continued], ["degraded", "succeeded"]
             )
 
+    def test_failure_envelope_preserves_process_and_output_diagnostics(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            state = root / "state"
+            worktree = root / "worktree"
+            worktree.mkdir()
+            output = "{run_dir}/stages/presidential-directives-bot/report.json"
+            spec = MODULE.LocalStageSpec(
+                "presidential-directives-bot",
+                24,
+                "blocking",
+                (
+                    sys.executable,
+                    "-c",
+                    "import sys; print('upstream detail', file=sys.stderr); sys.exit(9)",
+                ),
+                (output,),
+            )
+
+            result = MODULE.run_local_stages(
+                worktree=worktree,
+                run_dir=state / "runs/run-1",
+                state_root=state,
+                specs=(spec,),
+            )
+
+            self.assertEqual(result[0].status, "failed")
+            envelope = json.loads(Path(result[0].envelope).read_text(encoding="utf-8"))
+            self.assertIn("output validation:", envelope["diagnostic"])
+            self.assertIn("stderr: upstream detail", envelope["diagnostic"])
+
     def test_production_stage_order_and_entry_points(self):
         specs = MODULE.default_local_stage_specs("python3")
         self.assertEqual(tuple(row.identifier for row in specs), MODULE.LOCAL_STAGE_ORDER)
@@ -323,6 +354,12 @@ class LocalStageTests(unittest.TestCase):
             self.assertEqual([row.status for row in result], ["succeeded", "succeeded"])
             self.assertNotIn("ARRP_PROJECT_TOKEN", environments[0])
             self.assertEqual(environments[1]["ARRP_PROJECT_TOKEN"], "project-token")
+            self.assertTrue(
+                all(
+                    environment["PYTHONDONTWRITEBYTECODE"] == "1"
+                    for environment in environments
+                )
+            )
 
 
 class SealedElimTests(unittest.TestCase):
