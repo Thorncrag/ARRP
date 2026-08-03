@@ -227,6 +227,7 @@ RECOGNIZED_NEW_PREFIXES = (
     "framework/logs/",
 )
 PRIVATE_NAMES = frozenset({".env", ".env.local", "PAUSED"})
+REVIEW_ONLY_WORK_TYPES = frozenset({"comprehensive_review"})
 RUNTIME_FILES = (
     "scripts/arrp_nightly.py",
     "scripts/arrp_bootstrap.py",
@@ -2923,6 +2924,8 @@ def validate_elim_result_boundary(
     declared = value.get("files_touched")
     if not isinstance(declared, list) or sorted(declared) != sorted(files_touched):
         raise TransactionError("Elim files_touched does not equal the exact worktree delta")
+    if value.get("work_type") in REVIEW_ONLY_WORK_TYPES and declared:
+        raise TransactionError("review-only Elim touched a repository path")
     for path in declared:
         if not isinstance(path, str) or classify_path(path, None, tracked=True) != "ordinary":
             raise TransactionError(f"Elim touched a protected or prohibited path: {path}")
@@ -4113,6 +4116,7 @@ def run_production_cycle(
     if (chain_value.get("elim_decision") or {}).get("launch_recommended"):
         unit = (chain_value.get("work_queue") or {}).get("next_item") or {}
         unit_id = str(unit.get("id") or selected.get("work_item_id") or "")
+        work_type = str(unit.get("kind") or selected.get("kind") or "")
         profile = (chain_value["elim_decision"].get("profile") or {})
         model = str(profile.get("model") or run_config["llmRouting"]["profiles"][
             selected["profile"]
@@ -4151,6 +4155,13 @@ def run_production_cycle(
             schema=worktree
             / "framework/project/automation/schemas/elim-work-unit-result.schema.json",
         )
+        review_only_instruction = (
+            "This is a review-only unit: do not create, edit, or delete any "
+            "repository path; return findings and proposed repairs only through "
+            "the strict result's non-mutating fields. "
+            if work_type in REVIEW_ONLY_WORK_TYPES
+            else ""
+        )
         process = run_sealed_elim_process(
             command,
             worktree=worktree,
@@ -4160,6 +4171,7 @@ def run_production_cycle(
                 f"unit_id={unit_id}. The Component Registry manifest SHA-256 "
                 "is computed from parsed JSON serialized as UTF-8 with sorted "
                 "keys and compact separators, not from formatted file bytes. "
+                f"{review_only_instruction}"
                 "Return the strict result schema."
             ).encode("utf-8"),
             environment=sealed_environment,
