@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import base64
 import contextlib
+import errno
 import fcntl
 import hashlib
 import json
@@ -125,6 +126,17 @@ except ModuleNotFoundError:
     from scripts.arrp_context import (
         ContextError as RoutingContextError,
         load_route_manifest,
+    )
+
+try:
+    from elim_execution import (
+        ContextError as ElimContextError,
+        reconstruct_gap_obligation_state,
+    )
+except ModuleNotFoundError:
+    from scripts.elim_execution import (
+        ContextError as ElimContextError,
+        reconstruct_gap_obligation_state,
     )
 
 try:
@@ -712,6 +724,78 @@ def read_json_object(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise TransactionError(f"JSON value is not an object: {path}")
     return value
+
+
+def read_owner_text(path: Path, *, label: str, maximum_bytes: int) -> str:
+    """Read one bounded owner-only regular file without following symlinks."""
+
+    try:
+        descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW)
+    except FileNotFoundError as error:
+        raise TransactionError(f"{label} is unavailable") from error
+    except OSError as error:
+        if error.errno == errno.ELOOP:
+            raise TransactionError(f"{label} is unsafe") from error
+        raise TransactionError(f"{label} is unreadable") from error
+    try:
+        info = os.fstat(descriptor)
+        if (
+            not stat.S_ISREG(info.st_mode)
+            or info.st_uid != os.getuid()
+            or bool(stat.S_IMODE(info.st_mode) & 0o077)
+            or info.st_size > maximum_bytes
+        ):
+            raise TransactionError(f"{label} is unsafe")
+        content = bytearray()
+        while len(content) <= maximum_bytes:
+            chunk = os.read(
+                descriptor,
+                min(64 * 1024, maximum_bytes + 1 - len(content)),
+            )
+            if not chunk:
+                break
+            content.extend(chunk)
+        if len(content) > maximum_bytes:
+            raise TransactionError(f"{label} is unsafe")
+    except OSError as error:
+        raise TransactionError(f"{label} is unreadable") from error
+    finally:
+        os.close(descriptor)
+    try:
+        return bytes(content).decode("utf-8")
+    except UnicodeError as error:
+        raise TransactionError(f"{label} is unreadable") from error
+
+
+def reconstruct_owner_gap_obligations(path: Path) -> dict[str, Any]:
+    """Reconstruct typed gap state from the fixed owner-local Run Log."""
+
+    try:
+        return reconstruct_gap_obligation_state(
+            read_owner_text(
+                path,
+                label="owner-local Elim Run Log",
+                maximum_bytes=8 * 1024 * 1024,
+            )
+        )
+    except (ElimContextError, ValueError, TypeError) as error:
+        raise TransactionError(
+            "owner-local Elim Run Log cannot reconstruct gap obligations"
+        ) from error
+
+
+def queue_failure_detail(path: Path) -> str | None:
+    """Return a bounded structured queue failure without masking its cause."""
+
+    try:
+        if not path.is_file() or path.is_symlink():
+            return None
+        failure = read_json_object(path).get("error")
+    except (OSError, ValueError, TransactionError):
+        return None
+    if isinstance(failure, str) and failure.strip():
+        return failure.strip()[:500]
+    return None
 
 
 def read_keychain_secret(service: str, account: str) -> SensitiveValue:
@@ -3680,6 +3764,14 @@ def run_production_cycle(
         read_json_object(chain).get("review_epoch") or {},
     )
     queue = run_dir / "queue.json"
+    run_log = (
+        config.state_root / "records" / "automation" / "elim-run-log.md"
+    )
+    gap_obligations = run_dir / "gap-obligations-reconstructed.json"
+    atomic_write_json(
+        gap_obligations,
+        reconstruct_owner_gap_obligations(run_log),
+    )
     queue_command = [
         sys.executable,
         str(runtime / "scripts/build_elim_work_queue.py"),
@@ -3697,6 +3789,8 @@ def run_production_cycle(
         str(chain),
         "--review-epoch",
         str(review_epoch),
+        "--gap-obligations",
+        str(gap_obligations),
         "--output",
         str(queue),
     ]
@@ -3707,11 +3801,19 @@ def run_production_cycle(
     ):
         if identifier in mirrored:
             queue_command.extend((option, str(mirrored[identifier])))
-    _run_production_command(
-        queue_command,
-        cwd=worktree,
-        accepted=frozenset({0, 3}),
-    )
+    try:
+        _run_production_command(
+            queue_command,
+            cwd=worktree,
+            accepted=frozenset({0, 3}),
+        )
+    except TransactionError as error:
+        queue_failure = queue_failure_detail(queue)
+        if queue_failure is not None:
+            raise TransactionError(
+                "Elim work queue blocked: " + queue_failure
+            ) from error
+        raise
 
     route = run_dir / "route.json"
     _run_production_command(

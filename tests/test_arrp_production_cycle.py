@@ -143,6 +143,10 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
         self.worktree.mkdir(parents=True)
         self.run_dir = self.state / "runs/run-1"
         self.run_dir.mkdir(parents=True)
+        run_log = self.state / "records/automation/elim-run-log.md"
+        run_log.parent.mkdir(parents=True)
+        run_log.write_text("# Elim Run Log\n", encoding="utf-8")
+        os.chmod(run_log, 0o600)
         (self.worktree / ".github").mkdir()
         coordinator_config = (
             self.worktree
@@ -417,6 +421,137 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                 any(operation in f" {value} " for value in rendered),
                 operation,
             )
+        queue_call = next(
+            command
+            for command in calls
+            if "build_elim_work_queue.py" in str(command[1])
+        )
+        self.assertEqual(
+            queue_call[queue_call.index("--gap-obligations") + 1],
+            str(self.run_dir / "gap-obligations-reconstructed.json"),
+        )
+        self.assertEqual(
+            json.loads(
+                (self.run_dir / "gap-obligations-reconstructed.json").read_text(
+                    encoding="utf-8"
+                )
+            ),
+            {
+                "schema_version": 1,
+                "updated_at": None,
+                "governance_review": None,
+                "items": [],
+            },
+        )
+
+    def test_production_cycle_rejects_unsafe_owner_local_run_log(self):
+        run_log = self.state / "records/automation/elim-run-log.md"
+        run_log.chmod(0o644)
+
+        with self.assertRaisesRegex(
+            MODULE.TransactionError,
+            "owner-local Elim Run Log is unsafe",
+        ):
+            MODULE.read_owner_text(
+                run_log,
+                label="owner-local Elim Run Log",
+                maximum_bytes=8 * 1024 * 1024,
+            )
+
+    def test_production_cycle_rejects_malformed_owner_local_run_log(self):
+        run_log = self.state / "records/automation/elim-run-log.md"
+        run_log.write_text(
+            "<!-- ELIM-DISCOVERY-V1 abcd -->\n",
+            encoding="utf-8",
+        )
+
+        with self.assertRaisesRegex(
+            MODULE.TransactionError,
+            "owner-local Elim Run Log cannot reconstruct gap obligations",
+        ):
+            MODULE.reconstruct_owner_gap_obligations(run_log)
+
+    def test_owner_local_run_log_reader_rejects_symlink_and_oversize(self):
+        run_log = self.state / "records/automation/elim-run-log.md"
+        target = run_log.with_name("target.md")
+        target.write_text("owner-local\n", encoding="utf-8")
+        os.chmod(target, 0o600)
+        run_log.unlink()
+        run_log.symlink_to(target)
+        with self.assertRaisesRegex(MODULE.TransactionError, "is unsafe"):
+            MODULE.read_owner_text(run_log, label="run log", maximum_bytes=64)
+
+        run_log.unlink()
+        run_log.write_text("x" * 65, encoding="utf-8")
+        os.chmod(run_log, 0o600)
+        with self.assertRaisesRegex(MODULE.TransactionError, "is unsafe"):
+            MODULE.read_owner_text(run_log, label="run log", maximum_bytes=64)
+
+    def test_malformed_queue_error_does_not_replace_original_failure(self):
+        queue = self.run_dir / "queue.json"
+        queue.write_text("{", encoding="utf-8")
+        self.assertIsNone(MODULE.queue_failure_detail(queue))
+
+    def test_queue_builder_structured_error_is_preserved(self):
+        queue = self.run_dir / "queue.json"
+
+        def command(command, *, cwd, accepted=frozenset({0}), environment=None):
+            if "plan" in command:
+                MODULE.atomic_write_json(
+                    Path(command[command.index("--output") + 1]),
+                    {
+                        "review_epoch": {"due": False},
+                        "repository_gates": {"items": []},
+                    },
+                )
+                return subprocess.CompletedProcess(command, 0, b"", b"")
+            if "build_elim_work_queue.py" in str(command[1]):
+                MODULE.atomic_write_json(
+                    queue,
+                    {"schema_version": 1, "status": "blocked", "error": "typed queue failure"},
+                )
+                raise MODULE.TransactionError("production command failed (2): ")
+            return subprocess.CompletedProcess(command, 0, b"", b"")
+
+        stage_results = [
+            MODULE.LocalStageResult(identifier, "not_due", "current", None, None)
+            for identifier in MODULE.LOCAL_STAGE_ORDER
+        ]
+        mirrored = {}
+        for identifier in (
+            "project-integrity-bot",
+            "project-console-progress-bot",
+            "public-intake",
+        ):
+            path = self.state / f"{identifier}.json"
+            path.write_text("{}\n", encoding="utf-8")
+            mirrored[identifier] = path
+
+        with (
+            mock.patch.object(MODULE, "_run_production_command", side_effect=command),
+            mock.patch.object(MODULE, "run_local_stages", return_value=stage_results),
+            mock.patch.object(MODULE, "_usage_remaining", return_value=80.0),
+            mock.patch.object(MODULE, "_production_stage_outputs", return_value=mirrored),
+            mock.patch.object(MODULE, "_mirror_production_inputs", return_value=mirrored),
+            mock.patch.object(MODULE, "read_keychain_secret", return_value=MODULE.SensitiveValue("token")),
+            mock.patch.object(MODULE.GitHubAppIdentity, "from_json", return_value=mock.sentinel.identity),
+            mock.patch.object(MODULE, "mint_installation_token", return_value=MODULE.SensitiveValue("token")),
+            mock.patch.object(
+                MODULE,
+                "produce_repository_gate_snapshot",
+                return_value={"schema_version": 1, "availability": "current", "complete": True, "count": 0, "items": []},
+            ),
+            mock.patch.object(MODULE, "verify_worktree_entrypoint"),
+        ):
+            with self.assertRaisesRegex(
+                MODULE.TransactionError,
+                "Elim work queue blocked: typed queue failure",
+            ):
+                MODULE.run_production_cycle(
+                    self.config,
+                    self.transaction,
+                    self.runtime,
+                )
 
     def test_noop_publication_removes_only_registered_run_state(self):
         summary = {
