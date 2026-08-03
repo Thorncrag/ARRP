@@ -3,6 +3,119 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_015": [
     {
+      "id": "2018-12259",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "9762",
+      "title": "National Ocean Month, 2018",
+      "signed_date": "2018-05-31",
+      "published_date": "2018-06-05",
+      "citation": "83 FR 26199",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2018-06-05/pdf/2018-12259.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2018/06/05/2018-12259/national-ocean-month-2018",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2018-12257",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "9761",
+      "title": "National Homeownership Month, 2018",
+      "signed_date": "2018-05-31",
+      "published_date": "2018-06-05",
+      "citation": "83 FR 26197",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2018-06-05/pdf/2018-12257.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2018/06/05/2018-12257/national-homeownership-month-2018",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2018-12152",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "9760",
+      "title": "National Caribbean-American Heritage Month, 2018",
+      "signed_date": "2018-05-31",
+      "published_date": "2018-06-05",
+      "citation": "83 FR 25879",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2018-06-05/pdf/2018-12152.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2018/06/05/2018-12152/national-caribbean-american-heritage-month-2018",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2018-12140",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "9759",
+      "title": "Adjusting Imports of Steel Into the United States",
+      "signed_date": "2018-05-31",
+      "published_date": "2018-06-05",
+      "citation": "83 FR 25857",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2018-06-05/pdf/2018-12140.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2018/06/05/2018-12140/adjusting-imports-of-steel-into-the-united-states",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Routed",
+      "arrp_record_ids": [
+        "HOR-040"
+      ],
+      "source_ids": [
+        "SRC-1294"
+      ],
+      "disposition_rationale": "Completed baseline screening linked this directive to the listed ARRP and source-development records.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2018-12137",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "9758",
+      "title": "Adjusting Imports of Aluminum Into the United States",
+      "signed_date": "2018-05-31",
+      "published_date": "2018-06-05",
+      "citation": "83 FR 25849",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2018-06-05/pdf/2018-12137.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2018/06/05/2018-12137/adjusting-imports-of-aluminum-into-the-united-states",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Routed",
+      "arrp_record_ids": [
+        "HOR-040"
+      ],
+      "source_ids": [
+        "SRC-1293"
+      ],
+      "disposition_rationale": "Completed baseline screening linked this directive to the listed ARRP and source-development records.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
       "id": "2018-12033",
       "administration": "Trump I",
       "president": "Donald Trump",
@@ -3917,122 +4030,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "source_ids": [],
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2017-22173",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Proclamation",
-      "number": "9652",
-      "title": "German-American Day, 2017",
-      "signed_date": "2017-10-05",
-      "published_date": "2017-10-11",
-      "citation": "82 FR 47361",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2017-10-11/pdf/2017-22173.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2017/10/11/2017-22173/german-american-day-2017",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2017-21720",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Proclamation",
-      "number": "9651",
-      "title": "Honoring the Victims of the Tragedy in Las Vegas, Nevada",
-      "signed_date": "2017-10-02",
-      "published_date": "2017-10-05",
-      "citation": "82 FR 46653",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2017-10-05/pdf/2017-21720.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2017/10/05/2017-21720/honoring-the-victims-of-the-tragedy-in-las-vegas-nevada",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2017-23609",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Determination",
-      "number": "2017-15",
-      "title": "Presidential Determination With Respect to the Efforts of Foreign Governments Regarding Trafficking in Persons",
-      "signed_date": "2017-09-30",
-      "published_date": "2017-10-27",
-      "citation": "82 FR 50047",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2017-10-27/pdf/2017-23609.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2017/10/27/2017-23609/presidential-determination-with-respect-to-the-efforts-of-foreign-governments-regarding-trafficking",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Routed",
-      "arrp_record_ids": [
-        "HOR-042"
-      ],
-      "source_ids": [
-        "SRC-1282"
-      ],
-      "disposition_rationale": "Completed baseline screening linked this directive to the listed ARRP and source-development records.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2017-23145",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Determination",
-      "number": "2017-14",
-      "title": "Presidential Determination With Respect to the Child Soldiers Prevention Act of 2008",
-      "signed_date": "2017-09-30",
-      "published_date": "2017-10-23",
-      "citation": "82 FR 49085",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2017-10-23/pdf/2017-23145.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2017/10/23/2017-23145/presidential-determination-with-respect-to-the-child-soldiers-prevention-act-of-2008",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Routed",
-      "arrp_record_ids": [
-        "HOR-042"
-      ],
-      "source_ids": [
-        "SRC-1212"
-      ],
-      "disposition_rationale": "Completed baseline screening linked this directive to the listed ARRP and source-development records.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2017-23140",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Determination",
-      "number": "2017-13",
-      "title": "Presidential Determination on Refugee Admissions for Fiscal Year 2018",
-      "signed_date": "2017-09-29",
-      "published_date": "2017-10-23",
-      "citation": "82 FR 49083",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2017-10-23/pdf/2017-23140.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2017/10/23/2017-23140/presidential-determination-on-refugee-admissions-for-fiscal-year-2018",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-015.js": "project-console-60c657808d0abffc297f"
+    "directives-catalog-015.js": "project-console-75c5d896d1e1903c2646"
   }
 });

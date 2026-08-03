@@ -5,7 +5,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 4,
     "projection_id": "component-registry-console",
     "producer_id": "project-console-builder",
-    "generated_at": "2026-08-03T05:35:59-04:00",
+    "generated_at": "2026-08-03T07:47:06-04:00",
     "availability": "current",
     "complete": true,
     "reason_code": null,
@@ -40,15 +40,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "registry": {
       "registry_id": "COMPONENT-REGISTRY",
       "registry_revision": 5,
-      "registry_status": "proposed",
-      "validation_mode": "proposed_revision_validation",
+      "registry_status": "adopted",
+      "validation_mode": "adopted_configuration_validation",
       "authoritative": false,
       "executable": false,
-      "source_bytes_current": false,
+      "source_bytes_current": true,
       "predecessor_route_consulted": false,
       "registry_sha256": "b189cbe0c934a38ba5671f1f43338bae2423b9ab0972bfd5d7aad65c9149adc1",
       "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/component-registry.json",
-      "tracked_live_notice": "This view reflects a proposed Registry revision that is not yet canonical or live authority."
+      "tracked_live_notice": "This view reflects tracked Registry configuration. Live authority is established only by the separately verified owner-local readback."
     },
     "records": {
       "components": [
@@ -15375,6 +15375,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "component-registry.js": "project-console-60c657808d0abffc297f"
+    "component-registry.js": "project-console-75c5d896d1e1903c2646"
   }
 });
