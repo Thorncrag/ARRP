@@ -3141,7 +3141,7 @@ def default_post_elim_validation_specs(
         ),
         ValidationSpec(
             "console-tests",
-            ("node", "--test", "framework/project/interfaces/project-console/tests/frontend.test.mjs"),
+            ("node", "--test", "tests/project-console/frontend.test.mjs"),
         ),
         ValidationSpec(
             "participation-tests",
