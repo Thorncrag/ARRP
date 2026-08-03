@@ -3662,7 +3662,7 @@ def _usage_remaining(
     runtime: Path,
     worktree: Path,
     run_id: str,
-    reserve_percent: float,
+    reserve_percent: int,
     baseline_root: Path,
 ) -> float | None:
     result = _run_production_command(
@@ -3927,7 +3927,7 @@ def run_production_cycle(
         raise TransactionError("blocking deterministic production stage failed")
 
     run_config = read_json_object(coordinator_config)
-    reserve = float(run_config["usageGate"]["hardReservePercent"])
+    reserve = int(run_config["usageGate"]["hardReservePercent"])
     remaining = _usage_remaining(
         runtime,
         worktree,
