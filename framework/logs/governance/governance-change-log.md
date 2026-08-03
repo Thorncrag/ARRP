@@ -17,14 +17,14 @@ remains separate and unchanged.
 ## GOV-2026-022 — Component Registry executable-selection correction
 
 - Date: 2026-08-03
-- Status: Proposed / unmerged
+- Status: Canonical
 - Decision class: governance_documentation
 - Authorities: framework/component-registry.json;
   framework/component-registry.schema.json; scripts/component_registry.py;
   scripts/build_elim_context.py; scripts/arrp_nightly.py;
   scripts/finalize_component_registry_activation.py;
   framework/project/automation/owner-local-runtime.md
-- Decision: Proposes advancing the adopted schema-version-4 Component Registry
+- Decision: Adopts advancing the schema-version-4 Component Registry
   to revision 5 while preserving authority generation 4 and the existing
   five-file receipt-binding family. The correction keeps the Registry and its
   live-authority view nonexecutable while allowing the canonical router to
@@ -39,16 +39,25 @@ remains separate and unchanged.
   candidate Registry SHA-256
   `b189cbe0c934a38ba5671f1f43338bae2423b9ab0972bfd5d7aad65c9149adc1`;
   the mapped Registry, activation, routing, nightly, coordinator, consistency,
-  and documentation validation seams; and the exact implementation Git diff
-  and GitHub checks when published. The implementation and governance-only
-  closeout heads, merges, and continuity evidence remain pending.
-- Policy adoption: Proposed only. Adoption requires Benjamin's approval of the
-  exact final implementation and closeout heads, successful required checks,
-  merge-commit readback, and the governance-only closeout merge.
+  and documentation validation seams; exact implementation head
+  `9a7178a3569d9f8c2b69183d096684faf3e556b3`, PR #518, and merge
+  `61d2a6614bc9fc41ceaf8d21943d4fdc40e2331c`. The implementation merge
+  parents are exactly the prior canonical main and the approved head, its tree
+  equals the approved-head tree, and the Registry plus all five receipt-bound
+  interpreter files remain byte-identical. Governance-only closeout anchor
+  `67442ccc794e4635a0fbe26c85ecd99017b0ad64` and PR #519 record the
+  canonical evidence. The exact final PR #519 head is the final commit
+  containing this record and is separately approved and read back before
+  merge; its merge and the later activation receipt remain pending.
+- Policy adoption: Adopted on canonical history through exact approved PR #518
+  head `9a7178a3569d9f8c2b69183d096684faf3e556b3` and merge
+  `61d2a6614bc9fc41ceaf8d21943d4fdc40e2331c`; governance-only closeout records
+  exact provenance and does not establish live owner-local authority.
 - Live activation: Not active. Automation remains Paused. A new live-authority
   claim requires the separately governed, digest-addressed owner-local receipt
   binding the exact revision-5 Registry and existing five interpreter paths.
-- Relationships: Proposes refining GOV-2026-021 without superseding it.
+- Relationships: Refines GOV-2026-021 without superseding or modifying its
+  exact historical Markdown or registry entry.
 - Validation: 778 mapped Python tests pass with 15 intentional skips; 75
   browser tests pass; focused Registry, readiness, Console, and context tests
   pass; exact public Console regeneration emits the proposed/non-current
@@ -57,9 +66,11 @@ remains separate and unchanged.
   `9de8307f3a7a1ea5af53c33fee3bb6791e9e99e7b728e3a91eda552bec97eda9`
   and its parsed public-entry digest remains
   `sha256:2fa924d23b66488c84b5bb4c393fef100b6583ff45d0c158b273d1dbc87a092c`.
-  Required GitHub checks and exact-head readback remain pending; no unresolved
-  finding is silently accepted. Score, rubric, rebaseline, and Runs effect are
-  None.
+  PR #518 required checks passed, its exact head was owner-approved, and its
+  merge readback and first byte-continuity gate passed. Closeout checks,
+  exact-head approval, merge readback, and later live-authority verification
+  remain pending; no unresolved finding is silently accepted. Score, rubric,
+  rebaseline, and Runs effect are None.
 - Owner-local supplement: Required.
 
 ## GOV-2026-021 — Component Registry semantic-minimal authority
