@@ -5,7 +5,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 4,
     "projection_id": "component-registry-console",
     "producer_id": "project-console-builder",
-    "generated_at": "2026-08-03T07:47:06-04:00",
+    "generated_at": "2026-08-03T09:39:04-04:00",
     "availability": "current",
     "complete": true,
     "reason_code": null,
@@ -15375,6 +15375,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "component-registry.js": "project-console-75c5d896d1e1903c2646"
+    "component-registry.js": "project-console-a9a145e0674dc3552ec4"
   }
 });

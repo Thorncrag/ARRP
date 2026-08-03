@@ -12,7 +12,7 @@ print_exclusion_reason: "Internal operational report."
 
 - **Result:** Findings require review
 - **Errors:** 1
-- **Warnings:** 1
+- **Warnings:** 0
 - **Issue pages checked:** 64
 - **Proposal pages checked:** 41
 
@@ -21,7 +21,6 @@ print_exclusion_reason: "Internal operational report."
 ### Internal links
 
 - **ERROR:** A typed integrity error requires review.
-- **WARNING:** A typed integrity finding requires review.
 
 ## Checks Included
 
