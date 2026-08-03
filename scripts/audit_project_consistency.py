@@ -4841,7 +4841,7 @@ def markdown_report(report_data: dict[str, object]) -> str:
         "## Checks Included",
         "",
         "The authoritative check inventory is maintained in the "
-        "[Project Integrity Bot runbook](../../project/automation/runbooks/project-integrity-bot.md#checks-included).",
+        "[Project Integrity Bot runbook](../project/automation/runbooks/project-integrity-bot.md#checks-included).",
     ])
     return "\n".join(lines).rstrip() + "\n"
 

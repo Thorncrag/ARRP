@@ -2454,6 +2454,11 @@ class GitHubIssueLinkTests(unittest.TestCase):
         self.assertIn("**Result:** Clean", report)
         self.assertIn("No repeatable integrity findings", report)
         self.assertIn("Project Integrity Bot runbook", report)
+        self.assertIn(
+            "../project/automation/runbooks/project-integrity-bot.md#checks-included",
+            report,
+        )
+        self.assertNotIn("../../project/automation/runbooks", report)
         self.assertNotIn("- Internal repository links", report)
         self.assertNotIn("2026-07-21T12:00:00", report)
         self.assertNotIn("abc123", report)

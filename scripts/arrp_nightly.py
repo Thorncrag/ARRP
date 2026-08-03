@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import csv
 import contextlib
 import errno
 import fcntl
@@ -108,6 +109,7 @@ try:
         ROUTING_PREDECESSOR_PATHS,
         load_fixture_component_registry_routing_view,
         load_validated_component_registry_routing_view,
+        routed_configuration_documents_from_view,
     )
 except ModuleNotFoundError:
     from scripts.component_registry import (
@@ -115,6 +117,7 @@ except ModuleNotFoundError:
         ROUTING_PREDECESSOR_PATHS,
         load_fixture_component_registry_routing_view,
         load_validated_component_registry_routing_view,
+        routed_configuration_documents_from_view,
     )
 
 try:
@@ -131,12 +134,35 @@ except ModuleNotFoundError:
 try:
     from elim_execution import (
         ContextError as ElimContextError,
+        discovery_marker_payloads,
+        parse_discovery_markers,
         reconstruct_gap_obligation_state,
+        render_discovery_markers,
+        validate_work_unit,
     )
 except ModuleNotFoundError:
     from scripts.elim_execution import (
         ContextError as ElimContextError,
+        discovery_marker_payloads,
+        parse_discovery_markers,
         reconstruct_gap_obligation_state,
+        render_discovery_markers,
+        validate_work_unit,
+    )
+
+try:
+    from record_review_epoch import (
+        append as append_review_epoch,
+        latest_validated_epoch_from_text,
+        validate as validate_review_epoch,
+        validate_finding_continuity,
+    )
+except ModuleNotFoundError:
+    from scripts.record_review_epoch import (
+        append as append_review_epoch,
+        latest_validated_epoch_from_text,
+        validate as validate_review_epoch,
+        validate_finding_continuity,
     )
 
 try:
@@ -244,6 +270,7 @@ RUNTIME_FILES = (
     "scripts/select_elim_context_route.py",
     "scripts/build_elim_context.py",
     "scripts/elim_execution.py",
+    "scripts/record_review_epoch.py",
     "scripts/check_codex_usage_reserve.py",
     "scripts/console_data_contracts.py",
     "framework/project/github/disclosure-policy.json",
@@ -783,6 +810,356 @@ def reconstruct_owner_gap_obligations(path: Path) -> dict[str, Any]:
         raise TransactionError(
             "owner-local Elim Run Log cannot reconstruct gap obligations"
         ) from error
+
+
+def latest_owner_review_epoch(path: Path) -> dict[str, Any] | None:
+    """Read the latest digest-valid row from the sole owner-local epoch ledger."""
+
+    if not path.exists():
+        return None
+    try:
+        return latest_validated_epoch_from_text(
+            read_owner_text(
+                path,
+                label="owner-local Review Epoch ledger",
+                maximum_bytes=8 * 1024 * 1024,
+            )
+        )
+    except (OSError, ValueError, json.JSONDecodeError) as error:
+        raise TransactionError("owner-local Review Epoch ledger is invalid") from error
+
+
+def review_epoch_boundary(
+    latest: Mapping[str, Any] | None,
+    routing_view: Mapping[str, Any],
+    selection: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Compare the exact validated Registry selection with retained epoch hashes."""
+
+    current = {
+        module["path"]: "sha256:" + module["sha256"]
+        for module in selection["modules"]
+        if module.get("governing") is True
+    }
+    current[str(routing_view["registry_path"])] = (
+        "sha256:" + str(routing_view["registry_sha256"])
+    )
+    retained = (latest or {}).get("governing_hashes") or {}
+    missing = sorted(set(current) - set(retained))
+    extra = sorted(set(retained) - set(current))
+    mismatched = sorted(
+        path
+        for path in set(current) & set(retained)
+        if current[path] != retained[path]
+    )
+    return {
+        "off_cycle_required": bool(missing or extra or mismatched),
+        "current_governing_hashes": current,
+        "missing": missing,
+        "extra": extra,
+        "mismatched": mismatched,
+    }
+
+
+def review_epoch_plan_signals(
+    latest: Mapping[str, Any] | None,
+    boundary: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Project retained completion and separate boundary forcing into planning."""
+
+    signals: dict[str, Any] = {}
+    if latest is not None:
+        signals.update(
+            {
+                "comprehensive_review_completed_at": latest["completed_at"],
+                "comprehensive_review_next_due_at": latest["next_due_at"],
+                "comprehensive_review_epoch_id": latest["epoch_id"],
+                "comprehensive_review_stability_status": latest["stability_status"],
+                "comprehensive_review_unresolved_findings": latest[
+                    "unresolved_findings"
+                ],
+                "comprehensive_review_boundary_commit": latest["completion_commit"],
+            }
+        )
+    if boundary["off_cycle_required"]:
+        signals.update(
+            {
+                "force_comprehensive_review": True,
+                "comprehensive_review_trigger_reason": "governing_boundary_changed",
+                "comprehensive_review_boundary_changes": {
+                    key: boundary[key] for key in ("missing", "extra", "mismatched")
+                },
+            }
+        )
+    return signals
+
+
+def record_owner_discoveries(path: Path, result: dict[str, Any]) -> None:
+    """Append one semantically valid discovery result to the sole Elim Run Log."""
+
+    validate_work_unit(result, allow_github_actions=True)
+    expected = discovery_marker_payloads(result)
+    if not expected:
+        return
+    existing_text = (
+        read_owner_text(
+            path,
+            label="owner-local Elim Run Log",
+            maximum_bytes=8 * 1024 * 1024,
+        )
+        if path.exists()
+        else "# Elim Run Log\n"
+    )
+    existing = parse_discovery_markers(existing_text)
+    existing_by_identity = {
+        (row["run_id"], row["discovered_work_unit"]["id"]): row
+        for row in existing
+    }
+    pending: list[dict[str, Any]] = []
+    for row in expected:
+        identity = (row["run_id"], row["discovered_work_unit"]["id"])
+        retained = existing_by_identity.get(identity)
+        if retained is not None and retained != row:
+            raise TransactionError("owner-local Elim discovery identity conflicts")
+        if retained is None:
+            pending.append(row)
+    if not pending:
+        return
+    if len(pending) != len(expected):
+        raise TransactionError("owner-local Elim discovery set is partially recorded")
+    markers = render_discovery_markers(result)
+    section = (
+        f"\n\n## {result['run_id']} — {result['unit_id']}\n\n"
+        f"- Work type: `{result['work_type']}`\n"
+        f"- Outcome: `{result['outcome']}`\n\n"
+        f"{markers}\n"
+    )
+    atomic_write_bytes(path, (existing_text.rstrip() + section).encode("utf-8"))
+    recorded = parse_discovery_markers(
+        read_owner_text(
+            path,
+            label="owner-local Elim Run Log",
+            maximum_bytes=8 * 1024 * 1024,
+        )
+    )
+    recorded_by_identity = {
+        (row["run_id"], row["discovered_work_unit"]["id"]): row
+        for row in recorded
+    }
+    if any(
+        recorded_by_identity.get(
+            (row["run_id"], row["discovered_work_unit"]["id"])
+        )
+        != row
+        for row in expected
+    ):
+        raise TransactionError("owner-local Elim discovery readback differs")
+
+
+def review_epoch_findings(
+    latest: Mapping[str, Any] | None,
+    result: Mapping[str, Any],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Carry prior findings and apply only validated current obligation transitions."""
+
+    prior_unresolved = {
+        str(row["id"]): dict(row)
+        for row in (latest or {}).get("unresolved_findings") or []
+        if isinstance(row, Mapping) and isinstance(row.get("id"), str)
+    }
+    units = {
+        row["id"]: row
+        for row in result.get("discovered_work_units") or []
+        if isinstance(row, Mapping)
+    }
+    updates = {
+        row["discovered_work_unit_id"]: row
+        for row in result.get("gap_obligation_updates") or []
+    }
+    unrepresented = sorted(
+        unit_id
+        for unit_id, unit in units.items()
+        if unit.get("disposition")
+        not in {"no_material_finding", "review_completed"}
+        and unit_id not in updates
+    )
+    if unrepresented:
+        raise TransactionError(
+            "review findings lack gap-obligation representation: "
+            + ", ".join(unrepresented)
+        )
+    resolved: dict[str, dict[str, Any]] = {}
+    unresolved = dict(prior_unresolved)
+    for update in updates.values():
+        unit = units[update["discovered_work_unit_id"]]
+        finding = {
+            **dict(unit),
+            "id": update["obligation_id"],
+            "gap_obligation_update": dict(update),
+        }
+        if update["status"] in {"resolved", "human_disposition"}:
+            unresolved.pop(update["obligation_id"], None)
+            resolved[update["obligation_id"]] = finding
+        else:
+            unresolved[update["obligation_id"]] = finding
+    return (
+        [resolved[key] for key in sorted(resolved)],
+        [unresolved[key] for key in sorted(unresolved)],
+    )
+
+
+def prepare_completed_review_epoch(
+    *,
+    worktree: Path,
+    run_dir: Path,
+    chain: dict[str, Any],
+    context: dict[str, Any],
+    result: dict[str, Any],
+    routing_view: dict[str, Any],
+    routing_selection: dict[str, Any],
+    boundary_status: dict[str, Any],
+    latest: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Construct and validate a completed epoch before any durable write."""
+
+    if result.get("work_type") != "comprehensive_review":
+        raise TransactionError("Review Epoch preparation requires a comprehensive review")
+    if (
+        result.get("outcome") != "completed"
+        or (result.get("continuation") or {}).get("state") != "complete"
+    ):
+        raise TransactionError("comprehensive review did not reach completed closeout")
+    controls = [
+        row
+        for row in result.get("discovered_work_units") or []
+        if row.get("domain") == "project-governance-review"
+    ]
+    if len(controls) != 1 or controls[0].get("disposition") not in {
+        "no_material_finding",
+        "review_completed",
+    }:
+        raise TransactionError("comprehensive review lacks its completion control record")
+    resolved, unresolved = review_epoch_findings(latest, result)
+    progress_path = run_dir / "inputs" / "project-console-progress-bot.json"
+    progress = read_json_object(progress_path)
+    registry_path = worktree / "inventory/github_issue_registry.csv"
+    with registry_path.open("r", encoding="utf-8", newline="") as handle:
+        registry_count = max(0, sum(1 for _ in csv.reader(handle)) - 1)
+    completed = datetime.fromisoformat(
+        str(controls[0]["observed_at"]).replace("Z", "+00:00")
+    )
+    interval_days = int(
+        read_json_object(
+            worktree
+            / "framework/project/automation/configuration/bots/run-coordinator-bot.json"
+        )["reviewEpoch"]["intervalDays"]
+    )
+    cadence_status = (latest or {}).get("cadence_status") or {
+        14: "biweekly",
+        30: "monthly",
+    }.get(interval_days)
+    if cadence_status is None:
+        raise TransactionError("Review Epoch cadence has no exact approved mapping")
+    failures = list(chain.get("failures") or [])
+    degradations = list(chain.get("degradations") or [])
+    failed_checks = [
+        row.get("check")
+        for row in result.get("validation") or []
+        if row.get("status") == "failed"
+    ]
+    review_degradations = [
+        f"Review validation failed: {check}" for check in failed_checks
+    ] + [
+        f"Unresolved review finding: {row['id']}"
+        for row in unresolved
+        if str(row.get("domain") or "").startswith(("automation", "project-integrity"))
+    ]
+    stability = (
+        "drift-detected"
+        if unresolved or failed_checks
+        else "evolving"
+        if boundary_status.get("off_cycle_required")
+        else "stable"
+    )
+    prior_completion = (latest or {}).get("completion_commit")
+    completion_commit = context.get("repository_revision")
+    if not isinstance(completion_commit, str):
+        raise TransactionError("comprehensive review context lacks exact revision")
+    review_state = chain.get("review_epoch") or {}
+    record = {
+        "epoch_id": f"epoch-{result['run_id']}",
+        "triggering_run_id": result["run_id"],
+        "baseline_commit": prior_completion or chain.get("baseline_commit"),
+        "completion_commit": completion_commit,
+        "governing_hashes": boundary_status["current_governing_hashes"],
+        "project_snapshot": {
+            "source": f"owner-local:runs/{result['run_id']}/inputs/project-console-progress-bot.json",
+            "sha256": "sha256:" + file_sha256(progress_path),
+            "record_count": int(progress.get("actual_count") or 0),
+        },
+        "registry_snapshot": {
+            "source": "inventory/github_issue_registry.csv",
+            "sha256": "sha256:" + file_sha256(registry_path),
+            "record_count": registry_count,
+        },
+        "reviewed_domains": list(controls[0]["evidence"]),
+        "resolved_findings": resolved,
+        "unresolved_findings": unresolved,
+        "sampling_record": list(controls[0]["validation_readback"]),
+        "automation_health": {
+            "chain_id": result["run_id"],
+            "status": (
+                "failed"
+                if failures
+                else "degraded"
+                if degradations or review_degradations
+                else "healthy"
+            ),
+            "failures": failures,
+            "degradations": [*degradations, *review_degradations],
+        },
+        "completed_at": completed.isoformat(),
+        "next_due_at": (completed + timedelta(days=interval_days)).isoformat(),
+        "cadence_status": cadence_status,
+        "stability_status": stability,
+        "triggering_reason": str(review_state.get("due_reason") or "review due"),
+    }
+    validated = validate_review_epoch(
+        record,
+        routing_view=routing_view,
+        routing_selection=routing_selection,
+        context_packet=context,
+        root=worktree,
+    )
+    validate_finding_continuity(latest, validated)
+    return validated
+
+
+def persist_completed_review_epoch(
+    *,
+    config: RunnerConfig,
+    run_dir: Path,
+    validated: dict[str, Any],
+) -> dict[str, Any]:
+    """Append one prevalidated row through the existing sole epoch writer."""
+
+    ledger = config.state_root / "records" / "automation" / "review-epochs.jsonl"
+    changed = append_review_epoch(
+        ledger,
+        run_dir / "review-epoch-recorded.json",
+        validated,
+    )
+    if not changed:
+        retained = latest_owner_review_epoch(ledger)
+        if retained is None or {
+            key: value for key, value in retained.items() if key != "record_sha256"
+        } != validated:
+            raise TransactionError("Review Epoch identity conflicts with retained history")
+    recorded = latest_owner_review_epoch(ledger)
+    if recorded is None or recorded.get("epoch_id") != validated["epoch_id"]:
+        raise TransactionError("Review Epoch owner-local readback differs")
+    atomic_write_json(run_dir / "review-epoch-recorded.json", recorded)
+    return recorded
 
 
 def structured_failure_detail(path: Path) -> str | None:
@@ -2900,6 +3277,7 @@ def validate_elim_result_boundary(
     files_touched: Sequence[str],
     source_revision: str | None = None,
     allow_github_actions: bool = False,
+    repository_root: Path | None = None,
 ) -> None:
     if value.get("run_id") != run_id or value.get("unit_id") != unit_id:
         raise TransactionError("Elim result does not match the selected run and unit")
@@ -2926,6 +3304,36 @@ def validate_elim_result_boundary(
         raise TransactionError("Elim files_touched does not equal the exact worktree delta")
     if value.get("work_type") in REVIEW_ONLY_WORK_TYPES and declared:
         raise TransactionError("review-only Elim touched a repository path")
+    if (
+        value.get("work_type") in REVIEW_ONLY_WORK_TYPES
+        and value.get("github_action_requests") != []
+    ):
+        raise TransactionError("review-only Elim requested an external action")
+    if value.get("work_type") in REVIEW_ONLY_WORK_TYPES and repository_root is not None:
+        for discovery in value.get("discovered_work_units") or []:
+            target = discovery.get("canonical_detail")
+            target_path = repository_root / str(target or "")
+            if (
+                not isinstance(target, str)
+                or Path(target).is_absolute()
+                or ".." in Path(target).parts
+                or target.startswith(".git/")
+                or not target_path.is_file()
+                or target_path.is_symlink()
+            ):
+                raise TransactionError(
+                    "review-only discovery lacks an explicit existing repository target"
+                )
+            try:
+                git(repository_root, "ls-files", "--error-unmatch", "--", target)
+            except TransactionError as error:
+                raise TransactionError(
+                    "review-only discovery target is not a tracked repository file"
+                ) from error
+            if source_revision is not None and discovery.get("source_revision") != source_revision:
+                raise TransactionError(
+                    "review-only discovery source revision differs from its context"
+                )
     for path in declared:
         if not isinstance(path, str) or classify_path(path, None, tracked=True) != "ordinary":
             raise TransactionError(f"Elim touched a protected or prohibited path: {path}")
@@ -3479,6 +3887,7 @@ def run_p2_fixture_cycle(
         run_id=transaction.run_id,
         unit_id=str(elim["unit_id"]),
         files_touched=touched,
+        repository_root=worktree,
     )
     record_incident_reports(
         config.state_root / "records" / "automation" / "operational-incidents.jsonl",
@@ -3762,11 +4171,40 @@ def run_production_cycle(
     coordinator_config = worktree / "framework/project/automation/configuration/bots/run-coordinator-bot.json"
     chain = run_dir / "run-chain.json"
     signals = run_dir / "signals.json"
+    review_ledger = (
+        config.state_root / "records" / "automation" / "review-epochs.jsonl"
+    )
+    latest_review_epoch = latest_owner_review_epoch(review_ledger)
+    transaction_authority = routing_path_authority(
+        config,
+        worktree,
+        output_root=run_dir,
+    )
+    try:
+        review_routing_view = load_validated_component_registry_routing_view(
+            transaction_authority
+        )
+        review_routing_selection = routed_configuration_documents_from_view(
+            review_routing_view,
+            profile_id="comprehensive_review",
+        )
+        review_boundary = review_epoch_boundary(
+            latest_review_epoch,
+            review_routing_view,
+            review_routing_selection,
+        )
+    except (ComponentRegistryError, RoutingContextError, ValueError) as error:
+        raise TransactionError("Review Epoch routing readback failed") from error
+    review_signals = review_epoch_plan_signals(
+        latest_review_epoch,
+        review_boundary,
+    )
     atomic_write_json(
         signals,
         {
             "allow_elim_launch": True,
             "elim_launch_trigger": config.trigger,
+            **review_signals,
         },
     )
     last_success_path = config.state_root / "last-success.json"
@@ -3973,9 +4411,15 @@ def run_production_cycle(
         raise TransactionError("required production queue inputs are unavailable")
     mirrored = _mirror_production_inputs(run_dir, outputs)
     review_epoch = run_dir / "review-epoch.json"
+    review_epoch_value = read_json_object(chain).get("review_epoch") or {}
+    review_epoch_value["unresolved_ids"] = sorted(
+        str(row["id"])
+        for row in review_epoch_value.get("unresolved_findings") or []
+        if isinstance(row, Mapping) and isinstance(row.get("id"), str)
+    )
     atomic_write_json(
         review_epoch,
-        read_json_object(chain).get("review_epoch") or {},
+        review_epoch_value,
     )
     queue = run_dir / "queue.json"
     run_log = (
@@ -4158,7 +4602,15 @@ def run_production_cycle(
         review_only_instruction = (
             "This is a review-only unit: do not create, edit, or delete any "
             "repository path; return findings and proposed repairs only through "
-            "the strict result's non-mutating fields. "
+            "the strict result's non-mutating fields. For each discovery, set "
+            "canonical_detail to the one explicit existing repository path that a "
+            "later work unit should select; never infer it from affected_records. "
+            "Keep changed_files empty, give every confirmed finding a stable "
+            "obligation_id and one matching gap_obligation_update, and include "
+            "exactly one project-governance-review completion control. In that "
+            "control, evidence must explicitly list every reviewed domain and "
+            "validation_readback must explicitly record the review sample. The "
+            "trusted runner records the accepted details owner-locally. "
             if work_type in REVIEW_ONLY_WORK_TYPES
             else ""
         )
@@ -4189,6 +4641,10 @@ def run_production_cycle(
             if before_paths.get(path) != after_paths.get(path)
         )
         elim_result = read_json_object(run_dir / "elim-result.json")
+        try:
+            validate_work_unit(elim_result, allow_github_actions=True)
+        except ElimContextError as error:
+            raise TransactionError(f"Elim semantic result is invalid: {error}") from error
         validate_elim_result_boundary(
             elim_result,
             run_id=transaction.run_id,
@@ -4196,6 +4652,7 @@ def run_production_cycle(
             files_touched=touched,
             source_revision=config.runtime_commit,
             allow_github_actions=True,
+            repository_root=worktree,
         )
         record_incident_reports(
             incident_path,
@@ -4230,6 +4687,30 @@ def run_production_cycle(
             },
         },
     )
+    prepared_review_epoch = None
+    recorded_review_epoch = None
+    if elim_result is not None:
+        if elim_result.get("work_type") == "comprehensive_review":
+            if context_path is None:
+                raise TransactionError("comprehensive review lacks its context packet")
+            prepared_review_epoch = prepare_completed_review_epoch(
+                worktree=worktree,
+                run_dir=run_dir,
+                chain=chain_value,
+                context=read_json_object(context_path),
+                result=elim_result,
+                routing_view=review_routing_view,
+                routing_selection=review_routing_selection,
+                boundary_status=review_boundary,
+                latest=latest_review_epoch,
+            )
+        record_owner_discoveries(run_log, elim_result)
+        if prepared_review_epoch is not None:
+            recorded_review_epoch = persist_completed_review_epoch(
+                config=config,
+                run_dir=run_dir,
+                validated=prepared_review_epoch,
+            )
     final_commit = create_local_final_commit(
         worktree,
         run_dir,
@@ -4259,6 +4740,7 @@ def run_production_cycle(
         "route": str(route),
         "context": str(context_path) if context_path is not None else None,
         "elim_result": elim_result,
+        "review_epoch_recorded": recorded_review_epoch,
         "semantic_action_requests": (
             elim_result.get("github_action_requests") or []
             if isinstance(elim_result, Mapping)

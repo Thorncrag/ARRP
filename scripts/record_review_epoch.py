@@ -7,7 +7,6 @@ import argparse
 import hashlib
 import json
 import os
-import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -28,32 +27,31 @@ except ModuleNotFoundError:
 
 ROOT = Path(__file__).resolve().parents[1]
 STATE_ROOT = APPROVED_STATE_ROOT
-SCRIPTS = Path(__file__).resolve().parent
-if str(SCRIPTS) not in sys.path:
-    sys.path.insert(0, str(SCRIPTS))
-
-from arrp_context import (  # noqa: E402
-    extract_exact_heading,
-    sha256_path,
-    within_root,
-)
-try:  # noqa: E402
+try:
+    from scripts.arrp_context import (
+        extract_exact_heading,
+        sha256_path,
+        within_root,
+    )
     from scripts.component_registry import (
         RegistryError,
         RoutingRuleFailure,
         load_fixture_component_registry_routing_view,
         load_validated_component_registry_routing_view,
         routed_configuration_documents_from_view,
-        routed_documents_from_view,
     )
-except ModuleNotFoundError:  # Direct execution uses scripts/ on sys.path.
+except ModuleNotFoundError:  # Direct execution places scripts/ on sys.path.
+    from arrp_context import (
+        extract_exact_heading,
+        sha256_path,
+        within_root,
+    )
     from component_registry import (
         RegistryError,
         RoutingRuleFailure,
         load_fixture_component_registry_routing_view,
         load_validated_component_registry_routing_view,
         routed_configuration_documents_from_view,
-        routed_documents_from_view,
     )
 
 
@@ -305,7 +303,7 @@ def _validated_routing_authority(
                 "Review Epoch closeout must use governed-eligible Component "
                 "Registry authority"
             )
-        expected_authoritative = True
+        expected_authoritative = False
         expected_selection_kind = "configuration_validation_packet"
         expected_executable = False
     elif mode == "adopted_configuration_validation" and allow_candidate_validation:
@@ -357,8 +355,8 @@ def _validated_routing_authority(
         or routing_selection.get("authoritative") is not expected_authoritative
     ):
         raise ValueError(
-            "Review Epoch closeout requires the exact comprehensive_review "
-            "executable routing selection"
+            "Review Epoch closeout requires the exact nonexecuting "
+            "comprehensive_review configuration selection"
         )
     for field in (
         "registry_id",
@@ -373,6 +371,12 @@ def _validated_routing_authority(
             )
 
     route = routing_view.get("route")
+    if isinstance(route, dict):
+        # Registry v4 canonicalizes the embedded route before resolving the
+        # executable packet. Validate the recorder against that same order.
+        route = json.loads(
+            json.dumps(route, sort_keys=True, separators=(",", ":"))
+        )
     documents = route.get("documents") if isinstance(route, dict) else None
     profile = (
         (route.get("profiles") or {}).get(COMPREHENSIVE_PROFILE)
@@ -964,9 +968,68 @@ def append(ledger: Path, current: Path, record: dict) -> bool:
     ledger.parent.mkdir(parents=True, exist_ok=True)
     with ledger.open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(record, sort_keys=True) + "\n")
+    os.chmod(ledger, 0o600)
     current.parent.mkdir(parents=True, exist_ok=True)
     current.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
+    os.chmod(current, 0o600)
     return True
+
+
+def validate_persisted_epoch(value: object) -> dict:
+    """Validate one append-only row without imposing today's boundary on history."""
+
+    if not isinstance(value, dict):
+        raise ValueError("persisted Review Epoch must be an object")
+    expected = {"schema_version", "record_sha256", *REQUIRED}
+    if set(value) != expected or value.get("schema_version") != 1:
+        raise ValueError("persisted Review Epoch fields differ from the approved schema")
+    recorded_digest = value.get("record_sha256")
+    if not _valid_sha256(recorded_digest, prefixed=True):
+        raise ValueError("persisted Review Epoch record digest is invalid")
+    payload = {key: item for key, item in value.items() if key != "record_sha256"}
+    actual_digest = hashlib.sha256(
+        json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+    if recorded_digest != _prefixed_sha256(actual_digest):
+        raise ValueError("persisted Review Epoch record digest does not match")
+    for key in ("epoch_id", "triggering_run_id", "triggering_reason"):
+        if not isinstance(value.get(key), str) or not value[key].strip():
+            raise ValueError(f"persisted Review Epoch {key} is invalid")
+    for key in ("baseline_commit", "completion_commit"):
+        if not _valid_commit(value.get(key)):
+            raise ValueError(f"persisted Review Epoch {key} is invalid")
+    hashes = value.get("governing_hashes")
+    if not isinstance(hashes, dict) or not hashes or any(
+        not isinstance(path, str)
+        or not path
+        or not _valid_sha256(digest, prefixed=True)
+        for path, digest in hashes.items()
+    ):
+        raise ValueError("persisted Review Epoch governing hashes are invalid")
+    _validate_snapshot(value.get("project_snapshot"), "project_snapshot")
+    _validate_snapshot(value.get("registry_snapshot"), "registry_snapshot")
+    _validate_entries(value.get("reviewed_domains"), "reviewed_domains", nonempty=True)
+    _validate_finding_lists(value)
+    _validate_entries(value.get("sampling_record"), "sampling_record", nonempty=True)
+    _validate_automation_health(value.get("automation_health"))
+    if value.get("cadence_status") not in CADENCE:
+        raise ValueError("persisted Review Epoch cadence_status is invalid")
+    if value.get("stability_status") not in STABILITY:
+        raise ValueError("persisted Review Epoch stability_status is invalid")
+    completed = datetime.fromisoformat(str(value.get("completed_at")).replace("Z", "+00:00"))
+    due = datetime.fromisoformat(str(value.get("next_due_at")).replace("Z", "+00:00"))
+    if due <= completed:
+        raise ValueError("persisted Review Epoch next_due_at must follow completed_at")
+    return dict(value)
+
+
+def latest_validated_epoch_from_text(text: str) -> dict | None:
+    """Return the latest digest-valid current-schema historical row."""
+
+    rows = [json.loads(line) for line in text.splitlines() if line.strip()]
+    if not rows:
+        return None
+    return validate_persisted_epoch(rows[-1])
 
 
 def _latest_epoch(ledger: Path) -> dict | None:
@@ -982,6 +1045,9 @@ def _latest_epoch(ledger: Path) -> dict | None:
     latest = rows[-1]
     if not isinstance(latest, dict):
         raise ValueError("latest prior Review Epoch must be an object")
+    # The CLI continuity gate must continue to understand append-only legacy
+    # rows. Production scheduling uses latest_validated_epoch_from_text and
+    # therefore requires the current digest-bound schema.
     return latest
 
 
@@ -1040,11 +1106,7 @@ def main(
         if authority.mode == "fixture"
         else load_validated_component_registry_routing_view(authority)
     )
-    routing_selection = (
-        routed_configuration_documents_from_view
-        if routing_view.get("validation_mode") == "proposed_revision_validation"
-        else routed_documents_from_view
-    )(
+    routing_selection = routed_configuration_documents_from_view(
         routing_view,
         profile_id=COMPREHENSIVE_PROFILE,
     )

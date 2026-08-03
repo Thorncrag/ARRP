@@ -134,7 +134,7 @@ def boundary(
         "registry_revision": view["registry_revision"],
         "registry_sha256": view["registry_sha256"],
         "registry_path": view["registry_path"],
-        "authoritative": active,
+        "authoritative": False,
         "profile": "comprehensive_review",
         "capabilities": [],
         "modules": [

@@ -13,6 +13,8 @@ from scripts.operational_incidents import (
     project_incident_log,
     reconcile_failure_spool,
 )
+from scripts import run_coordinator
+from tests.test_review_epoch import record as review_epoch_record
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -46,6 +48,125 @@ def stage_spec(
 
 
 class LocalStageTests(unittest.TestCase):
+    def test_fresh_plan_reads_retained_and_new_review_epoch_rows(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture = GitFixture(root)
+            run_dir = fixture.state / "runs/epoch-test"
+            run_dir.mkdir(parents=True)
+            validated = {
+                "schema_version": 1,
+                **review_epoch_record(
+                    {"authority.md": "sha256:" + "a" * 64}
+                ),
+            }
+            validated["unresolved_findings"] = [
+                {"id": "GAP-1"},
+                {"id": "GAP-2"},
+            ]
+            recorded = MODULE.persist_completed_review_epoch(
+                config=fixture.config(),
+                run_dir=run_dir,
+                validated=validated,
+            )
+            ledger = fixture.state / "records/automation/review-epochs.jsonl"
+            self.assertEqual(len(ledger.read_text().splitlines()), 1)
+            self.assertEqual(
+                [row["id"] for row in recorded["unresolved_findings"]],
+                ["GAP-1", "GAP-2"],
+            )
+            latest = MODULE.latest_owner_review_epoch(ledger)
+            signals = MODULE.review_epoch_plan_signals(
+                latest,
+                {
+                    "off_cycle_required": False,
+                    "missing": [],
+                    "extra": [],
+                    "mismatched": [],
+                },
+            )
+            planned = run_coordinator.review_epoch(
+                {"reviewEpoch": {"intervalDays": 14}},
+                {},
+                signals,
+                datetime(2026, 7, 25, tzinfo=timezone.utc),
+            )
+            self.assertFalse(planned["due"])
+            self.assertNotEqual(planned["due_reason"], "no completed review epoch")
+            self.assertEqual(planned["epoch_id"], recorded["epoch_id"])
+            MODULE.persist_completed_review_epoch(
+                config=fixture.config(),
+                run_dir=run_dir,
+                validated=validated,
+            )
+            self.assertEqual(len(ledger.read_text().splitlines()), 1)
+
+    def test_review_findings_are_complete_and_incomplete_review_writes_nothing(self):
+        units = [
+            {
+                "id": "DISC-1",
+                "obligation_id": "GAP-1",
+                "domain": "project-integrity",
+                "disposition": "reported",
+            },
+            {
+                "id": "DISC-2",
+                "obligation_id": "GAP-2",
+                "domain": "automation-review-epoch",
+                "disposition": "reported",
+            },
+        ]
+        updates = [
+            {
+                "obligation_id": f"GAP-{index}",
+                "discovered_work_unit_id": f"DISC-{index}",
+                "status": "open",
+                "observed_at": "2026-08-03T14:00:00+00:00",
+                "resolution": None,
+            }
+            for index in (1, 2)
+        ]
+        resolved, unresolved = MODULE.review_epoch_findings(
+            None,
+            {
+                "discovered_work_units": units,
+                "gap_obligation_updates": updates,
+            },
+        )
+        self.assertEqual(resolved, [])
+        self.assertEqual([row["id"] for row in unresolved], ["GAP-1", "GAP-2"])
+        self.assertTrue(all("gap_obligation_update" in row for row in unresolved))
+        with self.assertRaisesRegex(MODULE.TransactionError, "lack gap-obligation"):
+            MODULE.review_epoch_findings(
+                None,
+                {
+                    "discovered_work_units": units,
+                    "gap_obligation_updates": updates[:1],
+                },
+            )
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            with self.assertRaisesRegex(MODULE.TransactionError, "completion control"):
+                MODULE.prepare_completed_review_epoch(
+                    worktree=root,
+                    run_dir=root,
+                    chain={},
+                    context={},
+                    result={
+                        "work_type": "comprehensive_review",
+                        "outcome": "completed",
+                        "continuation": {"state": "complete"},
+                        "discovered_work_units": units,
+                        "gap_obligation_updates": updates,
+                    },
+                    routing_view={},
+                    routing_selection={},
+                    boundary_status={},
+                    latest=None,
+                )
+            self.assertFalse((root / "review-epochs.jsonl").exists())
+
     def test_invalid_elim_result_is_preserved_in_failure_safe_incident_spool(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -447,6 +568,48 @@ class SealedElimTests(unittest.TestCase):
                     run_id="run",
                     unit_id="unit",
                     files_touched=value["files_touched"],
+                )
+
+    def test_review_only_discovery_requires_one_explicit_existing_target(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fixture = GitFixture(root)
+            target = fixture.repo / "scripts/repair.py"
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text("# repair target\n", encoding="utf-8")
+            from tests.test_arrp_nightly import run
+            run("git", "add", "scripts/repair.py", cwd=fixture.repo)
+            run("git", "commit", "-m", "add repair target", cwd=fixture.repo)
+            value = {
+                "run_id": "run",
+                "unit_id": "review",
+                "work_type": "comprehensive_review",
+                "commit": None,
+                "synchronization": [],
+                "github_action_requests": [],
+                "incident_reports": [],
+                "files_touched": [],
+                "discovered_work_units": [
+                    {"canonical_detail": "scripts/repair.py"}
+                ],
+            }
+            MODULE.validate_elim_result_boundary(
+                value,
+                run_id="run",
+                unit_id="review",
+                files_touched=[],
+                repository_root=fixture.repo,
+            )
+            value["discovered_work_units"][0]["canonical_detail"] = (
+                "scripts/missing.py"
+            )
+            with self.assertRaisesRegex(MODULE.TransactionError, "explicit existing"):
+                MODULE.validate_elim_result_boundary(
+                    value,
+                    run_id="run",
+                    unit_id="review",
+                    files_touched=[],
+                    repository_root=fixture.repo,
                 )
 
     def test_git_metadata_mutation_is_detectable(self):
