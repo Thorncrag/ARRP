@@ -147,6 +147,12 @@ def docket_payload(docket_id, modified="2026-07-20T12:00:00Z"):
 
 
 class CaseMonitorBotTests(unittest.TestCase):
+    def test_default_log_uses_current_source_monitor_authority(self):
+        self.assertEqual(
+            MODULE.DEFAULT_LOG.relative_to(ROOT).as_posix(),
+            "framework/logs/sources/source-monitor-log.md",
+        )
+
     def test_composite_identity_allows_one_courtlistener_id_for_distinct_rows(self):
         entries = MODULE.parse_tracker_html(
             tracker_html(

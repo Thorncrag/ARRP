@@ -40,7 +40,7 @@ DEFAULT_CONFIG = ROOT / "framework/project/automation/configuration/bots/case-mo
 DEFAULT_SOURCES = ROOT / "inventory" / "sources.csv"
 DEFAULT_PENDING_SOURCES = ROOT / "inventory" / "sources-pending.csv"
 DEFAULT_LOG = (
-    ROOT / "framework" / "records" / "sources" / "source-monitor-log.md"
+    ROOT / "framework" / "logs" / "sources" / "source-monitor-log.md"
 )
 USER_AGENT = "ARRP case-monitor-bot/0.3"
 STATE_PREFIX = "arrp-case-monitor:v1:"

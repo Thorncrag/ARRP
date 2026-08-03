@@ -155,6 +155,13 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                 f"runs/{prior_run_id}/stages/{identifier}/stage-result.json"
             )
             envelope = self.state / relative
+            report_relative = f"runs/{prior_run_id}/stages/{identifier}/report.json"
+            report = self.state / report_relative
+            MODULE.atomic_write_json(
+                report,
+                {"schema_version": 1, "stage_id": identifier},
+            )
+            report_digest = MODULE.file_sha256(report)
             MODULE.atomic_write_json(
                 envelope,
                 {
@@ -162,7 +169,12 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                     "stage_id": identifier,
                     "status": "succeeded",
                     "completed_at": "2026-08-03T06:00:00Z",
-                    "outputs": [],
+                    "outputs": [
+                        {
+                            "path": report_relative,
+                            "sha256": report_digest,
+                        }
+                    ],
                 },
             )
             digest = MODULE.file_sha256(envelope)
@@ -175,7 +187,7 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                     "id": identifier,
                     "status": "succeeded",
                     "last_success_at": "2026-08-03T06:00:00Z",
-                    "output": {"sha256": "sha256:" + digest},
+                    "output": {"sha256": "sha256:" + report_digest},
                 }
             )
         MODULE.atomic_write_json(
@@ -242,13 +254,178 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
             output_root=run_root,
         )
 
+    def assert_mixed_cadence_round_trip(self, carried_status):
+        previous = json.loads(
+            (self.state / "last-success.json").read_text(encoding="utf-8")
+        )
+        current_stage = MODULE.LOCAL_STAGE_ORDER[0]
+        current_stage_dir = self.run_dir / "stages" / current_stage
+        current_report = current_stage_dir / "report.json"
+        MODULE.atomic_write_json(
+            current_report,
+            {"schema_version": 1, "stage_id": current_stage},
+        )
+        current_envelope = current_stage_dir / "stage-result.json"
+        MODULE.atomic_write_json(
+            current_envelope,
+            {
+                "schema_version": 1,
+                "stage_id": current_stage,
+                "status": "succeeded",
+                "outputs": [
+                    {
+                        "path": str(current_report.relative_to(self.state)),
+                        "sha256": MODULE.file_sha256(current_report),
+                    }
+                ],
+            },
+        )
+        results = []
+        chain_stages = []
+        for index, identifier in enumerate(MODULE.LOCAL_STAGE_ORDER):
+            status = (
+                "succeeded"
+                if index == 0
+                else carried_status
+                if index == 1
+                else "not_due"
+            )
+            results.append(
+                MODULE.LocalStageResult(
+                    identifier,
+                    status,
+                    "fixture",
+                    0 if status == "succeeded" else None,
+                    str(current_envelope) if status == "succeeded" else None,
+                )
+            )
+            last_success_at = (
+                "2026-08-03T07:00:00Z"
+                if status == "succeeded"
+                else "2026-08-03T06:00:00Z"
+            )
+            chain_stages.append(
+                {
+                    "id": identifier,
+                    "status": status,
+                    "last_success_at": last_success_at,
+                    "output": (
+                        {
+                            "sha256": "sha256:"
+                            + MODULE.file_sha256(current_report)
+                        }
+                        if status == "succeeded"
+                        else None
+                    ),
+                }
+            )
+        MODULE.atomic_write_json(
+            self.run_dir / "run-chain.json",
+            {
+                "schema_version": 1,
+                "run_id": "run-1",
+                "chain_id": "run-1",
+                "stages": chain_stages,
+            },
+        )
+        candidate = MODULE.last_success_document(
+            self.state,
+            self.run_dir,
+            results,
+            run_id="run-1",
+            previous=previous,
+        )
+        carried = candidate["stages"][MODULE.LOCAL_STAGE_ORDER[1]]
+        self.assertTrue(carried["envelope"].startswith("runs/prior-run/"))
+        self.assertEqual(
+            MODULE.prior_run_chain_for_plan(self.state, candidate),
+            self.run_dir / "run-chain.json",
+        )
+
+    def test_last_success_round_trips_mixed_success_and_not_due(self):
+        self.assert_mixed_cadence_round_trip("not_due")
+
+    def test_last_success_round_trips_mixed_success_and_degraded(self):
+        self.assert_mixed_cadence_round_trip("degraded")
+
+    def test_last_success_rejects_dot_segment_origin_run(self):
+        candidate = json.loads(
+            (self.state / "last-success.json").read_text(encoding="utf-8")
+        )
+        identifier = MODULE.LOCAL_STAGE_ORDER[0]
+        candidate["stages"][identifier]["envelope"] = (
+            f"runs/../stages/{identifier}/stage-result.json"
+        )
+        with self.assertRaisesRegex(
+            MODULE.TransactionError,
+            "stage binding is malformed",
+        ):
+            MODULE.prior_run_chain_for_plan(self.state, candidate)
+
+    def test_last_success_rejects_dot_segment_current_run(self):
+        candidate = {
+            "schema_version": 1,
+            "run_id": "..",
+            "run_directory": "runs/..",
+            "stages": {},
+        }
+        with self.assertRaisesRegex(
+            MODULE.TransactionError,
+            "cadence authority is malformed",
+        ):
+            MODULE.prior_run_chain_for_plan(self.state, candidate)
+
+    def test_last_success_rejects_symlinked_origin_run(self):
+        candidate = json.loads(
+            (self.state / "last-success.json").read_text(encoding="utf-8")
+        )
+        alias = self.state / "runs/alias-run"
+        alias.symlink_to(self.state / "runs/prior-run", target_is_directory=True)
+        identifier = MODULE.LOCAL_STAGE_ORDER[0]
+        candidate["stages"][identifier]["envelope"] = (
+            f"runs/alias-run/stages/{identifier}/stage-result.json"
+        )
+        with self.assertRaisesRegex(
+            MODULE.TransactionError,
+            "stage path is unsafe",
+        ):
+            MODULE.prior_run_chain_for_plan(self.state, candidate)
+
     def tearDown(self):
         self.temporary.cleanup()
 
     def test_production_cycle_reuses_bound_chain_and_closes_clean_noop(self):
         calls = []
+        current_stage = MODULE.LOCAL_STAGE_ORDER[0]
+        current_stage_dir = self.run_dir / "stages" / current_stage
+        current_report = current_stage_dir / "report.json"
+        MODULE.atomic_write_json(
+            current_report,
+            {"schema_version": 1, "stage_id": current_stage},
+        )
+        current_envelope = current_stage_dir / "stage-result.json"
+        MODULE.atomic_write_json(
+            current_envelope,
+            {
+                "schema_version": 1,
+                "stage_id": current_stage,
+                "status": "succeeded",
+                "outputs": [
+                    {
+                        "path": str(current_report.relative_to(self.state)),
+                        "sha256": MODULE.file_sha256(current_report),
+                    }
+                ],
+            },
+        )
         stage_results = [
-            MODULE.LocalStageResult(identifier, "not_due", "current", None, None)
+            MODULE.LocalStageResult(
+                identifier,
+                "succeeded" if identifier == current_stage else "not_due",
+                "due" if identifier == current_stage else "current",
+                0 if identifier == current_stage else None,
+                str(current_envelope) if identifier == current_stage else None,
+            )
             for identifier in MODULE.LOCAL_STAGE_ORDER
         ]
         mirrored = {}
@@ -496,6 +673,16 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
         self.assertEqual(
             plan_call[plan_call.index("--previous") + 1],
             str(self.state / "runs/prior-run/run-chain.json"),
+        )
+        current_record_call = next(
+            command
+            for command in calls
+            if "record" in command
+            and command[command.index("--stage") + 1] == current_stage
+        )
+        self.assertEqual(
+            current_record_call[current_record_call.index("--output-file") + 1],
+            str(current_report.resolve()),
         )
 
     def test_production_cycle_rejects_unsafe_owner_local_run_log(self):

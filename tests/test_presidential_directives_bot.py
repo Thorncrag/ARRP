@@ -49,6 +49,12 @@ class PresidentialDirectivesBotTests(unittest.TestCase):
             (ROOT / "framework/project/automation/configuration/bots/presidential-directives-bot.json").read_text()
         )
 
+    def test_default_log_uses_current_source_monitor_authority(self):
+        self.assertEqual(
+            MODULE.DEFAULT_LOG.relative_to(ROOT).as_posix(),
+            "framework/logs/sources/source-monitor-log.md",
+        )
+
     def test_scope_covers_trump_biden_trump_without_other_presidents(self):
         examples = [
             result(signed="2017-01-20", published="2017-01-24"),
