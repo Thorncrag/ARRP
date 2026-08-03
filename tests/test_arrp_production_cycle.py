@@ -348,6 +348,22 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
     def test_last_success_round_trips_mixed_success_and_degraded(self):
         self.assert_mixed_cadence_round_trip("degraded")
 
+    def test_last_success_accepts_exact_legacy_envelope_binding(self):
+        candidate = json.loads(
+            (self.state / "last-success.json").read_text(encoding="utf-8")
+        )
+        chain_path = self.state / "runs/prior-run/run-chain.json"
+        chain = json.loads(chain_path.read_text(encoding="utf-8"))
+        for stage in chain["stages"]:
+            stage["output"]["sha256"] = (
+                "sha256:" + candidate["stages"][stage["id"]]["sha256"]
+            )
+        MODULE.atomic_write_json(chain_path, chain)
+        self.assertEqual(
+            MODULE.prior_run_chain_for_plan(self.state, candidate),
+            chain_path,
+        )
+
     def test_last_success_rejects_dot_segment_origin_run(self):
         candidate = json.loads(
             (self.state / "last-success.json").read_text(encoding="utf-8")
