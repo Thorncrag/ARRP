@@ -10118,7 +10118,24 @@ def component_registry_console_snapshot(
     routes = _component_registry_console_routes()
 
     components: list[dict[str, object]] = []
+    projected_component_fields = {
+        "display_name",
+        "classification",
+        "canonical_source",
+        "owner",
+        "information_handling",
+        "lifecycle",
+        "revision_mode",
+        "retention_bases",
+        "supporting_artifacts",
+        "operational_status",
+        "execution_controls",
+    }
+    component_entry_fields: dict[str, list[str]] = {}
     for component_id, component in component_entries.items():
+        component_entry_fields[component_id] = sorted(
+            projected_component_fields.intersection(component)
+        )
         components.append(
             {
                 "stable_id": component_id,
@@ -10419,6 +10436,7 @@ def component_registry_console_snapshot(
         "linked": {
             "component_relationships": component_relationships,
             "component_dependencies": component_dependencies,
+            "component_entry_fields": component_entry_fields,
         },
         "derived": {
             "classifications": {

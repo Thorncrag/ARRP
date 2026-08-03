@@ -1432,6 +1432,18 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertEqual(len(snapshot["derived"]["authorities"]["assignments"]), 105)
         self.assertEqual(len(snapshot["derived"]["routing"]["selections"]), 27)
         self.assertEqual(len(snapshot["derived"]["codeowners"]["records"]), 164)
+        entry_fields = snapshot["linked"]["component_entry_fields"]
+        self.assertEqual(set(entry_fields), {
+            record["stable_id"] for record in snapshot["records"]["components"]
+        })
+        self.assertEqual(
+            entry_fields["project_premise"],
+            ["canonical_source", "classification", "display_name"],
+        )
+        self.assertIn(
+            "information_handling", entry_fields["COMPONENT-REGISTRY"]
+        )
+        self.assertNotIn("owner", entry_fields["COMPONENT-REGISTRY"])
         self.assertEqual(snapshot["derived"]["coverage"]["uncovered_count"], 0)
         self.assertEqual(snapshot["derived"]["coverage"]["multiply_treated_count"], 0)
         self.assertEqual(
@@ -2160,6 +2172,36 @@ class ConsoleDataContractTests(unittest.TestCase):
                 set(catalog["generation_manifest"]["files"]),
                 {"component-registry.js", "overview.js", "progress.js"},
             )
+
+    def test_checked_in_component_registry_matches_console_generation(self):
+        console = ROOT / "framework/project/interfaces/project-console"
+        data = console / "data"
+        manifest = json.loads(
+            (data / "generation-manifest.json").read_text(encoding="utf-8")
+        )
+        component_path = data / "component-registry.js"
+        component_metadata = manifest["files"][component_path.name]
+        component = MODULE.generated_console_part(
+            component_path.read_text(encoding="utf-8")
+        )
+        catalog = json.loads(
+            (console / "catalog-data.js")
+            .read_text(encoding="utf-8")
+            .removeprefix(MODULE.CATALOG_PREFIX)
+            .removesuffix(";\n")
+        )
+
+        self.assertEqual(
+            component["domain_generation"][component_path.name],
+            manifest["generation_id"],
+        )
+        self.assertEqual(
+            CONTRACTS.file_sha256(data, component_path),
+            component_metadata["sha256"],
+        )
+        self.assertEqual(component_path.stat().st_size, component_metadata["bytes"])
+        self.assertEqual(catalog["generation_id"], manifest["generation_id"])
+        self.assertEqual(catalog["generation_manifest"], manifest)
 
     def test_topic_products_have_stable_nonissue_identity(self):
         products = MODULE.topic_product_records()

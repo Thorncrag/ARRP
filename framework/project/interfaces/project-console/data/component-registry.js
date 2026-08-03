@@ -5,7 +5,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 4,
     "projection_id": "component-registry-console",
     "producer_id": "project-console-builder",
-    "generated_at": "2026-08-02T16:38:02+00:00",
+    "generated_at": "2026-08-02T14:18:57-04:00",
     "availability": "current",
     "complete": true,
     "reason_code": null,
@@ -6543,6 +6543,583 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "project_source_adjudication",
           "project_tool_interface",
           "progress_config"
+        ]
+      },
+      "component_entry_fields": {
+        "project_premise": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "codex_bootstrap": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "framework_kernel": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "agent_rules_kernel": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "github_disclosure_boundary": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "github_disclosure_policy": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "task_handoff": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling"
+        ],
+        "context_routing": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "lifecycle",
+          "retention_bases",
+          "revision_mode"
+        ],
+        "project_structure": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "lifecycle",
+          "retention_bases",
+          "revision_mode"
+        ],
+        "github_workflow": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "remedy_framework": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "print_assembly": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "public_release": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "project_tool_interface": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "intake_process": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "agent_audit_execution": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "agent_autonomous_execution": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "private_staging_authority_schema": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "project_runtime_authority": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "transaction_lifecycle": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "transaction_lifecycle_schema": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "transaction_recovery_package_schema": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "project_reconciliation": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "project_reconciliation_schema": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "project_autonomous_execution": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "repository_gate_policy": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "operational_incident_policy": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "security_incident_policy": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "incident_relation_policy": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "agent_context_research": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "agent_handoff": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "agent_issue_candidate_work": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "agent_multi_agent": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "agent_provenance_logging": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "agent_validation_closeout": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "agent_registry": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "lifecycle",
+          "retention_bases",
+          "revision_mode"
+        ],
+        "runbook_elim": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "runbook_case_monitor_bot": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "runbook_presidential_directives_bot": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "runbook_console_progress_bot": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "runbook_integrity_bot": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "runbook_run_coordinator_bot": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "runbook_source_checker_bot": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "audit_core": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "audit_verification": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "audit_tiered": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "audit_legal_prior_proposal": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "audit_project_consistency": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "proposal_scoring_model": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "audit_change": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "scoring_adoption_pathway": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "scoring_external_international": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "method_neutrality_language": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "method_scope_admission": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "method_partisan_perception": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "evidence_standards": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "source_catalogs": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "issue_architecture": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "development_levels": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "navigation_inventory": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "navigation_topic_guides": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "candidate_adjudication": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "source_automated_adjudication": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "source_presidential_directives": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "source_project_monitoring": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "operation_project_update": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "operation_governance_change_recording": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "governance_change_registry": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "project_configuration": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "repository_map": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "lifecycle",
+          "retention_bases",
+          "revision_mode"
+        ],
+        "proposal_development_model": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "scoring_standard": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "candidate_review_standard": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "print_assembly_standard": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "release_standard": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "interface_standard": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "progress_view_standard": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "public_input_standard": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "work_tracking_standard": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "visual_identity": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "print_manifest": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "progress_config": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "supporting_artifacts"
+        ],
+        "elim_result_schema": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "project_source_adjudication": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "navigation_project_sync": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "project_audit_execution": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "COMPONENT-REGISTRY": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling"
+        ],
+        "component_registry_schema": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling"
+        ],
+        "component_registry_tool": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling",
+          "operational_status"
+        ],
+        "component_registry_activation_finalizer": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling",
+          "operational_status"
+        ],
+        "component_registry_tests": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling",
+          "operational_status",
+          "supporting_artifacts"
+        ],
+        "context_routes_source": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "lifecycle",
+          "retention_bases",
+          "revision_mode"
+        ],
+        "component_registry_stage2_design_proposal": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "retention_bases"
+        ],
+        "run-coordinator-bot": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling",
+          "operational_status",
+          "supporting_artifacts"
+        ],
+        "elim": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling",
+          "operational_status"
+        ],
+        "case-monitor-bot": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling",
+          "operational_status",
+          "supporting_artifacts"
+        ],
+        "presidential-directives-bot": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling",
+          "operational_status",
+          "supporting_artifacts"
+        ],
+        "source-checker-bot": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "execution_controls",
+          "information_handling",
+          "operational_status",
+          "supporting_artifacts"
+        ],
+        "project-console-progress-bot": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling",
+          "operational_status"
+        ],
+        "project-integrity-bot": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling",
+          "operational_status"
+        ],
+        "governance_change_log": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "retention_bases",
+          "revision_mode"
+        ],
+        "project_console": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "supporting_artifacts"
+        ],
+        "project_console_builder": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "operational_status"
+        ],
+        "public_website": [
+          "canonical_source",
+          "classification",
+          "display_name"
+        ],
+        "public_participation_interface": [
+          "canonical_source",
+          "classification",
+          "display_name"
         ]
       }
     },
@@ -14796,5 +15373,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_sha256": "f672bf53183abd9abac12ec5415d7c7397c86a4bd5e86e9712752a253e044308"
       }
     }
+  },
+  "domain_generation": {
+    "component-registry.js": "project-console-b8879f66825b959e696a"
   }
 });

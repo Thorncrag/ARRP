@@ -7719,12 +7719,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2532,
-      "estimated_pages": 4,
+      "word_count": 3598,
+      "estimated_pages": 6,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 80
+      "longest_unbroken_token": 82
     },
     {
       "title": "ARRP Governance Change Recording",
@@ -7882,7 +7882,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/automation-arrp owner-local runtime authority",
       "internal_links": [],
-      "word_count": 2092,
+      "word_count": 2202,
       "estimated_pages": 4,
       "table_count": 2,
       "max_table_columns": 3,
@@ -8006,12 +8006,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2777,
+      "word_count": 2842,
       "estimated_pages": 5,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 67
+      "longest_unbroken_token": 66
     },
     {
       "title": "ARRP Project Console Progress Configuration",
@@ -8094,7 +8094,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 10571,
+      "word_count": 10638,
       "estimated_pages": 17,
       "table_count": 2,
       "max_table_columns": 2,
@@ -9460,12 +9460,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/handoffs-current task handoff",
       "internal_links": [],
-      "word_count": 940,
-      "estimated_pages": 2,
+      "word_count": 615,
+      "estimated_pages": 1,
       "table_count": 2,
       "max_table_columns": 2,
       "heading_issue_count": 0,
-      "longest_unbroken_token": 74
+      "longest_unbroken_token": 21
     },
     {
       "title": "Elim Agent Runbook",
@@ -20250,6 +20250,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-0190622e65aa208fbcb9"
+    "publication.js": "project-console-b8879f66825b959e696a"
   }
 });
