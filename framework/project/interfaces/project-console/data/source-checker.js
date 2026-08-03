@@ -15,15 +15,15 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "inventory/sources-pending.csv": "sha256:c6eafc0d61b601ee1db9c12e9271797eba4c0abd3f7bf75021df916989f5433c",
       "inventory/sources.csv": "sha256:50c8e018da9f3fdd46b18dce130815003cbd1fd935d373fa8f3121671c301326"
     },
-    "availability": "current",
+    "availability": "stale",
     "completeness": {
-      "complete": true,
+      "complete": false,
       "expected_count": 2055,
       "actual_count": 2055,
       "missing_count": 0,
       "unexpected_count": 0,
       "missing_hash_count": 0,
-      "hash_mismatch_count": 0
+      "hash_mismatch_count": 1
     },
     "pagination": {
       "complete": true,
@@ -42,9 +42,18 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         }
       ]
     },
-    "projection_errors": [],
+    "projection_errors": [
+      {
+        "code": "current_catalog_hash_superseded",
+        "severity": "error",
+        "catalog": "inventory/sources.csv",
+        "message": "Current catalog content differs from the checker generation.",
+        "producer_hash": "sha256:50c8e018da9f3fdd46b18dce130815003cbd1fd935d373fa8f3121671c301326",
+        "current_hash": "sha256:b03e6774cd9ff7265983d8f6748f52c0825d5eb929d7be278488d4738ed16221"
+      }
+    ],
     "freshness": {
-      "status": "current",
+      "status": "stale",
       "basis": "current source catalog identity coverage and content hashes",
       "supersession_rule": "Any catalog identity or content-hash change supersedes a prior Source Checker generation immediately."
     },
@@ -37454,14 +37463,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       }
     },
     "current_catalog_coverage": {
-      "complete": true,
+      "complete": false,
       "expected_count": 2055,
       "actual_count": 2055,
       "missing_ids": [],
       "unexpected_ids": [],
       "source_hashes": {
         "inventory/sources-pending.csv": "sha256:c6eafc0d61b601ee1db9c12e9271797eba4c0abd3f7bf75021df916989f5433c",
-        "inventory/sources.csv": "sha256:50c8e018da9f3fdd46b18dce130815003cbd1fd935d373fa8f3121671c301326"
+        "inventory/sources.csv": "sha256:b03e6774cd9ff7265983d8f6748f52c0825d5eb929d7be278488d4738ed16221"
       },
       "producer_source_hashes": {
         "inventory/sources-pending.csv": "sha256:c6eafc0d61b601ee1db9c12e9271797eba4c0abd3f7bf75021df916989f5433c",
@@ -37469,16 +37478,18 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "hash_contract_available": true,
       "missing_hashes": [],
-      "hash_mismatches": []
+      "hash_mismatches": [
+        "inventory/sources.csv"
+      ]
     },
     "currentness": {
       "authority": "source_catalog_identity_and_hashes",
-      "status": "current",
-      "current": true,
+      "status": "stale",
+      "current": false,
       "supersession_rule": "Any catalog identity or content-hash change supersedes a prior Source Checker generation immediately."
     }
   },
   "domain_generation": {
-    "source-checker.js": "project-console-60c657808d0abffc297f"
+    "source-checker.js": "project-console-75c5d896d1e1903c2646"
   }
 });

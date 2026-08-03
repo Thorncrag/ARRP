@@ -5,8 +5,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "monitoring_issues": [
     {
       "id": "HOR-033",
+      "number": 253,
       "title": "Enforceability of Accessibility Duties for Presidential Communications",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/253",
+      "kind": "Candidate",
+      "area": "RIGHTS",
+      "development_level": "Candidate",
+      "workflow_status": "Development",
+      "priority": "Medium",
       "source_count": 4,
       "sources": [
         {
@@ -131,12 +136,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "Monitor the D.C. Circuit treatment of the section 504 cause-of-action question. Source-develop coverage of presidential briefings, social-media communications, emergency announcements, captions, transcripts, ASL interpretation, and other accessibility methods; identify whether delayed relief creates irreparable loss of contemporaneous access; and test overlap with RIGHTS-001, JUD-001, JUD-005, FACT-001, PRESS-001, and HOR-027 before making an admission recommendation."
+      "monitoring_rationale": "Monitor the D.C. Circuit treatment of the section 504 cause-of-action question. Source-develop coverage of presidential briefings, social-media communications, emergency announcements, captions, transcripts, ASL interpretation, and other accessibility methods; identify whether delayed relief creates irreparable loss of contemporaneous access; and test overlap with RIGHTS-001, JUD-001, JUD-005, FACT-001, PRESS-001, and HOR-027 before making an admission recommendation.",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/253",
+      "updated_at": "2026-07-30T20:22:54Z"
     },
     {
       "id": "HOR-037",
+      "number": 257,
       "title": "Immigration Detention, Removal Process, and Access Safeguards",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/257",
+      "kind": "Candidate",
+      "area": "RIGHTS",
+      "development_level": "Candidate",
+      "workflow_status": "Research",
+      "priority": "High",
       "source_count": 112,
       "sources": [
         {
@@ -2844,12 +2856,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "- **Watched matter:** The 2026-TRC-1 Alien Terrorist Removal Court matter, including representation, notice, any unclassified evidentiary summary, custody, disposition, public explanation, and appellate review. - **Why it is materially relevant:** The proceeding is a live test of whether a statutorily opaque removal process nevertheless supplies meaningful and timely safeguards. - **Reassessment trigger:** Reassess upon a material order, hearing, custody or removal decision, appointment or denial of counsel, public evidentiary disclosure, or appellate action bearing on the identified safeguards. - **Checking method:** Review the Alien Terrorist Removal Court's public docket and posted documents, related federal-court and agency filings, official counsel records where available, and authoritative reporting used to identify nonpublicly indexed primary developments."
+      "monitoring_rationale": "- **Watched matter:** The 2026-TRC-1 Alien Terrorist Removal Court matter, including representation, notice, any unclassified evidentiary summary, custody, disposition, public explanation, and appellate review. - **Why it is materially relevant:** The proceeding is a live test of whether a statutorily opaque removal process nevertheless supplies meaningful and timely safeguards. - **Reassessment trigger:** Reassess upon a material order, hearing, custody or removal decision, appointment or denial of counsel, public evidentiary disclosure, or appellate action bearing on the identified safeguards. - **Checking method:** Review the Alien Terrorist Removal Court's public docket and posted documents, related federal-court and agency filings, official counsel records where available, and authoritative reporting used to identify nonpublicly indexed primary developments.",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/257",
+      "updated_at": "2026-07-30T20:22:52Z"
     },
     {
       "id": "CIV-001",
+      "number": 86,
       "title": "Civil-Service Merit, Classification, and Anti-Politicization",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/86",
+      "kind": "Proposal",
+      "area": "CIV",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "High",
       "source_count": 46,
       "sources": [
         {
@@ -4012,12 +4031,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured."
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/86",
+      "updated_at": "2026-07-23T10:46:40Z"
     },
     {
       "id": "CIV-009",
+      "number": 94,
       "title": "Repurposed technical units as cross-agency operational control mechanisms",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/94",
+      "kind": "Proposal",
+      "area": "CIV",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "High",
       "source_count": 12,
       "sources": [
         {
@@ -4358,12 +4384,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured."
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/94",
+      "updated_at": "2026-07-23T10:47:58Z"
     },
     {
       "id": "CIV-010",
+      "number": 254,
       "title": "Congressional Authorization for Secondary Use of Government-Held Personal Data",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/254",
+      "kind": "Proposal",
+      "area": "CIV",
+      "development_level": "In development",
+      "workflow_status": "Development",
+      "priority": "High",
       "source_count": 10,
       "sources": [
         {
@@ -4651,12 +4684,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "Complete a statute-by-statute purpose, retention, disclosure, remedy, and constitutional review; then draft the Privacy Act and conforming amendments"
+      "monitoring_rationale": "Complete a statute-by-statute purpose, retention, disclosure, remedy, and constitutional review; then draft the Privacy Act and conforming amendments",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/254",
+      "updated_at": "2026-07-23T14:27:50Z"
     },
     {
       "id": "DOJ-002",
+      "number": 23,
       "title": "White House Direction or Interference in Particular Federal Criminal Matters",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/23",
+      "kind": "Proposal",
+      "area": "DOJ",
+      "development_level": "Review ready",
+      "workflow_status": "Research",
+      "priority": "High",
       "source_count": 19,
       "sources": [
         {
@@ -5206,12 +5246,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "Obtain and verify the July 23 primary withdrawal order and available authorization record, then seek qualified review by a DOJ Public Integrity or other career-component practitioner, a public-law attorney, and legislative counsel"
+      "monitoring_rationale": "Obtain and verify the July 23 primary withdrawal order and available authorization record, then seek qualified review by a DOJ Public Integrity or other career-component practitioner, a public-law attorney, and legislative counsel",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/23",
+      "updated_at": "2026-07-23T10:54:27Z"
     },
     {
       "id": "DOJ-003",
+      "number": 24,
       "title": "Politically Selective Enforcement, Charging, and Favoritism",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/24",
+      "kind": "Proposal",
+      "area": "DOJ",
+      "development_level": "Review ready",
+      "workflow_status": "External review",
+      "priority": "High",
       "source_count": 44,
       "sources": [
         {
@@ -6344,12 +6391,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "Qualified criminal-law, prosecutorial-ethics, and equal-protection review focused on selective-enforcement standards, evidentiary thresholds, remedy fit, and abuse resistance; then a targeted follow-up internal review"
+      "monitoring_rationale": "Qualified criminal-law, prosecutorial-ethics, and equal-protection review focused on selective-enforcement standards, evidentiary thresholds, remedy fit, and abuse resistance; then a targeted follow-up internal review",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/24",
+      "updated_at": "2026-07-23T10:54:28Z"
     },
     {
       "id": "DOM-001",
+      "number": 135,
       "title": "Domestic Deployment Authorities and Safeguards",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/135",
+      "kind": "Proposal",
+      "area": "DOM",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "Medium",
       "source_count": 10,
       "sources": [
         {
@@ -6619,12 +6673,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured."
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/135",
+      "updated_at": "2026-07-23T10:48:19Z"
     },
     {
       "id": "DOM-005",
+      "number": 139,
       "title": "State Investigative Access to Federal Critical-Incident Evidence",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/139",
+      "kind": "Proposal",
+      "area": "DOM",
+      "development_level": "Developed proposal",
+      "workflow_status": "Audit needed",
+      "priority": "Medium",
       "source_count": 45,
       "sources": [
         {
@@ -7718,12 +7779,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "Initial internal review of coverage, deadlines, withholding safeguards, remedies, and implementation"
+      "monitoring_rationale": "Initial internal review of coverage, deadlines, withholding safeguards, remedies, and implementation",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/139",
+      "updated_at": "2026-07-23T10:54:37Z"
     },
     {
       "id": "ELEC-001",
+      "number": 29,
       "title": "Federal Executive Interference with State and Local Election Administration",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/29",
+      "kind": "Proposal",
+      "area": "ELEC",
+      "development_level": "Review ready",
+      "workflow_status": "External review",
+      "priority": "High",
       "source_count": 33,
       "sources": [
         {
@@ -8595,12 +8663,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "Qualified election-law, federalism, and state-election-administration review focused on federal-interference predicates, state remedies, implementation, and constitutional fit; then a targeted follow-up internal review"
+      "monitoring_rationale": "Qualified election-law, federalism, and state-election-administration review focused on federal-interference predicates, state remedies, implementation, and constitutional fit; then a targeted follow-up internal review",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/29",
+      "updated_at": "2026-07-23T10:54:29Z"
     },
     {
       "id": "ELEC-004",
+      "number": 32,
       "title": "Abuse of Election Litigation and Civil Process",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/32",
+      "kind": "Proposal",
+      "area": "ELEC",
+      "development_level": "Review ready",
+      "workflow_status": "External review",
+      "priority": "High",
       "source_count": 23,
       "sources": [
         {
@@ -9189,12 +9264,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "Qualified review by a federal-courts attorney, an election-law attorney, and legislative counsel focused on source verification for the DOJ civil voter-data and state-election-record demand campaign, retrieval of the Nevada primary order, a representative state comparison, Title 28 codification, and Petition Clause limits"
+      "monitoring_rationale": "Qualified review by a federal-courts attorney, an election-law attorney, and legislative counsel focused on source verification for the DOJ civil voter-data and state-election-record demand campaign, retrieval of the Nevada primary order, a representative state comparison, Title 28 codification, and Petition Clause limits",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/32",
+      "updated_at": "2026-07-23T10:54:30Z"
     },
     {
       "id": "ELEC-013",
+      "number": 41,
       "title": "Federal Candidate Access, Ballot Access, and Debate Gatekeeping",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/41",
+      "kind": "Proposal",
+      "area": "ELEC",
+      "development_level": "Review ready",
+      "workflow_status": "External review",
+      "priority": "High",
       "source_count": 40,
       "sources": [
         {
@@ -10169,12 +10251,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "Qualified review by election-law and First Amendment attorneys, FEC and EAC practitioners, state election administrators, fiscal analysts, and legislative counsel focused on FEC matter-file verification, a broader official state sample, debate-sponsor and ballot-access administration, fiscal and workload validation, enforcement design, and proposal-specific adoption evidence"
+      "monitoring_rationale": "Qualified review by election-law and First Amendment attorneys, FEC and EAC practitioners, state election administrators, fiscal analysts, and legislative counsel focused on FEC matter-file verification, a broader official state sample, debate-sponsor and ballot-access administration, fiscal and workload validation, enforcement design, and proposal-specific adoption evidence",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/41",
+      "updated_at": "2026-07-23T10:54:32Z"
     },
     {
       "id": "EMERG-003",
+      "number": 105,
       "title": "Emergency Economic Powers as a Substitute for Legislation",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/105",
+      "kind": "Proposal",
+      "area": "EMERG",
+      "development_level": "Developed proposal",
+      "workflow_status": "Audit needed",
+      "priority": "High",
       "source_count": 27,
       "sources": [
         {
@@ -10864,12 +10953,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "T1 audit of IEEPA scope, immigration-authority coordination, judicial review, transition, and implementation"
+      "monitoring_rationale": "T1 audit of IEEPA scope, immigration-authority coordination, judicial review, transition, and implementation",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/105",
+      "updated_at": "2026-07-23T10:54:35Z"
     },
     {
       "id": "EMOL-001",
+      "number": 59,
       "title": "Presidential Financial Conflicts, Emoluments, and Self-Dealing",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/59",
+      "kind": "Proposal",
+      "area": "EMOL",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "Medium",
       "source_count": 7,
       "sources": [
         {
@@ -11059,12 +11155,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured."
+      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/59",
+      "updated_at": "2026-07-23T10:47:51Z"
     },
     {
       "id": "FACT-001",
+      "number": 168,
       "title": "Scientific, Statistical, and Technical Integrity",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/168",
+      "kind": "Proposal",
+      "area": "FACT",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "High",
       "source_count": 18,
       "sources": [
         {
@@ -11568,12 +11671,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured."
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/168",
+      "updated_at": "2026-07-23T10:48:24Z"
     },
     {
       "id": "FED-002",
+      "number": 186,
       "title": "Selective or Retaliatory Federal Administration Against States",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/186",
+      "kind": "Proposal",
+      "area": "FED",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "Medium",
       "source_count": 5,
       "sources": [
         {
@@ -11700,12 +11810,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "Comparator, authority, cause-of-action, and remedy-selection review"
+      "monitoring_rationale": "Comparator, authority, cause-of-action, and remedy-selection review",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/186",
+      "updated_at": "2026-07-23T10:54:42Z"
     },
     {
       "id": "FED-003",
+      "number": 187,
       "title": "Federal Funding, Waiver, and Approval Coercion of States",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/187",
+      "kind": "Proposal",
+      "area": "FED",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "Medium",
       "source_count": 79,
       "sources": [
         {
@@ -13638,12 +13755,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "Existing-law, Spending Clause, delegation, waiver, approval, grant-condition, and remedy-selection review"
+      "monitoring_rationale": "Existing-law, Spending Clause, delegation, waiver, approval, grant-condition, and remedy-selection review",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/187",
+      "updated_at": "2026-07-23T10:54:43Z"
     },
     {
       "id": "FED-004",
+      "number": 188,
       "title": "Federal Displacement of State Functions",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/188",
+      "kind": "Proposal",
+      "area": "FED",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "Medium",
       "source_count": 1,
       "sources": [
         {
@@ -13696,12 +13820,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured."
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/188",
+      "updated_at": "2026-07-23T10:48:39Z"
     },
     {
       "id": "FUND-001",
+      "number": 111,
       "title": "Fiscal Implementation of Ultra Vires Executive Directives",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/111",
+      "kind": "Proposal",
+      "area": "FUND",
+      "development_level": "Review ready",
+      "workflow_status": "External review",
+      "priority": "Medium",
       "source_count": 126,
       "sources": [
         {
@@ -16838,12 +16969,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "Qualified review by appropriations and administrative-law attorneys, a federal-courts attorney, OMB or GAO program-administration practitioners, a budget analyst, a national-security specialist, and legislative counsel focused on Impoundment Control Act and claim-channeling design, JUD-011 and standalone routes, NASA apportionment, reprogramming, obligation, and contract-termination records, deadline and workload effects, and current litigation"
+      "monitoring_rationale": "Qualified review by appropriations and administrative-law attorneys, a federal-courts attorney, OMB or GAO program-administration practitioners, a budget analyst, a national-security specialist, and legislative counsel focused on Impoundment Control Act and claim-channeling design, JUD-011 and standalone routes, NASA apportionment, reprogramming, obligation, and contract-termination records, deadline and workload effects, and current litigation",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/111",
+      "updated_at": "2026-07-23T10:54:36Z"
     },
     {
       "id": "HER-001",
+      "number": 213,
       "title": "Federal Civic Property Preservation and Public Review",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/213",
+      "kind": "Proposal",
+      "area": "HER",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "High",
       "source_count": 25,
       "sources": [
         {
@@ -17492,12 +17630,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured."
+      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/213",
+      "updated_at": "2026-07-23T10:48:50Z"
     },
     {
       "id": "JUD-001",
+      "number": 43,
       "title": "Executive Dependence of Judicial Enforcement",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/43",
+      "kind": "Proposal",
+      "area": "JUD",
+      "development_level": "Review ready",
+      "workflow_status": "External review",
+      "priority": "High",
       "source_count": 35,
       "sources": [
         {
@@ -18385,12 +18530,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "Qualified review by a federal-courts attorney, legislative counsel, a court-administration practitioner, and an appropriations specialist focused on civil-contempt standards and officer liability, the public register and protected-information procedures, Administrative Office workload, Judgment Fund and indemnification treatment, and continued Phang docket posture"
+      "monitoring_rationale": "Qualified review by a federal-courts attorney, legislative counsel, a court-administration practitioner, and an appropriations specialist focused on civil-contempt standards and officer liability, the public register and protected-information procedures, Administrative Office workload, Judgment Fund and indemnification treatment, and continued Phang docket posture",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/43",
+      "updated_at": "2026-07-23T10:54:34Z"
     },
     {
       "id": "OVS-001",
+      "number": 95,
       "title": "Inspector General Independence, Access, Reporting, and Follow-Through",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/95",
+      "kind": "Proposal",
+      "area": "OVS",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "High",
       "source_count": 4,
       "sources": [
         {
@@ -18515,12 +18667,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured."
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/95",
+      "updated_at": "2026-07-23T10:48:04Z"
     },
     {
       "id": "PRESS-001",
+      "number": 201,
       "title": "Equal Press Access and Rapid Review",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/201",
+      "kind": "Proposal",
+      "area": "PRESS",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "High",
       "source_count": 6,
       "sources": [
         {
@@ -18708,12 +18867,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured."
+      "monitoring_rationale": "Use the Project fields to identify whether this proposal needs development, source review, audit work, release review, or deferral.",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/201",
+      "updated_at": "2026-07-23T10:48:45Z"
     },
     {
       "id": "REC-001",
+      "number": 127,
       "title": "Presidential and Executive Records Integrity, Custody, and Enforcement",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/127",
+      "kind": "Proposal",
+      "area": "REC",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "Medium",
       "source_count": 14,
       "sources": [
         {
@@ -19107,12 +19273,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured."
+      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/127",
+      "updated_at": "2026-07-23T10:48:11Z"
     },
     {
       "id": "REG-001",
+      "number": 160,
       "title": "Agency Independence and Functional Nullification",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/160",
+      "kind": "Proposal",
+      "area": "REG",
+      "development_level": "Review ready",
+      "workflow_status": "External review",
+      "priority": "High",
       "source_count": 110,
       "sources": [
         {
@@ -21875,12 +22048,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "Qualified review by constitutional and administrative-law attorneys, federal-courts and congressional-litigation specialists, affected-agency and records-security practitioners, judicial administrators, appropriations and budget analysts, and legislative counsel focused on Article II boundaries across organic statutes, standing, panel, and appeal design, mixed claims and relief, inventory, notice, and protected-information feasibility, workload and cost, current rosters and removal records, and alignment between JUD-011 and the standalone alternative"
+      "monitoring_rationale": "Qualified review by constitutional and administrative-law attorneys, federal-courts and congressional-litigation specialists, affected-agency and records-security practitioners, judicial administrators, appropriations and budget analysts, and legislative counsel focused on Article II boundaries across organic statutes, standing, panel, and appeal design, mixed claims and relief, inventory, notice, and protected-information feasibility, workload and cost, current rosters and removal records, and alignment between JUD-011 and the standalone alternative",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/160",
+      "updated_at": "2026-07-23T10:54:38Z"
     },
     {
       "id": "REG-002",
+      "number": 161,
       "title": "Executive Influence over Federal Regulatory Enforcement",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/161",
+      "kind": "Proposal",
+      "area": "REG",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Research",
+      "priority": "Medium",
       "source_count": 14,
       "sources": [
         {
@@ -22225,12 +22405,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "Map executive-contact, ethics, recusal, inspector-general, whistleblower, Tunney Act, and confidentiality authorities across representative agencies, then test government-wide remedy and vehicle fit"
+      "monitoring_rationale": "Map executive-contact, ethics, recusal, inspector-general, whistleblower, Tunney Act, and confidentiality authorities across representative agencies, then test government-wide remedy and vehicle fit",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/161",
+      "updated_at": "2026-07-23T10:54:40Z"
     },
     {
       "id": "REG-003",
+      "number": 162,
       "title": "Control of Administrative Adjudication",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/162",
+      "kind": "Proposal",
+      "area": "REG",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "Medium",
       "source_count": 16,
       "sources": [
         {
@@ -22618,12 +22805,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "Adjudicatory-system comparator and remedy-selection review"
+      "monitoring_rationale": "Adjudicatory-system comparator and remedy-selection review",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/162",
+      "updated_at": "2026-07-23T10:54:41Z"
     },
     {
       "id": "RET-001",
+      "number": 177,
       "title": "Executive Retaliation Through Federal Benefits and Regulatory Power",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/177",
+      "kind": "Proposal",
+      "area": "RET",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "Medium",
       "source_count": 24,
       "sources": [
         {
@@ -23238,12 +23432,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured."
+      "monitoring_rationale": "The owning issue is marked for monitoring, but its specific trigger has not yet been structured.",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/177",
+      "updated_at": "2026-07-23T10:48:34Z"
     },
     {
       "id": "RIGHTS-001",
+      "number": 221,
       "title": "Civil-Rights Administration, Identity Records, and Federal Definition Control",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/221",
+      "kind": "Proposal",
+      "area": "RIGHTS",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "High",
       "source_count": 53,
       "sources": [
         {
@@ -24607,12 +24808,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "Post-B.P.J. source-development pass"
+      "monitoring_rationale": "Post-B.P.J. source-development pass",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/221",
+      "updated_at": "2026-07-23T10:54:44Z"
     },
     {
       "id": "RIGHTS-002",
+      "number": 222,
       "title": "Temporary Protected Status, Asylum Access, and Humanitarian Reviewability",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/222",
+      "kind": "Proposal",
+      "area": "RIGHTS",
+      "development_level": "Admitted / undeveloped",
+      "workflow_status": "Development",
+      "priority": "High",
       "source_count": 71,
       "sources": [
         {
@@ -26410,12 +26618,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": true
         }
       ],
-      "monitoring_rationale": "Source-development pass"
+      "monitoring_rationale": "Source-development pass",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/222",
+      "updated_at": "2026-07-23T10:54:46Z"
     },
     {
       "id": "WAR-001",
+      "number": 42,
       "title": "Comprehensive War Powers and Use-of-Force Authorization Reform",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/42",
+      "kind": "Proposal",
+      "area": "WAR",
+      "development_level": "Review ready",
+      "workflow_status": "External review",
+      "priority": "High",
       "source_count": 18,
       "sources": [
         {
@@ -26897,12 +27112,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "Qualified constitutional war-powers, national-security, military-operations, and congressional-procedure review focused on authorization triggers, emergency response, enforcement, and judicial review; then a targeted follow-up internal review"
+      "monitoring_rationale": "Qualified constitutional war-powers, national-security, military-operations, and congressional-procedure review focused on authorization triggers, emergency response, enforcement, and judicial review; then a targeted follow-up internal review",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/42",
+      "updated_at": "2026-07-23T10:54:33Z"
     },
     {
       "id": "WAR-009",
+      "number": 347,
       "title": "Executive Lethal Targeting and Accountability",
-      "issue_url": "https://github.com/Thorncrag/ARRP/issues/347",
+      "kind": "Proposal",
+      "area": "WAR",
+      "development_level": "Developed proposal",
+      "workflow_status": "Audit needed",
+      "priority": "High",
       "source_count": 15,
       "sources": [
         {
@@ -27267,7 +27489,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "monitoring_baseline_present": false
         }
       ],
-      "monitoring_rationale": "Conduct a T0 triage scan, followed by statute-first, constitutional, operational, fiscal, and stakeholder review"
+      "monitoring_rationale": "Conduct a T0 triage scan, followed by statute-first, constitutional, operational, fiscal, and stakeholder review",
+      "issue_url": "https://github.com/Thorncrag/ARRP/issues/347",
+      "updated_at": "2026-07-23T10:54:48Z"
     }
   ],
   "court_watch_sources": [
@@ -42218,6 +42442,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   },
   "pending_sources": [],
   "domain_generation": {
-    "sources.js": "project-console-60c657808d0abffc297f"
+    "sources.js": "project-console-75c5d896d1e1903c2646"
   }
 });

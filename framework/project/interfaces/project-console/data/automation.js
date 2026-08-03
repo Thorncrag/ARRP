@@ -113,8 +113,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "started_at": null,
         "completed_at": "2026-07-27T08:27:40+00:00",
         "last_success_at": "2026-07-27T07:55:25+00:00",
-        "reason": "This stage was not due for this occurrence.",
-        "current_chain_label": "Not due this chain"
+        "current_chain_label": "Not due this chain",
+        "reason": "This stage was not due for this occurrence."
       },
       {
         "id": "presidential-directives-bot",
@@ -124,8 +124,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "started_at": null,
         "completed_at": "2026-07-27T08:27:40+00:00",
         "last_success_at": "2026-07-27T07:55:25+00:00",
-        "reason": "This stage was not due for this occurrence.",
-        "current_chain_label": "Not due this chain"
+        "current_chain_label": "Not due this chain",
+        "reason": "This stage was not due for this occurrence."
       },
       {
         "id": "source-checker-bot",
@@ -135,8 +135,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "started_at": null,
         "completed_at": "2026-07-27T08:27:40+00:00",
         "last_success_at": "2026-07-26T10:32:24+00:00",
-        "reason": "This stage was not due for this occurrence.",
-        "current_chain_label": "Not due this chain"
+        "current_chain_label": "Not due this chain",
+        "reason": "This stage was not due for this occurrence."
       },
       {
         "id": "project-console-progress-bot",
@@ -146,8 +146,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "started_at": null,
         "completed_at": "2026-07-27T08:28:50+00:00",
         "last_success_at": "2026-07-27T08:28:50+00:00",
-        "reason": "This stage completed successfully.",
-        "current_chain_label": "Succeeded"
+        "current_chain_label": "Succeeded",
+        "reason": "This stage completed successfully."
       },
       {
         "id": "public-intake",
@@ -157,8 +157,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "started_at": null,
         "completed_at": "2026-07-27T08:28:50+00:00",
         "last_success_at": "2026-07-27T08:28:50+00:00",
-        "reason": "This stage completed successfully.",
-        "current_chain_label": "Succeeded"
+        "current_chain_label": "Succeeded",
+        "reason": "This stage completed successfully."
       },
       {
         "id": "project-integrity-bot",
@@ -168,8 +168,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "started_at": null,
         "completed_at": "2026-07-27T08:28:50+00:00",
         "last_success_at": "2026-07-27T08:28:50+00:00",
-        "reason": "This stage completed successfully.",
-        "current_chain_label": "Succeeded"
+        "current_chain_label": "Succeeded",
+        "reason": "This stage completed successfully."
       }
     ],
     "review_epoch": {
@@ -262,7 +262,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "data_currentness": {
           "state": "current",
           "checked_at": "2026-07-27T08:37:33+00:00",
-          "reason": "last success remains current until 2026-07-28T07:55:25+00:00"
+          "reason": "The Run Coordinator reports this role as current."
         },
         "checked_at": "2026-07-27T08:37:33+00:00"
       },
@@ -295,7 +295,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "data_currentness": {
           "state": "current",
           "checked_at": "2026-07-27T08:37:33+00:00",
-          "reason": "last success remains current until 2026-07-28T07:55:25+00:00"
+          "reason": "The Run Coordinator reports this role as current."
         },
         "checked_at": "2026-07-27T08:37:33+00:00"
       },
@@ -326,7 +326,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "pause_state": "unavailable",
         "current_blocker": null,
         "data_currentness": {
-          "state": "current",
+          "state": "stale",
           "checked_at": "2026-08-01T15:41:09+00:00",
           "reason": ""
         },
@@ -392,8 +392,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "pause_state": "unavailable",
         "current_blocker": null,
         "data_currentness": {
-          "state": "stale",
-          "checked_at": "2026-08-02T11:29:54+00:00",
+          "state": "current",
+          "checked_at": "2026-08-03T11:49:22+00:00",
           "reason": ""
         },
         "checked_at": "2026-07-27T08:37:33+00:00"
@@ -425,7 +425,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "unavailable",
-          "checked_at": "2026-08-03T05:35:59-04:00",
+          "checked_at": "2026-08-03T07:47:06-04:00",
           "reason": "No typed currentness record is published for this role."
         },
         "checked_at": "2026-07-27T08:37:33+00:00"
@@ -435,8 +435,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "repository_gates": {
     "schema_version": 1,
     "repository": "Thorncrag/ARRP",
-    "source_revision": "2026-07-29T15:27:25+00:00",
-    "checked_at": "2026-07-29T15:27:25+00:00",
+    "source_revision": "2026-08-03T11:49:31+00:00",
+    "checked_at": "2026-08-03T11:49:31+00:00",
     "availability": "current",
     "complete": true,
     "count": 0,
@@ -445,17 +445,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "open_pull_requests": {
         "complete": true,
         "pages": 1,
-        "actual_count": 5,
+        "actual_count": 1,
         "page_size": 100
       },
       "declarations_complete": true
     },
     "declaration_errors": [],
     "validation_errors": [],
-    "last_good_identity": {
-      "checked_at": "2026-07-29T15:14:32+00:00",
-      "source_revision": "2026-07-29T15:14:32+00:00"
-    },
+    "last_good_identity": null,
     "items": []
   },
   "operational_incidents": {
@@ -1063,6 +1060,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "automation.js": "project-console-60c657808d0abffc297f"
+    "automation.js": "project-console-75c5d896d1e1903c2646"
   }
 });

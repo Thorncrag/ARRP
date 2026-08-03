@@ -7719,7 +7719,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3967,
+      "word_count": 4211,
       "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9418,6 +9418,34 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     {
       "title": "Current Project Integrity Report",
+      "path": "framework/status/project-integrity-report.md",
+      "section": "Framework and process",
+      "print_levels": [],
+      "print_level_labels": [],
+      "print_status": "excluded",
+      "print_exclusion_reason": "Internal operational report.",
+      "publication_disposition": "excluded",
+      "github_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/status/project-integrity-report.md",
+      "document_type": "technical",
+      "print_metadata_present": true,
+      "invalid_print_levels": [],
+      "assembly_sections": {},
+      "assembly_sort_key": "framework/status-current project integrity report",
+      "internal_links": [
+        {
+          "path": "project/automation/runbooks/project-integrity-bot.md",
+          "exists": false
+        }
+      ],
+      "word_count": 103,
+      "estimated_pages": 1,
+      "table_count": 0,
+      "max_table_columns": 0,
+      "heading_issue_count": 0,
+      "longest_unbroken_token": 13
+    },
+    {
+      "title": "Current Project Integrity Report",
       "path": "framework/status/integrity/project-integrity-report.md",
       "section": "Framework and process",
       "print_levels": [],
@@ -10715,9 +10743,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs/sources-source monitor log",
       "internal_links": [],
-      "word_count": 2763,
-      "estimated_pages": 5,
-      "table_count": 3,
+      "word_count": 4358,
+      "estimated_pages": 7,
+      "table_count": 4,
       "max_table_columns": 6,
       "heading_issue_count": 0,
       "longest_unbroken_token": 70
@@ -13189,8 +13217,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/candidate-source-development-source development — hor-035",
       "internal_links": [],
-      "word_count": 14606,
-      "estimated_pages": 23,
+      "word_count": 15001,
+      "estimated_pages": 24,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -15300,13 +15328,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
         "page_count": 505,
-        "modified_at": "2026-07-29T00:35:06+00:00",
+        "modified_at": "2026-08-03T11:48:44+00:00",
         "stale": true
       }
     ],
     "disposition_counts": {
       "included": 138,
-      "excluded": 234,
+      "excluded": 235,
       "unclassified": 0,
       "conflict": 0
     },
@@ -15334,7 +15362,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "Internal operational log.": 3,
       "Adopted internal Component Registry design and provenance record.": 1,
       "Internal interface validation record.": 1,
-      "Internal operational report.": 1,
+      "Internal operational report.": 2,
       "Internal record-directory guide.": 1,
       "Online repository-governance summary.": 1,
       "Internal governance and provenance records.": 1,
@@ -15551,7 +15579,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "label": "Assembly structurally valid",
         "disposition_counts": {
           "included": 138,
-          "excluded": 234,
+          "excluded": 235,
           "unclassified": 0,
           "conflict": 0
         }
@@ -16627,8 +16655,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "link_export_validation": {
         "link_inventory_available": true,
-        "internal_link_count": 1280,
-        "missing_link_count": 29,
+        "internal_link_count": 1281,
+        "missing_link_count": 30,
         "missing_links": [
           {
             "source": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
@@ -16685,6 +16713,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           {
             "source": "framework/archive/authorities/REPOSITORY_MAP.md",
             "target": "framework/archive/authorities/workflows/navigation-sync.md"
+          },
+          {
+            "source": "framework/status/project-integrity-report.md",
+            "target": "project/automation/runbooks/project-integrity-bot.md"
           },
           {
             "source": "framework/archive/operational/framework-records-README.md",
@@ -18487,14 +18519,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "available": true,
         "result": "findings",
         "counts": {
-          "errors": 0,
-          "warnings": 3,
-          "findings": 3,
+          "errors": 1,
+          "warnings": 1,
+          "findings": 2,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "54a6d397660bc5a45460ec4597e1ce8d2c7a9ba5",
-        "generated_at": "2026-08-02T11:29:54+00:00"
+        "revision": "66f51b623c40f9a355759c5deae67b66b1da4b83",
+        "generated_at": "2026-08-03T11:49:22+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20250,6 +20282,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-60c657808d0abffc297f"
+    "publication.js": "project-console-75c5d896d1e1903c2646"
   }
 });

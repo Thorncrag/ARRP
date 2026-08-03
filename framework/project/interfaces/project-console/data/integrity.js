@@ -3,12 +3,12 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
-    "availability": "stale",
-    "generated_at": "2026-08-02T11:29:54+00:00",
+    "availability": "current",
+    "generated_at": "2026-08-03T11:49:22+00:00",
     "current": {
       "result": "findings",
-      "generated_at": "2026-08-02T11:29:54+00:00",
-      "revision": "54a6d397660bc5a45460ec4597e1ce8d2c7a9ba5",
+      "generated_at": "2026-08-03T11:49:22+00:00",
+      "revision": "66f51b623c40f9a355759c5deae67b66b1da4b83",
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -35,43 +35,32 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       ],
       "findings": [
         {
-          "finding_id": "INT-37b3dd2c4710011a",
-          "finding_code": "github_pages_readback_unavailable",
-          "severity": "warning",
-          "category": "GitHub records",
+          "finding_id": "INT-76465c0698c547ed",
+          "finding_code": "project_integrity_condition",
+          "severity": "error",
+          "category": "Internal links",
           "status": "open",
           "owner": "Elim",
           "route": "integrity",
-          "next_action": "Rerun Project Integrity with registered GitHub access.",
-          "message": "GitHub Pages deployment synchronization could not be verified."
+          "next_action": "Open Integrity and resolve the registered producer condition.",
+          "message": "A typed integrity error requires review."
         },
         {
-          "finding_id": "INT-7fc8c3ac82d977f9",
-          "finding_code": "github_issues_readback_unavailable",
+          "finding_id": "INT-32d462b8d444a25e",
+          "finding_code": "project_integrity_condition",
           "severity": "warning",
-          "category": "GitHub records",
+          "category": "Internal links",
           "status": "open",
           "owner": "Elim",
           "route": "integrity",
-          "next_action": "Rerun Project Integrity with registered GitHub access.",
-          "message": "GitHub Issues synchronization could not be verified."
-        },
-        {
-          "finding_id": "INT-c8c79404280b5748",
-          "finding_code": "github_project_access_unavailable",
-          "severity": "warning",
-          "category": "GitHub records",
-          "status": "open",
-          "owner": "Elim",
-          "route": "integrity",
-          "next_action": "Run the registered authenticated Console refresh.",
-          "message": "GitHub Project synchronization could not be verified because the registered read-only access was unavailable."
+          "next_action": "Open Integrity and resolve the registered producer condition.",
+          "message": "A typed integrity finding requires review."
         }
       ]
     },
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-60c657808d0abffc297f"
+    "integrity.js": "project-console-75c5d896d1e1903c2646"
   }
 });
