@@ -9437,7 +9437,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": false
         }
       ],
-      "word_count": 103,
+      "word_count": 96,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -15328,7 +15328,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
         "page_count": 505,
-        "modified_at": "2026-08-03T11:48:44+00:00",
+        "modified_at": "2026-08-03T12:39:13+00:00",
         "stale": true
       }
     ],
@@ -18520,13 +18520,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "result": "findings",
         "counts": {
           "errors": 1,
-          "warnings": 1,
-          "findings": 2,
+          "warnings": 0,
+          "findings": 1,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "66f51b623c40f9a355759c5deae67b66b1da4b83",
-        "generated_at": "2026-08-03T11:49:22+00:00"
+        "revision": "4c8b642d7737377fa99b6b168b85b18c8415d824",
+        "generated_at": "2026-08-03T12:39:49+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20282,6 +20282,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-75c5d896d1e1903c2646"
+    "publication.js": "project-console-94cf6bc994f4ee18a062"
   }
 });
