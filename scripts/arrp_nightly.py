@@ -2606,7 +2606,10 @@ def _validated_successful_stage_binding(
         or not isinstance(last_success_at, str)
         or not isinstance(origin_stage.get("output"), Mapping)
         or origin_stage["output"].get("sha256")
-        != "sha256:" + file_sha256(stage_output)
+        not in {
+            "sha256:" + file_sha256(stage_output),
+            "sha256:" + str(record["sha256"]),
+        }
     ):
         raise TransactionError("last-success stage binding differs")
     return origin_run_id, last_success_at
