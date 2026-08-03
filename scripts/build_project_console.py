@@ -1051,6 +1051,8 @@ def public_safe_automation_occurrences(
     """Retain occurrence posture without exporting operational diagnostics."""
 
     safe = copy.deepcopy(projection)
+    safe["role_currentness"] = {"state": "unavailable"}
+    safe["trustworthy_through"] = None
     safe["occurrences"] = [
         {
             **{
@@ -5189,7 +5191,15 @@ def local_status_occurrence(
         )
     return {
         "occurrence_id": occurrence_id,
-        "schedule_identity": "owner-local-nightly",
+        "schedule_identity": (
+            "owner-local-nightly"
+            if re.search(
+                r"schedule|launchd|nightly",
+                str(local_status.get("trigger") or ""),
+                re.IGNORECASE,
+            )
+            else "event-driven"
+        ),
         "trigger": local_status.get("trigger"),
         "status": occurrence_status,
         "source_revision": (

@@ -3,12 +3,12 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
-    "availability": "current",
-    "generated_at": "2026-08-03T14:40:55+00:00",
+    "availability": "stale",
+    "generated_at": "2026-08-03T15:06:48+00:00",
     "current": {
       "result": "clean",
-      "generated_at": "2026-08-03T14:40:55+00:00",
-      "revision": "4809dde6e664bd857263d5e117386da9eb3dc0d5",
+      "generated_at": "2026-08-03T15:06:48+00:00",
+      "revision": "e5e0d11f0184517ea5b730d601c4ccc16e304348",
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -38,6 +38,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-557229c8069a6aa989b7"
+    "integrity.js": "project-console-602d651072a7439a99d5"
   }
 });
