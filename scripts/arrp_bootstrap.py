@@ -25,6 +25,8 @@ RUNTIME_FILES = (
     "scripts/arrp_nightly.py",
     "scripts/arrp_bootstrap.py",
     "scripts/arrp_context.py",
+    "scripts/component_registry.py",
+    "scripts/transaction_lifecycle.py",
     "scripts/path_authority.py",
     "scripts/github_disclosure_gate.py",
     "scripts/operational_incidents.py",
