@@ -412,7 +412,7 @@
       "status": "Canonical",
       "policy_adoption": "Adopted on canonical history through PR #511 and PR #512.",
       "live_activation": "Canonical policy adoption does not itself activate execution. The Registry is nonexecutable and automation remains Paused; live readback is established only by the separately governed schema-version-2 owner-local receipt.",
-      "relationships": {"supersedes": ["GOV-2026-020"], "refines": [], "refined_by": [], "proposed_refinements": ["GOV-2026-022"]},
+      "relationships": {"supersedes": ["GOV-2026-020"], "refines": [], "refined_by": [], "proposed_refinements": []},
       "private_supplement_required": true
     },
     {

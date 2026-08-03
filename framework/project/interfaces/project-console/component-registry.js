@@ -60,6 +60,19 @@
   }
 
   function validSnapshot(snapshot) {
+    const registryPosture = object(snapshot) && object(snapshot.registry)
+      && (
+        (
+          snapshot.registry.registry_status === "proposed"
+          && snapshot.registry.validation_mode === "proposed_revision_validation"
+          && snapshot.registry.source_bytes_current === false
+        )
+        || (
+          snapshot.registry.registry_status === "adopted"
+          && snapshot.registry.validation_mode === "adopted_configuration_validation"
+          && snapshot.registry.source_bytes_current === true
+        )
+      );
     if (!object(snapshot)
       || snapshot.schema_version !== REGISTRY_SCHEMA_VERSION
       || snapshot.projection_id !== "component-registry-console"
@@ -77,11 +90,9 @@
       || !object(snapshot.registry)
       || snapshot.registry.registry_id !== "COMPONENT-REGISTRY"
       || snapshot.registry.registry_revision !== 5
-      || snapshot.registry.registry_status !== "adopted"
-      || snapshot.registry.validation_mode !== "adopted_configuration_validation"
+      || !registryPosture
       || snapshot.registry.authoritative !== false
       || snapshot.registry.executable !== false
-      || snapshot.registry.source_bytes_current !== true
       || snapshot.registry.predecessor_route_consulted !== false
       || !digest(snapshot.registry.registry_sha256)
       || !text(snapshot.registry.source_url)

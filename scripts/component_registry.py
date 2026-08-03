@@ -5865,6 +5865,112 @@ def _stage3_adopted_configuration_view_from_authority(
     }
 
 
+def _stage3_proposed_configuration_view_from_authority(
+    authority: ProjectPathAuthority,
+    registry_path: Path,
+) -> dict[str, Any]:
+    registry, route = load_validated_registry(
+        registry_path,
+        root=authority.repository_root,
+    )
+    if not _exact_v4_integer(registry.get("schema_version"), 4):
+        raise RegistryError(
+            "Registry v4 proposed configuration posture is invalid"
+        )
+    digest = _canonical_registry_digest(registry)
+    return {
+        "schema_version": 4,
+        "registry_id": registry["registry_id"],
+        "registry_revision": registry["registry_revision"],
+        "registry_status": "proposed",
+        "registry_sha256": digest,
+        "authority_sha256": digest,
+        "authority_protocol": "full_registry_sha256_v1",
+        "authority_generation": 4,
+        "routing_authority_sha256": digest,
+        "registry_path": CANONICAL_REGISTRY_PATH,
+        "route": route,
+        "validation_mode": "proposed_revision_validation",
+        "authoritative": False,
+        "executable": False,
+        "live_authority_verified": False,
+        "activation_receipt_consulted": False,
+        "predecessor_route_consulted": False,
+        "authority_effective": False,
+        "source_revision_authorized": False,
+        "source_bytes_current": False,
+        "canonical_history_confirmed": False,
+        "receipt_trusted": False,
+        "runtime_live": "not_checked",
+        "registry_component_executable": False,
+        "_validated_registry": registry,
+    }
+
+
+def _stage3_configuration_is_adopted(
+    authority: ProjectPathAuthority,
+    registry_path: Path,
+    registry: Mapping[str, Any],
+) -> bool:
+    """Recognize only exact Registry bytes already on canonical origin/main."""
+    if authority.mode == "fixture":
+        return False
+    if _repository_head(authority.repository_root) is None:
+        return False
+    try:
+        relative = registry_path.resolve().relative_to(
+            authority.repository_root.resolve()
+        ).as_posix()
+    except ValueError as exc:
+        raise RegistryError("Registry is outside repository authority") from exc
+    dirty = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(authority.repository_root),
+            "status",
+            "--porcelain",
+            "--",
+            relative,
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if dirty.returncode != 0 or dirty.stdout.strip():
+        return False
+    origin_result = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(authority.repository_root),
+            "rev-parse",
+            "refs/remotes/origin/main",
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if origin_result.returncode != 0:
+        return False
+    origin_main = origin_result.stdout.strip()
+    head = _repository_head(authority.repository_root)
+    if (
+        head is None
+        or re.fullmatch(r"[0-9a-f]{40}", origin_main) is None
+        or not _git_is_ancestor(authority.repository_root, origin_main, head)
+    ):
+        return False
+    try:
+        origin_registry = _registry_at_revision(
+            authority.repository_root,
+            origin_main,
+        )
+    except RegistryError:
+        return False
+    return canonical_json(origin_registry) == canonical_json(registry)
+
+
 def _stage3_live_authority_view_from_authority(
     authority: ProjectPathAuthority,
     registry_path: Path,
@@ -6125,6 +6231,15 @@ def _configuration_routing_view_from_authority(
         _registry_and_schema_from_authority(authority)
     )
     if _exact_v4_integer(registry.get("schema_version"), 4):
+        if not _stage3_configuration_is_adopted(
+            authority,
+            registry_path,
+            registry,
+        ):
+            return _stage3_proposed_configuration_view_from_authority(
+                authority,
+                registry_path,
+            )
         return _stage3_adopted_configuration_view_from_authority(
             authority,
             registry_path,
@@ -6687,6 +6802,7 @@ def _routed_selection_from_view_untyped(
         not _exact_v4_integer(view.get("schema_version"), 4)
         or mode
         not in {
+            "proposed_revision_validation",
             "adopted_configuration_validation",
             "live_authority_validation",
         }
@@ -6698,6 +6814,19 @@ def _routed_selection_from_view_untyped(
             "routing view is not a validated Component Registry view"
         )
     expected_mode_state = {
+        "proposed_revision_validation": {
+            "authoritative": False,
+            "executable": False,
+            "activation_receipt_consulted": False,
+            "predecessor_route_consulted": False,
+            "authority_effective": False,
+            "source_revision_authorized": False,
+            "source_bytes_current": False,
+            "canonical_history_confirmed": False,
+            "receipt_trusted": False,
+            "runtime_live": "not_checked",
+            "registry_component_executable": False,
+        },
         "adopted_configuration_validation": {
             "authoritative": False,
             "executable": False,
@@ -6733,7 +6862,10 @@ def _routed_selection_from_view_untyped(
         raise RegistryError(
             "routing view authority flags disagree with its validation mode"
         )
-    if mode == "adopted_configuration_validation":
+    if mode in {
+        "proposed_revision_validation",
+        "adopted_configuration_validation",
+    }:
         expected_routing_authority_sha256 = view["authority_sha256"]
     else:
         expected_routing_authority_sha256 = view["registry_sha256"]

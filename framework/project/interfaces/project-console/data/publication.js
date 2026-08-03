@@ -7719,7 +7719,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3912,
+      "word_count": 3967,
       "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
@@ -20250,6 +20250,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-f8f4f36b56d5651d4d91"
+    "publication.js": "project-console-60c657808d0abffc297f"
   }
 });

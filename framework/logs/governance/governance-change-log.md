@@ -49,8 +49,17 @@ remains separate and unchanged.
   claim requires the separately governed, digest-addressed owner-local receipt
   binding the exact revision-5 Registry and existing five interpreter paths.
 - Relationships: Proposes refining GOV-2026-021 without superseding it.
-- Validation: Mapped validation is in progress; no unresolved finding is
-  silently accepted. Score, rubric, rebaseline, and Runs effect are None.
+- Validation: 778 mapped Python tests pass with 15 intentional skips; 75
+  browser tests pass; focused Registry, readiness, Console, and context tests
+  pass; exact public Console regeneration emits the proposed/non-current
+  revision-5 posture; the GOV-2026-021 raw Markdown block remains exactly
+  8,696 bytes with SHA-256
+  `9de8307f3a7a1ea5af53c33fee3bb6791e9e99e7b728e3a91eda552bec97eda9`
+  and its parsed public-entry digest remains
+  `sha256:2fa924d23b66488c84b5bb4c393fef100b6583ff45d0c158b273d1dbc87a092c`.
+  Required GitHub checks and exact-head readback remain pending; no unresolved
+  finding is silently accepted. Score, rubric, rebaseline, and Runs effect are
+  None.
 - Owner-local supplement: Required.
 
 ## GOV-2026-021 — Component Registry semantic-minimal authority
@@ -171,7 +180,7 @@ remains separate and unchanged.
   owner-local receipt.
 - Relationships: Supersedes GOV-2026-020 one-way. GOV-2026-020 remains
   byte-preserved as historical provenance and does not supersede or refine
-  GOV-2026-021. GOV-2026-022 is a proposed refinement.
+  GOV-2026-021.
 - Validation: Mapped Python, browser, deterministic generation, normalized
   parity, CODEOWNERS preservation, helper coverage, exact-version, and
   continuity-gate checks pass. Historical Change Audit Log SHA-256
