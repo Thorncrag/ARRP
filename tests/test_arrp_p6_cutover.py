@@ -24,6 +24,14 @@ BOOTSTRAP_SPEC = importlib.util.spec_from_file_location(
 BOOTSTRAP = importlib.util.module_from_spec(BOOTSTRAP_SPEC)
 assert BOOTSTRAP_SPEC.loader is not None
 BOOTSTRAP_SPEC.loader.exec_module(BOOTSTRAP)
+NIGHTLY_SPEC = importlib.util.spec_from_file_location(
+    "arrp_p6_nightly",
+    ROOT / "scripts/arrp_nightly.py",
+)
+NIGHTLY = importlib.util.module_from_spec(NIGHTLY_SPEC)
+assert NIGHTLY_SPEC.loader is not None
+sys.modules[NIGHTLY_SPEC.name] = NIGHTLY
+NIGHTLY_SPEC.loader.exec_module(NIGHTLY)
 
 
 def git(*arguments: str, cwd: Path) -> str:
@@ -115,6 +123,59 @@ class ArrpP6ProductionBootstrapTests(unittest.TestCase):
             "scripts/source_monitor_recommendations.py",
             BOOTSTRAP.RUNTIME_FILES,
         )
+
+    def test_bootstrap_runtime_inventory_matches_runner(self):
+        self.assertEqual(BOOTSTRAP.RUNTIME_FILES, NIGHTLY.RUNTIME_FILES)
+
+    def test_runtime_manifest_includes_transaction_import_closure(self):
+        self.assertIn("scripts/component_registry.py", BOOTSTRAP.RUNTIME_FILES)
+        self.assertIn(
+            "scripts/transaction_lifecycle.py",
+            BOOTSTRAP.RUNTIME_FILES,
+        )
+
+    def test_exported_runtime_starts_outside_repository_without_pythonpath(self):
+        for relative in BOOTSTRAP.RUNTIME_FILES:
+            (self.repository / relative).write_bytes(
+                (ROOT / relative).read_bytes()
+            )
+        git("add", "--", *BOOTSTRAP.RUNTIME_FILES, cwd=self.repository)
+        git(
+            "commit",
+            "-m",
+            "Use actual reviewed runtime sources",
+            cwd=self.repository,
+        )
+        revision = git("rev-parse", "HEAD", cwd=self.repository)
+        runtime = BOOTSTRAP.materialize_runtime(
+            self.repository,
+            self.state_root,
+            revision,
+        )
+        outside = self.root / "outside-repository"
+        outside.mkdir()
+        environment = {
+            "PATH": os.defpath,
+            "PYTHONDONTWRITEBYTECODE": "1",
+        }
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(runtime / "scripts/arrp_nightly.py"),
+                "--help",
+            ],
+            cwd=outside,
+            env=environment,
+            check=False,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("usage:", result.stdout)
+        self.assertFalse(any(runtime.rglob("__pycache__")))
+        self.assertFalse(any(runtime.rglob("*.pyc")))
 
     def production_boundary(self):
         return (
