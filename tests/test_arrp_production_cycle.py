@@ -147,6 +147,55 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
         run_log.parent.mkdir(parents=True)
         run_log.write_text("# Elim Run Log\n", encoding="utf-8")
         os.chmod(run_log, 0o600)
+        prior_run_id = "prior-run"
+        prior_stages = {}
+        prior_chain_stages = []
+        for identifier in MODULE.LOCAL_STAGE_ORDER:
+            relative = (
+                f"runs/{prior_run_id}/stages/{identifier}/stage-result.json"
+            )
+            envelope = self.state / relative
+            MODULE.atomic_write_json(
+                envelope,
+                {
+                    "schema_version": 1,
+                    "stage_id": identifier,
+                    "status": "succeeded",
+                    "completed_at": "2026-08-03T06:00:00Z",
+                    "outputs": [],
+                },
+            )
+            digest = MODULE.file_sha256(envelope)
+            prior_stages[identifier] = {
+                "envelope": relative,
+                "sha256": digest,
+            }
+            prior_chain_stages.append(
+                {
+                    "id": identifier,
+                    "status": "succeeded",
+                    "last_success_at": "2026-08-03T06:00:00Z",
+                    "output": {"sha256": "sha256:" + digest},
+                }
+            )
+        MODULE.atomic_write_json(
+            self.state / f"runs/{prior_run_id}/run-chain.json",
+            {
+                "schema_version": 1,
+                "run_id": prior_run_id,
+                "chain_id": prior_run_id,
+                "stages": prior_chain_stages,
+            },
+        )
+        MODULE.atomic_write_json(
+            self.state / "last-success.json",
+            {
+                "schema_version": 1,
+                "run_id": prior_run_id,
+                "run_directory": f"runs/{prior_run_id}",
+                "stages": prior_stages,
+            },
+        )
         (self.worktree / ".github").mkdir()
         coordinator_config = (
             self.worktree
@@ -442,6 +491,11 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                 "governance_review": None,
                 "items": [],
             },
+        )
+        plan_call = next(command for command in calls if "plan" in command)
+        self.assertEqual(
+            plan_call[plan_call.index("--previous") + 1],
+            str(self.state / "runs/prior-run/run-chain.json"),
         )
 
     def test_production_cycle_rejects_unsafe_owner_local_run_log(self):

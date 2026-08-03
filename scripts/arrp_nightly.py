@@ -2513,6 +2513,88 @@ def last_success_document(
     }
 
 
+def prior_run_chain_for_plan(
+    state_root: Path,
+    last_success: Mapping[str, Any],
+) -> Path:
+    """Bind coordinator cadence planning to the exact prior successful chain."""
+
+    run_id = last_success.get("run_id")
+    stages = last_success.get("stages")
+    if (
+        last_success.get("schema_version") != 1
+        or not isinstance(run_id, str)
+        or SAFE_RUN_ID.fullmatch(run_id) is None
+        or last_success.get("run_directory") != f"runs/{run_id}"
+        or not isinstance(stages, Mapping)
+        or set(stages) != set(LOCAL_STAGE_ORDER)
+    ):
+        raise TransactionError("last-success cadence authority is malformed")
+
+    chain_path = state_root / "runs" / run_id / "run-chain.json"
+    try:
+        chain = json.loads(
+            read_owner_text(
+                chain_path,
+                label="prior successful run chain",
+                maximum_bytes=2 * 1024 * 1024,
+            )
+        )
+    except (json.JSONDecodeError, UnicodeError) as error:
+        raise TransactionError("prior successful run chain is malformed") from error
+    chain_stages = chain.get("stages") if isinstance(chain, Mapping) else None
+    if (
+        not isinstance(chain, Mapping)
+        or chain.get("schema_version") != 1
+        or chain.get("run_id") != run_id
+        or chain.get("chain_id") != run_id
+        or not isinstance(chain_stages, list)
+        or [row.get("id") for row in chain_stages if isinstance(row, Mapping)]
+        != list(LOCAL_STAGE_ORDER)
+    ):
+        raise TransactionError("prior successful run chain identity differs")
+
+    chain_by_id = {str(row["id"]): row for row in chain_stages}
+    for identifier in LOCAL_STAGE_ORDER:
+        record = stages.get(identifier)
+        expected_relative = (
+            f"runs/{run_id}/stages/{identifier}/stage-result.json"
+        )
+        if (
+            not isinstance(record, Mapping)
+            or record.get("envelope") != expected_relative
+            or not isinstance(record.get("sha256"), str)
+            or re.fullmatch(r"[0-9a-f]{64}", str(record["sha256"])) is None
+        ):
+            raise TransactionError("last-success stage binding is malformed")
+        envelope_path = state_root / expected_relative
+        try:
+            envelope = json.loads(
+                read_owner_text(
+                    envelope_path,
+                    label=f"last-success envelope for {identifier}",
+                    maximum_bytes=2 * 1024 * 1024,
+                )
+            )
+        except (json.JSONDecodeError, UnicodeError) as error:
+            raise TransactionError("last-success stage envelope is malformed") from error
+        chain_stage = chain_by_id[identifier]
+        if (
+            not isinstance(envelope, Mapping)
+            or envelope.get("schema_version") != 1
+            or envelope.get("stage_id") != identifier
+            or envelope.get("status") != "succeeded"
+            or file_sha256(envelope_path) != record["sha256"]
+            or chain_stage.get("status") != "succeeded"
+            or not isinstance(chain_stage.get("last_success_at"), str)
+            or not isinstance(chain_stage.get("output"), Mapping)
+            or chain_stage["output"].get("sha256")
+            != "sha256:" + str(record["sha256"])
+        ):
+            raise TransactionError("prior successful stage binding differs")
+    return chain_path
+
+
 def sealed_elim_environment(
     source: Mapping[str, str],
     *,
@@ -3570,33 +3652,41 @@ def run_production_cycle(
             "elim_launch_trigger": config.trigger,
         },
     )
-    _run_production_command(
-        (
-            sys.executable,
-            str(coordinator),
-            "plan",
-            "--config",
-            str(coordinator_config),
-            "--repo",
-            str(worktree),
-            "--signals",
-            str(signals),
-            "--output",
-            str(chain),
-            "--chain-id",
-            transaction.run_id,
-            "--run-id",
-            transaction.run_id,
-            "--trigger",
-            config.trigger,
-            "--local",
-        ),
-        cwd=worktree,
-    )
-
     last_success_path = config.state_root / "last-success.json"
     last_success = (
         read_json_object(last_success_path) if last_success_path.exists() else {}
+    )
+    plan_command = [
+        sys.executable,
+        str(coordinator),
+        "plan",
+        "--config",
+        str(coordinator_config),
+        "--repo",
+        str(worktree),
+        "--signals",
+        str(signals),
+        "--output",
+        str(chain),
+        "--chain-id",
+        transaction.run_id,
+        "--run-id",
+        transaction.run_id,
+        "--trigger",
+        config.trigger,
+        "--local",
+    ]
+    if last_success_path.exists():
+        previous_chain = prior_run_chain_for_plan(
+            config.state_root,
+            last_success,
+        )
+        plan_command.extend(
+            ("--previous", str(previous_chain))
+        )
+    _run_production_command(
+        plan_command,
+        cwd=worktree,
     )
     project_token = read_keychain_secret(
         GITHUB_PROJECT_KEYCHAIN_SERVICE,

@@ -1840,13 +1840,10 @@ def apply_stage_results(
             "succeeded",
             "failed",
             "degraded",
-            "not_due",
         }:
-            # The local runner records its independently validated typed
-            # cadence decision before this host-side finalize pass. Preserve
-            # every recorded terminal outcome, including a stage that the
-            # planner tentatively marked due but whose prior typed output the
-            # local runner proved current.
+            # A host-side usage check re-finalizes the already completed cloud
+            # manifest with no new stage results. Preserve every terminal
+            # outcome, including an expressly nonblocking degradation.
             continue
         if raw is None:
             stage["status"] = "failed"
