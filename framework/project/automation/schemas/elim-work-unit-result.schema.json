@@ -282,8 +282,53 @@
             "type": "string",
             "pattern": "^framework/.+"
           },
-          "expected_old_state": {},
-          "new_state_or_content": {},
+          "expected_old_state": {
+            "type": ["string", "object", "null"],
+            "anyOf": [
+              { "type": "string" },
+              { "type": "null" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["body"],
+                "properties": {
+                  "body": { "type": ["string", "null"] }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["body", "state"],
+                "properties": {
+                  "body": { "type": ["string", "null"] },
+                  "state": { "type": "string" }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["reply_absent"],
+                "properties": {
+                  "reply_absent": { "type": "string" }
+                }
+              }
+            ]
+          },
+          "new_state_or_content": {
+            "type": ["string", "object", "null"],
+            "anyOf": [
+              { "type": "string" },
+              { "type": "null" },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["body"],
+                "properties": {
+                  "body": { "type": "string" }
+                }
+              }
+            ]
+          },
           "idempotency_key": { "type": "string", "minLength": 1 },
           "privacy_class": { "type": "string", "const": "public" },
           "human_reserved": { "type": "boolean", "const": false },
