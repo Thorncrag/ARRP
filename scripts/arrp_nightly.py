@@ -247,7 +247,7 @@ RUNTIME_FILES = (
     "scripts/console_data_contracts.py",
     "framework/project/github/disclosure-policy.json",
 )
-SAFE_RUN_ID = re.compile(r"^[A-Za-z0-9_.-]+$")
+SAFE_RUN_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
 LOCAL_STAGE_ORDER = (
     "case-monitor-bot",
     "presidential-directives-bot",
@@ -2491,7 +2491,7 @@ def last_success_document(
     stages: dict[str, dict[str, str]] = {}
     for result in results:
         if (
-            result.status == "not_due"
+            result.status in {"not_due", "degraded"}
             and isinstance(prior_stages, Mapping)
             and isinstance(prior_stages.get(result.identifier), Mapping)
         ):
@@ -2513,6 +2513,105 @@ def last_success_document(
     }
 
 
+def _validated_successful_stage_binding(
+    state_root: Path,
+    identifier: str,
+    record: Mapping[str, Any],
+) -> tuple[str, str]:
+    relative = record.get("envelope")
+    parts = Path(str(relative)).parts if isinstance(relative, str) else ()
+    if (
+        len(parts) != 5
+        or parts[0] != "runs"
+        or re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]*", parts[1]) is None
+        or parts[2:] != ("stages", identifier, "stage-result.json")
+        or not isinstance(record.get("sha256"), str)
+        or re.fullmatch(r"[0-9a-f]{64}", str(record["sha256"])) is None
+    ):
+        raise TransactionError("last-success stage binding is malformed")
+    origin_run_id = parts[1]
+    runs_root = state_root / "runs"
+    origin_root = runs_root / origin_run_id
+    stage_root = origin_root / "stages" / identifier
+    for directory in (runs_root, origin_root, origin_root / "stages", stage_root):
+        try:
+            info = directory.lstat()
+        except OSError as error:
+            raise TransactionError("last-success stage path is unavailable") from error
+        if (
+            stat.S_ISLNK(info.st_mode)
+            or not stat.S_ISDIR(info.st_mode)
+            or info.st_uid != os.getuid()
+            or bool(stat.S_IMODE(info.st_mode) & 0o022)
+        ):
+            raise TransactionError("last-success stage path is unsafe")
+    envelope_path = stage_root / "stage-result.json"
+    try:
+        envelope = json.loads(
+            read_owner_text(
+                envelope_path,
+                label=f"last-success envelope for {identifier}",
+                maximum_bytes=2 * 1024 * 1024,
+            )
+        )
+    except (json.JSONDecodeError, UnicodeError) as error:
+        raise TransactionError("last-success stage envelope is malformed") from error
+    origin_chain_path = origin_root / "run-chain.json"
+    try:
+        origin_chain = json.loads(
+            read_owner_text(
+                origin_chain_path,
+                label=f"origin chain for {identifier}",
+                maximum_bytes=2 * 1024 * 1024,
+            )
+        )
+    except (json.JSONDecodeError, UnicodeError) as error:
+        raise TransactionError("last-success origin chain is malformed") from error
+    origin_stages = (
+        origin_chain.get("stages") if isinstance(origin_chain, Mapping) else None
+    )
+    origin_stage = next(
+        (
+            row
+            for row in origin_stages or []
+            if isinstance(row, Mapping) and row.get("id") == identifier
+        ),
+        None,
+    )
+    stage_output = _stage_output_from_envelope(state_root, envelope_path)
+    last_success_at = (
+        origin_stage.get("last_success_at")
+        if isinstance(origin_stage, Mapping)
+        else None
+    )
+    if (
+        not isinstance(envelope, Mapping)
+        or envelope.get("schema_version") != 1
+        or envelope.get("stage_id") != identifier
+        or envelope.get("status") != "succeeded"
+        or file_sha256(envelope_path) != record["sha256"]
+        or not isinstance(origin_chain, Mapping)
+        or origin_chain.get("schema_version") != 1
+        or origin_chain.get("run_id") != origin_run_id
+        or origin_chain.get("chain_id") != origin_run_id
+        or not isinstance(origin_stages, list)
+        or [
+            row.get("id")
+            for row in origin_stages
+            if isinstance(row, Mapping)
+        ]
+        != list(LOCAL_STAGE_ORDER)
+        or origin_stage is None
+        or origin_stage.get("status") != "succeeded"
+        or not isinstance(last_success_at, str)
+        or not isinstance(origin_stage.get("output"), Mapping)
+        or origin_stage["output"].get("sha256")
+        != "sha256:" + file_sha256(stage_output)
+    ):
+        raise TransactionError("last-success stage binding differs")
+    return origin_run_id, last_success_at
+
+
 def prior_run_chain_for_plan(
     state_root: Path,
     last_success: Mapping[str, Any],
@@ -2527,11 +2626,25 @@ def prior_run_chain_for_plan(
         or SAFE_RUN_ID.fullmatch(run_id) is None
         or last_success.get("run_directory") != f"runs/{run_id}"
         or not isinstance(stages, Mapping)
-        or set(stages) != set(LOCAL_STAGE_ORDER)
+        or not set(stages).issubset(LOCAL_STAGE_ORDER)
     ):
         raise TransactionError("last-success cadence authority is malformed")
 
-    chain_path = state_root / "runs" / run_id / "run-chain.json"
+    runs_root = state_root / "runs"
+    run_root = runs_root / run_id
+    for directory in (runs_root, run_root):
+        try:
+            info = directory.lstat()
+        except OSError as error:
+            raise TransactionError("prior successful run path is unavailable") from error
+        if (
+            stat.S_ISLNK(info.st_mode)
+            or not stat.S_ISDIR(info.st_mode)
+            or info.st_uid != os.getuid()
+            or bool(stat.S_IMODE(info.st_mode) & 0o022)
+        ):
+            raise TransactionError("prior successful run path is unsafe")
+    chain_path = run_root / "run-chain.json"
     try:
         chain = json.loads(
             read_owner_text(
@@ -2556,40 +2669,27 @@ def prior_run_chain_for_plan(
 
     chain_by_id = {str(row["id"]): row for row in chain_stages}
     for identifier in LOCAL_STAGE_ORDER:
-        record = stages.get(identifier)
-        expected_relative = (
-            f"runs/{run_id}/stages/{identifier}/stage-result.json"
-        )
-        if (
-            not isinstance(record, Mapping)
-            or record.get("envelope") != expected_relative
-            or not isinstance(record.get("sha256"), str)
-            or re.fullmatch(r"[0-9a-f]{64}", str(record["sha256"])) is None
-        ):
-            raise TransactionError("last-success stage binding is malformed")
-        envelope_path = state_root / expected_relative
-        try:
-            envelope = json.loads(
-                read_owner_text(
-                    envelope_path,
-                    label=f"last-success envelope for {identifier}",
-                    maximum_bytes=2 * 1024 * 1024,
-                )
-            )
-        except (json.JSONDecodeError, UnicodeError) as error:
-            raise TransactionError("last-success stage envelope is malformed") from error
         chain_stage = chain_by_id[identifier]
+        record = stages.get(identifier)
+        if record is None:
+            if (
+                chain_stage.get("status") not in {"not_due", "degraded"}
+                or chain_stage.get("last_success_at") is not None
+            ):
+                raise TransactionError("last-success stage binding differs")
+            continue
+        if not isinstance(record, Mapping):
+            raise TransactionError("last-success stage binding is malformed")
+        origin_run_id, last_success_at = _validated_successful_stage_binding(
+            state_root,
+            identifier,
+            record,
+        )
+        current_status = chain_stage.get("status")
         if (
-            not isinstance(envelope, Mapping)
-            or envelope.get("schema_version") != 1
-            or envelope.get("stage_id") != identifier
-            or envelope.get("status") != "succeeded"
-            or file_sha256(envelope_path) != record["sha256"]
-            or chain_stage.get("status") != "succeeded"
-            or not isinstance(chain_stage.get("last_success_at"), str)
-            or not isinstance(chain_stage.get("output"), Mapping)
-            or chain_stage["output"].get("sha256")
-            != "sha256:" + str(record["sha256"])
+            current_status not in {"succeeded", "not_due", "degraded"}
+            or chain_stage.get("last_success_at") != last_success_at
+            or (current_status == "succeeded") != (origin_run_id == run_id)
         ):
             raise TransactionError("prior successful stage binding differs")
     return chain_path
@@ -3809,7 +3909,13 @@ def run_production_cycle(
             "0",
         ]
         if result.envelope is not None:
-            command.extend(("--output-file", result.envelope))
+            recorded_output = Path(result.envelope)
+            if result.status == "succeeded":
+                recorded_output = _stage_output_from_envelope(
+                    config.state_root,
+                    recorded_output,
+                )
+            command.extend(("--output-file", str(recorded_output)))
         _run_production_command(command, cwd=worktree)
     if any(result.status == "failed" for result in stages):
         raise TransactionError("blocking deterministic production stage failed")

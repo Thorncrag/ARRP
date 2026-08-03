@@ -35,7 +35,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_CONFIG = ROOT / "framework/project/automation/configuration/bots/presidential-directives-bot.json"
 DEFAULT_REGISTRY = ROOT / "inventory" / "presidential-directives.csv"
 DEFAULT_LOG = (
-    ROOT / "framework" / "records" / "sources" / "source-monitor-log.md"
+    ROOT / "framework" / "logs" / "sources" / "source-monitor-log.md"
 )
 USER_AGENT = "ARRP presidential-directives-watcher/1.0"
 
