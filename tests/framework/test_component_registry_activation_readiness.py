@@ -647,14 +647,38 @@ class ComponentRegistryV4ConfigurationReadinessTests(unittest.TestCase):
         self.assertEqual(result["terminology_count"], 87)
 
     def test_configuration_view_is_exact_v4_and_not_live_authority(self):
-        view = registry.load_component_registry_configuration_routing_view()
+        with mock.patch.object(
+            registry,
+            "_stage3_configuration_is_adopted",
+            return_value=True,
+        ):
+            view = registry.load_component_registry_configuration_routing_view()
         self.assertEqual(view["schema_version"], 4)
-        self.assertEqual(view["registry_revision"], 4)
+        self.assertEqual(view["registry_revision"], 5)
         self.assertEqual(view["validation_mode"], "adopted_configuration_validation")
         self.assertFalse(view["authoritative"])
         self.assertFalse(view["executable"])
         self.assertFalse(view["activation_receipt_consulted"])
         self.assertTrue(view["source_bytes_current"])
+
+    def test_unmerged_configuration_view_is_proposed_and_not_current(self):
+        with mock.patch.object(
+            registry,
+            "_stage3_configuration_is_adopted",
+            return_value=False,
+        ):
+            view = registry.load_component_registry_configuration_routing_view()
+        self.assertEqual(view["schema_version"], 4)
+        self.assertEqual(view["registry_revision"], 5)
+        self.assertEqual(
+            view["validation_mode"],
+            "proposed_revision_validation",
+        )
+        self.assertEqual(view["registry_status"], "proposed")
+        self.assertFalse(view["authoritative"])
+        self.assertFalse(view["executable"])
+        self.assertFalse(view["activation_receipt_consulted"])
+        self.assertFalse(view["source_bytes_current"])
 
     def test_malformed_versions_fail_before_configuration_readiness(self):
         for value in (None, True, 1, 2, 3, 5, "4"):

@@ -1016,10 +1016,11 @@ def build_context_packet(
                 routing_authority_identity.get("registry_revision"),
                 int,
             )
-            or routing_authority_identity.get("validation_mode")
-            not in {
-                "adopted_configuration_validation",
-                "live_authority_validation",
+                or routing_authority_identity.get("validation_mode")
+                not in {
+                    "proposed_revision_validation",
+                    "adopted_configuration_validation",
+                    "live_authority_validation",
             }
             or not isinstance(
                 routing_authority_identity.get("authoritative"), bool

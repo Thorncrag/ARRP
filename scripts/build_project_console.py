@@ -10089,13 +10089,18 @@ def component_registry_console_snapshot(
 ) -> dict[str, object]:
     """Project exact Registry v4 facts without duplicating canonical records."""
 
+    validation_mode = routing_view.get("validation_mode")
+    expected_posture = {
+        "proposed_revision_validation": ("proposed", False),
+        "adopted_configuration_validation": ("adopted", True),
+    }.get(validation_mode)
     if (
         routing_view.get("schema_version") != 4
-        or routing_view.get("validation_mode")
-        != "adopted_configuration_validation"
+        or expected_posture is None
+        or routing_view.get("registry_status") != expected_posture[0]
         or routing_view.get("authoritative") is not False
         or routing_view.get("executable") is not False
-        or routing_view.get("source_bytes_current") is not True
+        or routing_view.get("source_bytes_current") is not expected_posture[1]
         or routing_view.get("predecessor_route_consulted") is not False
         or not isinstance(routing_view.get("_validated_registry"), dict)
     ):
@@ -10105,10 +10110,10 @@ def component_registry_console_snapshot(
     registry = routing_view["_validated_registry"]
     if (
         registry.get("schema_version") != 4
-        or registry.get("registry_revision") != 4
+        or registry.get("registry_revision") != 5
     ):
         raise RuntimeError(
-            "Console requires exact Registry schema and revision 4."
+            "Console requires exact Registry schema 4 and revision 5."
         )
 
     component_entries = registry["components"]["entries"]
@@ -10407,12 +10412,12 @@ def component_registry_console_snapshot(
         },
         "registry": {
             "registry_id": registry["registry_id"],
-            "registry_revision": 4,
-            "registry_status": "adopted",
-            "validation_mode": routing_view["validation_mode"],
+            "registry_revision": registry["registry_revision"],
+            "registry_status": routing_view["registry_status"],
+            "validation_mode": validation_mode,
             "authoritative": False,
             "executable": False,
-            "source_bytes_current": True,
+            "source_bytes_current": routing_view["source_bytes_current"],
             "predecessor_route_consulted": False,
             "registry_sha256": routing_view["registry_sha256"],
             "source_url": (
@@ -10420,6 +10425,10 @@ def component_registry_console_snapshot(
                 "framework/component-registry.json"
             ),
             "tracked_live_notice": (
+                "This view reflects a proposed Registry revision that is not "
+                "yet canonical or live authority."
+                if validation_mode == "proposed_revision_validation"
+                else
                 "This view reflects tracked Registry configuration. Live "
                 "authority is established only by the separately verified "
                 "owner-local readback."
@@ -10508,7 +10517,10 @@ def component_registry_source_paths(
             "Component Registry source validation state is unavailable."
         )
     mode = registry.get("validation_mode")
-    if mode != "adopted_configuration_validation":
+    if mode not in {
+        "proposed_revision_validation",
+        "adopted_configuration_validation",
+    }:
         raise RuntimeError(
             "Component Registry source validation mode is invalid."
         )

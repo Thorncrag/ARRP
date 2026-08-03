@@ -2700,7 +2700,8 @@ def select_component_registry_receipt(
         if receipt.get("schema_version") == 2
         and receipt.get("verification_type")
         == "component_registry_stage3_authority_readback"
-        and receipt.get("registry_revision") == 4
+        and receipt.get("registry_revision")
+        == tracked_registry.get("registry_revision")
         and receipt.get("registry_sha256") == digest
         and receipt.get("validation_mode") == "live_authority_validation"
     ]
@@ -2991,7 +2992,7 @@ def verify_stage3_fixture_and_write(
     path = _write_fixed_receipt(path_authority, receipt)
     return {
         "created": True,
-        "registry_revision": 4,
+        "registry_revision": stage3_registry["registry_revision"],
         "registry_sha256": receipt["registry_sha256"],
         "canonical_revision": canonical_revision,
         "validation_mode": "live_authority_validation",

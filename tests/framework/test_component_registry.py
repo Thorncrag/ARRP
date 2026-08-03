@@ -6,6 +6,7 @@ import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest import mock
 
 from scripts import component_registry as registry
@@ -814,7 +815,7 @@ class ComponentRegistryV4Tests(unittest.TestCase):
     def test_v4_registry_validates_as_nonauthoritative_adopted_configuration(self):
         result = registry.validate_v4_registry(self.registry, root=ROOT)
         self.assertTrue(result["valid"])
-        self.assertEqual(result["registry_revision"], 4)
+        self.assertEqual(result["registry_revision"], 5)
         self.assertEqual(result["validation_mode"], "adopted_configuration_validation")
         self.assertFalse(result["authoritative"])
         self.assertFalse(result["executable"])
@@ -930,6 +931,100 @@ class ComponentRegistryV4Tests(unittest.TestCase):
         self.assertFalse(view["executable"])
         self.assertFalse(view["live_authority_verified"])
         self.assertFalse(view["predecessor_route_consulted"])
+
+    def test_configuration_loader_separates_proposed_from_adopted_history(self):
+        authority = registry.ProjectPathAuthority.repository_validation(ROOT)
+        with mock.patch.object(
+            registry,
+            "_stage3_configuration_is_adopted",
+            return_value=False,
+        ):
+            proposed = registry._configuration_routing_view_from_authority(
+                authority
+            )
+        self.assertEqual(
+            proposed["validation_mode"],
+            "proposed_revision_validation",
+        )
+        self.assertEqual(proposed["registry_status"], "proposed")
+        self.assertFalse(proposed["source_bytes_current"])
+        self.assertFalse(proposed["authoritative"])
+        self.assertFalse(proposed["executable"])
+
+        with mock.patch.object(
+            registry,
+            "_stage3_configuration_is_adopted",
+            return_value=True,
+        ):
+            adopted = registry._configuration_routing_view_from_authority(
+                authority
+            )
+        self.assertEqual(
+            adopted["validation_mode"],
+            "adopted_configuration_validation",
+        )
+        self.assertEqual(adopted["registry_status"], "adopted")
+        self.assertTrue(adopted["source_bytes_current"])
+
+    def test_configuration_adoption_requires_exact_clean_origin_main_bytes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            registry_path = root / "framework" / "component-registry.json"
+            registry_path.parent.mkdir()
+            registry_path.write_text(
+                '{"registry_revision":4}\n',
+                encoding="utf-8",
+            )
+            for command in (
+                ["git", "init", "-q", "-b", "main"],
+                ["git", "config", "user.name", "ARRP Test"],
+                ["git", "config", "user.email", "arrp-test@example.invalid"],
+                ["git", "add", "framework/component-registry.json"],
+                ["git", "commit", "-q", "-m", "baseline"],
+                ["git", "update-ref", "refs/remotes/origin/main", "HEAD"],
+            ):
+                subprocess.run(command, cwd=root, check=True)
+            authority = SimpleNamespace(
+                mode="repository_validation",
+                repository_root=root,
+            )
+            baseline = {"registry_revision": 4}
+            self.assertTrue(
+                registry._stage3_configuration_is_adopted(
+                    authority,
+                    registry_path,
+                    baseline,
+                )
+            )
+
+            registry_path.write_text(
+                '{"registry_revision":5}\n',
+                encoding="utf-8",
+            )
+            self.assertFalse(
+                registry._stage3_configuration_is_adopted(
+                    authority,
+                    registry_path,
+                    {"registry_revision": 5},
+                )
+            )
+            subprocess.run(
+                ["git", "add", "framework/component-registry.json"],
+                cwd=root,
+                check=True,
+            )
+            subprocess.run(
+                ["git", "commit", "-q", "-m", "proposal"],
+                cwd=root,
+                check=True,
+            )
+            self.assertFalse(
+                registry._stage3_configuration_is_adopted(
+                    authority,
+                    registry_path,
+                    {"registry_revision": 5},
+                )
+            )
 
     def test_predecessor_routing_input_is_rejected(self):
         with self.assertRaisesRegex(registry.RegistryError, "forbids predecessor"):

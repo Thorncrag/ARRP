@@ -275,6 +275,18 @@ class GitHubIssueLinkTests(unittest.TestCase):
         mode: str = "adopted_configuration_validation",
     ) -> dict[str, object]:
         postures = {
+            "proposed_revision_validation": {
+                "authoritative": False,
+                "executable": False,
+                "authority_effective": False,
+                "source_revision_authorized": False,
+                "source_bytes_current": False,
+                "canonical_history_confirmed": False,
+                "receipt_trusted": False,
+                "runtime_live": "not_checked",
+                "activation_receipt_consulted": False,
+                "predecessor_route_consulted": False,
+            },
             "adopted_configuration_validation": {
                 "authoritative": False,
                 "executable": False,
@@ -304,7 +316,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             "schema_version": 4,
             "validation_mode": mode,
             "registry_id": "COMPONENT-REGISTRY",
-            "registry_revision": 4,
+            "registry_revision": 5,
             "registry_sha256": "a" * 64,
             "registry_path": "framework/component-registry.json",
             **postures[mode],
@@ -917,7 +929,10 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 self.assertEqual(warnings, [])
 
     def test_context_registry_configuration_modes_use_zero_argument_loader(self):
-        for mode in ("adopted_configuration_validation",):
+        for mode in (
+            "proposed_revision_validation",
+            "adopted_configuration_validation",
+        ):
             with self.subTest(mode=mode), tempfile.TemporaryDirectory() as directory:
                 root = Path(directory)
                 route = self.context_registry_fixture(root)
@@ -965,7 +980,10 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 self.assertFalse(envelope["executable"])
                 self.assertFalse(envelope["authority_effective"])
                 self.assertFalse(envelope["source_revision_authorized"])
-                self.assertTrue(envelope["source_bytes_current"])
+                self.assertEqual(
+                    envelope["source_bytes_current"],
+                    mode == "adopted_configuration_validation",
+                )
                 self.assertFalse(envelope["canonical_history_confirmed"])
                 self.assertFalse(envelope["receipt_trusted"])
                 self.assertEqual(envelope["runtime_live"], "not_checked")

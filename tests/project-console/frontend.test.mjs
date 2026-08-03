@@ -1155,6 +1155,30 @@ test("Component Registry accepts only the builder-supplied typed snapshot", () =
       schema_version: schemaVersion
     }), false);
   });
+  const proposedSnapshot = structuredClone(snapshot);
+  proposedSnapshot.registry.registry_status = "proposed";
+  proposedSnapshot.registry.validation_mode = "proposed_revision_validation";
+  proposedSnapshot.registry.source_bytes_current = false;
+  assert.equal(componentRegistryApi.validSnapshot(proposedSnapshot), true);
+  const adoptedSnapshot = structuredClone(snapshot);
+  adoptedSnapshot.registry.registry_status = "adopted";
+  adoptedSnapshot.registry.validation_mode = "adopted_configuration_validation";
+  adoptedSnapshot.registry.source_bytes_current = true;
+  assert.equal(componentRegistryApi.validSnapshot(adoptedSnapshot), true);
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...proposedSnapshot,
+    registry: {
+      ...proposedSnapshot.registry,
+      source_bytes_current: true
+    }
+  }), false);
+  assert.equal(componentRegistryApi.validSnapshot({
+    ...adoptedSnapshot,
+    registry: {
+      ...adoptedSnapshot.registry,
+      validation_mode: "proposed_revision_validation"
+    }
+  }), false);
   [
     { ...snapshot, contract_payload: { private: true } },
     { ...snapshot, source_binding: { sha256: "1".repeat(64) } },
@@ -1227,7 +1251,7 @@ test("Component Registry uses only the generated validated projection", () => {
   assert.match(module, /components: records\.components/);
 });
 
-test("Component Registry terminology comes only from the adopted Registry projection", () => {
+test("Component Registry terminology comes only from the validated Registry projection", () => {
   const { componentRegistryApi } = loadApi();
   const snapshot = v4ComponentRegistryFixture();
   assert.equal(componentRegistryApi.validSnapshot(snapshot), true);

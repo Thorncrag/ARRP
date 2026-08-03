@@ -310,10 +310,11 @@ class ExactContextTests(unittest.TestCase):
             )
             output = run / "packet.json"
             active_view = {
-                "schema_version": 2,
-                "validation_mode": "online_governed_eligibility",
+                "schema_version": 4,
+                "validation_mode": "live_authority_validation",
                 "authoritative": True,
                 "executable": False,
+                "live_authority_verified": True,
                 "authority_effective": True,
                 "source_revision_authorized": True,
                 "source_bytes_current": True,
@@ -322,6 +323,7 @@ class ExactContextTests(unittest.TestCase):
                 "runtime_live": "not_checked",
                 "activation_receipt_consulted": True,
                 "predecessor_route_consulted": False,
+                "registry_component_executable": False,
             }
             packet = {
                 "schema_version": 2,
@@ -383,8 +385,8 @@ class ExactContextTests(unittest.TestCase):
             )
             output = run / "packet.json"
             candidate_view = {
-                "schema_version": 2,
-                "validation_mode": "proposed_revision_validation",
+                "schema_version": 4,
+                "validation_mode": "adopted_configuration_validation",
                 "authoritative": False,
                 "executable": False,
                 "authority_effective": False,
@@ -432,7 +434,7 @@ class ExactContextTests(unittest.TestCase):
             blocked = json.loads(output.read_text(encoding="utf-8"))
             self.assertEqual(blocked["status"], "blocked")
             self.assertIn(
-                "requires governed-eligible Component Registry routing",
+                "requires live-authority Component Registry routing",
                 blocked["error"],
             )
 
@@ -493,10 +495,11 @@ class ExactContextTests(unittest.TestCase):
             )
             output = run / "packet.json"
             active_view = {
-                "schema_version": 2,
-                "validation_mode": "online_governed_eligibility",
+                "schema_version": 4,
+                "validation_mode": "live_authority_validation",
                 "authoritative": True,
                 "executable": False,
+                "live_authority_verified": True,
                 "authority_effective": True,
                 "source_revision_authorized": True,
                 "source_bytes_current": True,
@@ -505,6 +508,7 @@ class ExactContextTests(unittest.TestCase):
                 "runtime_live": "not_checked",
                 "activation_receipt_consulted": True,
                 "predecessor_route_consulted": False,
+                "registry_component_executable": False,
             }
             failure = RoutingRuleFailure(
                 failure_code="CTXR_PACKET_BUDGET_EXCEEDED",
@@ -2783,6 +2787,61 @@ class RepositorySearchBoundaryTests(unittest.TestCase):
             .load_component_registry_configuration_routing_view()
         )
         return view["route"], view
+
+    def test_live_authority_packet_separates_selection_from_registry_execution(self):
+        _route, view = self.configuration_route()
+        view = deepcopy(view)
+        view.update(
+            {
+                "validation_mode": "live_authority_validation",
+                "authoritative": True,
+                "executable": False,
+                "live_authority_verified": True,
+                "activation_receipt_consulted": True,
+                "predecessor_route_consulted": False,
+                "authority_effective": True,
+                "source_revision_authorized": True,
+                "source_bytes_current": True,
+                "canonical_history_confirmed": True,
+                "receipt_trusted": True,
+                "runtime_live": "not_checked",
+                "registry_component_executable": False,
+            }
+        )
+        selection = component_registry_module.routed_documents_from_view(
+            view,
+            profile_id="comprehensive_review",
+        )
+        self.assertTrue(selection["executable"])
+        self.assertFalse(selection["registry_component_executable"])
+        component_registry_module.require_executable_routing_selection(selection)
+
+        packet = component_registry_module.build_context_packet_from_view(
+            view,
+            "comprehensive_review",
+            root=ROOT,
+        )
+        self.assertFalse(view["executable"])
+        self.assertFalse(packet["routing_manifest"]["executable"])
+        self.assertEqual(
+            packet["routing_manifest"]["resolved_document_digests"],
+            {
+                module["document"]: module["sha256"]
+                for module in packet["modules"]
+            },
+        )
+
+        tampered = deepcopy(packet)
+        first = tampered["routing_manifest"]["resolved_document_order"][0]
+        tampered["routing_manifest"]["resolved_document_digests"][first] = (
+            "0" * 64
+        )
+        with self.assertRaises(RoutingRuleFailure):
+            component_registry_module.validate_context_packet_binding(
+                tampered,
+                view=view,
+                profile_id="comprehensive_review",
+            )
 
     def test_generated_console_and_local_artifacts_are_excluded_from_ordinary_search(self):
         policy = (ROOT / ".rgignore").read_text(encoding="utf-8")

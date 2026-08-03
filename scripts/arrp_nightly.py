@@ -784,8 +784,8 @@ def reconstruct_owner_gap_obligations(path: Path) -> dict[str, Any]:
         ) from error
 
 
-def queue_failure_detail(path: Path) -> str | None:
-    """Return a bounded structured queue failure without masking its cause."""
+def structured_failure_detail(path: Path) -> str | None:
+    """Return a bounded structured artifact failure without masking its cause."""
 
     try:
         if not path.is_file() or path.is_symlink():
@@ -3898,7 +3898,7 @@ def run_production_cycle(
             accepted=frozenset({0, 3}),
         )
     except TransactionError as error:
-        queue_failure = queue_failure_detail(queue)
+        queue_failure = structured_failure_detail(queue)
         if queue_failure is not None:
             raise TransactionError(
                 "Elim work queue blocked: " + queue_failure
@@ -3953,7 +3953,15 @@ def run_production_cycle(
             context_command.extend(
                 ("--canonical-record", str(selected["canonical_record"]))
             )
-        _run_production_command(context_command, cwd=worktree)
+        try:
+            _run_production_command(context_command, cwd=worktree)
+        except TransactionError as error:
+            context_failure = structured_failure_detail(context_path)
+            if context_failure is not None:
+                raise TransactionError(
+                    "Elim context blocked: " + context_failure
+                ) from error
+            raise
 
     attach = [
         sys.executable,

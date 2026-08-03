@@ -3509,6 +3509,7 @@ def context_registry_dependencies_match(
     """Compare exact route dependencies across the candidate-to-active boundary."""
 
     if validation_mode in {
+        "proposed_revision_validation",
         "adopted_configuration_validation",
         "live_authority_validation",
     }:
@@ -3609,6 +3610,18 @@ def context_registry_authority_envelope(
 
     mode = str(view.get("validation_mode") or "")
     expected_posture = {
+        "proposed_revision_validation": {
+            "authoritative": False,
+            "executable": False,
+            "authority_effective": False,
+            "source_revision_authorized": False,
+            "source_bytes_current": False,
+            "canonical_history_confirmed": False,
+            "receipt_trusted": False,
+            "runtime_live": "not_checked",
+            "activation_receipt_consulted": False,
+            "predecessor_route_consulted": False,
+        },
         "adopted_configuration_validation": {
             "authoritative": False,
             "executable": False,
@@ -3642,6 +3655,10 @@ def context_registry_authority_envelope(
             "Project Integrity received an invalid routing authority posture"
         )
     expected_authority_modes = {
+        "proposed_revision_validation": {
+            "repository-validation",
+            "fixture",
+        },
         "adopted_configuration_validation": {
             "repository-validation",
             "fixture",
@@ -3841,9 +3858,13 @@ def check_context_registry(
                 if not isinstance(component, dict):
                     continue
                 for artifact in component.get("supporting_artifacts", []):
-                    if not isinstance(artifact, dict):
-                        continue
-                    artifact_path = artifact.get("path")
+                    artifact_path = (
+                        artifact
+                        if isinstance(artifact, str)
+                        else artifact.get("path")
+                        if isinstance(artifact, dict)
+                        else None
+                    )
                     if (
                         isinstance(artifact_path, str)
                         and artifact_path.endswith(".md")

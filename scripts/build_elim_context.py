@@ -271,10 +271,12 @@ def main(
                     authority,
                 )
                 if (
-                    routing_view.get("validation_mode")
-                    != "online_governed_eligibility"
+                    routing_view.get("schema_version") != 4
+                    or routing_view.get("validation_mode")
+                    != "live_authority_validation"
                     or routing_view.get("authoritative") is not True
                     or routing_view.get("executable") is not False
+                    or routing_view.get("live_authority_verified") is not True
                     or routing_view.get("authority_effective") is not True
                     or routing_view.get("source_revision_authorized") is not True
                     or routing_view.get("source_bytes_current") is not True
@@ -285,9 +287,11 @@ def main(
                     is not True
                     or routing_view.get("predecessor_route_consulted")
                     is not False
+                    or routing_view.get("registry_component_executable")
+                    is not False
                 ):
                     raise RegistryError(
-                        "production Elim context requires governed-eligible "
+                        "production Elim context requires live-authority "
                         "Component Registry routing without predecessor "
                         "consultation"
                     )

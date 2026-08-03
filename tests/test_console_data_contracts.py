@@ -1395,17 +1395,56 @@ class ConsoleDataContractTests(unittest.TestCase):
         source = Path(MODULE.__file__).read_text(encoding="utf-8")
         self.assertIn("def component_registry_console_snapshot(", source)
         self.assertNotIn("def _stage2_component_registry_console_snapshot(", source)
-        self.assertNotIn("proposed_revision_validation", source)
+        self.assertIn("proposed_revision_validation", source)
         self.assertNotIn("online_governed_eligibility", source)
         self.assertNotIn("component-registry-stage2-terminology-working-draft.md", source)
 
-        snapshot = MODULE.load_component_registry_console_snapshot(
-            generated_at="2026-08-02T12:00:00Z",
+        current_registry = json.loads(
+            MODULE.COMPONENT_REGISTRY.read_text(encoding="utf-8")
         )
+        adopted_view = (
+            component_registry_tool.validated_component_registry_routing_view(
+                current_registry
+            )
+        )
+        with mock.patch.object(
+            MODULE,
+            "load_component_registry_configuration_routing_view",
+            return_value=adopted_view,
+        ):
+            snapshot = MODULE.load_component_registry_console_snapshot(
+                generated_at="2026-08-02T12:00:00Z",
+            )
         self.assertEqual(snapshot["schema_version"], 4)
         self.assertEqual(snapshot["registry"]["validation_mode"], "adopted_configuration_validation")
+        self.assertEqual(snapshot["registry"]["registry_status"], "adopted")
+        self.assertTrue(snapshot["registry"]["source_bytes_current"])
         self.assertFalse(snapshot["registry"]["authoritative"])
         self.assertFalse(snapshot["registry"]["executable"])
+
+        proposed_view = copy.deepcopy(adopted_view)
+        proposed_view.update(
+            {
+                "registry_status": "proposed",
+                "validation_mode": "proposed_revision_validation",
+                "source_bytes_current": False,
+            }
+        )
+        proposed_snapshot = MODULE.component_registry_console_snapshot(
+            proposed_view,
+            generated_at="2026-08-02T12:00:00Z",
+        )
+        self.assertEqual(
+            proposed_snapshot["registry"]["validation_mode"],
+            "proposed_revision_validation",
+        )
+        self.assertEqual(
+            proposed_snapshot["registry"]["registry_status"],
+            "proposed",
+        )
+        self.assertFalse(
+            proposed_snapshot["registry"]["source_bytes_current"]
+        )
         self.assertEqual(
             set(snapshot["routes"]),
             {
@@ -1458,7 +1497,7 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertEqual(registry_assignment["declared_mode"], "direct")
         self.assertEqual(registry_assignment["owners"], ["@Thorncrag"])
         paths = MODULE.component_registry_source_paths(
-            snapshot,
+            proposed_snapshot,
             root=Path("/tmp/arrp-v4-console-test"),
         )
         self.assertEqual(

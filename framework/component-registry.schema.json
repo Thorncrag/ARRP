@@ -29,7 +29,7 @@
       "const": "COMPONENT-REGISTRY"
     },
     "registry_revision": {
-      "const": 4
+      "const": 5
     },
     "terminology": {
       "type": "object",
@@ -1303,7 +1303,7 @@
           "const": "COMPONENT-REGISTRY"
         },
         "registry_revision": {
-          "const": 4
+          "const": 5
         },
         "registry_sha256": {
           "$ref": "#/$defs/sha256"
