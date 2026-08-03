@@ -1051,6 +1051,8 @@ def public_safe_automation_occurrences(
     """Retain occurrence posture without exporting operational diagnostics."""
 
     safe = copy.deepcopy(projection)
+    safe["role_currentness"] = {"state": "unavailable"}
+    safe["trustworthy_through"] = None
     safe["occurrences"] = [
         {
             **{

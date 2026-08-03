@@ -425,7 +425,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "unavailable",
-          "checked_at": "2026-08-03T11:11:45-04:00",
+          "checked_at": "2026-08-03T11:13:59-04:00",
           "reason": "No typed currentness record is published for this role."
         },
         "checked_at": "2026-08-03T14:36:07+00:00"
@@ -435,8 +435,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "repository_gates": {
     "schema_version": 1,
     "repository": "Thorncrag/ARRP",
-    "source_revision": "2026-08-03T15:13:40+00:00",
-    "checked_at": "2026-08-03T15:13:40+00:00",
+    "source_revision": "2026-08-03T15:19:07+00:00",
+    "checked_at": "2026-08-03T15:19:07+00:00",
     "availability": "current",
     "complete": true,
     "count": 0,
@@ -453,8 +453,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "declaration_errors": [],
     "validation_errors": [],
     "last_good_identity": {
-      "checked_at": "2026-08-03T15:06:56+00:00",
-      "source_revision": "2026-08-03T15:06:56+00:00"
+      "checked_at": "2026-08-03T15:13:40+00:00",
+      "source_revision": "2026-08-03T15:13:40+00:00"
     },
     "items": []
   },
@@ -1063,6 +1063,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "automation.js": "project-console-e7a04be6dd95b1e9255e"
+    "automation.js": "project-console-602d651072a7439a99d5"
   }
 });
