@@ -45,32 +45,53 @@ remains separate and unchanged.
   parents are exactly the prior canonical main and the approved head, its tree
   equals the approved-head tree, and the Registry plus all five receipt-bound
   interpreter files remain byte-identical. Governance-only closeout anchor
-  `67442ccc794e4635a0fbe26c85ecd99017b0ad64` and PR #519 record the
-  canonical evidence. The exact final PR #519 head is the final commit
-  containing this record and is separately approved and read back before
-  merge; its merge and the later activation receipt remain pending.
+  `67442ccc794e4635a0fbe26c85ecd99017b0ad64`, exact approved PR #519 head
+  `ed6a96d9c6665f004d18e844cf92ba675dd7744e`, and merge
+  `d5799ff4b27a17f3c685518f7277820a6713a7fd` record the canonical evidence.
+  A digest-addressed owner-local receipt then passed live-authority readback at
+  that revision. Production run `arrp-20260803T102413Z` failed safely before
+  publication because the run chain bound stage-result envelopes where work
+  selection required typed reports and two watcher defaults still targeted the
+  retired `framework/records` path. Exact approved repair head
+  `a4afb02e2aa8f48124ad0191304f9909fa589bae`, PR #520, and merge
+  `b0a67f782f74af7f28a0d7b11ddf7515fbb41496` correct those defects, preserve
+  successful per-stage cadence evidence across runs, and reject traversal,
+  symlink, ownership, status, order, chain-identity, and digest mismatches.
+  Governance-only repair closeout anchor
+  `b0a67f782f74af7f28a0d7b11ddf7515fbb41496` and PR #521 record the final
+  public evidence; its exact final head still requires separate owner approval
+  and merge readback before receipt replacement.
 - Policy adoption: Adopted on canonical history through exact approved PR #518
   head `9a7178a3569d9f8c2b69183d096684faf3e556b3` and merge
-  `61d2a6614bc9fc41ceaf8d21943d4fdc40e2331c`; governance-only closeout records
+  `61d2a6614bc9fc41ceaf8d21943d4fdc40e2331c`, PR #519 merge
+  `d5799ff4b27a17f3c685518f7277820a6713a7fd`, and exact approved repair PR #520
+  head `a4afb02e2aa8f48124ad0191304f9909fa589bae` and merge
+  `b0a67f782f74af7f28a0d7b11ddf7515fbb41496`; governance-only closeout records
   exact provenance and does not establish live owner-local authority.
-- Live activation: Not active. Automation remains Paused. A new live-authority
-  claim requires the separately governed, digest-addressed owner-local receipt
-  binding the exact revision-5 Registry and existing five interpreter paths.
+- Live activation: Not active. Automation remains Paused. The receipt issued
+  for `d5799ff4b27a17f3c685518f7277820a6713a7fd` no longer proves current
+  interpreter bytes after the approved repair. A new live-authority claim
+  requires the separately governed, digest-addressed owner-local receipt
+  binding the exact revision-5 Registry and existing five interpreter paths at
+  the final repair-closeout revision.
 - Relationships: Refines GOV-2026-021 without superseding or modifying its
   exact historical Markdown or registry entry.
-- Validation: 778 mapped Python tests pass with 15 intentional skips; 75
-  browser tests pass; focused Registry, readiness, Console, and context tests
-  pass; exact public Console regeneration emits the proposed/non-current
-  revision-5 posture; the GOV-2026-021 raw Markdown block remains exactly
+- Validation: 785 mapped Python tests pass with 15 intentional skips; 103
+  browser tests pass; focused Registry, readiness, Console, context, production
+  output-binding, mixed-cadence, and traversal tests pass; an independent final
+  repair review is clean; the repository consistency audit reports zero errors
+  and one expected unavailable local authenticated-Project warning; the
+  GOV-2026-021 raw Markdown block remains exactly
   8,696 bytes with SHA-256
   `9de8307f3a7a1ea5af53c33fee3bb6791e9e99e7b728e3a91eda552bec97eda9`
   and its parsed public-entry digest remains
   `sha256:2fa924d23b66488c84b5bb4c393fef100b6583ff45d0c158b273d1dbc87a092c`.
-  PR #518 required checks passed, its exact head was owner-approved, and its
-  merge readback and first byte-continuity gate passed. Closeout checks,
-  exact-head approval, merge readback, and later live-authority verification
-  remain pending; no unresolved finding is silently accepted. Score, rubric,
-  rebaseline, and Runs effect are None.
+  PRs #518, #519, and #520 passed their required checks; each implementation
+  head was exactly owner-approved; each merge readback passed; and the original
+  receipt readback passed before repair changed one bound interpreter. The
+  repair-closeout exact-head approval, merge readback, replacement receipt, and
+  replacement production run remain pending; no unresolved finding is silently
+  accepted. Score, rubric, rebaseline, and Runs effect are None.
 - Owner-local supplement: Required.
 
 ## GOV-2026-021 — Component Registry semantic-minimal authority
