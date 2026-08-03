@@ -4,7 +4,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "overview": {
     "automation_occurrences": {
       "schema_version": 2,
-      "checked_at": "2026-08-03T11:01:08-04:00",
+      "checked_at": "2026-08-03T11:11:45-04:00",
       "occurrences": [
         {
           "occurrence_id": "arrp-20260803T143538Z",
@@ -117,7 +117,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         {
           "occurrence_id": "arrp-20260803T143538Z",
-          "schedule_identity": "owner-local-nightly",
+          "schedule_identity": "event-driven",
           "status": "completed",
           "source_revision": "4809dde6e664bd857263d5e117386da9eb3dc0d5",
           "generation_id": null,
@@ -228,7 +228,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         }
       ],
       "latest_attempt_id": "arrp-20260803T143538Z",
-      "latest_scheduled_attempt_id": "arrp-20260803T143538Z",
+      "latest_scheduled_attempt_id": null,
       "last_fully_successful_occurrence": null,
       "next_ordinary_run": {
         "available": true,
@@ -263,20 +263,19 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "blockers": []
       },
       "latest_scheduled_attempt": {
-        "available": true,
-        "occurrence_id": "arrp-20260803T143538Z",
-        "chain_id": "arrp-20260803T143538Z",
-        "status": "completed",
-        "checked_at": "2026-08-03T14:43:07.107615Z",
+        "available": false,
+        "chain_id": null,
+        "status": "unavailable",
+        "checked_at": null,
         "trigger": "unavailable",
-        "reason": "The latest attempt completed successfully.",
+        "reason": "The latest attempt status is unavailable.",
         "failure_reason": null,
         "blockers": []
       },
       "future_run_gates": {
         "available": true,
         "count": 0,
-        "checked_at": "2026-08-03T15:06:56+00:00",
+        "checked_at": "2026-08-03T15:13:40+00:00",
         "oldest_age": null,
         "availability": "current",
         "trustworthy_through": null,
@@ -292,13 +291,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "sources": [
         {
           "producer": "project-console-progress-bot",
-          "value": "2026-08-03T15:06:35+00:00",
+          "value": "2026-08-03T15:11:58+00:00",
           "availability": "current"
         },
         {
           "producer": "project-integrity-bot",
           "value": "2026-08-03T15:06:48+00:00",
-          "availability": "current"
+          "availability": "stale"
         },
         {
           "producer": "source-checker-bot",
@@ -328,7 +327,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "data_directory": {
       "schema_version": 1,
-      "generated_at": "2026-08-03T11:01:08-04:00",
+      "generated_at": "2026-08-03T11:11:45-04:00",
       "rows": [
         {
           "feed_id": "progress",
@@ -336,11 +335,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "availability": "current",
           "complete": true,
           "reason": "The producer declares this projection complete.",
-          "trustworthy_through": "2026-08-03T15:06:35+00:00",
+          "trustworthy_through": "2026-08-03T15:11:58+00:00",
           "producer": "project-console-progress-bot",
           "route": "progress",
           "recovery_route": "automation:agents:project-console-progress-bot",
-          "generation_id": "project-console-progress-704e0363afb311ce7940",
+          "generation_id": "project-console-progress-76c5cadaf5974f37e31e",
           "schema_errors": []
         },
         {
@@ -384,11 +383,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "availability": "current",
           "complete": true,
           "reason": "The current Console generation includes the complete candidate inputs.",
-          "trustworthy_through": "2026-08-03T15:06:35+00:00",
+          "trustworthy_through": "2026-08-03T15:11:58+00:00",
           "producer": "project-console-candidate-projection",
           "route": "planning:candidates",
           "recovery_route": "integrity",
-          "generation_id": "project-console-progress-704e0363afb311ce7940",
+          "generation_id": "project-console-progress-76c5cadaf5974f37e31e",
           "schema_errors": [],
           "new_updated_signal": {
             "available": false,
@@ -399,7 +398,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         {
           "feed_id": "integrity",
           "label": "Integrity",
-          "availability": "current",
+          "availability": "stale",
           "complete": true,
           "reason": "The producer declares this projection complete.",
           "trustworthy_through": "2026-08-03T15:06:48+00:00",
@@ -407,14 +406,22 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "integrity",
           "recovery_route": "automation:agents:project-integrity-bot",
           "generation_id": "project-integrity-ca902526d629d0dd6f4a",
-          "schema_errors": []
+          "schema_errors": [
+            {
+              "code": "repository_revision_superseded",
+              "severity": "warning",
+              "message": "Integrity generation is not bound to the authoritative repository revision.",
+              "expected_source_revision": "870346eec114ea956848233c9a28e7f019d68b81",
+              "producer_source_revision": "e5e0d11f0184517ea5b730d601c4ccc16e304348"
+            }
+          ]
         }
       ]
     },
     "action_snapshot": {
       "schema_version": 1,
-      "generation_id": "action-snapshot-66b44bdc256dcfa18df5",
-      "generated_at": "2026-08-03T11:01:08-04:00",
+      "generation_id": "action-snapshot-5dd0aaed7c07bed2e740",
+      "generated_at": "2026-08-03T11:11:45-04:00",
       "availability": "partial",
       "complete": false,
       "items": [
@@ -440,7 +447,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Source Monitor recommendation",
           "message": "Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current main?",
           "source_url": "#logs:source-monitor",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "repository-decision:SMR-20260725-PR381",
@@ -464,7 +471,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Source Monitor recommendation",
           "message": "Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current main?",
           "source_url": "#logs:source-monitor",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "project-human-decision:JUD-009",
@@ -476,7 +483,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "attention_class": "human",
           "authority": "GitHub Project Status field",
           "source_record_id": "JUD-009",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "next_action": "Record the exact human decision.",
           "route": "actions",
           "specialist_route": "planning:workbench:pipeline:selected=JUD-009",
@@ -488,7 +495,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Status field",
           "message": "JUD-009: Supreme Court Ethics, Recusal, and Transparency",
           "source_url": "#actions",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:DOJ-004",
@@ -500,7 +507,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "attention_class": "oversight",
           "authority": "typed Blocked/Deferred hold contract",
           "source_record_id": "DOJ-004",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "next_action": "Resolve the typed Integrity condition at its owner.",
           "route": "integrity",
           "specialist_route": "https://github.com/Thorncrag/ARRP/issues/25",
@@ -512,7 +519,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "DOJ-004 is Blocked but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:ELEC-014",
@@ -524,7 +531,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "attention_class": "oversight",
           "authority": "typed Blocked/Deferred hold contract",
           "source_record_id": "ELEC-014",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "next_action": "Resolve the typed Integrity condition at its owner.",
           "route": "integrity",
           "specialist_route": "https://github.com/Thorncrag/ARRP/issues/236",
@@ -536,7 +543,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "ELEC-014 is Blocked but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-010",
@@ -548,7 +555,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "attention_class": "oversight",
           "authority": "typed Blocked/Deferred hold contract",
           "source_record_id": "HOR-010",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "next_action": "Resolve the typed Integrity condition at its owner.",
           "route": "integrity",
           "specialist_route": "planning:candidates:selected=HOR-010",
@@ -560,7 +567,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-010 is Deferred but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-023",
@@ -572,7 +579,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "attention_class": "oversight",
           "authority": "typed Blocked/Deferred hold contract",
           "source_record_id": "HOR-023",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "next_action": "Resolve the typed Integrity condition at its owner.",
           "route": "integrity",
           "specialist_route": "planning:candidates:selected=HOR-023",
@@ -584,7 +591,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-023 is Deferred but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-031",
@@ -596,7 +603,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "attention_class": "oversight",
           "authority": "typed Blocked/Deferred hold contract",
           "source_record_id": "HOR-031",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "next_action": "Resolve the typed Integrity condition at its owner.",
           "route": "integrity",
           "specialist_route": "planning:candidates:selected=HOR-031",
@@ -608,7 +615,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-031 is Blocked but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-038",
@@ -620,7 +627,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "attention_class": "oversight",
           "authority": "typed Blocked/Deferred hold contract",
           "source_record_id": "HOR-038",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "next_action": "Resolve the typed Integrity condition at its owner.",
           "route": "integrity",
           "specialist_route": "planning:candidates:selected=HOR-038",
@@ -632,7 +639,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-038 is Deferred but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "hold-transition-provenance-missing:HOR-045",
@@ -644,7 +651,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "attention_class": "oversight",
           "authority": "typed Blocked/Deferred hold contract",
           "source_record_id": "HOR-045",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "next_action": "Resolve the typed Integrity condition at its owner.",
           "route": "integrity",
           "specialist_route": "planning:candidates:selected=HOR-045",
@@ -656,7 +663,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Blocked/Deferred hold contract",
           "message": "HOR-045 is Deferred but lacks matching audit transition provenance.",
           "source_url": "#integrity",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "next-action-missing:HOR-026",
@@ -668,7 +675,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "attention_class": "oversight",
           "authority": "GitHub Project Next action field",
           "source_record_id": "HOR-026",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "next_action": "Record the authoritative Next action value.",
           "route": "integrity",
           "specialist_route": "planning:candidates:selected=HOR-026",
@@ -680,7 +687,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Next action field",
           "message": "HOR-026: Next action is not recorded",
           "source_url": "#integrity",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "next-action-missing:HOR-027",
@@ -692,7 +699,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "attention_class": "oversight",
           "authority": "GitHub Project Next action field",
           "source_record_id": "HOR-027",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "next_action": "Record the authoritative Next action value.",
           "route": "integrity",
           "specialist_route": "planning:candidates:selected=HOR-027",
@@ -704,7 +711,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Next action field",
           "message": "HOR-027: Next action is not recorded",
           "source_url": "#integrity",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "next-action-missing:HOR-029",
@@ -716,7 +723,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "attention_class": "oversight",
           "authority": "GitHub Project Next action field",
           "source_record_id": "HOR-029",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "next_action": "Record the authoritative Next action value.",
           "route": "integrity",
           "specialist_route": "planning:candidates:selected=HOR-029",
@@ -728,7 +735,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Next action field",
           "message": "HOR-029: Next action is not recorded",
           "source_url": "#integrity",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "next-action-missing:HOR-039",
@@ -740,7 +747,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "attention_class": "oversight",
           "authority": "GitHub Project Next action field",
           "source_record_id": "HOR-039",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "next_action": "Record the authoritative Next action value.",
           "route": "integrity",
           "specialist_route": "planning:candidates:selected=HOR-039",
@@ -752,7 +759,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Next action field",
           "message": "HOR-039: Next action is not recorded",
           "source_url": "#integrity",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         }
       ],
       "counts": {
@@ -792,7 +799,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "queue_directory": {
       "schema_version": 1,
       "generation_id": "queue-directory-fe74b10926ca63074939",
-      "generated_at": "2026-08-03T11:01:08-04:00",
+      "generated_at": "2026-08-03T11:11:45-04:00",
       "availability": "partial",
       "complete": false,
       "queues": [
@@ -808,7 +815,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "planning:workbench:pipeline:work_class=Preliminary%20candidate",
           "problem_route": "planning:preliminary",
           "generation_id": "queue-directory-fe74b10926ca63074939",
-          "current_through": "2026-08-03T11:01:08-04:00",
+          "current_through": "2026-08-03T11:11:45-04:00",
           "problem_state": "none",
           "impact_state": null
         },
@@ -824,7 +831,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "planning:workbench:pipeline:work_class=Formal%20candidate",
           "problem_route": "planning:candidates",
           "generation_id": "queue-directory-fe74b10926ca63074939",
-          "current_through": "2026-08-03T15:06:35+00:00",
+          "current_through": "2026-08-03T15:11:58+00:00",
           "problem_state": "none",
           "impact_state": null
         },
@@ -840,7 +847,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "planning:workbench:pipeline:status=Development",
           "problem_route": "integrity",
           "generation_id": "queue-directory-fe74b10926ca63074939",
-          "current_through": "2026-08-03T15:06:35+00:00",
+          "current_through": "2026-08-03T15:11:58+00:00",
           "problem_state": "none",
           "impact_state": null
         },
@@ -856,7 +863,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "planning:workbench:pipeline:status=Research",
           "problem_route": "integrity",
           "generation_id": "queue-directory-fe74b10926ca63074939",
-          "current_through": "2026-08-03T15:06:35+00:00",
+          "current_through": "2026-08-03T15:11:58+00:00",
           "problem_state": "none",
           "impact_state": null
         },
@@ -872,7 +879,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "planning:workbench:pipeline:status=Audit",
           "problem_route": "integrity",
           "generation_id": "queue-directory-fe74b10926ca63074939",
-          "current_through": "2026-08-03T15:06:35+00:00",
+          "current_through": "2026-08-03T15:11:58+00:00",
           "problem_state": "none",
           "impact_state": null
         },
@@ -888,7 +895,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "planning:workbench:pipeline:scope=review-ready-plus",
           "problem_route": "integrity",
           "generation_id": "queue-directory-fe74b10926ca63074939",
-          "current_through": "2026-08-03T15:06:35+00:00",
+          "current_through": "2026-08-03T15:11:58+00:00",
           "problem_state": "none",
           "impact_state": null
         },
@@ -904,7 +911,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "planning:sources:status=pending",
           "problem_route": "planning:sources",
           "generation_id": "queue-directory-fe74b10926ca63074939",
-          "current_through": "2026-08-03T11:01:08-04:00",
+          "current_through": "2026-08-03T11:11:45-04:00",
           "problem_state": "none",
           "impact_state": null
         },
@@ -936,7 +943,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "actions:my-items",
           "problem_route": "integrity",
           "generation_id": "queue-directory-fe74b10926ca63074939",
-          "current_through": "2026-08-03T11:01:08-04:00",
+          "current_through": "2026-08-03T11:11:45-04:00",
           "problem_state": "unavailable",
           "impact_state": null
         },
@@ -952,7 +959,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "automation:logs:incidents",
           "problem_route": "automation:logs:incidents",
           "generation_id": "queue-directory-fe74b10926ca63074939",
-          "current_through": "2026-08-03T11:01:08-04:00",
+          "current_through": "2026-08-03T11:11:45-04:00",
           "problem_state": "unavailable",
           "impact_state": "gray"
         },
@@ -1041,7 +1048,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Source Monitor recommendation",
           "message": "Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current main?",
           "source_url": "#logs:source-monitor",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "repository-decision:SMR-20260725-PR381",
@@ -1065,7 +1072,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "typed Source Monitor recommendation",
           "message": "Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current main?",
           "source_url": "#logs:source-monitor",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         },
         {
           "item_id": "project-human-decision:JUD-009",
@@ -1077,7 +1084,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "attention_class": "human",
           "authority": "GitHub Project Status field",
           "source_record_id": "JUD-009",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "next_action": "Record the exact human decision.",
           "route": "actions",
           "specialist_route": "planning:workbench:pipeline:selected=JUD-009",
@@ -1089,7 +1096,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "reported_by": "GitHub Project Status field",
           "message": "JUD-009: Supreme Court Ethics, Recusal, and Transparency",
           "source_url": "#actions",
-          "checked_at": "2026-08-03T11:01:08-04:00"
+          "checked_at": "2026-08-03T11:11:45-04:00"
         }
       ],
       "active_incidents": null,
@@ -1240,6 +1247,13 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "delivery_items": 12,
       "delivery_items_available": true,
       "domain_attention": [
+        {
+          "domain": "integrity",
+          "status": "stale",
+          "reason": "The feed does not completely cover its current authoritative source.",
+          "timestamp": "2026-08-03T15:06:48+00:00",
+          "route": "integrity"
+        },
         {
           "domain": "source_checker",
           "status": "stale",
@@ -1589,8 +1603,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "status": "unknown"
     },
     "progress_summary": {
-      "generated_at": "2026-08-03T15:06:35+00:00",
-      "source_revision": "e5e0d11f0184517ea5b730d601c4ccc16e304348",
+      "generated_at": "2026-08-03T15:11:58+00:00",
+      "source_revision": "870346eec114ea956848233c9a28e7f019d68b81",
       "availability": "current",
       "ready": 27,
       "total": 81,
@@ -1601,7 +1615,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "integrity_summary": {
       "generated_at": "2026-08-03T15:06:48+00:00",
       "source_revision": "e5e0d11f0184517ea5b730d601c4ccc16e304348",
-      "availability": "current",
+      "availability": "stale",
       "result": "clean",
       "counts": {
         "errors": 0,
@@ -1770,7 +1784,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   },
   "automation_occurrences": {
     "schema_version": 2,
-    "checked_at": "2026-08-03T11:01:08-04:00",
+    "checked_at": "2026-08-03T11:11:45-04:00",
     "occurrences": [
       {
         "occurrence_id": "arrp-20260803T143538Z",
@@ -1883,7 +1897,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       {
         "occurrence_id": "arrp-20260803T143538Z",
-        "schedule_identity": "owner-local-nightly",
+        "schedule_identity": "event-driven",
         "status": "completed",
         "source_revision": "4809dde6e664bd857263d5e117386da9eb3dc0d5",
         "generation_id": null,
@@ -1994,7 +2008,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       }
     ],
     "latest_attempt_id": "arrp-20260803T143538Z",
-    "latest_scheduled_attempt_id": "arrp-20260803T143538Z",
+    "latest_scheduled_attempt_id": null,
     "last_fully_successful_occurrence": null,
     "next_ordinary_run": {
       "available": true,
@@ -2016,8 +2030,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   },
   "action_snapshot": {
     "schema_version": 1,
-    "generation_id": "action-snapshot-66b44bdc256dcfa18df5",
-    "generated_at": "2026-08-03T11:01:08-04:00",
+    "generation_id": "action-snapshot-5dd0aaed7c07bed2e740",
+    "generated_at": "2026-08-03T11:11:45-04:00",
     "availability": "partial",
     "complete": false,
     "items": [
@@ -2043,7 +2057,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Source Monitor recommendation",
         "message": "Approve closing PR #380 without merge so the corrected watcher can regenerate a complete proposal from current main?",
         "source_url": "#logs:source-monitor",
-        "checked_at": "2026-08-03T11:01:08-04:00"
+        "checked_at": "2026-08-03T11:11:45-04:00"
       },
       {
         "item_id": "repository-decision:SMR-20260725-PR381",
@@ -2067,7 +2081,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Source Monitor recommendation",
         "message": "Approve closing PR #381 without merge so the corrected watcher can regenerate and itemize all ten pending directives from current main?",
         "source_url": "#logs:source-monitor",
-        "checked_at": "2026-08-03T11:01:08-04:00"
+        "checked_at": "2026-08-03T11:11:45-04:00"
       },
       {
         "item_id": "project-human-decision:JUD-009",
@@ -2079,7 +2093,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "attention_class": "human",
         "authority": "GitHub Project Status field",
         "source_record_id": "JUD-009",
-        "detected_at": "2026-08-03T15:06:35+00:00",
+        "detected_at": "2026-08-03T15:11:58+00:00",
         "next_action": "Record the exact human decision.",
         "route": "actions",
         "specialist_route": "planning:workbench:pipeline:selected=JUD-009",
@@ -2091,7 +2105,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Status field",
         "message": "JUD-009: Supreme Court Ethics, Recusal, and Transparency",
         "source_url": "#actions",
-        "checked_at": "2026-08-03T11:01:08-04:00"
+        "checked_at": "2026-08-03T11:11:45-04:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:DOJ-004",
@@ -2103,7 +2117,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "attention_class": "oversight",
         "authority": "typed Blocked/Deferred hold contract",
         "source_record_id": "DOJ-004",
-        "detected_at": "2026-08-03T15:06:35+00:00",
+        "detected_at": "2026-08-03T15:11:58+00:00",
         "next_action": "Resolve the typed Integrity condition at its owner.",
         "route": "integrity",
         "specialist_route": "https://github.com/Thorncrag/ARRP/issues/25",
@@ -2115,7 +2129,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "DOJ-004 is Blocked but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-08-03T11:01:08-04:00"
+        "checked_at": "2026-08-03T11:11:45-04:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:ELEC-014",
@@ -2127,7 +2141,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "attention_class": "oversight",
         "authority": "typed Blocked/Deferred hold contract",
         "source_record_id": "ELEC-014",
-        "detected_at": "2026-08-03T15:06:35+00:00",
+        "detected_at": "2026-08-03T15:11:58+00:00",
         "next_action": "Resolve the typed Integrity condition at its owner.",
         "route": "integrity",
         "specialist_route": "https://github.com/Thorncrag/ARRP/issues/236",
@@ -2139,7 +2153,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "ELEC-014 is Blocked but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-08-03T11:01:08-04:00"
+        "checked_at": "2026-08-03T11:11:45-04:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-010",
@@ -2151,7 +2165,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "attention_class": "oversight",
         "authority": "typed Blocked/Deferred hold contract",
         "source_record_id": "HOR-010",
-        "detected_at": "2026-08-03T15:06:35+00:00",
+        "detected_at": "2026-08-03T15:11:58+00:00",
         "next_action": "Resolve the typed Integrity condition at its owner.",
         "route": "integrity",
         "specialist_route": "planning:candidates:selected=HOR-010",
@@ -2163,7 +2177,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-010 is Deferred but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-08-03T11:01:08-04:00"
+        "checked_at": "2026-08-03T11:11:45-04:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-023",
@@ -2175,7 +2189,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "attention_class": "oversight",
         "authority": "typed Blocked/Deferred hold contract",
         "source_record_id": "HOR-023",
-        "detected_at": "2026-08-03T15:06:35+00:00",
+        "detected_at": "2026-08-03T15:11:58+00:00",
         "next_action": "Resolve the typed Integrity condition at its owner.",
         "route": "integrity",
         "specialist_route": "planning:candidates:selected=HOR-023",
@@ -2187,7 +2201,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-023 is Deferred but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-08-03T11:01:08-04:00"
+        "checked_at": "2026-08-03T11:11:45-04:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-031",
@@ -2199,7 +2213,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "attention_class": "oversight",
         "authority": "typed Blocked/Deferred hold contract",
         "source_record_id": "HOR-031",
-        "detected_at": "2026-08-03T15:06:35+00:00",
+        "detected_at": "2026-08-03T15:11:58+00:00",
         "next_action": "Resolve the typed Integrity condition at its owner.",
         "route": "integrity",
         "specialist_route": "planning:candidates:selected=HOR-031",
@@ -2211,7 +2225,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-031 is Blocked but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-08-03T11:01:08-04:00"
+        "checked_at": "2026-08-03T11:11:45-04:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-038",
@@ -2223,7 +2237,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "attention_class": "oversight",
         "authority": "typed Blocked/Deferred hold contract",
         "source_record_id": "HOR-038",
-        "detected_at": "2026-08-03T15:06:35+00:00",
+        "detected_at": "2026-08-03T15:11:58+00:00",
         "next_action": "Resolve the typed Integrity condition at its owner.",
         "route": "integrity",
         "specialist_route": "planning:candidates:selected=HOR-038",
@@ -2235,7 +2249,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-038 is Deferred but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-08-03T11:01:08-04:00"
+        "checked_at": "2026-08-03T11:11:45-04:00"
       },
       {
         "item_id": "hold-transition-provenance-missing:HOR-045",
@@ -2247,7 +2261,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "attention_class": "oversight",
         "authority": "typed Blocked/Deferred hold contract",
         "source_record_id": "HOR-045",
-        "detected_at": "2026-08-03T15:06:35+00:00",
+        "detected_at": "2026-08-03T15:11:58+00:00",
         "next_action": "Resolve the typed Integrity condition at its owner.",
         "route": "integrity",
         "specialist_route": "planning:candidates:selected=HOR-045",
@@ -2259,7 +2273,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "typed Blocked/Deferred hold contract",
         "message": "HOR-045 is Deferred but lacks matching audit transition provenance.",
         "source_url": "#integrity",
-        "checked_at": "2026-08-03T11:01:08-04:00"
+        "checked_at": "2026-08-03T11:11:45-04:00"
       },
       {
         "item_id": "next-action-missing:HOR-026",
@@ -2271,7 +2285,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "attention_class": "oversight",
         "authority": "GitHub Project Next action field",
         "source_record_id": "HOR-026",
-        "detected_at": "2026-08-03T15:06:35+00:00",
+        "detected_at": "2026-08-03T15:11:58+00:00",
         "next_action": "Record the authoritative Next action value.",
         "route": "integrity",
         "specialist_route": "planning:candidates:selected=HOR-026",
@@ -2283,7 +2297,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Next action field",
         "message": "HOR-026: Next action is not recorded",
         "source_url": "#integrity",
-        "checked_at": "2026-08-03T11:01:08-04:00"
+        "checked_at": "2026-08-03T11:11:45-04:00"
       },
       {
         "item_id": "next-action-missing:HOR-027",
@@ -2295,7 +2309,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "attention_class": "oversight",
         "authority": "GitHub Project Next action field",
         "source_record_id": "HOR-027",
-        "detected_at": "2026-08-03T15:06:35+00:00",
+        "detected_at": "2026-08-03T15:11:58+00:00",
         "next_action": "Record the authoritative Next action value.",
         "route": "integrity",
         "specialist_route": "planning:candidates:selected=HOR-027",
@@ -2307,7 +2321,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Next action field",
         "message": "HOR-027: Next action is not recorded",
         "source_url": "#integrity",
-        "checked_at": "2026-08-03T11:01:08-04:00"
+        "checked_at": "2026-08-03T11:11:45-04:00"
       },
       {
         "item_id": "next-action-missing:HOR-029",
@@ -2319,7 +2333,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "attention_class": "oversight",
         "authority": "GitHub Project Next action field",
         "source_record_id": "HOR-029",
-        "detected_at": "2026-08-03T15:06:35+00:00",
+        "detected_at": "2026-08-03T15:11:58+00:00",
         "next_action": "Record the authoritative Next action value.",
         "route": "integrity",
         "specialist_route": "planning:candidates:selected=HOR-029",
@@ -2331,7 +2345,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Next action field",
         "message": "HOR-029: Next action is not recorded",
         "source_url": "#integrity",
-        "checked_at": "2026-08-03T11:01:08-04:00"
+        "checked_at": "2026-08-03T11:11:45-04:00"
       },
       {
         "item_id": "next-action-missing:HOR-039",
@@ -2343,7 +2357,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "attention_class": "oversight",
         "authority": "GitHub Project Next action field",
         "source_record_id": "HOR-039",
-        "detected_at": "2026-08-03T15:06:35+00:00",
+        "detected_at": "2026-08-03T15:11:58+00:00",
         "next_action": "Record the authoritative Next action value.",
         "route": "integrity",
         "specialist_route": "planning:candidates:selected=HOR-039",
@@ -2355,7 +2369,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "reported_by": "GitHub Project Next action field",
         "message": "HOR-039: Next action is not recorded",
         "source_url": "#integrity",
-        "checked_at": "2026-08-03T11:01:08-04:00"
+        "checked_at": "2026-08-03T11:11:45-04:00"
       }
     ],
     "counts": {
@@ -2395,7 +2409,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "queue_directory": {
     "schema_version": 1,
     "generation_id": "queue-directory-fe74b10926ca63074939",
-    "generated_at": "2026-08-03T11:01:08-04:00",
+    "generated_at": "2026-08-03T11:11:45-04:00",
     "availability": "partial",
     "complete": false,
     "queues": [
@@ -2411,7 +2425,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "route": "planning:workbench:pipeline:work_class=Preliminary%20candidate",
         "problem_route": "planning:preliminary",
         "generation_id": "queue-directory-fe74b10926ca63074939",
-        "current_through": "2026-08-03T11:01:08-04:00",
+        "current_through": "2026-08-03T11:11:45-04:00",
         "problem_state": "none",
         "impact_state": null
       },
@@ -2427,7 +2441,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "route": "planning:workbench:pipeline:work_class=Formal%20candidate",
         "problem_route": "planning:candidates",
         "generation_id": "queue-directory-fe74b10926ca63074939",
-        "current_through": "2026-08-03T15:06:35+00:00",
+        "current_through": "2026-08-03T15:11:58+00:00",
         "problem_state": "none",
         "impact_state": null
       },
@@ -2443,7 +2457,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "route": "planning:workbench:pipeline:status=Development",
         "problem_route": "integrity",
         "generation_id": "queue-directory-fe74b10926ca63074939",
-        "current_through": "2026-08-03T15:06:35+00:00",
+        "current_through": "2026-08-03T15:11:58+00:00",
         "problem_state": "none",
         "impact_state": null
       },
@@ -2459,7 +2473,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "route": "planning:workbench:pipeline:status=Research",
         "problem_route": "integrity",
         "generation_id": "queue-directory-fe74b10926ca63074939",
-        "current_through": "2026-08-03T15:06:35+00:00",
+        "current_through": "2026-08-03T15:11:58+00:00",
         "problem_state": "none",
         "impact_state": null
       },
@@ -2475,7 +2489,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "route": "planning:workbench:pipeline:status=Audit",
         "problem_route": "integrity",
         "generation_id": "queue-directory-fe74b10926ca63074939",
-        "current_through": "2026-08-03T15:06:35+00:00",
+        "current_through": "2026-08-03T15:11:58+00:00",
         "problem_state": "none",
         "impact_state": null
       },
@@ -2491,7 +2505,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "route": "planning:workbench:pipeline:scope=review-ready-plus",
         "problem_route": "integrity",
         "generation_id": "queue-directory-fe74b10926ca63074939",
-        "current_through": "2026-08-03T15:06:35+00:00",
+        "current_through": "2026-08-03T15:11:58+00:00",
         "problem_state": "none",
         "impact_state": null
       },
@@ -2507,7 +2521,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "route": "planning:sources:status=pending",
         "problem_route": "planning:sources",
         "generation_id": "queue-directory-fe74b10926ca63074939",
-        "current_through": "2026-08-03T11:01:08-04:00",
+        "current_through": "2026-08-03T11:11:45-04:00",
         "problem_state": "none",
         "impact_state": null
       },
@@ -2539,7 +2553,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "route": "actions:my-items",
         "problem_route": "integrity",
         "generation_id": "queue-directory-fe74b10926ca63074939",
-        "current_through": "2026-08-03T11:01:08-04:00",
+        "current_through": "2026-08-03T11:11:45-04:00",
         "problem_state": "unavailable",
         "impact_state": null
       },
@@ -2555,7 +2569,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "route": "automation:logs:incidents",
         "problem_route": "automation:logs:incidents",
         "generation_id": "queue-directory-fe74b10926ca63074939",
-        "current_through": "2026-08-03T11:01:08-04:00",
+        "current_through": "2026-08-03T11:11:45-04:00",
         "problem_state": "unavailable",
         "impact_state": "gray"
       },
@@ -2718,6 +2732,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "overview.js": "project-console-1a089b72baa57029c48c"
+    "overview.js": "project-console-e7a04be6dd95b1e9255e"
   }
 });

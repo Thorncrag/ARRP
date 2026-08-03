@@ -360,7 +360,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "current",
-          "checked_at": "2026-08-03T15:06:35+00:00",
+          "checked_at": "2026-08-03T15:11:58+00:00",
           "reason": ""
         },
         "checked_at": "2026-08-03T14:36:07+00:00"
@@ -392,7 +392,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "pause_state": "unavailable",
         "current_blocker": null,
         "data_currentness": {
-          "state": "current",
+          "state": "stale",
           "checked_at": "2026-08-03T15:06:48+00:00",
           "reason": ""
         },
@@ -425,7 +425,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "unavailable",
-          "checked_at": "2026-08-03T11:01:08-04:00",
+          "checked_at": "2026-08-03T11:11:45-04:00",
           "reason": "No typed currentness record is published for this role."
         },
         "checked_at": "2026-08-03T14:36:07+00:00"
@@ -435,8 +435,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "repository_gates": {
     "schema_version": 1,
     "repository": "Thorncrag/ARRP",
-    "source_revision": "2026-08-03T15:06:56+00:00",
-    "checked_at": "2026-08-03T15:06:56+00:00",
+    "source_revision": "2026-08-03T15:13:40+00:00",
+    "checked_at": "2026-08-03T15:13:40+00:00",
     "availability": "current",
     "complete": true,
     "count": 0,
@@ -445,7 +445,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "open_pull_requests": {
         "complete": true,
         "pages": 1,
-        "actual_count": 5,
+        "actual_count": 6,
         "page_size": 100
       },
       "declarations_complete": true
@@ -453,8 +453,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "declaration_errors": [],
     "validation_errors": [],
     "last_good_identity": {
-      "checked_at": "2026-08-03T15:04:23+00:00",
-      "source_revision": "2026-08-03T15:04:23+00:00"
+      "checked_at": "2026-08-03T15:06:56+00:00",
+      "source_revision": "2026-08-03T15:06:56+00:00"
     },
     "items": []
   },
@@ -1063,6 +1063,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "automation.js": "project-console-1a089b72baa57029c48c"
+    "automation.js": "project-console-e7a04be6dd95b1e9255e"
   }
 });

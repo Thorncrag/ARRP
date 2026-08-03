@@ -4291,9 +4291,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "status": "current",
       "supersession_rule": "A newer complete authenticated Project synchronization supersedes an older generation; repository HEAD alone does not."
     },
-    "generatedAt": "2026-08-03T15:06:35+00:00",
-    "generated_at": "2026-08-03T15:06:35+00:00",
-    "generation_id": "project-console-progress-704e0363afb311ce7940",
+    "generatedAt": "2026-08-03T15:11:58+00:00",
+    "generated_at": "2026-08-03T15:11:58+00:00",
+    "generation_id": "project-console-progress-76c5cadaf5974f37e31e",
     "goal": {
       "baselineDate": "2026-07-13",
       "baselineReady": 23,
@@ -8749,7 +8749,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "framework/project/interfaces/project-console/configuration/progress.json": "sha256:5718cb4e0d242fc474b51d1e76e054149ac751efd8bfdd3c80870106f653a340",
       "inventory/github_issue_registry.csv": "sha256:a38114a6cef0d218b1af5e94eadb6aa78247d84d66ed37452902424a391e1d11"
     },
-    "source_revision": "e5e0d11f0184517ea5b730d601c4ccc16e304348",
+    "source_revision": "870346eec114ea956848233c9a28e7f019d68b81",
     "warnings": [],
     "workflowStatusDistribution": [
       {
@@ -8796,8 +8796,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "authority": "authenticated_project_generation",
       "status": "current",
       "current": true,
-      "generation_id": "project-console-progress-704e0363afb311ce7940",
-      "synchronized_at": "2026-08-03T15:06:35+00:00",
+      "generation_id": "project-console-progress-76c5cadaf5974f37e31e",
+      "synchronized_at": "2026-08-03T15:11:58+00:00",
       "supersession_rule": "A newer complete authenticated Project synchronization supersedes an older generation; repository HEAD alone does not."
     },
     "local_navigation_overlay": {
@@ -8807,9 +8807,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "pipeline": {
       "schemaVersion": 1,
-      "generatedAt": "2026-08-03T11:01:08-04:00",
-      "progressGenerationId": "project-console-progress-704e0363afb311ce7940",
-      "progressSourceRevision": "e5e0d11f0184517ea5b730d601c4ccc16e304348",
+      "generatedAt": "2026-08-03T11:11:45-04:00",
+      "progressGenerationId": "project-console-progress-76c5cadaf5974f37e31e",
+      "progressSourceRevision": "870346eec114ea956848233c9a28e7f019d68b81",
       "asOf": "2026-08-03",
       "availability": "current",
       "defaultMode": "active",
@@ -12803,7 +12803,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "missing_field": "Next action",
           "recorded_value": null,
           "owner": "Elim",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "authority": "GitHub Project Next action field",
           "route": "planning:candidates:selected=HOR-026",
           "remediation_route": "planning:candidates:selected=HOR-026"
@@ -12815,7 +12815,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "missing_field": "Next action",
           "recorded_value": null,
           "owner": "Elim",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "authority": "GitHub Project Next action field",
           "route": "planning:candidates:selected=HOR-027",
           "remediation_route": "planning:candidates:selected=HOR-027"
@@ -12827,7 +12827,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "missing_field": "Next action",
           "recorded_value": null,
           "owner": "Elim",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "authority": "GitHub Project Next action field",
           "route": "planning:candidates:selected=HOR-029",
           "remediation_route": "planning:candidates:selected=HOR-029"
@@ -12839,7 +12839,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "missing_field": "Next action",
           "recorded_value": null,
           "owner": "Elim",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "authority": "GitHub Project Next action field",
           "route": "planning:candidates:selected=HOR-039",
           "remediation_route": "planning:candidates:selected=HOR-039"
@@ -12853,7 +12853,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "severity": "warning",
           "message": "HOR-010 is Deferred but lacks matching audit transition provenance.",
           "owner": "Elim",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "authority": "typed Blocked/Deferred hold contract",
           "route": "planning:candidates:selected=HOR-010"
         },
@@ -12864,7 +12864,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "severity": "warning",
           "message": "HOR-023 is Deferred but lacks matching audit transition provenance.",
           "owner": "Elim",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "authority": "typed Blocked/Deferred hold contract",
           "route": "planning:candidates:selected=HOR-023"
         },
@@ -12875,7 +12875,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "severity": "warning",
           "message": "HOR-031 is Blocked but lacks matching audit transition provenance.",
           "owner": "Elim",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "authority": "typed Blocked/Deferred hold contract",
           "route": "planning:candidates:selected=HOR-031"
         },
@@ -12886,7 +12886,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "severity": "warning",
           "message": "HOR-038 is Deferred but lacks matching audit transition provenance.",
           "owner": "Elim",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "authority": "typed Blocked/Deferred hold contract",
           "route": "planning:candidates:selected=HOR-038"
         },
@@ -12897,7 +12897,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "severity": "warning",
           "message": "HOR-045 is Deferred but lacks matching audit transition provenance.",
           "owner": "Elim",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "authority": "typed Blocked/Deferred hold contract",
           "route": "planning:candidates:selected=HOR-045"
         },
@@ -12908,7 +12908,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "severity": "warning",
           "message": "DOJ-004 is Blocked but lacks matching audit transition provenance.",
           "owner": "Elim",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "authority": "typed Blocked/Deferred hold contract",
           "route": "https://github.com/Thorncrag/ARRP/issues/25"
         },
@@ -12919,7 +12919,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "severity": "warning",
           "message": "ELEC-014 is Blocked but lacks matching audit transition provenance.",
           "owner": "Elim",
-          "detected_at": "2026-08-03T15:06:35+00:00",
+          "detected_at": "2026-08-03T15:11:58+00:00",
           "authority": "typed Blocked/Deferred hold contract",
           "route": "https://github.com/Thorncrag/ARRP/issues/236"
         }
@@ -12927,6 +12927,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "progress.js": "project-console-1a089b72baa57029c48c"
+    "progress.js": "project-console-e7a04be6dd95b1e9255e"
   }
 });
