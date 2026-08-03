@@ -94,12 +94,17 @@
   }
   normalizeLoadedData();
   const catalogGenerationId = String(data.generation_id || data.generation_manifest?.generation_id || "");
+  const generationCacheQuery = catalogGenerationId
+    ? `generation=${encodeURIComponent(catalogGenerationId)}`
+    : "generation=legacy";
   const PRIVATE_SECURITY_ASSURANCE_PATH = "data/private-security-assurance.js?v=1";
   const PRIVATE_OPERATIONS_PATH = "data/private-operations.js?v=1";
   const PRIVATE_CODEX_USAGE_PATH = "data/private-codex-usage.js?v=1";
   const LOCAL_AUTOMATION_STATUS_PATH = "data/local-automation-status.js";
   const CODEX_CAPACITY_MODULE_PATH = "capacity.js?v=1";
-  const COMPONENT_REGISTRY_MODULE_PATH = "component-registry.js?v=10";
+  const COMPONENT_REGISTRY_MODULE_VERSION = "11";
+  const COMPONENT_REGISTRY_MODULE_PATH =
+    `component-registry.js?v=${COMPONENT_REGISTRY_MODULE_VERSION}&${generationCacheQuery}`;
   const OWNER_MODE_UNAVAILABLE_MESSAGE = "Data unavailable outside the bound owner-local Console.";
   const CODEX_USAGE_UNAVAILABLE_DETAIL = "Codex usage unavailable.";
   const fieldSet = (value) => new Set(value.split(" "));
@@ -486,29 +491,33 @@
   const CLOUDFLARE_INCIDENTS_URL = "https://www.cloudflarestatus.com/api/v2/incidents/unresolved.json";
   const GITHUB_BLOB_ROOT = "https://github.com/Thorncrag/ARRP/blob/main/";
   const LIVE_SITE_ROOT = "https://thorncrag.github.io/ARRP/";
-  const SCRIPT_VERSION = "49";
+  const consoleDomainSource = (filename) => `data/${filename}?${generationCacheQuery}`;
   const sourceCatalogScripts = Array.from(
     { length: 16 },
-    (_, index) => `data/sources-catalog-${String(index + 1).padStart(3, "0")}.js?v=${SCRIPT_VERSION}`
+    (_, index) => consoleDomainSource(
+      `sources-catalog-${String(index + 1).padStart(3, "0")}.js`
+    )
   );
   const directiveCatalogScripts = Array.from(
     { length: 16 },
-    (_, index) => `data/directives-catalog-${String(index + 1).padStart(3, "0")}.js?v=${SCRIPT_VERSION}`
+    (_, index) => consoleDomainSource(
+      `directives-catalog-${String(index + 1).padStart(3, "0")}.js`
+    )
   );
   const DOMAIN_SCRIPTS = Object.freeze({
-    overview: [`data/overview.js?v=${SCRIPT_VERSION}`],
-    candidates: [`data/candidates.js?v=${SCRIPT_VERSION}`],
-    progress: [`data/progress.js?v=${SCRIPT_VERSION}`],
-    sources: [`data/sources.js?v=${SCRIPT_VERSION}`, ...sourceCatalogScripts, ...directiveCatalogScripts],
-    "source-checker": [`data/source-checker.js?v=${SCRIPT_VERSION}`],
-    integrity: [`data/integrity.js?v=${SCRIPT_VERSION}`],
-    automation: [`data/automation.js?v=${SCRIPT_VERSION}`],
+    overview: [consoleDomainSource("overview.js")],
+    candidates: [consoleDomainSource("candidates.js")],
+    progress: [consoleDomainSource("progress.js")],
+    sources: [consoleDomainSource("sources.js"), ...sourceCatalogScripts, ...directiveCatalogScripts],
+    "source-checker": [consoleDomainSource("source-checker.js")],
+    integrity: [consoleDomainSource("integrity.js")],
+    automation: [consoleDomainSource("automation.js")],
     "component-registry": [
       COMPONENT_REGISTRY_MODULE_PATH,
-      `data/component-registry.js?v=${SCRIPT_VERSION}`
+      consoleDomainSource("component-registry.js")
     ],
-    logs: [`data/logs.js?v=${SCRIPT_VERSION}`],
-    publication: [`data/publication.js?v=${SCRIPT_VERSION}`]
+    logs: [consoleDomainSource("logs.js")],
+    publication: [consoleDomainSource("publication.js")]
   });
   const domainLoads = new Map();
   const loadedDomains = new Set();
@@ -2405,6 +2414,15 @@
     node.textContent = `${pluralizeWord(Number(count), singular)}${detail ? ` · ${detail}` : ""}`;
   }
 
+  function replaceConsoleRoute(target) {
+    const hash = `#${String(target || "").replace(/^#/, "")}`;
+    if (window.location.protocol === "file:") {
+      if (window.location.hash !== hash) window.location.hash = hash;
+      return;
+    }
+    window.history.replaceState(null, "", hash);
+  }
+
   function activateTab(name, focus = false, hydrate = true) {
     const tabs = [...document.querySelectorAll('[role="tab"][data-tab]')];
     const selected = tabs.find((tab) => tab.dataset.tab === name) || tabs[0];
@@ -2416,7 +2434,7 @@
     });
     if (focus) selected.focus();
     if (!window.location.hash.startsWith(`#${selected.dataset.tab}`)) {
-      window.history.replaceState(null, "", `#${selected.dataset.tab}`);
+      replaceConsoleRoute(selected.dataset.tab);
     }
     const selectedSubtab = document.querySelector(
       `[data-subtab-group="${selected.dataset.tab}"][aria-selected="true"]`
@@ -2444,7 +2462,7 @@
     const rawTarget = window.location.hash.replace(/^#/, "");
     const normalizedTarget = normalizeConsoleTarget(rawTarget);
     if (rawTarget && normalizedTarget !== rawTarget) {
-      window.history.replaceState(null, "", `#${normalizedTarget}`);
+      replaceConsoleRoute(normalizedTarget);
     }
     const requested = normalizedTarget.split(":", 1)[0];
     activateTab(
@@ -2468,13 +2486,13 @@
     if (focus) selected.focus();
     const activeTopLevel = document.querySelector('[role="tab"][data-tab][aria-selected="true"]')?.dataset.tab;
     if (activeTopLevel === group && !window.location.hash.startsWith(`#${group}:${selected.dataset.subtab}`)) {
-      window.history.replaceState(null, "", `#${group}:${selected.dataset.subtab}`);
+      replaceConsoleRoute(`${group}:${selected.dataset.subtab}`);
     }
     const activePlanning = document.querySelector('[data-subtab-group="planning"][aria-selected="true"]')?.dataset.subtab;
     const planningNestedGroup = ["sources", "publication"].includes(group);
     if (planningNestedGroup && activeTopLevel === "planning" && activePlanning === group
       && !window.location.hash.startsWith(`#planning:${group}:${selected.dataset.subtab}`)) {
-      window.history.replaceState(null, "", `#planning:${group}:${selected.dataset.subtab}`);
+      replaceConsoleRoute(`planning:${group}:${selected.dataset.subtab}`);
     }
     if (activeTopLevel === group && hydrate) {
       void activateDomainForTab(group, selected.dataset.subtab);
@@ -2526,7 +2544,7 @@
     const activeSourceView = document.querySelector('[data-subtab-group="sources"][aria-selected="true"]')?.dataset.subtab;
     if ((activeSourceView === "watchers" && window.location.hash.startsWith("#planning:sources"))
       || window.location.hash.startsWith("#sources:watchers")) {
-      window.history.replaceState(null, "", `#planning:sources:watchers:${selected.dataset.watcherTab}`);
+      replaceConsoleRoute(`planning:sources:watchers:${selected.dataset.watcherTab}`);
     }
     if (name === "source-checker") {
       void Promise.all([
@@ -2589,7 +2607,7 @@
     const activeOperation = document.querySelector('[data-subtab-group="automation"][aria-selected="true"]')?.dataset.subtab;
     if (activeTopLevel === "automation" && activeOperation === "logs") {
       if (!window.location.hash.startsWith(`#automation:logs:${selectedName}`)) {
-        window.history.replaceState(null, "", `#automation:logs:${selectedName}`);
+        replaceConsoleRoute(`automation:logs:${selectedName}`);
       }
       void activateDomainForTab("automation", "logs");
     }
@@ -2795,7 +2813,7 @@
       const id = c.id(record); c.state.selectedId = id;
       list.querySelectorAll(".email-list-row").forEach((row) => { const selected = row.dataset.entryId === id; row.classList.toggle("selected", selected); row.setAttribute("aria-selected", String(selected)); });
       c.preview(record, preview);
-      window.history.replaceState(null, "", `#automation:logs:${c.route}:selected=${encodeURIComponent(id)}`);
+      replaceConsoleRoute(`automation:logs:${c.route}:selected=${encodeURIComponent(id)}`);
       if (focus) list.querySelector(`[data-entry-id="${id}"]`)?.focus();
     };
     items.forEach((record) => {
@@ -4133,7 +4151,7 @@
     const normalizedTarget = normalizeConsoleTarget(target);
     const parts = normalizedTarget.split(":");
     if (normalizedTarget !== String(target || "").replace(/^#/, "")) {
-      window.history.replaceState(null, "", `#${normalizedTarget}`);
+      replaceConsoleRoute(normalizedTarget);
     }
     const automationSubviews = ["overview", "agents", "gates", "security", "capacity", "platform", "data", "component-registry", "logs"];
     const selectedSubtab = parts[1] || (
@@ -5512,7 +5530,7 @@
         button.setAttribute("aria-pressed", "false");
       });
       renderManualWatch();
-      if (updateRoute) window.history.replaceState(null, "", "#planning:workbench:monitoring");
+      if (updateRoute) replaceConsoleRoute("planning:workbench:monitoring");
     } else if (updateRoute) {
       updatePipelineRoute();
     }
@@ -5640,7 +5658,7 @@
       && !window.location.hash.startsWith("#planning:workbench:pipeline")
       && window.location.hash !== "#planning:workbench:monitoring") return;
     const parameters = pipelineRouteParameters();
-    window.history.replaceState(null, "", `#planning:workbench:pipeline${parameters ? `:${parameters}` : ""}`);
+    replaceConsoleRoute(`planning:workbench:pipeline${parameters ? `:${parameters}` : ""}`);
   }
 
   function pipelineLink(label, route, external = false) {
@@ -8486,7 +8504,7 @@
       const target = exact
         ? `automation:agents:${exact.id}`
         : `automation:agents:${encodeURIComponent(automationRoleState.unavailableId)}`;
-      window.history.replaceState(null, "", `#${target}`);
+      replaceConsoleRoute(target);
     }
   }
 
@@ -8964,14 +8982,22 @@
       .catch(() => false);
   }
 
+  function compatibleComponentRegistryModule(candidate, snapshot) {
+    const schemaVersion = snapshot?.schema_version;
+    return Number.isInteger(schemaVersion)
+      && candidate?.schemaVersion === schemaVersion
+      && typeof candidate.validSnapshot === "function"
+      && typeof candidate.routeState === "function"
+      && typeof candidate.render === "function";
+  }
+
   function renderComponentRegistry(
     target = window.location.hash.replace(/^#/, "")
   ) {
     const candidate = window.ARRP_COMPONENT_REGISTRY;
-    if (candidate?.schemaVersion !== 1
-      || typeof candidate.validSnapshot !== "function"
-      || typeof candidate.routeState !== "function"
-      || typeof candidate.render !== "function") return false;
+    if (!compatibleComponentRegistryModule(candidate, data.component_registry)) {
+      return false;
+    }
     componentRegistryModule = candidate;
     return componentRegistryModule.render(data.component_registry, target);
   }
@@ -11147,7 +11173,10 @@
     overviewMaterialActivityRecords,
     priorityAttentionReasons,
     priorityAttentionItems,
+    compatibleComponentRegistryModule,
+    consoleDomainSource,
     normalizeConsoleTarget,
+    replaceConsoleRoute,
     safeConsoleTarget,
     decodeRouteSelection,
     safePipelineExternalUrl,

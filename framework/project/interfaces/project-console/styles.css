@@ -2464,9 +2464,19 @@ a.overview-daily-value:focus-visible { border-radius: .2rem; outline: 3px solid 
 .component-registry-terminology-controls input {
   width: 100%;
 }
+.component-registry-mode-explanation {
+  margin: 0 0 .8rem;
+  padding: .65rem .75rem;
+  border-left: 3px solid var(--blue);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--muted);
+  background: var(--soft);
+  font-size: .82rem;
+  line-height: 1.5;
+}
 .component-registry-state-portals {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
   gap: .7rem;
 }
 .component-registry-state-portal {
@@ -2489,27 +2499,11 @@ a.overview-daily-value:focus-visible { border-radius: .2rem; outline: 3px solid 
   margin-top: .2rem;
   font-size: 1.25rem;
 }
-.component-registry-transition-flow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .45rem;
-  align-items: center;
-  padding: .65rem .75rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  background: var(--soft);
-}
-.component-registry-transition {
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
-  padding: .3rem .55rem;
-  border: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
-  border-radius: 999px;
-  background: var(--surface);
-  color: var(--ink);
-  font-size: .74rem;
-  font-weight: 750;
+.component-registry-state-portal p {
+  margin: .45rem 0 0;
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.4;
 }
 .component-registry-detail-section + .component-registry-detail-section {
   margin-top: 1rem;
@@ -2544,6 +2538,14 @@ a.overview-daily-value:focus-visible { border-radius: .2rem; outline: 3px solid 
 .component-registry-source-label.linked {
   color: var(--blue);
   background: var(--blue-soft);
+}
+.component-registry-source-label.defaulted {
+  color: #6e4a08;
+  background: var(--gold-soft);
+}
+.component-registry-source-label.derived {
+  color: #256043;
+  background: #e7f4ec;
 }
 .component-registry-definition-table {
   width: 100%;
@@ -2666,6 +2668,11 @@ a.overview-daily-value:focus-visible { border-radius: .2rem; outline: 3px solid 
   text-transform: uppercase;
 }
 .component-registry-component-locator { overflow-wrap: anywhere; }
+.component-registry-heading-divider {
+  margin: .85rem 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+}
 .component-registry-source-note {
   margin-top: .65rem;
   padding-top: .6rem;

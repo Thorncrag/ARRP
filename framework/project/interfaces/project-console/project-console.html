@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>ARRP Project Console</title>
     <meta name="description" content="ARRP project verification, human action, progress, planning, integrity, and operations console.">
-  <link rel="stylesheet" href="styles.css?v=104">
+  <link rel="stylesheet" href="styles.css?v=106">
   </head>
   <body
     data-interface-theme="arrp-tool"
@@ -757,7 +757,8 @@
                 <button type="button" id="component-registry-mode-terminology" role="tab" aria-selected="false" aria-controls="component-registry-panel-terminology" data-registry-mode="terminology" tabindex="-1">Terminology</button>
               </div>
             </nav>
-            <div id="component-registry-panel-components" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-components">
+            <div id="component-registry-panel-components" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-components" aria-describedby="component-registry-components-explanation">
+              <p id="component-registry-components-explanation" class="component-registry-mode-explanation">This is the complete inventory of registered project components. Select a component to distinguish values stored on its entry from Registry defaults, linked records, and validated derived views.</p>
               <div class="queue-controls component-registry-controls" aria-label="Component filters">
                 <label for="component-registry-components-search">Search<input id="component-registry-components-search" type="search" placeholder="Name, stable ID, path, or owner…"></label>
                 <label for="component-registry-components-class">Class<select id="component-registry-components-class"><option value="">All classes</option></select></label>
@@ -769,7 +770,8 @@
                 <article id="component-registry-component-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
               </div>
             </div>
-            <div id="component-registry-panel-classes" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-classes" hidden>
+            <div id="component-registry-panel-classes" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-classes" aria-describedby="component-registry-classes-explanation" hidden>
+              <p id="component-registry-classes-explanation" class="component-registry-mode-explanation">Classes are the broad kinds of registered component, such as document, configuration, or interface. The list shows which types each class permits and how many components currently use it.</p>
               <div class="queue-controls component-registry-controls" aria-label="Component class filters">
                 <label for="component-registry-classes-search">Search<input id="component-registry-classes-search" type="search" placeholder="Class, definition, type, or component…"></label>
               </div>
@@ -779,7 +781,8 @@
                 <article id="component-registry-classes-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
               </div>
             </div>
-            <div id="component-registry-panel-types" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-types" hidden>
+            <div id="component-registry-panel-types" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-types" aria-describedby="component-registry-types-explanation" hidden>
+              <p id="component-registry-types-explanation" class="component-registry-mode-explanation">Types are the narrower kinds allowed within a class, such as policy within document. The list shows each type's parent class and the components currently classified under it.</p>
               <div class="queue-controls component-registry-controls" aria-label="Component type filters">
                 <label for="component-registry-types-search">Search<input id="component-registry-types-search" type="search" placeholder="Type, definition, class, or component…"></label>
                 <label for="component-registry-types-class">Class<select id="component-registry-types-class"><option value="">All parent classes</option></select></label>
@@ -790,9 +793,9 @@
                 <article id="component-registry-types-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
               </div>
             </div>
-            <div id="component-registry-panel-lifecycles" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-lifecycles" hidden>
+            <div id="component-registry-panel-lifecycles" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-lifecycles" aria-describedby="component-registry-lifecycles-explanation" hidden>
+              <p id="component-registry-lifecycles-explanation" class="component-registry-mode-explanation">This view shows each component's current Registry lifecycle and revision mode. Version 4 uses Adopted for incorporated governed state and Retired for a component no longer designated for current use in its former role; revision mode describes how the record is maintained, not its lifecycle.</p>
               <div id="component-registry-lifecycle-portals" class="component-registry-state-portals" aria-label="Lifecycle state counts"></div>
-              <div id="component-registry-lifecycle-flow" class="component-registry-transition-flow" aria-label="Permitted lifecycle transitions"></div>
               <div class="queue-controls component-registry-controls" aria-label="Lifecycle assignment filters">
                 <label for="component-registry-lifecycles-search">Search<input id="component-registry-lifecycles-search" type="search" placeholder="Component name or stable ID…"></label>
                 <label for="component-registry-lifecycles-state">State<select id="component-registry-lifecycles-state"><option value="">All states</option></select></label>
@@ -803,7 +806,8 @@
                 <article id="component-registry-lifecycle-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
               </div>
             </div>
-            <div id="component-registry-panel-authority" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-authority" hidden>
+            <div id="component-registry-panel-authority" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-authority" aria-describedby="component-registry-authority-explanation" hidden>
+              <p id="component-registry-authority-explanation" class="component-registry-mode-explanation">This view shows whether each component is designated to govern content and the effect supplied for that assignment. It does not describe GitHub review ownership; CODEOWNERS is separate.</p>
               <div class="queue-controls component-registry-controls" aria-label="Authority assignment filters">
                 <label for="component-registry-authority-search">Search<input id="component-registry-authority-search" type="search" placeholder="Component, subject, source, or effect…"></label>
                 <label for="component-registry-authority-status">Authority<select id="component-registry-authority-status"><option value="">All assignments</option><option value="authoritative">Authoritative</option><option value="nonauthoritative">Nonauthoritative</option></select></label>
@@ -814,7 +818,8 @@
                 <article id="component-registry-authority-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
               </div>
             </div>
-            <div id="component-registry-panel-relationships" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-relationships" hidden>
+            <div id="component-registry-panel-relationships" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-relationships" aria-describedby="component-registry-relationships-explanation" hidden>
+              <p id="component-registry-relationships-explanation" class="component-registry-mode-explanation">Relationships are explicit, directional links between registered identities—for example, what validates or implements another component. A relationship connects records but does not enlarge either component's authority.</p>
               <div class="queue-controls component-registry-controls" aria-label="Relationship filters">
                 <label for="component-registry-relationships-search">Search<input id="component-registry-relationships-search" type="search" placeholder="Component, relationship, or stable ID…"></label>
                 <label for="component-registry-relationships-type">Type<select id="component-registry-relationships-type"><option value="">All types</option></select></label>
@@ -825,7 +830,8 @@
                 <article id="component-registry-relationship-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
               </div>
             </div>
-            <div id="component-registry-panel-directories" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-directories" hidden>
+            <div id="component-registry-panel-directories" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-directories" aria-describedby="component-registry-directories-explanation" hidden>
+              <p id="component-registry-directories-explanation" class="component-registry-mode-explanation">Directory scopes define where categories of repository artifacts belong and what each scope includes or excludes. A more specific registered scope controls when a path also matches a broader scope.</p>
               <div class="queue-controls component-registry-controls" aria-label="Directory filters">
                 <label for="component-registry-directories-search">Search<input id="component-registry-directories-search" type="search" placeholder="Directory, scope, pattern, or owner…"></label>
               </div>
@@ -835,7 +841,8 @@
                 <article id="component-registry-directories-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
               </div>
             </div>
-            <div id="component-registry-panel-exemptions" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-exemptions" hidden>
+            <div id="component-registry-panel-exemptions" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-exemptions" aria-describedby="component-registry-exemptions-explanation" hidden>
+              <p id="component-registry-exemptions-explanation" class="component-registry-mode-explanation">Exemptions identify artifacts that do not need individual Registry entries because a registered scope governs them as a group. Only the listed scope or paths, artifact class, and producers qualify.</p>
               <div class="queue-controls component-registry-controls" aria-label="Exemption filters">
                 <label for="component-registry-exemptions-search">Search<input id="component-registry-exemptions-search" type="search" placeholder="Scope, producer, condition, or disposition…"></label>
               </div>
@@ -845,11 +852,13 @@
                 <article id="component-registry-exemptions-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
               </div>
             </div>
-            <div id="component-registry-panel-unresolved" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-unresolved" hidden>
+            <div id="component-registry-panel-unresolved" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-unresolved" aria-describedby="component-registry-unresolved-explanation" hidden>
+              <p id="component-registry-unresolved-explanation" class="component-registry-mode-explanation">This is the coverage exception queue. It lists only repository paths with no valid Registry treatment or conflicting treatments; an empty result means validation found no such paths, not that the Registry contains no data.</p>
               <p id="component-registry-unresolved-results" class="result-count" aria-live="polite"></p>
               <div id="component-registry-unresolved-detail" class="empty-state compact-empty" aria-live="polite"></div>
             </div>
-            <div id="component-registry-panel-routing" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-routing" hidden>
+            <div id="component-registry-panel-routing" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-routing" aria-describedby="component-registry-routing-explanation" hidden>
+              <p id="component-registry-routing-explanation" class="component-registry-mode-explanation">Routing identifies the minimum registered components and capabilities needed for an operation, together with required dependencies. It controls context selection, not project authority or workflow permission.</p>
               <div class="queue-controls component-registry-controls" aria-label="Routing filters">
                 <label for="component-registry-routing-search">Search<input id="component-registry-routing-search" type="search" placeholder="Operation, capability, component, or rule…"></label>
               </div>
@@ -859,8 +868,8 @@
                 <article id="component-registry-routing-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
               </div>
             </div>
-            <div id="component-registry-panel-codeowners" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-codeowners" hidden>
-              <p id="component-registry-codeowners-notice" class="method-note console-message console-message-info component-registry-codeowners-notice">CODEOWNERS controls GitHub review routing only. It does not create project authority or replace Benjamin's recorded authorization.</p>
+            <div id="component-registry-panel-codeowners" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-codeowners" aria-describedby="component-registry-codeowners-notice" hidden>
+              <p id="component-registry-codeowners-notice" class="component-registry-mode-explanation component-registry-codeowners-notice">This view resolves each component or directory scope to direct review routing, inherited routing, or no GitHub code owner, and compares the generated file with the checked-in file. CODEOWNERS controls GitHub review routing only; it does not create project authority or replace Benjamin's recorded authorization.</p>
               <div id="component-registry-codeowners-portals" class="component-registry-state-portals" aria-label="CODEOWNERS resolution counts"></div>
               <div class="queue-controls component-registry-controls" aria-label="CODEOWNERS assignment filters">
                 <label for="component-registry-codeowners-search">Search<input id="component-registry-codeowners-search" type="search" placeholder="Path, component, scope, owner, or assignment…"></label>
@@ -874,7 +883,8 @@
                 <article id="component-registry-codeowners-detail" class="email-preview component-registry-detail" aria-live="polite"></article>
               </div>
             </div>
-            <div id="component-registry-panel-terminology" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-terminology" hidden>
+            <div id="component-registry-panel-terminology" class="registry-mode-panel" role="tabpanel" aria-labelledby="component-registry-mode-terminology" aria-describedby="component-registry-terminology-explanation" hidden>
+              <p id="component-registry-terminology-explanation" class="component-registry-mode-explanation">Terminology is the Registry's controlled vocabulary. Definitions explain how each term is used across registered records; listing a term does not make it a component or a source of authority.</p>
               <div class="queue-controls component-registry-terminology-controls" aria-label="Terminology filters">
                 <label for="component-registry-terminology-search">Search<input id="component-registry-terminology-search" type="search" placeholder="Term or definition…"></label>
               </div>
@@ -1153,7 +1163,7 @@
 
     <button type="button" id="scroll-to-top" class="scroll-to-top" aria-label="Back to top" hidden>↑ <span>Back to top</span></button>
 
-    <script src="catalog-data.js?v=48"></script>
-  <script src="app.js?v=104"></script>
+    <script src="catalog-data.js?v=49"></script>
+  <script src="app.js?v=106"></script>
   </body>
 </html>

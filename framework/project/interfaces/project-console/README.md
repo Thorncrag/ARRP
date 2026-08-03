@@ -80,8 +80,9 @@ Components, Classes, Types, Lifecycles, Authority, Relationships,
 Directories, Exemptions, Unresolved, Routing, CODEOWNERS, and Terminology
 modes. All are rendered from one exact schema-version-4 snapshot produced by
 `scripts/build_project_console.py` from the validated Registry. Canonical
-records are stored once; linked identities, derived views, and display defaults
-are separate structural namespaces. The browser formats allowlisted supplied
+records are stored once; exact component-entry field membership, linked
+identities, derived views, and effective defaults remain visibly distinct.
+The browser formats allowlisted supplied
 facts only and does not parse a predecessor format, infer source URLs, inspect
 hidden whole records for search, or invent taxonomy, ownership, directory
 membership, context routes, identities, or remediation. Routing retains
@@ -95,7 +96,9 @@ or structurally validated against that authority. The Console plainly
 distinguishes tracked configuration from the separate owner-local live
 readback. The feature has no Overview portlet. Its `component-registry.js`
 shell module and generated `data/component-registry.js` domain are both lazy;
-the owner builder copies both for direct `file://` use.
+the owner builder copies both for direct `file://` use. The loader requires the
+module and generated snapshot to declare the same Registry schema version, and
+all lazy data URLs use the catalog generation identity as their cache key.
 
 The Console reports automation state but does not directly control the runner.
 Operations Overview combines owner-only Run/Paused state, one compact

@@ -1,7 +1,7 @@
 ---
 title: "ARRP Project Console and Interface Configuration"
 status: active
-version: "1.2"
+version: "1.3"
 authority_scope: "ARRP Project Console product purpose, information architecture, interface design system, screen requirements, data projections, operating modes, generation, validation, and product traceability."
 print_status: excluded
 print_exclusion_reason: "Internal interface-governance documentation."
@@ -583,21 +583,33 @@ Operations owns:
    they show the exact governing term binding when one exists, permitted
    subordinate values, usage counts, and components using each value. They do
    not register vocabulary values as components and do not infer definitions
-   from current component usage. Lifecycles shows state counts, definitions,
-   permitted transitions, assignments, and history. Authority shows scoped
-   sources, assignments, effects, exclusions, precedence, and design-contract
-   bindings. Relationships shows directional endpoints and provenance.
-   Directories shows governed repository scopes and each scope's exact resolved
-   membership. Exemptions shows categorical registration exemptions joined to
-   their governing scopes. Unresolved shows only paths with no valid treatment
-   or conflicting treatments. Routing shows compact selections and resolved
-   dependency closures. CODEOWNERS shows every Registry-defined default,
+   from current component usage. Lifecycles shows the current Adopted and
+   Retired state counts, Registry-supplied definitions, component assignments,
+   and revision modes; it does not reconstruct the transition or history model
+   removed by schema version 4. Authority shows each component's derived
+   authoritative status, source, and supplied effects without reconstructing
+   a removed authority chain. Relationships shows directional endpoints and
+   the supplied authority boundary. Directories shows registered repository
+   scopes, placement conditions, child treatment, ownership, and repository
+   controls. Exemptions shows each categorical registration exemption with its
+   governing scope or paths, qualifying artifact class, authorized producers,
+   disposition, and end conditions. Unresolved shows only paths with no valid
+   treatment or conflicting treatments. Routing shows compact selections,
+   rules, and supplied dependency closures. CODEOWNERS shows every Registry-defined default,
    inherited result, direct rule, and explicit none rule together with the
    generated GitHub representation; the representation has no independent
    authority. Terminology shows the complete adopted
    controlled vocabulary.
 
-   Every selected detail uses typed provenance from the projection and links
+   Every mode begins with a concise, plain-language explanation of what its
+   supplied records represent and how the view applies. These explanations are
+   presentation only and may not add or infer Registry facts. The Exemptions
+   explanation states explicitly that an exemption is narrow categorical
+   governance, not absence of governance: it applies only to the named class,
+   scope or paths, producers, and conditions, and ends when a supplied end
+   condition occurs.
+
+   Every selected detail uses supplied typed fields from the projection and links
    to related Registry records when the related destination exists. Search or
    filtering that produces no results clears the prior selection rather than
    leaving stale detail visible. Selecting a record updates the semantic route
