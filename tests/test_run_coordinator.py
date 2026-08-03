@@ -1078,6 +1078,88 @@ class RunCoordinatorTests(unittest.TestCase):
             "The governed local production cycle may launch Elim.",
         )
 
+    def test_finalize_preserves_local_typed_not_due_decision(self):
+        manifest = {
+            "schema_version": 1,
+            "stages": [
+                {
+                    "id": stage["id"],
+                    "due": True,
+                    "status": "pending",
+                    "failure_class": "none",
+                    "details": "",
+                    "work_count": 0,
+                }
+                for stage in self.config["stages"]
+            ],
+            "queue_counts": {
+                "integrity": 0,
+                "monitoring": 0,
+                "sources": 0,
+                "intake": 0,
+                "total": 0,
+            },
+            "review_epoch": {"due": False},
+            "llm_launch_allowed": False,
+            "usage": {
+                "hard_reserve_percent": 15,
+                "soft_run_target_percent": 10,
+            },
+            "failures": [],
+            "degradations": [],
+            "lock": {
+                "path": None,
+                "status": "external-local-lock",
+                "owner_chain_id": "chain",
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            directory = Path(directory)
+            path = directory / "manifest.json"
+            results = directory / "results.json"
+            path.write_text(json.dumps(manifest), encoding="utf-8")
+            results.write_text("{}\n", encoding="utf-8")
+            for stage in self.config["stages"]:
+                MODULE.record(
+                    type(
+                        "Args",
+                        (),
+                        {
+                            "manifest": path,
+                            "stage": stage["id"],
+                            "status": "not_due",
+                            "failure_class": "none",
+                            "details": "prior typed output remains current",
+                            "retry": False,
+                            "output_file": None,
+                            "output_label": None,
+                            "work_count": 0,
+                            "now": "2026-07-24T07:59:00+00:00",
+                        },
+                    )()
+                )
+            args = type(
+                "Args",
+                (),
+                {
+                    "config": ROOT / "framework/project/automation/configuration/bots/run-coordinator-bot.json",
+                    "manifest": path,
+                    "stage_results": results,
+                    "output": None,
+                    "usage_remaining": 90.0,
+                    "now": "2026-07-24T08:00:00+00:00",
+                },
+            )()
+
+            MODULE.finalize(args)
+            final = json.loads(path.read_text(encoding="utf-8"))
+
+        self.assertEqual(
+            {stage["status"] for stage in final["stages"]},
+            {"not_due"},
+        )
+        self.assertEqual(final["failures"], [])
+
     def test_failed_bot_authorizes_only_selected_safety_zero_repair(self):
         failed_stage = "source-checker-bot"
         manifest = {
