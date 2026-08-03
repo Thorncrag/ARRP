@@ -544,7 +544,7 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
     def test_malformed_queue_error_does_not_replace_original_failure(self):
         queue = self.run_dir / "queue.json"
         queue.write_text("{", encoding="utf-8")
-        self.assertIsNone(MODULE.queue_failure_detail(queue))
+        self.assertIsNone(MODULE.structured_failure_detail(queue))
 
     def test_queue_builder_structured_error_is_preserved(self):
         queue = self.run_dir / "queue.json"
@@ -606,6 +606,89 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                     self.transaction,
                     self.runtime,
                 )
+
+    def test_context_builder_structured_error_and_malformed_fallback(self):
+        stage_results = [
+            MODULE.LocalStageResult(identifier, "not_due", "current", None, None)
+            for identifier in MODULE.LOCAL_STAGE_ORDER
+        ]
+        mirrored = {}
+        for identifier in (
+            "project-integrity-bot",
+            "project-console-progress-bot",
+            "public-intake",
+        ):
+            path = self.state / f"{identifier}.json"
+            path.write_text("{}\n", encoding="utf-8")
+            mirrored[identifier] = path
+
+        cases = (
+            (
+                {"schema_version": 2, "status": "blocked", "error": "typed context failure"},
+                "Elim context blocked: typed context failure",
+            ),
+            ("{", "production command failed \\(2\\): original context failure"),
+        )
+        for artifact, expected in cases:
+            with self.subTest(artifact=artifact):
+                context = self.run_dir / "context.json"
+
+                def command(command, *, cwd, accepted=frozenset({0}), environment=None):
+                    output = Path(command[command.index("--output") + 1]) if "--output" in command else None
+                    if "plan" in command:
+                        MODULE.atomic_write_json(
+                            output,
+                            {
+                                "review_epoch": {"due": False},
+                                "repository_gates": {"items": []},
+                            },
+                        )
+                    elif "build_elim_work_queue.py" in str(command[1]):
+                        MODULE.atomic_write_json(output, {"schema_version": 1, "items": []})
+                    elif "select_elim_context_route.py" in str(command[1]):
+                        MODULE.atomic_write_json(
+                            output,
+                            {
+                                "profile": "issue",
+                                "issue": None,
+                                "work_item_id": "TEST-001",
+                                "kind": "issue",
+                                "canonical_record": None,
+                            },
+                        )
+                    elif "build_elim_context.py" in str(command[1]):
+                        if isinstance(artifact, dict):
+                            MODULE.atomic_write_json(output, artifact)
+                        else:
+                            output.write_text(artifact, encoding="utf-8")
+                        raise MODULE.TransactionError(
+                            "production command failed (2): original context failure"
+                        )
+                    return subprocess.CompletedProcess(command, 0, b"", b"")
+
+                with (
+                    mock.patch.object(MODULE, "_run_production_command", side_effect=command),
+                    mock.patch.object(MODULE, "run_local_stages", return_value=stage_results),
+                    mock.patch.object(MODULE, "_usage_remaining", return_value=80.0),
+                    mock.patch.object(MODULE, "_production_stage_outputs", return_value=mirrored),
+                    mock.patch.object(MODULE, "_mirror_production_inputs", return_value=mirrored),
+                    mock.patch.object(MODULE, "read_keychain_secret", return_value=MODULE.SensitiveValue("token")),
+                    mock.patch.object(MODULE.GitHubAppIdentity, "from_json", return_value=mock.sentinel.identity),
+                    mock.patch.object(MODULE, "mint_installation_token", return_value=MODULE.SensitiveValue("token")),
+                    mock.patch.object(
+                        MODULE,
+                        "produce_repository_gate_snapshot",
+                        return_value={"schema_version": 1, "availability": "current", "complete": True, "count": 0, "items": []},
+                    ),
+                    mock.patch.object(MODULE, "verify_worktree_entrypoint"),
+                ):
+                    with self.assertRaisesRegex(MODULE.TransactionError, expected):
+                        MODULE.run_production_cycle(
+                            self.config,
+                            self.transaction,
+                            self.runtime,
+                        )
+                self.assertTrue(context.exists())
 
     def test_noop_publication_removes_only_registered_run_state(self):
         summary = {

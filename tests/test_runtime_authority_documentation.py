@@ -101,7 +101,7 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
         )
 
         if self.registry.get("schema_version") == 4:
-            self.assertEqual(self.registry["registry_revision"], 4)
+            self.assertEqual(self.registry["registry_revision"], 5)
             self.assertNotIn("validation", self.registry)
             self.assertEqual(self.registry["routing"]["schema_version"], 4)
             self.assertEqual(self.registry["routing"]["rule_catalog_version"], 2)

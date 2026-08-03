@@ -72,6 +72,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-b8879f66825b959e696a"
+    "integrity.js": "project-console-f8f4f36b56d5651d4d91"
   }
 });

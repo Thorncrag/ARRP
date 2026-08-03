@@ -7719,8 +7719,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 3598,
-      "estimated_pages": 6,
+      "word_count": 3912,
+      "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
       "heading_issue_count": 0,
@@ -8006,7 +8006,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 2842,
+      "word_count": 2846,
       "estimated_pages": 5,
       "table_count": 0,
       "max_table_columns": 0,
@@ -8094,7 +8094,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 10638,
+      "word_count": 10752,
       "estimated_pages": 17,
       "table_count": 2,
       "max_table_columns": 2,
@@ -20250,6 +20250,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-b8879f66825b959e696a"
+    "publication.js": "project-console-f8f4f36b56d5651d4d91"
   }
 });

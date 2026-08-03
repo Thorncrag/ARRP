@@ -649,7 +649,7 @@ class ComponentRegistryV4ConfigurationReadinessTests(unittest.TestCase):
     def test_configuration_view_is_exact_v4_and_not_live_authority(self):
         view = registry.load_component_registry_configuration_routing_view()
         self.assertEqual(view["schema_version"], 4)
-        self.assertEqual(view["registry_revision"], 4)
+        self.assertEqual(view["registry_revision"], 5)
         self.assertEqual(view["validation_mode"], "adopted_configuration_validation")
         self.assertFalse(view["authoritative"])
         self.assertFalse(view["executable"])

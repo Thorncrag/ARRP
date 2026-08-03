@@ -2320,8 +2320,8 @@ def validate_v4_registry(
         )
     if not _exact_v4_integer(registry.get("schema_version"), 4):
         raise RegistryError("Component Registry requires exact schema version 4")
-    if not _exact_v4_integer(registry.get("registry_revision"), 4):
-        raise RegistryError("Component Registry requires exact registry revision 4")
+    if not _exact_v4_integer(registry.get("registry_revision"), 5):
+        raise RegistryError("Component Registry requires exact registry revision 5")
     if registry.get("$schema") != "component-registry.schema.json":
         raise RegistryError("Component Registry uses an unapproved schema authority")
     if registry.get("registry_id") != "COMPONENT-REGISTRY":
@@ -2459,7 +2459,7 @@ def validate_v4_registry(
     return {
         "valid": True,
         "registry_id": registry["registry_id"],
-        "registry_revision": 4,
+        "registry_revision": registry["registry_revision"],
         "validation_mode": "adopted_configuration_validation",
         "authoritative": False,
         "executable": False,
@@ -3277,7 +3277,8 @@ def _validate_stage3_authority_repository_binding(
     if (
         readback.get("schema_version") != 2
         or readback.get("registry_id") != stage3_registry.get("registry_id")
-        or readback.get("registry_revision") != 4
+        or readback.get("registry_revision")
+        != stage3_registry.get("registry_revision")
         or readback.get("registry_sha256") != registry_digest
         or not isinstance(bindings, Mapping)
         or set(bindings) != set(interpreter_paths)
@@ -6646,7 +6647,7 @@ def validated_component_registry_routing_view(
     return {
         "schema_version": 4,
         "registry_id": registry["registry_id"],
-        "registry_revision": 4,
+        "registry_revision": registry["registry_revision"],
         "registry_status": "adopted",
         "registry_sha256": digest,
         "authority_sha256": digest,
@@ -6712,10 +6713,17 @@ def _routed_selection_from_view_untyped(
         },
         "live_authority_validation": {
             "authoritative": True,
-            "executable": True,
+            "executable": False,
             "live_authority_verified": True,
             "activation_receipt_consulted": True,
             "predecessor_route_consulted": False,
+            "authority_effective": True,
+            "source_revision_authorized": True,
+            "source_bytes_current": True,
+            "canonical_history_confirmed": True,
+            "receipt_trusted": True,
+            "runtime_live": "not_checked",
+            "registry_component_executable": False,
         },
     }[str(mode)]
     if any(
@@ -6743,7 +6751,7 @@ def _routed_selection_from_view_untyped(
     embedded = json.loads(canonical_json(view["route"]))
     if view.get("predecessor_route_consulted") is not False:
         raise RegistryError("Registry v4 routing forbids predecessor authority")
-    if executable and view.get("executable") is not True:
+    if executable and mode != "live_authority_validation":
         raise RegistryError(
             "configuration validation routing cannot satisfy an executable "
             "consumer"
@@ -6875,7 +6883,7 @@ def _routed_selection_from_view_untyped(
         ],
         "sections": sections,
     }
-    if mode == "online_governed_eligibility":
+    if mode == "live_authority_validation":
         selection.update({
             "authority_sha256": view["authority_sha256"],
             "authority_protocol": view["authority_protocol"],
@@ -7367,6 +7375,35 @@ def validate_context_packet_binding(
                     "required routed material"
                 ),
             )
+        packet_modules = {
+            str(module["document"]): module
+            for module in packet.get("modules", [])
+            if isinstance(module, Mapping)
+            and isinstance(module.get("document"), str)
+        }
+        if any(
+            revisions[identity]
+            != {
+                "path": packet_modules[identity].get("path"),
+                "hash_policy": packet_modules[identity].get("hash_policy"),
+            }
+            or digests[identity] != packet_modules[identity].get("sha256")
+            or reasons[identity]
+            != packet_modules[identity].get("inclusion_reasons")
+            for identity in ordered
+        ):
+            raise RoutingRuleFailure(
+                failure_code="CTXR_PINNED_DIGEST_ABSENT_OR_STALE",
+                phase="packet_build",
+                rule_ids=(
+                    "ctxr.val.packet_manifest_bound",
+                    "ctxr.val.integration_pinned_digest_exact",
+                ),
+                message=(
+                    "Component Registry context packet manifest differs from "
+                    "its routed module contents"
+                ),
+            )
     except RoutingRuleFailure:
         raise
     except (KeyError, TypeError, ValueError) as exc:
@@ -7388,11 +7425,22 @@ def require_executable_routing_selection(
     """Reject preview or malformed selections at an execution boundary."""
     mode = selection.get("validation_mode")
     legacy_live = (
-        mode in {"active_component_registry", "live_authority_validation"}
+        mode == "active_component_registry"
         and selection.get(
             "live_authority_verified",
             selection.get("live_activation_verified", False),
         ) is True
+    )
+    live_authority_selection = (
+        mode == "live_authority_validation"
+        and selection.get("live_authority_verified") is True
+        and selection.get("authority_effective") is True
+        and selection.get("source_revision_authorized") is True
+        and selection.get("source_bytes_current") is True
+        and selection.get("canonical_history_confirmed") is True
+        and selection.get("receipt_trusted") is True
+        and selection.get("runtime_live") == "not_checked"
+        and selection.get("registry_component_executable") is False
     )
     online_eligible = (
         mode == "online_governed_eligibility"
@@ -7407,7 +7455,7 @@ def require_executable_routing_selection(
     if (
         selection.get("selection_kind") != "executable_packet"
         or selection.get("executable") is not True
-        or not (legacy_live or online_eligible)
+        or not (legacy_live or live_authority_selection or online_eligible)
         or selection.get("authoritative") is not True
         or selection.get("activation_receipt_consulted") is not True
         or not isinstance(selection.get("profile"), str)

@@ -814,7 +814,7 @@ class ComponentRegistryV4Tests(unittest.TestCase):
     def test_v4_registry_validates_as_nonauthoritative_adopted_configuration(self):
         result = registry.validate_v4_registry(self.registry, root=ROOT)
         self.assertTrue(result["valid"])
-        self.assertEqual(result["registry_revision"], 4)
+        self.assertEqual(result["registry_revision"], 5)
         self.assertEqual(result["validation_mode"], "adopted_configuration_validation")
         self.assertFalse(result["authoritative"])
         self.assertFalse(result["executable"])
