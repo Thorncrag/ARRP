@@ -2877,6 +2877,11 @@ def git_metadata_snapshot(worktree: Path) -> dict[str, str]:
         "for-each-ref",
         "--format=%(refname)%00%(objectname)",
     ).stdout
+    refs = b"\n".join(
+        record
+        for record in refs.splitlines()
+        if not record.startswith(b"refs/codex/turn-diffs/")
+    )
     return {
         "head": git_text(worktree, "rev-parse", "HEAD"),
         "branch": git_text(worktree, "rev-parse", "--abbrev-ref", "HEAD"),
@@ -4152,7 +4157,10 @@ def run_production_cycle(
             prompt=(
                 "Execute only the exact ARRP work unit bound by "
                 f"{chain} and {context_path}; run_id={transaction.run_id}; "
-                f"unit_id={unit_id}. Return the strict result schema."
+                f"unit_id={unit_id}. Validate context manifest.sha256 using "
+                "its declared sha256_basis; canonical-json-utf8 means parsed "
+                "JSON serialized with sorted keys, compact separators, and "
+                "UTF-8. Return the strict result schema."
             ).encode("utf-8"),
             environment=sealed_environment,
             timeout_seconds=1800,
