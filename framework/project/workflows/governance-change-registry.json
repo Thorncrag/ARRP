@@ -421,7 +421,7 @@
       "title": "Component Registry executable-selection correction",
       "decision_class": "governance_documentation",
       "authority": ["framework/component-registry.json", "framework/component-registry.schema.json", "scripts/component_registry.py", "scripts/build_elim_context.py", "scripts/arrp_nightly.py", "scripts/finalize_component_registry_activation.py", "framework/project/automation/owner-local-runtime.md"],
-      "source": {"kind": "git_merge", "commits": ["9a7178a3569d9f8c2b69183d096684faf3e556b3", "61d2a6614bc9fc41ceaf8d21943d4fdc40e2331c"], "pull_requests": [518]},
+      "source": {"kind": "git_merge", "commits": ["9a7178a3569d9f8c2b69183d096684faf3e556b3", "61d2a6614bc9fc41ceaf8d21943d4fdc40e2331c", "67442ccc794e4635a0fbe26c85ecd99017b0ad64"], "pull_requests": [518, 519]},
       "destination": "framework/logs/governance/governance-change-log.md#gov-2026-022",
       "resolution": "Adopts schema-version-4 Registry revision 5 to keep the Registry and live-authority view nonexecutable while permitting a separately executable primary-profile selection after exact live-authority checks; preserves authority generation 4, the existing five-file receipt family, the component and routing inventories, and all revision-4 historical evidence.",
       "consumers": ["project_update_closeout", "governance_change_review", "change_audit_review", "console_governance_review", "console_builder"],

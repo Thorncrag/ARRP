@@ -44,8 +44,11 @@ remains separate and unchanged.
   `61d2a6614bc9fc41ceaf8d21943d4fdc40e2331c`. The implementation merge
   parents are exactly the prior canonical main and the approved head, its tree
   equals the approved-head tree, and the Registry plus all five receipt-bound
-  interpreter files remain byte-identical. The governance-only closeout anchor,
-  PR, final head, merge, and later activation receipt remain pending.
+  interpreter files remain byte-identical. Governance-only closeout anchor
+  `67442ccc794e4635a0fbe26c85ecd99017b0ad64` and PR #519 record the
+  canonical evidence. The exact final PR #519 head is the final commit
+  containing this record and is separately approved and read back before
+  merge; its merge and the later activation receipt remain pending.
 - Policy adoption: Adopted on canonical history through exact approved PR #518
   head `9a7178a3569d9f8c2b69183d096684faf3e556b3` and merge
   `61d2a6614bc9fc41ceaf8d21943d4fdc40e2331c`; governance-only closeout records
