@@ -42,6 +42,14 @@ The strictest applicable category controls. Unknown is never public.
 Substantively controversial public-policy research is not restricted merely
 because of its subject.
 
+Human-readable internal operational reports live outside Git repositories and
+are nonpublic by default. A report enters this repository only through an
+affirmative publication or product decision. For an exact outbound Git range,
+a non-removal report-like path must be under `framework/reports/` and must have
+one exact Component Registry document/report component with explicit
+`public-project-report` information handling. A path location, safe-content
+scan, or generic public family is not affirmative report classification.
+
 ## Absolute secret rule
 
 Credentials and secrets may not be ingested into a publishable artifact,

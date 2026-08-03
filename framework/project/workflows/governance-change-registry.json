@@ -430,6 +430,22 @@
       "live_activation": "Not active. Automation remains Paused. The receipt issued for `d5799ff4b27a17f3c685518f7277820a6713a7fd` no longer proves current interpreter bytes after the approved repair. A new live-authority claim requires the separately governed, digest-addressed owner-local receipt binding the exact revision-5 Registry and existing five interpreter paths at the final repair-closeout revision.",
       "relationships": {"supersedes": [], "refines": ["GOV-2026-021"], "refined_by": [], "proposed_refinements": []},
       "private_supplement_required": true
+    },
+    {
+      "id": "GOV-2026-023",
+      "date": "2026-08-03",
+      "title": "Central internal-report routing and affirmative public-report admission",
+      "decision_class": "security_privacy_disclosure",
+      "authority": ["framework/component-registry.json", "framework/project/github/disclosure-boundary.md", "framework/project/github/disclosure-policy.json", "scripts/github_disclosure_gate.py"],
+      "source": {"kind": "current_worktree", "commits": [], "pull_requests": []},
+      "destination": "framework/logs/governance/governance-change-log.md#gov-2026-023",
+      "resolution": "Proposes Registry revision 6 and a narrow exact-commit publication stop: internal reports remain owner-local and nonpublic by default, while a changed report-like repository artifact requires an exact registered public-project-report classification before publication.",
+      "consumers": ["project_update_closeout", "disclosure_review", "github_publisher", "console_builder"],
+      "status": "Proposed / unmerged",
+      "policy_adoption": "Proposed in one validated local commit only. No push, pull request, merge, publication, or canonical remote adoption is represented.",
+      "live_activation": "Not active. No automation, runtime, service, scheduler, credential, or external state changes.",
+      "relationships": {"supersedes": [], "refines": ["GOV-2026-002", "GOV-2026-022"], "refined_by": [], "proposed_refinements": []},
+      "private_supplement_required": true
     }
   ]
 }

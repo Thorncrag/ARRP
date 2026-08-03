@@ -1301,11 +1301,11 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertFalse(snapshot["registry"]["receipt_trusted"])
         self.assertEqual(snapshot["registry"]["runtime_live"], "not_checked")
         self.assertFalse(snapshot["registry"]["predecessor_route_consulted"])
-        self.assertEqual(len(snapshot["components"]), 105)
+        self.assertEqual(len(snapshot["components"]), 110)
         self.assertEqual(len(snapshot["classifications"]["classes"]), 8)
         self.assertEqual(len(snapshot["classifications"]["types"]), 37)
-        self.assertEqual(len(snapshot["lifecycles"]["assignments"]), 105)
-        self.assertEqual(len(snapshot["authorities"]["assignments"]), 105)
+        self.assertEqual(len(snapshot["lifecycles"]["assignments"]), 110)
+        self.assertEqual(len(snapshot["authorities"]["assignments"]), 110)
         self.assertEqual(len(snapshot["relationships"]), 16)
         self.assertEqual(len(snapshot["coverage"]["records"]), 62)
         self.assertEqual(len(snapshot["coverage"]["directories"]), 59)
@@ -1456,7 +1456,7 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertEqual(
             {key: len(value) for key, value in snapshot["records"].items()},
             {
-                "components": 105,
+                "components": 110,
                 "relationships": 16,
                 "directory_scopes": 59,
                 "registration_exemptions": 3,
@@ -1464,13 +1464,13 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "terminology": 87,
             },
         )
-        self.assertEqual(MODULE.component_registry_projection_count(snapshot), 334)
+        self.assertEqual(MODULE.component_registry_projection_count(snapshot), 339)
         self.assertEqual(len(snapshot["derived"]["classifications"]["classes"]), 8)
         self.assertEqual(len(snapshot["derived"]["classifications"]["types"]), 37)
-        self.assertEqual(len(snapshot["derived"]["lifecycles"]["assignments"]), 105)
-        self.assertEqual(len(snapshot["derived"]["authorities"]["assignments"]), 105)
+        self.assertEqual(len(snapshot["derived"]["lifecycles"]["assignments"]), 110)
+        self.assertEqual(len(snapshot["derived"]["authorities"]["assignments"]), 110)
         self.assertEqual(len(snapshot["derived"]["routing"]["selections"]), 27)
-        self.assertEqual(len(snapshot["derived"]["codeowners"]["records"]), 164)
+        self.assertEqual(len(snapshot["derived"]["codeowners"]["records"]), 169)
         entry_fields = snapshot["linked"]["component_entry_fields"]
         self.assertEqual(set(entry_fields), {
             record["stable_id"] for record in snapshot["records"]["components"]
@@ -1535,7 +1535,15 @@ class ConsoleDataContractTests(unittest.TestCase):
             record["stable_id"]: record
             for record in snapshot["records"]["components"]
         }
-        self.assertEqual(set(current_components), set(baseline_components))
+        added_public_reports = {
+            component_id
+            for component_id in current_components
+            if component_id.startswith("report_")
+        }
+        self.assertEqual(len(added_public_reports), 5)
+        self.assertEqual(
+            set(current_components), set(baseline_components) | added_public_reports
+        )
         for component_id, before in baseline_components.items():
             after = current_components[component_id]
             locator = before["canonical_source"]["locator"]
@@ -1630,7 +1638,14 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "assignments"
             ]
         }
-        self.assertEqual(after_authority, before_authority)
+        self.assertEqual(
+            set(after_authority), set(before_authority) | added_public_reports
+        )
+        for component_id, authoritative in before_authority.items():
+            self.assertEqual(after_authority[component_id], authoritative)
+        self.assertTrue(
+            all(after_authority[component_id] is True for component_id in added_public_reports)
+        )
 
         before_scopes = baseline["directory_scopes"]["entries"]
         after_scopes = {
@@ -1653,6 +1668,12 @@ class ConsoleDataContractTests(unittest.TestCase):
         self.assertEqual(set(after_scopes), set(before_scopes))
         for scope_id, before in before_scopes.items():
             after = after_scopes[scope_id]
+            if scope_id == "framework_reports":
+                self.assertEqual(after["path_pattern"], before["path_pattern"])
+                self.assertEqual(after["match_kind"], before["match_kind"])
+                self.assertEqual(after["specificity_rank"], before["specificity_rank"])
+                self.assertIn("classification must precede placement", after["purpose"])
+                continue
             self.assertEqual(
                 {
                     field: before.get(

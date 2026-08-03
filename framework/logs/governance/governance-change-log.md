@@ -14,6 +14,35 @@ Current governing documents remain authoritative; Git remains the exact-diff
 authority. The historical [Change Audit Log](../audits/change-audit-log.md)
 remains separate and unchanged.
 
+## GOV-2026-023 — Central internal-report routing and affirmative public-report admission
+
+- Date: 2026-08-03
+- Status: Proposed / unmerged
+- Decision class: security_privacy_disclosure
+- Authorities: framework/component-registry.json;
+  framework/project/github/disclosure-boundary.md;
+  framework/project/github/disclosure-policy.json;
+  scripts/github_disclosure_gate.py
+- Decision: Proposes Registry revision 6 and a narrow exact-commit publication
+  stop. Internal operational reports remain owner-local and nonpublic by
+  default. A changed report-like repository artifact must be within the
+  deliberate public-report scope and have one exact Registry document/report
+  component with explicit `public-project-report` information handling.
+- Evidence: Benjamin's exact design-lock approval for
+  `CODEX-ARRP-REPORT-ROUTING-SIMPLIFICATION-2026-08-03` revision 2; focused
+  Registry, disclosure-gate, Console, and governance validation; final local
+  commit identity remains to be recorded at closeout.
+- Policy adoption: Proposed in one validated local commit only. No push, pull
+  request, merge, publication, or canonical remote adoption is represented.
+- Live activation: Not active. No automation, runtime, service, scheduler,
+  credential, or external state changes.
+- Relationships: Refines GOV-2026-002 and GOV-2026-022 without changing the
+  Registry's nonexecutable authority boundary.
+- Validation: Registered public report passes; unregistered, internal,
+  outside-scope, and unknown report-like paths fail; removals and ordinary
+  non-report paths retain their existing behavior.
+- Owner-local supplement: Required.
+
 ## GOV-2026-022 — Component Registry executable-selection correction
 
 - Date: 2026-08-03

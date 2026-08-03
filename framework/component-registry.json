@@ -2,7 +2,7 @@
   "$schema": "component-registry.schema.json",
   "schema_version": 4,
   "registry_id": "COMPONENT-REGISTRY",
-  "registry_revision": 5,
+  "registry_revision": 6,
   "terminology": {
     "schema_version": 4,
     "order": [
@@ -1127,16 +1127,17 @@
         ]
       },
       "framework_reports": {
-        "display_name": "Public-safe completed reports",
+        "display_name": "Deliberately public project reports",
         "path_pattern": "framework/reports/",
         "match_kind": "prefix",
         "specificity_rank": 20,
-        "purpose": "Canonical repository home for public-safe completed reports.",
-        "placement_question": "Does the artifact satisfy the registered purpose of Public-safe completed reports?",
+        "purpose": "Canonical repository home for affirmatively classified public product and content reports; classification must precede placement.",
+        "placement_question": "Has this exact report been affirmatively classified for public product or content publication before placement?",
         "include_when": [
-          "The artifact has one canonical placement within Public-safe completed reports."
+          "The exact report has an explicit public information-handling classification and one canonical placement within Deliberately public project reports."
         ],
         "exclude_when": [
+          "The artifact is an internal operational report, implementation-learning record, raw evidence, or another artifact without affirmative public classification.",
           "Another registered scope is the more specific canonical home."
         ],
         "allow_children": true,
@@ -3047,6 +3048,36 @@
           "disclosure_rule": "public_operational_summary"
         },
         "operational_status": "paused"
+      },
+      "report_automation_failure_observability_repair_2026_07_26": {
+        "display_name": "Automation Failure Observability and Dispatcher-State Repair",
+        "classification": {"component_class": "document", "component_type": "report"},
+        "canonical_source": "framework/reports/automation/automation-failure-observability-repair-2026-07-26.md",
+        "information_handling": {"information_classification": "public_by_design", "disclosure_rule": "public-project-report"}
+      },
+      "report_private_runtime_dual_incident_design_2026_07_29": {
+        "display_name": "Private Runtime and Dual-Incident Design Closure Matrix",
+        "classification": {"component_class": "document", "component_type": "report"},
+        "canonical_source": "framework/reports/automation/private-runtime-dual-incident-design-2026-07-29.md",
+        "information_handling": {"information_classification": "public_by_design", "disclosure_rule": "public-project-report"}
+      },
+      "report_console_consistency_remedy_2026_07_28": {
+        "display_name": "Console Consistency Remedy Closure Matrix",
+        "classification": {"component_class": "document", "component_type": "report"},
+        "canonical_source": "framework/reports/interfaces/console-consistency-remedy-2026-07-28.md",
+        "information_handling": {"information_classification": "public_by_design", "disclosure_rule": "public-project-report"}
+      },
+      "report_project_console_comprehensive_review_2026_07_25": {
+        "display_name": "ARRP Project Console Comprehensive Review and Assessment",
+        "classification": {"component_class": "document", "component_type": "report"},
+        "canonical_source": "framework/reports/interfaces/project-console-comprehensive-review-2026-07-25.md",
+        "information_handling": {"information_classification": "public_by_design", "disclosure_rule": "public-project-report"}
+      },
+      "report_project_console_implementation_2026_07_25": {
+        "display_name": "ARRP Project Console Implementation Report",
+        "classification": {"component_class": "document", "component_type": "report"},
+        "canonical_source": "framework/reports/interfaces/project-console-implementation-report-2026-07-25.md",
+        "information_handling": {"information_classification": "public_by_design", "disclosure_rule": "public-project-report"}
       },
       "governance_change_log": {
         "display_name": "Governance Change Log",

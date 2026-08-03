@@ -2320,8 +2320,8 @@ def validate_v4_registry(
         )
     if not _exact_v4_integer(registry.get("schema_version"), 4):
         raise RegistryError("Component Registry requires exact schema version 4")
-    if not _exact_v4_integer(registry.get("registry_revision"), 5):
-        raise RegistryError("Component Registry requires exact registry revision 5")
+    if not _exact_v4_integer(registry.get("registry_revision"), 6):
+        raise RegistryError("Component Registry requires exact registry revision 6")
     if registry.get("$schema") != "component-registry.schema.json":
         raise RegistryError("Component Registry uses an unapproved schema authority")
     if registry.get("registry_id") != "COMPONENT-REGISTRY":
@@ -2342,7 +2342,7 @@ def validate_v4_registry(
         raise RegistryError("Registry v4 terminology is not exact")
     terms = terminology["entries"]
     if (
-        len(components) != 105
+        len(components) != 110
         or len(scopes) != 59
         or len(relationships) != 16
         or len(exemptions) != 3

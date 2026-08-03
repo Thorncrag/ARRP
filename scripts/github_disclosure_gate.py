@@ -52,6 +52,14 @@ GITHUB_REMOTE = "origin"
 GITHUB_REMOTE_URL = "https://github.com/Thorncrag/ARRP.git"
 BRANCH_REF_DELETE_PATH = "github/control/branch-ref-delete"
 BRANCH_REF_DELETE_PRODUCER = "interactive-reviewed-github"
+COMPONENT_REGISTRY_PATH = "framework/component-registry.json"
+REPORT_LIKE_PATH = re.compile(
+    r"(?:^|[-_/])(report|reports|audit|review|postmortem|assessment)(?:$|[-_./])",
+    re.IGNORECASE,
+)
+REPORT_DOCUMENT_SUFFIXES = frozenset(
+    {".doc", ".docx", ".html", ".md", ".odt", ".pdf", ".rtf", ".txt"}
+)
 
 SECRET_PATTERNS: tuple[tuple[str, re.Pattern[bytes]], ...] = (
     (
@@ -830,6 +838,75 @@ def _blob(repository: Path, revision: str, path: str) -> bytes:
     return _git_output(repository, "cat-file", "blob", fields[2].decode("ascii"))
 
 
+def _require_public_report_registration(
+    repository: Path,
+    revision: str,
+    artifacts: Sequence[OutboundArtifact],
+) -> None:
+    report_paths = [
+        artifact.path
+        for artifact in artifacts
+        if (
+            not artifact.removal_only
+            and Path(artifact.path).suffix.lower() in REPORT_DOCUMENT_SUFFIXES
+            and REPORT_LIKE_PATH.search(artifact.path)
+        )
+    ]
+    if not report_paths:
+        return
+    try:
+        registry = json.loads(
+            _blob(repository, revision, COMPONENT_REGISTRY_PATH).decode("utf-8")
+        )
+        entries = registry["components"]["entries"]
+    except (DisclosureBlocked, KeyError, TypeError, ValueError, UnicodeDecodeError, json.JSONDecodeError) as error:
+        raise DisclosureBlocked(
+            _unavailable_decision("public-report-registry-unavailable")
+        ) from error
+    if (
+        registry.get("schema_version") != 4
+        or registry.get("registry_revision") != 6
+        or not isinstance(entries, Mapping)
+    ):
+        raise DisclosureBlocked(
+            _unavailable_decision("public-report-registry-revision-invalid")
+        )
+    for path in report_paths:
+        if not path.startswith("framework/reports/"):
+            raise DisclosureBlocked(
+                {
+                    "schema_version": 1,
+                    "allowed": False,
+                    "complete": False,
+                    "category": "restricted_operational",
+                    "findings": [_finding(path, None, "report-outside-public-project-scope", "restricted_operational")],
+                }
+            )
+        matches = [
+            component
+            for component in entries.values()
+            if isinstance(component, Mapping)
+            and component.get("canonical_source") == path
+            and component.get("classification")
+            == {"component_class": "document", "component_type": "report"}
+            and component.get("information_handling")
+            == {
+                "information_classification": "public_by_design",
+                "disclosure_rule": "public-project-report",
+            }
+        ]
+        if len(matches) != 1:
+            raise DisclosureBlocked(
+                {
+                    "schema_version": 1,
+                    "allowed": False,
+                    "complete": False,
+                    "category": "restricted_operational",
+                    "findings": [_finding(path, "public-project-report", "unregistered-public-project-report", "restricted_operational")],
+                }
+            )
+
+
 def authorize_git_push(
     repository: Path,
     *,
@@ -930,6 +1007,7 @@ def authorize_git_push(
             separators=(",", ":"),
         ).encode("utf-8")
     ).hexdigest()
+    _require_public_report_registration(repository, head, artifacts)
     decision = require_outbound_bundle(
         artifacts,
         operation="git_push",
