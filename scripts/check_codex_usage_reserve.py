@@ -87,66 +87,79 @@ def fetch_rate_limits(codex_executable: str, timeout_seconds: int) -> dict[str, 
     )
 
     try:
-        for request in requests:
+        deadline = time.monotonic() + timeout_seconds
+        buffered = b""
+
+        def send(request: dict[str, Any]) -> None:
             process.stdin.write(
                 (json.dumps(request, separators=(",", ":")) + "\n").encode(
                     "utf-8"
                 )
             )
-        process.stdin.flush()
+            process.stdin.flush()
 
-        deadline = time.monotonic() + timeout_seconds
-        buffered = b""
-        while time.monotonic() < deadline:
-            ready, _, _ = select.select(
-                [process.stdout],
-                [],
-                [],
-                min(1, deadline - time.monotonic()),
-            )
-            if not ready:
-                continue
-            chunk = os.read(process.stdout.fileno(), 65536)
-            if not chunk:
-                try:
-                    returncode = process.wait(timeout=1)
-                except subprocess.TimeoutExpired:
-                    returncode = process.poll()
-                diagnostic = ""
-                if returncode is not None and process.stderr is not None:
-                    diagnostic = process.stderr.read(4096).decode(
-                        "utf-8", "replace"
-                    ).strip()
-                detail = f" (status {returncode})"
-                if diagnostic:
-                    detail += ": " + diagnostic[:500]
-                raise UsageGateError(
-                    "Codex app-server exited before the rate-limit response"
-                    + detail
+        def read_response(expected_id: int, label: str) -> dict[str, Any]:
+            nonlocal buffered
+            while time.monotonic() < deadline:
+                ready, _, _ = select.select(
+                    [process.stdout],
+                    [],
+                    [],
+                    min(1, deadline - time.monotonic()),
                 )
-            buffered += chunk
-            while b"\n" in buffered:
-                line, buffered = buffered.split(b"\n", 1)
-                if not line:
+                if not ready:
                     continue
-                try:
-                    response = json.loads(line)
-                except json.JSONDecodeError:
-                    continue
-                if response.get("id") != 1:
-                    continue
-                if response.get("error"):
-                    message = response["error"].get(
-                        "message", "unknown app-server error"
-                    )
+                chunk = os.read(process.stdout.fileno(), 65536)
+                if not chunk:
+                    try:
+                        returncode = process.wait(timeout=1)
+                    except subprocess.TimeoutExpired:
+                        returncode = process.poll()
+                    diagnostic = ""
+                    if returncode is not None and process.stderr is not None:
+                        diagnostic = process.stderr.read(4096).decode(
+                            "utf-8", "replace"
+                        ).strip()
+                    detail = f" (status {returncode})"
+                    if diagnostic:
+                        detail += ": " + diagnostic[:500]
                     raise UsageGateError(
-                        f"Codex rate-limit request failed: {message}"
+                        f"Codex app-server exited before the {label} response"
+                        + detail
                     )
-                result = response.get("result")
-                if not isinstance(result, dict):
-                    raise UsageGateError("Codex returned no rate-limit result")
-                return result
-        raise UsageGateError("Codex rate-limit request timed out")
+                buffered += chunk
+                while b"\n" in buffered:
+                    line, buffered = buffered.split(b"\n", 1)
+                    if not line:
+                        continue
+                    try:
+                        response = json.loads(line)
+                    except json.JSONDecodeError:
+                        continue
+                    if response.get("id") != expected_id:
+                        continue
+                    if response.get("error"):
+                        message = response["error"].get(
+                            "message", "unknown app-server error"
+                        )
+                        raise UsageGateError(
+                            f"Codex {label} request failed: {message}"
+                        )
+                    return response
+            raise UsageGateError(f"Codex {label} request timed out")
+
+        send(requests[0])
+        initialize = read_response(0, "initialize")
+        if not isinstance(initialize.get("result"), dict):
+            raise UsageGateError("Codex returned no initialize result")
+
+        send(requests[1])
+        send(requests[2])
+        response = read_response(1, "rate-limit")
+        result = response.get("result")
+        if not isinstance(result, dict):
+            raise UsageGateError("Codex returned no rate-limit result")
+        return result
     finally:
         if process.poll() is None:
             process.terminate()
