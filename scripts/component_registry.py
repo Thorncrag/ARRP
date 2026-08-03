@@ -3262,7 +3262,6 @@ def _validate_stage3_authority_repository_binding(
     readback: Mapping[str, Any],
     *,
     root: Path,
-    transaction: bool = False,
 ) -> None:
     registry_digest = _canonical_registry_digest(stage3_registry)
     interpreter_paths = (
@@ -3306,8 +3305,7 @@ def _validate_stage3_authority_repository_binding(
     if (
         head is None
         or re.fullmatch(r"[0-9a-f]{40}", origin_main) is None
-        or (not transaction and head != origin_main)
-        or (transaction and not _git_is_ancestor(root, origin_main, head))
+        or head != origin_main
         or not _git_is_ancestor(root, revisions[3], canonical_revision)
         or not _git_is_ancestor(root, canonical_revision, head)
         or not _git_is_ancestor(root, canonical_revision, origin_main)
@@ -3386,7 +3384,6 @@ def _load_fixed_stage3_authority_readback(
         stage3_registry,
         readback,
         root=authority.repository_root,
-        transaction=authority.mode == "production_transaction",
     )
     return readback
 
