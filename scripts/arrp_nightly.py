@@ -3663,6 +3663,7 @@ def _usage_remaining(
     worktree: Path,
     run_id: str,
     reserve_percent: float,
+    baseline_root: Path,
 ) -> float | None:
     result = _run_production_command(
         (
@@ -3674,6 +3675,8 @@ def _usage_remaining(
             str(reserve_percent),
             "--run-baseline-id",
             run_id,
+            "--baseline-root",
+            str(baseline_root),
         ),
         cwd=worktree,
         accepted=frozenset({0, 2, 3}),
@@ -3930,6 +3933,7 @@ def run_production_cycle(
         worktree,
         transaction.run_id,
         reserve,
+        config.state_root / "usage-baselines",
     )
     empty_results = run_dir / "stage-results.json"
     atomic_write_json(empty_results, {})

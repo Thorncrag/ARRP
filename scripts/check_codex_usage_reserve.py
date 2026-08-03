@@ -42,12 +42,15 @@ class RateLimitWindowChanged(UsageGateError):
     """Raised when a material window change requires confirmation."""
 
 
-def managed_run_baseline_path(baseline_id: str) -> Path:
+def managed_run_baseline_path(
+    baseline_id: str,
+    baseline_root: Path = USAGE_BASELINE_ROOT,
+) -> Path:
     """Map an opaque bounded invocation ID into the fixed private state tree."""
     if SAFE_BASELINE_ID.fullmatch(baseline_id) is None:
         raise UsageGateError("run-usage baseline ID is invalid")
     digest = hashlib.sha256(baseline_id.encode("utf-8")).hexdigest()
-    return USAGE_BASELINE_ROOT / f"{digest}.json"
+    return baseline_root / f"{digest}.json"
 
 
 def iso_timestamp(unix_seconds: int) -> str:
@@ -495,6 +498,7 @@ def parse_args() -> argparse.Namespace:
         default=DEFAULT_SOFT_TARGET_PERCENT,
     )
     parser.add_argument("--run-baseline-id")
+    parser.add_argument("--baseline-root", type=Path, default=USAGE_BASELINE_ROOT)
     parser.add_argument("--timeout-seconds", type=int, default=DEFAULT_TIMEOUT_SECONDS)
     return parser.parse_args()
 
@@ -527,7 +531,7 @@ def main() -> int:
 
     try:
         baseline_path = (
-            managed_run_baseline_path(args.run_baseline_id)
+            managed_run_baseline_path(args.run_baseline_id, args.baseline_root)
             if args.run_baseline_id is not None
             else None
         )
