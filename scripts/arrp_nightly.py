@@ -2865,10 +2865,13 @@ def validate_sealed_feature_readback(text: str) -> None:
 def git_metadata_snapshot(worktree: Path) -> dict[str, str]:
     git_pointer = worktree / ".git"
     pointer_bytes = git_pointer.read_bytes() if git_pointer.is_file() else b""
-    index_path = Path(git_text(worktree, "rev-parse", "--git-path", "index"))
-    if not index_path.is_absolute():
-        index_path = worktree / index_path
-    index_bytes = index_path.read_bytes() if index_path.exists() else b""
+    index_state = git(
+        worktree,
+        "ls-files",
+        "-v",
+        "--stage",
+        "-z",
+    ).stdout
     refs = git(
         worktree,
         "for-each-ref",
@@ -2877,7 +2880,7 @@ def git_metadata_snapshot(worktree: Path) -> dict[str, str]:
     return {
         "head": git_text(worktree, "rev-parse", "HEAD"),
         "branch": git_text(worktree, "rev-parse", "--abbrev-ref", "HEAD"),
-        "index_sha256": hashlib.sha256(index_bytes).hexdigest(),
+        "index_sha256": hashlib.sha256(index_state).hexdigest(),
         "refs_sha256": hashlib.sha256(refs).hexdigest(),
         "git_pointer_sha256": hashlib.sha256(pointer_bytes).hexdigest(),
     }
