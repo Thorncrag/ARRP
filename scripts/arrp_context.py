@@ -1040,7 +1040,6 @@ def build_context_packet(
         manifest = json.loads(canonical_json(manifest_path))
         manifest_display_path = str(routing_authority_identity["path"])
         manifest_sha = str(routing_authority_identity["sha256"])
-        manifest_sha_basis = "canonical-json-utf8"
         routing_registry_id = str(
             routing_authority_identity["registry_id"]
         )
@@ -1065,7 +1064,6 @@ def build_context_packet(
             Path(os.path.realpath(os.fspath(root)))
         ).as_posix()
         manifest_sha = sha256_path(manifest_path, root)
-        manifest_sha_basis = "file-bytes"
         routing_registry_id = "context-routes"
         routing_registry_revision = int(manifest["schema_version"])
         routing_validation_mode = "predecessor_routing"
@@ -1376,7 +1374,6 @@ def build_context_packet(
         "manifest": {
             "path": manifest_display_path,
             "sha256": manifest_sha,
-            "sha256_basis": manifest_sha_basis,
         },
         "limits": {"max_bytes": effective_limit, "actual_bytes": total},
         "capabilities": selected_capabilities,

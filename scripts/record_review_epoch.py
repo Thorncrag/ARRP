@@ -660,7 +660,6 @@ def _validate_governing_boundary_untyped(
     expected_identity = {
         "path": routing_view["registry_path"],
         "sha256": routing_view["registry_sha256"],
-        "sha256_basis": "canonical-json-utf8",
     }
     if registry_identity != expected_identity:
         raise ValueError(

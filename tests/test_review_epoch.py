@@ -171,7 +171,6 @@ def boundary(
         "manifest": {
             "path": view["registry_path"],
             "sha256": view["registry_sha256"],
-            "sha256_basis": "canonical-json-utf8",
         },
         "routing_manifest": {
             "registry_id": view["registry_id"],

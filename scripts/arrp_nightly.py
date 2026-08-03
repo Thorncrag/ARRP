@@ -4157,10 +4157,10 @@ def run_production_cycle(
             prompt=(
                 "Execute only the exact ARRP work unit bound by "
                 f"{chain} and {context_path}; run_id={transaction.run_id}; "
-                f"unit_id={unit_id}. Validate context manifest.sha256 using "
-                "its declared sha256_basis; canonical-json-utf8 means parsed "
-                "JSON serialized with sorted keys, compact separators, and "
-                "UTF-8. Return the strict result schema."
+                f"unit_id={unit_id}. The Component Registry manifest SHA-256 "
+                "is computed from parsed JSON serialized as UTF-8 with sorted "
+                "keys and compact separators, not from formatted file bytes. "
+                "Return the strict result schema."
             ).encode("utf-8"),
             environment=sealed_environment,
             timeout_seconds=1800,
