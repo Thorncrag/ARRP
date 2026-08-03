@@ -5212,8 +5212,15 @@ def committed_range_manifest(
 ) -> list[IndexRecord]:
     """Classify the complete publication range, including checkpoint ancestry."""
 
+    routing_repository = (
+        path_authority.repository_root
+        if require_active_registry
+        and path_authority is not None
+        and path_authority.mode == "production_canonical"
+        else repository
+    )
     dynamic_protected = governing_protected_paths(
-        repository,
+        routing_repository,
         path_authority=path_authority,
         require_active_registry=require_active_registry,
     )
@@ -5617,7 +5624,7 @@ def publish_production_transaction(
         head_commit=expected_head,
         path_authority=routing_path_authority(
             config,
-            worktree,
+            config.canonical_path,
             output_root=run_dir,
         ),
         require_active_registry=True,
