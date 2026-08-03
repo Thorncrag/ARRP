@@ -5624,7 +5624,11 @@ def publish_production_transaction(
         head_commit=expected_head,
         path_authority=routing_path_authority(
             config,
-            config.canonical_path,
+            (
+                config.canonical_path
+                if config.fixture_root is None
+                else worktree
+            ),
             output_root=run_dir,
         ),
         require_active_registry=True,
