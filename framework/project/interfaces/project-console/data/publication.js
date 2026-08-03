@@ -9433,11 +9433,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sort_key": "framework/status-current project integrity report",
       "internal_links": [
         {
-          "path": "project/automation/runbooks/project-integrity-bot.md",
-          "exists": false
+          "path": "framework/project/automation/runbooks/project-integrity-bot.md",
+          "exists": true
         }
       ],
-      "word_count": 103,
+      "word_count": 92,
       "estimated_pages": 1,
       "table_count": 0,
       "max_table_columns": 0,
@@ -15328,7 +15328,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
         "page_count": 505,
-        "modified_at": "2026-08-03T11:48:44+00:00",
+        "modified_at": "2026-08-03T14:35:39+00:00",
         "stale": true
       }
     ],
@@ -16656,7 +16656,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "link_export_validation": {
         "link_inventory_available": true,
         "internal_link_count": 1281,
-        "missing_link_count": 30,
+        "missing_link_count": 29,
         "missing_links": [
           {
             "source": "framework/archive/authorities/AGENT_BOT_REGISTRY.md",
@@ -16713,10 +16713,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           {
             "source": "framework/archive/authorities/REPOSITORY_MAP.md",
             "target": "framework/archive/authorities/workflows/navigation-sync.md"
-          },
-          {
-            "source": "framework/status/project-integrity-report.md",
-            "target": "project/automation/runbooks/project-integrity-bot.md"
           },
           {
             "source": "framework/archive/operational/framework-records-README.md",
@@ -18517,16 +18513,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "integrity_validation": {
         "available": true,
-        "result": "findings",
+        "result": "clean",
         "counts": {
-          "errors": 1,
-          "warnings": 1,
-          "findings": 2,
+          "errors": 0,
+          "warnings": 0,
+          "findings": 0,
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "66f51b623c40f9a355759c5deae67b66b1da4b83",
-        "generated_at": "2026-08-03T11:49:22+00:00"
+        "revision": "4809dde6e664bd857263d5e117386da9eb3dc0d5",
+        "generated_at": "2026-08-03T14:40:55+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20282,6 +20278,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-75c5d896d1e1903c2646"
+    "publication.js": "project-console-557229c8069a6aa989b7"
   }
 });

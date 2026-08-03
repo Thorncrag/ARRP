@@ -10,19 +10,16 @@ print_exclusion_reason: "Internal operational report."
 
 ## Current Result
 
-- **Result:** Findings require review
-- **Errors:** 1
-- **Warnings:** 1
+- **Result:** Clean
+- **Errors:** 0
+- **Warnings:** 0
 - **Issue pages checked:** 64
 - **Proposal pages checked:** 41
 
 ## Current Findings
 
-### Internal links
-
-- **ERROR:** A typed integrity error requires review.
-- **WARNING:** A typed integrity finding requires review.
+No repeatable integrity findings are currently reported.
 
 ## Checks Included
 
-The authoritative check inventory is maintained in the [Project Integrity Bot runbook](../../project/automation/runbooks/project-integrity-bot.md#checks-included).
+The authoritative check inventory is maintained in the [Project Integrity Bot runbook](../project/automation/runbooks/project-integrity-bot.md#checks-included).
