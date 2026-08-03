@@ -5617,20 +5617,26 @@ def publish_production_transaction(
         raise TransactionError("production cycle omitted last-success evidence")
     expected_head = git_text(worktree, "rev-parse", "HEAD")
     run_dir = config.state_root / "runs" / transaction.run_id
+    transaction_path_authority = routing_path_authority(
+        config,
+        worktree,
+        output_root=run_dir,
+    )
+    publication_path_authority = (
+        routing_path_authority(
+            config,
+            config.canonical_path,
+            output_root=run_dir,
+        )
+        if transaction_path_authority.mode == "production_transaction"
+        else transaction_path_authority
+    )
     publication_range = classify_publication_range(
         worktree,
         run_dir,
         base_commit=transaction.fetched_origin_main,
         head_commit=expected_head,
-        path_authority=routing_path_authority(
-            config,
-            (
-                config.canonical_path
-                if config.fixture_root is None
-                else worktree
-            ),
-            output_root=run_dir,
-        ),
+        path_authority=publication_path_authority,
         require_active_registry=True,
     )
     if final.get("commit") is not None and expected_head != final.get("commit"):
