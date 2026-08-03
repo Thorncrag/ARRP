@@ -573,6 +573,19 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                 "production_transaction",
                 side_effect=self.fixture_production_transaction,
             ) as authority_constructor,
+            mock.patch.object(
+                MODULE,
+                "load_validated_component_registry_routing_view",
+                return_value={
+                    "registry_path": "framework/component-registry.json",
+                    "registry_sha256": "a" * 64,
+                },
+            ),
+            mock.patch.object(
+                MODULE,
+                "routed_configuration_documents_from_view",
+                return_value={"modules": []},
+            ),
         ):
             result = MODULE.run_production_cycle(
                 self.config,
@@ -580,7 +593,8 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                 self.runtime,
             )
 
-        authority_constructor.assert_called_once_with(
+        self.assertEqual(authority_constructor.call_count, 2)
+        authority_constructor.assert_called_with(
             repository_root=self.worktree.resolve(),
             run_root=self.run_dir,
         )
@@ -798,6 +812,24 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                 "produce_repository_gate_snapshot",
                 return_value={"schema_version": 1, "availability": "current", "complete": True, "count": 0, "items": []},
             ),
+            mock.patch.object(
+                MODULE,
+                "routing_path_authority",
+                return_value=mock.sentinel.routing_authority,
+            ),
+            mock.patch.object(
+                MODULE,
+                "load_validated_component_registry_routing_view",
+                return_value={
+                    "registry_path": "framework/component-registry.json",
+                    "registry_sha256": "a" * 64,
+                },
+            ),
+            mock.patch.object(
+                MODULE,
+                "routed_configuration_documents_from_view",
+                return_value={"modules": []},
+            ),
             mock.patch.object(MODULE, "verify_worktree_entrypoint"),
         ):
             with self.assertRaisesRegex(
@@ -882,6 +914,24 @@ class ArrpProductionCycleIntegrationTests(unittest.TestCase):
                         MODULE,
                         "produce_repository_gate_snapshot",
                         return_value={"schema_version": 1, "availability": "current", "complete": True, "count": 0, "items": []},
+                    ),
+                    mock.patch.object(
+                        MODULE,
+                        "routing_path_authority",
+                        return_value=mock.sentinel.routing_authority,
+                    ),
+                    mock.patch.object(
+                        MODULE,
+                        "load_validated_component_registry_routing_view",
+                        return_value={
+                            "registry_path": "framework/component-registry.json",
+                            "registry_sha256": "a" * 64,
+                        },
+                    ),
+                    mock.patch.object(
+                        MODULE,
+                        "routed_configuration_documents_from_view",
+                        return_value={"modules": []},
                     ),
                     mock.patch.object(MODULE, "verify_worktree_entrypoint"),
                 ):

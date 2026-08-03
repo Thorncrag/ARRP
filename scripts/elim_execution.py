@@ -531,9 +531,13 @@ def validate_discovery_records(value: dict[str, Any]) -> None:
             raise ContextError(
                 "discovered work-unit changed_files are unsafe or undeclared"
             )
-        if not _safe_relative_path(row.get("canonical_detail")):
+        canonical_detail = row.get("canonical_detail")
+        review_only_detail = value.get("work_type") == "comprehensive_review"
+        if not _safe_relative_path(canonical_detail):
             raise ContextError("discovered work-unit canonical detail path is unsafe")
-        if row["canonical_detail"] not in declared_files:
+        if canonical_detail not in declared_files and not (
+            review_only_detail and not changed
+        ):
             raise ContextError(
                 "discovered work-unit canonical detail is not in files_touched"
             )
@@ -1080,7 +1084,11 @@ def reconstruct_gap_obligation_state(text: str) -> dict[str, Any]:
     }
 
 
-def validate_work_unit(value: dict[str, Any]) -> None:
+def validate_work_unit(
+    value: dict[str, Any],
+    *,
+    allow_github_actions: bool = False,
+) -> None:
     if not isinstance(value, dict):
         raise ContextError("work-unit result must be an object")
     required = {
@@ -1211,10 +1219,12 @@ def validate_work_unit(value: dict[str, Any]) -> None:
             isinstance(item, str) for item in value[field]
         ):
             raise ContextError(f"work-unit {field} must be an array of strings")
-    if value["github_action_requests"] != []:
+    if not allow_github_actions and value["github_action_requests"] != []:
         raise ContextError(
             "work-unit github_action_requests must be an empty array"
         )
+    if allow_github_actions and not isinstance(value["github_action_requests"], list):
+        raise ContextError("work-unit github_action_requests must be an array")
     for path in value["files_touched"]:
         if Path(path).is_absolute() or ".." in Path(path).parts:
             raise ContextError(f"work-unit file path is unsafe: {path}")

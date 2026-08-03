@@ -129,6 +129,7 @@ class ArrpP6ProductionBootstrapTests(unittest.TestCase):
 
     def test_runtime_manifest_includes_transaction_import_closure(self):
         self.assertIn("scripts/component_registry.py", BOOTSTRAP.RUNTIME_FILES)
+        self.assertIn("scripts/record_review_epoch.py", BOOTSTRAP.RUNTIME_FILES)
         self.assertIn(
             "scripts/transaction_lifecycle.py",
             BOOTSTRAP.RUNTIME_FILES,

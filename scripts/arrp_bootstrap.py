@@ -37,6 +37,7 @@ RUNTIME_FILES = (
     "scripts/select_elim_context_route.py",
     "scripts/build_elim_context.py",
     "scripts/elim_execution.py",
+    "scripts/record_review_epoch.py",
     "scripts/check_codex_usage_reserve.py",
     "scripts/console_data_contracts.py",
     "framework/project/github/disclosure-policy.json",
