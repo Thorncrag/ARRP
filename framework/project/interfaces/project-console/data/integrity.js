@@ -4,11 +4,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "integrity": {
     "schema_version": 2,
     "availability": "current",
-    "generated_at": "2026-08-03T11:49:22+00:00",
+    "generated_at": "2026-08-03T12:27:24+00:00",
     "current": {
       "result": "findings",
-      "generated_at": "2026-08-03T11:49:22+00:00",
-      "revision": "66f51b623c40f9a355759c5deae67b66b1da4b83",
+      "generated_at": "2026-08-03T12:27:24+00:00",
+      "revision": "4c8b642d7737377fa99b6b168b85b18c8415d824",
       "scope": [
         "Issue and proposal structure, including Issue Snapshot concision",
         "Area and topic routing",
@@ -44,23 +44,12 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "route": "integrity",
           "next_action": "Open Integrity and resolve the registered producer condition.",
           "message": "A typed integrity error requires review."
-        },
-        {
-          "finding_id": "INT-32d462b8d444a25e",
-          "finding_code": "project_integrity_condition",
-          "severity": "warning",
-          "category": "Internal links",
-          "status": "open",
-          "owner": "Elim",
-          "route": "integrity",
-          "next_action": "Open Integrity and resolve the registered producer condition.",
-          "message": "A typed integrity finding requires review."
         }
       ]
     },
     "history": []
   },
   "domain_generation": {
-    "integrity.js": "project-console-75c5d896d1e1903c2646"
+    "integrity.js": "project-console-5c39a6f05122255b6621"
   }
 });
