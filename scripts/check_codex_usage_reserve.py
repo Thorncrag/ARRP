@@ -108,7 +108,22 @@ def fetch_rate_limits(codex_executable: str, timeout_seconds: int) -> dict[str, 
                 continue
             chunk = os.read(process.stdout.fileno(), 65536)
             if not chunk:
-                break
+                try:
+                    returncode = process.wait(timeout=1)
+                except subprocess.TimeoutExpired:
+                    returncode = process.poll()
+                diagnostic = ""
+                if returncode is not None and process.stderr is not None:
+                    diagnostic = process.stderr.read(4096).decode(
+                        "utf-8", "replace"
+                    ).strip()
+                detail = f" (status {returncode})"
+                if diagnostic:
+                    detail += ": " + diagnostic[:500]
+                raise UsageGateError(
+                    "Codex app-server exited before the rate-limit response"
+                    + detail
+                )
             buffered += chunk
             while b"\n" in buffered:
                 line, buffered = buffered.split(b"\n", 1)
