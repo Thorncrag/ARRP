@@ -29,7 +29,7 @@
       "const": "COMPONENT-REGISTRY"
     },
     "registry_revision": {
-      "const": 6
+      "const": 7
     },
     "terminology": {
       "type": "object",
@@ -94,8 +94,8 @@
         },
         "entries": {
           "type": "object",
-          "minProperties": 59,
-          "maxProperties": 59,
+          "minProperties": 60,
+          "maxProperties": 60,
           "additionalProperties": {
             "type": "object",
             "additionalProperties": false,
@@ -1303,7 +1303,7 @@
           "const": "COMPONENT-REGISTRY"
         },
         "registry_revision": {
-          "const": 6
+          "const": 7
         },
         "registry_sha256": {
           "$ref": "#/$defs/sha256"

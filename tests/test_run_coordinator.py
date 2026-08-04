@@ -74,7 +74,7 @@ def review_epoch_routing_boundary(
         ),
         "registry_status": "adopted",
         "registry_id": "COMPONENT-REGISTRY",
-        "registry_revision": 6,
+        "registry_revision": 7,
         "registry_sha256": "d" * 64,
         "registry_path": "framework/component-registry.json",
         "authoritative": active,

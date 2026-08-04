@@ -865,7 +865,7 @@ def _require_public_report_registration(
         ) from error
     if (
         registry.get("schema_version") != 4
-        or registry.get("registry_revision") != 6
+        or registry.get("registry_revision") != 7
         or not isinstance(entries, Mapping)
     ):
         raise DisclosureBlocked(

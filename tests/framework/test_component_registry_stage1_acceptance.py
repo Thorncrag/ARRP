@@ -306,7 +306,7 @@ class ComponentRegistryV4AcceptanceTests(unittest.TestCase):
     def test_semantic_minimal_registry_is_accepted(self):
         result = registry.validate_v4_registry(self.registry, root=ROOT)
         self.assertTrue(result["valid"])
-        self.assertEqual(result["registry_revision"], 6)
+        self.assertEqual(result["registry_revision"], 7)
         self.assertEqual(result["codeowners"]["problems"], 0)
 
     def test_removed_stage_namespaces_do_not_reappear(self):

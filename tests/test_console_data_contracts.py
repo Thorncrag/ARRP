@@ -57,6 +57,42 @@ def candidate_registry_fixture() -> dict[str, object]:
 
 
 class ConsoleDataContractTests(unittest.TestCase):
+    def test_participation_projection_preserves_only_closed_unchanged_semantics(self):
+        current = {
+            "schema_version": 1,
+            "generated_at": "2026-08-04T14:00:00Z",
+            "proposal_index": [{"id": "TEST-001"}],
+            "horizon_index": [{"id": "HOR-001"}],
+        }
+        existing = {
+            **current,
+            "generated_at": "2026-08-03T14:00:00Z",
+        }
+        text = (
+            MODULE.PARTICIPATION_PREFIX
+            + json.dumps(existing, separators=(",", ":"))
+            + ";\n"
+        )
+        self.assertTrue(
+            MODULE.participation_projection_is_unchanged(text, current)
+        )
+
+        extra = {**existing, "unexpected": "retained"}
+        extra_text = (
+            MODULE.PARTICIPATION_PREFIX
+            + json.dumps(extra, separators=(",", ":"))
+            + ";\n"
+        )
+        self.assertFalse(
+            MODULE.participation_projection_is_unchanged(extra_text, current)
+        )
+
+        changed = copy.deepcopy(current)
+        changed["horizon_index"] = [{"id": "HOR-002"}]
+        self.assertFalse(
+            MODULE.participation_projection_is_unchanged(text, changed)
+        )
+
     def component_registry_view(
         self,
         registry: dict[str, object],
@@ -1458,19 +1494,19 @@ class ConsoleDataContractTests(unittest.TestCase):
             {
                 "components": 110,
                 "relationships": 16,
-                "directory_scopes": 59,
+                "directory_scopes": 60,
                 "registration_exemptions": 3,
                 "routing_rules": 64,
                 "terminology": 87,
             },
         )
-        self.assertEqual(MODULE.component_registry_projection_count(snapshot), 339)
+        self.assertEqual(MODULE.component_registry_projection_count(snapshot), 340)
         self.assertEqual(len(snapshot["derived"]["classifications"]["classes"]), 8)
         self.assertEqual(len(snapshot["derived"]["classifications"]["types"]), 37)
         self.assertEqual(len(snapshot["derived"]["lifecycles"]["assignments"]), 110)
         self.assertEqual(len(snapshot["derived"]["authorities"]["assignments"]), 110)
         self.assertEqual(len(snapshot["derived"]["routing"]["selections"]), 27)
-        self.assertEqual(len(snapshot["derived"]["codeowners"]["records"]), 169)
+        self.assertEqual(len(snapshot["derived"]["codeowners"]["records"]), 170)
         entry_fields = snapshot["linked"]["component_entry_fields"]
         self.assertEqual(set(entry_fields), {
             record["stable_id"] for record in snapshot["records"]["components"]
@@ -1665,7 +1701,10 @@ class ConsoleDataContractTests(unittest.TestCase):
             "exclude_when",
             "allow_children",
         )
-        self.assertEqual(set(after_scopes), set(before_scopes))
+        self.assertEqual(
+            set(after_scopes),
+            set(before_scopes) | {"project_console_catalog_data"},
+        )
         for scope_id, before in before_scopes.items():
             after = after_scopes[scope_id]
             if scope_id == "framework_reports":
@@ -2236,6 +2275,8 @@ class ConsoleDataContractTests(unittest.TestCase):
     def test_checked_in_component_registry_matches_console_generation(self):
         console = ROOT / "framework/project/interfaces/project-console"
         data = console / "data"
+        shell = (console / "component-registry.js").read_text(encoding="utf-8")
+        self.assertIn("snapshot.registry.registry_revision !== 7", shell)
         manifest = json.loads(
             (data / "generation-manifest.json").read_text(encoding="utf-8")
         )
@@ -2814,6 +2855,66 @@ class ConsoleDataContractTests(unittest.TestCase):
             checked_at="2026-07-31T12:00:00+00:00",
         )
         self.assertEqual(expired["role_currentness"]["state"], "stale")
+
+    def test_occurrence_directory_collapses_matching_chain_and_status_records(self):
+        run_chain = {
+            "run_id": "arrp-same-run",
+            "status": "complete",
+            "completed_at": "2026-08-04T13:27:33+00:00",
+            "usage": {
+                "hard_reserve_percent": 15,
+                "soft_run_target_percent": 15,
+                "remaining_percent": 26.0,
+                "status": "available",
+            },
+            "stages": [
+                {"id": stage_id, "status": "succeeded"}
+                for stage_id, _label in MODULE.AUTOMATION_OCCURRENCE_STAGE_SPECS
+                if stage_id != "elim"
+            ],
+            "elim_decision": {
+                "launch_recommended": True,
+                "launched": True,
+                "outcome": "completed",
+            },
+        }
+        local_status = {
+            "run_id": "arrp-same-run",
+            "status": "completed",
+            "completed_at": "2026-08-04T13:34:07+00:00",
+            "updated_at": "2026-08-04T13:34:08+00:00",
+            "control_state": "run",
+        }
+        projection = MODULE.automation_occurrence_projection(
+            run_chain,
+            local_status,
+            checked_at="2026-08-04T14:00:00+00:00",
+        )
+        self.assertEqual(len(projection["occurrences"]), 1)
+        occurrence = projection["occurrences"][0]
+        self.assertEqual(occurrence["occurrence_id"], "arrp-same-run")
+        self.assertEqual(occurrence["status"], "completed")
+        self.assertEqual(
+            occurrence["completed_at"], "2026-08-04T13:34:07+00:00"
+        )
+        self.assertEqual(occurrence["control_state"], "run")
+        self.assertEqual(len(occurrence["stages"]), 7)
+        self.assertEqual(
+            next(
+                stage["status"]
+                for stage in occurrence["stages"]
+                if stage["stage_id"] == "elim"
+            ),
+            "succeeded",
+        )
+        public_usage = MODULE.public_usage_projection(run_chain["usage"])
+        self.assertEqual(public_usage["status"], "measured_owner_local")
+        self.assertIsNone(public_usage["remaining_percent"])
+        self.assertIn("exact remaining percentage", public_usage["disclosure"])
+        self.assertEqual(
+            MODULE.public_usage_projection(public_usage),
+            public_usage,
+        )
 
     def test_public_automation_and_integrity_projections_redact_diagnostics(self):
         marker = "ARRP_STATE_ROOT=/Users/owner/private GH_TOKEN=credential_value"

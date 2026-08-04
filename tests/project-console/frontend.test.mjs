@@ -1145,7 +1145,7 @@ test("Component Registry accepts only the builder-supplied typed snapshot", () =
   assert.equal(Object.keys(snapshot.routes).length, 12);
   assert.equal(snapshot.records.components.length, 110);
   assert.equal(snapshot.records.relationships.length, 16);
-  assert.equal(snapshot.records.directory_scopes.length, 59);
+  assert.equal(snapshot.records.directory_scopes.length, 60);
   assert.equal(snapshot.records.registration_exemptions.length, 3);
   assert.equal(snapshot.records.routing_rules.length, 64);
   assert.equal(snapshot.records.terminology.length, 87);
@@ -1301,8 +1301,8 @@ test("Component Registry CODEOWNERS view is typed, searchable, and read-only", (
   assert.equal(snapshot.derived.codeowners.current_sha256, snapshot.derived.codeowners.generated_sha256);
   assert.deepEqual(componentRegistryApi.codeownersSummary(snapshot), [
     ["Direct", 17],
-    ["Inherited", 150],
-    ["None", 2],
+    ["Inherited", 149],
+    ["None", 4],
     ["Problems", 0]
   ]);
   assert.equal(componentRegistryApi.validSnapshot({

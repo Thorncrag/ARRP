@@ -2,7 +2,7 @@
   "$schema": "component-registry.schema.json",
   "schema_version": 4,
   "registry_id": "COMPONENT-REGISTRY",
-  "registry_revision": 6,
+  "registry_revision": 7,
   "terminology": {
     "schema_version": 4,
     "order": [
@@ -981,7 +981,39 @@
           "framework_project",
           "framework_project_interfaces",
           "project_console"
-        ]
+        ],
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "none"
+          }
+        }
+      },
+      "project_console_catalog_data": {
+        "display_name": "Project Console generated catalog data",
+        "path_pattern": "framework/project/interfaces/project-console/catalog-data.js",
+        "match_kind": "exact_file",
+        "specificity_rank": 60,
+        "purpose": "Exact generated public-safe Project Console catalog output.",
+        "placement_question": "Is this the generated Project Console catalog bound to the current verified generation?",
+        "include_when": [
+          "Only the generated Project Console catalog output."
+        ],
+        "exclude_when": [
+          "Console application code, configuration, maintained content, or owner-local projections."
+        ],
+        "allow_children": false,
+        "ancestor_scope_ids": [
+          "repository_root",
+          "framework",
+          "framework_project",
+          "framework_project_interfaces",
+          "project_console"
+        ],
+        "repository_controls": {
+          "github_codeowners": {
+            "mode": "none"
+          }
+        }
       },
       "project_automation_runbooks": {
         "display_name": "Project automation runbooks",

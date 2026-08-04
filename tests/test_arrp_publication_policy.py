@@ -12,6 +12,8 @@ from unittest import mock
 from tests.test_arrp_local_stages import FIXTURES, stage_spec
 from tests.test_arrp_nightly import GitFixture, MODULE, run
 
+ROOT = Path(__file__).resolve().parents[1]
+
 
 def write_predecessor_route_fixture(
     repository: Path,
@@ -323,6 +325,187 @@ class PublicationPolicyTests(unittest.TestCase):
         self.assertEqual(run("git", "status", "--porcelain", cwd=self.fixture.repo), "")
 
 
+class TrustedConsolePublicationTests(unittest.TestCase):
+    def prepared_repository(
+        self,
+        root: Path,
+        *,
+        ordinary_mix: bool = False,
+        protected_mix: bool = False,
+    ) -> tuple[Path, str, str]:
+        repository = root / "trusted-console"
+        run("git", "init", "-b", "main", str(repository))
+        GitFixture.configure(repository)
+        for relative in (
+            "framework/component-registry.json",
+            ".github/CODEOWNERS",
+        ):
+            source = ROOT / relative
+            target = repository / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source, target)
+        data_target = (
+            repository / "framework/project/interfaces/project-console/data"
+        )
+        data_target.mkdir(parents=True)
+        tracked_data = run(
+            "git",
+            "ls-files",
+            "framework/project/interfaces/project-console/data/",
+            cwd=ROOT,
+        ).splitlines()
+        for relative in tracked_data:
+            shutil.copyfile(ROOT / relative, data_target / Path(relative).name)
+        catalog = (
+            repository
+            / "framework/project/interfaces/project-console/catalog-data.js"
+        )
+        catalog.parent.mkdir(parents=True, exist_ok=True)
+        catalog.write_text("old generated catalog\n", encoding="utf-8")
+        script = repository / "scripts/fixture.py"
+        script.parent.mkdir(parents=True)
+        script.write_text("baseline\n", encoding="utf-8")
+        issue = repository / "areas/TEST/issues/TEST-001.md"
+        issue.parent.mkdir(parents=True)
+        issue.write_text("baseline\n", encoding="utf-8")
+        run("git", "add", "--", ".", cwd=repository)
+        run("git", "commit", "-m", "fixture base", cwd=repository)
+        base = run("git", "rev-parse", "HEAD", cwd=repository)
+
+        shutil.copyfile(
+            ROOT / "framework/project/interfaces/project-console/catalog-data.js",
+            catalog,
+        )
+        if ordinary_mix:
+            issue.write_text("ordinary change\n", encoding="utf-8")
+        if protected_mix:
+            script.write_text("protected change\n", encoding="utf-8")
+        run("git", "add", "--", ".", cwd=repository)
+        run("git", "commit", "-m", "fixture head", cwd=repository)
+        head = run("git", "rev-parse", "HEAD", cwd=repository)
+        return repository, base, head
+
+    def test_exact_app_generated_only_passes_and_human_fails(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repository, base, head = self.prepared_repository(Path(directory))
+            result = MODULE.validate_trusted_console_pull_request(
+                repository,
+                base_commit=base,
+                head_commit=head,
+                pull_request_author=MODULE.TRUSTED_CONSOLE_PR_ACTOR,
+                pull_request_author_type="Bot",
+                event_actor=MODULE.TRUSTED_CONSOLE_PR_ACTOR,
+            )
+            self.assertTrue(result["generated_only"])
+            with self.assertRaisesRegex(
+                MODULE.TransactionError,
+                "exact Automation App",
+            ):
+                MODULE.validate_trusted_console_pull_request(
+                    repository,
+                    base_commit=base,
+                    head_commit=head,
+                    pull_request_author="human",
+                    pull_request_author_type="User",
+                    event_actor="human",
+                )
+
+    def test_human_console_plus_unowned_fails_but_owned_mix_is_reviewed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repository, base, head = self.prepared_repository(
+                Path(directory),
+                ordinary_mix=True,
+            )
+            with self.assertRaisesRegex(
+                MODULE.TransactionError,
+                "ordinary unowned",
+            ):
+                MODULE.validate_trusted_console_pull_request(
+                    repository,
+                    base_commit=base,
+                    head_commit=head,
+                    pull_request_author="human",
+                    pull_request_author_type="User",
+                    event_actor="human",
+                )
+            app_result = MODULE.validate_trusted_console_pull_request(
+                repository,
+                base_commit=base,
+                head_commit=head,
+                pull_request_author=MODULE.TRUSTED_CONSOLE_PR_ACTOR,
+                pull_request_author_type="Bot",
+                event_actor=MODULE.TRUSTED_CONSOLE_PR_ACTOR,
+            )
+            self.assertTrue(app_result["exact_app"])
+            self.assertFalse(app_result["generated_only"])
+        with tempfile.TemporaryDirectory() as directory:
+            repository, base, head = self.prepared_repository(
+                Path(directory),
+                protected_mix=True,
+            )
+            result = MODULE.validate_trusted_console_pull_request(
+                repository,
+                base_commit=base,
+                head_commit=head,
+                pull_request_author="human",
+                pull_request_author_type="User",
+                event_actor="human",
+            )
+            self.assertFalse(result["generated_only"])
+            self.assertEqual(
+                MODULE.classify_path(
+                    "scripts/fixture.py",
+                    0o644,
+                    tracked=True,
+                ),
+                "protected",
+            )
+
+    def test_tampered_or_extra_console_domain_fails_closed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            repository, _base, head = self.prepared_repository(Path(directory))
+            domain = (
+                repository
+                / "framework/project/interfaces/project-console/data/automation.js"
+            )
+            domain.write_text(
+                domain.read_text(encoding="utf-8") + "alert('unexpected');\n",
+                encoding="utf-8",
+            )
+            run("git", "add", "--", str(domain.relative_to(repository)), cwd=repository)
+            run("git", "commit", "-m", "tamper domain", cwd=repository)
+            tampered = run("git", "rev-parse", "HEAD", cwd=repository)
+            with self.assertRaises(MODULE.TransactionError):
+                MODULE.validate_trusted_console_generation(repository, tampered)
+            self.assertNotEqual(head, tampered)
+
+        with tempfile.TemporaryDirectory() as directory:
+            repository, _base, _head = self.prepared_repository(Path(directory))
+            extra = (
+                repository
+                / "framework/project/interfaces/project-console/data/extra.js"
+            )
+            extra.write_text("alert('unexpected');\n", encoding="utf-8")
+            run("git", "add", "--", str(extra.relative_to(repository)), cwd=repository)
+            run("git", "commit", "-m", "extra domain", cwd=repository)
+            extra_head = run("git", "rev-parse", "HEAD", cwd=repository)
+            with self.assertRaisesRegex(
+                MODULE.TransactionError,
+                "inventory differs",
+            ):
+                MODULE.validate_trusted_console_generation(repository, extra_head)
+
+    def test_source_monitor_log_is_protected(self):
+        self.assertEqual(
+            MODULE.classify_path(
+                "framework/logs/sources/source-monitor-log.md",
+                0o644,
+                tracked=True,
+            ),
+            "protected",
+        )
+
+
 class P3FixtureTransactionTests(unittest.TestCase):
     def test_complete_fixture_transaction_ends_in_local_final_commit_only(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -442,6 +625,36 @@ class P3FixtureTransactionTests(unittest.TestCase):
             )
             self.assertTrue(projection.is_file())
             self.assertIn('"status":"completed"', projection.read_text(encoding="utf-8"))
+
+
+class RunChainCompletionTests(unittest.TestCase):
+    def test_accepted_elim_outcome_is_bound_into_run_chain(self):
+        with tempfile.TemporaryDirectory() as directory:
+            run_dir = Path(directory)
+            chain_path = run_dir / "run-chain.json"
+            result_path = run_dir / "elim-result.json"
+            result_path.write_text(
+                json.dumps({"outcome": "completed"}) + "\n",
+                encoding="utf-8",
+            )
+            updated = MODULE.record_elim_outcome_in_run_chain(
+                chain_path,
+                {
+                    "run_id": "arrp-test",
+                    "elim_decision": {"launch_recommended": True},
+                },
+                {"outcome": "completed"},
+            )
+            self.assertTrue(updated["elim_decision"]["launched"])
+            self.assertEqual(updated["elim_decision"]["outcome"], "completed")
+            self.assertEqual(
+                updated["elim_decision"]["result_sha256"],
+                "sha256:" + hashlib.sha256(result_path.read_bytes()).hexdigest(),
+            )
+            self.assertEqual(
+                json.loads(chain_path.read_text(encoding="utf-8")),
+                updated,
+            )
 
 
 if __name__ == "__main__":

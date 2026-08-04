@@ -20,12 +20,13 @@ runbook. It does not create substantive or external authority.
 
 ## Current production posture
 
-P6 is the installed local-first production architecture. The authoritative
-binary control is currently intentionally `Paused`; installed capability,
-registered cadence, retained success evidence, and a loaded scheduler do not
-authorize removal of the pause marker or a production run. The fixed
-Application Support state root remains production, while the named companion
-workspace remains an inactive protected staging descriptor under the [ARRP Owner-Local Runtime
+P6 is the installed local-first production architecture. The owner-local binary
+control is currently `Run`, and the sole LaunchAgent is registered for 02:00
+America/New_York. This document records that posture but does not activate it;
+current execution authority requires exact owner-local control-state and
+scheduler readback. The fixed Application Support state root remains
+production, while the named companion workspace remains an inactive protected
+staging descriptor under the [ARRP Owner-Local Runtime
 Authority](owner-local-runtime.md).
 
 All `owner-local:` paths, runtime artifact classes, current-versus-staged
@@ -212,9 +213,23 @@ incomplete checks, stale expected state, or readback mismatch fails closed.
 All changed paths form one pull request. Ordinary changes require `ARRP
 Validation` and CodeQL, then merge only by exact expected head using a merge
 commit. Any protected path protects the complete pull request and requires
-Benjamin's code-owner approval. Workflow files remain a local-only exception
-for Benjamin to publish with his credential because the App has no workflow
-permission. Semantic actions are schema-registered, public,
+Benjamin's code-owner approval. The unattended generated-output exception
+applies only to the Registry-scoped Project Console catalog and data bundle in
+an exact App-authored pull request; runner-classified ordinary output from the
+same exact run may coexist with that bundle. The required `ARRP Validation`
+check must independently verify the exact App identity, closed assignment-only
+serialization, complete manifest inventory, internal generation and
+source-revision agreement, and every recorded generated-byte hash. The trusted
+host build, disclosure gate, and exact run/branch/head/base readback remain the
+producer-side proof. A human-authored generated-only pull request
+fails closed, and human-authored generated Console output mixed only with an
+ordinary unowned path fails closed; any mixed protected path retains the
+complete-pull-request approval requirement. The Source Monitor log and
+participation intake projection remain protected. The Console builder preserves an unchanged,
+closed-schema participation projection byte-for-byte so its timestamp alone
+does not create routine protected drift. Workflow files remain a local-only
+exception for Benjamin to publish with his credential because the App has no
+workflow permission. Semantic actions are schema-registered, public,
 non-human-reserved, idempotent, prior-state checked, and read back exactly.
 
 Every push and semantic mutation also consumes the same deterministic

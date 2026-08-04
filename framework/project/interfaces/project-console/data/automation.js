@@ -68,14 +68,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   ],
   "run_chain": {
     "schema_version": 1,
-    "run_id": "arrp-20260803T143538Z",
-    "chain_id": "arrp-20260803T143538Z",
+    "run_id": "arrp-20260804T131940Z",
+    "chain_id": "arrp-20260804T131940Z",
     "bot_id": "run-coordinator-bot",
     "status": "complete",
     "trigger": "manual",
-    "created_at": "2026-08-03T14:35:40+00:00",
-    "updated_at": "2026-08-03T14:36:07+00:00",
-    "completed_at": "2026-08-03T14:36:07+00:00",
+    "created_at": "2026-08-04T13:19:42+00:00",
+    "updated_at": "2026-08-04T13:27:33+00:00",
+    "completed_at": "2026-08-04T13:27:33+00:00",
     "availability": "current",
     "completeness": {
       "complete": true,
@@ -85,11 +85,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "expected_count": 6,
     "actual_count": 6,
-    "baseline_commit": "4809dde6e664bd857263d5e117386da9eb3dc0d5",
+    "baseline_commit": "c41dfc44901ad9ad2aab2501c3e6f498b04e95a3",
     "repository": {
-      "branch": "automation/nightly-20260803T143538Z",
-      "head": "4809dde6e664bd857263d5e117386da9eb3dc0d5",
-      "origin_main": "4809dde6e664bd857263d5e117386da9eb3dc0d5",
+      "branch": "automation/nightly-20260804T131940Z",
+      "head": "c41dfc44901ad9ad2aab2501c3e6f498b04e95a3",
+      "origin_main": "c41dfc44901ad9ad2aab2501c3e6f498b04e95a3",
       "clean": true,
       "dirty_paths": [],
       "dirty_path_count": 0,
@@ -111,10 +111,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "status": "succeeded",
         "due": true,
         "started_at": null,
-        "completed_at": "2026-08-03T14:36:04+00:00",
-        "last_success_at": "2026-08-03T14:36:04+00:00",
-        "current_chain_label": "Succeeded",
-        "reason": "This stage completed successfully."
+        "completed_at": "2026-08-04T13:27:30+00:00",
+        "last_success_at": "2026-08-04T13:27:30+00:00",
+        "reason": "This stage completed successfully.",
+        "current_chain_label": "Succeeded"
       },
       {
         "id": "presidential-directives-bot",
@@ -122,21 +122,21 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "status": "succeeded",
         "due": true,
         "started_at": null,
-        "completed_at": "2026-08-03T14:36:04+00:00",
-        "last_success_at": "2026-08-03T14:36:04+00:00",
-        "current_chain_label": "Succeeded",
-        "reason": "This stage completed successfully."
+        "completed_at": "2026-08-04T13:27:30+00:00",
+        "last_success_at": "2026-08-04T13:27:30+00:00",
+        "reason": "This stage completed successfully.",
+        "current_chain_label": "Succeeded"
       },
       {
         "id": "source-checker-bot",
         "order": 3,
-        "status": "not_due",
-        "due": false,
+        "status": "succeeded",
+        "due": true,
         "started_at": null,
-        "completed_at": "2026-08-03T14:36:04+00:00",
-        "last_success_at": "2026-07-28T02:14:05+00:00",
-        "current_chain_label": "Not due this chain",
-        "reason": "This stage was not due for this occurrence."
+        "completed_at": "2026-08-04T13:27:30+00:00",
+        "last_success_at": "2026-08-04T13:27:30+00:00",
+        "reason": "This stage completed successfully.",
+        "current_chain_label": "Succeeded"
       },
       {
         "id": "public-intake",
@@ -144,10 +144,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "status": "succeeded",
         "due": true,
         "started_at": null,
-        "completed_at": "2026-08-03T14:36:04+00:00",
-        "last_success_at": "2026-08-03T14:36:04+00:00",
-        "current_chain_label": "Succeeded",
-        "reason": "This stage completed successfully."
+        "completed_at": "2026-08-04T13:27:30+00:00",
+        "last_success_at": "2026-08-04T13:27:30+00:00",
+        "reason": "This stage completed successfully.",
+        "current_chain_label": "Succeeded"
       },
       {
         "id": "project-console-progress-bot",
@@ -155,10 +155,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "status": "succeeded",
         "due": true,
         "started_at": null,
-        "completed_at": "2026-08-03T14:36:04+00:00",
-        "last_success_at": "2026-08-03T14:36:04+00:00",
-        "current_chain_label": "Succeeded",
-        "reason": "This stage completed successfully."
+        "completed_at": "2026-08-04T13:27:30+00:00",
+        "last_success_at": "2026-08-04T13:27:30+00:00",
+        "reason": "This stage completed successfully.",
+        "current_chain_label": "Succeeded"
       },
       {
         "id": "project-integrity-bot",
@@ -166,34 +166,36 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "status": "succeeded",
         "due": true,
         "started_at": null,
-        "completed_at": "2026-08-03T14:36:04+00:00",
-        "last_success_at": "2026-08-03T14:36:04+00:00",
-        "current_chain_label": "Succeeded",
-        "reason": "This stage completed successfully."
+        "completed_at": "2026-08-04T13:27:30+00:00",
+        "last_success_at": "2026-08-04T13:27:30+00:00",
+        "reason": "This stage completed successfully.",
+        "current_chain_label": "Succeeded"
       }
     ],
     "review_epoch": {
-      "epoch_id": "epoch-p6-local-first-20260727",
+      "epoch_id": "epoch-arrp-20260803T143538Z",
       "due": true,
       "interval_days": 14,
-      "last_completed_at": "2026-07-27T23:33:11+00:00",
-      "next_due_at": "2026-08-10T23:33:11+00:00",
+      "last_completed_at": "2026-08-03T14:36:06+00:00",
+      "next_due_at": "2026-08-17T14:36:06+00:00",
       "stability_status": "drift-detected"
     },
     "usage": {
       "hard_reserve_percent": 15,
       "soft_run_target_percent": 15,
       "remaining_percent": null,
-      "status": "unknown"
+      "status": "measured_owner_local",
+      "disclosure": "The usage reserve was measured; the exact remaining percentage is retained owner-locally."
     },
     "elim_decision": {
-      "launch_recommended": true
+      "launch_recommended": true,
+      "launched": true
     }
   },
   "automation_role_status": {
     "schema_version": 1,
     "availability": "current",
-    "checked_at": "2026-08-03T14:36:07+00:00",
+    "checked_at": "2026-08-04T13:27:33+00:00",
     "control_state": {
       "state": "unavailable",
       "source": "owner-only-local-status",
@@ -228,10 +230,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "current",
-          "checked_at": "2026-08-03T14:36:07+00:00",
+          "checked_at": "2026-08-04T13:27:33+00:00",
           "reason": "Derived by the producer from the typed run-chain record."
         },
-        "checked_at": "2026-08-03T14:36:07+00:00"
+        "checked_at": "2026-08-04T13:27:33+00:00"
       },
       {
         "id": "case-monitor-bot",
@@ -244,14 +246,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "latest_scheduled": {
           "available": true,
           "outcome": "succeeded",
-          "at": "2026-08-03T14:36:04+00:00",
+          "at": "2026-08-04T13:27:30+00:00",
           "source": "run-chain-stage-last-success",
-          "run_id": "arrp-20260803T143538Z",
+          "run_id": "arrp-20260804T131940Z",
           "reason": ""
         },
         "last_successful": {
           "available": true,
-          "at": "2026-08-03T14:36:04+00:00",
+          "at": "2026-08-04T13:27:30+00:00",
           "source": "run-chain-stage-last-success",
           "reason": ""
         },
@@ -261,10 +263,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "current",
-          "checked_at": "2026-08-03T14:36:07+00:00",
-          "reason": "The Run Coordinator reports this role as current."
+          "checked_at": "2026-08-04T13:27:33+00:00",
+          "reason": "interval elapsed at 2026-07-29T02:14:05+00:00"
         },
-        "checked_at": "2026-08-03T14:36:07+00:00"
+        "checked_at": "2026-08-04T13:27:33+00:00"
       },
       {
         "id": "presidential-directives-bot",
@@ -277,14 +279,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "latest_scheduled": {
           "available": true,
           "outcome": "succeeded",
-          "at": "2026-08-03T14:36:04+00:00",
+          "at": "2026-08-04T13:27:30+00:00",
           "source": "run-chain-stage-last-success",
-          "run_id": "arrp-20260803T143538Z",
+          "run_id": "arrp-20260804T131940Z",
           "reason": ""
         },
         "last_successful": {
           "available": true,
-          "at": "2026-08-03T14:36:04+00:00",
+          "at": "2026-08-04T13:27:30+00:00",
           "source": "run-chain-stage-last-success",
           "reason": ""
         },
@@ -294,10 +296,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "current",
-          "checked_at": "2026-08-03T14:36:07+00:00",
-          "reason": "The Run Coordinator reports this role as current."
+          "checked_at": "2026-08-04T13:27:33+00:00",
+          "reason": "interval elapsed at 2026-07-29T02:14:05+00:00"
         },
-        "checked_at": "2026-08-03T14:36:07+00:00"
+        "checked_at": "2026-08-04T13:27:33+00:00"
       },
       {
         "id": "source-checker-bot",
@@ -310,14 +312,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "latest_scheduled": {
           "available": true,
           "outcome": "succeeded",
-          "at": "2026-07-28T02:14:05+00:00",
+          "at": "2026-08-04T13:27:30+00:00",
           "source": "run-chain-stage-last-success",
-          "run_id": "arrp-20260803T143538Z",
+          "run_id": "arrp-20260804T131940Z",
           "reason": ""
         },
         "last_successful": {
           "available": true,
-          "at": "2026-07-28T02:14:05+00:00",
+          "at": "2026-08-04T13:27:30+00:00",
           "source": "run-chain-stage-last-success",
           "reason": ""
         },
@@ -326,11 +328,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "pause_state": "unavailable",
         "current_blocker": null,
         "data_currentness": {
-          "state": "stale",
-          "checked_at": "2026-08-01T15:41:09+00:00",
+          "state": "current",
+          "checked_at": "2026-08-04T13:19:50+00:00",
           "reason": ""
         },
-        "checked_at": "2026-08-03T14:36:07+00:00"
+        "checked_at": "2026-08-04T13:27:33+00:00"
       },
       {
         "id": "project-console-progress-bot",
@@ -343,14 +345,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "latest_scheduled": {
           "available": true,
           "outcome": "succeeded",
-          "at": "2026-08-03T14:36:04+00:00",
+          "at": "2026-08-04T13:27:30+00:00",
           "source": "run-chain-stage-last-success",
-          "run_id": "arrp-20260803T143538Z",
+          "run_id": "arrp-20260804T131940Z",
           "reason": ""
         },
         "last_successful": {
           "available": true,
-          "at": "2026-08-03T14:36:04+00:00",
+          "at": "2026-08-04T13:27:30+00:00",
           "source": "run-chain-stage-last-success",
           "reason": ""
         },
@@ -360,10 +362,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "current",
-          "checked_at": "2026-08-03T15:11:58+00:00",
+          "checked_at": "2026-08-04T13:27:17+00:00",
           "reason": ""
         },
-        "checked_at": "2026-08-03T14:36:07+00:00"
+        "checked_at": "2026-08-04T13:27:33+00:00"
       },
       {
         "id": "project-integrity-bot",
@@ -376,14 +378,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "latest_scheduled": {
           "available": true,
           "outcome": "succeeded",
-          "at": "2026-08-03T14:36:04+00:00",
+          "at": "2026-08-04T13:27:30+00:00",
           "source": "run-chain-stage-last-success",
-          "run_id": "arrp-20260803T143538Z",
+          "run_id": "arrp-20260804T131940Z",
           "reason": ""
         },
         "last_successful": {
           "available": true,
-          "at": "2026-08-03T14:36:04+00:00",
+          "at": "2026-08-04T13:27:30+00:00",
           "source": "run-chain-stage-last-success",
           "reason": ""
         },
@@ -392,11 +394,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "pause_state": "unavailable",
         "current_blocker": null,
         "data_currentness": {
-          "state": "current",
-          "checked_at": "2026-08-04T13:31:50+00:00",
+          "state": "stale",
+          "checked_at": "2026-08-04T13:27:30+00:00",
           "reason": ""
         },
-        "checked_at": "2026-08-03T14:36:07+00:00"
+        "checked_at": "2026-08-04T13:27:33+00:00"
       },
       {
         "id": "elim",
@@ -425,18 +427,18 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "unavailable",
-          "checked_at": "2026-08-04T09:18:48-04:00",
+          "checked_at": "2026-08-04T11:28:19-04:00",
           "reason": "No typed currentness record is published for this role."
         },
-        "checked_at": "2026-08-03T14:36:07+00:00"
+        "checked_at": "2026-08-04T13:27:33+00:00"
       }
     ]
   },
   "repository_gates": {
     "schema_version": 1,
     "repository": "Thorncrag/ARRP",
-    "source_revision": "2026-08-04T13:31:59+00:00",
-    "checked_at": "2026-08-04T13:31:59+00:00",
+    "source_revision": "2026-08-04T14:02:01+00:00",
+    "checked_at": "2026-08-04T14:02:01+00:00",
     "availability": "current",
     "complete": true,
     "count": 0,
@@ -452,7 +454,10 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "declaration_errors": [],
     "validation_errors": [],
-    "last_good_identity": null,
+    "last_good_identity": {
+      "checked_at": "2026-08-04T14:01:07+00:00",
+      "source_revision": "2026-08-04T14:01:07+00:00"
+    },
     "items": []
   },
   "operational_incidents": {
@@ -1060,6 +1065,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "automation.js": "project-console-121b37c74a51b9d93646"
+    "automation.js": "project-console-b7de28d279f37fcbb95a"
   }
 });

@@ -89,7 +89,7 @@
       || snapshot.defaults.mode !== "components"
       || !object(snapshot.registry)
       || snapshot.registry.registry_id !== "COMPONENT-REGISTRY"
-      || snapshot.registry.registry_revision !== 6
+      || snapshot.registry.registry_revision !== 7
       || !registryPosture
       || snapshot.registry.authoritative !== false
       || snapshot.registry.executable !== false
@@ -108,7 +108,7 @@
       || !unique(snapshot.records.relationships, "relationship_id")
       || snapshot.records.relationships.length !== 16
       || !unique(snapshot.records.directory_scopes, "scope_id")
-      || snapshot.records.directory_scopes.length !== 59
+      || snapshot.records.directory_scopes.length !== 60
       || !unique(snapshot.records.registration_exemptions, "exemption_id")
       || snapshot.records.registration_exemptions.length !== 3
       || !unique(snapshot.records.routing_rules, "rule_id")
