@@ -186,7 +186,7 @@ class SourceDomainEventTests(unittest.TestCase):
             repository = TemporaryRepository(
                 Path(directory),
                 agent="source-checker-bot",
-                changed_path="framework/status/source-checker-report.md",
+                changed_path="framework/status/sources/source-checker-report.md",
                 base_text="# Report\n\nNo exceptions.\n",
                 changed_text="# Report\n\n| SRC-0007 | broken |\n",
             )

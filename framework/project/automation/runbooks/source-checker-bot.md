@@ -11,7 +11,7 @@ runtime_id: scripts/check_source_urls.py
 execution_environment: local-transaction-worktree
 runtime_config: framework/project/automation/configuration/bots/source-checker-bot.json
 log_path: owner-local:records/automation/agent-audit-log.md
-current_report: framework/status/source-checker-report.md
+current_report: framework/status/sources/source-checker-report.md
 print_status: excluded
 print_exclusion_reason: "Internal automation configuration."
 ---

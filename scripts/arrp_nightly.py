@@ -3444,7 +3444,7 @@ def default_local_stage_specs(python: str | None = None) -> tuple[LocalStageSpec
                 "--json-output",
                 "{run_dir}/stages/source-checker-bot/report.json",
                 "--markdown-output",
-                "{worktree}/framework/status/source-checker-report.md",
+                "{worktree}/framework/status/sources/source-checker-report.md",
             ),
             ("{run_dir}/stages/source-checker-bot/report.json",),
         ),
@@ -4603,10 +4603,8 @@ def run_production_cycle(
             "This is a review-only unit: do not create, edit, or delete any "
             "repository path; return findings and proposed repairs only through "
             "the strict result's non-mutating fields. For each discovery, set "
-            "canonical_detail to the one explicit existing tracked repository "
-            "path that causally owns or implements the later repair; never infer "
-            "it from affected_records. An untracked generated output or owner-local "
-            "path may appear only in evidence or provenance, never canonical_detail. "
+            "canonical_detail to the one explicit existing repository path that a "
+            "later work unit should select; never infer it from affected_records. "
             "Keep changed_files empty, give every confirmed finding a stable "
             "obligation_id and one matching gap_obligation_update, and include "
             "exactly one project-governance-review completion control. In that "

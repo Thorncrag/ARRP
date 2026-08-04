@@ -4610,7 +4610,7 @@ def source_domain_event_pipeline_findings(root: Path = ROOT) -> list[str]:
                 "git rev-parse HEAD",
                 'git switch -C "$branch" "${SOURCE_REVISION}"',
                 '--git-base "${SOURCE_REVISION}"',
-                "framework/status/source-checker-report.md",
+                "framework/status/sources/source-checker-report.md",
                 "exact report-only delta",
                 "git push --force-with-lease",
             ),
