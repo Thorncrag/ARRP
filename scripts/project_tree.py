@@ -7,7 +7,9 @@ from collections.abc import Iterator
 from pathlib import Path
 
 
-DEFAULT_EXCLUDED_ROOTS = frozenset({".git", ".site-build", ".tmp", ".venv"})
+DEFAULT_EXCLUDED_ROOTS = frozenset(
+    {".git", ".pytest_cache", ".site-build", ".tmp", ".venv"}
+)
 
 
 def iter_project_files(
