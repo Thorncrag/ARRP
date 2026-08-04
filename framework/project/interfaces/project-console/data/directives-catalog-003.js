@@ -3,6 +3,48 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_003": [
     {
+      "id": "2025-07835",
+      "administration": "Trump II",
+      "president": "Donald Trump",
+      "type": "Executive Order",
+      "number": "14289",
+      "title": "Addressing Certain Tariffs on Imported Articles",
+      "signed_date": "2025-04-29",
+      "published_date": "2025-05-02",
+      "citation": "90 FR 18907",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2025-05-02/pdf/2025-07835.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2025/05/02/2025-07835/addressing-certain-tariffs-on-imported-articles",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2025-07834",
+      "administration": "Trump II",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "10926",
+      "title": "418th Anniversary of the First Landing and the Raising of the Cape Henry Cross",
+      "signed_date": "2025-04-29",
+      "published_date": "2025-05-02",
+      "citation": "90 FR 18905",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2025-05-02/pdf/2025-07834.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2025/05/02/2025-07834/418th-anniversary-of-the-first-landing-and-the-raising-of-the-cape-henry-cross",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
       "id": "2025-07833",
       "administration": "Trump II",
       "president": "Donald Trump",
@@ -3973,51 +4015,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "source_ids": [],
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2025-02012",
-      "administration": "Trump II",
-      "president": "Donald Trump",
-      "type": "Executive Order",
-      "number": "14164",
-      "title": "Restoring the Death Penalty and Protecting Public Safety",
-      "signed_date": "2025-01-20",
-      "published_date": "2025-01-30",
-      "citation": "90 FR 8463",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2025-01-30/pdf/2025-02012.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2025/01/30/2025-02012/restoring-the-death-penalty-and-protecting-public-safety",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2025-02011",
-      "administration": "Trump II",
-      "president": "Donald Trump",
-      "type": "Executive Order",
-      "number": "14163",
-      "title": "Realigning the United States Refugee Admissions Program",
-      "signed_date": "2025-01-20",
-      "published_date": "2025-01-30",
-      "citation": "90 FR 8459",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2025-01-30/pdf/2025-02011.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2025/01/30/2025-02011/realigning-the-united-states-refugee-admissions-program",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-003.js": "project-console-602d651072a7439a99d5"
+    "directives-catalog-003.js": "project-console-121b37c74a51b9d93646"
   }
 });

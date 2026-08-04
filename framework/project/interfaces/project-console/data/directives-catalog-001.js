@@ -3,6 +3,48 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_001": [
     {
+      "id": "2026-15860",
+      "administration": "Trump II",
+      "president": "Donald Trump",
+      "type": "Presidential Order",
+      "number": "",
+      "title": "Authorizing Cameron County, Texas, To Own, Operate, and Maintain the Brownsville and Matamoros Bridge in Brownsville, Texas",
+      "signed_date": "2026-07-30",
+      "published_date": "2026-08-04",
+      "citation": "91 FR 50467",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2026-08-04/pdf/2026-15860.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2026/08/04/2026-15860/authorizing-cameron-county-texas-to-own-operate-and-maintain-the-brownsville-and-matamoros-bridge-in",
+      "related_directive_ids": [],
+      "first_seen": "2026-08-04",
+      "last_changed": "2026-08-04",
+      "review_status": "New since baseline screening",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "",
+      "reviewed_date": ""
+    },
+    {
+      "id": "2026-15859",
+      "administration": "Trump II",
+      "president": "Donald Trump",
+      "type": "Determination",
+      "number": "2026-19",
+      "title": "Presidential Determination Pursuant to Section 101 of the Defense Production Act of 1950, as Amended, on Recoverable Critical Minerals and Materials",
+      "signed_date": "2026-07-30",
+      "published_date": "2026-08-04",
+      "citation": "91 FR 50465",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2026-08-04/pdf/2026-15859.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2026/08/04/2026-15859/presidential-determination-pursuant-to-section-101-of-the-defense-production-act-of-1950-as-amended",
+      "related_directive_ids": [],
+      "first_seen": "2026-08-04",
+      "last_changed": "2026-08-04",
+      "review_status": "New since baseline screening",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "",
+      "reviewed_date": ""
+    },
+    {
       "id": "2026-15658",
       "administration": "Trump II",
       "president": "Donald Trump",
@@ -4000,51 +4042,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "source_ids": [],
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2025-19994",
-      "administration": "Trump II",
-      "president": "Donald Trump",
-      "type": "Proclamation",
-      "number": "10990",
-      "title": "250th Anniversary of the Founding of the United States Marine Corps",
-      "signed_date": "2025-11-10",
-      "published_date": "2025-11-14",
-      "citation": "90 FR 51077",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2025-11-14/pdf/2025-19994.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2025/11/14/2025-19994/250th-anniversary-of-the-founding-of-the-united-states-marine-corps",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2025-19928",
-      "administration": "Trump II",
-      "president": "Donald Trump",
-      "type": "Proclamation",
-      "number": "10989",
-      "title": "Granting Pardons for Certain Offenses Related to the 2020 Presidential Election",
-      "signed_date": "2025-11-07",
-      "published_date": "2025-11-14",
-      "citation": "90 FR 51071",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2025-11-14/pdf/2025-19928.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2025/11/14/2025-19928/granting-pardons-for-certain-offenses-related-to-the-2020-presidential-election",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-001.js": "project-console-602d651072a7439a99d5"
+    "directives-catalog-001.js": "project-console-121b37c74a51b9d93646"
   }
 });

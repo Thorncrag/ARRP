@@ -3,6 +3,48 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_016": [
     {
+      "id": "2017-22419",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "9654",
+      "title": "National School Lunch Week, 2017",
+      "signed_date": "2017-10-06",
+      "published_date": "2017-10-13",
+      "citation": "82 FR 47945",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2017-10-13/pdf/2017-22419.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2017/10/13/2017-22419/national-school-lunch-week-2017",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2017-22417",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "9653",
+      "title": "Fire Prevention Week, 2017",
+      "signed_date": "2017-10-06",
+      "published_date": "2017-10-13",
+      "citation": "82 FR 47943",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2017-10-13/pdf/2017-22417.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2017/10/13/2017-22417/fire-prevention-week-2017",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
       "id": "2017-22173",
       "administration": "Trump I",
       "president": "Donald Trump",
@@ -3925,6 +3967,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "directives-catalog-016.js": "project-console-602d651072a7439a99d5"
+    "directives-catalog-016.js": "project-console-121b37c74a51b9d93646"
   }
 });

@@ -1150,12 +1150,50 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           },
           "details_html": "<ul><li>Added directives: <strong>5<\/strong><\/li><li>Changed directives: <strong>0<\/strong><\/li><li>Added IDs: 2026\\-15273, 2026\\-15274, 2026\\-15357, 2026\\-15389, 2026\\-15658<\/li><li>Result: catalog_updated<\/li><li>Action: Updated machine-observed Federal Register metadata and per-row baselines for human review.<\/li><li>Boundary: No substantive ARRP classification or disposition was performed.<\/li><\/ul>",
           "search_text": "source-monitor-009 2026-08-03T11:48:47+00:00 Presidential directives watcher (PDM-08B34B4596) catalog_updated   2026-08-03T11:48:47+00:00 Presidential directives watcher (PDM-08B34B4596) catalog_updated  "
+        },
+        {
+          "id": "source-monitor-010",
+          "values": {
+            "date": "2026-08-04T13:19:43+00:00",
+            "watcher": "Case monitor bot",
+            "result": "changes_detected",
+            "affected": "SRC-0948, SRC-1016, SRC-1062, SRC-1069, SRC-2009, SRC-2032, SRC-2188, SRC-2235, SRC-2245, SRC-2304, SRC-2333, SRC-2343, SRC-2344, SRC-2589",
+            "activity": "CASE-20260804131943-E74E782E"
+          },
+          "values_html": {
+            "date": "2026-08-04T13:19:43+00:00",
+            "watcher": "Case monitor bot",
+            "result": "<code>changes_detected<\/code>",
+            "affected": "SRC-0948, SRC-1016, SRC-1062, SRC-1069, SRC-2009, SRC-2032, SRC-2188, SRC-2235, SRC-2245, SRC-2304, SRC-2333, SRC-2343, SRC-2344, SRC-2589",
+            "activity": "<code>CASE-20260804131943-E74E782E<\/code>"
+          },
+          "details_html": "<ul><li>Activity code: <code>CASE-20260804131943-E74E782E<\/code><\/li><li>Originating workflow run: Local or manually invoked run<\/li><li>Result: <code>changes_detected<\/code><\/li><li>Affected source IDs: SRC-0948, SRC-1016, SRC-1062, SRC-1069, SRC-2009, SRC-2032, SRC-2188, SRC-2235, SRC-2245, SRC-2304, SRC-2333, SRC-2343, SRC-2344, SRC-2589<\/li><li>Tracker changes: 0 added; 14 changed; 0 removed<\/li><li>Case baselines updated: 14<\/li><li>Coverage: 490 mapped monitored CourtListener rows; 7 monitored CourtListener rows outside tracker coverage<\/li><li>Targeted CourtListener checks: 0 queried; 0 failed; 14 unverified<\/li><li>Source-development modules changed: 1<\/li><li>Interpretation: source-change signal only; no legal significance or project disposition determined.<\/li><li><code>judicial-review-disposition-signals<\/code> → <code>research/candidate-source-development/HOR-035-source-development.md<\/code>: 222 current unreviewed leads; 1 added; 0 removed.<\/li><\/ul>\n<div class=\"markdown-table-wrap\"><table><thead><tr><th>Change<\/th><th>Case<\/th><th>Docket<\/th><th>Previous observation<\/th><th>Current observation<\/th><th>Catalog match<\/th><\/tr><\/thead><tbody><tr><td>Changed<\/td><td>Northeast Organic Farming Association of New York v\\. U\\.S\\. Department of Agriculture \\(S\\.D\\.N\\.Y\\.\\)<\/td><td>1:25\\-cv\\-01529<\/td><td>Case Pending; 2026\\-01\\-13<\/td><td>Case Closed; 2026\\-01\\-13<\/td><td>SRC\\-1062<\/td><\/tr><tr><td>Changed<\/td><td>Sustainability Institute v\\. Trump \\(D\\.S\\.C\\.\\)<\/td><td>2:25\\-cv\\-02152<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-06\\-11<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-08\\-03<\/td><td>SRC\\-2589<\/td><\/tr><tr><td>Changed<\/td><td>Mahdawi v\\. Trump \\(D\\. Vt\\.\\)<\/td><td>2:25\\-cv\\-00389<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-07\\-21<\/td><td>Government Action Not Blocked \\(Pending Appeal\\); 2026\\-07\\-21<\/td><td>SRC\\-2235<\/td><\/tr><tr><td>Changed<\/td><td>EA T\\-B v\\. Bostock \\(W\\.D\\. Wash\\.\\)<\/td><td>2:25\\-cv\\-01192<\/td><td>Case Pending; 2025\\-06\\-18<\/td><td>Case Closed in Favor of Plaintiff; 2025\\-06\\-18<\/td><td>SRC\\-2333<\/td><\/tr><tr><td>Changed<\/td><td>Van Schaick v\\. DeSantis \\(N\\.D\\. Fla\\.\\)<\/td><td>4:25\\-cv\\-00271<\/td><td>Case Pending; 2025\\-06\\-26<\/td><td>Case Closed; 2025\\-06\\-26<\/td><td>SRC\\-1016<\/td><\/tr><tr><td>Changed<\/td><td>Hernandez v\\. Noem \\(D\\.D\\.C\\.\\)<\/td><td>1:25\\-cv\\-02344<\/td><td>Case Pending; 2025\\-12\\-10<\/td><td>Case Closed/Dismissed in Favor of Government; 2025\\-12\\-10<\/td><td>SRC\\-2304<\/td><\/tr><tr><td>Changed<\/td><td>State of Arizona, et al\\. v\\. Pam Bondi, et al\\. \\(D\\. Ariz\\.\\)<\/td><td>4:25\\-cv\\-00468<\/td><td>Government Action Blocked; 2025\\-10\\-22<\/td><td>Case Closed in Favor of Plaintiff; 2025\\-10\\-22<\/td><td>SRC\\-2343<\/td><\/tr><tr><td>Changed<\/td><td>Tenesaca Lema v\\. Scott \\(D\\. Me\\.\\)<\/td><td>2:25\\-cv\\-00439<\/td><td>Government Action Blocked; 2025\\-12\\-17<\/td><td>Case Closed in Favor of Plaintiff; 2025\\-12\\-17<\/td><td>SRC\\-2344<\/td><\/tr><tr><td>Changed<\/td><td>League of Women Voters of the United States v\\. U\\.S\\. Citizenship and Immigration Services \\(D\\. Md\\.\\)<\/td><td>8:25\\-cv\\-03777<\/td><td>Case Pending; 2026\\-06\\-01<\/td><td>Government Action Temporarily Blocked; 2026\\-08\\-03<\/td><td>SRC\\-2188<\/td><\/tr><tr><td>Changed<\/td><td>State of New York v\\. Burgum \\(D\\.D\\.C\\.\\)<\/td><td>1:26\\-cv\\-00072<\/td><td>Case Pending; 2026\\-02\\-02<\/td><td>Government Action Temporarily Blocked; 2026\\-02\\-02<\/td><td>SRC\\-2245<\/td><\/tr><tr><td>Changed<\/td><td>Jane Addams Senior Caucus v\\. HUD \\(D\\.D\\.C\\)<\/td><td>1:26\\-cv\\-00718<\/td><td>Case Pending; 2026\\-03\\-16<\/td><td>Case Closed in Favor of Plaintiff; 2026\\-03\\-16<\/td><td>SRC\\-1069<\/td><\/tr><tr><td>Changed<\/td><td>African Communities Together v\\. Noem \\(D\\. Mass\\.\\)<\/td><td>1:26\\-cv\\-11201<\/td><td>Government Action Temporarily Blocked; 2026\\-07\\-31<\/td><td>Government Action Temporarily Blocked; 2026\\-07\\-31<\/td><td>SRC\\-2032<\/td><\/tr><tr><td>Changed<\/td><td>American Federation of Government Employees AFL\\-C10 v\\. U\\.S\\. Federal Labor Relations Authority \\(D\\. Mass\\.\\)<\/td><td>1:26\\-cv\\-11747<\/td><td>Case Pending; 2026\\-04\\-15<\/td><td>Case Closed in Favor of Plaintiff; 2026\\-04\\-15<\/td><td>SRC\\-0948<\/td><\/tr><tr><td>Changed<\/td><td>State of California v\\. Zeldin \\(N\\.D\\. Cal\\.\\)<\/td><td>4:26\\-cv\\-03500<\/td><td>Case Pending; 2026\\-04\\-24<\/td><td>Case Closed in Favor of Plaintiff; 2026\\-07\\-20<\/td><td>SRC\\-2009<\/td><\/tr><\/tbody><\/table><\/div>",
+          "search_text": "source-monitor-010 2026-08-04T13:19:43+00:00 Case monitor bot changes_detected SRC-0948, SRC-1016, SRC-1062, SRC-1069, SRC-2009, SRC-2032, SRC-2188, SRC-2235, SRC-2245, SRC-2304, SRC-2333, SRC-2343, SRC-2344, SRC-2589 CASE-20260804131943-E74E782E 2026-08-04T13:19:43+00:00 Case monitor bot changes_detected SRC-0948, SRC-1016, SRC-1062, SRC-1069, SRC-2009, SRC-2032, SRC-2188, SRC-2235, SRC-2245, SRC-2304, SRC-2333, SRC-2343, SRC-2344, SRC-2589 CASE-20260804131943-E74E782E"
+        },
+        {
+          "id": "source-monitor-011",
+          "values": {
+            "date": "2026-08-04T13:19:45+00:00",
+            "watcher": "Presidential directives watcher (PDM-D922079DCF)",
+            "result": "catalog_updated",
+            "affected": "",
+            "activity": ""
+          },
+          "values_html": {
+            "date": "2026-08-04T13:19:45+00:00",
+            "watcher": "Presidential directives watcher (PDM-D922079DCF)",
+            "result": "catalog_updated",
+            "affected": "",
+            "activity": ""
+          },
+          "details_html": "<ul><li>Added directives: <strong>2<\/strong><\/li><li>Changed directives: <strong>0<\/strong><\/li><li>Added IDs: 2026\\-15859, 2026\\-15860<\/li><li>Result: catalog_updated<\/li><li>Action: Updated machine-observed Federal Register metadata and per-row baselines for human review.<\/li><li>Boundary: No substantive ARRP classification or disposition was performed.<\/li><\/ul>",
+          "search_text": "source-monitor-011 2026-08-04T13:19:45+00:00 Presidential directives watcher (PDM-D922079DCF) catalog_updated   2026-08-04T13:19:45+00:00 Presidential directives watcher (PDM-D922079DCF) catalog_updated  "
         }
       ],
       "availability": "current",
       "complete": true,
       "schema_errors": [],
-      "current_through": "2026-08-03T11:48:47+00:00",
+      "current_through": "2026-08-04T13:19:45+00:00",
       "producer": "source-monitor-log-projection",
       "reason": ""
     },
@@ -1936,11 +1974,37 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "direction": "desc"
       },
       "projection": {
-        "expected_rows": 22,
-        "actual_rows": 22,
+        "expected_rows": 23,
+        "actual_rows": 23,
         "complete": true
       },
       "entries": [
+        {
+          "id": "GOV-2026-023",
+          "values": {
+            "governance_change_id": "GOV-2026-023",
+            "entry_sha256": "sha256:01b17c7f55a83cb8fffae5928115753328179c1c0f3ea0fb61d902142f0e1d44",
+            "date": "2026-08-03",
+            "status": "Proposed / unmerged",
+            "decision_class": "security_privacy_disclosure",
+            "policy_adoption": "Proposed in one validated local commit only. No push, pull request, merge, publication, or canonical remote adoption is represented.",
+            "live_activation": "Not active. No automation, runtime, service, scheduler, credential, or external state changes.",
+            "supplement": "Required"
+          },
+          "values_html": {
+            "governance_change_id": "GOV-2026-023",
+            "entry_sha256": "sha256:01b17c7f55a83cb8fffae5928115753328179c1c0f3ea0fb61d902142f0e1d44",
+            "date": "2026-08-03",
+            "status": "Proposed / unmerged",
+            "decision_class": "security<em>privacy<\/em>disclosure",
+            "policy_adoption": "Proposed in one validated local commit only. No push, pull request, merge, publication, or canonical remote adoption is represented.",
+            "live_activation": "Not active. No automation, runtime, service, scheduler, credential, or external state changes.",
+            "supplement": "Required"
+          },
+          "details_html": "<h2>GOV-2026-023 — Central internal-report routing and affirmative public-report admission<\/h2>\n<ul><li><strong>Decision class:<\/strong> security<em>privacy<\/em>disclosure<\/li><li><strong>Authorities:<\/strong> framework/component-registry.json; framework/project/github/disclosure-boundary.md; framework/project/github/disclosure-policy.json; scripts/github<em>disclosure<\/em>gate.py<\/li><li><strong>Decision:<\/strong> Proposes Registry revision 6 and a narrow exact-commit publication stop. Internal operational reports remain owner-local and nonpublic by default. A changed report-like repository artifact must be within the deliberate public-report scope and have one exact Registry document/report component with explicit <code>public-project-report<\/code> information handling.<\/li><li><strong>Evidence:<\/strong> Benjamin&#x27;s exact design-lock approval for <code>CODEX-ARRP-REPORT-ROUTING-SIMPLIFICATION-2026-08-03<\/code> revision 2; focused Registry, disclosure-gate, Console, and governance validation; final local commit identity remains to be recorded at closeout.<\/li><li><strong>Policy adoption:<\/strong> Proposed in one validated local commit only. No push, pull request, merge, publication, or canonical remote adoption is represented.<\/li><li><strong>Live activation:<\/strong> Not active. No automation, runtime, service, scheduler, credential, or external state changes.<\/li><li><strong>Relationships:<\/strong> Refines GOV-2026-002 and GOV-2026-022 without changing the Registry&#x27;s nonexecutable authority boundary.<\/li><li><strong>Validation:<\/strong> Registered public report passes; unregistered, internal, outside-scope, and unknown report-like paths fail; removals and ordinary non-report paths retain their existing behavior.<\/li><li><strong>Owner-local supplement:<\/strong> Required.<\/li><\/ul>",
+          "search_text": "GOV-2026-023 GOV-2026-023 sha256:01b17c7f55a83cb8fffae5928115753328179c1c0f3ea0fb61d902142f0e1d44 2026-08-03 Proposed / unmerged security_privacy_disclosure Proposed in one validated local commit only. No push, pull request, merge, publication, or canonical remote adoption is represented. Not active. No automation, runtime, service, scheduler, credential, or external state changes. Required GOV-2026-023 sha256:01b17c7f55a83cb8fffae5928115753328179c1c0f3ea0fb61d902142f0e1d44 2026-08-03 Proposed / unmerged security_privacy_disclosure Proposed in one validated local commit only. No push, pull request, merge, publication, or canonical remote adoption is represented. Not active. No automation, runtime, service, scheduler, credential, or external state changes. Required",
+          "title": "Central internal-report routing and affirmative public-report admission"
+        },
         {
           "id": "GOV-2026-022",
           "values": {
@@ -3450,6 +3514,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "logs.js": "project-console-602d651072a7439a99d5"
+    "logs.js": "project-console-121b37c74a51b9d93646"
   }
 });

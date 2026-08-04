@@ -7719,7 +7719,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 4211,
+      "word_count": 4423,
       "estimated_pages": 7,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9610,7 +9610,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/project/github-github disclosure boundary",
       "internal_links": [],
-      "word_count": 1460,
+      "word_count": 1536,
       "estimated_pages": 3,
       "table_count": 0,
       "max_table_columns": 0,
@@ -9666,8 +9666,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "exists": true
         }
       ],
-      "word_count": 5196,
-      "estimated_pages": 8,
+      "word_count": 5260,
+      "estimated_pages": 9,
       "table_count": 1,
       "max_table_columns": 2,
       "heading_issue_count": 0,
@@ -10697,7 +10697,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/status/sources-source checker bot current report",
       "internal_links": [],
-      "word_count": 6610,
+      "word_count": 6742,
       "estimated_pages": 11,
       "table_count": 2,
       "max_table_columns": 4,
@@ -10743,9 +10743,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "assembly_sections": {},
       "assembly_sort_key": "framework/logs/sources-source monitor log",
       "internal_links": [],
-      "word_count": 4358,
-      "estimated_pages": 7,
-      "table_count": 4,
+      "word_count": 4973,
+      "estimated_pages": 8,
+      "table_count": 5,
       "max_table_columns": 6,
       "heading_issue_count": 0,
       "longest_unbroken_token": 70
@@ -13217,7 +13217,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       },
       "assembly_sort_key": "research/candidate-source-development-source development — hor-035",
       "internal_links": [],
-      "word_count": 15001,
+      "word_count": 15065,
       "estimated_pages": 24,
       "table_count": 0,
       "max_table_columns": 0,
@@ -15328,7 +15328,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "path": "exports/pdf/ARRP-public-proposal-draft.pdf",
         "github_url": "https://github.com/Thorncrag/ARRP/blob/main/exports/pdf/ARRP-public-proposal-draft.pdf",
         "page_count": 505,
-        "modified_at": "2026-07-29T00:35:06+00:00",
+        "modified_at": "2026-08-04T13:19:41+00:00",
         "stale": true
       }
     ],
@@ -18521,8 +18521,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "issue_pages": 64,
           "proposal_pages": 41
         },
-        "revision": "e5e0d11f0184517ea5b730d601c4ccc16e304348",
-        "generated_at": "2026-08-03T15:06:48+00:00"
+        "revision": "c41dfc44901ad9ad2aab2501c3e6f498b04e95a3",
+        "generated_at": "2026-08-04T13:31:50+00:00"
       },
       "human_go_no_go": {
         "available": false,
@@ -20278,6 +20278,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "publication.js": "project-console-602d651072a7439a99d5"
+    "publication.js": "project-console-121b37c74a51b9d93646"
   }
 });

@@ -3,6 +3,48 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_007": [
     {
+      "id": "2023-09539",
+      "administration": "Biden",
+      "president": "Joseph R. Biden Jr.",
+      "type": "Proclamation",
+      "number": "10567",
+      "title": "National Small Business Week, 2023",
+      "signed_date": "2023-04-28",
+      "published_date": "2023-05-03",
+      "citation": "88 FR 27677",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2023-05-03/pdf/2023-09539.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2023/05/03/2023-09539/national-small-business-week-2023",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2023-09538",
+      "administration": "Biden",
+      "president": "Joseph R. Biden Jr.",
+      "type": "Proclamation",
+      "number": "10566",
+      "title": "National Hurricane Preparedness Week, 2023",
+      "signed_date": "2023-04-28",
+      "published_date": "2023-05-03",
+      "citation": "88 FR 27675",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2023-05-03/pdf/2023-09538.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2023/05/03/2023-09538/national-hurricane-preparedness-week-2023",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
       "id": "2023-09537",
       "administration": "Biden",
       "president": "Joseph R. Biden Jr.",
@@ -3928,51 +3970,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "source_ids": [],
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2022-21139",
-      "administration": "Biden",
-      "president": "Joseph R. Biden Jr.",
-      "type": "Proclamation",
-      "number": "10453",
-      "title": "National Hunting and Fishing Day, 2022",
-      "signed_date": "2022-09-23",
-      "published_date": "2022-09-28",
-      "citation": "87 FR 58705",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2022-09-28/pdf/2022-21139.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2022/09/28/2022-21139/national-hunting-and-fishing-day-2022",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2022-20695",
-      "administration": "Biden",
-      "president": "Joseph R. Biden Jr.",
-      "type": "Proclamation",
-      "number": "10452",
-      "title": "National Voter Registration Day, 2022",
-      "signed_date": "2022-09-19",
-      "published_date": "2022-09-22",
-      "citation": "87 FR 57793",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2022-09-22/pdf/2022-20695.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2022/09/22/2022-20695/national-voter-registration-day-2022",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-007.js": "project-console-602d651072a7439a99d5"
+    "directives-catalog-007.js": "project-console-121b37c74a51b9d93646"
   }
 });

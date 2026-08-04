@@ -3,6 +3,48 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_011": [
     {
+      "id": "2021-01748",
+      "administration": "Biden",
+      "president": "Joseph R. Biden Jr.",
+      "type": "Proclamation",
+      "number": "10140",
+      "title": "A National Day of Unity",
+      "signed_date": "2021-01-20",
+      "published_date": "2021-01-25",
+      "citation": "86 FR 7003",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2021-01-25/pdf/2021-01748.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2021/01/25/2021-01748/a-national-day-of-unity",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2021-01718",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Memorandum",
+      "number": "",
+      "title": "Deferred Enforced Departure for Certain Venezuelans",
+      "signed_date": "2021-01-19",
+      "published_date": "2021-01-25",
+      "citation": "86 FR 6845",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2021-01-25/pdf/2021-01718.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2021/01/25/2021-01718/deferred-enforced-departure-for-certain-venezuelans",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
       "id": "2021-01717",
       "administration": "Trump I",
       "president": "Donald Trump",
@@ -4008,51 +4050,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "source_ids": [],
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2020-16591",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Proclamation",
-      "number": "10058",
-      "title": "Anniversary of the Americans With Disabilities Act, 2020",
-      "signed_date": "2020-07-24",
-      "published_date": "2020-07-29",
-      "citation": "85 FR 45743",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2020-07-29/pdf/2020-16591.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2020/07/29/2020-16591/anniversary-of-the-americans-with-disabilities-act-2020",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2020-16312",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Notice",
-      "number": "",
-      "title": "Continuation of the National Emergency With Respect to Mali",
-      "signed_date": "2020-07-23",
-      "published_date": "2020-07-24",
-      "citation": "85 FR 45055",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2020-07-24/pdf/2020-16312.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2020/07/24/2020-16312/continuation-of-the-national-emergency-with-respect-to-mali",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-011.js": "project-console-602d651072a7439a99d5"
+    "directives-catalog-011.js": "project-console-121b37c74a51b9d93646"
   }
 });
