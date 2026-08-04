@@ -2220,7 +2220,7 @@ test("Current Project Brief dots distinguish success, pause, blockers, and unkno
     }]
   };
   const readiness = {
-    latest_attempt: { available: true, blockers: [], blocker_count: 0 },
+    latest_attempt: { available: true, status: "completed", blockers: [], blocker_count: 0 },
     latest_scheduled_attempt: { available: false },
     future_run_gates: { available: true, items: [], count: 0 }
   };
@@ -2235,6 +2235,27 @@ test("Current Project Brief dots distinguish success, pause, blockers, and unkno
   assert.equal(healthy.lastSuccessful.tone, "success");
   assert.equal(healthy.nextRun.tone, "success");
   assert.equal(healthy.nextEpoch.tone, "success");
+
+  const recoveredAfterScheduledFailure = api.overviewBriefFactStates({}, {
+    ...readiness,
+    latest_attempt: {
+      available: true,
+      status: "completed",
+      checked_at: "2026-08-04T13:34:08Z"
+    },
+    latest_scheduled_attempt: {
+      available: true,
+      status: "failed",
+      checked_at: "2026-08-04T06:00:00Z"
+    }
+  }, currentVerification, {
+    trigger: "manual",
+    status: "completed",
+    control_state: "run",
+    updated_at: "2026-08-04T13:34:08Z"
+  });
+  assert.equal(recoveredAfterScheduledFailure.latest.tone, "success");
+  assert.equal(recoveredAfterScheduledFailure.scheduledAttempt.status, "failed");
 
   const paused = api.overviewBriefFactStates({}, readiness, staleVerification, {
     ...completed,
@@ -3527,7 +3548,8 @@ test("platform projection has five provider-neutral cells and exact scoped depen
       { id: "rsp3h37vv009", name: "AI Gateway", status: "major_outage" }
     ] },
     { incidents: [
-      { id: "relevant", name: "Build delay", components: [{ id: "7ckq6xr6nsbv" }] },
+      { id: "relevant", name: "Build delay", status: "investigating", components: [{ id: "7ckq6xr6nsbv" }] },
+      { id: "resolved", name: "Prior build delay", status: "resolved", components: [{ id: "7ckq6xr6nsbv" }] },
       { id: "unrelated", name: "AI Gateway issue", components: [{ id: "rsp3h37vv009" }] }
     ] },
     checkedAt
@@ -3603,6 +3625,8 @@ test("platform provider failures are isolated and retain last-valid identity", (
 
 test("platform sources are exact and advisory rendering does not create incidents", () => {
   const app = fs.readFileSync(appPath, "utf8");
+  assert.match(app, /https:\/\/status\.openai\.com\/api\/v2\/incidents\.json/);
+  assert.doesNotMatch(app, /status\.openai\.com\/api\/v2\/incidents\/unresolved\.json/);
   assert.match(app, /https:\/\/www\.vercel-status\.com\/api\/v2\/status\.json/);
   assert.match(app, /https:\/\/www\.vercel-status\.com\/api\/v2\/components\.json/);
   assert.match(app, /https:\/\/www\.cloudflarestatus\.com\/api\/v2\/components\.json/);

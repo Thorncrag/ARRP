@@ -1072,8 +1072,11 @@ def public_safe_automation_occurrences(
     """Retain occurrence posture without exporting operational diagnostics."""
 
     safe = copy.deepcopy(projection)
-    safe["role_currentness"] = {"state": "unavailable"}
-    safe["trustworthy_through"] = None
+    currentness = safe.get("role_currentness") or {}
+    safe["role_currentness"] = {
+        key: currentness.get(key)
+        for key in ("state", "checked_at", "valid_until")
+    }
     safe["occurrences"] = [
         {
             **{
@@ -5299,6 +5302,7 @@ def automation_occurrence_projection(
     local_status: dict[str, object],
     *,
     checked_at: str,
+    transaction_recovery: dict[str, object] | None = None,
 ) -> dict[str, object]:
     """Build one typed occurrence directory without mixing exact runs."""
 
@@ -5341,6 +5345,63 @@ def automation_occurrence_projection(
         occurrences = [
             item for item in (chain_item, local_item) if item is not None
         ]
+    recovery_items = (
+        transaction_recovery.get("items")
+        if isinstance(transaction_recovery, dict)
+        and transaction_recovery.get("complete") is True
+        and isinstance(transaction_recovery.get("items"), list)
+        else []
+    )
+    scheduled_recovery = next(
+        (
+            item
+            for item in reversed(recovery_items)
+            if isinstance(item, dict)
+            and str(item.get("attempt_group_id") or "").startswith("scheduled:")
+        ),
+        None,
+    )
+    if scheduled_recovery is not None:
+        occurrence_id = str(scheduled_recovery.get("run_id") or "").strip()
+        scheduled_for = str(
+            scheduled_recovery.get("attempt_group_id") or ""
+        ).removeprefix("scheduled:").upper()
+        if occurrence_id and all(
+            item.get("occurrence_id") != occurrence_id for item in occurrences
+        ):
+            occurrences.append(
+                {
+                    "occurrence_id": occurrence_id,
+                    "schedule_identity": "owner-local-nightly",
+                    "trigger": "scheduled",
+                    "status": "failed",
+                    "source_revision": None,
+                    "generation_id": None,
+                    "created_at": scheduled_for,
+                    "started_at": scheduled_for,
+                    "completed_at": scheduled_for,
+                    "updated_at": scheduled_for,
+                    "scheduled_for": scheduled_for,
+                    "stages": [
+                        normalized_occurrence_stage(
+                            stage_id=stage_id,
+                            label=label,
+                            source=None,
+                            occurrence_id=occurrence_id,
+                        )
+                        for stage_id, label in AUTOMATION_OCCURRENCE_STAGE_SPECS
+                    ],
+                    "blockers": [
+                        {
+                            "id": f"{occurrence_id}-recovery",
+                            "stage_id": None,
+                            "reason": "The scheduled transaction has preserved failure state.",
+                            "recorded_at": scheduled_for,
+                        }
+                    ],
+                    "complete": True,
+                }
+            )
     occurrences.sort(
         key=lambda item: (
             parsed_utc(
@@ -5366,18 +5427,45 @@ def automation_occurrence_projection(
         if isinstance(run_chain.get("last_fully_successful_occurrence"), dict)
         else None
     )
-    local_checked_at = parsed_utc(
-        local_status.get("updated_at")
-        or local_status.get("completed_at")
-        or local_status.get("started_at")
+    if explicit_full_success is None:
+        successful = next(
+            (
+                item
+                for item in occurrences
+                if str(item.get("status") or "").lower()
+                in {"complete", "completed", "succeeded"}
+                and item.get("complete") is True
+                and not item.get("blockers")
+                and len(item.get("stages") or [])
+                == len(AUTOMATION_OCCURRENCE_STAGE_SPECS)
+                and all(
+                    stage.get("status") == "succeeded"
+                    for stage in item.get("stages") or []
+                    if isinstance(stage, dict)
+                )
+            ),
+            None,
+        )
+        if successful is not None:
+            explicit_full_success = {
+                "occurrence_id": successful.get("occurrence_id"),
+                "completed_at": successful.get("completed_at"),
+                "updated_at": successful.get("updated_at"),
+                "source_revision": successful.get("source_revision"),
+            }
+    occurrence_checked_at = parsed_utc(
+        (latest or {}).get("updated_at")
+        or (latest or {}).get("completed_at")
+        or (latest or {}).get("started_at")
+        or (latest or {}).get("scheduled_for")
     )
     valid_until = (
-        local_checked_at + timedelta(hours=36)
-        if local_checked_at is not None
+        occurrence_checked_at + timedelta(hours=36)
+        if occurrence_checked_at is not None
         else None
     )
     currentness = (
-        "current"
+                "current"
         if valid_until is not None and valid_until >= checked
         else "stale"
         if valid_until is not None
@@ -5431,13 +5519,13 @@ def automation_occurrence_projection(
         },
         "role_currentness": {
             "state": currentness,
-            "checked_at": (
-                local_checked_at.isoformat() if local_checked_at else None
+                "checked_at": (
+                occurrence_checked_at.isoformat() if occurrence_checked_at else None
             ),
             "valid_until": valid_until.isoformat() if valid_until else None,
         },
         "trustworthy_through": (
-            local_checked_at.isoformat() if local_checked_at else None
+            occurrence_checked_at.isoformat() if occurrence_checked_at else None
         ),
     }
 
@@ -10862,6 +10950,7 @@ def main() -> None:
         run_chain,
         local_automation_status,
         checked_at=generated_at,
+        transaction_recovery=transaction_recovery,
     )
     public_automation_occurrences = public_safe_automation_occurrences(
         automation_occurrences

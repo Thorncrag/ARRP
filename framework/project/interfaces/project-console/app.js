@@ -483,7 +483,7 @@
   const LIVE_PULL_REQUESTS_URL = "https://api.github.com/repos/Thorncrag/ARRP/pulls?state=open&per_page=100";
   const OPENAI_STATUS_URL = "https://status.openai.com/api/v2/status.json";
   const OPENAI_COMPONENTS_URL = "https://status.openai.com/api/v2/components.json";
-  const OPENAI_INCIDENTS_URL = "https://status.openai.com/api/v2/incidents/unresolved.json";
+  const OPENAI_INCIDENTS_URL = "https://status.openai.com/api/v2/incidents.json";
   const VERCEL_STATUS_URL = "https://www.vercel-status.com/api/v2/status.json";
   const VERCEL_COMPONENTS_URL = "https://www.vercel-status.com/api/v2/components.json";
   const VERCEL_INCIDENTS_URL = "https://www.vercel-status.com/api/v2/incidents/unresolved.json";
@@ -6541,6 +6541,7 @@
   function relevantPlatformIncidents(incidents, componentIds) {
     const relevantIds = new Set(componentIds);
     return (Array.isArray(incidents) ? incidents : []).filter((incident) => {
+      if (String(incident?.status || "").toLowerCase() === "resolved") return false;
       const linked = Array.isArray(incident?.components) ? incident.components : [];
       return linked.some((component) => relevantIds.has(String(component?.id || component)));
     }).map((incident) => ({
@@ -6996,6 +6997,12 @@
     localStatus = window.ARRP_LOCAL_AUTOMATION_STATUS
   ) {
     const scheduledProjection = readiness.latest_scheduled_attempt || {};
+    const latestProjection = readiness.latest_attempt || {};
+    const latestAttempt = newestAttempt(
+      latestProjection.available === true ? latestProjection : null,
+      chain,
+      localStatus
+    );
     const scheduledAttempt = newestAttempt(
       scheduledProjection.available === true ? scheduledProjection : null,
       /schedule|launchd/i.test(String(chain.trigger || "")) ? chain : null,
@@ -7031,6 +7038,31 @@
           : {
               tone: "unavailable",
               label: "The chronologically latest scheduled attempt outcome cannot be determined reliably",
+              route: "automation:data"
+            };
+    const latestFailed = attemptFailed(latestAttempt);
+    const currentState = latestFailed || scheduledBlocked
+      ? {
+          tone: "error",
+          label: latestFailed
+            ? "The latest automation attempt failed or remains blocked"
+            : "A confirmed blocker prevents the next ordinary automation run",
+          route: "automation:overview"
+        }
+      : controlState === "paused"
+        ? {
+            tone: "warning",
+            label: "Automation is intentionally Paused",
+            route: "automation:overview"
+          }
+        : controlState === "run" && attemptSucceeded(latestAttempt)
+          ? {
+              tone: "success",
+              label: "The latest automation attempt completed and automation is in Run state"
+            }
+          : {
+              tone: "unavailable",
+              label: "Current automation posture cannot be determined reliably",
               route: "automation:data"
             };
     const staleOnly = verification.failed.length > 0
@@ -7070,11 +7102,11 @@
               route: "automation:data"
             };
     return {
-      latestAttempt: scheduledAttempt,
+      latestAttempt,
       scheduledAttempt,
       controlState,
       data: dataState,
-      latest: scheduledState,
+      latest: currentState,
       lastSuccessful: {
         ...scheduledState,
         label: scheduledState.tone === "success"
