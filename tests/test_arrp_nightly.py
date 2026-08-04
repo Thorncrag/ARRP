@@ -107,6 +107,30 @@ class ArrpNightlyTransactionTests(unittest.TestCase):
             MODULE.RUNTIME_FILES,
         )
 
+    def test_occurrence_finalizer_dependencies_are_in_runtime_snapshot(self):
+        self.assertIn("scripts/codex_usage_projection.py", MODULE.RUNTIME_FILES)
+        self.assertNotIn("scripts/build_owner_console.py", MODULE.RUNTIME_FILES)
+
+    def test_owner_usage_wrapper_preserves_valid_unavailable_posture(self):
+        unavailable = MODULE.unavailable_codex_usage_projection(
+            "owner_local_projection_required"
+        )
+        with (
+            mock.patch.object(
+                MODULE,
+                "read_owner_text",
+                return_value=json.dumps(unavailable),
+            ),
+            mock.patch.object(
+                MODULE,
+                "codex_usage_projection_is_valid",
+                return_value=True,
+            ),
+        ):
+            observed = MODULE._read_current_codex_usage()
+        self.assertEqual(observed["availability"], "unavailable")
+        self.assertEqual(observed["payload"], unavailable)
+
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
@@ -114,6 +138,235 @@ class ArrpNightlyTransactionTests(unittest.TestCase):
 
     def tearDown(self):
         self.temporary.cleanup()
+
+    def test_occurrence_finalizer_builds_once_and_preserves_primary_status(self):
+        config = self.fixture.config()
+        config.state_root.mkdir(mode=0o700)
+        MODULE.atomic_write_json(
+            config.state_root / "status.json",
+            {
+                "run_id": "finalizer-success",
+                "status": "failed",
+                "updated_at": "2026-08-04T14:00:00Z",
+                "pull_request": None,
+                "merge_commit": None,
+                "pages_conclusion": None,
+            },
+        )
+        run_dir = config.state_root / "runs" / "finalizer-success"
+        run_dir.mkdir(parents=True)
+        MODULE.atomic_write_json(
+            run_dir / "run-chain.json",
+            {
+                "run_id": "finalizer-success",
+                "status": "complete",
+                "usage": {
+                    "remaining_percent": 26,
+                    "status": "available",
+                },
+            },
+        )
+        operations = {
+            "schema_version": 4,
+            "availability": "current",
+            "generated_at": "2026-08-04T14:00:00Z",
+            "catalog_generation_id": "project-console-test",
+            "source_revision": "a" * 40,
+            "agent_registry": [],
+            "project_logs": [],
+            "integrity": {},
+            "run_chain": {"run_id": "finalizer-success"},
+            "action_snapshot": {},
+            "queue_directory": {},
+            "operational_incidents": {},
+            "security_incidents": {},
+            "incident_relations": {},
+            "transaction_recovery": {},
+            "governance_change_supplements": {},
+            "privacy": "owner-only",
+        }
+        security = {
+            "schema_version": 2,
+            "availability": "current",
+            "complete": True,
+            "checked_at": "2026-08-04T14:00:00Z",
+            "public_intake_state": "live",
+            "private_attention": "no",
+            "active_incident": False,
+            "tools": [],
+        }
+        owner_data = config.state_root / "console"
+        MODULE.atomic_write_bytes(
+            owner_data / "private-operations.js",
+            (
+                "/* Private local projection; never commit or publish. */\n"
+                "window.ARRP_PRIVATE_OPERATIONS="
+                + json.dumps(operations, separators=(",", ":"))
+                + ";\n"
+            ).encode("utf-8"),
+        )
+        MODULE.atomic_write_bytes(
+            owner_data / "private-security-assurance.js",
+            (
+                "/* Private local projection; never commit or publish. */\n"
+                "window.ARRP_PRIVATE_SECURITY_ASSURANCE="
+                + json.dumps(security, separators=(",", ":"))
+                + ";\n"
+            ).encode("utf-8"),
+        )
+        unavailable = MODULE.unavailable_codex_usage_projection(
+            "source_unavailable"
+        )
+        with mock.patch.object(
+            MODULE,
+            "_read_current_codex_usage",
+            return_value={"availability": "unavailable", "payload": unavailable},
+        ):
+            first = MODULE.finalize_occurrence(config, "finalizer-success")
+            second = MODULE.finalize_occurrence(config, "finalizer-success")
+
+        self.assertEqual(first, second)
+        self.assertEqual(first["status"], "completed")
+        self.assertEqual(first["primary_status"], "failed")
+        package_path = Path(first["project_package_path"])
+        package = json.loads(package_path.read_text(encoding="utf-8"))
+        self.assertEqual(package["run_id"], "finalizer-success")
+        self.assertEqual(package["usage"]["occurrence"]["remaining_percent"], 26)
+        self.assertEqual(
+            package["usage"]["occurrence"]["availability"],
+            "available_for_occurrence",
+        )
+        self.assertEqual(package["operations"]["availability"], "current")
+        self.assertTrue(package["operations"]["matches_occurrence"])
+        self.assertEqual(package["operations"]["payload"]["agent_registry"], [])
+        self.assertEqual(package["security_assurance"]["availability"], "retained")
+        self.assertIsNone(package["security_assurance"]["matches_occurrence"])
+        self.assertEqual(package["security_assurance"]["payload"]["tools"], [])
+        self.assertEqual(first["project_package_sha256"], MODULE.file_sha256(package_path))
+        self.assertNotIn(
+            "publication-readback-unavailable",
+            first["health"]["gaps"],
+        )
+        self.assertTrue(
+            (
+                config.state_root
+                / "runs"
+                / "finalizer-success"
+                / MODULE.OCCURRENCE_FINALIZER_FILENAME
+            ).is_file()
+        )
+
+    def test_occurrence_finalizer_failure_is_separate_from_primary_result(self):
+        config = self.fixture.config()
+        error = MODULE.TransactionError("owner Console unavailable")
+        with (
+            mock.patch.object(MODULE, "finalize_occurrence", side_effect=error),
+            mock.patch.object(MODULE, "spool_failure_incident") as spool,
+        ):
+            MODULE.finalize_occurrence_safely(config, "finalizer-failure")
+        spool.assert_called_once()
+        self.assertEqual(
+            spool.call_args.kwargs["component"],
+            "occurrence-finalizer",
+        )
+
+    def test_occurrence_finalizer_creates_early_failure_evidence_directory(self):
+        config = self.fixture.config()
+        config.state_root.mkdir(mode=0o700)
+        MODULE.atomic_write_json(
+            config.state_root / "status.json",
+            {
+                "run_id": "early-failure",
+                "status": "failed",
+                "updated_at": "2026-08-04T14:00:00Z",
+                "runtime_commit": None,
+                "pull_request": None,
+                "merge_commit": None,
+                "pages_conclusion": None,
+            },
+        )
+        security = {
+            "schema_version": 2,
+            "availability": "current",
+            "complete": True,
+            "checked_at": "2026-08-03T14:00:00Z",
+            "public_intake_state": "live",
+            "private_attention": "no",
+            "active_incident": False,
+            "tools": [],
+        }
+        MODULE.atomic_write_bytes(
+            config.state_root / "console/private-security-assurance.js",
+            (
+                "/* Private local projection; never commit or publish. */\n"
+                "window.ARRP_PRIVATE_SECURITY_ASSURANCE="
+                + json.dumps(security, separators=(",", ":"))
+                + ";\n"
+            ).encode("utf-8"),
+        )
+        with mock.patch.object(
+            MODULE,
+            "_read_current_codex_usage",
+            return_value={
+                "availability": "unavailable",
+                "payload": MODULE.unavailable_codex_usage_projection(
+                    "source_unavailable"
+                ),
+            },
+        ):
+            result = MODULE.finalize_occurrence(config, "early-failure")
+        self.assertEqual(result["status"], "completed")
+        self.assertEqual(result["primary_status"], "failed")
+        self.assertTrue(
+            (
+                config.state_root
+                / "runs"
+                / "early-failure"
+                / MODULE.OCCURRENCE_FINALIZER_FILENAME
+            ).is_file()
+        )
+        package = json.loads(
+            Path(result["project_package_path"]).read_text(encoding="utf-8")
+        )
+        self.assertIsNone(package["run_chain"])
+        self.assertEqual(package["usage"]["occurrence"]["availability"], "unavailable")
+        self.assertEqual(package["security_assurance"]["availability"], "retained")
+        self.assertIsNone(package["security_assurance"]["matches_occurrence"])
+
+    def test_exclusive_lock_runs_finalizer_before_unlock(self):
+        observed = {"lock_held": False}
+
+        def finalize():
+            contender = os.open(self.fixture.state / "run.lock", os.O_RDWR)
+            try:
+                with self.assertRaises(BlockingIOError):
+                    fcntl.flock(contender, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                observed["lock_held"] = True
+            finally:
+                os.close(contender)
+
+        with MODULE.exclusive_lock(
+            self.fixture.state,
+            "locked-finalizer",
+            on_finalize=finalize,
+        ):
+            pass
+        self.assertTrue(observed["lock_held"])
+
+    def test_lock_contention_does_not_invoke_finalizer(self):
+        finalize = mock.Mock()
+        with MODULE.exclusive_lock(self.fixture.state, "active-owner"):
+            with self.assertRaisesRegex(
+                MODULE.TransactionError,
+                "owns the operating-system lock",
+            ):
+                with MODULE.exclusive_lock(
+                    self.fixture.state,
+                    "blocked-contender",
+                    on_finalize=finalize,
+                ):
+                    pass
+        finalize.assert_not_called()
 
     def production_routing_authority(
         self,

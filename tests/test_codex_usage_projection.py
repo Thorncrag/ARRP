@@ -86,6 +86,12 @@ def current_projection() -> dict[str, object]:
 
 
 class CodexUsageProjectionTests(unittest.TestCase):
+    def test_reset_identity_normalizes_provider_second_drift(self) -> None:
+        minute = 2_976_9490
+        self.assertEqual(reset_identity(10080, minute * 60 - 2), f"10080:{minute}")
+        self.assertEqual(reset_identity(10080, minute * 60 - 1), f"10080:{minute}")
+        self.assertEqual(reset_identity(10080, minute * 60), f"10080:{minute}")
+
     def assert_invalid(self, payload: object) -> None:
         with self.assertRaises(CodexUsageProjectionError):
             validate_projection(payload, now=CHECKED_AT)

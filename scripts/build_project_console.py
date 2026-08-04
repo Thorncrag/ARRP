@@ -183,6 +183,9 @@ except ModuleNotFoundError:
 
 ROOT = Path(__file__).resolve().parents[1]
 STATE_ROOT = APPROVED_STATE_ROOT
+CODEX_USAGE_PROJECTION_SOURCE = (
+    Path.home() / ".codex/usage-tracking/codex-usage-projection.json"
+)
 COMPONENT_REGISTRY = ROOT / "framework" / "component-registry.json"
 COMPONENT_REGISTRY_SCHEMA = (
     ROOT / "framework" / "standards" / "automation"
@@ -240,10 +243,11 @@ PROJECT_CONSOLE_ROOT = (
 )
 OUTPUT = PROJECT_CONSOLE_ROOT / "catalog-data.js"
 CONSOLE_DATA_DIR = PROJECT_CONSOLE_ROOT / "data"
+OWNER_CONSOLE_DATA_DIR = STATE_ROOT / "console"
 PRIVATE_SECURITY_ASSURANCE_OUTPUT = (
-    CONSOLE_DATA_DIR / "private-security-assurance.js"
+    OWNER_CONSOLE_DATA_DIR / "private-security-assurance.js"
 )
-PRIVATE_CODEX_USAGE_OUTPUT = CONSOLE_DATA_DIR / "private-codex-usage.js"
+PRIVATE_CODEX_USAGE_OUTPUT = OWNER_CONSOLE_DATA_DIR / "private-codex-usage.js"
 CONSOLE_CLASSIFICATION_REGISTRY = (
     ROOT / "framework" / "project" / "interfaces"
     / "project-console"
@@ -254,7 +258,8 @@ CONSOLE_DEVELOPMENT_LOG = (
     ROOT / "framework" / "logs" / "automation"
     / "console-development-log.md"
 )
-PRIVATE_OPERATIONS_OUTPUT = CONSOLE_DATA_DIR / "private-operations.js"
+PRIVATE_OPERATIONS_OUTPUT = OWNER_CONSOLE_DATA_DIR / "private-operations.js"
+LOCAL_AUTOMATION_STATUS_INPUT = OWNER_CONSOLE_DATA_DIR / "local-automation-status.js"
 REPOSITORY_GATES_SNAPSHOT = ROOT / ".tmp" / "repository-gates.json"
 REPOSITORY_GATES_LAST_GOOD = ROOT / ".tmp" / "repository-gates-last-good.json"
 REPOSITORY_GATE_DECLARATIONS = (
@@ -4538,9 +4543,32 @@ def unavailable_codex_usage_projection() -> dict[str, object]:
 
 
 def codex_usage_projection() -> dict[str, object]:
-    """Keep the repository-source Console independent of private usage data."""
+    """Load the minimized usage feed only into the owner-local output root."""
 
-    return unavailable_codex_usage_projection()
+    try:
+        info = CODEX_USAGE_PROJECTION_SOURCE.lstat()
+        if (
+            stat.S_ISLNK(info.st_mode)
+            or not stat.S_ISREG(info.st_mode)
+            or info.st_uid != os.getuid()
+            or bool(stat.S_IMODE(info.st_mode) & 0o077)
+            or info.st_size > 1_048_576
+        ):
+            raise OSError("unsafe owner usage source")
+        payload = json.loads(
+            CODEX_USAGE_PROJECTION_SOURCE.read_text(encoding="utf-8")
+        )
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        return build_unavailable_codex_usage_projection(
+            "source_unavailable",
+            generated_at=datetime.now(timezone.utc),
+        )
+    if not isinstance(payload, dict) or not valid_codex_usage_projection(payload):
+        return build_unavailable_codex_usage_projection(
+            "usage_readback_invalid",
+            generated_at=datetime.now(timezone.utc),
+        )
+    return payload
 
 
 def write_private_codex_usage(payload: dict[str, object]) -> dict[str, object]:
@@ -4841,7 +4869,7 @@ def existing_console_payload() -> dict[str, object]:
             continue
         if isinstance(part, dict):
             payload.update(part)
-    private_operations = CONSOLE_DATA_DIR / "private-operations.js"
+    private_operations = PRIVATE_OPERATIONS_OUTPUT
     if ALLOW_PRIVATE_CONSOLE_INPUTS and private_operations.exists():
         private_prefix = (
             "/* Private local projection; never commit or publish. */\n"
@@ -10898,7 +10926,7 @@ def main() -> None:
         {}
         if args.public_only
         else local_automation_status_snapshot(
-            CONSOLE_DATA_DIR / "local-automation-status.js"
+            LOCAL_AUTOMATION_STATUS_INPUT
         )
     )
     automation_occurrences = automation_occurrence_projection(
