@@ -8807,7 +8807,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "pipeline": {
       "schemaVersion": 1,
-      "generatedAt": "2026-08-04T11:28:19-04:00",
+      "generatedAt": "2026-08-04T11:53:52-04:00",
       "progressGenerationId": "project-console-progress-06ace3acc10005b78209",
       "progressSourceRevision": "c41dfc44901ad9ad2aab2501c3e6f498b04e95a3",
       "asOf": "2026-08-04",
@@ -12927,6 +12927,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   },
   "domain_generation": {
-    "progress.js": "project-console-b7de28d279f37fcbb95a"
+    "progress.js": "project-console-6838d998ef9457f5970f"
   }
 });
