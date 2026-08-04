@@ -10120,10 +10120,10 @@ def component_registry_console_snapshot(
     registry = routing_view["_validated_registry"]
     if (
         registry.get("schema_version") != 4
-        or registry.get("registry_revision") != 5
+        or registry.get("registry_revision") != 6
     ):
         raise RuntimeError(
-            "Console requires exact Registry schema 4 and revision 5."
+            "Console requires exact Registry schema 4 and revision 6."
         )
 
     component_entries = registry["components"]["entries"]

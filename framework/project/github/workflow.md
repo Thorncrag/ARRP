@@ -40,6 +40,13 @@ families without requiring a label on every file. Unknown or ambiguous
 families fail closed; an LLM-supplied `privacy_class: public` value is never
 independent proof.
 
+Internal operational reports are owner-local rather than repository workflow
+artifacts. A changed report-like file may proceed in an outbound Git range only
+when it is under `framework/reports/` and the exact outbound Component Registry
+revision identifies that exact path as a public project report. Removal remains
+a contentless reconciliation action; an ordinary non-report change does not
+acquire a report-classification requirement.
+
 Prohibited secrets have no approval exception. Restricted or private material
 does not go to GitHub; public communication requires a separately reviewed
 sanitized derivative. The same rule applies to commits, pull requests, Issues,

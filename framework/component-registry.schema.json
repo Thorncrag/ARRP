@@ -29,7 +29,7 @@
       "const": "COMPONENT-REGISTRY"
     },
     "registry_revision": {
-      "const": 5
+      "const": 6
     },
     "terminology": {
       "type": "object",
@@ -223,8 +223,8 @@
         },
         "entries": {
           "type": "object",
-          "minProperties": 105,
-          "maxProperties": 105,
+          "minProperties": 110,
+          "maxProperties": 110,
           "additionalProperties": {
             "type": "object",
             "additionalProperties": false,
@@ -313,10 +313,10 @@
                 ],
                 "properties": {
                   "information_classification": {
-                    "const": "public_operational_summary"
+                    "enum": ["public_operational_summary", "public_by_design"]
                   },
                   "disclosure_rule": {
-                    "const": "public_operational_summary"
+                    "enum": ["public_operational_summary", "public-project-report"]
                   }
                 }
               },
@@ -1303,7 +1303,7 @@
           "const": "COMPONENT-REGISTRY"
         },
         "registry_revision": {
-          "const": 5
+          "const": 6
         },
         "registry_sha256": {
           "$ref": "#/$defs/sha256"

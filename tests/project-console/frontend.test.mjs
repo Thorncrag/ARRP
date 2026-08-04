@@ -1143,7 +1143,7 @@ test("Component Registry accepts only the builder-supplied typed snapshot", () =
   );
   assert.equal(componentRegistryApi.validSnapshot(snapshot), true);
   assert.equal(Object.keys(snapshot.routes).length, 12);
-  assert.equal(snapshot.records.components.length, 105);
+  assert.equal(snapshot.records.components.length, 110);
   assert.equal(snapshot.records.relationships.length, 16);
   assert.equal(snapshot.records.directory_scopes.length, 59);
   assert.equal(snapshot.records.registration_exemptions.length, 3);
@@ -1301,7 +1301,7 @@ test("Component Registry CODEOWNERS view is typed, searchable, and read-only", (
   assert.equal(snapshot.derived.codeowners.current_sha256, snapshot.derived.codeowners.generated_sha256);
   assert.deepEqual(componentRegistryApi.codeownersSummary(snapshot), [
     ["Direct", 17],
-    ["Inherited", 145],
+    ["Inherited", 150],
     ["None", 2],
     ["Problems", 0]
   ]);
@@ -1333,7 +1333,7 @@ test("Component Registry lifecycle view presents only compact Registry states", 
   const snapshot = v4ComponentRegistryFixture();
   const summary = componentRegistryApi.lifecycleSummary(snapshot);
   assert.deepEqual(summary.map(({ state, count }) => ({ state, count })), [
-    { state: "adopted", count: 100 },
+    { state: "adopted", count: 105 },
     { state: "retired", count: 5 }
   ]);
   assert.equal(

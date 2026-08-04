@@ -316,7 +316,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             "schema_version": 4,
             "validation_mode": mode,
             "registry_id": "COMPONENT-REGISTRY",
-            "registry_revision": 5,
+            "registry_revision": 6,
             "registry_sha256": "a" * 64,
             "registry_path": "framework/component-registry.json",
             **postures[mode],

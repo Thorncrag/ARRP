@@ -36,8 +36,14 @@
       "id": "public-research-and-proposals",
       "category": "public_by_design",
       "producers": ["arrp-nightly-publication", "interactive-reviewed-github", "public-release-builder"],
-      "paths": ["areas/**", "legislation/**", "topics/**", "research/**", "framework/proposals/**", "framework/reports/**"],
+      "paths": ["areas/**", "legislation/**", "topics/**", "research/**", "framework/proposals/**"],
       "exclude_paths": ["framework/project/interfaces/project-console/**"]
+    },
+    {
+      "id": "public-project-report",
+      "category": "public_by_design",
+      "producers": ["arrp-nightly-publication", "interactive-reviewed-github", "public-release-builder"],
+      "paths": ["framework/reports/**"]
     },
     {
       "id": "public-source-and-workflow-records",

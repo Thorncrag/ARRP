@@ -1,9 +1,9 @@
 {
   "availability": "stale",
   "completeness": {
-    "actual_count": 5956,
+    "actual_count": 5996,
     "complete": false,
-    "expected_count": 5956,
+    "expected_count": 5996,
     "missing_count": 0
   },
   "domain_count": 42,
@@ -37,13 +37,13 @@
       "sha256": "sha256:2895a421084b46c0f2be30847e51a1868497ff1c36aa146e209d089b0d35b021"
     },
     {
-      "bytes": 632114,
+      "bytes": 649700,
       "file": "component-registry.js",
       "keys": [
         "component_registry"
       ],
-      "record_count": 1523,
-      "sha256": "sha256:158a6622c7e04842b5d48df8d9ae33b79d706cb25091c98764189aec4c159f4e"
+      "record_count": 1563,
+      "sha256": "sha256:3a82d174bbff4600663c5dd238c668e8966aa20eb44a2b235b68361a40c00c3b"
     },
     {
       "bytes": 196544,
@@ -440,13 +440,13 @@
       "sha256": "sha256:2895a421084b46c0f2be30847e51a1868497ff1c36aa146e209d089b0d35b021"
     },
     "component-registry.js": {
-      "bytes": 632114,
-      "generation_id": "project-console-602d651072a7439a99d5",
+      "bytes": 649700,
       "keys": [
         "component_registry"
       ],
-      "record_count": 1523,
-      "sha256": "sha256:158a6622c7e04842b5d48df8d9ae33b79d706cb25091c98764189aec4c159f4e"
+      "record_count": 1563,
+      "sha256": "sha256:3a82d174bbff4600663c5dd238c668e8966aa20eb44a2b235b68361a40c00c3b",
+      "generation_id": "project-console-602d651072a7439a99d5"
     },
     "directives-catalog-001.js": {
       "bytes": 196544,

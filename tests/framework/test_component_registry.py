@@ -314,7 +314,7 @@ class HistoricalComponentRegistryStage3Tests:
 
     def test_component_inventory_has_unique_ids_and_canonical_paths(self):
         components = self.registry["components"]["entries"]
-        self.assertEqual(len(components), 105)
+        self.assertEqual(len(components), 110)
         paths = [
             registry._stage2_component_path(component)
             for component in components.values()
@@ -815,7 +815,7 @@ class ComponentRegistryV4Tests(unittest.TestCase):
     def test_v4_registry_validates_as_nonauthoritative_adopted_configuration(self):
         result = registry.validate_v4_registry(self.registry, root=ROOT)
         self.assertTrue(result["valid"])
-        self.assertEqual(result["registry_revision"], 5)
+        self.assertEqual(result["registry_revision"], 6)
         self.assertEqual(result["validation_mode"], "adopted_configuration_validation")
         self.assertFalse(result["authoritative"])
         self.assertFalse(result["executable"])
@@ -855,7 +855,7 @@ class ComponentRegistryV4Tests(unittest.TestCase):
             self.assertTrue(all(id_field not in record for record in entries.values()))
 
     def test_exact_inventory_counts_and_defaults(self):
-        self.assertEqual(len(self.registry["components"]["entries"]), 105)
+        self.assertEqual(len(self.registry["components"]["entries"]), 110)
         self.assertEqual(len(self.registry["terminology"]["entries"]), 87)
         self.assertEqual(len(self.registry["directory_scopes"]["entries"]), 59)
         self.assertEqual(len(self.registry["relationships"]["entries"]), 16)
@@ -998,14 +998,14 @@ class ComponentRegistryV4Tests(unittest.TestCase):
             )
 
             registry_path.write_text(
-                '{"registry_revision":5}\n',
+                '{"registry_revision":6}\n',
                 encoding="utf-8",
             )
             self.assertFalse(
                 registry._stage3_configuration_is_adopted(
                     authority,
                     registry_path,
-                    {"registry_revision": 5},
+                    {"registry_revision": 6},
                 )
             )
             subprocess.run(
@@ -1022,7 +1022,7 @@ class ComponentRegistryV4Tests(unittest.TestCase):
                 registry._stage3_configuration_is_adopted(
                     authority,
                     registry_path,
-                    {"registry_revision": 5},
+                    {"registry_revision": 6},
                 )
             )
 
@@ -1036,7 +1036,7 @@ class ComponentRegistryV4Tests(unittest.TestCase):
     def test_codeowners_is_generated_from_all_registry_semantics(self):
         projection = registry.stage2_codeowners_projection(self.registry, root=ROOT)
         self.assertEqual(projection["summary"]["direct"], 17)
-        self.assertEqual(projection["summary"]["inherited"], 145)
+        self.assertEqual(projection["summary"]["inherited"], 150)
         self.assertEqual(projection["summary"]["none"], 2)
         self.assertEqual(projection["summary"]["problems"], 0)
         self.assertEqual(projection["generated_text"], (ROOT / ".github/CODEOWNERS").read_text())
@@ -1195,6 +1195,10 @@ class ComponentRegistryV4Tests(unittest.TestCase):
                     ("supporting_artifact", "component_registry_tool"),
                 )
                 self.assertEqual(after, ("ordinary_scoped_child", None))
+            elif path.startswith("framework/reports/"):
+                self.assertEqual(before, ("ordinary_scoped_child", None))
+                self.assertEqual(after[0], "component")
+                self.assertTrue(str(after[1]).startswith("report_"))
             else:
                 self.assertEqual(after, before, path)
 

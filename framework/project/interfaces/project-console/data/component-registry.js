@@ -39,16 +39,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "registry": {
       "registry_id": "COMPONENT-REGISTRY",
-      "registry_revision": 5,
-      "registry_status": "adopted",
-      "validation_mode": "adopted_configuration_validation",
+      "registry_revision": 6,
+      "registry_status": "proposed",
+      "validation_mode": "proposed_revision_validation",
       "authoritative": false,
       "executable": false,
-      "source_bytes_current": true,
+      "source_bytes_current": false,
       "predecessor_route_consulted": false,
-      "registry_sha256": "b189cbe0c934a38ba5671f1f43338bae2423b9ab0972bfd5d7aad65c9149adc1",
+      "registry_sha256": "bc8074004198d6edd9875ddcc1162d0139f649ae8e9add3125dec70d7e152200",
       "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/component-registry.json",
-      "tracked_live_notice": "This view reflects tracked Registry configuration. Live authority is established only by the separately verified owner-local readback."
+      "tracked_live_notice": "This view reflects a proposed Registry revision that is not yet canonical or live authority."
     },
     "records": {
       "components": [
@@ -2839,6 +2839,141 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "console_route": "automation:component-registry:components?component=project-integrity-bot"
         },
         {
+          "stable_id": "report_automation_failure_observability_repair_2026_07_26",
+          "display_name": "Automation Failure Observability and Dispatcher-State Repair",
+          "classification": {
+            "component_class": "document",
+            "component_type": "report"
+          },
+          "canonical_source": {
+            "kind": "repository_path",
+            "value": "framework/reports/automation/automation-failure-observability-repair-2026-07-26.md",
+            "url": "https://github.com/Thorncrag/ARRP/blob/main/framework/reports/automation/automation-failure-observability-repair-2026-07-26.md"
+          },
+          "owner": "@Thorncrag",
+          "information_handling": {
+            "information_classification": "public_by_design",
+            "disclosure_rule": "public-project-report"
+          },
+          "lifecycle": "adopted",
+          "revision_mode": "maintained",
+          "retention_bases": [
+            "operational_need"
+          ],
+          "supporting_artifacts": [],
+          "operational_status": null,
+          "execution_controls": null,
+          "console_route": "automation:component-registry:components?component=report_automation_failure_observability_repair_2026_07_26"
+        },
+        {
+          "stable_id": "report_private_runtime_dual_incident_design_2026_07_29",
+          "display_name": "Private Runtime and Dual-Incident Design Closure Matrix",
+          "classification": {
+            "component_class": "document",
+            "component_type": "report"
+          },
+          "canonical_source": {
+            "kind": "repository_path",
+            "value": "framework/reports/automation/private-runtime-dual-incident-design-2026-07-29.md",
+            "url": "https://github.com/Thorncrag/ARRP/blob/main/framework/reports/automation/private-runtime-dual-incident-design-2026-07-29.md"
+          },
+          "owner": "@Thorncrag",
+          "information_handling": {
+            "information_classification": "public_by_design",
+            "disclosure_rule": "public-project-report"
+          },
+          "lifecycle": "adopted",
+          "revision_mode": "maintained",
+          "retention_bases": [
+            "operational_need"
+          ],
+          "supporting_artifacts": [],
+          "operational_status": null,
+          "execution_controls": null,
+          "console_route": "automation:component-registry:components?component=report_private_runtime_dual_incident_design_2026_07_29"
+        },
+        {
+          "stable_id": "report_console_consistency_remedy_2026_07_28",
+          "display_name": "Console Consistency Remedy Closure Matrix",
+          "classification": {
+            "component_class": "document",
+            "component_type": "report"
+          },
+          "canonical_source": {
+            "kind": "repository_path",
+            "value": "framework/reports/interfaces/console-consistency-remedy-2026-07-28.md",
+            "url": "https://github.com/Thorncrag/ARRP/blob/main/framework/reports/interfaces/console-consistency-remedy-2026-07-28.md"
+          },
+          "owner": "@Thorncrag",
+          "information_handling": {
+            "information_classification": "public_by_design",
+            "disclosure_rule": "public-project-report"
+          },
+          "lifecycle": "adopted",
+          "revision_mode": "maintained",
+          "retention_bases": [
+            "operational_need"
+          ],
+          "supporting_artifacts": [],
+          "operational_status": null,
+          "execution_controls": null,
+          "console_route": "automation:component-registry:components?component=report_console_consistency_remedy_2026_07_28"
+        },
+        {
+          "stable_id": "report_project_console_comprehensive_review_2026_07_25",
+          "display_name": "ARRP Project Console Comprehensive Review and Assessment",
+          "classification": {
+            "component_class": "document",
+            "component_type": "report"
+          },
+          "canonical_source": {
+            "kind": "repository_path",
+            "value": "framework/reports/interfaces/project-console-comprehensive-review-2026-07-25.md",
+            "url": "https://github.com/Thorncrag/ARRP/blob/main/framework/reports/interfaces/project-console-comprehensive-review-2026-07-25.md"
+          },
+          "owner": "@Thorncrag",
+          "information_handling": {
+            "information_classification": "public_by_design",
+            "disclosure_rule": "public-project-report"
+          },
+          "lifecycle": "adopted",
+          "revision_mode": "maintained",
+          "retention_bases": [
+            "operational_need"
+          ],
+          "supporting_artifacts": [],
+          "operational_status": null,
+          "execution_controls": null,
+          "console_route": "automation:component-registry:components?component=report_project_console_comprehensive_review_2026_07_25"
+        },
+        {
+          "stable_id": "report_project_console_implementation_2026_07_25",
+          "display_name": "ARRP Project Console Implementation Report",
+          "classification": {
+            "component_class": "document",
+            "component_type": "report"
+          },
+          "canonical_source": {
+            "kind": "repository_path",
+            "value": "framework/reports/interfaces/project-console-implementation-report-2026-07-25.md",
+            "url": "https://github.com/Thorncrag/ARRP/blob/main/framework/reports/interfaces/project-console-implementation-report-2026-07-25.md"
+          },
+          "owner": "@Thorncrag",
+          "information_handling": {
+            "information_classification": "public_by_design",
+            "disclosure_rule": "public-project-report"
+          },
+          "lifecycle": "adopted",
+          "revision_mode": "maintained",
+          "retention_bases": [
+            "operational_need"
+          ],
+          "supporting_artifacts": [],
+          "operational_status": null,
+          "execution_controls": null,
+          "console_route": "automation:component-registry:components?component=report_project_console_implementation_2026_07_25"
+        },
+        {
           "stable_id": "governance_change_log",
           "display_name": "Governance Change Log",
           "classification": {
@@ -3738,16 +3873,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         },
         {
           "scope_id": "framework_reports",
-          "display_name": "Public-safe completed reports",
+          "display_name": "Deliberately public project reports",
           "path_pattern": "framework/reports/",
           "match_kind": "prefix",
           "specificity_rank": 20,
-          "purpose": "Canonical repository home for public-safe completed reports.",
-          "placement_question": "Does the artifact satisfy the registered purpose of Public-safe completed reports?",
+          "purpose": "Canonical repository home for affirmatively classified public product and content reports; classification must precede placement.",
+          "placement_question": "Has this exact report been affirmatively classified for public product or content publication before placement?",
           "include_when": [
-            "The artifact has one canonical placement within Public-safe completed reports."
+            "The exact report has an explicit public information-handling classification and one canonical placement within Deliberately public project reports."
           ],
           "exclude_when": [
+            "The artifact is an internal operational report, implementation-learning record, raw evidence, or another artifact without affirmative public classification.",
             "Another registered scope is the more specific canonical home."
           ],
           "allow_children": true,
@@ -6200,6 +6336,11 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "project-integrity-bot": [
           "project-integrity-bot_consumes_runbook_integrity_bot"
         ],
+        "report_automation_failure_observability_repair_2026_07_26": [],
+        "report_private_runtime_dual_incident_design_2026_07_29": [],
+        "report_console_consistency_remedy_2026_07_28": [],
+        "report_project_console_comprehensive_review_2026_07_25": [],
+        "report_project_console_implementation_2026_07_25": [],
         "governance_change_log": [],
         "project_console": [
           "project_console_specification_implemented_by_console"
@@ -7092,6 +7233,36 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           "information_handling",
           "operational_status"
         ],
+        "report_automation_failure_observability_repair_2026_07_26": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling"
+        ],
+        "report_private_runtime_dual_incident_design_2026_07_29": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling"
+        ],
+        "report_console_consistency_remedy_2026_07_28": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling"
+        ],
+        "report_project_console_comprehensive_review_2026_07_25": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling"
+        ],
+        "report_project_console_implementation_2026_07_25": [
+          "canonical_source",
+          "classification",
+          "display_name",
+          "information_handling"
+        ],
         "governance_change_log": [
           "canonical_source",
           "classification",
@@ -7205,9 +7376,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "project_source_adjudication",
               "navigation_project_sync",
               "project_audit_execution",
-              "component_registry_stage2_design_proposal"
+              "component_registry_stage2_design_proposal",
+              "report_automation_failure_observability_repair_2026_07_26",
+              "report_private_runtime_dual_incident_design_2026_07_29",
+              "report_console_consistency_remedy_2026_07_28",
+              "report_project_console_comprehensive_review_2026_07_25",
+              "report_project_console_implementation_2026_07_25"
             ],
-            "usage_count": 66,
+            "usage_count": 71,
             "console_route": "automation:component-registry:classes?class=document"
           },
           {
@@ -7468,8 +7644,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "class_id": "document",
             "type_id": "report",
             "label": "report",
-            "component_ids": [],
-            "usage_count": 0,
+            "component_ids": [
+              "report_automation_failure_observability_repair_2026_07_26",
+              "report_private_runtime_dual_incident_design_2026_07_29",
+              "report_console_consistency_remedy_2026_07_28",
+              "report_project_console_comprehensive_review_2026_07_25",
+              "report_project_console_implementation_2026_07_25"
+            ],
+            "usage_count": 5,
             "console_route": "automation:component-registry:types?type=document%3Areport"
           },
           {
@@ -8510,6 +8692,41 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "console_route": "automation:component-registry:lifecycles?assignment=project-integrity-bot"
           },
           {
+            "assignment_id": "lifecycle:report_automation_failure_observability_repair_2026_07_26",
+            "component_id": "report_automation_failure_observability_repair_2026_07_26",
+            "state": "adopted",
+            "revision_mode": "maintained",
+            "console_route": "automation:component-registry:lifecycles?assignment=report_automation_failure_observability_repair_2026_07_26"
+          },
+          {
+            "assignment_id": "lifecycle:report_private_runtime_dual_incident_design_2026_07_29",
+            "component_id": "report_private_runtime_dual_incident_design_2026_07_29",
+            "state": "adopted",
+            "revision_mode": "maintained",
+            "console_route": "automation:component-registry:lifecycles?assignment=report_private_runtime_dual_incident_design_2026_07_29"
+          },
+          {
+            "assignment_id": "lifecycle:report_console_consistency_remedy_2026_07_28",
+            "component_id": "report_console_consistency_remedy_2026_07_28",
+            "state": "adopted",
+            "revision_mode": "maintained",
+            "console_route": "automation:component-registry:lifecycles?assignment=report_console_consistency_remedy_2026_07_28"
+          },
+          {
+            "assignment_id": "lifecycle:report_project_console_comprehensive_review_2026_07_25",
+            "component_id": "report_project_console_comprehensive_review_2026_07_25",
+            "state": "adopted",
+            "revision_mode": "maintained",
+            "console_route": "automation:component-registry:lifecycles?assignment=report_project_console_comprehensive_review_2026_07_25"
+          },
+          {
+            "assignment_id": "lifecycle:report_project_console_implementation_2026_07_25",
+            "component_id": "report_project_console_implementation_2026_07_25",
+            "state": "adopted",
+            "revision_mode": "maintained",
+            "console_route": "automation:component-registry:lifecycles?assignment=report_project_console_implementation_2026_07_25"
+          },
+          {
             "assignment_id": "lifecycle:governance_change_log",
             "component_id": "governance_change_log",
             "state": "adopted",
@@ -9519,6 +9736,56 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "console_route": "automation:component-registry:authority?assignment=project-integrity-bot"
           },
           {
+            "assignment_id": "authority:report_automation_failure_observability_repair_2026_07_26",
+            "component_id": "report_automation_failure_observability_repair_2026_07_26",
+            "authoritative": true,
+            "source": "component_registry",
+            "effects": [
+              "govern_content"
+            ],
+            "console_route": "automation:component-registry:authority?assignment=report_automation_failure_observability_repair_2026_07_26"
+          },
+          {
+            "assignment_id": "authority:report_private_runtime_dual_incident_design_2026_07_29",
+            "component_id": "report_private_runtime_dual_incident_design_2026_07_29",
+            "authoritative": true,
+            "source": "component_registry",
+            "effects": [
+              "govern_content"
+            ],
+            "console_route": "automation:component-registry:authority?assignment=report_private_runtime_dual_incident_design_2026_07_29"
+          },
+          {
+            "assignment_id": "authority:report_console_consistency_remedy_2026_07_28",
+            "component_id": "report_console_consistency_remedy_2026_07_28",
+            "authoritative": true,
+            "source": "component_registry",
+            "effects": [
+              "govern_content"
+            ],
+            "console_route": "automation:component-registry:authority?assignment=report_console_consistency_remedy_2026_07_28"
+          },
+          {
+            "assignment_id": "authority:report_project_console_comprehensive_review_2026_07_25",
+            "component_id": "report_project_console_comprehensive_review_2026_07_25",
+            "authoritative": true,
+            "source": "component_registry",
+            "effects": [
+              "govern_content"
+            ],
+            "console_route": "automation:component-registry:authority?assignment=report_project_console_comprehensive_review_2026_07_25"
+          },
+          {
+            "assignment_id": "authority:report_project_console_implementation_2026_07_25",
+            "component_id": "report_project_console_implementation_2026_07_25",
+            "authoritative": true,
+            "source": "component_registry",
+            "effects": [
+              "govern_content"
+            ],
+            "console_route": "automation:component-registry:authority?assignment=report_project_console_implementation_2026_07_25"
+          },
+          {
             "assignment_id": "authority:governance_change_log",
             "component_id": "governance_change_log",
             "authoritative": true,
@@ -10179,16 +10446,17 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
           },
           {
             "scope_id": "framework_reports",
-            "display_name": "Public-safe completed reports",
+            "display_name": "Deliberately public project reports",
             "path_pattern": "framework/reports/",
             "match_kind": "prefix",
             "specificity_rank": 20,
-            "purpose": "Canonical repository home for public-safe completed reports.",
-            "placement_question": "Does the artifact satisfy the registered purpose of Public-safe completed reports?",
+            "purpose": "Canonical repository home for affirmatively classified public product and content reports; classification must precede placement.",
+            "placement_question": "Has this exact report been affirmatively classified for public product or content publication before placement?",
             "include_when": [
-              "The artifact has one canonical placement within Public-safe completed reports."
+              "The exact report has an explicit public information-handling classification and one canonical placement within Deliberately public project reports."
             ],
             "exclude_when": [
+              "The artifact is an internal operational report, implementation-learning record, raw evidence, or another artifact without affirmative public classification.",
               "Another registered scope is the more specific canonical home."
             ],
             "allow_children": true,
@@ -12797,7 +13065,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "assignment_id": "scope:framework_reports",
             "record_kind": "directory_scope",
             "stable_id": "framework_reports",
-            "display_name": "Public-safe completed reports",
+            "display_name": "Deliberately public project reports",
             "path_pattern": "framework/reports/",
             "declared_mode": "inherit",
             "effective_mode": "none",
@@ -14698,6 +14966,81 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "console_route": "automation:component-registry:codeowners?assignment=component%3Aremedy_framework"
           },
           {
+            "assignment_id": "component:report_automation_failure_observability_repair_2026_07_26",
+            "record_kind": "component",
+            "stable_id": "report_automation_failure_observability_repair_2026_07_26",
+            "display_name": "Automation Failure Observability and Dispatcher-State Repair",
+            "path_pattern": "framework/reports/automation/automation-failure-observability-repair-2026-07-26.md",
+            "declared_mode": "inherit",
+            "effective_mode": "none",
+            "owners": [],
+            "inherited_from": "scope:repository_root",
+            "generated_pattern": null,
+            "generated_line": null,
+            "validation_problems": [],
+            "console_route": "automation:component-registry:codeowners?assignment=component%3Areport_automation_failure_observability_repair_2026_07_26"
+          },
+          {
+            "assignment_id": "component:report_console_consistency_remedy_2026_07_28",
+            "record_kind": "component",
+            "stable_id": "report_console_consistency_remedy_2026_07_28",
+            "display_name": "Console Consistency Remedy Closure Matrix",
+            "path_pattern": "framework/reports/interfaces/console-consistency-remedy-2026-07-28.md",
+            "declared_mode": "inherit",
+            "effective_mode": "none",
+            "owners": [],
+            "inherited_from": "scope:repository_root",
+            "generated_pattern": null,
+            "generated_line": null,
+            "validation_problems": [],
+            "console_route": "automation:component-registry:codeowners?assignment=component%3Areport_console_consistency_remedy_2026_07_28"
+          },
+          {
+            "assignment_id": "component:report_private_runtime_dual_incident_design_2026_07_29",
+            "record_kind": "component",
+            "stable_id": "report_private_runtime_dual_incident_design_2026_07_29",
+            "display_name": "Private Runtime and Dual-Incident Design Closure Matrix",
+            "path_pattern": "framework/reports/automation/private-runtime-dual-incident-design-2026-07-29.md",
+            "declared_mode": "inherit",
+            "effective_mode": "none",
+            "owners": [],
+            "inherited_from": "scope:repository_root",
+            "generated_pattern": null,
+            "generated_line": null,
+            "validation_problems": [],
+            "console_route": "automation:component-registry:codeowners?assignment=component%3Areport_private_runtime_dual_incident_design_2026_07_29"
+          },
+          {
+            "assignment_id": "component:report_project_console_comprehensive_review_2026_07_25",
+            "record_kind": "component",
+            "stable_id": "report_project_console_comprehensive_review_2026_07_25",
+            "display_name": "ARRP Project Console Comprehensive Review and Assessment",
+            "path_pattern": "framework/reports/interfaces/project-console-comprehensive-review-2026-07-25.md",
+            "declared_mode": "inherit",
+            "effective_mode": "none",
+            "owners": [],
+            "inherited_from": "scope:repository_root",
+            "generated_pattern": null,
+            "generated_line": null,
+            "validation_problems": [],
+            "console_route": "automation:component-registry:codeowners?assignment=component%3Areport_project_console_comprehensive_review_2026_07_25"
+          },
+          {
+            "assignment_id": "component:report_project_console_implementation_2026_07_25",
+            "record_kind": "component",
+            "stable_id": "report_project_console_implementation_2026_07_25",
+            "display_name": "ARRP Project Console Implementation Report",
+            "path_pattern": "framework/reports/interfaces/project-console-implementation-report-2026-07-25.md",
+            "declared_mode": "inherit",
+            "effective_mode": "none",
+            "owners": [],
+            "inherited_from": "scope:repository_root",
+            "generated_pattern": null,
+            "generated_line": null,
+            "validation_problems": [],
+            "console_route": "automation:component-registry:codeowners?assignment=component%3Areport_project_console_implementation_2026_07_25"
+          },
+          {
             "assignment_id": "component:repository_gate_policy",
             "record_kind": "component",
             "stable_id": "repository_gate_policy",
@@ -15121,7 +15464,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         ],
         "summary": {
           "direct": 17,
-          "inherited": 145,
+          "inherited": 150,
           "none": 2,
           "problems": 0
         },

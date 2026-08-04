@@ -117,6 +117,48 @@ class GitHubDisclosureGateTests(unittest.TestCase):
         ).stdout.strip()
         return temporary, repository, base, head
 
+    def git_report_fixture(
+        self, path: str, *, registered: bool
+    ) -> tuple[tempfile.TemporaryDirectory, Path, str, str]:
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        repository = Path(temporary.name)
+        subprocess.run(["git", "init", "-b", "main"], cwd=repository, check=True, capture_output=True)
+        subprocess.run(["git", "config", "user.name", "ARRP Fixture"], cwd=repository, check=True)
+        subprocess.run(["git", "config", "user.email", "fixture@example.invalid"], cwd=repository, check=True)
+        entries = {}
+        if registered:
+            entries["fixture_public_report"] = {
+                "display_name": "Fixture public report",
+                "classification": {"component_class": "document", "component_type": "report"},
+                "canonical_source": path,
+                "information_handling": {
+                    "information_classification": "public_by_design",
+                    "disclosure_rule": "public-project-report",
+                },
+            }
+        registry = {
+            "schema_version": 4,
+            "registry_revision": 6,
+            "components": {"entries": entries},
+        }
+        registry_path = repository / "framework" / "component-registry.json"
+        registry_path.parent.mkdir(parents=True)
+        registry_path.write_text(json.dumps(registry), encoding="utf-8")
+        base_path = repository / "areas" / "base.md"
+        base_path.parent.mkdir(parents=True)
+        base_path.write_text("# Base\n", encoding="utf-8")
+        subprocess.run(["git", "add", "."], cwd=repository, check=True)
+        subprocess.run(["git", "commit", "-m", "base"], cwd=repository, check=True, capture_output=True)
+        base = subprocess.run(["git", "rev-parse", "HEAD"], cwd=repository, check=True, capture_output=True, text=True).stdout.strip()
+        report = repository / path
+        report.parent.mkdir(parents=True, exist_ok=True)
+        report.write_text("# Report\n", encoding="utf-8")
+        subprocess.run(["git", "add", "."], cwd=repository, check=True)
+        subprocess.run(["git", "commit", "-m", "report"], cwd=repository, check=True, capture_output=True)
+        head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=repository, check=True, capture_output=True, text=True).stdout.strip()
+        return temporary, repository, base, head
+
     def git_remote_fixture(
         self,
     ) -> tuple[
@@ -246,6 +288,42 @@ class GitHubDisclosureGateTests(unittest.TestCase):
         )
         self.assertTrue(decision["allowed"])
         self.assertTrue(decision["artifacts"][0]["removal_only"])
+
+    def test_exact_commit_report_publication_requires_registry_admission(self) -> None:
+        path = "framework/reports/fixtures/public-review.md"
+        _, repository, base, head = self.git_report_fixture(path, registered=True)
+        decision = MODULE.authorize_git_push(
+            repository,
+            base_revision=base,
+            source_revision=head,
+            head_ref="HEAD",
+            target_ref="refs/heads/fixture",
+            producer="interactive-reviewed-github",
+            policy=self.policy,
+        )
+        self.assertTrue(decision["allowed"])
+        self.assertEqual(decision["artifacts"][0]["artifact_family"], "public-project-report")
+
+    def test_exact_commit_report_publication_blocks_unadmitted_paths(self) -> None:
+        cases = (
+            ("framework/reports/fixtures/unregistered-review.md", False, "unregistered-public-project-report"),
+            ("framework/internal/repair-postmortem.md", False, "report-outside-public-project-scope"),
+            ("notes/unknown-audit.md", False, "report-outside-public-project-scope"),
+        )
+        for path, registered, detector in cases:
+            with self.subTest(path=path):
+                _, repository, base, head = self.git_report_fixture(path, registered=registered)
+                with self.assertRaises(MODULE.DisclosureBlocked) as caught:
+                    MODULE.authorize_git_push(
+                        repository,
+                        base_revision=base,
+                        source_revision=head,
+                        head_ref="HEAD",
+                        target_ref="refs/heads/fixture",
+                        producer="interactive-reviewed-github",
+                        policy=self.policy,
+                    )
+                self.assertEqual(caught.exception.decision["findings"][0]["detector_class"], detector)
 
     def test_git_push_ref_movement_invalidates_stale_authorization_input(self) -> None:
         _, repository, base, head = self.git_fixture()
