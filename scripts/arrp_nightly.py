@@ -3444,7 +3444,7 @@ def default_local_stage_specs(python: str | None = None) -> tuple[LocalStageSpec
                 "--json-output",
                 "{run_dir}/stages/source-checker-bot/report.json",
                 "--markdown-output",
-                "{worktree}/framework/status/source-checker-report.md",
+                "{worktree}/framework/status/sources/source-checker-report.md",
             ),
             ("{run_dir}/stages/source-checker-bot/report.json",),
         ),

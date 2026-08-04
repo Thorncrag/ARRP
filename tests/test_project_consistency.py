@@ -1428,7 +1428,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
             "trigger": "run-chain-or-manual",
             "schedule": "Due every 168 hours in the Run Coordinator chain; no independent schedule",
             "status": "report-only-pilot",
-            "current_report": "framework/status/source-checker-report.md",
+            "current_report": "framework/status/sources/source-checker-report.md",
             "current_data": "project-console-data:source-checker.json",
             "offline_cache_path": ".tmp/project-console-source-checker.json",
         }
@@ -1440,7 +1440,7 @@ class GitHubIssueLinkTests(unittest.TestCase):
                 "coordinator": ".github/workflows/run-coordinator-bot.yml",
                 "dueEveryHours": 168,
             },
-            "currentReport": "framework/status/source-checker-report.md",
+            "currentReport": "framework/status/sources/source-checker-report.md",
             "currentData": "project-console-data:source-checker.json",
             "offlineCachePath": ".tmp/project-console-source-checker.json",
         }

@@ -27,7 +27,7 @@
     "maximumBytes": 262144
   },
   "historyLimit": 12,
-  "currentReport": "framework/status/source-checker-report.md",
+  "currentReport": "framework/status/sources/source-checker-report.md",
   "currentData": "<run-dir>/stages/source-checker-bot/source-checker.json",
   "priorData": "<last-success>/source-checker-bot/source-checker.json"
 }
