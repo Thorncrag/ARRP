@@ -2924,38 +2924,47 @@ class ConsoleDataContractTests(unittest.TestCase):
             public_usage,
         )
 
-    def test_occurrence_directory_projects_latest_preserved_scheduled_failure(self):
-        projection = MODULE.automation_occurrence_projection(
-            {
-                "run_id": "arrp-manual-recovery",
-                "trigger": "manual",
-                "status": "completed",
-                "updated_at": "2026-08-04T13:34:08+00:00",
-                "stages": [],
-            },
-            {},
-            checked_at="2026-08-04T14:00:00+00:00",
-            transaction_recovery={
-                "complete": True,
-                "items": [
-                    {
-                        "run_id": "arrp-scheduled-failure",
-                        "attempt_group_id": "scheduled:2026-08-04t06:00:00z",
-                    }
-                ],
-            },
-        )
-        self.assertEqual(
-            projection["latest_scheduled_attempt_id"],
-            "arrp-scheduled-failure",
-        )
-        scheduled = next(
-            item
-            for item in projection["occurrences"]
-            if item["occurrence_id"] == "arrp-scheduled-failure"
-        )
-        self.assertEqual(scheduled["status"], "failed")
-        self.assertEqual(scheduled["scheduled_for"], "2026-08-04T06:00:00Z")
+    def test_occurrence_directory_rejects_malformed_full_success_stages(self):
+        malformed = {
+            "occurrence_id": "arrp-malformed-success",
+            "schedule_identity": "event-driven",
+            "trigger": "manual",
+            "status": "completed",
+            "updated_at": "2026-08-04T13:34:08+00:00",
+            "complete": True,
+            "blockers": [],
+            "stages": [
+                {
+                    "stage_id": stage_id,
+                    "order": order,
+                    "status": "succeeded",
+                }
+                for order, (stage_id, _label) in enumerate(
+                    MODULE.AUTOMATION_OCCURRENCE_STAGE_SPECS,
+                    start=1,
+                )
+            ],
+        }
+        variants = []
+        duplicate = copy.deepcopy(malformed)
+        duplicate["stages"][-1] = duplicate["stages"][-2]
+        variants.append(duplicate)
+        non_record = copy.deepcopy(malformed)
+        non_record["stages"][-1] = None
+        variants.append(non_record)
+        for variant in variants:
+            with self.subTest(stages=variant["stages"][-2:]):
+                with mock.patch.object(
+                    MODULE, "chain_occurrence", return_value=variant
+                ):
+                    projection = MODULE.automation_occurrence_projection(
+                        {"run_id": "arrp-malformed-success"},
+                        {},
+                        checked_at="2026-08-04T14:00:00+00:00",
+                    )
+                self.assertIsNone(
+                    projection["last_fully_successful_occurrence"]
+                )
 
     def test_public_automation_and_integrity_projections_redact_diagnostics(self):
         marker = "ARRP_STATE_ROOT=/Users/owner/private GH_TOKEN=credential_value"

@@ -5302,7 +5302,6 @@ def automation_occurrence_projection(
     local_status: dict[str, object],
     *,
     checked_at: str,
-    transaction_recovery: dict[str, object] | None = None,
 ) -> dict[str, object]:
     """Build one typed occurrence directory without mixing exact runs."""
 
@@ -5345,63 +5344,6 @@ def automation_occurrence_projection(
         occurrences = [
             item for item in (chain_item, local_item) if item is not None
         ]
-    recovery_items = (
-        transaction_recovery.get("items")
-        if isinstance(transaction_recovery, dict)
-        and transaction_recovery.get("complete") is True
-        and isinstance(transaction_recovery.get("items"), list)
-        else []
-    )
-    scheduled_recovery = next(
-        (
-            item
-            for item in reversed(recovery_items)
-            if isinstance(item, dict)
-            and str(item.get("attempt_group_id") or "").startswith("scheduled:")
-        ),
-        None,
-    )
-    if scheduled_recovery is not None:
-        occurrence_id = str(scheduled_recovery.get("run_id") or "").strip()
-        scheduled_for = str(
-            scheduled_recovery.get("attempt_group_id") or ""
-        ).removeprefix("scheduled:").upper()
-        if occurrence_id and all(
-            item.get("occurrence_id") != occurrence_id for item in occurrences
-        ):
-            occurrences.append(
-                {
-                    "occurrence_id": occurrence_id,
-                    "schedule_identity": "owner-local-nightly",
-                    "trigger": "scheduled",
-                    "status": "failed",
-                    "source_revision": None,
-                    "generation_id": None,
-                    "created_at": scheduled_for,
-                    "started_at": scheduled_for,
-                    "completed_at": scheduled_for,
-                    "updated_at": scheduled_for,
-                    "scheduled_for": scheduled_for,
-                    "stages": [
-                        normalized_occurrence_stage(
-                            stage_id=stage_id,
-                            label=label,
-                            source=None,
-                            occurrence_id=occurrence_id,
-                        )
-                        for stage_id, label in AUTOMATION_OCCURRENCE_STAGE_SPECS
-                    ],
-                    "blockers": [
-                        {
-                            "id": f"{occurrence_id}-recovery",
-                            "stage_id": None,
-                            "reason": "The scheduled transaction has preserved failure state.",
-                            "recorded_at": scheduled_for,
-                        }
-                    ],
-                    "complete": True,
-                }
-            )
     occurrences.sort(
         key=lambda item: (
             parsed_utc(
@@ -5428,6 +5370,12 @@ def automation_occurrence_projection(
         else None
     )
     if explicit_full_success is None:
+        expected_stages = [
+            (stage_id, order)
+            for order, (stage_id, _label) in enumerate(
+                AUTOMATION_OCCURRENCE_STAGE_SPECS, start=1
+            )
+        ]
         successful = next(
             (
                 item
@@ -5436,12 +5384,19 @@ def automation_occurrence_projection(
                 in {"complete", "completed", "succeeded"}
                 and item.get("complete") is True
                 and not item.get("blockers")
-                and len(item.get("stages") or [])
-                == len(AUTOMATION_OCCURRENCE_STAGE_SPECS)
+                and isinstance(item.get("stages"), list)
+                and len(item["stages"]) == len(expected_stages)
+                and all(
+                    isinstance(stage, dict)
+                    for stage in item["stages"]
+                )
+                and [
+                    (stage.get("stage_id"), stage.get("order"))
+                    for stage in item["stages"]
+                ] == expected_stages
                 and all(
                     stage.get("status") == "succeeded"
-                    for stage in item.get("stages") or []
-                    if isinstance(stage, dict)
+                    for stage in item["stages"]
                 )
             ),
             None,
@@ -10950,7 +10905,6 @@ def main() -> None:
         run_chain,
         local_automation_status,
         checked_at=generated_at,
-        transaction_recovery=transaction_recovery,
     )
     public_automation_occurrences = public_safe_automation_occurrences(
         automation_occurrences

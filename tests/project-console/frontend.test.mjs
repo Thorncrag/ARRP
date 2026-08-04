@@ -2253,9 +2253,11 @@ test("Current Project Brief dots distinguish success, pause, blockers, and unkno
     status: "completed",
     control_state: "run",
     updated_at: "2026-08-04T13:34:08Z"
-  });
+  }, "2026-08-04T13:34:08Z");
   assert.equal(recoveredAfterScheduledFailure.latest.tone, "success");
   assert.equal(recoveredAfterScheduledFailure.scheduledAttempt.status, "failed");
+  assert.equal(recoveredAfterScheduledFailure.lastSuccessful.tone, "success");
+  assert.match(recoveredAfterScheduledFailure.lastSuccessful.label, /newer/);
 
   const paused = api.overviewBriefFactStates({}, readiness, staleVerification, {
     ...completed,

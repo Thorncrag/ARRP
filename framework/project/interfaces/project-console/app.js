@@ -6994,7 +6994,8 @@
     chain,
     readiness,
     verification,
-    localStatus = window.ARRP_LOCAL_AUTOMATION_STATUS
+    localStatus = window.ARRP_LOCAL_AUTOMATION_STATUS,
+    lastFullySuccessfulAt = null
   ) {
     const scheduledProjection = readiness.latest_scheduled_attempt || {};
     const latestProjection = readiness.latest_attempt || {};
@@ -7101,23 +7102,35 @@
               label: "Project data freshness cannot be verified reliably",
               route: "automation:data"
             };
+    const scheduledAt = parseTimestamp(attemptRecordedAt(scheduledAttempt));
+    const fullSuccessAt = parseTimestamp(lastFullySuccessfulAt);
+    const successIsNewer = fullSuccessAt !== null
+      && (scheduledAt === null || fullSuccessAt > scheduledAt);
+    const lastSuccessfulState = successIsNewer
+      ? {
+          tone: "success",
+          label: scheduledAt === null
+            ? "The full success is current; no newer scheduled outcome is published"
+            : "The full success is newer than the latest scheduled failure or pause"
+        }
+      : {
+          ...scheduledState,
+          label: scheduledState.tone === "success"
+            ? "No newer scheduled attempt failed after this full success"
+            : scheduledState.tone === "warning"
+              ? "A deliberate pause occurred after this full success without a later failure"
+              : scheduledState.tone === "error"
+                ? "The latest scheduled attempt failed after this full success"
+                : "The relationship between this full success and the latest scheduled attempt cannot be verified",
+          route: scheduledState.tone === "success" ? undefined : scheduledState.route
+        };
     return {
       latestAttempt,
       scheduledAttempt,
       controlState,
       data: dataState,
       latest: currentState,
-      lastSuccessful: {
-        ...scheduledState,
-        label: scheduledState.tone === "success"
-          ? "No newer scheduled attempt failed after this full success"
-          : scheduledState.tone === "warning"
-            ? "A deliberate pause occurred after this full success without a later failure"
-            : scheduledState.tone === "error"
-              ? "The immediately latest scheduled attempt failed after this full success"
-              : "The relationship between this full success and the latest scheduled attempt cannot be verified",
-        route: scheduledState.tone === "success" ? undefined : scheduledState.route
-      },
+      lastSuccessful: lastSuccessfulState,
       nextRun: upcomingAutomationState(readiness, controlState, "ordinary"),
       nextEpoch: upcomingAutomationState(readiness, controlState, "full-review")
     };
@@ -7164,16 +7177,6 @@
       tone = "warning";
       summary = `${summary} ${verification.failed.map((entry) => entry.label).join(" and ")} ${verification.failed.length === 1 ? "is" : "are"} producer-declared stale.`;
     }
-    const factStates = overviewBriefFactStates(chain, readiness, verification);
-    const badge = byId("overview-daily-status");
-    badge.className = `status-badge ${factStates.latest.tone}`;
-    badge.textContent = {
-      success: "Current",
-      warning: "Paused",
-      error: "Failed",
-      unavailable: "Unknown"
-    }[factStates.latest.tone];
-    badge.title = factStates.latest.label;
     const occurrenceDirectory = data.overview?.automation_occurrences || {};
     const occurrences = Array.isArray(occurrenceDirectory.occurrences)
       ? occurrenceDirectory.occurrences
@@ -7188,6 +7191,22 @@
     const lastFullySuccessfulAt = lastFullySuccessful?.completed_at
       || lastFullySuccessful?.updated_at
       || null;
+    const factStates = overviewBriefFactStates(
+      chain,
+      readiness,
+      verification,
+      window.ARRP_LOCAL_AUTOMATION_STATUS,
+      lastFullySuccessfulAt
+    );
+    const badge = byId("overview-daily-status");
+    badge.className = `status-badge ${factStates.latest.tone}`;
+    badge.textContent = {
+      success: "Current",
+      warning: "Paused",
+      error: "Failed",
+      unavailable: "Unknown"
+    }[factStates.latest.tone];
+    badge.title = factStates.latest.label;
     const currentThrough = data.overview?.data_current_through?.value || null;
     const asOf = attemptAt || data.generated_at;
     byId("overview-daily-summary").textContent =
