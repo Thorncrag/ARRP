@@ -113,8 +113,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "started_at": null,
         "completed_at": "2026-08-03T14:36:04+00:00",
         "last_success_at": "2026-08-03T14:36:04+00:00",
-        "reason": "This stage completed successfully.",
-        "current_chain_label": "Succeeded"
+        "current_chain_label": "Succeeded",
+        "reason": "This stage completed successfully."
       },
       {
         "id": "presidential-directives-bot",
@@ -124,8 +124,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "started_at": null,
         "completed_at": "2026-08-03T14:36:04+00:00",
         "last_success_at": "2026-08-03T14:36:04+00:00",
-        "reason": "This stage completed successfully.",
-        "current_chain_label": "Succeeded"
+        "current_chain_label": "Succeeded",
+        "reason": "This stage completed successfully."
       },
       {
         "id": "source-checker-bot",
@@ -135,8 +135,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "started_at": null,
         "completed_at": "2026-08-03T14:36:04+00:00",
         "last_success_at": "2026-07-28T02:14:05+00:00",
-        "reason": "This stage was not due for this occurrence.",
-        "current_chain_label": "Not due this chain"
+        "current_chain_label": "Not due this chain",
+        "reason": "This stage was not due for this occurrence."
       },
       {
         "id": "public-intake",
@@ -146,8 +146,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "started_at": null,
         "completed_at": "2026-08-03T14:36:04+00:00",
         "last_success_at": "2026-08-03T14:36:04+00:00",
-        "reason": "This stage completed successfully.",
-        "current_chain_label": "Succeeded"
+        "current_chain_label": "Succeeded",
+        "reason": "This stage completed successfully."
       },
       {
         "id": "project-console-progress-bot",
@@ -157,8 +157,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "started_at": null,
         "completed_at": "2026-08-03T14:36:04+00:00",
         "last_success_at": "2026-08-03T14:36:04+00:00",
-        "reason": "This stage completed successfully.",
-        "current_chain_label": "Succeeded"
+        "current_chain_label": "Succeeded",
+        "reason": "This stage completed successfully."
       },
       {
         "id": "project-integrity-bot",
@@ -168,8 +168,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "started_at": null,
         "completed_at": "2026-08-03T14:36:04+00:00",
         "last_success_at": "2026-08-03T14:36:04+00:00",
-        "reason": "This stage completed successfully.",
-        "current_chain_label": "Succeeded"
+        "current_chain_label": "Succeeded",
+        "reason": "This stage completed successfully."
       }
     ],
     "review_epoch": {
@@ -262,7 +262,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "data_currentness": {
           "state": "current",
           "checked_at": "2026-08-03T14:36:07+00:00",
-          "reason": "interval elapsed at 2026-07-29T02:14:05+00:00"
+          "reason": "The Run Coordinator reports this role as current."
         },
         "checked_at": "2026-08-03T14:36:07+00:00"
       },
@@ -295,7 +295,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "data_currentness": {
           "state": "current",
           "checked_at": "2026-08-03T14:36:07+00:00",
-          "reason": "interval elapsed at 2026-07-29T02:14:05+00:00"
+          "reason": "The Run Coordinator reports this role as current."
         },
         "checked_at": "2026-08-03T14:36:07+00:00"
       },
@@ -392,8 +392,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "pause_state": "unavailable",
         "current_blocker": null,
         "data_currentness": {
-          "state": "stale",
-          "checked_at": "2026-08-03T15:06:48+00:00",
+          "state": "current",
+          "checked_at": "2026-08-04T13:31:50+00:00",
           "reason": ""
         },
         "checked_at": "2026-08-03T14:36:07+00:00"
@@ -425,7 +425,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "current_blocker": null,
         "data_currentness": {
           "state": "unavailable",
-          "checked_at": "2026-08-03T11:13:59-04:00",
+          "checked_at": "2026-08-04T09:18:48-04:00",
           "reason": "No typed currentness record is published for this role."
         },
         "checked_at": "2026-08-03T14:36:07+00:00"
@@ -435,8 +435,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "repository_gates": {
     "schema_version": 1,
     "repository": "Thorncrag/ARRP",
-    "source_revision": "2026-08-03T15:19:07+00:00",
-    "checked_at": "2026-08-03T15:19:07+00:00",
+    "source_revision": "2026-08-04T13:31:59+00:00",
+    "checked_at": "2026-08-04T13:31:59+00:00",
     "availability": "current",
     "complete": true,
     "count": 0,
@@ -445,17 +445,14 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "open_pull_requests": {
         "complete": true,
         "pages": 1,
-        "actual_count": 6,
+        "actual_count": 4,
         "page_size": 100
       },
       "declarations_complete": true
     },
     "declaration_errors": [],
     "validation_errors": [],
-    "last_good_identity": {
-      "checked_at": "2026-08-03T15:13:40+00:00",
-      "source_revision": "2026-08-03T15:13:40+00:00"
-    },
+    "last_good_identity": null,
     "items": []
   },
   "operational_incidents": {
@@ -1063,6 +1060,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "automation.js": "project-console-602d651072a7439a99d5"
+    "automation.js": "project-console-121b37c74a51b9d93646"
   }
 });

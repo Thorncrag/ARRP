@@ -3,6 +3,48 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_008": [
     {
+      "id": "2022-21139",
+      "administration": "Biden",
+      "president": "Joseph R. Biden Jr.",
+      "type": "Proclamation",
+      "number": "10453",
+      "title": "National Hunting and Fishing Day, 2022",
+      "signed_date": "2022-09-23",
+      "published_date": "2022-09-28",
+      "citation": "87 FR 58705",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2022-09-28/pdf/2022-21139.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2022/09/28/2022-21139/national-hunting-and-fishing-day-2022",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2022-20695",
+      "administration": "Biden",
+      "president": "Joseph R. Biden Jr.",
+      "type": "Proclamation",
+      "number": "10452",
+      "title": "National Voter Registration Day, 2022",
+      "signed_date": "2022-09-19",
+      "published_date": "2022-09-22",
+      "citation": "87 FR 57793",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2022-09-22/pdf/2022-20695.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2022/09/22/2022-20695/national-voter-registration-day-2022",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
       "id": "2022-20582",
       "administration": "Biden",
       "president": "Joseph R. Biden Jr.",
@@ -3928,51 +3970,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "source_ids": [],
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2022-05232",
-      "administration": "Biden",
-      "president": "Joseph R. Biden Jr.",
-      "type": "Executive Order",
-      "number": "14066",
-      "title": "Prohibiting Certain Imports and New Investments With Respect to Continued Russian Federation Efforts To Undermine the Sovereignty and Territorial Integrity of Ukraine",
-      "signed_date": "2022-03-08",
-      "published_date": "2022-03-10",
-      "citation": "87 FR 13625",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2022-03-10/pdf/2022-05232.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2022/03/10/2022-05232/prohibiting-certain-imports-and-new-investments-with-respect-to-continued-russian-federation-efforts",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2022-05109",
-      "administration": "Biden",
-      "president": "Joseph R. Biden Jr.",
-      "type": "Proclamation",
-      "number": "10347",
-      "title": "National Consumer Protection Week, 2022",
-      "signed_date": "2022-03-04",
-      "published_date": "2022-03-09",
-      "citation": "87 FR 13115",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2022-03-09/pdf/2022-05109.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2022/03/09/2022-05109/national-consumer-protection-week-2022",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-008.js": "project-console-602d651072a7439a99d5"
+    "directives-catalog-008.js": "project-console-121b37c74a51b9d93646"
   }
 });

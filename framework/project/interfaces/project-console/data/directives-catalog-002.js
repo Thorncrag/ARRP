@@ -3,6 +3,48 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_002": [
     {
+      "id": "2025-19994",
+      "administration": "Trump II",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "10990",
+      "title": "250th Anniversary of the Founding of the United States Marine Corps",
+      "signed_date": "2025-11-10",
+      "published_date": "2025-11-14",
+      "citation": "90 FR 51077",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2025-11-14/pdf/2025-19994.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2025/11/14/2025-19994/250th-anniversary-of-the-founding-of-the-united-states-marine-corps",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2025-19928",
+      "administration": "Trump II",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "10989",
+      "title": "Granting Pardons for Certain Offenses Related to the 2020 Presidential Election",
+      "signed_date": "2025-11-07",
+      "published_date": "2025-11-14",
+      "citation": "90 FR 51071",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2025-11-14/pdf/2025-19928.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2025/11/14/2025-19928/granting-pardons-for-certain-offenses-related-to-the-2020-presidential-election",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
       "id": "2025-19892",
       "administration": "Trump II",
       "president": "Donald Trump",
@@ -3970,51 +4012,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "source_ids": [],
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2025-07835",
-      "administration": "Trump II",
-      "president": "Donald Trump",
-      "type": "Executive Order",
-      "number": "14289",
-      "title": "Addressing Certain Tariffs on Imported Articles",
-      "signed_date": "2025-04-29",
-      "published_date": "2025-05-02",
-      "citation": "90 FR 18907",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2025-05-02/pdf/2025-07835.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2025/05/02/2025-07835/addressing-certain-tariffs-on-imported-articles",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2025-07834",
-      "administration": "Trump II",
-      "president": "Donald Trump",
-      "type": "Proclamation",
-      "number": "10926",
-      "title": "418th Anniversary of the First Landing and the Raising of the Cape Henry Cross",
-      "signed_date": "2025-04-29",
-      "published_date": "2025-05-02",
-      "citation": "90 FR 18905",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2025-05-02/pdf/2025-07834.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2025/05/02/2025-07834/418th-anniversary-of-the-first-landing-and-the-raising-of-the-cape-henry-cross",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-002.js": "project-console-602d651072a7439a99d5"
+    "directives-catalog-002.js": "project-console-121b37c74a51b9d93646"
   }
 });

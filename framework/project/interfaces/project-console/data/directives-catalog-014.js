@@ -3,6 +3,48 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_014": [
     {
+      "id": "2019-06953",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "9858",
+      "title": "World Autism Awareness Day, 2019",
+      "signed_date": "2019-04-01",
+      "published_date": "2019-04-05",
+      "citation": "84 FR 13793",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2019-04-05/pdf/2019-06953.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2019/04/05/2019-06953/world-autism-awareness-day-2019",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2019-06811",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Memorandum",
+      "number": "",
+      "title": "Delaying Submission of the Small Business Report Under the Trade Facilitation and Trade Enforcement Act of 2015",
+      "signed_date": "2019-04-01",
+      "published_date": "2019-04-04",
+      "citation": "84 FR 13497",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2019-04-04/pdf/2019-06811.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2019/04/04/2019-06811/delaying-submission-of-the-small-business-report-under-the-trade-facilitation-and-trade-enforcement",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
       "id": "2019-06580",
       "administration": "Trump I",
       "president": "Donald Trump",
@@ -3980,51 +4022,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       ],
       "disposition_rationale": "Completed baseline screening linked this directive to the listed ARRP and source-development records.",
       "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2018-14485",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Memorandum",
-      "number": "",
-      "title": "Delegation of Authority Under Section 709 of the Department of State Authorities Act, Fiscal Year 2017",
-      "signed_date": "2018-06-04",
-      "published_date": "2018-07-03",
-      "citation": "83 FR 31321",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2018-07-03/pdf/2018-14485.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2018/07/03/2018-14485/delegation-of-authority-under-section-709-of-the-department-of-state-authorities-act-fiscal-year",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2018-12260",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Proclamation",
-      "number": "9763",
-      "title": "African-American Music Appreciation Month, 2018",
-      "signed_date": "2018-06-01",
-      "published_date": "2018-06-05",
-      "citation": "83 FR 26201",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2018-06-05/pdf/2018-12260.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2018/06/05/2018-12260/african-american-music-appreciation-month-2018",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-014.js": "project-console-602d651072a7439a99d5"
+    "directives-catalog-014.js": "project-console-121b37c74a51b9d93646"
   }
 });

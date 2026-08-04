@@ -3,6 +3,48 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_005": [
     {
+      "id": "2024-19958",
+      "administration": "Biden",
+      "president": "Joseph R. Biden Jr.",
+      "type": "Memorandum",
+      "number": "",
+      "title": "Delegation of Authority Under Section 506(a)(1) of the Foreign Assistance Act of 1961",
+      "signed_date": "2024-08-23",
+      "published_date": "2024-09-04",
+      "citation": "89 FR 71801",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2024-09-04/pdf/2024-19958.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2024/09/04/2024-19958/delegation-of-authority-under-section-506a1-of-the-foreign-assistance-act-of-1961",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2024-19444",
+      "administration": "Biden",
+      "president": "Joseph R. Biden Jr.",
+      "type": "Proclamation",
+      "number": "10794",
+      "title": "Women's Equality Day, 2024",
+      "signed_date": "2024-08-23",
+      "published_date": "2024-08-28",
+      "citation": "89 FR 68773",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2024-08-28/pdf/2024-19444.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2024/08/28/2024-19444/womens-equality-day-2024",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
       "id": "2024-19441",
       "administration": "Biden",
       "president": "Joseph R. Biden Jr.",
@@ -3928,51 +3970,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "source_ids": [],
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2023-27732",
-      "administration": "Biden",
-      "president": "Joseph R. Biden Jr.",
-      "type": "Notice",
-      "number": "",
-      "title": "Continuation of the National Emergency With Respect to the Global Illicit Drug Trade",
-      "signed_date": "2023-12-13",
-      "published_date": "2023-12-14",
-      "citation": "88 FR 86809",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2023-12-14/pdf/2023-27732.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2023/12/14/2023-27732/continuation-of-the-national-emergency-with-respect-to-the-global-illicit-drug-trade",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2023-27630",
-      "administration": "Biden",
-      "president": "Joseph R. Biden Jr.",
-      "type": "Proclamation",
-      "number": "10685",
-      "title": "Suspension of Entry as Immigrants and Nonimmigrants of Persons Enabling Corruption",
-      "signed_date": "2023-12-11",
-      "published_date": "2023-12-14",
-      "citation": "88 FR 86541",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2023-12-14/pdf/2023-27630.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2023/12/14/2023-27630/suspension-of-entry-as-immigrants-and-nonimmigrants-of-persons-enabling-corruption",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-005.js": "project-console-602d651072a7439a99d5"
+    "directives-catalog-005.js": "project-console-121b37c74a51b9d93646"
   }
 });

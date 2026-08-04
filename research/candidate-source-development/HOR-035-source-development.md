@@ -59,7 +59,7 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Routed record: `HOR-035`
 - Discovery source: [Just Security litigation tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 - Coverage limitation: this projection covers only records present in the configured tracker; it is not an exhaustive or cross-administration case universe.
-- Current unreviewed leads: **221**
+- Current unreviewed leads: **222**
 - Resolution convention: record the full `CASELEAD-…@fingerprint` disposition token and the verified disposition outside these bot-owned markers. The next run removes that observation from this unreviewed projection while preserving the agent-authored disposition. A later material change produces a new fingerprint and re-queues the lead.
 
 <details>
@@ -88,6 +88,21 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Observation fingerprint: `b92408ad4fa33d11`
 - Disposition token: `CASELEAD-1ED8CBB32F1B@b92408ad4fa33d11`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/70826540/acr-v-noem/)
+- Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
+
+</details>
+
+<details>
+<summary>CASELEAD-B58DCB0F5739 — African Communities Together v. Noem (D. Mass.) — 1:26-cv-11201</summary>
+
+- Review status: **Unreviewed machine lead**
+- Matched signal groups: <code>replacement-or-supersession</code>
+- Matched terms: <code>superseding</code>
+- Tracker status: <code>Government Action Temporarily Blocked</code>
+- Last tracker update: <code>2026-07-31</code>
+- Observation fingerprint: `5a7d43b9f244a864`
+- Disposition token: `CASELEAD-B58DCB0F5739@5a7d43b9f244a864`
+- Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/72383804/african-communities-together-v-noem/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 
 </details>
@@ -638,10 +653,10 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Review status: **Unreviewed machine lead**
 - Matched signal groups: <code>withdrawal-or-rescission</code>
 - Matched terms: <code>rescind</code>
-- Tracker status: <code>Case Pending</code>
+- Tracker status: <code>Case Closed</code>
 - Last tracker update: <code>2025-06-02</code>
-- Observation fingerprint: `238c983f9c75e1e8`
-- Disposition token: `CASELEAD-4B65FB285001@238c983f9c75e1e8`
+- Observation fingerprint: `27c4f6d9fba83fc8`
+- Disposition token: `CASELEAD-4B65FB285001@27c4f6d9fba83fc8`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/69733481/butterbee-farm/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 
@@ -1043,10 +1058,10 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Review status: **Unreviewed machine lead**
 - Matched signal groups: <code>withdrawal-or-rescission</code>
 - Matched terms: <code>withdraw</code>
-- Tracker status: <code>Case Pending</code>
+- Tracker status: <code>Case Closed</code>
 - Last tracker update: <code>2025-06-26</code>
-- Observation fingerprint: `e71938901a8db30a`
-- Disposition token: `CASELEAD-D0ED9B2AF5B7@e71938901a8db30a`
+- Observation fingerprint: `d831fd02c2e9242a`
+- Disposition token: `CASELEAD-D0ED9B2AF5B7@d831fd02c2e9242a`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/69895267/doe-1-v-eeoc/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 
@@ -1493,10 +1508,10 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Review status: **Unreviewed machine lead**
 - Matched signal groups: <code>withdrawal-or-rescission, vacatur</code>
 - Matched terms: <code>vacatur, withdraw</code>
-- Tracker status: <code>Temporary Block of Government Action Denied</code>
+- Tracker status: <code>Case Closed/Dismissed in Favor of Government</code>
 - Last tracker update: <code>2026-04-10</code>
-- Observation fingerprint: `4bba8eebe09df1ec`
-- Disposition token: `CASELEAD-E2E0CC889CCD@4bba8eebe09df1ec`
+- Observation fingerprint: `d7688b8e5e263f4a`
+- Disposition token: `CASELEAD-E2E0CC889CCD@d7688b8e5e263f4a`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/72618270/hines-immigration-law-pllc-v-executive-office-for-immigration-review/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 
@@ -1598,10 +1613,10 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Review status: **Unreviewed machine lead**
 - Matched signal groups: <code>withdrawal-or-rescission</code>
 - Matched terms: <code>rescission</code>
-- Tracker status: <code>Case Pending</code>
+- Tracker status: <code>Case Closed in Favor of Plaintiff</code>
 - Last tracker update: <code>2026-03-16</code>
-- Observation fingerprint: `a47a6d49c9d6a753`
-- Disposition token: `CASELEAD-D02BD0A34633@a47a6d49c9d6a753`
+- Observation fingerprint: `973ddfaf0633bf60`
+- Disposition token: `CASELEAD-D02BD0A34633@973ddfaf0633bf60`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/72349057/jane-addams-senior-caucus-v-united-states-department-of-housing-and-urban/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 
@@ -2138,10 +2153,10 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Review status: **Unreviewed machine lead**
 - Matched signal groups: <code>settlement-or-stipulated-dismissal</code>
 - Matched terms: <code>settle, settlement</code>
-- Tracker status: <code>Case Pending</code>
+- Tracker status: <code>Case Closed</code>
 - Last tracker update: <code>2026-01-13</code>
-- Observation fingerprint: `9ad00ca199079705`
-- Disposition token: `CASELEAD-49E1DF9658E8@9ad00ca199079705`
+- Observation fingerprint: `d8cf4fe777e2346f`
+- Disposition token: `CASELEAD-49E1DF9658E8@d8cf4fe777e2346f`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/69665792/northeast-organic-farming-association-of-new-york-v-us-department-of/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 
@@ -2994,9 +3009,9 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Matched signal groups: <code>withdrawal-or-rescission, vacatur</code>
 - Matched terms: <code>rescind, vacate, vacated</code>
 - Tracker status: <code>Government Action Not Blocked (Pending Appeal)</code>
-- Last tracker update: <code>2026-06-11</code>
-- Observation fingerprint: `488b10ea11e291ac`
-- Disposition token: `CASELEAD-545F472FD885@488b10ea11e291ac`
+- Last tracker update: <code>2026-08-03</code>
+- Observation fingerprint: `fa5772cbd2abd6e8`
+- Disposition token: `CASELEAD-545F472FD885@fa5772cbd2abd6e8`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/69762768/the-sustainability-institute-v-trump/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 
@@ -3263,10 +3278,10 @@ If the evidence instead shows that existing doctrine ordinarily preserves effect
 - Review status: **Unreviewed machine lead**
 - Matched signal groups: <code>mootness</code>
 - Matched terms: <code>moot</code>
-- Tracker status: <code>Case Pending</code>
+- Tracker status: <code>Government Action Temporarily Blocked</code>
 - Last tracker update: <code>2026-01-15</code>
-- Observation fingerprint: `a3175587e73ef3fb`
-- Disposition token: `CASELEAD-C244E3298538@a3175587e73ef3fb`
+- Observation fingerprint: `949ad67f223ca92a`
+- Disposition token: `CASELEAD-C244E3298538@949ad67f223ca92a`
 - Primary docket lead: [CourtListener / RECAP](https://www.courtlistener.com/docket/69921190/victim-rights-law-center-v-united-states-department-of-education/)
 - Tracker record: [Open source tracker](https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/)
 

@@ -233,3 +233,42 @@ Each repository-review recommendation must identify the recommendation ID, recor
 - Result: catalog_updated
 - Action: Updated machine-observed Federal Register metadata and per-row baselines for human review.
 - Boundary: No substantive ARRP classification or disposition was performed.
+## 2026-08-04T13:19:43+00:00 — Case monitor bot
+
+- Activity code: `CASE-20260804131943-E74E782E`
+- Originating workflow run: Local or manually invoked run
+- Result: `changes_detected`
+- Affected source IDs: SRC-0948, SRC-1016, SRC-1062, SRC-1069, SRC-2009, SRC-2032, SRC-2188, SRC-2235, SRC-2245, SRC-2304, SRC-2333, SRC-2343, SRC-2344, SRC-2589
+- Tracker changes: 0 added; 14 changed; 0 removed
+- Case baselines updated: 14
+- Coverage: 490 mapped monitored CourtListener rows; 7 monitored CourtListener rows outside tracker coverage
+- Targeted CourtListener checks: 0 queried; 0 failed; 14 unverified
+- Source-development modules changed: 1
+- Interpretation: source-change signal only; no legal significance or project disposition determined.
+- `judicial-review-disposition-signals` → `research/candidate-source-development/HOR-035-source-development.md`: 222 current unreviewed leads; 1 added; 0 removed.
+
+| Change | Case | Docket | Previous observation | Current observation | Catalog match |
+| --- | --- | --- | --- | --- | --- |
+| Changed | Northeast Organic Farming Association of New York v\. U\.S\. Department of Agriculture \(S\.D\.N\.Y\.\) | 1:25\-cv\-01529 | Case Pending; 2026\-01\-13 | Case Closed; 2026\-01\-13 | SRC\-1062 |
+| Changed | Sustainability Institute v\. Trump \(D\.S\.C\.\) | 2:25\-cv\-02152 | Government Action Not Blocked \(Pending Appeal\); 2026\-06\-11 | Government Action Not Blocked \(Pending Appeal\); 2026\-08\-03 | SRC\-2589 |
+| Changed | Mahdawi v\. Trump \(D\. Vt\.\) | 2:25\-cv\-00389 | Government Action Not Blocked \(Pending Appeal\); 2026\-07\-21 | Government Action Not Blocked \(Pending Appeal\); 2026\-07\-21 | SRC\-2235 |
+| Changed | EA T\-B v\. Bostock \(W\.D\. Wash\.\) | 2:25\-cv\-01192 | Case Pending; 2025\-06\-18 | Case Closed in Favor of Plaintiff; 2025\-06\-18 | SRC\-2333 |
+| Changed | Van Schaick v\. DeSantis \(N\.D\. Fla\.\) | 4:25\-cv\-00271 | Case Pending; 2025\-06\-26 | Case Closed; 2025\-06\-26 | SRC\-1016 |
+| Changed | Hernandez v\. Noem \(D\.D\.C\.\) | 1:25\-cv\-02344 | Case Pending; 2025\-12\-10 | Case Closed/Dismissed in Favor of Government; 2025\-12\-10 | SRC\-2304 |
+| Changed | State of Arizona, et al\. v\. Pam Bondi, et al\. \(D\. Ariz\.\) | 4:25\-cv\-00468 | Government Action Blocked; 2025\-10\-22 | Case Closed in Favor of Plaintiff; 2025\-10\-22 | SRC\-2343 |
+| Changed | Tenesaca Lema v\. Scott \(D\. Me\.\) | 2:25\-cv\-00439 | Government Action Blocked; 2025\-12\-17 | Case Closed in Favor of Plaintiff; 2025\-12\-17 | SRC\-2344 |
+| Changed | League of Women Voters of the United States v\. U\.S\. Citizenship and Immigration Services \(D\. Md\.\) | 8:25\-cv\-03777 | Case Pending; 2026\-06\-01 | Government Action Temporarily Blocked; 2026\-08\-03 | SRC\-2188 |
+| Changed | State of New York v\. Burgum \(D\.D\.C\.\) | 1:26\-cv\-00072 | Case Pending; 2026\-02\-02 | Government Action Temporarily Blocked; 2026\-02\-02 | SRC\-2245 |
+| Changed | Jane Addams Senior Caucus v\. HUD \(D\.D\.C\) | 1:26\-cv\-00718 | Case Pending; 2026\-03\-16 | Case Closed in Favor of Plaintiff; 2026\-03\-16 | SRC\-1069 |
+| Changed | African Communities Together v\. Noem \(D\. Mass\.\) | 1:26\-cv\-11201 | Government Action Temporarily Blocked; 2026\-07\-31 | Government Action Temporarily Blocked; 2026\-07\-31 | SRC\-2032 |
+| Changed | American Federation of Government Employees AFL\-C10 v\. U\.S\. Federal Labor Relations Authority \(D\. Mass\.\) | 1:26\-cv\-11747 | Case Pending; 2026\-04\-15 | Case Closed in Favor of Plaintiff; 2026\-04\-15 | SRC\-0948 |
+| Changed | State of California v\. Zeldin \(N\.D\. Cal\.\) | 4:26\-cv\-03500 | Case Pending; 2026\-04\-24 | Case Closed in Favor of Plaintiff; 2026\-07\-20 | SRC\-2009 |
+
+## 2026-08-04T13:19:45+00:00 — Presidential directives watcher (PDM-D922079DCF)
+
+- Added directives: **2**
+- Changed directives: **0**
+- Added IDs: 2026\-15859, 2026\-15860
+- Result: catalog_updated
+- Action: Updated machine-observed Federal Register metadata and per-row baselines for human review.
+- Boundary: No substantive ARRP classification or disposition was performed.

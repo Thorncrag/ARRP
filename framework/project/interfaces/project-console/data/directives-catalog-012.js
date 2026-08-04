@@ -3,6 +3,48 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_012": [
     {
+      "id": "2020-16591",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Proclamation",
+      "number": "10058",
+      "title": "Anniversary of the Americans With Disabilities Act, 2020",
+      "signed_date": "2020-07-24",
+      "published_date": "2020-07-29",
+      "citation": "85 FR 45743",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2020-07-29/pdf/2020-16591.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2020/07/29/2020-16591/anniversary-of-the-americans-with-disabilities-act-2020",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2020-16312",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Notice",
+      "number": "",
+      "title": "Continuation of the National Emergency With Respect to Mali",
+      "signed_date": "2020-07-23",
+      "published_date": "2020-07-24",
+      "citation": "85 FR 45055",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2020-07-24/pdf/2020-16312.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2020/07/24/2020-16312/continuation-of-the-national-emergency-with-respect-to-mali",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
       "id": "2020-16223",
       "administration": "Trump I",
       "president": "Donald Trump",
@@ -3988,51 +4030,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "source_ids": [],
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2019-25118",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Memorandum",
-      "number": "",
-      "title": "Delegation of Removal Authority Over the Federal Service Impasses Panel",
-      "signed_date": "2019-11-12",
-      "published_date": "2019-11-18",
-      "citation": "84 FR 63789",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2019-11-18/pdf/2019-25118.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2019/11/18/2019-25118/delegation-of-removal-authority-over-the-federal-service-impasses-panel",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2019-24809",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Notice",
-      "number": "",
-      "title": "Continuation of the National Emergency With Respect to the Proliferation of Weapons of Mass Destruction",
-      "signed_date": "2019-11-12",
-      "published_date": "2019-11-13",
-      "citation": "84 FR 61817",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2019-11-13/pdf/2019-24809.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2019/11/13/2019-24809/continuation-of-the-national-emergency-with-respect-to-the-proliferation-of-weapons-of-mass",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-012.js": "project-console-602d651072a7439a99d5"
+    "directives-catalog-012.js": "project-console-121b37c74a51b9d93646"
   }
 });

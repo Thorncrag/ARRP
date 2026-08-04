@@ -3,6 +3,48 @@ window.ARRP_HORIZON_REVIEW_DATA=window.ARRP_HORIZON_REVIEW_DATA||{};
 Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
   "presidential_directives_chunk_013": [
     {
+      "id": "2019-25118",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Memorandum",
+      "number": "",
+      "title": "Delegation of Removal Authority Over the Federal Service Impasses Panel",
+      "signed_date": "2019-11-12",
+      "published_date": "2019-11-18",
+      "citation": "84 FR 63789",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2019-11-18/pdf/2019-25118.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2019/11/18/2019-25118/delegation-of-removal-authority-over-the-federal-service-impasses-panel",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
+      "id": "2019-24809",
+      "administration": "Trump I",
+      "president": "Donald Trump",
+      "type": "Notice",
+      "number": "",
+      "title": "Continuation of the National Emergency With Respect to the Proliferation of Weapons of Mass Destruction",
+      "signed_date": "2019-11-12",
+      "published_date": "2019-11-13",
+      "citation": "84 FR 61817",
+      "official_url": "https://www.govinfo.gov/content/pkg/FR-2019-11-13/pdf/2019-24809.pdf",
+      "federal_register_url": "https://www.federalregister.gov/documents/2019/11/13/2019-24809/continuation-of-the-national-emergency-with-respect-to-the-proliferation-of-weapons-of-mass",
+      "related_directive_ids": [],
+      "first_seen": "2026-07-21",
+      "last_changed": "2026-07-21",
+      "review_status": "Screened — no separate action",
+      "arrp_record_ids": [],
+      "source_ids": [],
+      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
+      "reviewed_date": "2026-07-21"
+    },
+    {
       "id": "2019-24806",
       "administration": "Trump I",
       "president": "Donald Trump",
@@ -3984,51 +4026,9 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
       "source_ids": [],
       "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
       "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2019-06953",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Proclamation",
-      "number": "9858",
-      "title": "World Autism Awareness Day, 2019",
-      "signed_date": "2019-04-01",
-      "published_date": "2019-04-05",
-      "citation": "84 FR 13793",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2019-04-05/pdf/2019-06953.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2019/04/05/2019-06953/world-autism-awareness-day-2019",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
-    },
-    {
-      "id": "2019-06811",
-      "administration": "Trump I",
-      "president": "Donald Trump",
-      "type": "Memorandum",
-      "number": "",
-      "title": "Delaying Submission of the Small Business Report Under the Trade Facilitation and Trade Enforcement Act of 2015",
-      "signed_date": "2019-04-01",
-      "published_date": "2019-04-04",
-      "citation": "84 FR 13497",
-      "official_url": "https://www.govinfo.gov/content/pkg/FR-2019-04-04/pdf/2019-06811.pdf",
-      "federal_register_url": "https://www.federalregister.gov/documents/2019/04/04/2019-06811/delaying-submission-of-the-small-business-report-under-the-trade-facilitation-and-trade-enforcement",
-      "related_directive_ids": [],
-      "first_seen": "2026-07-21",
-      "last_changed": "2026-07-21",
-      "review_status": "Screened — no separate action",
-      "arrp_record_ids": [],
-      "source_ids": [],
-      "disposition_rationale": "Completed baseline screening found no distinct project action or retained source-development route for this directive.",
-      "reviewed_date": "2026-07-21"
     }
   ],
   "domain_generation": {
-    "directives-catalog-013.js": "project-console-602d651072a7439a99d5"
+    "directives-catalog-013.js": "project-console-121b37c74a51b9d93646"
   }
 });
