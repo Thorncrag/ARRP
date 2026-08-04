@@ -68,6 +68,17 @@ except ModuleNotFoundError:
     )
 
 try:
+    from codex_usage_projection import (
+        projection_is_valid as codex_usage_projection_is_valid,
+        unavailable_projection as unavailable_codex_usage_projection,
+    )
+except ModuleNotFoundError:
+    from scripts.codex_usage_projection import (
+        projection_is_valid as codex_usage_projection_is_valid,
+        unavailable_projection as unavailable_codex_usage_projection,
+    )
+
+try:
     from github_disclosure_gate import (
         DisclosureBlocked,
         OutboundArtifact,
@@ -290,6 +301,7 @@ RUNTIME_FILES = (
     "scripts/elim_execution.py",
     "scripts/record_review_epoch.py",
     "scripts/check_codex_usage_reserve.py",
+    "scripts/codex_usage_projection.py",
     "scripts/console_data_contracts.py",
     "framework/project/github/disclosure-policy.json",
 )
@@ -4807,6 +4819,7 @@ def exclusive_lock(
     state_root: Path,
     run_id: str,
     on_error: Callable[[BaseException], None] | None = None,
+    on_finalize: Callable[[], None] | None = None,
 ) -> Iterator[int]:
     ensure_owner_directory(state_root)
     lock_path = state_root / "run.lock"
@@ -4827,6 +4840,12 @@ def exclusive_lock(
             if on_error is not None:
                 on_error(error)
             raise
+        finally:
+            if on_finalize is not None:
+                # Finalization remains under the sole coordinator lock and
+                # may never replace the primary return value or exception.
+                with contextlib.suppress(BaseException):
+                    on_finalize()
     finally:
         with contextlib.suppress(OSError):
             fcntl.flock(descriptor, fcntl.LOCK_UN)
@@ -6682,6 +6701,609 @@ def publish_production_transaction(
     }
 
 
+OCCURRENCE_FINALIZER_FILENAME = "occurrence-finalizer.json"
+LAUNCH_AGENT_LABEL = "com.thorncrag.arrp-nightly"
+OWNER_PROJECT_PACKAGE_FILENAME = "arrp-project-package.json"
+CODEX_USAGE_PROJECTION_SOURCE = (
+    Path.home() / ".codex/usage-tracking/codex-usage-projection.json"
+)
+OWNER_FEED_SPECS = {
+    "operations": (
+        "private-operations.js",
+        "/* Private local projection; never commit or publish. */\n"
+        "window.ARRP_PRIVATE_OPERATIONS=",
+        8_388_608,
+    ),
+    "security_assurance": (
+        "private-security-assurance.js",
+        "/* Private local projection; never commit or publish. */\n"
+        "window.ARRP_PRIVATE_SECURITY_ASSURANCE=",
+        1_048_576,
+    ),
+}
+
+
+def _owner_project_package_path(state_root: Path) -> Path:
+    return state_root / "console" / OWNER_PROJECT_PACKAGE_FILENAME
+
+
+def _read_current_codex_usage() -> dict[str, Any]:
+    """Read current or explicitly stale owner-local capacity without relabeling it."""
+
+    try:
+        text = read_owner_text(
+            CODEX_USAGE_PROJECTION_SOURCE,
+            label="Codex usage projection",
+            maximum_bytes=1_048_576,
+        )
+        value = json.loads(text)
+    except (TransactionError, UnicodeError, json.JSONDecodeError):
+        value = unavailable_codex_usage_projection(
+            "source_unavailable", generated_at=utc_now()
+        )
+        return {"availability": "unavailable", "payload": value}
+    if not isinstance(value, dict):
+        value = unavailable_codex_usage_projection(
+            "usage_readback_invalid", generated_at=utc_now()
+        )
+        return {"availability": "unavailable", "payload": value}
+    if codex_usage_projection_is_valid(value):
+        return {
+            "availability": (
+                "current"
+                if value.get("availability") == "current"
+                else "unavailable"
+            ),
+            "payload": value,
+        }
+    generated_at = _finalizer_timestamp(value.get("generated_at"))
+    if (
+        value.get("availability") == "current"
+        and generated_at is not None
+        and codex_usage_projection_is_valid(value, now=generated_at)
+    ):
+        return {"availability": "stale", "payload": value}
+    value = unavailable_codex_usage_projection(
+        "usage_readback_invalid", generated_at=utc_now()
+    )
+    return {"availability": "unavailable", "payload": value}
+
+
+def _read_occurrence_run_chain(config: RunnerConfig, run_id: str) -> dict[str, Any] | None:
+    path = config.state_root / "runs" / run_id / "run-chain.json"
+    try:
+        value = read_json_object(path)
+    except (OSError, UnicodeError, ValueError, json.JSONDecodeError, TransactionError):
+        return None
+    identity = value.get("run_id") or value.get("chain_id")
+    return value if identity == run_id else None
+
+
+def _occurrence_usage(run_chain: Mapping[str, Any] | None) -> dict[str, Any]:
+    usage = run_chain.get("usage") if isinstance(run_chain, Mapping) else None
+    if not isinstance(usage, Mapping):
+        return {
+            "availability": "unavailable",
+            "remaining_percent": None,
+            "status": "unknown",
+        }
+    remaining = usage.get("remaining_percent")
+    available = (
+        isinstance(remaining, (int, float))
+        and not isinstance(remaining, bool)
+        and 0 <= float(remaining) <= 100
+    )
+    return {
+        **dict(usage),
+        "availability": "available_for_occurrence" if available else "unavailable",
+        "remaining_percent": remaining if available else None,
+    }
+
+
+def _read_owner_feed(
+    state_root: Path,
+    *,
+    feed_id: str,
+    run_id: str,
+) -> dict[str, Any]:
+    filename, prefix, maximum_bytes = OWNER_FEED_SPECS[feed_id]
+    path = state_root / "console" / filename
+    try:
+        text = read_owner_text(
+            path,
+            label=f"owner {feed_id} feed",
+            maximum_bytes=maximum_bytes,
+        )
+        if not text.startswith(prefix) or not text.endswith(";\n"):
+            raise ValueError("invalid owner feed wrapper")
+        payload = json.loads(text.removeprefix(prefix).removesuffix(";\n"))
+    except (TransactionError, UnicodeError, ValueError, json.JSONDecodeError):
+        return {
+            "availability": "unavailable",
+            "source_role": "nonauthoritative_transition_staging",
+            "source_path": str(path),
+            "source_sha256": None,
+            "matches_occurrence": None,
+            "payload": None,
+        }
+    if not isinstance(payload, dict):
+        raise TransactionError(f"owner {feed_id} feed is not a JSON object")
+    if feed_id == "operations":
+        required = {
+            "action_snapshot",
+            "agent_registry",
+            "availability",
+            "catalog_generation_id",
+            "generated_at",
+            "governance_change_supplements",
+            "incident_relations",
+            "integrity",
+            "operational_incidents",
+            "privacy",
+            "project_logs",
+            "queue_directory",
+            "run_chain",
+            "schema_version",
+            "security_incidents",
+            "source_revision",
+            "transaction_recovery",
+        }
+        if set(payload) != required or payload.get("schema_version") != 4:
+            raise TransactionError("owner operations feed schema is invalid")
+        feed_chain = payload.get("run_chain")
+        feed_run_id = (
+            feed_chain.get("run_id") or feed_chain.get("chain_id")
+            if isinstance(feed_chain, Mapping)
+            else None
+        )
+        matches_occurrence = feed_run_id == run_id
+    else:
+        required = {
+            "active_incident",
+            "availability",
+            "checked_at",
+            "complete",
+            "private_attention",
+            "public_intake_state",
+            "schema_version",
+            "tools",
+        }
+        if set(payload) != required or payload.get("schema_version") != 2:
+            raise TransactionError("owner security-assurance feed schema is invalid")
+        matches_occurrence = None
+    return {
+        "availability": (
+            "current"
+            if feed_id == "operations"
+            and payload.get("availability") == "current"
+            and matches_occurrence is True
+            else "retained"
+        ),
+        "source_role": "nonauthoritative_transition_staging",
+        "source_path": str(path),
+        "source_sha256": file_sha256(path),
+        "matches_occurrence": matches_occurrence,
+        "payload": payload,
+    }
+
+
+def _validate_owner_project_package(
+    package: object,
+    *,
+    run_id: str,
+) -> dict[str, Any]:
+    fields = {
+        "schema_version",
+        "package_id",
+        "project_id",
+        "generated_at",
+        "run_id",
+        "producer_revision",
+        "occurrence_runtime_revision",
+        "primary_status",
+        "run_chain",
+        "usage",
+        "operations",
+        "security_assurance",
+        "health",
+    }
+    if not isinstance(package, dict) or set(package) != fields:
+        raise TransactionError("owner project package has an invalid shape")
+    if (
+        package.get("schema_version") != 1
+        or package.get("package_id") != "arrp-owner-state"
+        or package.get("project_id") != "arrp"
+        or package.get("run_id") != run_id
+        or not isinstance(package.get("primary_status"), dict)
+        or package["primary_status"].get("run_id") != run_id
+        or not isinstance(package.get("usage"), dict)
+        or not isinstance(package.get("operations"), dict)
+        or not isinstance(package.get("security_assurance"), dict)
+        or not isinstance(package.get("health"), dict)
+    ):
+        raise TransactionError("owner project package identity is invalid")
+    run_chain = package.get("run_chain")
+    if run_chain is not None and (
+        not isinstance(run_chain, dict)
+        or (run_chain.get("run_id") or run_chain.get("chain_id")) != run_id
+    ):
+        raise TransactionError("owner project package run chain is invalid")
+    current_usage = package["usage"].get("current")
+    if (
+        not isinstance(current_usage, dict)
+        or set(current_usage) != {"availability", "payload"}
+        or current_usage.get("availability") not in {"current", "stale", "unavailable"}
+    ):
+        raise TransactionError("owner project package usage is invalid")
+    usage_payload = current_usage.get("payload")
+    usage_generated_at = (
+        _finalizer_timestamp(usage_payload.get("generated_at"))
+        if isinstance(usage_payload, Mapping)
+        else None
+    )
+    outer_availability = current_usage.get("availability")
+    payload_availability = (
+        usage_payload.get("availability")
+        if isinstance(usage_payload, Mapping)
+        else None
+    )
+    valid_now = codex_usage_projection_is_valid(usage_payload)
+    valid_at_generation = (
+        usage_generated_at is not None
+        and codex_usage_projection_is_valid(
+            usage_payload,
+            now=usage_generated_at,
+        )
+    )
+    usage_consistent = (
+        outer_availability == "current"
+        and payload_availability == "current"
+        and valid_now
+    ) or (
+        outer_availability == "stale"
+        and payload_availability == "current"
+        and valid_at_generation
+        and not valid_now
+    ) or (
+        outer_availability == "unavailable"
+        and payload_availability == "unavailable"
+        and valid_now
+    )
+    if not usage_consistent:
+        raise TransactionError("owner project package usage payload is invalid")
+    occurrence_usage = package["usage"].get("occurrence")
+    if not isinstance(occurrence_usage, dict):
+        raise TransactionError("owner project package occurrence usage is invalid")
+    for feed_id in ("operations", "security_assurance"):
+        feed = package[feed_id]
+        if set(feed) != {
+            "availability",
+            "source_role",
+            "source_path",
+            "source_sha256",
+            "matches_occurrence",
+            "payload",
+        }:
+            raise TransactionError(f"owner project package {feed_id} envelope is invalid")
+        if feed.get("source_role") != "nonauthoritative_transition_staging":
+            raise TransactionError(f"owner project package {feed_id} source role is invalid")
+    return package
+
+
+def automation_health_snapshot(
+    config: RunnerConfig,
+    *,
+    run_id: str,
+    status: Mapping[str, Any],
+    command_runner: Callable[..., subprocess.CompletedProcess[bytes]] = subprocess.run,
+) -> dict[str, Any]:
+    """Read one bounded cross-surface health snapshot without gating finalization."""
+
+    gaps: list[str] = []
+    lifecycle_state = None
+    events_path = transaction_events_path(config)
+    try:
+        lifecycle = current_transaction_states(events_path).get(run_id)
+        lifecycle_state = lifecycle.get("state") if lifecycle else None
+    except (OSError, TransactionLifecycleError, ValueError):
+        lifecycle = None
+    if lifecycle_state is None:
+        gaps.append("lifecycle-state-unavailable")
+
+    runtime_manifest = None
+    if config.runtime_commit:
+        manifest_path = (
+            config.state_root
+            / "runtime"
+            / config.runtime_commit
+            / "runtime-manifest.json"
+        )
+        try:
+            candidate = read_json_object(manifest_path)
+            if candidate.get("source_commit") == config.runtime_commit:
+                runtime_manifest = {
+                    "availability": "current",
+                    "source_commit": config.runtime_commit,
+                }
+            else:
+                gaps.append("runtime-identity-mismatch")
+        except (OSError, UnicodeError, ValueError, json.JSONDecodeError):
+            gaps.append("runtime-manifest-unavailable")
+    else:
+        gaps.append("runtime-identity-not-applicable")
+
+    scheduler = {"availability": "unavailable", "loaded": None}
+    if config.fixture_root is None:
+        try:
+            completed = command_runner(
+                [
+                    "launchctl",
+                    "print",
+                    f"gui/{os.getuid()}/{LAUNCH_AGENT_LABEL}",
+                ],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
+                timeout=5,
+            )
+            scheduler = {
+                "availability": "current" if completed.returncode == 0 else "unavailable",
+                "loaded": completed.returncode == 0,
+            }
+            if completed.returncode != 0:
+                gaps.append("scheduler-readback-unavailable")
+        except (OSError, subprocess.SubprocessError):
+            gaps.append("scheduler-readback-unavailable")
+
+    validation_summary = status.get("validation_summary")
+    publication_attempted = (
+        isinstance(validation_summary, Mapping)
+        and validation_summary.get("publication_attempted") is True
+    )
+    publication_expected = bool(
+        status.get("pull_request") or status.get("expected_pr_head")
+    )
+    publication = {
+        "availability": (
+            "current"
+            if status.get("merge_commit")
+            else "unavailable"
+            if publication_attempted or publication_expected
+            else "not_applicable"
+        ),
+        "attempted": publication_attempted,
+        "pull_request": status.get("pull_request"),
+        "merge_commit": status.get("merge_commit"),
+        "pages_conclusion": status.get("pages_conclusion"),
+    }
+    if (publication_attempted or publication_expected) and not status.get(
+        "merge_commit"
+    ):
+        gaps.append("publication-readback-unavailable")
+
+    return {
+        "schema_version": 1,
+        "run_id": run_id,
+        "observed_at": iso_utc(),
+        "status": {
+            "availability": "current",
+            "primary_status": status.get("status"),
+            "updated_at": status.get("updated_at"),
+        },
+        "lifecycle": {
+            "availability": "current" if lifecycle_state else "unavailable",
+            "state": lifecycle_state,
+        },
+        "runtime": runtime_manifest
+        or {"availability": "unavailable", "source_commit": None},
+        "scheduler": scheduler,
+        "publication": publication,
+        "health": "current" if not gaps else "degraded",
+        "gaps": sorted(set(gaps)),
+    }
+
+
+def _is_no_run_status(status: Mapping[str, Any]) -> bool:
+    validation = status.get("validation_summary")
+    reason = validation.get("reason") if isinstance(validation, Mapping) else None
+    return reason in {
+        "scheduled_occurrence_already_recorded",
+        "scheduled_slot_already_claimed",
+    }
+
+
+def _finalizer_timestamp(value: object) -> datetime | None:
+    try:
+        parsed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return None
+    return parsed.astimezone(timezone.utc)
+
+
+def finalize_occurrence(
+    config: RunnerConfig,
+    run_id: str,
+    *,
+    command_runner: Callable[..., subprocess.CompletedProcess[bytes]] = subprocess.run,
+) -> dict[str, Any] | None:
+    """Refresh the replaceable owner-local ARRP package without masking a run."""
+
+    status_path = config.state_root / "status.json"
+    status = read_json_object(status_path)
+    if status.get("run_id") != run_id:
+        raise TransactionError("occurrence finalizer status identity is unavailable")
+    if _is_no_run_status(status):
+        return None
+
+    result_path = (
+        config.state_root / "runs" / run_id / OCCURRENCE_FINALIZER_FILENAME
+    )
+    ensure_owner_directory(result_path.parent)
+    retained: dict[str, Any] = {}
+    if result_path.is_file() and not result_path.is_symlink():
+        retained = read_json_object(result_path)
+        if retained.get("run_id") != run_id:
+            raise TransactionError("occurrence finalizer result identity conflicts")
+        if retained.get("status") == "completed":
+            return retained
+
+    started_at = str(retained.get("started_at") or iso_utc())
+    started = _finalizer_timestamp(started_at)
+    if started is None:
+        raise TransactionError("occurrence finalizer start time is invalid")
+    atomic_write_json(
+        result_path,
+        {
+            "schema_version": 1,
+            "run_id": run_id,
+            "status": "running",
+            "started_at": started_at,
+            "completed_at": None,
+            "primary_status": status.get("status"),
+            "project_package_path": None,
+            "project_package_sha256": None,
+            "health": None,
+            "failure_class": None,
+        },
+    )
+    try:
+        run_chain = _read_occurrence_run_chain(config, run_id)
+        health = automation_health_snapshot(
+            config,
+            run_id=run_id,
+            status=status,
+            command_runner=command_runner,
+        )
+        package_path = _owner_project_package_path(config.state_root)
+        package = {
+            "schema_version": 1,
+            "package_id": "arrp-owner-state",
+            "project_id": "arrp",
+            "generated_at": iso_utc(),
+            "run_id": run_id,
+            "producer_revision": config.runtime_commit,
+            "occurrence_runtime_revision": status.get("runtime_commit"),
+            "primary_status": status,
+            "run_chain": run_chain,
+            "usage": {
+                "current": _read_current_codex_usage(),
+                "occurrence": _occurrence_usage(run_chain),
+            },
+            "operations": _read_owner_feed(
+                config.state_root,
+                feed_id="operations",
+                run_id=run_id,
+            ),
+            "security_assurance": _read_owner_feed(
+                config.state_root,
+                feed_id="security_assurance",
+                run_id=run_id,
+            ),
+            "health": health,
+        }
+        _validate_owner_project_package(package, run_id=run_id)
+        atomic_write_json(package_path, package)
+        installed = _validate_owner_project_package(
+            read_json_object(package_path),
+            run_id=run_id,
+        )
+        if installed != package:
+            raise TransactionError("owner project package failed exact readback")
+        package_sha256 = file_sha256(package_path)
+        result = {
+            "schema_version": 1,
+            "run_id": run_id,
+            "status": "completed",
+            "started_at": started_at,
+            "completed_at": iso_utc(),
+            "primary_status": status.get("status"),
+            "project_package_path": str(package_path),
+            "project_package_sha256": package_sha256,
+            "health": health,
+            "failure_class": None,
+        }
+        atomic_write_json(result_path, result)
+        return result
+    except BaseException as error:
+        atomic_write_json(
+            result_path,
+            {
+                "schema_version": 1,
+                "run_id": run_id,
+                "status": "failed",
+                "started_at": started_at,
+                "completed_at": iso_utc(),
+                "primary_status": status.get("status"),
+                "project_package_path": None,
+                "project_package_sha256": None,
+                "health": None,
+                "failure_class": type(error).__name__,
+            },
+        )
+        raise
+
+
+def finalize_occurrence_safely(config: RunnerConfig, run_id: str) -> None:
+    """Record finalizer failure separately and never mask the primary outcome."""
+
+    try:
+        finalize_occurrence(config, run_id)
+    except BaseException as error:
+        try:
+            spool_failure_incident(
+                config.state_root / "incident-spool.jsonl",
+                run_id=run_id,
+                component="occurrence-finalizer",
+                prerequisite="terminal-console-refresh",
+                failure_class=type(error).__name__,
+                diagnostic=str(error),
+                observed_at=iso_utc(),
+                impact="blocking",
+                summary="The occurrence finalizer could not refresh the owner-local ARRP package.",
+                reported_by="Occurrence Finalizer",
+                recommended_owner="Run Coordinator",
+                next_action="Inspect the retained finalizer result without changing the primary run outcome.",
+                active_links=("automation-role:run-coordinator-bot",),
+            )
+        except (OSError, IncidentContractError):
+            pass
+
+
+def catch_up_abandoned_occurrence(config: RunnerConfig, run_id: str) -> None:
+    """Finalize one released prior owner occurrence before starting new work."""
+
+    result_path = (
+        config.state_root / "runs" / run_id / OCCURRENCE_FINALIZER_FILENAME
+    )
+    if result_path.is_file() and not result_path.is_symlink():
+        try:
+            if read_json_object(result_path).get("status") == "completed":
+                return
+        except (OSError, UnicodeError, ValueError, json.JSONDecodeError):
+            pass
+    status_path = config.state_root / "status.json"
+    try:
+        status = read_json_object(status_path)
+    except (OSError, UnicodeError, ValueError, json.JSONDecodeError):
+        return
+    if status.get("run_id") != run_id:
+        return
+    lifecycle = current_transaction_states(transaction_events_path(config)).get(run_id)
+    if status.get("status") == "running" and lifecycle is not None:
+        write_status(
+            config,
+            status,
+            status="failed",
+            completed_at=iso_utc(),
+            failure_class="hard_interruption",
+            failure_reason="The prior coordinator process ended before terminal finalization.",
+            exact_next_action="Inspect preserved state and the catch-up owner package before recovery.",
+        )
+    finalize_occurrence_safely(config, run_id)
+
+
 def prepare_transaction(
     config: RunnerConfig,
     *,
@@ -6782,8 +7404,21 @@ def prepare_transaction(
         if lifecycle_started:
             _transition_lifecycle_failure(config, run_id, error)
 
+    finalizer_enabled = (
+        config.fixture_root is None
+        and config.trigger in {"scheduled", "manual"}
+    )
     try:
-        with exclusive_lock(config.state_root, run_id, on_error=record_failure):
+        with exclusive_lock(
+            config.state_root,
+            run_id,
+            on_error=record_failure,
+            on_finalize=(
+                (lambda: finalize_occurrence_safely(config, run_id))
+                if finalizer_enabled
+                else None
+            ),
+        ):
             events_path = transaction_events_path(config)
             try:
                 if previous_owner_run_id is not None and previous_owner_run_id != run_id:
@@ -6792,6 +7427,11 @@ def prepare_transaction(
                         released_lock_run_ids=[previous_owner_run_id],
                         owner="run-coordinator",
                     )
+                    if finalizer_enabled:
+                        catch_up_abandoned_occurrence(
+                            config,
+                            previous_owner_run_id,
+                        )
             except TransactionLifecycleError as error:
                 raise TransactionError(
                     "prior transaction lifecycle cannot be recovered deterministically"
@@ -7239,6 +7879,11 @@ def _parser() -> argparse.ArgumentParser:
         action="store_true",
         help="validate a pull request that changes ownerless generated Console output",
     )
+    parser.add_argument(
+        "--verify-automation-health",
+        action="store_true",
+        help="read the latest finalized occurrence across existing automation surfaces",
+    )
     parser.add_argument("--base-commit")
     parser.add_argument("--head-commit")
     parser.add_argument("--pull-request-author")
@@ -7298,6 +7943,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         )
         print("trusted Console PR validation passed")
         return 0
+    health_readback = args.verify_automation_health
     production = (
         args.fixture is None
         and args.p5_supervised_plan is None
@@ -7305,6 +7951,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         and (args.scheduled or args.manual)
         and not args.dry_run
     )
+    if health_readback and (args.scheduled or args.manual or args.dry_run):
+        print("automation health readback cannot start or simulate a run", file=sys.stderr)
+        return 64
     if args.scheduled and args.manual:
         print("select exactly one of --scheduled or --manual", file=sys.stderr)
         return 64
@@ -7318,7 +7967,12 @@ def main(argv: Sequence[str] | None = None) -> int:
                 file=sys.stderr,
             )
             return 64
-    elif args.fixture is None and not (args.manual and args.dry_run) and not production:
+    elif (
+        args.fixture is None
+        and not (args.manual and args.dry_run)
+        and not production
+        and not health_readback
+    ):
         print(
             "production execution requires --scheduled/--manual and --runtime-commit",
             file=sys.stderr,
@@ -7353,6 +8007,59 @@ def main(argv: Sequence[str] | None = None) -> int:
         if fixture
         else Path.home() / "Library/Application Support/ARRP"
     )
+    if health_readback:
+        if not isinstance(args.run_id, str) or not SAFE_RUN_ID.fullmatch(args.run_id):
+            print("automation health readback requires one safe --run-id", file=sys.stderr)
+            return 64
+        status = read_json_object(state / "status.json")
+        if status.get("run_id") != args.run_id:
+            print("automation health readback requires the current exact run", file=sys.stderr)
+            return 2
+        runtime_commit = status.get("runtime_commit")
+        readback_config = RunnerConfig(
+            canonical,
+            state,
+            fixture_root=fixture,
+            trigger="health-readback",
+            runtime_commit=(
+                str(runtime_commit)
+                if isinstance(runtime_commit, str)
+                and re.fullmatch(r"[0-9a-f]{40}", runtime_commit)
+                else None
+            ),
+        )
+        readback_config.validate()
+        retained = read_json_object(
+            state / "runs" / args.run_id / OCCURRENCE_FINALIZER_FILENAME
+        )
+        package_path = Path(str(retained.get("project_package_path") or ""))
+        package = _validate_owner_project_package(
+            read_json_object(package_path),
+            run_id=args.run_id,
+        )
+        if file_sha256(package_path) != retained.get("project_package_sha256"):
+            print("automation health readback found a package digest mismatch", file=sys.stderr)
+            return 2
+        snapshot = automation_health_snapshot(
+            readback_config,
+            run_id=args.run_id,
+            status=status,
+        )
+        print(
+            json.dumps(
+                {
+                    "health": snapshot,
+                    "project_package": {
+                        "availability": "current",
+                        "path": str(package_path),
+                        "sha256": retained.get("project_package_sha256"),
+                        "run_id": package.get("run_id"),
+                    },
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
     if args.dry_run and fixture is None:
         config = RunnerConfig(canonical, state, trigger="manual-dry-run")
         config.validate()
@@ -7383,10 +8090,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             else "fixture"
         ),
         scheduled_for=scheduled_slot() if args.scheduled else None,
-        console_projection=(
-            canonical
-            / "framework/project/interfaces/project-console/data/local-automation-status.js"
-        ),
+        console_projection=state / "console/local-automation-status.js",
         supervised_live=supervised_plan is not None,
         runtime_commit=str(args.runtime_commit) if production else None,
     )

@@ -161,7 +161,7 @@ class ConsoleDataContractTests(unittest.TestCase):
                 "remaining_percent": 72,
                 "window_minutes": 10080,
                 "resets_at": 1785908741,
-                "reset_identity": "10080:29765145",
+                "reset_identity": "10080:29765146",
             },
             "history": [
                 {
@@ -172,12 +172,12 @@ class ConsoleDataContractTests(unittest.TestCase):
                     "remaining_percent": 73,
                     "window_minutes": 10080,
                     "resets_at": 1785908741,
-                    "reset_identity": "10080:29765145",
+                    "reset_identity": "10080:29765146",
                 }
             ],
             "reset_windows": [
                 {
-                    "reset_identity": "10080:29765145",
+                    "reset_identity": "10080:29765146",
                     "first_observed": "2026-07-29T19:47:00Z",
                     "last_observed": "2026-07-29T20:17:00Z",
                     "window_minutes": 10080,
@@ -235,12 +235,39 @@ class ConsoleDataContractTests(unittest.TestCase):
     def test_codex_usage_unavailable_projection_retains_exact_shape(self):
         payload = MODULE.unavailable_codex_usage_projection()
         self.assertTrue(MODULE.valid_codex_usage_projection(payload))
-        self.assertEqual(MODULE.codex_usage_projection(), payload)
+        with mock.patch.object(
+            MODULE,
+            "CODEX_USAGE_PROJECTION_SOURCE",
+            Path("/definitely-unavailable/codex-usage-projection.json"),
+        ):
+            observed = MODULE.codex_usage_projection()
+        self.assertEqual(observed["availability"], "unavailable")
+        self.assertEqual(observed["reason_code"], "source_unavailable")
         self.assertFalse(payload["estimates"]["available"])
         self.assertFalse(payload["estimates"]["budget_available"])
         self.assertFalse(payload["estimates"]["burn_rate_available"])
         self.assertIsNone(payload["estimates"]["remaining_percent_per_day_budget"])
         self.assertIsNone(payload["estimates"]["average_percent_per_day"])
+
+    def test_codex_usage_projection_reads_valid_owner_source(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "codex-usage-projection.json"
+            source.write_text(
+                json.dumps(self.codex_usage_projection()),
+                encoding="utf-8",
+            )
+            source.chmod(0o600)
+            with (
+                mock.patch.object(MODULE, "CODEX_USAGE_PROJECTION_SOURCE", source),
+                mock.patch.object(
+                    MODULE,
+                    "valid_codex_usage_projection",
+                    return_value=True,
+                ),
+            ):
+                observed = MODULE.codex_usage_projection()
+        self.assertEqual(observed["availability"], "current")
+        self.assertEqual(observed["current"]["remaining_percent"], 72)
 
     def test_status_projection_contract_distinguishes_complete_from_partial(self):
         complete = CONTRACTS.status_projection_contract(6)

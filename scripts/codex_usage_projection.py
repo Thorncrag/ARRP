@@ -160,7 +160,7 @@ def parse_timestamp(value: object) -> datetime | None:
 def reset_identity(window_minutes: int, resets_at: int) -> str:
     """Return the exact stable reset identity used by the sampler."""
 
-    return f"{window_minutes}:{resets_at // 60}"
+    return f"{window_minutes}:{(resets_at + 30) // 60}"
 
 
 def trustworthy_through(observed_at: datetime, resets_at: int) -> datetime:
