@@ -2907,6 +2907,14 @@ class ConsoleDataContractTests(unittest.TestCase):
             ),
             "succeeded",
         )
+        self.assertEqual(
+            projection["last_fully_successful_occurrence"]["occurrence_id"],
+            "arrp-same-run",
+        )
+        self.assertEqual(
+            projection["trustworthy_through"],
+            "2026-08-04T13:34:08+00:00",
+        )
         public_usage = MODULE.public_usage_projection(run_chain["usage"])
         self.assertEqual(public_usage["status"], "measured_owner_local")
         self.assertIsNone(public_usage["remaining_percent"])
@@ -2915,6 +2923,39 @@ class ConsoleDataContractTests(unittest.TestCase):
             MODULE.public_usage_projection(public_usage),
             public_usage,
         )
+
+    def test_occurrence_directory_projects_latest_preserved_scheduled_failure(self):
+        projection = MODULE.automation_occurrence_projection(
+            {
+                "run_id": "arrp-manual-recovery",
+                "trigger": "manual",
+                "status": "completed",
+                "updated_at": "2026-08-04T13:34:08+00:00",
+                "stages": [],
+            },
+            {},
+            checked_at="2026-08-04T14:00:00+00:00",
+            transaction_recovery={
+                "complete": True,
+                "items": [
+                    {
+                        "run_id": "arrp-scheduled-failure",
+                        "attempt_group_id": "scheduled:2026-08-04t06:00:00z",
+                    }
+                ],
+            },
+        )
+        self.assertEqual(
+            projection["latest_scheduled_attempt_id"],
+            "arrp-scheduled-failure",
+        )
+        scheduled = next(
+            item
+            for item in projection["occurrences"]
+            if item["occurrence_id"] == "arrp-scheduled-failure"
+        )
+        self.assertEqual(scheduled["status"], "failed")
+        self.assertEqual(scheduled["scheduled_for"], "2026-08-04T06:00:00Z")
 
     def test_public_automation_and_integrity_projections_redact_diagnostics(self):
         marker = "ARRP_STATE_ROOT=/Users/owner/private GH_TOKEN=credential_value"
