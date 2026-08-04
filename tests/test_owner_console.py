@@ -72,7 +72,7 @@ def available_usage_projection() -> dict[str, object]:
             "remaining_percent": 72,
             "window_minutes": 10080,
             "resets_at": 1785908741,
-            "reset_identity": "10080:29765145",
+            "reset_identity": "10080:29765146",
         },
         "history": [],
         "reset_windows": [],
