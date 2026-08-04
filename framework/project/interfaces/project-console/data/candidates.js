@@ -1612,8 +1612,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "",
         "## Monitoring Status and Next Step",
         "",
-        "Monitor the D.C. Circuit treatment of the section 504 cause-of-action question. Source-develop coverage of presidential briefings, social-media communications, emergency announcements, captions, transcripts, ASL interpretation, and other accessibility methods; identify whether delayed relief creates irreparable loss of contemporaneous access; and test overlap with RIGHTS-001, JUD-001, JUD-005, FACT-001, PRESS-001, and HOR-027 before making an admission recommendation.",
-        ""
+        "Monitor the D.C. Circuit treatment of the section 504 cause-of-action question. Source-develop coverage of presidential briefings, social-media communications, emergency announcements, captions, transcripts, ASL interpretation, and other accessibility methods; identify whether delayed relief creates irreparable loss of contemporaneous access; and test overlap with RIGHTS-001, JUD-001, JUD-005, FACT-001, PRESS-001, and HOR-027 before making an admission recommendation."
       ]
     },
     {
@@ -11971,8 +11970,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         "",
         "## Monitoring Status and Next Step",
         "",
-        "Monitor the D.C. Circuit treatment of the section 504 cause-of-action question. Source-develop coverage of presidential briefings, social-media communications, emergency announcements, captions, transcripts, ASL interpretation, and other accessibility methods; identify whether delayed relief creates irreparable loss of contemporaneous access; and test overlap with RIGHTS-001, JUD-001, JUD-005, FACT-001, PRESS-001, and HOR-027 before making an admission recommendation.",
-        ""
+        "Monitor the D.C. Circuit treatment of the section 504 cause-of-action question. Source-develop coverage of presidential briefings, social-media communications, emergency announcements, captions, transcripts, ASL interpretation, and other accessibility methods; identify whether delayed relief creates irreparable loss of contemporaneous access; and test overlap with RIGHTS-001, JUD-001, JUD-005, FACT-001, PRESS-001, and HOR-027 before making an admission recommendation."
       ]
     },
     {
@@ -19449,6 +19447,6 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     }
   ],
   "domain_generation": {
-    "candidates.js": "project-console-b7de28d279f37fcbb95a"
+    "candidates.js": "project-console-6838d998ef9457f5970f"
   }
 });
