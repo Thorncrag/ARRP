@@ -6941,12 +6941,35 @@ def _validate_owner_project_package(
         if isinstance(usage_payload, Mapping)
         else None
     )
-    validation_time = (
-        usage_generated_at
-        if current_usage.get("availability") == "stale"
+    outer_availability = current_usage.get("availability")
+    payload_availability = (
+        usage_payload.get("availability")
+        if isinstance(usage_payload, Mapping)
         else None
     )
-    if not codex_usage_projection_is_valid(usage_payload, now=validation_time):
+    valid_now = codex_usage_projection_is_valid(usage_payload)
+    valid_at_generation = (
+        usage_generated_at is not None
+        and codex_usage_projection_is_valid(
+            usage_payload,
+            now=usage_generated_at,
+        )
+    )
+    usage_consistent = (
+        outer_availability == "current"
+        and payload_availability == "current"
+        and valid_now
+    ) or (
+        outer_availability == "stale"
+        and payload_availability == "current"
+        and valid_at_generation
+        and not valid_now
+    ) or (
+        outer_availability == "unavailable"
+        and payload_availability == "unavailable"
+        and valid_now
+    )
+    if not usage_consistent:
         raise TransactionError("owner project package usage payload is invalid")
     occurrence_usage = package["usage"].get("occurrence")
     if not isinstance(occurrence_usage, dict):

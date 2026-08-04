@@ -242,6 +242,22 @@ class ArrpNightlyTransactionTests(unittest.TestCase):
         self.assertEqual(package["security_assurance"]["availability"], "retained")
         self.assertIsNone(package["security_assurance"]["matches_occurrence"])
         self.assertEqual(package["security_assurance"]["payload"]["tools"], [])
+        contradictory = dict(package)
+        contradictory["usage"] = {
+            **package["usage"],
+            "current": {
+                "availability": "current",
+                "payload": unavailable,
+            },
+        }
+        with self.assertRaisesRegex(
+            MODULE.TransactionError,
+            "usage payload is invalid",
+        ):
+            MODULE._validate_owner_project_package(
+                contradictory,
+                run_id="finalizer-success",
+            )
         self.assertEqual(first["project_package_sha256"], MODULE.file_sha256(package_path))
         self.assertNotIn(
             "publication-readback-unavailable",
