@@ -223,11 +223,13 @@ class P5GitHubWaitTests(unittest.TestCase):
                     "number": 12,
                     "head": {"sha": "b" * 40},
                     "base": {"ref": "main"},
+                    "user": {"login": "arrp-automation[bot]", "type": "Bot"},
                 },
                 {
                     "number": 12,
                     "head": {"sha": expected_head},
                     "base": {"ref": "main"},
+                    "user": {"login": "arrp-automation[bot]", "type": "Bot"},
                 },
             ]
         )

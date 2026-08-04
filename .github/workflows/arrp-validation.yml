@@ -86,6 +86,16 @@ jobs:
         run: python scripts/component_registry.py validate
       - name: Reject tracked symlinks, submodules, and unexpected executables
         run: python scripts/arrp_nightly.py --validate-repository-policy
+      - name: Validate trusted generated Console publication
+        if: github.event_name == 'pull_request'
+        run: >-
+          python scripts/arrp_nightly.py
+          --validate-trusted-console-pr
+          --base-commit '${{ github.event.pull_request.base.sha }}'
+          --head-commit '${{ github.event.pull_request.head.sha }}'
+          --pull-request-author '${{ github.event.pull_request.user.login }}'
+          --pull-request-author-type '${{ github.event.pull_request.user.type }}'
+          --event-actor '${{ github.actor }}'
 
   aggregate:
     name: ARRP Validation

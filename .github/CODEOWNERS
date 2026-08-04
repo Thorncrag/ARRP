@@ -7,6 +7,8 @@
 /framework/logs/ @Thorncrag
 /framework/project/ @Thorncrag
 /framework/standards/ @Thorncrag
+/framework/project/interfaces/project-console/data/
+/framework/project/interfaces/project-console/catalog-data.js
 /requirements-local-tools.txt @Thorncrag
 /requirements-pages.txt @Thorncrag
 /AGENTS.md @Thorncrag

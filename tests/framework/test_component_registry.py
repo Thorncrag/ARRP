@@ -815,7 +815,7 @@ class ComponentRegistryV4Tests(unittest.TestCase):
     def test_v4_registry_validates_as_nonauthoritative_adopted_configuration(self):
         result = registry.validate_v4_registry(self.registry, root=ROOT)
         self.assertTrue(result["valid"])
-        self.assertEqual(result["registry_revision"], 6)
+        self.assertEqual(result["registry_revision"], 7)
         self.assertEqual(result["validation_mode"], "adopted_configuration_validation")
         self.assertFalse(result["authoritative"])
         self.assertFalse(result["executable"])
@@ -857,7 +857,7 @@ class ComponentRegistryV4Tests(unittest.TestCase):
     def test_exact_inventory_counts_and_defaults(self):
         self.assertEqual(len(self.registry["components"]["entries"]), 110)
         self.assertEqual(len(self.registry["terminology"]["entries"]), 87)
-        self.assertEqual(len(self.registry["directory_scopes"]["entries"]), 59)
+        self.assertEqual(len(self.registry["directory_scopes"]["entries"]), 60)
         self.assertEqual(len(self.registry["relationships"]["entries"]), 16)
         self.assertEqual(len(self.registry["registration_exemptions"]["entries"]), 3)
         self.assertEqual(
@@ -998,14 +998,14 @@ class ComponentRegistryV4Tests(unittest.TestCase):
             )
 
             registry_path.write_text(
-                '{"registry_revision":6}\n',
+                '{"registry_revision":7}\n',
                 encoding="utf-8",
             )
             self.assertFalse(
                 registry._stage3_configuration_is_adopted(
                     authority,
                     registry_path,
-                    {"registry_revision": 6},
+                    {"registry_revision": 7},
                 )
             )
             subprocess.run(
@@ -1022,7 +1022,7 @@ class ComponentRegistryV4Tests(unittest.TestCase):
                 registry._stage3_configuration_is_adopted(
                     authority,
                     registry_path,
-                    {"registry_revision": 6},
+                    {"registry_revision": 7},
                 )
             )
 
@@ -1036,14 +1036,19 @@ class ComponentRegistryV4Tests(unittest.TestCase):
     def test_codeowners_is_generated_from_all_registry_semantics(self):
         projection = registry.stage2_codeowners_projection(self.registry, root=ROOT)
         self.assertEqual(projection["summary"]["direct"], 17)
-        self.assertEqual(projection["summary"]["inherited"], 150)
-        self.assertEqual(projection["summary"]["none"], 2)
+        self.assertEqual(projection["summary"]["inherited"], 149)
+        self.assertEqual(projection["summary"]["none"], 4)
         self.assertEqual(projection["summary"]["problems"], 0)
         self.assertEqual(projection["generated_text"], (ROOT / ".github/CODEOWNERS").read_text())
         records = {record["assignment_id"]: record for record in projection["records"]}
         self.assertEqual(records["component:COMPONENT-REGISTRY"]["declared_mode"], "direct")
         self.assertEqual(records["scope:repository_root"]["declared_mode"], "none")
         self.assertEqual(records["component:elim"]["declared_mode"], "none")
+        self.assertEqual(records["scope:project_console_data"]["effective_mode"], "none")
+        self.assertEqual(
+            records["scope:project_console_catalog_data"]["effective_mode"],
+            "none",
+        )
 
     def test_codeowners_preserves_every_baseline_rule_and_protected_path(self):
         baseline_revision = "07fe5f357f2604f25d6393e6f6fd14c1ab337165"
@@ -1067,7 +1072,11 @@ class ComponentRegistryV4Tests(unittest.TestCase):
         self.assertEqual(set(baseline_rows) - set(current_rows), set())
         self.assertEqual(
             set(current_rows) - set(baseline_rows),
-            {("/framework/component-registry.json", "@Thorncrag")},
+            {
+                ("/framework/component-registry.json", "@Thorncrag"),
+                ("/framework/project/interfaces/project-console/data/",),
+                ("/framework/project/interfaces/project-console/catalog-data.js",),
+            },
         )
 
         tracked = subprocess.run(
@@ -1092,9 +1101,21 @@ class ComponentRegistryV4Tests(unittest.TestCase):
             for path in tracked
             if effective(path, baseline_rows) != effective(path, current_rows)
         }
+        expected_changed = {
+            "framework/component-registry.json": ((), ("@Thorncrag",)),
+            **{
+                path: (("@Thorncrag",), ())
+                for path in tracked
+                if path
+                == "framework/project/interfaces/project-console/catalog-data.js"
+                or path.startswith(
+                    "framework/project/interfaces/project-console/data/"
+                )
+            },
+        }
         self.assertEqual(
             changed,
-            {"framework/component-registry.json": ((), ("@Thorncrag",))},
+            expected_changed,
         )
 
     def test_stage3_helper_becomes_only_an_ordinary_scoped_child(self):
@@ -1141,15 +1162,19 @@ class ComponentRegistryV4Tests(unittest.TestCase):
             list(baseline_coverage),
         )
         self.assertTrue(current_classification["complete"])
+        expected_scopes = {
+            path: record["placement"]["scope_id"]
+            for path, record in baseline_coverage.items()
+        }
+        expected_scopes[
+            "framework/project/interfaces/project-console/catalog-data.js"
+        ] = "project_console_catalog_data"
         self.assertEqual(
             {
                 item["path"]: item["owning_scope_id"]
                 for item in current_classification["items"]
             },
-            {
-                path: record["placement"]["scope_id"]
-                for path, record in baseline_coverage.items()
-            },
+            expected_scopes,
         )
 
         components = self.registry["components"]["entries"]

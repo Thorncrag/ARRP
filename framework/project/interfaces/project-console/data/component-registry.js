@@ -5,7 +5,7 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     "schema_version": 4,
     "projection_id": "component-registry-console",
     "producer_id": "project-console-builder",
-    "generated_at": "2026-08-04T09:18:48-04:00",
+    "generated_at": "2026-08-04T11:28:19-04:00",
     "availability": "current",
     "complete": true,
     "reason_code": null,
@@ -39,16 +39,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
     },
     "registry": {
       "registry_id": "COMPONENT-REGISTRY",
-      "registry_revision": 6,
-      "registry_status": "adopted",
-      "validation_mode": "adopted_configuration_validation",
+      "registry_revision": 7,
+      "registry_status": "proposed",
+      "validation_mode": "proposed_revision_validation",
       "authoritative": false,
       "executable": false,
-      "source_bytes_current": true,
+      "source_bytes_current": false,
       "predecessor_route_consulted": false,
-      "registry_sha256": "bc8074004198d6edd9875ddcc1162d0139f649ae8e9add3125dec70d7e152200",
+      "registry_sha256": "b1d8dfcd1ad8d05f74ec6a064166b60387b845686f8610f640427ad23861988b",
       "source_url": "https://github.com/Thorncrag/ARRP/blob/main/framework/component-registry.json",
-      "tracked_live_notice": "This view reflects tracked Registry configuration. Live authority is established only by the separately verified owner-local readback."
+      "tracked_live_notice": "This view reflects a proposed Registry revision that is not yet canonical or live authority."
     },
     "records": {
       "components": [
@@ -3707,8 +3707,43 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "framework_project_interfaces",
             "project_console"
           ],
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "none"
+            }
+          },
           "owner": "@Thorncrag",
           "console_route": "automation:component-registry:directories?directory=project_console_data"
+        },
+        {
+          "scope_id": "project_console_catalog_data",
+          "display_name": "Project Console generated catalog data",
+          "path_pattern": "framework/project/interfaces/project-console/catalog-data.js",
+          "match_kind": "exact_file",
+          "specificity_rank": 60,
+          "purpose": "Exact generated public-safe Project Console catalog output.",
+          "placement_question": "Is this the generated Project Console catalog bound to the current verified generation?",
+          "include_when": [
+            "Only the generated Project Console catalog output."
+          ],
+          "exclude_when": [
+            "Console application code, configuration, maintained content, or owner-local projections."
+          ],
+          "allow_children": false,
+          "ancestor_scope_ids": [
+            "repository_root",
+            "framework",
+            "framework_project",
+            "framework_project_interfaces",
+            "project_console"
+          ],
+          "repository_controls": {
+            "github_codeowners": {
+              "mode": "none"
+            }
+          },
+          "owner": "@Thorncrag",
+          "console_route": "automation:component-registry:directories?directory=project_console_catalog_data"
         },
         {
           "scope_id": "project_automation_runbooks",
@@ -10280,8 +10315,43 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "framework_project_interfaces",
               "project_console"
             ],
+            "repository_controls": {
+              "github_codeowners": {
+                "mode": "none"
+              }
+            },
             "owner": "@Thorncrag",
             "console_route": "automation:component-registry:directories?directory=project_console_data"
+          },
+          {
+            "scope_id": "project_console_catalog_data",
+            "display_name": "Project Console generated catalog data",
+            "path_pattern": "framework/project/interfaces/project-console/catalog-data.js",
+            "match_kind": "exact_file",
+            "specificity_rank": 60,
+            "purpose": "Exact generated public-safe Project Console catalog output.",
+            "placement_question": "Is this the generated Project Console catalog bound to the current verified generation?",
+            "include_when": [
+              "Only the generated Project Console catalog output."
+            ],
+            "exclude_when": [
+              "Console application code, configuration, maintained content, or owner-local projections."
+            ],
+            "allow_children": false,
+            "ancestor_scope_ids": [
+              "repository_root",
+              "framework",
+              "framework_project",
+              "framework_project_interfaces",
+              "project_console"
+            ],
+            "repository_controls": {
+              "github_codeowners": {
+                "mode": "none"
+              }
+            },
+            "owner": "@Thorncrag",
+            "console_route": "automation:component-registry:directories?directory=project_console_catalog_data"
           },
           {
             "scope_id": "project_automation_runbooks",
@@ -13343,19 +13413,32 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "console_route": "automation:component-registry:codeowners?assignment=scope%3Aproject_console"
           },
           {
+            "assignment_id": "scope:project_console_catalog_data",
+            "record_kind": "directory_scope",
+            "stable_id": "project_console_catalog_data",
+            "display_name": "Project Console generated catalog data",
+            "path_pattern": "framework/project/interfaces/project-console/catalog-data.js",
+            "declared_mode": "none",
+            "effective_mode": "none",
+            "owners": [],
+            "inherited_from": null,
+            "generated_pattern": "/framework/project/interfaces/project-console/catalog-data.js",
+            "generated_line": "/framework/project/interfaces/project-console/catalog-data.js",
+            "validation_problems": [],
+            "console_route": "automation:component-registry:codeowners?assignment=scope%3Aproject_console_catalog_data"
+          },
+          {
             "assignment_id": "scope:project_console_data",
             "record_kind": "directory_scope",
             "stable_id": "project_console_data",
             "display_name": "Project Console public-safe data",
             "path_pattern": "framework/project/interfaces/project-console/data/",
-            "declared_mode": "inherit",
-            "effective_mode": "direct",
-            "owners": [
-              "@Thorncrag"
-            ],
-            "inherited_from": "scope:framework_project",
-            "generated_pattern": null,
-            "generated_line": null,
+            "declared_mode": "none",
+            "effective_mode": "none",
+            "owners": [],
+            "inherited_from": null,
+            "generated_pattern": "/framework/project/interfaces/project-console/data/",
+            "generated_line": "/framework/project/interfaces/project-console/data/",
             "validation_problems": [],
             "console_route": "automation:component-registry:codeowners?assignment=scope%3Aproject_console_data"
           },
@@ -15464,8 +15547,8 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
         ],
         "summary": {
           "direct": 17,
-          "inherited": 150,
-          "none": 2,
+          "inherited": 149,
+          "none": 4,
           "problems": 0
         },
         "generated_rows": [
@@ -15524,6 +15607,16 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
               "@Thorncrag"
             ],
             "source_id": "scope:framework_standards"
+          },
+          {
+            "pattern": "/framework/project/interfaces/project-console/data/",
+            "owners": [],
+            "source_id": "scope:project_console_data"
+          },
+          {
+            "pattern": "/framework/project/interfaces/project-console/catalog-data.js",
+            "owners": [],
+            "source_id": "scope:project_console_catalog_data"
           },
           {
             "pattern": "/requirements-local-tools.txt",
@@ -15647,77 +15740,87 @@ Object.assign(window.ARRP_HORIZON_REVIEW_DATA,{
             "line_number": 9
           },
           {
-            "pattern": "/requirements-local-tools.txt",
-            "owners": [
-              "@Thorncrag"
-            ],
+            "pattern": "/framework/project/interfaces/project-console/data/",
+            "owners": [],
             "line_number": 10
           },
           {
-            "pattern": "/requirements-pages.txt",
-            "owners": [
-              "@Thorncrag"
-            ],
+            "pattern": "/framework/project/interfaces/project-console/catalog-data.js",
+            "owners": [],
             "line_number": 11
           },
           {
-            "pattern": "/AGENTS.md",
+            "pattern": "/requirements-local-tools.txt",
             "owners": [
               "@Thorncrag"
             ],
             "line_number": 12
           },
           {
-            "pattern": "/framework/AGENT_OPERATING_RULES.md",
+            "pattern": "/requirements-pages.txt",
             "owners": [
               "@Thorncrag"
             ],
             "line_number": 13
           },
           {
-            "pattern": "/framework/FRAMEWORK.md",
+            "pattern": "/AGENTS.md",
             "owners": [
               "@Thorncrag"
             ],
             "line_number": 14
           },
           {
-            "pattern": "/framework/archive/authorities/CONTEXT_ROUTING.md",
+            "pattern": "/framework/AGENT_OPERATING_RULES.md",
             "owners": [
               "@Thorncrag"
             ],
             "line_number": 15
           },
           {
-            "pattern": "/framework/archive/authorities/PROJECT_STRUCTURE.md",
+            "pattern": "/framework/FRAMEWORK.md",
             "owners": [
               "@Thorncrag"
             ],
             "line_number": 16
           },
           {
-            "pattern": "/framework/component-registry.json",
+            "pattern": "/framework/archive/authorities/CONTEXT_ROUTING.md",
             "owners": [
               "@Thorncrag"
             ],
             "line_number": 17
           },
           {
-            "pattern": "/framework/component-registry.schema.json",
+            "pattern": "/framework/archive/authorities/PROJECT_STRUCTURE.md",
             "owners": [
               "@Thorncrag"
             ],
             "line_number": 18
+          },
+          {
+            "pattern": "/framework/component-registry.json",
+            "owners": [
+              "@Thorncrag"
+            ],
+            "line_number": 19
+          },
+          {
+            "pattern": "/framework/component-registry.schema.json",
+            "owners": [
+              "@Thorncrag"
+            ],
+            "line_number": 20
           }
         ],
         "problems": [],
-        "generated_text": "# Generated from framework/component-registry.json; do not edit manually.\n/.github/ @Thorncrag\n/participate/ @Thorncrag\n/scripts/ @Thorncrag\n/tests/ @Thorncrag\n/website/ @Thorncrag\n/framework/logs/ @Thorncrag\n/framework/project/ @Thorncrag\n/framework/standards/ @Thorncrag\n/requirements-local-tools.txt @Thorncrag\n/requirements-pages.txt @Thorncrag\n/AGENTS.md @Thorncrag\n/framework/AGENT_OPERATING_RULES.md @Thorncrag\n/framework/FRAMEWORK.md @Thorncrag\n/framework/archive/authorities/CONTEXT_ROUTING.md @Thorncrag\n/framework/archive/authorities/PROJECT_STRUCTURE.md @Thorncrag\n/framework/component-registry.json @Thorncrag\n/framework/component-registry.schema.json @Thorncrag\n",
-        "generated_sha256": "f672bf53183abd9abac12ec5415d7c7397c86a4bd5e86e9712752a253e044308",
-        "current_sha256": "f672bf53183abd9abac12ec5415d7c7397c86a4bd5e86e9712752a253e044308"
+        "generated_text": "# Generated from framework/component-registry.json; do not edit manually.\n/.github/ @Thorncrag\n/participate/ @Thorncrag\n/scripts/ @Thorncrag\n/tests/ @Thorncrag\n/website/ @Thorncrag\n/framework/logs/ @Thorncrag\n/framework/project/ @Thorncrag\n/framework/standards/ @Thorncrag\n/framework/project/interfaces/project-console/data/\n/framework/project/interfaces/project-console/catalog-data.js\n/requirements-local-tools.txt @Thorncrag\n/requirements-pages.txt @Thorncrag\n/AGENTS.md @Thorncrag\n/framework/AGENT_OPERATING_RULES.md @Thorncrag\n/framework/FRAMEWORK.md @Thorncrag\n/framework/archive/authorities/CONTEXT_ROUTING.md @Thorncrag\n/framework/archive/authorities/PROJECT_STRUCTURE.md @Thorncrag\n/framework/component-registry.json @Thorncrag\n/framework/component-registry.schema.json @Thorncrag\n",
+        "generated_sha256": "ce2f1cb152e289cd80e3eda4a9c1548e666e02b71c8858a962d69dbfa8e1a858",
+        "current_sha256": "ce2f1cb152e289cd80e3eda4a9c1548e666e02b71c8858a962d69dbfa8e1a858"
       }
     }
   },
   "domain_generation": {
-    "component-registry.js": "project-console-121b37c74a51b9d93646"
+    "component-registry.js": "project-console-b7de28d279f37fcbb95a"
   }
 });

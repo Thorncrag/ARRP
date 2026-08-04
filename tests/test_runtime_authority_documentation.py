@@ -101,7 +101,7 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
         )
 
         if self.registry.get("schema_version") == 4:
-            self.assertEqual(self.registry["registry_revision"], 6)
+            self.assertEqual(self.registry["registry_revision"], 7)
             self.assertNotIn("validation", self.registry)
             self.assertEqual(self.registry["routing"]["schema_version"], 4)
             self.assertEqual(self.registry["routing"]["rule_catalog_version"], 2)
@@ -131,6 +131,30 @@ class RuntimeAuthorityDocumentationTests(unittest.TestCase):
             "Component Registry",
             framework,
         )
+
+    def test_autonomous_policy_preserves_human_ownership_and_narrow_console_exception(
+        self,
+    ) -> None:
+        policy = (
+            ROOT
+            / "framework"
+            / "project"
+            / "automation"
+            / "autonomous-execution.md"
+        ).read_text(encoding="utf-8")
+        for phrase in (
+            "Any protected path protects the complete pull request",
+            "exact App-authored pull request",
+            "human-authored generated-only",
+            "ordinary unowned path fails closed",
+            "internal generation and\nsource-revision agreement",
+            "producer-side proof",
+            "Source Monitor log and",
+            "projection remain protected",
+        ):
+            self.assertIn(phrase, policy)
+        self.assertIn("control is currently `Run`", policy)
+        self.assertIn("registered for 02:00", policy)
 
     def test_console_documentation_matches_owner_only_incident_and_binding_contract(
         self,

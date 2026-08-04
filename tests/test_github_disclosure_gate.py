@@ -139,7 +139,7 @@ class GitHubDisclosureGateTests(unittest.TestCase):
             }
         registry = {
             "schema_version": 4,
-            "registry_revision": 6,
+            "registry_revision": 7,
             "components": {"entries": entries},
         }
         registry_path = repository / "framework" / "component-registry.json"

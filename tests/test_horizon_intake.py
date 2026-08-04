@@ -837,7 +837,11 @@ class HorizonIntakeTest(unittest.TestCase):
                 "hard_reserve_percent": 15,
                 "soft_run_target_percent": 10,
                 "remaining_percent": None,
-                "status": "unknown",
+                "status": "measured_owner_local",
+                "disclosure": (
+                    "The usage reserve was measured; the exact remaining "
+                    "percentage is retained owner-locally."
+                ),
             },
         )
 

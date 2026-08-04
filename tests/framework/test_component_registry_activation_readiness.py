@@ -654,7 +654,7 @@ class ComponentRegistryV4ConfigurationReadinessTests(unittest.TestCase):
         ):
             view = registry.load_component_registry_configuration_routing_view()
         self.assertEqual(view["schema_version"], 4)
-        self.assertEqual(view["registry_revision"], 6)
+        self.assertEqual(view["registry_revision"], 7)
         self.assertEqual(view["validation_mode"], "adopted_configuration_validation")
         self.assertFalse(view["authoritative"])
         self.assertFalse(view["executable"])
@@ -669,7 +669,7 @@ class ComponentRegistryV4ConfigurationReadinessTests(unittest.TestCase):
         ):
             view = registry.load_component_registry_configuration_routing_view()
         self.assertEqual(view["schema_version"], 4)
-        self.assertEqual(view["registry_revision"], 6)
+        self.assertEqual(view["registry_revision"], 7)
         self.assertEqual(
             view["validation_mode"],
             "proposed_revision_validation",
